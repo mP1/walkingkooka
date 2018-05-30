@@ -54,7 +54,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
 
     @Test final public void testInvalidIndexFails() {
         final C sequence = this.createCharSequence();
-        this.charAtFails(sequence, sequence.length());
+        this.charAtFails(sequence, Integer.MAX_VALUE);
     }
 
     final protected void charAtFails(final int index) {
@@ -89,7 +89,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
 
     @Test final public void testSubsequenceInvalidToIndexFails() {
         final C sequence = this.createCharSequence();
-        this.subSequenceFails(sequence, 0, sequence.length() + 1);
+        this.subSequenceFails(sequence, 0, Integer.MAX_VALUE);
     }
 
     final protected void subSequenceFails(final int from, final int to) {

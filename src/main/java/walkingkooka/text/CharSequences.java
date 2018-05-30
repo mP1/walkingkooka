@@ -19,6 +19,7 @@ package walkingkooka.text;
 
 import walkingkooka.type.PublicStaticHelper;
 
+import java.io.Reader;
 import java.util.Objects;
 
 final public class CharSequences implements PublicStaticHelper {
@@ -260,6 +261,13 @@ final public class CharSequences implements PublicStaticHelper {
         }
 
         return result;
+    }
+
+    /**
+     * {@see ReaderConsumingCharSequence}
+     */
+    public static CharSequence readerConsuming(final Reader reader, final int bufferSize) {
+        return ReaderConsumingCharSequence.with(reader, bufferSize);
     }
 
     /**
