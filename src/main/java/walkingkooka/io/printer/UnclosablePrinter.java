@@ -1,0 +1,83 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.io.printer;
+
+import walkingkooka.text.LineEnding;
+
+import java.util.Objects;
+
+/**
+ * A {@link Printer} that forwards all methods to another {@link Printer} but ignores any {@link
+ * #close()}
+ */
+final class UnclosablePrinter implements Printer {
+
+    /**
+     * Creates a new {@link UnclosablePrinter} or returns the {@link Printer} if it is already a
+     * {@link UnclosablePrinter}
+     */
+    static UnclosablePrinter wrap(final Printer printer) {
+        Objects.requireNonNull(printer, "printer");
+
+        // do not double wrap.
+        return printer instanceof UnclosablePrinter ?
+                (UnclosablePrinter) printer :
+                new UnclosablePrinter(printer);
+    }
+
+    /**
+     * Private constructor use static factory.
+     */
+    private UnclosablePrinter(final Printer printer) {
+        super();
+        this.printer = printer;
+    }
+
+    @Override
+    public void print(final CharSequence chars) throws PrinterException {
+        this.printer.print(chars);
+    }
+
+    @Override
+    public LineEnding lineEnding() throws PrinterException {
+        return this.printer.lineEnding();
+    }
+
+    @Override
+    public void flush() throws PrinterException {
+        this.printer.flush();
+    }
+
+    @Override
+    public void close() throws PrinterException {
+        // ignore
+    }
+
+    /**
+     * The wrapped {@link Printer}
+     */
+    private final Printer printer;
+
+    /**
+     * Dumps the wrapped {@link Printer}.
+     */
+    @Override
+    public String toString() {
+        return this.printer.toString();
+    }
+}

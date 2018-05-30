@@ -1,0 +1,107 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.collect.set;
+
+import walkingkooka.type.PublicStaticHelper;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.NavigableSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+final public class Sets implements PublicStaticHelper {
+    /**
+     * {@see Collections#empty()}
+     */
+    public static <T> Set<T> empty() {
+        return Collections.emptySet();
+    }
+
+    /**
+     * {@see HashSet}
+     */
+    public static <E> Set<E> hash() {
+        return new HashSet<E>();
+    }
+
+    /**
+     * {@see TreeSet}
+     */
+    public static <E> NavigableSet<E> navigable() {
+        return new TreeSet<E>();
+    }
+
+    /**
+     * {@see Collections#singleton(Object)}
+     */
+    public static <T> Set<T> of(final T item) {
+        return Collections.singleton(item);
+    }
+
+    /**
+     * Convenience method that creates a set from an array of elements. This method only exists of a
+     * convenience because Lists.of() does not have a {@link Set} equivalent.
+     */
+    public static <E> Set<E> of(final E... elements) {
+        Objects.requireNonNull(elements, "elements");
+
+        final Set<E> set = Sets.hash();
+        Collections.addAll(set, elements);
+        return set;
+    }
+
+    /**
+     * {@see LinkedHashSet}
+     */
+    public static <E> Set<E> ordered() {
+        return new LinkedHashSet<E>();
+    }
+
+    /**
+     * {@see Collections#unmodifiableSet(Set)}
+     */
+    public static <T> Set<T> readOnly(final Set<T> set) {
+        return Collections.unmodifiableSet(set);
+    }
+
+    /**
+     * {@see TreeSet}
+     */
+    public static <E> SortedSet<E> sorted() {
+        return new TreeSet<E>();
+    }
+
+    /**
+     * {@see TreeSet}
+     */
+    public static <E> SortedSet<E> sorted(final Comparator<? super E> comparator) {
+        return new TreeSet<E>(comparator);
+    }
+
+    /**
+     * Stop creation
+     */
+    private Sets() {
+        throw new UnsupportedOperationException();
+    }
+}

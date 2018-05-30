@@ -1,0 +1,112 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.collect.iterator;
+
+import walkingkooka.build.chain.ChainBuilder;
+import walkingkooka.build.chain.ChainBuilders;
+import walkingkooka.type.PublicStaticHelper;
+
+import java.util.Enumeration;
+import java.util.Iterator;
+
+final public class Iterators implements PublicStaticHelper {
+
+    /**
+     * {@see ArrayIterator}
+     */
+    public static <E> Iterator<E> array(final E... array) {
+        return ArrayIterator.with(array);
+    }
+
+    /**
+     * {@see IteratorChainFactory}
+     */
+    public static <E> ChainBuilder<Iterator<E>> builder() {
+        return ChainBuilders.chainFactory(IteratorChain.TYPE, IteratorChainFactory.instance());
+    }
+
+    /**
+     * {@see IteratorChain}
+     */
+    public static <E> Iterator<E> chain(final Iterator<E> first, final Iterator<E> second) {
+        return IteratorChain.wrap(first, second);
+    }
+
+    /**
+     * {@see CharSequenceIterator}
+     */
+    public static Iterator<Character> characters(final CharSequence charSequence) {
+        return CharSequenceIterator.with(charSequence);
+    }
+
+    /**
+     * {@see EmptyIterator}
+     */
+    public static <E> Iterator<E> empty() {
+        return EmptyIterator.instance();
+    }
+
+    /**
+     * {@see EnumerationIterator}
+     */
+    public static <E> Iterator<E> enumeration(final Enumeration<E> enumeration) {
+        return EnumerationIterator.adapt(enumeration);
+    }
+
+    /**
+     * {@see FakeIterator}
+     */
+    public static <T> Iterator<T> fake() {
+        return FakeIterator.create();
+    }
+
+    /**
+     * {@see LimitedIterator}
+     */
+    public static <E> Iterator<E> limited(final Iterator<E> iterator, final int count) {
+        return LimitedIterator.wrap(iterator, count);
+    }
+
+    /**
+     * {@see OneIterator}
+     */
+    public static <E> Iterator<E> one(final E value) {
+        return OneIterator.with(value);
+    }
+
+    /**
+     * {@see ReadOnlyIterator}
+     */
+    public static <T> Iterator<T> readOnly(final Iterator<T> iterator) {
+        return ReadOnlyIterator.wrap(iterator);
+    }
+
+    /**
+     * {@see ReverseIterator}
+     */
+    public static <E> Iterator<E> reverse(final Iterator<E> iterator) {
+        return ReverseIterator.with(iterator);
+    }
+
+    /**
+     * Stop creation
+     */
+    private Iterators() {
+        throw new UnsupportedOperationException();
+    }
+}
