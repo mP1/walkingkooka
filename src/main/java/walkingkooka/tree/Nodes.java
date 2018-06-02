@@ -15,37 +15,22 @@
  *
  */
 
-package walkingkooka.naming;
+package walkingkooka.tree;
 
+import walkingkooka.naming.Name;
 import walkingkooka.type.PublicStaticHelper;
 
-final public class Paths implements PublicStaticHelper {
+final public class Nodes implements PublicStaticHelper {
 
-    /**
-     * {@see FakePath}
-     */
-    public static Path fake() {
-        return FakePath.create();
+    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+    Node<N, NAME, ANAME, AVALUE> fake() {
+        return new FakeNode<>();
     }
 
     /**
-     * {@see PropertiesPath}
+     * Stop creation
      */
-    public static PropertiesPath properties(final String path) {
-        return PropertiesPath.parse(path);
-    }
-
-    /**
-     * {@see StringPath}
-     */
-    public static StringPath string(final String path) {
-        return StringPath.parse(path);
-    }
-
-    /**
-     * stop creation
-     */
-    private Paths() {
+    private Nodes() {
         throw new UnsupportedOperationException();
     }
 }

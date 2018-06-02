@@ -78,5 +78,15 @@ abstract public class HashCodeEqualsDefinedTestCase<T extends HashCodeEqualsDefi
         this.checkToStringOverridden(this.type());
     }
 
+    protected void checkEquals(final T first, final Object second) {
+        assertEquals(first, second);
+        assertEquals(second, first);
+    }
+
+    protected void checkNotEquals(final T first, final Object second) {
+        assertNotEquals(first, second);
+        assertNotEquals(second, first);
+    }
+
     abstract protected Class<? extends T> type();
 }

@@ -15,37 +15,21 @@
  *
  */
 
-package walkingkooka.naming;
+package walkingkooka.tree;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.SystemException;
 
-final public class Paths implements PublicStaticHelper {
+public class NodeException extends SystemException {
 
-    /**
-     * {@see FakePath}
-     */
-    public static Path fake() {
-        return FakePath.create();
+    protected NodeException() {
+        super();
     }
 
-    /**
-     * {@see PropertiesPath}
-     */
-    public static PropertiesPath properties(final String path) {
-        return PropertiesPath.parse(path);
+    public NodeException(final String message) {
+        super(message);
     }
 
-    /**
-     * {@see StringPath}
-     */
-    public static StringPath string(final String path) {
-        return StringPath.parse(path);
-    }
-
-    /**
-     * stop creation
-     */
-    private Paths() {
-        throw new UnsupportedOperationException();
+    public NodeException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

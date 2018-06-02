@@ -41,4 +41,10 @@ final public class CharSequencesQuoteIfNecessaryTest extends StaticMethodTestCas
         Assert.assertEquals('"' + chars.toString() + '"',
                 CharSequences.quoteIfNecessary(chars).toString());
     }
+
+    @Test
+    public void testAlreadyQuoted() {
+        final String already = "\"abc\"";
+        assertEquals(already, CharSequences.quoteIfNecessary(already));
+    }
 }
