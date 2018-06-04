@@ -33,13 +33,23 @@ final public class CharSequencesQuoteIfCharsTest extends StaticMethodTestCase {
     }
 
     @Test
-    public void testCharSequence() {
-        assertEquals("\"quoted\\n\"", CharSequences.quoteIfChars("quoted\n"));
+    public void testCharSequenceRequiresQuotes() {
+        assertEquals("\"abc\\n\"", CharSequences.quoteIfChars("abc\n"));
     }
 
     @Test
-    public void testCharArray() {
-        assertEquals("\"quoted\\n\"", CharSequences.quoteIfChars("quoted\n".toCharArray()));
+    public void testCharSequenceAlreadyQuoted() {
+        assertEquals("\"abc\\n\"", CharSequences.quoteIfChars("\"abc\n\""));
+    }
+
+    @Test
+    public void testCharArrayRequiredQuotes() {
+        assertEquals("\"abc\\n\"", CharSequences.quoteIfChars("\"abc\n\"".toCharArray()));
+    }
+
+    @Test
+    public void testCharArrayAlreadyQuoted() {
+        assertEquals("\"abc\\n\"", CharSequences.quoteIfChars("\"abc\n\"".toCharArray()));
     }
 
     @Test

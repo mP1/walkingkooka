@@ -204,10 +204,16 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
-     * Helper that combines {@link #escape} and adds double quotes.
+     * Helper that combines {@link #escape} and adds double quotes if required and escapes.
      */
     private static CharSequence quoteAndEscape2(final CharSequence chars) {
-        return "\"" + CharSequences.escape(chars) + '"';
+        final boolean quoted = startsWith(chars, "\"") && endsWith(chars, "\"");
+
+        return new StringBuilder()
+                .append('"')
+                .append(CharSequences.escape(quoted ? chars.subSequence(1, chars.length() -1) : chars))
+                .append('"')
+                .toString();
     }
 
     /**
@@ -227,9 +233,7 @@ final public class CharSequences implements PublicStaticHelper {
 
         if (null != chars) {
             if (Whitespace.has(chars)) {
-                result = new StringBuilder(chars.length() + 2).append('"')
-                        .append(chars)
-                        .append('"');
+                result = quoteIfChars(chars);
             }
         }
 

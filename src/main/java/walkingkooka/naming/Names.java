@@ -31,7 +31,7 @@ final public class Names implements PublicStaticHelper {
     /**
      * {@see StringName}
      */
-    public static Name string(final String name) {
+    public static StringName string(final String name) {
         return StringName.with(name);
     }
 
