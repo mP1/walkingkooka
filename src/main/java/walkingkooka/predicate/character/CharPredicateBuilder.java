@@ -102,6 +102,14 @@ final public class CharPredicateBuilder
         return this;
     }
 
+    /**
+     * Updates this builder to predicate any of the characters in the inclusive range
+     */
+    public CharPredicateBuilder range(final char start, final char end) {
+        this.combine(CharPredicates.range(start, end));
+        return this;
+    }
+
     // properties
 
     /**

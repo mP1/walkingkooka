@@ -186,7 +186,7 @@ final public class CharPredicateBuilderTest
                 case 'D':
                 case 'E':
                     if (false == predicate.test(c)) {
-                        Assert.fail("Failed to match " + CharSequences.quoteAndEscape(c) + "="
+                        Assert.fail("Failed to predicate " + CharSequences.quoteAndEscape(c) + "="
                                 + predicate);
                     }
                     break;
@@ -222,6 +222,24 @@ final public class CharPredicateBuilderTest
         Assert.assertTrue("testing with 'z' should fail", predicate2.test(c));
     }
 
+    // range
+
+    @Test
+    public void testRange() {
+        final CharPredicateBuilder builder = this.createBuilder();
+        builder.range('A', 'E');
+        this.checkPredicate(builder);
+    }
+
+    @Test
+    public void testRange2() {
+        final CharPredicateBuilder builder = this.createBuilder();
+        builder.range('A', 'B');
+        builder.range('C', 'D');
+        builder.range('E', 'E');
+        this.checkPredicate(builder);
+    }
+    
     @Test
     public void testNullStringFails() {
         this.toStringFails(null);
