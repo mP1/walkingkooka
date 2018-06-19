@@ -268,12 +268,14 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a boolean array.
      */
     public ToStringBuilder value(final boolean[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
-                this.appendBooleanArray(array);
-                this.trimBufferIfNecessary(before);
-                this.valuesAdded++;
+        if (this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                if (false == this.maybeLabel()) {
+                    final int before = this.buffer.length();
+                    this.appendBooleanArray(array);
+                    this.trimBufferIfNecessary(before);
+                    this.valuesAdded++;
+                }
             }
         }
         this.afterValue();
@@ -348,11 +350,13 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a byte array respecting any set {@link ToStringBuilderOption options}
      */
     public ToStringBuilder value(final byte[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
-                this.appendByteArray(array);
-                this.trimBufferIfNecessary(before);
+        if(this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                if (false == this.maybeLabel()) {
+                    final int before = this.buffer.length();
+                    this.appendByteArray(array);
+                    this.trimBufferIfNecessary(before);
+                }
             }
         }
         this.afterValue();
@@ -425,6 +429,7 @@ final public class ToStringBuilder implements Builder<String> {
         }
 
         this.buffer.append(chars);
+
         this.valuesAdded++;
     }
 
@@ -432,18 +437,20 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a char array.
      */
     public ToStringBuilder value(final char[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            final StringBuilder buffer = this.buffer;
-            if (false == this.maybeLabel()) {
-                final int before = buffer.length();
-                if (null == array) {
-                    // special case so NULL is not escaped or quoted ever by appendCharSequence
-                    buffer.append(ToStringBuilder.NULL);
-                } else {
-                    this.appendCharArray(array);
+        if(this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                final StringBuilder buffer = this.buffer;
+                if (false == this.maybeLabel()) {
+                    final int before = buffer.length();
+                    if (null == array) {
+                        // special case so NULL is not escaped or quoted ever by appendCharSequence
+                        buffer.append(ToStringBuilder.NULL);
+                    } else {
+                        this.appendCharArray(array);
+                    }
+                    this.trimBufferIfNecessary(before);
+                    this.valuesAdded++;
                 }
-                this.trimBufferIfNecessary(before);
-                this.valuesAdded++;
             }
         }
         this.afterValue();
@@ -451,7 +458,9 @@ final public class ToStringBuilder implements Builder<String> {
     }
 
     private void appendCharArray(final char[] array) {
+        this.buffer.append(this.before);
         this.appendCharSequence(null == array ? null : new String(array));
+        this.buffer.append(this.after);
     }
 
     /**
@@ -478,12 +487,14 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a double array.
      */
     public ToStringBuilder value(final double[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
-                this.appendDoubleArray(array);
-                this.trimBufferIfNecessary(before);
-                this.valuesAdded++;
+        if(this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                if (false == this.maybeLabel()) {
+                    final int before = this.buffer.length();
+                    this.appendDoubleArray(array);
+                    this.trimBufferIfNecessary(before);
+                    this.valuesAdded++;
+                }
             }
         }
         this.afterValue();
@@ -533,12 +544,14 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a float array.
      */
     public ToStringBuilder value(final float[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
-                this.appendFloatArray(array);
-                this.trimBufferIfNecessary(before);
-                this.valuesAdded++;
+        if(this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                if (false == this.maybeLabel()) {
+                    final int before = this.buffer.length();
+                    this.appendFloatArray(array);
+                    this.trimBufferIfNecessary(before);
+                    this.valuesAdded++;
+                }
             }
         }
         this.afterValue();
@@ -590,12 +603,14 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a int array.
      */
     public ToStringBuilder value(final int[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            final int before = this.buffer.length();
-            if (false == this.maybeLabel()) {
-                this.appendIntArray(array);
-                this.trimBufferIfNecessary(before);
-                this.valuesAdded++;
+        if(this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                final int before = this.buffer.length();
+                if (false == this.maybeLabel()) {
+                    this.appendIntArray(array);
+                    this.trimBufferIfNecessary(before);
+                    this.valuesAdded++;
+                }
             }
         }
         this.afterValue();
@@ -650,12 +665,14 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a long array.
      */
     public ToStringBuilder value(final long[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
-                this.appendLongArray(array);
-                this.trimBufferIfNecessary(before);
-                this.valuesAdded++;
+        if(this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                if (false == this.maybeLabel()) {
+                    final int before = this.buffer.length();
+                    this.appendLongArray(array);
+                    this.trimBufferIfNecessary(before);
+                    this.valuesAdded++;
+                }
             }
         }
         this.afterValue();
@@ -731,6 +748,10 @@ final public class ToStringBuilder implements Builder<String> {
                 this.value((CharSequence) value);
                 break;
             }
+            if (value instanceof Boolean) {
+                this.value(((Boolean) value).booleanValue());
+                break;
+            }
             if (value instanceof Character) {
                 this.value(((Character) value).charValue());
                 break;
@@ -745,27 +766,21 @@ final public class ToStringBuilder implements Builder<String> {
                 break;
             }
             if (value instanceof Map) {
-                if (this.options.contains(ToStringBuilderOption.INLINE_ELEMENTS)) {
-                    this.maybeMap((Map<?, ?>) value);
-                }
+                this.valueMap((Map<?, ?>) value);
                 break;
             }
             if (value instanceof Iterable) {
-                if (this.options.contains(ToStringBuilderOption.INLINE_ELEMENTS)) {
-                    this.maybeIterable((Iterable<?>) value);
+                if (this.inlineElements()) {
+                    this.valueIterable((Iterable<?>) value);
                 }
                 break;
             }
             if (value instanceof Iterator) {
-                if (this.options.contains(ToStringBuilderOption.INLINE_ELEMENTS)) {
-                    this.maybeIterator((Iterator<?>) value);
-                }
+                this.valueIterator((Iterator<?>) value);
                 break;
             }
             if (value instanceof Enumeration) {
-                if (this.options.contains(ToStringBuilderOption.INLINE_ELEMENTS)) {
-                    this.maybeEnumeration((Enumeration<?>) value);
-                }
+                this.valueEnumeration((Enumeration<?>) value);
                 break;
             }
             if (value instanceof boolean[]) {
@@ -804,7 +819,7 @@ final public class ToStringBuilder implements Builder<String> {
                 this.value((short[]) value);
                 break;
             }
-            this.appendObject(value);
+            this.valueObject(value);
             break;
         }
 
@@ -944,7 +959,7 @@ final public class ToStringBuilder implements Builder<String> {
      * Performs a check if the given {@link Object} assuming that a implements {@link
      * UsesToStringBuilder} has already occurred.
      */
-    private void appendObject(final Object value) {
+    private void valueObject(final Object value) {
         final String string = String.valueOf(value);
         if ((string.length() > 0) || this.skipIfNotDefaultValue()) {
             if (false == this.maybeLabel()) {
@@ -955,18 +970,21 @@ final public class ToStringBuilder implements Builder<String> {
                 this.valuesAdded++;
             }
         }
+        this.afterValue();
     }
 
     /**
      * Adds a {@link Object} array.
      */
     public ToStringBuilder value(final Object[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
-                this.appendArray(array);
-                this.trimBufferIfNecessary(before);
-                this.valuesAdded++;
+        if(this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                if (false == this.maybeLabel()) {
+                    final int before = this.buffer.length();
+                    this.appendArray(array);
+                    this.trimBufferIfNecessary(before);
+                    this.valuesAdded++;
+                }
             }
         }
         this.afterValue();
@@ -1071,19 +1089,17 @@ final public class ToStringBuilder implements Builder<String> {
                 this.appendUsesToStringBuilder((UsesToStringBuilder) value);
                 break;
             }
-            if (this.options.contains(ToStringBuilderOption.INLINE_ELEMENTS)) {
-                if (value instanceof Iterable) {
-                    this.appendIterable((Iterable<?>) value);
-                    break;
-                }
-                if (value instanceof Iterator) {
-                    this.appendIterator((Iterator<?>) value);
-                    break;
-                }
-                if (value instanceof Map) {
-                    this.appendMap((Map<?, ?>) value);
-                    break;
-                }
+            if (value instanceof Iterable) {
+                this.appendIterable((Iterable<?>) value);
+                break;
+            }
+            if (value instanceof Iterator) {
+                this.appendIterator((Iterator<?>) value);
+                break;
+            }
+            if (value instanceof Map) {
+                this.appendMap((Map<?, ?>) value);
+                break;
             }
             this.buffer.append(value);
             this.valuesAdded++;
@@ -1109,25 +1125,27 @@ final public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Simply calls {@link #maybeIterator(Iterator)} and lets it handle empty cases.
+     * Simply calls {@link #valueIterator(Iterator)} and lets it handle empty cases.
      */
-    private void maybeIterable(final Iterable<?> iterable) {
-        this.maybeIterator(iterable.iterator());
+    private void valueIterable(final Iterable<?> iterable) {
+        this.valueIterator(iterable.iterator());
     }
 
     /**
      * Only includes all elements of the {@link Iterator} and handles {@link
      * ToStringBuilderOption#SKIP_IF_DEFAULT_VALUE}.
      */
-    private void maybeIterator(final Iterator<?> iterator) {
-        if (this.skipIfNotDefaultValue() || iterator.hasNext()) {
-            if (false == this.maybeLabel()) {
-                final StringBuilder buffer = this.buffer;
-                final int before = buffer.length();
-                buffer.append(this.before);
-                this.appendIterator(iterator);
-                buffer.append(this.after);
-                this.trimBufferIfNecessary(before);
+    private void valueIterator(final Iterator<?> iterator) {
+        if(this.inlineElements()) {
+            if (this.skipIfNotDefaultValue() || iterator.hasNext()) {
+                if (false == this.maybeLabel()) {
+                    final StringBuilder buffer = this.buffer;
+                    final int before = buffer.length();
+                    buffer.append(this.before);
+                    this.appendIterator(iterator);
+                    buffer.append(this.after);
+                    this.trimBufferIfNecessary(before);
+                }
             }
         }
         this.afterValue();
@@ -1163,15 +1181,17 @@ final public class ToStringBuilder implements Builder<String> {
      * Only includes all elements of the {@link Enumeration} and handles {@link
      * ToStringBuilderOption#SKIP_IF_DEFAULT_VALUE}.
      */
-    private void maybeEnumeration(final Enumeration<?> enumeration) {
-        if (this.skipIfNotDefaultValue() || enumeration.hasMoreElements()) {
-            if (false == this.maybeLabel()) {
-                final StringBuilder buffer = this.buffer;
-                final int before = buffer.length();
-                buffer.append(this.before);
-                this.appendEnumeration(enumeration);
-                buffer.append(this.after);
-                this.trimBufferIfNecessary(before);
+    private void valueEnumeration(final Enumeration<?> enumeration) {
+        if(this.inlineElements()) {
+            if (this.skipIfNotDefaultValue() || enumeration.hasMoreElements()) {
+                if (false == this.maybeLabel()) {
+                    final StringBuilder buffer = this.buffer;
+                    final int before = buffer.length();
+                    buffer.append(this.before);
+                    this.appendEnumeration(enumeration);
+                    buffer.append(this.after);
+                    this.trimBufferIfNecessary(before);
+                }
             }
         }
         this.afterValue();
@@ -1198,12 +1218,14 @@ final public class ToStringBuilder implements Builder<String> {
      * Includes logic to handle empty maps if {@link ToStringBuilderOption#SKIP_IF_DEFAULT_VALUE} is
      * true.
      */
-    private void maybeMap(final Map<?, ?> map) {
-        if ((false == map.isEmpty()) || this.skipIfNotDefaultValue()) {
-            if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
-                this.appendMap(map);
-                this.trimBufferIfNecessary(before);
+    private void valueMap(final Map<?, ?> map) {
+        if(this.inlineElements()) {
+            if ((false == map.isEmpty()) || this.skipIfNotDefaultValue()) {
+                if (false == this.maybeLabel()) {
+                    final int before = this.buffer.length();
+                    this.appendMap(map);
+                    this.trimBufferIfNecessary(before);
+                }
             }
         }
         this.afterValue();
@@ -1239,11 +1261,12 @@ final public class ToStringBuilder implements Builder<String> {
      */
     public ToStringBuilder value(final short value) {
         if ((0 != value) || this.skipIfNotDefaultValue()) {
+            final int before = this.buffer.length();
             if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
                 this.appendShort(value);
-                this.trimBufferIfNecessary(before);
             }
+            this.trimBufferIfNecessary(before);
+            this.valuesAdded++;
         }
         this.afterValue();
         return this;
@@ -1257,12 +1280,14 @@ final public class ToStringBuilder implements Builder<String> {
      * Adds a short array with a special test
      */
     public ToStringBuilder value(final short[] array) {
-        if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
-            if (false == this.maybeLabel()) {
-                final int before = this.buffer.length();
-                this.appendShortArray(array);
-                this.trimBufferIfNecessary(before);
-                this.valuesAdded++;
+        if(this.inlineElements()) {
+            if (((null != array) && (array.length > 0)) || this.skipIfNotDefaultValue()) {
+                if (false == this.maybeLabel()) {
+                    final int before = this.buffer.length();
+                    this.appendShortArray(array);
+                    this.trimBufferIfNecessary(before);
+                    this.valuesAdded++;
+                }
             }
         }
         this.afterValue();
@@ -1499,6 +1524,13 @@ final public class ToStringBuilder implements Builder<String> {
      * recursively.
      */
     private int depth;
+
+    /**
+     * Only returns true if inline elements is enabled.
+     */
+    private boolean inlineElements() {
+        return this.options.contains(ToStringBuilderOption.INLINE_ELEMENTS);
+    }
 
     /**
      * Trims or chops any excess chars added to the {@link StringBuilder buffer} if it has spilled
