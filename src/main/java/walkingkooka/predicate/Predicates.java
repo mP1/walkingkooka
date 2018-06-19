@@ -20,6 +20,7 @@ package walkingkooka.predicate;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 final public class Predicates implements PublicStaticHelper {
@@ -38,10 +39,37 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
+     * {@see CharPredicateCharSequencePredicate}
+     */
+    public static Predicate<CharSequence> charSequence(final CharPredicate predicate) {
+        return CharPredicateCharSequencePredicate.with(predicate);
+    }
+
+    /**
+     * If a value is null or fails the {@link Predicate}, a {@link NullPointerException} or {@link IllegalArgumentException}
+     * will be thrown.
+     */
+    public static <T> void failIfNullOrFalse(final T value, final Predicate<T> predicate, final String formatMessage) {
+        if(null==value) {
+            Objects.requireNonNull(value, String.format(formatMessage, value));
+        }
+        if(!predicate.test(value)){
+            throw new IllegalArgumentException(String.format(formatMessage, value) + " must be " + predicate);
+        }
+    }
+
+    /**
      * {@see FakePredicate}.
      */
     public static <T> Predicate<T> fake() {
         return FakePredicate.create();
+    }
+
+    /**
+     * {@see InitialAndPartCharPredicateCharSequencePredicate}
+     */
+    public static Predicate<CharSequence> initialAndPart(final CharPredicate initial, final CharPredicate remaining) {
+        return InitialAndPartCharPredicateCharSequencePredicate.with(initial, remaining);
     }
 
     /**
