@@ -64,20 +64,6 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     Optional<N> parent();
 
     /**
-     * Sets or replaces the parent of this node.
-     * If the new parent is the same as the original, the original Node is returned.
-     */
-    N setParent(Optional<N> parent);
-
-    default N removeParent() {
-        return this.setParent(Optional.empty());
-    }
-
-    default N setParent(final N parent) {
-        return this.setParent(Optional.of(parent));
-    }
-
-    /**
      * Returns true if this node is the root.
      */
     default boolean isRoot() {
@@ -160,11 +146,6 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      * Sets or replaces the attributes.
      */
     N setAttributes(final Map<ANAME, AVALUE> attributes);
-
-    /**
-     * Creates a new node.
-     */
-    N create(NAME name);
 
     /**
      * Returns the previous sibling if one exists.

@@ -21,9 +21,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import walkingkooka.naming.StringName;
-import walkingkooka.tree.NodeTestCase;
+import walkingkooka.tree.NodeTestCase2;
 
-public class TestFakeNodeTest extends NodeTestCase<TestFakeNode, StringName, StringName, Object> {
+public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
 
     @Rule
     public TestName name = new TestName();
