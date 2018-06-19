@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE parent [
+                <!ELEMENT child EMPTY>
+                <!ELEMENT parent (child)>
+                <!ATTLIST parent link ENTITY #REQUIRED>
+                <!ENTITY file SYSTEM "http://www.example.com/system">
+                <!NOTATION zip PUBLIC "zip viewer">
+                ]>
+<parent link="zip"><child/></parent>
