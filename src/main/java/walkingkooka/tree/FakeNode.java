@@ -39,10 +39,6 @@ public class FakeNode<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name,
         throw new UnsupportedOperationException();
     }
 
-    @Override public N setParent(Optional<N> parent) {
-        throw new UnsupportedOperationException();
-    }
-
     @Override public boolean isRoot() {
         throw new UnsupportedOperationException();
     }
@@ -60,10 +56,6 @@ public class FakeNode<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name,
     }
 
     @Override public N setAttributes(Map<ANAME, AVALUE> attributes) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override public N create(NAME name) {
         throw new UnsupportedOperationException();
     }
 }

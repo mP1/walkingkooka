@@ -73,12 +73,6 @@ final class TestFakeNode implements Node<TestFakeNode, StringName, StringName, O
         return this.parent;
     }
 
-    @Override public TestFakeNode setParent(final Optional<TestFakeNode> parent) {
-        return this.parent().equals(parent) ?
-                this :
-                new TestFakeNode(this.name, parent, this.children, this.attributes).adopt();
-    }
-
     private Optional<TestFakeNode> parent;
 
     @Override
@@ -125,10 +119,6 @@ final class TestFakeNode implements Node<TestFakeNode, StringName, StringName, O
                 .collect(Collectors.toList());
 
         return this;
-    }
-
-    @Override public TestFakeNode create(StringName name) {
-        return new TestFakeNode(name, NO_PARENT, Lists.empty(), Maps.empty());
     }
 
     public int hashCode() {
