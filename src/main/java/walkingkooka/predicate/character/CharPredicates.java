@@ -163,6 +163,13 @@ final public class CharPredicates implements PublicStaticHelper {
     }
 
     /**
+     * {@see RangeCharPredicate}
+     */
+    public static CharPredicate range(final char start, final char end) {
+        return RangeCharPredicate.with(start, end);
+    }
+
+    /**
      * {@see ToStringCharPredicate}.
      */
     public static CharPredicate toString(final CharPredicate predicate, final String toString) {
