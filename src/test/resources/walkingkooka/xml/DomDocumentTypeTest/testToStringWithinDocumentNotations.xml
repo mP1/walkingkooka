@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE root PUBLIC "-//example/" "http://www.example.com/test.dtd"
+        [<!NOTATION abc PUBLIC "abc viewer">
+         <!NOTATION def PUBLIC "def viewer">
+         <!NOTATION ghi PUBLIC "ghi viewer">]>
+<root>
+    <abc>123</abc>
+</root>

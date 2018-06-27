@@ -20,12 +20,19 @@ package walkingkooka.test;
 import org.junit.Assert;
 import walkingkooka.collect.list.Lists;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Base class that includes many useful overloaded assert messages.
@@ -37,7 +44,7 @@ abstract public class TestCase {
     }
 
     protected void checkAllPublicIsNonPrimitiveMethods(final Object object) throws Exception {
-        Assert.assertNotNull("object must not be null", object);
+        assertNotNull("object must not be null", object);
 
         final List<Method> notNull = Lists.array();
         int isCount = 0;
@@ -124,6 +131,32 @@ abstract public class TestCase {
         if (notOverridden) {
             Assert.fail(type.getName() + " did not override Object.toString");
         }
+    }
+
+    protected byte[] resourceAsBytes(final Class<?> source, final String resource) throws IOException {
+        try(final ByteArrayOutputStream out = new ByteArrayOutputStream()){
+            final byte[] buffer = new byte[4096];
+            try(final InputStream in = source.getResourceAsStream(resource)){
+                assertNotNull("Resource " + source.getName() + "/" + resource + " not found", in);
+                for(;;){
+                    final int count = in.read(buffer);
+                    if(-1 == count){
+                        break;
+                    }
+                    out.write(buffer, 0, count);
+                }
+            }
+            out.flush();
+            return out.toByteArray();
+        }
+    }
+
+    protected Reader resourceAsReader(final Class<?> source, final String resource) throws IOException {
+        return new StringReader(this.resourceAsText(source, resource));
+    }
+
+    protected String resourceAsText(final Class<?> source, final String resource) throws IOException {
+        return new String(this.resourceAsBytes(source, resource));
     }
 
     public static void assertEquals(final boolean[] expected, final boolean[] actual) {
@@ -338,7 +371,7 @@ abstract public class TestCase {
     // assertContains
 
     public static <T> void assertContains(final Set<? extends T> set, final T object) {
-        Assert.assertNotNull(set);
+        assertNotNull(set);
         if (false == set.contains(object)) {
             final String string = object instanceof String ?
                     "\"" + object + "\"" :
@@ -348,7 +381,7 @@ abstract public class TestCase {
     }
 
     public static <T> void assertDoesntContain(final Set<? extends T> set, final T object) {
-        Assert.assertNotNull(set);
+        assertNotNull(set);
         if (set.contains(object)) {
             Assert.fail(set + " contains object: " + object);
         }
@@ -361,7 +394,7 @@ abstract public class TestCase {
     }
 
     public static void assertContains(final String string, final String... contains) {
-        Assert.assertNotNull(string);
+        assertNotNull(string);
         String s = string;
 
         for (final String c : contains) {
@@ -374,21 +407,21 @@ abstract public class TestCase {
     }
 
     public static void assertDoesntContain(final String string, final String contains) {
-        Assert.assertNotNull(string);
+        assertNotNull(string);
         if (string.contains(contains)) {
             Assert.fail("Found \"" + contains + "\" within \"" + string + "\".");
         }
     }
 
     public static void assertContains(final Set<String> set, final String string) {
-        Assert.assertNotNull(set);
+        assertNotNull(set);
         if (false == set.contains(string)) {
             Assert.fail(set + " doesnt contain \"" + string + "\".");
         }
     }
 
     public static void assertContains(final Set<String> set, final String... strings) {
-        Assert.assertNotNull(set);
+        assertNotNull(set);
 
         final Set<String> copy = new HashSet<String>(set);
         for (final String s : strings) {

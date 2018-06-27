@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<!DOCTYPE root [
+        <!ELEMENT root (#PCDATA)>
+        <!ENTITY magic "Abc 123">
+        ]>
+<root>&magic;</root>
