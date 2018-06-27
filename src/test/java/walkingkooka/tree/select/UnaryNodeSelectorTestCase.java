@@ -40,14 +40,12 @@ extends NodeSelectorTestCase<S>{
     final void acceptAndCheckRequiringOrder(NodeSelector<TestFakeNode, StringName, StringName, Object> selector, TestFakeNode start, String[] nodes) {
         final List<String> expected = Lists.array();
         expected.addAll(Lists.of(nodes));
-        System.out.println("---------" + expected);
 
         selector.accept(start, new NodeSelectorContext<TestFakeNode, StringName, StringName, Object>() {
 
             int i = 0;
 
             @Override void match(final TestFakeNode node) {
-                System.out.println("\t" + node);
                 if(i == nodes.length) {
                     Assert.fail("Unexpected matching node: " + node);
                 }
