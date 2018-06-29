@@ -113,8 +113,8 @@ final public class DomNotation extends DomLeafNode implements HasDomPublicId, Ha
 
   private boolean equalsIgnoringParentAndChildren0(final DomNotation other) {
     return this.name().equals(other.name()) &&
-           this.publicId.equals(other.publicId) &&
-           this.systemId.equals(other.systemId);
+           this.publicId().equals(other.publicId()) &&
+           this.systemId().equals(other.systemId());
   }
 
   // UsesToStringBuilder...........................................................................................

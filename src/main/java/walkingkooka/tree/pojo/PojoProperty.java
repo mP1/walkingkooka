@@ -14,26 +14,27 @@
  * limitations under the License.
  *
  */
+package walkingkooka.tree.pojo;
 
-package walkingkooka.tree.select;
+import walkingkooka.naming.HasName;
 
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.NodeTestCase2;
+/**
+ * Provides read and write access to a single pojo property.
+ */
+public interface PojoProperty extends HasName<PojoName> {
 
-public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
+    /**
+     * Reads the value for a property.
+     */
+    Object get(final Object instance);
 
-    @Rule
-    public TestName name = new TestName();
+    /**
+     * Writes a new value to a property with support for would be setters that may return a new instance.
+     */
+    Object set(final Object instance, Object value);
 
-    @Override
-    protected TestFakeNode createNode() {
-        return new TestFakeNode(this.name.getMethodName());
-    }
-
-    @Override
-    protected Class<TestFakeNode> type() {
-        return TestFakeNode.class;
-    }
+    /**
+     * Returns true if only a getter is present.
+     */
+    boolean isReadOnly();
 }

@@ -15,25 +15,32 @@
  *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree.pojo;
 
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.NodeTestCase2;
+/**
+ * Children lists wrapping a primitive array.
+ */
+final class PojoArrayNodeChildrenList<P extends PojoArrayNode> extends PojoNodeFixedChildrenList<P> {
 
-public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
+    PojoArrayNodeChildrenList(final P parent) {
+        super(parent);
+    }
 
-    @Rule
-    public TestName name = new TestName();
 
     @Override
-    protected TestFakeNode createNode() {
-        return new TestFakeNode(this.name.getMethodName());
+    Object elementValue(final int index) {
+        return this.parent.elementValue(index);
     }
 
     @Override
-    protected Class<TestFakeNode> type() {
-        return TestFakeNode.class;
+    PojoNode wrap(final int index) {
+        return this.wrap0(PojoName.index(index),
+                this.elementValue(index),
+                index);
+    }
+
+    @Override
+    boolean isSameType(final Object other){
+        return other instanceof PojoArrayNodeChildrenList;
     }
 }

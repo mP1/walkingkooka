@@ -15,25 +15,18 @@
  *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree.pojo;
 
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.NodeTestCase2;
+import org.junit.Assert;
 
-public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
+public abstract class PojoCollectionNodeTestCase<N extends PojoArrayOrCollectionNode, V> extends PojoArrayOrCollectionNodeTestCase<N, V> {
 
-    @Rule
-    public TestName name = new TestName();
+    final static String STRING0 = "a0";
+    final static String STRING1 = "b1";
+    final static String STRING2 = "c2";
 
     @Override
-    protected TestFakeNode createNode() {
-        return new TestFakeNode(this.name.getMethodName());
-    }
-
-    @Override
-    protected Class<TestFakeNode> type() {
-        return TestFakeNode.class;
+    final void checkValue(final V expected, final V actual) {
+        Assert.assertEquals(expected, actual);
     }
 }

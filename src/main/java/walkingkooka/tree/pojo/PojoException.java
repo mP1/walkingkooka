@@ -14,26 +14,17 @@
  * limitations under the License.
  *
  */
+package walkingkooka.tree.pojo;
 
-package walkingkooka.tree.select;
+import walkingkooka.tree.NodeException;
 
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.NodeTestCase2;
+public class PojoException extends NodeException {
 
-public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
-
-    @Rule
-    public TestName name = new TestName();
-
-    @Override
-    protected TestFakeNode createNode() {
-        return new TestFakeNode(this.name.getMethodName());
+    public PojoException(String message) {
+        super(message);
     }
 
-    @Override
-    protected Class<TestFakeNode> type() {
-        return TestFakeNode.class;
+    public PojoException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

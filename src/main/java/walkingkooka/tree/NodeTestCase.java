@@ -19,25 +19,29 @@ package walkingkooka.tree;
 
 import org.junit.Test;
 import walkingkooka.naming.Name;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+
+import java.util.Optional;
 
 abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE extends Object>
         extends
-        PackagePrivateClassTestCase<N> {
+        ClassTestCase<N> {
 
     protected NodeTestCase() {
         super();
     }
 
-    @Test final public void testNameCached() {
+    @Test
+    final public void testNameCached() {
         final N node = this.createNode();
         this.checkCached(node, "name", node.name(), node.name());
     }
 
-    @Test final public void testParentCached() {
+    @Test
+    final public void testParentCached() {
         final N node = this.createNode();
         this.checkCached(node, "parent", node.parent(), node.parent());
     }
@@ -48,5 +52,44 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         }
     }
 
+    @Test
+    final public void testChildrenIndices() {
+        this.childrenCheck(this.createNode());
+    }
+
+    @Test
+    public void testEqualsNull(){
+        assertNotEquals(this.createNode(), null);
+    }
+
+    @Test
+    public void testEqualsObject(){
+        assertNotEquals(this.createNode(), new Object());
+    }
+
+    @Test
+    public final void testEqualsSameInstance(){
+        final N node = this.createNode();
+        assertEquals(node, node);
+    }
+
+    @Test
+    public void testEquals() {
+        assertEquals(this.createNode(), this.createNode());
+    }
+
     abstract protected N createNode();
+
+    protected final void childrenCheck(final Node<?, ?, ?, ?> node) {
+        final Optional<Node> nodeAsParent = Optional.of(node);
+
+        int i = 0;
+        for(Node<?, ?, ?, ?> child : node.children()){
+            assertEquals("Incorrect index of " + child, i, child.index());
+            assertEquals("Incorrect parent of child " + i + "=" + child, nodeAsParent, child.parent());
+
+            this.childrenCheck(child);
+            i++;
+        }
+    }
 }

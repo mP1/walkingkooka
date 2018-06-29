@@ -24,6 +24,24 @@ import java.util.Objects;
 final public class Types implements PublicStaticHelper {
 
     /**
+     * Tests if the given type is a primitive or its matching wrapper type.
+     */
+    public static boolean isPrimitiveOrWrapper(final Class<?> type) {
+        Objects.requireNonNull(type, "type");
+        return type.isPrimitive() ||
+                type == Boolean.class ||
+                type == Byte.class ||
+                type == Character.class ||
+                type == Double.class ||
+                type == Float.class ||
+                type == Integer.class ||
+                type == Long.class ||
+                type == Number.class ||
+                type == Short.class ||
+                type == Void.class;
+    }
+
+    /**
      * Tests if the given {@link Class} is static.
      */
     public static boolean isStatic(final Class<?> klass) {

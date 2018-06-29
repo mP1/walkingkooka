@@ -15,25 +15,27 @@
  *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree.pojo;
 
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.NodeTestCase2;
+/**
+ * A {@link walkingkooka.tree.Node} where each child is an element in the original {@link java.util.Collection}.
+ */
+abstract class PojoCollectionNode extends PojoArrayOrCollectionNode {
 
-public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
-
-    @Rule
-    public TestName name = new TestName();
-
-    @Override
-    protected TestFakeNode createNode() {
-        return new TestFakeNode(this.name.getMethodName());
+    PojoCollectionNode(final PojoName name,
+                       final Object value,
+                       final int index,
+                       final PojoNodeContext context) {
+        super(name, value, index, context);
     }
 
     @Override
-    protected Class<TestFakeNode> type() {
-        return TestFakeNode.class;
+    final boolean equals0(final PojoNode other){
+        return this.equals1(other);
+    }
+
+    @Override
+    public final String toString() {
+        return this.toString0();
     }
 }
