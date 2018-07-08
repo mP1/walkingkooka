@@ -14,26 +14,23 @@
  * limitations under the License.
  *
  */
+package walkingkooka.tree.pojo;
 
-package walkingkooka.tree.select;
+import walkingkooka.naming.Name;
 
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.NodeTestCase2;
+/**
+ * The name of a pojo node attribute.
+ */
+public enum PojoNodeAttributeName implements Name {
 
-public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
-
-    @Rule
-    public TestName name = new TestName();
+    CLASS;
 
     @Override
-    protected TestFakeNode createNode() {
-        return new TestFakeNode(this.name.getMethodName());
+    public String value() {
+        return "class";
     }
 
-    @Override
-    protected Class<TestFakeNode> type() {
-        return TestFakeNode.class;
+    public String toString() {
+        return this.value();
     }
 }

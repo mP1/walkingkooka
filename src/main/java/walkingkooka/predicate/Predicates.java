@@ -80,6 +80,18 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
+     * Matches java identifiers using {@link Character#isJavaIdentifierStart(char)} and
+     * {@link Character#isJavaIdentifierPart(char)}.
+     */
+    public static Predicate<CharSequence> javaIdentifier() {
+        return JAVA_IDENTIFIER;
+    }
+
+    private final static Predicate JAVA_IDENTIFIER = Predicates.initialAndPart(
+            (c) -> Character.isJavaIdentifierStart(c),
+            (c) -> Character.isJavaIdentifierPart(c));
+
+    /**
      * {@see NeverPredicate}.
      */
     public static <T> Predicate<T> never() {
