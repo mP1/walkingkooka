@@ -108,6 +108,13 @@ public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     /**
+     * {@see FirstChildNodeSelector}
+     */
+    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> firstChild() {
+        return this.append(FirstChildNodeSelector.get());
+    }
+
+    /**
      * {@see FollowingNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> following() {
@@ -119,6 +126,13 @@ public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> followingSibling() {
         return this.append(FollowingSiblingNodeSelector.<N, NAME, ANAME, AVALUE>get());
+    }
+
+    /**
+     * {@see LastChildNodeSelector}
+     */
+    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> lastChild() {
+        return this.append(LastChildNodeSelector.get());
     }
 
     /**

@@ -21,6 +21,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.type.Types;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The {@link PojoNode} wrapper around an primitive type. Primitives have no children.
@@ -84,6 +85,17 @@ final class PojoBasicNode extends PojoNode {
     PojoNode clearChildrenListCache() {
         throw new UnsupportedOperationException();
     }
+    @Override
+    public Optional<PojoNode> firstChild() {
+        return NO_CHILD;
+    }
+
+    @Override
+    public Optional<PojoNode> lastChild() {
+        return NO_CHILD;
+    }
+
+    private final static Optional<PojoNode> NO_CHILD = Optional.empty();
 
     @Override
     boolean equals0(final PojoNode other){

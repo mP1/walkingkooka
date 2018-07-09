@@ -22,6 +22,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -53,6 +54,15 @@ abstract class UnaryNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         final Set<N> matches = Sets.ordered();
         this.accept(node, new NodeSelectorNodeSelectorContext<>(matches));
         return matches;
+    }
+
+    /**
+     * Used to match a node wrapped in an optional. Empty optionals have no effect.
+     */
+    final void match(final Optional<N> node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        if(node.isPresent()){
+            this.match(node.get(), context);
+        }
     }
 
     /**
