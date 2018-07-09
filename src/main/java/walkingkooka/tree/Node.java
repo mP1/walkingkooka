@@ -184,4 +184,24 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
 
         return result;
     }
+
+    /**
+     * Returns the first child for the current node.
+     */
+    default Optional<N> firstChild() {
+        final List<N> children = this.children();
+        return children.isEmpty() ?
+                Optional.empty() :
+                Optional.of(children.get(0));
+    }
+
+    /**
+     * Returns the last child for the current node.
+     */
+    default Optional<N> lastChild() {
+        final List<N> children = this.children();
+        return children.isEmpty() ?
+                Optional.empty() :
+                Optional.of(children.get(children.size() -1));
+    }
 }

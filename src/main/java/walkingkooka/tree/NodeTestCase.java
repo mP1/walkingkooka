@@ -21,6 +21,7 @@ import org.junit.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
 
+import java.util.List;
 import java.util.Optional;
 
 abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
@@ -55,6 +56,30 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     @Test
     final public void testChildrenIndices() {
         this.childrenCheck(this.createNode());
+    }
+
+    @Test
+    public void testFirstChild() {
+        final N node = this.createNode();
+        final List<N> children = node.children();
+        final Optional<N> first = node.firstChild();
+        if(children.isEmpty()){
+           assertEquals("childless node must not have a first child.", Optional.empty(), first);
+        } else {
+           assertEquals("node with children must have a first child.", Optional.of(children.get(0)), first);
+        }
+    }
+
+    @Test
+    public void testLastChild() {
+        final N node = this.createNode();
+        final List<N> children = node.children();
+        final Optional<N> last = node.lastChild();
+        if(children.isEmpty()){
+            assertEquals("childless node must not have a last child.", Optional.empty(), last);
+        } else {
+            assertEquals("node with children must have a last child.", Optional.of(children.get(children.size()-1)), last);
+        }
     }
 
     @Test

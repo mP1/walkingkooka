@@ -20,6 +20,7 @@ package walkingkooka.xml;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Base class for all dom nodes except for {@link DomElement}.
@@ -57,6 +58,18 @@ abstract class DomLeafNode extends DomNode{
         Objects.requireNonNull(children, "children");
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Optional<DomNode> firstChild() {
+        return NO_CHILD;
+    }
+
+    @Override
+    public Optional<DomNode> lastChild() {
+        return NO_CHILD;
+    }
+
+    private final static Optional<DomNode> NO_CHILD = Optional.empty();
 
     // attributes.................................................................................................
 
