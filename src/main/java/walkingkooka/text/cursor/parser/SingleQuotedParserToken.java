@@ -16,6 +16,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
+
 import java.util.Objects;
 
 /**
@@ -40,6 +42,16 @@ public final class SingleQuotedParserToken extends QuotedParserToken {
     @Override
     char quotedCharacter() {
         return '\'';
+    }
+
+    @Override
+    public SingleQuotedParserToken setText(final String text){
+        return Cast.to(this.setText0(text));
+    }
+
+    @Override
+    SingleQuotedParserToken replaceText(final String text) {
+        return with(this.value(), text);
     }
 
     @Override

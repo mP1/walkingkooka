@@ -20,7 +20,37 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
+import static org.junit.Assert.assertNotSame;
+
 public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicClassTestCase<T> {
+
+    @Test(expected = NullPointerException.class)
+    public final void testSetTextNullFails() {
+        this.createToken().setText(null);
+    }
+
+    @Test
+    public final void testSetTextSame() {
+        final T token = this.createToken();
+        assertSame(token, token.setText(token.text()));
+    }
+
+    @Test
+    public final void testSetTextDifferent() {
+        final T token = this.createToken();
+        final String differentText = this.createDifferentToken().text();
+        assertNotEquals("different text must be different from tokens", token.text(), differentText);
+
+        final ParserToken token2 = token.setText(differentText);
+        assertNotSame(token, token2);
+        assertEquals("text", differentText, token2.text());
+        assertEquals("type of token after set must remain the same=" + token2, token.getClass(), token2.getClass());
+
+        assertNotEquals("tokens must be different", token, token2);
+
+        final ParserToken token3 = token2.setText(token.text());
+        assertEquals("after setting original text tokens must be equal", token, token3);
+    }
 
     @Test
     public final void testEqualsNull() {
