@@ -14,33 +14,18 @@
  * limitations under the License.
  *
  */
-
 package walkingkooka.text.cursor.parser;
 
-/**
- * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
- */
-public interface ParserToken {
+import walkingkooka.naming.NameTestCase;
 
-    /**
-     * Returns the raw text that produced the token.
-     */
-    String text();
-
-    /**
-     * Would be setter that creates if necessary a token with the new text.
-     */
-    ParserToken setText(final String text);
-
-    /**
-     * Returns a {@link ParserTokenNode} for this {@link ParserToken}
-     */
-    default public ParserTokenNode asNode() {
-        return ParserTokenNode.with(this);
+public final class ParserTokenNodeAttributeNameTest extends NameTestCase<ParserTokenNodeAttributeName> {
+    @Override
+    protected ParserTokenNodeAttributeName createName(String name) {
+        return ParserTokenNodeAttributeName.TEXT;
     }
 
-    /**
-     * Returns the name of the token
-     */
-    ParserTokenNodeName name();
+    @Override
+    protected Class<ParserTokenNodeAttributeName> type() {
+        return ParserTokenNodeAttributeName.class;
+    }
 }

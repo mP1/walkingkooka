@@ -26,6 +26,8 @@ import java.util.Objects;
  */
 public final class SequenceParserToken<T extends ParserToken> extends ParserTemplateToken<List<T>> {
 
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SequenceParserToken.class);
+
     /**
      * Factory that wraps many tokens in a {@link SequenceParserToken}.
      */
@@ -53,6 +55,11 @@ public final class SequenceParserToken<T extends ParserToken> extends ParserTemp
     @Override
     SequenceParserToken<T> replaceText(final String text) {
         return with(this.value(), text);
+    }
+
+    @Override
+    public ParserTokenNodeName name() {
+        return NAME;
     }
 
     @Override

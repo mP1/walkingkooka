@@ -26,6 +26,8 @@ import java.util.Objects;
  */
 public final class NumberParserToken extends ParserTemplateToken<BigInteger> {
 
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(NumberParserToken.class);
+
     public static NumberParserToken with(final BigInteger value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
@@ -45,6 +47,11 @@ public final class NumberParserToken extends ParserTemplateToken<BigInteger> {
     @Override
     NumberParserToken replaceText(final String text) {
         return with(this.value(), text);
+    }
+
+    @Override
+    public ParserTokenNodeName name() {
+        return NAME;
     }
     
     @Override
