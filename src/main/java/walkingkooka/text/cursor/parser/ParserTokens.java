@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -31,6 +32,13 @@ public final class ParserTokens implements PublicStaticHelper {
         return CharacterParserToken.with(value, text);
     }
 
+    /**
+     * {@see DecimalParserToken}
+     */
+    public static DecimalParserToken Decimal(final BigDecimal value, final String text) {
+        return DecimalParserToken.with(value, text);
+    }
+    
     /**
      * {@see DoubleQuotedParserToken}
      */
