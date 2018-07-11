@@ -18,38 +18,38 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * The parser token for a number with the value contained in a {@link BigInteger}.
+ * The parser token for a number with the value contained within a {@link BigDecimal}
  */
-public final class NumberParserToken extends ParserTemplateToken<BigInteger> {
+public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> {
 
-    public static NumberParserToken with(final BigInteger value, final String text) {
+    public static DecimalParserToken with(final BigDecimal value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
 
-        return new NumberParserToken(value, text);
+        return new DecimalParserToken(value, text);
     }
 
-    private NumberParserToken(final BigInteger value, final String text) {
+    private DecimalParserToken(final BigDecimal value, final String text) {
         super(value, text);
     }
 
     @Override
-    public NumberParserToken setText(final String text){
+    public DecimalParserToken setText(final String text){
         return Cast.to(this.setText0(text));
     }
 
     @Override
-    NumberParserToken replaceText(final String text) {
+    DecimalParserToken replaceText(final String text) {
         return with(this.value(), text);
     }
     
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NumberParserToken;
+        return other instanceof DecimalParserToken;
     }
 
     @Override
