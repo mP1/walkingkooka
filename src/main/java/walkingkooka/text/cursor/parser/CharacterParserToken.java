@@ -25,6 +25,8 @@ import java.util.Objects;
  */
 public final class CharacterParserToken extends ParserTemplateToken<Character> {
 
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(CharacterParserToken.class);
+
     static CharacterParserToken with(final char value, final String text) {
         Objects.requireNonNull(text, "text");
 
@@ -43,6 +45,11 @@ public final class CharacterParserToken extends ParserTemplateToken<Character> {
     @Override
     CharacterParserToken replaceText(final String text) {
         return with(this.value(), text);
+    }
+
+    @Override
+    public ParserTokenNodeName name() {
+        return NAME;
     }
 
     @Override

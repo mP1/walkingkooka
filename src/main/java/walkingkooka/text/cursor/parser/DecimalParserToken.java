@@ -26,6 +26,8 @@ import java.util.Objects;
  */
 public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> {
 
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DecimalParserToken.class);
+
     public static DecimalParserToken with(final BigDecimal value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
@@ -45,6 +47,11 @@ public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> {
     @Override
     DecimalParserToken replaceText(final String text) {
         return with(this.value(), text);
+    }
+
+    @Override
+    public ParserTokenNodeName name() {
+        return NAME;
     }
     
     @Override

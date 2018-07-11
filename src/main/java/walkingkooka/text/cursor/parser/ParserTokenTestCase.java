@@ -20,9 +20,18 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
+import java.lang.reflect.Field;
+
 import static org.junit.Assert.assertNotSame;
 
 public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicClassTestCase<T> {
+
+    @Test
+    public final void testNameConstantPresent() throws Exception {
+        final Class<T> type = this.type();
+        final Field field = type.getField("NAME");
+        assertEquals("NAME constant has incorrect value", ParserTokenNodeName.fromClass(type), field.get(null));
+    }
 
     @Test(expected = NullPointerException.class)
     public final void testSetTextNullFails() {
