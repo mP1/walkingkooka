@@ -26,4 +26,9 @@ public interface ParserToken {
      * Returns the raw text that produced the token.
      */
     String text();
+
+    /**
+     * Would be setter that creates if necessary a token with the new text.
+     */
+    ParserToken setText(final String text);
 }

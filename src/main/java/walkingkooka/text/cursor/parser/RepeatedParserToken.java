@@ -16,6 +16,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +38,16 @@ public final class RepeatedParserToken<T extends ParserToken> extends ParserTemp
     
     private RepeatedParserToken(final List<T> tokens, final String text) {
         super(tokens, text);
+    }
+
+    @Override
+    public RepeatedParserToken setText(final String text){
+        return Cast.to(this.setText0(text));
+    }
+
+    @Override
+    RepeatedParserToken replaceText(final String text) {
+        return with(this.value(), text);
     }
 
     @Override

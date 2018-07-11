@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.text.CharSequences;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -50,7 +51,22 @@ abstract class ParserTemplateToken<V> implements ParserToken, Value<V> {
         return this.text;
     }
 
+    /**
+     * Should be called by sub classes of {@link #setText(String)} with a return type of itself.
+     */
+    final ParserToken setText0(final String text) {
+        Objects.requireNonNull(text, "text");
+        return this.text().equals(text) ?
+                this :
+                this.replaceText(text);
+    }
+
     private final String text;
+
+    /**
+     * Sub classes must create a new instance with the new text and same value.
+     */
+    abstract ParserToken replaceText(final String text);
 
     public final <T extends ParserTemplateToken<V>> Optional<T> success() {
         return Cast.to(Optional.of(this));
