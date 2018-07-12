@@ -29,7 +29,7 @@ import java.util.function.Predicate;
  */
 final class PredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        UnaryNodeSelector<N, NAME, ANAME, AVALUE> {
+        UnaryRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link PredicateNodeSelector} getter
@@ -61,7 +61,8 @@ final class PredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         return new PredicateNodeSelector(this.predicate, selector);
     }
 
-    @Override final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         if(this.predicate.test(node)){
             context.match(node);
         }

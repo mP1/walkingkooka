@@ -20,6 +20,8 @@ package walkingkooka.tree.select;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.naming.Names;
+import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 
 final public class SelfNodeSelectorTest
@@ -29,6 +31,54 @@ final public class SelfNodeSelectorTest
     public void testSelf() {
         final TestFakeNode node = TestFakeNode.node("self");
         this.acceptAndCheck(node, node);
+    }
+
+    @Test
+    public void testSelfAndDescendant() {
+        final TestFakeNode child = TestFakeNode.node("child");
+        final TestFakeNode parent = TestFakeNode.node("parent", child);
+
+        this.acceptAndCheck(selfAndDescendant(),
+                parent,
+                child);
+    }
+
+    @Test
+    public void testSelfAndDescendant2() {
+        final TestFakeNode child = TestFakeNode.node("child");
+        final TestFakeNode parent = TestFakeNode.node("parent", child);
+
+        this.acceptAndCheck(selfAndDescendant(),
+                parent.child(0));
+    }
+
+    private NodeSelector<TestFakeNode, StringName, StringName, Object> selfAndDescendant() {
+        return Cast.to(SelfNodeSelector.get()
+                .append(DescendantNodeSelector.with(PathSeparator.requiredAtStart('/'))));
+    }
+
+    @Test
+    public void testSelfAndNamed() {
+        final TestFakeNode child = TestFakeNode.node("child");
+        final TestFakeNode parent = TestFakeNode.node("parent", child);
+
+        this.acceptAndCheck(selfAndNamed(),
+                parent);
+    }
+
+    @Test
+    public void testSelfAndNamed2() {
+        final TestFakeNode child = TestFakeNode.node("child");
+        final TestFakeNode parent = TestFakeNode.node("parent", child);
+
+        this.acceptAndCheck(selfAndNamed(),
+                parent.child(0),
+                child);
+    }
+
+    private NodeSelector<TestFakeNode, StringName, StringName, Object> selfAndNamed() {
+        return Cast.to(SelfNodeSelector.get()
+                .append(NamedNodeSelector.with(Names.string("child"), PathSeparator.requiredAtStart('/'))));
     }
 
     @Test

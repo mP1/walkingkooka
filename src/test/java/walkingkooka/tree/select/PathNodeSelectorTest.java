@@ -21,8 +21,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 
-final public class AbsolutePathNodeSelectorTest extends
-        UnaryNodeSelectorTestCase<AbsolutePathNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+final public class PathNodeSelectorTest extends
+        UnaryNodeSelectorTestCase<PathNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     private static TestFakeNode make() {
         final TestFakeNode childChild = TestFakeNode.node("childChild");
@@ -49,44 +49,44 @@ final public class AbsolutePathNodeSelectorTest extends
 
     @Test
     public void testRoot() {
-        this.acceptAndCheck(AbsolutePathNodeSelector.with(ROOT), ROOT, ROOT);
+        this.acceptAndCheck(PathNodeSelector.with(ROOT), ROOT, ROOT);
     }
 
     @Test
     public void testDescendant() {
         final TestFakeNode child2 = child3();
-        this.acceptAndCheck(AbsolutePathNodeSelector.with(child2), ROOT, child2);
+        this.acceptAndCheck(PathNodeSelector.with(child2), ROOT, child2);
     }
 
     @Test
     public void testDescendantLeaf() {
         final TestFakeNode childChild = childChild();
-        this.acceptAndCheck(AbsolutePathNodeSelector.with(childChild), ROOT, childChild);
+        this.acceptAndCheck(PathNodeSelector.with(childChild), ROOT, childChild);
     }
 
     @Test
     public void testNotFound() {
         final TestFakeNode childChild = childChild();
-        this.acceptAndCheck(AbsolutePathNodeSelector.with(childChild), child3());
+        this.acceptAndCheck(PathNodeSelector.with(childChild), child3());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals(".", AbsolutePathNodeSelector.with(ROOT).toString());
+        Assert.assertEquals(".", PathNodeSelector.with(ROOT).toString());
     }
 
     @Test
     public void testToString2() {
-        Assert.assertEquals("[3][2]", AbsolutePathNodeSelector.with(child3()).toString());
+        Assert.assertEquals("[3][2]", PathNodeSelector.with(child3()).toString());
     }
 
     @Override
-    protected AbsolutePathNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
-        return Cast.to(AbsolutePathNodeSelector.with(child3()));
+    protected PathNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+        return Cast.to(PathNodeSelector.with(child3()));
     }
 
     @Override
-    protected Class<AbsolutePathNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
-        return Cast.to(AbsolutePathNodeSelector.class);
+    protected Class<PathNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+        return Cast.to(PathNodeSelector.class);
     }
 }

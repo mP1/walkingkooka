@@ -69,6 +69,13 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     public final static Optional<DomElement> NO_ELEMENT = Optional.empty();
 
     /**
+     * Absolute {@see NodeSelectorBuilder}
+     */
+    public static NodeSelectorBuilder<DomNode, DomName, DomAttributeName, String> absoluteNodeSelectorBuilder() {
+        return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
+    }
+
+    /**
      * {@see DomAtttributeName}
      */
     public static DomAttributeName attribute(final String name, final Optional<DomNameSpacePrefix> prefix) {
@@ -108,10 +115,10 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     }
 
     /**
-     * {@see NodeSelectorBuilder}
+     * relative {@see NodeSelectorBuilder}
      */
-    public static NodeSelectorBuilder<DomNode, DomName, DomAttributeName, String> nodeSelectorBuilder() {
-        return NodeSelectorBuilder.create(PathSeparator.requiredAtStart('/'));
+    public static NodeSelectorBuilder<DomNode, DomName, DomAttributeName, String> relativeNodeSelectorBuilder() {
+        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
     }
 
     /**

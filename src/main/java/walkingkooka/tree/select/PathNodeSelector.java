@@ -24,19 +24,20 @@ import walkingkooka.tree.Node;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * An absolute path for a {@link Node}.
  */
-final class AbsolutePathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends UnaryNodeSelector<N, NAME, ANAME, AVALUE> {
+final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends UnaryRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final N node) {
         Objects.requireNonNull(node, "node");
-        return node.isRoot() ? SelfNodeSelector.get() : new AbsolutePathNodeSelector(node);
+        return node.isRoot() ? SelfNodeSelector.get() : new PathNodeSelector(node);
     }
 
-    private AbsolutePathNodeSelector(final N node) {
+    private PathNodeSelector(final N node) {
         final List<Integer> path = Lists.array();
         this.path = path;
         walkAncestorPath(node, path);
@@ -95,7 +96,7 @@ final class AbsolutePathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final AbsolutePathNodeSelector<N, NAME, ANAME, AVALUE> other) {
+    private boolean equals2(final PathNodeSelector<N, NAME, ANAME, AVALUE> other) {
         return this.path.equals(other.path);
     }
 

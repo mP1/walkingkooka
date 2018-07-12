@@ -44,12 +44,18 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
         HasChildrenValues<Object, PojoNode>,
         Value<Object>,
         Comparable<PojoNode>{
+    /**
+     * Absolute {@see NodeSelectorBuilder}
+     */
+    public static NodeSelectorBuilder<PojoNode, PojoName, PojoNodeAttributeName, Object> absoluteNodeSelectorBuilder() {
+        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
+    }
 
     /**
-     * {@see NodeSelectorBuilder}
+     * Relative {@see NodeSelectorBuilder}
      */
-    public static NodeSelectorBuilder<PojoNode, PojoName, PojoNodeAttributeName, Object> nodeSelectorBuilder() {
-        return NodeSelectorBuilder.create(PathSeparator.requiredAtStart('/'));
+    public static NodeSelectorBuilder<PojoNode, PojoName, PojoNodeAttributeName, Object> relativeNodeSelectorBuilder() {
+        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
     }
 
     final static Optional<PojoNode> NO_PARENT = Optional.empty();

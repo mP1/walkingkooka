@@ -14,7 +14,6 @@
  * limitations under the License.
  *
  */
-
 package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
@@ -26,24 +25,24 @@ import java.util.Set;
 
 
 /**
- * A {@link NodeSelector} that selects all the descendants of a given {@link Node} until all are visited.
+ * A {@link NodeSelector} that begins the search at the root of the graph.
  */
-final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
         UnaryNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
-     * Type safe {@link DescendantNodeSelector} getter
+     * Type safe {@link AbsoluteNodeSelector} getter
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AbsoluteNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
         Objects.requireNonNull(separator, "separator");
-        return new DescendantNodeSelector(separator);
+        return new AbsoluteNodeSelector(separator);
     }
 
     /**
      * Private constructor use type safe getter
      */
-    private DescendantNodeSelector(final PathSeparator separator) {
+    private AbsoluteNodeSelector(final PathSeparator separator) {
         super();
         this.separator = separator;
     }
@@ -51,7 +50,7 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * Private constructor
      */
-    private DescendantNodeSelector(final PathSeparator separator, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    private AbsoluteNodeSelector(final PathSeparator separator, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         super(selector);
         this.separator = separator;
     }
@@ -59,10 +58,12 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        // no point appending a descending to another...
-        return selector instanceof DescendantNodeSelector ?
-                this :
-                new DescendantNodeSelector(this.separator, selector);
+        // no point appending a descending to a absolute, as it already is a absolute search start...
+        return selector instanceof AbsoluteNodeSelector ?
+                this:
+                selector instanceof DescendantNodeSelector ?
+                        selector :
+                new AbsoluteNodeSelector(this.separator, selector);
     }
 
     @Override
@@ -72,18 +73,15 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.matchChildren(node, context);
-    }
-
-    @Override
-    void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        super.match(node, context);
-        this.matchChildren(node, context);
+        this.match(node, context);
     }
 
     @Override
     void toString0(final StringBuilder b, String separator) {
-        b.append(this.separator).append(this.separator);
+        // must be first can never be next
+        if(this.separator.isRequiredAtStart()) {
+            b.append(this.separator);
+        }
         this.toStringNext(b, "");
     }
 
@@ -92,6 +90,6 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof DescendantNodeSelector;
+        return other instanceof AbsoluteNodeSelector;
     }
 }

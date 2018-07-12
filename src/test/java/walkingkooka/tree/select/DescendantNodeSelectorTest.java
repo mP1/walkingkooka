@@ -88,6 +88,14 @@ final public class DescendantNodeSelectorTest extends
         Assert.assertEquals("//", this.createSelector().toString());
     }
 
+    @Test
+    public void testToStringAbsolute() {
+        Assert.assertEquals("//",
+                AbsoluteNodeSelector.<TestFakeNode, StringName, StringName, Object>with(SEPARATOR)
+                        .append(this.createSelector())
+                        .toString());
+    }
+
     @Override
     protected DescendantNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
         return DescendantNodeSelector.with(SEPARATOR);
