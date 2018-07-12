@@ -432,6 +432,16 @@ public final class DomDocument extends DomParentNode{
         return super.appendChild(child).document();
     }
 
+    @Override
+    public DomDocument removeChild(final DomNode child) {
+        return super.removeChild(child).asDocument();
+    }
+
+    @Override
+    public DomDocument removeChild(final int child) {
+        return super.removeChild(child).asDocument();
+    }
+
     /**
      * A custom replace children, that only supports replacing element nodes. The new nodes
      * must be of the same type and equal to the existing.

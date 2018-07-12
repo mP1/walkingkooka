@@ -17,6 +17,7 @@
 
 package walkingkooka.tree;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.HasName;
 import walkingkooka.naming.Name;
@@ -123,20 +124,38 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     default N removeChild(final N child) {
         Objects.requireNonNull(child, "child");
 
-        final Optional<N> parent = child.parent();
-        if (!parent.isPresent()) {
+        final Optional<N> maybeParent = child.parent();
+        if (!maybeParent.isPresent()) {
             throw new IllegalArgumentException("Child has no parent=" + child);
         }
-        if (!parent.get().equals(this)) {
+        final N parent = maybeParent.get();
+        if (!parent.equals(this)) {
             throw new IllegalArgumentException("Child has different parent=" + child);
         }
+        return this.removeChild(child.index());
+    }
 
-        // replace
-        final List<N> newChildren = Lists.array();
-        newChildren.addAll(this.children());
-        newChildren.remove(child.index());
+    /**
+     * Removes an existing child using its index.
+     */
+    default N removeChild(final int index){
+        N parentWithout;
 
-        return this.setChildren(newChildren);
+        if(this instanceof HasChildrenValues) {
+            final HasChildrenValues<Object, N> parentOfChildrenValues = Cast.to(this);
+
+            final List<Object> without = Lists.array();
+            without.addAll(parentOfChildrenValues.childrenValues());
+            without.remove(index);
+            parentWithout = parentOfChildrenValues.setChildrenValues(without);
+        } else {
+            final List<N> without = Lists.array();
+            without.addAll(this.children());
+            without.remove(index);
+            parentWithout = this.setChildren(without);
+        }
+
+        return parentWithout;
     }
 
     /**

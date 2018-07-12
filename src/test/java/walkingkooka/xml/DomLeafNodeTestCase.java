@@ -28,6 +28,17 @@ public abstract class DomLeafNodeTestCase<N extends DomLeafNode> extends DomNode
         this.createNode().setChildren(DomNode.NO_CHILDREN);
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public final void testRemoveChildFails() {
+        final N node = this.createNode();
+        node.removeChild(node);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public final void testRemoveChildByIndexFails() {
+        this.createNode().removeChild(0);
+    }
+
     @Override
     final N createNode(final DocumentBuilder builder) {
         return this.createNode(builder.newDocument());

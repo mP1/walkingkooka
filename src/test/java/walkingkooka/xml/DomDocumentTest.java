@@ -477,6 +477,28 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
         this.checkChildren("document child count", 1, document2);
     }
 
+    // removeChild ............................................................................................
+
+    @Test
+    public void testRemoveChild() {
+        final DomDocument document1 = this.createNode();
+        final DomElement child = document1.createElement(ROOT);
+        final DomDocument document2 = document1.appendChild(child);
+
+        final DomDocument document3 = document2.removeChild(document2.element().get());
+        assertEquals("Document should have no element", Optional.empty(), document3.element());
+    }
+
+    @Test
+    public void testRemoveChildByIndex() {
+        final DomDocument document1 = this.createNode();
+        final DomElement child = document1.createElement(ROOT);
+        final DomDocument document2 = document1.appendChild(child);
+
+        final DomDocument document3 = document2.removeChild(document2.element().get().index());
+        assertEquals("Document should have no element", Optional.empty(), document3.element());
+    }
+
     // documentelement..............................................................................................
 
     @Test

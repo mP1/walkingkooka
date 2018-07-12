@@ -51,4 +51,14 @@ abstract class PojoArrayNode extends PojoArrayOrCollectionNode {
      * Used by {@link PojoArrayNodeChildrenList} to fetch individual elements.
      */
     abstract Object elementValue(final int index);
+
+    @Override
+    final public PojoArrayOrCollectionNode removeChild(final PojoNode child) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    final public PojoArrayOrCollectionNode removeChild(final int child) {
+        throw new UnsupportedOperationException();
+    }
 }

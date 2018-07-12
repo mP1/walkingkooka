@@ -225,6 +225,32 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
         parent2.children().get(0).children().get(0);
     }
 
+    @Test
+    public void testRemoveChild() {
+        final DomElement parent1 = this.createNode();
+        final DomElement child1 = parent1.createElement(CHILD);
+        final DomElement child2 = parent1.createElement(CHILD2);
+
+        final DomElement parent2 = parent1.setChildren(Lists.of(child1, child2));
+        this.checkChildren("parent2", 2, parent2);
+
+        final DomElement parent3 = parent2.removeChild(parent2.children().get(0));
+        this.checkChildren("parent3", 1, parent3);
+    }
+
+    @Test
+    public void testRemoveChildByIndex() {
+        final DomElement parent1 = this.createNode();
+        final DomElement child1 = parent1.createElement(CHILD);
+        final DomElement child2 = parent1.createElement(CHILD2);
+
+        final DomElement parent2 = parent1.setChildren(Lists.of(child1, child2));
+        this.checkChildren("parent2", 2, parent2);
+
+        final DomElement parent3 = parent2.removeChild(0);
+        this.checkChildren("parent3", 1, parent3);
+    }
+
     // attributes ................................................................................................
 
     @Test

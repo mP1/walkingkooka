@@ -20,6 +20,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
@@ -32,6 +33,7 @@ import java.util.Optional;
  * during a simplification phase.
  */
 public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String>,
+        HasChildrenValues<ParserToken, ParserTokenNode>,
         Value<ParserToken> {
 
     /**
