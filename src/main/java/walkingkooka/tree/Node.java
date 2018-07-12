@@ -75,6 +75,24 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
+     * Returns the root node which may or may not be this node.
+     * The default walks up the ancestor path until reaching the root.
+     */
+    default N root() {
+        N root = Cast.to(this);
+
+        for(;;) {
+            final Optional<N> parent = root.parent();
+            if(!parent.isPresent()){
+                break;
+            }
+            root = parent.get();
+        }
+
+        return root;
+    }
+
+    /**
      * Returns the children of this node.
      */
     List<N> children();
