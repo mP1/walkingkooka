@@ -22,13 +22,14 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A {@link NodeSelector} that selects all the ancestors of a given {@link Node} until the root of the graph is reached.
  */
 final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        UnaryNodeSelector<N, NAME, ANAME, AVALUE> {
+        UnaryRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link NamedNodeSelector} getter
@@ -67,7 +68,8 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
         return new NamedNodeSelector(this.name, this.separator, selector);
     }
 
-    @Override final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         if (this.name.equals(node.name())) {
             this.match(node, context);
         }
@@ -76,8 +78,8 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     private final NAME name;
 
     @Override
-    void toString0(final StringBuilder b, String separator) {
-        b.append(this.separator.character()).append(separator).append(this.name.value());
+    void toString0(final StringBuilder b, final String separator) {
+        b.append(separator).append(this.name.value());
 
         this.toStringNext(b, this.separator.string());
     }

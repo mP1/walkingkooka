@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        UnaryNodeSelector2<N, NAME, ANAME, AVALUE> {
+        UnaryRelativeNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link PrecedingNodeSelector} getter

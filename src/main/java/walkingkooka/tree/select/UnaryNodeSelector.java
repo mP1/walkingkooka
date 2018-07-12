@@ -49,8 +49,7 @@ abstract class UnaryNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
-    @Override
-    public final Set<N> accept(final N node) {
+    final Set<N> accept0(final N node) {
         final Set<N> matches = Sets.ordered();
         this.accept(node, new NodeSelectorNodeSelectorContext<>(matches));
         return matches;

@@ -28,7 +28,7 @@ import java.util.List;
  */
 final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        UnaryNodeSelector2<N, NAME, ANAME, AVALUE> {
+        UnaryRelativeNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     private final static int INDEX_BIAS = 1;
 

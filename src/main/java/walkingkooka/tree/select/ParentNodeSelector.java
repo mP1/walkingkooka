@@ -26,7 +26,7 @@ import walkingkooka.tree.Node;
  */
 final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        UnaryNodeSelector2<N, NAME, ANAME, AVALUE> {
+        UnaryRelativeNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link ParentNodeSelector} getter

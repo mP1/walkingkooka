@@ -20,8 +20,9 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class UnaryNodeSelector2Test extends PackagePrivateClassTestCase<UnaryNodeSelector2<?, ?, ?, ?>> {
-    @Override protected Class<UnaryNodeSelector2<?, ?, ?, ?>> type() {
-        return Cast.to(UnaryNodeSelector2.class);
+public final class UnaryRelativeNodeSelector2Test extends PackagePrivateClassTestCase<UnaryRelativeNodeSelector2<?, ?, ?, ?>> {
+    @Override
+    protected Class<UnaryRelativeNodeSelector2<?, ?, ?, ?>> type() {
+        return Cast.to(UnaryRelativeNodeSelector2.class);
     }
 }

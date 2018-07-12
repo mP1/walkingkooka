@@ -33,7 +33,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
      * This method is only ever called by {@link Node#selector()}
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> path(final N node) {
-        return AbsolutePathNodeSelector.with(node);
+        return PathNodeSelector.with(node);
     }
 
     /**

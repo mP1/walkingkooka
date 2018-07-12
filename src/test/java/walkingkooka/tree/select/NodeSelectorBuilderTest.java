@@ -283,7 +283,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
         b.named(Names.string(PARENT))
                 .attributeValueContains(Names.string("attribute-name"), "attribute-value");
 
-        assertEquals("/parent[contains(@\"attribute-name\",\"attribute-value\")]", b.build().toString());
+        assertEquals("parent[contains(@\"attribute-name\",\"attribute-value\")]", b.build().toString());
     }
 
     @Test
@@ -307,6 +307,6 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Override protected NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> createBuilder() {
-        return NodeSelectorBuilder.create(PathSeparator.requiredAtStart('/'));
+        return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
     }
 }

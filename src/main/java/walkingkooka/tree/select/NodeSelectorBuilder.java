@@ -32,7 +32,18 @@ import java.util.function.Predicate;
  */
 public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements Builder<NodeSelector<N, NAME, ANAME, AVALUE>> {
 
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> create(final PathSeparator separator) {
+    /**
+     * Creates an selector that begins its search from the root of the graph.
+     */
+    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute(final PathSeparator separator) {
+        Objects.requireNonNull(separator, "separator");
+        return new NodeSelectorBuilder<>(separator);
+    }
+
+    /**
+     * Creates a selector that begins its search with the given node.
+     */
+    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> relative(final PathSeparator separator) {
         Objects.requireNonNull(separator, "separator");
         return new NodeSelectorBuilder<>(separator);
     }
@@ -42,6 +53,13 @@ public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     private NodeSelectorBuilder(final PathSeparator separator) {
         super();
         this.separator = separator;
+    }
+
+    /**
+     * {@see AncestorNodeSelector}
+     */
+    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute() {
+        return this.append(AbsoluteNodeSelector.with(this.separator));
     }
 
     /**

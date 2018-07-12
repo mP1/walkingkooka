@@ -37,10 +37,17 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
         Value<ParserToken> {
 
     /**
-     * {@see NodeSelectorBuilder}
+     * Absolute {@see NodeSelectorBuilder}
      */
-    public static NodeSelectorBuilder<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> nodeSelectorBuilder() {
-        return NodeSelectorBuilder.create(PathSeparator.requiredAtStart('/'));
+    public static NodeSelectorBuilder<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> absoluteNodeSelectorBuilder() {
+        return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
+    }
+
+    /**
+     * Relative {@see NodeSelectorBuilder}
+     */
+    public static NodeSelectorBuilder<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> relativeNodeSelectorBuilder() {
+        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
     }
 
     /**

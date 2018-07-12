@@ -74,17 +74,12 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        Assert.assertEquals("/" + NAME.value(), this.createSelector().toString());
-    }
-
-    @Test
-    public void testToString2() {
-        Assert.assertEquals("!" + NAME.value(),  this.createSelector(PathSeparator.requiredAtStart('!')).toString());
+        Assert.assertEquals(NAME.value(), this.createSelector().toString());
     }
 
     @Test
     public void testToStringPathSeparatorNotRequiredAtStart() {
-        Assert.assertEquals("/" + NAME.value(),  this.createSelector(PathSeparator.notRequiredAtStart('/')).toString());
+        Assert.assertEquals(NAME.value(),  this.createSelector(PathSeparator.notRequiredAtStart('/')).toString());
     }
 
     @Override

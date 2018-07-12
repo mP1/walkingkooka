@@ -126,7 +126,7 @@ public class SequenceParserTokenNodeTest extends ParserTokenNodeTestCase<Sequenc
 
     @Test
     public void testSelectorByName() {
-        final NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> selector = ParserTokenNode.nodeSelectorBuilder()
+        final NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> selector = ParserTokenNode.absoluteNodeSelectorBuilder()
                 .descendant()
                 .named(StringParserToken.NAME)
                 .build();

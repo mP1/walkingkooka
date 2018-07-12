@@ -17,11 +17,11 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class UnaryNodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>>
 extends NodeSelectorTestCase<S>{
@@ -37,27 +37,13 @@ extends NodeSelectorTestCase<S>{
         this.acceptAndCheckUsingContext(selector, start, nodes);
     }
 
-    final void acceptAndCheckRequiringOrder(NodeSelector<TestFakeNode, StringName, StringName, Object> selector, TestFakeNode start, String[] nodes) {
-        final List<String> expected = Lists.array();
-        expected.addAll(Lists.of(nodes));
-
-        selector.accept(start, new NodeSelectorContext<TestFakeNode, StringName, StringName, Object>() {
-
-            int i = 0;
-
-            @Override void match(final TestFakeNode node) {
-                if(i == nodes.length) {
-                    Assert.fail("Unexpected matching node: " + node);
-                }
-
-                if(!nodes[i].equals(node.name().value())){
-                    Assert.fail("Unexpected node " + node + " expected "+ nodes[i]);
-                }
-                expected.remove(0);
-                i++;
-            }
-        });
-
-        assertEquals("Finished processing contains unmatched nodes", Lists.empty(), expected);
+    final void acceptAndCheckRequiringOrder(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
+                                            final TestFakeNode start,
+                                            final String[] nodes) {
+        final List<String> actual = selector.accept(start)
+                .stream()
+                .map(n -> n.name().value())
+                .collect(Collectors.toList());
+        assertEquals("names of matched nodes", Lists.of(nodes), actual);
     }
 }
