@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.HasName;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
 import java.util.Map;
@@ -222,5 +223,12 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         return children.isEmpty() ?
                 Optional.empty() :
                 Optional.of(children.get(children.size() -1));
+    }
+
+    /**
+     * Returns a selector that may be used to locate this {@link Node} starting at the root.
+     */
+    default NodeSelector<N, NAME, ANAME, AVALUE> selector() {
+        return NodeSelector.path(Cast.to(this));
     }
 }

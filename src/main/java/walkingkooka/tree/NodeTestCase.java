@@ -18,11 +18,13 @@
 package walkingkooka.tree;
 
 import org.junit.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
@@ -80,6 +82,13 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         } else {
             assertEquals("node with children must have a last child.", Optional.of(children.get(children.size()-1)), last);
         }
+    }
+
+    @Test
+    public final void testSelector() {
+        final N node = this.createNode();
+        final Set<N> matches = node.selector().accept(node);
+        assertEquals("Node's own selector should have matched only itself", Sets.of(node), matches);
     }
 
     @Test
