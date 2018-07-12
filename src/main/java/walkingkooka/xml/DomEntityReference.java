@@ -91,7 +91,7 @@ final public class DomEntityReference extends DomParentNode2 {
 
   @Override
   public int hashCode() {
-    return this.name.hashCode();
+    return this.name().hashCode();
   }
 
   @Override
