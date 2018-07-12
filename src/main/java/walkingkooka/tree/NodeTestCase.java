@@ -56,6 +56,13 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    final public void testRootWithoutParent() {
+        final N node = this.createNode();
+        assertEquals("node must have no parent", Optional.empty(), node.parent());
+        assertSame(node, node.root());
+    }
+
+    @Test
     final public void testChildrenIndices() {
         this.childrenCheck(this.createNode());
     }
