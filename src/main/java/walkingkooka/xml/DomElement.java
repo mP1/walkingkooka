@@ -91,6 +91,16 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
         return super.appendChild(child).asElement();
     }
 
+    @Override
+    public DomElement removeChild(final DomNode child) {
+        return super.removeChild(child).asElement();
+    }
+
+    @Override
+    public DomElement removeChild(final int child) {
+        return super.removeChild(child).asElement();
+    }
+
     // attributes................................................................................
     // TODO Attr.getSpecified ???
 

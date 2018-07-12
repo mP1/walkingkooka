@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
@@ -40,6 +41,7 @@ import java.util.Set;
  * Note that some types such as primitive and their wrappers, String and Class are considered basic types without any children.
  */
 public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttributeName, Object>,
+        HasChildrenValues<Object, PojoNode>,
         Value<Object>,
         Comparable<PojoNode>{
 

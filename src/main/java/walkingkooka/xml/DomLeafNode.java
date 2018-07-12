@@ -71,6 +71,16 @@ abstract class DomLeafNode extends DomNode{
 
     private final static Optional<DomNode> NO_CHILD = Optional.empty();
 
+    @Override
+    public DomNode removeChild(final DomNode child){
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public DomNode removeChild(final int child){
+        throw new UnsupportedOperationException();
+    }
+
     // attributes.................................................................................................
 
     @Override

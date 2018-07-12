@@ -70,4 +70,14 @@ final class ParserTokenLeafNode extends ParserTokenNode {
     }
 
     private final static Optional<ParserTokenNode> NO_CHILD = Optional.empty();
+
+    @Override
+    public ParserTokenNode removeChild(final ParserTokenNode child) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ParserTokenNode removeChild(final int child) {
+        throw new UnsupportedOperationException();
+    }
 }

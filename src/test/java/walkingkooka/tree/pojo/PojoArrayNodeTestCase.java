@@ -17,7 +17,20 @@
 
 package walkingkooka.tree.pojo;
 
+import org.junit.Test;
+
 public abstract class PojoArrayNodeTestCase<N extends PojoArrayNode, V> extends PojoArrayOrCollectionNodeTestCase<N, V> {
 
     final static PojoName ARRAY = PojoName.property("array");
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testRemoveChild() {
+        final N node = this.createPojoNode();
+        node.removeChild(node);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testRemoveChildByIndex() {
+        this.createPojoNode().removeChild(0);
+    }
 }

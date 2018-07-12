@@ -165,7 +165,7 @@ public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNode
         return this.values(this.differentChildren(firstNode));
     }
 
-    private List<Object> values(final List<PojoNode> children) {
+    final List<Object> values(final List<PojoNode> children) {
         return children.stream()
                 .map(n -> n.value())
                 .collect(Collectors.toList());
