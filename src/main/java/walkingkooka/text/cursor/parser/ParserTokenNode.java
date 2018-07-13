@@ -69,7 +69,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
         this.index = index;
     }
 
-    final SequenceParserToken<ParserToken> asSequenceParserToken() {
+    final SequenceParserToken asSequenceParserToken() {
         return Cast.to(this.token);
     }
 
@@ -110,7 +110,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     private int index;
 
-    private int findIndex(final SequenceParserToken<ParserToken> parent) {
+    private int findIndex(final SequenceParserToken parent) {
         return parent.value().indexOf(this);
     }
 

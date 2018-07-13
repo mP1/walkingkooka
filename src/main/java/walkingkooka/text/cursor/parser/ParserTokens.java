@@ -45,6 +45,13 @@ public final class ParserTokens implements PublicStaticHelper {
     public static DoubleQuotedParserToken doubleQuoted(final String value, final String text) {
         return DoubleQuotedParserToken.with(value, text);
     }
+
+    /**
+     * {@see MissingParserToken}
+     */
+    public static MissingParserToken missing(final ParserTokenNodeName name, final String text) {
+        return MissingParserToken.with(name, text);
+    }
     
     /**
      * {@see NumberParserToken}
@@ -63,7 +70,7 @@ public final class ParserTokens implements PublicStaticHelper {
     /**
      * {@see SequenceParserToken}
      */
-    public static <T extends ParserToken> SequenceParserToken<T> sequence(final List<T> tokens, final String text) {
+    public static SequenceParserToken sequence(final List<? super ParserToken> tokens, final String text) {
         return SequenceParserToken.with(tokens, text);
     }
 
