@@ -46,6 +46,13 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
+     * {@see CustomToStringPredicate}
+     */
+    public static <T> Predicate<T> customToString(final Predicate<T> predicate, final String toString) {
+        return CustomToStringPredicate.wrap(predicate, toString);
+    }
+
+    /**
      * If a value is null or fails the {@link Predicate}, a {@link NullPointerException} or {@link IllegalArgumentException}
      * will be thrown.
      */
