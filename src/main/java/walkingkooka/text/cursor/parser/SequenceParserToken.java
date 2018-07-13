@@ -20,18 +20,19 @@ import walkingkooka.Cast;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * This {@link ParserToken} holds a sequence in order of tokens.
  */
-public final class SequenceParserToken<T extends ParserToken> extends ParserTemplateToken<List<T>> {
+public final class SequenceParserToken extends ParserTemplateToken<List<ParserToken>> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SequenceParserToken.class);
 
     /**
      * Factory that wraps many tokens in a {@link SequenceParserToken}.
      */
-    static <T extends ParserToken> SequenceParserToken<T> with(final List<T> tokens, final String text) {
+    static <T extends ParserToken> SequenceParserToken with(final List tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");
         Objects.requireNonNull(text, "text");
 
@@ -43,17 +44,17 @@ public final class SequenceParserToken<T extends ParserToken> extends ParserTemp
         return new SequenceParserToken(tokens, text);
     }
 
-    private SequenceParserToken(final List<T> tokens, final String text) {
+    private SequenceParserToken(final List tokens, final String text) {
         super(tokens, text);
     }
 
     @Override
-    public SequenceParserToken<T> setText(final String text){
+    public SequenceParserToken setText(final String text){
         return Cast.to(this.setText0(text));
     }
 
     @Override
-    SequenceParserToken<T> replaceText(final String text) {
+    SequenceParserToken replaceText(final String text) {
         return with(this.value(), text);
     }
 
@@ -74,6 +75,8 @@ public final class SequenceParserToken<T extends ParserToken> extends ParserTemp
 
     @Override
     public String toString() {
-        return this.value().toString();
+        return this.value().stream()
+                .map( e -> String.valueOf(e))
+                .collect(Collectors.joining(","));
     }
 }

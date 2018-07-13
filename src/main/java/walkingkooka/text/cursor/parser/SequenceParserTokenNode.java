@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 final class SequenceParserTokenNode extends ParserTokenNode{
 
-    SequenceParserTokenNode(final SequenceParserToken<ParserToken> token, final Optional<ParserTokenNode> parent, final int index) {
+    SequenceParserTokenNode(final SequenceParserToken token, final Optional<ParserTokenNode> parent, final int index) {
         super(token, parent, index);
         this.childrenParent = Optional.of(this);
     }
