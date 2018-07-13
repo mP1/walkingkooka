@@ -73,7 +73,7 @@ final public class AbsoluteNodeSelectorTest extends
 
     @Test
     public void testToString2() {
-        Assert.assertEquals("/" + PREDICATE, this.createSelector2().toString());
+        Assert.assertEquals("/[" + PREDICATE + "]", this.createSelector2().toString());
     }
 
     @Test

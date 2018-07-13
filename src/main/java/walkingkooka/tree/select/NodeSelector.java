@@ -23,6 +23,7 @@ import walkingkooka.tree.Node;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * A selector maybe used to select zero or more nodes within a tree given a {@link Node}.
@@ -125,6 +126,13 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     abstract void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     final static String DEFAULT_AXIS_SEPARATOR = "::";
+
+    /**
+     * Returns a {@link Predicate} that returns true if at least one {@link Node} is matched.
+     */
+    public final Predicate<N> asPredicate() {
+        return new NodeSelectorPredicate<>(this);
+    }
 
     /**
      * Force sub classes to implement.
