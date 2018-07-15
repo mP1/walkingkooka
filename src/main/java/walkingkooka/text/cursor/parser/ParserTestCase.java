@@ -33,12 +33,12 @@ import static org.junit.Assert.fail;
 public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserToken, C extends ParserContext> extends PackagePrivateClassTestCase<P> {
 
     @Test(expected = NullPointerException.class)
-    public final void testNullCursorFail() {
+    public void testNullCursorFail() {
         this.createParser().parse(null, this.createContext());
     }
 
     @Test
-    public final void testEmptyCursorFail() {
+    public void testEmptyCursorFail() {
         this.parseFailAndCheck("");
     }
 
@@ -67,26 +67,31 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
     }
 
     protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final C context, final TextCursor cursor, final TT token, final String text, final String textAfter) {
-        assertNotNull("value", token);
+        return this.parseAndCheck(parser, context, cursor, Optional.of(token), text, textAfter);
+    }
+
+    protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final C context, final TextCursor cursor, final Optional<TT> token, final String text, final String textAfter) {
+        assertNotNull("token", token);
         assertNotNull("text", text);
 
         final TextCursorSavePoint before = cursor.save();
         final Optional<TT> result = this.parse(parser, cursor, context);
 
-        CharSequence consumed = before.textBetween();
+        final CharSequence consumed = before.textBetween();
 
         final TextCursorSavePoint after = cursor.save();
         this.moveToEnd(cursor);
 
-        if(consumed.length() == 0){
-            consumed = after.textBetween();
+        CharSequence all = consumed;
+        if(all.length() == 0){
+            all = after.textBetween();
         }
 
-        assertEquals("Incorrect result returned by parser: " + parser + " from text " + CharSequences.quoteAndEscape(consumed),
-                Optional.of(token),
+        assertEquals("Incorrect result returned by parser: " + parser + " from text " + CharSequences.quoteAndEscape(all),
+                token,
                 result);
         assertEquals("incorrect consumed text", consumed, text);
-        assertEquals("token consume text is incorrect", text, result.get().text());
+        assertEquals("token consume text is incorrect", text, result.isPresent() ? result.get().text() : "");
         assertEquals("Incorrect text after match", textAfter, after.textBetween().toString());
 
         after.restore();
