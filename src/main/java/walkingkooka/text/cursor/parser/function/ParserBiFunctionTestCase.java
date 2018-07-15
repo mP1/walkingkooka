@@ -32,6 +32,14 @@ public abstract class ParserBiFunctionTestCase<F extends BiFunction<SequencePars
         TOUT extends ParserToken>
         extends BiFunctionTestCase<F, SequenceParserToken, C, TOUT> {
 
+    protected TOUT apply(final ParserToken...tokens) {
+        return this.apply(this.sequence(tokens));
+    }
+
+    protected TOUT apply(final SequenceParserToken token) {
+        return this.createBiFunction().apply(token, this.createContext());
+    }
+
     protected void applyAndCheck(final SequenceParserToken token,
                                  final TOUT result) {
         this.applyAndCheck(token, this.createContext(), result);

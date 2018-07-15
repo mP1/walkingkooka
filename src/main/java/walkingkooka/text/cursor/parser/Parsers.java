@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.text.cursor.parser.function.ParserBiFunctions;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.List;
@@ -96,6 +97,26 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <C extends ParserContext> Parser<StringParserToken, C> string(final String literal) {
         return StringParser.with(literal);
+    }
+
+    /**
+     * Returns a {@link Parser} that merges the text from the tokens before and after the middle, returning just the middle
+     */
+    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> surroundAndMerge(final Parser<? extends ParserToken, C> before,
+                                                                                    final ParserTokenNodeName beforeName,
+                                                                                    final Parser<T, C> middle,
+                                                                                    final ParserTokenNodeName middleName,
+                                                                                    final Class<T> middleTokenClass,
+                                                                                    final Parser<? extends ParserToken, C> after,
+                                                                                    final ParserTokenNodeName afterName) {
+        final Parser<SequenceParserToken, C> three = Parsers.<C>sequenceParserBuilder()
+                .optional(before, beforeName)
+                .required(middle, middleName)
+                .optional(after, afterName)
+                .build();
+
+        return Parsers.transform(three,
+                ParserBiFunctions.sequenceMerger(middleTokenClass));
     }
 
     /**
