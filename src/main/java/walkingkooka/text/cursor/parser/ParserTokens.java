@@ -35,7 +35,7 @@ public final class ParserTokens implements PublicStaticHelper {
     /**
      * {@see DecimalParserToken}
      */
-    public static DecimalParserToken Decimal(final BigDecimal value, final String text) {
+    public static DecimalParserToken decimal(final BigDecimal value, final String text) {
         return DecimalParserToken.with(value, text);
     }
     
@@ -72,6 +72,13 @@ public final class ParserTokens implements PublicStaticHelper {
      */
     public static SequenceParserToken sequence(final List<? super ParserToken> tokens, final String text) {
         return SequenceParserToken.with(tokens, text);
+    }
+
+    /**
+     * {@see SignParserToken}
+     */
+    public static SignParserToken sign(final boolean value, final String text) {
+        return SignParserToken.with(value, text);
     }
 
     /**

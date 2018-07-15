@@ -43,4 +43,11 @@ public interface ParserToken {
      * Returns the name of the token
      */
     ParserTokenNodeName name();
+
+    /**
+     * Only returns true for missing tokens.
+     */
+    default boolean isMissing() {
+       return false;
+    }
 }

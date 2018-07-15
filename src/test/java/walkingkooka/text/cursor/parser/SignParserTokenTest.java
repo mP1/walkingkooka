@@ -14,11 +14,31 @@
  *  * See the License for the specific language governing permissions and
  *  * limitations under the License.
  *  *
- *
+ *  
  */
-
 package walkingkooka.text.cursor.parser;
 
-final public class FakeParserContext implements ParserContext {
+import org.junit.Test;
 
+public final class SignParserTokenTest extends ParserTokenTestCase<SignParserToken> {
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullTextFails() {
+        SignParserToken.with(true, null);
+    }
+    
+    @Override
+    protected SignParserToken createToken() {
+        return SignParserToken.with(true, "+");
+    }
+
+    @Override
+    protected SignParserToken createDifferentToken() {
+        return SignParserToken.with(false, "-");
+    }
+
+    @Override
+    protected Class<SignParserToken> type() {
+        return SignParserToken.class;
+    }
 }

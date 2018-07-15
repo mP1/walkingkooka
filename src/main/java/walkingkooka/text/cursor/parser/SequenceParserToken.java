@@ -20,6 +20,7 @@ import walkingkooka.Cast;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -61,6 +62,30 @@ public final class SequenceParserToken extends ParserTemplateToken<List<ParserTo
     @Override
     public ParserTokenNodeName name() {
         return NAME;
+    }
+
+    public <T extends ParserToken> Optional<T> optional(final int index, final Class<T> type) {
+        final ParserToken token = this.token(index);
+        return token.isMissing() ?
+                Optional.empty() :
+                Optional.of(type.cast(token));
+    }
+
+    public <T extends ParserToken> T required(final int index, final Class<T> type) {
+        final ParserToken token = this.token(index);
+        if(token.isMissing()){
+            throw new MissingParserTokenException("Token " + index + " missing, tokens=" + this);
+        }
+        return type.cast(token);
+    }
+
+    public ParserToken token(final int index) {
+        final List<ParserToken> tokens = this.value();
+        try{
+            return tokens.get(index);
+        } catch (final IndexOutOfBoundsException cause){
+            throw new IndexOutOfBoundsException("Invalid index " + index + " must be between 0 and " + tokens.size());
+        }
     }
 
     @Override
