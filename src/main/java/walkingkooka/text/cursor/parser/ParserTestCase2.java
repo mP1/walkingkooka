@@ -14,9 +14,12 @@
  * limitations under the License.
  *
  */
-
 package walkingkooka.text.cursor.parser;
 
-final class TestParserContext implements ParserContext {
+public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T extends ParserToken> extends ParserTestCase<P, T, FakeParserContext> {
 
+    @Override
+    protected FakeParserContext createContext() {
+        return new FakeParserContext();
+    }
 }

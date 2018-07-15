@@ -16,10 +16,5 @@
  */
 package walkingkooka.text.cursor.parser;
 
-public abstract class ParserTemplateTestCase<P extends Parser<T, TestParserContext>, T extends ParserToken> extends ParserTestCase<P, T, TestParserContext> {
-
-    @Override
-    protected TestParserContext createContext() {
-        return new TestParserContext();
-    }
+public abstract class ParserTemplateTestCase<P extends Parser<T, FakeParserContext>, T extends ParserToken> extends ParserTestCase2<P, T> {
 }

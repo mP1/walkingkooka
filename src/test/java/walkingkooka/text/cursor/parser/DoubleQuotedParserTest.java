@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 
-public final class DoubleQuotedParserTest extends QuotedParserTestCase<DoubleQuotedParser<TestParserContext>, DoubleQuotedParserToken> {
+public final class DoubleQuotedParserTest extends QuotedParserTestCase<DoubleQuotedParser<FakeParserContext>, DoubleQuotedParserToken> {
 
     @Test
     public void testToStringDoubleQuoted() {
@@ -47,7 +47,7 @@ public final class DoubleQuotedParserTest extends QuotedParserTestCase<DoubleQuo
     }
 
     @Override
-    protected Class<DoubleQuotedParser<TestParserContext>> type() {
+    protected Class<DoubleQuotedParser<FakeParserContext>> type() {
         return Cast.to(DoubleQuotedParser.class);
     }
 }

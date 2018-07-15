@@ -20,11 +20,11 @@ import org.junit.Test;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
 
-public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<TestParserContext>, SequenceParser<TestParserContext>> {
+public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, SequenceParser<FakeParserContext>> {
 
-    private final static Parser<StringParserToken, TestParserContext> PARSER1 = Parsers.string("1");
-    private final static Parser<StringParserToken, TestParserContext> PARSER2 = Parsers.string("2");
-    private final static Parser<StringParserToken, TestParserContext> PARSER3 = Parsers.string("3");
+    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = Parsers.string("1");
+    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = Parsers.string("2");
+    private final static Parser<StringParserToken, FakeParserContext> PARSER3 = Parsers.string("3");
 
     @Test(expected = NullPointerException.class)
     public void testOptionalNullParserFails() {
@@ -72,7 +72,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     }
 
     @Override
-    protected SequenceParserBuilder<TestParserContext> createBuilder() {
+    protected SequenceParserBuilder<FakeParserContext> createBuilder() {
         return SequenceParserBuilder.create();
     }
 }
