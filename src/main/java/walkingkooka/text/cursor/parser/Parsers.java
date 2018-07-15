@@ -20,6 +20,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
@@ -46,6 +47,13 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <C extends ParserContext> Parser<DoubleQuotedParserToken, C> doubleQuoted(){
         return DoubleQuotedParser.instance();
+    }
+
+    /**
+     * {@see FixedParser}
+     */
+    static <T extends ParserToken, C extends ParserContext> FixedParser<T, C> fixed(final Optional<T> result) {
+        return FixedParser.with(result);
     }
 
     /**
