@@ -36,7 +36,7 @@ abstract class ParserBiFunctionTemplate<C extends ParserContext, T extends Parse
     public final T apply(final SequenceParserToken token, final C c) {
         try {
             return this.apply0(token, c);
-        } catch (final ClassCastException | IndexOutOfBoundsException cause) {
+        } catch (final ClassCastException | IllegalStateException | IndexOutOfBoundsException cause) {
             throw new ParserException("Failure while applying to token="+ token + ", message: " + cause, cause);
         }
     }

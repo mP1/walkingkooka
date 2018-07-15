@@ -47,6 +47,8 @@ final class SignedNumberParserTokenBiFunction<T extends ParserToken & HasSign, C
 
     @Override
     T apply0(final SequenceParserToken token, final C c) {
+        token.checkTokenCount(2);
+
         final Optional<SignParserToken> sign = token.optional(0, SignParserToken.class);
         final T number = token.required(1, this.token);
 

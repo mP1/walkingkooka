@@ -45,6 +45,8 @@ final class PrefixedNumberParserTokenBiFunction<C extends ParserContext> extends
 
     @Override
     NumberParserToken apply0(final SequenceParserToken token, final C c) {
+        token.checkTokenCount(2);
+
         final StringParserToken prefix = token.required(0, StringParserToken.class);
         final NumberParserToken number = token.required(1, NumberParserToken.class);
 
