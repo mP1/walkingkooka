@@ -20,15 +20,15 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
-public final class SequenceParserTest extends ParserTemplateTestCase<SequenceParser<TestParserContext>,
+public final class SequenceParserTest extends ParserTemplateTestCase<SequenceParser<FakeParserContext>,
         SequenceParserToken> {
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
     private final static String TEXT3 = "123";
-    private final static Parser<StringParserToken, TestParserContext> PARSER1 = Parsers.string(TEXT1);
-    private final static Parser<StringParserToken, TestParserContext> PARSER2 = Parsers.string(TEXT2);
-    private final static Parser<StringParserToken, TestParserContext> PARSER3 = Parsers.string(TEXT3);
+    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = Parsers.string(TEXT1);
+    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = Parsers.string(TEXT2);
+    private final static Parser<StringParserToken, FakeParserContext> PARSER3 = Parsers.string(TEXT3);
     private final static StringParserToken TOKEN1 = string(TEXT1);
     private final static StringParserToken TOKEN2 = string(TEXT2);
     private final static StringParserToken TOKEN3 = string(TEXT3);
@@ -145,7 +145,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     }
 
     @Override
-    protected SequenceParser<TestParserContext> createParser() {
+    protected SequenceParser<FakeParserContext> createParser() {
         return SequenceParserBuilder.create()
                 .required(PARSER1, StringParserToken.NAME)
                 .required(PARSER2, StringParserToken.NAME)
@@ -158,7 +158,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     }
 
     @Override
-    protected Class<SequenceParser<TestParserContext>> type() {
+    protected Class<SequenceParser<FakeParserContext>> type() {
         return Cast.to(SequenceParser.class);
     }
 }

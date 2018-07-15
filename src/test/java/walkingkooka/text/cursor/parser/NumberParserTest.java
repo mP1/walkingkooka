@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.math.BigInteger;
 
-public class NumberParserTest extends ParserTemplateTestCase<NumberParser<TestParserContext>, NumberParserToken> {
+public class NumberParserTest extends ParserTemplateTestCase<NumberParser<FakeParserContext>, NumberParserToken> {
 
     private final static int RADIX = 10;
 
@@ -105,7 +105,7 @@ public class NumberParserTest extends ParserTemplateTestCase<NumberParser<TestPa
     }
 
     @Override
-    protected Class<NumberParser<TestParserContext>> type() {
+    protected Class<NumberParser<FakeParserContext>> type() {
         return Cast.to(NumberParser.class);
     }
 }

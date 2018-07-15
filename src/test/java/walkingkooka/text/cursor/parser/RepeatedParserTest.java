@@ -21,11 +21,11 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursors;
 
-public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<StringParserToken, TestParserContext>,
+public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<StringParserToken, FakeParserContext>,
         RepeatedParserToken<StringParserToken>> {
 
     private final static String TEXT = "abc";
-    private final static Parser<StringParserToken, TestParserContext> PARSER = Parsers.string(TEXT);
+    private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.string(TEXT);
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParserFails() {
@@ -83,7 +83,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
     }
 
     @Override
-    protected RepeatedParser<StringParserToken, TestParserContext> createParser() {
+    protected RepeatedParser<StringParserToken, FakeParserContext> createParser() {
         return RepeatedParser.with(PARSER);
     }
 
@@ -102,7 +102,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
     }
 
     @Override
-    protected Class<RepeatedParser<StringParserToken, TestParserContext>> type() {
+    protected Class<RepeatedParser<StringParserToken, FakeParserContext>> type() {
         return Cast.to(RepeatedParser.class);
     }
 }

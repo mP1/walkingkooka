@@ -20,6 +20,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.List;
+import java.util.function.BiFunction;
 
 /**
  * A collection of factory methods to create parsers.
@@ -87,6 +88,14 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <C extends ParserContext> Parser<StringParserToken, C> string(final String literal) {
         return StringParser.with(literal);
+    }
+
+    /**
+     * {@see TransformingParser}
+     */
+    public static <TIN extends ParserToken, TOUT extends ParserToken, C extends ParserContext> Parser<TOUT, C> transform(final Parser<TIN, C> parser,
+                                                                                                                    final BiFunction<TIN, C, TOUT> transformer) {
+        return TransformingParser.with(parser, transformer);
     }
 
     /**

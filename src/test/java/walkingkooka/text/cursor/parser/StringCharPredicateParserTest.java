@@ -22,7 +22,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
 
-public class StringCharPredicateParserTest extends ParserTemplateTestCase<StringCharPredicateParser<TestParserContext>, StringParserToken> {
+public class StringCharPredicateParserTest extends ParserTemplateTestCase<StringCharPredicateParser<FakeParserContext>, StringParserToken> {
 
     private final static CharPredicate DIGITS = CharPredicates.digit();
 
@@ -96,7 +96,7 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
     }
 
     @Override
-    protected Class<StringCharPredicateParser<TestParserContext>> type() {
+    protected Class<StringCharPredicateParser<FakeParserContext>> type() {
         return Cast.to(StringCharPredicateParser.class);
     }
 }

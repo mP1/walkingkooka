@@ -20,7 +20,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
-public class StringParserTest extends ParserTemplateTestCase<StringParser<TestParserContext>, StringParserToken> {
+public class StringParserTest extends ParserTemplateTestCase<StringParser<FakeParserContext>, StringParserToken> {
 
     private final static String STRING = "abc";
 
@@ -65,7 +65,7 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<TestPa
     }
 
     @Override
-    protected Class<StringParser<TestParserContext>> type() {
+    protected Class<StringParser<FakeParserContext>> type() {
         return Cast.to(StringParser.class);
     }
 }

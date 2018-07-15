@@ -20,13 +20,13 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
-public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<StringParserToken, TestParserContext>,
+public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<StringParserToken, FakeParserContext>,
         StringParserToken> {
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
-    private final static Parser<StringParserToken, TestParserContext> PARSER1 = Parsers.string(TEXT1);
-    private final static Parser<StringParserToken, TestParserContext> PARSER2 = Parsers.string(TEXT2);
+    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = Parsers.string(TEXT1);
+    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = Parsers.string(TEXT2);
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParsersFails() {
@@ -84,7 +84,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     }
 
     @Override
-    protected AlternativesParser<StringParserToken, TestParserContext> createParser() {
+    protected AlternativesParser<StringParserToken, FakeParserContext> createParser() {
         return Cast.to(AlternativesParser.with(Lists.of(PARSER1, PARSER2)));
     }
 
@@ -93,7 +93,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     }
 
     @Override
-    protected Class<AlternativesParser<StringParserToken, TestParserContext>> type() {
+    protected Class<AlternativesParser<StringParserToken, FakeParserContext>> type() {
         return Cast.to(AlternativesParser.class);
     }
 }
