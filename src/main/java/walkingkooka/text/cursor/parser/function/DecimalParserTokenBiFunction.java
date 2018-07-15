@@ -59,9 +59,12 @@ final class DecimalParserTokenBiFunction<C extends ParserContext> extends Parser
     private final static int FRACTION = DECIMAL + 1;
     private final static int E = FRACTION + 1;
     private final static int EXPONENT = E + 1;
+    private final static int COUNT = EXPONENT + 1;
 
     @Override
     DecimalParserToken apply0(final SequenceParserToken token, final C c) {
+        token.checkTokenCount(COUNT);
+
         BigDecimal value = new BigDecimal(number(token.required(WHOLE_NUMBER, NumberParserToken.class)));
 
         // decimal-point then fraction ???

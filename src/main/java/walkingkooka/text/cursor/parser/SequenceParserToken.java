@@ -64,6 +64,18 @@ public final class SequenceParserToken extends ParserTemplateToken<List<ParserTo
         return NAME;
     }
 
+    /**
+     * Asserts that the sequence contains the correct number of tokens throwing a {@link IllegalStateException} if the
+     * test fails.
+     */
+    public void checkTokenCount(final int expected) {
+        final List<ParserToken> list = this.value();
+        final int actual = list.size();
+        if(actual != expected ){
+            throw new IllegalStateException("Expected " + expected + " but got " + actual + "=" + list);
+        }
+    }
+
     public <T extends ParserToken> Optional<T> optional(final int index, final Class<T> type) {
         final ParserToken token = this.token(index);
         return token.isMissing() ?
