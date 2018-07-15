@@ -1,0 +1,76 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+package walkingkooka.text.cursor.parser.function;
+
+import org.junit.Test;
+import walkingkooka.Cast;
+import walkingkooka.text.cursor.parser.FakeParserContext;
+import walkingkooka.text.cursor.parser.NumberParserToken;
+import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.ParserTokens;
+
+import java.math.BigInteger;
+
+public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunctionTestCase2<PrefixedNumberParserTokenBiFunction<FakeParserContext>, NumberParserToken> {
+
+    @Test(expected = ParserException.class)
+    public void testInvalidFirstToken() {
+        this.applyAndCheck(this.invalidFirstToken(), this.secondToken(), null);
+    }
+
+    @Test(expected = ParserException.class)
+    public void testInvalidSecondToken() {
+        this.applyAndCheck(this.firstToken(), this.invalidSecondToken(), null);
+    }
+
+    @Test
+    public void testApply() {
+        this.applyAndCheck(this.firstToken(), this.secondToken(),
+                ParserTokens.number(BigInteger.valueOf(31), "0x1f"));
+    }
+
+    private void applyAndCheck(final ParserToken first, final ParserToken second, final NumberParserToken result) {
+        this.applyAndCheck(this.sequence(first, second), result);
+    }
+
+    @Override
+    protected PrefixedNumberParserTokenBiFunction<FakeParserContext> createBiFunction() {
+        return PrefixedNumberParserTokenBiFunction.get();
+    }
+
+    @Override
+    protected Class<PrefixedNumberParserTokenBiFunction<FakeParserContext>> type() {
+        return Cast.to(PrefixedNumberParserTokenBiFunction.class);
+    }
+
+    private ParserToken invalidFirstToken() {
+        return ParserTokens.singleQuoted("First", "'FIRST'");
+    }
+
+    private ParserToken invalidSecondToken() {
+        return ParserTokens.singleQuoted("Second", "'Second'");
+    }
+
+    private ParserToken firstToken() {
+        return ParserTokens.string("0x", "0x");
+    }
+
+    private ParserToken secondToken() {
+        return ParserTokens.number(BigInteger.valueOf(31), "1f");
+    }
+}
