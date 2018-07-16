@@ -32,7 +32,9 @@ final class RepeatedParser<T extends ParserToken, C extends ParserContext> exten
     static <T extends ParserToken, C extends ParserContext> RepeatedParser<T,C> with(final Parser<T, C> parser){
         Objects.requireNonNull(parser, "parser");
 
-        return new RepeatedParser<>(parser);
+        return parser instanceof RepeatedParser ?
+                parser.cast() :
+                new RepeatedParser<>(parser);
     }
 
     private RepeatedParser(final Parser<T, C> parser){

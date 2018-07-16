@@ -48,6 +48,14 @@ final class OptionalParser<C extends ParserContext> implements Parser<ParserToke
                 this.missing;
     }
 
+    @Override
+    public OptionalParser<C> optional(final ParserTokenNodeName name) {
+        Objects.requireNonNull(name, "name");
+        return this.missing.get().name().equals(name) ?
+                this :
+                new OptionalParser<C>(this.parser, name);
+    }
+
     private final Parser<ParserToken, C> parser;
     private final Optional<ParserToken> missing;
 

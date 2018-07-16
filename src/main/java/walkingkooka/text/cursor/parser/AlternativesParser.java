@@ -16,6 +16,9 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.cursor.TextCursor;
 
 import java.util.List;
@@ -26,7 +29,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link Parser} that tries all parsers until one is matched and then ignores the remainder.
  */
-final class AlternativesParser<T extends ParserToken, C extends ParserContext> extends ParserTemplate<T, C> {
+final class AlternativesParser<T extends ParserToken, C extends ParserContext> extends ParserTemplate<T, C> implements HashCodeEqualsDefined {
 
     static <T extends ParserToken, C extends ParserContext> Parser<T,C> with(final List<Parser<T, C>> parsers){
         Objects.requireNonNull(parsers, "parsers");
@@ -65,7 +68,35 @@ final class AlternativesParser<T extends ParserToken, C extends ParserContext> e
         return token;
     }
 
+    @Override
+    public Parser<T, C> or(final Parser<T, C> parser) {
+        Objects.requireNonNull(parser, "parser");
+
+        // append the new parser to the current list and make a new AlternativesParser
+        final List<Parser<T, C>> parsers = Lists.array();
+        parsers.addAll(this.parsers);
+        parsers.add(parser);
+
+        return new AlternativesParser(parsers);
+    }
+
     private final List<Parser<T, C>> parsers;
+
+    // Object.................................................................................................
+
+    @Override
+    public int hashCode() {
+        return this.parsers.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other || other instanceof AlternativesParser && this.equals0(Cast.to(other));
+    }
+
+    private boolean equals0(final AlternativesParser<?, ?> other) {
+        return this.parsers.equals(other.parsers);
+    }
 
     @Override
     public String toString() {

@@ -77,6 +77,14 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
                 TEXT2,
                 extra);
     }
+
+    @Test
+    public void testOr() {
+        final AlternativesParser<StringParserToken, FakeParserContext> parser = createParser();
+
+        final Parser<StringParserToken, FakeParserContext> parser3 = Parsers.string("text3");
+        assertEquals(this.createParser0(PARSER1, PARSER2, parser3), parser.or(parser3));
+    }
     
     @Test
     public void testToString() {
@@ -85,7 +93,11 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     @Override
     protected AlternativesParser<StringParserToken, FakeParserContext> createParser() {
-        return Cast.to(AlternativesParser.with(Lists.of(PARSER1, PARSER2)));
+        return this.createParser0(PARSER1, PARSER2);
+    }
+
+    private AlternativesParser<StringParserToken, FakeParserContext> createParser0(final Parser<StringParserToken, FakeParserContext>...parsers) {
+        return Cast.to(AlternativesParser.with(Lists.of(parsers)));
     }
 
     private static StringParserToken string(final String s) {

@@ -16,8 +16,11 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -31,4 +34,34 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
      * Attempts to parse the text given by the {@link TextCursor}.
      */
     Optional<T> parse(final TextCursor cursor, final C context);
+
+    /**
+     * Converts this parser into an optional.
+     */
+    default Parser<ParserToken, C> optional(final ParserTokenNodeName name) {
+        return Parsers.optional(this, name);
+    }
+
+    /**
+     * Combines this parser with another.
+     */
+    default Parser<T, C> or(final Parser<T, C> parser) {
+        Objects.requireNonNull(parser, "parser");
+
+        return Parsers.alternatives( Lists.of(this, parser));
+    }
+
+    /**
+     * Makes this a repeating token.
+     */
+    default Parser<RepeatedParserToken<T>, C> repeating(){
+        return Parsers.repeated(this);
+    }
+
+    /**
+     * Helper that makes casting and working around generics a little less noisy.
+     */
+    default <P extends Parser<T, C>, T extends ParserToken> P cast() {
+        return Cast.to(this);
+    }
 }
