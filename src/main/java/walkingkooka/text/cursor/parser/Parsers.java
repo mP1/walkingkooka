@@ -72,6 +72,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see OptionalParser}
+     */
+    public static <C extends ParserContext> Parser<ParserToken, C> optional(final Parser<? extends ParserToken, C> parser, final ParserTokenNodeName name) {
+        return OptionalParser.with(parser, name);
+    }
+
+    /**
      * {@see RepeatedParser}
      */
     public static <T extends ParserToken, C extends ParserContext> Parser<RepeatedParserToken<T>, C> repeated(final Parser<T, C> parser){
