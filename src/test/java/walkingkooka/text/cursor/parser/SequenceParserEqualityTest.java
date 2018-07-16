@@ -37,6 +37,15 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
     }
 
     @Test
+    public void testEqualWithoutNames() {
+        this.checkEquals(SequenceParserBuilder.create()
+                .required(PARSER1)
+                .required(PARSER2)
+                .optional(PARSER3)
+                .build());
+    }
+
+    @Test
     public void testDifferent() {
         this.checkNotEquals(SequenceParserBuilder.create()
                 .required(PARSER3, NAME1)

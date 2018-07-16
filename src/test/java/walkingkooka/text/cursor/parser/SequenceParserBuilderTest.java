@@ -72,6 +72,20 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
                 .required(PARSER1, ParserTokenNodeName.with(2));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testOptionalInvalidIndexName3() {
+        this.createBuilder()
+                .optional(PARSER1)
+                .optional(PARSER1, ParserTokenNodeName.with(2));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRequiredInvalidIndexName3() {
+        this.createBuilder()
+                .required(PARSER1)
+                .required(PARSER1, ParserTokenNodeName.with(2));
+    }
+
     @Test(expected = BuilderException.class)
     public void testBuildOneParserFails() {
         this.createBuilder()
@@ -84,6 +98,14 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
         SequenceParserBuilder.create()
                 .optional(PARSER1, StringParserToken.NAME)
                 .required(PARSER2, StringParserToken.NAME)
+                .build();
+    }
+
+    @Test
+    public void testMoreThanTwoParsers2(){
+        SequenceParserBuilder.create()
+                .optional(PARSER1)
+                .required(PARSER2)
                 .build();
     }
 

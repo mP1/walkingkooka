@@ -32,12 +32,24 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
         super();
     }
 
+    public SequenceParserBuilder<C> optional(final Parser<? extends ParserToken, C> parser) {
+        return this.optional(parser, this.indexName());
+    }
+
     public SequenceParserBuilder<C> optional(final Parser<? extends ParserToken, C> parser, final ParserTokenNodeName name) {
         return this.add(new SequenceParserOptionalComponent(parser, name));
     }
 
+    public SequenceParserBuilder<C> required(final Parser<? extends ParserToken, C> parser) {
+        return this.required(parser, this.indexName());
+    }
+
     public SequenceParserBuilder<C> required(final Parser<? extends ParserToken, C> parser, final ParserTokenNodeName name) {
         return this.add(new SequenceParserRequiredComponent(parser, name));
+    }
+
+    private ParserTokenNodeName indexName() {
+        return ParserTokenNodeName.with(this.components.size());
     }
 
     @Override
