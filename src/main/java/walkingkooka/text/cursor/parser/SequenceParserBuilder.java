@@ -49,6 +49,7 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
     }
 
     private SequenceParserBuilder<C> add(final SequenceParserComponent component) {
+        component.checkName(this.components);
         this.components.add(component);
         return this;
     }

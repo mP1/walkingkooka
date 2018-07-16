@@ -59,6 +59,11 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         assertEquals("" + parser, RepeatedParser.class, parser.getClass());
     }
 
+    @Test(expected = NullPointerException.class)
+    public final void testBuilderWithNull() {
+        this.createParser().builder(null);
+    }
+
     @Test
     public void testOr() {
         final P parser = this.createParser();

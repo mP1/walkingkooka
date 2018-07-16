@@ -52,10 +52,21 @@ public final class ParserTokenNodeNameTest extends NameTestCase<ParserTokenNodeN
         ParserTokenNodeName.with("Hello Goodbye");
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithNegativeIndexFails() {
+        ParserTokenNodeName.with(-1);
+    }
+
     @Test
     public void testWith() {
         final ParserTokenNodeName name = ParserTokenNodeName.with("Hello");
         assertEquals("name.value", "Hello", name.value());
+    }
+
+    @Test
+    public void testWithIndex() {
+        final ParserTokenNodeName name = ParserTokenNodeName.with(1);
+        assertEquals("name.value", "1", name.value());
     }
 
     @Test

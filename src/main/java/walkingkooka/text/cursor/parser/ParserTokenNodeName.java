@@ -53,11 +53,42 @@ public final class ParserTokenNodeName implements Name {
     }
 
     /**
+     * Creates a new {@link ParserTokenNodeName} with an index.
+     */
+    public static ParserTokenNodeName with(final int index) {
+        if(index < 0) {
+            throw new IllegalArgumentException("Index " + index + " must not be negative");
+        }
+        return new ParserTokenNodeName(index);
+    }
+
+    /**
      * Package private ctor to limit creation.
      */
     ParserTokenNodeName(final String value) {
-        this.value = value;
+        this(value, -1);
     }
+
+    /**
+     * Package private ctor to limit creation.
+     */
+    ParserTokenNodeName(final int index) {
+        this(String.valueOf(index), index);
+    }
+
+    /**
+     * Private ctor to limit creation.
+     */
+    private ParserTokenNodeName(final String value, final int index) {
+        this.value = value;
+        this.index = index;
+    }
+
+    int index() {
+        return this.index;
+    }
+
+    private final int index;
 
     @Override
     public String value() {

@@ -33,7 +33,7 @@ final class RepeatedParser<T extends ParserToken, C extends ParserContext> exten
         Objects.requireNonNull(parser, "parser");
 
         return parser instanceof RepeatedParser ?
-                parser.cast() :
+                parser.castTC() :
                 new RepeatedParser<>(parser);
     }
 

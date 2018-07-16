@@ -18,7 +18,9 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 
@@ -28,7 +30,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that requires all parsers are matched in order returning all tokens within a {@link SequenceParserToken}
  */
-final class SequenceParser<C extends ParserContext> extends ParserTemplate2<SequenceParserToken, C> {
+final class SequenceParser<C extends ParserContext> extends ParserTemplate2<SequenceParserToken, C> implements HashCodeEqualsDefined {
 
     /**
      * Factory method only called by {@link SequenceParserBuilder#build()}
@@ -63,6 +65,22 @@ final class SequenceParser<C extends ParserContext> extends ParserTemplate2<Sequ
     }
 
     private final List<SequenceParserComponent<C>> components;
+
+    // Object .............................................................................................................
+
+    @Override
+    public int hashCode() {
+        return this.components.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other || other instanceof SequenceParser && this.equals0(Cast.to(other));
+    }
+
+    private boolean equals0(final SequenceParser<?> other){
+        return this.components.equals(other.components);
+    }
 
     @Override
     public String toString() {

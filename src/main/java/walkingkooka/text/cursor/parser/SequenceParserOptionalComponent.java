@@ -39,6 +39,11 @@ final class SequenceParserOptionalComponent<C extends ParserContext> extends Seq
     }
 
     @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SequenceParserOptionalComponent;
+    }
+
+    @Override
     public final String toString() {
         return this.parser.toString().concat("?");
     }
