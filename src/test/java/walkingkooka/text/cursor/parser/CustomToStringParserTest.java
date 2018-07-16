@@ -62,6 +62,32 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
     }
 
     @Test
+    public void testSetToStringSame() {
+        assertSame(WRAPPED, WRAPPED.setToString(WRAPPED.toString()));
+    }
+
+    @Test
+    public void testDefaultMethodSetToString() {
+        final Parser<?, ?> parser = WRAPPED.setToString(CUSTOM_TO_STRING);
+        assertNotSame(WRAPPED, parser);
+        assertEquals(CUSTOM_TO_STRING, parser.toString());
+    }
+
+    @Test
+    public void testDefaultMethodSetToStringCustomToString() {
+        assertSame(CUSTOM_TO_STRING,  this.createParser().setToString(CUSTOM_TO_STRING));
+    }
+
+    @Test
+    public void testDefaultMethodSetToStringCustomToStringDifferent() {
+        final String different = "2";
+        final Parser<?, ?> parser = this.createParser();
+        final Parser<?, ?> parser2 = parser.setToString(different);
+        assertNotSame(parser, parser2);
+        assertEquals(different, parser2.toString());
+    }
+
+    @Test
     public void testToString() {
         assertEquals(CUSTOM_TO_STRING, this.createParser().toString());
     }
