@@ -44,6 +44,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see CustomToStringParser}
+     */
+    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> customToString(final Parser<T, C> parser, final String toString) {
+        return CustomToStringParser.wrap(parser, toString);
+    }
+
+    /**
      * {@see DoubleQuotedParserToken}
      */
     public static <C extends ParserContext> Parser<DoubleQuotedParserToken, C> doubleQuoted(){
