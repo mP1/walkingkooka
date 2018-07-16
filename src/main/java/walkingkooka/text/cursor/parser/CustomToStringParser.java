@@ -63,6 +63,12 @@ final class CustomToStringParser<T extends ParserToken, C extends ParserContext>
         return this.parser.parse(cursor, context);
     }
 
+    public Parser<T, C> setToString(final String toString) {
+        return this.toString.equals(toString) ?
+                this :
+                wrap(this.parser, toString);
+    }
+
     // @VisibleForTesting
     final Parser<T, C> parser;
 

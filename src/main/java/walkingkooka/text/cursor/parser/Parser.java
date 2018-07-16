@@ -74,6 +74,14 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
         return Parsers.repeated(this);
     }
 
+
+    default Parser<T, C> setToString(final String toString) {
+        final Parser<T, C> toStringParser = Parsers.customToString(this, toString);
+        return this.equals(toStringParser) ?
+                this :
+                toStringParser;
+    }
+
     /**
      * Helper that makes casting and working around generics a little less noisy.
      */
