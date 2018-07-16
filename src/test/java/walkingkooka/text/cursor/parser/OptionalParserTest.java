@@ -21,6 +21,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 
+import static org.junit.Assert.assertNotSame;
+
 public class OptionalParserTest extends ParserTestCase2<OptionalParser<FakeParserContext>, ParserToken> {
 
     private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit());
@@ -70,6 +72,29 @@ public class OptionalParserTest extends ParserTestCase2<OptionalParser<FakeParse
 
     private void parseAndCheck2(final String text, final String textAfter) {
         this.parseAndCheck(text + textAfter, ParserTokens.string(text, text), text, textAfter);
+    }
+
+    @Test
+    public void testOptionalSameName() {
+        final OptionalParser<FakeParserContext> parser = this.createParser();
+        assertSame(parser, parser.optional(NAME));
+    }
+
+    @Test
+    public void testOptionalDifferentName() {
+        final OptionalParser<FakeParserContext> parser = this.createParser();
+
+        final ParserTokenNodeName different = NumberParserToken.NAME;
+        final OptionalParser<FakeParserContext> parser2 = parser.optional(different);
+
+        assertNotSame(parser, parser2);
+
+        final String text = "abc";
+        this.parseAndCheck(parser2,
+                text,
+                ParserTokens.missing(different, ""),
+                "",
+                text);
     }
 
     @Test

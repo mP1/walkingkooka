@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
@@ -42,6 +43,29 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         this.parseFailAndCheck("");
     }
 
+    @Test(expected = NullPointerException.class)
+    public final void testOptionalNullNameFails() {
+        this.createParser().optional(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public final void testOrNullParserFails() {
+        this.createParser().or(null);
+    }
+
+    @Test
+    public final void testRepeating() {
+        final Parser<RepeatedParserToken<T>, C> parser = this.createParser().repeating();
+        assertEquals("" + parser, RepeatedParser.class, parser.getClass());
+    }
+
+    @Test
+    public void testOr() {
+        final P parser = this.createParser();
+        final P parser2 = this.createParser();
+        assertEquals(Parsers.alternatives(Lists.of(parser, parser2)), parser.or(parser2));
+    }
+
     protected abstract P createParser();
 
     protected abstract C createContext();
@@ -62,8 +86,20 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         return this.parseAndCheck(this.createParser(), this.createContext(), cursor, token, text, textAfter);
     }
 
+    protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final String cursorText, final TT token, final String text) {
+        return this.parseAndCheck(parser, cursorText, token, text, "");
+    }
+
+    protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final String cursorText, final TT token, final String text, final String textAfter) {
+        return this.parseAndCheck(parser, this.createContext(), cursorText, token, text, textAfter);
+    }
+
     protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final C context, final String cursorText, final TT token, final String text) {
-        return this.parseAndCheck(parser, context, TextCursors.charSequence(cursorText), token, text, "");
+        return this.parseAndCheck(parser, context, cursorText, token, text, "");
+    }
+
+    protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final C context, final String cursorText, final TT token, final String text, final String textAfter) {
+        return this.parseAndCheck(parser, context, TextCursors.charSequence(cursorText), token, text, textAfter);
     }
 
     protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final C context, final TextCursor cursor, final TT token, final String text, final String textAfter) {

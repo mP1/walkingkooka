@@ -33,6 +33,12 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
     }
 
     @Test
+    public void testWrapAnotherRepeatedParser() {
+        final RepeatedParser<StringParserToken, FakeParserContext> parser = this.createParser();
+        assertSame(parser, Parsers.repeated(parser));
+    }
+
+    @Test
     public void testIncomplete() {
         this.parseFailAndCheck("a");
     }
@@ -75,6 +81,12 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
                 RepeatedParserToken.with(Lists.of(string(TEXT)), TEXT),
                 TEXT,
                 "!!");
+    }
+
+    @Test
+    public void testRepeating2() {
+        final RepeatedParser<StringParserToken, FakeParserContext> parser = this.createParser();
+        assertSame(parser, parser.repeating());
     }
 
     @Test
