@@ -22,6 +22,7 @@ import walkingkooka.text.cursor.TextCursor;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * A {@link Parser} consumes one or more characters from a {@link TextCursor} and gives a {@link ParserToken}.
@@ -80,6 +81,13 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
         return this.equals(toStringParser) ?
                 this :
                 toStringParser;
+    }
+
+    /**
+     * {@see TransformingParser}
+     */
+    default <R extends ParserToken> Parser<R, C> transform(final BiFunction<T, C, R> transformer) {
+        return TransformingParser.with(this, transformer);
     }
 
     /**
