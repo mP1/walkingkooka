@@ -22,7 +22,7 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
-public final class SequenceParserBuilder<C extends ParserContext> implements Builder<SequenceParser<C>> {
+public final class SequenceParserBuilder<C extends ParserContext> implements Builder<Parser<SequenceParserToken, C>> {
 
     static SequenceParserBuilder create() {
         return new SequenceParserBuilder();
@@ -53,7 +53,7 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
     }
 
     @Override
-    public SequenceParser<C> build() throws BuilderException {
+    public Parser<SequenceParserToken, C> build() throws BuilderException {
         if(this.components.size() < 2){
             throw new BuilderException("Sequence requires at least 2 parsers=" + this.components);
         }

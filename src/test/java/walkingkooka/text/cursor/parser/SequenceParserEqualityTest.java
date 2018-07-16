@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<SequenceParser> {
@@ -73,10 +74,10 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Override
     protected SequenceParser createObject() {
-        return SequenceParserBuilder.create()
+        return Cast.to(SequenceParserBuilder.create()
                 .required(PARSER1, NAME1)
                 .required(PARSER2, NAME2)
                 .optional(PARSER3, NAME3)
-                .build();
+                .build());
     }
 }

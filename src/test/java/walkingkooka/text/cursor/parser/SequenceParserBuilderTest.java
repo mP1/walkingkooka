@@ -20,7 +20,7 @@ import org.junit.Test;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
 
-public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, SequenceParser<FakeParserContext>> {
+public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
 
     private final static Parser<StringParserToken, FakeParserContext> PARSER1 = Parsers.string("1");
     private final static Parser<StringParserToken, FakeParserContext> PARSER2 = Parsers.string("2");
