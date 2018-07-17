@@ -38,6 +38,30 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
         this.checkNaming(CharPredicate.class);
     }
 
+    @Test
+    public void testAnd() {
+        final P predicate = this.createCharacterPredicate();
+        assertSame(predicate, predicate.and(predicate));
+    }
+
+    @Test
+    public void testNotNot() {
+        final P predicate = this.createCharacterPredicate();
+        assertSame(predicate, predicate.negate().negate());
+    }
+
+    @Test
+    public void testOr() {
+        final P predicate = this.createCharacterPredicate();
+        assertSame(predicate, predicate.or(predicate));
+    }
+
+    @Test
+    public void testSetToStringSame() {
+        final P predicate = this.createCharacterPredicate();
+        assertSame(predicate, predicate.setToString(predicate.toString()));
+    }
+
     @Test final public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
