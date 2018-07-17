@@ -23,11 +23,16 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertNotSame;
+
 public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceParserToken> {
 
     private final static StringParserToken STRING1 = ParserTokens.string("a1", "a1");
     private final static StringParserToken STRING2 = ParserTokens.string("b2", "b2");
     private final static ParserToken MISSING3 =  ParserTokens.missing(StringParserToken.NAME, "");
+    private final static StringParserToken STRING4 = ParserTokens.string("d4", "d4");
+    private final static StringParserToken STRING5 = ParserTokens.string("e5", "e5");
+    private final static StringParserToken STRING6 = ParserTokens.string("f6", "f6");
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTokensFails() {
@@ -116,7 +121,34 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
                 result,
                 sequence.required(index, StringParserToken.class));
     }
-    
+
+    @Test
+    public void testFlat() {
+        final SequenceParserToken token = this.createToken();
+        assertSame(token, token.flat());
+    }
+
+    @Test
+    public void testFlatRequired() {
+        final SequenceParserToken child = sequence(STRING4, STRING5);
+        final SequenceParserToken parent = sequence(STRING1, STRING2, child);
+        final SequenceParserToken flat = parent.flat();
+        assertNotSame(parent, flat);
+        assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5), flat.value());
+        this.checkText(flat,"a1b2d4e5");
+    }
+
+    @Test
+    public void testFlatRequired2() {
+        final SequenceParserToken childChild = sequence(STRING5, STRING6);
+        final SequenceParserToken child = sequence(STRING4, childChild);
+        final SequenceParserToken parent = sequence(STRING1, STRING2, child);
+        final SequenceParserToken flat = parent.flat();
+        assertNotSame(parent, flat);
+        assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value());
+        this.checkText(flat,"a1b2d4e5f6");
+    }
+
     @Override
     protected SequenceParserToken createToken() {
         return sequence(STRING1, STRING2, MISSING3);
