@@ -52,7 +52,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
 
         final ParserToken token2 = token.setText(differentText);
         assertNotSame(token, token2);
-        assertEquals("text", differentText, token2.text());
+        checkText(token2, differentText);
         assertEquals("type of token after set must remain the same=" + token2, token.getClass(), token2.getClass());
 
         assertNotEquals("tokens must be different", token, token2);
@@ -90,4 +90,8 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
     protected abstract T createToken();
 
     protected abstract T createDifferentToken();
+
+    protected void checkText(final ParserToken token, final String text) {
+        assertEquals("text of " + token, text, token.text());
+    }
 }

@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * This {@link ParserToken} holds a sequence in order of tokens.
  */
-public final class SequenceParserToken extends ParserTemplateToken<List<ParserToken>> {
+public final class SequenceParserToken extends ParserTemplateToken2<ParserToken> implements SupportsFlat<SequenceParserToken, ParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SequenceParserToken.class);
 
@@ -62,6 +62,13 @@ public final class SequenceParserToken extends ParserTemplateToken<List<ParserTo
     @Override
     public ParserTokenNodeName name() {
         return NAME;
+    }
+
+    @Override
+    public SequenceParserToken flat() {
+        final List<ParserToken> tokens = this.value();
+        final List<ParserToken> flat = this.flat(tokens);
+        return tokens.equals(flat) ? this : new SequenceParserToken(flat, this.text());
     }
 
     /**
@@ -103,11 +110,6 @@ public final class SequenceParserToken extends ParserTemplateToken<List<ParserTo
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SequenceParserToken;
-    }
-
-    @Override
-    boolean equals1(final ParserTemplateToken<?> other) {
-        return true; // no extra properties to compare
     }
 
     @Override
