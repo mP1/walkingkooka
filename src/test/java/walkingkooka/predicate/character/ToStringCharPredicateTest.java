@@ -83,6 +83,12 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     }
 
     @Test
+    public void testDoesntWrapSameToString() {
+        final CharPredicate predicate = ToStringCharPredicate.wrap(PREDICATE, PREDICATE.toString());
+        assertSame(predicate, PREDICATE);
+    }
+
+    @Test
     public void testMatched() {
         this.testTrue(ToStringCharPredicateTest.MATCHED);
     }

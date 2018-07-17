@@ -17,6 +17,10 @@
 
 package walkingkooka.predicate.character;
 
+import walkingkooka.predicate.Predicates;
+
+import java.util.function.Predicate;
+
 /**
  * Accepts char and returns true if they match some condition.
  */
@@ -36,5 +40,13 @@ public interface CharPredicate {
 
     default CharPredicate or(final CharPredicate other) {
         return CharPredicates.or(this, other);
+    }
+
+    default Predicate<Character> asPredicate() {
+        return Predicates.charPredicate(this);
+    }
+
+    default CharPredicate setToString(final String toString) {
+        return CharPredicates.toString(this, toString);
     }
 }
