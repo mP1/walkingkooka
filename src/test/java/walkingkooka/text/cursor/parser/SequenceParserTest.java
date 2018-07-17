@@ -146,11 +146,11 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
 
     @Override
     protected SequenceParser<FakeParserContext> createParser() {
-        return SequenceParserBuilder.create()
+        return Cast.to(SequenceParserBuilder.create()
                 .required(PARSER1, StringParserToken.NAME)
                 .required(PARSER2, StringParserToken.NAME)
                 .optional(PARSER3, StringParserToken.NAME)
-                .build();
+                .build());
     }
 
     private static StringParserToken string(final String s) {
