@@ -44,6 +44,13 @@ final public class CharPredicates implements PublicStaticHelper {
     }
 
     /**
+     * {@see AndNotCharPredicate}.
+     */
+    public static CharPredicate andNot(final CharPredicate left, final CharPredicate right) {
+        return AndNotCharPredicate.wrap(left, right);
+    }
+
+    /**
      * {@see AsciiCharPredicate}
      */
     public static CharPredicate ascii() {

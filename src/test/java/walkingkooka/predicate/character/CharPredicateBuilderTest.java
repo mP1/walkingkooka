@@ -200,6 +200,33 @@ final public class CharPredicateBuilderTest
         }
     }
 
+    // andNot
+
+    @Test
+    public void testAndNotNullPredicate() {
+        final CharPredicateBuilder builder = this.createBuilder();
+        builder.predicate = CharPredicateBuilderTest.PREDICATE;
+        try {
+            builder.andNot(null);
+            Assert.fail();
+        } catch (final NullPointerException expected) {
+        }
+        assertSame("predicate", CharPredicateBuilderTest.PREDICATE, builder.predicate);
+    }
+
+    @Test
+    public void testAndNot() {
+        final CharPredicateBuilder builder = this.createBuilder();
+        builder.any("ABC");
+        builder.andNot(CharPredicates.is('A'));
+
+        final CharPredicate predicate = builder.build();
+        assertEquals("'A' should not be matched", false, predicate.test('A'));
+        assertEquals("'B' should be matched", true, predicate.test('B'));
+        assertEquals("'C' should be matched", true, predicate.test('C'));
+        assertEquals("'Z' should be matched", false, predicate.test('Z'));
+    }
+
     // negate
 
     @Test
