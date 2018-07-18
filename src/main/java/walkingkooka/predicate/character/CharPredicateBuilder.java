@@ -92,6 +92,17 @@ final public class CharPredicateBuilder
     }
 
     /**
+     * Updates the character set to also narrow the provided {@link CharPredicate}.
+     */
+    public CharPredicateBuilder andNot(final CharPredicate predicate) {
+        Objects.requireNonNull(predicate, "predicate");
+
+        final CharPredicate previous = this.predicate;
+        this.predicate = null == previous ? predicate : CharPredicates.andNot(previous, predicate);
+        return this;
+    }
+
+    /**
      * Inverts the currently selected characters.
      */
     public CharPredicateBuilder negate() {

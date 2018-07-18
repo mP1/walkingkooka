@@ -34,6 +34,10 @@ public interface CharPredicate {
         return CharPredicates.and(this, other);
     }
 
+    default CharPredicate andNot(final CharPredicate other) {
+        return CharPredicates.andNot(this, other);
+    }
+
     default CharPredicate negate() {
         return CharPredicates.not(this);
     }
