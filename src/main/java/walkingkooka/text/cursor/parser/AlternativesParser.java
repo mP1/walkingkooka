@@ -102,6 +102,6 @@ final class AlternativesParser<T extends ParserToken, C extends ParserContext> e
     public String toString() {
         return this.parsers.stream()
                 .map(p -> p.toString())
-                .collect(Collectors.joining(" | "));
+                .collect(Collectors.joining(" | ", "(", ")"));
     }
 }

@@ -91,7 +91,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
 
     @Test
     public void testToString() {
-        assertEquals(PARSER + "*", this.createParser().toString());
+        assertEquals("{" + PARSER + "}", this.createParser().toString());
     }
 
     @Override

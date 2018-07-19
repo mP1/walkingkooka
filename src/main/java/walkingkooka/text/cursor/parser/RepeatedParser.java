@@ -64,6 +64,6 @@ final class RepeatedParser<T extends ParserToken, C extends ParserContext> exten
 
     @Override
     public String toString() {
-        return parser.toString() + "*";
+        return "{" + parser.toString() + "}";
     }
 }

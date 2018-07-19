@@ -88,7 +88,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     
     @Test
     public void testToString() {
-        assertEquals(PARSER1 + " | " + PARSER2, this.createParser().toString());
+        assertEquals("(" + PARSER1 + " | " + PARSER2 +")", this.createParser().toString());
     }
 
     @Override

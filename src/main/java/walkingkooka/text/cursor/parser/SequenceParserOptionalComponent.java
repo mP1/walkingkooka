@@ -45,6 +45,6 @@ final class SequenceParserOptionalComponent<C extends ParserContext> extends Seq
 
     @Override
     public final String toString() {
-        return this.parser.toString().concat("?");
+        return "[" + this.parser + "]";
     }
 }

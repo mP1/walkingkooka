@@ -61,6 +61,6 @@ final class OptionalParser<C extends ParserContext> implements Parser<ParserToke
 
     @Override
     public String toString() {
-        return this.parser + "?";
+        return "[" + this.parser + "]";
     }
 }
