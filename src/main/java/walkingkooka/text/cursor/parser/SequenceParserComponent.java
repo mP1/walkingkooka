@@ -78,6 +78,6 @@ abstract class SequenceParserComponent<C extends ParserContext> implements HashC
     static <C extends ParserContext> String toString(final List<SequenceParserComponent<C>> components) {
         return components.stream()
                 .map(p -> p.toString())
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(", ", "(", ")"));
     }
 }

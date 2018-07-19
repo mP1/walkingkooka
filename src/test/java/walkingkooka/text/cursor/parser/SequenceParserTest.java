@@ -141,7 +141,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
 
     @Test
     public void testToString() {
-        assertEquals(PARSER1 + ", " + PARSER2 + ", " + PARSER3 + "?", this.createParser().toString());
+        assertEquals("(" + PARSER1 + ", " + PARSER2 + ", [" + PARSER3 + "])", this.createParser().toString());
     }
 
     @Override

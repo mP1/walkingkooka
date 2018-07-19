@@ -118,7 +118,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
 
     @Test
     public void testToString() {
-        assertEquals(PARSER1 + "?, " + PARSER2 + ", " + PARSER3,
+        assertEquals("([" + PARSER1 + "], " + PARSER2 + ", " + PARSER3 + ")",
                 SequenceParserBuilder.create()
                         .optional(PARSER1, StringParserToken.NAME)
                         .required(PARSER2, StringParserToken.NAME)
