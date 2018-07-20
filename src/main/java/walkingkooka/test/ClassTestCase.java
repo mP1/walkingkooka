@@ -108,7 +108,8 @@ abstract public class ClassTestCase<T> extends TestCase {
         }
     }
 
-    @Test final public void testAllFieldsVisibility() {
+    @Test
+    public void testAllFieldsVisibility() {
         final Class<T> type = this.type();
         if (false == type.isAnnotationPresent(PublicClass.class)) {
             if (false == type.isEnum()) {
