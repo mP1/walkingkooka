@@ -114,6 +114,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see SurroundStringParser}
+     */
+    public static <C extends ParserContext> Parser<StringParserToken, C> surround(final String open, final String close) {
+        return SurroundStringParser.with(open, close);
+    }
+
+    /**
      * Returns a {@link Parser} that merges the text from the tokens before and after the middle, returning just the middle
      */
     public static <T extends ParserToken, C extends ParserContext> Parser<T, C> surroundAndMerge(final Parser<? extends ParserToken, C> before,
