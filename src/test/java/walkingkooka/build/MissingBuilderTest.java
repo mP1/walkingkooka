@@ -230,4 +230,9 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     protected MissingBuilder createBuilder() {
         return MissingBuilder.create();
     }
+
+    @Override
+    protected Class<String> builderProductType() {
+        return String.class;
+    }
 }

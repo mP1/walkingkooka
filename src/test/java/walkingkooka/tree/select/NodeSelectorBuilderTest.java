@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.Before;
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -308,5 +309,10 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Override protected NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> createBuilder() {
         return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
+    }
+
+    @Override
+    protected Class<NodeSelector<TestFakeNode, StringName, StringName, Object>> builderProductType() {
+        return Cast.to(NodeSelector.class);
     }
 }

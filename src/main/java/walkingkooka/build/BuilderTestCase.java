@@ -18,7 +18,9 @@
 package walkingkooka.build;
 
 import org.junit.Assert;
+import org.junit.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
@@ -31,6 +33,12 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     protected BuilderTestCase() {
         super();
     }
+
+    @Test
+    public final void testBuilderProductTypePublic() {
+        final Class<T> type = this.builderProductType();
+        assertEquals("Builder product type " + type.getName() + " is not public", MemberVisibility.PUBLIC, MemberVisibility.get(type));
+;    }
 
     protected void buildFails() {
         this.buildFails(this.createBuilder());
@@ -93,4 +101,6 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     }
 
     abstract protected B createBuilder();
+
+    abstract protected Class<T> builderProductType();
 }

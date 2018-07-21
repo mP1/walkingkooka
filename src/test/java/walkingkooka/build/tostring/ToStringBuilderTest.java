@@ -620,4 +620,9 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     private void buildAndCheckFull(final ToStringBuilder builder) {
         this.buildAndCheck(builder, ToStringBuilderTest.FULL);
     }
+
+    @Override
+    protected Class<String> builderProductType() {
+        return String.class;
+    }
 }

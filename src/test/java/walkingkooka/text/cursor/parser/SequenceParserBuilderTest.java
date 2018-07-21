@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
 
@@ -129,5 +130,10 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     @Override
     protected SequenceParserBuilder<FakeParserContext> createBuilder() {
         return SequenceParserBuilder.create();
+    }
+
+    @Override
+    protected Class<Parser<SequenceParserToken, FakeParserContext>> builderProductType() {
+        return Cast.to(SequenceParserToken.class);
     }
 }
