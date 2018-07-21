@@ -66,6 +66,11 @@ abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements Value<T
     }
 
     @Override
+    public final boolean isRange() {
+        return false;
+    }
+
+    @Override
     public final boolean isRepeated() {
         return false;
     }

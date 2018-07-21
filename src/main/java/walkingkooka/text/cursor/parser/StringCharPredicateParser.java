@@ -28,14 +28,22 @@ import java.util.Optional;
  */
 final class StringCharPredicateParser<C extends ParserContext> extends ParserTemplate2<StringParserToken, C> {
 
-    static <C extends ParserContext> StringCharPredicateParser<C> with(final CharPredicate predicate) {
+    static <C extends ParserContext> StringCharPredicateParser<C> with(final CharPredicate predicate, final int minLength, final int maxLength) {
         Objects.requireNonNull(predicate, "predicate");
+        if(minLength <= 0) {
+            throw new IllegalArgumentException("Min length " + minLength + " must be greater than 0");
+        }
+        if(maxLength < minLength) {
+            throw new IllegalArgumentException("Maxlength " + maxLength + " must be greater/equal than maxLength: " + minLength);
+        }
 
-        return new StringCharPredicateParser<>(predicate);
+        return new StringCharPredicateParser<>(predicate, minLength, maxLength);
     }
 
-    private StringCharPredicateParser(final CharPredicate predicate) {
+    private StringCharPredicateParser(final CharPredicate predicate, final int minLength, final int maxLength) {
         this.predicate = predicate;
+        this.minLength = minLength;
+        this.maxLength = maxLength;
     }
 
     @Override
@@ -50,12 +58,23 @@ final class StringCharPredicateParser<C extends ParserContext> extends ParserTem
     private Optional<StringParserToken> consumeRemaining(final TextCursor cursor, final TextCursorSavePoint start) {
         cursor.next();
 
-        while(!cursor.isEmpty() && this.predicate.test(cursor.at())) {
+        int i = 1;
+        while(!cursor.isEmpty() && i < this.maxLength && this.predicate.test(cursor.at())) {
             cursor.next();
+
+            i++;
         }
 
-        final String text = start.textBetween().toString();
+        return i >= this.minLength ?
+            stringParserToken(start) :
+            this.fail();
+    }
 
+    private final int minLength;
+    private final int maxLength;
+
+    private static Optional<StringParserToken> stringParserToken(final TextCursorSavePoint start) {
+        final String text = start.textBetween().toString();
         return StringParserToken.with(text, text).success();
     }
 

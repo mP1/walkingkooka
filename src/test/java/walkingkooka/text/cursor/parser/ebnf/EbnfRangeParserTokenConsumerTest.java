@@ -16,30 +16,11 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-import java.util.List;
-
-public final class EbnfGroupingParserTest extends EbnfParserTestCase4<EbnfGroupParserToken> {
-
+public final class EbnfRangeParserTokenConsumerTest extends PackagePrivateClassTestCase<EbnfRangeParserTokenConsumer> {
     @Override
-    protected Parser<ParserToken, EbnfParserContext> createParser() {
-        return EbnfGrammarParser.GROUPING;
-    }
-
-    @Override
-    String beginChar() {
-        return "(";
-    }
-
-    @Override
-    String endChar() {
-        return ")";
-    }
-
-    @Override
-    EbnfGroupParserToken token(final String text, final List<EbnfParserToken> tokens) {
-        return EbnfParserToken.grouping(tokens, text);
+    protected Class<EbnfRangeParserTokenConsumer> type() {
+        return EbnfRangeParserTokenConsumer.class;
     }
 }

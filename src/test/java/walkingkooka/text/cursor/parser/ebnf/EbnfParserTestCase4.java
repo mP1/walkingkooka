@@ -68,20 +68,20 @@ public abstract class EbnfParserTestCase4<T extends EbnfParserToken> extends Ebn
         return this.beginChar() + IDENTIFIER1 + this.endChar();
     }
 
-    abstract char beginChar();
+    abstract String beginChar();
 
-    final EbnfSymbolParserToken beginCharToken() {
+    private EbnfSymbolParserToken beginCharToken() {
         return symbolToken(this.beginChar());
     }
 
-    abstract char endChar();
+    abstract String endChar();
 
-    final EbnfSymbolParserToken endCharToken() {
+    private EbnfSymbolParserToken endCharToken() {
         return symbolToken(this.endChar());
     }
 
-    private EbnfSymbolParserToken symbolToken(final char c) {
-        return EbnfParserToken.symbol(c, String.valueOf(c));
+    private EbnfSymbolParserToken symbolToken(final String s) {
+        return EbnfParserToken.symbol(s, s);
     }
 
     final T token(final String text) {

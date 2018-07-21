@@ -29,13 +29,13 @@ public final class EbnfRepetitionParserTest extends EbnfParserTestCase4<EbnfRepe
     }
 
     @Override
-    char beginChar() {
-        return '{';
+    String beginChar() {
+        return "{";
     }
 
     @Override
-    char endChar() {
-        return '}';
+    String endChar() {
+        return "}";
     }
 
     @Override

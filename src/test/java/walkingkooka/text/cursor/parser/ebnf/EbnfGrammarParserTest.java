@@ -61,6 +61,17 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
                 textAfter);
     }
 
+    @Test
+    public void testRuleWithRange() {
+        final String rule2Text = IDENTIFIER2 + ASSIGNMENT + TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT + TERMINATOR;
+        final String text = RULE1 + rule2Text;
+        this.parseAndCheck(text,
+                grammar(text,
+                        rule1(),
+                        rule(rule2Text, identifier2(), assignmentToken(), range(TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT, terminal1(), between(), terminal2()), terminatorToken())),
+                text);
+    }
+
     private EbnfGrammarParserToken grammar(final String text, final EbnfRuleParserToken...rules) {
         return new EbnfGrammarParserToken(Lists.of(rules), text);
     }

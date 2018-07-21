@@ -18,24 +18,28 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import java.util.function.Consumer;
 
-final class EbnfRuleParserTokenConsumer implements Consumer<EbnfParserToken> {
+final class EbnfRangeParserTokenConsumer implements Consumer<EbnfParserToken> {
 
     @Override
     public void accept(final EbnfParserToken token) {
-        if(token.isAlternative() || token.isConcatenation() || token.isGroup() || token.isIdentifier() || token.isOptional() || token.isRange() || token.isRepeated() || token.isTerminal()) {
-            if(null ==this.identifier) {
-                if(!token.isIdentifier()) {
-                    throw new IllegalArgumentException("Rule expected identifier but got " + token);
+        if(token.isAlternative() || token.isConcatenation() || token.isGroup() || token.isIdentifier() || token.isOptional() || token.isRepeated() || token.isTerminal()) {
+            if(null ==this.begin) {
+                if(!token.isTerminal()) {
+                    throw new IllegalArgumentException("Range expected begin terminal but got " + token);
                 }
-                identifier = token.cast();
+                this.begin = token.cast();
             } else {
-                if (null == this.token) {
-                    this.token = token;
+                if (null == this.end) {
+                    if(!token.isTerminal()) {
+                        throw new IllegalArgumentException("Range expected end terminal but got " + token);
+                    }
+                    this.end = token.cast();
                 }
             }
         }
     }
 
-    EbnfIdentifierParserToken identifier;
-    EbnfParserToken token;
+    EbnfTerminalParserToken begin;
+    EbnfTerminalParserToken end;
+
 }

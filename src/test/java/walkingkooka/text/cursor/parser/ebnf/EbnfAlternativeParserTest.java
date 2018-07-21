@@ -29,8 +29,8 @@ public final class EbnfAlternativeParserTest extends EbnfAlternativeOrConcatenat
     }
 
     @Override
-    char separatorChar() {
-        return '|';
+    String separator() {
+        return "|";
     }
 
     @Override

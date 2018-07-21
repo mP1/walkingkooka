@@ -16,27 +16,25 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
-
-public final class EbnfSymbolParserTokenTest extends EbnfLeafParserTokenTestCase<EbnfSymbolParserToken, Character> {
+public final class EbnfSymbolParserTokenTest extends EbnfLeafParserTokenTestCase<EbnfSymbolParserToken, String> {
 
     @Override
     String text() {
         return ";";
     }
 
-    Character value() {
-        return ';';
+    String value() {
+        return this.text();
     }
 
     @Override
-    protected EbnfSymbolParserToken createToken(final Character value, final String text) {
+    protected EbnfSymbolParserToken createToken(final String value, final String text) {
         return EbnfSymbolParserToken.with(value, text);
     }
 
     @Override
     protected EbnfSymbolParserToken createDifferentToken() {
-        return EbnfSymbolParserToken.with('|', "|");
+        return EbnfSymbolParserToken.with("|", "|");
     }
 
     @Override

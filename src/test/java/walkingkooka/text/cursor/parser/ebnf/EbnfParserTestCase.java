@@ -42,6 +42,8 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
     final static String ASSIGNMENT = "=";
     final static String TERMINATOR = ";";
 
+    final static String BETWEEN = "..";
+
     @Test
     public void testOrphanedAssignmentFail() {
         this.parseFailAndCheck("=");
@@ -81,16 +83,20 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
         return EbnfParserToken.whitespace(WHITESPACE2, WHITESPACE2);
     }
 
-    static EbnfSymbolParserToken symbol(final char c) {
-        return EbnfParserToken.symbol(c, String.valueOf(c));
+    static EbnfSymbolParserToken symbol(final String symbol) {
+        return EbnfParserToken.symbol(symbol, symbol);
     }
 
     static EbnfRuleParserToken rule(final String text, final EbnfParserToken...tokens) {
         return EbnfParserToken.rule(Lists.of(tokens), text);
     }
 
+    static EbnfRangeParserToken range(final String text, final EbnfParserToken...tokens) {
+        return EbnfParserToken.range(Lists.of(tokens), text);
+    }
+
     static EbnfSymbolParserToken assignmentToken() {
-        return symbol('=');
+        return symbol("=");
     }
 
     static EbnfTerminalParserToken terminal1() {
@@ -102,6 +108,10 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
     }
 
     static EbnfSymbolParserToken terminatorToken() {
-        return symbol(';');
+        return symbol(";");
+    }
+
+    static EbnfSymbolParserToken between() {
+        return symbol("..");
     }
 }

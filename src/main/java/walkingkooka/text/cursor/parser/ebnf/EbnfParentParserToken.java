@@ -66,6 +66,13 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
         }
     }
 
+    final void checkOnlyTwoTokens() {
+        final int count = this.tokenCount();
+        if(count != 2) {
+            throw new IllegalArgumentException("Expected only 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
+        }
+    }
+
     private int tokenCount() {
         final EbnfParentParserToken without = this.without.get().cast();
         return without.value().size();

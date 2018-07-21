@@ -32,7 +32,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testWhitespaceIdentifier() {
-        final String text = WHITESPACE1 + IDENTIFIER1 + this.separatorChar() + IDENTIFIER2;
+        final String text = WHITESPACE1 + IDENTIFIER1 + this.separator() + IDENTIFIER2;
         this.parseAndCheck(text,
                 this.token(text, whitespace1(), identifier1(), this.separatorCharToken(), identifier2()),
                 text);
@@ -40,7 +40,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testWhitespaceIdentifierWhitespace() {
-        final String text = WHITESPACE1 + IDENTIFIER1 + WHITESPACE2 + this.separatorChar() + IDENTIFIER2;
+        final String text = WHITESPACE1 + IDENTIFIER1 + WHITESPACE2 + this.separator() + IDENTIFIER2;
         this.parseAndCheck(text,
                 this.token(text, whitespace1(), identifier1(), whitespace2(), this.separatorCharToken(), identifier2()),
                 text);
@@ -48,7 +48,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testWhitespaceIdentifierWhitespaceWhitespaceIdentifier2() {
-        final String text = WHITESPACE1 + IDENTIFIER1 + WHITESPACE2 + this.separatorChar() + WHITESPACE1 + IDENTIFIER2;
+        final String text = WHITESPACE1 + IDENTIFIER1 + WHITESPACE2 + this.separator() + WHITESPACE1 + IDENTIFIER2;
         this.parseAndCheck(text,
                 this.token(text, whitespace1(), identifier1(), whitespace2(), this.separatorCharToken(), whitespace1(), identifier2()),
                 text);
@@ -56,7 +56,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testWhitespaceIdentifierWhitespaceWhitespaceIdentifier2Whitespace() {
-        final String text = WHITESPACE1 + IDENTIFIER1 + WHITESPACE2 + this.separatorChar() + WHITESPACE1 + IDENTIFIER2;
+        final String text = WHITESPACE1 + IDENTIFIER1 + WHITESPACE2 + this.separator() + WHITESPACE1 + IDENTIFIER2;
         this.parseAndCheck(text + WHITESPACE2,
                 this.token(text, whitespace1(), identifier1(), whitespace2(), this.separatorCharToken(), whitespace1(), identifier2()),
                 text,
@@ -65,7 +65,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testCommentIdentifier() {
-        final String text = COMMENT1 + IDENTIFIER1 + this.separatorChar() + IDENTIFIER2;
+        final String text = COMMENT1 + IDENTIFIER1 + this.separator() + IDENTIFIER2;
         this.parseAndCheck(text,
                 this.token(text, comment1(), identifier1(), this.separatorCharToken(), identifier2()),
                 text);
@@ -73,7 +73,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testCommentIdentifierComment() {
-        final String text = COMMENT1 + IDENTIFIER1 + COMMENT2 + this.separatorChar() + IDENTIFIER2;
+        final String text = COMMENT1 + IDENTIFIER1 + COMMENT2 + this.separator() + IDENTIFIER2;
         this.parseAndCheck(text,
                 this.token(text, comment1(), identifier1(), comment2(), this.separatorCharToken(), identifier2()),
                 text);
@@ -81,7 +81,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testCommentIdentifierCommentCommentIdentifier2() {
-        final String text = COMMENT1 + IDENTIFIER1 + COMMENT2 + this.separatorChar() + COMMENT1 + IDENTIFIER2;
+        final String text = COMMENT1 + IDENTIFIER1 + COMMENT2 + this.separator() + COMMENT1 + IDENTIFIER2;
         this.parseAndCheck(text,
                 this.token(text, comment1(), identifier1(), comment2(), this.separatorCharToken(), comment1(), identifier2()),
                 text);
@@ -89,7 +89,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testCommentIdentifierCommentCommentIdentifier2Comment() {
-        final String text = COMMENT1 + IDENTIFIER1 + COMMENT2 + this.separatorChar() + COMMENT1 + IDENTIFIER2;
+        final String text = COMMENT1 + IDENTIFIER1 + COMMENT2 + this.separator() + COMMENT1 + IDENTIFIER2;
         this.parseAndCheck(text + COMMENT2,
                 this.token(text, comment1(), identifier1(), comment2(), this.separatorCharToken(), comment1(), identifier2()),
                 text,
@@ -98,7 +98,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testWhitespaceCommentIdentifier() {
-        final String text = WHITESPACE1 + COMMENT1 + IDENTIFIER1 + this.separatorChar() + IDENTIFIER2;
+        final String text = WHITESPACE1 + COMMENT1 + IDENTIFIER1 + this.separator() + IDENTIFIER2;
         this.parseAndCheck(text,
                 this.token(text, whitespace1(), comment1(), identifier1(), this.separatorCharToken(), identifier2()),
                 text);
@@ -106,7 +106,7 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Test
     public final void testWhitespaceCommentWhitespaceIdentifier() {
-        final String text = WHITESPACE1 + COMMENT1 + WHITESPACE2 + IDENTIFIER1 + this.separatorChar() + IDENTIFIER2;
+        final String text = WHITESPACE1 + COMMENT1 + WHITESPACE2 + IDENTIFIER1 + this.separator() + IDENTIFIER2;
         this.parseAndCheck(text,
                 this.token(text, whitespace1(), comment1(), whitespace2(), identifier1(), this.separatorCharToken(), identifier2()),
                 text);
@@ -114,14 +114,14 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
 
     @Override
     final String text() {
-        return IDENTIFIER1 + this.separatorChar() + IDENTIFIER2;
+        return IDENTIFIER1 + this.separator() + IDENTIFIER2;
     }
 
-    abstract char separatorChar();
+    abstract String separator();
 
     final EbnfSymbolParserToken separatorCharToken() {
-        final char c = this.separatorChar();
-        return EbnfParserToken.symbol(c, String.valueOf(c));
+        final String separator = this.separator();
+        return EbnfParserToken.symbol(separator, separator);
     }
 
     @Override

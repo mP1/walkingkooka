@@ -77,6 +77,11 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken {
     }
 
     @Override
+    public boolean isRange() {
+        return false;
+    }
+
+    @Override
     public boolean isRule() {
         return false;
     }

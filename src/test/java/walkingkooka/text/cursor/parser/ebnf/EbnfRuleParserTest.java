@@ -160,6 +160,14 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
                 COMMENT1);
     }
 
+    @Test
+    public void testIncludesRange() {
+        final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT + TERMINATOR;
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), range(TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT, terminal1(), between(), terminal2()), terminatorToken()),
+                text);
+    }
+
     @Override
     protected Parser<ParserToken, EbnfParserContext> createParser() {
         return EbnfGrammarParser.RULE;

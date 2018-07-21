@@ -108,6 +108,11 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
     }
 
     @Override
+    public boolean isRange() {
+        return false;
+    }
+
+    @Override
     public boolean isRepeated() {
         return false;
     }
