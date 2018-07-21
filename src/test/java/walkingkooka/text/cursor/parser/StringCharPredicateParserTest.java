@@ -25,10 +25,27 @@ import walkingkooka.text.cursor.TextCursor;
 public class StringCharPredicateParserTest extends ParserTemplateTestCase<StringCharPredicateParser<FakeParserContext>, StringParserToken> {
 
     private final static CharPredicate DIGITS = CharPredicates.digit();
+    private final static int MIN_LENGTH = 2;
+    private final static int MAX_LENGTH = 4;
 
     @Test(expected = NullPointerException.class)
     public void testWithNullCharPredicateFails() {
-        CharacterCharPredicateParser.with(null);
+        StringCharPredicateParser.with(null, MIN_LENGTH, MAX_LENGTH);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithInvalidMinLengthFails() {
+        StringCharPredicateParser.with(DIGITS, -1, MAX_LENGTH);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithInvalidMinLengthFails2() {
+        StringCharPredicateParser.with(DIGITS, 0, MAX_LENGTH);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithInvalidMaxLengthFails2() {
+        StringCharPredicateParser.with(DIGITS, MIN_LENGTH, MIN_LENGTH -1);
     }
 
     @Test
@@ -39,6 +56,11 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
     @Test
     public void testFailure2() {
         this.parseFailAndCheck("abc");
+    }
+
+    @Test
+    public void testTooShort() {
+        this.parseFailAndCheck("1");
     }
 
     @Test
@@ -58,22 +80,22 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
 
     @Test
     public void testSuccess4() {
-        this.parseAndCheck2("123abc", "123", "123", "abc");
+        this.parseAndCheck3("123abc", "123", "123", "abc");
     }
 
     @Test
     public void testSuccessTerminatedByMismatch() {
-        this.parseAndCheck2("123abc", "123", "123", "abc");
+        this.parseAndCheck3("123abc", "123", "123", "abc");
     }
 
     @Test
     public void testSuccessTerminatedEof() {
-        this.parseAndCheck2("123", "123", "123");
+        this.parseAndCheck3("123", "123", "123");
     }
 
     @Test
     public void testMultipleAttempts() {
-        final TextCursor cursor = this.parseAndCheck2("123abc", "123", "123", "abc");
+        final TextCursor cursor = this.parseAndCheck3("123abc", "123", "123", "abc");
         this.parseFailAndCheck(cursor);
     }
 
@@ -84,7 +106,11 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
 
     @Override
     protected StringCharPredicateParser createParser() {
-        return StringCharPredicateParser.with(DIGITS);
+        return this.createParser(MIN_LENGTH, MAX_LENGTH);
+    }
+
+    protected StringCharPredicateParser createParser(final int min, final int max) {
+        return StringCharPredicateParser.with(DIGITS, min, max);
     }
 
     private TextCursor parseAndCheck2(final String in, final String value, final String text){
@@ -92,6 +118,18 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
     }
 
     private TextCursor parseAndCheck2(final String in, final String value, final String text, final String textAfter){
+        return this.parseAndCheck(this.createParser(1, 4),
+                in,
+                StringParserToken.with(value, text),
+                text,
+                textAfter);
+    }
+
+    private TextCursor parseAndCheck3(final String in, final String value, final String text){
+        return this.parseAndCheck3(in, value, text, "");
+    }
+
+    private TextCursor parseAndCheck3(final String in, final String value, final String text, final String textAfter){
         return this.parseAndCheck(in, StringParserToken.with(value, text), text, textAfter);
     }
 

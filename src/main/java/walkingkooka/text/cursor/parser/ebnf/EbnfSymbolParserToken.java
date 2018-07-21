@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.Optional;
@@ -23,15 +24,17 @@ import java.util.Optional;
 /**
  * Holds any of the symbols that separate actual tokens, such as the parens around a grouping.
  */
-final public class EbnfSymbolParserToken extends EbnfLeafParserToken<Character> {
+final public class EbnfSymbolParserToken extends EbnfLeafParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfSymbolParserToken.class);
 
-    static EbnfSymbolParserToken with(final char symbol, final String text){
+    static EbnfSymbolParserToken with(final String symbol, final String text){
+        CharSequences.failIfNullOrEmpty(symbol, "symbol");
+
         return new EbnfSymbolParserToken(symbol, checkText(text));
     }
 
-    private EbnfSymbolParserToken(final char symbol, final String text){
+    private EbnfSymbolParserToken(final String symbol, final String text){
         super(symbol, text);
     }
 

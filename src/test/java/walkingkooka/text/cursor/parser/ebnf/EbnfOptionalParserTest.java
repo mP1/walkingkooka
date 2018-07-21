@@ -29,13 +29,13 @@ public final class EbnfOptionalParserTest extends EbnfParserTestCase4<EbnfOption
     }
 
     @Override
-    char beginChar() {
-        return '[';
+    String beginChar() {
+        return "[";
     }
 
     @Override
-    char endChar() {
-        return ']';
+    String endChar() {
+        return "]";
     }
 
     @Override

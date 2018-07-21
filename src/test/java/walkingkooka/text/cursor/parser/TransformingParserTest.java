@@ -28,7 +28,7 @@ import java.util.function.BiFunction;
 public class TransformingParserTest extends ParserTestCase2<TransformingParser<StringParserToken, NumberParserToken, FakeParserContext>, NumberParserToken> {
 
     private final static int RADIX = 10;
-    private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit());
+    private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
     private final static BiFunction<StringParserToken, FakeParserContext, NumberParserToken> TRANSFORMER = (t, c) -> {
         return ParserTokens.number(new BigInteger(t.value(), RADIX), t.text());
     };

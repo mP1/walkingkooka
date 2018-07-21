@@ -83,11 +83,11 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
     }
 
     private EbnfSymbolParserToken assignment() {
-        return symbol('=');
+        return symbol("=");
     }
 
     private EbnfSymbolParserToken terminator() {
-        return symbol(';');
+        return symbol(";");
     }
 
     @Override

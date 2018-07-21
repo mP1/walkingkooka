@@ -25,7 +25,7 @@ import static org.junit.Assert.assertNotSame;
 
 public class OptionalParserTest extends ParserTestCase2<OptionalParser<FakeParserContext>, ParserToken> {
 
-    private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit());
+    private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
     private final static ParserTokenNodeName NAME = StringParserToken.NAME;
     private final static ParserToken MISSING = ParserTokens.missing(NAME, "");
 

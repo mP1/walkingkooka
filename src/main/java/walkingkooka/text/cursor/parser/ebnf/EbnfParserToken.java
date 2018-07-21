@@ -79,6 +79,13 @@ public abstract class EbnfParserToken implements ParserToken {
     public static EbnfOptionalParserToken optional(final List<EbnfParserToken> tokens, final String text) {
         return EbnfOptionalParserToken.with(tokens, text);
     }
+
+    /**
+     * {@see EbnfRangeParserToken}
+     */
+    public static EbnfRangeParserToken range(final List<EbnfParserToken> tokens, final String text) {
+        return EbnfRangeParserToken.with(tokens, text);
+    }
     
     /**
      * {@see EbnfRepeatedParserToken}
@@ -97,8 +104,8 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfSymbolParserToken}
      */
-    public static EbnfSymbolParserToken symbol(final char c, final String text) {
-        return EbnfSymbolParserToken.with(c, text);
+    public static EbnfSymbolParserToken symbol(final String value, final String text) {
+        return EbnfSymbolParserToken.with(value, text);
     }
 
     /**
@@ -202,6 +209,11 @@ public abstract class EbnfParserToken implements ParserToken {
      * Only optional tokens return true
      */
     public abstract boolean isOptional();
+
+    /**
+     * Only range tokens return true
+     */
+    public abstract boolean isRange();
 
     /**
      * Only repeating tokens return true

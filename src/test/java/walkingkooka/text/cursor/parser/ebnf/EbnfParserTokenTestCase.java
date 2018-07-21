@@ -77,7 +77,7 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
 
     abstract String text();
 
-    static EbnfSymbolParserToken symbol(final char c) {
-        return EbnfParserToken.symbol(c, String.valueOf(c));
+    static EbnfSymbolParserToken symbol(final String s) {
+        return EbnfParserToken.symbol(s, s);
     }
 }

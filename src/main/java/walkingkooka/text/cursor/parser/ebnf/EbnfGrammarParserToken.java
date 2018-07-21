@@ -106,6 +106,11 @@ public final class EbnfGrammarParserToken extends EbnfParserToken {
     }
 
     @Override
+    public boolean isRange() {
+        return false;
+    }
+
+    @Override
     public boolean isRepeated() {
         return false;
     }
