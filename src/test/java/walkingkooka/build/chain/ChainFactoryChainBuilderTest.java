@@ -323,6 +323,11 @@ final public class ChainFactoryChainBuilderTest
                 ChainFactoryChainBuilderTest.FACTORY);
     }
 
+    @Override
+    protected Class<Fake> builderProductType() {
+        return Fake.class;
+    }
+
     static private Fake createFake(final int value) {
         return new Fake() {
 

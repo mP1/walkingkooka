@@ -337,4 +337,9 @@ final public class CharPredicateBuilderTest
     protected CharPredicateBuilder createBuilder() {
         return CharPredicateBuilder.create();
     }
+
+    @Override
+    protected Class<CharPredicate> builderProductType() {
+        return CharPredicate.class;
+    }
 }
