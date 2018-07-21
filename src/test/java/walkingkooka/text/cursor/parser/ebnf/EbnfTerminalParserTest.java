@@ -32,7 +32,7 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
         final String text = "hello";
         final String quoted = singleQuote(text);
 
-        this.parseAndCheck(quoted, new EbnfTerminalParserToken(text, quoted), quoted);
+        this.parseAndCheck(quoted, EbnfTerminalParserToken.with(text, quoted), quoted);
     }
 
     @Test
@@ -40,7 +40,7 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
         final String text = "hello";
         final String quoted = doubleQuote(text);
 
-        this.parseAndCheck(quoted, new EbnfTerminalParserToken(text, quoted), quoted);
+        this.parseAndCheck(quoted, EbnfTerminalParserToken.with(text, quoted), quoted);
     }
 
     private static String singleQuote(final String text) {
@@ -64,7 +64,7 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
     @Override
     EbnfTerminalParserToken token(final String text) {
         final String quotedText = this.text();
-        return new EbnfTerminalParserToken(
+        return EbnfTerminalParserToken.with(
                 quotedText.substring(1, quotedText.length() -1),
                 text);
     }

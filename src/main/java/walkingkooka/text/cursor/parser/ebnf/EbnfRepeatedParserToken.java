@@ -28,11 +28,12 @@ public final class EbnfRepeatedParserToken extends EbnfParentParserToken {
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfRepeatedParserToken.class);
 
     static EbnfRepeatedParserToken with(final List<EbnfParserToken> tokens, final String text) {
-        return new EbnfRepeatedParserToken(copyAndCheckTokens(tokens), checkText(text));
+        return new EbnfRepeatedParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    EbnfRepeatedParserToken(final List<EbnfParserToken> tokens, final String text) {
-        super(tokens, text);
+    private EbnfRepeatedParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+        super(tokens, text, computeWithout);
+        this.checkOnlyOneToken();
     }
 
     @Override
@@ -42,7 +43,12 @@ public final class EbnfRepeatedParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfRepeatedParserToken replaceText(final String text) {
-        return new EbnfRepeatedParserToken(this.value(), text);
+        return new EbnfRepeatedParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    @Override
+    EbnfRepeatedParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+        return new EbnfRepeatedParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
 
     @Override

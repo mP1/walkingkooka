@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
@@ -29,11 +28,12 @@ public final class EbnfGroupParserToken extends EbnfParentParserToken {
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfGroupParserToken.class);
 
     static EbnfGroupParserToken with(final List<EbnfParserToken> tokens, final String text) {
-        return new EbnfGroupParserToken(copyAndCheckTokens(tokens), checkText(text));
+        return new EbnfGroupParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    EbnfGroupParserToken(final List<EbnfParserToken> tokens, final String text) {
-        super(tokens, text);
+    private EbnfGroupParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+        super(tokens, text, computeWithout);
+        this.checkOnlyOneToken();
     }
 
     @Override
@@ -43,7 +43,12 @@ public final class EbnfGroupParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfGroupParserToken replaceText(final String text) {
-        return new EbnfGroupParserToken(this.value(), text);
+        return new EbnfGroupParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    @Override
+    EbnfGroupParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+        return new EbnfGroupParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
 
     @Override

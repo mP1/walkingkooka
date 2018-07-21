@@ -22,6 +22,8 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotSame;
+
 public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase2<T> {
 
     @Test(expected = NullPointerException.class)
@@ -29,15 +31,38 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
         this.createToken(this.text(), Cast.<List<EbnfParserToken>>to(null));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public final void testTooManyTokensIgnoringCommentsSymbolsWhitespaceFails() {
+        this.createToken(this.text(), this.identifier("identifier-1"), this.comment("(*comment-2*)"), this.identifier("identifier-3"));
+    }
+
+    @Test
+    public void testWithoutCommentsSymbolsWhitespace() {
+        final EbnfParserToken identifier1 = this.identifier("identifier1");
+        final EbnfParserToken comment2 = this.comment("(*comment2*)");
+
+        final T token = this.createToken(this.text(), identifier1, comment2);
+        assertEquals("value", Lists.of(identifier1, comment2), token.value());
+
+        final T without = token.withoutCommentsSymbolsOrWhitespace().get().cast();
+        assertNotSame(token, without);
+        assertEquals("value", Lists.of(identifier1), without.value());
+    }
+
+
+    @Override
+    final List<EbnfParserToken> tokens() {
+        return Lists.of(this.identifier("identifier-1"));
+    }
+
     @Override
     protected T createDifferentToken() {
-        return this.createToken(this.openChar() + "(*comment-3*)(*comment-4*)" + this.closeChar(), Lists.of(this.comment("(*comment-3*)"), this.comment("(*comment-4*)"))
-        );
+        return this.createToken(this.openChar() + "different" + this.closeChar(), this.identifier("different"));
     }
 
     @Override
     final String text() {
-        return this.openChar() + "(*comment-1*)" + this.closeChar();
+        return this.openChar() + "identifier1" + this.closeChar();
     }
 
     abstract char openChar();

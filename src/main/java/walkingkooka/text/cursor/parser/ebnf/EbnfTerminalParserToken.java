@@ -18,6 +18,8 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
+import java.util.Optional;
+
 /**
  * Holds the terminal token portion of the rhs of a rule.
  */
@@ -32,7 +34,7 @@ public final class EbnfTerminalParserToken extends EbnfLeafParserToken<String> {
         return new EbnfTerminalParserToken(value, text);
     }
 
-    EbnfTerminalParserToken(final String value, final String text){
+    private EbnfTerminalParserToken(final String value, final String text){
         super(value, text);
     }
 
@@ -44,6 +46,11 @@ public final class EbnfTerminalParserToken extends EbnfLeafParserToken<String> {
     @Override
     EbnfTerminalParserToken replaceText(final String text) {
         return new EbnfTerminalParserToken(this.value, text);
+    }
+
+    @Override
+    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+        return Optional.of(this);
     }
 
     @Override

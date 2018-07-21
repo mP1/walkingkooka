@@ -18,6 +18,8 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
+import java.util.Optional;
+
 /**
  * Holds the text for a comment.
  */
@@ -32,7 +34,7 @@ public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
         return new EbnfCommentParserToken(value, text);
     }
 
-    EbnfCommentParserToken(final String value, final String text){
+    private EbnfCommentParserToken(final String value, final String text){
         super(value, text);
     }
 
@@ -44,6 +46,11 @@ public final class EbnfCommentParserToken extends EbnfLeafParserToken<String> {
     @Override
     EbnfCommentParserToken replaceText(final String text) {
         return new EbnfCommentParserToken(this.value, text);
+    }
+
+    @Override
+    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+        return Optional.empty();
     }
 
     @Override

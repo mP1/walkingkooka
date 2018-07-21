@@ -33,7 +33,7 @@ public final class EbnfIdentifierParserTest extends EbnfParserTestCase3<EbnfIden
 
     @Override
     EbnfIdentifierParserToken token(final String text) {
-        return new EbnfIdentifierParserToken(
+        return EbnfIdentifierParserToken.with(
                 this.text(),
                 text);
     }

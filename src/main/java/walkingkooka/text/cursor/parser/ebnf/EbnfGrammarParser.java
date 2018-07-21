@@ -88,10 +88,10 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
 
     private static Parser<ParserToken, EbnfParserContext> whitespaceOrComment() {
         final Parser<EbnfWhitespaceParserToken, EbnfParserContext> whitespace = Parsers.<EbnfParserContext>stringCharPredicate(CharPredicates.whitespace())
-                .transform((string, context) -> new EbnfWhitespaceParserToken(string.value(), string.text()))
+                .transform((string, context) -> EbnfWhitespaceParserToken.with(string.value(), string.text()))
                 .setToString("whitespace");
         final Parser<ParserToken, EbnfParserContext> comment = Parsers.<EbnfParserContext>surround("(*", "*)")
-                .transform((string, context) -> new EbnfCommentParserToken(string.value(), string.text()))
+                .transform((string, context) -> EbnfCommentParserToken.with(string.value(), string.text()))
                 .setToString("comment")
                 .castC();
 
@@ -176,7 +176,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      */
     private static Parser<ParserToken, EbnfParserContext> symbol(final char c, final String name){
         return EbnfParserContext.character(c)
-                        .transform((character, context) -> new EbnfSymbolParserToken(character.value(), character.text()))
+                        .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
                         .setToString(name)
                         .castTC();
     }
@@ -214,7 +214,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .required(LETTER)
                 .required(CHARACTER.repeating())
                 .build()
-                .transform((sequence, context) -> new EbnfIdentifierParserToken(string(sequence), sequence.text()))
+                .transform((sequence, context) -> EbnfIdentifierParserToken.with(string(sequence), sequence.text()))
                 .setToString("identifier")
                 .castC();
     };
@@ -250,7 +250,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
 
     private static EbnfTerminalParserToken terminal(final SequenceParserToken token, final EbnfParserContext context) {
         final String quotedText = string(token);
-        return new EbnfTerminalParserToken(quotedText.substring(1, quotedText.length()-1),
+        return EbnfTerminalParserToken.with(quotedText.substring(1, quotedText.length()-1),
                 token.text());
     }
 

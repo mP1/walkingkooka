@@ -173,9 +173,9 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Override
     EbnfRuleParserToken token(final String text) {
         return rule(text,
-                new EbnfIdentifierParserToken(IDENTIFIER1, IDENTIFIER1),
+                EbnfParserToken.identifier(IDENTIFIER1, IDENTIFIER1),
                 assignmentToken(),
-                new EbnfTerminalParserToken(TERMINAL1, TERMINAL1_TEXT),
+                EbnfParserToken.terminal(TERMINAL1, TERMINAL1_TEXT),
                 terminatorToken());
     }
 }
