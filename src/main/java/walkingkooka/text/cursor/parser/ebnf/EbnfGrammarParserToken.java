@@ -25,6 +25,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A grammar holds all the rules and is the root of the graph.
@@ -64,6 +65,10 @@ public final class EbnfGrammarParserToken extends EbnfParserToken {
     private final List<EbnfRuleParserToken> rules;
 
     private final Map<EbnfIdentifierParserToken, Parser<?, ?>> identifierToParser;
+
+    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+        return Optional.of(this);
+    }
 
     @Override
     public boolean isAlternative() {

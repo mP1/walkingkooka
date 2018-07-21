@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a token within the grammar.
@@ -76,7 +77,7 @@ public abstract class EbnfParserToken implements ParserToken {
      * {@see EbnfOptionalParserToken}
      */
     public static EbnfOptionalParserToken optional(final List<EbnfParserToken> tokens, final String text) {
-        return new EbnfOptionalParserToken(tokens, text);
+        return EbnfOptionalParserToken.with(tokens, text);
     }
     
     /**
@@ -160,6 +161,12 @@ public abstract class EbnfParserToken implements ParserToken {
     }
 
     abstract EbnfParserToken replaceText(final String text);
+
+    /**
+     * Sub classes must override. Not all types of token support this operation, eg this doesnt make sense
+     * given a {@link EbnfCommentParserToken} will return empty.
+     */
+    abstract public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace();
 
     /**
      * Only alternative tokens return true

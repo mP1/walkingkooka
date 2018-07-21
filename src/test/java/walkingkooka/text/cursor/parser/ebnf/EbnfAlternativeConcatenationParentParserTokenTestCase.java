@@ -16,14 +16,42 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+
+import java.util.List;
+
+import static org.junit.Assert.assertNotSame;
 
 public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase2<T> {
 
+    @Test(expected = IllegalArgumentException.class)
+    public final void testOnlyOneTokenIgnoringCommentsSymbolsWhitespaceFails() {
+        this.createToken(this.text(), this.identifier("first"), this.comment("(*comment-2*)"));
+    }
+
+    @Test
+    public void testWithoutCommentsSymbolsWhitespace() {
+        final EbnfParserToken identifier1 = this.identifier("identifier1");
+        final EbnfParserToken comment2 = this.comment("(*comment2*)");
+        final EbnfParserToken identifier3 = this.identifier("identifier3");
+
+        final T token = this.createToken(this.text(), identifier1, comment2, identifier3);
+        assertEquals("value", Lists.of(identifier1, comment2, identifier3), token.value());
+
+        final T without = token.withoutCommentsSymbolsOrWhitespace().get().cast();
+        assertNotSame(token, without);
+        assertEquals("value", Lists.of(identifier1, identifier3), without.value());
+    }
+
+    @Override
+    final List<EbnfParserToken> tokens() {
+        return Lists.of(this.identifier("identifier-1"), this.identifier("identifier-2"));
+    }
+
     @Override
     protected T createDifferentToken() {
-        return this.createToken("(*comment-3*)" + separatorChar() + "(*comment-4*)", Lists.of(this.comment("(*comment-3*)"), this.comment("(*comment-4*)"))
-        );
+        return this.createToken("diff-1" + separatorChar() + "diff-2", this.identifier("diff-1"), this.identifier("diff-2"));
     }
 
     abstract char separatorChar();

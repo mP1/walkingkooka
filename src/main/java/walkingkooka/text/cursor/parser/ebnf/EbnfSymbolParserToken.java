@@ -18,6 +18,8 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
+import java.util.Optional;
+
 /**
  * Holds any of the symbols that separate actual tokens, such as the parens around a grouping.
  */
@@ -29,7 +31,7 @@ final public class EbnfSymbolParserToken extends EbnfLeafParserToken<Character> 
         return new EbnfSymbolParserToken(symbol, checkText(text));
     }
 
-    EbnfSymbolParserToken(final char symbol, final String text){
+    private EbnfSymbolParserToken(final char symbol, final String text){
         super(symbol, text);
     }
 
@@ -41,6 +43,11 @@ final public class EbnfSymbolParserToken extends EbnfLeafParserToken<Character> 
     @Override
     EbnfSymbolParserToken replaceText(final String text) {
         return new EbnfSymbolParserToken(this.value, text);
+    }
+
+    @Override
+    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+        return Optional.empty();
     }
 
     @Override

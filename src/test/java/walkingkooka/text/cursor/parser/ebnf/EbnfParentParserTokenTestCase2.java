@@ -16,14 +16,35 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
 public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase<T> {
 
-    @Override
-    final List<EbnfParserToken> tokens() {
-        return Lists.of(this.comment("(*comment-1*)"), this.comment("(*comment-2*)"));
+    @Test(expected = IllegalArgumentException.class)
+    public final void testOnlyCommentsFails() {
+        this.createToken(this.text(), this.comment("(*comment-1*)"), this.comment("(*comment-2*)"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testOnlySymbolsFails() {
+        this.createToken(this.text(), symbol('a'), symbol('z'));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testOnlyWhitespaceFails() {
+        this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testOnlyCommentsSymbolsWhitespaceFails() {
+        this.createToken(this.text(), this.comment("(*comment-1*)"), symbol('2'), this.whitespace("   "));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testOnlyCommentWhitespaceFails() {
+        this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
     }
 }

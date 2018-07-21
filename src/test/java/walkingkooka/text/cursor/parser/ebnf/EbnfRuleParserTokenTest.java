@@ -44,6 +44,12 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
         this.createToken(this.text(), identifier(), assignment(), terminator());
     }
 
+    @Test
+    public void testWithoutCommentsSymbolsOrWhitespace() {
+        final EbnfRuleParserToken token = this.createToken();
+        assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
+    }
+
     @Override
     protected EbnfRuleParserToken createDifferentToken() {
         return this.createToken("xyz=qrs;",
@@ -66,10 +72,6 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
 
     private EbnfIdentifierParserToken identifier() {
         return identifier("abc");
-    }
-
-    private EbnfIdentifierParserToken identifier(final String text) {
-        return EbnfParserToken.identifier(text, text);
     }
 
     private EbnfTerminalParserToken terminal() {

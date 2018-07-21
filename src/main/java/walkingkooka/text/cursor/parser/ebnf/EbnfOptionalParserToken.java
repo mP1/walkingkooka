@@ -28,11 +28,12 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfOptionalParserToken.class);
 
     static EbnfOptionalParserToken with(final List<EbnfParserToken> tokens, final String text) {
-        return new EbnfOptionalParserToken(copyAndCheckTokens(tokens), checkText(text));
+        return new EbnfOptionalParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    EbnfOptionalParserToken(final List<EbnfParserToken> tokens, final String text) {
-        super(tokens, text);
+    private EbnfOptionalParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+        super(tokens, text, computeWithout);
+        this.checkOnlyOneToken();
     }
 
     @Override
@@ -42,7 +43,12 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfOptionalParserToken replaceText(final String text) {
-        return new EbnfOptionalParserToken(this.value(), text);
+        return new EbnfOptionalParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    @Override
+    EbnfOptionalParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+        return new EbnfOptionalParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
 
     @Override

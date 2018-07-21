@@ -44,6 +44,19 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         assertSame("tokens not copied", tokens, token.value());
     }
 
+    @Test
+    public void testWithoutCommentsSymbolsOrWhitespaceCached() {
+        final T token = this.createToken();
+        assertSame(token.withoutCommentsSymbolsOrWhitespace(), token.withoutCommentsSymbolsOrWhitespace());
+        assertSame(token.withoutCommentsSymbolsOrWhitespace().get().withoutCommentsSymbolsOrWhitespace(), token.withoutCommentsSymbolsOrWhitespace().get().withoutCommentsSymbolsOrWhitespace());
+    }
+
+    @Test
+    public void testWithoutCommentsSymbolsOrWhitespaceDoubleSame() {
+        final T token = this.createToken();
+        assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
+    }
+
     @Override
     final T createToken(final String text) {
         return this.createToken(text, this.tokens());
@@ -59,5 +72,13 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
     final EbnfCommentParserToken comment(final String text) {
         return EbnfParserToken.comment(text, text);
+    }
+
+    final EbnfIdentifierParserToken identifier(final String text) {
+        return EbnfParserToken.identifier(text, text);
+    }
+
+    final EbnfWhitespaceParserToken whitespace(final String text) {
+        return EbnfParserToken.whitespace(text, text);
     }
 }

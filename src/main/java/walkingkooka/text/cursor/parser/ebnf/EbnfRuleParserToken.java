@@ -51,11 +51,11 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
                 token);
     }
 
-    EbnfRuleParserToken(final List<EbnfParserToken> tokens,
+    private EbnfRuleParserToken(final List<EbnfParserToken> tokens,
                         final String text,
                         final EbnfIdentifierParserToken identifier,
                         final EbnfParserToken token) {
-        super(tokens, text);
+        super(tokens, text, WITHOUT_USE_THIS);
         this.identifier = identifier;
         this.token = token;
     }
@@ -81,6 +81,11 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
     }
 
     private final EbnfParserToken token;
+
+    @Override
+    EbnfRuleParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+        return with(tokens, this.text());
+    }
 
     @Override
     public boolean isAlternative() {

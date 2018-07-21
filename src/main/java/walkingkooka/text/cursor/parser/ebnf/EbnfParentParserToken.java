@@ -18,17 +18,57 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
 abstract class EbnfParentParserToken extends EbnfParserToken implements Value<List<EbnfParserToken>> {
 
-    EbnfParentParserToken(final List<EbnfParserToken> value, final String text) {
+    final static boolean WITHOUT_COMPUTE_REQUIRED = true;
+    final static boolean WITHOUT_USE_THIS = !WITHOUT_COMPUTE_REQUIRED;
+
+    EbnfParentParserToken(final List<EbnfParserToken> value, final String text, final boolean computeWithout) {
         super(text);
         this.value = value;
+        this.without = computeWithout ? computeWithout(value) : Optional.of(this);
+    }
+
+    private Optional<EbnfParserToken> computeWithout(final List<EbnfParserToken> value){
+        final List<EbnfParserToken> without = Lists.array();
+
+        value.stream()
+                .forEach(t -> {
+                    final Optional<EbnfParserToken> maybeWithout = t.withoutCommentsSymbolsOrWhitespace();
+                    if (maybeWithout.isPresent()) {
+                        without.add(maybeWithout.get());
+                    }
+                });
+        Lists.array();
+
+        return Optional.of(this.replaceTokens(without));
+    }
+
+    final void checkOnlyOneToken() {
+        final int count = this.tokenCount();
+        if(count != 1) {
+            throw new IllegalArgumentException("Expected only one token(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
+        }
+    }
+
+    final void checkAtLeastTwoTokens() {
+        final int count = this.tokenCount();
+        if(count < 2) {
+            throw new IllegalArgumentException("Expected at least 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
+        }
+    }
+
+    private int tokenCount() {
+        final EbnfParentParserToken without = this.without.get().cast();
+        return without.value().size();
     }
 
     @Override
@@ -67,6 +107,21 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
     }
 
     final List<EbnfParserToken> value;
+
+    @Override
+    public final Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+        return this.without;
+    }
+
+    /**
+     * A cached copy of this parent/container without any comments, symbols or whitespace.
+     */
+    final Optional<EbnfParserToken> without;
+
+    /**
+     * Factory that creates a new {@link EbnfParentParserToken} with the same text but new tokens.
+     */
+    abstract EbnfParentParserToken replaceTokens(final List<EbnfParserToken> tokens);
 
     @Override
     final boolean equals1(final EbnfParserToken other) {

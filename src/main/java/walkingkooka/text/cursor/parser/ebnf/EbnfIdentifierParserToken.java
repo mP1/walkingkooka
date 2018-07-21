@@ -19,6 +19,8 @@ package walkingkooka.text.cursor.parser.ebnf;
 import walkingkooka.naming.Name;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
+import java.util.Optional;
+
 /**
  * Holds the text for an identifier. Identifiers may appear on the left of a definition or as a reference to another rule definition.
  */
@@ -36,7 +38,7 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<String>
         return new EbnfIdentifierParserToken(value, text);
     }
 
-    EbnfIdentifierParserToken(final String value, final String text){
+    private EbnfIdentifierParserToken(final String value, final String text){
         super(value, text);
     }
 
@@ -48,6 +50,11 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<String>
     @Override
     EbnfIdentifierParserToken replaceText(final String text) {
         return new EbnfIdentifierParserToken(this.value, text);
+    }
+
+    @Override
+    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+        return Optional.of(this);
     }
 
     @Override

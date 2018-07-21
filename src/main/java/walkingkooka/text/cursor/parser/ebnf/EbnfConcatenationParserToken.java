@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.List;
@@ -29,11 +28,12 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken {
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfConcatenationParserToken.class);
 
     static EbnfConcatenationParserToken with(final List<EbnfParserToken> tokens, final String text) {
-        return new EbnfConcatenationParserToken(copyAndCheckTokens(tokens), checkText(text));
+        return new EbnfConcatenationParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    EbnfConcatenationParserToken(final List<EbnfParserToken> tokens, final String text) {
-        super(tokens, text);
+    private EbnfConcatenationParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+        super(tokens, text, computeWithout);
+        this.checkAtLeastTwoTokens();
     }
 
     @Override
@@ -43,7 +43,12 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfConcatenationParserToken replaceText(final String text) {
-        return new EbnfConcatenationParserToken(this.value(), text);
+        return new EbnfConcatenationParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    @Override
+    EbnfConcatenationParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+        return new EbnfConcatenationParserToken(tokens, text(), WITHOUT_USE_THIS);
     }
 
     @Override
