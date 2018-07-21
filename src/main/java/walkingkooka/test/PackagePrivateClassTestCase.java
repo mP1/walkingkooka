@@ -37,21 +37,24 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
         super();
     }
 
-    @Test final public void testClassIsFinalIfAllConstructorsArePrivate() {
+    @Test
+    public void testClassIsFinalIfAllConstructorsArePrivate() {
         this.classIsFinalIfAllConstructorsArePrivateTest();
     }
 
     /**
      * Constructor is private if this class is final, otherwise they are package private.
      */
-    @Test final public void testAllConstructorsArePackagePrivateOrPrivate() {
+    @Test
+    public void testAllConstructorsArePackagePrivateOrPrivate() {
         this.checkAllConstructorsVisibility();
     }
 
     /**
      * If a method is not overridden it should be package private or private.
      */
-    @Test final public void testAllMethodsVisibility() {
+    @Test
+    public void testAllMethodsVisibility() {
         final Class<T> type = this.type();
         if (false == type.isAnnotationPresent(PublicClass.class)) {
             final Set<Method> overridable = this.overridableMethods(type);

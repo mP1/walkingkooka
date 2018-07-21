@@ -104,4 +104,11 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     default <C extends ParserContext> Parser<ParserToken, C> castC() {
         return Cast.to(this);
     }
+
+    /**
+     * Helper that makes casting and working around generics a little less noisy.
+     */
+    default <TT extends ParserToken> Parser<TT, C> cast(final Class<TT> token) {
+        return Cast.to(this);
+    }
 }
