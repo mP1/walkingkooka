@@ -30,7 +30,7 @@ public final class EbnfAlternativeParserTest extends EbnfAlternativeOrConcatenat
 
     @Override
     String separator() {
-        return "|";
+        return ALTERNATIVE;
     }
 
     @Override

@@ -18,7 +18,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import java.util.List;
 
-public class EbnfGroupParserTokenTest extends EbnfGroupOptionalRepeatParentParserTokenTestCase<EbnfGroupParserToken> {
+public class EbnfGroupParserTokenTest extends EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<EbnfGroupParserToken> {
 
     @Override
     EbnfGroupParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
@@ -26,13 +26,13 @@ public class EbnfGroupParserTokenTest extends EbnfGroupOptionalRepeatParentParse
     }
 
     @Override
-    char openChar() {
-        return ')';
+    String openChar() {
+        return "(";
     }
 
     @Override
-    char closeChar() {
-        return '(';
+    String closeChar() {
+        return ")";
     }
 
     @Override

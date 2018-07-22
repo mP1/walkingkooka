@@ -21,6 +21,7 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.SequenceParserBuilder;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
@@ -100,7 +101,14 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .repeating()
                 .castC();
     }
-    
+
+    /**
+     * <pre>
+     * -
+     * </pre>
+     */
+    final static Parser<ParserToken, EbnfParserContext> EXCEPTION_PREFIX = symbol('-', "exception");
+
     /**
      * <pre>
      * =
@@ -224,7 +232,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      */
     final static Parser<ParserToken, EbnfParserContext> IDENTIFIER =
             identifier()
-            .setToString("terminal");
+            .setToString("identifier");
 
     private static Parser<ParserToken, EbnfParserContext> identifier() {
         return EbnfParserContext.sequenceParserBuilder()
@@ -345,18 +353,27 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
             .transform(filterAndWrapMany(EbnfParserToken::grouping))
             .castC();
 
+    /**
+     * <pre>
+     * "-" , rhs
+     * </pre>
+     */
+    final static Parser<ParserToken, EbnfParserContext> EXCEPTION = parser(EXCEPTION_PREFIX, WHITESPACE_OR_COMMENT, RHS)
+            .transform(filterAndWrapMany(EbnfParserToken::exception))
+            .castC();
+
 
     /**
      * <pre>
      * "(" , rhs , ")"
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> RHS_WITHOUT_ALT_CONCAT = IDENTIFIER
-            .or(RANGE) // must be before TERMINAL
-            .or(TERMINAL)
+    final static Parser<ParserToken, EbnfParserContext> RHS_WITHOUT_ALT_CONCAT = thenMaybeException(IDENTIFIER
             .or(OPTIONAL)
             .or(REPETITION)
-            .or(GROUPING);
+            .or(GROUPING)
+            .or(RANGE) // must be before TERMINAL
+            .or(TERMINAL));
 
     /**
      * <pre>
@@ -393,15 +410,14 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      */
     private static Parser<ParserToken, EbnfParserContext> rhs() {
         if(null==RHS_CACHE) {
-            RHS_CACHE = IDENTIFIER
-                    .or(RANGE) // must be before TERMINAL
-                    .or(TERMINAL)
+            RHS_CACHE = thenMaybeException(IDENTIFIER
                     .or(OPTIONAL)
                     .or(REPETITION)
                     .or(GROUPING)
-                    .or(ALTERNATIVE)
+                    .or(ALTERNATIVE) // longer before shorter.
                     .or(CONCATENATION)
-                    .setToString("RHS");
+                    .or(RANGE) // must be before TERMINAL
+                    .or(TERMINAL));
         }
         return RHS_CACHE;
     }
@@ -419,6 +435,13 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         }
 
         return b.build();
+    }
+
+    final static Parser<ParserToken, EbnfParserContext> thenMaybeException(final Parser<ParserToken, EbnfParserContext> parser) {
+        return parser.builder(ParserTokenNodeName.with(0))
+                .optional(Cast.to(EXCEPTION.repeating()))
+                .build()
+                .setToString("RHS").castC();
     }
 
     private static final BiFunction<SequenceParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<EbnfParserToken>, String, EbnfParserToken> wrapper) {

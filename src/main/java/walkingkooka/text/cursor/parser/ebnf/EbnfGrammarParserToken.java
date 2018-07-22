@@ -86,6 +86,11 @@ public final class EbnfGrammarParserToken extends EbnfParserToken {
     }
 
     @Override
+    public boolean isException() {
+        return false;
+    }
+
+    @Override
     public boolean isGrammar() {
         return true;
     }

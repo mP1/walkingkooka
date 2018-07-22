@@ -51,6 +51,11 @@ abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements Value<T
     }
 
     @Override
+    public final boolean isException() {
+        return false;
+    }
+
+    @Override
     public final boolean isGrammar() {
         return false;
     }

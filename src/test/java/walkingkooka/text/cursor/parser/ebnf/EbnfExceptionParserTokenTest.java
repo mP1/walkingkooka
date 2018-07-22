@@ -13,28 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserToken;
-
 import java.util.List;
 
-public final class EbnfConcatenationParserTest extends EbnfAlternativeOrConcatenationParserTestCase<EbnfConcatenationParserToken> {
+public class EbnfExceptionParserTokenTest extends EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<EbnfExceptionParserToken> {
 
     @Override
-    protected Parser<ParserToken, EbnfParserContext> createParser() {
-        return EbnfGrammarParser.CONCATENATION;
+    EbnfExceptionParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
+        return EbnfExceptionParserToken.with(tokens, text);
     }
 
     @Override
-    String separator() {
-        return CONCAT;
+    String openChar() {
+        return "-";
     }
 
     @Override
-    EbnfConcatenationParserToken token(final String text, final List<EbnfParserToken> tokens) {
-        return EbnfParserToken.concatenation(tokens, text);
+    String closeChar() {
+        return "";
+    }
+
+    @Override
+    protected Class<EbnfExceptionParserToken> type() {
+        return EbnfExceptionParserToken.class;
     }
 }

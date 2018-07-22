@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
@@ -21,35 +22,47 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import java.util.List;
 
 /**
- * Represents an optional token in the grammar.
+ * Represents an exception token in the grammar. Note the grammar requires an exception to follow another token.
  */
-public final class EbnfOptionalParserToken extends EbnfParentParserToken {
+public final class EbnfExceptionParserToken extends EbnfParentParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfOptionalParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfExceptionParserToken.class);
 
-    static EbnfOptionalParserToken with(final List<EbnfParserToken> tokens, final String text) {
-        return new EbnfOptionalParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
+    static EbnfExceptionParserToken with(final List<EbnfParserToken> tokens, final String text) {
+        return new EbnfExceptionParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfOptionalParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+    private EbnfExceptionParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
         super(tokens, text, computeWithout);
         this.checkOnlyOneToken();
+
+        final EbnfExceptionParserToken exception = this.withoutCommentsSymbolsOrWhitespace().get().cast();
+        this.token = exception.value().get(0);
     }
 
     @Override
-    public EbnfOptionalParserToken setText(final String text) {
+    public EbnfExceptionParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    EbnfOptionalParserToken replaceText(final String text) {
-        return new EbnfOptionalParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+    EbnfExceptionParserToken replaceText(final String text) {
+        return new EbnfExceptionParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
     }
 
     @Override
-    EbnfOptionalParserToken replaceTokens(final List<EbnfParserToken> tokens) {
-        return new EbnfOptionalParserToken(tokens, this.text(), WITHOUT_USE_THIS);
+    EbnfExceptionParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+        return new EbnfExceptionParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
+
+    /**
+     * Returns the actual token the exception applies too.
+     */
+    public EbnfParserToken token() {
+        return this.token;
+    }
+
+    private final EbnfParserToken token;
 
     @Override
     public boolean isAlternative() {
@@ -63,7 +76,7 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
 
     @Override
     public boolean isException() {
-        return false;
+        return true;
     }
 
     @Override
@@ -73,7 +86,7 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
 
     @Override
     public boolean isOptional() {
-        return true;
+        return false;
     }
 
     @Override
@@ -93,7 +106,7 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof EbnfOptionalParserToken;
+        return other instanceof EbnfExceptionParserToken;
     }
 
     @Override
