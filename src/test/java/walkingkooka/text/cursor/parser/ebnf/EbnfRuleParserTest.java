@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 
@@ -152,6 +153,17 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
+    public void testConcatenation() {
+        final String concatText = TERMINAL1_TEXT + "," + TERMINAL2_TEXT;
+        final String text = IDENTIFIER1 + ASSIGNMENT + concatText + TERMINATOR;
+
+        final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(terminal1(), concatToken(), terminal2()), concatText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), concat, terminatorToken()),
+                text);
+    }
+
+    @Test
     public void testTerminatorComments() {
         final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text + COMMENT1,
@@ -165,6 +177,22 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
         final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), range(TERMINAL1_TEXT + BETWEEN + TERMINAL2_TEXT, terminal1(), between(), terminal2()), terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testExceptionFails() {
+        final String text = IDENTIFIER1 + ASSIGNMENT + EXCEPTION + TERMINAL2_TEXT + TERMINATOR;
+        this.parseFailAndCheck(text);
+    }
+
+    @Test
+    public void testTokenThenException() {
+        final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + EXCEPTION + TERMINAL2_TEXT + TERMINATOR;
+
+        final EbnfParserToken exception = EbnfParserToken.exception(Lists.of(exceptionToken(), terminal2()),EXCEPTION + TERMINAL2_TEXT);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), terminal1(), exception, terminatorToken()),
                 text);
     }
 

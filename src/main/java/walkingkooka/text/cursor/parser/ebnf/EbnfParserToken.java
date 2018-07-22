@@ -53,6 +53,13 @@ public abstract class EbnfParserToken implements ParserToken {
     }
 
     /**
+     * {@see EbnfExceptionParserToken}
+     */
+    public static EbnfExceptionParserToken exception(final List<EbnfParserToken> tokens, final String text) {
+        return EbnfExceptionParserToken.with(tokens, text);
+    }
+
+    /**
      * {@see EbnfGrammarParserToken}
      */
     public static EbnfGrammarParserToken grammar(final List<EbnfRuleParserToken> rules, final String text) {
@@ -189,6 +196,11 @@ public abstract class EbnfParserToken implements ParserToken {
      * Only concatenation tokens return true
      */
     public abstract boolean isConcatenation();
+
+    /**
+     * Only exception tokens return true
+     */
+    public abstract boolean isException();
 
     /**
      * Only grouping tokens return true

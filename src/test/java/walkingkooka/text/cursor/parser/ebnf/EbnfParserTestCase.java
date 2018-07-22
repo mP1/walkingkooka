@@ -41,8 +41,12 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
 
     final static String ASSIGNMENT = "=";
     final static String TERMINATOR = ";";
+    final static String CONCAT = ",";
+    final static String ALTERNATIVE = "|";
 
     final static String BETWEEN = "..";
+
+    final static String EXCEPTION = "-";
 
     @Test
     public void testOrphanedAssignmentFail() {
@@ -96,7 +100,15 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
     }
 
     static EbnfSymbolParserToken assignmentToken() {
-        return symbol("=");
+        return symbol(ASSIGNMENT);
+    }
+
+    static EbnfSymbolParserToken concatToken() {
+        return symbol(CONCAT);
+    }
+
+    static EbnfSymbolParserToken exceptionToken() {
+        return symbol(EXCEPTION);
     }
 
     static EbnfTerminalParserToken terminal1() {

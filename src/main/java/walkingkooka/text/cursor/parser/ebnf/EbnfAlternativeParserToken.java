@@ -62,6 +62,11 @@ final public class EbnfAlternativeParserToken extends EbnfParentParserToken {
     }
 
     @Override
+    public boolean isException() {
+        return false;
+    }
+
+    @Override
     public boolean isGroup() {
         return false;
     }
