@@ -151,6 +151,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see UnicodeEscapeCharacterParser}
+     */
+    public static <C extends ParserContext> Parser<CharacterParserToken, C> unicodeEscapeCharacter() {
+        return UnicodeEscapeCharacterParser.get();
+    }
+
+    /**
      * Stop creation.
      */
     private Parsers() {
