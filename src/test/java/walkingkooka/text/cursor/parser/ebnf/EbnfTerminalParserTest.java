@@ -28,19 +28,90 @@ public final class EbnfTerminalParserTest extends EbnfParserTestCase3<EbnfTermin
     }
 
     @Test
+    public void testIncompleteFails2() {
+        this.parseFailAndCheck("\"incomplete");
+    }
+
+    @Test(expected = EbnfTerminalParserException.class)
+    public void testInvalidBackslash() {
+        this.parseFailAndCheck("'\\x'");
+    }
+
+    @Test
     public void testSingleQuoteLiteral() {
         final String text = "hello";
-        final String quoted = singleQuote(text);
 
-        this.parseAndCheck(quoted, EbnfTerminalParserToken.with(text, quoted), quoted);
+        this.parseAndCheck2(singleQuote(text), text);
     }
 
     @Test
     public void testDoubleQuoteLiteral() {
         final String text = "hello";
-        final String quoted = doubleQuote(text);
 
-        this.parseAndCheck(quoted, EbnfTerminalParserToken.with(text, quoted), quoted);
+        this.parseAndCheck2(doubleQuote(text), text);
+    }
+
+    @Test
+    public void testBackslashNul() {
+        this.parseAndCheck2(singleQuote("hel\\0lo"), "hel\0lo");
+    }
+
+    @Test
+    public void testBackslashForm() {
+        this.parseAndCheck2(singleQuote("hel\\flo"), "hel\flo");
+    }
+
+    @Test
+    public void testBackslashTab() {
+        this.parseAndCheck2(singleQuote("hel\\tlo"), "hel\tlo");
+    }
+
+    @Test
+    public void testBackslashCr() {
+        this.parseAndCheck2(singleQuote("hel\\rlo"), "hel\rlo");
+    }
+
+    @Test
+    public void testBackslashNl() {
+        this.parseAndCheck2(singleQuote("hel\\nlo"), "hel\nlo");
+    }
+
+    @Test
+    public void testBackslashSingleQuote() {
+        this.parseAndCheck2(singleQuote("hel\\'lo"), "hel\'lo");
+    }
+
+    @Test
+    public void testBackslashDoubleQuote() {
+        this.parseAndCheck2(singleQuote("hel\\\"lo"), "hel\"lo");
+    }
+
+    @Test
+    public void testInvalidUnicode() {
+        this.parseThrows("'\\u0XYZ1");
+    }
+
+    @Test
+    public void testUnicode() {
+        this.parseAndCheck2(singleQuote("hel\\u1234lo"), "hel\u1234lo");
+    }
+
+    @Test
+    public void testUnicode2() {
+        this.parseAndCheck2(singleQuote("hel\\u12345lo"), "hel\u12345lo");
+    }
+
+    @Test
+    public void test2() {
+        this.parseAndCheck2(singleQuote("h\tel\\u12345lo"), "h\tel\u12345lo", "after");
+    }
+
+    private void parseAndCheck2(final String quoted, final String text) {
+        this.parseAndCheck2(quoted, text, "");
+    }
+
+    private void parseAndCheck2(final String quoted, final String text, final String after) {
+        this.parseAndCheck(quoted + after, EbnfTerminalParserToken.with(text, quoted), quoted, after);
     }
 
     private static String singleQuote(final String text) {

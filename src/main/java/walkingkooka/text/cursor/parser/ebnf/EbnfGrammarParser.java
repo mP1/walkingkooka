@@ -249,11 +249,9 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * terminal = "'" , character , { character } , "'"
      *          | '"' , character , { character } , '"' ;
      * </pre>
+     * The above definition isnt actually correct, a terminal must be either single or quoted, and supports backslash, and unicode sequences within.
      */
-    final static Parser<ParserToken, EbnfParserContext> TERMINAL =
-            terminal()
-            .setToString("terminal")
-            .castC();
+    final static Parser<ParserToken, EbnfParserContext> TERMINAL = EbnfTerminalParser.INSTANCE;
 
     private static Parser<ParserToken, EbnfParserContext> terminal() {
         final Parser<EbnfTerminalParserToken, EbnfParserContext> singleQuoted = terminalQuote('\'');
