@@ -47,13 +47,6 @@ public final class ParserBiFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see MergeSequenceParserTokenBiFunction}
-     */
-    public static <T extends ParserToken, C extends ParserContext> BiFunction<SequenceParserToken, C, T> sequenceMerger(final Class<T> token) {
-        return MergeSequenceParserTokenBiFunction.with(token);
-    }
-
-    /**
      * {@see SignedNumberParserTokenBiFunction}
      */
     public static <T extends ParserToken & HasSign, C extends ParserContext> BiFunction<SequenceParserToken, C, T> signed(final Class<T> token) {
