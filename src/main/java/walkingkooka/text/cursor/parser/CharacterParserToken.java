@@ -53,6 +53,11 @@ public final class CharacterParserToken extends ParserTemplateToken<Character> {
     }
 
     @Override
+    public void accept(final ParserTokenVisitor visitor){
+        visitor.visit(this);
+    }
+
+    @Override
     boolean canBeEqual(final Object other) {
         return other instanceof CharacterParserToken;
     }

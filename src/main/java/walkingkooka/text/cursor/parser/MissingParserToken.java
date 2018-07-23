@@ -59,6 +59,11 @@ public final class MissingParserToken extends ParserTemplateToken<ParserTokenNod
     }
 
     @Override
+    public void accept(final ParserTokenVisitor visitor){
+        visitor.visit(this);
+    }
+
+    @Override
     boolean canBeEqual(final Object other) {
         return other instanceof MissingParserToken;
     }

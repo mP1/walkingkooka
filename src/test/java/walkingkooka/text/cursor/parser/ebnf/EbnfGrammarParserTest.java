@@ -73,7 +73,7 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
     }
 
     private EbnfGrammarParserToken grammar(final String text, final EbnfRuleParserToken...rules) {
-        return new EbnfGrammarParserToken(Lists.of(rules), text);
+        return EbnfGrammarParserToken.with(Lists.of(rules), text);
     }
 
     private EbnfRuleParserToken rule1() {

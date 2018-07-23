@@ -21,6 +21,8 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.ParserTokenVisitor;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
@@ -62,8 +64,8 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfGrammarParserToken}
      */
-    public static EbnfGrammarParserToken grammar(final List<EbnfRuleParserToken> rules, final String text) {
-        return EbnfGrammarParserToken.with(rules, text);
+    public static EbnfGrammarParserToken grammar(final List<EbnfParserToken> tokens, final String text) {
+        return EbnfGrammarParserToken.with(tokens, text);
     }
 
     /**
@@ -258,6 +260,18 @@ public abstract class EbnfParserToken implements ParserToken {
     final <T extends EbnfParserToken> T cast() {
         return Cast.to(this);
     }
+
+    public final void accept(final ParserTokenVisitor visitor) {
+        final EbnfParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);
+        final EbnfParserToken token = this;
+
+        if(Visiting.CONTINUE == ebnfParserTokenVisitor.startVisit(token)){
+            this.accept(EbnfParserTokenVisitor.class.cast(visitor));
+        }
+        ebnfParserTokenVisitor.endVisit(token);
+    }
+
+    abstract public void accept(final EbnfParserTokenVisitor visitor);
 
     // Object ...........................................................................................................
 

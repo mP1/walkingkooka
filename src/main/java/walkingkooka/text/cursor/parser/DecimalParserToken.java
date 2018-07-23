@@ -66,6 +66,11 @@ public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> im
                 this :
                 new DecimalParserToken(value.negate(), this.text());
     }
+
+    @Override
+    public void accept(final ParserTokenVisitor visitor){
+        visitor.visit(this);
+    }
     
     @Override
     boolean canBeEqual(final Object other) {

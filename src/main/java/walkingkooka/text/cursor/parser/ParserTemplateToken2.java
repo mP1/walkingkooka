@@ -33,6 +33,12 @@ abstract class ParserTemplateToken2<T extends ParserToken> extends ParserTemplat
         super(value, text);
     }
 
+    final void acceptValues(final ParserTokenVisitor visitor){
+        for(ParserToken token: this.value()){
+            visitor.accept(token);
+        }
+    }
+
     /**
      * Takes the tokens of something that implements {@link SupportsFlat} and flattens them so no tokens that remain are also flattenable.
      */

@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
 
@@ -30,6 +31,34 @@ public final class DecimalParserTokenTest extends ParserTokenTestCase<DecimalPar
     @Test(expected = NullPointerException.class)
     public void testWithNullTextFails() {
         DecimalParserToken.with(BigDecimal.ZERO, null);
+    }
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final DecimalParserToken token = this.createToken();
+
+        new FakeParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final DecimalParserToken t) {
+                assertSame(token, t);
+                b.append("3");
+            }
+        }.accept(token);
+        assertEquals("132", b.toString());
     }
     
     @Test

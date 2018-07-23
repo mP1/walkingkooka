@@ -62,6 +62,11 @@ public final class DoubleQuotedParserToken extends QuotedParserToken {
     }
 
     @Override
+    public void accept(final ParserTokenVisitor visitor){
+        visitor.visit(this);
+    }
+
+    @Override
     boolean canBeEqual(final Object other) {
         return other instanceof DoubleQuotedParserToken;
     }

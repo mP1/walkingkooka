@@ -27,13 +27,13 @@ public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T ex
 
     @Test(expected = IllegalArgumentException.class)
     public final void testOnlyOneTokenIgnoringCommentsSymbolsWhitespaceFails() {
-        this.createToken(this.text(), this.identifier("first"), this.comment("(*comment-2*)"));
+        this.createToken(this.text(), this.identifier("first"), this.comment2());
     }
 
     @Test
     public void testWithoutCommentsSymbolsWhitespace() {
-        final EbnfParserToken identifier1 = this.identifier("identifier1");
-        final EbnfParserToken comment2 = this.comment("(*comment2*)");
+        final EbnfParserToken identifier1 = this.identifier1();
+        final EbnfParserToken comment2 = this.comment2();
         final EbnfParserToken identifier3 = this.identifier("identifier3");
 
         final T token = this.createToken(this.text(), identifier1, comment2, identifier3);
@@ -46,7 +46,7 @@ public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T ex
 
     @Override
     final List<EbnfParserToken> tokens() {
-        return Lists.of(this.identifier("identifier-1"), this.identifier("identifier-2"));
+        return Lists.of(this.identifier1(), this.identifier2());
     }
 
     @Override

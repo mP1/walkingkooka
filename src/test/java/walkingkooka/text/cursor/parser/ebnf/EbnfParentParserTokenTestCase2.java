@@ -22,7 +22,7 @@ public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserT
 
     @Test(expected = IllegalArgumentException.class)
     public final void testOnlyCommentsFails() {
-        this.createToken(this.text(), this.comment("(*comment-1*)"), this.comment("(*comment-2*)"));
+        this.createToken(this.text(), this.comment1(), this.comment2());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -37,7 +37,7 @@ public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserT
 
     @Test(expected = IllegalArgumentException.class)
     public final void testOnlyCommentsSymbolsWhitespaceFails() {
-        this.createToken(this.text(), this.comment("(*comment-1*)"), symbol("2"), this.whitespace("   "));
+        this.createToken(this.text(), this.comment1(), symbol("2"), this.whitespace("   "));
     }
 
     @Test(expected = IllegalArgumentException.class)

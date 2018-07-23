@@ -16,38 +16,41 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A grammar holds all the rules and is the root of the graph.
  */
-public final class EbnfGrammarParserToken extends EbnfParserToken {
+public final class EbnfGrammarParserToken extends EbnfParentParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfGrammarParserToken.class);
 
-    static EbnfGrammarParserToken with(final List<EbnfRuleParserToken> rules, final String text) {
-        Objects.requireNonNull(rules, "rules");
+    static EbnfGrammarParserToken with(final List<EbnfParserToken> tokens, final String text) {
+        Objects.requireNonNull(tokens, "rules");
         checkText(text);
 
-        final List<EbnfRuleParserToken> copy = Lists.array();
-        copy.addAll(rules);
+        final List<EbnfParserToken> copy = Lists.array();
+        copy.addAll(tokens);
 
-        return new EbnfGrammarParserToken(copy, text);
+        final List<EbnfParserToken> onlyRules = copy.stream()
+                .filter(t -> t instanceof EbnfRuleParserToken)
+                .collect(Collectors.toList());
+        if(onlyRules.isEmpty()){
+            throw new IllegalArgumentException("Missing rules=" + text);
+        }
+
+        return new EbnfGrammarParserToken(copy, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
-    EbnfGrammarParserToken(final List<EbnfRuleParserToken> rules, final String text) {
-        super(text);
-        this.rules = rules;
-        this.identifierToParser = Maps.sorted();
+    EbnfGrammarParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+        super(tokens, text, computeWithout);
+        this.checkAtLeastOneRule();
     }
 
     @Override
@@ -57,26 +60,16 @@ public final class EbnfGrammarParserToken extends EbnfParserToken {
 
     @Override
     EbnfGrammarParserToken replaceText(final String text) {
-        return new EbnfGrammarParserToken(this.rules, text);
+        return new EbnfGrammarParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
     }
 
-    /// need a get parser for identifier
-
-    private final List<EbnfRuleParserToken> rules;
-
-    private final Map<EbnfIdentifierParserToken, Parser<?, ?>> identifierToParser;
-
-    public Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
-        return Optional.of(this);
+    @Override
+    EbnfGrammarParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+        return new EbnfGrammarParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
 
     @Override
     public boolean isAlternative() {
-        return false;
-    }
-
-    @Override
-    public boolean isComment() {
         return false;
     }
 
@@ -101,11 +94,6 @@ public final class EbnfGrammarParserToken extends EbnfParserToken {
     }
 
     @Override
-    public boolean isIdentifier() {
-        return false;
-    }
-
-    @Override
     public boolean isOptional() {
         return false;
     }
@@ -126,36 +114,20 @@ public final class EbnfGrammarParserToken extends EbnfParserToken {
     }
 
     @Override
-    public boolean isSymbol() {
-        return false;
-    }
-
-    @Override
-    public boolean isTerminal() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public ParserTokenNodeName name() {
         return NAME;
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof EbnfGrammarParserToken;
+    public void accept(final EbnfParserTokenVisitor visitor) {
+        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptValues(visitor);
+        }
+        visitor.endVisit(this);
     }
 
     @Override
-    boolean equals1(final EbnfParserToken other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final EbnfGrammarParserToken other) {
-        return this.rules.equals(other.rules);
+    boolean canBeEqual(final Object other) {
+        return other instanceof EbnfGrammarParserToken;
     }
 }

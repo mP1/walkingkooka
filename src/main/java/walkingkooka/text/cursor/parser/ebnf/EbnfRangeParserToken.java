@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
@@ -103,6 +104,11 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
     }
 
     @Override
+    public boolean isGrammar() {
+        return false;
+    }
+
+    @Override
     public boolean isGroup() {
         return false;
     }
@@ -125,6 +131,14 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
     @Override
     public boolean isRule() {
         return false;
+    }
+
+    @Override
+    public void accept(final EbnfParserTokenVisitor visitor) {
+        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptValues(visitor);
+        }
+        visitor.endVisit(this);
     }
 
     @Override

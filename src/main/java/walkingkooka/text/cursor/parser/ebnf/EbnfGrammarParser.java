@@ -465,7 +465,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      */
     final static Parser<EbnfGrammarParserToken, EbnfParserContext> GRAMMAR = RULE.repeating()
             .transform((repeated, context) -> {
-                return new EbnfGrammarParserToken(
+                return EbnfGrammarParserToken.with(
                         Cast.to(repeated.value()), // list of rules
                         repeated.text());
             })

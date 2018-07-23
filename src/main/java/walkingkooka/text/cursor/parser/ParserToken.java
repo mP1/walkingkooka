@@ -50,4 +50,10 @@ public interface ParserToken {
     default boolean isMissing() {
        return false;
     }
+
+    /**
+     * Called by the visitor responsible for this group of tokens, which typically resides in the same package.
+     * The token must then call the appropriate visit or start/end visit and also visit any child token values as appropriate.
+     */
+    void accept(final ParserTokenVisitor visitor);
 }

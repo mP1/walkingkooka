@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.tree.visit.Visiting;
 
 public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<SingleQuotedParserToken> {
 
@@ -38,6 +39,34 @@ public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<Singl
     @Test(expected = IllegalArgumentException.class)
     public void testWithMissingEndQuoteFails() {
         SingleQuotedParserToken.with("abc", "'abc");
+    }
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final SingleQuotedParserToken token = this.createToken();
+
+        new FakeParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final SingleQuotedParserToken t) {
+                assertSame(token, t);
+                b.append("3");
+            }
+        }.accept(token);
+        assertEquals("132", b.toString());
     }
     
     @Override
