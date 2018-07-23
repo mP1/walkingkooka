@@ -18,9 +18,12 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.tree.visit.Visiting;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import static org.junit.Assert.assertNotSame;
 
@@ -59,6 +62,32 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
 
         final ParserToken token3 = token2.setText(token.text());
         assertEquals("after setting original text tokens must be equal", token, token3);
+    }
+
+    @Test
+    public final void testAcceptStartParserTokenSkip() {
+        final StringBuilder b = new StringBuilder();
+        final List<ParserToken> visited = Lists.array();
+
+        final T token = this.createToken();
+
+        new FakeParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                b.append("1");
+                visited.add(t);
+                return Visiting.SKIP;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("2");
+                visited.add(t);
+            }
+        }.accept(token);
+        assertEquals("12", b.toString());
+        assertEquals("visited tokens", Lists.of(token, token), visited);
     }
 
     @Test

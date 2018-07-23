@@ -16,10 +16,79 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import org.junit.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.visit.Visiting;
+
 import java.util.List;
 
 public class EbnfRepeatParserTokenTest extends EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<EbnfRepeatedParserToken> {
 
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final List<ParserToken> visited = Lists.array();
+
+        final EbnfRepeatedParserToken repeated = this.createToken();
+        final EbnfIdentifierParserToken identifier1 = this.identifier1();
+
+        new FakeEbnfParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                b.append("1");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                b.append("2");
+                visited.add(t);
+            }
+
+            @Override
+            protected Visiting startVisit(final EbnfParserToken t) {
+                b.append("3");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final EbnfParserToken t) {
+                b.append("4");
+                visited.add(t);
+            }
+
+            @Override
+            protected Visiting startVisit(final EbnfRepeatedParserToken t) {
+                assertSame(repeated, t);
+                b.append("5");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final EbnfRepeatedParserToken t) {
+                assertSame(repeated, t);
+                b.append("6");
+                visited.add(t);
+            }
+
+            @Override
+            protected void visit(final EbnfIdentifierParserToken t) {
+                b.append("7");
+                visited.add(t);
+            }
+        }.accept(repeated);
+        assertEquals("13513742642", b.toString());
+        assertEquals("visited",
+                Lists.of(repeated, repeated, repeated,
+                        identifier1, identifier1, identifier1, identifier1, identifier1,
+                        repeated, repeated, repeated),
+                visited);
+    }
+    
     @Override
     EbnfRepeatedParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
         return EbnfRepeatedParserToken.with(tokens, text);

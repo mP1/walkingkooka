@@ -19,20 +19,16 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
 public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCase<EbnfRangeParserToken> {
 
-    private final static String TERMINAL_TEXT1 = "terminal-1";
-    private final static String TERMINAL_TEXT2 = "terminal-2";
-    private final static String TERMINAL1 = "'terminal-1'";
-    private final static String TERMINAL2 = "'terminal-2'";
-
-    private final static String RANGE = "..";
+    private final static String BETWEEN = "..";
 
     private final static String WHITESPACE = "   ";
-    private final static String COMMENT = "(*comment*)";
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullTokenFails() {
@@ -40,18 +36,18 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMissingBeginIdentifierFails() {
-        this.createToken(this.text(), identifier(), range(), terminal2());
+    public void testMissingBeginTokenFails() {
+        this.createToken(this.text(), identifier1(), between(), terminal2());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMissingRangeBetweenFails() {
-        this.createToken(this.text(), terminal1(), terminal2(), terminal2());
+        this.createToken(this.text(), identifier1(), terminal2(), terminal2());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMissingIdentifierFails2() {
-        this.createToken(this.text(), terminal1(), range(), range());
+    public void testMissingEndTokenFails2() {
+        this.createToken(this.text(), terminal1(), between(), comment1());
     }
 
     @Test
@@ -59,8 +55,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfParserToken terminal1 = this.terminal1();
         final EbnfParserToken terminal2 = this.terminal2();
         final EbnfRangeParserToken token = this.createToken(
-                TERMINAL_TEXT1 + WHITESPACE + RANGE + TERMINAL_TEXT2,
-                terminal1, whitespace("   "), range(), terminal2);
+                TERMINAL_TEXT1 + WHITESPACE + BETWEEN + TERMINAL_TEXT2,
+                terminal1, whitespace("   "), between(), terminal2);
         assertSame("begin", terminal1, token.begin());
         assertSame("end", terminal2, token.end());
     }
@@ -70,8 +66,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfParserToken terminal1 = this.terminal1();
         final EbnfParserToken terminal2 = this.terminal2();
         final EbnfRangeParserToken token = this.createToken(
-                TERMINAL_TEXT1 + COMMENT + RANGE + TERMINAL_TEXT2,
-                terminal1, comment(), range(), terminal2);
+                TERMINAL_TEXT1 + COMMENT1 + BETWEEN + TERMINAL_TEXT2,
+                terminal1, comment1(), between(), terminal2);
         assertSame("begin", terminal1, token.begin());
         assertSame("end", terminal2, token.end());
     }
@@ -81,8 +77,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfParserToken terminal1 = this.terminal1();
         final EbnfParserToken terminal2 = this.terminal2();
         final EbnfRangeParserToken token = this.createToken(
-                TERMINAL_TEXT1 + RANGE + WHITESPACE + TERMINAL_TEXT2,
-                terminal1, range(), whitespace(), terminal2);
+                TERMINAL_TEXT1 + BETWEEN + WHITESPACE + TERMINAL_TEXT2,
+                terminal1, between(), whitespace(), terminal2);
         assertSame("begin", terminal1, token.begin());
         assertSame("end", terminal2, token.end());
     }
@@ -92,8 +88,8 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         final EbnfParserToken terminal1 = this.terminal1();
         final EbnfParserToken terminal2 = this.terminal2();
         final EbnfRangeParserToken token = this.createToken(
-                TERMINAL_TEXT1 + RANGE + COMMENT +TERMINAL_TEXT2,
-                terminal1, range(), comment(), terminal2);
+                TERMINAL_TEXT1 + BETWEEN + COMMENT1 +TERMINAL_TEXT2,
+                terminal1, between(), comment1(), terminal2);
         assertSame("begin", terminal1, token.begin());
         assertSame("end", terminal2, token.end());
     }
@@ -104,10 +100,85 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
 
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final List<ParserToken> visited = Lists.array();
+
+        final EbnfRangeParserToken range = this.createToken();
+        final EbnfTerminalParserToken terminal1 = this.terminal1();
+        final EbnfSymbolParserToken between = this.between();
+        final EbnfTerminalParserToken terminal2 = this.terminal2();
+
+        new FakeEbnfParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                b.append("1");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                b.append("2");
+                visited.add(t);
+            }
+
+            @Override
+            protected Visiting startVisit(final EbnfParserToken t) {
+                b.append("3");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final EbnfParserToken t) {
+                b.append("4");
+                visited.add(t);
+            }
+
+            @Override
+            protected Visiting startVisit(final EbnfRangeParserToken t) {
+                assertSame(range, t);
+                b.append("5");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final EbnfRangeParserToken t) {
+                assertSame(range, t);
+                b.append("6");
+                visited.add(t);
+            }
+
+            @Override
+            protected void visit(final EbnfSymbolParserToken t) {
+                assertSame(range, t);
+                b.append("7");
+                visited.add(t);
+            }
+
+            @Override
+            protected void visit(final EbnfTerminalParserToken t) {
+                b.append("8");
+                visited.add(t);
+            }
+        }.accept(range);
+        assertEquals("135138421374213842642", b.toString());
+        assertEquals("visited",
+                Lists.of(range, range, range,
+                        terminal1, terminal1, terminal1, terminal1, terminal1,
+                        between, between, between, between, between,
+                        terminal2, terminal2, terminal2, terminal2, terminal2,
+                        range, range, range),
+                visited);
+    }
+
     @Override
     protected EbnfRangeParserToken createDifferentToken() {
         return this.createToken("'different-1'..'different-2'",
-                terminal("different-1"), range(), terminal("different-2"));
+                terminal("different-1"), between(), terminal("different-2"));
     }
 
     @Override
@@ -116,40 +187,12 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     }
 
     final List<EbnfParserToken> tokens() {
-        return Lists.of(terminal1(), range(), terminal2());
+        return Lists.of(terminal1(), between(), terminal2());
     }
 
     @Override
     EbnfRangeParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
         return EbnfRangeParserToken.with(tokens, text);
-    }
-
-    private EbnfTerminalParserToken terminal1() {
-        return terminal(TERMINAL_TEXT1);
-    }
-
-    private EbnfTerminalParserToken terminal2() {
-        return terminal(TERMINAL_TEXT2);
-    }
-
-    private EbnfTerminalParserToken terminal(final String text) {
-        return EbnfParserToken.terminal(text, '"' + text + '"');
-    }
-
-    private EbnfSymbolParserToken range() {
-        return symbol("=");
-    }
-
-    private EbnfIdentifierParserToken identifier() {
-        return EbnfParserToken.identifier("identifier", "identifier");
-    }
-
-    private EbnfCommentParserToken comment() {
-        return this.comment(COMMENT);
-    }
-
-    private EbnfWhitespaceParserToken whitespace() {
-        return this.whitespace(WHITESPACE);
     }
 
     @Override

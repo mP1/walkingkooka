@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
@@ -22,9 +23,10 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
+import java.util.Iterator;
 import java.util.List;
 
-public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfRuleParserToken> {
+public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestCase<EbnfGrammarParserToken> {
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullTokenFails() {
@@ -32,23 +34,13 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMissingIdentifierFails() {
-        this.createToken(this.text(), assignment(), terminal1(), terminator());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testMissingIdentifierFails2() {
-        this.createToken(this.text(), terminal1(), assignment(), identifier1(), terminator());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testMissingTokenFails() {
-        this.createToken(this.text(), identifier1(), assignment(), terminator());
+    public void testMissingRuleFails() {
+        this.createToken(this.text(), terminal1());
     }
 
     @Test
     public void testWithoutCommentsSymbolsOrWhitespace() {
-        final EbnfRuleParserToken token = this.createToken();
+        final EbnfGrammarParserToken token = this.createToken();
         assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
 
@@ -58,11 +50,14 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
         final List<ParserToken> visited = Lists.array();
 
 
-        final EbnfRuleParserToken range = this.createToken();
-        final EbnfIdentifierParserToken identifier = this.identifier1();
-        final EbnfSymbolParserToken assignment = this.assignment();
-        final EbnfTerminalParserToken terminal = this.terminal1();
-        final EbnfSymbolParserToken terminator = this.terminator();
+        final EbnfGrammarParserToken grammar = this.createToken();
+        final EbnfRuleParserToken range = grammar.value().get(0).cast();
+
+        final Iterator<EbnfParserToken> rangeTokens = range.value().iterator();
+        final EbnfIdentifierParserToken identifier = rangeTokens.next().cast();
+        final EbnfSymbolParserToken assignment = rangeTokens.next().cast();
+        final EbnfTerminalParserToken terminal = rangeTokens.next().cast();
+        final EbnfSymbolParserToken terminator =rangeTokens.next().cast();
 
         new FakeEbnfParserTokenVisitor() {
             @Override
@@ -138,27 +133,33 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
     }
 
     @Override
-    protected EbnfRuleParserToken createDifferentToken() {
-        return this.createToken("xyz=qrs;",
-                identifier("xyz"), assignment(), identifier("qrs"), terminator());
+    protected EbnfGrammarParserToken createDifferentToken() {
+        final String ruleText = "identifier2:'terminal2';";
+        final EbnfParserToken rule = EbnfParserToken.rule(Lists.of(identifier2(), assignment(), terminal1(), terminator()), ruleText);
+
+        return EbnfGrammarParserToken.with(Lists.of(rule), ruleText);
     }
 
     @Override
     final String text() {
-        return "abc123=def456";
+        return "identifier1:'terminal1';";
     }
 
     final List<EbnfParserToken> tokens() {
-        return Lists.of(this.identifier1(), this.assignment(), this.terminal1(), this.terminator());
+        return Lists.of(rule());
+    }
+
+    private EbnfRuleParserToken rule() {
+        return EbnfParserToken.rule(Lists.of(identifier1(), assignment(), terminal1(), terminator()), "identifier1:'terminal1';");
     }
 
     @Override
-    EbnfRuleParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
-        return EbnfRuleParserToken.with(tokens, text);
+    EbnfGrammarParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
+        return EbnfGrammarParserToken.with(tokens, text);
     }
 
     @Override
-    protected Class<EbnfRuleParserToken> type() {
-        return EbnfRuleParserToken.class;
+    protected Class<EbnfGrammarParserToken> type() {
+        return EbnfGrammarParserToken.class;
     }
 }

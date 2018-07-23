@@ -33,13 +33,13 @@ public abstract class EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<
 
     @Test(expected = IllegalArgumentException.class)
     public final void testTooManyTokensIgnoringCommentsSymbolsWhitespaceFails() {
-        this.createToken(this.text(), this.identifier("identifier-1"), this.comment("(*comment-2*)"), this.identifier("identifier-3"));
+        this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier("identifier-3"));
     }
 
     @Test
     public void testWithoutCommentsSymbolsWhitespace() {
-        final EbnfParserToken identifier1 = this.identifier("identifier1");
-        final EbnfParserToken comment2 = this.comment("(*comment2*)");
+        final EbnfParserToken identifier1 = this.identifier1();
+        final EbnfParserToken comment2 = this.comment2();
 
         final T token = this.createToken(this.text(), identifier1, comment2);
         assertEquals("value", Lists.of(identifier1, comment2), token.value());
@@ -52,7 +52,7 @@ public abstract class EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<
 
     @Override
     final List<EbnfParserToken> tokens() {
-        return Lists.of(this.identifier("identifier-1"));
+        return Lists.of(this.identifier1());
     }
 
     @Override
@@ -62,7 +62,7 @@ public abstract class EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<
 
     @Override
     final String text() {
-        return this.openChar() + "identifier1" + this.closeChar();
+        return this.openChar() + this.identifier1().text() + this.closeChar();
     }
 
     abstract String openChar();

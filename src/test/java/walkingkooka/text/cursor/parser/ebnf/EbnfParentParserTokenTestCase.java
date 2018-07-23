@@ -24,6 +24,14 @@ import java.util.List;
 
 public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParserTokenTestCase<T> {
 
+    final static String COMMENT1 = "(*comment-1*)";
+    final static String COMMENT2 = "(*comment-2*)";
+
+    final static String TERMINAL_TEXT1 = "terminal-1";
+    final static String TERMINAL_TEXT2 = "terminal-2";
+
+    final static String WHITESPACE = "   ";
+
     @Test(expected = NullPointerException.class)
     public final void testWithNullTokensFails() {
         this.createToken(this.text(), Cast.<List<EbnfParserToken>>to(null));
@@ -70,15 +78,59 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
     abstract List<EbnfParserToken> tokens();
 
+    final EbnfCommentParserToken comment1() {
+        return this.comment(COMMENT1);
+    }
+
+    final EbnfCommentParserToken comment2() {
+        return this.comment(COMMENT2);
+    }
+
     final EbnfCommentParserToken comment(final String text) {
         return EbnfParserToken.comment(text, text);
+    }
+
+    final EbnfIdentifierParserToken identifier1() {
+        return this.identifier("identifier1");
+    }
+
+    final EbnfIdentifierParserToken identifier2() {
+        return this.identifier("identifier2");
     }
 
     final EbnfIdentifierParserToken identifier(final String text) {
         return EbnfParserToken.identifier(text, text);
     }
 
+    final EbnfWhitespaceParserToken whitespace() {
+        return EbnfParserToken.whitespace(WHITESPACE, WHITESPACE);
+    }
+
     final EbnfWhitespaceParserToken whitespace(final String text) {
         return EbnfParserToken.whitespace(text, text);
+    }
+
+    final EbnfTerminalParserToken terminal1() {
+        return terminal(TERMINAL_TEXT1);
+    }
+
+    final EbnfTerminalParserToken terminal2() {
+        return terminal(TERMINAL_TEXT2);
+    }
+
+    final EbnfTerminalParserToken terminal(final String text) {
+        return EbnfParserToken.terminal(text, '"' + text + '"');
+    }
+
+    final EbnfSymbolParserToken assignment() {
+        return symbol("=");
+    }
+
+    final EbnfSymbolParserToken between() {
+        return symbol("..");
+    }
+
+    final EbnfSymbolParserToken terminator() {
+        return symbol(";");
     }
 }

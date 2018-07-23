@@ -18,8 +18,10 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertNotSame;
@@ -67,6 +69,96 @@ public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedP
         assertNotSame(parent, flat);
         assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value());
         this.checkText(flat,"a1b2d4e5f6");
+    }
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final List<ParserToken> visited = Lists.array();
+
+        final StringParserToken string = this.string("abc");
+        final RepeatedParserToken token = this.repeated(string);
+
+        new FakeParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                b.append("1");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("2");
+                visited.add(t);
+            }
+
+            @Override
+            protected Visiting startVisit(final RepeatedParserToken t) {
+                assertSame(token, t);
+                b.append("3");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final RepeatedParserToken t) {
+                assertSame(token, t);
+                b.append("4");
+                visited.add(t);
+            }
+
+            @Override
+            protected void visit(final StringParserToken t) {
+                b.append("5");
+                visited.add(t);
+            }
+        }.accept(token);
+        assertEquals("1315242", b.toString());
+        assertEquals("visited tokens", Lists.of(token, token, string, string, string, token, token), visited);
+    }
+
+    @Test
+    public void testAcceptSkip() {
+        final StringBuilder b = new StringBuilder();
+        final List<ParserToken> visited = Lists.array();
+
+        final StringParserToken string = this.string("abc");
+        final RepeatedParserToken token = this.repeated(string);
+
+        new FakeParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                b.append("1");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("2");
+                visited.add(t);
+            }
+
+            @Override
+            protected Visiting startVisit(final RepeatedParserToken t) {
+                assertSame(token, t);
+                b.append("3");
+                visited.add(t);
+                return Visiting.SKIP;
+            }
+
+            @Override
+            protected void endVisit(final RepeatedParserToken t) {
+                assertSame(token, t);
+                b.append("4");
+                visited.add(t);
+            }
+        }.accept(token);
+        assertEquals("1342", b.toString());
+        assertEquals("visited tokens", Lists.of(token, token, token, token), visited);
     }
     
     @Override

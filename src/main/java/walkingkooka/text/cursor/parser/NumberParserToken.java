@@ -66,7 +66,12 @@ public final class NumberParserToken extends ParserTemplateToken<BigInteger> imp
                 this :
                 new NumberParserToken(value.negate(), this.text());
     }
-    
+
+    @Override
+    public void accept(final ParserTokenVisitor visitor){
+        visitor.visit(this);
+    }
+
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof NumberParserToken;

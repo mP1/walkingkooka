@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
@@ -62,6 +63,14 @@ public final class SequenceParserToken extends ParserTemplateToken2<ParserToken>
     @Override
     public ParserTokenNodeName name() {
         return NAME;
+    }
+
+    @Override
+    public void accept(final ParserTokenVisitor visitor){
+        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptValues(visitor);
+        }
+        visitor.endVisit(this);
     }
 
     @Override

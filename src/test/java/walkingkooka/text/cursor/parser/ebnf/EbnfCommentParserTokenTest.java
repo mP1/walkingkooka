@@ -16,8 +16,53 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import org.junit.Test;
+import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.visit.Visiting;
+
 public final class EbnfCommentParserTokenTest extends EbnfLeafParserTokenTestCase<EbnfCommentParserToken, String> {
 
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final EbnfCommentParserToken token = this.createToken();
+
+        new FakeEbnfParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final EbnfParserToken t) {
+                assertSame(token, t);
+                b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final EbnfParserToken t) {
+                assertSame(token, t);
+                b.append("4");
+            }
+
+            @Override
+            protected void visit(final EbnfCommentParserToken t) {
+                assertSame(token, t);
+                b.append("5");
+            }
+        }.accept(token);
+        assertEquals("13542", b.toString());
+    }
+    
     @Override
     String text() {
         return "(* comment *)";

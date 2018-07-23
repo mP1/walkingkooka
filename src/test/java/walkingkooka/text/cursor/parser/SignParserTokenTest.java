@@ -19,12 +19,41 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.tree.visit.Visiting;
 
 public final class SignParserTokenTest extends ParserTokenTestCase<SignParserToken> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTextFails() {
         SignParserToken.with(true, null);
+    }
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final SignParserToken token = this.createToken();
+
+        new FakeParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("3");
+            }
+
+            @Override
+            protected void visit(final SignParserToken t) {
+                assertSame(token, t);
+                b.append("2");
+            }
+        }.accept(token);
+        assertEquals("123", b.toString());
     }
     
     @Override

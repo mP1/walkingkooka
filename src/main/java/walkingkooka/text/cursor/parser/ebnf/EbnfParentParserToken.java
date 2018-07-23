@@ -73,6 +73,13 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
         }
     }
 
+    final void checkAtLeastOneRule() {
+        final int count = this.tokenCount();
+        if(count <1) {
+            throw new IllegalArgumentException("Expected at least one rule(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
+        }
+    }
+
     private int tokenCount() {
         final EbnfParentParserToken without = this.without.get().cast();
         return without.value().size();
@@ -80,11 +87,6 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
 
     @Override
     public final boolean isComment() {
-        return false;
-    }
-
-    @Override
-    public final boolean isGrammar() {
         return false;
     }
 
@@ -129,6 +131,12 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
      * Factory that creates a new {@link EbnfParentParserToken} with the same text but new tokens.
      */
     abstract EbnfParentParserToken replaceTokens(final List<EbnfParserToken> tokens);
+
+    final void acceptValues(final EbnfParserTokenVisitor visitor){
+        for(EbnfParserToken token: this.value()){
+            visitor.accept(token);
+        }
+    }
 
     @Override
     final boolean equals1(final EbnfParserToken other) {

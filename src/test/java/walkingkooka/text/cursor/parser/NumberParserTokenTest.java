@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigInteger;
 
@@ -30,6 +31,34 @@ public final class NumberParserTokenTest extends ParserTokenTestCase<NumberParse
     @Test(expected = NullPointerException.class)
     public void testWithNullTextFails() {
         NumberParserToken.with(BigInteger.ZERO, null);
+    }
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final NumberParserToken token = this.createToken();
+
+        new FakeParserTokenVisitor() {
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final ParserToken t) {
+                assertSame(token, t);
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final NumberParserToken t) {
+                assertSame(token, t);
+                b.append("3");
+            }
+        }.accept(token);
+        assertEquals("132", b.toString());
     }
     
     @Test
