@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
-package walkingkooka.text.cursor.parser;
 
-import walkingkooka.ContextTestCase;
+package walkingkooka;
 
-public abstract class ParserContextTestCase<C extends ParserContext> extends ContextTestCase<C> {
+/**
+ * Base class for all context classes.
+ */
+public interface Context {
 }
