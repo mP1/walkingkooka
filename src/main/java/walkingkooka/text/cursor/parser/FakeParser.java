@@ -13,24 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
+
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursors;
 
-public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T extends ParserToken> extends ParserTestCase<P, T, FakeParserContext> {
+import java.util.Optional;
+
+final class FakeParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C>{
+
+    static <T extends ParserToken, C extends ParserContext> FakeParser<T, C> create() {
+        return new FakeParser<>();
+    }
+
+    private FakeParser() {
+        super();
+    }
 
     @Override
-    protected FakeParserContext createContext() {
-        return new FakeParserContext();
-    }
-
-    protected final TextCursor parseFailAndCheck(final Parser <T, FakeParserContext> parser, final String text) {
-        return this.parseFailAndCheck(parser, TextCursors.charSequence(text));
-    }
-
-    protected final TextCursor parseFailAndCheck(final Parser <T, FakeParserContext> parser, final TextCursor cursor) {
-        return this.parseFailAndCheck(parser, this.createContext(), cursor);
+    public Optional<T> parse(final TextCursor cursor, final C context) {
+        throw new UnsupportedOperationException();
     }
 }

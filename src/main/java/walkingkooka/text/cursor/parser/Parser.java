@@ -37,6 +37,13 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     Optional<T> parse(final TextCursor cursor, final C context);
 
     /**
+     * Creates a parser that matches this parser and fails the given parser.
+     */
+    default Parser<T, C> andNot(final Parser<T, C> parser) {
+        return Parsers.andNot(this, parser);
+    }
+
+    /**
      * Creates a new {@link SequenceParserBuilder} and adds this parser as a required(default) or optional(if already an optional).
      * The builder may then be used to continue building...
      */
