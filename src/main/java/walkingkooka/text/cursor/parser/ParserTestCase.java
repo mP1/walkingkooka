@@ -107,6 +107,10 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         return this.parseAndCheck(parser, context, TextCursors.charSequence(cursorText), token, text, textAfter);
     }
 
+    protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final C context, final TextCursor cursor, final TT token, final String text) {
+        return this.parseAndCheck(parser, context, cursor, Optional.of(token), text, "");
+    }
+
     protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final C context, final TextCursor cursor, final TT token, final String text, final String textAfter) {
         return this.parseAndCheck(parser, context, cursor, Optional.of(token), text, textAfter);
     }
@@ -160,6 +164,12 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
                 Optional.<T>empty(),
                 result);
         return cursor;
+    }
+
+    private boolean isMissing(final Optional<T> result) {
+        return result.isPresent() ?
+                result.get().isMissing() :
+                true;
     }
 
     protected final void parseThrows(final String cursorText) {

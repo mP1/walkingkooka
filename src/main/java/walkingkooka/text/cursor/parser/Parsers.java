@@ -36,6 +36,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see AndNotParser}
+     */
+    static <T extends ParserToken, C extends ParserContext> Parser<T, C> andNot(final Parser<T, C> left, final Parser<T, C> right){
+        return AndNotParser.with(left, right);
+    }
+
+    /**
      * {@see CharacterCharPredicateParser}
      */
     public static <C extends ParserContext> Parser<CharacterParserToken, C> character(final CharPredicate predicate) {
@@ -54,6 +61,13 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <C extends ParserContext> Parser<DoubleQuotedParserToken, C> doubleQuoted(){
         return DoubleQuotedParser.instance();
+    }
+
+    /**
+     * {@see FakeParser}
+     */
+    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> fake() {
+        return FakeParser.create();
     }
 
     /**
