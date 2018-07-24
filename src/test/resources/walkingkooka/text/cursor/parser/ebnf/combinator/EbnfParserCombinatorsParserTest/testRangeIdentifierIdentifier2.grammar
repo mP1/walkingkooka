@@ -1,0 +1,7 @@
+FROM="a";
+TO="z";
+
+TEST=FROM2..TO2;
+
+FROM2 = FROM;
+TO2 = TO;

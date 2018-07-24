@@ -120,6 +120,30 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
                 text);
     }
 
+    @Test
+    public final void testIdentifierIdentifierSeparatorWhitespaceIdentifier() {
+        final String text = IDENTIFIER1 + this.separator() + IDENTIFIER2 + this.separator() + this.whitespace1() + IDENTIFIER3;
+        this.parseAndCheck(text,
+                this.token(text, identifier1(), this.separatorCharToken(), identifier2(), this.separatorCharToken(), this.whitespace1(), identifier3()),
+                text);
+    }
+
+    @Test
+    public final void testIdentifierIdentifierWhitespaceSeparatorWhitespaceIdentifier() {
+        final String text = IDENTIFIER1 + this.separator() + IDENTIFIER2 + this.whitespace1() + this.separator() + this.whitespace2() + IDENTIFIER3;
+        this.parseAndCheck(text,
+                this.token(text, identifier1(), this.separatorCharToken(), identifier2(), this.whitespace1(), this.separatorCharToken(), this.whitespace2(), identifier3()),
+                text);
+    }
+
+    @Test
+    public final void testIdentifierIdentifierWhitespaceSeparatorIdentifier() {
+        final String text = IDENTIFIER1 + this.separator() + IDENTIFIER2 + this.whitespace1() + this.separator() + IDENTIFIER3;
+        this.parseAndCheck(text,
+                this.token(text, identifier1(), this.separatorCharToken(), identifier2(), this.whitespace1(), this.separatorCharToken(), identifier3()),
+                text);
+    }
+
     @Override
     final String text() {
         return IDENTIFIER1 + this.separator() + IDENTIFIER2;

@@ -1,0 +1,3 @@
+INITIAL =   "i" | "j" | "k";
+PART    =   "p" | "q" | "r";
+TEST    =   INITIAL , PART , {PART};

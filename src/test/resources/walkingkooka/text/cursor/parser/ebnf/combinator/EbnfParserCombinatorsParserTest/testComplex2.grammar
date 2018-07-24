@@ -1,0 +1,4 @@
+INITIAL =   "i";
+PART    =   "p";
+LAST    =   [ "L" ];
+TEST    =   INITIAL, PART, {PART}, LAST;

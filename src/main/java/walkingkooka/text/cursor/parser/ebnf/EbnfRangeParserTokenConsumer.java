@@ -24,22 +24,24 @@ final class EbnfRangeParserTokenConsumer implements Consumer<EbnfParserToken> {
     public void accept(final EbnfParserToken token) {
         if(token.isAlternative() || token.isConcatenation() || token.isGroup() || token.isIdentifier() || token.isOptional() || token.isRepeated() || token.isTerminal()) {
             if(null ==this.begin) {
-                if(!token.isTerminal()) {
-                    throw new IllegalArgumentException("Range expected begin terminal but got " + token);
-                }
-                this.begin = token.cast();
+                this.complainIfNeitherTerminalOrIdentifier(token, "begin");
+                this.begin = token;
             } else {
                 if (null == this.end) {
-                    if(!token.isTerminal()) {
-                        throw new IllegalArgumentException("Range expected end terminal but got " + token);
-                    }
-                    this.end = token.cast();
+                    this.complainIfNeitherTerminalOrIdentifier(token, "end");
+                    this.end=token;
                 }
             }
         }
     }
 
-    EbnfTerminalParserToken begin;
-    EbnfTerminalParserToken end;
+    private void complainIfNeitherTerminalOrIdentifier(final EbnfParserToken token, final String beginOrEnd) {
+        if(!token.isTerminal() && !token.isIdentifier()) {
+            throw new IllegalArgumentException("Range expected " + beginOrEnd+ " terminal|identifier but got " + token);
+        }
+    }
+
+    EbnfParserToken begin;
+    EbnfParserToken end;
 
 }

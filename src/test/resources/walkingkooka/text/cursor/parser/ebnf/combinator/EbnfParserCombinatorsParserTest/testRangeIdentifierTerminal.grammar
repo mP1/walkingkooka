@@ -1,0 +1,3 @@
+FROM="a";
+
+TEST=FROM.."z";

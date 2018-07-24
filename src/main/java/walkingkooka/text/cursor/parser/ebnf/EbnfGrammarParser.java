@@ -256,6 +256,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .required(RHS2)
                 .build();
         final Parser<RepeatedParserToken, EbnfParserContext> optionalRepeating = Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .optional(WHITESPACE_OR_COMMENT)
                 .required(separator)
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
@@ -289,6 +290,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .required(RHS2)
                 .build();
         final Parser<RepeatedParserToken, EbnfParserContext> optionalRepeating = Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .optional(WHITESPACE_OR_COMMENT)
                 .required(separator)
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RHS2)
