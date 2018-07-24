@@ -17,11 +17,13 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -124,6 +126,24 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
+    }
+
+    /**
+     * Verifies that all identifiers that appear on the RHS of all rules, must be valid.
+     */
+    public void checkIdentifierReferencesExist(){
+        final EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor visitor = new EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor();
+        visitor.accept(this);
+
+        final Set<EbnfIdentifierParserToken> identifiers = visitor.ruleIdentifiers;
+
+        final Set<EbnfIdentifierParserToken> missing = Sets.ordered();
+        missing.addAll(visitor.references);
+        missing.removeAll(identifiers);
+
+        if(!missing.isEmpty()){
+            throw new EbnfGrammarParserTokenInvalidReferencesException(missing.size() + " invalid (unknown) references=" + missing, missing);
+        }
     }
 
     @Override

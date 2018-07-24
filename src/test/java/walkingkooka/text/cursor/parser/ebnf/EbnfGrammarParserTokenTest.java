@@ -132,6 +132,37 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
                 visited);
     }
 
+    @Test
+    public void testCheckIdentifierReferencesExist() {
+        this.createToken().checkIdentifierReferencesExist();
+    }
+
+    @Test
+    public void testCheckIdentifierReferencesExist2() {
+        final EbnfRuleParserToken rule = this.rule();
+        final EbnfRuleParserToken rule2 = this.rule(this.identifier2(), this.identifier1(), "identifier2:identifier1;");
+
+        this.createToken(rule.text() + rule2.text(), rule, rule2)
+                .checkIdentifierReferencesExist();
+    }
+
+    @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)
+    public void testCheckIdentifierReferencesExistInvalidFails() {
+        final EbnfRuleParserToken rule = this.rule(this.identifier1(), this.identifier2(), "identifier1:identifier2;");
+
+        this.createToken(rule.text(), rule)
+                .checkIdentifierReferencesExist();
+    }
+
+    @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)
+    public void testCheckIdentifierReferencesExistInvalidFails2() {
+        final EbnfRuleParserToken rule = this.rule();
+        final EbnfRuleParserToken rule2 = this.rule(this.identifier2(), this.identifier("identifier3"), "identifier2:identifier3;");
+
+        this.createToken(rule.text() + rule2.text(), rule, rule2)
+                .checkIdentifierReferencesExist();
+    }
+
     @Override
     protected EbnfGrammarParserToken createDifferentToken() {
         final String ruleText = "identifier2:'terminal2';";
@@ -150,7 +181,11 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     private EbnfRuleParserToken rule() {
-        return EbnfParserToken.rule(Lists.of(identifier1(), assignment(), terminal1(), terminator()), "identifier1:'terminal1';");
+        return this.rule(identifier1(), terminal1(), "identifier1:'terminal1';");
+    }
+
+    private EbnfRuleParserToken rule(final EbnfIdentifierParserToken identifier, final EbnfParserToken rhs, final String text) {
+        return EbnfParserToken.rule(Lists.of(identifier, assignment(), rhs, terminator()), text);
     }
 
     @Override
