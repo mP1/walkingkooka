@@ -26,7 +26,7 @@ import walkingkooka.text.cursor.parser.StringParserToken;
 
 public final class EbnfParserContext implements ParserContext {
 
-    EbnfParserContext() {
+    public EbnfParserContext() {
     }
 
     static Parser<StringParserToken, EbnfParserContext> string(final char c) {

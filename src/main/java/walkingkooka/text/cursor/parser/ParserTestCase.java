@@ -55,7 +55,7 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
 
     @Test
     public final void testRepeating() {
-        final Parser<RepeatedParserToken<T>, C> parser = this.createParser().repeating();
+        final Parser<RepeatedParserToken, C> parser = this.createParser().repeating();
         assertEquals("" + parser, RepeatedParser.class, parser.getClass());
     }
 
@@ -68,7 +68,7 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
     public void testOr() {
         final P parser = this.createParser();
         final P parser2 = this.createParser();
-        assertEquals(Parsers.alternatives(Lists.of(parser, parser2)), parser.or(parser2));
+        assertEquals(Parsers.alternatives(Lists.of(parser.castTC(), parser2.castTC())), parser.or(parser2));
     }
 
     protected abstract P createParser();

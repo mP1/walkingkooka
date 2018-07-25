@@ -77,7 +77,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * character = letter | digit |  "_" ;
      * </pre>
      */
-    final static Parser<StringParserToken, EbnfParserContext> CHARACTER = LETTER
+    final static Parser<ParserToken, EbnfParserContext> CHARACTER = LETTER
             .or(DIGIT)
             .or(UNDERSCORE)
             .setToString("character");

@@ -27,26 +27,26 @@ import java.util.Optional;
 /**
  * A {@link Parser} that only matches one or more tokens matched by a different provided {@link Parser}.
  */
-final class RepeatedParser<T extends ParserToken, C extends ParserContext> extends ParserTemplate2<RepeatedParserToken<T>, C> {
+final class RepeatedParser<C extends ParserContext> extends ParserTemplate2<RepeatedParserToken, C> {
 
-    static <T extends ParserToken, C extends ParserContext> RepeatedParser<T,C> with(final Parser<T, C> parser){
+    static <T extends ParserToken, C extends ParserContext> RepeatedParser<C> with(final Parser<ParserToken, C> parser){
         Objects.requireNonNull(parser, "parser");
 
         return parser instanceof RepeatedParser ?
                 parser.castTC() :
-                new RepeatedParser<>(parser);
+                new RepeatedParser<C>(parser);
     }
 
-    private RepeatedParser(final Parser<T, C> parser){
+    private RepeatedParser(final Parser<ParserToken, C> parser){
         this.parser = parser;
     }
 
     @Override
-    Optional<RepeatedParserToken<T>> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
-        final List<T> tokens = Lists.array();
+    Optional<RepeatedParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+        final List<ParserToken> tokens = Lists.array();
 
         for(;;) {
-            final Optional<T> token = this.parser.parse(cursor, context);
+            final Optional<ParserToken> token = this.parser.parse(cursor, context);
             if(!token.isPresent()){
                 break;
             }
@@ -60,7 +60,7 @@ final class RepeatedParser<T extends ParserToken, C extends ParserContext> exten
                 .success();
     }
 
-    private final Parser<T, C> parser;
+    private final Parser<ParserToken, C> parser;
 
     @Override
     public String toString() {

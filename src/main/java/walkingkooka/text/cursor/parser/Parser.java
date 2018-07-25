@@ -69,17 +69,17 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     /**
      * Combines this parser with another.
      */
-    default Parser<T, C> or(final Parser<T, C> parser) {
+    default Parser<ParserToken, C> or(final Parser<? extends T, C> parser) {
         Objects.requireNonNull(parser, "parser");
 
-        return Parsers.alternatives( Lists.of(this, parser));
+        return Parsers.alternatives( Lists.of(this.castTC(), parser.castTC()));
     }
 
     /**
      * Makes this a repeating token.
      */
-    default Parser<RepeatedParserToken<T>, C> repeating(){
-        return Parsers.repeated(this);
+    default Parser<RepeatedParserToken, C> repeating(){
+        return Parsers.repeated(this.castC());
     }
 
 
@@ -100,7 +100,7 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     /**
      * Helper that makes casting and working around generics a little less noisy.
      */
-    default <P extends Parser<T, C>, T extends ParserToken> P castTC() {
+    default <PP extends Parser<TT, CC>, TT extends ParserToken, CC extends ParserContext> PP castTC() {
         return Cast.to(this);
     }
 
