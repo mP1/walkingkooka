@@ -35,10 +35,12 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken {
 
     private EbnfExceptionParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
         super(tokens, text, computeWithout);
-        this.checkOnlyOneToken();
+        this.checkOnlyTwoTokens();
 
-        final EbnfExceptionParserToken exception = this.withoutCommentsSymbolsOrWhitespace().get().cast();
-        this.token = exception.value().get(0);
+        final EbnfExceptionParserToken without = this.withoutCommentsSymbolsOrWhitespace().get().cast();
+        final List<EbnfParserToken> withoutTokens = without.value();
+        this.token = withoutTokens.get(0);
+        this.exception = withoutTokens.get(1);
     }
 
     @Override
@@ -57,13 +59,22 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken {
     }
 
     /**
-     * Returns the actual token the exception applies too.
+     * Returns the actual token before the exception applies too.
      */
     public EbnfParserToken token() {
         return this.token;
     }
 
     private final EbnfParserToken token;
+
+    /**
+     * Returns the actual token the exception applies too.
+     */
+    public EbnfParserToken exception() {
+        return this.exception;
+    }
+
+    private final EbnfParserToken exception;
 
     @Override
     public boolean isAlternative() {

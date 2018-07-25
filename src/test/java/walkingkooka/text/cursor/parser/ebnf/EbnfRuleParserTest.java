@@ -44,7 +44,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testWhitespaceAssignment() {
+    public void testIdentifierWhitespaceAssignmentTerminalTerminator() {
         final String text = IDENTIFIER1 + WHITESPACE1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), whitespace1(), assignmentToken(), terminal1(), terminatorToken()),
@@ -52,7 +52,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testCommentAssignment() {
+    public void testIdentifierCommentAssignmentTerminalTerminator() {
         final String text = IDENTIFIER1 + COMMENT1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), comment1(), assignmentToken(), terminal1(), terminatorToken()),
@@ -60,7 +60,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testWhitespaceCommentAssignment() {
+    public void testIdentifierWhitespaceCommentAssignmentTerminalTerminator() {
         final String text = IDENTIFIER1 + WHITESPACE1 + COMMENT1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), whitespace1(), comment1(), assignmentToken(), terminal1(), terminatorToken()),
@@ -68,7 +68,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testWhitespaceCommentWhitespaceAssignment() {
+    public void testIdentifierWhitespaceCommentWhitespaceAssignmentTerminalTerminator() {
         final String text = IDENTIFIER1 + WHITESPACE1 + COMMENT1 + WHITESPACE2 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), whitespace1(), comment1(), whitespace2(), assignmentToken(), terminal1(), terminatorToken()),
@@ -78,7 +78,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     // assignment
 
     @Test
-    public void testeAssignmentWhitespac() {
+    public void testIdentifierAssignmentWhitespaceTerminalTerminator() {
         final String text = IDENTIFIER1 + ASSIGNMENT + WHITESPACE1 + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), whitespace1(), terminal1(), terminatorToken()),
@@ -86,7 +86,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testeAssignmentComment() {
+    public void testIdentifierAssignmentCommentTerminalTerminator() {
         final String text = IDENTIFIER1 + ASSIGNMENT + COMMENT1 + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), comment1(), terminal1(), terminatorToken()),
@@ -94,7 +94,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testAssignmentWhitespaceComment() {
+    public void testIdentifierAssignmentWhitespaceCommentTerminalTerminator() {
         final String text = IDENTIFIER1 + ASSIGNMENT + WHITESPACE1 + COMMENT1 + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), whitespace1(), comment1(), terminal1(), terminatorToken()),
@@ -102,7 +102,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testAssignmentWhitespaceCommentWhitespace() {
+    public void testIdentifierAssignmentWhitespaceCommentWhitespaceTerminalTerminator() {
         final String text = IDENTIFIER1 +  ASSIGNMENT + WHITESPACE1 + COMMENT1 + WHITESPACE2 + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), whitespace1(), comment1(), whitespace2(), terminal1(), terminatorToken()),
@@ -112,7 +112,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     // terminator
 
     @Test
-    public void testeTokenWhitespace() {
+    public void testIdentifierAssignmentTerminalWhitespaceTerminator() {
         final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), terminal1(), whitespace1(), terminatorToken()),
@@ -120,7 +120,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testeTokenComment() {
+    public void testIdentifierAssignmentTerminalCommentTerminator() {
         final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + COMMENT1 + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), terminal1(), comment1(), terminatorToken()),
@@ -128,7 +128,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testTokenWhitespaceComment() {
+    public void testIdentifierAssignmentTerminalWhitespaceCommentTerminator() {
         final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + COMMENT1 + TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), terminal1(), whitespace1(), comment1(), terminatorToken()),
@@ -136,7 +136,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testTokenWhitespaceCommentWhitespace() {
+    public void testIdentifierAssignmentTerminalWhitespaceCommentWhitespaceTerminator() {
         final String text = IDENTIFIER1 +  ASSIGNMENT + TERMINAL1_TEXT + WHITESPACE1 + COMMENT1 + WHITESPACE2 +TERMINATOR;
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), terminal1(), whitespace1(), comment1(), whitespace2(), terminatorToken()),
@@ -144,10 +144,19 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
-    public void testTerminatorWhitespace() {
+    public void testIdentifierAssignmentTerminalTerminator() {
         final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + TERMINATOR;
         this.parseAndCheck(text + WHITESPACE1,
                 rule(text, identifier1(), assignmentToken(), terminal1(), terminatorToken()),
+                text,
+                WHITESPACE1);
+    }
+
+    @Test
+    public void testIdentifierAssignmentIdentifierTerminator() {
+        final String text = IDENTIFIER1 + ASSIGNMENT + IDENTIFIER2 + TERMINATOR;
+        this.parseAndCheck(text + WHITESPACE1,
+                rule(text, identifier1(), assignmentToken(), identifier2(), terminatorToken()),
                 text,
                 WHITESPACE1);
     }
@@ -188,11 +197,13 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testTokenThenException() {
-        final String text = IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT + EXCEPTION + TERMINAL2_TEXT + TERMINATOR;
+        final String exceptionText = TERMINAL1_TEXT + EXCEPTION + TERMINAL2_TEXT;
+        final EbnfParserToken exception = EbnfParserToken.exception(Lists.of(terminal1(), exceptionToken(), terminal2()),exceptionText);
 
-        final EbnfParserToken exception = EbnfParserToken.exception(Lists.of(exceptionToken(), terminal2()),EXCEPTION + TERMINAL2_TEXT);
+        final String text = IDENTIFIER1 + ASSIGNMENT + exceptionText + TERMINATOR;
+
         this.parseAndCheck(text,
-                rule(text, identifier1(), assignmentToken(), terminal1(), exception, terminatorToken()),
+                rule(text, identifier1(), assignmentToken(), exception, terminatorToken()),
                 text);
     }
 

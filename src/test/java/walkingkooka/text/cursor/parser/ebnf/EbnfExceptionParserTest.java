@@ -30,62 +30,53 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
     }
 
     @Test
-    public void testCommentExceptionIdentifier() {
-        final String text = COMMENT1 + EXCEPTION + IDENTIFIER1;
+    public void testCommentIdentifierExceptionIdentifier() {
+        final String text = COMMENT1 + IDENTIFIER1 + EXCEPTION + IDENTIFIER2;
         this.parseAndCheck(text,
-                this.token(text, comment1(), this.exceptionToken(), this.identifier1()),
+                this.token(text, comment1(), this.identifier1(), this.exceptionToken(), this.identifier2()),
                 text);
     }
 
     @Test
-    public void testWhitespaceExceptionIdentifier() {
-        final String text = WHITESPACE1 + EXCEPTION + IDENTIFIER1;
+    public void testWhitespaceIdentifierExceptionIdentifier() {
+        final String text = WHITESPACE1 + IDENTIFIER1 + EXCEPTION + IDENTIFIER2;
         this.parseAndCheck(text,
-                this.token(text, whitespace1(), this.exceptionToken(), this.identifier1()),
+                this.token(text, whitespace1(), this.identifier1(), this.exceptionToken(), this.identifier2()),
                 text);
     }
     
     @Test
-    public void testExceptionWhitespaceIdentifier() {
-        final String text = EXCEPTION + WHITESPACE1 + IDENTIFIER1;
+    public void testIdentifierExceptionWhitespaceIdentifier() {
+        final String text = IDENTIFIER1 + EXCEPTION + WHITESPACE1 + IDENTIFIER2;
         this.parseAndCheck(text,
-                this.token(text, this.exceptionToken(), whitespace1(), this.identifier1()),
+                this.token(text, identifier1(), this.exceptionToken(), whitespace1(), this.identifier2()),
                 text);
     }
 
     @Test
-    public void testExceptionWhitespaceIdentifierWhitespace() {
-        final String text = EXCEPTION + WHITESPACE1 + IDENTIFIER1;
-        this.parseAndCheck(text+ WHITESPACE2,
-                this.token(text, this.exceptionToken(), whitespace1(), this.identifier1()),
-                text,
-                WHITESPACE2);
-    }
-
-    @Test
-    public void testExceptionCommentIdentifier() {
-        final String text = EXCEPTION + COMMENT1 + IDENTIFIER1;
+    public void testIdentifierExceptionCommentIdentifier() {
+        final String text = IDENTIFIER1 + EXCEPTION + COMMENT1 + IDENTIFIER2;
         this.parseAndCheck(text,
-                this.token(text, this.exceptionToken(), comment1(), this.identifier1()),
+                this.token(text, identifier1(), this.exceptionToken(), comment1(), this.identifier2()),
                 text);
     }
 
     @Test
-    public void testExceptionCommentIdentifierComment() {
-        final String text = EXCEPTION + COMMENT1 + IDENTIFIER1;
-        this.parseAndCheck(text + COMMENT2,
-                this.token(text, this.exceptionToken(), comment1(), this.identifier1()),
+    public void testIdentifierExceptionIdentifierWhitespace() {
+        final String text = IDENTIFIER1 + EXCEPTION + IDENTIFIER2;
+        this.parseAndCheck(text + WHITESPACE1,
+                this.token(text, identifier1(), this.exceptionToken(), this.identifier2()),
                 text,
-                COMMENT2);
+                WHITESPACE1);
     }
 
     @Test
-    public void testExceptionWhitespaceIdentifierComment() {
-        final String text = EXCEPTION + WHITESPACE1 + IDENTIFIER1;
-        this.parseAndCheck(text + COMMENT2,
-                this.token(text, this.exceptionToken(), whitespace1(), this.identifier1()),
+    public void testIdentifierExceptionIdentifierComment() {
+        final String text = IDENTIFIER1 + EXCEPTION + IDENTIFIER2;
+        this.parseAndCheck(text + COMMENT1,
+                this.token(text, identifier1(), this.exceptionToken(), this.identifier2()),
                 text,
-                COMMENT2);
+                COMMENT1);
     }
 
     @Override

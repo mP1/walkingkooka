@@ -55,7 +55,7 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
     final void checkOnlyOneToken() {
         final int count = this.tokenCount();
         if(count != 1) {
-            throw new IllegalArgumentException("Expected only one token(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
+            throw new IllegalArgumentException("Expected 1 token(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
         }
     }
 
@@ -69,7 +69,7 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
     final void checkOnlyTwoTokens() {
         final int count = this.tokenCount();
         if(count != 2) {
-            throw new IllegalArgumentException("Expected only 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
+            throw new IllegalArgumentException("Expected 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
         }
     }
 

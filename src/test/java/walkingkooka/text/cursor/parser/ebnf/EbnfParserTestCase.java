@@ -29,6 +29,7 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
 
     final static String IDENTIFIER1 = "abc123";
     final static String IDENTIFIER2 = "def456";
+    final static String IDENTIFIER3 = "ghi789";
 
     final static String WHITESPACE1 = " ";
     final static String WHITESPACE2 = "   ";
@@ -77,6 +78,10 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
 
     final EbnfParserToken identifier2() {
         return EbnfParserToken.identifier(IDENTIFIER2, IDENTIFIER2);
+    }
+
+    final EbnfParserToken identifier3() {
+        return EbnfParserToken.identifier(IDENTIFIER3, IDENTIFIER3);
     }
 
     final EbnfParserToken whitespace1() {

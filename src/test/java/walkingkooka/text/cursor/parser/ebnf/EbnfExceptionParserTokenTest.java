@@ -18,13 +18,40 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-public class EbnfExceptionParserTokenTest extends EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<EbnfExceptionParserToken> {
+import static org.junit.Assert.assertNotSame;
+
+public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2<EbnfExceptionParserToken> {
+
+    @Test(expected = NullPointerException.class)
+    public final void testWithNullTokenFails() {
+        this.createToken(this.text(), Cast.<List<EbnfParserToken>>to(null));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testIncorrectTokenCountFails() {
+        this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier2(), this.identifier("identifier-3"));
+    }
+
+    @Test
+    public void testWithoutCommentsSymbolsWhitespace() {
+        final EbnfParserToken identifier1 = this.identifier1();
+        final EbnfParserToken comment2 = this.comment2();
+        final EbnfParserToken identifier2 = this.identifier2();
+
+        final EbnfExceptionParserToken token = this.createToken(this.text(), identifier1, comment2, identifier2);
+        assertEquals("value", Lists.of(identifier1, comment2, identifier2), token.value());
+
+        final EbnfExceptionParserToken without = token.withoutCommentsSymbolsOrWhitespace().get().cast();
+        assertNotSame(token, without);
+        assertEquals("value", Lists.of(identifier1, identifier2), without.value());
+    }
 
     @Test
     public void testAccept() {
@@ -33,6 +60,7 @@ public class EbnfExceptionParserTokenTest extends EbnfExceptionGroupOptionalRepe
 
         final EbnfExceptionParserToken exception = this.createToken();
         final EbnfIdentifierParserToken identifier1 = this.identifier1();
+        final EbnfIdentifierParserToken identifier2 = this.identifier2();
 
         new FakeEbnfParserTokenVisitor() {
             @Override
@@ -82,10 +110,11 @@ public class EbnfExceptionParserTokenTest extends EbnfExceptionGroupOptionalRepe
                 visited.add(t);
             }
         }.accept(exception);
-        assertEquals("13513742642", b.toString());
+        assertEquals("1351374213742642", b.toString());
         assertEquals("visited",
                 Lists.of(exception, exception, exception,
                         identifier1, identifier1, identifier1, identifier1, identifier1,
+                        identifier2, identifier2, identifier2, identifier2, identifier2,
                         exception, exception, exception),
                 visited);
     }
@@ -96,13 +125,18 @@ public class EbnfExceptionParserTokenTest extends EbnfExceptionGroupOptionalRepe
     }
 
     @Override
-    String openChar() {
-        return "-";
+    final List<EbnfParserToken> tokens() {
+        return Lists.of(this.identifier1(), this.identifier2());
     }
 
     @Override
-    String closeChar() {
-        return "";
+    protected EbnfExceptionParserToken createDifferentToken() {
+        return this.createToken( "different -identifier2", this.identifier("different"), this.identifier2());
+    }
+
+    @Override
+    final String text() {
+        return this.identifier1() + "-" + this.identifier2().text();
     }
 
     @Override
