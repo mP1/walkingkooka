@@ -129,17 +129,25 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
     }
 
     /**
+     * Constant to be passed to {@link #checkIdentifierReferencesExist(Set)} if no external references exist.
+     */
+    public final static Set<EbnfIdentifierParserToken> NO_EXTERNALS = Sets.empty();
+
+    /**
      * Verifies that all identifiers that appear on the RHS of all rules, must be valid.
      */
-    public void checkIdentifierReferencesExist(){
+    public void checkIdentifierReferencesExist(final Set<EbnfIdentifierParserToken> external){
+        Objects.requireNonNull(external, "external");
+
         final EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor visitor = new EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor();
         visitor.accept(this);
 
         final Set<EbnfIdentifierParserToken> identifiers = visitor.ruleIdentifiers;
 
-        final Set<EbnfIdentifierParserToken> missing = Sets.ordered();
+        final Set<EbnfIdentifierParserToken> missing = Sets.sorted();
         missing.addAll(visitor.references);
         missing.removeAll(identifiers);
+        missing.removeAll(external);
 
         if(!missing.isEmpty()){
             throw new EbnfGrammarParserTokenInvalidReferencesException(missing.size() + " invalid (unknown) references=" + missing, missing);
