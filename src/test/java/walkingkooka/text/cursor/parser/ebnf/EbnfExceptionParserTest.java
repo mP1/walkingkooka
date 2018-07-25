@@ -22,11 +22,27 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 
-public final class EbnfExceptionParserTest extends EbnfParserTestCase3<EbnfExceptionParserToken> {
+public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExceptionParserToken> {
 
     @Test
     public void testExceptionFails() {
         this.parseFailAndCheck(EXCEPTION);
+    }
+
+    @Test
+    public void testCommentExceptionIdentifier() {
+        final String text = COMMENT1 + EXCEPTION + IDENTIFIER1;
+        this.parseAndCheck(text,
+                this.token(text, comment1(), this.exceptionToken(), this.identifier1()),
+                text);
+    }
+
+    @Test
+    public void testWhitespaceExceptionIdentifier() {
+        final String text = WHITESPACE1 + EXCEPTION + IDENTIFIER1;
+        this.parseAndCheck(text,
+                this.token(text, whitespace1(), this.exceptionToken(), this.identifier1()),
+                text);
     }
     
     @Test
