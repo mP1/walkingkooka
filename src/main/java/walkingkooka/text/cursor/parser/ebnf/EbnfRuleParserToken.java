@@ -49,14 +49,16 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
         return new EbnfRuleParserToken(copy,
                 text,
                 identifier,
-                token);
+                token,
+                WITHOUT_COMPUTE_REQUIRED);
     }
 
     private EbnfRuleParserToken(final List<EbnfParserToken> tokens,
                         final String text,
                         final EbnfIdentifierParserToken identifier,
-                        final EbnfParserToken token) {
-        super(tokens, text, WITHOUT_USE_THIS);
+                        final EbnfParserToken token,
+                        final boolean computeWithout) {
+        super(tokens, text, computeWithout);
         this.identifier = identifier;
         this.token = token;
     }
@@ -68,7 +70,7 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfRuleParserToken replaceText(final String text) {
-        return new EbnfRuleParserToken(this.value(), text, this.identifier, this.token);
+        return new EbnfRuleParserToken(this.value(), text, this.identifier, this.token, WITHOUT_USE_THIS);
     }
 
     public EbnfIdentifierParserToken identifier() {
@@ -85,7 +87,12 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfRuleParserToken replaceTokens(final List<EbnfParserToken> tokens) {
-        return with(tokens, this.text());
+        // cant use this.identifier and this.tokens because they wont be initialized yet
+        return new EbnfRuleParserToken(tokens,
+                this.text(),
+                tokens.get(0).cast(),
+                tokens.get(1),
+                WITHOUT_USE_THIS);
     }
 
     @Override
