@@ -193,7 +193,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         return EbnfParserContext.string(c)
                         .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
                         .setToString(name)
-                        .castTC();
+                        .castC();
     }
 
     /**
@@ -203,7 +203,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         return EbnfParserContext.string(symbol)
                 .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
                 .setToString(name)
-                .castTC();
+                .castC();
     }
 
     /**
@@ -356,7 +356,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * "-" , rhs
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> EXCEPTION = parser(EXCEPTION_PREFIX, WHITESPACE_OR_COMMENT, RHS)
+    final static Parser<ParserToken, EbnfParserContext> EXCEPTION = parser(WHITESPACE_OR_COMMENT, EXCEPTION_PREFIX, WHITESPACE_OR_COMMENT, RHS)
             .transform(filterAndWrapMany(EbnfParserToken::exception))
             .castC();
 
