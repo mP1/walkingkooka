@@ -26,9 +26,9 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
     private final static String TEXT3 = "123";
-    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = Parsers.string(TEXT1);
-    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = Parsers.string(TEXT2);
-    private final static Parser<StringParserToken, FakeParserContext> PARSER3 = Parsers.string(TEXT3);
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string(TEXT1).castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string(TEXT2).castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string(TEXT3).castC();
     private final static StringParserToken TOKEN1 = string(TEXT1);
     private final static StringParserToken TOKEN2 = string(TEXT2);
     private final static StringParserToken TOKEN3 = string(TEXT3);
@@ -73,7 +73,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     @Test
     public void testMissingOptionalFirst() {
         final String text = TEXT2 + TEXT1;
-        this.parseAndCheck(SequenceParserBuilder.create()
+        this.parseAndCheck(SequenceParserBuilder.<FakeParserContext>create()
                 .optional(PARSER3, StringParserToken.NAME)
                 .required(PARSER2, StringParserToken.NAME)
                 .required(PARSER1, StringParserToken.NAME)
@@ -146,7 +146,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
 
     @Override
     protected SequenceParser<FakeParserContext> createParser() {
-        return Cast.to(SequenceParserBuilder.create()
+        return Cast.to(SequenceParserBuilder.<FakeParserContext>create()
                 .required(PARSER1, StringParserToken.NAME)
                 .required(PARSER2, StringParserToken.NAME)
                 .optional(PARSER3, StringParserToken.NAME)

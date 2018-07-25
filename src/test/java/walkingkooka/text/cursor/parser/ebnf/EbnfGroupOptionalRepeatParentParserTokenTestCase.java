@@ -24,7 +24,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertNotSame;
 
-public abstract class EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase2<T> {
+public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase2<T> {
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullTokenFails() {

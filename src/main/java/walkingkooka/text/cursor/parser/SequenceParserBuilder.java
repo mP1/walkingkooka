@@ -24,7 +24,7 @@ import java.util.List;
 
 public final class SequenceParserBuilder<C extends ParserContext> implements Builder<Parser<SequenceParserToken, C>> {
 
-    static SequenceParserBuilder create() {
+    static <C extends ParserContext> SequenceParserBuilder<C> create() {
         return new SequenceParserBuilder();
     }
 
@@ -32,19 +32,19 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
         super();
     }
 
-    public SequenceParserBuilder<C> optional(final Parser<? extends ParserToken, C> parser) {
+    public SequenceParserBuilder<C> optional(final Parser<ParserToken, C> parser) {
         return this.optional(parser, this.indexName());
     }
 
-    public SequenceParserBuilder<C> optional(final Parser<? extends ParserToken, C> parser, final ParserTokenNodeName name) {
+    public SequenceParserBuilder<C> optional(final Parser<ParserToken, C> parser, final ParserTokenNodeName name) {
         return this.add(new SequenceParserOptionalComponent(parser, name));
     }
 
-    public SequenceParserBuilder<C> required(final Parser<? extends ParserToken, C> parser) {
+    public SequenceParserBuilder<C> required(final Parser<ParserToken, C> parser) {
         return this.required(parser, this.indexName());
     }
 
-    public SequenceParserBuilder<C> required(final Parser<? extends ParserToken, C> parser, final ParserTokenNodeName name) {
+    public SequenceParserBuilder<C> required(final Parser<ParserToken, C> parser, final ParserTokenNodeName name) {
         return this.add(new SequenceParserRequiredComponent(parser, name));
     }
 

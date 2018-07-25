@@ -23,9 +23,9 @@ import walkingkooka.build.BuilderTestCase;
 
 public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
 
-    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = Parsers.string("1");
-    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = Parsers.string("2");
-    private final static Parser<StringParserToken, FakeParserContext> PARSER3 = Parsers.string("3");
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("1").castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string("2").castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string("3").castC();
 
     @Test(expected = NullPointerException.class)
     public void testOptionalNullParserFails() {
@@ -96,7 +96,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
 
     @Test
     public void testMoreThanTwoParsers(){
-        SequenceParserBuilder.create()
+        this.createBuilder()
                 .optional(PARSER1, StringParserToken.NAME)
                 .required(PARSER2, StringParserToken.NAME)
                 .build();
@@ -104,7 +104,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
 
     @Test
     public void testMoreThanTwoParsers2(){
-        SequenceParserBuilder.create()
+        this.createBuilder()
                 .optional(PARSER1)
                 .required(PARSER2)
                 .build();
@@ -120,7 +120,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     @Test
     public void testToString() {
         assertEquals("([" + PARSER1 + "], " + PARSER2 + ", " + PARSER3 + ")",
-                SequenceParserBuilder.create()
+                this.createBuilder()
                         .optional(PARSER1, StringParserToken.NAME)
                         .required(PARSER2, StringParserToken.NAME)
                         .required(PARSER3, StringParserToken.NAME)

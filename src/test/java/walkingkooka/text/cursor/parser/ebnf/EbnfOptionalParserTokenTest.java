@@ -23,7 +23,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-public class EbnfOptionalParserTokenTest extends EbnfExceptionGroupOptionalRepeatParentParserTokenTestCase<EbnfOptionalParserToken> {
+public class EbnfOptionalParserTokenTest extends EbnfGroupOptionalRepeatParentParserTokenTestCase<EbnfOptionalParserToken> {
 
     @Test
     public void testAccept() {

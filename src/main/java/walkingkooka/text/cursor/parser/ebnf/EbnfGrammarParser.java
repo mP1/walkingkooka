@@ -21,9 +21,8 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.Parsers;
-import walkingkooka.text.cursor.parser.SequenceParserBuilder;
+import walkingkooka.text.cursor.parser.RepeatedParserToken;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
 import walkingkooka.text.cursor.parser.StringParserToken;
 
@@ -53,24 +52,27 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      *             | "x" | "y" | "z" ;
      * </pre>
      */
-    final static Parser<StringParserToken, EbnfParserContext> LETTER = EbnfParserContext.string(
+    final static Parser<ParserToken, EbnfParserContext> LETTER = EbnfParserContext.string(
             CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z')), 1, 1)
-            .setToString("letter");
+            .setToString("letter")
+            .castC();
 
     /**
      * <pre>
      * digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
      * </pre>
      */
-    final static Parser<StringParserToken, EbnfParserContext> DIGIT = EbnfParserContext.string('0', '9')
-            .setToString("digit");
+    final static Parser<ParserToken, EbnfParserContext> DIGIT = EbnfParserContext.string('0', '9')
+            .setToString("digit")
+            .castC();
 
     /**
      * <pre>
      * _
      * </pre>
      */
-    final static Parser<StringParserToken, EbnfParserContext> UNDERSCORE = EbnfParserContext.string('_');
+    final static Parser<ParserToken, EbnfParserContext> UNDERSCORE = EbnfParserContext.string('_')
+            .castC();
 
     /**
      * <pre>
@@ -104,129 +106,6 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
 
     /**
      * <pre>
-     * -
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> EXCEPTION_PREFIX = symbol('-', "exception");
-
-    /**
-     * <pre>
-     * =
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> ASSIGN = symbol('=', "assign");
-
-    /**
-     * <pre>
-     * ;
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> TERMINATION = symbol(';', "termination");
-
-    /**
-     * <pre>
-     * ..
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> RANGE_SEPARATOR = symbol("..", "range");
-
-    /**
-     * <pre>
-     * |
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> ALTERNATIVES_SEPARATOR = symbol('|', "alternatives_separator");
-
-    /**
-     * <pre>
-     * ,
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> CONCAT_SEPARATOR = symbol(',', "concat_separator");
-
-    /**
-     * <pre>
-     * [
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> OPTIONAL_OPEN = symbol('[', "optional_open");
-
-    /**
-     * <pre>
-     * ]
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> OPTIONAL_CLOSE = symbol(']', "optional_close");
-
-    /**
-     * <pre>
-     * {
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> REPETITION_OPEN = symbol('{', "repetition_open");
-
-    /**
-     * <pre>
-     * }
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> REPETITION_CLOSE = symbol('}', "repetition_close");
-
-    /**
-     * <pre>
-     * (
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> GROUP_OPEN = symbol('(', "group_open");
-
-    /**
-     * <pre>
-     * )
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> GROUP_CLOSE = symbol(')', "group_close");
-
-    /**
-     * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
-     */
-    private static Parser<ParserToken, EbnfParserContext> symbol(final char c, final String name){
-        return EbnfParserContext.string(c)
-                        .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
-                        .setToString(name)
-                        .castC();
-    }
-
-    /**
-     * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
-     */
-    private static Parser<ParserToken, EbnfParserContext> symbol(final String symbol, final String name){
-        return EbnfParserContext.string(symbol)
-                .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
-                .setToString(name)
-                .castC();
-    }
-
-    /**
-     * Accepts a {@link SequenceParserToken} that contains a mixture of symbols and {@link StringParserToken}
-     * returning a string holding all the characters as a {@link String}
-     */
-    static String string(final SequenceParserToken token) {
-        final StringBuilder string = new StringBuilder();
-
-        // join all the character parser tokens
-        token.flat()
-                .value()
-                .stream()
-                .filter(t -> t instanceof StringParserToken)
-                .forEach(t -> {
-                    StringParserToken stringParserToken = Cast.to(t);
-                    string.append(stringParserToken.value());
-                });
-        return string.toString();
-    }
-
-    /**
-     * <pre>
      * identifier = letter , { letter | digit | "_" } ;
      * </pre>
      */
@@ -235,9 +114,9 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
             .setToString("identifier");
 
     private static Parser<ParserToken, EbnfParserContext> identifier() {
-        return EbnfParserContext.sequenceParserBuilder()
+        return EbnfParserContext.<EbnfParserContext>sequenceParserBuilder()
                 .required(LETTER)
-                .required(CHARACTER.repeating())
+                .required(CHARACTER.repeating().castC())
                 .build()
                 .transform((sequence, context) -> EbnfIdentifierParserToken.with(string(sequence), sequence.text()))
                 .setToString("identifier")
@@ -252,47 +131,6 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * The above definition isnt actually correct, a terminal must be either single or quoted, and supports backslash, and unicode sequences within.
      */
     final static Parser<ParserToken, EbnfParserContext> TERMINAL = EbnfTerminalParser.INSTANCE;
-
-    private static Parser<ParserToken, EbnfParserContext> terminal() {
-        final Parser<EbnfTerminalParserToken, EbnfParserContext> singleQuoted = terminalQuote('\'');
-        final Parser<EbnfTerminalParserToken, EbnfParserContext> doubleQuoted = terminalQuote('"');
-
-        return singleQuoted.or(doubleQuoted).castC();
-    }
-
-    private static Parser<EbnfTerminalParserToken, EbnfParserContext> terminalQuote(final char quote) {
-        final Parser<StringParserToken, EbnfParserContext> quoteParser = EbnfParserContext.string(quote);
-
-        return EbnfParserContext.sequenceParserBuilder()
-                .required(quoteParser)
-                .required(CHARACTER.repeating())
-                .required(quoteParser)
-                .build()
-                .transform(EbnfGrammarParser::terminal);
-    }
-
-    private static EbnfTerminalParserToken terminal(final SequenceParserToken token, final EbnfParserContext context) {
-        final String quotedText = string(token);
-        return EbnfTerminalParserToken.with(quotedText.substring(1, quotedText.length()-1),
-                token.text());
-    }
-
-    /**
-     * <pre>
-     * range = terminal, '..', terminal
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> RANGE =
-            EbnfParserContext.sequenceParserBuilder()
-                    .required(terminal())
-                    .optional(WHITESPACE_OR_COMMENT)
-                    .required(RANGE_SEPARATOR)
-                    .optional(WHITESPACE_OR_COMMENT)
-                    .required(terminal())
-                    .build()
-                    .transform(filterAndWrapMany(EbnfParserToken::range))
-                    .setToString("range")
-                    .castC();
 
     /**
      * <pre>
@@ -329,78 +167,206 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * "[" , rhs , "]"
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> OPTIONAL = parser(OPTIONAL_OPEN, WHITESPACE_OR_COMMENT, RHS, WHITESPACE_OR_COMMENT, OPTIONAL_CLOSE)
-            .transform(filterAndWrapMany(EbnfParserToken::optional))
-            .castC();
+    final static Parser<ParserToken, EbnfParserContext> OPTIONAL = optional();
+
+    private static Parser<ParserToken, EbnfParserContext> optional() {
+        final Parser<ParserToken, EbnfParserContext> open = symbol('[', "optional_open");
+        final Parser<ParserToken, EbnfParserContext> close = symbol(']', "optional_close");
+
+        return Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .required(open)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(close)
+                .build()
+                .transform(filterAndWrapMany(EbnfParserToken::optional));
+    }
 
     /**
      * <pre>
      * "{" , rhs , "}"
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> REPETITION = parser(REPETITION_OPEN, WHITESPACE_OR_COMMENT, RHS, WHITESPACE_OR_COMMENT, REPETITION_CLOSE)
-            .transform(filterAndWrapMany(EbnfParserToken::repeated))
-            .castC();
+    final static Parser<ParserToken, EbnfParserContext> REPETITION = repetition();
+
+    private static Parser<ParserToken, EbnfParserContext> repetition() {
+        final Parser<ParserToken, EbnfParserContext> open = symbol('{', "repetition_open");
+        final Parser<ParserToken, EbnfParserContext> close = symbol('}', "repetition_close");
+
+        return Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .required(open)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(close)
+                .build()
+                .transform(filterAndWrapMany(EbnfParserToken::repeated));
+    }
 
     /**
      * <pre>
      * "(" , rhs , ")"
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> GROUPING = parser(GROUP_OPEN, WHITESPACE_OR_COMMENT, RHS, WHITESPACE_OR_COMMENT, GROUP_CLOSE)
-            .transform(filterAndWrapMany(EbnfParserToken::grouping))
-            .castC();
+    final static Parser<ParserToken, EbnfParserContext> GROUPING = group();
+
+    private static Parser<ParserToken, EbnfParserContext> group() {
+        final Parser<ParserToken, EbnfParserContext> open = symbol('(', "group_open");
+        final Parser<ParserToken, EbnfParserContext> close = symbol(')', "group_close");
+
+        return Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .required(open)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(close)
+                .build()
+                .transform(filterAndWrapMany(EbnfParserToken::grouping));
+    }
+
+    /**
+     * <pre>
+     * "(" , rhs , ")"
+     * </pre>
+     */
+    final static Parser<ParserToken, EbnfParserContext> RHS2 = IDENTIFIER
+            .or(OPTIONAL)
+            .or(REPETITION)
+            .or(GROUPING)
+            .or(TERMINAL);
+
+    /**
+     * <pre>
+     * rhs , "|" , rhs
+     * </pre>
+     * To avoid left recursion problems the first rhs is replaced as RHS2
+     */
+    final static Parser<ParserToken, EbnfParserContext> ALTERNATIVE = alternative();
+
+    private static Parser<ParserToken, EbnfParserContext> alternative() {
+        final Parser<ParserToken, EbnfParserContext> separator = symbol('|', "alt_separator");
+
+        final Parser<SequenceParserToken, EbnfParserContext> required = Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(separator)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .build();
+        final Parser<RepeatedParserToken, EbnfParserContext> optionalRepeating = Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .required(separator)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .build()
+                .repeating();
+        final Parser<SequenceParserToken, EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
+                .required(required.castC())
+                .optional(optionalRepeating.castC())
+                .build());
+        return all
+                .transform(filterAndWrapMany(EbnfParserToken::alternative));
+    }
+
+    /**
+     * <pre>
+     * | rhs , "," , rhs ;
+     * </pre>
+     * To avoid left recursion problems the first rhs is replaced as RHS2
+     */
+    final static Parser<ParserToken, EbnfParserContext> CONCATENATION = concatenation();
+
+    private static Parser<ParserToken, EbnfParserContext> concatenation() {
+        final Parser<ParserToken, EbnfParserContext> separator = symbol(',', "concat_separator");
+
+        final Parser<SequenceParserToken, EbnfParserContext> required = Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(separator)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .build();
+        final Parser<RepeatedParserToken, EbnfParserContext> optionalRepeating = Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .required(separator)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .build()
+                .repeating();
+        final Parser<SequenceParserToken, EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
+                .required(required.castC())
+                .optional(optionalRepeating.castC())
+                .build());
+        return all
+                .transform(filterAndWrapMany(EbnfParserToken::concatenation));
+    }
 
     /**
      * <pre>
      * "-" , rhs
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> EXCEPTION = parser(WHITESPACE_OR_COMMENT, EXCEPTION_PREFIX, WHITESPACE_OR_COMMENT, RHS)
-            .transform(filterAndWrapMany(EbnfParserToken::exception))
-            .castC();
+    final static Parser<ParserToken, EbnfParserContext> EXCEPTION = exception();
 
+    private static Parser<ParserToken, EbnfParserContext> exception() {
+        final Parser<ParserToken, EbnfParserContext> separator = symbol('-', "exception_separator");
 
-    /**
-     * <pre>
-     * "(" , rhs , ")"
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> RHS_WITHOUT_ALT_CONCAT = thenMaybeException(IDENTIFIER
-            .or(OPTIONAL)
-            .or(REPETITION)
-            .or(GROUPING)
-            .or(RANGE) // must be before TERMINAL
-            .or(TERMINAL));
-
-    /**
-     * <pre>
-     * rhs , "|" , rhs
-     * </pre>
-     * To avoid left recursion problems the first rhs is replaced as RHS_WITHOUT_ALT_CONCAT which doesnt include ALT and CONCAT
-     */
-    final static Parser<ParserToken, EbnfParserContext> ALTERNATIVE = parser(WHITESPACE_OR_COMMENT, RHS_WITHOUT_ALT_CONCAT, WHITESPACE_OR_COMMENT, ALTERNATIVES_SEPARATOR, WHITESPACE_OR_COMMENT, RHS)
-            .transform(filterAndWrapMany(EbnfParserToken::alternative))
-            .castC();
+        return Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(separator)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .build()
+                .transform(filterAndWrapMany(EbnfParserToken::exception));
+    }
 
     /**
      * <pre>
-     * | rhs , "," , rhs ;
+     * range = terminal, '..', terminal
      * </pre>
-     * To avoid left recursion problems the first rhs is replaced as RHS_WITHOUT_ALT_CONCAT which doesnt include ALT and CONCAT
      */
-    final static Parser<ParserToken, EbnfParserContext> CONCATENATION = parser(WHITESPACE_OR_COMMENT, RHS_WITHOUT_ALT_CONCAT, WHITESPACE_OR_COMMENT, CONCAT_SEPARATOR, WHITESPACE_OR_COMMENT, RHS)
-            .transform(filterAndWrapMany(EbnfParserToken::concatenation))
-            .castC();
+    final static Parser<ParserToken, EbnfParserContext> RANGE = range();
+
+    private static Parser<ParserToken, EbnfParserContext> range() {
+        final Parser<ParserToken, EbnfParserContext> separator = symbol("..", "range_separator");
+
+        return Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(separator)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS2)
+                .build()
+                .transform(filterAndWrapMany(EbnfParserToken::range));
+    }
 
     /**
      * <pre>
      * lhs , "=" , rhs , ";" ;
      * </pre>
      */
-    final static Parser<ParserToken, EbnfParserContext> RULE = parser(WHITESPACE_OR_COMMENT, LHS, WHITESPACE_OR_COMMENT, ASSIGN, WHITESPACE_OR_COMMENT, RHS, WHITESPACE_OR_COMMENT, TERMINATION)
-            .transform(filterAndWrapMany(EbnfParserToken::rule))
-            .castC();
+    final static Parser<ParserToken, EbnfParserContext> RULE = rule();
+
+    private static Parser<ParserToken, EbnfParserContext> rule() {
+        final Parser<ParserToken, EbnfParserContext> assign = symbol("=", "assign");
+        final Parser<ParserToken, EbnfParserContext> termination = symbol(";", "termination");
+
+        return Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(LHS)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(assign)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RHS)
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(termination)
+                .build()
+                .transform(filterAndWrapMany(EbnfParserToken::rule));
+    }
 
     /**
      * Matches any of the tokens, assumes that any leading or trailing whitespace or comments is handled elsewhere...(parent)
@@ -408,38 +374,58 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      */
     private static Parser<ParserToken, EbnfParserContext> rhs() {
         if(null==RHS_CACHE) {
-            RHS_CACHE = thenMaybeException(IDENTIFIER
-                    .or(OPTIONAL)
+            RHS_CACHE = OPTIONAL
                     .or(REPETITION)
                     .or(GROUPING)
                     .or(ALTERNATIVE) // longer before shorter.
                     .or(CONCATENATION)
                     .or(RANGE) // must be before TERMINAL
-                    .or(TERMINAL));
+                    .or(EXCEPTION)
+                    .or(IDENTIFIER) // identifier & terminal are atoms of range, exception, alt and concat and must come after
+                    .or(TERMINAL);
         }
         return RHS_CACHE;
     }
 
     private static Parser<ParserToken, EbnfParserContext> RHS_CACHE;
 
-    private static Parser<SequenceParserToken, EbnfParserContext> parser(final Parser<? super ParserToken, EbnfParserContext>...parsers) {
-        final SequenceParserBuilder<EbnfParserContext> b = EbnfParserContext.sequenceParserBuilder();
-        for(Parser<? super ParserToken, EbnfParserContext> parser : parsers) {
-            if(parser == WHITESPACE_OR_COMMENT) {
-                b.optional(parser);
-            } else {
-                b.required(parser);
-            }
-        }
-
-        return b.build();
+    /**
+     * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
+     */
+    private static Parser<ParserToken, EbnfParserContext> symbol(final char c, final String name){
+        return EbnfParserContext.string(c)
+                .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
+                .setToString(name)
+                .castC();
     }
 
-    final static Parser<ParserToken, EbnfParserContext> thenMaybeException(final Parser<ParserToken, EbnfParserContext> parser) {
-        return parser.builder(ParserTokenNodeName.with(0))
-                .optional(Cast.to(EXCEPTION.repeating()))
-                .build()
-                .setToString("RHS").castC();
+    /**
+     * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
+     */
+    private static Parser<ParserToken, EbnfParserContext> symbol(final String symbol, final String name){
+        return EbnfParserContext.string(symbol)
+                .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
+                .setToString(name)
+                .castC();
+    }
+
+    /**
+     * Accepts a {@link SequenceParserToken} that contains a mixture of symbols and {@link StringParserToken}
+     * returning a string holding all the characters as a {@link String}
+     */
+    static String string(final SequenceParserToken token) {
+        final StringBuilder string = new StringBuilder();
+
+        // join all the character parser tokens
+        token.flat()
+                .value()
+                .stream()
+                .filter(t -> t instanceof StringParserToken)
+                .forEach(t -> {
+                    StringParserToken stringParserToken = Cast.to(t);
+                    string.append(stringParserToken.value());
+                });
+        return string.toString();
     }
 
     private static final BiFunction<SequenceParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<EbnfParserToken>, String, EbnfParserToken> wrapper) {

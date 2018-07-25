@@ -112,6 +112,14 @@ public abstract class EbnfAlternativeOrConcatenationParserTestCase<T extends Ebn
                 text);
     }
 
+    @Test
+    public final void testThreeTokens() {
+        final String text = IDENTIFIER1 + this.separator() + IDENTIFIER2 + this.separator() + IDENTIFIER3;
+        this.parseAndCheck(text,
+                this.token(text, identifier1(), this.separatorCharToken(), identifier2(), this.separatorCharToken(), identifier3()),
+                text);
+    }
+
     @Override
     final String text() {
         return IDENTIFIER1 + this.separator() + IDENTIFIER2;

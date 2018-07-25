@@ -23,9 +23,9 @@ import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<SequenceParser> {
 
-    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = Parsers.string("a");
-    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = Parsers.string("b");
-    private final static Parser<StringParserToken, FakeParserContext> PARSER3 = Parsers.string("c");
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("a").castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string("b").castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string("c").castC();
     
     private final static ParserTokenNodeName NAME1 = ParserTokenNodeName.with(0);
     private final static ParserTokenNodeName NAME2 = ParserTokenNodeName.with(1);
@@ -39,7 +39,7 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Test
     public void testEqualWithoutNames() {
-        this.checkEquals(SequenceParserBuilder.create()
+        this.checkEquals(SequenceParserBuilder.<FakeParserContext>create()
                 .required(PARSER1)
                 .required(PARSER2)
                 .optional(PARSER3)
@@ -48,7 +48,7 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Test
     public void testDifferent() {
-        this.checkNotEquals(SequenceParserBuilder.create()
+        this.checkNotEquals(SequenceParserBuilder.<FakeParserContext>create()
                 .required(PARSER3, NAME1)
                 .required(PARSER2, NAME2)
                 .required(PARSER1, NAME3)
@@ -57,7 +57,7 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Test
     public void testDifferentRequiredOptionals() {
-        this.checkNotEquals(SequenceParserBuilder.create()
+        this.checkNotEquals(SequenceParserBuilder.<FakeParserContext>create()
                 .optional(PARSER1, NAME1)
                 .required(PARSER2, NAME2)
                 .required(PARSER3, NAME3)
@@ -74,7 +74,7 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Override
     protected SequenceParser createObject() {
-        return Cast.to(SequenceParserBuilder.create()
+        return Cast.to(SequenceParserBuilder.<FakeParserContext>create()
                 .required(PARSER1, NAME1)
                 .required(PARSER2, NAME2)
                 .optional(PARSER3, NAME3)
