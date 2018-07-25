@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
@@ -132,9 +133,14 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
                 visited);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testCheckIdentifierReferencesExistNullExternalsFails() {
+        this.createToken().checkIdentifierReferencesExist(null);
+    }
+
     @Test
     public void testCheckIdentifierReferencesExist() {
-        this.createToken().checkIdentifierReferencesExist();
+        this.createToken().checkIdentifierReferencesExist(EbnfGrammarParserToken.NO_EXTERNALS);
     }
 
     @Test
@@ -143,7 +149,16 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
         final EbnfRuleParserToken rule2 = this.rule(this.identifier2(), this.identifier1(), "identifier2:identifier1;");
 
         this.createToken(rule.text() + rule2.text(), rule, rule2)
-                .checkIdentifierReferencesExist();
+                .checkIdentifierReferencesExist(EbnfGrammarParserToken.NO_EXTERNALS);
+    }
+
+    @Test
+    public void testCheckIdentifierReferencesExistWithExternal() {
+        final EbnfIdentifierParserToken external = EbnfIdentifierParserToken.with("external", "external");
+        final EbnfRuleParserToken rule = this.rule(this.identifier1(), external, "identifier1:external;");
+
+        this.createToken(rule.text(), rule)
+                .checkIdentifierReferencesExist(Sets.of(external));
     }
 
     @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)
@@ -151,7 +166,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
         final EbnfRuleParserToken rule = this.rule(this.identifier1(), this.identifier2(), "identifier1:identifier2;");
 
         this.createToken(rule.text(), rule)
-                .checkIdentifierReferencesExist();
+                .checkIdentifierReferencesExist(EbnfGrammarParserToken.NO_EXTERNALS);
     }
 
     @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)
@@ -160,7 +175,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
         final EbnfRuleParserToken rule2 = this.rule(this.identifier2(), this.identifier("identifier3"), "identifier2:identifier3;");
 
         this.createToken(rule.text() + rule2.text(), rule, rule2)
-                .checkIdentifierReferencesExist();
+                .checkIdentifierReferencesExist(EbnfGrammarParserToken.NO_EXTERNALS);
     }
 
     @Override
