@@ -71,6 +71,22 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
                 "");
     }
 
+    @Test
+    public void testMultipleTokensAndTextAfter() {
+        final String text1 = "'123'";
+        final String text2 = "'4'";
+        final String all = text1 + text2;
+        final String after = "!!!";
+
+        this.parseAndCheck(
+                RepeatedParser.with(Parsers.singleQuoted().castC()),
+                this.createContext(),
+                TextCursors.charSequence(all + after),
+                RepeatedParserToken.with(Lists.of(quoted(text1), quoted(text2)), all),
+                all,
+                after);
+    }
+
     private static SingleQuotedParserToken quoted(final String text) {
         return ParserTokens.singleQuoted(text.substring(1, text.length() -1), text);
     }
