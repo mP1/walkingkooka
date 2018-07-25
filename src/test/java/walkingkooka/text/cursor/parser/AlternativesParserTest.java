@@ -20,8 +20,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
-public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<StringParserToken, FakeParserContext>,
-        StringParserToken> {
+public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<FakeParserContext>,
+        ParserToken> {
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
@@ -40,7 +40,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     @Test
     public void testWithOneNeverWrapped() {
-        assertSame(PARSER1, AlternativesParser.with(Lists.of(PARSER1)));
+        assertSame(PARSER1, AlternativesParser.with(Lists.of(PARSER1.castC())));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     @Test
     public void testOr() {
-        final AlternativesParser<StringParserToken, FakeParserContext> parser = createParser();
+        final AlternativesParser<FakeParserContext> parser = createParser();
 
         final Parser<StringParserToken, FakeParserContext> parser3 = Parsers.string("text3");
         assertEquals(this.createParser0(PARSER1, PARSER2, parser3), parser.or(parser3));
@@ -92,12 +92,12 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     }
 
     @Override
-    protected AlternativesParser<StringParserToken, FakeParserContext> createParser() {
+    protected AlternativesParser<FakeParserContext> createParser() {
         return this.createParser0(PARSER1, PARSER2);
     }
 
-    private AlternativesParser<StringParserToken, FakeParserContext> createParser0(final Parser<StringParserToken, FakeParserContext>...parsers) {
-        return Cast.to(AlternativesParser.with(Lists.of(parsers)));
+    private AlternativesParser<FakeParserContext> createParser0(final Parser<StringParserToken, FakeParserContext>...parsers) {
+        return Cast.to(AlternativesParser.with(Cast.to(Lists.of(parsers))));
     }
 
     private static StringParserToken string(final String s) {
@@ -105,7 +105,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     }
 
     @Override
-    protected Class<AlternativesParser<StringParserToken, FakeParserContext>> type() {
+    protected Class<AlternativesParser<FakeParserContext>> type() {
         return Cast.to(AlternativesParser.class);
     }
 }

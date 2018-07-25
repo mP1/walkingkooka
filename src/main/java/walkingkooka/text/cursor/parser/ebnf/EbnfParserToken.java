@@ -78,7 +78,7 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfIdentifierParserToken}
      */
-    static EbnfIdentifierParserToken identifier(final String value, final String text){
+    public static EbnfIdentifierParserToken identifier(final String value, final String text){
         return EbnfIdentifierParserToken.with(value, text);
     }
 
@@ -257,7 +257,7 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * Useful to get help reduce casting noise.
      */
-    final <T extends EbnfParserToken> T cast() {
+    public final <T extends EbnfParserToken> T cast() {
         return Cast.to(this);
     }
 

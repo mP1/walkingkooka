@@ -29,36 +29,36 @@ import java.util.stream.Collectors;
 /**
  * A {@link Parser} that tries all parsers until one is matched and then ignores the remainder.
  */
-final class AlternativesParser<T extends ParserToken, C extends ParserContext> extends ParserTemplate<T, C> implements HashCodeEqualsDefined {
+final class AlternativesParser<C extends ParserContext> extends ParserTemplate<ParserToken, C> implements HashCodeEqualsDefined {
 
-    static <T extends ParserToken, C extends ParserContext> Parser<T,C> with(final List<Parser<T, C>> parsers){
+    static <C extends ParserContext> Parser<ParserToken, C> with(final List<Parser<? super ParserToken, C>> parsers){
         Objects.requireNonNull(parsers, "parsers");
 
-        Parser<T, C> parser;
+        Parser<ParserToken, C> parser;
 
         switch(parsers.size()){
             case 0:
                 throw new IllegalArgumentException("At least one parser must be provided");
             case 1:
-                parser = parsers.get(0);
+                parser = parsers.get(0).castC();
                 break;
             default:
-                parser = new AlternativesParser<>(parsers);
+                parser = new AlternativesParser<C>(Cast.to(parsers));
                 break;
         }
 
         return parser;
     }
 
-    private AlternativesParser(final List<Parser<T, C>> parsers){
+    private AlternativesParser(final List<Parser<ParserToken, C>> parsers){
         this.parsers = parsers;
     }
 
     @Override
-    Optional<T> tryParse(final TextCursor cursor, final C context) {
-        Optional<T> token = null;
+    Optional<ParserToken> tryParse(final TextCursor cursor, final C context) {
+        Optional<ParserToken> token = null;
 
-        for(Parser<T, C> parser : this.parsers) {
+        for(Parser<ParserToken, C> parser : this.parsers) {
             token = parser.parse(cursor, context);
             if(token.isPresent()){
                 break;
@@ -69,18 +69,18 @@ final class AlternativesParser<T extends ParserToken, C extends ParserContext> e
     }
 
     @Override
-    public Parser<T, C> or(final Parser<T, C> parser) {
+    public Parser<ParserToken, C> or(final Parser<? extends ParserToken, C> parser) {
         Objects.requireNonNull(parser, "parser");
 
         // append the new parser to the current list and make a new AlternativesParser
-        final List<Parser<T, C>> parsers = Lists.array();
+        final List<Parser<ParserToken, C>> parsers = Lists.array();
         parsers.addAll(this.parsers);
-        parsers.add(parser);
+        parsers.add(parser.castC());
 
         return new AlternativesParser(parsers);
     }
 
-    private final List<Parser<T, C>> parsers;
+    private final List<Parser<ParserToken, C>> parsers;
 
     // Object.................................................................................................
 
@@ -94,7 +94,7 @@ final class AlternativesParser<T extends ParserToken, C extends ParserContext> e
         return this == other || other instanceof AlternativesParser && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final AlternativesParser<?, ?> other) {
+    private boolean equals0(final AlternativesParser<?> other) {
         return this.parsers.equals(other.parsers);
     }
 

@@ -25,21 +25,21 @@ import java.util.Objects;
 /**
  * This {@link ParserToken} holds one or more of the tokens of the same type but not equal.
  */
-public final class RepeatedParserToken<T extends ParserToken> extends ParserTemplateToken2<T> implements SupportsFlat<RepeatedParserToken<T>, T> {
+public final class RepeatedParserToken extends ParserTemplateToken2 implements SupportsFlat<RepeatedParserToken, ParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(RepeatedParserToken.class);
 
-    static <T extends ParserToken> RepeatedParserToken<T> with(final List<T> tokens, final String text) {
+    static RepeatedParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");
         Objects.requireNonNull(text, "text");
         if(tokens.isEmpty()) {
             throw new IllegalArgumentException("Tokens must not be empty");
         }
 
-        return new RepeatedParserToken<T>(tokens, text);
+        return new RepeatedParserToken(tokens, text);
     }
     
-    private RepeatedParserToken(final List<T> tokens, final String text) {
+    private RepeatedParserToken(final List<ParserToken> tokens, final String text) {
         super(tokens, text);
     }
 
@@ -54,10 +54,10 @@ public final class RepeatedParserToken<T extends ParserToken> extends ParserTemp
     }
 
     @Override
-    public RepeatedParserToken<T> flat() {
-        final List<T> tokens = this.value();
-        final List<T> flat = this.flat(tokens);
-        return tokens.equals(flat) ? this : new RepeatedParserToken<>(flat, this.text());
+    public RepeatedParserToken flat() {
+        final List<ParserToken> tokens = this.value();
+        final List<ParserToken> flat = this.flat(tokens);
+        return tokens.equals(flat) ? this : new RepeatedParserToken(flat, this.text());
     }
 
     @Override

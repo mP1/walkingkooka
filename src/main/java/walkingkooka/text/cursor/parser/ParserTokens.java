@@ -63,14 +63,14 @@ public final class ParserTokens implements PublicStaticHelper {
     /**
      * {@see RepeatedParserToken}
      */
-    public static <T extends ParserToken> RepeatedParserToken<T> repeated(final List<T> tokens, final String text) {
+    public static <T extends ParserToken> RepeatedParserToken repeated(final List<ParserToken> tokens, final String text) {
         return RepeatedParserToken.with(tokens, text);
     }
 
     /**
      * {@see SequenceParserToken}
      */
-    public static SequenceParserToken sequence(final List<? super ParserToken> tokens, final String text) {
+    public static SequenceParserToken sequence(final List<? extends ParserToken> tokens, final String text) {
         return SequenceParserToken.with(tokens, text);
     }
 

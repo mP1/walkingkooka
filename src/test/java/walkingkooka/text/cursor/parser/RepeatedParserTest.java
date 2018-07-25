@@ -21,11 +21,11 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursors;
 
-public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<StringParserToken, FakeParserContext>,
-        RepeatedParserToken<StringParserToken>> {
+public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<FakeParserContext>,
+        RepeatedParserToken> {
 
     private final static String TEXT = "abc";
-    private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.string(TEXT);
+    private final static Parser<ParserToken, FakeParserContext> PARSER = Parsers.string(TEXT).castC();
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParserFails() {
@@ -34,8 +34,8 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
 
     @Test
     public void testWrapAnotherRepeatedParser() {
-        final RepeatedParser<StringParserToken, FakeParserContext> parser = this.createParser();
-        assertSame(parser, Parsers.repeated(parser));
+        final RepeatedParser<FakeParserContext> parser = this.createParser();
+        assertSame(parser, Parsers.repeated(parser.castC()));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
         final String all = text1 + text2;
 
         this.parseAndCheck(
-                RepeatedParser.with(Parsers.singleQuoted()),
+                RepeatedParser.with(Parsers.singleQuoted().castC()),
                 this.createContext(),
                 TextCursors.charSequence(all),
                 RepeatedParserToken.with(Lists.of(quoted(text1), quoted(text2)), all),
@@ -85,7 +85,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
 
     @Test
     public void testRepeating2() {
-        final RepeatedParser<StringParserToken, FakeParserContext> parser = this.createParser();
+        final RepeatedParser<FakeParserContext> parser = this.createParser();
         assertSame(parser, parser.repeating());
     }
 
@@ -95,7 +95,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
     }
 
     @Override
-    protected RepeatedParser<StringParserToken, FakeParserContext> createParser() {
+    protected RepeatedParser<FakeParserContext> createParser() {
         return RepeatedParser.with(PARSER);
     }
 
@@ -114,7 +114,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<St
     }
 
     @Override
-    protected Class<RepeatedParser<StringParserToken, FakeParserContext>> type() {
+    protected Class<RepeatedParser<FakeParserContext>> type() {
         return Cast.to(RepeatedParser.class);
     }
 }

@@ -31,7 +31,7 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see AlternativesParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<T,C> alternatives(final List<Parser<T, C>> parsers){
+    public static <C extends ParserContext> Parser<ParserToken,C> alternatives(final List<Parser<ParserToken, C>> parsers){
         return AlternativesParser.with(parsers);
     }
 
@@ -94,7 +94,7 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see RepeatedParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<RepeatedParserToken<T>, C> repeated(final Parser<T, C> parser){
+    public static <C extends ParserContext> Parser<RepeatedParserToken, C> repeated(final Parser<ParserToken, C> parser){
         return RepeatedParser.with(parser);
     }
 
