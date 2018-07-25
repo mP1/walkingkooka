@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  */
 final class AlternativesParser<C extends ParserContext> extends ParserTemplate<ParserToken, C> implements HashCodeEqualsDefined {
 
-    static <C extends ParserContext> Parser<ParserToken, C> with(final List<Parser<? super ParserToken, C>> parsers){
+    static <C extends ParserContext> Parser<ParserToken, C> with(final List<Parser<ParserToken, C>> parsers){
         Objects.requireNonNull(parsers, "parsers");
 
         Parser<ParserToken, C> parser;
@@ -43,7 +43,7 @@ final class AlternativesParser<C extends ParserContext> extends ParserTemplate<P
                 parser = parsers.get(0).castC();
                 break;
             default:
-                parser = new AlternativesParser<C>(Cast.to(parsers));
+                parser = new AlternativesParser<C>(parsers);
                 break;
         }
 

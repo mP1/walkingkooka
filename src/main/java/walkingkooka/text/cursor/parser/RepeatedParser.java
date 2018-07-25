@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -29,11 +30,11 @@ import java.util.Optional;
  */
 final class RepeatedParser<C extends ParserContext> extends ParserTemplate2<RepeatedParserToken, C> {
 
-    static <T extends ParserToken, C extends ParserContext> RepeatedParser<C> with(final Parser<ParserToken, C> parser){
+    static <C extends ParserContext> RepeatedParser<C> with(final Parser<ParserToken, C> parser){
         Objects.requireNonNull(parser, "parser");
 
         return parser instanceof RepeatedParser ?
-                parser.castTC() :
+                Cast.to(parser):
                 new RepeatedParser<C>(parser);
     }
 
