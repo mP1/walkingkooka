@@ -57,7 +57,7 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
      * Controls the entire transformation process.
      */
     Map<EbnfIdentifierParserToken, Parser<ParserToken, C>> process() {
-       this.grammar.checkIdentifierReferencesExist(this.identifierToParser.keySet());
+       this.grammar.checkIdentifiers(this.identifierToParser.keySet());
        this.preloadProxies();
        new EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor(this).accept(this.grammar);
        return Maps.readOnly(this.identifierToParser);
