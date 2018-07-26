@@ -124,6 +124,47 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
                 sequence.required(index, StringParserToken.class));
     }
 
+    // setValue...........................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSetValueNullFails(){
+        this.createToken().setValue(null);
+    }
+
+    @Test
+    public void testSetValueSame(){
+        final SequenceParserToken token = this.createToken();
+        assertSame(token, token.setValue(token.value()));
+    }
+
+    @Test
+    public void testSetValueDifferent() {
+        final SequenceParserToken token = this.createToken();
+        final List<ParserToken> differentTokens = this.createDifferentToken().value();
+        final SequenceParserToken different = token.setValue(differentTokens);
+        assertNotSame(token, different);
+        assertEquals("value", differentTokens, different.value());
+    }
+
+    // removeMissing...........................................................................................................
+
+    @Test
+    public void testRemovingMissingNone() {
+        final SequenceParserToken token = this.createToken();
+        assertSame(token, token.removeMissing());
+    }
+
+    @Test
+    public void testRemovingMissingSome() {
+        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3);
+        final SequenceParserToken different = token.removeMissing();
+
+        assertEquals("value", Lists.of(STRING1, STRING2), different.value());
+        assertSame(different, different.removeMissing());
+    }
+
+    // flat...........................................................................................................
+
     @Test
     public void testFlat() {
         final SequenceParserToken token = this.createToken();

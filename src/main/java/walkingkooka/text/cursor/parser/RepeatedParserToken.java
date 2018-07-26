@@ -53,6 +53,15 @@ public final class RepeatedParserToken extends ParserTemplateToken2 implements S
         return with(this.value(), text);
     }
 
+    public RepeatedParserToken setValue(final List<ParserToken> value) {
+        return Cast.to(this.setValue0(value));
+    }
+
+    @Override
+    final RepeatedParserToken replaceValue(final List<ParserToken> value) {
+        return new RepeatedParserToken(value, this.text());
+    }
+
     @Override
     public RepeatedParserToken flat() {
         final List<ParserToken> tokens = this.value();
