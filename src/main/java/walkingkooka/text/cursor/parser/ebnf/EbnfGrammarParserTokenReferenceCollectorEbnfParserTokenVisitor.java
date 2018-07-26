@@ -18,10 +18,12 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.tree.visit.Visiting;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -37,7 +39,14 @@ final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor<C ext
 
     @Override
     protected Visiting startVisit(final EbnfRuleParserToken rule) {
-        this.ruleIdentifiers.add(rule.identifier());
+        final EbnfIdentifierParserToken identifier = rule.identifier();
+        Set<EbnfRuleParserToken> rules = this.ruleIdentifiers.get(identifier);
+        if(null== rules) {
+            rules = Sets.ordered();
+            this.ruleIdentifiers.put(identifier, rules);
+        }
+        rules.add(rule);
+
         this.accept(rule.token()); // RHS.. visiting everything on the RHS to find identifiers which are actually references.
         return Visiting.SKIP;
     }
@@ -51,7 +60,7 @@ final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor<C ext
 
     // HELPERS ......................................................................................................
 
-    final Set<EbnfIdentifierParserToken> ruleIdentifiers = Sets.ordered();
+    final Map<EbnfIdentifierParserToken, Set<EbnfRuleParserToken>> ruleIdentifiers = Maps.ordered();
     final Set<EbnfIdentifierParserToken> references = Sets.ordered();
 
     public String toString() {
