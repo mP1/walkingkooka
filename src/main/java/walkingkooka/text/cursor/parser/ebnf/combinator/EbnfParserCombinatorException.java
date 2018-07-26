@@ -13,19 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
-package walkingkooka.text.cursor.parser;
 
-import walkingkooka.text.cursor.TextCursor;
+package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T extends ParserToken> extends ParserTestCase<P, T, FakeParserContext> {
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserException;
 
-    @Override
-    protected FakeParserContext createContext() {
-        return new FakeParserContext();
+/**
+ * General purpose base exception for combinator failures.
+ */
+public class EbnfParserCombinatorException extends EbnfParserException {
+
+    protected EbnfParserCombinatorException() {
+        super();
     }
 
-    protected final TextCursor parseFailAndCheck(final Parser <T, FakeParserContext> parser, final TextCursor cursor) {
-        return this.parseFailAndCheck(parser, this.createContext(), cursor);
+    public EbnfParserCombinatorException(final String message) {
+        super(message);
     }
+
+    public EbnfParserCombinatorException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    private final static long serialVersionUID = 1L;
 }

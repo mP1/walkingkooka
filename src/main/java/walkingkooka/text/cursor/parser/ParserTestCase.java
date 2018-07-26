@@ -157,6 +157,14 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         return this.parseFailAndCheck(this.createParser(), this.createContext(), cursor);
     }
 
+    protected final TextCursor parseFailAndCheck(final Parser <T, C> parser, final String cursorText) {
+        return this.parseFailAndCheck(parser, this.createContext(), cursorText);
+    }
+
+    protected final TextCursor parseFailAndCheck(final Parser <T, C> parser, final C context, final String cursorText) {
+        return this.parseFailAndCheck(parser, context, TextCursors.charSequence(cursorText));
+    }
+
     protected final TextCursor parseFailAndCheck(final Parser <T, C> parser, final C context, final TextCursor cursor) {
         final TextCursorSavePoint before = cursor.save();
         final Optional<T> result = this.parse(parser, cursor, context);

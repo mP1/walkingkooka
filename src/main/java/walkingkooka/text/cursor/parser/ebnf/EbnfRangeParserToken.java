@@ -37,13 +37,13 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
                 .filter(t -> t instanceof EbnfParserToken)
                 .forEach(checker);
 
-        final EbnfTerminalParserToken begin = checker.begin;
+        final EbnfParserToken begin = checker.begin;
         if(null==begin){
-            throw new IllegalArgumentException("Range missing begin terminal=" + text);
+            throw new IllegalArgumentException("Range missing begin|identifier=" + text);
         }
-        final EbnfTerminalParserToken end = checker.end;
+        final EbnfParserToken end = checker.end;
         if(null==end){
-            throw new IllegalArgumentException("Range missing end terminal=" + text);
+            throw new IllegalArgumentException("Range missing end terminal|identifier=" + text);
         }
 
         return new EbnfRangeParserToken(copy, text, begin, end, WITHOUT_COMPUTE_REQUIRED);
@@ -51,8 +51,8 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
 
     private EbnfRangeParserToken(final List<EbnfParserToken> tokens,
                                  final String text,
-                                 final EbnfTerminalParserToken begin,
-                                 final EbnfTerminalParserToken end,
+                                 final EbnfParserToken begin,
+                                 final EbnfParserToken end,
                                  final boolean computeWithout) {
         super(tokens, text, computeWithout);
         this.checkOnlyTwoTokens();
@@ -76,17 +76,17 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
         return new EbnfRangeParserToken(tokens, this.text(), this.begin, this.end, WITHOUT_USE_THIS);
     }
 
-    public EbnfTerminalParserToken begin() {
+    public EbnfParserToken begin() {
         return this.begin;
     }
 
-    private final EbnfTerminalParserToken begin;
+    private final EbnfParserToken begin;
 
-    public EbnfTerminalParserToken end() {
+    public EbnfParserToken end() {
         return this.end;
     }
 
-    private final EbnfTerminalParserToken end;
+    private final EbnfParserToken end;
 
     @Override
     public boolean isAlternative() {
