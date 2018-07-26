@@ -92,4 +92,9 @@ final public class EbnfSymbolParserToken extends EbnfLeafParserToken<String> {
     public ParserTokenNodeName name() {
         return NAME;
     }
+
+    @Override
+    public boolean isNoise() {
+        return true;
+    }
 }

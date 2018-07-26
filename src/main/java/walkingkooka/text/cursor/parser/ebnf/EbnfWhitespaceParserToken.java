@@ -93,4 +93,9 @@ public final class EbnfWhitespaceParserToken extends EbnfLeafParserToken<String>
     public ParserTokenNodeName name() {
         return NAME;
     }
+
+    @Override
+    public boolean isNoise() {
+        return true;
+    }
 }

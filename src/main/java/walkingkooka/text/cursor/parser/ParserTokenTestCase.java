@@ -91,6 +91,13 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
     }
 
     @Test
+    public void testIsNoisyGuess() {
+        final T token = this.createToken();
+        final String className = token.getClass().getSimpleName();
+        assertEquals(className.contains("Whitespace") | className.contains("Symbol") | className.contains("Comment") | token.isMissing(), token.isNoise());
+    }
+
+    @Test
     public final void testEqualsNull() {
         assertNotEquals(this.createToken(), null);
     }

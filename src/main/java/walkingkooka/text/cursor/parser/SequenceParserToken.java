@@ -83,6 +83,15 @@ public final class SequenceParserToken extends ParserTemplateToken2 implements S
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * Removes any noisy token values, returning a new instance if necessary.
+     */
+    public SequenceParserToken removeNoise() {
+        return this.setValue(this.value().stream()
+                .filter( t -> ! t.isNoise())
+                .collect(Collectors.toList()));
+    }
+
     @Override
     public void accept(final ParserTokenVisitor visitor){
         if(Visiting.CONTINUE == visitor.startVisit(this)) {

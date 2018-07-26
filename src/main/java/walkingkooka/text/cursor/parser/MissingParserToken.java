@@ -59,6 +59,11 @@ public final class MissingParserToken extends ParserTemplateToken<ParserTokenNod
     }
 
     @Override
+    public boolean isNoise() {
+        return true;
+    }
+
+    @Override
     public void accept(final ParserTokenVisitor visitor){
         visitor.visit(this);
     }
