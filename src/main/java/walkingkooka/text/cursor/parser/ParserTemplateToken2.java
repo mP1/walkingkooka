@@ -20,6 +20,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
@@ -32,6 +33,21 @@ abstract class ParserTemplateToken2 extends ParserTemplateToken<List<ParserToken
     ParserTemplateToken2(final List<ParserToken> value, final String text) {
         super(value, text);
     }
+
+    /**
+     * Sub classes must create a public setValue and call this method and cast this.
+     */
+    final ParserTemplateToken<List<ParserToken>> setValue0(final List<ParserToken> value) {
+        Objects.requireNonNull(value, "values");
+
+        final List<ParserToken> copy = Lists.array();
+        copy.addAll(value);
+        return this.value().equals(copy) ?
+                this :
+                this.replaceValue(copy);
+    }
+
+    abstract ParserTemplateToken<List<ParserToken>> replaceValue(final List<ParserToken> value);
 
     final void acceptValues(final ParserTokenVisitor visitor){
         for(ParserToken token: this.value()){

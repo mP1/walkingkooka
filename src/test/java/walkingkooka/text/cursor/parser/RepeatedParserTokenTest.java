@@ -44,6 +44,28 @@ public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedP
         RepeatedParserToken.with(Lists.of(string("abc")), null);
     }
 
+    // setValue...........................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSetValueNullFails(){
+        this.createToken().setValue(null);
+    }
+
+    @Test
+    public void testSetValueSame(){
+        final RepeatedParserToken token = this.createToken();
+        assertSame(token, token.setValue(token.value()));
+    }
+
+    @Test
+    public void testSetValueDifferent() {
+        final RepeatedParserToken token = this.createToken();
+        final List<ParserToken> differentTokens = this.createDifferentToken().value();
+        final RepeatedParserToken different = token.setValue(differentTokens);
+        assertNotSame(token, different);
+        assertEquals("tokens", differentTokens, different.value());
+    }
+    
     @Test
     public void testFlat() {
         final RepeatedParserToken token = this.createToken();

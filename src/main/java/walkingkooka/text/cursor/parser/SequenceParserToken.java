@@ -65,6 +65,24 @@ public final class SequenceParserToken extends ParserTemplateToken2 implements S
         return NAME;
     }
 
+    public SequenceParserToken setValue(final List<ParserToken> value) {
+        return Cast.to(this.setValue0(value));
+    }
+
+    @Override
+    final SequenceParserToken replaceValue(final List<ParserToken> value) {
+        return new SequenceParserToken(value, this.text());
+    }
+
+    /**
+     * Removes any missing values, returning a new instance if necessary.
+     */
+    public SequenceParserToken removeMissing() {
+        return this.setValue(this.value().stream()
+                .filter( t -> ! t.isMissing())
+                .collect(Collectors.toList()));
+    }
+
     @Override
     public void accept(final ParserTokenVisitor visitor){
         if(Visiting.CONTINUE == visitor.startVisit(this)) {
