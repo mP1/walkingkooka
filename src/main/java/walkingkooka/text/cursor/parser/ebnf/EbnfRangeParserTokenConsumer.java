@@ -22,7 +22,7 @@ final class EbnfRangeParserTokenConsumer implements Consumer<EbnfParserToken> {
 
     @Override
     public void accept(final EbnfParserToken token) {
-        if(token.isAlternative() || token.isConcatenation() || token.isGroup() || token.isIdentifier() || token.isOptional() || token.isRepeated() || token.isTerminal()) {
+        if(!token.isNoise()) {
             if(null ==this.begin) {
                 this.complainIfNeitherTerminalOrIdentifier(token, "begin");
                 this.begin = token;

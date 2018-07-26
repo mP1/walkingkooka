@@ -163,6 +163,23 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
         assertSame(different, different.removeMissing());
     }
 
+    // removeNoise...........................................................................................................
+
+    @Test
+    public void testRemovingNoiseNone() {
+        final SequenceParserToken token = this.createToken();
+        assertSame(token, token.removeNoise());
+    }
+
+    @Test
+    public void testRemovingNoiseSome() {
+        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3);
+        final SequenceParserToken different = token.removeNoise();
+
+        assertEquals("value", Lists.of(STRING1, STRING2), different.value());
+        assertSame(different, different.removeNoise());
+    }
+    
     // flat...........................................................................................................
 
     @Test

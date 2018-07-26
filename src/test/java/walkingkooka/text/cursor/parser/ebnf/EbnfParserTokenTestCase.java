@@ -54,6 +54,10 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
                 continue;
             }
             final String methodName = method.getName();
+            if(methodName.equals("isNoise")) {
+                continue;
+            }
+
             if(!methodName.startsWith("is")) {
                 continue;
             }
