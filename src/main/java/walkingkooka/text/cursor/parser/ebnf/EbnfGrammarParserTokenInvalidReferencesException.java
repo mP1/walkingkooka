@@ -27,16 +27,16 @@ import java.util.Set;
  */
 public class EbnfGrammarParserTokenInvalidReferencesException extends EbnfParserException {
 
-    EbnfGrammarParserTokenInvalidReferencesException(final String message, final Set<EbnfIdentifierParserToken> references) {
+    EbnfGrammarParserTokenInvalidReferencesException(final String message, final Set<EbnfIdentifierName> references) {
         super(message);
         this.references = references;
     }
 
-    public Set<EbnfIdentifierParserToken> references() {
+    public Set<EbnfIdentifierName> references() {
         return Sets.readOnly(this.references);
     }
 
-    private final Set<EbnfIdentifierParserToken> references;
+    private final Set<EbnfIdentifierName> references;
 
     @Override
     public String toString() {

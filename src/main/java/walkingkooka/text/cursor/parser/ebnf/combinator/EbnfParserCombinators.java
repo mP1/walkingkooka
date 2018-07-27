@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
-import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Map;
@@ -34,9 +34,9 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
      * Accepts a grammar and returns a {@link Map} holding all identifiers(the names) to a parser.
      * The {@link Map} will be used as defaults, any new definitions in the grammar will replace those in the map.
      */
-    public static <T extends ParserToken, C extends ParserContext> Map<EbnfIdentifierParserToken, Parser<T, C>> transform(final EbnfGrammarParserToken grammar,
-                                                                                                                          final Map<EbnfIdentifierParserToken, Parser<ParserToken, C>> identifierToParser,
-                                                                                                                          final EbnfParserCombinatorSyntaxTreeTransformer<C> syntaxTreeTransformer) {
+    public static <T extends ParserToken, C extends ParserContext> Map<EbnfIdentifierName, Parser<T, C>> transform(final EbnfGrammarParserToken grammar,
+                                                                                                                   final Map<EbnfIdentifierName, Parser<ParserToken, C>> identifierToParser,
+                                                                                                                   final EbnfParserCombinatorSyntaxTreeTransformer<C> syntaxTreeTransformer) {
         Objects.requireNonNull(grammar, "grammar");
         Objects.requireNonNull(identifierToParser, "identifierToParser");
         Objects.requireNonNull(syntaxTreeTransformer, "syntaxTreeTransformer");

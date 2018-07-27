@@ -38,52 +38,6 @@ import java.util.stream.Collectors;
  */
 final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfParserContext> {
 
-    // low level ATOMS ..................................................................................................
-
-    /**
-     * <pre>
-     *     letter = "A" | "B" | "C" | "D" | "E" | "F" | "G"
-     *             | "H" | "I" | "J" | "K" | "L" | "M" | "N"
-     *             | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
-     *             | "V" | "W" | "X" | "Y" | "Z" | "a" | "b"
-     *             | "c" | "d" | "e" | "f" | "g" | "h" | "i"
-     *             | "j" | "k" | "l" | "m" | "n" | "o" | "p"
-     *             | "q" | "r" | "s" | "t" | "u" | "v" | "w"
-     *             | "x" | "y" | "z" ;
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> LETTER = EbnfParserContext.string(
-            CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z')), 1, 1)
-            .setToString("letter")
-            .castC();
-
-    /**
-     * <pre>
-     * digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> DIGIT = EbnfParserContext.string('0', '9')
-            .setToString("digit")
-            .castC();
-
-    /**
-     * <pre>
-     * _
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> UNDERSCORE = EbnfParserContext.string('_')
-            .castC();
-
-    /**
-     * <pre>
-     * character = letter | digit |  "_" ;
-     * </pre>
-     */
-    final static Parser<ParserToken, EbnfParserContext> CHARACTER = LETTER
-            .or(DIGIT)
-            .or(UNDERSCORE)
-            .setToString("character");
-
     /**
      * This needs to be initialized before references below to avoid forward reference problems.
      */
@@ -114,11 +68,22 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
             .setToString("identifier");
 
     private static Parser<ParserToken, EbnfParserContext> identifier() {
+        final Parser<ParserToken, EbnfParserContext> initial = EbnfParserContext.string(
+                EbnfIdentifierName.INITIAL, 1, 1)
+                .setToString("letter")
+                .castC();
+
+        final Parser<ParserToken, EbnfParserContext> character = EbnfParserContext.string(
+                EbnfIdentifierName.PART, 1, Integer.MAX_VALUE)
+                .repeating()
+                .setToString("character")
+                .castC();
+
         return EbnfParserContext.<EbnfParserContext>sequenceParserBuilder()
-                .required(LETTER)
-                .required(CHARACTER.repeating().castC())
+                .required(initial)
+                .required(character)
                 .build()
-                .transform((sequence, context) -> EbnfIdentifierParserToken.with(string(sequence), sequence.text()))
+                .transform((sequence, context) -> EbnfIdentifierParserToken.with(EbnfIdentifierName.with(string(sequence)), sequence.text()))
                 .setToString("identifier")
                 .castC();
     };

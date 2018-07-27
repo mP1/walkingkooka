@@ -46,6 +46,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfExceptionParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGroupParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfOptionalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserContext;
@@ -354,16 +355,16 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
     private Parser<ParserToken, FakeParserContext> createParser(final String grammarResourceFile) {
         final EbnfGrammarParserToken grammar = this.grammar(grammarResourceFile);
 
-        final Map<EbnfIdentifierParserToken, Parser<ParserToken, FakeParserContext>> defaults = Maps.hash();
-        defaults.put(EbnfIdentifierParserToken.identifier("LETTERS", "any letter"), Parsers.stringCharPredicate(CharPredicates.letter(), 1, Integer.MAX_VALUE).castC());
-        final Map<EbnfIdentifierParserToken, Parser<ParserToken, FakeParserContext>> all = grammar.combinator(defaults, this.syntaxTreeTransformer());
+        final Map<EbnfIdentifierName, Parser<ParserToken, FakeParserContext>> defaults = Maps.hash();
+        defaults.put(EbnfIdentifierName.with("LETTERS"), Parsers.stringCharPredicate(CharPredicates.letter(), 1, Integer.MAX_VALUE).castC());
+        final Map<EbnfIdentifierName, Parser<ParserToken, FakeParserContext>> all = grammar.combinator(defaults, this.syntaxTreeTransformer());
 
-        final Parser<ParserToken, FakeParserContext> test = Cast.to(all.get(EbnfParserToken.identifier(TEST, TEST)));
+        final Parser<ParserToken, FakeParserContext> test = Cast.to(all.get(TEST));
         Assert.assertNotNull(TEST + " parser not found in grammar\n" + grammar, test);
         return test;
     }
 
-    private final String TEST = "TEST";
+    private final EbnfIdentifierName TEST = EbnfIdentifierName.with("TEST");
 
     private EbnfGrammarParserToken grammar(final String resourceName) {
         try {

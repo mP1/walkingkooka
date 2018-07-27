@@ -20,7 +20,7 @@ import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-public final class EbnfIdentifierParserTokenTest extends EbnfLeafParserTokenTestCase<EbnfIdentifierParserToken, String> {
+public final class EbnfIdentifierParserTokenTest extends EbnfLeafParserTokenTestCase<EbnfIdentifierParserToken, EbnfIdentifierName> {
 
     @Test
     public void testAccept() {
@@ -68,18 +68,18 @@ public final class EbnfIdentifierParserTokenTest extends EbnfLeafParserTokenTest
         return "abc123";
     }
 
-    String value() {
-        return this.text();
+    EbnfIdentifierName value() {
+        return EbnfIdentifierName.with(this.text());
     }
 
     @Override
-    protected EbnfIdentifierParserToken createToken(final String value, final String text) {
+    protected EbnfIdentifierParserToken createToken(final EbnfIdentifierName value, final String text) {
         return EbnfIdentifierParserToken.with(value, text);
     }
 
     @Override
     protected EbnfIdentifierParserToken createDifferentToken() {
-        return EbnfIdentifierParserToken.with("different", "different");
+        return EbnfIdentifierParserToken.with(EbnfIdentifierName.with("different"), "different");
     }
 
     @Override

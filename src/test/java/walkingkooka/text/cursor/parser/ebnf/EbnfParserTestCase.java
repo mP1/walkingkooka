@@ -27,9 +27,13 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
     final static String COMMENT1 = "(*comment-1*)";
     final static String COMMENT2 = "(*comment-2*)";
 
-    final static String IDENTIFIER1 = "abc123";
-    final static String IDENTIFIER2 = "def456";
-    final static String IDENTIFIER3 = "ghi789";
+    final static String IDENTIFIER1_TEXT = "abc123";
+    final static String IDENTIFIER2_TEXT = "def456";
+    final static String IDENTIFIER3_TEXT = "ghi789";
+
+    final static EbnfIdentifierName IDENTIFIER1 = EbnfIdentifierName.with(IDENTIFIER1_TEXT);
+    final static EbnfIdentifierName IDENTIFIER2 = EbnfIdentifierName.with(IDENTIFIER2_TEXT);
+    final static EbnfIdentifierName IDENTIFIER3 = EbnfIdentifierName.with(IDENTIFIER3_TEXT);
 
     final static String WHITESPACE1 = " ";
     final static String WHITESPACE2 = "   ";
@@ -73,15 +77,15 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
     }
 
     final EbnfParserToken identifier1() {
-        return EbnfParserToken.identifier(IDENTIFIER1, IDENTIFIER1);
+        return EbnfParserToken.identifier(IDENTIFIER1, IDENTIFIER1_TEXT);
     }
 
     final EbnfParserToken identifier2() {
-        return EbnfParserToken.identifier(IDENTIFIER2, IDENTIFIER2);
+        return EbnfParserToken.identifier(IDENTIFIER2, IDENTIFIER2_TEXT);
     }
 
     final EbnfParserToken identifier3() {
-        return EbnfParserToken.identifier(IDENTIFIER3, IDENTIFIER3);
+        return EbnfParserToken.identifier(IDENTIFIER3, IDENTIFIER3_TEXT);
     }
 
     final EbnfParserToken whitespace1() {

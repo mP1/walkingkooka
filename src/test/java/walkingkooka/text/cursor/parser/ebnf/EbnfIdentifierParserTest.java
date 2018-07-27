@@ -28,13 +28,13 @@ public final class EbnfIdentifierParserTest extends EbnfParserTestCase3<EbnfIden
 
     @Override
     String text() {
-        return IDENTIFIER1;
+        return IDENTIFIER1_TEXT;
     }
 
     @Override
     EbnfIdentifierParserToken token(final String text) {
         return EbnfIdentifierParserToken.with(
-                this.text(),
+                EbnfIdentifierName.with(this.text()),
                 text);
     }
 }
