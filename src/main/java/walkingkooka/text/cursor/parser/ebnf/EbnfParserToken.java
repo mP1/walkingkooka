@@ -78,7 +78,7 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfIdentifierParserToken}
      */
-    public static EbnfIdentifierParserToken identifier(final String value, final String text){
+    public static EbnfIdentifierParserToken identifier(final EbnfIdentifierName value, final String text){
         return EbnfIdentifierParserToken.with(value, text);
     }
 

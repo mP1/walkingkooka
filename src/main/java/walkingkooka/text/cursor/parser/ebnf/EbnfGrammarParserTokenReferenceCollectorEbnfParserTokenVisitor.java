@@ -39,7 +39,7 @@ final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor<C ext
 
     @Override
     protected Visiting startVisit(final EbnfRuleParserToken rule) {
-        final EbnfIdentifierParserToken identifier = rule.identifier();
+        final EbnfIdentifierName identifier = rule.identifier().value();
         Set<EbnfRuleParserToken> rules = this.ruleIdentifiers.get(identifier);
         if(null== rules) {
             rules = Sets.ordered();
@@ -55,13 +55,13 @@ final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor<C ext
 
     @Override
     protected void visit(final EbnfIdentifierParserToken identifier) {
-        this.references.add(identifier);
+        this.references.add(identifier.value());
     }
 
     // HELPERS ......................................................................................................
 
-    final Map<EbnfIdentifierParserToken, Set<EbnfRuleParserToken>> ruleIdentifiers = Maps.ordered();
-    final Set<EbnfIdentifierParserToken> references = Sets.ordered();
+    final Map<EbnfIdentifierName, Set<EbnfRuleParserToken>> ruleIdentifiers = Maps.ordered();
+    final Set<EbnfIdentifierName> references = Sets.ordered();
 
     public String toString() {
         return this.references + " " + this.ruleIdentifiers;

@@ -137,18 +137,18 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
     /**
      * Constant to be passed to {@link #checkIdentifiers(Set)} if no external references exist.
      */
-    public final static Set<EbnfIdentifierParserToken> NO_EXTERNALS = Sets.empty();
+    public final static Set<EbnfIdentifierName> NO_EXTERNALS = Sets.empty();
 
     /**
      * Verifies that all identifiers that appear on the RHS of all rules, must be valid.
      */
-    public void checkIdentifiers(final Set<EbnfIdentifierParserToken> external){
+    public void checkIdentifiers(final Set<EbnfIdentifierName> external){
         Objects.requireNonNull(external, "external");
 
         final EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor visitor = new EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor();
         visitor.accept(this);
 
-        final Map<EbnfIdentifierParserToken, Set<EbnfRuleParserToken>> identifiers = visitor.ruleIdentifiers;
+        final Map<EbnfIdentifierName, Set<EbnfRuleParserToken>> identifiers = visitor.ruleIdentifiers;
         final Set<EbnfRuleParserToken> duplicates = Sets.ordered();
 
         identifiers.values()
@@ -159,7 +159,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
             throw new EbnfGrammarParserTokenDuplicateIdentifiersException(duplicates.size() + " rules with the same identifier=" + duplicates, duplicates);
         }
 
-        final Set<EbnfIdentifierParserToken> missing = Sets.sorted();
+        final Set<EbnfIdentifierName> missing = Sets.sorted();
         missing.addAll(visitor.references);
         missing.removeAll(identifiers.keySet());
         missing.removeAll(external);
@@ -169,8 +169,8 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
         }
     }
 
-    public <C extends ParserContext> Map<EbnfIdentifierParserToken, Parser<ParserToken, C>> combinator(final Map<EbnfIdentifierParserToken, Parser<ParserToken, C>> identifierToParser,
-                                                                                             final EbnfParserCombinatorSyntaxTreeTransformer<C> syntaxTreeTransformer) {
+    public <C extends ParserContext> Map<EbnfIdentifierName, Parser<ParserToken, C>> combinator(final Map<EbnfIdentifierName, Parser<ParserToken, C>> identifierToParser,
+                                                                                                final EbnfParserCombinatorSyntaxTreeTransformer<C> syntaxTreeTransformer) {
         return EbnfParserCombinators.transform(this, identifierToParser, syntaxTreeTransformer);
     }
 

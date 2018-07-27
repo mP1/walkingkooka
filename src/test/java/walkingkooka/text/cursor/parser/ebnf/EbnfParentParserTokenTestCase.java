@@ -99,7 +99,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
     }
 
     final EbnfIdentifierParserToken identifier(final String text) {
-        return EbnfParserToken.identifier(text, text);
+        return EbnfParserToken.identifier(EbnfIdentifierName.with(text), text);
     }
 
     final EbnfWhitespaceParserToken whitespace() {

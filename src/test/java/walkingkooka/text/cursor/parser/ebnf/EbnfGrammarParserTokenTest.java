@@ -154,11 +154,12 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
 
     @Test
     public void testCheckIdentifierExternalReferences() {
-        final EbnfIdentifierParserToken external = EbnfIdentifierParserToken.with("external", "external");
+        final EbnfIdentifierName identifier = EbnfIdentifierName.with("external");
+        final EbnfIdentifierParserToken external = EbnfIdentifierParserToken.with(identifier, "external");
         final EbnfRuleParserToken rule = this.rule(this.identifier1(), external, "identifier1:external;");
 
         this.createToken(rule.text(), rule)
-                .checkIdentifiers(Sets.of(external));
+                .checkIdentifiers(Sets.of(identifier));
     }
 
     @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)

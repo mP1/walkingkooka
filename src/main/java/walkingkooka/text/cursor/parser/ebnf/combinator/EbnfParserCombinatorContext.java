@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
 
@@ -41,7 +42,7 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
      * Ctor
      */
     EbnfParserCombinatorContext(final EbnfGrammarParserToken grammar,
-                                final Map<EbnfIdentifierParserToken, Parser<ParserToken, C>> identifierToParser,
+                                final Map<EbnfIdentifierName, Parser<ParserToken, C>> identifierToParser,
                                 final EbnfParserCombinatorSyntaxTreeTransformer<C> syntaxTreeTransformer) {
         this.grammar = grammar;
 
@@ -56,7 +57,7 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
     /**
      * Controls the entire transformation process.
      */
-    Map<EbnfIdentifierParserToken, Parser<ParserToken, C>> process() {
+    Map<EbnfIdentifierName, Parser<ParserToken, C>> process() {
        this.grammar.checkIdentifiers(this.identifierToParser.keySet());
        this.preloadProxies();
        new EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor(this).accept(this.grammar);
@@ -71,7 +72,7 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
                 .stream()
                 .forEach(t -> {
                     final EbnfRuleParserToken rule = t.cast();
-                    this.identifierToParser.put(rule.identifier(), new EbnfParserCombinatorProxyParser(rule.identifier()));
+                    this.identifierToParser.put(rule.identifier().value(), new EbnfParserCombinatorProxyParser(rule.identifier()));
                 });
     }
 
@@ -86,7 +87,7 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
     /**
      * Identifier to token.
      */
-    final Map<EbnfIdentifierParserToken, Parser<ParserToken, C>> identifierToParser;
+    final Map<EbnfIdentifierName, Parser<ParserToken, C>> identifierToParser;
 
     @Override
     public String toString() {

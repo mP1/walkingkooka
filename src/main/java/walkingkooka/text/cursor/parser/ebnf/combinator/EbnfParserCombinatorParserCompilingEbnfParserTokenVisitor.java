@@ -39,6 +39,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfExceptionParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGroupParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfOptionalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
@@ -73,7 +74,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
                 .filter( t -> t.isRule())
                 .map( t -> EbnfRuleParserToken.class.cast(t))
                 .forEach( r -> {
-                    this.identifierToRule.put(r.identifier(), r);
+                    this.identifierToRule.put(r.identifier().value(), r);
                 });
         return super.startVisit(token);
     }
@@ -89,8 +90,8 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
         super.endVisit(token);
     }
 
-    private void fixRuleParserToString(final Entry<EbnfIdentifierParserToken, Parser<ParserToken, C>> identifierAndParser) {
-        final EbnfIdentifierParserToken identifier = identifierAndParser.getKey();
+    private void fixRuleParserToString(final Entry<EbnfIdentifierName, Parser<ParserToken, C>> identifierAndParser) {
+        final EbnfIdentifierName identifier = identifierAndParser.getKey();
         final Parser<ParserToken, C> parser = identifierAndParser.getValue();
 
         // Not all parsers may be proxy, because some parsers may be present in the initial map.
@@ -110,7 +111,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
         this.accept(rule.token());
 
         // update the proxy holding all references to this rule...
-        final EbnfParserCombinatorProxyParser<?, C> proxy = Cast.to(this.context.identifierToParser.get(rule.identifier()));
+        final EbnfParserCombinatorProxyParser<?, C> proxy = Cast.to(this.context.identifierToParser.get(rule.identifier().value()));
         proxy.parser = Cast.to(this.children.get(0));
 
         return Visiting.SKIP; // skip because we dont want to visit LHS of rule.
@@ -119,7 +120,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
     /**
      * Kept so we can wrap any rule parsers to show the complete rule.
      */
-    private final Map<EbnfIdentifierParserToken, EbnfRuleParserToken> identifierToRule = Maps.ordered();
+    private final Map<EbnfIdentifierName, EbnfRuleParserToken> identifierToRule = Maps.ordered();
 
     // ALT ........................................................................................................
 
@@ -253,7 +254,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
     }
 
     private char characterFromIdentifierReference(final EbnfIdentifierParserToken identifier) {
-        final EbnfRuleParserToken rule = this.identifierToRule.get(identifier);
+        final EbnfRuleParserToken rule = this.identifierToRule.get(identifier.value());
         return this.characterForIdentifierOrTerminal(rule.token());
     }
 
@@ -294,7 +295,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
     protected void visit(final EbnfIdentifierParserToken identifier) {
         this.add(
                 this.context.syntaxTreeTransformer.identifier(identifier,
-                        this.context.identifierToParser.get(identifier),
+                        this.context.identifierToParser.get(identifier.value()),
                         this.context),
                 identifier);
     }

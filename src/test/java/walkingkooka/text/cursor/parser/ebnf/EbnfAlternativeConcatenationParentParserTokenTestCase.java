@@ -51,7 +51,7 @@ public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T ex
 
     @Override
     protected T createDifferentToken() {
-        return this.createToken("diff-1" + separatorChar() + "diff-2", this.identifier("diff-1"), this.identifier("diff-2"));
+        return this.createToken("diff1" + separatorChar() + "diff2", this.identifier("diff1"), this.identifier("diff2"));
     }
 
     abstract char separatorChar();

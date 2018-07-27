@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.naming.Name;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.Optional;
@@ -24,21 +23,18 @@ import java.util.Optional;
 /**
  * Holds the text for an identifier. Identifiers may appear on the left of a definition or as a reference to another rule definition.
  */
-public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<String> implements Name, Comparable<EbnfIdentifierParserToken> {
+public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<EbnfIdentifierName> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfIdentifierParserToken.class);
 
-    final static String OPEN = "(*";
-    final static String CLOSE = "*)";
-
-    static EbnfIdentifierParserToken with(final String value, final String text){
+    static EbnfIdentifierParserToken with(final EbnfIdentifierName value, final String text){
         checkValue(value);
         checkText(text);
 
         return new EbnfIdentifierParserToken(value, text);
     }
 
-    private EbnfIdentifierParserToken(final String value, final String text){
+    private EbnfIdentifierParserToken(final EbnfIdentifierName value, final String text){
         super(value, text);
     }
 
@@ -95,10 +91,5 @@ public final class EbnfIdentifierParserToken extends EbnfLeafParserToken<String>
     @Override
     public ParserTokenNodeName name() {
         return NAME;
-    }
-
-    @Override
-    public int compareTo(final EbnfIdentifierParserToken other) {
-        return this.value.compareTo(other.value);
     }
 }
