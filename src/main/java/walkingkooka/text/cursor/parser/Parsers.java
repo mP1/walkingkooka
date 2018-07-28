@@ -78,6 +78,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see LongParser}
+     */
+    public static <C extends ParserContext> Parser<LongParserToken, C> longParser(final int radix) {
+        return LongParser.with(radix);
+    }
+    
+    /**
      * {@see NumberParser}
      */
     public static <C extends ParserContext> Parser<NumberParserToken, C> number(final int radix) {
