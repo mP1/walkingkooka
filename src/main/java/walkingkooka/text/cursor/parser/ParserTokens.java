@@ -38,6 +38,13 @@ public final class ParserTokens implements PublicStaticHelper {
     public static DecimalParserToken decimal(final BigDecimal value, final String text) {
         return DecimalParserToken.with(value, text);
     }
+
+    /**
+     * {@see DoubleParserToken}
+     */
+    public static DoubleParserToken doubleParserToken(final double value, final String text) {
+        return DoubleParserToken.with(value, text);
+    }
     
     /**
      * {@see DoubleQuotedParserToken}
