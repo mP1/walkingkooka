@@ -84,7 +84,7 @@ enum DomNodeKind {
         @Override
         DomElement createElement(final DomName name,
                                  final org.w3c.dom.Document document){
-            return name.failInvalidTagName(); ////
+            return name.failInvalidTagName();
         }
 
         @Override
@@ -92,7 +92,7 @@ enum DomNodeKind {
                                  final DomNameSpacePrefix prefix,
                                  final DomName name,
                                  final org.w3c.dom.Document document){
-            return name.failInvalidTagName(); ////
+            return name.failInvalidTagName();
         }
 
         @Override
@@ -189,7 +189,6 @@ enum DomNodeKind {
         @Override
         void check(final String name){
             Objects.requireNonNull(name, "name");
-            ///Predicates.failIfNullOrFalse(name, DomPredicates.entityDefinition(), "entity declaration name %s");
         }
 
         @Override
@@ -221,7 +220,6 @@ enum DomNodeKind {
         @Override
         void check(final String name){
             Objects.requireNonNull(name, "name");
-            ////Predicates.failIfNullOrFalse(name, DomPredicates.entityReference(), "entity reference name %s");
         }
 
         @Override
