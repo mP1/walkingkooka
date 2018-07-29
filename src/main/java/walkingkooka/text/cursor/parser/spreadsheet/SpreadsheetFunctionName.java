@@ -1,0 +1,91 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ */
+
+package walkingkooka.text.cursor.parser.spreadsheet;
+
+import walkingkooka.naming.Name;
+import walkingkooka.predicate.Predicates;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.test.HashCodeEqualsDefined;
+
+import java.util.function.Predicate;
+
+/**
+ * The {@link Name} of a function.
+ */
+final public class SpreadsheetFunctionName implements Name, HashCodeEqualsDefined {
+
+    final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
+
+    final static CharPredicate PART = INITIAL.or(CharPredicates.range('0', '9').or(CharPredicates.is('.')));
+
+    final static Predicate<CharSequence> PREDICATE = Predicates.initialAndPart(INITIAL, PART);
+
+    final static int MAX_LENGTH = 255;
+
+    /**
+     * Factory that creates a {@link SpreadsheetFunctionName}
+     */
+    public static SpreadsheetFunctionName with(final String name) {
+        Predicates.failIfNullOrFalse(name, PREDICATE, "Function name %s contains invalid character");
+
+        final int length = name.length();
+        if(length > MAX_LENGTH) {
+            throw new IllegalArgumentException("Function name length " + length + " greater than allowed of " + MAX_LENGTH);
+        }
+
+        return new SpreadsheetFunctionName(name);
+    }
+
+    /**
+     * Private constructor
+     */
+    private SpreadsheetFunctionName(final String name) {
+        super();
+        this.name = name;
+    }
+
+    @Override
+    public String value() {
+        return this.name;
+    }
+
+    final String name;
+
+    // Object
+
+    @Override
+    public final int hashCode() {
+        return this.name.hashCode();
+    }
+
+    @Override
+    public final boolean equals(final Object other) {
+        return (this == other) || other instanceof SpreadsheetFunctionName && this.equals0((SpreadsheetFunctionName) other);
+    }
+
+    private boolean equals0(final SpreadsheetFunctionName other) {
+        return this.name.equals(other.name);
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+}
