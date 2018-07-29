@@ -62,7 +62,8 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
         assertSame(predicate, predicate.setToString(predicate.toString()));
     }
 
-    @Test final public void testCheckToStringOverridden() {
+    @Test
+    public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
 
