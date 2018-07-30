@@ -68,23 +68,13 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
             .setToString("identifier");
 
     private static Parser<ParserToken, EbnfParserContext> identifier() {
-        final Parser<ParserToken, EbnfParserContext> initial = EbnfParserContext.string(
-                EbnfIdentifierName.INITIAL, 1, 1)
-                .setToString("letter")
-                .castC();
-
-        final Parser<ParserToken, EbnfParserContext> character = EbnfParserContext.string(
-                EbnfIdentifierName.PART, 1, Integer.MAX_VALUE)
-                .repeating()
-                .setToString("character")
-                .castC();
-
-        return EbnfParserContext.<EbnfParserContext>sequenceParserBuilder()
-                .required(initial)
-                .required(character)
-                .build()
-                .transform((sequence, context) -> EbnfIdentifierParserToken.with(EbnfIdentifierName.with(string(sequence)), sequence.text()))
-                .setToString("identifier")
+        return Parsers.<EbnfParserContext>stringInitialAndPartCharPredicate(
+                EbnfIdentifierName.INITIAL,
+                EbnfIdentifierName.PART,
+                1,
+                Integer.MAX_VALUE)
+                .transform((string, context) -> EbnfIdentifierParserToken.with(EbnfIdentifierName.with(string.text()), string.text()))
+                .setToString("IDENTIFIER")
                 .castC();
     };
 
