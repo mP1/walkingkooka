@@ -396,7 +396,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
             }
 
             @Override
-            public Parser<SequenceParserToken, FakeParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<ParserToken, FakeParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
                 return parser.transform((sequenceParserToken, fakeParserContext) -> {
                     return sequenceParserToken.removeMissing();
                 });
