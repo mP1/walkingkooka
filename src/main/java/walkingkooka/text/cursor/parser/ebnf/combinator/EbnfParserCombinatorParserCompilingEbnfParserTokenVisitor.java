@@ -23,8 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
-import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -232,43 +230,17 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void endVisit(final EbnfRangeParserToken token) {
-        // ignore any children oarsers and try and create a range from the token directly.
-        final char begin = this.characterForIdentifierOrTerminal(token.begin());
-        final char end = this.characterForIdentifierOrTerminal(token.end());
-
-        final Parser<ParserToken, C> parser =Parsers.stringCharPredicate(CharPredicates.range(begin, end), 1, 1)
-                .setToString(token.toString())
-                .castC();
+        final SequenceParserBuilder<C> b = Parsers.sequenceParserBuilder();
+        this.children.stream()
+                .forEach(p -> {
+                    b.required(p);
+                });
+        final Parser<SequenceParserToken, C> parser = b.build()
+                .setToString(token.toString());
         this.exit();
         this.add(
                 this.context.syntaxTreeTransformer.range(token, parser, this.context),
                 token);
-    }
-
-    private char characterForIdentifierOrTerminal(final EbnfParserToken token) {
-        return token.isTerminal() ?
-                this.characterFromTerminal(token.cast()) :
-                token.isIdentifier() ?
-                this.characterFromIdentifierReference(token.cast()) :
-                failInvalidRangeBound("Invalid range bound, expected terminal or identifier indirectly pointing to a terminal but got " + token, token);
-    }
-
-    private char characterFromIdentifierReference(final EbnfIdentifierParserToken identifier) {
-        final EbnfRuleParserToken rule = this.identifierToRule.get(identifier.value());
-        return this.characterForIdentifierOrTerminal(rule.token());
-    }
-
-    private char characterFromTerminal(final EbnfTerminalParserToken terminal) {
-        final String value = terminal.value();
-        final CharSequence unescaped = CharSequences.unescape(value);
-        if(unescaped.length() != 1) {
-            failInvalidRangeBound("The range terminal does not contain a single character=" + terminal, terminal);
-        }
-        return unescaped.charAt(0);
-    }
-
-    private static char failInvalidRangeBound(final String message, final EbnfParserToken token) {
-        throw new EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException(message, token);
     }
 
     // REPEAT ........................................................................................................

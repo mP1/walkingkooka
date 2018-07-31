@@ -57,7 +57,7 @@ public interface EbnfParserCombinatorSyntaxTreeTransformer<C extends ParserConte
 
     Parser<ParserToken, C> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext context);
 
-    Parser<ParserToken, C> range(final EbnfRangeParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext contextd);
+    Parser<ParserToken, C> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, C> parser, final EbnfParserCombinatorContext contextd);
 
     Parser<RepeatedParserToken, C> repeated(final EbnfRepeatedParserToken token, final Parser<RepeatedParserToken, C> parser, final EbnfParserCombinatorContext context);
 

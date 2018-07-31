@@ -423,8 +423,43 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
             }
 
             @Override
-            public Parser<ParserToken, FakeParserContext> range(final EbnfRangeParserToken token, final Parser<ParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext contextd) {
-                return parser;
+            public Parser<ParserToken, FakeParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, FakeParserContext> ignored, final EbnfParserCombinatorContext context) {
+                final char begin = this.characterForIdentifierOrTerminal(token.begin(), context);
+                final char end = this.characterForIdentifierOrTerminal(token.end(), context);
+
+                return Parsers.<FakeParserContext>stringCharPredicate(CharPredicates.range(begin, end), 1, 1)
+                        .setToString(token.toString())
+                        .castC();
+            }
+
+            private char characterForIdentifierOrTerminal(final EbnfParserToken token, final EbnfParserCombinatorContext context) {
+                return token.isTerminal() ?
+                        this.characterFromTerminal(token.cast()) :
+                        token.isIdentifier() ?
+                                this.characterFromIdentifierReference(token.cast(), context) :
+                                failInvalidRangeBound("Invalid range bound, expected terminal or identifier indirectly pointing to a terminal but got " + token, token);
+            }
+
+            private char characterFromIdentifierReference(final EbnfIdentifierParserToken identifier, final EbnfParserCombinatorContext context) {
+                final EbnfIdentifierName identifierName = identifier.value();
+                final Optional<EbnfParserToken> target = context.parserToken(identifierName);
+                if(!target.isPresent()) {
+                    this.failInvalidRangeBound("Unknown identifier \"" + identifierName + "\"", identifier);
+                }
+                return this.characterForIdentifierOrTerminal(target.get(), context);
+            }
+
+            private char characterFromTerminal(final EbnfTerminalParserToken terminal) {
+                final String value = terminal.value();
+                final CharSequence unescaped = CharSequences.unescape(value);
+                if(unescaped.length() != 1) {
+                    failInvalidRangeBound("The range terminal does not contain a single character=" + terminal, terminal);
+                }
+                return unescaped.charAt(0);
+            }
+
+            private char failInvalidRangeBound(final String message, final EbnfParserToken token) {
+                throw new EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException(message, token);
             }
 
             @Override
