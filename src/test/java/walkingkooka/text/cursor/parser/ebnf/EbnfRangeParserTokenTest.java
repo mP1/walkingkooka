@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
@@ -29,11 +28,6 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     private final static String BETWEEN = "..";
 
     private final static String WHITESPACE = "   ";
-
-    @Test(expected = NullPointerException.class)
-    public final void testWithNullTokenFails() {
-        this.createToken(this.text(), Cast.<List<EbnfParserToken>>to(null));
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMissingBeginTokenFails() {
@@ -209,12 +203,13 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         return "'terminal-1'..'terminal2'";
     }
 
-    final List<EbnfParserToken> tokens() {
+    @Override
+    final List<ParserToken> tokens() {
         return Lists.of(terminal1(), between(), terminal2());
     }
 
     @Override
-    EbnfRangeParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
+    EbnfRangeParserToken createToken(final String text, final List<ParserToken> tokens) {
         return EbnfRangeParserToken.with(tokens, text);
     }
 

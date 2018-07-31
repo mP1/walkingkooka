@@ -53,6 +53,15 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
 
     final static String EXCEPTION = "-";
 
+    final static String OPEN_GROUP = "(";
+    final static String CLOSE_GROUP = ")";
+
+    final static String OPEN_OPTIONAL = "[";
+    final static String CLOSE_OPTIONAL = "]";
+
+    final static String OPEN_REPEAT = "{";
+    final static String CLOSE_REPEAT = "}";
+
     @Test
     public void testOrphanedAssignmentFail() {
         this.parseFailAndCheck("=");
@@ -112,6 +121,10 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
         return symbol(ASSIGNMENT);
     }
 
+    static EbnfSymbolParserToken altToken() {
+        return symbol(ALTERNATIVE);
+    }
+
     static EbnfSymbolParserToken concatToken() {
         return symbol(CONCAT);
     }
@@ -133,6 +146,30 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
     }
 
     static EbnfSymbolParserToken between() {
-        return symbol("..");
+        return symbol(BETWEEN);
+    }
+
+    static EbnfSymbolParserToken openGroupToken() {
+        return symbol(OPEN_GROUP);
+    }
+
+    static EbnfSymbolParserToken closeGroupToken() {
+        return symbol(CLOSE_GROUP);
+    }
+
+    static EbnfSymbolParserToken openOptionalToken() {
+        return symbol(OPEN_OPTIONAL);
+    }
+
+    static EbnfSymbolParserToken closeOptionalToken() {
+        return symbol(CLOSE_OPTIONAL);
+    }
+
+    static EbnfSymbolParserToken openRepeatToken() {
+        return symbol(OPEN_REPEAT);
+    }
+
+    static EbnfSymbolParserToken closeRepeatToken() {
+        return symbol(CLOSE_REPEAT);
     }
 }

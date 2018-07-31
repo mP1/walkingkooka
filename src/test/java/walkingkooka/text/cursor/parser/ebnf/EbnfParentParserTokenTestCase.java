@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullTokensFails() {
-        this.createToken(this.text(), Cast.<List<EbnfParserToken>>to(null));
+        this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -44,7 +45,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
     @Test
     public final void testWithCopiesTokens() {
-        final List<EbnfParserToken> tokens = this.tokens();
+        final List<ParserToken> tokens = this.tokens();
         final String text = this.text();
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
@@ -70,13 +71,13 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         return this.createToken(text, this.tokens());
     }
 
-    final T createToken(final String text, final EbnfParserToken...tokens) {
+    final T createToken(final String text, final ParserToken...tokens) {
         return this.createToken(text, Lists.of(tokens));
     }
 
-    abstract T createToken(final String text, final List<EbnfParserToken> tokens);
+    abstract T createToken(final String text, final List<ParserToken> tokens);
 
-    abstract List<EbnfParserToken> tokens();
+    abstract List<ParserToken> tokens();
 
     final EbnfCommentParserToken comment1() {
         return this.comment(COMMENT1);

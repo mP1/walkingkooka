@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
@@ -88,9 +89,9 @@ public abstract class EbnfParserTestCase4<T extends EbnfParserToken> extends Ebn
         return this.token(text, identifier1());
     }
 
-    final T token(final String text, final EbnfParserToken...tokens) {
+    final T token(final String text, final ParserToken...tokens) {
         return this.token(text, Lists.of(tokens));
     }
 
-    abstract T token(final String text, final List<EbnfParserToken> tokens);
+    abstract T token(final String text, final List<ParserToken> tokens);
 }

@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -52,7 +51,7 @@ public final class SequenceParserToken extends ParserTemplateToken2 implements S
 
     @Override
     public SequenceParserToken setText(final String text){
-        return Cast.to(this.setText0(text));
+        return this.setText0(text).cast();
     }
 
     @Override
@@ -66,7 +65,7 @@ public final class SequenceParserToken extends ParserTemplateToken2 implements S
     }
 
     public SequenceParserToken setValue(final List<ParserToken> value) {
-        return Cast.to(this.setValue0(value));
+        return this.setValue0(value).cast();
     }
 
     @Override

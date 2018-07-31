@@ -109,6 +109,8 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
             final Map<EbnfIdentifierName, EbnfParserToken> identifierToToken = Maps.sorted();
             this.grammar.value()
                     .stream()
+                    .filter(t -> t instanceof EbnfParserToken)
+                    .map(t -> EbnfParserToken.class.cast(t))
                     .filter(t -> t.isRule())
                     .map(t -> EbnfRuleParserToken.class.cast(t))
                     .forEach(rule -> {

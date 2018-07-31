@@ -70,7 +70,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
     }
 
     final SequenceParserToken asSequenceParserToken() {
-        return Cast.to(this.token);
+        return this.token.cast();
     }
 
     // Node ...........................................................................................................

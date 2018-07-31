@@ -338,13 +338,6 @@ public abstract class SpreadsheetParserToken implements ParserToken {
      */
     public abstract boolean isWhitespace();
 
-    /**
-     * Useful to get help reduce casting noise.
-     */
-    public final <T extends SpreadsheetParserToken> T cast() {
-        return Cast.to(this);
-    }
-
     public final void accept(final ParserTokenVisitor visitor) {
         final SpreadsheetParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);
         final SpreadsheetParserToken token = this;

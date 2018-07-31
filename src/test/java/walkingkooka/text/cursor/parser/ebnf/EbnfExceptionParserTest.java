@@ -94,7 +94,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
         return token(text, this.exceptionToken(), this.identifier1());
     }
 
-    private EbnfExceptionParserToken token(final String text, final EbnfParserToken...tokens) {
+    private EbnfExceptionParserToken token(final String text, final ParserToken...tokens) {
         return EbnfParserToken.exception(Lists.of(tokens), text);
     }
 }

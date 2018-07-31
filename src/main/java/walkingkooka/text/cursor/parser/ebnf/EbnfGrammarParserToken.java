@@ -39,14 +39,14 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfGrammarParserToken.class);
 
-    static EbnfGrammarParserToken with(final List<EbnfParserToken> tokens, final String text) {
+    static EbnfGrammarParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "rules");
         checkText(text);
 
-        final List<EbnfParserToken> copy = Lists.array();
+        final List<ParserToken> copy = Lists.array();
         copy.addAll(tokens);
 
-        final List<EbnfParserToken> onlyRules = copy.stream()
+        final List<ParserToken> onlyRules = copy.stream()
                 .filter(t -> t instanceof EbnfRuleParserToken)
                 .collect(Collectors.toList());
         if(onlyRules.isEmpty()){
@@ -56,7 +56,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
         return new EbnfGrammarParserToken(copy, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
-    EbnfGrammarParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+    EbnfGrammarParserToken(final List<ParserToken> tokens, final String text, final boolean computeWithout) {
         super(tokens, text, computeWithout);
         this.checkAtLeastOneRule();
     }
@@ -72,7 +72,7 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfGrammarParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+    EbnfGrammarParserToken replaceTokens(final List<ParserToken> tokens) {
         return new EbnfGrammarParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
 

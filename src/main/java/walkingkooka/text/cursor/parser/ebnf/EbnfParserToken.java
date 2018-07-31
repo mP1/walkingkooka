@@ -36,7 +36,7 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfAlternativeParserToken}
      */
-    public static EbnfAlternativeParserToken alternative(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfAlternativeParserToken alternative(final List<ParserToken> tokens, final String text) {
         return EbnfAlternativeParserToken.with(tokens, text);
     }
 
@@ -50,28 +50,28 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfConcatenationParserToken}
      */
-    public static EbnfConcatenationParserToken concatenation(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfConcatenationParserToken concatenation(final List<ParserToken> tokens, final String text) {
         return EbnfConcatenationParserToken.with(tokens, text);
     }
 
     /**
      * {@see EbnfExceptionParserToken}
      */
-    public static EbnfExceptionParserToken exception(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfExceptionParserToken exception(final List<ParserToken> tokens, final String text) {
         return EbnfExceptionParserToken.with(tokens, text);
     }
 
     /**
      * {@see EbnfGrammarParserToken}
      */
-    public static EbnfGrammarParserToken grammar(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfGrammarParserToken grammar(final List<ParserToken> tokens, final String text) {
         return EbnfGrammarParserToken.with(tokens, text);
     }
 
     /**
      * {@see EbnfGroupingParserToken}
      */
-    public static EbnfGroupParserToken grouping(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfGroupParserToken grouping(final List<ParserToken> tokens, final String text) {
         return EbnfGroupParserToken.with(tokens, text);
     }
 
@@ -85,28 +85,28 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfOptionalParserToken}
      */
-    public static EbnfOptionalParserToken optional(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfOptionalParserToken optional(final List<ParserToken> tokens, final String text) {
         return EbnfOptionalParserToken.with(tokens, text);
     }
 
     /**
      * {@see EbnfRangeParserToken}
      */
-    public static EbnfRangeParserToken range(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfRangeParserToken range(final List<ParserToken> tokens, final String text) {
         return EbnfRangeParserToken.with(tokens, text);
     }
     
     /**
      * {@see EbnfRepeatedParserToken}
      */
-    public static EbnfRepeatedParserToken repeated(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfRepeatedParserToken repeated(final List<ParserToken> tokens, final String text) {
         return EbnfRepeatedParserToken.with(tokens, text);
     }
 
     /**
      * {@see EbnfRuleParserToken}
      */
-    public static EbnfRuleParserToken rule(final List<EbnfParserToken> tokens, final String text) {
+    public static EbnfRuleParserToken rule(final List<ParserToken> tokens, final String text) {
        return EbnfRuleParserToken.with(tokens, text);
     }
 
@@ -131,10 +131,10 @@ public abstract class EbnfParserToken implements ParserToken {
         return EbnfWhitespaceParserToken.with(value, text);
     }
 
-    static List<EbnfParserToken> copyAndCheckTokens(final List<EbnfParserToken> tokens) {
+    static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
-        final List<EbnfParserToken> copy = Lists.array();
+        final List<ParserToken> copy = Lists.array();
         copy.addAll(tokens);
 
         if(copy.isEmpty()) {
@@ -254,13 +254,6 @@ public abstract class EbnfParserToken implements ParserToken {
      */
     public abstract boolean isWhitespace();
 
-    /**
-     * Useful to get help reduce casting noise.
-     */
-    public final <T extends EbnfParserToken> T cast() {
-        return Cast.to(this);
-    }
-
     public final void accept(final ParserTokenVisitor visitor) {
         final EbnfParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);
         final EbnfParserToken token = this;
@@ -276,12 +269,12 @@ public abstract class EbnfParserToken implements ParserToken {
     // Object ...........................................................................................................
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return this.text().hashCode();
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return this == other ||
                this.canBeEqual(other) &&
                this.equals0(Cast.to(other));

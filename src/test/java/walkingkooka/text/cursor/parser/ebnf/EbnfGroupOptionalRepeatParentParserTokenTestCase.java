@@ -17,19 +17,14 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
 import static org.junit.Assert.assertNotSame;
 
 public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase2<T> {
-
-    @Test(expected = NullPointerException.class)
-    public final void testWithNullTokenFails() {
-        this.createToken(this.text(), Cast.<List<EbnfParserToken>>to(null));
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public final void testTooManyTokensIgnoringCommentsSymbolsWhitespaceFails() {
@@ -51,7 +46,7 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
 
 
     @Override
-    final List<EbnfParserToken> tokens() {
+    final List<ParserToken> tokens() {
         return Lists.of(this.identifier1());
     }
 

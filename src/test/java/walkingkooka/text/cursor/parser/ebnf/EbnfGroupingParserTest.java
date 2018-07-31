@@ -39,7 +39,7 @@ public final class EbnfGroupingParserTest extends EbnfParserTestCase4<EbnfGroupP
     }
 
     @Override
-    EbnfGroupParserToken token(final String text, final List<EbnfParserToken> tokens) {
+    EbnfGroupParserToken token(final String text, final List<ParserToken> tokens) {
         return EbnfParserToken.grouping(tokens, text);
     }
 }

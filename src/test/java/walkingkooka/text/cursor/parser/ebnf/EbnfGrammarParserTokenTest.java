@@ -29,11 +29,6 @@ import java.util.List;
 
 public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestCase<EbnfGrammarParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public final void testWithNullTokenFails() {
-        this.createToken(this.text(), Cast.<List<EbnfParserToken>>to(null));
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testMissingRuleFails() {
         this.createToken(this.text(), terminal1());
@@ -52,13 +47,13 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
 
 
         final EbnfGrammarParserToken grammar = this.createToken();
-        final EbnfRuleParserToken range = grammar.value().get(0).cast();
+        final EbnfRuleParserToken range = Cast.to(grammar.value().get(0));
 
-        final Iterator<EbnfParserToken> rangeTokens = range.value().iterator();
-        final EbnfIdentifierParserToken identifier = rangeTokens.next().cast();
-        final EbnfSymbolParserToken assignment = rangeTokens.next().cast();
-        final EbnfTerminalParserToken terminal = rangeTokens.next().cast();
-        final EbnfSymbolParserToken terminator =rangeTokens.next().cast();
+        final Iterator<ParserToken> rangeTokens = range.value().iterator();
+        final EbnfIdentifierParserToken identifier = Cast.to(rangeTokens.next());
+        final EbnfSymbolParserToken assignment = Cast.to(rangeTokens.next());
+        final EbnfTerminalParserToken terminal = Cast.to(rangeTokens.next());
+        final EbnfSymbolParserToken terminator = Cast.to(rangeTokens.next());
 
         new FakeEbnfParserTokenVisitor() {
             @Override
@@ -210,7 +205,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
         return "identifier1:'terminal1';";
     }
 
-    final List<EbnfParserToken> tokens() {
+    final List<ParserToken> tokens() {
         return Lists.of(rule());
     }
 
@@ -223,7 +218,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     @Override
-    EbnfGrammarParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
+    EbnfGrammarParserToken createToken(final String text, final List<ParserToken> tokens) {
         return EbnfGrammarParserToken.with(tokens, text);
     }
 

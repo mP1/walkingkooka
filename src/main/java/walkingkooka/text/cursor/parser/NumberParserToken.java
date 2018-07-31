@@ -16,8 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
-
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -41,7 +39,7 @@ public final class NumberParserToken extends ParserTemplateToken<BigInteger> imp
 
     @Override
     public NumberParserToken setText(final String text){
-        return Cast.to(this.setText0(text));
+        return this.setText0(text).cast();
     }
 
     @Override

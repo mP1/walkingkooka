@@ -16,8 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
-
 import java.util.Objects;
 
 /**
@@ -39,7 +37,7 @@ public final class CharacterParserToken extends ParserTemplateToken<Character> {
 
     @Override
     public CharacterParserToken setText(final String text){
-        return Cast.to(this.setText0(text));
+        return this.setText0(text).cast();
     }
 
     @Override
