@@ -47,7 +47,7 @@ public interface EbnfParserCombinatorSyntaxTreeTransformer<C extends ParserConte
 
     Parser<ParserToken, C> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext context);
 
-    Parser<SequenceParserToken, C> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<ParserToken, C> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, C> parser, final EbnfParserCombinatorContext context);
 
     Parser<ParserToken, C> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext context);
 
