@@ -25,11 +25,12 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
-import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A context that accepts a grammar and uses a {@link EbnfParserCombinatorSyntaxTreeTransformer} to optional combine and
@@ -77,17 +78,51 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
     }
 
     /**
-     * Returns the {@link Parser} for the given {@link EbnfIdentifierParserToken}.
+     * Returns the {@link Parser} for the given {@link EbnfIdentifierName}.
      */
-    public Parser<ParserToken, C> parser(final EbnfIdentifierParserToken identifier) {
+    public Optional<Parser<ParserToken, C>> parser(final EbnfIdentifierName identifier) {
         Objects.requireNonNull(identifier, "identifier");
-        return this.identifierToParser.get(identifier);
+
+        return Optional.ofNullable(this.identifierToParser.get(identifier));
     }
 
     /**
-     * Identifier to token.
+     * Identifier to parser.
      */
     final Map<EbnfIdentifierName, Parser<ParserToken, C>> identifierToParser;
+
+    /**
+     * Returns the {@link EbnfParserToken} that is the RHS for any rule for the given {@link EbnfIdentifierName}.
+     */
+    public Optional<EbnfParserToken> parserToken(final EbnfIdentifierName identifier) {
+        Objects.requireNonNull(identifier, "identifier");
+
+        return Optional.ofNullable(this.identifierToToken().get(identifier));
+    }
+
+    /**
+     * Lazily initialises the map of name to token.
+     * @return
+     */
+    private Map<EbnfIdentifierName, EbnfParserToken> identifierToToken() {
+        if(null==this.identifierToToken) {
+            final Map<EbnfIdentifierName, EbnfParserToken> identifierToToken = Maps.sorted();
+            this.grammar.value()
+                    .stream()
+                    .filter(t -> t.isRule())
+                    .map(t -> EbnfRuleParserToken.class.cast(t))
+                    .forEach(rule -> {
+                        identifierToToken.put(rule.identifier().value(), rule.token());
+                    });
+            this.identifierToToken = identifierToToken;
+        }
+        return this.identifierToToken;
+    }
+
+    /**
+     * Identifier to rhs of rule token.
+     */
+    Map<EbnfIdentifierName, EbnfParserToken> identifierToToken;
 
     @Override
     public String toString() {
