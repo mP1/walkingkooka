@@ -90,7 +90,7 @@ public class EbnfOptionalParserTokenTest extends EbnfGroupOptionalRepeatParentPa
     }
     
     @Override
-    EbnfOptionalParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
+    EbnfOptionalParserToken createToken(final String text, final List<ParserToken> tokens) {
         return EbnfOptionalParserToken.with(tokens, text);
     }
 

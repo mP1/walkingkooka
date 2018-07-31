@@ -74,6 +74,8 @@ final class CharPredicateGrammarEbnfParserTokenVisitor extends EbnfParserTokenVi
         // need this mapping to fetch tokens for a rule by identifier at any stage or walking...
         token.value()
                 .stream()
+                .filter(t -> t instanceof EbnfParserToken)
+                .map(t -> EbnfParserToken.class.cast(t))
                 .filter( t -> t.isRule())
                 .map( t -> EbnfRuleParserToken.class.cast(t))
                 .forEach(this::ruleIdentifier);

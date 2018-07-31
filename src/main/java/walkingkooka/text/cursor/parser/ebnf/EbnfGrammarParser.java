@@ -331,11 +331,11 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      */
     private static Parser<ParserToken, EbnfParserContext> rhs() {
         if(null==RHS_CACHE) {
-            RHS_CACHE = OPTIONAL
+            RHS_CACHE = ALTERNATIVE
+                    .or(CONCATENATION)
+                    .or(OPTIONAL)
                     .or(REPETITION)
                     .or(GROUPING)
-                    .or(ALTERNATIVE) // longer before shorter.
-                    .or(CONCATENATION)
                     .or(RANGE) // must be before TERMINAL
                     .or(EXCEPTION)
                     .or(IDENTIFIER) // identifier & terminal are atoms of range, exception, alt and concat and must come after
@@ -379,13 +379,13 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .stream()
                 .filter(t -> t instanceof StringParserToken)
                 .forEach(t -> {
-                    StringParserToken stringParserToken = Cast.to(t);
+                    StringParserToken stringParserToken = t.cast();
                     string.append(stringParserToken.value());
                 });
         return string.toString();
     }
 
-    private static final BiFunction<SequenceParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<EbnfParserToken>, String, EbnfParserToken> wrapper) {
+    private static final BiFunction<SequenceParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<ParserToken>, String, EbnfParserToken> wrapper) {
         return (sequence, context) -> {
             final List<EbnfParserToken> many = filterNonEbnfParserTokens(sequence);
             return wrapper.apply(Cast.to(many), sequence.text());

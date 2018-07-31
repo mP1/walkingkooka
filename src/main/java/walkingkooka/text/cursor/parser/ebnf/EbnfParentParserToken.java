@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,25 +27,30 @@ import java.util.Optional;
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class EbnfParentParserToken extends EbnfParserToken implements Value<List<EbnfParserToken>> {
+abstract class EbnfParentParserToken extends EbnfParserToken implements Value<List<ParserToken>> {
 
     final static boolean WITHOUT_COMPUTE_REQUIRED = true;
     final static boolean WITHOUT_USE_THIS = !WITHOUT_COMPUTE_REQUIRED;
 
-    EbnfParentParserToken(final List<EbnfParserToken> value, final String text, final boolean computeWithout) {
+    EbnfParentParserToken(final List<ParserToken> value, final String text, final boolean computeWithout) {
         super(text);
         this.value = value;
         this.without = computeWithout ? computeWithout(value) : Optional.of(this);
     }
 
-    private Optional<EbnfParserToken> computeWithout(final List<EbnfParserToken> value){
-        final List<EbnfParserToken> without = Lists.array();
+    private Optional<EbnfParserToken> computeWithout(final List<ParserToken> value){
+        final List<ParserToken> without = Lists.array();
 
         value.stream()
                 .forEach(t -> {
-                    final Optional<EbnfParserToken> maybeWithout = t.withoutCommentsSymbolsOrWhitespace();
-                    if (maybeWithout.isPresent()) {
-                        without.add(maybeWithout.get());
+                    if(t instanceof EbnfParserToken){
+                        final EbnfParserToken ebnfParserToken = t.cast();
+                        final Optional<EbnfParserToken> maybeWithout = ebnfParserToken.withoutCommentsSymbolsOrWhitespace();
+                        if (maybeWithout.isPresent()) {
+                            without.add(maybeWithout.get());
+                        }
+                    } else {
+                        without.add(t);
                     }
                 });
         Lists.array();
@@ -111,11 +117,11 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
     }
 
     @Override
-    public final List<EbnfParserToken> value() {
+    public final List<ParserToken> value() {
         return this.value;
     }
 
-    final List<EbnfParserToken> value;
+    final List<ParserToken> value;
 
     @Override
     public final Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
@@ -130,10 +136,10 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
     /**
      * Factory that creates a new {@link EbnfParentParserToken} with the same text but new tokens.
      */
-    abstract EbnfParentParserToken replaceTokens(final List<EbnfParserToken> tokens);
+    abstract EbnfParentParserToken replaceTokens(final List<ParserToken> tokens);
 
     final void acceptValues(final EbnfParserTokenVisitor visitor){
-        for(EbnfParserToken token: this.value()){
+        for(ParserToken token: this.value()){
             visitor.accept(token);
         }
     }

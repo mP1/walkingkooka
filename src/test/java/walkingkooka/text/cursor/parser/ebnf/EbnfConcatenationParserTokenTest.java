@@ -92,7 +92,7 @@ public final class EbnfConcatenationParserTokenTest extends EbnfAlternativeConca
     }
     
     @Override
-    EbnfConcatenationParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
+    EbnfConcatenationParserToken createToken(final String text, final List<ParserToken> tokens) {
         return EbnfConcatenationParserToken.with(tokens, text);
     }
 

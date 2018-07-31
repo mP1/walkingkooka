@@ -39,7 +39,7 @@ public final class EbnfRepetitionParserTest extends EbnfParserTestCase4<EbnfRepe
     }
 
     @Override
-    EbnfRepeatedParserToken token(final String text, final List<EbnfParserToken> tokens) {
+    EbnfRepeatedParserToken token(final String text, final List<ParserToken> tokens) {
         return EbnfParserToken.repeated(tokens, text);
     }
 }

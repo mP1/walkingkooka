@@ -162,13 +162,174 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     }
 
     @Test
+    public void testAlternatives() {
+        final String altText = TERMINAL1_TEXT + ALTERNATIVE + TERMINAL2_TEXT;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + altText + TERMINATOR;
+
+        final EbnfParserToken alt = EbnfParserToken.alternative(Lists.of(terminal1(), altToken(), terminal2()), altText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), alt, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testAlternativesGroup() {
+        final String altText = openGroupToken() + TERMINAL1_TEXT + closeGroupToken() + ALTERNATIVE + TERMINAL2_TEXT;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + altText + TERMINATOR;
+
+        final ParserToken group = EbnfParserToken.grouping(Lists.of(openGroupToken(), terminal1(), closeGroupToken()), OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP);
+        final EbnfParserToken alt = EbnfParserToken.alternative(Lists.of(group, altToken(), terminal2()), altText);
+
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), alt, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testAlternativesOptional() {
+        final String altText = openOptionalToken() + TERMINAL1_TEXT + closeOptionalToken() + ALTERNATIVE + TERMINAL2_TEXT;
+        final String text = IDENTIFIER1_TEXT + ASSIGNMENT + altText + TERMINATOR;
+
+        final ParserToken opt = EbnfParserToken.optional(Lists.of(openOptionalToken(), terminal1(), closeOptionalToken()), OPEN_OPTIONAL + TERMINAL1_TEXT + CLOSE_OPTIONAL);
+        final EbnfParserToken alt = EbnfParserToken.alternative(Lists.of(opt, altToken(), terminal2()), altText);
+
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), alt, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testAlternativesRepeat() {
+        final String altText = openRepeatToken() + TERMINAL1_TEXT + closeRepeatToken() + ALTERNATIVE + TERMINAL2_TEXT;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + altText + TERMINATOR;
+
+        final ParserToken repeated = EbnfParserToken.repeated(Lists.of(openRepeatToken(), terminal1(), closeRepeatToken()), OPEN_REPEAT + TERMINAL1_TEXT + CLOSE_REPEAT);
+        final EbnfParserToken alt = EbnfParserToken.alternative(Lists.of(repeated, altToken(), terminal2()), altText);
+
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), alt, terminatorToken()),
+                text);
+    }
+
+    @Test
     public void testConcatenation() {
-        final String concatText = TERMINAL1_TEXT + "," + TERMINAL2_TEXT;
+        final String concatText = TERMINAL1_TEXT + CONCAT + TERMINAL2_TEXT;
         final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
 
         final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(terminal1(), concatToken(), terminal2()), concatText);
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), concat, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testConcatenationsGroup() {
+        final String concatText = openGroupToken() + TERMINAL1_TEXT + closeGroupToken() + CONCAT + TERMINAL2_TEXT;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
+
+        final ParserToken group = EbnfParserToken.grouping(Lists.of(openGroupToken(), terminal1(), closeGroupToken()), OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP);
+        final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(group, concatToken(), terminal2()), concatText);
+
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), concat, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testConcatenationsOptional() {
+        final String concatText = openOptionalToken() + TERMINAL1_TEXT + closeOptionalToken() + CONCAT + TERMINAL2_TEXT;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
+
+        final ParserToken opt = EbnfParserToken.optional(Lists.of(openOptionalToken(), terminal1(), closeOptionalToken()), OPEN_OPTIONAL + TERMINAL1_TEXT + CLOSE_OPTIONAL);
+
+        final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(opt, concatToken(), terminal2()), concatText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), concat, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testConcatenationsRepeat() {
+        final String concatText = openRepeatToken() + TERMINAL1_TEXT + closeRepeatToken() + CONCAT + TERMINAL2_TEXT;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
+
+        final ParserToken repeated = EbnfParserToken.repeated(Lists.of(openRepeatToken(), terminal1(), closeRepeatToken()), OPEN_REPEAT + TERMINAL1_TEXT + CLOSE_REPEAT);
+        final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(repeated, concatToken(), terminal2()), concatText);
+
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), concat, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testGroup() {
+        final String groupText = OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + groupText + TERMINATOR;
+
+        final EbnfParserToken terminal = terminal1();
+        final EbnfParserToken group = EbnfParserToken.grouping(Lists.of(openGroupToken(), terminal, closeGroupToken()), groupText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), group, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testWhitespaceGroup() {
+        final String groupText = OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + groupText + TERMINATOR;
+
+        final EbnfParserToken terminal = terminal1();
+        final EbnfParserToken group = EbnfParserToken.grouping(Lists.of(openGroupToken(), terminal, closeGroupToken()), groupText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), whitespace1(), group, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testOptional() {
+        final String optionalText = OPEN_OPTIONAL + TERMINAL1_TEXT + CLOSE_OPTIONAL;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + optionalText + TERMINATOR;
+
+        final EbnfParserToken terminal = terminal1();
+        final EbnfParserToken optional = EbnfParserToken.optional(Lists.of(openOptionalToken(), terminal, closeOptionalToken()), optionalText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), optional, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testWhitespaceOptional() {
+        final String optionalText = OPEN_OPTIONAL + TERMINAL1_TEXT + CLOSE_OPTIONAL;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + optionalText + TERMINATOR;
+
+        final EbnfParserToken terminal = terminal1();
+        final EbnfParserToken optional = EbnfParserToken.optional(Lists.of(openOptionalToken(), terminal, closeOptionalToken()), optionalText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), whitespace1(), optional, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testRepeat() {
+        final String repeatText = OPEN_REPEAT + TERMINAL1_TEXT + CLOSE_REPEAT;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + repeatText + TERMINATOR;
+
+        final EbnfParserToken terminal = terminal1();
+        final EbnfParserToken repeat = EbnfParserToken.repeated(Lists.of(openRepeatToken(), terminal, closeRepeatToken()), repeatText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), repeat, terminatorToken()),
+                text);
+    }
+
+    @Test
+    public void testWhitespaceRepeat() {
+        final String repeatText = OPEN_REPEAT + TERMINAL1_TEXT + CLOSE_REPEAT;
+        final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + repeatText + TERMINATOR;
+
+        final EbnfParserToken terminal = terminal1();
+        final EbnfParserToken repeat = EbnfParserToken.repeated(Lists.of(openRepeatToken(), terminal, closeRepeatToken()), repeatText);
+        this.parseAndCheck(text,
+                rule(text, identifier1(), assignmentToken(), whitespace1(), repeat, terminatorToken()),
                 text);
     }
 

@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -28,13 +29,14 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfRuleParserToken.class);
 
-    static EbnfRuleParserToken with(final List<EbnfParserToken> tokens, final String text) {
-        final List<EbnfParserToken> copy = copyAndCheckTokens(tokens);
+    static EbnfRuleParserToken with(final List<ParserToken> tokens, final String text) {
+        final List<ParserToken> copy = copyAndCheckTokens(tokens);
         checkText(text);
 
         final EbnfRuleParserTokenConsumer checker = new EbnfRuleParserTokenConsumer();
         tokens.stream()
                 .filter(t -> t instanceof EbnfParserToken)
+                .map(t -> EbnfParserToken.class.cast(t))
                 .forEach(checker);
 
         final EbnfIdentifierParserToken identifier = checker.identifier;
@@ -53,7 +55,7 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfRuleParserToken(final List<EbnfParserToken> tokens,
+    private EbnfRuleParserToken(final List<ParserToken> tokens,
                         final String text,
                         final EbnfIdentifierParserToken identifier,
                         final EbnfParserToken token,
@@ -86,12 +88,12 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
     private final EbnfParserToken token;
 
     @Override
-    EbnfRuleParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+    EbnfRuleParserToken replaceTokens(final List<ParserToken> tokens) {
         // cant use this.identifier and this.tokens because they wont be initialized yet
         return new EbnfRuleParserToken(tokens,
                 this.text(),
-                tokens.get(0).cast(),
-                tokens.get(1),
+                EbnfIdentifierParserToken.class.cast(tokens.get(0)),
+                EbnfParserToken.class.cast(tokens.get(1)),
                 WITHOUT_USE_THIS);
     }
 

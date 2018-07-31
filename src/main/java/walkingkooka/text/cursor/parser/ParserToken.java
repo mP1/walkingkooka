@@ -17,6 +17,8 @@
 
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
+
 /**
  * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
  */
@@ -63,4 +65,11 @@ public interface ParserToken {
      * The token must then call the appropriate visit or start/end visit and also visit any child token values as appropriate.
      */
     void accept(final ParserTokenVisitor visitor);
+
+    /**
+     * Useful to get help reduce casting noise.
+     */
+    public default <T extends ParserToken> T cast() {
+        return Cast.to(this);
+    }
 }

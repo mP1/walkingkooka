@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -29,18 +30,18 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfExceptionParserToken.class);
 
-    static EbnfExceptionParserToken with(final List<EbnfParserToken> tokens, final String text) {
+    static EbnfExceptionParserToken with(final List<ParserToken> tokens, final String text) {
         return new EbnfExceptionParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfExceptionParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+    private EbnfExceptionParserToken(final List<ParserToken> tokens, final String text, final boolean computeWithout) {
         super(tokens, text, computeWithout);
         this.checkOnlyTwoTokens();
 
         final EbnfExceptionParserToken without = this.withoutCommentsSymbolsOrWhitespace().get().cast();
-        final List<EbnfParserToken> withoutTokens = without.value();
-        this.token = withoutTokens.get(0);
-        this.exception = withoutTokens.get(1);
+        final List<ParserToken> withoutTokens = without.value();
+        this.token = withoutTokens.get(0).cast();
+        this.exception = withoutTokens.get(1).cast();
     }
 
     @Override
@@ -54,7 +55,7 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfExceptionParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+    EbnfExceptionParserToken replaceTokens(final List<ParserToken> tokens) {
         return new EbnfExceptionParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
 

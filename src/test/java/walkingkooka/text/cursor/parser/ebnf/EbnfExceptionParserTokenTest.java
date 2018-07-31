@@ -18,7 +18,6 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
@@ -28,11 +27,6 @@ import java.util.List;
 import static org.junit.Assert.assertNotSame;
 
 public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2<EbnfExceptionParserToken> {
-
-    @Test(expected = NullPointerException.class)
-    public final void testWithNullTokenFails() {
-        this.createToken(this.text(), Cast.<List<EbnfParserToken>>to(null));
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public final void testIncorrectTokenCountFails() {
@@ -120,12 +114,12 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
     }
     
     @Override
-    EbnfExceptionParserToken createToken(final String text, final List<EbnfParserToken> tokens) {
+    EbnfExceptionParserToken createToken(final String text, final List<ParserToken> tokens) {
         return EbnfExceptionParserToken.with(tokens, text);
     }
 
     @Override
-    final List<EbnfParserToken> tokens() {
+    final List<ParserToken> tokens() {
         return Lists.of(this.identifier1(), this.identifier2());
     }
 

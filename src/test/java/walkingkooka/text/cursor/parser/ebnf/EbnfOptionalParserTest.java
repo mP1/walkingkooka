@@ -39,7 +39,7 @@ public final class EbnfOptionalParserTest extends EbnfParserTestCase4<EbnfOption
     }
 
     @Override
-    EbnfOptionalParserToken token(final String text, final List<EbnfParserToken> tokens) {
+    EbnfOptionalParserToken token(final String text, final List<ParserToken> tokens) {
         return EbnfParserToken.optional(tokens, text);
     }
 }

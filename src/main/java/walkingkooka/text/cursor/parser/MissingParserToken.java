@@ -16,8 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
-
 import java.util.Objects;
 
 /**
@@ -40,7 +38,7 @@ public final class MissingParserToken extends ParserTemplateToken<ParserTokenNod
 
     @Override
     public MissingParserToken setText(final String text){
-        return Cast.to(this.setText0(text));
+        return this.setText0(text).cast();
     }
 
     @Override

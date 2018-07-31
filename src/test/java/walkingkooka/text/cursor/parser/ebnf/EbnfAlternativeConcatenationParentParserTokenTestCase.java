@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T ex
     }
 
     @Override
-    final List<EbnfParserToken> tokens() {
+    final List<ParserToken> tokens() {
         return Lists.of(this.identifier1(), this.identifier2());
     }
 

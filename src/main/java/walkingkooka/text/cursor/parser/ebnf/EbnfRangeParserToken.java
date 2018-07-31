@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -28,13 +29,14 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfRangeParserToken.class);
 
-    static EbnfRangeParserToken with(final List<EbnfParserToken> tokens, final String text) {
-        final List<EbnfParserToken> copy = copyAndCheckTokens(tokens);
+    static EbnfRangeParserToken with(final List<ParserToken> tokens, final String text) {
+        final List<ParserToken> copy = copyAndCheckTokens(tokens);
         checkText(text);
 
         final EbnfRangeParserTokenConsumer checker = new EbnfRangeParserTokenConsumer();
         tokens.stream()
                 .filter(t -> t instanceof EbnfParserToken)
+                .map(t -> EbnfParserToken.class.cast(t))
                 .forEach(checker);
 
         final EbnfParserToken begin = checker.begin;
@@ -49,7 +51,7 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
         return new EbnfRangeParserToken(copy, text, begin, end, WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfRangeParserToken(final List<EbnfParserToken> tokens,
+    private EbnfRangeParserToken(final List<ParserToken> tokens,
                                  final String text,
                                  final EbnfParserToken begin,
                                  final EbnfParserToken end,
@@ -72,7 +74,7 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfRangeParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+    EbnfRangeParserToken replaceTokens(final List<ParserToken> tokens) {
         return new EbnfRangeParserToken(tokens, this.text(), this.begin, this.end, WITHOUT_USE_THIS);
     }
 

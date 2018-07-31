@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -28,11 +29,11 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfOptionalParserToken.class);
 
-    static EbnfOptionalParserToken with(final List<EbnfParserToken> tokens, final String text) {
+    static EbnfOptionalParserToken with(final List<ParserToken> tokens, final String text) {
         return new EbnfOptionalParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfOptionalParserToken(final List<EbnfParserToken> tokens, final String text, final boolean computeWithout) {
+    private EbnfOptionalParserToken(final List<ParserToken> tokens, final String text, final boolean computeWithout) {
         super(tokens, text, computeWithout);
         this.checkOnlyOneToken();
     }
@@ -48,7 +49,7 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfOptionalParserToken replaceTokens(final List<EbnfParserToken> tokens) {
+    EbnfOptionalParserToken replaceTokens(final List<ParserToken> tokens) {
         return new EbnfOptionalParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
 
