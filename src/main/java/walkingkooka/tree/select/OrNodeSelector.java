@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * A {@link NodeSelector} that continues to walking the tree, continuously trying the next selector.
@@ -56,13 +57,15 @@ final class OrNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends 
 
     // LogicalNodeSelector
 
-    @Override public Set<N> accept(final N node) {
+    @Override
+    public Set<N> accept(final N node, final Consumer<N> observer) {
         final Set<N> matches = Sets.ordered();
-        this.accept(node, new NodeSelectorNodeSelectorContext<>(matches));
+        this.accept(node, new NodeSelectorNodeSelectorContext<>(observer, matches));
         return matches;
     }
 
-    @Override final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         for(NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
             selector.accept(node, context);
         }

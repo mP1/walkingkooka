@@ -35,7 +35,7 @@ final class NodeSelectorPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
 
     @Override
     public boolean test(final N node) {
-        return this.selector.accept(node).size() > 0;
+        return this.selector.accept(node, this.selector.nulObserver()).size() > 0;
     }
 
     private final NodeSelector<N, NAME, ANAME, AVALUE> selector;

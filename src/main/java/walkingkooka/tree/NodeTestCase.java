@@ -21,6 +21,7 @@ import org.junit.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
 import java.util.Optional;
@@ -94,8 +95,16 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     @Test
     public final void testSelector() {
         final N node = this.createNode();
-        final Set<N> matches = node.selector().accept(node);
+        final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
+        final Set<N> matches = selector.accept(node, selector.nulObserver());
         assertEquals("Node's own selector should have matched only itself", Sets.of(node), matches);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public final void testSelectorObserverThrow() {
+        final N node = this.createNode();
+        final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
+        selector.accept(node, (n) -> { throw new UnsupportedOperationException();});
     }
 
     @Test

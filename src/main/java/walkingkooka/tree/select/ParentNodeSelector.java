@@ -59,7 +59,7 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
     }
 
     @Override
-    public void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    public void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.matchParent(node, context);
     }
 

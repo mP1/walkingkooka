@@ -782,7 +782,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
                 .descendant()
                 .named(DomName.element("img"))
                 .build();
-        final Set<DomNode> matches = selector.accept(document);
+        final Set<DomNode> matches = selector.accept(document, selector.nulObserver());
         assertEquals("should have matched img tags\n" + matches, 20, matches.size());
     }
 
@@ -795,7 +795,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
                 .named(DomName.element("a"))
                 .attributeValueContains(DomNode.attribute("href", DomNode.NO_PREFIX), "19")
                 .build();
-        final Set<DomNode> matches = selector.accept(document);
+        final Set<DomNode> matches = selector.accept(document, selector.nulObserver());
         assertEquals("should have matched 3 links with 19 in href\n" + matches, 3, matches.size());
     }
 

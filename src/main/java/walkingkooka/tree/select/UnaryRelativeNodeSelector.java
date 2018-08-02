@@ -23,6 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * Base class for all non logical (binary) selectors.
@@ -39,7 +40,7 @@ abstract class UnaryRelativeNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    public final Set<N> accept(final N node) {
-        return this.accept0(node);
+    public final Set<N> accept(final N node, final Consumer<N> observer) {
+        return this.accept1(node, observer);
     }
 }

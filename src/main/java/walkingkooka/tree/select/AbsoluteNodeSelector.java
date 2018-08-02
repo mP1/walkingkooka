@@ -22,6 +22,7 @@ import walkingkooka.tree.Node;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 
 
 /**
@@ -67,12 +68,13 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    public Set<N> accept(final N node) {
-        return this.accept0(node.root());
+    public Set<N> accept(final N node, final Consumer<N> observer) {
+        observer.accept(node);
+        return this.accept1(node.root(), observer);
     }
 
     @Override
-    final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.match(node, context);
     }
 

@@ -40,7 +40,7 @@ extends NodeSelectorTestCase<S>{
     final void acceptAndCheckRequiringOrder(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
                                             final TestFakeNode start,
                                             final String[] nodes) {
-        final List<String> actual = selector.accept(start)
+        final List<String> actual = selector.accept(start, selector.nulObserver())
                 .stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());

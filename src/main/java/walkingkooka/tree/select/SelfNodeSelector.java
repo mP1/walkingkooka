@@ -63,7 +63,7 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.match(node, context);
     }
 

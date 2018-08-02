@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import org.junit.Before;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.PackagePrivateClassTestCase;
@@ -27,7 +28,10 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertTrue;
 
 abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>> extends PackagePrivateClassTestCase<S> {
 
@@ -78,10 +82,20 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
     final void acceptAndCheckUsingContext(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
                                           final TestFakeNode start,
                                           final String... nodes) {
-        final Set<TestFakeNode> matched = selector.accept(start);
+        final Set<TestFakeNode> observed = Sets.ordered();
+        final Consumer<TestFakeNode> observer = new Consumer<TestFakeNode>() {
+            @Override
+            public void accept(final TestFakeNode node) {
+                assertNotEquals(null, node);
+                observed.add(node);
+            }
+        };
+        final Set<TestFakeNode> matched = selector.accept(start, observer);
         final List<String> matchedNodes = matched.stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
         assertEquals("Selector.accept\n" + start, Lists.of(nodes), matchedNodes);
+        assertNotEquals("observer must not be empty", Sets.empty(), observed);
+        assertTrue("observer must include initial node=" + observed, observed.contains(start));
     }
 }
