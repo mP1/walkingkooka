@@ -25,9 +25,9 @@ import java.util.Optional;
 /**
  * A row name.
  */
-public final class SpreadsheetRowParserToken extends SpreadsheetLeafParserToken<SpreadsheetRow> {
+public final class SpreadsheetRowParserToken extends SpreadsheetLeafParserToken2<SpreadsheetRow> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetRow");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetRowParserToken.class);
 
     static SpreadsheetRowParserToken with(final SpreadsheetRow value, final String text){
         checkValue(value);

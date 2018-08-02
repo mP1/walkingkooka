@@ -17,116 +17,79 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-
 import java.util.Optional;
 
 /**
- * Holds a symbol with a larger token, such the percent sign within a {@link SpreadsheetPercentageParserToken}
+ * Base class for all spreadsheet symbol parser tokens.
  */
-public final class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<String> {
+abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<String> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetSymbol");
-
-    static SpreadsheetSymbolParserToken with(final String value, final String text){
-        checkValue(value);
-        CharSequences.failIfNullOrEmpty(text, "text");
-
-        return new SpreadsheetSymbolParserToken(value, text);
-    }
-
-    private SpreadsheetSymbolParserToken(final String value, final String text){
+    SpreadsheetSymbolParserToken(final String value, final String text){
         super(value, text);
     }
 
     @Override
-    public SpreadsheetSymbolParserToken setText(final String text) {
-        return this.setText0(text).cast();
-    }
-
-    @Override
-    SpreadsheetSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetSymbolParserToken(this.value, text);
-    }
-
-    @Override
-    public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
+    public final Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
         return Optional.empty();
     }
 
     @Override
-    public boolean isColumn() {
+    public final boolean isColumn() {
         return false;
     }
 
     @Override
-    public boolean isDecimal() {
+    public final boolean isDecimal() {
         return false;
     }
 
     @Override
-    public boolean isDouble() {
+    public final boolean isDouble() {
         return false;
     }
 
     @Override
-    public boolean isFunctionName() {
+    public final boolean isFunctionName() {
         return false;
     }
 
     @Override
-    public boolean isLabelName() {
+    public final boolean isLabelName() {
         return false;
     }
 
     @Override
-    public boolean isLong() {
+    public final boolean isLong() {
         return false;
     }
 
     @Override
-    public boolean isNumber() {
+    public final boolean isNumber() {
         return false;
     }
 
     @Override
-    public boolean isRow() {
+    public final boolean isRow() {
         return false;
     }
 
     @Override
-    public boolean isSymbol() {
+    public final boolean isSymbol() {
         return true;
     }
 
     @Override
-    public boolean isText() {
+    public final boolean isText() {
         return false;
     }
 
     @Override
-    public boolean isWhitespace() {
+    public final boolean isWhitespace() {
         return false;
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        visitor.visit(this);
-    }
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetSymbolParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
-
-    @Override
-    public boolean isNoise() {
+    public final boolean isNoise() {
         return true;
     }
 }

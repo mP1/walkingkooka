@@ -19,13 +19,14 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
 public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryParserTokenTestCase<SpreadsheetNegativeParserToken> {
 
     @Override
-    SpreadsheetNegativeParserToken createToken(final String text, final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetNegativeParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.negative(tokens, text);
     }
 
@@ -35,7 +36,7 @@ public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryPa
     }
 
     @Override
-    List<SpreadsheetParserToken> tokens() {
+    List<ParserToken> tokens() {
         return Lists.of(this.number1());
     }
 

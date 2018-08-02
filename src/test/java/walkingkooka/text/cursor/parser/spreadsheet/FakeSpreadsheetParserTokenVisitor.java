@@ -134,7 +134,17 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
+    protected void visit(final SpreadsheetBetweenSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final SpreadsheetColumnParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetCloseParenthesisSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -144,7 +154,42 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
+    protected void visit(final SpreadsheetDivideSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetDoubleParserToken token) {
+        super.visit(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetFunctionNameParserToken token) {
+        super.visit(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetFunctionParameterSeparatorSymbolParserToken token) {
+        super.visit(token);
+    }
+
+    @Override
     protected void visit(final SpreadsheetLabelNameParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetLongParserToken token) {
+        super.visit(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetMinusSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetMultiplySymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -153,13 +198,28 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
         throw new UnsupportedOperationException();
     }
 
-    @Override 
-    protected void visit(final SpreadsheetRowParserToken token) {
+    @Override
+    protected void visit(final SpreadsheetOpenParenthesisSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    protected void visit(final SpreadsheetPercentSymbolParserToken token) {
+        super.visit(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetPlusSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetPowerSymbolParserToken token) {
+        super.visit(token);
+    }
+
     @Override 
-    protected void visit(final SpreadsheetSymbolParserToken token) {
+    protected void visit(final SpreadsheetRowParserToken token) {
         throw new UnsupportedOperationException();
     }
 

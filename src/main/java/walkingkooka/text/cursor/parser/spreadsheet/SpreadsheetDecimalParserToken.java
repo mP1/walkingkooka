@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.math.BigDecimal;
@@ -27,11 +26,11 @@ import java.math.BigDecimal;
  */
 public final class SpreadsheetDecimalParserToken extends SpreadsheetNumericParserToken<BigDecimal> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetDecimal");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetDecimalParserToken.class);
 
     static SpreadsheetDecimalParserToken with(final BigDecimal value, final String text){
         checkValue(value);
-        CharSequences.failIfNullOrEmpty(text, "text");
+        checkText(text);
 
         return new SpreadsheetDecimalParserToken(value, text);
     }

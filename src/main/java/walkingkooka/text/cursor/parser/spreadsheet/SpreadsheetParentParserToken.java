@@ -20,35 +20,20 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken implements Value<List<SpreadsheetParserToken>> {
+abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken implements Value<List<ParserToken>> {
 
     final static boolean WITHOUT_COMPUTE_REQUIRED = true;
     final static boolean WITHOUT_USE_THIS = !WITHOUT_COMPUTE_REQUIRED;
 
-    /**
-     * Takes a defensive copy of the given tokens.
-     */
-    static List<SpreadsheetParserToken> copyAndCheckTokens(final List<SpreadsheetParserToken> tokens) {
-        Objects.requireNonNull(tokens, "tokens");
-
-        final List<SpreadsheetParserToken> copy = Lists.array();
-        copy.addAll(tokens);
-
-        if(copy.isEmpty()) {
-            throw new IllegalArgumentException("Tokens is empty");
-        }
-        return copy;
-    }
-
-    SpreadsheetParentParserToken(final List<SpreadsheetParserToken> value, final String text, final boolean computeWithout) {
+    SpreadsheetParentParserToken(final List<ParserToken> value, final String text, final boolean computeWithout) {
         super(text);
         this.value = value;
         this.without = computeWithout ?
@@ -56,14 +41,16 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
                 Optional.of(this);
     }
 
-    private Optional<SpreadsheetParserToken> computeWithout(final List<SpreadsheetParserToken> value){
-        final List<SpreadsheetParserToken> without = Lists.array();
+    private Optional<SpreadsheetParserToken> computeWithout(final List<ParserToken> value){
+        final List<ParserToken> without = Lists.array();
 
         value.stream()
                 .forEach(t -> {
-                    final Optional<SpreadsheetParserToken> maybeWithout = t.withoutSymbolsOrWhitespace();
-                    if (maybeWithout.isPresent()) {
-                        without.add(maybeWithout.get());
+                    if(t instanceof SpreadsheetParserToken) {
+                        final Optional<SpreadsheetParserToken> maybeWithout = SpreadsheetParserToken.class.cast(t).withoutSymbolsOrWhitespace();
+                        if (maybeWithout.isPresent()) {
+                            without.add(maybeWithout.get());
+                        }
                     }
                 });
         Lists.array();
@@ -78,37 +65,14 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
 
     private Optional<SpreadsheetParserToken> without;
 
-    final void checkOnlyOneToken() {
-        final int count = this.tokenCount();
-        if(count != 1) {
-            throw new IllegalArgumentException("Expected 1 token(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
-        }
+    @Override
+    public final boolean isBetweenSymbol() {
+        return false;
     }
 
-    final void checkAtLeastTwoTokens() {
-        final int count = this.tokenCount();
-        if(count < 2) {
-            throw new IllegalArgumentException("Expected at least 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
-        }
-    }
-
-    final void checkOnlyTwoTokens() {
-        final int count = this.tokenCount();
-        if(count != 2) {
-            throw new IllegalArgumentException("Expected 2 tokens(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
-        }
-    }
-
-    final void checkAtLeastOneRule() {
-        final int count = this.tokenCount();
-        if(count <1) {
-            throw new IllegalArgumentException("Expected at least one rule(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
-        }
-    }
-
-    private int tokenCount() {
-        final SpreadsheetParentParserToken without = this.without.get().cast();
-        return without.value().size();
+    @Override
+    public final boolean isCloseParenthesisSymbol() {
+        return false;
     }
 
     @Override
@@ -117,7 +81,17 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
     }
 
     @Override
+    public final boolean isFunctionParameterSeparatorSymbol() {
+        return false;
+    }
+
+    @Override
     public final boolean isDecimal() {
+        return false;
+    }
+
+    @Override
+    public final boolean isDivideSymbol() {
         return false;
     }
 
@@ -142,7 +116,37 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
     }
 
     @Override
+    public final boolean isMinusSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isMultiplySymbol() {
+        return false;
+    }
+
+    @Override
     public final boolean isNumber() {
+        return false;
+    }
+
+    @Override
+    public final boolean isOpenParenthesisSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isPercentSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isPlusSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isPowerSymbol() {
         return false;
     }
 
@@ -167,19 +171,29 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
     }
 
     @Override
-    public final List<SpreadsheetParserToken> value() {
+    public final List<ParserToken> value() {
         return this.value;
     }
 
-    final List<SpreadsheetParserToken> value;
+    final List<ParserToken> value;
 
     /**
      * Factory that creates a new {@link SpreadsheetParentParserToken} with the same text but new tokens.
      */
-    abstract SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens);
+    abstract SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens);
+
+    @Override
+    final int operatorPriority() {
+        return LOWEST_PRIORITY;
+    }
+
+    @Override
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+        throw new UnsupportedOperationException();
+    }
 
     final void acceptValues(final SpreadsheetParserTokenVisitor visitor){
-        for(SpreadsheetParserToken token: this.value()){
+        for(ParserToken token: this.value()){
             visitor.accept(token);
         }
     }

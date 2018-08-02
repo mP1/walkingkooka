@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertNotSame;
 
 public abstract class SpreadsheetBinaryParserTokenTestCase<T extends SpreadsheetBinaryParserToken> extends SpreadsheetParentParserTokenTestCase<T> {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public final void testWithLeftMissingFails() {
         final SpreadsheetWhitespaceParserToken whitespace = this.whitespace();
         final SpreadsheetParserToken symbol = this.operatorSymbol();
@@ -37,7 +38,7 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
         this.createToken(whitespace.text() + symbol.text() + right.text(), whitespace, symbol, right);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public final void testWithRightMissingFails() {
         final SpreadsheetParserToken left = this.leftToken();
         final SpreadsheetParserToken symbol = this.operatorSymbol();
@@ -96,7 +97,7 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
     abstract SpreadsheetParserToken rightToken();
 
     @Override
-    List<SpreadsheetParserToken> tokens() {
+    final List<ParserToken> tokens() {
         return Lists.of(this.leftToken(), this.operatorSymbol(), this.rightToken());
     }
 

@@ -137,6 +137,30 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
 
     // SpreadsheetLeafParserToken ....................................................................................
 
+    final void acceptSymbol(final SpreadsheetBetweenSymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetBetweenSymbolParserToken token) {
+        // nop
+    }
+
+    final void acceptSymbol(final SpreadsheetCloseParenthesisSymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetCloseParenthesisSymbolParserToken token) {
+        // nop
+    }
+
+    final void acceptSymbol(final SpreadsheetFunctionParameterSeparatorSymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetFunctionParameterSeparatorSymbolParserToken token) {
+        // nop
+    }
+    
     final void acceptColumn(final SpreadsheetColumnParserToken token) {
         this.visit(token);
     }
@@ -153,11 +177,11 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
-    final void acceptDefined(final SpreadsheetLabelNameParserToken token) {
+    final void acceptSymbol(final SpreadsheetDivideSymbolParserToken token) {
         this.visit(token);
     }
 
-    protected void visit(final SpreadsheetLabelNameParserToken token) {
+    protected void visit(final SpreadsheetDivideSymbolParserToken token) {
         // nop
     }
 
@@ -177,11 +201,35 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
+    final void acceptDefined(final SpreadsheetLabelNameParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetLabelNameParserToken token) {
+        // nop
+    }
+
     final void acceptLong(final SpreadsheetLongParserToken token) {
         this.visit(token);
     }
 
     protected void visit(final SpreadsheetLongParserToken token) {
+        // nop
+    }
+
+    final void acceptSymbol(final SpreadsheetMinusSymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetMinusSymbolParserToken token) {
+        // nop
+    }
+
+    final void acceptSymbol(final SpreadsheetMultiplySymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetMultiplySymbolParserToken token) {
         // nop
     }
     
@@ -193,19 +241,43 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
+    final void acceptSymbol(final SpreadsheetOpenParenthesisSymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetOpenParenthesisSymbolParserToken token) {
+        // nop
+    }
+
+    final void acceptSymbol(final SpreadsheetPercentSymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetPercentSymbolParserToken token) {
+        // nop
+    }
+
+    final void acceptSymbol(final SpreadsheetPlusSymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetPlusSymbolParserToken token) {
+        // nop
+    }
+
+    final void acceptSymbol(final SpreadsheetPowerSymbolParserToken token) {
+        this.visit(token);
+    }
+
+    protected void visit(final SpreadsheetPowerSymbolParserToken token) {
+        // nop
+    }
+
     final void acceptRow(final SpreadsheetRowParserToken token) {
         this.visit(token);
     }
 
     protected void visit(final SpreadsheetRowParserToken token) {
-        // nop
-    }
-
-    final void acceptSymbol(final SpreadsheetSymbolParserToken token) {
-        this.visit(token);
-    }
-
-    protected void visit(final SpreadsheetSymbolParserToken token) {
         // nop
     }
     

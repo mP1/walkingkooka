@@ -62,6 +62,9 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
             if(methodName.equals("isNoise")) {
                 continue;
             }
+            if(methodName.equals("isSymbol")) {
+                continue;
+            }
 
             if(!methodName.startsWith("is")) {
                 continue;
@@ -85,8 +88,4 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     abstract T createToken(final String text);
 
     abstract String text();
-
-    static SpreadsheetSymbolParserToken symbol(final String s) {
-        return SpreadsheetParserToken.symbol(s, s);
-    }
 }

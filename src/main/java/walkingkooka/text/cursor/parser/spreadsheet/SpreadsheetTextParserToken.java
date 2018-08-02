@@ -25,9 +25,9 @@ import java.util.Optional;
 /**
  * Holds a single decimal number.
  */
-public final class SpreadsheetTextParserToken extends SpreadsheetLeafParserToken<String> {
+public final class SpreadsheetTextParserToken extends SpreadsheetLeafParserToken2<String> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetText");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetTextParserToken.class);
 
     static SpreadsheetTextParserToken with(final String value, final String text){
         checkValue(value);

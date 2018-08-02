@@ -19,38 +19,38 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNotSame;
-
 public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetCellParserToken> {
 
-    private final static String ROW = "B";
-    private final static String COLUMN = "3";
+    private final static String ROW_TEXT = "B";
+    private final static int ROW_VALUE = 2;
+    private final static int COLUMN_VALUE = 3;
+    private final static String COLUMN_TEXT = String.valueOf(COLUMN_VALUE);
 
     @Test
     public void testWithZeroTokensFails() {
         this.createToken(" k ");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWithoutColumnFails() {
-        this.createToken(ROW, this.row());
+        this.createToken(ROW_TEXT, this.row());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWithoutRowFails() {
-        this.createToken(COLUMN, this.column());
+        this.createToken(COLUMN_TEXT, this.column());
     }
 
     @Test
     public void testWith() {
         final SpreadsheetColumnParserToken column = this.column();
         final SpreadsheetRowParserToken row = this.row();
-        final String text = ROW + ":" + COLUMN;
+        final String text = ROW_TEXT + ":" + COLUMN_TEXT;
         final SpreadsheetCellParserToken cell = this.createToken(text, row, column);
         this.checkText(cell, text);
         this.checkValue(cell, row, column);
@@ -58,52 +58,40 @@ public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParse
         assertSame(cell, cell.withoutSymbolsOrWhitespace());
     }
 
-    @Test
-    public void testWithSymbolsAndWhitespace() {
-        final SpreadsheetWhitespaceParserToken whitespace1 = this.whitespace();
-        final SpreadsheetColumnParserToken column = this.column();
-        final SpreadsheetSymbolParserToken symbol = SpreadsheetParserToken.symbol(":", ":");
-        final SpreadsheetRowParserToken row = this.row();
-        final SpreadsheetWhitespaceParserToken whitespace2 = this.whitespace();
-
-        final String text = whitespace1.text() + ROW + ":" + COLUMN + whitespace2.text();
-
-        final SpreadsheetCellParserToken cell = this.createToken(text, whitespace1, row, symbol, column, whitespace2);
-        this.checkText(cell, text);
-        this.checkValue(cell, whitespace1, row, symbol, column, whitespace2);
-
-        final SpreadsheetCellParserToken cell2 = Cast.to(cell.withoutSymbolsOrWhitespace().get());
-        assertNotSame(cell, cell2);
-        this.checkText(cell, text);
-        this.checkValue(cell2, row, column);
-    }
-
     @Override
-    SpreadsheetCellParserToken createToken(final String text, final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetCellParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.cell(tokens, text);
     }
 
     private SpreadsheetColumnParserToken column() {
-        return SpreadsheetParserToken.column(SpreadsheetColumn.with(2, SpreadsheetReferenceKind.RELATIVE), COLUMN);
+        return column(COLUMN_VALUE);
+    }
+
+    private SpreadsheetColumnParserToken column(final int value) {
+        return SpreadsheetParserToken.column(SpreadsheetColumn.with(value, SpreadsheetReferenceKind.RELATIVE), String.valueOf(value));
     }
 
     private SpreadsheetRowParserToken row() {
-        return SpreadsheetParserToken.row(SpreadsheetRow.with(1, SpreadsheetReferenceKind.RELATIVE), ROW);
+        return row(ROW_VALUE, ROW_TEXT);
     }
-    
-    @Override
-    String text() {
-        return ROW+COLUMN;
+
+    private SpreadsheetRowParserToken row(final int value, final String text) {
+        return SpreadsheetParserToken.row(SpreadsheetRow.with(value, SpreadsheetReferenceKind.RELATIVE), text);
     }
 
     @Override
-    List<SpreadsheetParserToken> tokens() {
-        return Lists.of(this.number1());
+    String text() {
+        return ROW_TEXT + COLUMN_TEXT;
+    }
+
+    @Override
+    List<ParserToken> tokens() {
+        return Lists.of(this.column(), this.row());
     }
 
     @Override
     protected SpreadsheetCellParserToken createDifferentToken() {
-        return this.createToken(NUMBER2, this.number2());
+        return this.createToken("D9", Lists.of(this.column(9), this.row(3, "D")));
     }
 
     @Override

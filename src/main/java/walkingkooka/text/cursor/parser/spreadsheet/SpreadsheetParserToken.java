@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.visit.Visiting;
 
@@ -36,17 +37,39 @@ import java.util.Optional;
 public abstract class SpreadsheetParserToken implements ParserToken {
 
     /**
+     * Factory used by all sub classes to create their {@link ParserTokenNodeName} constants.
+     */
+    static ParserTokenNodeName parserTokenNodeName(final Class<? extends SpreadsheetParserToken> type) {
+        final String name = type.getSimpleName();
+        return ParserTokenNodeName.with(name.substring(0, name.length() - ParserToken.class.getSimpleName().length()));
+    }
+
+    /**
      * {@see SpreadsheetAdditionParserToken}
      */
-    public static SpreadsheetAdditionParserToken addition(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetAdditionParserToken addition(final List<ParserToken> value, final String text){
         return SpreadsheetAdditionParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetBetweenSymbolParserToken}
+     */
+    public static SpreadsheetBetweenSymbolParserToken betweenSymbol(final String value, final String text){
+        return SpreadsheetBetweenSymbolParserToken.with(value, text);
     }
 
     /**
      * {@see SpreadsheetCellParserToken}
      */
-    public static SpreadsheetCellParserToken cell(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetCellParserToken cell(final List<ParserToken> value, final String text){
         return SpreadsheetCellParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetCloseParenthesisSymbolParserToken}
+     */
+    public static SpreadsheetCloseParenthesisSymbolParserToken closeParenthesisSymbol(final String value, final String text){
+        return SpreadsheetCloseParenthesisSymbolParserToken.with(value, text);
     }
     
     /**
@@ -64,9 +87,16 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     }
 
     /**
+     * {@see SpreadsheetDivideSymbolParserToken}
+     */
+    public static SpreadsheetDivideSymbolParserToken divideSymbol(final String value, final String text){
+        return SpreadsheetDivideSymbolParserToken.with(value, text);
+    }
+    
+    /**
      * {@see SpreadsheetDivisionParserToken}
      */
-    public static SpreadsheetDivisionParserToken division(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetDivisionParserToken division(final List<ParserToken> value, final String text){
         return SpreadsheetDivisionParserToken.with(value, text);
     }
 
@@ -80,7 +110,7 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     /**
      * {@see SpreadsheetFunctionParserToken}
      */
-    public static SpreadsheetFunctionParserToken function(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetFunctionParserToken function(final List<ParserToken> value, final String text){
         return SpreadsheetFunctionParserToken.with(value, text);
     }
 
@@ -92,9 +122,16 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     }
 
     /**
+     * {@see SpreadsheetFunctionParameterSeparatorSymbolParserToken}
+     */
+    public static SpreadsheetFunctionParameterSeparatorSymbolParserToken functionParameterSymbol(final String value, final String text){
+        return SpreadsheetFunctionParameterSeparatorSymbolParserToken.with(value, text);
+    }
+
+    /**
      * {@see SpreadsheetGroupParserToken}
      */
-    public static SpreadsheetGroupParserToken group(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetGroupParserToken group(final List<ParserToken> value, final String text){
         return SpreadsheetGroupParserToken.with(value, text);
     }
 
@@ -106,16 +143,30 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     }
 
     /**
+     * {@see SpreadsheetMinusSymbolParserToken}
+     */
+    public static SpreadsheetMinusSymbolParserToken minusSymbol(final String value, final String text){
+        return SpreadsheetMinusSymbolParserToken.with(value, text);
+    }
+
+    /**
      * {@see SpreadsheetMultiplicationParserToken}
      */
-    public static SpreadsheetMultiplicationParserToken multiplication(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetMultiplicationParserToken multiplication(final List<ParserToken> value, final String text){
         return SpreadsheetMultiplicationParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetMultiplySymbolParserToken}
+     */
+    public static SpreadsheetMultiplySymbolParserToken multiplySymbol(final String value, final String text){
+        return SpreadsheetMultiplySymbolParserToken.with(value, text);
     }
 
     /**
      * {@see SpreadsheetNegativeParserToken}
      */
-    public static SpreadsheetNegativeParserToken negative(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetNegativeParserToken negative(final List<ParserToken> value, final String text){
         return SpreadsheetNegativeParserToken.with(value, text);
     }
     
@@ -127,23 +178,51 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     }
 
     /**
-     * {@see SpreadsheetPercentageParserToken}
+     * {@see SpreadsheetOpenParenthesisSymbolParserToken}
      */
-    public static SpreadsheetPercentageParserToken percentage(final List<SpreadsheetParserToken> value, final String text){
-        return SpreadsheetPercentageParserToken.with(value, text);
+    public static SpreadsheetOpenParenthesisSymbolParserToken openParenthesisSymbol(final String value, final String text){
+        return SpreadsheetOpenParenthesisSymbolParserToken.with(value, text);
     }
 
     /**
+     * {@see SpreadsheetPercentageParserToken}
+     */
+    public static SpreadsheetPercentageParserToken percentage(final List<ParserToken> value, final String text){
+        return SpreadsheetPercentageParserToken.with(value, text);
+    }
+    
+    /**
+     * {@see SpreadsheetPercentSymbolParserToken}
+     */
+    public static SpreadsheetSymbolParserToken percentSymbol(final String value, final String text){
+        return SpreadsheetPercentSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetPlusSymbolParserToken}
+     */
+    public static SpreadsheetPlusSymbolParserToken plusSymbol(final String value, final String text){
+        return SpreadsheetPlusSymbolParserToken.with(value, text);
+    }
+    
+    /**
      * {@see SpreadsheetPowerParserToken}
      */
-    public static SpreadsheetPowerParserToken power(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetPowerParserToken power(final List<ParserToken> value, final String text){
         return SpreadsheetPowerParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetPowerSymbolParserToken}
+     */
+    public static SpreadsheetSymbolParserToken powerSymbol(final String value, final String text){
+        return SpreadsheetPowerSymbolParserToken.with(value, text);
     }
 
     /**
      * {@see SpreadsheetRangeParserToken}
      */
-    public static SpreadsheetRangeParserToken range(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetRangeParserToken range(final List<ParserToken> value, final String text){
         return SpreadsheetRangeParserToken.with(value, text);
     }
     
@@ -157,15 +236,8 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     /**
      * {@see SpreadsheetSubtractionParserToken}
      */
-    public static SpreadsheetSubtractionParserToken subtraction(final List<SpreadsheetParserToken> value, final String text){
+    public static SpreadsheetSubtractionParserToken subtraction(final List<ParserToken> value, final String text){
         return SpreadsheetSubtractionParserToken.with(value, text);
-    }
-
-    /**
-     * {@see SpreadsheetSymbolParserToken}
-     */
-    public static SpreadsheetSymbolParserToken symbol(final String value, final String text){
-        return SpreadsheetSymbolParserToken.with(value, text);
     }
 
     /**
@@ -182,10 +254,10 @@ public abstract class SpreadsheetParserToken implements ParserToken {
         return SpreadsheetWhitespaceParserToken.with(value, text);
     }
 
-    static List<SpreadsheetParserToken> copyAndCheckTokens(final List<SpreadsheetParserToken> tokens) {
+    static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
-        final List<SpreadsheetParserToken> copy = Lists.array();
+        final List<ParserToken> copy = Lists.array();
         copy.addAll(tokens);
 
         if(copy.isEmpty()) {
@@ -234,9 +306,19 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     public abstract boolean isAddition();
 
     /**
+     * Only {@link SpreadsheetBetweenSymbolParserToken} returns true
+     */
+    public abstract boolean isBetweenSymbol();
+
+    /**
      * Only {@link SpreadsheetCellParserToken} return true
      */
     public abstract boolean isCell();
+
+    /**
+     * Only {@link SpreadsheetCloseParenthesisSymbolParserToken} return true
+     */
+    public abstract boolean isCloseParenthesisSymbol();
 
     /**
      * Only {@link SpreadsheetColumnParserToken} return true
@@ -247,6 +329,11 @@ public abstract class SpreadsheetParserToken implements ParserToken {
      * Only {@link SpreadsheetDecimalParserToken} return true
      */
     public abstract boolean isDecimal();
+
+    /**
+     * Only {@link SpreadsheetDivideSymbolParserToken} returns true
+     */
+    public abstract boolean isDivideSymbol();
 
     /**
      * Only {@link SpreadsheetDoubleParserToken} return true
@@ -269,6 +356,11 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     public abstract boolean isFunctionName();
 
     /**
+     * Only {@link SpreadsheetFunctionParameterSeparatorSymbolParserToken} returns true
+     */
+    public abstract boolean isFunctionParameterSeparatorSymbol();
+
+    /**
      * Only {@link SpreadsheetGroupParserToken} return true
      */
     public abstract boolean isGroup();
@@ -284,9 +376,19 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     public abstract boolean isLong();
 
     /**
+     * Only {@link SpreadsheetMinusSymbolParserToken} returns true
+     */
+    public abstract boolean isMinusSymbol();
+
+    /**
      * Only {@link SpreadsheetMultiplicationParserToken} return true
      */
     public abstract boolean isMultiplication();
+
+    /**
+     * Only {@link SpreadsheetMultiplySymbolParserToken} returns true
+     */
+    public abstract boolean isMultiplySymbol();
 
     /**
      * Only {@link SpreadsheetNegativeParserToken} return true
@@ -299,14 +401,34 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     public abstract boolean isNumber();
 
     /**
+     * Only {@link SpreadsheetOpenParenthesisSymbolParserToken} return true
+     */
+    public abstract boolean isOpenParenthesisSymbol();
+
+    /**
      * Only {@link SpreadsheetPercentageParserToken} return true
      */
     public abstract boolean isPercentage();
 
     /**
+     * Only {@link SpreadsheetPercentSymbolParserToken} return true
+     */
+    public abstract boolean isPercentSymbol();
+
+    /**
+     * Only {@link SpreadsheetPlusSymbolParserToken} returns true
+     */
+    public abstract boolean isPlusSymbol();
+
+    /**
      * Only {@link SpreadsheetPowerParserToken} return true
      */
     public abstract boolean isPower();
+
+    /**
+     * Only {@link SpreadsheetPowerSymbolParserToken} return true
+     */
+    public abstract boolean isPowerSymbol();
 
     /**
      * Only {@link SpreadsheetRangeParserToken} return true
@@ -337,6 +459,22 @@ public abstract class SpreadsheetParserToken implements ParserToken {
      * Only {@link SpreadsheetWhitespaceParserToken} return true
      */
     public abstract boolean isWhitespace();
+
+    /**
+     * The priority of this token, tokens with a value of zero are left in their original position.
+     */
+    abstract int operatorPriority();
+
+    final static int RANGE_BETWEEN_PRIORITY = 4;
+    final static int POWER_PRIORITY = 3;
+    final static int MULTIPLY_DIVISION_PRIORITY = 2;
+    final static int ADDITION_SUBTRACTION_PRIORITY = 1;
+    final static int LOWEST_PRIORITY = 0;
+
+    /**
+     * Factory that creates the {@link SpreadsheetBinaryParserToken} sub class using the provided tokens and text.
+     */
+    abstract SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text);
 
     public final void accept(final ParserTokenVisitor visitor) {
         final SpreadsheetParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);

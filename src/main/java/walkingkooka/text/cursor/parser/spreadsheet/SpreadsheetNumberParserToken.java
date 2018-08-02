@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.math.BigInteger;
@@ -27,11 +26,11 @@ import java.math.BigInteger;
  */
 public final class SpreadsheetNumberParserToken extends SpreadsheetNumericParserToken<BigInteger> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetNumber");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetNumberParserToken.class);
 
     static SpreadsheetNumberParserToken with(final BigInteger value, final String text){
         checkValue(value);
-        CharSequences.failIfNullOrEmpty(text, "text");
+        checkText(text);
 
         return new SpreadsheetNumberParserToken(value, text);
     }

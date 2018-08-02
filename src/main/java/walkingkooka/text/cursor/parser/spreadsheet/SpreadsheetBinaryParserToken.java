@@ -18,17 +18,24 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Value;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
 /**
  * Base class for any token with two parameters.
  */
-abstract class SpreadsheetBinaryParserToken extends SpreadsheetParentParserToken implements Value<List<SpreadsheetParserToken>> {
+abstract class SpreadsheetBinaryParserToken extends SpreadsheetParentParserToken implements Value<List<ParserToken>> {
 
-    final static SpreadsheetParserToken NO_PARAMETER = null;
+    static SpreadsheetBinaryParserTokenConsumer checkLeftAndRight(final List<ParserToken> tokens) {
+        final SpreadsheetBinaryParserTokenConsumer checker = new SpreadsheetBinaryParserTokenConsumer();
+        tokens.stream()
+                .map(t -> SpreadsheetParserToken.class.cast(t))
+                .forEach(checker);
+        return checker;
+    }
 
-    SpreadsheetBinaryParserToken(final List<SpreadsheetParserToken> value,
+    SpreadsheetBinaryParserToken(final List<ParserToken> value,
                                  final String text,
                                  final SpreadsheetParserToken left,
                                  final SpreadsheetParserToken right,
@@ -41,7 +48,7 @@ abstract class SpreadsheetBinaryParserToken extends SpreadsheetParentParserToken
     /**
      * Returns the left parameter.
      */
-    public SpreadsheetParserToken left() {
+    public final SpreadsheetParserToken left() {
         return this.left;
     }
 
@@ -50,7 +57,7 @@ abstract class SpreadsheetBinaryParserToken extends SpreadsheetParentParserToken
     /**
      * Returns the right parameter.
      */
-    public SpreadsheetParserToken right() {
+    public final SpreadsheetParserToken right() {
         return this.right;
     }
 

@@ -36,11 +36,15 @@ public final class SpreadsheetColumn extends SpreadsheetColumnOrRow {
      */
     public static SpreadsheetColumn with(final int value, final SpreadsheetReferenceKind referenceKind) {
         if(value < 0 || value >= MAX) {
-            throw new IllegalArgumentException("Invalid row value " + value + " expected between 0 and " + MAX);
+            throw new IllegalArgumentException(invalidRowValue(value));
         }
         Objects.requireNonNull(referenceKind, "referenceKind");
 
         return new SpreadsheetColumn(value, referenceKind);
+    }
+
+    static String invalidRowValue(final int value) {
+        return "Invalid row value " + value + " expected between 0 and " + MAX;
     }
 
     private SpreadsheetColumn(final int value, final SpreadsheetReferenceKind referenceKind) {

@@ -27,17 +27,23 @@ public final class SpreadsheetRow extends SpreadsheetColumnOrRow {
 
     // https://support.office.com/en-us/article/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
     final static int MAX = 1_048_576;
+    final static int RADIX = 10;
+
 
     /**
      * Factory that creates a new column.
      */
     public static SpreadsheetRow with(final int value, final SpreadsheetReferenceKind referenceKind) {
         if(value < 0 || value >= MAX) {
-            throw new IllegalArgumentException("Invalid column value " + value + " expected between 0 and " + MAX);
+            throw new IllegalArgumentException(invalidRowValue(value));
         }
         Objects.requireNonNull(referenceKind, "referenceKind");
 
         return new SpreadsheetRow(value, referenceKind);
+    }
+
+    static String invalidRowValue(final int value) {
+        return "Invalid column value " + value + " expected between 0 and " + MAX;
     }
 
     private SpreadsheetRow(final int value, final SpreadsheetReferenceKind referenceKind) {

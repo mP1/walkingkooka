@@ -25,9 +25,9 @@ import java.util.Optional;
 /**
  * A column
  */
-public final class SpreadsheetColumnParserToken extends SpreadsheetLeafParserToken<SpreadsheetColumn> {
+public final class SpreadsheetColumnParserToken extends SpreadsheetLeafParserToken2<SpreadsheetColumn> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetColumn");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetColumnParserToken.class);
 
     static SpreadsheetColumnParserToken with(final SpreadsheetColumn value, final String text){
         checkValue(value);

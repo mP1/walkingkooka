@@ -17,72 +17,9 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
-import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class SpreadsheetSymbolParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetSymbolParserToken, String> {
-
-    @Test
-    public void testAccept() {
-        final StringBuilder b = new StringBuilder();
-        final SpreadsheetSymbolParserToken token = this.createToken();
-
-        new FakeSpreadsheetParserTokenVisitor() {
-            @Override
-            protected Visiting startVisit(final ParserToken t) {
-                assertSame(token, t);
-                b.append("1");
-                return Visiting.CONTINUE;
-            }
-
-            @Override
-            protected void endVisit(final ParserToken t) {
-                assertSame(token, t);
-                b.append("2");
-            }
-
-            @Override
-            protected Visiting startVisit(final SpreadsheetParserToken t) {
-                assertSame(token, t);
-                b.append("3");
-                return Visiting.CONTINUE;
-            }
-
-            @Override
-            protected void endVisit(final SpreadsheetParserToken t) {
-                assertSame(token, t);
-                b.append("4");
-            }
-
-            @Override
-            protected void visit(final SpreadsheetSymbolParserToken t) {
-                assertSame(token, t);
-                b.append("5");
-            }
-        }.accept(token);
-        assertEquals("13542", b.toString());
-    }
-
-    @Override
-    String text() {
-        return ";";
-    }
-
-    @Override
-    String value() {
-        return this.text();
-    }
-
-    @Override
-    protected SpreadsheetSymbolParserToken createToken(final String value, final String text) {
-        return SpreadsheetSymbolParserToken.with(value, text);
-    }
-
-    @Override
-    protected SpreadsheetSymbolParserToken createDifferentToken() {
-        return SpreadsheetSymbolParserToken.with("|", "|");
-    }
+public final class SpreadsheetSymbolParserTokenTest extends PackagePrivateClassTestCase<SpreadsheetSymbolParserToken> {
 
     @Override
     protected Class<SpreadsheetSymbolParserToken> type() {

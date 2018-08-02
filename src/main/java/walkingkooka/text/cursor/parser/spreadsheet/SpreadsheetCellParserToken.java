@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -27,22 +28,33 @@ import java.util.List;
  */
 public final class SpreadsheetCellParserToken extends SpreadsheetParentParserToken implements SpreadsheetReferenceParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetCell");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetCellParserToken.class);
 
-    static SpreadsheetCellParserToken with(final List<SpreadsheetParserToken> value, final String text){
-        final List<SpreadsheetParserToken> copy = copyAndCheckTokens(value);
+    static SpreadsheetCellParserToken with(final List<ParserToken> value, final String text){
+        final List<ParserToken> copy = copyAndCheckTokens(value);
 
-        final SpreadsheetRow row = null;
-        final SpreadsheetColumn column = null;
+        final SpreadsheetCellParserTokenConsumer checker = new SpreadsheetCellParserTokenConsumer();
+        copy.stream()
+                .filter(t -> t instanceof SpreadsheetParserToken)
+                .map(t -> SpreadsheetParserToken.class.cast(t))
+                .forEach(checker);
+        final SpreadsheetRowParserToken row = checker.row;
+        if(null==row){
+            throw new IllegalArgumentException("Row missing from cell=" + text);
+        }
+        final SpreadsheetColumnParserToken column = checker.column;
+        if(null==column){
+            throw new IllegalArgumentException("Column missing from cell=" + text);
+        }
 
         return new SpreadsheetCellParserToken(copy,
                 checkText(text),
-                row,
-                column,
+                row.value(),
+                column.value(),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetCellParserToken(final List<SpreadsheetParserToken> value, final String text, final SpreadsheetRow row, final SpreadsheetColumn column, final boolean computeWithout){
+    private SpreadsheetCellParserToken(final List<ParserToken> value, final String text, final SpreadsheetRow row, final SpreadsheetColumn column, final boolean computeWithout){
         super(value, text, computeWithout);
         this.row = row;
         this.column = column;
@@ -71,7 +83,7 @@ public final class SpreadsheetCellParserToken extends SpreadsheetParentParserTok
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
         return new SpreadsheetCellParserToken(tokens, this.text(), this.row, this.column, WITHOUT_USE_THIS);
     }
 
