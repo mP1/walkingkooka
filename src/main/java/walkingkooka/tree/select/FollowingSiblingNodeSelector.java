@@ -61,7 +61,8 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
                 new FollowingSiblingNodeSelector(selector);
     }
 
-    @Override final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.matchFollowingSiblings(node, context);
     }
 

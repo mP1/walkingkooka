@@ -21,6 +21,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.test.Fake;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 class FakeNodeSelector extends NodeSelector<TestFakeNode, StringName, StringName, Object> implements Fake {
 
@@ -29,12 +30,12 @@ class FakeNodeSelector extends NodeSelector<TestFakeNode, StringName, StringName
         throw new UnsupportedOperationException();
     }
 
-    @Override public Set<TestFakeNode> accept(TestFakeNode node) {
+    @Override public Set<TestFakeNode> accept(final TestFakeNode node, final Consumer<TestFakeNode> observer) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    void accept(TestFakeNode node, NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context) {
+    void accept0(final TestFakeNode node, final NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context) {
         throw new UnsupportedOperationException();
     }
 

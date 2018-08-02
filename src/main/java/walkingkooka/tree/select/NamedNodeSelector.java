@@ -22,7 +22,6 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A {@link NodeSelector} that selects all the ancestors of a given {@link Node} until the root of the graph is reached.
@@ -69,7 +68,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     }
 
     @Override
-    final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         if (this.name.equals(node.name())) {
             this.match(node, context);
         }

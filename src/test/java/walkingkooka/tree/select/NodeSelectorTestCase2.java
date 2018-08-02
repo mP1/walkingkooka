@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class NodeSelectorTestCase2<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>>
 extends NodeSelectorTestCase<S>{
@@ -43,9 +44,16 @@ extends NodeSelectorTestCase<S>{
 
         selector.accept(start, new NodeSelectorContext<TestFakeNode, StringName, StringName, Object>() {
 
+            private final Consumer<TestFakeNode> observer = NodeSelectorNulObserverConsumer.get();
+
+            Consumer<TestFakeNode> observer() {
+                return observer;
+            }
+
             int i = 0;
 
-            @Override void match(final TestFakeNode node) {
+            @Override
+            void match(final TestFakeNode node) {
                 if(i == nodes.length) {
                     Assert.fail("Unexpected matching node: " + node);
                 }

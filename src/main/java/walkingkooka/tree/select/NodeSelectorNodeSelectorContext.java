@@ -21,15 +21,24 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 class NodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
-    NodeSelectorNodeSelectorContext(final Set<N> matched) {
+    NodeSelectorNodeSelectorContext(final Consumer<N> observer, final Set<N> matched) {
+        this.observer = observer;
         this.matched = matched;
     }
 
-    @Override void match(final N node) {
+    Consumer<N> observer() {
+        return this.observer;
+    }
+
+    private final Consumer<N> observer;
+
+    @Override
+    void match(final N node) {
         this.matched.add(node);
     }
 

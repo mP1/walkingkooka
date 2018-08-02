@@ -42,7 +42,8 @@ public final class PojoNodeTest extends PublicClassTestCase<PojoNode> {
                 new ReflectionPojoNodeContext());
 
         assertEquals(Sets.of("1", "2", "3"),
-                        selector.accept(node).stream().map(n -> n.value()).collect(Collectors.toCollection(TreeSet::new)));
+                        selector.accept(node, selector.nulObserver())
+                                .stream().map(n -> n.value()).collect(Collectors.toCollection(TreeSet::new)));
     }
 
     @Override

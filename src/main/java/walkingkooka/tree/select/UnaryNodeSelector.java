@@ -24,6 +24,7 @@ import walkingkooka.tree.Node;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * Base class for all non logical (binary) selectors.
@@ -49,9 +50,9 @@ abstract class UnaryNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
-    final Set<N> accept0(final N node) {
+    final Set<N> accept1(final N node, final Consumer<N> observer) {
         final Set<N> matches = Sets.ordered();
-        this.accept(node, new NodeSelectorNodeSelectorContext<>(matches));
+        this.accept(node, new NodeSelectorNodeSelectorContext<>(observer, matches));
         return matches;
     }
 

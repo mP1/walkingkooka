@@ -23,6 +23,7 @@ import walkingkooka.tree.Node;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
@@ -54,14 +55,31 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
     /**
-     * Accepts a starting {@link Node} anywhere in a tree returning all matching nodes.
+     * Returns a {@link Consumer} that does nothing and may be passed to {@link #accept(Node, Consumer)}
      */
-    abstract public Set<N> accept(final N node);
+    final public Consumer<N> nulObserver() {
+        return NodeSelectorNulObserverConsumer.get();
+    }
+
+    /**
+     * Accepts a starting {@link Node} anywhere in a tree returning all matching nodes.
+     * The {@link Consumer} is invoked for each and every {@link Node} prior to any test and continued traversal. It may be
+     * used to abort the visiting process by throwing an {@link RuntimeException}
+     */
+    abstract public Set<N> accept(final N node, final Consumer<N> observer);
+
+    /**
+     * Sub classes must call this method which calls the observer and then immediately calls {@link #accept0(Node, NodeSelectorContext)}
+     */
+    final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        context.observer().accept(node);
+        this.accept0(node, context);
+    }
 
     /**
      * Sub classes must implement this to contain the core logic in testing if a node is match or unmatched.
      */
-    abstract void accept(N node, NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
+    abstract void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     /**
      * Pushes all siblings {@link Node nodes} until itself is reached.

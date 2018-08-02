@@ -13,32 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
-import java.util.Set;
 import java.util.function.Consumer;
 
 /**
- * Base class for all non logical (binary) selectors without any additional properties.
+ * A {@link Consumer} that may be passed to {@link NodeSelector#accept(Node, Consumer)}
  */
-abstract class UnaryRelativeNodeSelector2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-    extends UnaryNodeSelector2<N, NAME, ANAME, AVALUE> {
+final class NodeSelectorNulObserverConsumer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements Consumer<N> {
 
-    UnaryRelativeNodeSelector2() {
+    /**
+     * Type safe getter.
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorNulObserverConsumer<N, NAME, ANAME, AVALUE> get() {
+        return Cast.to(INSTANCE);
+    }
+
+    final static NodeSelectorNulObserverConsumer INSTANCE = new NodeSelectorNulObserverConsumer();
+
+    private NodeSelectorNulObserverConsumer(){
         super();
     }
 
-    UnaryRelativeNodeSelector2(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
-        super(next);
+    @Override
+    public void accept(final N n) {
+
     }
 
-    @Override
-    public final Set<N> accept(final N node, final Consumer<N> observer) {
-        return this.accept1(node, observer);
+    public String toString() {
+        return "";
     }
 }

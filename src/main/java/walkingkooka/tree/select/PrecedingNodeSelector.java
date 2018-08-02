@@ -65,7 +65,7 @@ final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     }
 
     @Override
-    void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.matchChildren(node, context);
         this.matchPrecedingSiblings(node, context);
 

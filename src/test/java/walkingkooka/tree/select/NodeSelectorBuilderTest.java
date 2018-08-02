@@ -271,7 +271,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
                                           final TestFakeNode start,
                                           final String... nodes) {
         final NodeSelector<TestFakeNode, StringName, StringName, Object> selector = builder.build();
-        final Set<TestFakeNode> matched = selector.accept(start);
+        final Set<TestFakeNode> matched = selector.accept(start, selector.nulObserver());
         final List<String> matchedNodes = matched.stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());

@@ -137,7 +137,7 @@ public class SequenceParserTokenNodeTest extends ParserTokenNodeTestCase<Sequenc
                 STRING4);
 
         assertEquals(Lists.of("a1", "b2", "c3", "d4"),
-                selector.accept(root)
+                selector.accept(root, selector.nulObserver())
                         .stream()
                         .map(n -> n.value().text())
                         .collect(Collectors.toList()));

@@ -68,7 +68,7 @@ final class PredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     }
 
     @Override
-    final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         if(this.predicate.test(node)){
             context.match(node);
         }

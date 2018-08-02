@@ -23,6 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * A {@link NodeSelector} that selects and does nothing.
@@ -55,11 +56,13 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         return selector;
     }
 
-    @Override public Set<N> accept(N node) {
+    @Override
+    public Set<N> accept(final N node, final Consumer<N> observer) {
         throw new ShouldNeverHappenError(this.getClass() + ".accept(Node)");
     }
 
-    @Override final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         context.match(node);
     }
 

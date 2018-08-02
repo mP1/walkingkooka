@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree.select;
 
-import walkingkooka.naming.Name;
-import walkingkooka.tree.Node;
+import walkingkooka.Cast;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-import java.util.function.Consumer;
-
-abstract class NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> {
-
-    abstract Consumer<N> observer();
-
-    abstract void match(final N node);
+public final class NodeSelectorNulObserverConsumerTest extends PackagePrivateClassTestCase<NodeSelectorNulObserverConsumer<?, ?, ?, ?>> {
+    @Override
+    protected Class<NodeSelectorNulObserverConsumer<?, ?, ?, ?>> type() {
+        return Cast.to(NodeSelectorNulObserverConsumer.class);
+    }
 }

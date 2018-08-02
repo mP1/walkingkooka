@@ -24,7 +24,6 @@ import walkingkooka.tree.Node;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -52,7 +51,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         boolean abort = false;
 
         N current = node;
