@@ -1,0 +1,121 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ */
+
+package walkingkooka.tree.json;
+
+import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
+
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * Base type for all the leaf json nodes that hold a simple value, including null.
+ */
+abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
+
+    JsonLeafNode(final JsonNodeName name, final int index, final V value){
+        super(name, index);
+        this.value = value;
+    }
+
+    @Override
+    public final V value() {
+        return this.value;
+    }
+
+    final V value;
+
+    //abstract JsonLeafNode<V> setValue(final V value);
+
+    final JsonLeafNode<V> setValue0(final V value) {
+        return Objects.equals(this.value(), value) ?
+               this :
+               this.replaceValue(value);
+    }
+
+    final JsonLeafNode<V> replaceValue(final V value) {
+        //return this.wrap0(this.name, NO_PARENT, NO_PARENT_INDEX, value);
+        return this.wrap0(this.name, this.index, value)
+                .replaceChild(this.parent())
+                .cast();
+    }
+
+    @Override
+    final JsonNode wrap(final JsonNodeName name, final int index) {
+        return this.wrap0(name, index, this.value)
+                .replaceChild(this.parent());
+    }
+
+    abstract JsonLeafNode wrap0(final JsonNodeName name, final int index, final V value);
+
+//    @Override
+//    JsonLeafNode<V> wrap(final JsonNodeName name, final Optional<JsonNode> parent, final int index) {
+//        return this.wrap(name, parent, index, this.value);
+//    }
+//
+//    final JsonLeafNode<V> wrap(final JsonNodeName name, final Optional<JsonNode> parent, final int index, final V value) {
+//        return this.wrap0(name, parent, index, value)
+//                .replaceChild(this.parent())
+//                .cast();
+//    }
+//
+//    abstract JsonLeafNode<V> wrap0(final JsonNodeName name, final Optional<JsonNode> parent, final int index, final V value);
+
+    @Override
+    public final boolean isArray() {
+        return false;
+    }
+
+    @Override
+    public final boolean isObject() {
+        return false;
+    }
+
+    @Override
+    public final List<JsonNode> children() {
+        return Lists.empty();
+    }
+
+    @Override
+    public final JsonNode setChildren(final List<JsonNode> children) {
+        Objects.requireNonNull(children, "children");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    final JsonNode setChild(final JsonNode newChild) {
+        throw new ShouldNeverHappenError(this.getClass().getSimpleName() + ".setChild");
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.name, this.value);
+    }
+
+    @Override
+    boolean equalsDescendants0(final JsonNode other) {
+        return true;
+    }
+
+    @Override
+    final boolean equalsIgnoringParentAndChildren0(final JsonNode other) {
+        return Objects.equals(this.value, JsonLeafNode.class.cast(other).value);
+    }
+}

@@ -142,4 +142,14 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
             i++;
         }
     }
+
+    protected final void checkWithoutParent(final N node) {
+        assertEquals("parent", Optional.empty(), node.parent());
+        assertEquals("root", true, node.isRoot());
+    }
+
+    protected final void checkWithParent(final N node) {
+        assertNotEquals("parent", Optional.empty(), node.parent());
+        assertEquals("root", false, node.isRoot());
+    }
 }

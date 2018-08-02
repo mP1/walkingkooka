@@ -309,16 +309,6 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
         assertEquals("name from DomNode", name, node.name().value());
     }
 
-    final void checkWithoutParent(final DomNode node) {
-        assertEquals("parent", DomNode.NO_PARENT, node.parent());
-        assertEquals("root", true, node.isRoot());
-    }
-
-    final void checkWithParent(final DomNode node) {
-        assertNotEquals("parent",DomNode.NO_PARENT, node.parent());
-        assertEquals("root", false, node.isRoot());
-    }
-
     final void checkText(final DomNode node, final String text) {
         assertEquals("text", text, node.text());
     }
