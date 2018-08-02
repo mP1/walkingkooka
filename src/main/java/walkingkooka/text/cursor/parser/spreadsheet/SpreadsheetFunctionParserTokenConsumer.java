@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -42,5 +43,5 @@ final class SpreadsheetFunctionParserTokenConsumer implements Consumer<Spreadshe
     }
 
     SpreadsheetFunctionName name;
-    final List<SpreadsheetParserToken> parameters = Lists.array();
+    final List<ParserToken> parameters = Lists.array();
 }

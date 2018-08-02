@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -27,19 +28,22 @@ import java.util.List;
  */
 public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetAddition");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetAdditionParserToken.class);
 
-    static SpreadsheetAdditionParserToken with(final List<SpreadsheetParserToken> value, final String text){
-        return new SpreadsheetAdditionParserToken(copyAndCheckTokens(value),
-                checkText(text),
-                NO_PARAMETER,
-                NO_PARAMETER,
+    static SpreadsheetAdditionParserToken with(final List<ParserToken> value, final String text){
+        final List<ParserToken> copy = copyAndCheckTokens(value);
+        checkText(text);
+
+        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
+
+        return new SpreadsheetAdditionParserToken(copy,
+                text,
+                checker.left(copy),
+                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private static final SpreadsheetNumericParserToken NO_NUMBER = null;
-
-    private SpreadsheetAdditionParserToken(final List<SpreadsheetParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
+    private SpreadsheetAdditionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
         super(value, text, left, right, computeWithout);
     }
 
@@ -50,12 +54,16 @@ public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParse
 
     @Override
     SpreadsheetAdditionParserToken replaceText(final String text) {
-        return new SpreadsheetAdditionParserToken(this.value, text, this.left, this.right, WITHOUT_USE_THIS);
+        return this.replace(this.value, text);
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens) {
-        return new SpreadsheetAdditionParserToken(tokens, this.text(), this.left, this.right, WITHOUT_USE_THIS);
+    SpreadsheetAdditionParserToken replaceTokens(final List<ParserToken> tokens) {
+        return this.replace(tokens, this.text());
+    }
+
+    private SpreadsheetAdditionParserToken replace(final List<ParserToken> tokens, final String text) {
+        return new SpreadsheetAdditionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
     }
 
     @Override

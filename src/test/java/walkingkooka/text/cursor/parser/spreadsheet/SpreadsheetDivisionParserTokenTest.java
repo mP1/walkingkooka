@@ -18,18 +18,20 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
 import java.util.List;
 
 public final class SpreadsheetDivisionParserTokenTest extends SpreadsheetBinaryParserTokenTestCase2<SpreadsheetDivisionParserToken> {
 
     @Override
-    SpreadsheetDivisionParserToken createToken(final String text, final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetDivisionParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.division(tokens, text);
     }
 
     @Override
     SpreadsheetParserToken operatorSymbol() {
-        return symbol("/");
+        return SpreadsheetParserToken.divideSymbol("/", "/");
     }
 
     @Override

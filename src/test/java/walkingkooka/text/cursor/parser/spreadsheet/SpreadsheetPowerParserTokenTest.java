@@ -18,18 +18,20 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
 import java.util.List;
 
 public final class SpreadsheetPowerParserTokenTest extends SpreadsheetBinaryParserTokenTestCase2<SpreadsheetPowerParserToken> {
 
     @Override
-    SpreadsheetPowerParserToken createToken(final String text, final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetPowerParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.power(tokens, text);
     }
 
     @Override
     SpreadsheetParserToken operatorSymbol() {
-        return symbol("^");
+        return SpreadsheetParserToken.powerSymbol("^", "^");
     }
 
     @Override

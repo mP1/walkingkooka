@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -27,9 +28,9 @@ import java.util.List;
  */
 public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetPercentage");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetPercentageParserToken.class);
 
-    static SpreadsheetPercentageParserToken with(final List<SpreadsheetParserToken> value, final String text){
+    static SpreadsheetPercentageParserToken with(final List<ParserToken> value, final String text){
         return new SpreadsheetPercentageParserToken(copyAndCheckTokens(value),
                 checkText(text),
                 NO_NUMBER,
@@ -38,7 +39,7 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
 
     private static final SpreadsheetNumericParserToken NO_NUMBER = null;
 
-    private SpreadsheetPercentageParserToken(final List<SpreadsheetParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout){
+    private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout){
         super(value, text, parameter, computeWithout);
     }
 
@@ -53,7 +54,7 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
         return new SpreadsheetPercentageParserToken(tokens, this.text(), this.parameter, WITHOUT_USE_THIS);
     }
 

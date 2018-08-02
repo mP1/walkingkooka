@@ -54,9 +54,9 @@ final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabe
         SpreadsheetLabelName.with("AB12");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test//(expected = IllegalArgumentException.class)
     public void testCellReferenceFails3() {
-        SpreadsheetLabelName.with(SpreadsheetColumn.MAX_ROW_NAME + 1);
+        SpreadsheetLabelName.with(SpreadsheetColumn.MAX_ROW_NAME + "1");
     }
 
     @Test
@@ -77,6 +77,11 @@ final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabe
     @Test
     public void testWith4() {
         this.createAndCheck("A123Hello");
+    }
+
+    @Test
+    public void testWith5() {
+        this.createAndCheck("A1B2C2");
     }
 
     private void createAndCheck(final String text) {

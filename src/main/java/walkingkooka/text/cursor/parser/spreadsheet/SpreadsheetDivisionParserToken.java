@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -27,19 +28,24 @@ import java.util.List;
  */
 public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetDivision");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetDivisionParserToken.class);
 
-    static SpreadsheetDivisionParserToken with(final List<SpreadsheetParserToken> value, final String text){
-        return new SpreadsheetDivisionParserToken(copyAndCheckTokens(value),
-                checkText(text),
-                NO_PARAMETER,
-                NO_PARAMETER,
+    static SpreadsheetDivisionParserToken with(final List<ParserToken> value, final String text){
+        final List<ParserToken> copy = copyAndCheckTokens(value);
+        checkText(text);
+
+        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
+
+        return new SpreadsheetDivisionParserToken(copy,
+                text,
+                checker.left(copy),
+                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private static final SpreadsheetNumericParserToken NO_NUMBER = null;
 
-    private SpreadsheetDivisionParserToken(final List<SpreadsheetParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
+    private SpreadsheetDivisionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
         super(value, text, left, right, computeWithout);
     }
 
@@ -50,12 +56,16 @@ public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParse
 
     @Override
     SpreadsheetDivisionParserToken replaceText(final String text) {
-        return new SpreadsheetDivisionParserToken(this.value, text, this.left, this.right, WITHOUT_USE_THIS);
+        return this.replace(this.value, text);
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens) {
-        return new SpreadsheetDivisionParserToken(tokens, this.text(), this.left, this.right, WITHOUT_USE_THIS);
+    SpreadsheetDivisionParserToken replaceTokens(final List<ParserToken> tokens) {
+        return this.replace(tokens, this.text());
+    }
+
+    private SpreadsheetDivisionParserToken replace(final List<ParserToken> tokens, final String text) {
+        return new SpreadsheetDivisionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
     }
 
     @Override

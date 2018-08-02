@@ -18,18 +18,20 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
 import java.util.List;
 
 public final class SpreadsheetSubtractionParserTokenTest extends SpreadsheetBinaryParserTokenTestCase2<SpreadsheetSubtractionParserToken> {
 
     @Override
-    SpreadsheetSubtractionParserToken createToken(final String text, final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetSubtractionParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.subtraction(tokens, text);
     }
 
     @Override
     SpreadsheetParserToken operatorSymbol() {
-        return symbol("-");
+        return SpreadsheetParserToken.minusSymbol("-", "-");
     }
 
     @Override

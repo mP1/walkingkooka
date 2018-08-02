@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -27,16 +28,16 @@ import java.util.List;
  */
 public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetNegative");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetNegativeParserToken.class);
 
-    static SpreadsheetNegativeParserToken with(final List<SpreadsheetParserToken> value, final String text){
+    static SpreadsheetNegativeParserToken with(final List<ParserToken> value, final String text){
         return new SpreadsheetNegativeParserToken(copyAndCheckTokens(value),
                 checkText(text),
                 NO_PARAMETER,
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetNegativeParserToken(final List<SpreadsheetParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout){
+    private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout){
         super(value, text, parameter, computeWithout);
     }
 
@@ -51,7 +52,7 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
         return new SpreadsheetNegativeParserToken(tokens, this.text(), this.parameter, WITHOUT_USE_THIS);
     }
 

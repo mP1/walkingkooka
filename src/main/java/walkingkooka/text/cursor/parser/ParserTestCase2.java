@@ -16,9 +16,44 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 
 public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T extends ParserToken> extends ParserTestCase<P, T, FakeParserContext> {
+
+    @Test
+    public void testEmptyCursorFail() {
+        this.parseFailAndCheck("");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public final void testOptionalNullNameFails() {
+        this.createParser().optional(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public final void testOrNullParserFails() {
+        this.createParser().or(null);
+    }
+
+    @Test
+    public final void testRepeating() {
+        final Parser<RepeatedParserToken, FakeParserContext> parser = this.createParser().repeating();
+        assertEquals("" + parser, RepeatedParser.class, parser.getClass());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public final void testBuilderWithNull() {
+        this.createParser().builder(null);
+    }
+
+    @Test
+    public void testOr() {
+        final P parser = this.createParser();
+        final P parser2 = this.createParser();
+        assertEquals(Parsers.alternatives(Lists.of(parser.castTC(), parser2.castTC())), parser.or(parser2));
+    }
 
     @Override
     protected FakeParserContext createContext() {

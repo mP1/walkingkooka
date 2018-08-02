@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 /**
@@ -25,10 +24,10 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
  */
 public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserToken<Long> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetLong");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetLongParserToken.class);
 
     static SpreadsheetLongParserToken with(final long value, final String text){
-        CharSequences.failIfNullOrEmpty(text, "text");
+        checkText(text);
 
         return new SpreadsheetLongParserToken(value, text);
     }

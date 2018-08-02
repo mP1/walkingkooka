@@ -23,6 +23,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -37,54 +38,75 @@ import java.util.function.Predicate;
  */
 final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, Comparable<SpreadsheetLabelName> {
 
-    final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
+    private final static CharPredicate LETTER = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 
-    final static CharPredicate DIGIT = CharPredicates.range('0', '9');
+    final static CharPredicate INITIAL = LETTER;
+
+    private final static CharPredicate DIGIT = CharPredicates.range('0', '9');
 
     final static CharPredicate PART = INITIAL.or(DIGIT.or(CharPredicates.is('_')));
 
     final static Predicate<CharSequence> PREDICATE = Predicates.initialAndPart(INITIAL, PART);
+
+    final static int MAX_LENGTH = 255;
 
     /**
      * Factory that creates a {@link SpreadsheetLabelName}
      */
     public static SpreadsheetLabelName with(final String name) {
         Objects.requireNonNull(name, "name");
-        Predicates.failIfNullOrFalse(name, PREDICATE, "Defined name %s contains invalid character");
 
+        if(!isAcceptableLength(name)){
+            throw new IllegalArgumentException("Label length " + name.length() + " is greater than allowed " + MAX_LENGTH);
+        }
+
+        if(!PREDICATE.test(name)){
+            throw new IllegalArgumentException("Label contains invalid character(s)=" + CharSequences.quote(name));
+        }
+        if(isCellReference(name)){
+            throw new IllegalArgumentException("Label is a valid cell reference=" + CharSequences.quote(name));
+        }
+
+        return new SpreadsheetLabelName(name);
+    }
+
+    static boolean isAcceptableLength(final String name) {
+        return name.length() < MAX_LENGTH;
+    }
+
+    static boolean isCellReference(final String name) {
+        int mode = 0; // -1 too long or contains invalid char
         int column = 0;
         int row = 0;
 
         // AB11 max row, max column
         final int length = name.length();
-        int mode = 0;
-
-        for(int i = 0; i < length && mode < 2; i++) {
+        for (int i = 0; i < length; i++) {
             final char c = name.charAt(i);
 
-            if(0 == mode) {
-                if(INITIAL.test(c)){
-                    column = column * SpreadsheetColumn.RADIX + Character.toUpperCase(c) - 'A';
-                } else {
-                    mode = 1;
+            // try and parse into column + row
+            if (0 == mode) {
+                final int digit = SpreadsheetColumnParser.valueFromDigit0(c);
+                if(-1 != digit){
+                    column = column * SpreadsheetColumn.RADIX + digit;
+                    continue;
                 }
+                mode = 1;
             }
-            if(1 == mode) {
-                if(DIGIT.test(c)) {
-                    row = 10 * row + (c - '0');
-                } else {
-                    mode = 2;
-                    break;
+            if (1 == mode) {
+                final int digit = Character.digit(c, SpreadsheetRow.RADIX);
+                if (-1 != digit) {
+                    row = SpreadsheetRow.RADIX * row + digit;
+                    continue;
                 }
-            }
-        }
-        if(mode != 2){
-            if(row <= SpreadsheetRow.MAX && column <= SpreadsheetColumn.MAX){
-                throw new IllegalArgumentException("Name appears to be a cell reference " + name);
+                mode = 2;
             }
         }
 
-        return new SpreadsheetLabelName(name);
+        return 0 == mode ||
+                (1 == mode &&
+                column < SpreadsheetColumn.MAX &&
+                row < SpreadsheetRow.MAX);
     }
 
     /**

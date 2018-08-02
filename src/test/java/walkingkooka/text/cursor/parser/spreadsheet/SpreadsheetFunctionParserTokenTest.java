@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
@@ -49,9 +50,9 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         final String text = FUNCTION + "(" + NUMBER1 + ")";
 
         final SpreadsheetFunctionNameParserToken name = this.function();
-        final SpreadsheetSymbolParserToken left = symbol("(");
+        final SpreadsheetOpenParenthesisSymbolParserToken left = this.openParenthesisSymbol();
         final SpreadsheetParserToken number = this.number1();
-        final SpreadsheetSymbolParserToken right = symbol(")");
+        final SpreadsheetCloseParenthesisSymbolParserToken right = this.closeParenthesisSymbol();
 
         final SpreadsheetFunctionParserToken token = this.createToken(text, name, left, number, right);
         this.checkText(token, text);
@@ -72,11 +73,11 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         final String text = FUNCTION + "( " + NUMBER1 + " )";
 
         final SpreadsheetFunctionNameParserToken name = this.function();
-        final SpreadsheetSymbolParserToken left = symbol("(");
+        final SpreadsheetOpenParenthesisSymbolParserToken left = this.openParenthesisSymbol();
         final SpreadsheetWhitespaceParserToken whitespace1 = this.whitespace();
         final SpreadsheetParserToken number = this.number1();
         final SpreadsheetWhitespaceParserToken whitespace2 = this.whitespace();
-        final SpreadsheetSymbolParserToken right = symbol(")");
+        final SpreadsheetCloseParenthesisSymbolParserToken right = this.closeParenthesisSymbol();
 
         final SpreadsheetFunctionParserToken token = this.createToken(text, name, left, whitespace1, number, whitespace2, right);
         this.checkText(token, text);
@@ -101,7 +102,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
     }
 
     @Override
-    SpreadsheetFunctionParserToken createToken(final String text, final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetFunctionParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.function(tokens, text);
     }
 
@@ -111,7 +112,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
     }
 
     @Override
-    List<SpreadsheetParserToken> tokens() {
+    List<ParserToken> tokens() {
         return Lists.of(this.function(), this.number1());
     }
 

@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -29,14 +30,16 @@ import java.util.List;
  */
 public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetFunction");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetFunctionParserToken.class);
 
-    static SpreadsheetFunctionParserToken with(final List<SpreadsheetParserToken> value, final String text){
-        final List<SpreadsheetParserToken> copy = copyAndCheckTokens(value);
+    static SpreadsheetFunctionParserToken with(final List<ParserToken> value, final String text){
+        final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
         final SpreadsheetFunctionParserTokenConsumer checker = new SpreadsheetFunctionParserTokenConsumer();
         copy.stream()
+             .filter(t -> t instanceof SpreadsheetParserToken)
+             .map(t -> SpreadsheetParserToken.class.cast(t))
              .forEach(checker);
         final SpreadsheetFunctionName name = checker.name;
         if(null==name){
@@ -50,10 +53,10 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetFunctionParserToken(final List<SpreadsheetParserToken> value,
+    private SpreadsheetFunctionParserToken(final List<ParserToken> value,
                                            final String text,
                                            final SpreadsheetFunctionName name,
-                                           final List<SpreadsheetParserToken> parameters,
+                                           final List<ParserToken> parameters,
                                            final boolean computeWithout){
         super(value, text, computeWithout);
 
@@ -70,11 +73,11 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
 
     private final SpreadsheetFunctionName name;
 
-    public List<SpreadsheetParserToken> parameters() {
+    public List<ParserToken> parameters() {
         return this.parameters;
     }
 
-    private final List<SpreadsheetParserToken> parameters;
+    private final List<ParserToken> parameters;
 
     @Override
     public SpreadsheetFunctionParserToken setText(final String text) {
@@ -87,7 +90,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
         // this method is called before the name and parameter fields are set.
         return new SpreadsheetFunctionParserToken(tokens,
                 this.text(),

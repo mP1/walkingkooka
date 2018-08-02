@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -27,15 +28,15 @@ import java.util.List;
  */
 public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetGroup");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetGroupParserToken.class);
 
-    static SpreadsheetGroupParserToken with(final List<SpreadsheetParserToken> value, final String text){
+    static SpreadsheetGroupParserToken with(final List<ParserToken> value, final String text){
         return new SpreadsheetGroupParserToken(copyAndCheckTokens(value),
                 checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetGroupParserToken(final List<SpreadsheetParserToken> value, final String text, final boolean computeWithout){
+    private SpreadsheetGroupParserToken(final List<ParserToken> value, final String text, final boolean computeWithout){
         super(value, text, computeWithout);
     }
 
@@ -50,7 +51,7 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
         return new SpreadsheetGroupParserToken(tokens, this.text(), WITHOUT_USE_THIS);
     }
 

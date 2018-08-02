@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.Optional;
@@ -25,13 +24,13 @@ import java.util.Optional;
 /**
  * Holds the actual function name within a function token.
  */
-public final class SpreadsheetFunctionNameParserToken extends SpreadsheetLeafParserToken<SpreadsheetFunctionName> {
+public final class SpreadsheetFunctionNameParserToken extends SpreadsheetLeafParserToken2<SpreadsheetFunctionName> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetFunctionName");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetFunctionNameParserToken.class);
 
     static SpreadsheetFunctionNameParserToken with(final SpreadsheetFunctionName value, final String text){
         checkValue(value);
-        CharSequences.failIfNullOrEmpty(text, "text");
+        checkText(text);
 
         return new SpreadsheetFunctionNameParserToken(value, text);
     }

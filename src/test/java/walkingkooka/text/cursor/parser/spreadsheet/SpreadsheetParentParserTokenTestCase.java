@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -36,7 +37,7 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullTokensFails() {
-        this.createToken(this.text(), Cast.<List<SpreadsheetParserToken>>to(null));
+        this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -46,7 +47,7 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
 
     @Test
     public final void testWithCopiesTokens() {
-        final List<SpreadsheetParserToken> tokens = this.tokens();
+        final List<ParserToken> tokens = this.tokens();
         final String text = this.text();
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
@@ -67,21 +68,21 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         assertSame(token, token.withoutSymbolsOrWhitespace().get());
     }
 
-    abstract T createToken(final String text, final List<SpreadsheetParserToken> tokens);
+    abstract T createToken(final String text, final List<ParserToken> tokens);
 
     final T createToken(final String text) {
         return this.createToken(text, this.tokens());
     }
 
-    final T createToken(final String text, final SpreadsheetParserToken...tokens) {
+    final T createToken(final String text, final ParserToken...tokens) {
         return this.createToken(text, Lists.of(tokens));
     }
 
     abstract String text();
 
-    abstract List<SpreadsheetParserToken> tokens();
+    abstract List<ParserToken> tokens();
 
-    final void checkValue(final T token, final SpreadsheetParserToken...tokens){
+    final void checkValue(final T token, final ParserToken...tokens){
         assertEquals("value", Lists.of(tokens), token.value());
     }
 
@@ -127,5 +128,13 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
 
     final SpreadsheetTextParserToken text(final String text) {
         return SpreadsheetParserToken.text(text, '"' + text + '"');
+    }
+
+    final SpreadsheetOpenParenthesisSymbolParserToken openParenthesisSymbol() {
+        return SpreadsheetParserToken.openParenthesisSymbol("(", "(");
+    }
+
+    final SpreadsheetCloseParenthesisSymbolParserToken closeParenthesisSymbol() {
+        return SpreadsheetParserToken.closeParenthesisSymbol(")", ")");
     }
 }

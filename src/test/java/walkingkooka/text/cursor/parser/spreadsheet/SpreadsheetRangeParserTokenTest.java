@@ -18,12 +18,14 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
 import java.util.List;
 
 public final class SpreadsheetRangeParserTokenTest extends SpreadsheetBinaryParserTokenTestCase<SpreadsheetRangeParserToken> {
 
     @Override
-    SpreadsheetRangeParserToken createToken(final String text, final List<SpreadsheetParserToken> tokens) {
+    SpreadsheetRangeParserToken createToken(final String text, final List<ParserToken> tokens) {
         return SpreadsheetParserToken.range(tokens, text);
     }
 
@@ -39,7 +41,7 @@ public final class SpreadsheetRangeParserTokenTest extends SpreadsheetBinaryPars
 
     @Override
     SpreadsheetParserToken operatorSymbol() {
-        return symbol(":");
+        return SpreadsheetParserToken.betweenSymbol(":", ":");
     }
 
     @Override

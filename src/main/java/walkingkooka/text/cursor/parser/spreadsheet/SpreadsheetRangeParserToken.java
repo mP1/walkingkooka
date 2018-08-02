@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
 
@@ -27,19 +28,22 @@ import java.util.List;
  */
 public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserToken {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.with("SpreadsheetRange");
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetRangeParserToken.class);
 
-    static SpreadsheetRangeParserToken with(final List<SpreadsheetParserToken> value, final String text){
-        return new SpreadsheetRangeParserToken(copyAndCheckTokens(value),
-                checkText(text),
-                NO_PARAMETER,
-                NO_PARAMETER,
+    static SpreadsheetRangeParserToken with(final List<ParserToken> value, final String text){
+        final List<ParserToken> copy = copyAndCheckTokens(value);
+        checkText(text);
+
+        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
+
+        return new SpreadsheetRangeParserToken(copy,
+                text,
+                checker.left(copy),
+                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private static final SpreadsheetNumericParserToken NO_NUMBER = null;
-
-    private SpreadsheetRangeParserToken(final List<SpreadsheetParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
+    private SpreadsheetRangeParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
         super(value, text, left, right, computeWithout);
     }
 
@@ -50,12 +54,16 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
 
     @Override
     SpreadsheetRangeParserToken replaceText(final String text) {
-        return new SpreadsheetRangeParserToken(this.value, text, this.left, this.right, WITHOUT_USE_THIS);
+        return this.replace(this.value, text);
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<SpreadsheetParserToken> tokens) {
-        return new SpreadsheetRangeParserToken(tokens, this.text(), this.left, this.right, WITHOUT_USE_THIS);
+    SpreadsheetRangeParserToken replaceTokens(final List<ParserToken> tokens) {
+        return this.replace(tokens, this.text());
+    }
+
+    private SpreadsheetRangeParserToken replace(final List<ParserToken> tokens, final String text) {
+        return new SpreadsheetRangeParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
     }
 
     @Override

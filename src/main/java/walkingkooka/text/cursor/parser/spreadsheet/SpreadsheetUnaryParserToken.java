@@ -18,17 +18,18 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Value;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
 /**
  * Base class for any token with a single parameter.
  */
-abstract class SpreadsheetUnaryParserToken extends SpreadsheetParentParserToken implements Value<List<SpreadsheetParserToken>> {
+abstract class SpreadsheetUnaryParserToken extends SpreadsheetParentParserToken implements Value<List<ParserToken>> {
 
     static final SpreadsheetNumericParserToken NO_PARAMETER = null;
 
-    SpreadsheetUnaryParserToken(final List<SpreadsheetParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout) {
+    SpreadsheetUnaryParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout) {
         super(value, text, computeWithout);
         this.parameter = parameter;
     }
@@ -75,7 +76,7 @@ abstract class SpreadsheetUnaryParserToken extends SpreadsheetParentParserToken 
     }
 
     @Override
-    public boolean isRange() {
+    public final boolean isRange() {
         return false;
     }
 
