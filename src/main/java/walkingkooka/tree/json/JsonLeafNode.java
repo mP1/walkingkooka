@@ -51,7 +51,6 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
     }
 
     final JsonLeafNode<V> replaceValue(final V value) {
-        //return this.wrap0(this.name, NO_PARENT, NO_PARENT_INDEX, value);
         return this.wrap0(this.name, this.index, value)
                 .replaceChild(this.parent())
                 .cast();
@@ -64,19 +63,6 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
     }
 
     abstract JsonLeafNode wrap0(final JsonNodeName name, final int index, final V value);
-
-//    @Override
-//    JsonLeafNode<V> wrap(final JsonNodeName name, final Optional<JsonNode> parent, final int index) {
-//        return this.wrap(name, parent, index, this.value);
-//    }
-//
-//    final JsonLeafNode<V> wrap(final JsonNodeName name, final Optional<JsonNode> parent, final int index, final V value) {
-//        return this.wrap0(name, parent, index, value)
-//                .replaceChild(this.parent())
-//                .cast();
-//    }
-//
-//    abstract JsonLeafNode<V> wrap0(final JsonNodeName name, final Optional<JsonNode> parent, final int index, final V value);
 
     @Override
     public final boolean isArray() {
