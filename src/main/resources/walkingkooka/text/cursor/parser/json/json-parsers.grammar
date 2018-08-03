@@ -1,0 +1,13 @@
+VALUE=                  NULL | BOOLEAN | STRING | NUMBER | ARRAY | OBJECT;
+
+ARRAY_ELEMENT=          [ WHITESPACE ], VALUE;
+
+ARRAY=                  ARRAY_BEGIN,
+                        [ ARRAY_ELEMENT, [{ [ WHITESPACE ], SEPARATOR, ARRAY_ELEMENT }]],
+                        [ WHITESPACE ], ARRAY_END;
+
+OBJECT_PROPERTY=        [ WHITESPACE ], STRING, [ WHITESPACE ], OBJECT_ASSIGNMENT, [ WHITESPACE ], VALUE;
+
+OBJECT=                 OBJECT_BEGIN,
+                        [ OBJECT_PROPERTY, [{[ WHITESPACE ], SEPARATOR, OBJECT_PROPERTY }]],
+                        [ WHITESPACE ], OBJECT_END;

@@ -16,9 +16,13 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.ebnf.combinator;
+package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public abstract class EbnfParserCombinatorSyntaxTreeTransformerTestCase<T extends EbnfParserCombinatorSyntaxTreeTransformer> extends PackagePrivateClassTestCase<T> {
+public final class JsonNodeLeafParserTokenTest extends PackagePrivateClassTestCase<JsonNodeLeafParserToken> {
+    @Override
+    protected Class<JsonNodeLeafParserToken> type() {
+        return JsonNodeLeafParserToken.class;
+    }
 }
