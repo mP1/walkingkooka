@@ -59,6 +59,10 @@ abstract class JsonNodeParentParserToken extends JsonNodeParserToken implements 
 
     private Optional<JsonNodeParserToken> without;
 
+    final List<ParserToken> valueIfWithoutSymbolsOrWhitespaceOrNull() {
+        return this == this.without.get() ? this.value : null;
+    }
+
     @Override
     public final boolean isArrayBeginSymbol() {
         return false;
