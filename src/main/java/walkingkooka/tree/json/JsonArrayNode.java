@@ -137,7 +137,7 @@ public final class JsonArrayNode extends JsonParentNode{
     }
 
     @Override
-    void prettyPrint(final IndentingPrinter printer) {
+    void printJson0(final IndentingPrinter printer) {
         printer.print(BEGIN.string());
 
         String separator = "";
@@ -145,7 +145,7 @@ public final class JsonArrayNode extends JsonParentNode{
             printer.print(separator);
             separator = ", ";
 
-            child.prettyPrint(printer);
+            child.printJson(printer);
         }
 
         printer.print(END.string());

@@ -163,7 +163,7 @@ public final class JsonObjectNode extends JsonParentNode{
     }
 
     @Override
-    void prettyPrint(final IndentingPrinter printer) {
+    void printJson0(final IndentingPrinter printer) {
         final LineEnding eol = printer.lineEnding();
 
         printer.print(BEGIN.string());
@@ -177,7 +177,7 @@ public final class JsonObjectNode extends JsonParentNode{
             for (JsonNode child : this.children) {
                 printer.print(CharSequences.quoteAndEscape(child.name().value()));
                 printer.print(KEY_VALUE_SEPARATOR);
-                child.prettyPrint(printer);
+                child.printJson(printer);
 
                 if(i > 0) {
                     printer.print(AFTER);

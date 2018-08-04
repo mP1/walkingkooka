@@ -85,7 +85,7 @@ public final class JsonStringNode extends JsonLeafNode<String>{
     }
 
     @Override
-    void prettyPrint(final IndentingPrinter printer) {
+    void printJson0(final IndentingPrinter printer) {
         printer.print(CharSequences.quoteAndEscape(this.value));
     }
 }

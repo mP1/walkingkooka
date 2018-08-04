@@ -82,7 +82,7 @@ public final class JsonNumberNode extends JsonLeafNode<Double>{
     }
 
     @Override
-    void prettyPrint(final IndentingPrinter printer) {
+    void printJson0(final IndentingPrinter printer) {
         final int i = this.value.intValue();
         printer.print(i == this.value ?
                 String.valueOf(i) :

@@ -80,7 +80,7 @@ public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
     }
 
     @Override
-    void prettyPrint(final IndentingPrinter printer) {
+    void printJson0(final IndentingPrinter printer) {
         printer.print(String.valueOf(this.value));
     }
 }

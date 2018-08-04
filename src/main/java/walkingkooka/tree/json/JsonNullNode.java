@@ -75,7 +75,7 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
     }
 
     @Override
-    void prettyPrint(final IndentingPrinter printer) {
+    void printJson0(final IndentingPrinter printer) {
         printer.print(String.valueOf(this.value));
     }
 }
