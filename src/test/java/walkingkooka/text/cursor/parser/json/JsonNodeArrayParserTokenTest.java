@@ -21,8 +21,10 @@ package walkingkooka.text.cursor.parser.json;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserTokenTestCase<JsonNodeArrayParserToken> {
 
@@ -31,6 +33,23 @@ public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserToke
         final JsonNodeArrayParserToken array = array(arrayBegin(), whitespace(), string("abc"), arrayEnd()).cast();
         final JsonNodeArrayParserToken without = array.withoutSymbolsOrWhitespace().get().cast();
         assertEquals("value", Lists.of(string("abc")), without.value());
+    }
+
+    @Test
+    public void testToJsonNodeEmpty() {
+        assertEquals(Optional.of(JsonNode.array()), JsonNodeParserToken.array(Lists.empty(), "[]").toJsonNode());
+    }
+
+    @Test
+    public void testToJsonNode() {
+        assertEquals(Optional.of(JsonNode.array().appendChild(JsonNode.number(123))),
+                array(number(123)).toJsonNode());
+    }
+
+    @Test
+    public void testToJsonNodeWhitespace() {
+        assertEquals(Optional.of(JsonNode.array().appendChild(JsonNode.number(123))),
+                array(number(123), whitespace(), whitespace()).toJsonNode());
     }
 
     @Override

@@ -21,6 +21,8 @@ package walkingkooka.tree.json;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.List;
+
 public abstract class JsonParentNodeTestCase<N extends JsonParentNode> extends JsonNodeTestCase<N> {
 
     @Test
@@ -30,8 +32,27 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode> extends J
     }
 
     @Test
+    public final void testSetNameDifferent() {
+        final N node = this.createJsonNode();
+        final JsonNodeName originalName = node.name();
+        final List<JsonNode> value = node.children();
+
+        final JsonNodeName differentName = JsonNodeName.with("different");
+        final N different = node.setName(differentName).cast();
+        assertEquals("name", differentName, different.name());
+        this.checkChildren(different, value);
+
+        assertEquals("original name", originalName, node.name());
+        this.checkChildren(node, value);
+    }
+
+    @Test
     @Ignore
     public void testSetSameAttributes() {
 
+    }
+
+    final void checkChildren(final N node, final List<JsonNode> children) {
+        assertEquals("children", children, node.children());
     }
 }

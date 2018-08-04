@@ -21,7 +21,6 @@ package walkingkooka.tree.json;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -43,6 +42,12 @@ public final class JsonArrayNode extends JsonParentNode{
         super(name, index, children);
     }
 
+    @Override
+    public JsonArrayNode setName(final JsonNodeName name) {
+        checkName(name);
+        return this.setName0(name).cast();
+    }
+
     /**
      * Would be setter that returns an array instance with the provided children, creating a new instance if necessary.
      */
@@ -57,7 +62,7 @@ public final class JsonArrayNode extends JsonParentNode{
         int i = 0;
         final List<JsonNode> copy = Lists.array();
         for(JsonNode child : children){
-            copy.add(child.setName(JsonNodeName.index(i)));
+            copy.add(child.setName0(JsonNodeName.index(i)));
             i++;
         }
 

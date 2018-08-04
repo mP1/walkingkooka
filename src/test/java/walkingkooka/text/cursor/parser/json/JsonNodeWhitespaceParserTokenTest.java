@@ -21,6 +21,8 @@ import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
+import java.util.Optional;
+
 public final class JsonNodeWhitespaceParserTokenTest extends JsonNodeLeafParserTokenTestCase<JsonNodeWhitespaceParserToken, String> {
 
     @Test
@@ -62,6 +64,18 @@ public final class JsonNodeWhitespaceParserTokenTest extends JsonNodeLeafParserT
             }
         }.accept(token);
         assertEquals("13542", b.toString());
+    }
+
+    @Test
+    public void testWithoutSymbolsOrWhitespace() {
+        final JsonNodeWhitespaceParserToken token = this.createToken();
+        assertEquals(Optional.empty(), token.withoutSymbolsOrWhitespace());
+    }
+
+    @Test
+    @Override
+    public void testToJsonNode() {
+        assertEquals(Optional.empty(), this.createToken().toJsonNode());
     }
 
     @Override

@@ -17,6 +17,9 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
+import walkingkooka.tree.json.JsonNode;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -66,5 +69,15 @@ abstract class JsonNodeSymbolParserToken extends JsonNodeLeafParserToken<String>
     @Override
     public final boolean isNoise() {
         return true;
+    }
+
+    @Override
+    JsonNode toJsonNodeOrNull() {
+        return null;
+    }
+
+    @Override
+    void addJsonNode(final List<JsonNode> children) {
+        // skip whitespace
     }
 }

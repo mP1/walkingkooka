@@ -100,7 +100,13 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     /**
      * Returns an instance with the given name, creating a new instance if necessary.
      */
-    JsonNode setName(final JsonNodeName name) {
+    abstract public JsonNode setName(final JsonNodeName name);
+
+    static void checkName(final JsonNodeName name) {
+        Objects.requireNonNull(name, "name");
+    }
+
+    final JsonNode setName0(final JsonNodeName name) {
         return this.name.equals(name) ?
                this :
                this.replaceName(name);
@@ -115,12 +121,6 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     private JsonNode replaceName(final JsonNodeName name) {
         return this.wrap(name, this.index);
     }
-
-//    final JsonNode replaceName(final JsonNodeName name) {
-//        return this.wrap(name, NO_PARENT, NO_PARENT_INDEX)
-//               .replaceChild(this.parent())
-//               .cast();
-//    }
 
     // parent ..................................................................................................
 
@@ -191,7 +191,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
             throw new IllegalArgumentException("Index " + index + " must be greater than 0");
         }
         //return this.wrap(JsonNodeName.index(index), NO_PARENT, index);
-        return this.setName(JsonNodeName.index(index))
+        return this.setName0(JsonNodeName.index(index))
                .setIndex(index);
     }
 

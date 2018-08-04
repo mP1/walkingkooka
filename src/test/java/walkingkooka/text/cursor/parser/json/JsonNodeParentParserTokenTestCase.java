@@ -50,16 +50,29 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
     }
 
     @Test
-    public void testWithoutSymbolsOrWhitespaceCached() {
+    public final void testWithoutSymbolsOrWhitespaceCached() {
         final T token = this.createToken();
         assertSame(token.withoutSymbolsOrWhitespace(), token.withoutSymbolsOrWhitespace());
         assertSame(token.withoutSymbolsOrWhitespace().get().withoutSymbolsOrWhitespace(), token.withoutSymbolsOrWhitespace().get().withoutSymbolsOrWhitespace());
     }
 
     @Test
-    public void testWithoutSymbolsOrWhitespaceDoubleSame() {
+    public final void testWithoutSymbolsOrWhitespaceDoubleSame() {
         final T token = this.createToken();
         assertSame(token, token.withoutSymbolsOrWhitespace().get());
+    }
+
+    @Test
+    public final void testSetTextDifferentWithout() {
+        final T token = this.createToken();
+        final List<?> childrenWithout = Cast.<T>to(token.withoutSymbolsOrWhitespace().get()).value();
+
+        final String differentText = this.createDifferentToken().text();
+        final T different = token.setText(differentText).cast();
+        final T differentWithout = Cast.<T>to(different.withoutSymbolsOrWhitespace().get());
+        assertEquals("children without", childrenWithout, differentWithout.value());
+
+        assertNotEquals("without should have less tokens than with", token.value().size(), differentWithout.value().size());
     }
 
     abstract T createToken(final String text, final List<ParserToken> tokens);

@@ -19,7 +19,6 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.io.printer.IndentingPrinter;
-import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 
 /**
  * Represents an immutable json boolean.
@@ -34,6 +33,12 @@ public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
 
     private JsonBooleanNode(final JsonNodeName name, final int index, final boolean value) {
         super(name, index, value);
+    }
+
+    @Override
+    public JsonBooleanNode setName(final JsonNodeName name) {
+        checkName(name);
+        return this.setName0(name).cast();
     }
 
     public JsonBooleanNode setValue(final boolean value) {

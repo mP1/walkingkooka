@@ -39,6 +39,12 @@ public final class JsonStringNode extends JsonLeafNode<String>{
         super(name, index, value);
     }
 
+    @Override
+    public JsonStringNode setName(final JsonNodeName name) {
+        checkName(name);
+        return this.setName0(name).cast();
+    }
+
     public JsonStringNode setValue(final String value) {
         return this.setValue0(value).cast();
     }

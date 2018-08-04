@@ -19,16 +19,16 @@ package walkingkooka.text.cursor.parser.json;
 
 import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.json.JsonBooleanNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.visit.Visiting;
 
-public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserTokenTestCase2<JsonNodeStringParserToken, String, JsonStringNode> {
+public final class JsonNodeBooleanParserTokenTest extends JsonNodeLeafParserTokenTestCase2<JsonNodeBooleanParserToken, Boolean, JsonBooleanNode> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final JsonNodeStringParserToken token = this.createToken();
+        final JsonNodeBooleanParserToken token = this.createToken();
 
         new FakeJsonNodeParserTokenVisitor() {
             @Override
@@ -58,7 +58,7 @@ public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserToken
             }
 
             @Override
-            protected void visit(final JsonNodeStringParserToken t) {
+            protected void visit(final JsonNodeBooleanParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -68,31 +68,31 @@ public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserToken
 
     @Override
     String text() {
-        return "'A'";
+        return String.valueOf(this.value());
     }
 
     @Override
-    String value() {
-        return this.text();
+    Boolean value() {
+        return Boolean.TRUE;
     }
 
     @Override
-    JsonStringNode jsonNode() {
-        return JsonNode.string(value());
+    JsonBooleanNode jsonNode() {
+        return JsonNode.booleanNode(value());
     }
 
     @Override
-    protected JsonNodeStringParserToken createToken(final String value, final String text) {
-        return JsonNodeStringParserToken.with(value, text);
+    protected JsonNodeBooleanParserToken createToken(final Boolean value, final String text) {
+        return JsonNodeBooleanParserToken.with(value, text);
     }
 
     @Override
-    protected JsonNodeStringParserToken createDifferentToken() {
-        return JsonNodeStringParserToken.with("'different'", "'different'");
+    protected JsonNodeBooleanParserToken createDifferentToken() {
+        return JsonNodeBooleanParserToken.with(false, "'different'");
     }
 
     @Override
-    protected Class<JsonNodeStringParserToken> type() {
-        return JsonNodeStringParserToken.class;
+    protected Class<JsonNodeBooleanParserToken> type() {
+        return JsonNodeBooleanParserToken.class;
     }
 }

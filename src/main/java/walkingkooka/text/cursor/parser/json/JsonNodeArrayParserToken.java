@@ -17,8 +17,10 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -36,8 +38,8 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken {
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private JsonNodeArrayParserToken(final List<ParserToken> value, final String text, final boolean computeWithout){
-        super(value, text, computeWithout);
+    private JsonNodeArrayParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -47,12 +49,12 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken {
 
     @Override
     JsonNodeArrayParserToken replaceText(final String text) {
-        return new JsonNodeArrayParserToken(this.value, text, WITHOUT_USE_THIS);
+        return new JsonNodeArrayParserToken(this.value, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
     @Override
     JsonNodeParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new JsonNodeArrayParserToken(tokens, this.text(), WITHOUT_USE_THIS);
+        return new JsonNodeArrayParserToken(tokens, this.text(), tokens);
     }
 
     @Override
@@ -71,6 +73,23 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
+    }
+
+    @Override
+    JsonNode toJsonNodeOrNull() {
+        final List<JsonNode> children = Lists.array();
+        this.addJsonNode(children);
+
+        return JsonNode.array().setChildren(children);
+    }
+
+    @Override
+    final void addJsonNode(final List<JsonNode> children) {
+        for(ParserToken element : this.value()) {
+            if(element instanceof JsonNodeParserToken) {
+                JsonNodeParserToken.class.cast(element).addJsonNode(children);
+            }
+        }
     }
 
     @Override
