@@ -57,6 +57,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see DoubleParser}
+     */
+    public static <C extends ParserContext> Parser<DoubleParserToken, C> doubleParser(final char decimal){
+        return DoubleParser.with(decimal);
+    }
+
+    /**
      * {@see DoubleQuotedParserToken}
      */
     public static <C extends ParserContext> Parser<DoubleQuotedParserToken, C> doubleQuoted(){
