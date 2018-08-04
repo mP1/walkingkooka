@@ -18,42 +18,31 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
 abstract class EbnfParentParserToken extends EbnfParserToken implements Value<List<ParserToken>> {
 
-    final static boolean WITHOUT_COMPUTE_REQUIRED = true;
-    final static boolean WITHOUT_USE_THIS = !WITHOUT_COMPUTE_REQUIRED;
+    final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 
-    EbnfParentParserToken(final List<ParserToken> value, final String text, final boolean computeWithout) {
+    EbnfParentParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(text);
         this.value = value;
-        this.without = computeWithout ? computeWithout(value) : Optional.of(this);
+        this.without = null == valueWithout ?
+                computeWithout(value) :
+                Optional.of(this);
     }
 
     private Optional<EbnfParserToken> computeWithout(final List<ParserToken> value){
-        final List<ParserToken> without = Lists.array();
-
-        value.stream()
-                .forEach(t -> {
-                    if(t instanceof EbnfParserToken){
-                        final EbnfParserToken ebnfParserToken = t.cast();
-                        final Optional<EbnfParserToken> maybeWithout = ebnfParserToken.withoutCommentsSymbolsOrWhitespace();
-                        if (maybeWithout.isPresent()) {
-                            without.add(maybeWithout.get());
-                        }
-                    } else {
-                        without.add(t);
-                    }
-                });
-        Lists.array();
+        final List<ParserToken> without = value.stream()
+                .filter(t -> !t.isNoise())
+                .collect(Collectors.toList());
 
         return Optional.of(this.replaceTokens(without));
     }
@@ -133,8 +122,13 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
      */
     final Optional<EbnfParserToken> without;
 
+    final List<ParserToken> valueIfWithoutCommentsSymbolsOrWhitespaceOrNull() {
+        return this == this.without.get() ? this.value : null;
+    }
+
     /**
      * Factory that creates a new {@link EbnfParentParserToken} with the same text but new tokens.
+     * This is only called when creating the withoutCommentsSymbolsOrWhitespace() instance.
      */
     abstract EbnfParentParserToken replaceTokens(final List<ParserToken> tokens);
 

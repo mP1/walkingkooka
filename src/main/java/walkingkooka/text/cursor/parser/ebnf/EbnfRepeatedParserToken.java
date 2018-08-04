@@ -33,8 +33,8 @@ public final class EbnfRepeatedParserToken extends EbnfParentParserToken {
         return new EbnfRepeatedParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfRepeatedParserToken(final List<ParserToken> tokens, final String text, final boolean computeWithout) {
-        super(tokens, text, computeWithout);
+    private EbnfRepeatedParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
         this.checkOnlyOneToken();
     }
 
@@ -45,12 +45,12 @@ public final class EbnfRepeatedParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfRepeatedParserToken replaceText(final String text) {
-        return new EbnfRepeatedParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfRepeatedParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     EbnfRepeatedParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfRepeatedParserToken(tokens, this.text(), WITHOUT_USE_THIS);
+        return new EbnfRepeatedParserToken(tokens, this.text(), tokens);
     }
 
     @Override

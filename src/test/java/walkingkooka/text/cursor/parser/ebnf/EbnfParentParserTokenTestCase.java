@@ -49,7 +49,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         final String text = this.text();
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
-        assertEquals("tokens", tokens, token.value());
+        this.checkValue(token, tokens);
         assertSame("tokens not copied", tokens, token.value());
     }
 
@@ -65,6 +65,26 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         final T token = this.createToken();
         assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
+
+    @Test
+    public final void testSetTextDifferentWithoutCommentsSymbolsOrWhitespace() {
+        final T token = this.createTokenWithNoise();
+
+        final String originalText = token.text();
+        final List<ParserToken> valueWithout = Cast.<T>to(token.withoutCommentsSymbolsOrWhitespace().get()).value();
+
+        final String differentText = "different";
+        final T different = token.setText(differentText).cast();
+        assertEquals("text", differentText, different.text());
+        this.checkValue(Cast.<T>to(different.withoutCommentsSymbolsOrWhitespace().get()), valueWithout);
+
+        assertEquals("original name", originalText, token.text());
+        this.checkValue(different.withoutCommentsSymbolsOrWhitespace().get().cast(), valueWithout);
+
+        assertNotEquals("original token should have some comments/symbols/whitespace", token.value().size(), valueWithout.size());
+    }
+
+    abstract T createTokenWithNoise();
 
     @Override
     final T createToken(final String text) {
@@ -133,5 +153,9 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
 
     final EbnfSymbolParserToken terminator() {
         return symbol(";");
+    }
+
+    final void checkValue(final T parent, final List<ParserToken> values) {
+        assertEquals("value", values, parent.value());
     }
 }

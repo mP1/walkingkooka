@@ -55,8 +55,8 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
                                  final String text,
                                  final EbnfParserToken begin,
                                  final EbnfParserToken end,
-                                 final boolean computeWithout) {
-        super(tokens, text, computeWithout);
+                                 final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
         this.checkOnlyTwoTokens();
 
         this.begin = begin;
@@ -70,12 +70,12 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfRangeParserToken replaceText(final String text) {
-        return new EbnfRangeParserToken(this.value(), text, this.begin, this.end, WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfRangeParserToken(this.value(), text, this.begin, this.end, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     EbnfRangeParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfRangeParserToken(tokens, this.text(), this.begin, this.end, WITHOUT_USE_THIS);
+        return new EbnfRangeParserToken(tokens, this.text(), this.begin, this.end, tokens);
     }
 
     public EbnfParserToken begin() {

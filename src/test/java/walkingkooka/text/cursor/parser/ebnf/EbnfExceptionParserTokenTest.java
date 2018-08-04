@@ -124,6 +124,11 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
     }
 
     @Override
+    EbnfExceptionParserToken createTokenWithNoise() {
+        return this.createToken(this.identifier1() + "  -" + this.identifier2().text(), this.identifier1(), whitespace(), this.identifier2());
+    }
+
+    @Override
     protected EbnfExceptionParserToken createDifferentToken() {
         return this.createToken( "different -identifier2", this.identifier("different"), this.identifier2());
     }
