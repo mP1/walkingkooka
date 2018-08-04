@@ -33,8 +33,8 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken {
         return new EbnfConcatenationParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfConcatenationParserToken(final List<ParserToken> tokens, final String text, final boolean computeWithout) {
-        super(tokens, text, computeWithout);
+    private EbnfConcatenationParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
         this.checkAtLeastTwoTokens();
     }
 
@@ -45,12 +45,12 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfConcatenationParserToken replaceText(final String text) {
-        return new EbnfConcatenationParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfConcatenationParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     EbnfConcatenationParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfConcatenationParserToken(tokens, text(), WITHOUT_USE_THIS);
+        return new EbnfConcatenationParserToken(tokens, text(), tokens);
     }
 
     @Override

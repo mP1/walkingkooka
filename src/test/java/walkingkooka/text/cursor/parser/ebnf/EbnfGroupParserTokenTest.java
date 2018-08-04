@@ -105,6 +105,11 @@ public class EbnfGroupParserTokenTest extends EbnfGroupOptionalRepeatParentParse
     }
 
     @Override
+    EbnfGroupParserToken createTokenWithNoise() {
+        return this.createToken("(" + this.whitespace().text() + this.identifier1().text() + ")", this.whitespace(), this.identifier1());
+    }
+
+    @Override
     protected Class<EbnfGroupParserToken> type() {
         return EbnfGroupParserToken.class;
     }

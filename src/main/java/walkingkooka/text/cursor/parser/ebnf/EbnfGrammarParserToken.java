@@ -56,8 +56,8 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
         return new EbnfGrammarParserToken(copy, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
-    EbnfGrammarParserToken(final List<ParserToken> tokens, final String text, final boolean computeWithout) {
-        super(tokens, text, computeWithout);
+    EbnfGrammarParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
         this.checkAtLeastOneRule();
     }
 
@@ -68,12 +68,12 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfGrammarParserToken replaceText(final String text) {
-        return new EbnfGrammarParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfGrammarParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     EbnfGrammarParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfGrammarParserToken(tokens, this.text(), WITHOUT_USE_THIS);
+        return new EbnfGrammarParserToken(tokens, this.text(), tokens);
     }
 
     @Override

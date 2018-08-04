@@ -223,6 +223,11 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     @Override
+    EbnfGrammarParserToken createTokenWithNoise() {
+        return this.createToken("  " + text(), whitespace(), rule());
+    }
+
+    @Override
     protected Class<EbnfGrammarParserToken> type() {
         return EbnfGrammarParserToken.class;
     }

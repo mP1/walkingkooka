@@ -59,8 +59,8 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
                         final String text,
                         final EbnfIdentifierParserToken identifier,
                         final EbnfParserToken token,
-                        final boolean computeWithout) {
-        super(tokens, text, computeWithout);
+                        final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
         this.identifier = identifier;
         this.token = token;
     }
@@ -72,7 +72,7 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfRuleParserToken replaceText(final String text) {
-        return new EbnfRuleParserToken(this.value(), text, this.identifier, this.token, WITHOUT_USE_THIS);
+        return new EbnfRuleParserToken(this.value(), text, this.identifier, this.token, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
     }
 
     public EbnfIdentifierParserToken identifier() {
@@ -94,7 +94,7 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
                 this.text(),
                 EbnfIdentifierParserToken.class.cast(tokens.get(0)),
                 EbnfParserToken.class.cast(tokens.get(1)),
-                WITHOUT_USE_THIS);
+                tokens);
     }
 
     @Override

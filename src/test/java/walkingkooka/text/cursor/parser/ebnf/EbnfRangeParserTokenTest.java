@@ -214,6 +214,11 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     }
 
     @Override
+    EbnfRangeParserToken createTokenWithNoise() {
+        return this.createDifferentToken();
+    }
+
+    @Override
     protected Class<EbnfRangeParserToken> type() {
         return EbnfRangeParserToken.class;
     }

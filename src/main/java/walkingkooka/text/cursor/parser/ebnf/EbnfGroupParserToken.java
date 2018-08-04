@@ -33,8 +33,8 @@ public final class EbnfGroupParserToken extends EbnfParentParserToken {
         return new EbnfGroupParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfGroupParserToken(final List<ParserToken> tokens, final String text, final boolean computeWithout) {
-        super(tokens, text, computeWithout);
+    private EbnfGroupParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
         this.checkOnlyOneToken();
     }
 
@@ -45,12 +45,12 @@ public final class EbnfGroupParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfGroupParserToken replaceText(final String text) {
-        return new EbnfGroupParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfGroupParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     EbnfGroupParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfGroupParserToken(tokens, this.text(), WITHOUT_USE_THIS);
+        return new EbnfGroupParserToken(tokens, this.text(), tokens);
     }
 
     @Override

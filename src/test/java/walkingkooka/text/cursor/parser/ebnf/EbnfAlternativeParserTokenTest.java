@@ -107,6 +107,11 @@ public final class EbnfAlternativeParserTokenTest extends EbnfAlternativeConcate
     }
 
     @Override
+    EbnfAlternativeParserToken createTokenWithNoise() {
+        return this.createToken(this.identifier1() + "  |" + this.identifier2().text(), this.identifier1(), whitespace(), this.identifier2());
+    }
+
+    @Override
     protected Class<EbnfAlternativeParserToken> type() {
         return EbnfAlternativeParserToken.class;
     }

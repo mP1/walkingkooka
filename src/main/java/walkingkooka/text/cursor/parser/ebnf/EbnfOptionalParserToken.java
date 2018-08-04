@@ -33,8 +33,8 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
         return new EbnfOptionalParserToken(copyAndCheckTokens(tokens), checkText(text), WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private EbnfOptionalParserToken(final List<ParserToken> tokens, final String text, final boolean computeWithout) {
-        super(tokens, text, computeWithout);
+    private EbnfOptionalParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
         this.checkOnlyOneToken();
     }
 
@@ -45,12 +45,12 @@ public final class EbnfOptionalParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfOptionalParserToken replaceText(final String text) {
-        return new EbnfOptionalParserToken(this.value(), text, WITHOUT_COMPUTE_REQUIRED);
+        return new EbnfOptionalParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     EbnfOptionalParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfOptionalParserToken(tokens, this.text(), WITHOUT_USE_THIS);
+        return new EbnfOptionalParserToken(tokens, this.text(), tokens);
     }
 
     @Override
