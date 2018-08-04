@@ -69,7 +69,7 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken {
 
     @Override
     JsonNodeObjectParserToken replaceText(final String text) {
-        return new JsonNodeObjectParserToken(this.value, text, WITHOUT_COMPUTE_REQUIRED);
+        return new JsonNodeObjectParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
     }
 
     @Override
