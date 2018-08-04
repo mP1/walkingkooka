@@ -21,7 +21,11 @@ package walkingkooka.tree.json;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.io.printer.IndentingPrinter;
+import walkingkooka.io.printer.IndentingPrinters;
+import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visiting;
@@ -267,6 +271,20 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .build();
         final Set<JsonNode> matched = selector.accept(object, selector.nulObserver());
         assertEquals("matched nodes", Sets.of(object.get(key2).get()), matched);
+    }
+
+    @Test
+    public void testPrintJsonWithoutIndentationAndNoneLineEnding() {
+        final JsonObjectNode object = JsonNode.object()
+                .set(key1(), JsonNode.booleanNode(true))
+                .set(key2(), JsonNode.number(2))
+                .set(key3(), JsonNode.string("third"));
+
+        final StringBuilder b = new StringBuilder();
+        final IndentingPrinter printer = IndentingPrinters.fixed(Printers.stringBuilder(b, LineEnding.NONE), Indentation.EMPTY);
+        object.printJson(printer);
+
+        assertEquals("{\"key1\": true,\"key2\": 2,\"key3\": \"third\"}", b.toString());
     }
 
     @Test

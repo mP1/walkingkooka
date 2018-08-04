@@ -20,8 +20,12 @@ package walkingkooka.tree.json;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.io.printer.IndentingPrinter;
+import walkingkooka.io.printer.IndentingPrinters;
+import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
 import walkingkooka.type.MethodAttributes;
@@ -71,6 +75,21 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
                     methodName.equals(isMethodName),
                     method.invoke(node));
         }
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testPrintJsonNullPrinterFails() {
+        this.createJsonNode().printJson(null);
+    }
+
+    @Test
+    public void testPrintJson() {
+        final N node = this.createJsonNode();
+        final StringBuilder b = new StringBuilder();
+        final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.SYSTEM));
+        node.printJson(printer);
+
+        assertEquals(node.toString(), b.toString());
     }
 
     @Override

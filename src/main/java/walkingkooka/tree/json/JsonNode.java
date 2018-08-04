@@ -22,10 +22,12 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
+import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelectorBuilder;
@@ -292,9 +294,20 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     public final String toString() {
         final StringBuilder b = new StringBuilder();
         final IndentingPrinter printer = IndentingPrinters.printer(Printers.stringBuilder(b, LineEnding.SYSTEM));
-        this.prettyPrint(printer);
+        this.printJson(printer);
         return b.toString();
     }
 
-    abstract void prettyPrint(final IndentingPrinter printer);
+    /**
+     * Prints this node to the printer.<br>
+     * To control indentation amount try {@link IndentingPrinters#fixed(Printer, Indentation)}.
+     * Other combinations of printers can be used to ignore printing all possible optional whitespace.
+     */
+    public final void printJson(final IndentingPrinter printer) {
+        Objects.requireNonNull(printer, "printer");
+        this.printJson0(printer);
+        printer.flush();
+    }
+
+    abstract void printJson0(final IndentingPrinter printer);
 }
