@@ -16,9 +16,23 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.ebnf.combinator;
+package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.text.cursor.parser.ParserException;
 
-public abstract class EbnfParserCombinatorSyntaxTreeTransformerTestCase<T extends EbnfParserCombinatorSyntaxTreeTransformer> extends PackagePrivateClassTestCase<T> {
+public class JsonNodeParserException extends ParserException {
+
+    protected JsonNodeParserException() {
+        super();
+    }
+
+    public JsonNodeParserException(final String message) {
+        super(message);
+    }
+
+    public JsonNodeParserException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    private final static long serialVersionUID = 1L;
 }
