@@ -20,15 +20,15 @@ package walkingkooka.text.cursor.parser.json;
 import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonNumberNode;
 import walkingkooka.tree.visit.Visiting;
 
-public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserTokenTestCase2<JsonNodeStringParserToken, String, JsonStringNode> {
+public final class JsonNodeNumberParserTokenTest extends JsonNodeLeafParserTokenTestCase2<JsonNodeNumberParserToken, Double, JsonNumberNode> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final JsonNodeStringParserToken token = this.createToken();
+        final JsonNodeNumberParserToken token = this.createToken();
 
         new FakeJsonNodeParserTokenVisitor() {
             @Override
@@ -58,7 +58,7 @@ public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserToken
             }
 
             @Override
-            protected void visit(final JsonNodeStringParserToken t) {
+            protected void visit(final JsonNodeNumberParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -68,31 +68,31 @@ public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserToken
 
     @Override
     String text() {
-        return "'A'";
+        return String.valueOf(this.value());
     }
 
     @Override
-    String value() {
-        return this.text();
+    Double value() {
+        return 123.5;
     }
 
     @Override
-    JsonStringNode jsonNode() {
-        return JsonNode.string(value());
+    JsonNumberNode jsonNode() {
+        return JsonNode.number(value());
     }
 
     @Override
-    protected JsonNodeStringParserToken createToken(final String value, final String text) {
-        return JsonNodeStringParserToken.with(value, text);
+    protected JsonNodeNumberParserToken createToken(final Double value, final String text) {
+        return JsonNodeNumberParserToken.with(value, text);
     }
 
     @Override
-    protected JsonNodeStringParserToken createDifferentToken() {
-        return JsonNodeStringParserToken.with("'different'", "'different'");
+    protected JsonNodeNumberParserToken createDifferentToken() {
+        return JsonNodeNumberParserToken.with(-999, "-999");
     }
 
     @Override
-    protected Class<JsonNodeStringParserToken> type() {
-        return JsonNodeStringParserToken.class;
+    protected Class<JsonNodeNumberParserToken> type() {
+        return JsonNodeNumberParserToken.class;
     }
 }

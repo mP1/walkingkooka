@@ -35,6 +35,21 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     }
 
     @Test
+    public final void testSetNameDifferent() {
+        final N node = this.createJsonNode();
+        final JsonNodeName originalName = node.name();
+        final V value = node.value();
+
+        final JsonNodeName differentName = JsonNodeName.with("different");
+        final N different = node.setName(differentName).cast();
+        assertEquals("name", differentName, different.name());
+        this.checkValue(different, value);
+
+        assertEquals("original name", originalName, node.name());
+        this.checkValue(node, value);
+    }
+
+    @Test
     public final void testSetSameValue() {
         final N node = this.createJsonNode();
         assertSame(node, node.setValue0(node.value()));

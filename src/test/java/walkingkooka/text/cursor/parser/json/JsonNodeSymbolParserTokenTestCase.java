@@ -19,17 +19,19 @@ package walkingkooka.text.cursor.parser.json;
 
 import org.junit.Test;
 
-public abstract class JsonNodeLeafParserTokenTestCase<T extends JsonNodeLeafParserToken, V> extends JsonNodeParserTokenTestCase<T> {
+import java.util.Optional;
+
+public abstract class JsonNodeSymbolParserTokenTestCase<T extends JsonNodeSymbolParserToken, V> extends JsonNodeLeafParserTokenTestCase<T, V> {
 
     @Test
-    public abstract void testToJsonNode();
-
-    @Override
-    protected final T createToken(final String text) {
-        return this.createToken(this.value(), text);
+    public final void testWithoutSymbolsOrWhitespace() {
+        final T token = this.createToken();
+        assertEquals(Optional.empty(), token.withoutSymbolsOrWhitespace());
     }
 
-    abstract V value();
-
-    abstract T createToken(final V value, final String text);
+    @Test
+    public final void testToJsonNode() {
+        final T token = this.createToken();
+        assertEquals(Optional.empty(), token.toJsonNode());
+    }
 }

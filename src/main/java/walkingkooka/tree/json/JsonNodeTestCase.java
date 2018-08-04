@@ -30,6 +30,20 @@ import java.lang.reflect.Method;
 
 public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2<JsonNode, JsonNodeName, Name, Object> {
 
+    @Test(expected = NullPointerException.class)
+    public final void testSetNameNullFails() {
+        this.createJsonNode().setName(null);
+    }
+
+    @Test
+    public final void testSetNameSame() {
+        final N node = this.createJsonNode();
+        assertSame(node, node.setName(node.name()));
+    }
+
+    @Test
+    public abstract void testSetNameDifferent();
+
     @Test
     public final void testIsMethods() throws Exception {
         final String prefix = "Json";

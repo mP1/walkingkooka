@@ -19,7 +19,9 @@ package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.json.JsonNode;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -83,6 +85,16 @@ public final class JsonNodeStringParserToken extends JsonNodeLeafParserToken2<St
     @Override
     public void accept(final JsonNodeParserTokenVisitor visitor){
         visitor.visit(this);
+    }
+
+    @Override
+    JsonNode toJsonNodeOrNull() {
+        return JsonNode.string(this.value());
+    }
+
+    @Override
+    void addJsonNode(final List<JsonNode> children) {
+        children.add(JsonNode.string(value()));
     }
 
     @Override

@@ -36,6 +36,12 @@ public final class JsonNumberNode extends JsonLeafNode<Double>{
         super(name, index, value);
     }
 
+    @Override
+    public JsonNumberNode setName(final JsonNodeName name) {
+        checkName(name);
+        return this.setName0(name).cast();
+    }
+
     public JsonBooleanNode setValue(final double value) {
         return this.setValue0(value).cast();
     }

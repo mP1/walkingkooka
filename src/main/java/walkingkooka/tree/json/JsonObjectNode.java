@@ -84,16 +84,22 @@ public final class JsonObjectNode extends JsonParentNode{
 
     private JsonObjectNode setChild0(final int index, final JsonNodeName name, final JsonNode value) {
         final List<JsonNode> children = this.copyChildren();
-        children.set(index, value.setName(name));
+        children.set(index, value.setName0(name));
 
         return this.setChildren1(children).cast();
     }
 
     private JsonObjectNode addChild(final JsonNodeName name, final JsonNode value) {
         final List<JsonNode> children = this.copyChildren();
-        children.add(value.setName(name));
+        children.add(value.setName0(name));
 
         return this.replaceChildren(children).cast();
+    }
+
+    @Override
+    public JsonObjectNode setName(final JsonNodeName name) {
+        checkName(name);
+        return this.setName0(name).cast();
     }
 
     @Override

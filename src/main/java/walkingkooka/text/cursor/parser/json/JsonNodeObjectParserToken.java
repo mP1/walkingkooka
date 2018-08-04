@@ -17,8 +17,12 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -36,8 +40,26 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken {
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private JsonNodeObjectParserToken(final List<ParserToken> value, final String text, final boolean computeWithout){
-        super(value, text, computeWithout);
+    private JsonNodeObjectParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
+
+        if(null!=valueWithout){
+            int i = 0;
+            JsonNodeParserToken j = null;
+
+            for(ParserToken t : this.value()) {
+                j = JsonNodeParserToken.class.cast(t);
+                if((i&1) == 0) {
+                    if(!j.isString()) {
+                        throw new IllegalArgumentException("Expected string key token, but got " + j + "=" + text);
+                    }
+                }
+                i++;
+            }
+            if(1 == (i&1)) {
+                throw new IllegalArgumentException("Key " + j + " missing value=" + text);
+            }
+        }
     }
 
     @Override
@@ -47,12 +69,12 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken {
 
     @Override
     JsonNodeObjectParserToken replaceText(final String text) {
-        return new JsonNodeObjectParserToken(this.value, text, WITHOUT_USE_THIS);
+        return new JsonNodeObjectParserToken(this.value, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
     @Override
     JsonNodeParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new JsonNodeObjectParserToken(tokens, this.text(), WITHOUT_USE_THIS);
+        return new JsonNodeObjectParserToken(tokens, this.text(), tokens);
     }
 
     @Override
@@ -71,6 +93,37 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
+    }
+
+    @Override
+    JsonNode toJsonNodeOrNull() {
+        JsonNodeStringParserToken key = null;
+
+        final JsonObjectNode object = JsonNode.object();
+        final List<JsonNode> objectChildren = Lists.array();
+
+        for(ParserToken element : JsonNodeObjectParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value()) {
+            if(element instanceof JsonNodeParserToken) {
+                final JsonNodeParserToken j = JsonNodeParserToken.class.cast(element);
+                if(j.isNoise()) {
+                    continue;
+                }
+                if(null == key) {
+                    key = j.cast();
+                } else {
+                    final JsonNode node = j.toJsonNode().get();
+                    objectChildren.add(node.setName(JsonNodeName.with(key.value())));
+                    key = null;
+                }
+            }
+        }
+
+        return object.setChildren(objectChildren);
+    }
+
+    @Override
+    final void addJsonNode(final List<JsonNode> children) {
+        children.add(this.toJsonNodeOrNull());
     }
 
     @Override

@@ -21,10 +21,50 @@ package walkingkooka.text.cursor.parser.json;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTokenTestCase<JsonNodeObjectParserToken> {
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithArrayKeyFails() {
+        JsonNodeParserToken.object(Lists.of(array()), "{[]}");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithBooleanKeyFails() {
+        JsonNodeParserToken.object(Lists.of(booleanToken(true)), "{true}");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithNullKeyFails() {
+        JsonNodeParserToken.object(Lists.of(nul()), "{null}");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithMNumberKeyFails() {
+        JsonNodeParserToken.object(Lists.of(number(123)), "{123}");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithObjectKeyFails() {
+        JsonNodeParserToken.object(Lists.of(object()), "{{}}");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithMissingValueFails() {
+        JsonNodeParserToken.object(Lists.of(string("key")), "{\"key\":}");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithMissingValueFails2() {
+        JsonNodeParserToken.object(Lists.of(string("key1"), number(123), string("key2")), "{\"key1\":123,\"key2\"}");
+    }
 
     @Test
     public void testWithoutWhitespace() {
@@ -33,6 +73,36 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
         final JsonNodeObjectParserToken object = object(objectBegin(), whitespace(), key, objectAssignment(), value, objectEnd()).cast();
         final JsonNodeObjectParserToken without = object.withoutSymbolsOrWhitespace().get().cast();
         assertEquals("value", Lists.of(key, value), without.value());
+    }
+
+    @Test
+    public void testToJsonNodeEmpty() {
+        assertEquals(Optional.of(JsonNode.object()), JsonNodeParserToken.object(Lists.empty(), "{}").toJsonNode());
+    }
+
+    @Test
+    public void testToJsonNode() {
+        assertEquals(Optional.of(JsonNode.object().set(JsonNodeName.with("key1"), JsonNode.number(123))),
+                object(string("key1"), number(123))
+                        .toJsonNode());
+    }
+
+    @Test
+    public void testArrayWithObjectToJsonNode() {
+        final JsonNodeParserToken objectToken = object(string("key1"), number(123));
+        final JsonNodeParserToken arrayToken = array(objectToken);
+
+        final JsonObjectNode objectNode = JsonNode.object().set(JsonNodeName.with("key1"), JsonNode.number(123));
+        final JsonArrayNode arrayNode = JsonNode.array().appendChild(objectNode);
+
+        assertEquals(Optional.of(arrayNode), arrayToken.toJsonNode());
+    }
+
+    @Test
+    public void testToJsonNodeWhitespace() {
+        assertEquals(Optional.of(JsonNode.object().set(JsonNodeName.with("key1"), JsonNode.number(123))),
+                object(whitespace(), string("key1"), whitespace(), number(123))
+                        .toJsonNode());
     }
 
     @Override

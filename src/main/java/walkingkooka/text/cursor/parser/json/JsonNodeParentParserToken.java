@@ -30,13 +30,12 @@ import java.util.stream.Collectors;
  */
 abstract class JsonNodeParentParserToken extends JsonNodeParserToken implements Value<List<ParserToken>> {
 
-    final static boolean WITHOUT_COMPUTE_REQUIRED = true;
-    final static boolean WITHOUT_USE_THIS = !WITHOUT_COMPUTE_REQUIRED;
+    final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 
-    JsonNodeParentParserToken(final List<ParserToken> value, final String text, final boolean computeWithout) {
+    JsonNodeParentParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(text);
         this.value = value;
-        this.without = computeWithout ?
+        this.without = null == valueWithout ?
                 this.computeWithout(value) :
                 Optional.of(this);
     }
@@ -52,6 +51,10 @@ abstract class JsonNodeParentParserToken extends JsonNodeParserToken implements 
     @Override
     public final Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
         return this.without;
+    }
+
+    final boolean isWithout() {
+        return this.without.get() == this;
     }
 
     private Optional<JsonNodeParserToken> without;
