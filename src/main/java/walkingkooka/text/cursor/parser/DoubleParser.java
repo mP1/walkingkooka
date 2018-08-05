@@ -49,7 +49,7 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate2<Double
     private final static int NAN_NAN = NAN_NA * 2;
     private final static int NAN_FINISH = NAN_NAN * 2;
 
-    private final static int INFINITY_I = NAN_FINISH;
+    private final static int INFINITY_I = NAN_FINISH * 2;
     private final static int INFINITY_IN = INFINITY_I * 2;
     private final static int INFINITY_INF = INFINITY_IN * 2;
     private final static int INFINITY_INFI = INFINITY_INF * 2;
