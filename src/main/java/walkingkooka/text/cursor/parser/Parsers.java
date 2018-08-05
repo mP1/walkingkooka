@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.MathContext;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -54,6 +55,13 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <T extends ParserToken, C extends ParserContext> Parser<T, C> customToString(final Parser<T, C> parser, final String toString) {
         return CustomToStringParser.wrap(parser, toString);
+    }
+
+    /**
+     * {@see DecimalParser}
+     */
+    public static <C extends ParserContext> Parser<DecimalParserToken, C> decimal(final char decimal, final MathContext context) {
+        return DecimalParser.with(decimal, context);
     }
 
     /**
