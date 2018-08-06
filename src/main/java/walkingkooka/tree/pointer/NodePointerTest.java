@@ -26,6 +26,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
 
@@ -33,6 +34,7 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
     private final static JsonNodeName DEF = JsonNodeName.with("def");
     private final static JsonNodeName GHI = JsonNodeName.with("ghi");
     private final static JsonNodeName JKL = JsonNodeName.with("jkl");
+    private final static Function<String, JsonNodeName> NAME_FACTORY = (s -> JsonNodeName.with(s));
 
     private final static String TEXT = "text123";
 
@@ -313,6 +315,75 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
         final JsonNode root = JsonNode.object()
                 .set(ABC, JsonNode.object().set(DEF, def));
         this.traverseAndCheck(pointer, root, def.toString());
+    }
+
+    // parse.............................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testParseNullPointerFails() {
+        NodePointer.parse(null, NAME_FACTORY, JsonNode.class);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseInvalidIndexFails() {
+        NodePointer.parse("/abc/-99", NAME_FACTORY, JsonNode.class);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseInvalidNameFails() {
+        NodePointer.parse("/abc//xyz", NAME_FACTORY, JsonNode.class);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseInvalidNameFails2() {
+        NodePointer.parse("missing-leading-slash", NAME_FACTORY, JsonNode.class);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testParseNullNameFactoryFails() {
+        NodePointer.parse("/valid-pointer", null, JsonNode.class);
+    }
+    @Test(expected = NullPointerException.class)
+    public void testParseNullNodeTypeFails() {
+        NodePointer.parse("/valid-pointer", NAME_FACTORY, null);
+    }
+
+    @Test
+    public void testParseThenTraverseElements() {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = parse("/0/1");
+
+        final JsonNode def = JsonNode.string(TEXT);
+        final JsonNode root = JsonNode.array()
+                .appendChild(JsonNode.array().appendChild(JsonNode.string("wrong")).appendChild(def));
+        this.traverseAndCheck(pointer, root, def.toString());
+    }
+
+    @Test
+    public void testParseThenTraverseNamed() {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = parse("/abc/def");
+
+        final JsonNode def = JsonNode.string(TEXT);
+
+        final JsonNode root = JsonNode.object()
+                .set(ABC, JsonNode.object().set(DEF, def));
+        this.traverseAndCheck(pointer, root, def.toString());
+    }
+
+    @Test
+    public void testParseThenTraverseNamedAndIndex() {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = parse("/abc/0/def");
+
+        final JsonNode def = JsonNode.string(TEXT);
+
+        final JsonNode root = JsonNode.object()
+                .set(ABC, JsonNode.array()
+                        .appendChild(JsonNode.object().set(DEF, def).set(GHI, JsonNode.string("wrong!")))
+                        .appendChild(JsonNode.number(123)));
+        this.traverseAndCheck(pointer, root, def.toString());
+    }
+
+    private NodePointer<JsonNode, JsonNodeName, Name, Object> parse(final String pointer) {
+        return NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
     }
 
     private void traverseAndCheck(final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer, final JsonNode root, final String toString) {
