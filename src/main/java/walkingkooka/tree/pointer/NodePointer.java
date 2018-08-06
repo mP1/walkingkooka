@@ -19,16 +19,65 @@
 package walkingkooka.tree.pointer;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A node pointer may be thought of as a JsonPointer that operates on any type of {@link Node}.
  * THe only difference is an element index will always match any first child, for something like a json object this will be the first key/value.
  */
 public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> {
+
+    /**
+     * Accepts and parses a {@link String} holding a pointer.
+     */
+    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> parse(final String pointer, final Function<String, NAME> nameFactory, final Class<N> nodeType) {
+        Objects.requireNonNull(pointer, "pointer");
+        Objects.requireNonNull(nameFactory, "name factory function");
+        Objects.requireNonNull(nodeType, "nodeType");
+
+        final String[] components = pointer.split(SEPARATOR.string());
+        NodePointer<N, NAME, ANAME, AVALUE> result = null;
+
+        int i = 0;
+        for(String component : components) {
+            if(0 == i){
+                if(!component.isEmpty()) {
+                    throw new IllegalArgumentException("Point missing initial '/'=" + CharSequences.quote(pointer));
+                }
+                i++;
+                continue;
+            }
+            if(component.isEmpty()) {
+                throw new IllegalArgumentException("Empty component found within pointer=" + CharSequences.quote(pointer));
+            }
+
+            i++;
+
+            try{
+                final int index = Integer.parseInt(component);
+                if(null==result){
+                   result = index(index, nodeType);
+                } else {
+                   result = result.index(index);
+                }
+            } catch (final NumberFormatException mustBeName) {
+                final NAME name = nameFactory.apply(component);
+                if(null==result){
+                    result = named(name, nodeType);
+                } else {
+                    result = result.named(name);
+                }
+            }
+        }
+
+        return result;
+    }
 
     /**
      * Creates an array element pointer.
@@ -127,7 +176,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
 
         NodePointer<N, NAME, ANAME, AVALUE> pointer = this;
         do {
-            b.append(SEPARATOR);
+            b.append(SEPARATOR.character());
             pointer.toString0(b);
 
             pointer = pointer.next;
@@ -136,7 +185,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         return b.toString();
     }
 
-    private final static char SEPARATOR = '/';
+    private final static CharacterConstant SEPARATOR = CharacterConstant.with('/');
 
     abstract void toString0(final StringBuilder b);
 }
