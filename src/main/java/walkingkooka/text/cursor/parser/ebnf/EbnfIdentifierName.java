@@ -18,15 +18,12 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicateBuilder;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
-
-import java.util.function.Predicate;
+import walkingkooka.text.CharSequences;
 
 /**
  * An identifier.
@@ -60,15 +57,11 @@ final public class EbnfIdentifierName implements Name, Comparable<EbnfIdentifier
             .or(INITIAL)
             .build();
 
-    private final static Predicate<String> PREDICATE = Cast.to(Predicates.initialAndPart(INITIAL, PART));
-
     /**
      * Factory that creates a {@link EbnfIdentifierName}
      */
     public static EbnfIdentifierName with(final String name) {
-        Predicates.failIfNullOrFalse(name,
-                PREDICATE,
-                "identifier %s must start with letter followed by letter|digit|underscore");
+        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, "Identifier", INITIAL, PART);
 
         return new EbnfIdentifierName(name);
     }
