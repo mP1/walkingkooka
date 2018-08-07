@@ -19,12 +19,10 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
-
-import java.util.function.Predicate;
+import walkingkooka.text.CharSequences;
 
 /**
  * The {@link Name} of a function.
@@ -35,15 +33,13 @@ final public class SpreadsheetFunctionName implements Name, HashCodeEqualsDefine
 
     final static CharPredicate PART = INITIAL.or(CharPredicates.range('0', '9').or(CharPredicates.is('.')));
 
-    final static Predicate<CharSequence> PREDICATE = Predicates.initialAndPart(INITIAL, PART);
-
     final static int MAX_LENGTH = 255;
 
     /**
      * Factory that creates a {@link SpreadsheetFunctionName}
      */
     public static SpreadsheetFunctionName with(final String name) {
-        Predicates.failIfNullOrFalse(name, PREDICATE, "Function name %s contains invalid character");
+        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, SpreadsheetFunctionName.class.getSimpleName(), INITIAL, PART);
 
         final int length = name.length();
         if(length > MAX_LENGTH) {

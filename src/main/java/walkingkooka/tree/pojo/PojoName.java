@@ -21,7 +21,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CharSequences;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -49,7 +48,6 @@ public final class PojoName implements Name, Comparable<PojoName> {
     }
 
     static PojoName property(final String name) {
-        Objects.requireNonNull(name, "name");
         Predicates.failIfNullOrFalse(name, NAME_PREDICATE, "Name is invalid property name %s");
 
         return new PojoName(name, -1);
