@@ -67,13 +67,13 @@ public final class Ip6Address extends IpAddress implements Comparable<Ip6Address
     }
 
     @Override
-    public Ip4Address isIp4() {
-        return null;
+    public boolean isIp4() {
+        return false;
     }
 
     @Override
-    public Ip6Address isIp6() {
-        return this;
+    public boolean isIp6() {
+        return true;
     }
 
     @Override

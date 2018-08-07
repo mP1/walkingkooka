@@ -69,10 +69,10 @@ final class HostAddressInvalidValueProblem extends HostAddressProblem implements
     public boolean equals(final Object other) {
         return (this == other)
                 || ((other instanceof HostAddressInvalidValueProblem)
-                && this.equals((HostAddressInvalidValueProblem) other));
+                && this.equals0((HostAddressInvalidValueProblem) other));
     }
 
-    private boolean equals(final HostAddressInvalidValueProblem other) {
+    private boolean equals0(final HostAddressInvalidValueProblem other) {
         return this.at == other.at;
     }
 

@@ -49,10 +49,6 @@ abstract public class IpAddressTestCase<A extends IpAddress> extends HashCodeEqu
         assertNotSame("value should not be cached.", components, address.value());
     }
 
-    @Test public final void testIsMethod() throws Exception {
-        this.checkAllPublicIsNonPrimitiveMethods(this.createAddress());
-    }
-
     final A createAddress() {
         return this.createAddress(new byte[this.bitCount() / 8]);
     }

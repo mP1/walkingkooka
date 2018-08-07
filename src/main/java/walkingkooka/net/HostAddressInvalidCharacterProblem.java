@@ -71,10 +71,10 @@ final class HostAddressInvalidCharacterProblem extends HostAddressProblem implem
     public boolean equals(final Object other) {
         return (this == other)
                 || ((other instanceof HostAddressInvalidCharacterProblem)
-                && this.equals((HostAddressInvalidCharacterProblem) other));
+                && this.equals0((HostAddressInvalidCharacterProblem) other));
     }
 
-    private boolean equals(final HostAddressInvalidCharacterProblem other) {
+    private boolean equals0(final HostAddressInvalidCharacterProblem other) {
         return this.at == other.at;
     }
 

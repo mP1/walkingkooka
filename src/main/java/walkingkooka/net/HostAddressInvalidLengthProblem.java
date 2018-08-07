@@ -69,10 +69,10 @@ final class HostAddressInvalidLengthProblem extends HostAddressProblem implement
     public boolean equals(final Object other) {
         return (this == other)
                 || ((other instanceof HostAddressInvalidLengthProblem)
-                && this.equals((HostAddressInvalidLengthProblem) other));
+                && this.equals0((HostAddressInvalidLengthProblem) other));
     }
 
-    private boolean equals(final HostAddressInvalidLengthProblem other) {
+    private boolean equals0(final HostAddressInvalidLengthProblem other) {
         return this.at == other.at;
     }
 

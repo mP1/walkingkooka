@@ -57,14 +57,14 @@ abstract public class IpAddress implements Value<byte[]>, HashCodeEqualsDefined,
     // IpAddress
 
     /**
-     * Returns a <code>non null</code> when a {@link Ip4Address}.
+     * Returns true only {@link Ip4Address}.
      */
-    abstract public Ip4Address isIp4();
+    abstract public boolean isIp4();
 
     /**
-     * Returns a <code>non null</code> when a {@link Ip6Address}.
+     * Returns true only for {@link Ip6Address}.
      */
-    abstract public Ip6Address isIp6();
+    abstract public boolean isIp6();
 
     // Value
 
