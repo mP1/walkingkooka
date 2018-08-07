@@ -59,14 +59,13 @@ public final class ParserTokenNodeNameTest extends NameTestCase<ParserTokenNodeN
 
     @Test
     public void testWith() {
-        final ParserTokenNodeName name = ParserTokenNodeName.with("Hello");
-        assertEquals("name.value", "Hello", name.value());
+        this.createNameAndCheck("Hello");
     }
 
     @Test
     public void testWithIndex() {
         final ParserTokenNodeName name = ParserTokenNodeName.with(1);
-        assertEquals("name.value", "1", name.value());
+        this.checkValue(name, "1");
     }
 
     @Test

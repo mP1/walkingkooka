@@ -35,9 +35,7 @@ public final class FileNodeNameTest extends NameTestCase<FileNodeName> {
 
     @Test
     public void testWith() {
-        final String value = "abc";
-        final FileNodeName name = FileNodeName.with(value);
-        assertEquals("value", value, name.value());
+        this.createNameAndCheck("abc");
     }
 
     @Test

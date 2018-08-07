@@ -32,7 +32,7 @@ public final class ParserTokenNodeAttributeName implements Name {
     /**
      * Package private ctor to limit creation.
      */
-    ParserTokenNodeAttributeName(final String value) {
+    private ParserTokenNodeAttributeName(final String value) {
         this.value = value;
     }
 
