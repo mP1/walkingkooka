@@ -31,7 +31,13 @@ final public class StringNameTest extends NameTestCase<StringName> {
         StringName.with("name-" + StringPath.SEPARATOR.string());
     }
 
-    @Override protected StringName createName(final String name) {
+    @Test
+    public void testCreate() {
+        this.createNameAndCheck("abc-123");
+    }
+
+    @Override
+    protected StringName createName(final String name) {
         return StringName.with(name);
     }
 

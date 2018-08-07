@@ -40,9 +40,7 @@ public final class JsonNodeNameTest extends NameTestCase<JsonNodeName> {
 
     @Test
     public void testWith() {
-        final String value = "abc";
-        final JsonNodeName name = JsonNodeName.with(value);
-        assertEquals("value", value, name.value());
+        this.createNameAndCheck("abc");
     }
 
     @Test

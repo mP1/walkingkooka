@@ -46,9 +46,7 @@ final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierNam
 
     @Test
     public void testWith() {
-        final String text = "Abc_123";
-        final EbnfIdentifierName name = this.createName(text);
-        assertEquals("value", text, name.value());
+        this.createNameAndCheck("Abc_123");
     }
 
     @Test

@@ -61,32 +61,27 @@ final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabe
 
     @Test
     public void testWith() {
-        this.createAndCheck("Abc_123");
+        this.createNameAndCheck("Abc_123");
     }
 
     @Test
     public void testWith2() {
-        this.createAndCheck("ZZZ1");
+        this.createNameAndCheck("ZZZ1");
     }
 
     @Test
     public void testWith3() {
-        this.createAndCheck("A" + (SpreadsheetRow.MAX + 1));
+        this.createNameAndCheck("A" + (SpreadsheetRow.MAX + 1));
     }
 
     @Test
     public void testWith4() {
-        this.createAndCheck("A123Hello");
+        this.createNameAndCheck("A123Hello");
     }
 
     @Test
     public void testWith5() {
-        this.createAndCheck("A1B2C2");
-    }
-
-    private void createAndCheck(final String text) {
-        final SpreadsheetLabelName name = this.createName(text);
-        assertEquals("value", text, name.value());
+        this.createNameAndCheck("A1B2C2");
     }
 
     @Test

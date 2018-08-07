@@ -50,9 +50,7 @@ final public class SpreadsheetFunctionNameTest extends NameTestCase<SpreadsheetF
 
     @Test
     public void testWith() {
-        final String text = "Abc.123";
-        final SpreadsheetFunctionName name = this.createName(text);
-        assertEquals("value", text, name.value());
+        this.createNameAndCheck("Abc.123");
     }
 
     @Test

@@ -31,7 +31,13 @@ final public class PropertiesNameTest extends NameTestCase<PropertiesName> {
         PropertiesName.with("xyz" + PropertiesPath.SEPARATOR.string());
     }
 
-    @Override protected PropertiesName createName(final String name) {
+    @Test
+    public void testWith() {
+        this.createNameAndCheck("abc");
+    }
+
+    @Override
+    protected PropertiesName createName(final String name) {
         return PropertiesName.with(name);
     }
 

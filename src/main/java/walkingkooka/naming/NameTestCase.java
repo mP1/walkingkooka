@@ -17,6 +17,7 @@
 
 package walkingkooka.naming;
 
+import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
 /**
@@ -28,13 +29,24 @@ abstract public class NameTestCase<N extends Name> extends PublicClassTestCase<N
         super();
     }
 
-    final public void testNullFails() {
+    @Test(expected = NullPointerException.class)
+    public void testNullFails() {
         this.createName(null);
     }
 
+    @Test
     public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
 
     abstract protected N createName(String name);
+
+    protected void createNameAndCheck(final String value) {
+        final N name = this.createName(value);
+        this.checkValue(name, value);
+    }
+
+    protected void checkValue(final Name name, final String value) {
+        assertEquals("value", value, name.value());
+    }
 }

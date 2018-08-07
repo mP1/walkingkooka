@@ -16,12 +16,21 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import org.junit.Ignore;
+import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
 public final class ParserTokenNodeAttributeNameTest extends NameTestCase<ParserTokenNodeAttributeName> {
+
+    @Test
+    @Ignore
+    public void testNullFails() {
+        // ignore
+    }
+
     @Override
-    protected ParserTokenNodeAttributeName createName(String name) {
-        return ParserTokenNodeAttributeName.TEXT;
+    protected ParserTokenNodeAttributeName createName(final String name) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

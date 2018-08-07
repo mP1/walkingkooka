@@ -45,8 +45,7 @@ public final class PojoNameTest extends NameTestCase<PojoName> {
 
     @Test
     public void testProperty() {
-        final PojoName name = PojoName.property(PROPERTY);
-        assertEquals(PROPERTY, name.value());
+        this.createNameAndCheck(PROPERTY);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -57,7 +56,7 @@ public final class PojoNameTest extends NameTestCase<PojoName> {
     @Test
     public void testIndex() {
         final PojoName name = PojoName.index(123);
-        assertEquals("123", name.value());
+        this.checkValue(name, "123");
     }
 
     @Override
