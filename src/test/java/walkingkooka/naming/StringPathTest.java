@@ -60,15 +60,18 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName> {
         this.checkWithoutParent(path);
     }
 
-    @Override StringPath root() {
+    @Override
+    protected StringPath root() {
         return StringPath.ROOT;
     }
 
-    @Override protected StringPath createPath() {
+    @Override
+    protected StringPath createPath() {
         return StringPath.parse("/path");
     }
 
-    @Override StringPath parsePath(final String path) {
+    @Override
+    protected StringPath parsePath(final String path) {
         return StringPath.parse(path);
     }
 

@@ -34,23 +34,27 @@ import java.util.Optional;
  */
 abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends PublicClassTestCase<P> {
 
-    PathTestCase() {
+    protected PathTestCase() {
         super();
     }
 
-    @Test final public void testSeparatorConstant() throws Exception {
+    @Test
+    final public void testSeparatorConstant() throws Exception {
         this.checkFieldIsPublicStaticFinal(this.type(), "SEPARATOR", PathSeparator.class);
     }
 
-    @Test(expected = NullPointerException.class) final public void testParseNullFails() {
+    @Test(expected = NullPointerException.class)
+    final public void testParseNullFails() {
         this.parsePath(null);
     }
 
-    @Test(expected = IllegalArgumentException.class) final public void testParseEmptyFails() {
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseEmptyFails() {
         this.parsePath("");
     }
 
-    @Test(expected = NullPointerException.class) final public void testAppendNullNameFails() {
+    @Test(expected = NullPointerException.class)
+    final public void testAppendNullNameFails() {
         this.createPath().append((N) null);
     }
 
@@ -164,11 +168,11 @@ abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends
 
     // factory
 
-    abstract P root();
+    abstract protected P root();
 
     abstract protected P createPath();
 
-    abstract P parsePath(String name);
+    abstract protected P parsePath(String name);
 
     abstract protected N createName(int n);
 

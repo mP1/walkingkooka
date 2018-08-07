@@ -1,0 +1,118 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ */
+
+package walkingkooka.net;
+
+import org.junit.Ignore;
+import org.junit.Test;
+import walkingkooka.naming.PathSeparator;
+import walkingkooka.naming.PathTestCase;
+
+public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> {
+
+    @Test
+    public void testEmpty() {
+        assertSame(UrlPath.EMPTY, UrlPath.parse(""));
+    }
+
+    @Test
+    @Ignore
+    public void testParseEmptyFails() {
+        // nop
+    }
+
+    @Test
+    public void testParseRoot() {
+        assertSame(UrlPath.ROOT, UrlPath.parse("/"));
+    }
+
+    @Test
+    public void testParseDeoesntNormalize() {
+        final UrlPath path = UrlPath.parse("/a1/removed/../x/y");
+        this.checkValue(path, "/a1/removed/../x/y");
+        this.checkParent(path, "/a1/removed/../x");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAppendEmptyName() {
+        final UrlPath path = UrlPath.parse("/path");
+        path.append(UrlPathName.ROOT);
+    }
+
+    @Test
+    public void testAppendEmptyPath() {
+        final UrlPath path = UrlPath.parse("/path");
+        assertEquals(path, path.append(UrlPath.EMPTY));
+    }
+
+    @Test
+    public void testAppendToEmptyPath() {
+        final UrlPath path = UrlPath.parse("/path");
+        assertEquals(path, UrlPath.EMPTY.append(path));
+    }
+
+    @Test
+    public void testAppendPathOneComponent() {
+        final UrlPath a1 = UrlPath.parse("/a1");
+        final UrlPath b2 = UrlPath.parse("/b2");
+        final UrlPath appended = a1.append(b2);
+        this.checkValue(appended, "/a1/b2");
+        this.checkParent(appended, a1);
+    }
+
+    @Test
+    public void testAppendPathTwoComponent() {
+        final UrlPath a1 = UrlPath.parse("/a1");
+        final UrlPath b2 = UrlPath.parse("/b2/c3");
+        final UrlPath appended = a1.append(b2);
+        this.checkValue(appended, "/a1/b2/c3");
+
+        this.checkParent(appended, "/a1/b2");
+    }
+
+    @Override
+    protected UrlPath createPath() {
+        return UrlPath.parse("/a1");
+    }
+
+    @Override
+    protected UrlPathName createName(final int n) {
+        final char c = (char)('a' + n);
+        return UrlPathName.with( c + "" + n);
+    }
+
+    @Override
+    protected UrlPath root() {
+        return UrlPath.ROOT;
+    }
+
+    @Override
+    protected UrlPath parsePath(final String name){
+        return UrlPath.parse(name);
+    }
+
+    @Override
+    protected PathSeparator separator() {
+        return UrlPath.SEPARATOR;
+    }
+
+    @Override
+    protected Class<UrlPath> type() {
+        return UrlPath.class;
+    }
+}

@@ -1,0 +1,234 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ */
+
+package walkingkooka.net;
+
+import walkingkooka.io.serialize.SerializationProxy;
+
+import java.util.Objects;
+import java.util.Optional;
+
+/**
+ * Note that equality is based by comparing all components, with only the scheme being compared while ignoring case.
+ */
+public final class AbsoluteUrl extends Url {
+
+    /**
+     * Factory that creates an {@link AbsoluteUrl}
+     */
+    static AbsoluteUrl with(final UrlScheme scheme,
+                            final Optional<UrlCredentials> credentials,
+                            final HostAddress host,
+                            final Optional<IpPort> port,
+                            final UrlPath path,
+                            final UrlQueryString query, final UrlFragment fragment) {
+        Objects.requireNonNull(scheme, "scheme");
+        Objects.requireNonNull(credentials, "credentials");
+        Objects.requireNonNull(host, "host");
+        Objects.requireNonNull(port, "port");
+        Objects.requireNonNull(path, "path");
+        Objects.requireNonNull(query, "query");
+        Objects.requireNonNull(fragment, "fragment");
+
+        return new AbsoluteUrl(scheme, credentials, host, port, path, query, fragment);
+    }
+
+    /**
+     * Private constructor.
+     */
+    private AbsoluteUrl(final UrlScheme scheme,
+                        final Optional<UrlCredentials> credentials,
+                        final HostAddress host,
+                        final Optional<IpPort> port,
+                        final UrlPath path,
+                        final UrlQueryString query,
+                        final UrlFragment fragment) {
+        super(path, query, fragment);
+
+        this.scheme = scheme;
+        this.credentials = credentials;
+        this.host = host;
+        this.port = port;
+    }
+
+    // Url
+
+    @Override
+    public boolean isRelative() {
+        return false;
+    }
+
+    @Override
+    public boolean isAbsolute() {
+        return true;
+    }
+
+    /**
+     * Unconditionally creates a new {@link AbsoluteUrl}
+     */
+    @Override
+    final Url replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
+        return new AbsoluteUrl(this.scheme, this.credentials, this.host, this.port, path, query, fragment);
+    }
+
+    /**
+     * Returns the scheme with this URL.
+     */
+    public UrlScheme scheme() {
+        return this.scheme;
+    }
+
+    public AbsoluteUrl setScheme(final UrlScheme scheme) {
+        Objects.requireNonNull(scheme, "scheme");
+
+        return this.scheme.equals(scheme) ?
+                this :
+                new AbsoluteUrl(scheme, this.credentials, this.host, this.port, this.path, this.query, this.fragment);
+    }
+
+    final UrlScheme scheme;
+
+    /**
+     * Returns the credentials with this URL.
+     */
+    public Optional<UrlCredentials> credentials() {
+        return this.credentials;
+    }
+
+    public AbsoluteUrl setCredentials(final Optional<UrlCredentials> credentials) {
+        Objects.requireNonNull(credentials, "credentials");
+
+        return this.credentials.equals(credentials) ?
+                this :
+                new AbsoluteUrl(this.scheme, credentials, this.host, this.port, this.path, this.query, this.fragment);
+    }
+
+    final Optional<UrlCredentials> credentials;
+
+    /**
+     * Retrieves the {@link HostAddress} embedded within this URL.
+     */
+    public HostAddress host() {
+        return this.host;
+    }
+
+    public AbsoluteUrl setHost(final HostAddress host) {
+        Objects.requireNonNull(host, "host");
+
+        return this.host.equals(host) ?
+               this :
+               new AbsoluteUrl(this.scheme, this.credentials, host, this.port, this.path, this.query, this.fragment);
+    }
+
+    final HostAddress host;
+
+    /**
+     * Retrieves the {@link IpPort} within this URL. Note this value is never null and if not present in the URL will have the default for the scheme.
+     */
+    public Optional<IpPort> port() {
+        return this.port;
+    }
+
+    public AbsoluteUrl setPort(final Optional<IpPort> port) {
+        Objects.requireNonNull(port, "port");
+
+        return this.port.equals(port) ?
+                this :
+                new AbsoluteUrl(this.scheme, this.credentials, this.host, port, this.path, this.query, this.fragment);
+    }
+
+    final Optional<IpPort> port;
+
+    @Override
+    public AbsoluteUrl set(final UrlScheme scheme,
+                                    final Optional<UrlCredentials> credentials,
+                                    final HostAddress host,
+                                    final Optional<IpPort> port){
+        return this.setScheme(scheme)
+               .setCredentials(credentials)
+               .setHost(host)
+               .setPort(port);
+    }
+
+    /**
+     * Returns a {@link RelativeUrl} built from the path, query and fragment components.
+     */
+    public RelativeUrl relativeUrl() {
+        return RelativeUrl.with(this.path, this.query, this.fragment);
+    }
+
+    // Object ......................................................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.scheme,
+                this.credentials,
+                this.host,
+                this.port,
+                this.path,
+                this.query,
+                this.fragment);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+                other instanceof AbsoluteUrl &&
+                this.equals0((AbsoluteUrl) other);
+    }
+
+    private boolean equals0(final AbsoluteUrl other) {
+        return this.scheme.equals(other.scheme) && //
+                this.credentials.equals(other.credentials) && //
+                this.host.equals(other.host) && //
+                this.port.equals(other.port) && //
+                this.path.equals(other.path) && //
+                this.query.equals(other.query) && //
+                this.fragment.equals(other.fragment);
+    }
+
+    @Override
+    void toString0(final StringBuilder b) {
+        this.scheme.toString0(b);
+        if(this.credentials.isPresent()) {
+            this.credentials.get().toString0(b);
+        }
+        this.host.toString0(b);
+        if(this.port.isPresent()) {
+            this.port.get().toString0(b);
+        }
+    }
+
+    // Serializable
+
+    /**
+     * Returns either of the two {@link SerializationProxy}
+     */
+    private Object writeReplace() {
+        return new AbsoluteUrlSerializationProxy(this);
+    }
+
+    /**
+     * Should never be called expect a serialization proxy
+     */
+    private Object readResolve() {
+        throw new UnsupportedOperationException();
+    }
+
+    private final static long serialVersionUID = 1L;
+}
