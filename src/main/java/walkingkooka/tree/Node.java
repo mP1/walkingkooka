@@ -126,7 +126,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         if (!parent.isPresent()) {
             throw new IllegalArgumentException("Old child has no parent=" + oldChild);
         }
-        if (!parent.get().equals(this)) {
+        if (parent.get() != this) {
             throw new IllegalArgumentException("Old child has different parent=" + oldChild);
         }
 

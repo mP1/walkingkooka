@@ -131,7 +131,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     public void testReplaceChildDifferentParent() {
         final N parent1 = this.createNode();
 
-        final N parent2 = this.createNode().appendChild(this.createNode());
+        final N parent2 = this.createNode();
         final N childOf2 = parent2.children().get(0);
 
         parent1.replaceChild(childOf2, this.createNode());

@@ -204,6 +204,23 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testReplaceChild() {
+        final JsonNodeName key1 = this.key1();
+
+        final JsonObjectNode root = JsonNode.object()
+                .set(key1, this.value1());
+        this.checkChildCount(root, 1);
+
+        final JsonNodeName key2 = this.key2();
+        final JsonStringNode value2 = this.value2().setName(key2);
+        final JsonObjectNode updated = root.replaceChild(root.get(key1).get(), value2)
+                .cast();
+
+        this.checkChildCount(updated, 1);
+        this.getAndCheck(updated, key2, VALUE2);
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<JsonNode> visited = Lists.array();
