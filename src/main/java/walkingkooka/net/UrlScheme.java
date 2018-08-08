@@ -28,6 +28,7 @@ import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A {@link Name} that holds a URI/URL scheme and when testing for equality case is insignificant.
@@ -119,6 +120,16 @@ public final class UrlScheme
     }
 
     private final String nameWithSlashes;
+
+
+    /**
+     * Combines this scheme and a {@link HostAddress} giving an {@link AbsoluteUrl}
+     */
+    public AbsoluteUrl andHost(final HostAddress address) {
+        Objects.requireNonNull(address, "address");
+
+        return Url.absolute(this, UrlCredentials.NO_CREDENTIALS, address, IpPort.WITHOUT_PORT, UrlPath.EMPTY, UrlQueryString.EMPTY, UrlFragment.EMPTY);
+    }
 
     // Comparable
 
