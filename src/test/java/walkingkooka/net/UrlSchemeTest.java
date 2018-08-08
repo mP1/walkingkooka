@@ -49,6 +49,27 @@ public final class UrlSchemeTest extends NameTestCase<UrlScheme> {
         this.createName("A123456789+-.abcABCxyzXYZ");
     }
 
+    // withHost...........................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testAndHostNullFails() {
+        UrlScheme.HTTP.andHost(null);
+    }
+
+    @Test
+    public void testAndHost() {
+        final UrlScheme scheme = UrlScheme.HTTPS;
+        final HostAddress address = HostAddress.with("example.com");
+        final AbsoluteUrl url = scheme.andHost(address);
+        assertSame("scheme", scheme, url.scheme());
+        assertEquals("credentials", UrlCredentials.NO_CREDENTIALS, url.credentials());
+        assertSame("host", address, url.host());
+        assertEquals("port", IpPort.WITHOUT_PORT, url.port());
+        assertEquals("path", UrlPath.EMPTY, url.path());
+        assertEquals("queryString", UrlQueryString.EMPTY, url.query());
+        assertEquals("fragment", UrlFragment.EMPTY, url.fragment());
+    }
+
     @Override
     protected UrlScheme createName(final String name) {
         return UrlScheme.with(name);

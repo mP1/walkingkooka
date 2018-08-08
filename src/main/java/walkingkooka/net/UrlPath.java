@@ -203,6 +203,15 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
         return this == UrlPath.EMPTY;
     }
 
+    /**
+     * Adds a query string to this path returning a {@link RelativeUrl}
+     */
+    public RelativeUrl addQueryString(final UrlQueryString queryString) {
+        Objects.requireNonNull(queryString, "queryString");
+
+        return Url.relative(this, queryString, UrlFragment.EMPTY);
+    }
+
     // Comparable......................................................................................................
 
     @Override

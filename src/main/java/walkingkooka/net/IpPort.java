@@ -27,6 +27,7 @@ import java.io.Serializable;
 import java.net.ServerSocket;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Value class that holds a valid ip port. <br>
@@ -34,7 +35,10 @@ import java.util.Objects;
  */
 public final class IpPort implements Comparable<IpPort>, HashCodeEqualsDefined, Serializable {
 
-    private final static long serialVersionUID = 1L;
+    /**
+     * Useful constant when creating an {@link AbsoluteUrl}.
+     */
+    public final static Optional<IpPort> WITHOUT_PORT = Optional.empty();
 
     /**
      * Tests if the given {@link int number} is a valid port.
@@ -238,4 +242,8 @@ public final class IpPort implements Comparable<IpPort>, HashCodeEqualsDefined, 
         b.append(Url.HOST_PORT_SEPARATOR.character());
         b.append(this.value);
     }
+
+    // Serializable ..................................................................................................
+
+    private final static long serialVersionUID = 1L;
 }

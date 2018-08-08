@@ -85,6 +85,25 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> {
         this.checkParent(appended, "/a1/b2");
     }
 
+    // addQueryString..................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testAddQueryStringNullFails() {
+        this.createPath().addQueryString(null);
+    }
+
+    @Test
+    public void testAddQueryString() {
+        final UrlPath path = this.createPath();
+        final UrlQueryString queryString = UrlQueryString.with("a=b");
+        final RelativeUrl url = path.addQueryString(queryString);
+        assertSame("path", path, url.path());
+        assertSame("queryString", queryString, url.query());
+        assertEquals("fragment", UrlFragment.EMPTY, url.fragment());
+    }
+
+    // helpers..................................................................................................
+
     @Override
     protected UrlPath createPath() {
         return UrlPath.parse("/a1");
