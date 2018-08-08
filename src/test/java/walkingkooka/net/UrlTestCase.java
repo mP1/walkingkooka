@@ -20,6 +20,7 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
@@ -37,6 +38,11 @@ abstract public class UrlTestCase<U extends Url> extends PublicClassTestCase<U> 
     final static UrlFragment FRAGMENT = UrlFragment.with("fragment");
 
     // tests
+
+    @Test
+    public final void testNaming() {
+        this.checkNaming(Url.class);
+    }
 
     @Test(expected = NullPointerException.class)
     public void testNullPathFails() {

@@ -19,10 +19,17 @@
 package walkingkooka.net;
 
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
 public final class UrlSchemeTest extends NameTestCase<UrlScheme> {
+
+    @Test
+    @Ignore
+    public void testNaming() {
+        throw new UnsupportedOperationException();
+    }
 
     @Test
     public void testHttpConstants() {

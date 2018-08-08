@@ -31,6 +31,11 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
     // tests
 
     @Test
+    public void testNaming() {
+        this.checkNaming(TextCursor.class);
+    }
+
+    @Test
     public void testIsEmptyNotEmpty() {
         final C cursor = this.createTextCursor("1");
         this.checkNotEmpty(cursor);

@@ -38,7 +38,12 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     public final void testBuilderProductTypePublic() {
         final Class<T> type = this.builderProductType();
         assertEquals("Builder product type " + type.getName() + " is not public", MemberVisibility.PUBLIC, MemberVisibility.get(type));
-;    }
+    }
+
+    @Test
+    public final void testNaming() {
+        this.checkNaming(Builder.class);
+    }
 
     protected void buildFails() {
         this.buildFails(this.createBuilder());

@@ -32,4 +32,9 @@ public final class Ip4AddressComparableTest extends ComparableTestCase<Ip4Addres
     protected Ip4Address createComparable() {
         return Ip4Address.with(new byte[]{1, 2, 3, 4});
     }
+
+    @Override
+    protected Class<Ip4Address> type() {
+        return Ip4Address.class;
+    }
 }

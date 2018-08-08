@@ -133,6 +133,11 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     }
 
     @Override
+    protected Class<SequenceParserBuilder> type() {
+        return Cast.to(SequenceParserBuilder.class);
+    }
+
+    @Override
     protected Class<Parser<SequenceParserToken, FakeParserContext>> builderProductType() {
         return Cast.to(SequenceParserToken.class);
     }

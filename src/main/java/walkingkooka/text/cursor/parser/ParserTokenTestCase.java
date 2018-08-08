@@ -30,6 +30,11 @@ import static org.junit.Assert.assertNotSame;
 public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicClassTestCase<T> {
 
     @Test
+    public final void testNaming() {
+        this.checkNaming(ParserToken.class);
+    }
+
+    @Test
     public final void testNameConstantPresent() throws Exception {
         final Class<T> type = this.type();
         final Field field = type.getField("NAME");

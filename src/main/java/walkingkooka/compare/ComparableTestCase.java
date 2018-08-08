@@ -19,13 +19,14 @@ package walkingkooka.compare;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.TestCase;
 
 /**
  * A {@link TestCase} for testing {@link Comparable comparables}. Many compareTo methods are
  * available that compare andassert the result.
  */
-abstract public class ComparableTestCase<C extends Comparable<C>> extends TestCase {
+abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassTestCase {
 
     protected ComparableTestCase() {
         super();

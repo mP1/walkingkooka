@@ -33,4 +33,9 @@ public final class UrlPathComparableTest extends ComparableTestCase<UrlPath> {
     protected UrlPath createComparable() {
         return UrlPath.parse("/path/to/resource");
     }
+
+    @Override
+    protected Class<UrlPath> type() {
+        return UrlPath.class;
+    }
 }

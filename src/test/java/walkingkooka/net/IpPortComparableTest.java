@@ -53,4 +53,9 @@ public final class IpPortComparableTest extends ComparableTestCase<IpPort> {
     protected IpPort createComparable() {
         return IpPort.HTTP;
     }
+
+    @Override
+    protected Class<IpPort> type() {
+        return IpPort.class;
+    }
 }

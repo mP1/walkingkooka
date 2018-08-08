@@ -16,7 +16,13 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import org.junit.Test;
 import walkingkooka.ContextTestCase;
 
 public abstract class ParserContextTestCase<C extends ParserContext> extends ContextTestCase<C> {
+
+    @Test
+    public final void testNaming2() {
+        this.checkNaming(ParserContext.class);
+    }
 }

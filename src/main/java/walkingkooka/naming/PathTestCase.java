@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PublicClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +37,11 @@ abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends
 
     protected PathTestCase() {
         super();
+    }
+
+    @Test
+    public final void testNaming() {
+        this.checkNaming(Path.class);
     }
 
     @Test

@@ -235,4 +235,9 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     protected Class<String> builderProductType() {
         return String.class;
     }
+
+    @Override
+    protected Class type() {
+        return MissingBuilder.class;
+    }
 }
