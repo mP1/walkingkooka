@@ -34,4 +34,9 @@ public final class Ip6AddressComparableTest extends ComparableTestCase<Ip6Addres
     protected Ip6Address createComparable() {
         return Ip6Address.with(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0});
     }
+
+    @Override
+    protected Class<Ip6Address> type() {
+        return Ip6Address.class;
+    }
 }

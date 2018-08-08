@@ -315,4 +315,9 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     protected Class<NodeSelector<TestFakeNode, StringName, StringName, Object>> builderProductType() {
         return Cast.to(NodeSelector.class);
     }
+
+    @Override
+    protected Class<NodeSelectorBuilder> type() {
+        return Cast.to(NodeSelectorBuilder.class);
+    }
 }

@@ -19,6 +19,7 @@ package walkingkooka.predicate.character;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.text.CharSequences;
 
@@ -336,6 +337,11 @@ final public class CharPredicateBuilderTest
     @Override
     protected CharPredicateBuilder createBuilder() {
         return CharPredicateBuilder.create();
+    }
+
+    @Override
+    protected Class<CharPredicateBuilder> type() {
+        return Cast.to(CharPredicateBuilder.class);
     }
 
     @Override

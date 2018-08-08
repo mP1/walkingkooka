@@ -29,6 +29,11 @@ abstract public class NameTestCase<N extends Name> extends PublicClassTestCase<N
         super();
     }
 
+    @Test
+    public void testNaming() {
+        this.checkNaming(Name.class);
+    }
+
     @Test(expected = NullPointerException.class)
     public void testNullFails() {
         this.createName(null);

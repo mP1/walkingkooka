@@ -324,6 +324,11 @@ final public class ChainFactoryChainBuilderTest
     }
 
     @Override
+    protected Class<ChainFactoryChainBuilder> type() {
+        return ChainFactoryChainBuilder.class;
+    }
+
+    @Override
     protected Class<Fake> builderProductType() {
         return Fake.class;
     }

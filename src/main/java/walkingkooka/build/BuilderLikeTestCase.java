@@ -17,12 +17,12 @@
 
 package walkingkooka.build;
 
-import walkingkooka.test.TestCase;
+import walkingkooka.test.ClassTestCase;
 
 /**
  * Base class for any {@link Builder}.
  */
-abstract public class BuilderLikeTestCase<B extends BuilderLike> extends TestCase {
+abstract public class BuilderLikeTestCase<B extends BuilderLike> extends ClassTestCase {
 
     protected BuilderLikeTestCase() {
         super();

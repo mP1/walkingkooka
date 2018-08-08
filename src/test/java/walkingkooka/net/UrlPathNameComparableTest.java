@@ -32,4 +32,9 @@ public final class UrlPathNameComparableTest extends ComparableTestCase<UrlPathN
     protected UrlPathName createComparable() {
         return UrlPathName.with("aaaaaaaaaa");
     }
+
+    @Override
+    protected Class<UrlPathName> type() {
+        return UrlPathName.class;
+    }
 }

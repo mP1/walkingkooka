@@ -625,4 +625,9 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     protected Class<String> builderProductType() {
         return String.class;
     }
+
+    @Override
+    protected Class<ToStringBuilder> type() {
+        return ToStringBuilder.class;
+    }
 }

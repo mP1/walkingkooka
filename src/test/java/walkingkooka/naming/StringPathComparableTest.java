@@ -19,6 +19,7 @@ package walkingkooka.naming;
 
 import org.junit.Test;
 import walkingkooka.compare.ComparableTestCase;
+import walkingkooka.net.UrlPath;
 
 final public class StringPathComparableTest extends ComparableTestCase<StringPath> {
 
@@ -37,5 +38,10 @@ final public class StringPathComparableTest extends ComparableTestCase<StringPat
     @Override
     protected StringPath createComparable() {
         return StringPath.parse(PATH);
+    }
+
+    @Override
+    protected Class<StringPath> type() {
+        return StringPath.class;
     }
 }

@@ -46,6 +46,11 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
         super();
     }
 
+    @Test
+    public final void testNaming() {
+        this.checkNaming(NodeSelector.class);
+    }
+
     @Test(expected = NullPointerException.class)
     public void testAppendNullFails() {
         this.createSelector().append(null);
