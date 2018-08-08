@@ -17,12 +17,20 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.Ignore;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TestName;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.NodeTestCase2;
 
 public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
+
+    @Test
+    @Ignore
+    public void testReplaceChildDifferentParent() {
+        throw new UnsupportedOperationException();
+    }
 
     @Rule
     public TestName name = new TestName();

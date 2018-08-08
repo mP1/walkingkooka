@@ -179,6 +179,19 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     }
 
     @Test
+    public void testReplaceChild() {
+        final JsonArrayNode root = JsonNode.array()
+                .appendChild(JsonNode.string("A1"));
+        this.checkChildCount(root, 1);
+
+        final JsonArrayNode updated = root.replaceChild(root.get(0), JsonNode.string("B2"))
+                .cast();
+
+        this.checkChildCount(updated, 1);
+        assertEquals("B2", JsonStringNode.class.cast(updated.get(0)).value());
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<JsonNode> visited = Lists.array();

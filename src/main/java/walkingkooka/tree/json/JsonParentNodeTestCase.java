@@ -48,6 +48,12 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode> extends J
 
     @Test
     @Ignore
+    public final void testReplaceChildDifferentParent() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
     public void testSetSameAttributes() {
 
     }
