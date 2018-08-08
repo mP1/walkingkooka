@@ -23,6 +23,7 @@ import walkingkooka.naming.HasName;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.visit.Visitable;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-        extends HasName<NAME>, HashCodeEqualsDefined {
+        extends HasName<NAME>, Visitable, HashCodeEqualsDefined {
 
     /**
      * Returns the name of this node, or null if one is not present.

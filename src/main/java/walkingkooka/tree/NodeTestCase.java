@@ -20,8 +20,8 @@ package walkingkooka.tree;
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.visit.VisitableTestCase;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +32,7 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         ANAME extends Name,
         AVALUE extends Object>
         extends
-        ClassTestCase<N> {
+        VisitableTestCase<N> {
 
     protected NodeTestCase() {
         super();
