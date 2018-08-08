@@ -44,16 +44,18 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     @Test
     public void testAppendChild() {
         final N parent = this.createNode();
+        final int parentChildCount = parent.children().size();
 
         final N child1 = this.createNode();
         final N parent1 = this.appendChildAndCheck(parent, child1);
 
-        this.checkChildCount(parent1, child1);
+        this.checkChildCount(parent1, parentChildCount + 1);
     }
 
     @Test
     public void testAppendChild2() {
         final N parent = this.createNode();
+        final int parentChildCount = parent.children().size();
 
         final N child1 = this.createNode();
         final N parent1 = this.appendChildAndCheck(parent, child1);
@@ -61,7 +63,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
         final N child2 = this.createNode();
         final N parent2 = this.appendChildAndCheck(parent1, child2);
 
-        this.checkChildCount(parent2, child1, child2);
+        this.checkChildCount(parent2, parentChildCount + 2);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -85,13 +87,14 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     @Test
     public void testRemoveChild() {
         final N parent = this.createNode();
+        final int parentCount = parent.children().size();
 
         final N child1 = this.createNode();
         final N parent1 = this.appendChildAndCheck(parent, child1);
 
         final N removed1 = this.removeChildAndCheck(parent1, parent1.children().get(0));
 
-        this.checkChildCount(removed1);
+        this.checkChildCount(removed1, parentCount);
     }
 
     @Test
@@ -106,6 +109,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
 
     private void appendTwoChildrenAndRemove(final int remove) {
         final N parent = this.createNode();
+        final int parentCount = parent.children().size();
 
         final N child1 = this.createNode();
         final N parent1 = this.appendChildAndCheck(parent, child1);
@@ -116,7 +120,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
         final N removed = parent2.children().get(remove);
         final N parent3 = this.removeChildAndCheck(parent2, removed);
 
-        this.checkChildCount(parent3, 1);
+        this.checkChildCount(parent3, parentCount + 1 + 1 - 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
