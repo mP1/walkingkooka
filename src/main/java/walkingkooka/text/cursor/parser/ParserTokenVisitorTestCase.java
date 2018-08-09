@@ -16,16 +16,24 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.json;
+package walkingkooka.text.cursor.parser;
 
-public final class JsonNodeParserTokenVisitorTest extends JsonNodeParserTokenVisitorTestCase<FakeJsonNodeParserTokenVisitor> {
+import walkingkooka.Cast;
+import walkingkooka.tree.visit.VisitorTestCase;
+
+public abstract class ParserTokenVisitorTestCase<V extends ParserTokenVisitor, T extends ParserToken> extends VisitorTestCase<V, ParserToken> {
+
     @Override
-    protected FakeJsonNodeParserTokenVisitor createParserTokenVisitor() {
-        return new FakeJsonNodeParserTokenVisitor();
+    protected final V createVisitor() {
+        return this.createParserTokenVisitor();
     }
 
+    protected abstract V createParserTokenVisitor();
+
     @Override
-    protected Class<FakeJsonNodeParserTokenVisitor> parserTokenVisitorType() {
-        return FakeJsonNodeParserTokenVisitor.class;
+    protected final Class<V> type() {
+        return Cast.to(this.parserTokenVisitorType());
     }
+
+    protected abstract Class<V> parserTokenVisitorType();
 }
