@@ -17,9 +17,10 @@
 
 package walkingkooka.text.cursor;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
+
+import static org.junit.Assert.assertNotSame;
 
 final public class CharSequenceTextCursorSavePointTest extends
         TextCursorSavePointTestCase<CharSequenceTextCursorSavePoint, CharSequenceTextCursor> {
@@ -49,9 +50,9 @@ final public class CharSequenceTextCursorSavePointTest extends
         this.atAndCheck(cursor, '1');
 
         final TextCursorLineInfo saveInfo = save.lineInfo();
-        Assert.assertNotSame(info, saveInfo);
-        Assert.assertEquals("save column", info.column(), saveInfo.column());
-        Assert.assertEquals("save lineNumber", info.lineNumber(), saveInfo.lineNumber());
+        assertNotSame(info, saveInfo);
+        assertEquals("save column", info.column(), saveInfo.column());
+        assertEquals("save lineNumber", info.lineNumber(), saveInfo.lineNumber());
         TestCase.assertEquals("save text", info.text(), saveInfo.text());
     }
 

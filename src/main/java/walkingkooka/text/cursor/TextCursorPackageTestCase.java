@@ -17,10 +17,12 @@
 
 package walkingkooka.text.cursor;
 
-import junit.framework.Assert;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 /**
  * A {@link TestCase} that includes no actual tests except for those in {@link PackagePrivateClassTestCase} but adds helpers for various
@@ -37,32 +39,32 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
 
     final protected void checkEmpty(final TextCursor cursor) {
         if (false == cursor.isEmpty()) {
-            Assert.fail("expected cursor.checkEmpty() to be TRUE but was FALSE=" + cursor);
+            fail("expected cursor.checkEmpty() to be TRUE but was FALSE=" + cursor);
         }
     }
 
     final protected void checkEmpty(final TextCursor cursor, final String message) {
         if (false == cursor.isEmpty()) {
-            Assert.fail(message + '=' + cursor);
+            fail(message + '=' + cursor);
         }
     }
 
     final protected void checkNotEmpty(final TextCursor cursor) {
         if (cursor.isEmpty()) {
-            Assert.fail("expected cursor.checkEmpty() to be FALSE but was TRUE=" + cursor);
+            fail("expected cursor.checkEmpty() to be FALSE but was TRUE=" + cursor);
         }
     }
 
     final protected void checkNotEmpty(final TextCursor cursor, final String message) {
         if (cursor.isEmpty()) {
-            Assert.fail(message + '=' + cursor);
+            fail(message + '=' + cursor);
         }
     }
 
     final protected void moveNextFails(final TextCursor cursor) {
         try {
             cursor.next();
-            Assert.fail("cursor.next() should have failed=" + cursor);
+            fail("cursor.next() should have failed=" + cursor);
         } catch (final TextCursorException expected) {
         }
     }
@@ -70,7 +72,7 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
     final protected void moveNextFails(final TextCursor cursor, final String message) {
         try {
             cursor.next();
-            Assert.fail(message + "=" + cursor);
+            fail(message + "=" + cursor);
         } catch (final TextCursorException expected) {
         }
     }
@@ -80,7 +82,7 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
     }
 
     final protected void atAndCheck(final TextCursor cursor, final char expected, final String message) {
-        Assert.assertNotNull("cursor", cursor);
+        assertNotNull("cursor", cursor);
 
         final char at = cursor.at();
         if (at != expected) {
@@ -107,7 +109,7 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
     final protected void atFails(final TextCursor cursor) {
         try {
             cursor.at();
-            Assert.fail("cursor.at() should have failed=" + cursor);
+            fail("cursor.at() should have failed=" + cursor);
         } catch (final TextCursorException expected) {
         }
     }
@@ -115,7 +117,7 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
     final protected void atFails(final TextCursor cursor, final String message) {
         try {
             cursor.at();
-            Assert.fail(message + '=' + cursor);
+            fail(message + '=' + cursor);
         } catch (final TextCursorException expected) {
         }
     }

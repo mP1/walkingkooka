@@ -18,7 +18,6 @@
 
 package walkingkooka.net;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.text.CharSequences;
@@ -58,7 +57,7 @@ public final class UrlPathNameTest extends NameTestCase<UrlPathName> {
     public void testToStringAddQuotesBecauseOfWhitespace() {
         final String string = "name with whitespace";
         final UrlPathName name = UrlPathName.with(string);
-        Assert.assertEquals(CharSequences.quote(string).toString(), name.toString());
+        assertEquals(CharSequences.quote(string).toString(), name.toString());
     }
 
     @Override

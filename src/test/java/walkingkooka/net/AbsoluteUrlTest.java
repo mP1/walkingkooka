@@ -18,7 +18,6 @@
 
 package walkingkooka.net;
 
-import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -229,7 +228,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
         final AbsoluteUrl url = AbsoluteUrl.with(UrlScheme.HTTPS, CREDENTIALS, HOST, PORT, path, query,
                 fragment);
         final RelativeUrl relative = url.relativeUrl();
-        Assert.assertEquals("url", RelativeUrl.with(path, query, fragment).value(), relative.value());
+        assertEquals("url", RelativeUrl.with(path, query, fragment).value(), relative.value());
         assertSame("path", path, relative.path());
         assertSame("query", query, relative.query());
         assertSame("fragment", fragment, relative.fragment());
@@ -237,12 +236,12 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
 
     @Test
     public void testToString() {
-        Assert.assertEquals("http://host:123/path?query=value#fragment", this.createUrl().toString());
+        assertEquals("http://host:123/path?query=value#fragment", this.createUrl().toString());
     }
 
     @Test
     public void testToStringWithCredentials() {
-        Assert.assertEquals("http://host:123/path?query=value#fragment", this.createUrl().toString());
+        assertEquals("http://host:123/path?query=value#fragment", this.createUrl().toString());
     }
 
     // factory

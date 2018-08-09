@@ -18,12 +18,13 @@
 
 package walkingkooka.net;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
+
+import static org.junit.Assert.fail;
 
 public final class HostAddressIp6Test extends TestCase {
 
@@ -301,7 +302,7 @@ public final class HostAddressIp6Test extends TestCase {
     private void parseFails(final String address, final int start, final int end, final HostAddressProblem problem) {
         final Object result = HostAddress.tryParseIp6(address, start, end);
         if (result instanceof byte[]) {
-            Assert.fail("Should have failed=" + HostAddressTesting.toHexString((byte[]) result));
+            fail("Should have failed=" + HostAddressTesting.toHexString((byte[]) result));
         }
         final HostAddressProblem actual = (HostAddressProblem) result;
         if (false == problem.equals(actual)) {
@@ -319,7 +320,7 @@ public final class HostAddressIp6Test extends TestCase {
      * Parses the {@link String} of hex values assuming that it has hex digits in big endian form.
      */
     private static byte[] toByteArray(final String hexDigits) {
-        Assert.assertEquals("hexValues string has wrong number of characters=" + hexDigits,
+        assertEquals("hexValues string has wrong number of characters=" + hexDigits,
                 HostAddress.IP6_OCTET_COUNT * 2,
                 hexDigits.length());
         return CharSequences.bigEndianHexDigits(hexDigits);
