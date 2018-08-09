@@ -18,8 +18,7 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.visit.VisitorTestCase;
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
 
-public abstract class JsonNodeParserTokenVisitorTestCase<V extends JsonNodeParserTokenVisitor> extends VisitorTestCase<V, ParserToken> {
+public abstract class JsonNodeParserTokenVisitorTestCase<V extends JsonNodeParserTokenVisitor> extends ParserTokenVisitorTestCase<V, JsonNodeParserToken> {
 }
