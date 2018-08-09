@@ -160,17 +160,32 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
 
     @Override
     protected void visit(final SpreadsheetDoubleParserToken token) {
-        super.visit(token);
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetEqualsSymbolParserToken token) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected void visit(final SpreadsheetFunctionNameParserToken token) {
-        super.visit(token);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected void visit(final SpreadsheetFunctionParameterSeparatorSymbolParserToken token) {
-        super.visit(token);
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetGreaterThanSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
+    protected void visit(final SpreadsheetGreaterThanEqualsSymbolParserToken token) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -179,8 +194,18 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
+    protected void visit(final SpreadsheetLessThanSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetLessThanEqualsSymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final SpreadsheetLongParserToken token) {
-        super.visit(token);
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -190,6 +215,11 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
 
     @Override
     protected void visit(final SpreadsheetMultiplySymbolParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final SpreadsheetNotEqualsSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -205,7 +235,7 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
 
     @Override
     protected void visit(final SpreadsheetPercentSymbolParserToken token) {
-        super.visit(token);
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -215,7 +245,7 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
 
     @Override
     protected void visit(final SpreadsheetPowerSymbolParserToken token) {
-        super.visit(token);
+        throw new UnsupportedOperationException();
     }
 
     @Override 

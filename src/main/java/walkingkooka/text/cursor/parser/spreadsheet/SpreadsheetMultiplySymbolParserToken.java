@@ -66,7 +66,32 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
     }
 
     @Override
+    public boolean isEqualsSymbol() {
+        return false;
+    }
+
+    @Override
     public boolean isFunctionParameterSeparatorSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThanSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThanEqualsSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isLessThanSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isLessThanEqualsSymbol() {
         return false;
     }
 
@@ -78,6 +103,11 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
     @Override
     public boolean isMultiplySymbol() {
         return true;
+    }
+
+    @Override
+    public boolean isNotEqualsSymbol() {
+        return false;
     }
 
     @Override

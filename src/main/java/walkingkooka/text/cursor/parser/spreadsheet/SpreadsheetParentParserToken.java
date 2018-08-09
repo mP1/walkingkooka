@@ -101,12 +101,37 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
     }
 
     @Override
+    public final boolean isEqualsSymbol() {
+        return false;
+    }
+
+    @Override
     public final boolean isFunctionName() {
+        return false;
+    }
+    
+    @Override
+    public final boolean isGreaterThanSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isGreaterThanEqualsSymbol() {
         return false;
     }
 
     @Override
     public final boolean isLabelName() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLessThanSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLessThanEqualsSymbol() {
         return false;
     }
 
@@ -122,6 +147,11 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
 
     @Override
     public final boolean isMultiplySymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isNotEqualsSymbol() {
         return false;
     }
 

@@ -79,7 +79,37 @@ public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParse
     }
 
     @Override
+    public boolean isEquals() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThan() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThanEquals() {
+        return false;
+    }
+
+    @Override
+    public boolean isLessThan() {
+        return false;
+    }
+
+    @Override
+    public boolean isLessThanEquals() {
+        return false;
+    }
+
+    @Override
     public boolean isMultiplication() {
+        return false;
+    }
+
+    @Override
+    public boolean isNotEquals() {
         return false;
     }
 

@@ -165,11 +165,31 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
+    protected void visit(final SpreadsheetEqualsSymbolParserToken token) {
+        // nop
+    }
+    
     protected void visit(final SpreadsheetFunctionNameParserToken token) {
         // nop
     }
 
+    protected void visit(final SpreadsheetGreaterThanSymbolParserToken token) {
+        // nop
+    }
+    
+    protected void visit(final SpreadsheetGreaterThanEqualsSymbolParserToken token) {
+        // nop
+    }
+
     protected void visit(final SpreadsheetLabelNameParserToken token) {
+        // nop
+    }
+
+    protected void visit(final SpreadsheetLessThanSymbolParserToken token) {
+        // nop
+    }
+
+    protected void visit(final SpreadsheetLessThanEqualsSymbolParserToken token) {
         // nop
     }
 
@@ -182,6 +202,10 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     }
 
     protected void visit(final SpreadsheetMultiplySymbolParserToken token) {
+        // nop
+    }
+
+    protected void visit(final SpreadsheetNotEqualsSymbolParserToken token) {
         // nop
     }
 

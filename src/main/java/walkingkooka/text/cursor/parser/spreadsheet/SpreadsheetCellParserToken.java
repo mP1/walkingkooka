@@ -103,7 +103,22 @@ public final class SpreadsheetCellParserToken extends SpreadsheetParentParserTok
     }
 
     @Override
+    public boolean isEquals() {
+        return false;
+    }
+
+    @Override
     public boolean isFunction() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThan() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThanEquals() {
         return false;
     }
 
@@ -113,7 +128,22 @@ public final class SpreadsheetCellParserToken extends SpreadsheetParentParserTok
     }
 
     @Override
+    public boolean isLessThan() {
+        return false;
+    }
+
+    @Override
+    public boolean isLessThanEquals() {
+        return false;
+    }
+
+    @Override
     public boolean isMultiplication() {
+        return false;
+    }
+
+    @Override
+    public boolean isNotEquals() {
         return false;
     }
 

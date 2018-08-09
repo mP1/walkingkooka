@@ -79,8 +79,38 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
     }
 
     @Override
+    public boolean isEquals() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThan() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThanEquals() {
+        return false;
+    }
+
+    @Override
+    public boolean isLessThan() {
+        return false;
+    }
+
+    @Override
+    public boolean isLessThanEquals() {
+        return false;
+    }
+
+    @Override
     public boolean isMultiplication() {
         return true;
+    }
+
+    @Override
+    public boolean isNotEquals() {
+        return false;
     }
 
     @Override

@@ -51,6 +51,31 @@ abstract class SpreadsheetLeafParserToken2<T> extends SpreadsheetLeafParserToken
     }
 
     @Override
+    public final boolean isEqualsSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isGreaterThanSymbol() {
+        return false;
+    }
+    
+    @Override
+    public final boolean isGreaterThanEqualsSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLessThanSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLessThanEqualsSymbol() {
+        return false;
+    }
+    
+    @Override
     public final boolean isMinusSymbol() {
         return false;
     }
@@ -60,6 +85,11 @@ abstract class SpreadsheetLeafParserToken2<T> extends SpreadsheetLeafParserToken
         return false;
     }
 
+    @Override
+    public final boolean isNotEqualsSymbol() {
+        return false;
+    }
+    
     @Override
     public final boolean isOpenParenthesisSymbol() {
         return false;

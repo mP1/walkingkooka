@@ -115,7 +115,7 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
     private ParserToken binaryOperandPrioritize(final List<ParserToken> tokens, final SequenceParserToken parent) {
         List<ParserToken> prioritized = this.maybeExpandNegatives(tokens);
 
-        for(int priority = SpreadsheetParserToken.RANGE_BETWEEN_PRIORITY; priority > SpreadsheetParserToken.LOWEST_PRIORITY; priority--) {
+        for(int priority = SpreadsheetParserToken.HIGHEST_PRIORITY; priority > SpreadsheetParserToken.LOWEST_PRIORITY; priority--) {
             boolean changed;
 
             do {
