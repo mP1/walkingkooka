@@ -115,15 +115,40 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     }
 
     @Override
+    public boolean isEquals() {
+        return false;
+    }
+
+    @Override
     public boolean isFunction() {
         return true;
     }
 
     @Override
+    public boolean isGreaterThan() {
+        return false;
+    }
+
+    @Override
+    public boolean isGreaterThanEquals() {
+        return false;
+    }
+    
+    @Override
     public boolean isGroup() {
         return false;
     }
 
+    @Override
+    public boolean isLessThan() {
+        return false;
+    }
+
+    @Override
+    public boolean isLessThanEquals() {
+        return false;
+    }
+    
     @Override
     public boolean isMultiplication() {
         return false;
@@ -133,7 +158,12 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     public boolean isNegative() {
         return false;
     }
-
+    
+    @Override
+    public boolean isNotEquals() {
+        return false;
+    }
+    
     @Override
     public boolean isPercentage() {
         return false;

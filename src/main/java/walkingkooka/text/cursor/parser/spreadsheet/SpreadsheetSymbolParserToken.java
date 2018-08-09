@@ -52,7 +52,7 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     public final boolean isFunctionName() {
         return false;
     }
-
+    
     @Override
     public final boolean isLabelName() {
         return false;

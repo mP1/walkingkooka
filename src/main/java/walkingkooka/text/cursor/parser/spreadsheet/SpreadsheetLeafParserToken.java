@@ -54,19 +54,49 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
     public final boolean isDivision() {
         return false;
     }
-
+    
+    @Override
+    public final boolean isEquals() {
+        return false;
+    }
+    
     @Override
     public final boolean isFunction() {
         return false;
     }
 
     @Override
+    public final boolean isGreaterThan() {
+        return false;
+    }
+
+    @Override
+    public final boolean isGreaterThanEquals() {
+        return false;
+    }
+    
+    @Override
     public final boolean isGroup() {
         return false;
     }
 
     @Override
+    public final boolean isLessThan() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLessThanEquals() {
+        return false;
+    }
+
+    @Override
     public final boolean isMultiplication() {
+        return false;
+    }
+
+    @Override
+    public final boolean isNotEquals() {
         return false;
     }
 

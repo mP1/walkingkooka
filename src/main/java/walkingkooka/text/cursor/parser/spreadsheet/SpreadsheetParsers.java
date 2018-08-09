@@ -55,7 +55,15 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private static final Parser<ParserToken, SpreadsheetParserContext> FUNCTION_PARAMETER_SEPARATOR_SYMBOL = symbol(",", SpreadsheetParserToken::functionParameterSymbol, SpreadsheetFunctionParameterSeparatorSymbolParserToken.class);
     private static final Parser<ParserToken, SpreadsheetParserContext> OPEN_PARENTHESIS_SYMBOL = symbol("(", SpreadsheetParserToken::openParenthesisSymbol, SpreadsheetOpenParenthesisSymbolParserToken.class);
     private static final Parser<ParserToken, SpreadsheetParserContext> CLOSE_PARENTHESIS_SYMBOL = symbol(")", SpreadsheetParserToken::closeParenthesisSymbol, SpreadsheetCloseParenthesisSymbolParserToken.class);
-   
+
+    private static final Parser<ParserToken, SpreadsheetParserContext> EQUALS_SYMBOL = symbol("==", SpreadsheetParserToken::equalsSymbol, SpreadsheetEqualsSymbolParserToken.class);
+    private static final Parser<ParserToken, SpreadsheetParserContext> NOT_EQUALS_SYMBOL = symbol("!=", SpreadsheetParserToken::notEqualsSymbol, SpreadsheetNotEqualsSymbolParserToken.class);
+
+    private static final Parser<ParserToken, SpreadsheetParserContext> GREATER_THAN_SYMBOL = symbol(">", SpreadsheetParserToken::greaterThanSymbol, SpreadsheetGreaterThanSymbolParserToken.class);
+    private static final Parser<ParserToken, SpreadsheetParserContext> GREATER_THAN_EQUALS_SYMBOL = symbol(">=", SpreadsheetParserToken::greaterThanEqualsSymbol, SpreadsheetGreaterThanEqualsSymbolParserToken.class);
+    private static final Parser<ParserToken, SpreadsheetParserContext> LESS_THAN_SYMBOL = symbol("<", SpreadsheetParserToken::lessThanSymbol, SpreadsheetLessThanSymbolParserToken.class);
+    private static final Parser<ParserToken, SpreadsheetParserContext> LESS_THAN_EQUALS_SYMBOL = symbol("<=", SpreadsheetParserToken::lessThanEqualsSymbol, SpreadsheetLessThanEqualsSymbolParserToken.class);
+
     private static final EbnfIdentifierName COLUMN_ROW_IDENTIFIER = EbnfIdentifierName.with("COLUMN_ROW");
     private static final EbnfIdentifierName WHITESPACE_IDENTIFIER = EbnfIdentifierName.with("WHITESPACE");
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
@@ -73,6 +81,14 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private static final EbnfIdentifierName CLOSE_PARENTHESIS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("CLOSE_PARENTHESIS_SYMBOL");
     private static final EbnfIdentifierName TEXT_IDENTIFIER = EbnfIdentifierName.with("TEXT");
     private static final EbnfIdentifierName EXPRESSION_IDENTIFIER = EbnfIdentifierName.with("EXPRESSION");
+
+    private static final EbnfIdentifierName EQUALS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("EQUALS_SYMBOL");
+    private static final EbnfIdentifierName NOT_EQUALS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("NOT_EQUALS_SYMBOL");
+
+    private static final EbnfIdentifierName GREATER_THAN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("GREATER_THAN_SYMBOL");
+    private static final EbnfIdentifierName GREATER_THAN_EQUALS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("GREATER_THAN_EQUALS_SYMBOL");
+    private static final EbnfIdentifierName LESS_THAN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("LESS_THAN_SYMBOL");
+    private static final EbnfIdentifierName LESS_THAN_EQUALS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("LESS_THAN_EQUALS_SYMBOL");
 
     /**
      * {@see SpreadsheetColumnParser}
@@ -131,6 +147,14 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             predefined.put(CLOSE_PARENTHESIS_SYMBOL_IDENTIFIER, CLOSE_PARENTHESIS_SYMBOL);
 
             predefined.put(TEXT_IDENTIFIER, text());
+
+            predefined.put(EQUALS_SYMBOL_IDENTIFIER, EQUALS_SYMBOL);
+            predefined.put(NOT_EQUALS_SYMBOL_IDENTIFIER, NOT_EQUALS_SYMBOL);
+
+            predefined.put(GREATER_THAN_SYMBOL_IDENTIFIER, GREATER_THAN_SYMBOL);
+            predefined.put(GREATER_THAN_EQUALS_SYMBOL_IDENTIFIER, GREATER_THAN_EQUALS_SYMBOL);
+            predefined.put(LESS_THAN_SYMBOL_IDENTIFIER, LESS_THAN_SYMBOL);
+            predefined.put(LESS_THAN_EQUALS_SYMBOL_IDENTIFIER, LESS_THAN_EQUALS_SYMBOL);
 
             final Map<EbnfIdentifierName, Parser<ParserToken, SpreadsheetParserContext>> result = grammar.get()
                     .combinator(predefined,

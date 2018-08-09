@@ -24,53 +24,53 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 /**
- * A wrapper around a numeric type that is also a percentage.
+ * Represents a greater than test with its parameters.
  */
-public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetGreaterThanParserToken extends SpreadsheetBinaryParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetRangeParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetGreaterThanParserToken.class);
 
-    static SpreadsheetRangeParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetGreaterThanParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
         final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
 
-        return new SpreadsheetRangeParserToken(copy,
+        return new SpreadsheetGreaterThanParserToken(copy,
                 text,
                 checker.left(copy),
                 checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetRangeParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
+    private SpreadsheetGreaterThanParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
         super(value, text, left, right, computeWithout);
     }
 
     @Override
-    public SpreadsheetRangeParserToken setText(final String text) {
+    public SpreadsheetGreaterThanParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    SpreadsheetRangeParserToken replaceText(final String text) {
+    SpreadsheetGreaterThanParserToken replaceText(final String text) {
         return this.replace(this.value, text);
     }
 
     @Override
-    SpreadsheetRangeParserToken replaceTokens(final List<ParserToken> tokens) {
+    SpreadsheetGreaterThanParserToken replaceTokens(final List<ParserToken> tokens) {
         return this.replace(tokens, this.text());
     }
 
-    private SpreadsheetRangeParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetRangeParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
+    private SpreadsheetGreaterThanParserToken replace(final List<ParserToken> tokens, final String text) {
+        return new SpreadsheetGreaterThanParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
     }
 
     @Override
     public boolean isAddition() {
         return false;
     }
-
+    
     @Override
     public boolean isDivision() {
         return false;
@@ -83,7 +83,7 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
 
     @Override
     public boolean isGreaterThan() {
-        return false;
+        return true;
     }
 
     @Override
@@ -100,12 +100,12 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
     public boolean isLessThanEquals() {
         return false;
     }
-
+    
     @Override
     public boolean isMultiplication() {
         return false;
     }
-
+    
     @Override
     public boolean isNotEquals() {
         return false;
@@ -118,7 +118,7 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
 
     @Override
     public boolean isRange() {
-        return true;
+        return false;
     }
 
     @Override
@@ -136,7 +136,7 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetRangeParserToken;
+        return other instanceof SpreadsheetGreaterThanParserToken;
     }
 
     @Override

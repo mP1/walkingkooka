@@ -397,6 +397,150 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     }
 
     @Test
+    public void testEquals() {
+        final SpreadsheetParserToken left = number(123);
+        final SpreadsheetParserToken right = number(456);
+        final String text = "123==456";
+        final SpreadsheetEqualsParserToken equals = SpreadsheetParserToken.equals(Lists.of(left, equals(), right), text);
+
+        this.parseAndCheck(text, equals, text);
+    }
+
+    @Test
+    public void testEqualsAdd() {
+        final SpreadsheetParserToken middle = number(456);
+        final SpreadsheetParserToken right = number(789);
+        final String addText = "456+789";
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
+
+        final SpreadsheetParserToken left = number(123);
+        final String text = "123==" + addText;
+        final SpreadsheetEqualsParserToken equals = SpreadsheetParserToken.equals(Lists.of(left, equals(), add), text);
+
+        this.parseAndCheck(text, equals, text);
+    }
+
+    @Test
+    public void testNotEquals() {
+        final SpreadsheetParserToken left = number(123);
+        final SpreadsheetParserToken right = number(456);
+        final String text = "123!=456";
+        final SpreadsheetNotEqualsParserToken ne = SpreadsheetParserToken.notEquals(Lists.of(left, notEquals(), right), text);
+
+        this.parseAndCheck(text, ne, text);
+    }
+
+    @Test
+    public void testNotEqualsAdd() {
+        final SpreadsheetParserToken middle = number(456);
+        final SpreadsheetParserToken right = number(789);
+        final String addText = "456+789";
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
+
+        final SpreadsheetParserToken left = number(123);
+        final String text = "123!=" + addText;
+        final SpreadsheetNotEqualsParserToken ne = SpreadsheetParserToken.notEquals(Lists.of(left, notEquals(), add), text);
+
+        this.parseAndCheck(text, ne, text);
+    }
+
+    @Test
+    public void testGreaterThan() {
+        final SpreadsheetParserToken left = number(123);
+        final SpreadsheetParserToken right = number(456);
+        final String text = "123>456";
+        final SpreadsheetGreaterThanParserToken gt = SpreadsheetParserToken.greaterThan(Lists.of(left, greaterThan(), right), text);
+
+        this.parseAndCheck(text, gt, text);
+    }
+
+    @Test
+    public void testGreaterThanAdd() {
+        final SpreadsheetParserToken middle = number(456);
+        final SpreadsheetParserToken right = number(789);
+        final String addText = "456+789";
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
+
+        final SpreadsheetParserToken left = number(123);
+        final String text = "123>" + addText;
+        final SpreadsheetGreaterThanParserToken gt = SpreadsheetParserToken.greaterThan(Lists.of(left, greaterThan(), add), text);
+
+        this.parseAndCheck(text, gt, text);
+    }
+
+    @Test
+    public void testGreaterThanEquals() {
+        final SpreadsheetParserToken left = number(123);
+        final SpreadsheetParserToken right = number(456);
+        final String text = "123>=456";
+        final SpreadsheetGreaterThanEqualsParserToken gte = SpreadsheetParserToken.greaterThanEquals(Lists.of(left, greaterThanEquals(), right), text);
+
+        this.parseAndCheck(text, gte, text);
+    }
+
+    @Test
+    public void testGreaterThanEqualsAdd() {
+        final SpreadsheetParserToken middle = number(456);
+        final SpreadsheetParserToken right = number(789);
+        final String addText = "456+789";
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
+
+        final SpreadsheetParserToken left = number(123);
+        final String text = "123>=" + addText;
+        final SpreadsheetGreaterThanEqualsParserToken gte = SpreadsheetParserToken.greaterThanEquals(Lists.of(left, greaterThanEquals(), add), text);
+
+        this.parseAndCheck(text, gte, text);
+    }
+
+    @Test
+    public void testLessThan() {
+        final SpreadsheetParserToken left = number(123);
+        final SpreadsheetParserToken right = number(456);
+        final String text = "123<456";
+        final SpreadsheetLessThanParserToken lt = SpreadsheetParserToken.lessThan(Lists.of(left, lessThan(), right), text);
+
+        this.parseAndCheck(text, lt, text);
+    }
+
+    @Test
+    public void testLessThanAdd() {
+        final SpreadsheetParserToken middle = number(456);
+        final SpreadsheetParserToken right = number(789);
+        final String addText = "456+789";
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
+
+        final SpreadsheetParserToken left = number(123);
+        final String text = "123<" + addText;
+        final SpreadsheetLessThanParserToken lt = SpreadsheetParserToken.lessThan(Lists.of(left, lessThan(), add), text);
+
+        this.parseAndCheck(text, lt, text);
+    }
+
+    @Test
+    public void testLessThanEquals() {
+        final SpreadsheetParserToken left = number(123);
+        final SpreadsheetParserToken right = number(456);
+        final String text = "123<=456";
+        final SpreadsheetLessThanEqualsParserToken lte = SpreadsheetParserToken.lessThanEquals(Lists.of(left, lessThanEquals(), right), text);
+
+        this.parseAndCheck(text, lte, text);
+    }
+
+    @Test
+    public void testLessThanEqualsAdd() {
+        final SpreadsheetParserToken middle = number(456);
+        final SpreadsheetParserToken right = number(789);
+        final String addText = "456+789";
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
+
+        final SpreadsheetParserToken left = number(123);
+        final String text = "123<=" + addText;
+        final SpreadsheetLessThanEqualsParserToken lte = SpreadsheetParserToken.lessThanEquals(Lists.of(left, lessThanEquals(), add), text);
+
+        this.parseAndCheck(text, lte, text);
+    }
+
+    @Test
     public void testComplexExpression() {
         //111+222+(-333)-444*555
         final String addText = "111+222";
@@ -572,12 +716,36 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         return SpreadsheetParserToken.divideSymbol("/", "/");
     }
 
+    private SpreadsheetParserToken equals() {
+        return SpreadsheetParserToken.equalsSymbol("==", "==");
+    }
+
+    private SpreadsheetParserToken greaterThan() {
+        return SpreadsheetParserToken.greaterThanSymbol(">", ">");
+    }
+    
+    private SpreadsheetParserToken greaterThanEquals() {
+        return SpreadsheetParserToken.greaterThanEqualsSymbol(">=", ">=");
+    }
+
+    private SpreadsheetParserToken lessThan() {
+        return SpreadsheetParserToken.lessThanSymbol("<", "<");
+    }
+
+    private SpreadsheetParserToken lessThanEquals() {
+        return SpreadsheetParserToken.lessThanEqualsSymbol("<=", "<=");
+    }
+    
     private SpreadsheetParserToken minus() {
         return SpreadsheetParserToken.minusSymbol("-", "-");
     }
 
     private SpreadsheetParserToken multiply() {
         return SpreadsheetParserToken.multiplySymbol("*", "*");
+    }
+
+    private SpreadsheetParserToken notEquals() {
+        return SpreadsheetParserToken.notEqualsSymbol("!=", "!=");
     }
 
     private SpreadsheetParserToken percent() {

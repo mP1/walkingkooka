@@ -23,31 +23,31 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import java.util.List;
 
 /**
- * Represents a open / left parens symbol token.
+ * Represents a greater than equals symbol token.
  */
-public final class SpreadsheetOpenParenthesisSymbolParserToken extends SpreadsheetSymbolParserToken {
+public final class SpreadsheetGreaterThanEqualsSymbolParserToken extends SpreadsheetSymbolParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetOpenParenthesisSymbolParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetGreaterThanEqualsSymbolParserToken.class);
 
-    static SpreadsheetOpenParenthesisSymbolParserToken with(final String value, final String text){
+    static SpreadsheetGreaterThanEqualsSymbolParserToken with(final String value, final String text){
         checkValue(value);
         checkText(text);
 
-        return new SpreadsheetOpenParenthesisSymbolParserToken(value, text);
+        return new SpreadsheetGreaterThanEqualsSymbolParserToken(value, text);
     }
 
-    private SpreadsheetOpenParenthesisSymbolParserToken(final String value, final String text){
+    private SpreadsheetGreaterThanEqualsSymbolParserToken(final String value, final String text){
         super(value, text);
     }
 
     @Override
-    public SpreadsheetOpenParenthesisSymbolParserToken setText(final String text) {
+    public SpreadsheetGreaterThanEqualsSymbolParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    SpreadsheetOpenParenthesisSymbolParserToken replaceText(final String text) {
-        return new SpreadsheetOpenParenthesisSymbolParserToken(this.value, text);
+    SpreadsheetGreaterThanEqualsSymbolParserToken replaceText(final String text) {
+        return new SpreadsheetGreaterThanEqualsSymbolParserToken(this.value, text);
     }
 
     @Override
@@ -82,7 +82,7 @@ public final class SpreadsheetOpenParenthesisSymbolParserToken extends Spreadshe
 
     @Override
     public boolean isGreaterThanEqualsSymbol() {
-        return false;
+        return true;
     }
 
     @Override
@@ -112,7 +112,7 @@ public final class SpreadsheetOpenParenthesisSymbolParserToken extends Spreadshe
 
     @Override
     public boolean isOpenParenthesisSymbol() {
-        return true;
+        return false;
     }
 
     @Override
@@ -132,12 +132,12 @@ public final class SpreadsheetOpenParenthesisSymbolParserToken extends Spreadshe
 
     @Override
     final int operatorPriority() {
-        return LOWEST_PRIORITY;
+        return GREATER_THAN_LESS_THAN_PRIORITY;
     }
 
     @Override
     final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
-        throw new UnsupportedOperationException();
+        return SpreadsheetParserToken.greaterThanEquals(tokens, text);
     }
 
     @Override
@@ -147,7 +147,7 @@ public final class SpreadsheetOpenParenthesisSymbolParserToken extends Spreadshe
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetOpenParenthesisSymbolParserToken;
+        return other instanceof SpreadsheetGreaterThanEqualsSymbolParserToken;
     }
 
     @Override

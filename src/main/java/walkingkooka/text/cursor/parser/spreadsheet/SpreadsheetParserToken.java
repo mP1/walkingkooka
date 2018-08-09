@@ -106,6 +106,20 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     public static SpreadsheetDoubleParserToken doubleParserToken(final double value, final String text){
         return SpreadsheetDoubleParserToken.with(value, text);
     }
+
+    /**
+     * {@see SpreadsheetEqualsParserToken}
+     */
+    public static SpreadsheetEqualsParserToken equals(final List<ParserToken> value, final String text) {
+        return SpreadsheetEqualsParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetEqualsSymbolParserToken}
+     */
+    public static SpreadsheetEqualsSymbolParserToken equalsSymbol(final String value, final String text) {
+        return SpreadsheetEqualsSymbolParserToken.with(value, text);
+    }
     
     /**
      * {@see SpreadsheetFunctionParserToken}
@@ -129,6 +143,34 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     }
 
     /**
+     * {@see SpreadsheetGreaterThanParserToken}
+     */
+    public static SpreadsheetGreaterThanParserToken greaterThan(final List<ParserToken> value, final String text) {
+        return SpreadsheetGreaterThanParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetGreaterThanSymbolParserToken}
+     */
+    public static SpreadsheetGreaterThanSymbolParserToken greaterThanSymbol(final String value, final String text) {
+        return SpreadsheetGreaterThanSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetGreaterThanEqualsParserToken}
+     */
+    public static SpreadsheetGreaterThanEqualsParserToken greaterThanEquals(final List<ParserToken> value, final String text) {
+        return SpreadsheetGreaterThanEqualsParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetGreaterThanEqualsParserToken}
+     */
+    public static SpreadsheetGreaterThanEqualsSymbolParserToken greaterThanEqualsSymbol(final String value, final String text) {
+        return SpreadsheetGreaterThanEqualsSymbolParserToken.with(value, text);
+    }
+    
+    /**
      * {@see SpreadsheetGroupParserToken}
      */
     public static SpreadsheetGroupParserToken group(final List<ParserToken> value, final String text){
@@ -140,6 +182,34 @@ public abstract class SpreadsheetParserToken implements ParserToken {
      */
     public static SpreadsheetLabelNameParserToken labelName(final SpreadsheetLabelName value, final String text){
         return SpreadsheetLabelNameParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetLessThanParserToken}
+     */
+    public static SpreadsheetLessThanParserToken lessThan(final List<ParserToken> value, final String text) {
+        return SpreadsheetLessThanParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetLessThanSymbolParserToken}
+     */
+    public static SpreadsheetLessThanSymbolParserToken lessThanSymbol(final String value, final String text) {
+        return SpreadsheetLessThanSymbolParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetLessThanEqualsParserToken}
+     */
+    public static SpreadsheetLessThanEqualsParserToken lessThanEquals(final List<ParserToken> value, final String text) {
+        return SpreadsheetLessThanEqualsParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetLessThanEqualsParserToken}
+     */
+    public static SpreadsheetLessThanEqualsSymbolParserToken lessThanEqualsSymbol(final String value, final String text) {
+        return SpreadsheetLessThanEqualsSymbolParserToken.with(value, text);
     }
 
     /**
@@ -168,6 +238,20 @@ public abstract class SpreadsheetParserToken implements ParserToken {
      */
     public static SpreadsheetNegativeParserToken negative(final List<ParserToken> value, final String text){
         return SpreadsheetNegativeParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetNotEqualsParserToken}
+     */
+    public static SpreadsheetNotEqualsParserToken notEquals(final List<ParserToken> value, final String text){
+        return SpreadsheetNotEqualsParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetNotEqualsSymbolParserToken}
+     */
+    public static SpreadsheetNotEqualsSymbolParserToken notEqualsSymbol(final String value, final String text) {
+        return SpreadsheetNotEqualsSymbolParserToken.with(value, text);
     }
     
     /**
@@ -346,6 +430,16 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     public abstract boolean isDivision();
 
     /**
+     * Only {@link SpreadsheetEqualsParserToken} returns true
+     */
+    public abstract boolean isEquals();
+
+    /**
+     * Only {@link SpreadsheetEqualsSymbolParserToken} returns true
+     */
+    public abstract boolean isEqualsSymbol();
+    
+    /**
      * Only {@link SpreadsheetFunctionParserToken} return true
      */
     public abstract boolean isFunction();
@@ -361,6 +455,26 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     public abstract boolean isFunctionParameterSeparatorSymbol();
 
     /**
+     * Only {@link SpreadsheetGreaterThanParserToken} returns true
+     */
+    public abstract boolean isGreaterThan();
+
+    /**
+     * Only {@link SpreadsheetGreaterThanSymbolParserToken} returns true
+     */
+    public abstract boolean isGreaterThanSymbol();
+
+    /**
+     * Only {@link SpreadsheetGreaterThanEqualsParserToken} returns true
+     */
+    public abstract boolean isGreaterThanEquals();
+    
+    /**
+     * Only {@link SpreadsheetGreaterThanEqualsSymbolParserToken} returns true
+     */
+    public abstract boolean isGreaterThanEqualsSymbol();
+
+    /**
      * Only {@link SpreadsheetGroupParserToken} return true
      */
     public abstract boolean isGroup();
@@ -369,6 +483,26 @@ public abstract class SpreadsheetParserToken implements ParserToken {
      * Only {@link SpreadsheetLabelNameParserToken} return true
      */
     public abstract boolean isLabelName();
+
+    /**
+     * Only {@link SpreadsheetLessThanParserToken} returns true
+     */
+    public abstract boolean isLessThan();
+
+    /**
+     * Only {@link SpreadsheetLessThanSymbolParserToken} returns true
+     */
+    public abstract boolean isLessThanSymbol();
+
+    /**
+     * Only {@link SpreadsheetLessThanEqualsParserToken} returns true
+     */
+    public abstract boolean isLessThanEquals();
+
+    /**
+     * Only {@link SpreadsheetLessThanEqualsSymbolParserToken} returns true
+     */
+    public abstract boolean isLessThanEqualsSymbol();
 
     /**
      * Only {@link SpreadsheetLongParserToken} return true
@@ -394,6 +528,16 @@ public abstract class SpreadsheetParserToken implements ParserToken {
      * Only {@link SpreadsheetNegativeParserToken} return true
      */
     public abstract boolean isNegative();
+
+    /**
+     * Only {@link SpreadsheetNotEqualsParserToken} returns true
+     */
+    public abstract boolean isNotEquals();
+
+    /**
+     * Only {@link SpreadsheetNotEqualsSymbolParserToken} returns true
+     */
+    public abstract boolean isNotEqualsSymbol();
 
     /**
      * Only {@link SpreadsheetNumberParserToken} return true
@@ -465,11 +609,13 @@ public abstract class SpreadsheetParserToken implements ParserToken {
      */
     abstract int operatorPriority();
 
-    final static int RANGE_BETWEEN_PRIORITY = 4;
-    final static int POWER_PRIORITY = 3;
-    final static int MULTIPLY_DIVISION_PRIORITY = 2;
-    final static int ADDITION_SUBTRACTION_PRIORITY = 1;
     final static int LOWEST_PRIORITY = 0;
+    final static int GREATER_THAN_LESS_THAN_PRIORITY = LOWEST_PRIORITY + 1;
+    final static int ADDITION_SUBTRACTION_PRIORITY = GREATER_THAN_LESS_THAN_PRIORITY + 1;
+    final static int MULTIPLY_DIVISION_PRIORITY = ADDITION_SUBTRACTION_PRIORITY + 1;
+    final static int POWER_PRIORITY = MULTIPLY_DIVISION_PRIORITY + 1;
+    final static int RANGE_BETWEEN_PRIORITY = POWER_PRIORITY + 1;
+    final static int HIGHEST_PRIORITY = RANGE_BETWEEN_PRIORITY;
 
     /**
      * Factory that creates the {@link SpreadsheetBinaryParserToken} sub class using the provided tokens and text.
