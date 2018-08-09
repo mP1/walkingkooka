@@ -18,38 +18,37 @@
 
 package walkingkooka.net;
 
-import junit.framework.Assert;
 import org.junit.Test;
 
 public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
 
     @Test
     public void testToStringWith0SignificantOctets() {
-        Assert.assertEquals("0::", this.createAddress(new byte[Ip6Address.OCTET_COUNT]).toString());
+        assertEquals("0::", this.createAddress(new byte[Ip6Address.OCTET_COUNT]).toString());
     }
 
     @Test
     public void testToStringWith4Octets() {
-        Assert.assertEquals("1:2:3:4::",
+        assertEquals("1:2:3:4::",
                 this.createAddress(new byte[]{1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}).toString());
     }
 
     @Test
     public void testToStringWith8SignificantOctets() {
-        Assert.assertEquals("1:2:3:4:5:6:7:8::",
+        assertEquals("1:2:3:4:5:6:7:8::",
                 this.createAddress(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}).toString());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("FF:2:3:4:5:6:7:8::",
+        assertEquals("FF:2:3:4:5:6:7:8::",
                 this.createAddress(new byte[]{(byte) 0xFF, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0})
                         .toString());
     }
 
     @Test
     public void testToStringFilled() {
-        Assert.assertEquals("FF:2:3:4:5:6:7:8:9:FF:1:2:3:4:5:6",
+        assertEquals("FF:2:3:4:5:6:7:8:9:FF:1:2:3:4:5:6",
                 this.createAddress(new byte[]{(byte) 0xFF, 2, 3, 4, 5, 6, 7, 8, 9, (byte) 0xFF, 1, 2, 3, 4, 5, 6})
                         .toString());
     }

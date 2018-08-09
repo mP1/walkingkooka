@@ -18,20 +18,24 @@
 
 package walkingkooka.net;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 
 public final class IpPortTest extends HashCodeEqualsDefinedTestCase<IpPort> {
 
     @Test
     public void testIsPort() {
-        Assert.assertTrue(IpPort.isPort(0));
-        Assert.assertTrue(IpPort.isPort(80));
-        Assert.assertTrue(IpPort.isPort(65535));
-        Assert.assertFalse(IpPort.isPort(-1));
-        Assert.assertFalse(IpPort.isPort(65536));
+        assertTrue(IpPort.isPort(0));
+        assertTrue(IpPort.isPort(80));
+        assertTrue(IpPort.isPort(65535));
+        assertFalse(IpPort.isPort(-1));
+        assertFalse(IpPort.isPort(65536));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -48,23 +52,23 @@ public final class IpPortTest extends HashCodeEqualsDefinedTestCase<IpPort> {
     public void testWith() {
         final int port = 65000;
         final IpPort ipPort = IpPort.with(port);
-        Assert.assertEquals("value", port, ipPort.value());
+        assertEquals("value", port, ipPort.value());
     }
 
     @Test
     public void testNonConstantsNotSingletons() {
         final int port = 65000;
-        Assert.assertNotSame(IpPort.with(port), IpPort.with(port));
+        assertNotSame(IpPort.with(port), IpPort.with(port));
     }
 
     @Test
     public void testFree() {
-        Assert.assertNotNull(IpPort.free());
+        assertNotNull(IpPort.free());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("80", IpPort.HTTP.toString());
+        assertEquals("80", IpPort.HTTP.toString());
     }
 
     @Override

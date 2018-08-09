@@ -18,11 +18,12 @@
 
 package walkingkooka.net;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 
 import java.util.Arrays;
+
+import static org.junit.Assert.assertNull;
 
 public final class HostAddressNameTest extends TestCase {
 
@@ -219,7 +220,7 @@ public final class HostAddressNameTest extends TestCase {
     }
 
     private void parseAndCheck(final String address, final int start, final int end) {
-        Assert.assertNull(HostAddress.tryParseName(address, start, end));
+        assertNull(HostAddress.tryParseName(address, start, end));
     }
 
     private void parseFails(final String address, final HostAddressProblem problem) {

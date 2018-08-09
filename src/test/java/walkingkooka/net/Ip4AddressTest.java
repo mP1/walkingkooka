@@ -18,30 +18,22 @@
 
 package walkingkooka.net;
 
-import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.fail;
+
 public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testMaskNegativeSignificantBitsFails() {
-        this.maskFails(-1);
+        this.createAddress().subnet(-1);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testMaskTooManySignificantBitsFails() {
-        this.maskFails(Ip4Address.BIT_COUNT + 1);
-    }
-
-    private void maskFails(final int significantBits) {
-        final Ip4Address address = this.createAddress();
-        try {
-            address.subnet(significantBits);
-            Assert.fail();
-        } catch (final IllegalArgumentException expected) {
-        }
+        this.createAddress().subnet(Ip4Address.BIT_COUNT + 1);
     }
 
     @Test
@@ -113,7 +105,7 @@ public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
     private void subnetAndCheck(final Ip4Address address, final int significantBits, final int octets) {
         final IpAddress masked = address.subnet(significantBits);
         if (false == Arrays.equals(Ip4AddressTest.toBytes(octets), masked.value())) {
-            Assert.fail(address + " subnet(" + significantBits + ") gave " + masked);
+            fail(address + " subnet(" + significantBits + ") gave " + masked);
         }
     }
 
@@ -123,12 +115,12 @@ public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
 
     @Test
     public void testToString() {
-        Assert.assertEquals("1.2.3.4", this.createAddress(new byte[]{1, 2, 3, 4}).toString());
+        assertEquals("1.2.3.4", this.createAddress(new byte[]{1, 2, 3, 4}).toString());
     }
 
     @Test
     public void testToString2() {
-        Assert.assertEquals("255.254.253.252",
+        assertEquals("255.254.253.252",
                 this.createAddress(new byte[]{(byte) 0xFF, (byte) 0xFE, (byte) 0xFD, (byte) 0xFC}).toString());
     }
 

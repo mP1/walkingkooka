@@ -17,7 +17,6 @@
 
 package walkingkooka.text.cursor;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
@@ -147,8 +146,8 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
 
         final TextCursorLineInfo info = cursor.lineInfo();
         TestCase.assertEquals("text", "text", info.text());
-        Assert.assertEquals("lineNumber", 1, info.lineNumber());
-        Assert.assertEquals("column", 2, info.column());
+        assertEquals("lineNumber", 1, info.lineNumber());
+        assertEquals("column", 2, info.column());
     }
 
     @Test

@@ -18,11 +18,12 @@
 
 package walkingkooka.net;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 
 import java.util.Arrays;
+
+import static org.junit.Assert.fail;
 
 public final class HostAddressIp4Test extends TestCase {
 
@@ -225,7 +226,7 @@ public final class HostAddressIp4Test extends TestCase {
                                final long value) {
         final Object result = HostAddress.tryParseIp4(address, start, end, insideIp6);
         if (result instanceof HostAddressProblem) {
-            Assert.fail(((HostAddressProblem) result).message(address));
+            fail(((HostAddressProblem) result).message(address));
         }
         assertEquals(HostAddress.toBytes(value), HostAddress.toBytes((Long) result));
     }

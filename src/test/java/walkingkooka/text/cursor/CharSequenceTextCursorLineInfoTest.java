@@ -17,10 +17,11 @@
 
 package walkingkooka.text.cursor;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
+
+import static org.junit.Assert.assertNull;
 
 final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfoTestCase<CharSequenceTextCursorLineInfo> {
 
@@ -40,8 +41,8 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo
                 .with(CharSequenceTextCursorLineInfoTest.TEXT, CharSequenceTextCursorLineInfoTest.POS);
         TestCase.assertSame("text", CharSequenceTextCursorLineInfoTest.TEXT, info.text);
-        Assert.assertEquals("pos", CharSequenceTextCursorLineInfoTest.POS, info.pos);
-        Assert.assertNull("lineAndColumn", info.lineAndColumn);
+        assertEquals("pos", CharSequenceTextCursorLineInfoTest.POS, info.pos);
+        assertNull("lineAndColumn", info.lineAndColumn);
     }
 
     @Test
@@ -72,23 +73,23 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     private void lineWithPosition(final String text, final int pos, final String line, final int lineNumber,
                                   final int column) {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with(text, pos);
-        Assert.assertEquals("lineNumber", lineNumber, info.lineNumber());
-        Assert.assertEquals("lineNumber", lineNumber, info.lineNumber());
-        Assert.assertEquals("column()", column, info.column());
+        assertEquals("lineNumber", lineNumber, info.lineNumber());
+        assertEquals("lineNumber", lineNumber, info.lineNumber());
+        assertEquals("column()", column, info.column());
         TestCase.assertEquals("text()", line, info.text());
     }
 
     @Test
     public void testSummary() {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with("line1\nline2", 8);
-        Assert.assertEquals("(3,2)", info.summary());
+        assertEquals("(3,2)", info.summary());
     }
 
     @Test
     public void testToString() {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo
                 .with(CharSequenceTextCursorLineInfoTest.TEXT, 1);
-        Assert.assertEquals("Line: " + CharSequenceTextCursorLineInfoTest.LINE_NUMBER + "="
+        assertEquals("Line: " + CharSequenceTextCursorLineInfoTest.LINE_NUMBER + "="
                 + CharSequences.quoteAndEscape(CharSequenceTextCursorLineInfoTest.TEXT), info.toString());
     }
 

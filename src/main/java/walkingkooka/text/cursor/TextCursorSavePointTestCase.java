@@ -17,9 +17,10 @@
 
 package walkingkooka.text.cursor;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
+
+import static org.junit.Assert.assertNotNull;
 
 abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint, C extends TextCursor>
         extends TextCursorPackageTestCase<S> {
@@ -37,7 +38,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
         cursor.next();
         this.atAndCheck(cursor, '2');
 
-        Assert.assertNotNull("SavePointTestCase", cursor.save());
+        assertNotNull("SavePointTestCase", cursor.save());
     }
 
     @Test
@@ -148,7 +149,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
 
         final String actual = save.toString();
         save.restore();
-        Assert.assertEquals("save " + cursor.toString(), actual);
+        assertEquals("save " + cursor.toString(), actual);
     }
 
     abstract protected C createTextCursor(String text);
