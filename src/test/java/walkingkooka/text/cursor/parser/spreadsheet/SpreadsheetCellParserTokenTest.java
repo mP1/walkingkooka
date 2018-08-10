@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.List;
 
@@ -54,8 +55,14 @@ public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParse
         final SpreadsheetCellParserToken cell = this.createToken(text, row, column);
         this.checkText(cell, text);
         this.checkValue(cell, row, column);
+        assertEquals("cell", SpreadsheetCell.with(column.value(), row.value()), cell.cell());
 
         assertSame(cell, cell.withoutSymbolsOrWhitespace());
+    }
+
+    @Test
+    public void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(ExpressionNode.reference(SpreadsheetCell.with(column().value(), row().value())));
     }
 
     @Override

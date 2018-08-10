@@ -19,6 +19,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.List;
 
@@ -32,6 +33,11 @@ public final class SpreadsheetMultiplicationParserTokenTest extends SpreadsheetB
     @Override
     SpreadsheetParserToken operatorSymbol() {
         return SpreadsheetParserToken.multiplySymbol("*", "*");
+    }
+
+    @Override
+    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right){
+        return ExpressionNode.multiplication(left, right);
     }
 
     @Override

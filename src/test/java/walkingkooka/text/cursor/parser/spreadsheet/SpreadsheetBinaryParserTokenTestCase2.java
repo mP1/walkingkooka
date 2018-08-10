@@ -18,17 +18,37 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import org.junit.Test;
+import walkingkooka.tree.expression.ExpressionNode;
+
 import java.math.BigInteger;
 
 public abstract class SpreadsheetBinaryParserTokenTestCase2<T extends SpreadsheetBinaryParserToken> extends SpreadsheetBinaryParserTokenTestCase<T> {
 
+    @Test
+    public final void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(this.expressionNode(
+                ExpressionNode.number(leftBigInteger()),
+                ExpressionNode.number(rightBigInteger())));
+    }
+
+    abstract ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right);
+
     @Override
     final SpreadsheetParserToken leftToken() {
-        return SpreadsheetParserToken.number(BigInteger.valueOf(1), "1");
+        return SpreadsheetParserToken.number(leftBigInteger(), "1");
+    }
+
+    private BigInteger leftBigInteger() {
+        return BigInteger.valueOf(1);
     }
 
     @Override
     final SpreadsheetParserToken rightToken() {
-        return SpreadsheetParserToken.number(BigInteger.valueOf(22), "22");
+        return SpreadsheetParserToken.number(rightBigInteger(), "22");
+    }
+
+    private BigInteger rightBigInteger() {
+        return BigInteger.valueOf(22);
     }
 }

@@ -24,6 +24,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.expression.ExpressionReference;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -36,7 +37,7 @@ import java.util.function.Predicate;
  * For example, the name AB11 is invalid because AB11 is a valid cell reference. Names are not case sensitive.
  * </pre>
  */
-final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, Comparable<SpreadsheetLabelName> {
+final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, Comparable<SpreadsheetLabelName>, ExpressionReference {
 
     private final static CharPredicate LETTER = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 

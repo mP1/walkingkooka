@@ -21,8 +21,10 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnaryParserTokenTestCase<SpreadsheetPercentageParserToken> {
@@ -97,6 +99,12 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
                         symbol, symbol, symbol, symbol, symbol,
                         unary, unary, unary),
                 visited);
+    }
+
+    @Test
+    public final void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(ExpressionNode.multiplication(ExpressionNode.number(new BigInteger(NUMBER1)),
+                ExpressionNode.number(100L)));
     }
 
     @Override

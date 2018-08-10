@@ -22,7 +22,9 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.Assert.assertNotSame;
@@ -83,6 +85,11 @@ public final class SpreadsheetGroupParserTokenTest extends SpreadsheetParentPars
         assertNotSame(token, token2);
         this.checkText(token2, text);
         this.checkValue(token2, number);
+    }
+
+    @Test
+    public void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(ExpressionNode.group(ExpressionNode.number(new BigInteger(NUMBER1, 10))));
     }
 
     @Override

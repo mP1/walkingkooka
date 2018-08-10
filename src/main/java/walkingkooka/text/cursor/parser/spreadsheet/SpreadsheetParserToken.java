@@ -23,6 +23,8 @@ import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
+import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.HasExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -34,7 +36,7 @@ import java.util.Optional;
 /**
  * Represents a token within the grammar.
  */
-public abstract class SpreadsheetParserToken implements ParserToken {
+public abstract class SpreadsheetParserToken implements ParserToken, HasExpressionNode {
 
     /**
      * Factory used by all sub classes to create their {@link ParserTokenNodeName} constants.
@@ -640,6 +642,15 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     }
 
     abstract public void accept(final SpreadsheetParserTokenVisitor visitor);
+
+    // Has
+
+    /**
+     * Converts this token to its {@link ExpressionNode} equivalent.
+     */
+    public final Optional<ExpressionNode> expressionNode() {
+        return SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor.accept(this);
+    }
 
     // Object ...........................................................................................................
 

@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.expression;
 
+import java.util.Objects;
+
 /**
  * A reference expression.
  */
@@ -25,7 +27,13 @@ public final class ExpressionReferenceNode extends ExpressionLeafValueNode<Expre
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionReferenceNode.class);
 
-    ExpressionReferenceNode(final int index, final ExpressionReference reference){
+    static ExpressionReferenceNode with(final ExpressionReference reference){
+        Objects.requireNonNull(reference, "reference");
+
+        return new ExpressionReferenceNode(NO_PARENT_INDEX, reference);
+    }
+
+    private ExpressionReferenceNode(final int index, final ExpressionReference reference){
         super(index, reference);
     }
 

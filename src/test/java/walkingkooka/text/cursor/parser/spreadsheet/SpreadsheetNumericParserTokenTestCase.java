@@ -18,5 +18,13 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-public abstract class SpreadsheetNumericParserTokenTestCase<T extends SpreadsheetNumericParserToken, V> extends SpreadsheetLeafParserTokenTestCase<T, V> {
+import org.junit.Test;
+import walkingkooka.tree.expression.ExpressionNode;
+
+public abstract class SpreadsheetNumericParserTokenTestCase<T extends SpreadsheetNumericParserToken, V extends Number> extends SpreadsheetLeafParserTokenTestCase<T, V> {
+
+    @Test
+    public final void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(ExpressionNode.number(this.value()));
+    }
 }

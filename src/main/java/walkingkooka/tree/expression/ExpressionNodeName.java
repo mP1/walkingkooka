@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 public final class ExpressionNodeName implements Name, Comparable<ExpressionNodeName>, HashCodeEqualsDefined {
 
-    static ExpressionNodeName with(final String name) {
+    public static ExpressionNodeName with(final String name) {
         Objects.requireNonNull(name, "name");
         return new ExpressionNodeName(name);
     }

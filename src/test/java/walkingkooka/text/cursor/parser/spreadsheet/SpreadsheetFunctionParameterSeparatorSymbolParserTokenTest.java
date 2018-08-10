@@ -21,7 +21,7 @@ import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-public final class SpreadsheetFunctionParameterSeparatorSymbolParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetFunctionParameterSeparatorSymbolParserToken, String> {
+public final class SpreadsheetFunctionParameterSeparatorSymbolParserTokenTest extends SpreadsheetSymbolParserTokenTestCase<SpreadsheetFunctionParameterSeparatorSymbolParserToken> {
 
     @Test
     public void testAccept() {
