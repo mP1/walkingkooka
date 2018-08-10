@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A leaf node, where a leaf has no children.
  */
-public abstract class ExpressionLeafNode extends ExpressionNode {
+abstract class ExpressionLeafNode extends ExpressionNode {
 
     ExpressionLeafNode(final int index){
         super(index);
