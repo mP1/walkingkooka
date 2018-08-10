@@ -51,7 +51,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     /**
      * {@see ExpressionBooleanNode}
      */
-    static ExpressionBooleanNode booleanExpression(final boolean value) {
+    public static ExpressionBooleanNode booleanNode(final boolean value) {
         return ExpressionBooleanNode.with(value);
     }
 
@@ -63,6 +63,13 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
+     * {@see ExpressionEqualsNode}
+     */
+    public static ExpressionEqualsNode equalsNode(final ExpressionNode left, final ExpressionNode right){
+        return ExpressionEqualsNode.with(left, right);
+    }
+    
+    /**
      * {@see ExpressionFunctionNode}
      */
     public static ExpressionFunctionNode function(final ExpressionNodeName name, final List<ExpressionNode> expressions) {
@@ -70,10 +77,38 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
+     * {@see ExpressionGreaterThanNode}
+     */
+    public static ExpressionGreaterThanNode greaterThan(final ExpressionNode left, final ExpressionNode right){
+        return ExpressionGreaterThanNode.with(left, right);
+    }
+
+    /**
+     * {@see ExpressionGreaterThanEqualsNode}
+     */
+    public static ExpressionGreaterThanEqualsNode greaterThanEquals(final ExpressionNode left, final ExpressionNode right){
+        return ExpressionGreaterThanEqualsNode.with(left, right);
+    }
+
+    /**
      * {@see ExpressionGroupNode}
      */
     public static ExpressionGroupNode group(final ExpressionNode expression){
         return ExpressionGroupNode.with(expression);
+    }
+
+    /**
+     * {@see ExpressionLessThanNode}
+     */
+    public static ExpressionLessThanNode lessThan(final ExpressionNode left, final ExpressionNode right){
+        return ExpressionLessThanNode.with(left, right);
+    }
+
+    /**
+     * {@see ExpressionLessThanEqualsNode}
+     */
+    public static ExpressionLessThanEqualsNode lessThanEquals(final ExpressionNode left, final ExpressionNode right){
+        return ExpressionLessThanEqualsNode.with(left, right);
     }
     
     /**
@@ -105,9 +140,16 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
+     * {@see ExpressionNotEqualsNode}
+     */
+    public static ExpressionNotEqualsNode notEquals(final ExpressionNode left, final ExpressionNode right){
+        return ExpressionNotEqualsNode.with(left, right);
+    }
+
+    /**
      * {@see ExpressionNumberNode}
      */
-    static ExpressionNumberNode number(final Number value) {
+    public static ExpressionNumberNode number(final Number value) {
         return ExpressionNumberNode.with(value);
     }
     
@@ -135,7 +177,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     /**
      * {@see ExpressionTextNode}
      */
-    static ExpressionTextNode text(final String value) {
+    public static ExpressionTextNode text(final String value) {
         return ExpressionTextNode.with(value);
     }
 

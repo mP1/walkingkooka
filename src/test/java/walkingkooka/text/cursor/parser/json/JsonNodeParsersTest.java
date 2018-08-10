@@ -319,11 +319,11 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
     }
 
     private JsonNodeParserToken booleanToken(final boolean value) {
-        return JsonNodeParserToken.booleanToken(value, String.valueOf(value));
+        return JsonNodeParserToken.booleanParserToken(value, String.valueOf(value));
     }
 
     private JsonNodeParserToken nul() {
-        return JsonNodeParserToken.nullToken("null");
+        return JsonNodeParserToken.nullParserToken("null");
     }
 
     private JsonNodeParserToken number(final int value) {

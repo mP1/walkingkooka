@@ -52,7 +52,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private static final Parser<ParserToken, SpreadsheetParserContext> POWER_SYMBOL = symbol("^", SpreadsheetParserToken::powerSymbol, SpreadsheetPowerSymbolParserToken.class);
     private static final Parser<ParserToken, SpreadsheetParserContext> BETWEEN_SYMBOL = symbol(":", SpreadsheetParserToken::betweenSymbol, SpreadsheetBetweenSymbolParserToken.class);
     private static final Parser<ParserToken, SpreadsheetParserContext> PERCENT_SYMBOL = symbol("%", SpreadsheetParserToken::percentSymbol, SpreadsheetPercentSymbolParserToken.class);
-    private static final Parser<ParserToken, SpreadsheetParserContext> FUNCTION_PARAMETER_SEPARATOR_SYMBOL = symbol(",", SpreadsheetParserToken::functionParameterSymbol, SpreadsheetFunctionParameterSeparatorSymbolParserToken.class);
+    private static final Parser<ParserToken, SpreadsheetParserContext> FUNCTION_PARAMETER_SEPARATOR_SYMBOL = symbol(",", SpreadsheetParserToken::functionParameterSeparatorSymbol, SpreadsheetFunctionParameterSeparatorSymbolParserToken.class);
     private static final Parser<ParserToken, SpreadsheetParserContext> OPEN_PARENTHESIS_SYMBOL = symbol("(", SpreadsheetParserToken::openParenthesisSymbol, SpreadsheetOpenParenthesisSymbolParserToken.class);
     private static final Parser<ParserToken, SpreadsheetParserContext> CLOSE_PARENTHESIS_SYMBOL = symbol(")", SpreadsheetParserToken::closeParenthesisSymbol, SpreadsheetCloseParenthesisSymbolParserToken.class);
 

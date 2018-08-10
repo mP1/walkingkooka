@@ -401,7 +401,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final SpreadsheetParserToken left = number(123);
         final SpreadsheetParserToken right = number(456);
         final String text = "123==456";
-        final SpreadsheetEqualsParserToken equals = SpreadsheetParserToken.equals(Lists.of(left, equals(), right), text);
+        final SpreadsheetEqualsParserToken equals = SpreadsheetParserToken.equalsParserToken(Lists.of(left, equals(), right), text);
 
         this.parseAndCheck(text, equals, text);
     }
@@ -415,7 +415,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
         final SpreadsheetParserToken left = number(123);
         final String text = "123==" + addText;
-        final SpreadsheetEqualsParserToken equals = SpreadsheetParserToken.equals(Lists.of(left, equals(), add), text);
+        final SpreadsheetEqualsParserToken equals = SpreadsheetParserToken.equalsParserToken(Lists.of(left, equals(), add), text);
 
         this.parseAndCheck(text, equals, text);
     }
@@ -709,7 +709,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     }
 
     private SpreadsheetParserToken comma() {
-        return SpreadsheetParserToken.functionParameterSymbol(",", ",");
+        return SpreadsheetParserToken.functionParameterSeparatorSymbol(",", ",");
     }
 
     private SpreadsheetParserToken divide() {

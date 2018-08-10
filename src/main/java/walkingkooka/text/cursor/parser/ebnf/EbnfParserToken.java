@@ -43,7 +43,7 @@ public abstract class EbnfParserToken implements ParserToken {
     /**
      * {@see EbnfCommentParserToken}
      */
-    static EbnfCommentParserToken comment(final String value, final String text){
+    public static EbnfCommentParserToken comment(final String value, final String text){
         return EbnfCommentParserToken.with(value, text);
     }
 
@@ -69,9 +69,9 @@ public abstract class EbnfParserToken implements ParserToken {
     }
 
     /**
-     * {@see EbnfGroupingParserToken}
+     * {@see EbnfGroupParserToken}
      */
-    public static EbnfGroupParserToken grouping(final List<ParserToken> tokens, final String text) {
+    public static EbnfGroupParserToken group(final List<ParserToken> tokens, final String text) {
         return EbnfGroupParserToken.with(tokens, text);
     }
 

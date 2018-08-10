@@ -177,7 +177,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
         final String altText = openGroupToken() + TERMINAL1_TEXT + closeGroupToken() + ALTERNATIVE + TERMINAL2_TEXT;
         final String text = IDENTIFIER1_TEXT +ASSIGNMENT + altText + TERMINATOR;
 
-        final ParserToken group = EbnfParserToken.grouping(Lists.of(openGroupToken(), terminal1(), closeGroupToken()), OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP);
+        final ParserToken group = EbnfParserToken.group(Lists.of(openGroupToken(), terminal1(), closeGroupToken()), OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP);
         final EbnfParserToken alt = EbnfParserToken.alternative(Lists.of(group, altToken(), terminal2()), altText);
 
         this.parseAndCheck(text,
@@ -227,7 +227,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
         final String concatText = openGroupToken() + TERMINAL1_TEXT + closeGroupToken() + CONCAT + TERMINAL2_TEXT;
         final String text = IDENTIFIER1_TEXT +ASSIGNMENT + concatText + TERMINATOR;
 
-        final ParserToken group = EbnfParserToken.grouping(Lists.of(openGroupToken(), terminal1(), closeGroupToken()), OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP);
+        final ParserToken group = EbnfParserToken.group(Lists.of(openGroupToken(), terminal1(), closeGroupToken()), OPEN_GROUP + TERMINAL1_TEXT + CLOSE_GROUP);
         final EbnfParserToken concat = EbnfParserToken.concatenation(Lists.of(group, concatToken(), terminal2()), concatText);
 
         this.parseAndCheck(text,
@@ -267,7 +267,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
         final String text = IDENTIFIER1_TEXT +ASSIGNMENT + groupText + TERMINATOR;
 
         final EbnfParserToken terminal = terminal1();
-        final EbnfParserToken group = EbnfParserToken.grouping(Lists.of(openGroupToken(), terminal, closeGroupToken()), groupText);
+        final EbnfParserToken group = EbnfParserToken.group(Lists.of(openGroupToken(), terminal, closeGroupToken()), groupText);
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), group, terminatorToken()),
                 text);
@@ -279,7 +279,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
         final String text = IDENTIFIER1_TEXT +ASSIGNMENT + WHITESPACE1 + groupText + TERMINATOR;
 
         final EbnfParserToken terminal = terminal1();
-        final EbnfParserToken group = EbnfParserToken.grouping(Lists.of(openGroupToken(), terminal, closeGroupToken()), groupText);
+        final EbnfParserToken group = EbnfParserToken.group(Lists.of(openGroupToken(), terminal, closeGroupToken()), groupText);
         this.parseAndCheck(text,
                 rule(text, identifier1(), assignmentToken(), whitespace1(), group, terminatorToken()),
                 text);

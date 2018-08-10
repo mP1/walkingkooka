@@ -18,12 +18,18 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 
 public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends ParserTokenTestCase<T> {
+
+    @Test
+    public final void testPublicStaticFactoryMethod()  {
+        this.publicStaticFactoryCheck(EbnfParserToken.class, "Ebnf", ParserToken.class);
+    }
 
     @Test(expected =  NullPointerException.class)
     public final void testNullTextFails() {

@@ -40,6 +40,11 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     @Test
+    public final void testPublicStaticFactoryMethod()  {
+        this.publicStaticFactoryCheck(ExpressionNode.class, "Expression", Node.class);
+    }
+
+    @Test
     @Ignore
     public final void testSetSameAttributes() {
         // Ignored

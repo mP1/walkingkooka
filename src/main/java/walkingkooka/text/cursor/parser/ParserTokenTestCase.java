@@ -41,6 +41,11 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
         assertEquals("NAME constant has incorrect value", ParserTokenNodeName.fromClass(type), field.get(null));
     }
 
+    @Test
+    public void testPublicStaticFactoryMethod() {
+        this.publicStaticFactoryCheck(ParserTokens.class, "", ParserToken.class);
+    }
+
     @Test(expected = NullPointerException.class)
     public final void testSetTextNullFails() {
         this.createToken().setText(null);

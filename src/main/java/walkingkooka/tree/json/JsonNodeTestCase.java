@@ -34,6 +34,11 @@ import java.lang.reflect.Method;
 
 public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2<JsonNode, JsonNodeName, Name, Object> {
 
+    @Test
+    public final void testPublicStaticFactoryMethod()  {
+        this.publicStaticFactoryCheck(JsonNode.class, "Json", Node.class);
+    }
+
     @Test(expected = NullPointerException.class)
     public final void testSetNameNullFails() {
         this.createJsonNode().setName(null);

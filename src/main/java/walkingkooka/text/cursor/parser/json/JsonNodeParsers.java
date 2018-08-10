@@ -77,10 +77,10 @@ public final class JsonNodeParsers implements PublicStaticHelper {
     }
 
     private final static Parser<ParserToken, JsonNodeParserContext> BOOLEAN_FALSE = Parsers.<JsonNodeParserContext>string("false")
-            .transform((stringParserToken, JsonNodeParserContext) -> JsonNodeParserToken.booleanToken(false, stringParserToken.text()).cast());
+            .transform((stringParserToken, JsonNodeParserContext) -> JsonNodeParserToken.booleanParserToken(false, stringParserToken.text()).cast());
 
     private final static Parser<ParserToken, JsonNodeParserContext> BOOLEAN_TRUE = Parsers.<JsonNodeParserContext>string("true")
-            .transform((stringParserToken, JsonNodeParserContext) -> JsonNodeParserToken.booleanToken(true, stringParserToken.text()).cast());
+            .transform((stringParserToken, JsonNodeParserContext) -> JsonNodeParserToken.booleanParserToken(true, stringParserToken.text()).cast());
 
     private final static Parser<ParserToken, JsonNodeParserContext> BOOLEAN = BOOLEAN_FALSE.or(BOOLEAN_TRUE)
             .setToString(JsonNodeBooleanParserToken.class.getSimpleName());
@@ -93,7 +93,7 @@ public final class JsonNodeParsers implements PublicStaticHelper {
     }
 
     private final static Parser<ParserToken, JsonNodeParserContext> NULL = Parsers.<JsonNodeParserContext>string("null")
-            .transform((stringParserToken, JsonNodeParserContext) -> JsonNodeParserToken.nullToken(stringParserToken.text()).cast())
+            .transform((stringParserToken, JsonNodeParserContext) -> JsonNodeParserToken.nullParserToken(stringParserToken.text()).cast())
             .setToString(JsonNodeNullParserToken.class.getSimpleName());
 
     /**

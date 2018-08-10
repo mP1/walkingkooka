@@ -67,14 +67,14 @@ public abstract class JsonNodeParserToken implements ParserToken {
     /**
      * {@see JsonNodeBooleanParserToken}
      */
-    public static JsonNodeBooleanParserToken booleanToken(final boolean value, final String text){
+    public static JsonNodeBooleanParserToken booleanParserToken(final boolean value, final String text){
         return JsonNodeBooleanParserToken.with(value, text);
     }
 
     /**
      * {@see JsonNodeNullParserToken}
      */
-    public static JsonNodeNullParserToken nullToken(final String text){
+    public static JsonNodeNullParserToken nullParserToken(final String text){
         return JsonNodeNullParserToken.with(null, text);
     }
 
