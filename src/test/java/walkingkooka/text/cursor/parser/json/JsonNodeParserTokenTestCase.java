@@ -30,6 +30,11 @@ import java.util.stream.Collectors;
 
 public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken> extends ParserTokenTestCase<T> {
 
+    @Test
+    public final void testPublicStaticFactoryMethod()  {
+        this.publicStaticFactoryCheck(JsonNodeParserToken.class, "JsonNode", ParserToken.class);
+    }
+
     @Test(expected =  NullPointerException.class)
     public final void testNullTextFails() {
         this.createToken(null);
@@ -114,11 +119,11 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
     }
 
     final JsonNodeParserToken booleanToken(final boolean value) {
-        return JsonNodeParserToken.booleanToken(value, String.valueOf(value));
+        return JsonNodeParserToken.booleanParserToken(value, String.valueOf(value));
     }
 
     final JsonNodeParserToken nul() {
-        return JsonNodeParserToken.nullToken("null");
+        return JsonNodeParserToken.nullParserToken("null");
     }
 
     final JsonNodeParserToken number(final int value) {

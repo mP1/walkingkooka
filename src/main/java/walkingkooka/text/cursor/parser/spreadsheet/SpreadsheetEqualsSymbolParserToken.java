@@ -137,7 +137,7 @@ public final class SpreadsheetEqualsSymbolParserToken extends SpreadsheetSymbolP
 
     @Override
     final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
-        return SpreadsheetParserToken.equals(tokens, text);
+        return SpreadsheetParserToken.equalsParserToken(tokens, text);
     }
 
     @Override

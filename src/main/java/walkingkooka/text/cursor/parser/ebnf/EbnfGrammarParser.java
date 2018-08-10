@@ -177,7 +177,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(close)
                 .build()
-                .transform(filterAndWrapMany(EbnfParserToken::grouping));
+                .transform(filterAndWrapMany(EbnfParserToken::group));
     }
 
     /**

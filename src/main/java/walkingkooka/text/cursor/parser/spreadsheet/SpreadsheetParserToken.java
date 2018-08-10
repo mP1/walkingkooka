@@ -110,7 +110,7 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     /**
      * {@see SpreadsheetEqualsParserToken}
      */
-    public static SpreadsheetEqualsParserToken equals(final List<ParserToken> value, final String text) {
+    public static SpreadsheetEqualsParserToken equalsParserToken(final List<ParserToken> value, final String text) {
         return SpreadsheetEqualsParserToken.with(value, text);
     }
 
@@ -138,7 +138,7 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     /**
      * {@see SpreadsheetFunctionParameterSeparatorSymbolParserToken}
      */
-    public static SpreadsheetFunctionParameterSeparatorSymbolParserToken functionParameterSymbol(final String value, final String text){
+    public static SpreadsheetFunctionParameterSeparatorSymbolParserToken functionParameterSeparatorSymbol(final String value, final String text){
         return SpreadsheetFunctionParameterSeparatorSymbolParserToken.with(value, text);
     }
 
@@ -212,6 +212,13 @@ public abstract class SpreadsheetParserToken implements ParserToken {
         return SpreadsheetLessThanEqualsSymbolParserToken.with(value, text);
     }
 
+    /**
+     * {@see SpreadsheetLongParserToken}
+     */
+    public static SpreadsheetLongParserToken longParserToken(final long value, final String text){
+        return SpreadsheetLongParserToken.with(value, text);
+    }
+    
     /**
      * {@see SpreadsheetMinusSymbolParserToken}
      */

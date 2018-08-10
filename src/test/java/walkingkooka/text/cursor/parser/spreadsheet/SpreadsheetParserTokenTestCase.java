@@ -27,6 +27,11 @@ import java.lang.reflect.Method;
 
 public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParserToken> extends ParserTokenTestCase<T> {
 
+    @Test
+    public final void testPublicStaticFactoryMethod()  {
+        this.publicStaticFactoryCheck(SpreadsheetParserToken.class, "Spreadsheet", ParserToken.class);
+    }
+
     @Test(expected =  NullPointerException.class)
     public final void testNullTextFails() {
         this.createToken(null);

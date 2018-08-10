@@ -103,7 +103,7 @@ public final class SpreadsheetEqualsParserTokenTest extends SpreadsheetBinaryPar
 
     @Override
     SpreadsheetEqualsParserToken createToken(final String text, final List<ParserToken> tokens) {
-        return SpreadsheetParserToken.equals(tokens, text);
+        return SpreadsheetParserToken.equalsParserToken(tokens, text);
     }
 
     @Override
