@@ -27,8 +27,14 @@ import java.util.List;
  */
 abstract class SpreadsheetUnaryParserToken extends SpreadsheetParentParserToken implements Value<List<ParserToken>> {
 
-    static final SpreadsheetNumericParserToken NO_PARAMETER = null;
-
+    static SpreadsheetUnaryParserTokenConsumer checkValue(final List<ParserToken> tokens) {
+        final SpreadsheetUnaryParserTokenConsumer checker = new SpreadsheetUnaryParserTokenConsumer();
+        tokens.stream()
+                .map(t -> SpreadsheetParserToken.class.cast(t))
+                .forEach(checker);
+        return checker;
+    }
+    
     SpreadsheetUnaryParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout) {
         super(value, text, computeWithout);
         this.parameter = parameter;

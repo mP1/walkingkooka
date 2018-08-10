@@ -31,9 +31,14 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetNegativeParserToken.class);
 
     static SpreadsheetNegativeParserToken with(final List<ParserToken> value, final String text){
-        return new SpreadsheetNegativeParserToken(copyAndCheckTokens(value),
-                checkText(text),
-                NO_PARAMETER,
+        final List<ParserToken> copy = copyAndCheckTokens(value);
+        checkText(text);
+
+        final SpreadsheetUnaryParserTokenConsumer checker = checkValue(value);
+
+        return new SpreadsheetNegativeParserToken(copy,
+                text,
+                checker.value(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
