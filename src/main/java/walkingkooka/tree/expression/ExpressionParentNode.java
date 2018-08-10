@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * A parent holding zero or more child expressions.
  */
-public abstract class ExpressionParentNode extends ExpressionNode {
+abstract class ExpressionParentNode extends ExpressionNode {
 
     static List<ExpressionNode> copy(final List<ExpressionNode> expressions) {
         List<ExpressionNode> copy = Lists.array();
