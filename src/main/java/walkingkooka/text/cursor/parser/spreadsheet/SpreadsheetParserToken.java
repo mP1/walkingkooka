@@ -278,7 +278,7 @@ public abstract class SpreadsheetParserToken implements ParserToken {
     /**
      * {@see SpreadsheetPercentSymbolParserToken}
      */
-    public static SpreadsheetSymbolParserToken percentSymbol(final String value, final String text){
+    public static SpreadsheetPercentSymbolParserToken percentSymbol(final String value, final String text){
         return SpreadsheetPercentSymbolParserToken.with(value, text);
     }
 

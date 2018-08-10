@@ -54,6 +54,16 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
+    protected Visiting startVisit(final SpreadsheetEqualsParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final SpreadsheetEqualsParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected Visiting startVisit(final SpreadsheetFunctionParserToken token) {
         throw new UnsupportedOperationException();
     }
@@ -64,12 +74,52 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
+    protected Visiting startVisit(final SpreadsheetGreaterThanParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final SpreadsheetGreaterThanParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected Visiting startVisit(final SpreadsheetGreaterThanEqualsParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final SpreadsheetGreaterThanEqualsParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected Visiting startVisit(final SpreadsheetGroupParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected void endVisit(final SpreadsheetGroupParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected Visiting startVisit(final SpreadsheetLessThanParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final SpreadsheetLessThanParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected Visiting startVisit(final SpreadsheetLessThanEqualsParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final SpreadsheetLessThanEqualsParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -90,6 +140,16 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
 
     @Override
     protected void endVisit(final SpreadsheetNegativeParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected Visiting startVisit(final SpreadsheetNotEqualsParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final SpreadsheetNotEqualsParserToken token) {
         throw new UnsupportedOperationException();
     }
 

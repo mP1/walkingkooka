@@ -98,6 +98,10 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         return SpreadsheetParserToken.labelName(SpreadsheetLabelName.with(text), text);
     }
 
+    final SpreadsheetMinusSymbolParserToken minusSymbol() {
+        return SpreadsheetParserToken.minusSymbol("-", "-");
+    }
+
     final SpreadsheetNumberParserToken number1() {
         return this.number(1);
     }
@@ -108,6 +112,10 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
 
     final SpreadsheetNumberParserToken number(final int value) {
         return SpreadsheetParserToken.number(BigInteger.valueOf(value), String.valueOf(value));
+    }
+
+    final SpreadsheetPercentSymbolParserToken percentSymbol() {
+        return SpreadsheetParserToken.percentSymbol("%", "%");
     }
     
     final SpreadsheetWhitespaceParserToken whitespace() {

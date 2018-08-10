@@ -55,6 +55,16 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
+    // SpreadsheetEqualsParserToken....................................................................................
+
+    protected Visiting startVisit(final SpreadsheetEqualsParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final SpreadsheetEqualsParserToken token) {
+        // nop
+    }
+
     // SpreadsheetFunctionParserToken....................................................................................
 
     protected Visiting startVisit(final SpreadsheetFunctionParserToken token) {
@@ -62,6 +72,26 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     }
 
     protected void endVisit(final SpreadsheetFunctionParserToken token) {
+        // nop
+    }
+
+    // SpreadsheetGreaterThanParserToken....................................................................................
+
+    protected Visiting startVisit(final SpreadsheetGreaterThanParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final SpreadsheetGreaterThanParserToken token) {
+        // nop
+    }
+
+    // SpreadsheetGreaterThanEqualsParserToken....................................................................................
+
+    protected Visiting startVisit(final SpreadsheetGreaterThanEqualsParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final SpreadsheetGreaterThanEqualsParserToken token) {
         // nop
     }
     
@@ -72,6 +102,26 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     }
 
     protected void endVisit(final SpreadsheetGroupParserToken token) {
+        // nop
+    }
+
+    // SpreadsheetLessThanParserToken....................................................................................
+
+    protected Visiting startVisit(final SpreadsheetLessThanParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final SpreadsheetLessThanParserToken token) {
+        // nop
+    }
+
+    // SpreadsheetLessThanEqualsParserToken....................................................................................
+
+    protected Visiting startVisit(final SpreadsheetLessThanEqualsParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final SpreadsheetLessThanEqualsParserToken token) {
         // nop
     }
 
@@ -92,6 +142,16 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     }
 
     protected void endVisit(final SpreadsheetNegativeParserToken token) {
+        // nop
+    }
+
+    // SpreadsheetNotEqualsParserToken....................................................................................
+
+    protected Visiting startVisit(final SpreadsheetNotEqualsParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final SpreadsheetNotEqualsParserToken token) {
         // nop
     }
     

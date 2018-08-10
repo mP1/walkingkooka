@@ -31,13 +31,16 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetPercentageParserToken.class);
 
     static SpreadsheetPercentageParserToken with(final List<ParserToken> value, final String text){
-        return new SpreadsheetPercentageParserToken(copyAndCheckTokens(value),
-                checkText(text),
-                NO_NUMBER,
+        final List<ParserToken> copy = copyAndCheckTokens(value);
+        checkText(text);
+
+        final SpreadsheetUnaryParserTokenConsumer checker = checkValue(value);
+
+        return new SpreadsheetPercentageParserToken(copy,
+                text,
+                checker.value(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
-
-    private static final SpreadsheetNumericParserToken NO_NUMBER = null;
 
     private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout){
         super(value, text, parameter, computeWithout);
