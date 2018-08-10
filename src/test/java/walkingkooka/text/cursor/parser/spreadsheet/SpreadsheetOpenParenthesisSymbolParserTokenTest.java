@@ -21,7 +21,7 @@ import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-public final class SpreadsheetOpenParenthesisSymbolParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetOpenParenthesisSymbolParserToken, String> {
+public final class SpreadsheetOpenParenthesisSymbolParserTokenTest extends SpreadsheetSymbolParserTokenTestCase<SpreadsheetOpenParenthesisSymbolParserToken> {
 
     @Test
     public void testAccept() {

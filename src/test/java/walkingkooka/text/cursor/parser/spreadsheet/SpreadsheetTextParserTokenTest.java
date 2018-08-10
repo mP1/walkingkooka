@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
 public final class SpreadsheetTextParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetTextParserToken, String> {
@@ -62,6 +63,11 @@ public final class SpreadsheetTextParserTokenTest extends SpreadsheetLeafParserT
             }
         }.accept(token);
         assertEquals("13542", b.toString());
+    }
+
+    @Test
+    public void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(ExpressionNode.text(this.text()));
     }
 
     @Override

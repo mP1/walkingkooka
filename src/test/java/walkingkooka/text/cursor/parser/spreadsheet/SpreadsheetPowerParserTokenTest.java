@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -109,6 +110,11 @@ public final class SpreadsheetPowerParserTokenTest extends SpreadsheetBinaryPars
     @Override
     SpreadsheetParserToken operatorSymbol() {
         return SpreadsheetParserToken.powerSymbol("^", "^");
+    }
+
+    @Override
+    ExpressionNode expressionNode(final ExpressionNode left, final ExpressionNode right){
+        return ExpressionNode.power(left, right);
     }
 
     @Override

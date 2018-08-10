@@ -22,7 +22,10 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.Assert.assertNotSame;
@@ -91,6 +94,13 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         this.checkValue(token2, name, number);
         this.checkFunction(token, this.functionName());
         this.checkParameters(token, number);
+    }
+
+    @Test
+    public void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(ExpressionNode.function(
+                ExpressionNodeName.with(FUNCTION),
+                Lists.of(ExpressionNode.number(new BigInteger(NUMBER1, 10)))));
     }
 
     private void checkFunction(final SpreadsheetFunctionParserToken function, final SpreadsheetFunctionName name) {

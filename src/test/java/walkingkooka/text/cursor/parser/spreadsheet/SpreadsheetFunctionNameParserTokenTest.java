@@ -64,6 +64,11 @@ public final class SpreadsheetFunctionNameParserTokenTest extends SpreadsheetLea
         assertEquals("13542", b.toString());
     }
 
+    @Test
+    public void testToExpressionNode() {
+        this.toExpressionNodeAndFail();
+    }
+
     @Override
     String text() {
         return "sum";

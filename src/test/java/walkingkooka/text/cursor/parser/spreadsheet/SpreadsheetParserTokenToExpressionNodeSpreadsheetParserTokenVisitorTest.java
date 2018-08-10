@@ -18,15 +18,14 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-public final class SpreadsheetParserTokenVisitorTest extends SpreadsheetParserTokenVisitorTestCase<FakeSpreadsheetParserTokenVisitor> {
-
+public final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitorTest extends SpreadsheetParserTokenVisitorTestCase<SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor> {
     @Override
-    protected FakeSpreadsheetParserTokenVisitor createParserTokenVisitor() {
-        return new FakeSpreadsheetParserTokenVisitor();
+    protected SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor createParserTokenVisitor() {
+        return new SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor();
     }
 
     @Override
-    protected Class<FakeSpreadsheetParserTokenVisitor> parserTokenVisitorType() {
-        return FakeSpreadsheetParserTokenVisitor.class;
+    protected Class<SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor> parserTokenVisitorType() {
+        return SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor.class;
     }
 }

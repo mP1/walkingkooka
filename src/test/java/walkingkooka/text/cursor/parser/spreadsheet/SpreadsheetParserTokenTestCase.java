@@ -21,9 +21,13 @@ import org.junit.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
+
+import static org.junit.Assert.assertNotNull;
 
 public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParserToken> extends ParserTokenTestCase<T> {
 
@@ -93,4 +97,25 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     abstract T createToken(final String text);
 
     abstract String text();
+
+    final void toExpressionNodeAndFail() {
+        this.toExpressionNodeAndFail(this.createToken());
+    }
+
+    final void toExpressionNodeAndFail(final T token) {
+        final Optional<ExpressionNode> node = token.expressionNode();
+        assertEquals("toExpressionNode", Optional.empty(), node);
+    }
+
+    final void toExpressionNodeAndCheck(final ExpressionNode expected) {
+        this.toExpressionNodeAndCheck(this.createToken(), expected);
+    }
+
+    final void toExpressionNodeAndCheck(final T token, final ExpressionNode expected) {
+        assertNotNull( "token", token);
+        assertNotNull( "expected", expected);
+
+        final Optional<ExpressionNode> node = this.createToken().expressionNode();
+        assertEquals("toExpressionNode", Optional.of(expected), node);
+    }
 }

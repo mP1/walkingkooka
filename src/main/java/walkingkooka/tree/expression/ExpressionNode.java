@@ -168,6 +168,13 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
+     * {@see ExpressionReferenceNode}
+     */
+    public static ExpressionReferenceNode reference(final ExpressionReference reference){
+        return ExpressionReferenceNode.with(reference);
+    }
+
+    /**
      * {@see ExpressionSubtractionNode}
      */
     public static ExpressionSubtractionNode subtraction(final ExpressionNode left, final ExpressionNode right){

@@ -16,17 +16,18 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.spreadsheet;
+package walkingkooka.tree.expression;
 
-public final class SpreadsheetParserTokenVisitorTest extends SpreadsheetParserTokenVisitorTestCase<FakeSpreadsheetParserTokenVisitor> {
+import java.util.Optional;
 
-    @Override
-    protected FakeSpreadsheetParserTokenVisitor createParserTokenVisitor() {
-        return new FakeSpreadsheetParserTokenVisitor();
-    }
+/**
+ * An interface that contains a method supporting converting an instance to a {@link ExpressionNode}.
+ */
+public interface HasExpressionNode {
 
-    @Override
-    protected Class<FakeSpreadsheetParserTokenVisitor> parserTokenVisitorType() {
-        return FakeSpreadsheetParserTokenVisitor.class;
-    }
+    /**
+     * Converts this instance to its {@link ExpressionNode} equivalent or returns empty. Empty is usually returned for
+     * worthless tokens such as whitespace.
+     */
+    Optional<ExpressionNode> expressionNode();
 }

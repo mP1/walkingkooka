@@ -21,8 +21,10 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryParserTokenTestCase<SpreadsheetNegativeParserToken> {
@@ -97,6 +99,11 @@ public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryPa
                         parameter, parameter, parameter, parameter, parameter,
                         unary, unary, unary),
                 visited);
+    }
+
+    @Test
+    public final void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(ExpressionNode.negative(ExpressionNode.number(new BigInteger(NUMBER1, 10))));
     }
     
     @Override
