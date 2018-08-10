@@ -19,6 +19,7 @@ package walkingkooka.util.systemproperty;
 
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.Map;
@@ -85,6 +86,13 @@ final public class SystemProperty implements Value<String>, HashCodeEqualsDefine
     public final static SystemProperty USER_REGION = createAndPut("user.region");
 
     public final static SystemProperty USER_TIMEZONE = createAndPut("user.timezone");
+
+    // our properties
+
+    /**
+     * {@see walkingkooka.text.CaseSensitivity#FILE_SYSTEM_CASE_SENSITIVITY}
+     */
+    public final static SystemProperty FILE_SYSTEM_CASE_SENSITIVITY = createAndPut(CaseSensitivity.class.getName());
 
     /**
      * Retrieves a {@link SystemProperty} with the given name.

@@ -20,7 +20,11 @@ package walkingkooka.text;
 import walkingkooka.compare.Comparables;
 import walkingkooka.compare.Comparators;
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.util.systemproperty.SystemProperty;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -31,7 +35,7 @@ import java.util.function.Predicate;
 public enum CaseSensitivity {
 
     /**
-     * Case is import org.junit.Test;important when doing operations.
+     * Case is important when doing operations.
      */
     SENSITIVE {
         @Override
@@ -56,7 +60,7 @@ public enum CaseSensitivity {
     },
 
     /**
-     * Case is not import org.junit.Test;important when doing operations.
+     * Case is not important when doing operations.
      */
     INSENSITIVE {
         @Override
@@ -277,4 +281,51 @@ public enum CaseSensitivity {
     }
 
     abstract String toStringSuffix();
+
+    /**
+     * A boolean system property that allows the actual {@link CaseSensitivity} instance to be selected,
+     * overriding a tests involving {@link java.io.File}.
+     * A boolean value of true indicates the file system is case sensitive, any other value means its not.
+     */
+    public final static SystemProperty FILE_SYSTEM_PROPERTY = SystemProperty.FILE_SYSTEM_CASE_SENSITIVITY;
+
+    // @VisibilityForTesting
+    static volatile CaseSensitivity FILE_SYSTEM;
+
+    /**
+     * Returns a {@link CaseSensitivity} that matches the case sensitivity of file names.
+     */
+    public static CaseSensitivity fileSystem() {
+        if(null==FILE_SYSTEM) {
+            CaseSensitivity sensitivity = fromSystemProperty();
+            if(null==sensitivity){
+                sensitivity = fromFileEqualsTests();
+            }
+            FILE_SYSTEM = sensitivity;
+        }
+        return FILE_SYSTEM;
+    }
+
+    private static CaseSensitivity fromSystemProperty() {
+        final String systemPropertyValue = FILE_SYSTEM_PROPERTY.propertyValue();
+        return CharSequences.isNullOrEmpty(systemPropertyValue) ?
+                null :
+                Boolean.valueOf(systemPropertyValue) ?
+                        SENSITIVE :
+                        INSENSITIVE;
+    }
+
+    /**
+     * Create two paths with the different case and then checks if they are the same file using {@link Files#isSameFile(Path, Path)}.
+     */
+    private static CaseSensitivity fromFileEqualsTests() {
+        try {
+            final String filename = "abc";
+            return Files.isSameFile(Paths.get(filename.toLowerCase()), Paths.get(filename.toUpperCase())) ?
+                    INSENSITIVE :
+                    SENSITIVE;
+        } catch (final Exception cause) {
+            throw new Error(cause);
+        }
+    }
 }

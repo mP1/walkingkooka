@@ -17,10 +17,12 @@
 
 package walkingkooka.text;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.compare.Comparables;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.util.systemproperty.SystemProperty;
 
 final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivity> {
 
@@ -699,6 +701,39 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
     private static CharSequence quote(final CharSequence chars) {
         return null == chars ? null : CharSequences.quote(chars);
     }
+
+    // fileSystem..........................................................................................
+
+    @Test
+    public void testSystemPropertyTrue() {
+        CaseSensitivity.FILE_SYSTEM = null;
+        CaseSensitivity.FILE_SYSTEM_PROPERTY.set(String.valueOf(Boolean.TRUE));
+        assertEquals(CaseSensitivity.SENSITIVE, CaseSensitivity.fileSystem());
+    }
+
+    @Test
+    public void testSystemPropertyFalse() {
+        CaseSensitivity.FILE_SYSTEM = null;
+        CaseSensitivity.FILE_SYSTEM_PROPERTY.set(String.valueOf(Boolean.FALSE));
+        assertEquals(CaseSensitivity.INSENSITIVE, CaseSensitivity.fileSystem());
+    }
+
+    @Test
+    // TODO add an if for windows and linux.
+    public void testWithoutSystemProperty() {
+        CaseSensitivity.FILE_SYSTEM = null;
+
+        final String osName = SystemProperty.OS_NAME.propertyValue();
+        if(osName.contains("OS X")) {
+            assertEquals(CaseSensitivity.SENSITIVE, CaseSensitivity.fileSystem());
+        }
+    }
+
+    @After
+    public void after() {
+        CaseSensitivity.FILE_SYSTEM = null;
+    }
+
 
     @Override
     protected Class<CaseSensitivity> type() {
