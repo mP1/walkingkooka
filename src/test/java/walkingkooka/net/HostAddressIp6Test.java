@@ -290,7 +290,7 @@ public final class HostAddressIp6Test extends TestCase {
     private void parseAndCheck(final String address, final int start, final int end, final byte[] value) {
         final Object result = HostAddress.tryParseIp6(address, start, end);
         if (result instanceof HostAddressProblem) {
-            failNotEquals("failed " + CharSequences.quote(address), value,
+            assertEquals("failed " + CharSequences.quote(address), value,
                     ((HostAddressProblem) result).message(address));
         }
         checkEquals("bytes[]", value, (byte[]) result);
@@ -307,13 +307,13 @@ public final class HostAddressIp6Test extends TestCase {
         }
         final HostAddressProblem actual = (HostAddressProblem) result;
         if (false == problem.equals(actual)) {
-            failNotEquals("wrong problem returned", problem.message(address), actual.message(address));
+            assertEquals("wrong problem returned", problem.message(address), actual.message(address));
         }
     }
 
     static public void checkEquals(final String message, final byte[] expected, final byte[] actual) {
         if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, HostAddressTesting.toHexString(expected), HostAddressTesting.toHexString(actual));
+            assertEquals(message, HostAddressTesting.toHexString(expected), HostAddressTesting.toHexString(actual));
         }
     }
 

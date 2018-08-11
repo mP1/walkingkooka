@@ -142,7 +142,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
             i++;
         }
         if (i != expected.length) {
-            failNotEquals(null, this.toString(consumed), this.toString(expected));
+            assertEquals(null, this.toString(consumed), this.toString(expected));
         }
         this.checkNextFails(iterator);
     }

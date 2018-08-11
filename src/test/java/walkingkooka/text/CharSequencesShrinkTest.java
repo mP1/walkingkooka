@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.StaticMethodTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharSequencesShrinkTest extends StaticMethodTestCase {
 
     @Test
@@ -65,10 +67,8 @@ final public class CharSequencesShrinkTest extends StaticMethodTestCase {
     private void shrink(final CharSequence sequence, final int desiredLength,
                         final CharSequence expected) {
         final CharSequence actual = CharSequences.shrink(sequence, desiredLength);
-        if (false == actual.equals(expected)) {
-            failNotEquals("Shrinking \"" + sequence + "\" with a desired length=" + desiredLength,
+        assertEquals("Shrinking \"" + sequence + "\" with a desired length=" + desiredLength,
                     expected,
                     actual);
-        }
     }
 }

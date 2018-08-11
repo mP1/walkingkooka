@@ -197,7 +197,7 @@ public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColu
     private void determineAndCheck(final String text, final String pos, final String line, final int lineNumber,
                                    final int column) {
         if (false == text.startsWith(pos)) {
-            failNotEquals("Pos text must be at the start of text", text, pos);
+            assertEquals("Pos text must be at the start of text", text, pos);
         }
         this.determineAndCheck(text, pos.length(), line, lineNumber, column);
     }

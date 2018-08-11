@@ -29,6 +29,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing a {@link PublicStaticHelper} with tests mostly concerned with visibility
  * of members.
@@ -110,7 +112,7 @@ abstract public class StaticHelperTestCase<H extends StaticHelper> extends TestC
         if (false == expected.equals(actual)) {
             final String expected2 = name + "ClassTest";
             if (false == expected2.equals(actual)) {
-                failNotEquals("Test name is invalid for type " + type, expected, actual);
+                assertEquals("Test name is invalid for type " + type, expected, actual);
             }
         }
         return type;

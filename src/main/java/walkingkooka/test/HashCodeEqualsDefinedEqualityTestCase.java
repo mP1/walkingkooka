@@ -93,7 +93,7 @@ abstract public class HashCodeEqualsDefinedEqualityTestCase<T extends HashCodeEq
 
         this.findAllHashCodeAndEquals(type, hashCode, equals);
         if (hashCode.entrySet().size() != equals.entrySet().size()) {
-            failNotEquals("Unmatched equals and hashCode methods found", hashCode, equals);
+            assertEquals("Unmatched equals and hashCode methods found", hashCode, equals);
         }
     }
 
@@ -193,7 +193,7 @@ abstract public class HashCodeEqualsDefinedEqualityTestCase<T extends HashCodeEq
     @Test final public void testNullIsFalse() {
         final T object = this.createObject();
         if (object.equals(null)) {
-            failNotEquals(null, object, null);
+            assertEquals(null, object, null);
         }
     }
 
@@ -224,10 +224,10 @@ abstract public class HashCodeEqualsDefinedEqualityTestCase<T extends HashCodeEq
         Assert.assertNotNull("Actual is null", actual);
 
         if (false == expected.equals(actual)) {
-            failNotEquals(null, expected, actual);
+            assertEquals(null, expected, actual);
         }
         if (false == actual.equals(expected)) {
-            failNotEquals(null, expected, actual);
+            assertEquals(null, expected, actual);
         }
     }
 
@@ -242,7 +242,7 @@ abstract public class HashCodeEqualsDefinedEqualityTestCase<T extends HashCodeEq
         final int actualHashCode = expected.hashCode();
 
         if (expectedHashCode != actualHashCode) {
-            failNotEquals("Hashcode not equal",
+            assertEquals("Hashcode not equal",
                     expectedHashCode + "=" + expected,
                     actualHashCode + "=" + actual);
         }

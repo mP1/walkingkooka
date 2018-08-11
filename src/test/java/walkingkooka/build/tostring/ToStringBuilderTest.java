@@ -585,7 +585,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     private void buildAndCheck(final ToStringBuilder builder, final String expected) {
         final String built = builder.build();
         if (false == expected.equals(built)) {
-            failNotEquals("options=" + builder.options.toString(),
+            assertEquals("options=" + builder.options.toString(),
                     ToStringBuilderTest.format(expected),
                     ToStringBuilderTest.format(built));
         }

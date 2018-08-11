@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
  */
@@ -32,7 +34,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
 
     @Test final public void testLengthAndToStringCompatible() {
         final C sequence = this.createCharSequence();
-        Assert.assertEquals(sequence + " length is different from that of toString()",
+        assertEquals(sequence + " length is different from that of toString()",
                 sequence.length(),
                 sequence.toString().length());
     }
@@ -45,7 +47,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
             chars[i] = sequence.charAt(i);
         }
 
-        Assert.assertEquals(new String(chars), sequence.toString());
+        assertEquals(new String(chars), sequence.toString());
     }
 
     @Test final public void testNegativeIndexFails() {
@@ -149,17 +151,11 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
     }
 
     protected void checkLength(final CharSequence chars, final int length) {
-        final int actual = chars.length();
-        if (length != actual) {
-            failNotEquals("length of " + chars, length, actual);
-        }
+        assertEquals("length of " + chars, length, chars.length());
     }
 
     protected void checkLength(final String message, final CharSequence chars, final int length) {
-        final int actual = chars.length();
-        if (length != actual) {
-            failNotEquals(message, length, actual);
-        }
+        assertEquals(message, length, chars.length());
     }
 
     protected void checkCharAt(final String c) {
@@ -192,7 +188,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
     private void checkCharAt(final CharSequence chars, final int index, final char c) {
         final char d = chars.charAt(index);
         if (c != d) {
-            failNotEquals("Wrong char at " + index + " in " + chars,
+            assertEquals("Wrong char at " + index + " in " + chars,
                     CharSequenceTestCase.toString(c),
                     CharSequenceTestCase.toString(chars.charAt(index)));
         }

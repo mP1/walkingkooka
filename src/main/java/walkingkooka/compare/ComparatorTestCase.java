@@ -23,6 +23,8 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Comparator;
 
+import static org.junit.Assert.assertEquals;
+
 abstract public class ComparatorTestCase<C extends Comparator<T>, T>
         extends PackagePrivateClassTestCase<C> {
 
@@ -92,7 +94,7 @@ abstract public class ComparatorTestCase<C extends Comparator<T>, T>
                                   final int expected) {
         final int result = comparator.compare(value1, value2);
         if (false == ComparatorTestCase.isEqual(expected, result)) {
-            failNotEquals("comparing " + this.toString(value1) + " with " + this.toString(value2)
+            assertEquals("comparing " + this.toString(value1) + " with " + this.toString(value2)
                     + " returned wrong result using " + comparator, expected, result);
         }
     }
@@ -107,7 +109,7 @@ abstract public class ComparatorTestCase<C extends Comparator<T>, T>
 
     public static void checkEquals(final String message, final int expected, final int actual) {
         if (false == ComparatorTestCase.isEqual(expected, actual)) {
-            failNotEquals(message, expected, actual);
+            assertEquals(message, expected, actual);
         }
     }
 

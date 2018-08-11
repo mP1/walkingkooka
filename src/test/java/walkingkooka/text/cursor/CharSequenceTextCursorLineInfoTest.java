@@ -66,7 +66,7 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     private void lineWithPosition(final String text, final String pos, final String line, final int lineNumber,
                                   final int column) {
         if (false == text.startsWith(pos)) {
-            TestCase.failNotEquals("Pos text must be at the start of text", text, pos);
+            assertEquals("Pos text must be at the start of text", text, pos);
         }
         this.lineWithPosition(text, pos.length(), line, lineNumber, column);
     }

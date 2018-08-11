@@ -23,6 +23,8 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing a {@link Printer} with mostly parameter checking tests.
  */
@@ -155,10 +157,6 @@ abstract public class PrinterTestCase<P extends Printer> extends PackagePrivateC
 
     static public void checkEquals(final String message, final CharSequence expected,
                                    final CharSequence actual) {
-        if (false == expected.equals(actual)) {
-            failNotEquals(null,
-                    CharSequences.escape(expected).toString(),
-                    CharSequences.escape(actual).toString());
-        }
+        assertEquals(CharSequences.escape(expected).toString(), CharSequences.escape(actual).toString());
     }
 }

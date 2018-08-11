@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.StaticMethodTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharSequenceTrimmerLeftAndRightTest extends StaticMethodTestCase {
 
     @Test
@@ -65,7 +67,7 @@ final public class CharSequenceTrimmerLeftAndRightTest extends StaticMethodTestC
     private void trim(final CharSequence sequence, final CharSequence expected) {
         final CharSequence actual = CharSequenceTrimmer.leftAndRight(sequence);
         if (false == actual.equals(expected)) {
-            failNotEquals("trimming of " + CharSequences.quote(sequence.toString()),
+            assertEquals("trimming of " + CharSequences.quote(sequence.toString()),
                     expected,
                     actual);
         }
