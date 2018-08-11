@@ -115,9 +115,7 @@ abstract public class SerializationTestCase<S extends Serializable> extends Test
             }
             @SuppressWarnings("unchecked") final S constant = (S) field.get(null);
             final S deserialized = this.cloneUsingSerialization(constant);
-            if (constant != deserialized) {
-                failNotSame("Constant is not a singleton=" + field, constant, deserialized);
-            }
+            assertSame("Constant is not a singleton=" + field, constant, deserialized);
             i++;
         }
 
@@ -178,9 +176,7 @@ abstract public class SerializationTestCase<S extends Serializable> extends Test
     final protected void serializeSingletonAndCheck(final Serializable object)
             throws IOException, ClassNotFoundException {
         final S serialized = this.cloneUsingSerialization(object);
-        if (object != serialized) {
-            failNotSame(object + " is not a singleton", object, serialized);
-        }
+        assertSame(object + " is not a singleton", object, serialized);
     }
 
     abstract protected Class<S> type();
