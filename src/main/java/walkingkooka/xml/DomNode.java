@@ -31,6 +31,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -421,74 +422,8 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
         return false;
     }
 
-    /**
-     * Returns this if a {@link DomCDataSection} otherwise throws {@link ClassCastException}.
-     */
-    public DomCDataSection asCDataSection() {
-        return DomCDataSection.class.cast(this);
-    }
-
-    /**
-     * Returns this if a {@link DomComment} otherwise throws {@link ClassCastException}.
-     */
-    public DomComment asComment() {
-        return DomComment.class.cast(this);
-    }
-
-    /**
-     * Returns this if a {@link DomDocument} otherwise throws {@link ClassCastException}.
-     */
-    public DomDocument asDocument() {
-        return DomDocument.class.cast(this);
-    }
-
-    /**
-     * Returns this if a {@link DomDocumentType} otherwise throws {@link ClassCastException}.
-     */
-    public DomDocumentType asDocumentType() {
-        return DomDocumentType.class.cast(this);
-    }
-
-    /**
-     * Returns this if a {@link walkingkooka.xml.DomElement} otherwise throws {@link ClassCastException}.
-     */
-    public DomElement asElement() {
-        return DomElement.class.cast(this);
-    }
-
-    /**
-     * Returns this if a {@link DomEntity} otherwise throws {@link ClassCastException}.
-     */
-    public DomEntity asEntity() {
-        return DomEntity.class.cast(this);
-    }
-
-    /**
-     * Returns this if a {@link DomEntityReference} otherwise throws {@link ClassCastException}.
-     */
-    public DomEntityReference asEntityReference() {
-        return DomEntityReference.class.cast(this);
-    }
-
-    /**
-     * Returns this if a {@link DomNotation} otherwise throws {@link ClassCastException}.
-     */
-    public DomNotation asNotation() {
-        return DomNotation.class.cast(DomNotation.class);
-    }
-
-    /**
-     * Returns this if a {@link DomProcessingInstruction} otherwise throws {@link ClassCastException}.
-     */
-    public DomProcessingInstruction asProcessingInstruction() {
-        return DomProcessingInstruction.class.cast(this);
-    }
-
-    /**
-     * Returns this if a {@link DomText} otherwise throws {@link ClassCastException}.
-     */
-    public DomText asText() {
-        throw new ClassCastException(this.getClass().getName());
+    final <T extends DomNode> T cast() {
+        return Cast.to(this);
     }
 
     // text.......................................................................................................

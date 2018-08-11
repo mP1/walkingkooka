@@ -34,7 +34,7 @@ final public class DomCDataSection extends DomTextNode {
   @Override
   public DomCDataSection setText(final String text) {
     checkCDataSectionText(text);
-    return this.setText0(text).asCDataSection();
+    return this.setText0(text).cast();
   }
 
   // DomNode...........................................................................................
@@ -47,11 +47,6 @@ final public class DomCDataSection extends DomTextNode {
   @Override
   DomCDataSection wrap0(final org.w3c.dom.Node node) {
     return new DomCDataSection(node);
-  }
-
-  @Override
-  public DomCDataSection asCDataSection() {
-    return this;
   }
 
   @Override

@@ -143,14 +143,6 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
      * Always returns this.
      */
     @Override
-    public DomEntity asEntity() {
-        return this;
-    }
-
-    /**
-     * Always returns this.
-     */
-    @Override
     public boolean isEntity() {
         return true;
     }
@@ -168,7 +160,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
     }
 
     @Override boolean equalsIgnoringParentAndChildren(final DomNode other) {
-        return equalsIgnoringParentAndChildren0(other.asEntity());
+        return equalsIgnoringParentAndChildren0(other.cast());
     }
 
     private boolean equalsIgnoringParentAndChildren0(final DomEntity other) {

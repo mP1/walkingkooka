@@ -46,11 +46,6 @@ public final class DomDocument extends DomParentNode{
     }
 
     @Override
-    public DomDocument asDocument() {
-        return this;
-    }
-
-    @Override
     public boolean isDocument() {
         return true;
     }
@@ -434,12 +429,12 @@ public final class DomDocument extends DomParentNode{
 
     @Override
     public DomDocument removeChild(final DomNode child) {
-        return super.removeChild(child).asDocument();
+        return super.removeChild(child).cast();
     }
 
     @Override
     public DomDocument removeChild(final int child) {
-        return super.removeChild(child).asDocument();
+        return super.removeChild(child).cast();
     }
 
     /**

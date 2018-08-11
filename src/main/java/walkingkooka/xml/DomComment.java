@@ -35,7 +35,7 @@ final public class DomComment extends DomTextNode {
   @Override
   public DomComment setText(final String text) {
     checkCommentText(text);
-    return this.setText0(text).asComment();
+    return this.setText0(text).cast();
   }
 
   // DomNode.......................................................................................................
@@ -48,11 +48,6 @@ final public class DomComment extends DomTextNode {
   @Override
   DomComment wrap0(final org.w3c.dom.Node node) {
     return new DomComment(node);
-  }
-
-  @Override
-  public DomComment asComment() {
-    return this;
   }
 
   @Override

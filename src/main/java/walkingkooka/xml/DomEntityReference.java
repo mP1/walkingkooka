@@ -74,14 +74,6 @@ final public class DomEntityReference extends DomParentNode2 {
     return new DomEntityReference(node);
   }
 
-  /**
-   * Always returns this.
-   */
-  @Override
-  public DomEntityReference asEntityReference() {
-    return this;
-  }
-
   @Override
   public boolean isEntityReference() {
     return true;
