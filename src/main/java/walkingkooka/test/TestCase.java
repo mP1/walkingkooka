@@ -18,7 +18,6 @@
 package walkingkooka.test;
 
 import org.junit.Assert;
-import walkingkooka.collect.list.Lists;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,9 +25,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -39,73 +35,6 @@ abstract public class TestCase {
 
     protected TestCase() {
         super();
-    }
-
-    protected void checkAllPublicIsNonPrimitiveMethods(final Object object) throws Exception {
-        assertNotNull("object must not be null", object);
-
-        final List<Method> notNull = Lists.array();
-        int isCount = 0;
-
-        for (final Method method : object.getClass().getMethods()) {
-            // only check isXXX methods
-            final String name = method.getName();
-            if (false == name.startsWith("is")) {
-                continue;
-            }
-
-            // do not care about static isXXX methods.
-            if (Modifier.isStatic(method.getModifiers())) {
-                continue;
-            }
-
-            final Class<?> returnType = method.getReturnType();
-            if (Void.TYPE.equals(returnType)) {
-                Assert.fail("Void method " + method.toGenericString());
-            }
-            // do not care about primitive types
-            if (returnType.isPrimitive()) {
-                continue;
-            }
-
-            // can not possibly guess parameters so skip
-            if (method.getParameterTypes().length > 0) {
-                continue;
-            }
-
-            Object isValue = null;
-            try {
-                isValue = method.invoke(object);
-            } catch (final Exception cause) {
-                throw new Exception(method.toGenericString() + " message=" + cause.getMessage(),
-                        cause);
-            }
-            if (null != isValue) {
-                notNull.add(method);
-            }
-
-            isCount++;
-        }
-
-        switch (isCount) {
-            case 0:
-                Assert.fail("Did not find any isXXX methods, expected several");
-            case 1:
-                Assert.fail("Only found isXXX methods, expected several");
-            default:
-                break;
-        }
-
-        final int notNullCount = notNull.size();
-        switch (notNullCount) {
-            case 0:
-                Assert.fail("All the isXXX methods returned null");
-                break;
-            case 1:
-                break;
-            default:
-                Assert.fail(notNullCount + " isXXX methods returned not null, methods: " + notNull);
-        }
     }
 
     protected void checkToStringOverridden(final Class<?> type) {
@@ -155,39 +84,5 @@ abstract public class TestCase {
 
     protected String resourceAsText(final Class<?> source, final String resource) throws IOException {
         return new String(this.resourceAsBytes(source, resource));
-    }
-
-    private static boolean nullSafeEquals(final Object first, final Object second) {
-        return null == first ? null == second : first.equals(second);
-    }
-
-    private static String toString(final boolean[] array) {
-        String toString = "null";
-        if (null != array) {
-            final StringBuilder b = new StringBuilder();
-
-            final int length = array.length;
-            b.append(length);
-            b.append(' ');
-
-            for (int i = 0; i < length; i++) {
-                b.append(array[i] ? '1' : '0');
-            }
-            toString = b.toString();
-        }
-
-        return toString;
-    }
-
-    private static String toString(final byte[] array) {
-        return null == array ? "null" : array.length + "=" + Arrays.toString(array);
-    }
-
-    private static String toString(final char[] array) {
-        return null == array ? "null" : array.length + "=" + Arrays.toString(array);
-    }
-
-    private static String toString(final Object[] array) {
-        return null == array ? "null" : array.length + "=" + Arrays.toString(array);
     }
 }
