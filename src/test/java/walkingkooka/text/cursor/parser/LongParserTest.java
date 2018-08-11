@@ -49,18 +49,43 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<FakeParser
     }
 
     @Test
-    public void testSuccess() {
+    public void testPlusSignFails() {
+        this.parseFailAndCheck("+");
+    }
+
+    @Test
+    public void testMinusSignFails() {
+        this.parseFailAndCheck("-");
+    }
+
+    @Test
+    public void testDecimal() {
         this.parseAndCheck2("1", 1, "1", "");
     }
 
     @Test
-    public void testSuccess2() {
+    public void testDecimal2() {
         this.parseAndCheck2("123", 123, "123", "");
+    }
+
+    @Test
+    public void testDecimal3() {
+        this.parseAndCheck2("+123", 123, "+123", "");
     }
 
     @Test
     public void testUntilNonDigit() {
         this.parseAndCheck2("123abc", 123, "123", "abc");
+    }
+
+    @Test
+    public void testNegativeDecimal() {
+        this.parseAndCheck2("-123", -123, "-123", "");
+    }
+
+    @Test
+    public void testNegativeDecimal2() {
+        this.parseAndCheck2("-123//", -123, "-123", "//");
     }
 
     @Test
@@ -84,23 +109,61 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<FakeParser
     }
 
     @Test
-    public void testMaxValueDec() {
+    public void testLongMaxValue() {
         final BigInteger bigInteger = BigInteger.valueOf(Long.MAX_VALUE);
         final String text = bigInteger.toString();
         this.parseAndCheck3(10, text, Long.MAX_VALUE, text, "");
     }
 
     @Test
-    public void testMaxValueDec2() {
+    public void testLongMaxValue2() {
         final BigInteger bigInteger = BigInteger.valueOf(Long.MAX_VALUE);
         final String text = bigInteger.toString();
         final String after = "//";
         this.parseAndCheck3(10, text + after, Long.MAX_VALUE, text, after);
     }
 
+    @Test
+    public void testPlusSignLongMaxValue() {
+        final BigInteger bigInteger = BigInteger.valueOf(Long.MAX_VALUE);
+        final String text = "+" + bigInteger.toString();
+        this.parseAndCheck3(10, text, Long.MAX_VALUE, text, "");
+    }
+
+    @Test
+    public void testPlusSignLongMaxValue2() {
+        final BigInteger bigInteger = BigInteger.valueOf(Long.MAX_VALUE);
+        final String text = "+" + bigInteger.toString();
+        final String after = "//";
+        this.parseAndCheck3(10, text + after, Long.MAX_VALUE, text, after);
+    }
+
+    @Test
+    public void testLongMinValue() {
+        final BigInteger bigInteger = BigInteger.valueOf(Long.MIN_VALUE);
+        final String text = bigInteger.toString();
+        final String after = "";
+        this.parseAndCheck3(10, text + after, Long.MIN_VALUE, text, after);
+    }
+
+    @Test
+    public void testLongMinValue2() {
+        final BigInteger bigInteger = BigInteger.valueOf(Long.MIN_VALUE);
+        final String text = bigInteger.toString();
+        final String after = "//";
+        this.parseAndCheck3(10, text + after, Long.MIN_VALUE, text, after);
+    }
+
     @Test(expected = ParserException.class)
     public void testGreaterMaxValueFails() {
         final BigInteger bigInteger = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+
+        this.parseFailAndCheck(LongParser.with(10), bigInteger.toString());
+    }
+
+    @Test(expected = ParserException.class)
+    public void testLessMinValueFails() {
+        final BigInteger bigInteger = BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE);
 
         this.parseFailAndCheck(LongParser.with(10), bigInteger.toString());
     }
