@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -77,6 +78,14 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
         assertEquals("children without", childrenWithout, differentWithout.value());
 
         assertNotEquals("without should have less tokens than with", token.value().size(), differentWithout.value().size());
+    }
+
+    @Test
+    public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
+        final Optional<JsonNodeParserToken> without = this.createToken().withoutSymbolsOrWhitespace();
+        if(without.isPresent()){
+            this.propertiesNeverReturnNullCheck(without.get());
+        }
     }
 
     abstract T createToken(final String text, final List<ParserToken> tokens);

@@ -36,8 +36,8 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetGroupParserToken(final List<ParserToken> value, final String text, final boolean computeWithout){
-        super(value, text, computeWithout);
+    private SpreadsheetGroupParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -47,12 +47,12 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
 
     @Override
     SpreadsheetGroupParserToken replaceText(final String text) {
-        return new SpreadsheetGroupParserToken(this.value, text, WITHOUT_USE_THIS);
+        return new SpreadsheetGroupParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new SpreadsheetGroupParserToken(tokens, this.text(), WITHOUT_USE_THIS);
+        return new SpreadsheetGroupParserToken(tokens, this.text(), tokens);
     }
 
     @Override

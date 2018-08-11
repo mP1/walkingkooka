@@ -42,8 +42,8 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout){
-        super(value, text, parameter, computeWithout);
+    private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final List<ParserToken> valueWithout){
+        super(value, text, parameter, valueWithout);
     }
 
     @Override
@@ -53,12 +53,12 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
 
     @Override
     SpreadsheetNegativeParserToken replaceText(final String text) {
-        return new SpreadsheetNegativeParserToken(this.value, text, this.parameter, WITHOUT_USE_THIS);
+        return new SpreadsheetNegativeParserToken(this.value, text, this.parameter, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new SpreadsheetNegativeParserToken(tokens, this.text(), this.parameter, WITHOUT_USE_THIS);
+        return new SpreadsheetNegativeParserToken(tokens, this.text(), tokens.get(0).cast(), tokens);
     }
 
     @Override

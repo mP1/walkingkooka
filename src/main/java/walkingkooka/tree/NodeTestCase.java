@@ -110,6 +110,11 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    public void testPropertiesNeverReturnNull() throws Exception {
+        propertiesNeverReturnNullCheck(this.createNode());
+    }
+
+    @Test
     public void testEqualsNull(){
         assertNotEquals(this.createNode(), null);
     }

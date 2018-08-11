@@ -42,8 +42,8 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout){
-        super(value, text, parameter, computeWithout);
+    private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final List<ParserToken> valueWithout){
+        super(value, text, parameter, valueWithout);
     }
 
     @Override
@@ -53,12 +53,12 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
 
     @Override
     SpreadsheetPercentageParserToken replaceText(final String text) {
-        return new SpreadsheetPercentageParserToken(this.value, text, this.parameter, WITHOUT_USE_THIS);
+        return new SpreadsheetPercentageParserToken(this.value, text, this.parameter, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new SpreadsheetPercentageParserToken(tokens, this.text(), this.parameter, WITHOUT_USE_THIS);
+        return new SpreadsheetPercentageParserToken(tokens, this.text(), tokens.get(0).cast(), tokens);
     }
 
     @Override

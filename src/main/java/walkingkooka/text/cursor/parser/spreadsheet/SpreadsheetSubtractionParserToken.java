@@ -45,8 +45,8 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
 
     private static final SpreadsheetNumericParserToken NO_NUMBER = null;
 
-    private SpreadsheetSubtractionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
-        super(value, text, left, right, computeWithout);
+    private SpreadsheetSubtractionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
+        super(value, text, left, right, valueWithout);
     }
 
     @Override
@@ -65,7 +65,7 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
     }
 
     private SpreadsheetSubtractionParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetSubtractionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
+        return new SpreadsheetSubtractionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
     }
 
     @Override

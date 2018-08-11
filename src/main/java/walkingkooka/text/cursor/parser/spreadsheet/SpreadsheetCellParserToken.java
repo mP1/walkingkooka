@@ -53,8 +53,8 @@ public final class SpreadsheetCellParserToken extends SpreadsheetParentParserTok
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetCellParserToken(final List<ParserToken> value, final String text, final SpreadsheetCell cell, final boolean computeWithout){
-        super(value, text, computeWithout);
+    private SpreadsheetCellParserToken(final List<ParserToken> value, final String text, final SpreadsheetCell cell, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
         this.cell = cell;
     }
 
@@ -71,12 +71,12 @@ public final class SpreadsheetCellParserToken extends SpreadsheetParentParserTok
 
     @Override
     SpreadsheetCellParserToken replaceText(final String text) {
-        return new SpreadsheetCellParserToken(this.value, text, this.cell, WITHOUT_USE_THIS);
+        return new SpreadsheetCellParserToken(this.value, text, this.cell, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
     }
 
     @Override
     SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new SpreadsheetCellParserToken(tokens, this.text(), this.cell, WITHOUT_USE_THIS);
+        return new SpreadsheetCellParserToken(tokens, this.text(), this.cell, tokens);
     }
 
     @Override

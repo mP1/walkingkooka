@@ -43,8 +43,8 @@ public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParse
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetAdditionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
-        super(value, text, left, right, computeWithout);
+    private SpreadsheetAdditionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
+        super(value, text, left, right, valueWithout);
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParse
     }
 
     private SpreadsheetAdditionParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetAdditionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
+        return new SpreadsheetAdditionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
     }
 
     @Override

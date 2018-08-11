@@ -30,14 +30,13 @@ import java.util.Optional;
  */
 abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken implements Value<List<ParserToken>> {
 
-    final static boolean WITHOUT_COMPUTE_REQUIRED = true;
-    final static boolean WITHOUT_USE_THIS = !WITHOUT_COMPUTE_REQUIRED;
+    final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 
-    SpreadsheetParentParserToken(final List<ParserToken> value, final String text, final boolean computeWithout) {
+    SpreadsheetParentParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(text);
         this.value = value;
-        this.without = computeWithout ?
-                this.computeWithout(value) :
+        this.without =  null == valueWithout ?
+                computeWithout(value) :
                 Optional.of(this);
     }
 
@@ -58,6 +57,10 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
         return Optional.of(value.size() == without.size() ?
                 this :
                 this.replaceTokens(without));
+    }
+
+    final List<ParserToken> valueIfWithoutSymbolsOrWhitespaceOrNull() {
+        return this == this.without.get() ? this.value : null;
     }
 
     @Override

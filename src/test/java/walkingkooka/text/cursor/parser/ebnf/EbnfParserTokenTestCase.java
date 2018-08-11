@@ -23,6 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenTestCase;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -72,6 +73,14 @@ public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends
             assertEquals(method + " returned",
                     methodName.equals(isMethodName),
                     method.invoke(token));
+        }
+    }
+
+    @Test
+    public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
+        final Optional<EbnfParserToken> without = this.createToken().withoutCommentsSymbolsOrWhitespace();
+        if(without.isPresent()){
+            this.propertiesNeverReturnNullCheck(without.get());
         }
     }
 

@@ -111,6 +111,11 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
     }
 
     @Test
+    public void testPropertiesNeverReturnNull() throws Exception {
+        propertiesNeverReturnNullCheck(this.createToken());
+    }
+
+    @Test
     public final void testEqualsNull() {
         assertNotEquals(this.createToken(), null);
     }

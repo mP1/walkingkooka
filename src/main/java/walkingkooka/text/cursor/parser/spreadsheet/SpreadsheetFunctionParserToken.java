@@ -57,8 +57,8 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
                                            final String text,
                                            final SpreadsheetFunctionName name,
                                            final List<ParserToken> parameters,
-                                           final boolean computeWithout){
-        super(value, text, computeWithout);
+                                           final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
 
         this.name = name;
         this.parameters = parameters;
@@ -86,7 +86,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
 
     @Override
     SpreadsheetFunctionParserToken replaceText(final String text) {
-        return new SpreadsheetFunctionParserToken(this.value, text, this.name, this.parameters, WITHOUT_USE_THIS);
+        return new SpreadsheetFunctionParserToken(this.value, text, this.name, this.parameters, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
     }
 
     @Override
@@ -96,7 +96,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
                 this.text(),
                 SpreadsheetFunctionNameParserToken.class.cast(tokens.get(0)).value(),
                 tokens.subList(1, tokens.size()),
-                WITHOUT_USE_THIS);
+                tokens);
     }
 
     @Override

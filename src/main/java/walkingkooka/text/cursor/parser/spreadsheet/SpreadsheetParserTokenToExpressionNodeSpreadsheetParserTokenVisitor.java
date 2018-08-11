@@ -269,7 +269,7 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
 
     @Override
     protected void visit(final SpreadsheetLabelNameParserToken token) {
-        this.exitReference(token.value(), token);
+        this.addReference(token.value(), token);
     }
 
     @Override
@@ -315,6 +315,11 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
     private void exitReference(final ExpressionReference reference, final SpreadsheetParserToken token) {
         final ExpressionNode node = ExpressionNode.reference(reference);
         this.exit();
+        this.add(node, token);
+    }
+
+    private void addReference(final ExpressionReference reference, final SpreadsheetParserToken token) {
+        final ExpressionNode node = ExpressionNode.reference(reference);
         this.add(node, token);
     }
 
