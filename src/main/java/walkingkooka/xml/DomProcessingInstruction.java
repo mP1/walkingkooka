@@ -81,14 +81,6 @@ final public class DomProcessingInstruction extends DomLeafNode implements Value
    * Always returns this.
    */
   @Override
-  public DomProcessingInstruction asProcessingInstruction() {
-    return this;
-  }
-
-  /**
-   * Always returns this.
-   */
-  @Override
   public boolean isProcessingInstruction() {
     return true;
   }
@@ -107,7 +99,7 @@ final public class DomProcessingInstruction extends DomLeafNode implements Value
 
   @Override
   final boolean equalsIgnoringParentAndChildren(final DomNode other) {
-    return this.equalsIgnoringParentAndChildren0(other.asProcessingInstruction());
+    return this.equalsIgnoringParentAndChildren0(other.cast());
   }
 
   private boolean equalsIgnoringParentAndChildren0(final DomProcessingInstruction other) {

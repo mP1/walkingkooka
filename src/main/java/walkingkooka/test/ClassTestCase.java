@@ -195,15 +195,13 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     /**
-     * Keep instance methods, that return something, take no parameters, arent a Object member, not in the skipList,
-     * and arent a asXXX method which are allowed to return null.
+     * Keep instance methods, that return something, take no parameters, arent a Object member or tagged with {@link SkipPropertyNeverReturnsNullCheck}
      */
     private boolean propertiesNeverReturnNullCheckFilter(final Method method, final Object object) {
         return !MethodAttributes.STATIC.is(method) &&
                 method.getReturnType() != Void.class &&
                 method.getParameterTypes().length == 0 &&
                 method.getDeclaringClass() != Object.class &&
-                !method.getName().startsWith("as") &&
                 !skipMethod(method, object);
     }
 

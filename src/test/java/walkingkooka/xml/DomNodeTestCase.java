@@ -17,7 +17,6 @@
 
 package walkingkooka.xml;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -39,7 +38,6 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -91,81 +89,6 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
     public final void testText() {
         final N node = this.createNode();
         this.checkText(node, this.text());
-    }
-
-    // asXXX ..................................................................................................
-
-    @Test
-    public final void testAsCDataSection() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asCDataSection(), DomCDataSection.class);
-    }
-
-    @Test
-    public final void testAsComment() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asComment(), DomComment.class);
-    }
-
-    @Test
-    public final void testAsDocument() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asDocument(), DomDocument.class);
-    }
-
-    @Test
-    public final void testAsDocumentType() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asDocumentType(), DomDocumentType.class);
-    }
-
-    @Test
-    public final void testAsElement() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asElement(), DomElement.class);
-    }
-
-    @Test
-    public final void testAsEntity() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asEntity(), DomEntity.class);
-    }
-
-    @Test
-    public final void testAsEntityReference() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asEntityReference(), DomEntityReference.class);
-    }
-
-    @Test
-    public final void testAsNotation() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asNotation(), DomNotation.class);
-    }
-
-    @Test
-    public final void testAsProcessingInstruction() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asProcessingInstruction(), DomProcessingInstruction.class);
-    }
-
-    @Test
-    public final void testAsText() {
-        final N node = this.createNode();
-        this.asAndCheck(node, () -> node.asText(), DomText.class);
-    }
-
-    private <T extends DomNode> void asAndCheck(final N node, final Supplier<T> as, final Class<T> type){
-        final boolean shouldWork = node.getClass().equals(type);
-        if(shouldWork){
-            assertEquals(node, as.get());
-        } else {
-            try{
-                as.get();
-                Assert.fail("Should have failed");
-            } catch (final ClassCastException expected){
-            }
-        }
     }
 
     // isXXX ..................................................................................................

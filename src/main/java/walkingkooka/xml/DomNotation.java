@@ -81,14 +81,6 @@ final public class DomNotation extends DomLeafNode implements HasDomPublicId, Ha
     return DomNodeKind.NOTATION;
   }
 
-  /**
-   * Always returns this.
-   */
-  @Override
-  public DomNotation asNotation() {
-    return this;
-  }
-
   @Override
   public boolean isNotation() {
     return true;
@@ -108,7 +100,7 @@ final public class DomNotation extends DomLeafNode implements HasDomPublicId, Ha
 
   @Override
   boolean equalsIgnoringParentAndChildren(final DomNode other) {
-    return equalsIgnoringParentAndChildren0(other.asNotation());
+    return equalsIgnoringParentAndChildren0(other.cast());
   }
 
   private boolean equalsIgnoringParentAndChildren0(final DomNotation other) {

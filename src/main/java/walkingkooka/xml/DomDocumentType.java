@@ -119,11 +119,6 @@ public final class DomDocumentType extends DomLeafNode implements HasDomPublicId
     }
 
     @Override
-    public DomDocumentType asDocumentType() {
-        return this;
-    }
-
-    @Override
     public boolean isDocumentType() {
         return true;
     }

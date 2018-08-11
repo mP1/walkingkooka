@@ -40,7 +40,7 @@ public final class DomText extends DomTextNode {
     @Override
     public DomText setText(final String text) {
         checkTextText(text);
-        return this.setText0(text).asText();
+        return this.setText0(text).cast();
     }
 
     // DomNode....................................................................................................
@@ -53,11 +53,6 @@ public final class DomText extends DomTextNode {
     @Override
     DomText wrap0(final org.w3c.dom.Node node) {
         return new DomText(node);
-    }
-
-    @Override
-    public DomText asText() {
-        return this;
     }
 
     @Override

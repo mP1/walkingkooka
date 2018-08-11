@@ -83,22 +83,22 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
 
     @Override
     public DomElement setChildren(final List<DomNode> children) {
-        return this.setChildren0(children).asElement();
+        return this.setChildren0(children).cast();
     }
 
     @Override
     public DomElement appendChild(final DomNode child) {
-        return super.appendChild(child).asElement();
+        return super.appendChild(child).cast();
     }
 
     @Override
     public DomElement removeChild(final DomNode child) {
-        return super.removeChild(child).asElement();
+        return super.removeChild(child).cast();
     }
 
     @Override
     public DomElement removeChild(final int child) {
-        return super.removeChild(child).asElement();
+        return super.removeChild(child).cast();
     }
 
     // attributes................................................................................
@@ -155,11 +155,6 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
     @Override
     DomElement wrap0(final Node node) {
         return new DomElement(node);
-    }
-
-    @Override
-    public DomElement asElement() {
-        return this;
     }
 
     @Override

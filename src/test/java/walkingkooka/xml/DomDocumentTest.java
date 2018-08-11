@@ -584,9 +584,9 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     public void testFromXml() throws Exception{
         final DomDocument document = this.fromXml();
 
-        final DomElement root = document.children().get(0).asElement();
-        final DomElement abc = root.children().get(1).asElement();
-        final DomText text = abc.children().get(0).asText();
+        final DomElement root = document.children().get(0).cast();
+        final DomElement abc = root.children().get(1).cast();
+        final DomText text = abc.children().get(0).cast();
 
         this.checkText(text,TEXT);
         this.checkName(document, DomName.DOCUMENT);
@@ -601,9 +601,9 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     public void testFromXmlNamespace() throws Exception{
         final DomDocument document = this.fromXml();
 
-        final DomElement root = document.children().get(0).asElement();
-        final DomElement abc = root.children().get(1).asElement();
-        final DomText text = abc.children().get(0).asText();
+        final DomElement root = document.children().get(0).cast();
+        final DomElement abc = root.children().get(1).cast();
+        final DomText text = abc.children().get(0).cast();
 
         this.checkText(text, TEXT);
     }
@@ -754,7 +754,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     public void testInlineEntity() throws Exception{
         final DomDocument document = this.fromXml(this.documentBuilder(false, false)); //namespace, expandEntities
         final DomElement root = document.element().get();
-        final DomEntityReference reference = root.children().get(0).asEntityReference();
+        final DomEntityReference reference = root.children().get(0).cast();
         assertEquals("entity name", DomName.entityReference("magic"), reference.name());
     }
 
