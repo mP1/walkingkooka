@@ -73,6 +73,11 @@ final class RelativeNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME ext
     final boolean hash;
 
     @Override
+    public final boolean isRelative(){
+        return true;
+    }
+
+    @Override
     final void toString0(final StringBuilder b) {
         b.append(this.ancestorCount);
     }
