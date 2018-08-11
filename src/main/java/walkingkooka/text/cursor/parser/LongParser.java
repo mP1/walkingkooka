@@ -21,6 +21,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 /**
@@ -52,15 +53,36 @@ final class LongParser<C extends ParserContext> extends ParserTemplate2<LongPars
      */
     @Override
     Optional<LongParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
-        Optional<LongParserToken> token;
+        Optional<LongParserToken> token ;
 
+        final int radix = this.radix;
         long number = 0;
         boolean empty = true;
         boolean overflow = false;
+        boolean signed = false;
 
-        char c = cursor.at();
         for(;;){
-            final int digit = Character.digit(c, this.radix);
+            if(cursor.isEmpty()) {
+                token = empty ?
+                        Optional.empty() :
+                        this.createToken(number, save);
+                break;
+            }
+
+            char c = cursor.at();
+            if(empty && 10 == this.radix) {
+                if('-' == c){
+                    signed = true;
+                    cursor.next();
+                    continue;
+                }
+                if('+' == c){
+                    signed = false;
+                    cursor.next();
+                    continue;
+                }
+            }
+            final int digit = Character.digit(c, radix);
             if(-1 == digit){
                 token = empty ?
                         Optional.empty() :
@@ -70,17 +92,14 @@ final class LongParser<C extends ParserContext> extends ParserTemplate2<LongPars
             empty = false;
 
             try {
-                number = Math.multiplyExact(number, this.radix);
-                number = Math.addExact(number, digit);
+                number = Math.multiplyExact(number, radix);
+                number = signed ?
+                        Math.subtractExact(number, digit) :
+                        Math.addExact(number, digit);
             } catch ( final ArithmeticException cause) {
                 overflow = true;
             }
             cursor.next();
-            if(cursor.isEmpty()){
-                token = this.createToken(number, save);
-                break;
-            }
-            c = cursor.at();
         }
 
         if(overflow) {
