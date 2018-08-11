@@ -21,6 +21,7 @@ import org.w3c.dom.DocumentType;
 import org.w3c.dom.Node;
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
 
 import java.util.Map;
 import java.util.Objects;
@@ -94,6 +95,7 @@ public final class DomDocumentType extends DomLeafNode implements HasDomPublicId
 
     // internal subset .........................................................................................................
 
+    @SkipPropertyNeverReturnsNullCheck(DomDocumentType.class)
     public String internalSubset() {
         return this.documentTypeNode().getInternalSubset();
     }

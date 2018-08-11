@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.Value;
+import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
 
 import java.util.Objects;
 
@@ -35,6 +36,7 @@ abstract class JsonNodeLeafParserToken<T> extends JsonNodeParserToken implements
         this.value = value;
     }
 
+    @SkipPropertyNeverReturnsNullCheck(JsonNodeNullParserToken.class)
     public final T value() {
         return this.value;
     }

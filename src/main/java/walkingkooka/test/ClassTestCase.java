@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Contains various tests toassert the visibility and final-ness of all methods, fields. Note this
@@ -181,6 +183,39 @@ abstract public class ClassTestCase<T> extends TestCase {
 
     private final static String[] FACTORY_METHOD_NAME_SPECIALS = new String[]{ "boolean", "byte", "double", "equals", "int", "long", "null", "short"};
 
+    protected void propertiesNeverReturnNullCheck(final Object object) throws Exception {
+        final List<Method> properties = Arrays.stream(object.getClass().getMethods())
+                .filter((m) -> this.propertiesNeverReturnNullCheckFilter(m, object))
+                .collect(Collectors.toList());
+        assertNotEquals("Found zero properties for type=" + object.getClass().getName(), 0, properties.size());
+        for(Method method : properties) {
+            method.setAccessible(true);
+            assertNotNull("null should not have been returned by " + method + " for " + object, method.invoke(object));
+        }
+    }
+
+    /**
+     * Keep instance methods, that return something, take no parameters, arent a Object member, not in the skipList,
+     * and arent a asXXX method which are allowed to return null.
+     */
+    private boolean propertiesNeverReturnNullCheckFilter(final Method method, final Object object) {
+        return !MethodAttributes.STATIC.is(method) &&
+                method.getReturnType() != Void.class &&
+                method.getParameterTypes().length == 0 &&
+                method.getDeclaringClass() != Object.class &&
+                !method.getName().startsWith("as") &&
+                !skipMethod(method, object);
+    }
+
+    private boolean skipMethod(final Method method, final Object object) {
+        boolean skip = false;
+        if(method.isAnnotationPresent(SkipPropertyNeverReturnsNullCheck.class)){
+            final Class<?>[] skipTypes = method.getAnnotation(SkipPropertyNeverReturnsNullCheck.class).value();
+            skip = Arrays.asList(skipTypes).contains(object.getClass());
+        }
+        return skip;
+    }
+
     // helpers
 
     abstract protected Class<T> type();
@@ -255,7 +290,7 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     protected void checkNaming(final Class<?>... superTypes) {
-        Assert.assertNotNull("superTypes is null", superTypes);
+        assertNotNull("superTypes is null", superTypes);
 
         final int count = superTypes.length;
         final String[] names = new String[count];
@@ -278,13 +313,13 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     private void checkNaming(final boolean ignoreCase, final String... superTypes) {
-        Assert.assertNotNull("superTypes is null", superTypes);
+        assertNotNull("superTypes is null", superTypes);
 
         final String name = this.type().getName();
 
         final StringBuilder b = new StringBuilder();
         for (final String superType : superTypes) {
-            Assert.assertNotNull("superType contains null", superType);
+            assertNotNull("superType contains null", superType);
             b.append(superType);
         }
 
@@ -323,9 +358,9 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     protected void checkNamingStartAndEnd(final Class<?> type, final String start, final String end) {
-        Assert.assertNotNull("type is null", type);
-        Assert.assertNotNull("start is null", start);
-        Assert.assertNotNull("end is null", end);
+        assertNotNull("type is null", type);
+        assertNotNull("start is null", start);
+        assertNotNull("end is null", end);
 
         final String name = type.getSimpleName();
         if (false == name.startsWith(start)) {

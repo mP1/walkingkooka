@@ -43,8 +43,8 @@ public final class SpreadsheetNotEqualsParserToken extends SpreadsheetBinaryPars
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetNotEqualsParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
-        super(value, text, left, right, computeWithout);
+    private SpreadsheetNotEqualsParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
+        super(value, text, left, right, valueWithout);
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class SpreadsheetNotEqualsParserToken extends SpreadsheetBinaryPars
     }
 
     private SpreadsheetNotEqualsParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetNotEqualsParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
+        return new SpreadsheetNotEqualsParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
     }
 
     @Override

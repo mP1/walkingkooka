@@ -45,8 +45,8 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
 
     private static final SpreadsheetNumericParserToken NO_NUMBER = null;
 
-    private SpreadsheetMultiplicationParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final boolean computeWithout){
-        super(value, text, left, right, computeWithout);
+    private SpreadsheetMultiplicationParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
+        super(value, text, left, right, valueWithout);
     }
 
     @Override
@@ -65,7 +65,7 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
     }
 
     private SpreadsheetMultiplicationParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetMultiplicationParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), WITHOUT_USE_THIS);
+        return new SpreadsheetMultiplicationParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
     }
 
     @Override

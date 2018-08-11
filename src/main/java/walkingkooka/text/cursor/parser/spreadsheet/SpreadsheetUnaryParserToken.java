@@ -35,8 +35,8 @@ abstract class SpreadsheetUnaryParserToken extends SpreadsheetParentParserToken 
         return checker;
     }
     
-    SpreadsheetUnaryParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final boolean computeWithout) {
-        super(value, text, computeWithout);
+    SpreadsheetUnaryParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final List<ParserToken> valueWithout) {
+        super(value, text, valueWithout);
         this.parameter = parameter;
     }
 

@@ -17,6 +17,8 @@
 
 package walkingkooka.xml;
 
+import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -94,10 +96,12 @@ abstract class DomLeafNode extends DomNode{
         throw new UnsupportedOperationException();
     }
 
+    @SkipPropertyNeverReturnsNullCheck(DomDocumentType.class)
     @Override
     public final DomDocument document() {
         DomDocument document = this.document;
         if(null==document){
+            // TODO sometimes a DomDocumentType may have no enclosing document.
             this.document = new DomDocument(this.documentNode());
         }
         return this.document;

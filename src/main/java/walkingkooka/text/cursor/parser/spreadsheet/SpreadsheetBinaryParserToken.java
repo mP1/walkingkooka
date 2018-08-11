@@ -39,8 +39,8 @@ abstract class SpreadsheetBinaryParserToken extends SpreadsheetParentParserToken
                                  final String text,
                                  final SpreadsheetParserToken left,
                                  final SpreadsheetParserToken right,
-                                 final boolean computeWithout) {
-        super(value, text, computeWithout);
+                                 final List<ParserToken> valueWithout) {
+        super(value, text, valueWithout);
         this.left = left;
         this.right = right;
     }

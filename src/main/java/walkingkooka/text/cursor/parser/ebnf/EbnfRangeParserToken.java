@@ -75,7 +75,8 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
 
     @Override
     EbnfRangeParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfRangeParserToken(tokens, this.text(), this.begin, this.end, tokens);
+        // this method is only called by the ctor which happens before the begin/end fields have been set.
+        return new EbnfRangeParserToken(tokens, this.text(), tokens.get(0).cast(), tokens.get(1).cast(), tokens);
     }
 
     public EbnfParserToken begin() {
