@@ -54,12 +54,35 @@ final class NumberParser<C extends ParserContext> extends ParserTemplate2<Number
     Optional<NumberParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
         Optional<NumberParserToken> token;
 
+        final int radix = this.radix;
         BigInteger number = BigInteger.ZERO;
         boolean empty = true;
+        boolean signed = false;
 
-        char c = cursor.at();
+
         for(;;){
-            final int digit = Character.digit(c, this.radix);
+            if(cursor.isEmpty()) {
+                token = empty ?
+                        Optional.empty() :
+                        this.createToken(number, save);
+                break;
+            }
+
+            char c = cursor.at();
+            if(empty && 10 == this.radix) {
+                if('-' == c){
+                    signed = true;
+                    cursor.next();
+                    continue;
+                }
+                if('+' == c){
+                    signed = false;
+                    cursor.next();
+                    continue;
+                }
+            }
+
+            final int digit = Character.digit(c, radix);
             if(-1 == digit){
                 token = empty ?
                         Optional.empty() :
@@ -68,15 +91,18 @@ final class NumberParser<C extends ParserContext> extends ParserTemplate2<Number
             }
             empty = false;
 
-            number = number.multiply(this.radixBigInteger)
-                    .add(BigInteger.valueOf(digit));
+            number = number.multiply(this.radixBigInteger);
+
+            final BigInteger digitBigInteger = BigInteger.valueOf(digit);
+            number = signed ?
+                    number.subtract(digitBigInteger) :
+                    number.add(digitBigInteger);
 
             cursor.next();
             if(cursor.isEmpty()){
                 token = this.createToken(number, save);
                 break;
             }
-            c = cursor.at();
         }
 
         return token;

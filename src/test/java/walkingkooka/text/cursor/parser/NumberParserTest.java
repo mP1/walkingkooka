@@ -48,13 +48,48 @@ public class NumberParserTest extends ParserTemplateTestCase<NumberParser<FakePa
     }
 
     @Test
-    public void testSuccess() {
+    public void testPlusSignFail() {
+        this.parseFailAndCheck("+");
+    }
+
+    @Test
+    public void testMinusSignFail() {
+        this.parseFailAndCheck("-");
+    }
+
+    @Test
+    public void testDecimal() {
         this.parseAndCheck2("1", 1, "1", "");
     }
 
     @Test
-    public void testSuccess2() {
+    public void testDecimal2() {
         this.parseAndCheck2("123", 123, "123", "");
+    }
+
+    @Test
+    public void testPlusSignDecimal() {
+        this.parseAndCheck2("+1", 1, "+1", "");
+    }
+
+    @Test
+    public void testPlusSignDecimal2() {
+        this.parseAndCheck2("+0", 0, "+0", "");
+    }
+
+    @Test
+    public void testPlusSignDecimal3() {
+        this.parseAndCheck2("+123", 123, "+123", "");
+    }
+
+    @Test
+    public void testMinusSignDecimal() {
+        this.parseAndCheck2("-1", -1, "-1", "");
+    }
+
+    @Test
+    public void testMinusSignDecimal2() {
+        this.parseAndCheck2("-123", -123, "-123", "");
     }
 
     @Test
