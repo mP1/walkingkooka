@@ -28,9 +28,7 @@ import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -200,69 +198,6 @@ abstract public class TestCase {
 
     private static boolean nullSafeEquals(final Object first, final Object second) {
         return null == first ? null == second : first.equals(second);
-    }
-
-    // assertContains
-
-    public static <T> void assertContains(final Set<? extends T> set, final T object) {
-        assertNotNull(set);
-        if (false == set.contains(object)) {
-            final String string = object instanceof String ?
-                    "\"" + object + "\"" :
-                    object.toString();
-            Assert.fail(set + " doesnt contain " + string + ".");
-        }
-    }
-
-    public static <T> void assertDoesntContain(final Set<? extends T> set, final T object) {
-        assertNotNull(set);
-        if (set.contains(object)) {
-            Assert.fail(set + " contains object: " + object);
-        }
-    }
-
-    // assertContains string
-
-    public static void assertContains(final String string, final String contains) {
-        assertContains(string, new String[]{contains});
-    }
-
-    public static void assertContains(final String string, final String... contains) {
-        assertNotNull(string);
-        String s = string;
-
-        for (final String c : contains) {
-            final int foundIndex = s.indexOf(c);
-            if (-1 == foundIndex) {
-                Assert.fail("Cannot find \"" + c + "\" within \"" + string + "\".");
-            }
-            s = s.substring(0, foundIndex) + s.substring(foundIndex + c.length());
-        }
-    }
-
-    public static void assertDoesntContain(final String string, final String contains) {
-        assertNotNull(string);
-        if (string.contains(contains)) {
-            Assert.fail("Found \"" + contains + "\" within \"" + string + "\".");
-        }
-    }
-
-    public static void assertContains(final Set<String> set, final String string) {
-        assertNotNull(set);
-        if (false == set.contains(string)) {
-            Assert.fail(set + " doesnt contain \"" + string + "\".");
-        }
-    }
-
-    public static void assertContains(final Set<String> set, final String... strings) {
-        assertNotNull(set);
-
-        final Set<String> copy = new HashSet<String>(set);
-        for (final String s : strings) {
-            if (false == copy.remove(s)) {
-                Assert.fail(set + " doesnt contain \"" + s + "\".");
-            }
-        }
     }
 
     private static String toString(final boolean[] array) {
