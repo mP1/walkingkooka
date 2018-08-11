@@ -100,7 +100,7 @@ final public class BigEndianHexByteReaderTest
     private void read(final String hexDigits, final byte[] expected) {
         final byte[] bytes = BigEndianHexByteReader.read(hexDigits);
         if (false == Arrays.equals(expected, bytes)) {
-            failNotEquals("from " + CharSequences.quote(hexDigits),
+            assertEquals("from " + CharSequences.quote(hexDigits),
                     Arrays.toString(expected),
                     Arrays.toString(bytes));
         }

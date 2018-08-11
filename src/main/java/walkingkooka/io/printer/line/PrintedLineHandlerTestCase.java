@@ -25,6 +25,8 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing a {@link PrintedLineHandler} with mostly parameter checking tests.
  */
@@ -129,7 +131,7 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
 
         final String printed = printedBuffer.toString();
         if (false == printed.equals(expected)) {
-            failNotEquals(message,
+            assertEquals(message,
                     CharSequences.quoteAndEscape(expected),
                     CharSequences.quoteAndEscape(printed));
         }

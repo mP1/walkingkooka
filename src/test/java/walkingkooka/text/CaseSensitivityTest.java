@@ -73,7 +73,7 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
                                  final int expected) {
         final int actual = sensitivity.compare(c, other);
         if (Comparables.normalize(expected) != Comparables.normalize(actual)) {
-            failNotEquals(sensitivity + " comparing " + CharSequences.quoteAndEscape(c) + ","
+            assertEquals(sensitivity + " comparing " + CharSequences.quoteAndEscape(c) + ","
                     + CharSequences.quoteAndEscape(other), expected, actual);
         }
     }
@@ -114,7 +114,7 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
                                 final CharSequence otherChars, final boolean expected) {
         final boolean result = sensitivity.equals(chars, otherChars);
         if (expected != result) {
-            failNotEquals(sensitivity + " equals( " + CaseSensitivityTest.quote(chars) + ","
+            assertEquals(sensitivity + " equals( " + CaseSensitivityTest.quote(chars) + ","
                     + CaseSensitivityTest.quote(otherChars) + ")", expected, result);
         }
     }
@@ -257,7 +257,7 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
                                     final CharSequence otherChars, final boolean expected) {
         final boolean result = sensitivity.startsWith(chars, otherChars);
         if (expected != result) {
-            failNotEquals(sensitivity + " startsWith( " + CaseSensitivityTest.quote(chars) + ","
+            assertEquals(sensitivity + " startsWith( " + CaseSensitivityTest.quote(chars) + ","
                     + CaseSensitivityTest.quote(otherChars) + ")", expected, result);
         }
     }
@@ -400,7 +400,7 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
                                   final CharSequence otherChars, final boolean expected) {
         final boolean result = sensitivity.endsWith(chars, otherChars);
         if (expected != result) {
-            failNotEquals(sensitivity + " endsWith( " + CaseSensitivityTest.quote(chars) + ","
+            assertEquals(sensitivity + " endsWith( " + CaseSensitivityTest.quote(chars) + ","
                     + CaseSensitivityTest.quote(otherChars) + ")", expected, result);
         }
     }
@@ -643,7 +643,7 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
                                  final CharSequence searchFor, final int expected) {
         final int result = sensitivity.indexOf(chars, searchFor);
         if (expected != result) {
-            failNotEquals(sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ","
+            assertEquals(sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ","
                     + CaseSensitivityTest.quote(searchFor) + ")", expected, result);
         }
     }

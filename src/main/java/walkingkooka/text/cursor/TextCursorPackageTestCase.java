@@ -21,6 +21,7 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -126,6 +127,6 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
      * Escapes the both characters before failing.
      */
     private void failNotEquals(final String message, final char expected, final char actual) {
-        TestCase.failNotEquals(message, CharSequences.quoteAndEscape(expected), CharSequences.quoteAndEscape(actual));
+        assertEquals(message, CharSequences.quoteAndEscape(expected), CharSequences.quoteAndEscape(actual));
     }
 }

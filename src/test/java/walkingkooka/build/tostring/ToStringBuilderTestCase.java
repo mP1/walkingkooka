@@ -21,6 +21,8 @@ import org.junit.Test;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class ToStringBuilderTestCase<T> extends TestCase {
 
     static final String LABEL = "LABEL";
@@ -181,7 +183,7 @@ public abstract class ToStringBuilderTestCase<T> extends TestCase {
     final void buildAndCheck(final ToStringBuilder builder, final String expected) {
         final String built = builder.build();
         if (false == expected.equals(built)) {
-            failNotEquals("options=" + builder.options.toString(),
+            assertEquals("options=" + builder.options.toString(),
                     format(expected),
                     format(built));
         }

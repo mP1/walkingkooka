@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.TestCase;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * A {@link TestCase} for testing {@link Comparable comparables}. Many compareTo methods are
  * available that compare andassert the result.
@@ -91,7 +93,7 @@ abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassT
 
     private static void checkResult(final String message, final int expected, final int actual) {
         if (Comparables.normalize(expected) != Comparables.normalize(actual)) {
-            failNotEquals(message, expected, actual);
+            assertEquals(message, expected, actual);
         }
     }
 
@@ -118,7 +120,7 @@ abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassT
         } catch (final Exception cause) {
             if (null != expected) {
                 if (false == expected.equals(cause.getClass())) {
-                    failNotEquals("expected " + comparable1 + " when compared with " + comparable2
+                    assertEquals("expected " + comparable1 + " when compared with " + comparable2
                             + " to fail", expected, cause);
                 }
             }

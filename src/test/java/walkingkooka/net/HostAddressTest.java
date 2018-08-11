@@ -278,7 +278,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
 
     static public void checkEquals(final String message, final byte[] expected, final byte[] actual) {
         if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, HostAddressTest.toHex(expected), HostAddressTest.toHex(actual));
+            assertEquals(message, HostAddressTest.toHex(expected), HostAddressTest.toHex(actual));
         }
     }
 

@@ -21,6 +21,8 @@ package walkingkooka.net;
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
@@ -115,8 +117,6 @@ abstract public class UrlTestCase<U extends Url> extends PublicClassTestCase<U> 
     abstract U createUrl(UrlPath path, UrlQueryString query, UrlFragment fragment);
 
     static void checkToString(final Url url, final String expected) {
-        if (false == expected.equals(url.value())) {
-            failNotEquals(null, expected, url.value());
-        }
+        assertEquals("Url.value", expected, url.toString());
     }
 }

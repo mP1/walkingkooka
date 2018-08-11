@@ -102,7 +102,7 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
                 for (final String required : requireds) {
                     all.add(required);
                 }
-                failNotEquals("Builder message missing properties", message, all.toString());
+                assertEquals("Builder message missing properties", message, all.toString());
             }
         }
     }

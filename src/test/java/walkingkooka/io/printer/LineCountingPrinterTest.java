@@ -289,7 +289,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
                         final String expected = expecting[i];
                         final String actual = chars.toString();
                         if (false == expected.equals(actual)) {
-                            failNotEquals("Wrong line " + i + " printed,",
+                            assertEquals("Wrong line " + i + " printed,",
                                     CharSequences.quoteAndEscape(expected),
                                     CharSequences.quoteAndEscape(actual));
                         }

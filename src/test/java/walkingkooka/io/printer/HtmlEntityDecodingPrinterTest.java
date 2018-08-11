@@ -19,7 +19,6 @@ package walkingkooka.io.printer;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 
@@ -218,10 +217,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
 
     private void check(final HtmlEntityDecodingPrinter printer, final String expected) {
         final String actual = this.builder.toString();
-        if (false == expected.equals(actual)) {
-            TestCase.failNotEquals("Different text written, buffer=" + CharSequences.quote(printer.buffer()), expected,
-                    actual);
-        }
+        assertEquals("Different text written, buffer=" + CharSequences.quote(printer.buffer()), expected, actual);
     }
 
     private void printAndCheck(final String expected, final String... strings) {

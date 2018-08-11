@@ -292,11 +292,11 @@ abstract public class ClassTestCase<T> extends TestCase {
 
         if (ignoreCase) {
             if (false == name.toLowerCase().endsWith(expected.toLowerCase())) {
-                failNotEquals("wrong ending", expected, name);
+                assertEquals("wrong ending", expected, name);
             }
         } else {
             if (false == name.endsWith(expected)) {
-                failNotEquals("wrong ending", expected, name);
+                assertEquals("wrong ending", expected, name);
             }
         }
     }
@@ -329,11 +329,11 @@ abstract public class ClassTestCase<T> extends TestCase {
 
         final String name = type.getSimpleName();
         if (false == name.startsWith(start)) {
-            failNotEquals("wrong start", name, start);
+            assertEquals("wrong start", name, start);
         }
 
         if (false == name.endsWith(end)) {
-            failNotEquals("wrong ending", name, end);
+            assertEquals("wrong ending", name, end);
         }
     }
 }

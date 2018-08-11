@@ -20,6 +20,8 @@ package walkingkooka.io.printer;
 import org.junit.Assert;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
+
 abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCase<P> {
 
     protected PrinterTestCase2() {
@@ -93,7 +95,7 @@ abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCas
         }
         final String printed = target.toString();
         if (false == printed.equals(expected)) {
-            failNotEquals(message,
+            assertEquals(message,
                     CharSequences.quoteAndEscape(expected),
                     CharSequences.quoteAndEscape(printed));
         }

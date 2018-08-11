@@ -157,21 +157,6 @@ abstract public class TestCase {
         return new String(this.resourceAsBytes(source, resource));
     }
 
-    public static void failNotEquals(final Object expected, final Object actual) {
-        failNotEquals(null, expected, actual);
-    }
-
-    public static void failNotEquals(final String message, final Object expected,
-                                     final Object actual) {
-        if ((null != expected) && (null != actual) && (false == expected.getClass()
-                .equals(actual.getClass()))) {
-            Assert.assertEquals(message, //
-                    expected.getClass().getSimpleName() + "=" + expected, //
-                    actual.getClass().getSimpleName() + "=" + actual);
-        }
-        Assert.assertEquals(message, expected, actual);
-    }
-
     public static void assertSame(final Object expected, final Object actual) {
         assertSame(null, expected, actual);
     }
