@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link BigInteger}.
  */
-public final class NumberParserToken extends ParserTemplateToken<BigInteger> implements HasSign<NumberParserToken> {
+public final class NumberParserToken extends ParserTemplateToken<BigInteger> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(NumberParserToken.class);
 
@@ -50,19 +50,6 @@ public final class NumberParserToken extends ParserTemplateToken<BigInteger> imp
     @Override
     public ParserTokenNodeName name() {
         return NAME;
-    }
-
-    @Override
-    public boolean isNegative() {
-        return this.value().signum() < 0;
-    }
-
-    @Override
-    public NumberParserToken setNegative(final boolean negative) {
-        final BigInteger value = this.value();
-        return value.signum() < 0 && negative ?
-                this :
-                new NumberParserToken(value.negate(), this.text());
     }
 
     @Override

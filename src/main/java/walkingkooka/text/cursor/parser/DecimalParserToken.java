@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained within a {@link BigDecimal}
  */
-public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> implements HasSign<DecimalParserToken> {
+public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DecimalParserToken.class);
 
@@ -50,19 +50,6 @@ public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> im
     @Override
     public ParserTokenNodeName name() {
         return NAME;
-    }
-
-    @Override
-    public boolean isNegative() {
-        return this.value().signum() < 0;
-    }
-
-    @Override
-    public DecimalParserToken setNegative(final boolean negative) {
-        final BigDecimal value = this.value();
-        return value.signum() < 0 && negative ?
-                this :
-                new DecimalParserToken(value.negate(), this.text());
     }
 
     @Override
