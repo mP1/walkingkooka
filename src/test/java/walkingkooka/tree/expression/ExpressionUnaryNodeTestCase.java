@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
 public abstract class ExpressionUnaryNodeTestCase<N extends ExpressionUnaryNode> extends ExpressionParentFixedNodeTestCase<N> {

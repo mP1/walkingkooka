@@ -26,6 +26,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import static org.junit.Assert.assertNotEquals;
+
 /**
  * Base class for testing a {@link HashCodeEqualsDefined} with mostly parameter checking tests.
  */

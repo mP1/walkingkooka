@@ -20,6 +20,8 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotEquals;
+
 final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftPaddedCharSequence> {
 
     // constants

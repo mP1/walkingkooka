@@ -24,6 +24,8 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
+
 public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParentParserToken> extends JsonNodeParserTokenTestCase<T> {
 
     final static String NUMBER1 = "1";

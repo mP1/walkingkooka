@@ -19,6 +19,8 @@ package walkingkooka.predicate.character;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertNotEquals;
+
 final public class AndNotCharPredicateTest extends LogicalCharPredicateTestCase<AndNotCharPredicate> {
 
     private final static CharPredicate PREDICATE = CharPredicates.is('a');

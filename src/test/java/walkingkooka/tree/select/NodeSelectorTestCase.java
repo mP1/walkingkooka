@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>> extends PackagePrivateClassTestCase<S> {

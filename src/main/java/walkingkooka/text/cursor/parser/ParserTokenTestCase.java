@@ -25,6 +25,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
 public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicClassTestCase<T> {

@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
 public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariableNode> extends  ExpressionParentNodeTestCase<N> {

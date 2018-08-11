@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static org.junit.Assert.assertNotEquals;
+
 public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectNode>{
 
     private final static String KEY1 = "key1";

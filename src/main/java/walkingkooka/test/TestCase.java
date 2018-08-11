@@ -308,62 +308,6 @@ abstract public class TestCase {
         Assert.assertNotSame(message, expected, actual);
     }
 
-    public static void assertNotEquals(final float expected, final float actual, final float delta) {
-        assertNotEquals(null, expected, actual, delta);
-    }
-
-    public static void assertNotEquals(final String message, final float expected,
-                                       final float actual, final float delta) {
-        if (Math.abs(expected - actual) < delta) {
-            failNotEquals(message, expected, actual);
-        }
-    }
-
-    public static void assertNotEquals(final double expected, final double actual,
-                                       final double delta) {
-        assertNotEquals(null, expected, actual, delta);
-    }
-
-    public static void assertNotEquals(final String message, final double expected,
-                                       final double actual, final double delta) {
-        if (Math.abs(expected - actual) < delta) {
-            failNotEquals(message, expected, actual);
-        }
-    }
-
-    public static void assertNotEquals(final Object expected, final Object actual) {
-        assertNotEquals(null, expected, actual);
-    }
-
-    public static void assertNotEquals(final String message, final Object expected,
-                                       final Object actual) {
-        if (TestCase.nullSafeEquals(expected, actual)) {
-            Assert.fail(message + "=" + expected);
-        }
-    }
-
-    public static void assertNotEquals(final Object[] expected, final Object[] actual) {
-        assertNotEquals(null, expected, actual);
-    }
-
-    public static void assertNotEquals(final String message, final Object[] expected,
-                                       final Object[] actual) {
-        if (Arrays.equals(expected, actual)) {
-            Assert.fail(message + "=" + toString(expected));
-        }
-    }
-
-    public static void assertNotEquals(final byte[] expected, final byte[] actual) {
-        assertNotEquals(null, expected, actual);
-    }
-
-    public static void assertNotEquals(final String message, final byte[] expected,
-                                       final byte[] actual) {
-        if (Arrays.equals(expected, actual)) {
-            Assert.fail(message + toString(expected));
-        }
-    }
-
     private static boolean nullSafeEquals(final Object first, final Object second) {
         return null == first ? null == second : first.equals(second);
     }
