@@ -24,32 +24,41 @@ import walkingkooka.tree.Node;
 import java.util.List;
 
 /**
- * Represents a component that matches a node by its element.
+ * Represents a reference to an invalid array element.
+ * <a href="https://tools.ietf.org/html/rfc6901#page-5"></a>
+ * <pre>
+ * Note that the use of the "-" character to index an array will always
+ * result in such an error condition because by definition it refers to
+ * a nonexistent array element.  Thus, applications of JSON Pointer need
+ * to specify how that character is to be handled, if it is to be
+ * useful.
+ * ...
+ * </pre>
  */
-final class NodeChildElementNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NodePointer<N, NAME, ANAME, AVALUE>{
+final class NodeInvalidChildElementNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NodePointer<N, NAME, ANAME, AVALUE>{
 
     /**
-     * Creates a {@link NodeChildElementNodePointer}
+     * Creates a {@link NodeInvalidChildElementNodePointer}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeChildElementNodePointer<N, NAME, ANAME, AVALUE> with(final int index) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeInvalidChildElementNodePointer<N, NAME, ANAME, AVALUE> with(final int index) {
         if(index < 0) {
             throw new IllegalArgumentException("Invalid index " + index + " values should be greater or equal to 0");
         }
 
-        return new NodeChildElementNodePointer(index, NO_NEXT);
+        return new NodeInvalidChildElementNodePointer(index, NO_NEXT);
     }
 
     /**
      * Private ctor.
      */
-    NodeChildElementNodePointer(final int index, final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
+    NodeInvalidChildElementNodePointer(final int index, final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
         super(pointer);
         this.index = index;
     }
 
     @Override
     NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
-        return new NodeChildElementNodePointer(this.index, this.appendToNext(pointer));
+        return new NodeInvalidChildElementNodePointer(this.index, this.appendToNext(pointer));
     }
 
     @Override
