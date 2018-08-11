@@ -21,6 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
 
     private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("1").castC();

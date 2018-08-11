@@ -17,9 +17,10 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+
+import static org.junit.Assert.assertEquals;
 
 final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void>, Void> {
 
@@ -40,7 +41,7 @@ final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void
 
     @Test
     public void testToString() {
-        Assert.assertEquals("<empty>", EmptyIterator.instance().toString());
+        assertEquals("<empty>", EmptyIterator.instance().toString());
     }
 
     @Override

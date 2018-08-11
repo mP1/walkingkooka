@@ -20,6 +20,8 @@ package walkingkooka.collect.iterator;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharSequenceIteratorTest
         extends IteratorTestCase<CharSequenceIterator, Character> {
 
@@ -57,7 +59,7 @@ final public class CharSequenceIteratorTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("\"ABC\\t\"", this.createIterator().toString());
+        assertEquals("\"ABC\\t\"", this.createIterator().toString());
     }
 
     @Override

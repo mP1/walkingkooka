@@ -18,8 +18,9 @@
 
 package walkingkooka.net;
 
-import org.junit.Assert;
 import walkingkooka.text.CharSequences;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Collection of helpers used by various host address tests.
@@ -41,7 +42,7 @@ final class HostAddressTesting {
    * Parses the {@link String} of hex values assuming that it has hex digits in big endian form.
    */
   static byte[] toByteArray(final String hexDigits) {
-    Assert.assertEquals("hexValues string has wrong number of characters=" + hexDigits,
+    assertEquals("hexValues string has wrong number of characters=" + hexDigits,
         HostAddress.IP6_OCTET_COUNT * 2,
         hexDigits.length());
     return CharSequences.bigEndianHexDigits(hexDigits);

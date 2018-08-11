@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
+
 public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object>, NodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     private final static StringName ATTRIBUTE = Names.string("attribute");

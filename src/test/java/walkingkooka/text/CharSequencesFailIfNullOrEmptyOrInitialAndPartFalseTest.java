@@ -23,6 +23,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.StaticMethodTestCase;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 final public class CharSequencesFailIfNullOrEmptyOrInitialAndPartFalseTest extends StaticMethodTestCase {

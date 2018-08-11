@@ -23,6 +23,8 @@ import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+
 final public class IndentationTest extends HashCodeEqualsDefinedTestCase<Indentation> {
 
     @Test
@@ -114,7 +116,7 @@ final public class IndentationTest extends HashCodeEqualsDefinedTestCase<Indenta
     public void testOnlyWhitespace() {
         final String value = " \t";
         final Indentation indentation = Indentation.with(value);
-        Assert.assertEquals(value, indentation.value());
+        assertEquals(value, indentation.value());
     }
 
     @Test
@@ -171,15 +173,15 @@ final public class IndentationTest extends HashCodeEqualsDefinedTestCase<Indenta
     @Test
     public void testCharAt() {
         final Indentation indentation = Indentation.with("0123");
-        Assert.assertEquals('0', indentation.charAt(0));
-        Assert.assertEquals('1', indentation.charAt(1));
-        Assert.assertEquals('2', indentation.charAt(2));
-        Assert.assertEquals('3', indentation.charAt(3));
+        assertEquals('0', indentation.charAt(0));
+        assertEquals('1', indentation.charAt(1));
+        assertEquals('2', indentation.charAt(2));
+        assertEquals('3', indentation.charAt(3));
     }
 
     @Test
     public void testLength() {
-        Assert.assertEquals(4, Indentation.with("0123").length());
+        assertEquals(4, Indentation.with("0123").length());
     }
 
     @Test
@@ -197,16 +199,16 @@ final public class IndentationTest extends HashCodeEqualsDefinedTestCase<Indenta
 
     @Test
     public void testToStringEmpty() {
-        Assert.assertEquals("", Indentation.with("").toString());
+        assertEquals("", Indentation.with("").toString());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("a1 ", Indentation.with("a1 ").toString());
+        assertEquals("a1 ", Indentation.with("a1 ").toString());
     }
 
     private void check(final Indentation indentation, final String value) {
-        Assert.assertEquals("value", value, indentation.value());
+        assertEquals("value", value, indentation.value());
     }
 
     private void checkConstant(final Indentation indentation, final int spaceCount) {

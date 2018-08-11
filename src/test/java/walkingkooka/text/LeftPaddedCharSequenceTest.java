@@ -20,6 +20,7 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftPaddedCharSequence> {
@@ -74,7 +75,7 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
 
     @Test
     public void testLength() {
-        Assert.assertEquals(LeftPaddedCharSequenceTest.LENGTH,
+        assertEquals(LeftPaddedCharSequenceTest.LENGTH,
                 LeftPaddedCharSequence.wrap(LeftPaddedCharSequenceTest.SEQUENCE,
                         LeftPaddedCharSequenceTest.LENGTH,
                         LeftPaddedCharSequenceTest.PADDING).length());
@@ -86,7 +87,7 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
         final CharSequence sub = sequence.subSequence(0, 1);
         assertNotEquals("class", LeftPaddedCharSequence.class, sub.getClass());
         this.checkEquals(sub, LeftPaddedCharSequenceTest.PADDING);
-        Assert.assertEquals("sub.toString", ".", sub.toString());
+        assertEquals("sub.toString", ".", sub.toString());
     }
 
     @Test
@@ -98,7 +99,7 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
                 LeftPaddedCharSequenceTest.PADDING,
                 LeftPaddedCharSequenceTest.PADDING,
                 LeftPaddedCharSequenceTest.PADDING);
-        Assert.assertEquals("sub.toString", "...", sub.toString());
+        assertEquals("sub.toString", "...", sub.toString());
     }
 
     @Test
@@ -113,7 +114,7 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
         final LeftPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(4, LeftPaddedCharSequenceTest.LENGTH);
         this.checkEquals(sub, "bcde");
-        Assert.assertEquals("sub.toString", "bcde", sub.toString());
+        assertEquals("sub.toString", "bcde", sub.toString());
     }
 
     @Test
@@ -121,7 +122,7 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
         final LeftPaddedCharSequence sequence = this.createCharSequence(); // ...abcde
         final CharSequence sub = sequence.subSequence(1, LeftPaddedCharSequenceTest.LENGTH);
         this.checkEquals(sub, "..abcde");
-        Assert.assertEquals("sub.toString", "..abcde", sub.toString());
+        assertEquals("sub.toString", "..abcde", sub.toString());
     }
 
     @Test
@@ -129,12 +130,12 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
         final LeftPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 7);
         this.checkEquals(sub, "..abcd");
-        Assert.assertEquals("sub.toString", "..abcd", sub.toString());
+        assertEquals("sub.toString", "..abcd", sub.toString());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("...abcde", this.createCharSequence().toString());
+        assertEquals("...abcde", this.createCharSequence().toString());
     }
 
     @Override

@@ -24,6 +24,8 @@ import walkingkooka.predicate.Notable;
 
 import java.util.Comparator;
 
+import static org.junit.Assert.assertEquals;
+
 final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Object>, Object> {
 
     private final static Comparator<Object> COMPARATOR = Comparators.fake();
@@ -69,7 +71,7 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
                 return +2;
             }
         });
-        assertEquals(-2, comparator.compare(object1, object2));
+        checkEquals(-2, comparator.compare(object1, object2));
     }
 
     @Test
@@ -81,7 +83,7 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
 
     @Test
     public void testToString() {
-        Assert.assertEquals("NOT (" + NotComparatorTest.COMPARATOR.toString() + ")",
+        assertEquals("NOT (" + NotComparatorTest.COMPARATOR.toString() + ")",
                 this.createComparator().toString());
     }
 

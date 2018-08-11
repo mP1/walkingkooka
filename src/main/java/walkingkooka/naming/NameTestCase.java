@@ -20,6 +20,8 @@ package walkingkooka.naming;
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */

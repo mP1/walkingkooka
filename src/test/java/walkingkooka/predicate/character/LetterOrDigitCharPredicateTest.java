@@ -17,8 +17,9 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class LetterOrDigitCharPredicateTest
         extends CharPredicateTestCase<LetterOrDigitCharPredicate> {
@@ -40,7 +41,7 @@ final public class LetterOrDigitCharPredicateTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("Letter/Digit", this.createCharacterPredicate().toString());
+        assertEquals("Letter/Digit", this.createCharacterPredicate().toString());
     }
 
     @Override

@@ -27,6 +27,7 @@ import walkingkooka.type.MethodAttributes;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParserToken> extends ParserTokenTestCase<T> {

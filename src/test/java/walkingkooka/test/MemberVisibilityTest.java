@@ -17,9 +17,10 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.type.MemberVisibility;
+
+import static org.junit.Assert.assertEquals;
 
 public final class MemberVisibilityTest extends EnumTestCase<MemberVisibility> {
 
@@ -39,7 +40,7 @@ public final class MemberVisibilityTest extends EnumTestCase<MemberVisibility> {
     }
 
     private void check(final MemberVisibility visibility, final Class<?> classs) {
-        Assert.assertEquals(classs + "", visibility, MemberVisibility.get(classs));
+        assertEquals(classs + "", visibility, MemberVisibility.get(classs));
     }
 
     protected class ProtectedClass {

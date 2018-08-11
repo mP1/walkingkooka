@@ -17,9 +17,9 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 final public class RightPaddedCharSequence2Test
@@ -63,7 +63,7 @@ final public class RightPaddedCharSequence2Test
         final CharSequence sub = sequence.subSequence(6, 7);
         assertNotEquals("class", RightPaddedCharSequence2.class, sub.getClass());
         this.checkEquals(sub, RightPaddedCharSequence2Test.PADDING);
-        Assert.assertEquals("sub.toString", ".", sub.toString());
+        assertEquals("sub.toString", ".", sub.toString());
     }
 
     @Test
@@ -75,7 +75,7 @@ final public class RightPaddedCharSequence2Test
                 RightPaddedCharSequence2Test.PADDING,
                 RightPaddedCharSequence2Test.PADDING,
                 RightPaddedCharSequence2Test.PADDING);
-        Assert.assertEquals("sub.toString", "...", sub.toString());
+        assertEquals("sub.toString", "...", sub.toString());
     }
 
     @Test
@@ -88,7 +88,7 @@ final public class RightPaddedCharSequence2Test
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 4);
         this.checkEquals(sub, "bcd");
-        Assert.assertEquals("sub.toString", "bcd", sub.toString());
+        assertEquals("sub.toString", "bcd", sub.toString());
     }
 
     @Test
@@ -96,7 +96,7 @@ final public class RightPaddedCharSequence2Test
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 7);
         this.checkEquals(sub, "abcde..");
-        Assert.assertEquals("sub.toString", "abcde..", sub.toString());
+        assertEquals("sub.toString", "abcde..", sub.toString());
     }
 
     @Test
@@ -104,7 +104,7 @@ final public class RightPaddedCharSequence2Test
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 6);
         this.checkEquals(sub, "bcde.");
-        Assert.assertEquals("sub.toString", "bcde.", sub.toString());
+        assertEquals("sub.toString", "bcde.", sub.toString());
     }
 
     @Test
@@ -112,12 +112,12 @@ final public class RightPaddedCharSequence2Test
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 7).subSequence(1, 5);
         this.checkEquals(sub, "cde.");
-        Assert.assertEquals("sub.toString", "cde.", sub.toString());
+        assertEquals("sub.toString", "cde.", sub.toString());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("abcde...", this.createCharSequence().toString());
+        assertEquals("abcde...", this.createCharSequence().toString());
     }
 
     @Override

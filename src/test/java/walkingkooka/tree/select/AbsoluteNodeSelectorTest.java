@@ -16,7 +16,6 @@
  */
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.PathSeparator;
@@ -24,6 +23,8 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 
 import java.util.function.Predicate;
+
+import static org.junit.Assert.assertEquals;
 
 final public class AbsoluteNodeSelectorTest extends
         UnaryNodeSelectorTestCase<AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object>> {
@@ -68,18 +69,18 @@ final public class AbsoluteNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        Assert.assertEquals("/", this.createSelector().toString());
+        assertEquals("/", this.createSelector().toString());
     }
 
     @Test
     public void testToString2() {
-        Assert.assertEquals("/[" + PREDICATE + "]", this.createSelector2().toString());
+        assertEquals("/[" + PREDICATE + "]", this.createSelector2().toString());
     }
 
     @Test
     public void testToStringPathSeparatorNotRequiredAtStart() {
         final PathSeparator separator = PathSeparator.notRequiredAtStart('/');
-        Assert.assertEquals("", this.createSelector(separator).toString());
+        assertEquals("", this.createSelector(separator).toString());
     }
 
     @Override

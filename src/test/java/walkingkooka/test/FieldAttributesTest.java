@@ -17,12 +17,13 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.FieldAttributes;
 
 import java.lang.reflect.Field;
+
+import static org.junit.Assert.assertEquals;
 
 public final class FieldAttributesTest extends EnumTestCase<FieldAttributes> {
 
@@ -71,7 +72,7 @@ public final class FieldAttributesTest extends EnumTestCase<FieldAttributes> {
     private void fieldAndCheck(final String name, final FieldAttributes...attributes) throws Exception
     {
         final Field field = this.getClass().getDeclaredField(name);
-        Assert.assertEquals(Sets.of(attributes), FieldAttributes.get(field));
+        assertEquals(Sets.of(attributes), FieldAttributes.get(field));
     }
 
     @Override protected Class<FieldAttributes> type() {

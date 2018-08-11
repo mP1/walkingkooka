@@ -17,9 +17,10 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.StaticMethodTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 final public class CharSequencesQuoteIfNecessaryTest extends StaticMethodTestCase {
 
@@ -38,7 +39,7 @@ final public class CharSequencesQuoteIfNecessaryTest extends StaticMethodTestCas
     @Test
     public void testQuotesRequired() {
         final CharSequence chars = "apple banana";
-        Assert.assertEquals('"' + chars.toString() + '"',
+        assertEquals('"' + chars.toString() + '"',
                 CharSequences.quoteIfNecessary(chars).toString());
     }
 

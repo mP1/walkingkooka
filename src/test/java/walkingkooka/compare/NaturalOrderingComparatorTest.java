@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
+
 final public class NaturalOrderingComparatorTest
         extends ComparatorTestCase<NaturalOrderingComparator<Integer>, Integer> {
 
@@ -49,7 +51,7 @@ final public class NaturalOrderingComparatorTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("natural", NaturalOrderingComparator.<Integer>instance().toString());
+        assertEquals("natural", NaturalOrderingComparator.<Integer>instance().toString());
     }
 
     // factory

@@ -23,6 +23,8 @@ import walkingkooka.Cast;
 
 import java.util.function.Predicate;
 
+import static org.junit.Assert.assertEquals;
+
 final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String> {
 
     // constants
@@ -112,7 +114,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     @Test
     public void testToString() {
         final Predicate<Object> predicate = Predicates.fake();
-        Assert.assertEquals("!" + predicate, NotPredicate.wrap(predicate).toString());
+        assertEquals("!" + predicate, NotPredicate.wrap(predicate).toString());
     }
 
     @Override

@@ -27,6 +27,7 @@ import java.util.EmptyStackException;
 import java.util.Iterator;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Object>, Object> {
 
@@ -34,14 +35,14 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
     public void testCreate() {
         final Stack<Object> stack = EmptyArrayStack.instance();
         Assert.assertTrue("isempty", stack.isEmpty());
-        Assert.assertEquals("size when empty", 0, stack.size());
+        assertEquals("size when empty", 0, stack.size());
     }
 
     @Test
     public void testPush() {
         final ArrayStack<String> stack = Cast.to(EmptyArrayStack.instance().push("1"));
         assertArrayEquals("array", new Object[]{"1"}, stack.array);
-        Assert.assertEquals("last", 1, stack.last);
+        assertEquals("last", 1, stack.last);
     }
 
     @Test
@@ -56,7 +57,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
                 = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
                 .iterator()));
         assertArrayEquals("array", new Object[]{"1", "2", "3"}, stack.array);
-        Assert.assertEquals("last", 3, stack.last);
+        assertEquals("last", 3, stack.last);
     }
 
     @Test
@@ -101,7 +102,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
 
     @Test
     public void testToString() {
-        Assert.assertEquals("[]", EmptyArrayStack.instance().toString());
+        assertEquals("[]", EmptyArrayStack.instance().toString());
     }
 
     @Override

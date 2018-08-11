@@ -23,6 +23,8 @@ import walkingkooka.Cast;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharPredicateBuilderTest
         extends BuilderTestCase<CharPredicateBuilder, CharPredicate> {
 
@@ -299,7 +301,7 @@ final public class CharPredicateBuilderTest
         final CharPredicateBuilder builder = this.createBuilder();
         builder.any("123");
         final CharPredicate predicate = builder.build();
-        Assert.assertEquals(predicate.toString(), builder.toString());
+        assertEquals(predicate.toString(), builder.toString());
     }
 
     @Test
@@ -309,7 +311,7 @@ final public class CharPredicateBuilderTest
         builder.toString("lost");
         builder.toString(toString);
         builder.any("123");
-        Assert.assertEquals(toString, builder.toString());
+        assertEquals(toString, builder.toString());
     }
 
     @Test

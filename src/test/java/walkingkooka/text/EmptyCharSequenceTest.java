@@ -17,8 +17,9 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharSequence> {
 
@@ -57,7 +58,7 @@ final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharS
 
     @Test
     public void testToString() {
-        Assert.assertEquals("", EmptyCharSequence.INSTANCE.toString());
+        assertEquals("", EmptyCharSequence.INSTANCE.toString());
     }
 
     @Override

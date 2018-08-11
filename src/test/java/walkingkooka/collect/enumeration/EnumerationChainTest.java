@@ -26,6 +26,8 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 import java.util.Vector;
 
+import static org.junit.Assert.assertEquals;
+
 final public class EnumerationChainTest
         extends EnumerationTestCase<EnumerationChain<String>, String> {
 
@@ -183,7 +185,7 @@ final public class EnumerationChainTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals(EnumerationChainTest.FIRST + "...",
+        assertEquals(EnumerationChainTest.FIRST + "...",
                 this.createEnumeration().toString());
     }
 
@@ -201,7 +203,7 @@ final public class EnumerationChainTest
         enumerator.nextElement();
         enumerator.hasMoreElements();
 
-        Assert.assertEquals(secondEnumeration.toString(), enumerator.toString());
+        assertEquals(secondEnumeration.toString(), enumerator.toString());
     }
 
     @Test
@@ -215,7 +217,7 @@ final public class EnumerationChainTest
         enumerator.nextElement();
         enumerator.hasMoreElements();
 
-        Assert.assertEquals("", enumerator.toString());
+        assertEquals("", enumerator.toString());
     }
 
     @Override

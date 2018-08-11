@@ -17,8 +17,9 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class WhitespaceCharPredicateTest
         extends CharPredicateTestCase<WhitespaceCharPredicate> {
@@ -35,7 +36,7 @@ final public class WhitespaceCharPredicateTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("whitespace", WhitespaceCharPredicate.INSTANCE.toString());
+        assertEquals("whitespace", WhitespaceCharPredicate.INSTANCE.toString());
     }
 
     @Override

@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 
 import java.util.function.Predicate;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>{

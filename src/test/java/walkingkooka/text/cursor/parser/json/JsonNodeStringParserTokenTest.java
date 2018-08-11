@@ -23,6 +23,8 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.visit.Visiting;
 
+import static org.junit.Assert.assertEquals;
+
 public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserTokenTestCase2<JsonNodeStringParserToken, String, JsonStringNode> {
 
     @Test

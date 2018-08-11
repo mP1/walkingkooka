@@ -21,7 +21,6 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 /**

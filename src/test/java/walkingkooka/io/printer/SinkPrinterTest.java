@@ -52,7 +52,7 @@ final public class SinkPrinterTest extends PrinterTestCase<SinkPrinter> {
 
     @Test
     public void testToString() {
-        assertEquals("sink", SinkPrinter.INSTANCE.toString());
+        checkEquals("sink", SinkPrinter.INSTANCE.toString());
     }
 
     @Override

@@ -25,6 +25,8 @@ import walkingkooka.collect.list.Lists;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterable<String>, String> {
 
     // constants
@@ -53,13 +55,13 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
         final Iterator<String> iterator = readOnly.iterator();
 
         Assert.assertTrue("iterator should not be empty", iterator.hasNext());
-        Assert.assertEquals("1", iterator.next());
+        assertEquals("1", iterator.next());
 
         Assert.assertTrue("iterator should not be empty", iterator.hasNext());
-        Assert.assertEquals("2", iterator.next());
+        assertEquals("2", iterator.next());
 
         Assert.assertTrue("iterator should not be empty", iterator.hasNext());
-        Assert.assertEquals("3", iterator.next());
+        assertEquals("3", iterator.next());
 
         Assert.assertFalse("iterator should be empty", iterator.hasNext());
     }
@@ -75,7 +77,7 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
         final Iterator<String> iterator = readOnly.iterator();
 
         Assert.assertTrue("iterator should not be empty", iterator.hasNext());
-        Assert.assertEquals("1", iterator.next());
+        assertEquals("1", iterator.next());
 
         try {
             iterator.remove();
@@ -86,7 +88,7 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
 
     @Test
     public void testToString() {
-        Assert.assertEquals(ReadOnlyIterableTest.ITERABLES.toString(),
+        assertEquals(ReadOnlyIterableTest.ITERABLES.toString(),
                 ReadOnlyIterable.wrap(ReadOnlyIterableTest.ITERABLES).toString());
     }
 

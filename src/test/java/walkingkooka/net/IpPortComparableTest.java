@@ -25,6 +25,8 @@ import walkingkooka.compare.ComparableTestCase;
 import java.util.Iterator;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+
 public final class IpPortComparableTest extends ComparableTestCase<IpPort> {
 
     @Test

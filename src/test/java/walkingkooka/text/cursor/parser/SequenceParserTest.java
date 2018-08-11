@@ -20,6 +20,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SequenceParserTest extends ParserTemplateTestCase<SequenceParser<FakeParserContext>,
         SequenceParserToken> {
 

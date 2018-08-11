@@ -24,6 +24,8 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Enumeration;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ArrayEnumerationTest
         extends EnumerationTestCase<ArrayEnumeration<String>, String> {
 
@@ -60,7 +62,7 @@ final public class ArrayEnumerationTest
     @Test
     public void testToString() {
         final Enumeration<String> enumerator = this.createEnumeration();
-        Assert.assertEquals(Lists.of("A", "B", "C").toString(), enumerator.toString());
+        assertEquals(Lists.of("A", "B", "C").toString(), enumerator.toString());
     }
 
     @Test
@@ -68,7 +70,7 @@ final public class ArrayEnumerationTest
         final Enumeration<String> enumerator = this.createEnumeration();
         enumerator.nextElement();
 
-        Assert.assertEquals(Lists.of("B", "C").toString(), enumerator.toString());
+        assertEquals(Lists.of("B", "C").toString(), enumerator.toString());
     }
 
     @Test
@@ -77,7 +79,7 @@ final public class ArrayEnumerationTest
         enumerator.nextElement();
         enumerator.nextElement();
         enumerator.nextElement();
-        Assert.assertEquals(Lists.of().toString(), enumerator.toString());
+        assertEquals(Lists.of().toString(), enumerator.toString());
     }
 
     @Override

@@ -20,6 +20,8 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T extends ParserToken> extends ParserTestCase<P, T, FakeParserContext> {
 
     @Test

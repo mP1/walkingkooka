@@ -24,6 +24,8 @@ import walkingkooka.naming.StringName;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class NodeSelectorTestCase2<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>>
 extends NodeSelectorTestCase<S>{
 

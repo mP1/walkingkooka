@@ -17,21 +17,22 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.ClassAttributes;
+
+import static org.junit.Assert.assertEquals;
 
 public final class ClassAttributesTest extends EnumTestCase<ClassAttributes> {
 
     @Test
     public void testFinal() {
-        Assert.assertEquals(Sets.of(ClassAttributes.FINAL), ClassAttributes.get(this.getClass()));
+        assertEquals(Sets.of(ClassAttributes.FINAL), ClassAttributes.get(this.getClass()));
     }
 
     @Test
     public void testStatic() {
-        Assert.assertEquals(Sets.of(ClassAttributes.STATIC), ClassAttributes.get(TestStaticClass.class));
+        assertEquals(Sets.of(ClassAttributes.STATIC), ClassAttributes.get(TestStaticClass.class));
     }
 
     static class TestStaticClass{}
@@ -39,14 +40,14 @@ public final class ClassAttributesTest extends EnumTestCase<ClassAttributes> {
 
     @Test
     public void testAbstract() {
-        Assert.assertEquals(Sets.of(ClassAttributes.ABSTRACT), ClassAttributes.get(TestAbstractClass.class));
+        assertEquals(Sets.of(ClassAttributes.ABSTRACT), ClassAttributes.get(TestAbstractClass.class));
     }
 
     abstract class TestAbstractClass{}
 
     @Test
     public void testAbstractStatic() {
-        Assert.assertEquals(Sets.of(ClassAttributes.ABSTRACT, ClassAttributes.STATIC), ClassAttributes.get(TestAbstractStaticClass.class));
+        assertEquals(Sets.of(ClassAttributes.ABSTRACT, ClassAttributes.STATIC), ClassAttributes.get(TestAbstractStaticClass.class));
     }
 
     abstract static class TestAbstractStaticClass{}

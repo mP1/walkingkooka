@@ -19,7 +19,6 @@ package walkingkooka.naming;
 
 import org.junit.Test;
 import walkingkooka.compare.ComparableTestCase;
-import walkingkooka.net.UrlPath;
 
 final public class StringPathComparableTest extends ComparableTestCase<StringPath> {
 

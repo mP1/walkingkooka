@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPredicate> {
@@ -72,13 +73,13 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
     @Test
     public void testWithLongString() {
         final AnyCharPredicate predicate = this.createCharacterPredicate();
-        assertEquals("array", "123ABC".toCharArray(), predicate.array);
+        assertArrayEquals("array", "123ABC".toCharArray(), predicate.array);
     }
 
     @Test
     public void testWithRemovesDuplicatesString() {
         final AnyCharPredicate predicate = Cast.to(AnyCharPredicate.with("ZAAAB"));
-        assertEquals("array", "ABZ".toCharArray(), predicate.array);
+        assertArrayEquals("array", "ABZ".toCharArray(), predicate.array);
     }
 
     // Predicate
@@ -105,7 +106,7 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
 
     @Test
     public void testToString() {
-        Assert.assertEquals("\"123ABC\"", this.createCharacterPredicate().toString());
+        assertEquals("\"123ABC\"", this.createCharacterPredicate().toString());
     }
 
     @Override

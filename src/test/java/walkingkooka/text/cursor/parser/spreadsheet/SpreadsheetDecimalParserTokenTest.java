@@ -23,6 +23,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SpreadsheetDecimalParserTokenTest extends SpreadsheetNumericParserTokenTestCase<SpreadsheetDecimalParserToken, BigDecimal> {
 
     @Test

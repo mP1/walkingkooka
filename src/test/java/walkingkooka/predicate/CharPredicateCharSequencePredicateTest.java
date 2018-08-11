@@ -17,11 +17,12 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
+
+import static org.junit.Assert.assertEquals;
 
 final public class CharPredicateCharSequencePredicateTest
         extends PredicateTestCase<CharPredicateCharSequencePredicate, CharSequence> {
@@ -59,7 +60,7 @@ final public class CharPredicateCharSequencePredicateTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals(CharSequences.quote(CHARS).toString(),
+        assertEquals(CharSequences.quote(CHARS).toString(),
                 this.createPredicate().toString());
     }
 

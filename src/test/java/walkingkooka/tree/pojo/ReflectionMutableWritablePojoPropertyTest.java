@@ -20,6 +20,8 @@ package walkingkooka.tree.pojo;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public final class ReflectionMutableWritablePojoPropertyTest extends PojoPropertyTestCase<ReflectionMutableWritablePojoProperty> {
 
     private final static PojoName X = PojoName.property("x");

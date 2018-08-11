@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ObjectEqualityPredicateTest
         extends PredicateTestCase<ObjectEqualityPredicate<String>, String> {
 
@@ -67,12 +69,12 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testToStringWithNoneString() {
-        Assert.assertEquals("1", ObjectEqualityPredicate.with(1L).toString());
+        assertEquals("1", ObjectEqualityPredicate.with(1L).toString());
     }
 
     @Test
     public void testToStringWithString() {
-        Assert.assertEquals(CharSequences.quoteAndEscape(ObjectEqualityPredicateTest.MAGIC)
+        assertEquals(CharSequences.quoteAndEscape(ObjectEqualityPredicateTest.MAGIC)
                 .toString(), this.createPredicate().toString());
     }
 

@@ -17,8 +17,9 @@
 
 package walkingkooka.util.variable;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class SimpleVariableTest extends VariableTestCase<SimpleVariable<Object>, Object> {
 
@@ -32,7 +33,7 @@ final public class SimpleVariableTest extends VariableTestCase<SimpleVariable<Ob
     @Test
     public void testToString() {
         final Object value = "value";
-        Assert.assertEquals(value.toString(), SimpleVariable.with(value).toString());
+        assertEquals(value.toString(), SimpleVariable.with(value).toString());
     }
 
     @Override

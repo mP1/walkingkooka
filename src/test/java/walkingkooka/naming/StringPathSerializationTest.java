@@ -20,6 +20,7 @@ package walkingkooka.naming;
 import org.junit.Test;
 import walkingkooka.test.SerializationTestCase;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 final public class StringPathSerializationTest extends SerializationTestCase<StringPath> {

@@ -19,10 +19,11 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+
+import static org.junit.Assert.assertEquals;
 
 
 final public class FirstChildNodeSelectorTest extends
@@ -67,7 +68,7 @@ final public class FirstChildNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        Assert.assertEquals("first-child", this.createSelector().toString());
+        assertEquals("first-child", this.createSelector().toString());
     }
 
     @Override

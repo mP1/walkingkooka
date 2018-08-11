@@ -17,12 +17,13 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
+
+import static org.junit.Assert.assertEquals;
 
 public final class MethodAttributesTest extends EnumTestCase<MethodAttributes> {
 
@@ -56,7 +57,7 @@ public final class MethodAttributesTest extends EnumTestCase<MethodAttributes> {
     private void methodAndCheck(final String name, final MethodAttributes...attributes) throws Exception
     {
         final Method method = MethodAttributesTestTest.class.getDeclaredMethod(name);
-        Assert.assertEquals(Sets.of(attributes), MethodAttributes.get(method));
+        assertEquals(Sets.of(attributes), MethodAttributes.get(method));
     }
 
     static abstract class MethodAttributesTestTest{

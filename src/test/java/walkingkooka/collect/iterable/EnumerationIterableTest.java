@@ -25,6 +25,8 @@ import walkingkooka.collect.enumeration.Enumerations;
 import java.util.Enumeration;
 import java.util.Iterator;
 
+import static org.junit.Assert.assertEquals;
+
 final public class EnumerationIterableTest
         extends IterableTestCase<EnumerationIterable<Object>, Object> {
 
@@ -61,7 +63,7 @@ final public class EnumerationIterableTest
     @Test
     public void testToString() {
         final Enumeration<Object> enumeration = this.createEnumeration();
-        Assert.assertEquals(enumeration.toString(),
+        assertEquals(enumeration.toString(),
                 EnumerationIterable.with(enumeration).toString());
     }
 

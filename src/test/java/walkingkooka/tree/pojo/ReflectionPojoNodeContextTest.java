@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 public final class ReflectionPojoNodeContextTest extends PojoNodeContextTestCase<ReflectionPojoNodeContext> {

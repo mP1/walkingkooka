@@ -25,6 +25,8 @@ import walkingkooka.text.LineEnding;
 
 import java.util.function.Function;
 
+import static org.junit.Assert.assertEquals;
+
 final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEntityDecodingPrinter> {
 
     // constants
@@ -70,8 +72,8 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         final HtmlEntityDecodingPrinter printer = this.createPrinter();
         printer.print("&");
         this.check(printer, "");
-        Assert.assertEquals(1, printer.last);
-        Assert.assertEquals("&", printer.buffer());
+        assertEquals(1, printer.last);
+        assertEquals("&", printer.buffer());
     }
 
     @Test
@@ -79,7 +81,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         final HtmlEntityDecodingPrinter printer = this.createPrinter();
         printer.print("&;");
         this.check(printer, "&;");
-        Assert.assertEquals(0, printer.last);
+        assertEquals(0, printer.last);
     }
 
     @Test
@@ -88,8 +90,8 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         final String text = "&star";
         printer.print(text);
         this.check(printer, "");
-        Assert.assertEquals(text.length(), printer.last);
-        Assert.assertEquals(text, printer.buffer());
+        assertEquals(text.length(), printer.last);
+        assertEquals(text, printer.buffer());
     }
 
     @Test
@@ -113,8 +115,8 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         final String text = "&#123";
         printer.print(text);
         this.check(printer, "");
-        Assert.assertEquals(text.length(), printer.last);
-        Assert.assertEquals(text, printer.buffer());
+        assertEquals(text.length(), printer.last);
+        assertEquals(text, printer.buffer());
     }
 
     @Test
@@ -172,7 +174,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         printer.print("456");
         printer.print(printer.lineEnding());
         printer.flush();
-        PrinterTestCase.assertEquals(
+        PrinterTestCase.checkEquals(
                 "123" + HtmlEntityDecodingPrinterTest.LINE_ENDING + "456" + HtmlEntityDecodingPrinterTest.LINE_ENDING,
                 printed.toString());
     }
@@ -186,7 +188,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         printer.print("4&star;6");
         printer.print(printer.lineEnding());
         printer.flush();
-        PrinterTestCase.assertEquals(
+        PrinterTestCase.checkEquals(
                 "1*3" + HtmlEntityDecodingPrinterTest.LINE_ENDING + "4*6" + HtmlEntityDecodingPrinterTest.LINE_ENDING,
                 printed.toString());
     }
@@ -195,7 +197,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
     public void testToString() {
         final Function<String, String> decoder = (s) -> s;
         final Printer printer = Printers.fake();
-        PrinterTestCase.assertEquals(printer + " AND " + decoder,
+        PrinterTestCase.checkEquals(printer + " AND " + decoder,
                 HtmlEntityDecodingPrinter.wrap(decoder, printer).toString());
     }
 
@@ -230,8 +232,8 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
             b.append(string);
         }
         this.check(printer, expected);
-        Assert.assertEquals("printer.last", 0, printer.last);
-        PrinterTestCase.assertEquals("Expected empty buffer", "", printer.buffer());
+        assertEquals("printer.last", 0, printer.last);
+        PrinterTestCase.checkEquals("Expected empty buffer", "", printer.buffer());
 
         this.builder.setLength(0);
         final char[] chars = b.toString().toCharArray();
@@ -239,8 +241,8 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
             printer.print(String.valueOf(c));
         }
         this.check(printer, expected);
-        Assert.assertEquals("printer.last", 0, printer.last);
-        PrinterTestCase.assertEquals("Expected empty buffer", "", printer.buffer());
+        assertEquals("printer.last", 0, printer.last);
+        PrinterTestCase.checkEquals("Expected empty buffer", "", printer.buffer());
     }
 
     @Override

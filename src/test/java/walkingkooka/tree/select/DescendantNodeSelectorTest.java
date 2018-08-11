@@ -17,10 +17,11 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+
+import static org.junit.Assert.assertEquals;
 
 final public class DescendantNodeSelectorTest extends
         UnaryNodeSelectorTestCase<DescendantNodeSelector<TestFakeNode, StringName, StringName, Object>> {
@@ -85,12 +86,12 @@ final public class DescendantNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        Assert.assertEquals("//", this.createSelector().toString());
+        assertEquals("//", this.createSelector().toString());
     }
 
     @Test
     public void testToStringAbsolute() {
-        Assert.assertEquals("//",
+        assertEquals("//",
                 AbsoluteNodeSelector.<TestFakeNode, StringName, StringName, Object>with(SEPARATOR)
                         .append(this.createSelector())
                         .toString());

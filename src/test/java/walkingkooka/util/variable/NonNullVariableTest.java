@@ -20,6 +20,8 @@ package walkingkooka.util.variable;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class NonNullVariableTest extends VariableTestCase<NonNullVariable<Object>, Object> {
 
     @Test
@@ -63,7 +65,7 @@ final public class NonNullVariableTest extends VariableTestCase<NonNullVariable<
     @Test
     public void testToString() {
         final Object value = "value";
-        Assert.assertEquals("non null " + value, NonNullVariable.wrap(Variables.with(value)).toString());
+        assertEquals("non null " + value, NonNullVariable.wrap(Variables.with(value)).toString());
     }
 
     @Override

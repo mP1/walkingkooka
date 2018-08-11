@@ -132,12 +132,12 @@ final public class TabExpandingPrinterTest extends PrinterTestCase2<TabExpanding
         printer.print(printer.lineEnding());
         printer.print("ABC\t*");
         printer.flush();
-        assertEquals("01  56" + TabExpandingPrinterTest.LINE_ENDING + "ABC *", printed.toString());
+        checkEquals("01  56" + TabExpandingPrinterTest.LINE_ENDING + "ABC *", printed.toString());
     }
 
     @Test
     public void testToString() {
-        assertEquals("tab x " + TabExpandingPrinterTest.PRINTER,
+        checkEquals("tab x " + TabExpandingPrinterTest.PRINTER,
                 TabExpandingPrinter.wrap(TabExpandingPrinterTest.PRINTER,
                         TabExpandingPrinterTest.TAB_STOPS).toString());
     }

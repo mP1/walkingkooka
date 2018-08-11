@@ -17,17 +17,18 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+
+import static org.junit.Assert.assertEquals;
 
 final public class TerminalNodeSelectorTest
         extends NodeSelectorTestCase2<TerminalNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     @Test
     public void testToString() {
-        Assert.assertEquals("", this.createSelector().toString());
+        assertEquals("", this.createSelector().toString());
     }
 
     @Override

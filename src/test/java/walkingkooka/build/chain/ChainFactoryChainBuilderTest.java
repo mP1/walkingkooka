@@ -27,6 +27,7 @@ import walkingkooka.test.Fake;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 final public class ChainFactoryChainBuilderTest
         extends ChainBuilderTestCase<ChainFactoryChainBuilder<Fake>, Fake> {
@@ -311,7 +312,7 @@ final public class ChainFactoryChainBuilderTest
     @Test
     public void testToStringEmpty() {
         final ChainFactoryChainBuilder<Fake> builder = this.createBuilder();
-        Assert.assertEquals("[]", builder.toString());
+        assertEquals("[]", builder.toString());
     }
 
     @Override

@@ -22,6 +22,8 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SpreadsheetTextParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetTextParserToken, String> {
 
     @Test

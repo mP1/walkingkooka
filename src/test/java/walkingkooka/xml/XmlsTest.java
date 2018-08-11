@@ -23,6 +23,8 @@ import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;
 
+import static org.junit.Assert.assertEquals;
+
 final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
 
     // decode

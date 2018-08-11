@@ -34,6 +34,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Contains various tests toassert the visibility and final-ness of all methods, fields. Note this
  * class is only public because of JUNIT and is intended to only be sub classed by classes in the

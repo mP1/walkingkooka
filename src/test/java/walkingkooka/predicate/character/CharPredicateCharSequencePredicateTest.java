@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.PredicateTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharPredicateCharSequencePredicateTest
         extends PredicateTestCase<CharPredicateCharSequencePredicate<String>, String> {
 
@@ -52,7 +54,7 @@ final public class CharPredicateCharSequencePredicateTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals(CharPredicateCharSequencePredicateTest.PREDICATE.toString(),
+        assertEquals(CharPredicateCharSequencePredicateTest.PREDICATE.toString(),
                 this.createPredicate().toString());
     }
 

@@ -17,12 +17,13 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 
 import java.util.function.Predicate;
+
+import static org.junit.Assert.assertEquals;
 
 
 final public class PredicateNodeSelectorTest extends
@@ -55,7 +56,7 @@ final public class PredicateNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        Assert.assertEquals("[" + PREDICATE.toString() + "]", this.createSelector().toString());
+        assertEquals("[" + PREDICATE.toString() + "]", this.createSelector().toString());
     }
 
     @Override

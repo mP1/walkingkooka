@@ -20,6 +20,8 @@ package walkingkooka.predicate.character;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
         extends CharPredicateTestCase<P> {
 
@@ -48,7 +50,7 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
         final CharPredicate first = CharPredicates.fake();
         final CharPredicate second = CharPredicates.fake();
         final P predicate = this.createCharacterPredicate(first, second);
-        Assert.assertEquals(first + " " + this.operator(predicate) + " " + second,
+        assertEquals(first + " " + this.operator(predicate) + " " + second,
                 predicate.toString());
     }
 

@@ -24,6 +24,8 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.math.BigInteger;
 
+import static org.junit.Assert.assertEquals;
+
 public class LongParserTest extends ParserTemplateTestCase<LongParser<FakeParserContext>, LongParserToken> {
 
     private final static int RADIX = 10;

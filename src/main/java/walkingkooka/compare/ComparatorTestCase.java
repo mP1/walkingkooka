@@ -101,11 +101,11 @@ abstract public class ComparatorTestCase<C extends Comparator<T>, T>
         return CharSequences.quoteIfChars(value);
     }
 
-    public static void assertEquals(final int expected, final int actual) {
-        assertEquals(null, expected, actual);
+    public static void checkEquals(final int expected, final int actual) {
+        checkEquals(null, expected, actual);
     }
 
-    public static void assertEquals(final String message, final int expected, final int actual) {
+    public static void checkEquals(final String message, final int expected, final int actual) {
         if (false == ComparatorTestCase.isEqual(expected, actual)) {
             failNotEquals(message, expected, actual);
         }

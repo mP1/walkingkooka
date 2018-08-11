@@ -23,6 +23,8 @@ import org.junit.Test;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> {
 
     @Test

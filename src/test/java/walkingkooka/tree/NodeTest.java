@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
+
 public final class NodeTest extends PublicClassTestCase<Node> {
 
     @Test

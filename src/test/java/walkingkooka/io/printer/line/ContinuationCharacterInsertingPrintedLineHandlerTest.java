@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.text.LineEnding;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ContinuationCharacterInsertingPrintedLineHandlerTest
         extends PrintedLineHandlerTestCase<ContinuationCharacterInsertingPrintedLineHandler> {
 
@@ -57,7 +59,7 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest
             Assert.fail();
         } catch (final RuntimeException expected) {
             if (null != message) {
-                Assert.assertEquals("message",
+                assertEquals("message",
                         ContinuationCharacterInsertingPrintedLineHandler.mustNotBeEndOfLineCharacter(
                                 c),
                         expected.getMessage());
@@ -132,7 +134,7 @@ final public class ContinuationCharacterInsertingPrintedLineHandlerTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("lines > " + ContinuationCharacterInsertingPrintedLineHandlerTest.WIDTH
+        assertEquals("lines > " + ContinuationCharacterInsertingPrintedLineHandlerTest.WIDTH
                         + " continue w/ '"
                         + ContinuationCharacterInsertingPrintedLineHandlerTest.CONTINUATION + "'",
                 this.createLineHandler().toString());

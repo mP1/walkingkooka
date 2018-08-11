@@ -23,6 +23,8 @@ import walkingkooka.naming.StringName;
 
 import java.util.Collections;
 
+import static org.junit.Assert.assertEquals;
+
 public class ContainsNodeAttributeValuePredicateTest
         extends NodeAttributeValuePredicateTestCase<ContainsNodeAttributeValuePredicate<TestFakeNode, StringName, StringName, Object>> {
 

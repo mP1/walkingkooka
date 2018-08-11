@@ -21,6 +21,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigInteger;
 
+import static org.junit.Assert.assertEquals;
+
 public final class NumberParserTokenTest extends ParserTokenTestCase<NumberParserToken> {
 
     @Test(expected = NullPointerException.class)

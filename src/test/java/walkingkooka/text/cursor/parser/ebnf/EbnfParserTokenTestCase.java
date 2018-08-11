@@ -24,6 +24,8 @@ import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class EbnfParserTokenTestCase<T extends EbnfParserToken> extends ParserTokenTestCase<T> {
 
     @Test

@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
+
 public final class PojoNodeTest extends PublicClassTestCase<PojoNode> {
 
     @Test

@@ -19,6 +19,8 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.tree.visit.Visiting;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<SingleQuotedParserToken> {
 
     @Test(expected = NullPointerException.class)

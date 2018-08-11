@@ -80,8 +80,8 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
 
         printer.print("string2");
         builder3.append("string2");
-        assertEquals(builder3.toString(), builder1.toString());
-        assertEquals("Both Tee'd Printers should be equal.",
+        checkEquals(builder3.toString(), builder1.toString());
+        checkEquals("Both Tee'd Printers should be equal.",
                 builder1.toString(),
                 builder2.toString());
     }
@@ -107,8 +107,8 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
 
         printer.print("string2");
         builder3.append("string2");
-        assertEquals(builder3.toString(), builder1.toString());
-        assertEquals("Both Tee'd Printers should be equal.",
+        checkEquals(builder3.toString(), builder1.toString());
+        checkEquals("Both Tee'd Printers should be equal.",
                 builder1.toString(),
                 builder2.toString());
     }
@@ -117,7 +117,7 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
     public void testToString() {
         final Printer left = Printers.fake();
         final Printer right = Printers.fake();
-        assertEquals("tee (" + left + " AND " + right + ")",
+        checkEquals("tee (" + left + " AND " + right + ")",
                 TeePrinter.wrap(left, right).toString());
     }
 

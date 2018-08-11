@@ -24,6 +24,7 @@ import walkingkooka.test.TestCase;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public final class HostAddressIp4Test extends TestCase {

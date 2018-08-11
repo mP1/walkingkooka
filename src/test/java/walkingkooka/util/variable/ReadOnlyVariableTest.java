@@ -20,6 +20,8 @@ package walkingkooka.util.variable;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ReadOnlyVariableTest extends VariableTestCase<ReadOnlyVariable<Object>, Object> {
 
     @Test
@@ -79,7 +81,7 @@ final public class ReadOnlyVariableTest extends VariableTestCase<ReadOnlyVariabl
     @Test
     public void testToString() {
         final Object value = "value";
-        Assert.assertEquals("read only " + value, ReadOnlyVariable.wrap(Variables.with(value)).toString());
+        assertEquals("read only " + value, ReadOnlyVariable.wrap(Variables.with(value)).toString());
     }
 
     @Override

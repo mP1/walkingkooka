@@ -17,24 +17,25 @@
 
 package walkingkooka.compare;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.StaticMethodTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 final public class ComparatorsNormalizeIntTest extends StaticMethodTestCase {
 
     @Test
     public void testZero() {
-        Assert.assertEquals(0, Comparators.normalize(0));
+        assertEquals(0, Comparators.normalize(0));
     }
 
     @Test
     public void testPositive() {
-        Assert.assertEquals(1, Comparators.normalize(2));
+        assertEquals(1, Comparators.normalize(2));
     }
 
     @Test
     public void testNegative() {
-        Assert.assertEquals(-1, Comparators.normalize(-2));
+        assertEquals(-1, Comparators.normalize(-2));
     }
 }

@@ -20,6 +20,8 @@ package walkingkooka.xml;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class DomParentNodeTestCase<N extends DomParentNode> extends DomNodeTestCase<N> {
 
     final void checkChildren(final String label, final int count, final DomNode parent) {

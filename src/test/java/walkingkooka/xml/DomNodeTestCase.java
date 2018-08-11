@@ -41,6 +41,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<DomNode, DomName, DomAttributeName, String> {
 
     final static Optional<DomNode> NO_PARENT = DomNode.NO_PARENT;

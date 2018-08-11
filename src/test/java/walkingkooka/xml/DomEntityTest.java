@@ -24,6 +24,8 @@ import walkingkooka.Cast;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
 
+import static org.junit.Assert.assertEquals;
+
 public final class DomEntityTest extends DomParentNodeTestCase<DomEntity> {
 
     public void testParentWithout() {

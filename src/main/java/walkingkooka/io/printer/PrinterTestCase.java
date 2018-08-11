@@ -149,12 +149,12 @@ abstract public class PrinterTestCase<P extends Printer> extends PackagePrivateC
         }
     }
 
-    static public void assertEquals(final String expected, final String actual) {
-        assertEquals(null, expected, actual);
+    static public void checkEquals(final CharSequence expected, final CharSequence actual) {
+        checkEquals(null, expected, actual);
     }
 
-    static public void assertEquals(final String message, final String expected,
-                                    final String actual) {
+    static public void checkEquals(final String message, final CharSequence expected,
+                                   final CharSequence actual) {
         if (false == expected.equals(actual)) {
             failNotEquals(null,
                     CharSequences.escape(expected).toString(),

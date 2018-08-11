@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
+
 final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Object>, Object> {
 
     // constants
@@ -96,7 +98,7 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
 
     @Test
     public void testToString() {
-        Assert.assertEquals(UnreadableStackTest.STACK.toString(), this.createStack().toString());
+        assertEquals(UnreadableStackTest.STACK.toString(), this.createStack().toString());
     }
 
     @Override

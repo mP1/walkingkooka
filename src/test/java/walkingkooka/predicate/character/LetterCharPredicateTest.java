@@ -20,6 +20,8 @@ package walkingkooka.predicate.character;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class LetterCharPredicateTest extends CharPredicateTestCase<LetterCharPredicate> {
 
     @Test
@@ -49,7 +51,7 @@ final public class LetterCharPredicateTest extends CharPredicateTestCase<LetterC
 
     @Test
     public void testToString() {
-        Assert.assertEquals("letter", LetterCharPredicate.INSTANCE.toString());
+        assertEquals("letter", LetterCharPredicate.INSTANCE.toString());
     }
 
     @Override

@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.StaticMethodTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharSequencesIndexOfTest extends StaticMethodTestCase {
 
     @Test
@@ -51,7 +53,7 @@ final public class CharSequencesIndexOfTest extends StaticMethodTestCase {
         final StringBuilder chars = new StringBuilder("apple");
         final String search = "banana";
 
-        Assert.assertEquals(-1, CharSequences.indexOf(chars, search));
+        assertEquals(-1, CharSequences.indexOf(chars, search));
     }
 
     @Test
@@ -59,7 +61,7 @@ final public class CharSequencesIndexOfTest extends StaticMethodTestCase {
         final StringBuilder chars = new StringBuilder("apple banana carrot");
         final String search = "banana";
 
-        Assert.assertEquals(6, CharSequences.indexOf(chars, search));
+        assertEquals(6, CharSequences.indexOf(chars, search));
     }
 
     @Test
@@ -67,7 +69,7 @@ final public class CharSequencesIndexOfTest extends StaticMethodTestCase {
         final StringBuilder chars = new StringBuilder("apple banana carrot");
         final String search = "BANAna";
 
-        Assert.assertEquals(-1, CharSequences.indexOf(chars, search));
+        assertEquals(-1, CharSequences.indexOf(chars, search));
     }
 
     @Test
@@ -75,7 +77,7 @@ final public class CharSequencesIndexOfTest extends StaticMethodTestCase {
         final StringBuilder chars = new StringBuilder("apple banana carrot");
         final String search = "BANANARAMAMA";
 
-        Assert.assertEquals(-1, CharSequences.indexOf(chars, search));
+        assertEquals(-1, CharSequences.indexOf(chars, search));
     }
 
     @Test
@@ -83,7 +85,7 @@ final public class CharSequencesIndexOfTest extends StaticMethodTestCase {
         final StringBuilder chars = new StringBuilder("apple banana carrot");
         final String search = "apple";
 
-        Assert.assertEquals(0, CharSequences.indexOf(chars, search));
+        assertEquals(0, CharSequences.indexOf(chars, search));
     }
 
     @Test
@@ -91,46 +93,46 @@ final public class CharSequencesIndexOfTest extends StaticMethodTestCase {
         final StringBuilder chars = new StringBuilder("apple banana carrot");
         final String search = "carrot";
 
-        Assert.assertEquals("apple banana ".length(), CharSequences.indexOf(chars, search));
+        assertEquals("apple banana ".length(), CharSequences.indexOf(chars, search));
     }
 
     @Test
     public void testOneChar() {
         final StringBuilder chars = new StringBuilder("a");
-        Assert.assertEquals(0, CharSequences.indexOf(chars, chars.toString()));
+        assertEquals(0, CharSequences.indexOf(chars, chars.toString()));
     }
 
     @Test
     public void testOneCharIfIgnoringCase() {
-        Assert.assertEquals(-1, CharSequences.indexOf(new StringBuilder("a"), "A"));
+        assertEquals(-1, CharSequences.indexOf(new StringBuilder("a"), "A"));
     }
 
     @Test
     public void testOneCharFails() {
-        Assert.assertEquals(-1, CharSequences.indexOf(new StringBuilder("a"), "b"));
+        assertEquals(-1, CharSequences.indexOf(new StringBuilder("a"), "b"));
     }
 
     @Test
     public void testEmptyCharSequence() {
-        Assert.assertEquals(-1, CharSequences.indexOf(new StringBuilder(), "never matched"));
+        assertEquals(-1, CharSequences.indexOf(new StringBuilder(), "never matched"));
     }
 
     @Test
     public void testSearchForContainCharSequenceAndMore() {
         final StringBuilder chars = new StringBuilder("chars");
-        Assert.assertEquals(-1,
+        assertEquals(-1,
                 CharSequences.indexOf(new StringBuilder(chars), chars + " + extra"));
     }
 
     @Test
     public void testEqual() {
         final StringBuilder chars = new StringBuilder("chars");
-        Assert.assertEquals(0, CharSequences.indexOf(new StringBuilder(chars), "" + chars));
+        assertEquals(0, CharSequences.indexOf(new StringBuilder(chars), "" + chars));
     }
 
     @Test
     public void testEqualButDifferentCase() {
         final String chars = "chars";
-        Assert.assertEquals(-1, CharSequences.indexOf(chars.toUpperCase(), chars));
+        assertEquals(-1, CharSequences.indexOf(chars.toUpperCase(), chars));
     }
 }

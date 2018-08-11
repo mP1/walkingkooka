@@ -23,6 +23,8 @@ import walkingkooka.naming.StringName;
 
 import java.util.Collections;
 
+import static org.junit.Assert.assertEquals;
+
 public class EndsWithNodeAttributeValuePredicateTest
         extends NodeAttributeValuePredicateTestCase<EndsWithNodeAttributeValuePredicate<TestFakeNode, StringName, StringName, Object>> {
 

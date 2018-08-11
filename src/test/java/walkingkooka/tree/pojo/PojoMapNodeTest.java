@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNode, Map<Object, Object>> {

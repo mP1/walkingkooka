@@ -20,7 +20,6 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
-import walkingkooka.text.cursor.parser.ParserToken;
 
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.

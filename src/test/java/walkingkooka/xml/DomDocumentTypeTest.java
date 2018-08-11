@@ -25,6 +25,8 @@ import walkingkooka.collect.map.Maps;
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
+
 public final class DomDocumentTypeTest extends DomLeafNodeTestCase<DomDocumentType> {
 
     private final static String TYPE = "type123";

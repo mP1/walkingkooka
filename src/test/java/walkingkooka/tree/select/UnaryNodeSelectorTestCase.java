@@ -23,6 +23,8 @@ import walkingkooka.naming.StringName;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class UnaryNodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>>
 extends NodeSelectorTestCase<S>{
 

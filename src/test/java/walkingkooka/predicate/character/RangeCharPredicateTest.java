@@ -20,6 +20,8 @@ package walkingkooka.predicate.character;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
+
 public class RangeCharPredicateTest extends CharPredicateTestCase<RangeCharPredicate> {
 
     @Test(expected = IllegalArgumentException.class)

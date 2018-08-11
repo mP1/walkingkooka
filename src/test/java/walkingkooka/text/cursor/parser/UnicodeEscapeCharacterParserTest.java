@@ -20,6 +20,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.cursor.TextCursor;
 
+import static org.junit.Assert.assertEquals;
+
 public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCase<UnicodeEscapeCharacterParser<FakeParserContext>, CharacterParserToken> {
 
     @Test

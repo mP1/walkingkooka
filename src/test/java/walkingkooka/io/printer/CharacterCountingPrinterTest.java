@@ -23,6 +23,8 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.util.variable.Variable;
 import walkingkooka.util.variable.Variables;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharacterCountingPrinterTest extends PrinterTestCase<CharacterCountingPrinter> {
 
     // constants
@@ -60,8 +62,8 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
         final CharacterCountingPrinter printer = this.createPrinter(builder, counter);
         printer.print("123");
         printer.print("456");
-        assertEquals("printed", "123456", builder.toString());
-        Assert.assertEquals("counter", 106, (int) counter.get());
+        checkEquals("printed", "123456", builder.toString());
+        assertEquals("counter", 106, (int) counter.get());
     }
 
     @Test
@@ -92,13 +94,13 @@ final public class CharacterCountingPrinterTest extends PrinterTestCase<Characte
         printer.print(printer.lineEnding());
         printer.print("456");
 
-        assertEquals("printed", "123" + lineEnding + "456", builder.toString());
-        Assert.assertEquals("counter", 106 + lineEnding.length(), (int) counter.get());
+        checkEquals("printed", "123" + lineEnding + "456", builder.toString());
+        assertEquals("counter", 106 + lineEnding.length(), (int) counter.get());
     }
 
     @Test
     public void testToString() {
-        assertEquals(CharacterCountingPrinterTest.PRINTER + " 123 char(s)",
+        checkEquals(CharacterCountingPrinterTest.PRINTER + " 123 char(s)",
                 CharacterCountingPrinter.wrap(CharacterCountingPrinterTest.PRINTER,
                         Variables.with(Integer.valueOf(123))).toString());
     }

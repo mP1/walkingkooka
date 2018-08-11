@@ -27,6 +27,8 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestCase<EbnfGrammarParserToken> {
 
     @Test(expected = IllegalArgumentException.class)

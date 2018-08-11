@@ -23,6 +23,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class JsonParentNodeTestCase<N extends JsonParentNode> extends JsonNodeTestCase<N> {
 
     @Test

@@ -21,6 +21,7 @@ import org.junit.Test;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfoTestCase<CharSequenceTextCursorLineInfo> {
@@ -76,7 +77,7 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
         assertEquals("lineNumber", lineNumber, info.lineNumber());
         assertEquals("lineNumber", lineNumber, info.lineNumber());
         assertEquals("column()", column, info.column());
-        TestCase.assertEquals("text()", line, info.text());
+        assertEquals("text()", line, info.text());
     }
 
     @Test

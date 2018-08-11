@@ -20,6 +20,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
+import static org.junit.Assert.assertEquals;
+
 public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<ParserTokenLeafNode>{
 
     @Test

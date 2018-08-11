@@ -282,7 +282,7 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
         printer.print(printer.lineEnding());
         printer.flush();
 
-        assertEquals("123!" + PrintedLineHandlerPrinterTest.LINE_ENDING + "456!"
+        checkEquals("123!" + PrintedLineHandlerPrinterTest.LINE_ENDING + "456!"
                 + PrintedLineHandlerPrinterTest.LINE_ENDING, printed.toString());
     }
 
@@ -306,7 +306,7 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
 
     @Test
     public void testToString() {
-        assertEquals(
+        checkEquals(
                 PrintedLineHandlerPrinterTest.HANDLER + " " + PrintedLineHandlerPrinterTest.PRINTER,
                 PrintedLineHandlerPrinter.wrap(PrintedLineHandlerPrinterTest.PRINTER,
                         PrintedLineHandlerPrinterTest.HANDLER).toString());
@@ -374,7 +374,7 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
                 // do not flush and close
                 null); // message if fails
 
-        assertEquals("unprinted LineHandlerPrinter buffer",
+        checkEquals("unprinted LineHandlerPrinter buffer",
                 this.replacePlaceHolder(this.toString(buffer), lineEnding),
                 this.toString(printer.buffer));
     }

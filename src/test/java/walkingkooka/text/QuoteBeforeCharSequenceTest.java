@@ -20,6 +20,8 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class QuoteBeforeCharSequenceTest extends CharSequenceTestCase<QuoteBeforeCharSequence> {
 
     // constants
@@ -86,26 +88,26 @@ final public class QuoteBeforeCharSequenceTest extends CharSequenceTestCase<Quot
     public void testSubSequenceZeroToSecondLast() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 4);
         this.checkEquals(sub, "\"ABC");
-        Assert.assertEquals("sub.toString", "\"ABC", sub.toString());
+        assertEquals("sub.toString", "\"ABC", sub.toString());
     }
 
     @Test
     public void testSubSequenceIncludesQuote() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 3);
         this.checkEquals(sub, "\"AB");
-        Assert.assertEquals("sub.toString", "\"AB", sub.toString());
+        assertEquals("sub.toString", "\"AB", sub.toString());
     }
 
     @Test
     public void testSubSequenceIncludesQuote2() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 2);
         this.checkEquals(sub, "\"A");
-        Assert.assertEquals("sub.toString", "\"A", sub.toString());
+        assertEquals("sub.toString", "\"A", sub.toString());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("\"ABC", this.createCharSequence().toString());
+        assertEquals("\"ABC", this.createCharSequence().toString());
     }
 
     @Override

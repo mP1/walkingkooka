@@ -23,6 +23,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -105,7 +106,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
         final String address = "a";
         final HostAddress hostAddress = HostAddress.with(address);
         this.checkValue(hostAddress, address);
-        HostAddressTest.assertEquals("values", new byte[0], hostAddress.values());
+        checkEquals("values", new byte[0], hostAddress.values());
         this.checkName(hostAddress);
         this.checkNotIpAddress(hostAddress);
     }
@@ -115,7 +116,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
         final String address = "address";
         final HostAddress hostAddress = HostAddress.with(address);
         this.checkValue(hostAddress, address);
-        HostAddressTest.assertEquals("values", new byte[0], hostAddress.values());
+        checkEquals("values", new byte[0], hostAddress.values());
         this.checkName(hostAddress);
         this.checkNotIpAddress(hostAddress);
     }
@@ -125,7 +126,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
         final String address = "address123";
         final HostAddress hostAddress = HostAddress.with(address);
         this.checkValue(hostAddress, address);
-        HostAddressTest.assertEquals("values", new byte[0], hostAddress.values());
+        checkEquals("values", new byte[0], hostAddress.values());
         this.checkName(hostAddress);
         this.checkNotIpAddress(hostAddress);
     }
@@ -135,7 +136,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
         final String address = "address-after";
         final HostAddress hostAddress = HostAddress.with(address);
         this.checkValue(hostAddress, address);
-        HostAddressTest.assertEquals("values", new byte[0], hostAddress.values());
+        checkEquals("values", new byte[0], hostAddress.values());
         this.checkName(hostAddress);
         this.checkNotIpAddress(hostAddress);
     }
@@ -145,7 +146,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
         final String address = "sub.address";
         final HostAddress hostAddress = HostAddress.with(address);
         this.checkValue(hostAddress, address);
-        HostAddressTest.assertEquals("values", new byte[0], hostAddress.values());
+        checkEquals("values", new byte[0], hostAddress.values());
         this.checkName(hostAddress);
         this.checkNotIpAddress(hostAddress);
     }
@@ -155,7 +156,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
         final String address = "1.2.3.4.5.address";
         final HostAddress hostAddress = HostAddress.with(address);
         this.checkValue(hostAddress, address);
-        HostAddressTest.assertEquals("values", new byte[0], hostAddress.values());
+        checkEquals("values", new byte[0], hostAddress.values());
         this.checkName(hostAddress);
         this.checkNotIpAddress(hostAddress);
     }
@@ -243,7 +244,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
     }
 
     private void checkValues(final HostAddress hostAddress, final byte[] expected) {
-        HostAddressTest.assertEquals("values", hostAddress.values(), expected);
+        checkEquals("values", hostAddress.values(), expected);
     }
 
     private void checkName(final HostAddress hostAddress) {
@@ -275,7 +276,7 @@ public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAdd
         return HostAddress.class;
     }
 
-    static public void assertEquals(final String message, final byte[] expected, final byte[] actual) {
+    static public void checkEquals(final String message, final byte[] expected, final byte[] actual) {
         if (false == Arrays.equals(expected, actual)) {
             failNotEquals(message, HostAddressTest.toHex(expected), HostAddressTest.toHex(actual));
         }

@@ -78,7 +78,7 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
         expected.append("third");
         printer.print("third");
 
-        assertEquals(expected.toString(), printed.toString());
+        checkEquals(expected.toString(), printed.toString());
     }
 
     @Test
@@ -99,7 +99,7 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
         expected.append("third");
         printer.print("third");
 
-        assertEquals(expected.toString(), printed.toString());
+        checkEquals(expected.toString(), printed.toString());
     }
 
     @Test
@@ -114,14 +114,14 @@ final public class SeparatorAddingPrinterTest extends PrinterTestCase2<Separator
         printer.print("4"); // 1,2\n3,4
         printer.print(printer.lineEnding()); // 1,2\n3,4\n
 
-        assertEquals("1,2" + SeparatorAddingPrinterTest.LINE_ENDING + "3,4"
+        checkEquals("1,2" + SeparatorAddingPrinterTest.LINE_ENDING + "3,4"
                 + SeparatorAddingPrinterTest.LINE_ENDING, printed.toString());
     }
 
     @Test
     public void testToString() {
         final Printer wrapped = Printers.fake();
-        assertEquals("separate prints with \",\" to " + wrapped,
+        checkEquals("separate prints with \",\" to " + wrapped,
                 SeparatorAddingPrinter.wrap(wrapped, ",").toString());
     }
 

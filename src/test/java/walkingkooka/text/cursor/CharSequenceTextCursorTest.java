@@ -20,6 +20,8 @@ package walkingkooka.text.cursor;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSequenceTextCursor> {
 
     @Test(expected = NullPointerException.class)
@@ -32,7 +34,7 @@ final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSeq
         final String text = "text";
         final CharSequenceTextCursor cursor = CharSequenceTextCursor.with(text);
         assertEquals("positon", 0, cursor.position);
-        TestCase.assertEquals("text", text, cursor.text);
+        assertEquals("text", text, cursor.text);
     }
 
     @Test

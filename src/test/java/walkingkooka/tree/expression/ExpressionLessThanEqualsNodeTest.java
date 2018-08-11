@@ -24,6 +24,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public final class ExpressionLessThanEqualsNodeTest extends ExpressionBinaryNodeTestCase<ExpressionLessThanEqualsNode>{
 
     @Test

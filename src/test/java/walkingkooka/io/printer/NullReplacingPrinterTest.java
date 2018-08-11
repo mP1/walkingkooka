@@ -69,7 +69,7 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
         printer.print(null);
         printer.print(" after");
 
-        assertEquals("before " + NullReplacingPrinterTest.REPLACEMENT + " after",
+        checkEquals("before " + NullReplacingPrinterTest.REPLACEMENT + " after",
                 printed.toString());
     }
 
@@ -82,7 +82,7 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
         printer.print(null);
         printer.print(" after");
 
-        assertEquals("before  after", printed.toString());
+        checkEquals("before  after", printed.toString());
     }
 
     @Test
@@ -102,13 +102,13 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
         builder.append(" after");
         printer.print(" after");
 
-        assertEquals(builder.toString(), printed.toString());
+        checkEquals(builder.toString(), printed.toString());
     }
 
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        assertEquals(
+        checkEquals(
                 "if null then print " + CharSequences.quote(NullReplacingPrinterTest.REPLACEMENT)
                         + " " + printer,
                 NullReplacingPrinter.wrap(printer, NullReplacingPrinterTest.REPLACEMENT)

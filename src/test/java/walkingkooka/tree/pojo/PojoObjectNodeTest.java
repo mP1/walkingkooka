@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
@@ -25,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 import java.util.Objects;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, Object> {
@@ -205,7 +205,7 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
     @Override
     final void checkValue(final Object expected, final Object actual) {
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     private PojoObjectNode createPojoNode(final Object value) {

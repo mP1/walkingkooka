@@ -21,6 +21,8 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SpreadsheetCellTest extends HashCodeEqualsDefinedTestCase<SpreadsheetCell> {
     
     @Test(expected = NullPointerException.class)

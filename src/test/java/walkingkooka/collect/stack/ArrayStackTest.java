@@ -26,6 +26,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.Iterator;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
 
@@ -33,23 +34,23 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
     public void testWithOne() {
         final ArrayStack<String> stack = ArrayStack.with("1");
         assertArrayEquals("array", new Object[]{"1"}, stack.array);
-        Assert.assertEquals("last", 1, stack.last);
+        assertEquals("last", 1, stack.last);
     }
 
     @Test
     public void testWithArray() {
         final ArrayStack<String> stack = ArrayStack.with(new Object[]{"1", "2", "3"});
         assertArrayEquals("array", new Object[]{"1", "2", "3"}, stack.array);
-        Assert.assertEquals("last", 3, stack.last);
+        assertEquals("last", 3, stack.last);
     }
 
     @Test
     public void testPush() {
         final ArrayStack<String> stack = ArrayStack.with("1");
         assertArrayEquals("array", new Object[]{"1"}, stack.array);
-        Assert.assertEquals("last", 1, stack.last);
+        assertEquals("last", 1, stack.last);
         Assert.assertFalse("stack should NOT be empty", stack.isEmpty());
-        Assert.assertEquals("size with 1 items", 1, stack.size());
+        assertEquals("size with 1 items", 1, stack.size());
     }
 
     @Test
@@ -59,12 +60,12 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         Assert.assertNotSame("shouldnt have returned this", stack1, stack2);
 
         assertArrayEquals("stack.array", new Object[]{"1", "2"}, stack2.array);
-        Assert.assertEquals("stack.last", 2, stack2.last);
+        assertEquals("stack.last", 2, stack2.last);
         Assert.assertFalse("stack should NOT be empty", stack2.isEmpty());
-        Assert.assertEquals("size with 2 items", 2, stack2.size());
+        assertEquals("size with 2 items", 2, stack2.size());
 
         assertArrayEquals("original stack.array was changed", new Object[]{"1"}, stack1.array);
-        Assert.assertEquals("original stack.last was changed", 1, stack1.last);
+        assertEquals("original stack.last was changed", 1, stack1.last);
     }
 
     @Test
@@ -73,7 +74,7 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         assertSame(stack, stack.pushAll(Iterators.empty()));
 
         assertArrayEquals("stack.array was changed", new Object[]{"1", "2"}, stack.array);
-        Assert.assertEquals("stack.last was changed", 2, stack.last);
+        assertEquals("stack.last was changed", 2, stack.last);
     }
 
     @Test
@@ -82,7 +83,7 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
                 = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
                 .iterator()));
         assertArrayEquals("array", new Object[]{"1", "2", "3"}, stack.array);
-        Assert.assertEquals("last", 3, stack.last);
+        assertEquals("last", 3, stack.last);
     }
 
     @Test
@@ -94,12 +95,12 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
                 stack12345);
 
         assertArrayEquals("stack.array", new Object[]{"1", "2", "3", "4", "5"}, stack12345.array);
-        Assert.assertEquals("stack.last", 5, stack12345.last);
+        assertEquals("stack.last", 5, stack12345.last);
         Assert.assertFalse("stack should NOT be empty", stack12345.isEmpty());
-        Assert.assertEquals("size", 5, stack12345.size());
+        assertEquals("size", 5, stack12345.size());
 
         assertArrayEquals("original stack.array was changed", new Object[]{"1", "2"}, stack12.array);
-        Assert.assertEquals("original stack.last was changed", 2, stack12.last);
+        assertEquals("original stack.last was changed", 2, stack12.last);
     }
 
     @Test
@@ -110,8 +111,8 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         }
 
         final Stack<String> popped = with12.pop();
-        Assert.assertEquals("peeked", "1", popped.peek());
-        Assert.assertEquals("size with 1 items", 1, popped.size());
+        assertEquals("peeked", "1", popped.peek());
+        assertEquals("size with 1 items", 1, popped.size());
     }
 
     @Test
@@ -122,8 +123,8 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         }
 
         final Stack<String> popped = stack.pop();
-        Assert.assertEquals("size with 2 items", 2, popped.size());
-        Assert.assertEquals("peeked", "3", stack.peek());
+        assertEquals("size with 2 items", 2, popped.size());
+        assertEquals("peeked", "3", stack.peek());
     }
 
     @Test
@@ -140,22 +141,22 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         final ArrayStack<String> with12 = with1.push("2");
         final Stack<String> with12x3 = with12.pop().push("2*").push("3");
 
-        Assert.assertEquals("3", with12x3.peek());
+        assertEquals("3", with12x3.peek());
         final Stack<String> with12x = with12x3.pop();
-        Assert.assertEquals("peeking stack with 2 elements", "2*", with12x.peek());
+        assertEquals("peeking stack with 2 elements", "2*", with12x.peek());
 
         final Stack<String> with123b = with12x.push("3b");
-        Assert.assertEquals("3b", with123b.peek());
-        Assert.assertEquals("peeking stack with 2 elements", "2*", with12x.peek());
+        assertEquals("3b", with123b.peek());
+        assertEquals("peeking stack with 2 elements", "2*", with12x.peek());
 
         final Stack<String> with12again = with123b.pop();
-        Assert.assertEquals("peeking stack with 2 elements", "2*", with12again.peek());
+        assertEquals("peeking stack with 2 elements", "2*", with12again.peek());
 
         final Stack<String> with123b4 = with123b.push("4");
-        Assert.assertEquals("peeking stack with 4 elements", "4", with123b4.peek());
+        assertEquals("peeking stack with 4 elements", "4", with123b4.peek());
 
         final Stack<String> with123b4b = with123b.push("4b");
-        Assert.assertEquals("peeking stack with 4 elements", "4b", with123b4b.peek());
+        assertEquals("peeking stack with 4 elements", "4b", with123b4b.peek());
     }
 
     @Test
@@ -163,13 +164,13 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         final Stack<String> stack = ArrayStack.with("1").push("2").push("3");
         final Iterator<String> iterator = stack.iterator();
         Assert.assertTrue("first pending not empty", iterator.hasNext());
-        Assert.assertEquals("first", "1", iterator.next());
+        assertEquals("first", "1", iterator.next());
 
         Assert.assertTrue("second pending not empty", iterator.hasNext());
-        Assert.assertEquals("second", "2", iterator.next());
+        assertEquals("second", "2", iterator.next());
 
         Assert.assertTrue("last pending not empty", iterator.hasNext());
-        Assert.assertEquals("last", "3", iterator.next());
+        assertEquals("last", "3", iterator.next());
 
         Assert.assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
     }
@@ -179,10 +180,10 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         final Stack<String> stack = ArrayStack.with("1").push("2").push("-popped-").pop();
         final Iterator<String> iterator = stack.iterator();
         Assert.assertTrue("first pending not empty", iterator.hasNext());
-        Assert.assertEquals("first", "1", iterator.next());
+        assertEquals("first", "1", iterator.next());
 
         Assert.assertTrue("second pending not empty", iterator.hasNext());
-        Assert.assertEquals("second", "2", iterator.next());
+        assertEquals("second", "2", iterator.next());
 
         Assert.assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
     }
@@ -192,13 +193,13 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         final Stack<String> stack = ArrayStack.with("1").push("2").push("-popped-").pop().push("3");
         final Iterator<String> iterator = stack.iterator();
         Assert.assertTrue("first pending not empty", iterator.hasNext());
-        Assert.assertEquals("first", "1", iterator.next());
+        assertEquals("first", "1", iterator.next());
 
         Assert.assertTrue("second pending not empty", iterator.hasNext());
-        Assert.assertEquals("second", "2", iterator.next());
+        assertEquals("second", "2", iterator.next());
 
         Assert.assertTrue("second pending not empty", iterator.hasNext());
-        Assert.assertEquals("second", "3", iterator.next());
+        assertEquals("second", "3", iterator.next());
 
         Assert.assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
     }
@@ -217,19 +218,19 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
     @Test
     public void testToString() {
         final Stack<String> stack = ArrayStack.with("1");
-        Assert.assertEquals("[1]", stack.toString());
+        assertEquals("[1]", stack.toString());
     }
 
     @Test
     public void testToStringManyItems() {
         final Stack<String> stack = ArrayStack.with("1").push("2").push("3");
-        Assert.assertEquals("[1,2,3]", stack.toString());
+        assertEquals("[1,2,3]", stack.toString());
     }
 
     @Test
     public void testToStringManyItemsAfterPop() {
         final Stack<String> stack = ArrayStack.with("1").push("2").push("-popped-").pop();
-        Assert.assertEquals("[1,2]", stack.toString());
+        assertEquals("[1,2]", stack.toString());
     }
 
     @Override

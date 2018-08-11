@@ -21,6 +21,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
 
+import static org.junit.Assert.assertEquals;
+
 public final class DecimalParserTokenTest extends ParserTokenTestCase<DecimalParserToken> {
 
     @Test(expected = NullPointerException.class)

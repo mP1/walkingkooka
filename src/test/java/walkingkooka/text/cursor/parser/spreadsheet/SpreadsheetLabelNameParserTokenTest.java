@@ -21,6 +21,8 @@ import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
+import static junit.framework.TestCase.assertEquals;
+
 public final class SpreadsheetLabelNameParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetLabelNameParserToken, SpreadsheetLabelName> {
 
     @Test

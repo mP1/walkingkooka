@@ -25,6 +25,8 @@ import walkingkooka.text.cursor.TextCursors;
 import java.math.BigInteger;
 import java.util.function.BiFunction;
 
+import static org.junit.Assert.assertEquals;
+
 public class TransformingParserTest extends ParserTestCase2<TransformingParser<StringParserToken, NumberParserToken, FakeParserContext>, NumberParserToken> {
 
     private final static int RADIX = 10;

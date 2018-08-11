@@ -54,7 +54,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         final P printer = this.createPrinter(builder);
         printer.print("line1\n");
         printer.print("line2\n");
-        assertEquals("line1\nline2\n", builder.toString());
+        checkEquals("line1\nline2\n", builder.toString());
     }
 
     @Test final public void testLineStart() {
@@ -65,7 +65,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         printer.lineStart();
         printer.print("next");
 
-        assertEquals("before" + IndentingPrinterTemplateTestCase.LINE_ENDING + "next",
+        checkEquals("before" + IndentingPrinterTemplateTestCase.LINE_ENDING + "next",
                 builder.toString());
     }
 
@@ -75,7 +75,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         printer.lineStart();
         printer.print("after");
 
-        assertEquals("after", builder.toString());
+        checkEquals("after", builder.toString());
     }
 
     @Test final public void testLineStart2() {
@@ -85,7 +85,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         printer.lineStart();
         printer.print("after");
 
-        assertEquals("before" + IndentingPrinterTemplateTestCase.LINE_ENDING + "after",
+        checkEquals("before" + IndentingPrinterTemplateTestCase.LINE_ENDING + "after",
                 builder.toString());
     }
 
@@ -95,7 +95,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         printer.print("before");
         printer.lineStart();
 
-        assertEquals("before" + IndentingPrinterTemplateTestCase.LINE_ENDING, printed.toString());
+        checkEquals("before" + IndentingPrinterTemplateTestCase.LINE_ENDING, printed.toString());
     }
 
     @Test final public void testLineStartFollowingCarriageReturn() {
@@ -105,7 +105,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         printer.lineStart();
         printer.print("next");
 
-        assertEquals("before\rnext", printed.toString());
+        checkEquals("before\rnext", printed.toString());
     }
 
     @Test final public void testLineStartFollowingNewline() {
@@ -115,7 +115,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         printer.lineStart();
         printer.print("next");
 
-        assertEquals("before\nnext", printed.toString());
+        checkEquals("before\nnext", printed.toString());
     }
 
     @Test final public void testLineStartFollowingCarriageReturnNewLine() {
@@ -125,7 +125,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         printer.lineStart();
         printer.print("next");
 
-        assertEquals("before\r\nnext", printed.toString());
+        checkEquals("before\r\nnext", printed.toString());
     }
 
     @Test final public void testManyConsecutiveLineStarts() {
@@ -137,7 +137,7 @@ abstract public class IndentingPrinterTemplateTestCase<P extends IndentingPrinte
         printer.lineStart();
         printer.print("next");
 
-        assertEquals("before\nnext", pritned.toString());
+        checkEquals("before\nnext", pritned.toString());
     }
 
     @Override final protected P createPrinter() {

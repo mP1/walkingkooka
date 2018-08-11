@@ -27,6 +27,8 @@ import java.lang.reflect.Modifier;
 import java.util.Map;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing a {@link HashCodeEqualsDefined} with mostly parameter checking tests.
  */
@@ -183,7 +185,7 @@ abstract public class HashCodeEqualsDefinedEqualityTestCase<T extends HashCodeEq
     @Test
     public void testHashCode() {
         final Object object = this.createObject();
-        Assert.assertEquals("repeated calls to hashCode should return same value",
+        assertEquals("repeated calls to hashCode should return same value",
                 object.hashCode(),
                 object.hashCode());
     }

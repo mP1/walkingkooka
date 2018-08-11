@@ -18,11 +18,12 @@
 package walkingkooka.text;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.compare.Comparables;
 import walkingkooka.test.PublicClassTestCase;
 import walkingkooka.util.systemproperty.SystemProperty;
+
+import static org.junit.Assert.assertEquals;
 
 final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivity> {
 
@@ -693,7 +694,7 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
 
     private void hashAndCheck(final CaseSensitivity sensitivity, final CharSequence chars,
                               final String result) {
-        Assert.assertEquals(sensitivity + ".hash(" + CaseSensitivityTest.quote(chars) + ")",
+        assertEquals(sensitivity + ".hash(" + CaseSensitivityTest.quote(chars) + ")",
                 sensitivity.hash(chars),
                 null == result ? 0 : result.hashCode());
     }

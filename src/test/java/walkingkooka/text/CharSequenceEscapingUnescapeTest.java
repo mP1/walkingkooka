@@ -20,6 +20,8 @@ package walkingkooka.text;
 import org.junit.Test;
 import walkingkooka.test.StaticMethodTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharSequenceEscapingUnescapeTest extends StaticMethodTestCase {
 
     @Test

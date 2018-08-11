@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.predicate.PredicateTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
         extends PredicateTestCase<P, String> {
     private static final String CHARS = "#$%";
@@ -47,13 +49,13 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     }
 
     @Test final public void testToStringCaseSensitive() {
-        Assert.assertEquals(this.prefix() + CharSequences.quoteAndEscape(
+        assertEquals(this.prefix() + CharSequences.quoteAndEscape(
                 CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS),
                 this.createPredicate().toString());
     }
 
     @Test final public void testToStringCaseInsensitive() {
-        Assert.assertEquals(this.prefix() + CharSequences.quoteAndEscape(
+        assertEquals(this.prefix() + CharSequences.quoteAndEscape(
                 CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS) + " (CaseInsensitive)",
                 this.createPredicateCaseInsensitivity(
                         CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS).toString());

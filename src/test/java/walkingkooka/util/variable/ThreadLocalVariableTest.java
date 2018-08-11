@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.util.Waiter;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ThreadLocalVariableTest extends VariableTestCase<ThreadLocalVariable<Object>, Object> {
 
     @Override
@@ -42,8 +44,8 @@ final public class ThreadLocalVariableTest extends VariableTestCase<ThreadLocalV
         thread2.start();
         thread1.join();
         thread2.join();
-        Assert.assertEquals(10, counter1.value());
-        Assert.assertEquals(10, counter2.value());
+        assertEquals(10, counter1.value());
+        assertEquals(10, counter2.value());
     }
 
     private static class T extends Thread {
@@ -59,7 +61,7 @@ final public class ThreadLocalVariableTest extends VariableTestCase<ThreadLocalV
             for (int i = 0; i < 10; i++) {
                 this.variable.set(i);
                 Waiter.waitAtLeast(10);
-                assertEquals(i, this.variable.get());
+                assertEquals((Object)i, this.variable.get());
                 this.integer.increment();
             }
         }

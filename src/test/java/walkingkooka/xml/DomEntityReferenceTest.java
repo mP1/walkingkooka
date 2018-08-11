@@ -24,6 +24,8 @@ import walkingkooka.Cast;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import static org.junit.Assert.assertEquals;
+
 public final class DomEntityReferenceTest extends DomParentNodeTestCase<DomEntityReference> {
 
     private final static String REFERENCE = "kooka";

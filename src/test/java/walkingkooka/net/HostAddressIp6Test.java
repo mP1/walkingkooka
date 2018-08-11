@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public final class HostAddressIp6Test extends TestCase {
@@ -292,7 +293,7 @@ public final class HostAddressIp6Test extends TestCase {
             failNotEquals("failed " + CharSequences.quote(address), value,
                     ((HostAddressProblem) result).message(address));
         }
-        HostAddressIp6Test.assertEquals("bytes[]", value, (byte[]) result);
+        checkEquals("bytes[]", value, (byte[]) result);
     }
 
     private void parseFails(final String address, final HostAddressProblem problem) {
@@ -310,7 +311,7 @@ public final class HostAddressIp6Test extends TestCase {
         }
     }
 
-    static public void assertEquals(final String message, final byte[] expected, final byte[] actual) {
+    static public void checkEquals(final String message, final byte[] expected, final byte[] actual) {
         if (false == Arrays.equals(expected, actual)) {
             failNotEquals(message, HostAddressTesting.toHexString(expected), HostAddressTesting.toHexString(actual));
         }

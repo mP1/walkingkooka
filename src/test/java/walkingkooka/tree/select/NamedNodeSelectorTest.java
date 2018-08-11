@@ -17,12 +17,13 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
+
+import static org.junit.Assert.assertEquals;
 
 final public class NamedNodeSelectorTest extends
         UnaryNodeSelectorTestCase<NamedNodeSelector<TestFakeNode, StringName, StringName, Object>> {
@@ -74,12 +75,12 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        Assert.assertEquals(NAME.value(), this.createSelector().toString());
+        assertEquals(NAME.value(), this.createSelector().toString());
     }
 
     @Test
     public void testToStringPathSeparatorNotRequiredAtStart() {
-        Assert.assertEquals(NAME.value(),  this.createSelector(PathSeparator.notRequiredAtStart('/')).toString());
+        assertEquals(NAME.value(),  this.createSelector(PathSeparator.notRequiredAtStart('/')).toString());
     }
 
     @Override

@@ -20,6 +20,8 @@ package walkingkooka.build;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, String> {
     // constants
 
@@ -212,7 +214,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
             missing.failIfMissing(MissingBuilderTest.BEFORE);
             Assert.fail();
         } catch (final BuilderException expected) {
-            Assert.assertEquals("message",
+            assertEquals("message",
                     MissingBuilderTest.BEFORE + " 1, 2",
                     expected.getMessage());
         }
@@ -221,9 +223,9 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     private void check(final MissingBuilder missing, final String message, final int total,
                        final int missingCount) {
-        Assert.assertEquals("message", message, missing.build());
-        Assert.assertEquals("total", total, missing.total());
-        Assert.assertEquals("missing", missingCount, missing.missing());
+        assertEquals("message", message, missing.build());
+        assertEquals("total", total, missing.total());
+        assertEquals("missing", missingCount, missing.missing());
     }
 
     @Override

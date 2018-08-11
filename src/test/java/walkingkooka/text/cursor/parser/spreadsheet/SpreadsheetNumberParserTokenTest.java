@@ -23,6 +23,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigInteger;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SpreadsheetNumberParserTokenTest extends SpreadsheetNumericParserTokenTestCase<SpreadsheetNumberParserToken, BigInteger> {
 
     @Test

@@ -26,6 +26,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SpreadsheetGreaterThanParserTokenTest extends SpreadsheetBinaryParserTokenTestCase2<SpreadsheetGreaterThanParserToken> {
 
     @Test

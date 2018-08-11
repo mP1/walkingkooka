@@ -17,23 +17,24 @@
 
 package walkingkooka.util.variable;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 final public class IntegerVariableTest extends PublicClassTestCase<IntegerVariable> {
 
     @Test
     public void testCreate() {
         final IntegerVariable variable = IntegerVariable.create();
-        Assert.assertEquals(0, variable.value());
+        assertEquals(0, variable.value());
     }
 
     @Test
     public void testSet() {
         final IntegerVariable variable = IntegerVariable.create();
         variable.set(123);
-        Assert.assertEquals(123, variable.value());
+        assertEquals(123, variable.value());
     }
 
     @Test
@@ -42,7 +43,7 @@ final public class IntegerVariableTest extends PublicClassTestCase<IntegerVariab
         variable.increment();
         variable.increment();
         variable.increment();
-        Assert.assertEquals(3, variable.value());
+        assertEquals(3, variable.value());
     }
 
     @Test
@@ -51,14 +52,14 @@ final public class IntegerVariableTest extends PublicClassTestCase<IntegerVariab
         variable.add(1);
         variable.add(2);
         variable.add(3);
-        Assert.assertEquals(1 + 2 + 3, variable.value());
+        assertEquals(1 + 2 + 3, variable.value());
     }
 
     @Test
     public void testString() {
         final IntegerVariable variable = IntegerVariable.create();
         variable.set(123);
-        Assert.assertEquals("123", variable.toString());
+        assertEquals("123", variable.toString());
     }
 
     @Override

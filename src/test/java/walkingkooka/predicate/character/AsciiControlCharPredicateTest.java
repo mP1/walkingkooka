@@ -17,9 +17,10 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.text.Ascii;
+
+import static org.junit.Assert.assertEquals;
 
 final public class AsciiControlCharPredicateTest
         extends CharPredicateTestCase<AsciiControlCharPredicate> {
@@ -36,7 +37,7 @@ final public class AsciiControlCharPredicateTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("ASCII control", AsciiControlCharPredicate.INSTANCE.toString());
+        assertEquals("ASCII control", AsciiControlCharPredicate.INSTANCE.toString());
     }
 
     @Override

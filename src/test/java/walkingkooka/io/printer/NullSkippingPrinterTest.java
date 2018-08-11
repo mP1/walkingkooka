@@ -80,12 +80,12 @@ final public class NullSkippingPrinterTest extends PrinterTestCase<NullSkippingP
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        assertEquals("skip nulls " + printer, NullSkippingPrinter.wrap(printer).toString());
+        checkEquals("skip nulls " + printer, NullSkippingPrinter.wrap(printer).toString());
     }
 
     private void check(final String expected, final NullSkippingPrinter printer) {
         final StringBuilderPrinter stringBuilder = Cast.to(printer.printer);
-        assertEquals(expected, stringBuilder.stringBuilder.toString());
+        checkEquals(expected, stringBuilder.stringBuilder.toString());
     }
 
     @Override
