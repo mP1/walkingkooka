@@ -16,11 +16,8 @@
  */
 package walkingkooka.text.cursor.parser.function;
 
-import walkingkooka.text.cursor.parser.DecimalParserToken;
-import walkingkooka.text.cursor.parser.HasSign;
 import walkingkooka.text.cursor.parser.NumberParserToken;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
 import walkingkooka.type.PublicStaticHelper;
@@ -33,24 +30,10 @@ import java.util.function.BiFunction;
 public final class ParserBiFunctions implements PublicStaticHelper {
 
     /**
-     * {@see DecimalParserTokenBiFunction}
-     */
-    public static <C extends ParserContext> BiFunction<SequenceParserToken, C, DecimalParserToken> decimal() {
-        return DecimalParserTokenBiFunction.get();
-    }
-
-    /**
      * {@see PrefixedNumberParserTokenBiFunction}
      */
     public static <C extends ParserContext> BiFunction<SequenceParserToken, C, NumberParserToken> prefixedNumber() {
         return PrefixedNumberParserTokenBiFunction.get();
-    }
-
-    /**
-     * {@see SignedNumberParserTokenBiFunction}
-     */
-    public static <T extends ParserToken & HasSign, C extends ParserContext> BiFunction<SequenceParserToken, C, T> signed(final Class<T> token) {
-        return SignedNumberParserTokenBiFunction.with(token);
     }
 
     /**

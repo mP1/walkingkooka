@@ -19,13 +19,16 @@ package walkingkooka.text.cursor.parser.function;
 import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.NumberParserToken;
 import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
 import walkingkooka.text.cursor.parser.StringParserToken;
+
+import java.util.function.BiFunction;
 
 /**
  * Assumes two tokens wrapped in a {@link SequenceParserToken}, and combines the text keeping the 2nd tokens value.
  */
-final class PrefixedNumberParserTokenBiFunction<C extends ParserContext> extends ParserBiFunctionTemplate<C, NumberParserToken> {
+final class PrefixedNumberParserTokenBiFunction<C extends ParserContext> implements BiFunction<SequenceParserToken, C, NumberParserToken> {
 
     /**
      * Type safe singleton getter.
@@ -44,7 +47,15 @@ final class PrefixedNumberParserTokenBiFunction<C extends ParserContext> extends
     }
 
     @Override
-    NumberParserToken apply0(final SequenceParserToken token, final C c) {
+    public final NumberParserToken apply(final SequenceParserToken token, final C c) {
+        try {
+            return this.apply0(token, c);
+        } catch (final ClassCastException | IllegalStateException | IndexOutOfBoundsException cause) {
+            throw new ParserException("Failure while applying to token="+ token + ", message: " + cause, cause);
+        }
+    }
+
+    private NumberParserToken apply0(final SequenceParserToken token, final C c) {
         token.checkTokenCount(2);
 
         final StringParserToken prefix = token.required(0, StringParserToken.class);

@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link Double}.
  */
-public final class DoubleParserToken extends ParserTemplateToken<Double> implements HasSign<DoubleParserToken> {
+public final class DoubleParserToken extends ParserTemplateToken<Double> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DoubleParserToken.class);
 
@@ -49,19 +49,6 @@ public final class DoubleParserToken extends ParserTemplateToken<Double> impleme
     @Override
     public ParserTokenNodeName name() {
         return NAME;
-    }
-
-    @Override
-    public boolean isNegative() {
-        return this.value() < 0;
-    }
-
-    @Override
-    public DoubleParserToken setNegative(final boolean negative) {
-        final Double value = this.value();
-        return value < 0 && negative ?
-                this :
-                new DoubleParserToken(-value, this.text());
     }
 
     @Override

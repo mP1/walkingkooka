@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link Long}.
  */
-public final class LongParserToken extends ParserTemplateToken<Long> implements HasSign<LongParserToken> {
+public final class LongParserToken extends ParserTemplateToken<Long> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LongParserToken.class);
 
@@ -49,19 +49,6 @@ public final class LongParserToken extends ParserTemplateToken<Long> implements 
     @Override
     public ParserTokenNodeName name() {
         return NAME;
-    }
-
-    @Override
-    public boolean isNegative() {
-        return this.value() < 0;
-    }
-
-    @Override
-    public LongParserToken setNegative(final boolean negative) {
-        final Long value = this.value();
-        return value < 0 && negative ?
-                this :
-                new LongParserToken(-value, this.text());
     }
 
     @Override
