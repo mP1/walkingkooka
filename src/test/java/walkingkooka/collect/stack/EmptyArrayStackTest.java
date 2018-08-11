@@ -26,6 +26,8 @@ import walkingkooka.collect.list.Lists;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 
+import static org.junit.Assert.assertArrayEquals;
+
 final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Object>, Object> {
 
     @Test
@@ -38,7 +40,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
     @Test
     public void testPush() {
         final ArrayStack<String> stack = Cast.to(EmptyArrayStack.instance().push("1"));
-        assertEquals("array", new Object[]{"1"}, stack.array);
+        assertArrayEquals("array", new Object[]{"1"}, stack.array);
         Assert.assertEquals("last", 1, stack.last);
     }
 
@@ -53,7 +55,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
         final ArrayStack<String> stack
                 = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
                 .iterator()));
-        assertEquals("array", new Object[]{"1", "2", "3"}, stack.array);
+        assertArrayEquals("array", new Object[]{"1", "2", "3"}, stack.array);
         Assert.assertEquals("last", 3, stack.last);
     }
 

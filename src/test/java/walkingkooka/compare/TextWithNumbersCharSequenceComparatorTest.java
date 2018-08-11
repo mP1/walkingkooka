@@ -28,6 +28,8 @@ import walkingkooka.text.CaseSensitivity;
 import java.util.Set;
 import java.util.SortedSet;
 
+import static org.junit.Assert.assertArrayEquals;
+
 final public class TextWithNumbersCharSequenceComparatorTest
         extends ComparatorTestCase<TextWithNumbersCharSequenceComparator<String>, String> {
 
@@ -231,7 +233,7 @@ final public class TextWithNumbersCharSequenceComparatorTest
         sorted.add("40");
         sorted.add("apple");
 
-        assertEquals(new String[]{"0", "3", "40", "100", "0200", "apple"},
+        assertArrayEquals(new String[]{"0", "3", "40", "100", "0200", "apple"},
                 sorted.toArray(new String[0]));
     }
 
@@ -245,7 +247,7 @@ final public class TextWithNumbersCharSequenceComparatorTest
         sorted.add("100");
         sorted.add("3");
 
-        assertEquals(new String[]{"0", "3", "40", "100", "0200", "apple"},
+        assertArrayEquals(new String[]{"0", "3", "40", "100", "0200", "apple"},
                 sorted.toArray(new String[0]));
     }
 
@@ -393,7 +395,7 @@ final public class TextWithNumbersCharSequenceComparatorTest
         sorted.add("40");
         sorted.add("apple");
 
-        assertEquals(new String[]{"0", "3", "40", "100", "0200", "apple"},
+        assertArrayEquals(new String[]{"0", "3", "40", "100", "0200", "apple"},
                 sorted.toArray(new String[0]));
     }
 
@@ -407,7 +409,7 @@ final public class TextWithNumbersCharSequenceComparatorTest
         sorted.add("100");
         sorted.add("3");
 
-        assertEquals(new String[]{"0", "3", "40", "100", "0200", "apple"},
+        assertArrayEquals(new String[]{"0", "3", "40", "100", "0200", "apple"},
                 sorted.toArray(new String[0]));
     }
 

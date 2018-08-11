@@ -23,6 +23,7 @@ import walkingkooka.test.TestCase;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.fail;
 
 public final class HostAddressIp4Test extends TestCase {
@@ -228,7 +229,7 @@ public final class HostAddressIp4Test extends TestCase {
         if (result instanceof HostAddressProblem) {
             fail(((HostAddressProblem) result).message(address));
         }
-        assertEquals(HostAddress.toBytes(value), HostAddress.toBytes((Long) result));
+        assertArrayEquals(HostAddress.toBytes(value), HostAddress.toBytes((Long) result));
     }
 
     private void parseFails(final String address, final boolean insideIp6, final HostAddressProblem problem) {

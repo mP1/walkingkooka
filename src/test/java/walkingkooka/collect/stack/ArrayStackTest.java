@@ -25,26 +25,28 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 
+import static org.junit.Assert.assertArrayEquals;
+
 final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
 
     @Test
     public void testWithOne() {
         final ArrayStack<String> stack = ArrayStack.with("1");
-        assertEquals("array", new Object[]{"1"}, stack.array);
+        assertArrayEquals("array", new Object[]{"1"}, stack.array);
         Assert.assertEquals("last", 1, stack.last);
     }
 
     @Test
     public void testWithArray() {
         final ArrayStack<String> stack = ArrayStack.with(new Object[]{"1", "2", "3"});
-        assertEquals("array", new Object[]{"1", "2", "3"}, stack.array);
+        assertArrayEquals("array", new Object[]{"1", "2", "3"}, stack.array);
         Assert.assertEquals("last", 3, stack.last);
     }
 
     @Test
     public void testPush() {
         final ArrayStack<String> stack = ArrayStack.with("1");
-        assertEquals("array", new Object[]{"1"}, stack.array);
+        assertArrayEquals("array", new Object[]{"1"}, stack.array);
         Assert.assertEquals("last", 1, stack.last);
         Assert.assertFalse("stack should NOT be empty", stack.isEmpty());
         Assert.assertEquals("size with 1 items", 1, stack.size());
@@ -56,12 +58,12 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         final ArrayStack<String> stack2 = stack1.push("2");
         Assert.assertNotSame("shouldnt have returned this", stack1, stack2);
 
-        assertEquals("stack.array", new Object[]{"1", "2"}, stack2.array);
+        assertArrayEquals("stack.array", new Object[]{"1", "2"}, stack2.array);
         Assert.assertEquals("stack.last", 2, stack2.last);
         Assert.assertFalse("stack should NOT be empty", stack2.isEmpty());
         Assert.assertEquals("size with 2 items", 2, stack2.size());
 
-        assertEquals("original stack.array was changed", new Object[]{"1"}, stack1.array);
+        assertArrayEquals("original stack.array was changed", new Object[]{"1"}, stack1.array);
         Assert.assertEquals("original stack.last was changed", 1, stack1.last);
     }
 
@@ -70,7 +72,7 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         final ArrayStack<Object> stack = ArrayStack.with(new Object[]{"1", "2"});
         assertSame(stack, stack.pushAll(Iterators.empty()));
 
-        assertEquals("stack.array was changed", new Object[]{"1", "2"}, stack.array);
+        assertArrayEquals("stack.array was changed", new Object[]{"1", "2"}, stack.array);
         Assert.assertEquals("stack.last was changed", 2, stack.last);
     }
 
@@ -79,7 +81,7 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
         final ArrayStack<String> stack
                 = Cast.to(EmptyArrayStack.<String>instance().pushAll(Lists.of("1", "2", "3")
                 .iterator()));
-        assertEquals("array", new Object[]{"1", "2", "3"}, stack.array);
+        assertArrayEquals("array", new Object[]{"1", "2", "3"}, stack.array);
         Assert.assertEquals("last", 3, stack.last);
     }
 
@@ -91,12 +93,12 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
                 stack12,
                 stack12345);
 
-        assertEquals("stack.array", new Object[]{"1", "2", "3", "4", "5"}, stack12345.array);
+        assertArrayEquals("stack.array", new Object[]{"1", "2", "3", "4", "5"}, stack12345.array);
         Assert.assertEquals("stack.last", 5, stack12345.last);
         Assert.assertFalse("stack should NOT be empty", stack12345.isEmpty());
         Assert.assertEquals("size", 5, stack12345.size());
 
-        assertEquals("original stack.array was changed", new Object[]{"1", "2"}, stack12.array);
+        assertArrayEquals("original stack.array was changed", new Object[]{"1", "2"}, stack12.array);
         Assert.assertEquals("original stack.last was changed", 2, stack12.last);
     }
 

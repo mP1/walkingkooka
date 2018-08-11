@@ -159,93 +159,6 @@ abstract public class TestCase {
         return new String(this.resourceAsBytes(source, resource));
     }
 
-    public static void assertEquals(final boolean[] expected, final boolean[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final boolean[] expected,
-                                    final boolean[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, toString(expected), toString(actual));
-        }
-    }
-
-    public static void assertEquals(final byte[] expected, final byte[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final byte[] expected,
-                                    final byte[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, Arrays.toString(expected), toString(actual));
-        }
-    }
-
-    public static void assertEquals(final char[] expected, final char[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final char[] expected,
-                                    final char[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, toString(expected), toString(actual));
-        }
-    }
-
-    public static void assertEquals(final short[] expected, final short[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final short[] expected,
-                                    final short[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, Arrays.toString(expected), Arrays.toString(actual));
-        }
-    }
-
-    public static void assertEquals(final int[] expected, final int[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final int[] expected, final int[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, Arrays.toString(expected), Arrays.toString(actual));
-        }
-    }
-
-    public static void assertEquals(final long[] expected, final long[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final long[] expected,
-                                    final long[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, Arrays.toString(expected), Arrays.toString(actual));
-        }
-    }
-
-    public static void assertEquals(final float[] expected, final float[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final float[] expected,
-                                    final float[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, Arrays.toString(expected), Arrays.toString(actual));
-        }
-    }
-
-    public static void assertEquals(final double[] expected, final double[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final double[] expected,
-                                    final double[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, Arrays.toString(expected), Arrays.toString(actual));
-        }
-    }
-
     public static void assertEquals(final Object expected, final Object actual) {
         assertEquals(null, expected, actual);
     }
@@ -255,17 +168,6 @@ abstract public class TestCase {
         if (((null == expected) && (null != actual)) || ((null != expected) && (null == actual))
                 || ((null != actual) && (false == expected.equals(actual)))) {
             failNotEquals(message, expected, actual);
-        }
-    }
-
-    public static void assertEquals(final Object[] expected, final Object[] actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final Object[] expected,
-                                    final Object[] actual) {
-        if (false == Arrays.equals(expected, actual)) {
-            failNotEquals(message, toString(expected), toString(actual));
         }
     }
 
