@@ -21,6 +21,8 @@ package walkingkooka.tree.expression;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public final class ExpressionNodeNameTest extends NameTestCase<ExpressionNodeName> {
 
     @Test

@@ -20,6 +20,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
+
 public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStringParser<FakeParserContext>, StringParserToken> {
 
     private final static String OPEN = "<123";

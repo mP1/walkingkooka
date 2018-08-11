@@ -19,6 +19,8 @@ package walkingkooka.tree.pojo;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class PojoPropertyTestCase<P extends PojoProperty> extends PackagePrivateClassTestCase<P> {
 
     final protected void getAndCheck(final Object instance, final Object value){

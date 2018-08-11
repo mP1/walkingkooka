@@ -20,6 +20,8 @@ package walkingkooka.net;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
 
     @Test

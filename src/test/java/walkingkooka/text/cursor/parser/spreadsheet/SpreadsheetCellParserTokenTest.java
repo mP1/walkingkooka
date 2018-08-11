@@ -25,6 +25,8 @@ import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetCellParserToken> {
 
     private final static String ROW_TEXT = "B";

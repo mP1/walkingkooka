@@ -23,6 +23,8 @@ import org.junit.Test;
 
 import java.io.StringReader;
 
+import static org.junit.Assert.assertEquals;
+
 public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<ReaderConsumingCharSequence> {
 
     private final static int BUFFER_SIZE = 5;
@@ -47,7 +49,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.checkCharAt(chars, text);
-        Assert.assertEquals("eof", true, chars.eof);
+        assertEquals("eof", true, chars.eof);
 
         this.checkCharAt(chars, 1, 'b');
     }
@@ -57,7 +59,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.checkSubSequence(chars, 0, 5, text.substring(0, 5));
-        Assert.assertEquals("eof", false, chars.eof);
+        assertEquals("eof", false, chars.eof);
     }
 
     @Test
@@ -87,7 +89,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
     public void testToString() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
-        Assert.assertEquals("", chars.toString());
+        assertEquals("", chars.toString());
     }
 
     @Test
@@ -95,7 +97,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         chars.charAt(text.length() - 1);
-        Assert.assertEquals(text, chars.toString());
+        assertEquals(text, chars.toString());
     }
 
     @Test
@@ -103,7 +105,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         chars.charAt(3);
-        Assert.assertEquals("abcde", chars.toString());
+        assertEquals("abcde", chars.toString());
     }
 
     @Override protected ReaderConsumingCharSequence createCharSequence() {

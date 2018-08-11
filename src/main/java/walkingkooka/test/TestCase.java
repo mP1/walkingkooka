@@ -159,18 +159,6 @@ abstract public class TestCase {
         return new String(this.resourceAsBytes(source, resource));
     }
 
-    public static void assertEquals(final Object expected, final Object actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    public static void assertEquals(final String message, final Object expected,
-                                    final Object actual) {
-        if (((null == expected) && (null != actual)) || ((null != expected) && (null == actual))
-                || ((null != actual) && (false == expected.equals(actual)))) {
-            failNotEquals(message, expected, actual);
-        }
-    }
-
     public static void failNotEquals(final Object expected, final Object actual) {
         failNotEquals(null, expected, actual);
     }

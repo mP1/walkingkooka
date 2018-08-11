@@ -17,12 +17,12 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public abstract class PojoCollectionNodeTestCase<N extends PojoArrayOrCollectionNode, V> extends PojoArrayOrCollectionNodeTestCase<N, V> {
@@ -67,6 +67,6 @@ public abstract class PojoCollectionNodeTestCase<N extends PojoArrayOrCollection
 
     @Override
     final void checkValue(final V expected, final V actual) {
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 }

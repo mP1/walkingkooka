@@ -105,7 +105,7 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
             printer.print(String.valueOf(WhitespaceCleaningPrinterTest.SOURCE.charAt(i)));
         }
 
-        assertEquals(WhitespaceCleaningPrinterTest.EXPECTED, builder.toString());
+        checkEquals(WhitespaceCleaningPrinterTest.EXPECTED, builder.toString());
     }
 
     @Test
@@ -161,13 +161,13 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
         printer.print(text);
         printer.print(printer.lineEnding());
         printer.print(printer.lineEnding());
-        assertEquals(expected, printed.toString());
+        checkEquals(expected, printed.toString());
     }
 
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        assertEquals("clean whitespace " + printer.toString(),
+        checkEquals("clean whitespace " + printer.toString(),
                 WhitespaceCleaningPrinter.wrap(printer).toString());
     }
 

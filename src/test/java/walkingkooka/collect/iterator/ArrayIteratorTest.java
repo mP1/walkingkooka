@@ -24,6 +24,8 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<String>, String> {
 
     @Test
@@ -71,7 +73,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
     @Test
     public void testToString() {
         final Iterator<String> iterator = this.createIterator();
-        Assert.assertEquals(Lists.of("A", "B", "C").toString(), iterator.toString());
+        assertEquals(Lists.of("A", "B", "C").toString(), iterator.toString());
     }
 
     @Test
@@ -79,7 +81,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
         final Iterator<String> iterator = this.createIterator();
         iterator.next();
 
-        Assert.assertEquals(Lists.of("B", "C").toString(), iterator.toString());
+        assertEquals(Lists.of("B", "C").toString(), iterator.toString());
     }
 
     @Test
@@ -88,7 +90,7 @@ final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<Stri
         iterator.next();
         iterator.next();
         iterator.next();
-        Assert.assertEquals(Lists.of().toString(), iterator.toString());
+        assertEquals(Lists.of().toString(), iterator.toString());
     }
 
     @Override

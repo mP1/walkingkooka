@@ -20,6 +20,8 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class QuotesAroundCharSequenceTest
         extends CharSequenceTestCase<QuotesAroundCharSequence> {
 
@@ -97,19 +99,19 @@ final public class QuotesAroundCharSequenceTest
     public void testSubSequenceZeroToSecondLast() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 4);
         this.checkEquals(sub, "\"ABC");
-        Assert.assertEquals("sub.toString", "\"ABC", sub.toString());
+        assertEquals("sub.toString", "\"ABC", sub.toString());
     }
 
     @Test
     public void testSubSequenceOneToEnd() {
         final CharSequence sub = this.createCharSequence().subSequence(1, 5);
         this.checkEquals(sub, "ABC\"");
-        Assert.assertEquals("sub.toString", "ABC\"", sub.toString());
+        assertEquals("sub.toString", "ABC\"", sub.toString());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("\"ABC\"", this.createCharSequence().toString());
+        assertEquals("\"ABC\"", this.createCharSequence().toString());
     }
 
     @Override

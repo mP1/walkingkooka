@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static org.junit.Assert.assertEquals;
+
 final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<String>, String> {
 
     // constants
@@ -123,7 +125,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
 
     @Test
     public void testToString() {
-        Assert.assertEquals("at most 2 " + LimitedIteratorTest.ITERATOR,
+        assertEquals("at most 2 " + LimitedIteratorTest.ITERATOR,
                 LimitedIterator.wrap(LimitedIteratorTest.ITERATOR, LimitedIteratorTest.COUNT)
                         .toString());
     }

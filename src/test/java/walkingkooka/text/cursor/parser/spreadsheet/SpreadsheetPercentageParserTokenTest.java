@@ -27,6 +27,8 @@ import walkingkooka.tree.visit.Visiting;
 import java.math.BigInteger;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnaryParserTokenTestCase<SpreadsheetPercentageParserToken> {
 
     @Test

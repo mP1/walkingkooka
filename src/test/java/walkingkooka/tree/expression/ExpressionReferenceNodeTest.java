@@ -25,6 +25,8 @@ import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetReferenceKind;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetRow;
 import walkingkooka.tree.visit.Visiting;
 
+import static org.junit.Assert.assertEquals;
+
 public final class ExpressionReferenceNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionReferenceNode, ExpressionReference>{
 
     @Test

@@ -17,8 +17,9 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPredicate> {
 
@@ -105,7 +106,7 @@ final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPre
 
     @Test
     public void testToString() {
-        Assert.assertEquals("XML", XmlCharPredicate.INSTANCE.toString());
+        assertEquals("XML", XmlCharPredicate.INSTANCE.toString());
     }
 
     @Override

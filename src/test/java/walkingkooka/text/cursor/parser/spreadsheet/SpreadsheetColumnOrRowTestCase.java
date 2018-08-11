@@ -21,6 +21,8 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class SpreadsheetColumnOrRowTestCase<V extends SpreadsheetColumnOrRow> extends PublicClassTestCase<V> {
 
     @Test(expected = IllegalArgumentException.class)

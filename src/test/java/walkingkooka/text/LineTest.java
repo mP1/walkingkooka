@@ -20,6 +20,8 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class LineTest extends CharSequenceTestCase<Line> {
     @Test
     public void testWithNullTextFails() {
@@ -61,7 +63,7 @@ final public class LineTest extends CharSequenceTestCase<Line> {
 
     private void createAndCheck(final String text) {
         final Line line = Line.with(text);
-        Assert.assertEquals("text value", text, line.value());
+        assertEquals("text value", text, line.value());
     }
 
     @Override

@@ -23,6 +23,8 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.math.BigInteger;
 
+import static org.junit.Assert.assertEquals;
+
 public class NumberParserTest extends ParserTemplateTestCase<NumberParser<FakeParserContext>, NumberParserToken> {
 
     private final static int RADIX = 10;

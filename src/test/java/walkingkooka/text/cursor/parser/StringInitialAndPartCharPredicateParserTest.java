@@ -22,6 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
+import static org.junit.Assert.assertEquals;
+
 public class StringInitialAndPartCharPredicateParserTest extends ParserTemplateTestCase<StringInitialAndPartCharPredicateParser<FakeParserContext>, StringParserToken> {
 
     private final static CharPredicate INITIAL = CharPredicates.letter();

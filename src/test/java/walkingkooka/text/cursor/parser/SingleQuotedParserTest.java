@@ -19,6 +19,8 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuotedParser<FakeParserContext>, SingleQuotedParserToken> {
 
     @Test

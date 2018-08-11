@@ -47,7 +47,7 @@ final public class MaximumIndentationIndentingPrinterTest
         final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
         printer.indent(MaximumIndentationIndentingPrinterTest.INDENTATION);
         printer.print("line1");
-        assertEquals(">line1", printed.toString());
+        checkEquals(">line1", printed.toString());
     }
 
     @Test
@@ -58,7 +58,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.indent(MaximumIndentationIndentingPrinterTest.INDENTATION);
         printer.print("after\n");
         printer.print("next");
-        assertEquals("beforeafter\n>next", printed.toString());
+        checkEquals("beforeafter\n>next", printed.toString());
     }
 
     @Test
@@ -68,7 +68,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.indent(MaximumIndentationIndentingPrinterTest.INDENTATION);
         printer.print("line1\r");
         printer.print("line2\r");
-        assertEquals(">line1\r>line2\r", printed.toString());
+        checkEquals(">line1\r>line2\r", printed.toString());
     }
 
     @Test
@@ -78,7 +78,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.indent(MaximumIndentationIndentingPrinterTest.INDENTATION);
         printer.print("line1\n");
         printer.print("line2\n");
-        assertEquals(">line1\n>line2\n", printed.toString());
+        checkEquals(">line1\n>line2\n", printed.toString());
     }
 
     @Test
@@ -88,7 +88,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.indent(MaximumIndentationIndentingPrinterTest.INDENTATION);
         printer.print("line1\r\n");
         printer.print("line2\r\n");
-        assertEquals(">line1\r\n>line2\r\n", printed.toString());
+        checkEquals(">line1\r\n>line2\r\n", printed.toString());
     }
 
     @Test
@@ -101,7 +101,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.print("e2\n");
         printer.print("\n\n");
 
-        assertEquals(">line1\n" + // )
+        checkEquals(">line1\n" + // )
                 ">line2\n" + //
                 ">\n" + //
                 ">\n", printed.toString());
@@ -116,7 +116,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.outdent();
         printer.print("line2");
 
-        assertEquals(">line1\n" + // )
+        checkEquals(">line1\n" + // )
                 "line2", printed.toString());
     }
 
@@ -132,7 +132,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.print("line3\n");
         printer.outdent();
         printer.print("line4");
-        assertEquals(">line1\n" + // )
+        checkEquals(">line1\n" + // )
                 "line2\n" + //
                 ">line3\n" + //
                 "line4", printed.toString());
@@ -147,7 +147,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.outdent();
         printer.print("after\n");
         printer.print("next");
-        assertEquals(">beforeafter\nnext", printed.toString());
+        checkEquals(">beforeafter\nnext", printed.toString());
     }
 
     @Test
@@ -163,7 +163,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.print("line4\n");
         printer.outdent();
         printer.print("line5");
-        assertEquals("-line1\n" + //
+        checkEquals("-line1\n" + //
                 "->line2\n" + //
                 "->line3\r" + //
                 "-line4\n" + //
@@ -176,7 +176,7 @@ final public class MaximumIndentationIndentingPrinterTest
         final MaximumIndentationIndentingPrinter printer = this.createPrinter(printed);
         printer.indent(Indentation.with("1234567>")); // 1
         printer.print("line1\n");
-        assertEquals("12345line1\n", printed.toString());
+        checkEquals("12345line1\n", printed.toString());
     }
 
     @Test
@@ -193,7 +193,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.print("line4\n");
         printer.outdent(); // ->
         printer.print("line5");
-        assertEquals("->line1\n" + //
+        checkEquals("->line1\n" + //
                 "->=>line2\n" + //
                 "->=>-line3\r" + //
                 "->=>line4\n" + //
@@ -216,7 +216,7 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.print("line4\n");
         printer.outdent();
         printer.print("line5");
-        assertEquals("line1\n" + //
+        checkEquals("line1\n" + //
                 "line2\n" + //
                 "line3\r" + //
                 "line4\n" + //
@@ -232,13 +232,13 @@ final public class MaximumIndentationIndentingPrinterTest
         printer.lineStart();
         printer.print("line2\n");
 
-        assertEquals("line1\r" + "!line2\n", printed.toString());
+        checkEquals("line1\r" + "!line2\n", printed.toString());
     }
 
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        assertEquals(printer.toString() + " maxIndentation="
+        checkEquals(printer.toString() + " maxIndentation="
                         + MaximumIndentationIndentingPrinterTest.MAX,
                 MaximumIndentationIndentingPrinter.wrap(printer,
                         MaximumIndentationIndentingPrinterTest.MAX).toString());

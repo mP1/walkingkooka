@@ -17,11 +17,12 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 
 import java.util.function.Predicate;
+
+import static org.junit.Assert.assertEquals;
 
 final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate<Object>, Object> {
     @Test
@@ -53,7 +54,7 @@ final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate
 
     @Test
     public void testToString() {
-        Assert.assertEquals("*", AlwaysPredicate.instance().toString());
+        assertEquals("*", AlwaysPredicate.instance().toString());
     }
 
     @Override

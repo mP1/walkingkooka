@@ -23,6 +23,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCase<EbnfRangeParserToken> {
 
     private final static String BETWEEN = "..";

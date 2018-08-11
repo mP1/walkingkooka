@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static org.junit.Assert.assertEquals;
+
 final public class IteratorChainTest extends IteratorTestCase<IteratorChain<String>, String> {
 
     // constants
@@ -297,7 +299,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
 
     @Test
     public void testToString() {
-        Assert.assertEquals(IteratorChainTest.FIRST + "...", this.createIterator().toString());
+        assertEquals(IteratorChainTest.FIRST + "...", this.createIterator().toString());
     }
 
     @Test
@@ -313,7 +315,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         iterator.next();
         iterator.hasNext();
 
-        Assert.assertEquals(secondIterator.toString(), iterator.toString());
+        assertEquals(secondIterator.toString(), iterator.toString());
     }
 
     @Test
@@ -325,7 +327,7 @@ final public class IteratorChainTest extends IteratorTestCase<IteratorChain<Stri
         iterator.next();
         iterator.hasNext();
 
-        Assert.assertEquals("", iterator.toString());
+        assertEquals("", iterator.toString());
     }
 
     @Override

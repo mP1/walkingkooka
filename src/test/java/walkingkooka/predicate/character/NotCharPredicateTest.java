@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
+
 final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPredicate> {
 
     // constants
@@ -61,7 +63,7 @@ final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPre
 
     @Test
     public void testToString() {
-        Assert.assertEquals("!" + NotCharPredicateTest.PREDICATE,
+        assertEquals("!" + NotCharPredicateTest.PREDICATE,
                 NotCharPredicate.wrap(NotCharPredicateTest.PREDICATE).toString());
     }
 

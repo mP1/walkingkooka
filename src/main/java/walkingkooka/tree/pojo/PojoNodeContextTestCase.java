@@ -28,6 +28,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public abstract class PojoNodeContextTestCase<F extends PojoNodeContext> extends PackagePrivateClassTestCase<F> {

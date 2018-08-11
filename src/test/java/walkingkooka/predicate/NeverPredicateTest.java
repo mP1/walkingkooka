@@ -17,11 +17,12 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 
 import java.util.function.Predicate;
+
+import static org.junit.Assert.assertEquals;
 
 final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<Object>, Object> {
     @Test
@@ -36,7 +37,7 @@ final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<O
 
     @Test
     public void testToString() {
-        Assert.assertEquals("<none>", NeverPredicate.instance().toString());
+        assertEquals("<none>", NeverPredicate.instance().toString());
     }
 
     @Test

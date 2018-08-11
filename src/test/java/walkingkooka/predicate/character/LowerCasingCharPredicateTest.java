@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
+
 final public class LowerCasingCharPredicateTest
         extends CharPredicateTestCase<LowerCasingCharPredicate> {
 
@@ -64,7 +66,7 @@ final public class LowerCasingCharPredicateTest
     @Test
     public void testToString() {
         final CharPredicate predicate = CharPredicates.fake();
-        Assert.assertEquals("lowercase then " + predicate,
+        assertEquals("lowercase then " + predicate,
                 LowerCasingCharPredicate.wrap(predicate).toString());
     }
 

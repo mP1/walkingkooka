@@ -23,6 +23,8 @@ import walkingkooka.text.cursor.TextCursors;
 
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
+
 public final class FixedParserTest extends ParserTestCase2<FixedParser<MissingParserToken, FakeParserContext>, MissingParserToken> {
 
     private final static MissingParserToken RESULT = ParserTokens.missing(StringParserToken.NAME, "");

@@ -17,9 +17,10 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.text.Ascii;
+
+import static org.junit.Assert.assertEquals;
 
 final public class AsciiPrintableCharPredicateTest
         extends CharPredicateTestCase<AsciiPrintableCharPredicate> {
@@ -36,7 +37,7 @@ final public class AsciiPrintableCharPredicateTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("ASCII printable", AsciiPrintableCharPredicate.INSTANCE.toString());
+        assertEquals("ASCII printable", AsciiPrintableCharPredicate.INSTANCE.toString());
     }
 
     @Override

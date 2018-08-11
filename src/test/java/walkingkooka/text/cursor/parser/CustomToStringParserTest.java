@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, FakeParserContext>, StringParserToken>{

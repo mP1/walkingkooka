@@ -21,6 +21,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 public class OptionalParserTest extends ParserTestCase2<OptionalParser<FakeParserContext>, ParserToken> {

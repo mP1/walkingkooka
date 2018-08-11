@@ -26,6 +26,8 @@ import walkingkooka.collect.list.Lists;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static org.junit.Assert.assertEquals;
+
 final public class IteratorEnumerationTest
         extends EnumerationTestCase<IteratorEnumeration<Object>, Object> {
 
@@ -72,7 +74,7 @@ final public class IteratorEnumerationTest
     @Test
     public void testToString() {
         final Iterator<Object> iterator = Iterators.fake();
-        Assert.assertEquals(iterator.toString(), IteratorEnumeration.adapt(iterator).toString());
+        assertEquals(iterator.toString(), IteratorEnumeration.adapt(iterator).toString());
     }
 
     @Override

@@ -20,6 +20,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
+
 public class StringParserTest extends ParserTemplateTestCase<StringParser<FakeParserContext>, StringParserToken> {
 
     private final static String STRING = "abc";

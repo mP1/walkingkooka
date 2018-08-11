@@ -23,6 +23,8 @@ import walkingkooka.Cast;
 
 import java.io.Reader;
 
+import static org.junit.Assert.assertEquals;
+
 public final class DomNotationTest extends DomLeafNodeTestCase<DomNotation> {
 
     public void testParentWith() {

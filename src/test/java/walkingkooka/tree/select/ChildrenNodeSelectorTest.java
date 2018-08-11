@@ -17,11 +17,12 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
+
+import static org.junit.Assert.assertEquals;
 
 final public class ChildrenNodeSelectorTest
         extends UnaryNodeSelectorTestCase<ChildrenNodeSelector<TestFakeNode, StringName, StringName, Object>> {
@@ -75,7 +76,7 @@ final public class ChildrenNodeSelectorTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("child", this.createSelector().toString());
+        assertEquals("child", this.createSelector().toString());
     }
 
     @Override

@@ -22,6 +22,8 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
 
+import static org.junit.Assert.assertEquals;
+
 public final class CharacterCharPredicateParserTest extends ParserTemplateTestCase<CharacterCharPredicateParser<FakeParserContext>, CharacterParserToken> {
 
     private final static CharPredicate DIGITS = CharPredicates.digit();

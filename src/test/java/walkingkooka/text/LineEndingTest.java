@@ -20,26 +20,28 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class LineEndingTest extends CharSequenceTestCase<LineEnding> {
 
     @Test
     public void testCr() {
-        Assert.assertEquals("\r", LineEnding.CR.toString());
+        assertEquals("\r", LineEnding.CR.toString());
     }
 
     @Test
     public void testCrNl() {
-        Assert.assertEquals("\r\n", LineEnding.CRNL.toString());
+        assertEquals("\r\n", LineEnding.CRNL.toString());
     }
 
     @Test
     public void testNl() {
-        Assert.assertEquals("\n", LineEnding.NL.toString());
+        assertEquals("\n", LineEnding.NL.toString());
     }
 
     @Test
     public void testNone() {
-        Assert.assertEquals("", LineEnding.NONE.toString());
+        assertEquals("", LineEnding.NONE.toString());
     }
 
     @Test

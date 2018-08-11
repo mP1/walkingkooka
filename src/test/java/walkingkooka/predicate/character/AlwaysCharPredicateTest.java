@@ -17,8 +17,9 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysCharPredicate> {
 
@@ -46,7 +47,7 @@ final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysC
 
     @Test
     public void testToString() {
-        Assert.assertEquals("*", AlwaysCharPredicate.INSTANCE.toString());
+        assertEquals("*", AlwaysCharPredicate.INSTANCE.toString());
     }
 
     @Override

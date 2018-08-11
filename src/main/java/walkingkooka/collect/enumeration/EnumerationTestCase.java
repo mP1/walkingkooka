@@ -27,6 +27,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static org.junit.Assert.assertEquals;
+
 abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
         extends PackagePrivateClassTestCase<E> {
 

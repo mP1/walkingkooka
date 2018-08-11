@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.naming.PropertiesPath;
 
+import static org.junit.Assert.assertEquals;
+
 final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierName> {
 
     @Test(expected = IllegalArgumentException.class)

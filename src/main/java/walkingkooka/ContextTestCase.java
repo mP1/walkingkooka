@@ -19,7 +19,6 @@ package walkingkooka;
 
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
-import walkingkooka.text.cursor.parser.ParserToken;
 
 public abstract class ContextTestCase<C extends Context> extends PublicClassTestCase<C> {
 

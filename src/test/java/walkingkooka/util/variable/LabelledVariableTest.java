@@ -21,6 +21,8 @@ package walkingkooka.util.variable;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class LabelledVariableTest extends VariableTestCase<LabelledVariable<Object>, Object> {
 
     private final static String NAME = "name";
@@ -81,13 +83,13 @@ final public class LabelledVariableTest extends VariableTestCase<LabelledVariabl
 
     @Test
     public void testToString() {
-        Assert.assertEquals(LabelledVariableTest.NAME + "=" + LabelledVariableTest.VARIABLE,
+        assertEquals(LabelledVariableTest.NAME + "=" + LabelledVariableTest.VARIABLE,
                 LabelledVariable.wrap(LabelledVariableTest.NAME, LabelledVariableTest.VARIABLE).toString());
     }
 
     @Test
     public void testToStringOriginalNamedVariable() {
-        Assert.assertEquals(LabelledVariableTest.NAME + "=" + LabelledVariableTest.VARIABLE,
+        assertEquals(LabelledVariableTest.NAME + "=" + LabelledVariableTest.VARIABLE,
                 LabelledVariable.wrap(LabelledVariableTest.NAME,
                         LabelledVariable.wrap("should not be present in wrapped toString", LabelledVariableTest.VARIABLE))
                         .toString());

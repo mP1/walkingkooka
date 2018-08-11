@@ -30,6 +30,8 @@ import java.lang.reflect.Modifier;
 import java.util.Enumeration;
 import java.util.Iterator;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, String> {
     // constants
 
@@ -240,7 +242,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     private void valueLengthAndCheck(final int length) {
         final ToStringBuilder builder = ToStringBuilder.create();
         builder.valueLength(length);
-        Assert.assertEquals("valueLength", length, builder.valueLength);
+        assertEquals("valueLength", length, builder.valueLength);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -261,7 +263,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     private void globalLengthAndCheck(final int length) {
         final ToStringBuilder builder = ToStringBuilder.create();
         builder.globalLength(length);
-        Assert.assertEquals("globalLength", length, builder.globalLength);
+        assertEquals("globalLength", length, builder.globalLength);
     }
 
     // UsesToStringBuilder
@@ -307,7 +309,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.globalLength(5);
-                        Assert.assertEquals("globalLength", 5, builder.globalLength);
+                        assertEquals("globalLength", 5, builder.globalLength);
                         builder.value("IGNORED!");
                     }
                 }));
@@ -323,7 +325,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.globalLength(100);
-                        Assert.assertEquals("globalLength",
+                        assertEquals("globalLength",
                                 builder.buffer.length() + 100,
                                 builder.globalLength);
                         builder.value("abcdefghij");
@@ -342,12 +344,12 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.globalLength(5);
-                        Assert.assertEquals("globalLength",
+                        assertEquals("globalLength",
                                 builder.buffer.length() + 5,
                                 builder.globalLength);
 
                         builder.globalLength(100);
-                        Assert.assertEquals("globalLength",
+                        assertEquals("globalLength",
                                 builder.buffer.length() + 100,
                                 builder.globalLength);
 
@@ -365,8 +367,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(10);
-                        Assert.assertEquals("globalLength", 5, builder.globalLength);
-                        Assert.assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals("globalLength", 5, builder.globalLength);
+                        assertEquals("valueLength", 5, builder.valueLength);
                         builder.value("abcdefghij");
                     }
                 }), "abcde");
@@ -381,8 +383,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(5);
-                        Assert.assertEquals("globalLength", 10, builder.globalLength);
-                        Assert.assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals("globalLength", 10, builder.globalLength);
+                        assertEquals("valueLength", 5, builder.valueLength);
 
                         builder.value("abcdefghij");
                     }
@@ -398,8 +400,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(5);
-                        Assert.assertEquals("globalLength", 10, builder.globalLength);
-                        Assert.assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals("globalLength", 10, builder.globalLength);
+                        assertEquals("valueLength", 5, builder.valueLength);
 
                         builder.value("abcdefghij");
                         builder.value("12345678");
@@ -417,8 +419,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(4);
                         builder.valueLength(5);
-                        Assert.assertEquals("globalLength", 10, builder.globalLength);
-                        Assert.assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals("globalLength", 10, builder.globalLength);
+                        assertEquals("valueLength", 5, builder.valueLength);
 
                         builder.value("abcdefghij");
                         builder.value("12345678");
@@ -437,8 +439,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                         builder.valueLength(4);
                         builder.valueLength(3);
                         builder.valueLength(5);
-                        Assert.assertEquals("globalLength", 10, builder.globalLength);
-                        Assert.assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals("globalLength", 10, builder.globalLength);
+                        assertEquals("valueLength", 5, builder.valueLength);
 
                         builder.value("abcdefghij");
                         builder.value("12345678");
@@ -456,8 +458,8 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
-                        Assert.assertEquals("valueLength", 5, builder.valueLength);
-                        Assert.assertEquals("globalLength",
+                        assertEquals("valueLength", 5, builder.valueLength);
+                        assertEquals("globalLength",
                                 builder.buffer.length() + 5,
                                 builder.globalLength);
 
@@ -479,11 +481,11 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     @Override
                     public void buildToString(final ToStringBuilder builder) {
                         builder.valueLength(6); //
-                        Assert.assertEquals("valueLength",
+                        assertEquals("valueLength",
                                 5,
                                 builder.valueLength); // increase ignored.
 
-                        Assert.assertEquals("globalLength",
+                        assertEquals("globalLength",
                                 builder.buffer.length() + 5,
                                 builder.globalLength);
 
@@ -504,13 +506,13 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     @Test
     public void testBuildFrom() {
         final Object result = 1;
-        Assert.assertEquals(ToStringBuilder.buildFrom(this.createUsesToStringBuilder(result)),
+        assertEquals(ToStringBuilder.buildFrom(this.createUsesToStringBuilder(result)),
                 result.toString());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals(
+        assertEquals(
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*value*\"",
                 //
                 ToStringBuilder.create()//
@@ -520,7 +522,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testToStringNonStandardSeparators() {
-        Assert.assertEquals(
+        assertEquals(
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"@\", valueSeparator=\"#\", separator=\"$\", valueLength=900, globalLength=1000] 7=\"*value*\"",
                 //
                 ToStringBuilder.create()//
@@ -533,7 +535,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testToStringWithEscapedCharacters() {
-        Assert.assertEquals(
+        assertEquals(
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"",
                 //
                 ToStringBuilder.create()//

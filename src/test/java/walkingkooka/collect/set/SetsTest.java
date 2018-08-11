@@ -24,6 +24,8 @@ import walkingkooka.test.PublicStaticHelperTestCase;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+
 final public class SetsTest extends PublicStaticHelperTestCase<Sets> {
 
     // tests

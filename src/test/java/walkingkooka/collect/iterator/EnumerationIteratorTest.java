@@ -26,6 +26,8 @@ import walkingkooka.collect.list.Lists;
 import java.util.Enumeration;
 import java.util.Vector;
 
+import static org.junit.Assert.assertEquals;
+
 final public class EnumerationIteratorTest
         extends IteratorTestCase<EnumerationIterator<Integer>, Integer> {
 
@@ -64,7 +66,7 @@ final public class EnumerationIteratorTest
     @Test
     public void testToString() {
         final Enumeration<Object> enumeration = Enumerations.fake();
-        Assert.assertEquals(enumeration.toString(),
+        assertEquals(enumeration.toString(),
                 EnumerationIterator.adapt(enumeration).toString());
     }
 

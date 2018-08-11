@@ -30,6 +30,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+import static org.junit.Assert.assertEquals;
+
 abstract public class SerializationTestCase<S extends Serializable> extends TestCase {
 
     @Test final public void testImplementsSerializable() {

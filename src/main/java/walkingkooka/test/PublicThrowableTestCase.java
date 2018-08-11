@@ -24,6 +24,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing a {@link Throwable} with mostly parameter checking tests.
  */
@@ -82,7 +84,7 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
     public void testCreateOnlyMessage() throws Exception {
         final Constructor<T> constructor = this.constructor(String.class);
         final T instance = constructor.newInstance(MESSAGE);
-        Assert.assertEquals("message", MESSAGE, instance.getMessage());
+        assertEquals("message", MESSAGE, instance.getMessage());
         Assert.assertNull("cause", instance.getCause());
     }
 
@@ -124,14 +126,14 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
     private void create(final String message) throws Exception {
         final Constructor<T> constructor = this.constructor(String.class);
         final T instance = constructor.newInstance(message);
-        Assert.assertEquals("message", message, instance.getMessage());
+        assertEquals("message", message, instance.getMessage());
         assertSame("cause", null, instance.getCause());
     }
 
     private void create(final String message, final Throwable cause) throws Exception {
         final Constructor<T> constructor = this.constructor(String.class, Throwable.class);
         final T instance = constructor.newInstance(message, cause);
-        Assert.assertEquals("message", message, instance.getMessage());
+        assertEquals("message", message, instance.getMessage());
         assertSame("cause", cause, instance.getCause());
     }
 

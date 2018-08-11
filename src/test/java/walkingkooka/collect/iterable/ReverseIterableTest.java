@@ -25,6 +25,8 @@ import walkingkooka.collect.list.Lists;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<String>, String> {
 
     // constants
@@ -56,15 +58,15 @@ final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<
         iterable.add("3");
 
         final Iterator<String> iterator = ReverseIterable.wrap(iterable).iterator();
-        Assert.assertEquals("3", iterator.next());
-        Assert.assertEquals("2", iterator.next());
-        Assert.assertEquals("1", iterator.next());
+        assertEquals("3", iterator.next());
+        assertEquals("2", iterator.next());
+        assertEquals("1", iterator.next());
         Assert.assertFalse("iterator should be empty", iterator.hasNext());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals(ReverseIterableTest.ITERABLE.toString(),
+        assertEquals(ReverseIterableTest.ITERABLE.toString(),
                 ReverseIterable.wrap(ReverseIterableTest.ITERABLE).toString());
     }
 

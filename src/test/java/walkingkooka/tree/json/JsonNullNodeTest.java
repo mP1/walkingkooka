@@ -21,6 +21,8 @@ package walkingkooka.tree.json;
 import org.junit.Test;
 import walkingkooka.tree.visit.Visiting;
 
+import static org.junit.Assert.assertEquals;
+
 public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, Void>{
 
     @Test

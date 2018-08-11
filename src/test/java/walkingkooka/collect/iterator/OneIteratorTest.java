@@ -17,9 +17,10 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+
+import static org.junit.Assert.assertEquals;
 
 final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>, String> {
 
@@ -56,14 +57,14 @@ final public class OneIteratorTest extends IteratorTestCase<OneIterator<String>,
     @Test
     public void testNonNullValueToString() {
         final OneIterator<String> iterator = OneIterator.with(OneIteratorTest.VALUE);
-        Assert.assertEquals("toString", OneIteratorTest.VALUE, iterator.toString());
+        assertEquals("toString", OneIteratorTest.VALUE, iterator.toString());
     }
 
     @Test
     public void testEmptyToString() {
         final OneIterator<String> iterator = OneIterator.with(null);
         iterator.next();
-        Assert.assertEquals("toString", "<empty>", iterator.toString());
+        assertEquals("toString", "<empty>", iterator.toString());
     }
 
     @Test

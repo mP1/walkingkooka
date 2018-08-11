@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.SortedSet;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 final public class TextWithNumbersCharSequenceComparatorTest
         extends ComparatorTestCase<TextWithNumbersCharSequenceComparator<String>, String> {
@@ -415,7 +416,7 @@ final public class TextWithNumbersCharSequenceComparatorTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("text with numbers(CASE SENSITIVE)",
+        assertEquals("text with numbers(CASE SENSITIVE)",
                 this.createComparator().toString());
     }
 

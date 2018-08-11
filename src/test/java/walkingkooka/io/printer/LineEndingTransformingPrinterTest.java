@@ -198,7 +198,7 @@ final public class LineEndingTransformingPrinterTest
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        assertEquals(LineEndingTransformingPrinterTest.TRANFORMER + " " + printer,
+        checkEquals(LineEndingTransformingPrinterTest.TRANFORMER + " " + printer,
                 LineEndingTransformingPrinter.wrap(LineEndingTransformingPrinterTest.TRANFORMER,
                         printer).toString());
     }

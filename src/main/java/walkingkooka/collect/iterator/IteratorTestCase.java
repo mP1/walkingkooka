@@ -27,6 +27,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for testing a {@link Iterator} with mostly parameter checking tests.
  */

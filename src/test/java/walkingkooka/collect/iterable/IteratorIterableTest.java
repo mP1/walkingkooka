@@ -24,6 +24,8 @@ import walkingkooka.collect.iterator.Iterators;
 
 import java.util.Iterator;
 
+import static org.junit.Assert.assertEquals;
+
 final public class IteratorIterableTest extends IterableTestCase<IteratorIterable<Object>, Object> {
 
     @Test
@@ -56,7 +58,7 @@ final public class IteratorIterableTest extends IterableTestCase<IteratorIterabl
     @Test
     public void testToString() {
         final Iterator<Object> iterator = this.createIterator();
-        Assert.assertEquals(iterator.toString(), IteratorIterable.with(iterator).toString());
+        assertEquals(iterator.toString(), IteratorIterable.with(iterator).toString());
     }
 
     @Override

@@ -25,6 +25,8 @@ import walkingkooka.collect.list.Lists;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterator<Object>, Object> {
 
     // constants
@@ -82,7 +84,7 @@ final public class ReadOnlyIteratorTest extends IteratorTestCase<ReadOnlyIterato
     public void testToString() {
         final Iterator<Object> iterator
                 = new ArrayList<Object>(Lists.of(ReadOnlyIteratorTest.ELEMENT)).iterator();
-        Assert.assertEquals(iterator.toString(), ReadOnlyIterator.wrap(iterator).toString());
+        assertEquals(iterator.toString(), ReadOnlyIterator.wrap(iterator).toString());
     }
 
     private ReadOnlyIterator<Object> iterator(final Object... strings) {

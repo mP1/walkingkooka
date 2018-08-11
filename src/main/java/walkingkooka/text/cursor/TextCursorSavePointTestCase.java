@@ -20,6 +20,7 @@ package walkingkooka.text.cursor;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint, C extends TextCursor>

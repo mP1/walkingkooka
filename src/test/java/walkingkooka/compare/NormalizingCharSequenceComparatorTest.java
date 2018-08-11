@@ -23,6 +23,8 @@ import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
+import static org.junit.Assert.assertEquals;
+
 final public class NormalizingCharSequenceComparatorTest
         extends ComparatorTestCase<NormalizingCharSequenceComparator<String>, String> {
 
@@ -137,7 +139,7 @@ final public class NormalizingCharSequenceComparatorTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("normalizing " + NormalizingCharSequenceComparatorTest.PREDICATE,
+        assertEquals("normalizing " + NormalizingCharSequenceComparatorTest.PREDICATE,
                 this.createComparator().toString());
     }
 

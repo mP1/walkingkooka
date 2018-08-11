@@ -28,6 +28,7 @@ import walkingkooka.tree.expression.ExpressionNodeName;
 import java.math.BigInteger;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetFunctionParserToken> {

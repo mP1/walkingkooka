@@ -24,6 +24,8 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.util.variable.Variable;
 import walkingkooka.util.variable.Variables;
 
+import static org.junit.Assert.assertEquals;
+
 final public class LineCountingPrinterTest extends PrinterTestCase2<LineCountingPrinter> {
 
     // constants
@@ -179,13 +181,13 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
                     public void print(final CharSequence chars) throws PrinterException {
                         switch (this.printed) {
                             case 0:
-                                assertEquals("wrong chars printed", "\r", chars.toString());
+                                checkEquals("wrong chars printed", "\r", chars.toString());
                                 assertEquals("counter incremented earlier than expected",
                                         Integer.valueOf(0),
                                         counter.get());
                                 break;
                             case 1:
-                                assertEquals("wrong chars printed", "\n", chars.toString());
+                                checkEquals("wrong chars printed", "\n", chars.toString());
                                 assertEquals("counter incremented earlier than expected",
                                         Integer.valueOf(1),
                                         counter.get());
@@ -238,7 +240,7 @@ final public class LineCountingPrinterTest extends PrinterTestCase2<LineCounting
     public void testToString() {
         final Printer printer = Printers.fake();
         final Variable<Integer> counter = Variables.with(123);
-        assertEquals(printer + " 123 line(s)",
+        checkEquals(printer + " 123 line(s)",
                 LineCountingPrinter.wrap(printer, counter).toString());
     }
 

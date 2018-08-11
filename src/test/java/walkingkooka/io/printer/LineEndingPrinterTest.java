@@ -75,7 +75,7 @@ final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrin
         final LineEndingPrinter printer = this.createPrinter(builder);
         printer.print(printer.lineEnding());
         printer.flush();
-        assertEquals(
+        checkEquals(
                 LineEndingPrinterTest.LINE_ENDING + LineEndingPrinterTest.LINE_ENDING.toString(),
                 builder.toString());
     }
@@ -88,14 +88,14 @@ final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrin
         printer.print(printer.lineEnding());
         printer.print("3\r4");
         printer.flush();
-        assertEquals("1\r2" + LineEndingPrinterTest.LINE_ENDING + LineEndingPrinterTest.LINE_ENDING
+        checkEquals("1\r2" + LineEndingPrinterTest.LINE_ENDING + LineEndingPrinterTest.LINE_ENDING
                         + LineEndingPrinterTest.LINE_ENDING + "3\r4" + LineEndingPrinterTest.LINE_ENDING,
                 builder.toString());
     }
 
     @Test
     public void testToString() {
-        assertEquals(LineEndingPrinterTest.PRINTER.toString(),
+        checkEquals(LineEndingPrinterTest.PRINTER.toString(),
                 LineEndingPrinter.wrap(LineEndingPrinterTest.PRINTER).toString());
     }
 

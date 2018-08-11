@@ -23,6 +23,8 @@ import walkingkooka.naming.NameTestCase;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+
 final public class SpreadsheetFunctionNameTest extends NameTestCase<SpreadsheetFunctionName> {
 
     @Test(expected = IllegalArgumentException.class)

@@ -20,6 +20,8 @@ package walkingkooka.util.variable;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 final public class AtomicReferenceVariableTest extends VariableTestCase<AtomicReferenceVariable<Object>, Object> {
 
     @Override

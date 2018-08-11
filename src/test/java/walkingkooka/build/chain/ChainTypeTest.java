@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ChainTypeTest extends HashCodeEqualsDefinedTestCase<ChainType> {
     // constants
 
@@ -59,7 +61,7 @@ final public class ChainTypeTest extends HashCodeEqualsDefinedTestCase<ChainType
 
     @Test
     public void testToString() {
-        Assert.assertEquals(ChainTypeTest.TYPE, ChainType.with(ChainTypeTest.TYPE).toString());
+        assertEquals(ChainTypeTest.TYPE, ChainType.with(ChainTypeTest.TYPE).toString());
     }
 
     @Override

@@ -23,6 +23,8 @@ import walkingkooka.test.PackagePrivateStaticHelperTestCase;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+
 final public class BigEndianHexByteReaderTest
         extends PackagePrivateStaticHelperTestCase<BigEndianHexByteReader> {
 
@@ -58,7 +60,7 @@ final public class BigEndianHexByteReaderTest
             Assert.fail();
         } catch (final RuntimeException expected) {
             if (null != message) {
-                Assert.assertEquals("message", message, expected.getMessage());
+                assertEquals("message", message, expected.getMessage());
             }
         }
     }

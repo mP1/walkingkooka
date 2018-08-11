@@ -60,6 +60,7 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parser<ParserToken, FakeParserContext>,

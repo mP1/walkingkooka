@@ -21,6 +21,8 @@ package walkingkooka.tree.json;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public final class JsonNodeNameTest extends NameTestCase<JsonNodeName> {
 
     @Test(expected = NullPointerException.class)

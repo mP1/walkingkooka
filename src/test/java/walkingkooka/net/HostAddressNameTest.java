@@ -23,6 +23,7 @@ import walkingkooka.test.TestCase;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public final class HostAddressNameTest extends TestCase {
@@ -228,6 +229,6 @@ public final class HostAddressNameTest extends TestCase {
     }
 
     private void parseFails(final String address, final int start, final int end, final HostAddressProblem problem) {
-        TestCase.assertEquals("problem", problem, HostAddress.tryParseName(address, start, end));
+        assertEquals("problem", problem, HostAddress.tryParseName(address, start, end));
     }
 }

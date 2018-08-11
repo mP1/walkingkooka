@@ -17,12 +17,13 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
+
+import static org.junit.Assert.assertEquals;
 
 final public class SelfNodeSelectorTest
         extends UnaryNodeSelectorTestCase<SelfNodeSelector<TestFakeNode, StringName, StringName, Object>> {
@@ -83,7 +84,7 @@ final public class SelfNodeSelectorTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals(".", this.createSelector().toString());
+        assertEquals(".", this.createSelector().toString());
     }
 
     @Override

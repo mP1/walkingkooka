@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public final class RelativeNodePointerTest extends PackagePrivateClassTestCase<RelativeNodePointer<?, ?, ?, ?>> {
 
     private final static boolean NO_HASH = false;

@@ -24,6 +24,8 @@ import walkingkooka.test.PublicClassTestCase;
 
 import java.util.function.Function;
 
+import static org.junit.Assert.assertEquals;
+
 final public class OpenCheckerTest extends PublicClassTestCase<OpenChecker<Exception>> {
     // constants
 
@@ -89,7 +91,7 @@ final public class OpenCheckerTest extends PublicClassTestCase<OpenChecker<Excep
             checker.check();
             Assert.fail();
         } catch (final Thrown expected) {
-            Assert.assertEquals("message", MESSAGE, expected.getMessage());
+            assertEquals("message", MESSAGE, expected.getMessage());
         }
     }
 
@@ -104,7 +106,7 @@ final public class OpenCheckerTest extends PublicClassTestCase<OpenChecker<Excep
             checker.check(THROWABLE_FACTORY);
             Assert.fail();
         } catch (final Thrown expected) {
-            Assert.assertEquals("message", MESSAGE, expected.getMessage());
+            assertEquals("message", MESSAGE, expected.getMessage());
         }
     }
 
@@ -137,14 +139,14 @@ final public class OpenCheckerTest extends PublicClassTestCase<OpenChecker<Excep
     @Test
     public void testOpenToString() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
-        Assert.assertEquals("Open", checker.toString());
+        assertEquals("Open", checker.toString());
     }
 
     @Test
     public void testClosedToString() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
         checker.close();
-        Assert.assertEquals("Closed", checker.toString());
+        assertEquals("Closed", checker.toString());
     }
 
     @Override

@@ -21,6 +21,8 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
+
 public final class DomProcessingInstructionTest extends DomLeafNodeTestCase<DomProcessingInstruction> {
 
     private final String TARGET = "abc";

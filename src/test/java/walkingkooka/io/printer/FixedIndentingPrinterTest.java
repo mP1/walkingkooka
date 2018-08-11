@@ -49,7 +49,7 @@ final public class FixedIndentingPrinterTest
         final FixedIndentingPrinter printer = this.createPrinter(builder);
         printer.indent(FixedIndentingPrinterTest.INDENTATION2);
         printer.print("line1");
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "line1", builder.toString());
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1", builder.toString());
     }
 
     @Test
@@ -60,7 +60,7 @@ final public class FixedIndentingPrinterTest
         printer.indent(FixedIndentingPrinterTest.INDENTATION2);
         printer.print("after\n");
         printer.print("next");
-        assertEquals("beforeafter\n" + FixedIndentingPrinterTest.INDENTATION + "next",
+        checkEquals("beforeafter\n" + FixedIndentingPrinterTest.INDENTATION + "next",
                 builder.toString());
     }
 
@@ -71,7 +71,7 @@ final public class FixedIndentingPrinterTest
         printer.indent(FixedIndentingPrinterTest.INDENTATION2);
         printer.print("line1\r");
         printer.print("line2\r");
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "line1\r"
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\r"
                 + FixedIndentingPrinterTest.INDENTATION + "line2\r", builder.toString());
     }
 
@@ -82,7 +82,7 @@ final public class FixedIndentingPrinterTest
         printer.indent(FixedIndentingPrinterTest.INDENTATION2);
         printer.print("line1\n");
         printer.print("line2\n");
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n"
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n"
                 + FixedIndentingPrinterTest.INDENTATION + "line2\n", builder.toString());
     }
 
@@ -93,7 +93,7 @@ final public class FixedIndentingPrinterTest
         printer.indent(FixedIndentingPrinterTest.INDENTATION2);
         printer.print("line1\r\n");
         printer.print("line2\r\n");
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "line1\r\n"
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\r\n"
                 + FixedIndentingPrinterTest.INDENTATION + "line2\r\n", builder.toString());
     }
 
@@ -107,7 +107,7 @@ final public class FixedIndentingPrinterTest
         printer.print("e2\n");
         printer.print("\n\n");
 
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
                 FixedIndentingPrinterTest.INDENTATION + "line2\n" + //
                 FixedIndentingPrinterTest.INDENTATION + "\n" + //
                 FixedIndentingPrinterTest.INDENTATION + "\n", builder.toString());
@@ -122,7 +122,7 @@ final public class FixedIndentingPrinterTest
         printer.outdent();
         printer.print("line2");
 
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
                 "line2", builder.toString());
     }
 
@@ -138,7 +138,7 @@ final public class FixedIndentingPrinterTest
         printer.print("line3\n");
         printer.outdent();
         printer.print("line4");
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
                 "line2\n" + //
                 FixedIndentingPrinterTest.INDENTATION + "line3\n" + //
                 "line4", builder.toString());
@@ -153,7 +153,7 @@ final public class FixedIndentingPrinterTest
         printer.outdent();
         printer.print("after\n");
         printer.print("next");
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "beforeafter\nnext",
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "beforeafter\nnext",
                 builder.toString());
     }
 
@@ -170,7 +170,7 @@ final public class FixedIndentingPrinterTest
         printer.print("line4\n");
         printer.outdent();
         printer.print("line5");
-        assertEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + //
+        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + //
                 FixedIndentingPrinterTest.INDENTATION + FixedIndentingPrinterTest.INDENTATION
                 + "line2\n" + //
                 FixedIndentingPrinterTest.INDENTATION + FixedIndentingPrinterTest.INDENTATION
@@ -188,13 +188,13 @@ final public class FixedIndentingPrinterTest
         printer.lineStart();
         printer.print("line2\n");
 
-        assertEquals("line1\r" + FixedIndentingPrinterTest.INDENTATION + "line2\n",
+        checkEquals("line1\r" + FixedIndentingPrinterTest.INDENTATION + "line2\n",
                 builder.toString());
     }
 
     @Test
     public void testToString() {
-        assertEquals(FixedIndentingPrinterTest.PRINTER + " indent=\""
+        checkEquals(FixedIndentingPrinterTest.PRINTER + " indent=\""
                         + FixedIndentingPrinterTest.INDENTATION + "\"",
                 FixedIndentingPrinter.wrap(FixedIndentingPrinterTest.PRINTER,
                         FixedIndentingPrinterTest.INDENTATION).toString());
@@ -202,7 +202,7 @@ final public class FixedIndentingPrinterTest
 
     @Test
     public void testToStringEscaped() {
-        assertEquals(FixedIndentingPrinterTest.PRINTER + " indent=\"\\t..\"",
+        checkEquals(FixedIndentingPrinterTest.PRINTER + " indent=\"\\t..\"",
                 FixedIndentingPrinter.wrap(FixedIndentingPrinterTest.PRINTER,
                         Indentation.with("\t..")).toString());
     }

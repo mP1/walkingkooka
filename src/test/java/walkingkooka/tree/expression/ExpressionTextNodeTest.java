@@ -21,7 +21,7 @@ package walkingkooka.tree.expression;
 import org.junit.Test;
 import walkingkooka.tree.visit.Visiting;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public final class ExpressionTextNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionTextNode, String>{
 

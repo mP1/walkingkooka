@@ -26,6 +26,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
+
 public final class FileNodeCacheAtomTest extends PublicClassTestCase<FileNodeCacheAtom> {
 
     @Test

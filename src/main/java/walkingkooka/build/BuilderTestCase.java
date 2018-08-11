@@ -24,6 +24,8 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Base class for any {@link Builder} which includes helpers that assert failure if {@link
  * Builder#build()} is called without any additions.
@@ -60,7 +62,7 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
             builder.build();
         } catch (final BuilderException expected) {
             if (null != message) {
-                Assert.assertEquals("message", message, expected.getMessage());
+                assertEquals("message", message, expected.getMessage());
             }
         }
     }

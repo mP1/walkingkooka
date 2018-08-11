@@ -25,6 +25,8 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import java.math.BigInteger;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class SpreadsheetParentParserTokenTestCase<T extends SpreadsheetParentParserToken> extends SpreadsheetParserTokenTestCase<T> {
 
     final static String NUMBER1 = "1";

@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
+
 final public class SystemPropertyTest extends PublicClassTestCase<SystemProperty> {
 
     @Test
@@ -46,7 +48,7 @@ final public class SystemPropertyTest extends PublicClassTestCase<SystemProperty
     public void testGet() {
         final String name = "name";
         final SystemProperty property = SystemProperty.get(name);
-        Assert.assertEquals("name", property.value());
+        assertEquals("name", property.value());
     }
 
     @Test
@@ -75,7 +77,7 @@ final public class SystemPropertyTest extends PublicClassTestCase<SystemProperty
     @Test
     public void testRequiredValue() {
         final SystemProperty property = SystemProperty.FILE_SEPARATOR;
-        Assert.assertEquals("value", property.propertyValue(), property.requiredPropertyValue());
+        assertEquals("value", property.propertyValue(), property.requiredPropertyValue());
     }
 
     @Test
@@ -96,7 +98,7 @@ final public class SystemPropertyTest extends PublicClassTestCase<SystemProperty
 
         try {
             property.set(value);
-            Assert.assertEquals(value, property.propertyValue());
+            assertEquals(value, property.propertyValue());
         } catch (final SecurityException ignore) {
         }
     }
@@ -118,13 +120,13 @@ final public class SystemPropertyTest extends PublicClassTestCase<SystemProperty
     @Test
     public void testToString() {
         final String name = "name";
-        Assert.assertEquals(name, SystemProperty.get(name).toString());
+        assertEquals(name, SystemProperty.get(name).toString());
     }
 
     @Test
     public void testToStringNeedsQuotes() {
         final String name = "needs quotes";
-        Assert.assertEquals(CharSequences.quoteIfNecessary(name).toString(),
+        assertEquals(CharSequences.quoteIfNecessary(name).toString(),
                 SystemProperty.get(name).toString());
     }
 

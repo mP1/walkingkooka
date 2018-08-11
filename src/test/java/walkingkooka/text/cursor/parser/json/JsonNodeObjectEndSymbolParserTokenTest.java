@@ -21,6 +21,8 @@ import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
+import static org.junit.Assert.assertEquals;
+
 public final class JsonNodeObjectEndSymbolParserTokenTest extends JsonNodeSymbolParserTokenTestCase<JsonNodeArrayBeginSymbolParserToken, String> {
 
     @Test

@@ -19,13 +19,9 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
-import walkingkooka.tree.expression.FakeExpressionNodeVisitor;
-import walkingkooka.tree.expression.ExpressionBooleanNode;
-import walkingkooka.tree.expression.ExpressionLeafNodeTestCase;
-import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public final class ExpressionBooleanNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionBooleanNode, Boolean>{
 

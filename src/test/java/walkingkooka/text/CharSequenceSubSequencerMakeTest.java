@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CharSequenceSubSequencerMakeTest
         extends PackagePrivateClassTestCase<CharSequenceSubSequencer> {
 
@@ -42,7 +44,7 @@ final public class CharSequenceSubSequencerMakeTest
             CharSequenceSubSequencer.make(string, from, to);
             Assert.fail();
         } catch (final IndexOutOfBoundsException expected) {
-            Assert.assertEquals("message",
+            assertEquals("message",
                     CharSequenceSubSequencer.toIndexBeforeFromIndex(from, to, string.length()),
                     expected.getMessage());
         }

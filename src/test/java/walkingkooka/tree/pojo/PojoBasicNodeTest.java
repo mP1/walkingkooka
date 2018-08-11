@@ -17,11 +17,12 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+
+import static org.junit.Assert.assertEquals;
 
 public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Integer> {
 
@@ -84,7 +85,7 @@ public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Int
 
     @Override
     void checkValue(final Integer expected, final Integer actual) {
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     private PojoBasicNode createPojoNode(final Object value) {

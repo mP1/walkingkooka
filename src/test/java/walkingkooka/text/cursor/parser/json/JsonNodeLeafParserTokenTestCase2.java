@@ -22,6 +22,8 @@ import walkingkooka.tree.json.JsonNode;
 
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class JsonNodeLeafParserTokenTestCase2<T extends JsonNodeLeafParserToken, V, N extends JsonNode> extends JsonNodeLeafParserTokenTestCase<T, V> {
 
     @Test

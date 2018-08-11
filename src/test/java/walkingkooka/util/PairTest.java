@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class PairTest extends HashCodeEqualsDefinedTestCase<Pair<?, ?>> {
 
     private final static A A = new A(1);
@@ -61,35 +63,35 @@ final public class PairTest extends HashCodeEqualsDefinedTestCase<Pair<?, ?>> {
     @Test
     public void testToString() {
         final Pair<A, B> pair = Pair.with(PairTest.A, PairTest.B);
-        Assert.assertEquals(pair.toString(), PairTest.A.toString() + " & " + PairTest.B.toString());
+        assertEquals(pair.toString(), PairTest.A.toString() + " & " + PairTest.B.toString());
     }
 
     @Test
     public void testToStringNullFirst() {
         final Pair<A, B> pair = Pair.with(null, PairTest.B);
-        Assert.assertEquals(pair.toString(), "null & " + PairTest.B.toString());
+        assertEquals(pair.toString(), "null & " + PairTest.B.toString());
     }
 
     @Test
     public void testToStringNullSecond() {
         final Pair<A, B> pair = Pair.with(PairTest.A, null);
-        Assert.assertEquals(pair.toString(), PairTest.A.toString() + " & null");
+        assertEquals(pair.toString(), PairTest.A.toString() + " & null");
     }
 
     @Test
     public void testToStringNullFirstAndSecond() {
         final Pair<A, B> pair = Pair.with(null, null);
-        Assert.assertEquals(pair.toString(), "null & null");
+        assertEquals(pair.toString(), "null & null");
     }
 
     @Test
     public void testToStringCharSequenceFirst() {
-        Assert.assertEquals(Pair.with("FIRST", PairTest.B).toString(), "\"FIRST\" & " + PairTest.B);
+        assertEquals(Pair.with("FIRST", PairTest.B).toString(), "\"FIRST\" & " + PairTest.B);
     }
 
     @Test
     public void testToStringCharSequenceSecond() {
-        Assert.assertEquals(Pair.with(PairTest.A, "SECOND").toString(),
+        assertEquals(Pair.with(PairTest.A, "SECOND").toString(),
                 PairTest.A + " & \"SECOND\"");
     }
 

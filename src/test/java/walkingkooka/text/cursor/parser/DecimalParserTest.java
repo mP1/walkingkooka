@@ -24,6 +24,8 @@ import walkingkooka.text.cursor.TextCursor;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+import static org.junit.Assert.assertEquals;
+
 public final class DecimalParserTest extends ParserTemplateTestCase<DecimalParser<FakeParserContext>, DecimalParserToken> {
 
     @Test

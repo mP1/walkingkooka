@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertEquals;
+
 final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStringCharPredicate> {
 
     // constants
@@ -100,7 +102,7 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
 
     @Test
     public void testToString() {
-        Assert.assertEquals(ToStringCharPredicateTest.TOSTRING,
+        assertEquals(ToStringCharPredicateTest.TOSTRING,
                 this.createCharacterPredicate().toString());
     }
 

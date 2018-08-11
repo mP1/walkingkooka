@@ -520,7 +520,7 @@ final public class PlainTextWithoutTagsPrinterTest
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        assertEquals("text w/out tags AND " + printer,
+        checkEquals("text w/out tags AND " + printer,
                 PlainTextWithoutTagsPrinter.wrap(printer).toString());
     }
 

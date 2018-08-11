@@ -24,6 +24,8 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 
+import static org.junit.Assert.assertEquals;
+
 public final class NoneNodePointerTest extends PackagePrivateClassTestCase<NoneNodePointer<?, ?, ?, ?>> {
 
     @Test

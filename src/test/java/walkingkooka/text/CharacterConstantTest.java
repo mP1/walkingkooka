@@ -17,8 +17,9 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class CharacterConstantTest extends CharSequenceTestCase<CharacterConstant> {
 
@@ -52,13 +53,13 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
     }
 
     private void check(final CharacterConstant constant, final char c) {
-        Assert.assertEquals("character", c, constant.character());
-        Assert.assertEquals("text", String.valueOf(c), constant.string());
+        assertEquals("character", c, constant.character());
+        assertEquals("text", String.valueOf(c), constant.string());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("toString", "a", CharacterConstant.with('a').toString());
+        assertEquals("toString", "a", CharacterConstant.with('a').toString());
     }
 
     @Override

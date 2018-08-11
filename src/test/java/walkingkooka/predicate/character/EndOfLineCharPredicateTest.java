@@ -17,8 +17,9 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndOfLineCharPredicate> {
 
@@ -44,7 +45,7 @@ final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndO
 
     @Test
     public void testToString() {
-        Assert.assertEquals("cr/nl", EndOfLineCharPredicate.INSTANCE.toString());
+        assertEquals("cr/nl", EndOfLineCharPredicate.INSTANCE.toString());
     }
 
     @Override

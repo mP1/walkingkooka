@@ -17,10 +17,11 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
+
+import static org.junit.Assert.assertEquals;
 
 final public class InitialAndPartCharPredicateCharSequencePredicateTest
         extends PredicateTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence> {
@@ -74,7 +75,7 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
 
     @Test
     public void testToString() {
-        Assert.assertEquals("(\"ABC\", \"123\"*)",
+        assertEquals("(\"ABC\", \"123\"*)",
                 this.createPredicate().toString());
     }
 

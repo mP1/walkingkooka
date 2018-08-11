@@ -21,6 +21,8 @@ package walkingkooka.tree.file;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public final class FileNodeNameTest extends NameTestCase<FileNodeName> {
 
     @Test(expected = NullPointerException.class)

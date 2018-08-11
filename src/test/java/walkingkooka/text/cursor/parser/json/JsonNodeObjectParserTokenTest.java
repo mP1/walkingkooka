@@ -29,6 +29,8 @@ import walkingkooka.tree.json.JsonObjectNode;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
+
 public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTokenTestCase<JsonNodeObjectParserToken> {
 
     @Test(expected = IllegalArgumentException.class)

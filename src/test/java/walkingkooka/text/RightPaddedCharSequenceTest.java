@@ -20,6 +20,7 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<RightPaddedCharSequence> {
@@ -80,7 +81,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
         final CharSequence sub = sequence.subSequence(6, 7);
         assertNotEquals("class", RightPaddedCharSequence.class, sub.getClass());
         this.checkEquals(sub, RightPaddedCharSequenceTest.PADDING);
-        Assert.assertEquals("sub.toString", ".", sub.toString());
+        assertEquals("sub.toString", ".", sub.toString());
     }
 
     @Test
@@ -92,7 +93,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
                 RightPaddedCharSequenceTest.PADDING,
                 RightPaddedCharSequenceTest.PADDING,
                 RightPaddedCharSequenceTest.PADDING);
-        Assert.assertEquals("sub.toString", "...", sub.toString());
+        assertEquals("sub.toString", "...", sub.toString());
     }
 
     @Test
@@ -107,7 +108,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 4);
         this.checkEquals(sub, "bcd");
-        Assert.assertEquals("sub.toString", "bcd", sub.toString());
+        assertEquals("sub.toString", "bcd", sub.toString());
     }
 
     @Test
@@ -115,7 +116,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 7);
         this.checkEquals(sub, "abcde..");
-        Assert.assertEquals("sub.toString", "abcde..", sub.toString());
+        assertEquals("sub.toString", "abcde..", sub.toString());
     }
 
     @Test
@@ -123,12 +124,12 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 6);
         this.checkEquals(sub, "bcde.");
-        Assert.assertEquals("sub.toString", "bcde.", sub.toString());
+        assertEquals("sub.toString", "bcde.", sub.toString());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals("abcde...", this.createCharSequence().toString());
+        assertEquals("abcde...", this.createCharSequence().toString());
     }
 
     @Override

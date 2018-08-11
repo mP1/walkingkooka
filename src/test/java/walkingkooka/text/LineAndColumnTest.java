@@ -17,10 +17,10 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
-import walkingkooka.test.TestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColumn> {
 
@@ -50,14 +50,14 @@ public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColu
     public void testCreate()
     {
         final LineAndColumn a = this.create();
-        Assert.assertEquals("lineNumber", LINE_NUMBER, a.lineNumber());
-        Assert.assertEquals("columnNumber", COLUMN_NUMBER, a.columnNumber());
-        Assert.assertEquals("line", LINE, a.line());
+        assertEquals("lineNumber", LINE_NUMBER, a.lineNumber());
+        assertEquals("columnNumber", COLUMN_NUMBER, a.columnNumber());
+        assertEquals("line", LINE, a.line());
     }
 
     @Test
     public void testToString(){
-        Assert.assertEquals("line: 1, col: 2, \"abcdef\"", this.create().toString());
+        assertEquals("line: 1, col: 2, \"abcdef\"", this.create().toString());
     }
 
     @Test
@@ -207,7 +207,7 @@ public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColu
         final LineAndColumn info = LineAndColumn.determine(text, pos);
         assertEquals("lineNumber", lineNumber, info.lineNumber());
         assertEquals("column()", column, info.columnNumber());
-        TestCase.assertEquals("line()", line, info.line());
+        assertEquals("line()", line, info.line());
     }
 
     private LineAndColumn create(){

@@ -17,9 +17,10 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.predicate.character.CharPredicateTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 final public class CaseSensitivityCharPredicateTest
         extends CharPredicateTestCase<CaseSensitivityCharPredicate> {
@@ -62,12 +63,12 @@ final public class CaseSensitivityCharPredicateTest
 
     @Test
     public void testToStringCaseSensitive() {
-        Assert.assertEquals("'A'", this.createCharacterPredicate().toString());
+        assertEquals("'A'", this.createCharacterPredicate().toString());
     }
 
     @Test
     public void testToStringCaseInsensitive() {
-        Assert.assertEquals("'A' (CaseInsensitive)",
+        assertEquals("'A' (CaseInsensitive)",
                 this.createCharacterPredicateCaseInsensitive('A').toString());
     }
 

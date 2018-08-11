@@ -17,8 +17,9 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 final public class NeverCharPredicateTest extends CharPredicateTestCase<NeverCharPredicate> {
 
@@ -29,7 +30,7 @@ final public class NeverCharPredicateTest extends CharPredicateTestCase<NeverCha
 
     @Test
     public void testToString() {
-        Assert.assertEquals("<none>", NeverCharPredicate.INSTANCE.toString());
+        assertEquals("<none>", NeverCharPredicate.INSTANCE.toString());
     }
 
     @Test

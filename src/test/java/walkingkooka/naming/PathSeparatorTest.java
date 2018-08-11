@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class PathSeparatorTest extends HashCodeEqualsDefinedTestCase<PathSeparator> {
 
     // constants
@@ -50,16 +52,16 @@ final public class PathSeparatorTest extends HashCodeEqualsDefinedTestCase<PathS
             PathSeparator.requiredAtStart(character);
             Assert.fail();
         } catch (final RuntimeException expected) {
-            Assert.assertEquals(PathSeparator.invalidCharacter(character), expected.getMessage());
+            assertEquals(PathSeparator.invalidCharacter(character), expected.getMessage());
         }
     }
 
     @Test
     public void testRequiredAtStart() {
         final PathSeparator separator = PathSeparator.requiredAtStart(PathSeparatorTest.SEPARATOR);
-        Assert.assertEquals("character", PathSeparatorTest.SEPARATOR, separator.character());
-        Assert.assertEquals("string", String.valueOf(PathSeparatorTest.SEPARATOR), separator.string());
-        Assert.assertEquals("requiredAtStart", PathSeparatorTest.REQUIRED, separator.isRequiredAtStart());
+        assertEquals("character", PathSeparatorTest.SEPARATOR, separator.character());
+        assertEquals("string", String.valueOf(PathSeparatorTest.SEPARATOR), separator.string());
+        assertEquals("requiredAtStart", PathSeparatorTest.REQUIRED, separator.isRequiredAtStart());
     }
 
     @Test
@@ -67,9 +69,9 @@ final public class PathSeparatorTest extends HashCodeEqualsDefinedTestCase<PathS
         final char c = '/';
         final PathSeparator separator = PathSeparator.requiredAtStart(c);
         assertSame(separator, PathSeparator.requiredAtStart(c));
-        Assert.assertEquals("character", c, separator.character());
-        Assert.assertEquals("string", String.valueOf(c), separator.string());
-        Assert.assertEquals("requiredAtStart", PathSeparatorTest.REQUIRED, separator.isRequiredAtStart());
+        assertEquals("character", c, separator.character());
+        assertEquals("string", String.valueOf(c), separator.string());
+        assertEquals("requiredAtStart", PathSeparatorTest.REQUIRED, separator.isRequiredAtStart());
     }
 
     @Test
@@ -92,16 +94,16 @@ final public class PathSeparatorTest extends HashCodeEqualsDefinedTestCase<PathS
             PathSeparator.notRequiredAtStart(character);
             Assert.fail();
         } catch (final RuntimeException expected) {
-            Assert.assertEquals(PathSeparator.invalidCharacter(character), expected.getMessage());
+            assertEquals(PathSeparator.invalidCharacter(character), expected.getMessage());
         }
     }
 
     @Test
     public void testNotRequiredAtStart() {
         final PathSeparator separator = PathSeparator.notRequiredAtStart(PathSeparatorTest.SEPARATOR);
-        Assert.assertEquals("character", PathSeparatorTest.SEPARATOR, separator.character());
-        Assert.assertEquals("string", String.valueOf(PathSeparatorTest.SEPARATOR), separator.string());
-        Assert.assertEquals("requiredAtStart", false, separator.isRequiredAtStart());
+        assertEquals("character", PathSeparatorTest.SEPARATOR, separator.character());
+        assertEquals("string", String.valueOf(PathSeparatorTest.SEPARATOR), separator.string());
+        assertEquals("requiredAtStart", false, separator.isRequiredAtStart());
     }
 
     @Test
@@ -109,14 +111,14 @@ final public class PathSeparatorTest extends HashCodeEqualsDefinedTestCase<PathS
         final char c = '.';
         final PathSeparator separator = PathSeparator.notRequiredAtStart(c);
         assertSame(separator, PathSeparator.notRequiredAtStart(c));
-        Assert.assertEquals("character", c, separator.character());
-        Assert.assertEquals("string", String.valueOf(c), separator.string());
-        Assert.assertEquals("requiredAtStart", false, separator.isRequiredAtStart());
+        assertEquals("character", c, separator.character());
+        assertEquals("string", String.valueOf(c), separator.string());
+        assertEquals("requiredAtStart", false, separator.isRequiredAtStart());
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals(String.valueOf(PathSeparatorTest.SEPARATOR),
+        assertEquals(String.valueOf(PathSeparatorTest.SEPARATOR),
                 PathSeparator.requiredAtStart(PathSeparatorTest.SEPARATOR).toString());
     }
 
