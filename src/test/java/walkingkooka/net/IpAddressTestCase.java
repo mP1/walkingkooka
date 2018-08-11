@@ -21,6 +21,7 @@ package walkingkooka.net;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotSame;
 
 abstract public class IpAddressTestCase<A extends IpAddress> extends HashCodeEqualsDefinedTestCase<A> {
@@ -44,7 +45,7 @@ abstract public class IpAddressTestCase<A extends IpAddress> extends HashCodeEqu
         final byte[] components = new byte[this.bitCount() / 8];
         final A address = this.createAddress(components);
         final byte[] value = address.value();
-        assertEquals("value", components, value);
+        assertArrayEquals("value", components, value);
         assertNotSame("value", components, value);
         assertNotSame("value should not be cached.", components, address.value());
     }
