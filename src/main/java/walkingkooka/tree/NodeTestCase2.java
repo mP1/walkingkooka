@@ -197,9 +197,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     private <T> void checkCached(final N node, final String property, final T value, final T value2) {
-        if (value != value2) {
-            failNotSame(node + " did not cache " + property, value, value2);
-        }
+        assertSame(node + " did not cache " + property, value, value2);
     }
 
     abstract protected N createNode();
