@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetCellTest extends HashCodeEqualsDefinedTestCase<SpreadsheetCell> {
     
@@ -40,8 +41,8 @@ public final class SpreadsheetCellTest extends HashCodeEqualsDefinedTestCase<Spr
         final SpreadsheetColumn column = this.column();
         final SpreadsheetRow row = this.row();
         final SpreadsheetCell cell = SpreadsheetCell.with(column, row);
-        assertSame("column", column(), cell.column());
-        assertSame("row", row(), cell.row());
+        assertSame("column", column, cell.column());
+        assertSame("row", row, cell.row());
     }
 
     @Test

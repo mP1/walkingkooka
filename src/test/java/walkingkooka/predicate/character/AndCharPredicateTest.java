@@ -21,6 +21,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 final public class AndCharPredicateTest extends LogicalCharPredicateTestCase<AndCharPredicate> {
 

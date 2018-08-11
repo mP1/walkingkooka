@@ -25,6 +25,7 @@ import walkingkooka.collect.iterator.Iterators;
 import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class IteratorIterableTest extends IterableTestCase<IteratorIterable<Object>, Object> {
 

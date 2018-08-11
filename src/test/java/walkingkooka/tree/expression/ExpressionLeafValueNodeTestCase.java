@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class ExpressionLeafValueNodeTestCase<N extends ExpressionLeafValueNode<V>, V> extends ExpressionLeafNodeTestCase<N> {
 

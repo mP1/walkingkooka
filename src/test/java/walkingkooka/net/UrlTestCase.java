@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.

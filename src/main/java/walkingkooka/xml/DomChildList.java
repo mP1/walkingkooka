@@ -78,6 +78,8 @@ final class DomChildList extends AbstractList<DomNode> {
                 DomNode node = this.children[i];
                 if(null==node){
                     node = DomNode.wrap(possible);
+                    node.parent = Optional.of(this.parent);
+                    node.index = i;
                     this.children[i]=node;
                 }
                 result = Optional.of(node);

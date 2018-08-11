@@ -25,7 +25,7 @@ final public class ToStringCharPredicateSerializationTest
 
     @Override
     protected ToStringCharPredicate create() {
-        return ToStringCharPredicate.wrap(CharPredicates.is('a'), "fancy toString");
+        return Cast.to(ToStringCharPredicate.wrap(CharPredicates.is('a'), "fancy toString"));
     }
 
     @Override

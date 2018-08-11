@@ -29,6 +29,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,

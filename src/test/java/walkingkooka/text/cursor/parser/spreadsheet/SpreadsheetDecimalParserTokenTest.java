@@ -24,6 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetDecimalParserTokenTest extends SpreadsheetNumericParserTokenTestCase<SpreadsheetDecimalParserToken, BigDecimal> {
 

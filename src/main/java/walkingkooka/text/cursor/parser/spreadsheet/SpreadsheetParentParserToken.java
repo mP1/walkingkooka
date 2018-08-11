@@ -55,7 +55,9 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
                 });
         Lists.array();
 
-        return Optional.of(this.replaceTokens(without));
+        return Optional.of(value.size() == without.size() ?
+                this :
+                this.replaceTokens(without));
     }
 
     @Override

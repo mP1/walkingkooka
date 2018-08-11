@@ -27,6 +27,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class ExpressionUnaryNodeTestCase<N extends ExpressionUnaryNode> extends ExpressionParentFixedNodeTestCase<N> {
 
@@ -61,7 +62,7 @@ public abstract class ExpressionUnaryNodeTestCase<N extends ExpressionUnaryNode>
         this.checkChildren(expression, children);
 
         assertSame("original children", children, expression.children());
-        assertSame("updated children", differentChildren, different.children());
+        assertNotSame("updated children", differentChildren, different.children());
     }
 
     @Test

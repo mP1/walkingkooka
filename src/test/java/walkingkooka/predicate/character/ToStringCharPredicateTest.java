@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStringCharPredicate> {
 
@@ -69,8 +70,8 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     @Test
     public void testWrapPredicate() {
         final ToStringCharPredicate predicate
-                = ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
-                ToStringCharPredicateTest.TOSTRING);
+                = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
+                ToStringCharPredicateTest.TOSTRING));
         assertSame("predicate", ToStringCharPredicateTest.PREDICATE, predicate.predicate);
         assertSame("toString", ToStringCharPredicateTest.TOSTRING, predicate.toString);
     }
@@ -78,8 +79,8 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     @Test
     public void testWrapAnotherToStringCharacterPredicate() {
         final ToStringCharPredicate predicate
-                = ToStringCharPredicate.wrap(ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
-                "different"), ToStringCharPredicateTest.TOSTRING);
+                = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
+                "different"), ToStringCharPredicateTest.TOSTRING));
         assertSame("predicate", ToStringCharPredicateTest.PREDICATE, predicate.predicate);
         assertSame("toString", ToStringCharPredicateTest.TOSTRING, predicate.toString);
     }
@@ -108,8 +109,8 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
 
     @Override
     protected ToStringCharPredicate createCharacterPredicate() {
-        return ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
-                ToStringCharPredicateTest.TOSTRING);
+        return Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
+                ToStringCharPredicateTest.TOSTRING));
     }
 
     @Override

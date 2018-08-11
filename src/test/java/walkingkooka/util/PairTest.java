@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class PairTest extends HashCodeEqualsDefinedTestCase<Pair<?, ?>> {
 

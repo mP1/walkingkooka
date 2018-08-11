@@ -23,6 +23,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {

@@ -94,8 +94,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
 
     @Override
     final ExpressionNode wrap(final int index) {
-        return this.wrap0(index, this.children())
-                .replaceChild(this.parent());
+        return this.wrap0(index, this.children());
     }
 
     abstract ExpressionParentNode wrap0(final int index, final List<ExpressionNode> children);

@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedParserToken> {
 
@@ -112,7 +113,6 @@ public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedP
 
             @Override
             protected void endVisit(final ParserToken t) {
-                assertSame(token, t);
                 b.append("2");
                 visited.add(t);
             }

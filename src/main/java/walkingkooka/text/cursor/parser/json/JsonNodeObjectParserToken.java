@@ -42,12 +42,16 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken {
 
     private JsonNodeObjectParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
         super(value, text, valueWithout);
+        this.checkKeys(text);
+    }
 
-        if(null!=valueWithout){
+    private void checkKeys(final String text) {
+        final List<ParserToken> without = this.valueIfWithoutSymbolsOrWhitespaceOrNull();
+        if(null!=without) {
             int i = 0;
             JsonNodeParserToken j = null;
 
-            for(ParserToken t : this.value()) {
+            for(ParserToken t : without) {
                 j = JsonNodeParserToken.class.cast(t);
                 if((i&1) == 0) {
                     if(!j.isString()) {

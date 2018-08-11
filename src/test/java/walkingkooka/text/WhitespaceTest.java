@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 
+import static org.junit.Assert.assertSame;
+
 final public class WhitespaceTest extends HashCodeEqualsDefinedTestCase<Whitespace> {
 
     @Test

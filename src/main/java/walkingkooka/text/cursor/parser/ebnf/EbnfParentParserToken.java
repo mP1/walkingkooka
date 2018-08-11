@@ -44,7 +44,9 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements Value<Li
                 .filter(t -> !t.isNoise())
                 .collect(Collectors.toList());
 
-        return Optional.of(this.replaceTokens(without));
+        return Optional.of(value.size()==without.size() ?
+                this :
+                this.replaceTokens(without));
     }
 
     final void checkOnlyOneToken() {

@@ -22,6 +22,9 @@ import org.junit.Test;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
 /**
  * Base class for any tests involving a {@link CharPredicate} including helpers to invoke andassert
  * {@link CharPredicate#test(char)} results.
@@ -47,7 +50,7 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
     @Test
     public void testNotNot() {
         final P predicate = this.createCharacterPredicate();
-        assertSame(predicate, predicate.negate().negate());
+        assertEquals(predicate, predicate.negate().negate());
     }
 
     @Test

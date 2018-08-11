@@ -25,6 +25,7 @@ import walkingkooka.text.CharSequences;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class UrlPathNameTest extends NameTestCase<UrlPathName> {
 

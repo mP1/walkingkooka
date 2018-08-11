@@ -26,6 +26,7 @@ import walkingkooka.tree.expression.ExpressionNode;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetCellParserToken> {
 
@@ -59,7 +60,7 @@ public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParse
         this.checkValue(cell, row, column);
         assertEquals("cell", SpreadsheetCell.with(column.value(), row.value()), cell.cell());
 
-        assertSame(cell, cell.withoutSymbolsOrWhitespace());
+        assertSame(cell, cell.withoutSymbolsOrWhitespace().get());
     }
 
     @Test

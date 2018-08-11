@@ -18,10 +18,10 @@
 package walkingkooka.text.cursor;
 
 import org.junit.Test;
-import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 abstract public class TextCursorTestCase<C extends TextCursor> extends TextCursorPackageTestCase<C> {
 
@@ -65,7 +65,7 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
     @Test
     public void testNext() {
         final C cursor = this.createTextCursor("123");
-        TestCase.assertSame("cursor didnt return this", cursor, cursor.next());
+        assertSame("cursor didnt return this", cursor, cursor.next());
     }
 
     @Test
@@ -137,7 +137,7 @@ abstract public class TextCursorTestCase<C extends TextCursor> extends TextCurso
     @Test
     public void testEnd() {
         final TextCursor cursor = this.createTextCursor("1234567890");
-        TestCase.assertSame("cursor didnt return this", cursor, cursor.end());
+        assertSame("cursor didnt return this", cursor, cursor.end());
         this.checkEmpty(cursor);
     }
 

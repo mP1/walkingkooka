@@ -24,6 +24,7 @@ import walkingkooka.build.BuilderTestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class CharPredicateBuilderTest
         extends BuilderTestCase<CharPredicateBuilder, CharPredicate> {

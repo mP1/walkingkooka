@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<FakeParserContext>,
         RepeatedParserToken> {

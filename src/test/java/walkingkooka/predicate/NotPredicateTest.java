@@ -24,6 +24,7 @@ import walkingkooka.Cast;
 import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String> {
 

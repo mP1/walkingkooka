@@ -48,7 +48,7 @@ public final class MissingParserToken extends ParserTemplateToken<ParserTokenNod
 
     @Override
     public ParserTokenNodeName name() {
-        return NAME;
+        return this.value();
     }
 
     @Override

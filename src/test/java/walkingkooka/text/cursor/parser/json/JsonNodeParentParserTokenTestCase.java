@@ -26,6 +26,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParentParserToken> extends JsonNodeParserTokenTestCase<T> {
 
@@ -49,7 +50,7 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
         assertEquals("tokens", tokens, token.value());
-        assertSame("tokens not copied", tokens, token.value());
+        assertEquals("tokens not copied", tokens, token.value());
     }
 
     @Test
@@ -62,7 +63,7 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
     @Test
     public final void testWithoutSymbolsOrWhitespaceDoubleSame() {
         final T token = this.createToken();
-        assertSame(token, token.withoutSymbolsOrWhitespace().get());
+        assertSame(token.withoutSymbolsOrWhitespace(), token.withoutSymbolsOrWhitespace());
     }
 
     @Test

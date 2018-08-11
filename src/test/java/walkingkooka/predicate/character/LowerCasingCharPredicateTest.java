@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class LowerCasingCharPredicateTest
         extends CharPredicateTestCase<LowerCasingCharPredicate> {

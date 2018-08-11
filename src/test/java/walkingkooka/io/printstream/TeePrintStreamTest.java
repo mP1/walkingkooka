@@ -29,6 +29,7 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream> {
     // constants

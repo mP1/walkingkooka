@@ -26,6 +26,7 @@ import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, Object> {
 

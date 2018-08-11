@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.collect.list.Lists;
 
+import static org.junit.Assert.assertSame;
+
 /**
  * Base class for any {@link ChainBuilder} that includes mostly parameter check tests
  */

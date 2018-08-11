@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 import walkingkooka.Cast;
 
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class DomTextNodeTestCase<N extends DomTextNode> extends DomLeafNodeTestCase<N> {
 

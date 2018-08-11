@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.text.LineEnding;
 
+import static org.junit.Assert.assertSame;
+
 final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<WhitespaceCleaningPrinter> {
 
     // constants

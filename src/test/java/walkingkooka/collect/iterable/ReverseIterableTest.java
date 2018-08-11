@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<String>, String> {
 

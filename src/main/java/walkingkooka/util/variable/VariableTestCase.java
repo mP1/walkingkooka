@@ -23,6 +23,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
+import static org.junit.Assert.assertSame;
+
 /**
  * Base class for testing a {@link Variable}.
  */

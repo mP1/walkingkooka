@@ -21,6 +21,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class AtomicReferenceVariableTest extends VariableTestCase<AtomicReferenceVariable<Object>, Object> {
 

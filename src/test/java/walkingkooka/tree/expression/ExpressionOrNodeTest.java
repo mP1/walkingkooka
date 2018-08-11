@@ -25,6 +25,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class ExpressionOrNodeTest extends ExpressionBinaryNodeTestCase<ExpressionOrNode>{
 

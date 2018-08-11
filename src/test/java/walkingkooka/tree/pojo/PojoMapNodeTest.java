@@ -30,6 +30,7 @@ import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNode, Map<Object, Object>> {
 
@@ -142,7 +143,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         this.childrenValuesCheck(childNode2, children2);
 
         final PojoNode parentNode2 = childNode2.parent().get();
-        assertSame(parentNode, parentNode2);
+        assertNotSame(parentNode, parentNode2);
 
         this.childrenValuesCheck(parentNode2, Lists.of(
                 entry(KEY0, new TestMutableLeaf(STRING2)),
@@ -212,7 +213,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         this.childrenValuesCheck(childNode2, children2);
 
         final PojoNode parentNode2 = childNode2.parent().get();
-        assertSame(parentNode, parentNode2);
+        assertNotSame(parentNode, parentNode2);
 
         this.childrenValuesCheck(parentNode2, Lists.of(
                 entry(KEY0, new TestMutableLeaf(STRING2)),

@@ -269,19 +269,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
 
     int index;
 
-    /**
-     * Would be setter that returns an instance with the index, creating a new instance if necessary.
-     */
-    final ExpressionNode setIndex(final int index) {
-        return this.index == index ?
-                this :
-                this.replaceIndex(index);
-    }
-
-    private ExpressionNode replaceIndex(final int index) {
-        return this.wrap(index);
-    }
-
     abstract ExpressionNode wrap(final int index);
 
     // attributes.......................................................................................................

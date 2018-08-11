@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.test.TestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.

@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class LabelledVariableTest extends VariableTestCase<LabelledVariable<Object>, Object> {
 

@@ -25,6 +25,7 @@ import walkingkooka.predicate.Predicates;
 import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class AbsoluteNodeSelectorTest extends
         UnaryNodeSelectorTestCase<AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object>> {

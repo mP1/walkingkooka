@@ -30,6 +30,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetFunctionParserToken> {
 
@@ -46,7 +47,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         final SpreadsheetFunctionNameParserToken name = this.function();
         final SpreadsheetFunctionParserToken token = this.createToken(text, name, this.number1());
         this.checkText(token, text);
-        assertSame(token, token.withoutSymbolsOrWhitespace());
+        assertSame(token, token.withoutSymbolsOrWhitespace().get());
     }
 
     @Test

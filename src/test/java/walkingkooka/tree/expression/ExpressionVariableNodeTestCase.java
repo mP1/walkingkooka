@@ -26,6 +26,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariableNode> extends  ExpressionParentNodeTestCase<N> {
 
@@ -72,7 +73,7 @@ public abstract class ExpressionVariableNodeTestCase<N extends ExpressionVariabl
         this.checkChildren(expression, children);
 
         assertSame("original children", children, expression.children());
-        assertSame("updated children", differentChildren, different.children());
+        assertNotSame("updated children", differentChildren, different.children());
     }
 
     @Test

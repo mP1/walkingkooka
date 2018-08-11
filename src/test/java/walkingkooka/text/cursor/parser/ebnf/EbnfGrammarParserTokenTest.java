@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestCase<EbnfGrammarParserToken> {
 
@@ -86,7 +87,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
 
             @Override
             protected void visit(final EbnfIdentifierParserToken t) {
-                assertSame(range, t);
+                assertSame(identifier, t);
                 b.append("5");
                 visited.add(t);
             }
@@ -108,7 +109,6 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
 
             @Override
             protected void visit(final EbnfSymbolParserToken t) {
-                assertSame(range, t);
                 b.append("8");
                 visited.add(t);
             }
