@@ -21,6 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
+import static org.junit.Assert.assertNotEquals;
+
 public final class SequenceParserTokenNodeListTest extends PackagePrivateClassTestCase<SequenceParserTokenNodeList> {
 
     private final static StringParserToken STRING1 = string("a1");

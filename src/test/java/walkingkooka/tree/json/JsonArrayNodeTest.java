@@ -28,6 +28,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 

@@ -23,6 +23,7 @@ import walkingkooka.naming.Name;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
 abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,

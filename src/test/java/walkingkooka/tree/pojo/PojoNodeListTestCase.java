@@ -22,6 +22,8 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
+
 public abstract class PojoNodeListTestCase<L extends List<E>, E> extends PackagePrivateClassTestCase<L> {
 
     @Test

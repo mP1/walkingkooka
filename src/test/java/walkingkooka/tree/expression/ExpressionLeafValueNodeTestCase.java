@@ -21,6 +21,7 @@ package walkingkooka.tree.expression;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
 public abstract class ExpressionLeafValueNodeTestCase<N extends ExpressionLeafValueNode<V>, V> extends ExpressionLeafNodeTestCase<N> {

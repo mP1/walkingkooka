@@ -23,6 +23,8 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
+
 public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParserTokenTestCase<T> {
 
     final static String COMMENT1 = "(*comment-1*)";

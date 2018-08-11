@@ -20,6 +20,8 @@ package walkingkooka.collect.stack;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
+import static org.junit.Assert.assertNotEquals;
+
 final public class UnreadableStackEqualityTest
         extends HashCodeEqualsDefinedEqualityTestCase<UnreadableStack<Object>> {
 

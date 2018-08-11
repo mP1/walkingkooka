@@ -22,6 +22,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
 public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends JsonNodeTestCase<N> {

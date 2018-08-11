@@ -21,6 +21,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertNotEquals;
+
 final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPredicate> {
 
     // constants
