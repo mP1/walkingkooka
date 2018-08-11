@@ -28,6 +28,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetGroupParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetGroupParserToken> {
 
@@ -46,7 +47,7 @@ public final class SpreadsheetGroupParserTokenTest extends SpreadsheetParentPars
         final String text = "(" + NUMBER1 + ")";
         final SpreadsheetGroupParserToken token = this.createToken(text, this.number1());
         this.checkText(token, text);
-        assertSame(token, token.withoutSymbolsOrWhitespace());
+        assertSame(token, token.withoutSymbolsOrWhitespace().get());
     }
 
     @Test

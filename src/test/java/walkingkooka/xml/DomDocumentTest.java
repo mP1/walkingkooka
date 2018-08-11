@@ -38,6 +38,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
 
@@ -712,7 +713,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
         final DomDocument document2 = document.appendChild(
                 document.createElement(DomName.element("root"))
                 .appendChild( document.createText(TEXT)));
-        assertSame(document, document.setElement(document2.element()));
+        assertSame(document2, document2.setElement(document2.element()));
     }
 
     @Test

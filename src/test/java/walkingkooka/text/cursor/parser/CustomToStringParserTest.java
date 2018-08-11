@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, FakeParserContext>, StringParserToken>{
 
@@ -76,7 +77,7 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
 
     @Test
     public void testDefaultMethodSetToStringCustomToString() {
-        assertSame(CUSTOM_TO_STRING,  this.createParser().setToString(CUSTOM_TO_STRING));
+        assertSame(CUSTOM_TO_STRING,  this.createParser().setToString(CUSTOM_TO_STRING).toString());
     }
 
     @Test

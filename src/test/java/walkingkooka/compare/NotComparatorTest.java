@@ -25,6 +25,7 @@ import walkingkooka.predicate.Notable;
 import java.util.Comparator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Object>, Object> {
 

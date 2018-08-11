@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class ExpressionBooleanNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionBooleanNode, Boolean>{
 

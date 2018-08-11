@@ -25,6 +25,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParserTokenTestCase<T> {
 
@@ -53,7 +54,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
         this.checkValue(token, tokens);
-        assertSame("tokens not copied", tokens, token.value());
+        assertEquals("tokens not copied", tokens, token.value());
     }
 
     @Test
@@ -66,7 +67,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
     @Test
     public void testWithoutCommentsSymbolsOrWhitespaceDoubleSame() {
         final T token = this.createToken();
-        assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
+        assertSame(token.withoutCommentsSymbolsOrWhitespace(), token.withoutCommentsSymbolsOrWhitespace());
     }
 
     @Test

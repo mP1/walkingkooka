@@ -20,6 +20,7 @@ package walkingkooka.predicate.character;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysCharPredicate> {
 

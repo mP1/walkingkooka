@@ -24,6 +24,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTestCase;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class IndentationTest extends HashCodeEqualsDefinedTestCase<Indentation> {
 

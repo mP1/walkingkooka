@@ -23,6 +23,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNode> extends ExpressionNodeTestCase<N> {
 

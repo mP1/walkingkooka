@@ -24,6 +24,8 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCase<EbnfRangeParserToken> {
 
@@ -116,7 +118,7 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     @Test
     public void testWithoutCommentsSymbolsOrWhitespace() {
         final EbnfRangeParserToken token = this.createToken();
-        assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
+        assertNotSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
 
     @Test
@@ -173,7 +175,6 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
 
             @Override
             protected void visit(final EbnfSymbolParserToken t) {
-                assertSame(range, t);
                 b.append("7");
                 visited.add(t);
             }

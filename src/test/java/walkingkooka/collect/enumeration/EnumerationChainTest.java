@@ -27,6 +27,7 @@ import java.util.NoSuchElementException;
 import java.util.Vector;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class EnumerationChainTest
         extends EnumerationTestCase<EnumerationChain<String>, String> {

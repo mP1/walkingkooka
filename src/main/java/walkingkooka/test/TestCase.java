@@ -157,16 +157,6 @@ abstract public class TestCase {
         return new String(this.resourceAsBytes(source, resource));
     }
 
-    public static void assertSame(final Object expected, final Object actual) {
-        assertSame(null, expected, actual);
-    }
-
-    public static void assertSame(final String message, final Object expected, final Object actual) {
-        if (expected != actual) {
-            failNotSame(message, expected, actual);
-        }
-    }
-
     public static void failNotSame(final Object expected, final Object actual) {
         failNotSame(null, expected, actual);
     }

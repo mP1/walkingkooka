@@ -21,6 +21,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 
+import static org.junit.Assert.assertSame;
+
 public abstract class LogicalNodeSelectorTestCase<S extends LogicalNodeSelector<TestFakeNode, StringName, StringName, Object>>
 extends NodeSelectorTestCase<S>{
 

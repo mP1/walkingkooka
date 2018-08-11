@@ -284,7 +284,7 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
      * Would setter that returns a {@link PojoNode} with the new value creating a new node if necessary.
      */
     public final PojoNode setValue(final Object value) {
-        return Objects.equals(this.value(), value) ?
+        return Objects.deepEquals(this.value(), value) ?
                 this :
                 PojoNode.wrap0(this.name(),
                         value,

@@ -18,6 +18,7 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 final public class ToStringCharPredicateEqualityTest
@@ -45,7 +46,7 @@ final public class ToStringCharPredicateEqualityTest
 
     @Override
     protected ToStringCharPredicate createObject() {
-        return ToStringCharPredicate.wrap(ToStringCharPredicateEqualityTest.PREDICATE,
-                ToStringCharPredicateEqualityTest.TOSTRING);
+        return Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicateEqualityTest.PREDICATE,
+                ToStringCharPredicateEqualityTest.TOSTRING));
     }
 }

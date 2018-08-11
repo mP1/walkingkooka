@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
+import static org.junit.Assert.assertSame;
+
 final public class WriterPrinterTest extends PrinterTestCase<WriterPrinter> {
 
     // constants

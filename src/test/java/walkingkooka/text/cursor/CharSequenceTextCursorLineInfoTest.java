@@ -18,11 +18,11 @@
 package walkingkooka.text.cursor;
 
 import org.junit.Test;
-import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfoTestCase<CharSequenceTextCursorLineInfo> {
 
@@ -41,7 +41,7 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     public void testWith() {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo
                 .with(CharSequenceTextCursorLineInfoTest.TEXT, CharSequenceTextCursorLineInfoTest.POS);
-        TestCase.assertSame("text", CharSequenceTextCursorLineInfoTest.TEXT, info.text);
+        assertSame("text", CharSequenceTextCursorLineInfoTest.TEXT, info.text);
         assertEquals("pos", CharSequenceTextCursorLineInfoTest.POS, info.pos);
         assertNull("lineAndColumn", info.lineAndColumn);
     }

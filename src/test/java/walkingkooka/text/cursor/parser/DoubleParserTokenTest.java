@@ -21,6 +21,7 @@ import org.junit.Test;
 import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class DoubleParserTokenTest extends ParserTokenTestCase<DoubleParserToken> {
 

@@ -81,6 +81,12 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
 
     @Test
     @Ignore
+    public void testSubSequenceWithSameFromAndToReturnsThis() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
     public void testEmptySubSequence2() {
         //nop
     }
@@ -106,6 +112,12 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         chars.charAt(3);
         assertEquals("abcde", chars.toString());
+    }
+
+    @Test
+    @Ignore
+    public void testToStringCached() {
+        throw new UnsupportedOperationException();
     }
 
     @Override protected ReaderConsumingCharSequence createCharSequence() {

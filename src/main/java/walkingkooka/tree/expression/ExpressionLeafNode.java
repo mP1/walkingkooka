@@ -35,8 +35,7 @@ abstract class ExpressionLeafNode extends ExpressionNode {
 
     @Override
     final ExpressionNode wrap(final int index) {
-        return this.wrap0(index)
-                .replaceChild(this.parent());
+        return this.wrap0(index);
     }
 
     abstract ExpressionLeafValueNode wrap0(final int index);

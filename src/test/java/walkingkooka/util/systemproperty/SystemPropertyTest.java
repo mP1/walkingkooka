@@ -23,6 +23,7 @@ import walkingkooka.test.PublicClassTestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class SystemPropertyTest extends PublicClassTestCase<SystemProperty> {
 

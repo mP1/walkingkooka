@@ -36,6 +36,6 @@ final public class CharPredicateCharSequencePredicateSerializationTest
 
     @Override
     protected boolean isSingleton() {
-        return true;
+        return false;
     }
 }

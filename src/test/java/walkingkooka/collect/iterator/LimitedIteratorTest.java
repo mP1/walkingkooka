@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<String>, String> {
 

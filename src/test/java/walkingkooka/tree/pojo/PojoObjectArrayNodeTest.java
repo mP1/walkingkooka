@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class PojoObjectArrayNodeTest extends PojoArrayNodeTestCase<PojoObjectArrayNode, Object[]> {
 

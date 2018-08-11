@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceParserToken> {
 
@@ -151,7 +152,7 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test
     public void testRemovingMissingNone() {
-        final SequenceParserToken token = this.createToken();
+        final SequenceParserToken token = sequence(STRING1, STRING2);
         assertSame(token, token.removeMissing());
     }
 
@@ -168,7 +169,7 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test
     public void testRemovingNoiseNone() {
-        final SequenceParserToken token = this.createToken();
+        final SequenceParserToken token = sequence(STRING1, STRING2);
         assertSame(token, token.removeNoise());
     }
 
@@ -229,7 +230,6 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
             @Override
             protected void endVisit(final ParserToken t) {
-                assertSame(token, t);
                 b.append("2");
                 visited.add(t);
             }

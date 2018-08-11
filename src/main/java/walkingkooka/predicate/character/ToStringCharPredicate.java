@@ -17,6 +17,7 @@
 
 package walkingkooka.predicate.character;
 
+import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 
@@ -32,20 +33,26 @@ final class ToStringCharPredicate implements CharPredicate, HashCodeEqualsDefine
     /**
      * Creates a new {@link ToStringCharPredicate}
      */
-    static ToStringCharPredicate wrap(final CharPredicate predicate, final String toString) {
+    static CharPredicate wrap(final CharPredicate predicate, final String toString) {
         Objects.requireNonNull(predicate, "predicate");
         Whitespace.failIfNullOrWhitespace(toString, "toString");
 
-        return new ToStringCharPredicate(predicate instanceof ToStringCharPredicate ?
-                ToStringCharPredicate.unwrap(predicate) :
-                predicate, toString);
+        return predicate.toString().equals(toString) ?
+               predicate :
+               new ToStringCharPredicate(unwrapIfNecessary(predicate), toString);
     }
 
     /**
      * Returns the wrapped {@link CharPredicate}.
      */
-    private static CharPredicate unwrap(final CharPredicate predicate) {
-        return ((ToStringCharPredicate) predicate).predicate;
+    private static CharPredicate unwrapIfNecessary(final CharPredicate predicate) {
+        return predicate instanceof ToStringCharPredicate ?
+               unwrap(Cast.to(predicate)) :
+               predicate;
+    }
+
+    private static CharPredicate unwrap(final ToStringCharPredicate predicate) {
+        return predicate.predicate;
     }
 
     /**

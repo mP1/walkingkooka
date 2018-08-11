@@ -22,6 +22,7 @@ import walkingkooka.test.SerializationTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 
 final public class StringPathSerializationTest extends SerializationTestCase<StringPath> {
 
@@ -38,7 +39,7 @@ final public class StringPathSerializationTest extends SerializationTestCase<Str
         assertEquals("/one/two", parent.value());
 
         assertFalse(parent.isRoot());
-        assertSame(parent, path.parent());
+        assertSame(parent, path.parent().get());
         assertEquals(StringName.with("two"), parent.name());
 
         final StringPath grandParent = parent.parent().get();
@@ -46,7 +47,7 @@ final public class StringPathSerializationTest extends SerializationTestCase<Str
         assertFalse(grandParent.isRoot());
         assertEquals(StringName.with("one"), grandParent.name());
 
-        assertSame(StringPath.ROOT, grandParent.parent());
+        assertSame(StringPath.ROOT, grandParent.parent().get());
     }
 
     @Override

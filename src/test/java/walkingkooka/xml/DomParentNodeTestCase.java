@@ -18,9 +18,9 @@
 package walkingkooka.xml;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class DomParentNodeTestCase<N extends DomParentNode> extends DomNodeTestCase<N> {
 
@@ -35,7 +35,7 @@ public abstract class DomParentNodeTestCase<N extends DomParentNode> extends Dom
         final List<DomNode> children= parent.children();
         for(int i = 0; i <count; i++) {
             final DomNode child = children.get(i);
-            assertSame("child of "+ label+ " has wrong parent", Optional.of(parent), child.parent());
+            assertSame("child of "+ label+ " has wrong parent", parent, child.parent().get());
             if(null!=parentNode) {
                 assertSame("parent node of child is wrong", parentNode, child.node.getParentNode());
             }

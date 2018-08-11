@@ -24,6 +24,8 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfRuleParserToken> {
 
@@ -45,7 +47,7 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
     @Test
     public void testWithoutCommentsSymbolsOrWhitespace() {
         final EbnfRuleParserToken token = this.createToken();
-        assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
+        assertNotSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
 
     @Test
@@ -54,7 +56,7 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
         final List<ParserToken> visited = Lists.array();
 
 
-        final EbnfRuleParserToken range = this.createToken();
+        final EbnfRuleParserToken rule = this.createToken();
         final EbnfIdentifierParserToken identifier = this.identifier1();
         final EbnfSymbolParserToken assignment = this.assignment();
         final EbnfTerminalParserToken terminal = this.terminal1();
@@ -89,14 +91,14 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
 
             @Override
             protected void visit(final EbnfIdentifierParserToken t) {
-                assertSame(range, t);
+                assertEquals(identifier, t);
                 b.append("5");
                 visited.add(t);
             }
 
             @Override
             protected Visiting startVisit(final EbnfRuleParserToken t) {
-                assertSame(range, t);
+                assertSame(rule, t);
                 b.append("6");
                 visited.add(t);
                 return Visiting.CONTINUE;
@@ -104,14 +106,13 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
 
             @Override
             protected void endVisit(final EbnfRuleParserToken t) {
-                assertSame(range, t);
+                assertSame(rule, t);
                 b.append("7");
                 visited.add(t);
             }
 
             @Override
             protected void visit(final EbnfSymbolParserToken t) {
-                assertSame(range, t);
                 b.append("8");
                 visited.add(t);
             }
@@ -121,15 +122,15 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
                 b.append("9");
                 visited.add(t);
             }
-        }.accept(range);
+        }.accept(rule);
         assertEquals("13613542138421394213842742", b.toString());
         assertEquals("visited",
-                Lists.of(range, range, range,
+                Lists.of(rule, rule, rule,
                         identifier, identifier, identifier, identifier, identifier,
                         assignment, assignment, assignment, assignment, assignment,
                         terminal, terminal, terminal, terminal, terminal,
                         terminator, terminator, terminator, terminator, terminator,
-                        range, range, range),
+                        rule, rule, rule),
                 visited);
     }
 

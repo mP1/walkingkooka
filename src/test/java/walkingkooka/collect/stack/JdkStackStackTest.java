@@ -27,6 +27,7 @@ import java.util.EmptyStackException;
 import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>, Object> {
 

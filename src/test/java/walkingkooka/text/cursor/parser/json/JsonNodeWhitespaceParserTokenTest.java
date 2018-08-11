@@ -24,6 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class JsonNodeWhitespaceParserTokenTest extends JsonNodeLeafParserTokenTestCase<JsonNodeWhitespaceParserToken, String> {
 

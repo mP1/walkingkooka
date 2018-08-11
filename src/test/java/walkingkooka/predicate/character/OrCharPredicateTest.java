@@ -20,6 +20,8 @@ package walkingkooka.predicate.character;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import static org.junit.Assert.assertSame;
+
 final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCharPredicate> {
 
     private final static CharPredicate PREDICATE = CharPredicates.is('s');

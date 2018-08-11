@@ -33,6 +33,7 @@ import walkingkooka.type.MethodAttributes;
 import java.lang.reflect.Method;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2<JsonNode, JsonNodeName, Name, Object> {
 

@@ -21,6 +21,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class EbnfWhitespaceParserTokenTest extends EbnfLeafParserTokenTestCase<EbnfWhitespaceParserToken, String> {
 

@@ -26,6 +26,8 @@ import walkingkooka.type.MemberVisibility;
 import java.lang.reflect.Field;
 import java.util.Set;
 
+import static org.junit.Assert.assertSame;
+
 final public class SystemPropertyConstantsTest extends ConstantsTestCase<SystemProperty> {
 
     @Test
@@ -40,7 +42,11 @@ final public class SystemPropertyConstantsTest extends ConstantsTestCase<SystemP
             if (false == SystemProperty.class.equals(field.getType())) {
                 continue;
             }
-            final String name = field.getName().toLowerCase().replace("_", ".");
+            final String fieldName = field.getName();
+            if(fieldName.equals("FILE_SYSTEM_CASE_SENSITIVITY")){
+                continue;
+            }
+            final String name = fieldName.toLowerCase().replace("_", ".");
             final SystemProperty property = SystemProperty.class.cast(field.get(null));
             assertSame(property, SystemProperty.get(name));
         }

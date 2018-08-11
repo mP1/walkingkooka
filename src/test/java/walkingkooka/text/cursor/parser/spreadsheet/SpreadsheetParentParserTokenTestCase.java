@@ -26,6 +26,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class SpreadsheetParentParserTokenTestCase<T extends SpreadsheetParentParserToken> extends SpreadsheetParserTokenTestCase<T> {
 
@@ -54,7 +55,7 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
         assertEquals("tokens", tokens, token.value());
-        assertSame("tokens not copied", tokens, token.value());
+        assertEquals("tokens not copied", tokens, token.value());
     }
 
     @Test
@@ -67,7 +68,7 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
     @Test
     public void testWithoutSymbolsOrWhitespaceDoubleSame() {
         final T token = this.createToken();
-        assertSame(token, token.withoutSymbolsOrWhitespace().get());
+        assertSame(token.withoutSymbolsOrWhitespace().get(), token.withoutSymbolsOrWhitespace().get());
     }
 
     abstract T createToken(final String text, final List<ParserToken> tokens);

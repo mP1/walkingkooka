@@ -24,6 +24,7 @@ import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class UrlSchemeTest extends NameTestCase<UrlScheme> {
 

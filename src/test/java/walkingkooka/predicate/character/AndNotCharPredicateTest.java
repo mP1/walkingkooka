@@ -20,30 +20,13 @@ import org.junit.Test;
 import walkingkooka.Cast;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 final public class AndNotCharPredicateTest extends LogicalCharPredicateTestCase<AndNotCharPredicate> {
 
     private final static CharPredicate PREDICATE = CharPredicates.is('a');
 
     // tests
-
-    @Test
-    public void testWrapWithLeftAlways() {
-        final CharPredicate always = CharPredicates.always();
-        assertSame(PREDICATE, AndNotCharPredicate.wrap(always, PREDICATE));
-    }
-
-    @Test
-    public void testWrapWithRightAlways() {
-        final CharPredicate always = CharPredicates.always();
-        assertSame(PREDICATE, AndNotCharPredicate.wrap(PREDICATE, always));
-    }
-
-    @Test
-    public void testWrapWithLeftNever() {
-        final CharPredicate never = CharPredicates.never();
-        assertSame(never, AndNotCharPredicate.wrap(never, PREDICATE));
-    }
 
     @Test
     public void testWrapWithSame() {

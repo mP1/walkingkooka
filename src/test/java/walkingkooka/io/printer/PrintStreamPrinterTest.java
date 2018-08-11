@@ -27,6 +27,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import static org.junit.Assert.assertSame;
+
 final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPrinter> {
 
     // constants

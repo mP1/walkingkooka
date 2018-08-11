@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class PojoNodeTestCase2<N extends PojoNode2, V> extends PojoNodeTestCase<N, V>{
 

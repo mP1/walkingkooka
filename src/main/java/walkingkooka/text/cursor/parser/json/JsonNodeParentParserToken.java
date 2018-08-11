@@ -45,7 +45,9 @@ abstract class JsonNodeParentParserToken extends JsonNodeParserToken implements 
              .filter(t -> !t.isNoise())
              .collect(Collectors.toList());
 
-        return Optional.of(this.replaceTokens(without));
+        return Optional.of(value.size() == without.size() ?
+                this:
+                this.replaceTokens(without));
     }
 
     @Override

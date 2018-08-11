@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.LineEnding;
 
+import static org.junit.Assert.assertSame;
+
 final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
 
     // constants

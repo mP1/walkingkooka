@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCase<PojoNode, PojoName, PojoNodeAttributeName, Object> {
 

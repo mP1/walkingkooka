@@ -22,6 +22,7 @@ import walkingkooka.test.SerializationTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 final public class PropertiesPathSerializationTest extends SerializationTestCase<PropertiesPath> {
@@ -34,7 +35,7 @@ final public class PropertiesPathSerializationTest extends SerializationTestCase
         assertEquals("one.two", parent.value());
 
         assertFalse(parent.isRoot());
-        assertSame(parent, path.parent());
+        assertSame(parent, path.parent().get());
         assertEquals(PropertiesName.with("two"), parent.name());
 
         final PropertiesPath grandParent = parent.parent().get();

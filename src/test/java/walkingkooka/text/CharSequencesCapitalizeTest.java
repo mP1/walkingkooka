@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.test.StaticMethodTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class CharSequencesCapitalizeTest extends StaticMethodTestCase {
 

@@ -42,6 +42,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<DomNode, DomName, DomAttributeName, String> {
 

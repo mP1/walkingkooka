@@ -26,6 +26,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import java.util.List;
 
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class SpreadsheetBinaryParserTokenTestCase<T extends SpreadsheetBinaryParserToken> extends SpreadsheetParentParserTokenTestCase<T> {
 
@@ -63,9 +64,9 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
         final SpreadsheetParserToken right = this.rightToken();
 
         final String text = left.text() + operator.text() + right.text();
-        final T token = this.createToken(text, left, operator, right);
+        final T token = this.createToken(text, left, right);
         this.checkText(token, text);
-        this.checkValue(token, left, operator, right);
+        this.checkValue(token, left, right);
 
         assertSame(token, token.withoutSymbolsOrWhitespace().get());
     }
