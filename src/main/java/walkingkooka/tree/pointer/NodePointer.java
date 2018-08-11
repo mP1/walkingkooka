@@ -219,6 +219,18 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     private final NodePointer<N, NAME, ANAME, AVALUE> next;
 
     /**
+     * Tests if this is a absolute pointer, basically the opposite of {@link #isRelative()}
+     */
+    public final boolean isAbsolute() {
+        return !this.isRelative();
+    }
+
+    /**
+     * Tests if this is a relative pointer.
+     */
+    abstract public boolean isRelative();
+
+    /**
      * Return the full node pointer string.
      */
     @Override

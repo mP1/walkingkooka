@@ -66,6 +66,11 @@ final class NoneNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
     }
 
     @Override
+    public final boolean isRelative(){
+        return false;
+    }
+
+    @Override
     final void toString0(final StringBuilder b) {
         b.append(this.toString);
     }

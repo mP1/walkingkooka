@@ -63,6 +63,11 @@ final class NodeChildElementNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, 
     private final int index;
 
     @Override
+    public final boolean isRelative(){
+        return false;
+    }
+
+    @Override
     final void toString0(final StringBuilder b) {
         b.append(SEPARATOR.character());
         b.append(this.index);
