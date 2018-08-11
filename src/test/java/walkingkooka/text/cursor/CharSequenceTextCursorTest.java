@@ -17,10 +17,11 @@
 
 package walkingkooka.text.cursor;
 
+import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.TestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSequenceTextCursor> {
 
@@ -128,7 +129,20 @@ final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSeq
 
     private void checkToStringContains(final CharSequenceTextCursor cursor, final String... components) {
         final String toString = cursor.toString();
-        TestCase.assertContains(toString, components);
+        checkContains(toString, components);
+    }
+
+    private void checkContains(final String string, final String... contains) {
+        assertNotNull(string);
+        String s = string;
+
+        for (final String c : contains) {
+            final int foundIndex = s.indexOf(c);
+            if (-1 == foundIndex) {
+                Assert.fail("Cannot find \"" + c + "\" within \"" + string + "\".");
+            }
+            s = s.substring(0, foundIndex) + s.substring(foundIndex + c.length());
+        }
     }
 
     @Override
