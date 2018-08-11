@@ -22,8 +22,11 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -71,6 +74,44 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
     }
     
     // toString.......................................................................................................
+
+    @Test
+    public void testToStringRelative() {
+        assertEquals("1",
+                NodePointer.relative(1, JsonNode.class)
+                        .toString());
+    }
+
+    @Test
+    public void testToStringRelativeHash() {
+        assertEquals("1#",
+                NodePointer.relativeHash(1, JsonNode.class)
+                        .toString());
+    }
+
+    @Test
+    public void testToStringRelativeIndex() {
+        assertEquals("1/23",
+                NodePointer.relative(1, JsonNode.class)
+                        .index(23)
+                        .toString());
+    }
+
+    @Test
+    public void testToStringRelativeNamed() {
+        assertEquals("1/abc",
+                NodePointer.relative(1, JsonNode.class)
+                        .named(JsonNodeName.with("abc"))
+                        .toString());
+    }
+
+    @Test
+    public void testToStringRelativeHashNamed() {
+        assertEquals("1/abc",
+                NodePointer.relativeHash(1, JsonNode.class)
+                        .named(JsonNodeName.with("abc"))
+                        .toString());
+    }
 
     @Test
     public void testToStringChildIndex() {
@@ -150,6 +191,42 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
     }
 
     // traverse
+
+    @Test
+    public void testRelativeAbsent(){
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = NodePointer.relative(1, JsonNode.class);
+
+        final JsonNode root = JsonNode.object()
+                .set(DEF, JsonNode.string(TEXT));
+        this.traverseFail(pointer, root);
+    }
+
+    @Test
+    public void testRelativeSelf(){
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = NodePointer.relative(0, JsonNode.class);
+
+        final JsonNode root = JsonNode.object()
+                .set(DEF, JsonNode.string(TEXT));
+        this.traverseAndCheck(pointer, root, root.toString());
+    }
+
+    @Test
+    public void testRelativeHashSelf(){
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = NodePointer.relative(0, JsonNode.class);
+
+        final JsonNode root = JsonNode.object()
+                .set(DEF, JsonNode.string(TEXT));
+        this.traverseAndCheck(pointer, root, root.toString());
+    }
+
+    @Test
+    public void testRelativeParent(){
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = NodePointer.relative(1, JsonNode.class);
+
+        final JsonNode root = JsonNode.object()
+                .set(DEF, JsonNode.string(TEXT));
+        this.traverseAndCheck(pointer, ((JsonObjectNode) root).get(DEF).get(), root.toString());
+    }
 
     @Test
     public void testNamedAbsent(){
@@ -317,6 +394,21 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
+    @Test
+    public void testRelativeNestedArray(){
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = NodePointer.relative(1, JsonNode.class)
+                .index(2);
+
+        final JsonNode text = JsonNode.string(TEXT);
+        final JsonNode root = JsonNode.array()
+                .appendChild(JsonNode.array().appendChild(JsonNode.string("wrong")).appendChild(JsonNode.string("wrong2")).appendChild(text));
+        final JsonArrayNode rootArray = Cast.to(JsonArrayNode.class.cast(root).get(0));
+        final JsonNode rootArrayElementOne = rootArray.get(1);
+
+
+        this.traverseAndCheck(pointer, rootArrayElementOne, text.toString());
+    }
+
     // parse.............................................................................................................
 
     @Test(expected = NullPointerException.class)
@@ -382,18 +474,53 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
+    @Test
+    public void testParseThenTraverseNone() {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = parse("/abc/-");
+
+        final JsonNode def = JsonNode.string(TEXT);
+
+        final JsonNode root = JsonNode.object()
+                .set(ABC, JsonNode.object().set(DEF, def));
+        this.traverseFail(pointer, root);
+    }
+
+    @Test
+    public void testParseThenTraverseNone2() {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = parse("/-/def");
+
+        final JsonNode def = JsonNode.string(TEXT);
+
+        final JsonNode root = JsonNode.object()
+                .set(ABC, JsonNode.object().set(DEF, def));
+        this.traverseFail(pointer, root);
+    }
+
+    @Test
+    public void testParseThenTraverseNone3() {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = parse("/abc/def/-");
+
+        final JsonNode def = JsonNode.string(TEXT);
+
+        final JsonNode root = JsonNode.object()
+                .set(ABC, JsonNode.object().set(DEF, def));
+        this.traverseFail(pointer, root);
+    }
+
     private NodePointer<JsonNode, JsonNodeName, Name, Object> parse(final String pointer) {
-        return NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> parsed =  NodePointer.parse(pointer, NAME_FACTORY, JsonNode.class);
+        assertEquals("pointer.toString", pointer, parsed.toString());
+        return parsed;
     }
 
     private void traverseAndCheck(final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer, final JsonNode root, final String toString) {
         final Optional<JsonNode> result = pointer.traverse(root);
-        assertNotEquals("The pointer " + pointer + " should have matched a node but failed,\n" + root, Optional.empty(), result);
-        assertEquals("The pointer " + pointer + " should have matched the node\n" + root, toString, result.get().toString());
+        assertNotEquals("The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root, Optional.empty(), result);
+        assertEquals("The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root, toString, result.get().toString());
     }
 
     private void traverseFail(final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer, final JsonNode root) {
-        assertEquals("The pointer " + pointer + " should have matched nothing\n" + root, Optional.empty(), pointer.traverse(root));
+        assertEquals("The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root, Optional.empty(), pointer.traverse(root));
     }
 
     @Override
