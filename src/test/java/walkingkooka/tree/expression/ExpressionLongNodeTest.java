@@ -21,17 +21,15 @@ package walkingkooka.tree.expression;
 import org.junit.Test;
 import walkingkooka.tree.visit.Visiting;
 
-import java.math.BigInteger;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionNumberNode, BigInteger>{
+public final class ExpressionLongNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionLongNode, Long>{
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final ExpressionNumberNode node = this.createExpressionNode();
+        final ExpressionLongNode node = this.createExpressionNode();
 
         new FakeExpressionNodeVisitor() {
             @Override
@@ -48,7 +46,7 @@ public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestC
             }
 
             @Override
-            protected void visit(final ExpressionNumberNode n) {
+            protected void visit(final ExpressionLongNode n) {
                 assertSame(node, n);
                 b.append("3");
             }
@@ -58,31 +56,31 @@ public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestC
     
     @Test
     public void testToString() {
-        assertEquals("1", this.createExpressionNode(BigInteger.ONE).toString());
+        assertEquals("1", this.createExpressionNode(1L).toString());
     }
 
     @Test
     public void testToString2() {
-        assertEquals("234", this.createExpressionNode(BigInteger.valueOf(234)).toString());
+        assertEquals("234", this.createExpressionNode(234L).toString());
     }
 
     @Override
-    ExpressionNumberNode createExpressionNode(final BigInteger value) {
-        return ExpressionNumberNode.with(value);
+    ExpressionLongNode createExpressionNode(final Long value) {
+        return ExpressionLongNode.with(value);
     }
 
     @Override
-    BigInteger value() {
-        return BigInteger.valueOf(1);
+    Long value() {
+        return 1L;
     }
 
     @Override
-    BigInteger differentValue() {
-        return BigInteger.valueOf(999);
+    Long differentValue() {
+        return 999L;
     }
 
     @Override
-    Class<ExpressionNumberNode> expressionNodeType() {
-        return ExpressionNumberNode.class;
+    Class<ExpressionLongNode> expressionNodeType() {
+        return ExpressionLongNode.class;
     }
 }

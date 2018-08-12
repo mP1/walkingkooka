@@ -18,21 +18,22 @@
 
 package walkingkooka.tree.expression;
 
+import java.math.BigInteger;
 import java.util.Objects;
 
 /**
- * A number value.
+ * A {@link BigInteger} number value.
  */
-public final class ExpressionNumberNode extends ExpressionLeafValueNode<Number> {
+public final class ExpressionNumberNode extends ExpressionLeafValueNode<BigInteger> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionNumberNode.class);
 
-    static ExpressionNumberNode with(final Number value) {
+    static ExpressionNumberNode with(final BigInteger value) {
         Objects.requireNonNull(value, "value");
         return new ExpressionNumberNode(NO_PARENT_INDEX, value);
     }
 
-    private ExpressionNumberNode(final int index, final Number value){
+    private ExpressionNumberNode(final int index, final BigInteger value){
         super(index, value);
     }
 
@@ -42,12 +43,27 @@ public final class ExpressionNumberNode extends ExpressionLeafValueNode<Number> 
     }
 
     @Override
-    ExpressionNumberNode wrap1(final int index, final Number value) {
+    ExpressionNumberNode wrap1(final int index, final BigInteger value) {
         return new ExpressionNumberNode(index, value);
     }
 
     @Override
     public boolean isBoolean() {
+        return false;
+    }
+
+    @Override
+    public boolean isDecimal() {
+        return false;
+    }
+
+    @Override
+    public boolean isDouble() {
+        return false;
+    }
+
+    @Override
+    public boolean isLong() {
         return false;
     }
 

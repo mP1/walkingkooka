@@ -18,24 +18,20 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.text.CharSequences;
-
-import java.util.Objects;
 
 /**
- * A text value.
+ * A {@link Double} number value.
  */
-public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
+public final class ExpressionDoubleNode extends ExpressionLeafValueNode<Double> {
 
-    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionTextNode.class);
+    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionDoubleNode.class);
 
-    static ExpressionTextNode with(final String value) {
-        Objects.requireNonNull(value, "value");
-        return new ExpressionTextNode(NO_PARENT_INDEX, value);
+    static ExpressionDoubleNode with(final double value) {
+        return new ExpressionDoubleNode(NO_PARENT_INDEX, value);
     }
 
-    private ExpressionTextNode(final int index, final String text){
-        super(index, text);
+    private ExpressionDoubleNode(final int index, final Double value){
+        super(index, value);
     }
 
     @Override
@@ -44,8 +40,8 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
     }
 
     @Override
-    ExpressionTextNode wrap1(final int index, final String value) {
-        return new ExpressionTextNode(index, value);
+    ExpressionDoubleNode wrap1(final int index, final Double value) {
+        return new ExpressionDoubleNode(index, value);
     }
 
     @Override
@@ -60,7 +56,7 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     public boolean isDouble() {
-        return false;
+        return true;
     }
 
     @Override
@@ -80,7 +76,7 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     public boolean isText() {
-        return true;
+        return false;
     }
 
     @Override
@@ -90,11 +86,11 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionTextNode;
+        return other instanceof ExpressionDoubleNode;
     }
 
     @Override
     void toString0(final StringBuilder b) {
-        b.append(CharSequences.quoteAndEscape(this.value));
+        b.append(this.value);
     }
 }

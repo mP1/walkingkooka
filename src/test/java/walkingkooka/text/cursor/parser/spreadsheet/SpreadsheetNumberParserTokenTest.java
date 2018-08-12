@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigInteger;
@@ -67,6 +68,11 @@ public final class SpreadsheetNumberParserTokenTest extends SpreadsheetNumericPa
             }
         }.accept(token);
         assertEquals("13542", b.toString());
+    }
+
+    @Test
+    public void testToExpressionNode() {
+        this.toExpressionNodeAndCheck(ExpressionNode.number(this.value()));
     }
 
     @Override

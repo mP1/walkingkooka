@@ -53,6 +53,21 @@ public final class ExpressionReferenceNode extends ExpressionLeafValueNode<Expre
     }
 
     @Override
+    public boolean isDecimal() {
+        return false;
+    }
+
+    @Override
+    public boolean isDouble() {
+        return false;
+    }
+
+    @Override
+    public boolean isLong() {
+        return false;
+    }
+
+    @Override
     public boolean isNumber() {
         return false;
     }

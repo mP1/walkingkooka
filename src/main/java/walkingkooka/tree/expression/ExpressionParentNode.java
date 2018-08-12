@@ -107,6 +107,21 @@ abstract class ExpressionParentNode extends ExpressionNode {
     }
 
     @Override
+    public final boolean isDecimal() {
+        return false;
+    }
+
+    @Override
+    public final boolean isDouble() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLong() {
+        return false;
+    }
+
+    @Override
     public final boolean isNumber() {
         return false;
     }

@@ -18,24 +18,24 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.text.CharSequences;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * A text value.
+ * A {@link BigDecimal} number value.
  */
-public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
+public final class ExpressionDecimalNode extends ExpressionLeafValueNode<BigDecimal> {
 
-    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionTextNode.class);
+    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionDecimalNode.class);
 
-    static ExpressionTextNode with(final String value) {
+    static ExpressionDecimalNode with(final BigDecimal value) {
         Objects.requireNonNull(value, "value");
-        return new ExpressionTextNode(NO_PARENT_INDEX, value);
+        return new ExpressionDecimalNode(NO_PARENT_INDEX, value);
     }
 
-    private ExpressionTextNode(final int index, final String text){
-        super(index, text);
+    private ExpressionDecimalNode(final int index, final BigDecimal value){
+        super(index, value);
     }
 
     @Override
@@ -44,8 +44,8 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
     }
 
     @Override
-    ExpressionTextNode wrap1(final int index, final String value) {
-        return new ExpressionTextNode(index, value);
+    ExpressionDecimalNode wrap1(final int index, final BigDecimal value) {
+        return new ExpressionDecimalNode(index, value);
     }
 
     @Override
@@ -55,7 +55,7 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     public boolean isDecimal() {
-        return false;
+        return true;
     }
 
     @Override
@@ -80,7 +80,7 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     public boolean isText() {
-        return true;
+        return false;
     }
 
     @Override
@@ -90,11 +90,11 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionTextNode;
+        return other instanceof ExpressionDecimalNode;
     }
 
     @Override
     void toString0(final StringBuilder b) {
-        b.append(CharSequences.quoteAndEscape(this.value));
+        b.append(this.value);
     }
 }
