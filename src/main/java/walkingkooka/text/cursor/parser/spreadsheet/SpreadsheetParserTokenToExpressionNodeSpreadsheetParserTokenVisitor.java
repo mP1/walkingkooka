@@ -218,7 +218,7 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
     protected void endVisit(final SpreadsheetPercentageParserToken token) {
         final ExpressionNode parameter = this.children.get(0);
         this.exit();
-        this.add(ExpressionNode.multiplication(parameter, ExpressionNode.number(100L)), token);
+        this.add(ExpressionNode.multiplication(parameter, ExpressionNode.longNode(100L)), token);
     }
 
     @Override
@@ -259,12 +259,12 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
 
     @Override
     protected void visit(final SpreadsheetDecimalParserToken token) {
-        this.add(ExpressionNode.number(token.value()), token);
+        this.add(ExpressionNode.decimal(token.value()), token);
     }
 
     @Override
     protected void visit(final SpreadsheetDoubleParserToken token) {
-        this.add(ExpressionNode.number(token.value()), token);
+        this.add(ExpressionNode.doubleNode(token.value()), token);
     }
 
     @Override
@@ -274,7 +274,7 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
 
     @Override
     protected void visit(final SpreadsheetLongParserToken token) {
-        this.add(ExpressionNode.number(token.value()), token);
+        this.add(ExpressionNode.longNode(token.value()), token);
     }
 
     @Override

@@ -21,17 +21,17 @@ package walkingkooka.tree.expression;
 import org.junit.Test;
 import walkingkooka.tree.visit.Visiting;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionNumberNode, BigInteger>{
+public final class ExpressionDecimalNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionDecimalNode, BigDecimal>{
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final ExpressionNumberNode node = this.createExpressionNode();
+        final ExpressionDecimalNode node = this.createExpressionNode();
 
         new FakeExpressionNodeVisitor() {
             @Override
@@ -48,7 +48,7 @@ public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestC
             }
 
             @Override
-            protected void visit(final ExpressionNumberNode n) {
+            protected void visit(final ExpressionDecimalNode n) {
                 assertSame(node, n);
                 b.append("3");
             }
@@ -58,31 +58,31 @@ public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestC
     
     @Test
     public void testToString() {
-        assertEquals("1", this.createExpressionNode(BigInteger.ONE).toString());
+        assertEquals("1", this.createExpressionNode(BigDecimal.valueOf(1)).toString());
     }
 
     @Test
     public void testToString2() {
-        assertEquals("234", this.createExpressionNode(BigInteger.valueOf(234)).toString());
+        assertEquals("234", this.createExpressionNode(BigDecimal.valueOf(234)).toString());
     }
 
     @Override
-    ExpressionNumberNode createExpressionNode(final BigInteger value) {
-        return ExpressionNumberNode.with(value);
+    ExpressionDecimalNode createExpressionNode(final BigDecimal value) {
+        return ExpressionDecimalNode.with(value);
     }
 
     @Override
-    BigInteger value() {
-        return BigInteger.valueOf(1);
+    BigDecimal value() {
+        return BigDecimal.ONE;
     }
 
     @Override
-    BigInteger differentValue() {
-        return BigInteger.valueOf(999);
+    BigDecimal differentValue() {
+        return BigDecimal.valueOf(999);
     }
 
     @Override
-    Class<ExpressionNumberNode> expressionNodeType() {
-        return ExpressionNumberNode.class;
+    Class<ExpressionDecimalNode> expressionNodeType() {
+        return ExpressionDecimalNode.class;
     }
 }

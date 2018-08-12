@@ -49,6 +49,21 @@ public final class ExpressionBooleanNode extends ExpressionLeafValueNode<Boolean
     }
 
     @Override
+    public boolean isDecimal() {
+        return false;
+    }
+
+    @Override
+    public boolean isDouble() {
+        return false;
+    }
+
+    @Override
+    public boolean isLong() {
+        return false;
+    }
+
+    @Override
     public boolean isNumber() {
         return false;
     }

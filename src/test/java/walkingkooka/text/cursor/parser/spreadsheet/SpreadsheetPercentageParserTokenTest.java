@@ -107,7 +107,7 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
     @Test
     public final void testToExpressionNode() {
         this.toExpressionNodeAndCheck(ExpressionNode.multiplication(ExpressionNode.number(new BigInteger(NUMBER1)),
-                ExpressionNode.number(100L)));
+                ExpressionNode.longNode(100L)));
     }
 
     @Override

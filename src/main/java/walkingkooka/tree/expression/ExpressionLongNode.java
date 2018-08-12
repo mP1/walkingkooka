@@ -18,24 +18,21 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.text.CharSequences;
-
 import java.util.Objects;
 
 /**
- * A text value.
+ * A long number value.
  */
-public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
+public final class ExpressionLongNode extends ExpressionLeafValueNode<Long> {
 
-    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionTextNode.class);
+    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionLongNode.class);
 
-    static ExpressionTextNode with(final String value) {
-        Objects.requireNonNull(value, "value");
-        return new ExpressionTextNode(NO_PARENT_INDEX, value);
+    static ExpressionLongNode with(final long value) {
+        return new ExpressionLongNode(NO_PARENT_INDEX, value);
     }
 
-    private ExpressionTextNode(final int index, final String text){
-        super(index, text);
+    private ExpressionLongNode(final int index, final Long value){
+        super(index, value);
     }
 
     @Override
@@ -44,8 +41,8 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
     }
 
     @Override
-    ExpressionTextNode wrap1(final int index, final String value) {
-        return new ExpressionTextNode(index, value);
+    ExpressionLongNode wrap1(final int index, final Long value) {
+        return new ExpressionLongNode(index, value);
     }
 
     @Override
@@ -65,7 +62,7 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     public boolean isLong() {
-        return false;
+        return true;
     }
 
     @Override
@@ -80,7 +77,7 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     public boolean isText() {
-        return true;
+        return false;
     }
 
     @Override
@@ -90,11 +87,11 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionTextNode;
+        return other instanceof ExpressionLongNode;
     }
 
     @Override
     void toString0(final StringBuilder b) {
-        b.append(CharSequences.quoteAndEscape(this.value));
+        b.append(this.value);
     }
 }

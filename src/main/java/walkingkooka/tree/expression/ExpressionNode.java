@@ -26,6 +26,8 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -56,10 +58,24 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
+     * {@see ExpressionDecimalNode}
+     */
+    public static ExpressionDecimalNode decimal(final BigDecimal value){
+        return ExpressionDecimalNode.with(value);
+    }
+
+    /**
      * {@see ExpressionDivisionNode}
      */
     public static ExpressionDivisionNode division(final ExpressionNode left, final ExpressionNode right){
         return ExpressionDivisionNode.with(left, right);
+    }
+
+    /**
+     * {@see ExpressionDoubleNode}
+     */
+    public static ExpressionDoubleNode doubleNode(final double value) {
+        return ExpressionDoubleNode.with(value);
     }
 
     /**
@@ -110,6 +126,13 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     public static ExpressionLessThanEqualsNode lessThanEquals(final ExpressionNode left, final ExpressionNode right){
         return ExpressionLessThanEqualsNode.with(left, right);
     }
+
+    /**
+     * {@see ExpressionLongNode}
+     */
+    public static ExpressionLongNode longNode(final long value) {
+        return ExpressionLongNode.with(value);
+    }
     
     /**
      * {@see ExpressionModuloNode}
@@ -149,7 +172,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     /**
      * {@see ExpressionNumberNode}
      */
-    public static ExpressionNumberNode number(final Number value) {
+    public static ExpressionNumberNode number(final BigInteger value) {
         return ExpressionNumberNode.with(value);
     }
     
@@ -301,6 +324,16 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     public abstract boolean isBoolean();
 
     /**
+     * Only {@link ExpressionDecimalNode} returns true
+     */
+    public abstract boolean isDecimal();
+
+    /**
+     * Only {@link ExpressionDoubleNode} returns true
+     */
+    public abstract boolean isDouble();
+    
+    /**
      * Only {@link ExpressionDivisionNode} returns true
      */
     public abstract boolean isDivision();
@@ -339,6 +372,11 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      * Only {@link ExpressionLessThanEqualsNode} returns true
      */
     public abstract boolean isLessThanEquals();
+    
+    /**
+     * Only {@link ExpressionLongNode} returns true
+     */
+    public abstract boolean isLong();
 
     /**
      * Only {@link ExpressionModuloNode} returns true
