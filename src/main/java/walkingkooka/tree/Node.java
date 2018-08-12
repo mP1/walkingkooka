@@ -139,23 +139,6 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * Removes an existing child.
-     */
-    default N removeChild(final N child) {
-        Objects.requireNonNull(child, "child");
-
-        final Optional<N> maybeParent = child.parent();
-        if (!maybeParent.isPresent()) {
-            throw new IllegalArgumentException("Child has no parent=" + child);
-        }
-        final N parent = maybeParent.get();
-        if (!parent.equals(this)) {
-            throw new IllegalArgumentException("Child has different parent=" + child);
-        }
-        return this.removeChild(child.index());
-    }
-
-    /**
      * Removes an existing child using its index.
      */
     default N removeChild(final int index){

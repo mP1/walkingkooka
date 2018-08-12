@@ -151,11 +151,6 @@ final class PojoObjectNode extends PojoNode2 {
     }
 
     @Override
-    final public PojoObjectNode removeChild(final PojoNode child) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     final public PojoObjectNode removeChild(final int child) {
         throw new UnsupportedOperationException();
     }

@@ -175,11 +175,6 @@ public final class PojoObjectNodeTest extends PojoNodeTestCase2<PojoObjectNode, 
 
     @Test(expected = UnsupportedOperationException.class)
     public void testRemoveChild() {
-        this.createPojoNode().removeChild(null);
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void testRemoveChildByIndex() {
         this.createPojoNode().removeChild(0);
     }
 

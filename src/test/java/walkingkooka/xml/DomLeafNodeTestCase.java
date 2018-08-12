@@ -30,12 +30,6 @@ public abstract class DomLeafNodeTestCase<N extends DomLeafNode> extends DomNode
 
     @Test(expected = UnsupportedOperationException.class)
     public final void testRemoveChildFails() {
-        final N node = this.createNode();
-        node.removeChild(node);
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public final void testRemoveChildByIndexFails() {
         this.createNode().removeChild(0);
     }
 

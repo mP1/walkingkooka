@@ -53,11 +53,6 @@ abstract class PojoArrayNode extends PojoArrayOrCollectionNode {
     abstract Object elementValue(final int index);
 
     @Override
-    final public PojoArrayOrCollectionNode removeChild(final PojoNode child) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     final public PojoArrayOrCollectionNode removeChild(final int child) {
         throw new UnsupportedOperationException();
     }

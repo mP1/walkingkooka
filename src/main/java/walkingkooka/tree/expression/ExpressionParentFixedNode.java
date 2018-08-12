@@ -48,11 +48,6 @@ abstract class ExpressionParentFixedNode extends ExpressionParentNode {
     }
 
     @Override
-    public ExpressionNode removeChild(final ExpressionNode child) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public ExpressionNode removeChild(int index) {
         throw new UnsupportedOperationException();
     }
