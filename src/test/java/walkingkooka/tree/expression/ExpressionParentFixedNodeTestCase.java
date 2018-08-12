@@ -46,11 +46,6 @@ public abstract class ExpressionParentFixedNodeTestCase<N extends ExpressionPare
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void testRemoveChild() {
-        super.testRemoveChild();
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
     public void testRemoveChildFirst() {
         super.testRemoveChildFirst();
     }

@@ -107,7 +107,7 @@ public final class DomDocument extends DomParentNode{
     }
 
     private DomDocument removeElement(final DomElement previous) {
-        return this.removeChild(previous).document();
+        return this.removeChild(previous.index()).document();
     }
 
     private DomDocument addElement(final DomElement element) {
@@ -425,11 +425,6 @@ public final class DomDocument extends DomParentNode{
 
     public DomDocument appendChild(final DomNode child) {
         return super.appendChild(child).document();
-    }
-
-    @Override
-    public DomDocument removeChild(final DomNode child) {
-        return super.removeChild(child).cast();
     }
 
     @Override

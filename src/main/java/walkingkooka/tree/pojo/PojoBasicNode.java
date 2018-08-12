@@ -98,11 +98,6 @@ final class PojoBasicNode extends PojoNode {
     private final static Optional<PojoNode> NO_CHILD = Optional.empty();
 
     @Override
-    public PojoNode removeChild(final PojoNode child) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public PojoNode removeChild(final int child) {
         throw new UnsupportedOperationException();
     }

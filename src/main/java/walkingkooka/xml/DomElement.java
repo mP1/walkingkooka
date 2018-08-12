@@ -92,11 +92,6 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
     }
 
     @Override
-    public DomElement removeChild(final DomNode child) {
-        return super.removeChild(child).cast();
-    }
-
-    @Override
     public DomElement removeChild(final int child) {
         return super.removeChild(child).cast();
     }

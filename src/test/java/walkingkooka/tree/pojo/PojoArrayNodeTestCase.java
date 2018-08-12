@@ -25,12 +25,6 @@ public abstract class PojoArrayNodeTestCase<N extends PojoArrayNode, V> extends 
 
     @Test(expected = UnsupportedOperationException.class)
     public void testRemoveChild() {
-        final N node = this.createPojoNode();
-        node.removeChild(node);
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void testRemoveChildByIndex() {
         this.createPojoNode().removeChild(0);
     }
 }

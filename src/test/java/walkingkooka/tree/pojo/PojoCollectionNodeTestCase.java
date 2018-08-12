@@ -38,23 +38,6 @@ public abstract class PojoCollectionNodeTestCase<N extends PojoArrayOrCollection
         final List<PojoNode> children2 = node2.children();
         assertNotEquals("node must have children", 0, children2.size());
 
-        final PojoNode node3 = node2.removeChild(node2.children().get(0));
-
-        this.childrenCheck(node3);
-
-        final List<PojoNode> children3 = Lists.array();
-        children3.addAll(children2);
-        children3.remove(0);
-        this.childrenValuesCheck(node3, this.values(children3));
-    }
-
-    @Test
-    public final void testRemoveChildByIndex() {
-        final N node = this.createPojoNode();
-        final PojoNode node2 = node.setChildren(this.writableChildren(node));
-        final List<PojoNode> children2 = node2.children();
-        assertNotEquals("node must have children", 0, children2.size());
-
         final PojoNode node3 = node2.removeChild(0);
 
         this.childrenCheck(node3);

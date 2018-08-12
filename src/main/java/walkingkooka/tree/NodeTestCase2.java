@@ -69,37 +69,6 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
         this.checkChildCount(parent2, parentChildCount + 2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testRemoveChildWithoutParent() {
-        final N parent = this.createNode();
-        final N child = this.createNode();
-
-        parent.removeChild(child);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testRemoveChildDifferentParent() {
-        final N parent1 = this.createNode();
-
-        final N parent2 = this.createNode().appendChild(this.createNode());
-        final N childOf2 = parent2.children().get(0);
-
-        parent1.removeChild(childOf2);
-    }
-
-    @Test
-    public void testRemoveChild() {
-        final N parent = this.createNode();
-        final int parentCount = parent.children().size();
-
-        final N child1 = this.createNode();
-        final N parent1 = this.appendChildAndCheck(parent, child1);
-
-        final N removed1 = this.removeChildAndCheck(parent1, parent1.children().get(0));
-
-        this.checkChildCount(removed1, parentCount);
-    }
-
     @Test
     public void testRemoveChildFirst() {
         this.appendTwoChildrenAndRemove(0);
@@ -220,7 +189,7 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     protected N removeChildAndCheck(final N parent, final N child) {
-        final N newParent = parent.removeChild(child);
+        final N newParent = parent.removeChild(child.index());
         assertNotSame("removeChild must not return the same node", newParent, parent);
 
         final List<N> oldChildren = parent.children();
