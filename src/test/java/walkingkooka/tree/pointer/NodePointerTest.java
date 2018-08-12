@@ -42,6 +42,8 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
     private final static JsonNodeName DEF = JsonNodeName.with("def");
     private final static JsonNodeName GHI = JsonNodeName.with("ghi");
     private final static JsonNodeName JKL = JsonNodeName.with("jkl");
+    private final static JsonNodeName TILDE = JsonNodeName.with("tilde~0");
+    private final static JsonNodeName SLASH = JsonNodeName.with("slash~1");
     private final static Function<String, JsonNodeName> NAME_FACTORY = (s -> JsonNodeName.with(s));
 
     private final static String TEXT = "text123";
@@ -530,6 +532,28 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
         final JsonNode root = JsonNode.object()
                 .set(ABC, JsonNode.object().set(DEF, def));
         this.traverseFail(pointer, root);
+    }
+
+    @Test
+    public void testParseTilde() {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = parse("/tilde~0");
+
+        final JsonNode text = JsonNode.string(TEXT);
+
+        final JsonNode root = JsonNode.object()
+                .set(JsonNodeName.with("tilde~"), text);
+        this.traverseAndCheck(pointer, root, text.toString());
+    }
+
+    @Test
+    public void testParseSlash() {
+        final NodePointer<JsonNode, JsonNodeName, Name, Object> pointer = parse("/slash~1");
+
+        final JsonNode text = JsonNode.string(TEXT);
+
+        final JsonNode root = JsonNode.object()
+                .set(JsonNodeName.with("slash/"), text);
+        this.traverseAndCheck(pointer, root, text.toString());
     }
 
     private NodePointer<JsonNode, JsonNodeName, Name, Object> parse(final String pointer) {
