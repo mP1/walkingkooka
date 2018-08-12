@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.list;
 
+import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BiPredicate;
 
 final public class Lists implements PublicStaticHelper {
     /**
@@ -47,6 +49,13 @@ final public class Lists implements PublicStaticHelper {
      */
     public static <T> List<T> empty() {
         return Collections.emptyList();
+    }
+
+    /**
+     * Tests if both {@list List} are equal using the {@link BiPredicate} to test each and every element.
+     */
+    public static <T> boolean equals(final List<T> list, final List<T> other, final BiPredicate<? super T, ? super T> equivalency) {
+        return Iterables.equals(list, other, equivalency);
     }
 
     /**

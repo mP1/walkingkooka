@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.expression;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -34,7 +35,19 @@ public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNod
     }
 
     @Test
-    public final void testSameChildren() {
+    @Ignore
+    public void testSameChildren() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public final void testSetChildrenSame() {
+        final N expression = this.createExpressionNode();
+        assertSame(expression, expression.setChildren(expression.children()));
+    }
+
+    @Test
+    public final void testSetChildrenEqvuivalent() {
         final N expression = this.createExpressionNode();
         assertSame(expression, expression.setChildren(this.children()));
     }

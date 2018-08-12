@@ -90,6 +90,26 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     }
 
     @Test
+    public void testSetChildrenSame() {
+        final String[] values = new String[]{ "A1", "B2"};
+        final JsonNode first = JsonNode.string(values[0]);
+        final JsonNode second = JsonNode.string(values[1]);
+
+        final JsonArrayNode array = JsonNode.array().appendChild(first).appendChild(second);
+        assertSame(array, array.setChildren(array.children()));
+    }
+
+    @Test
+    public void testSetChildrenEquivalent() {
+        final String[] values = new String[]{ "A1", "B2"};
+        final JsonNode first = JsonNode.string(values[0]);
+        final JsonNode second = JsonNode.string(values[1]);
+
+        final JsonArrayNode array = JsonNode.array().appendChild(first).appendChild(second);
+        assertSame(array, array.setChildren(Lists.of(first, second)));
+    }
+
+    @Test
     public void testSetSame() {
         final String[] values = new String[]{ "A1", "B2"};
         final JsonNode first = JsonNode.string(values[0]);

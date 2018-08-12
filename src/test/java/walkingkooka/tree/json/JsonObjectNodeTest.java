@@ -48,6 +48,32 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     private final static String VALUE2 = "value2";
     private final static String VALUE3 = "value3";
 
+    @Test
+    public void testSetChildrenSame() {
+        final JsonNodeName key1 = this.key1();
+        final JsonStringNode value1 = this.value1();
+        final JsonObjectNode empty = JsonNode.object();
+
+        final JsonObjectNode object = empty.set(key1, value1);
+        this.childrenCheck(object);
+        this.getAndCheck(object, key1, VALUE1);
+
+        assertSame(object, object.setChildren(object.children()));
+    }
+
+    @Test
+    public void testSetChildrenEquivalent() {
+        final JsonNodeName key1 = this.key1();
+        final JsonStringNode value1 = this.value1();
+        final JsonObjectNode empty = JsonNode.object();
+
+        final JsonObjectNode object = empty.set(key1, value1);
+        this.childrenCheck(object);
+        this.getAndCheck(object, key1, VALUE1);
+
+        assertSame(object, object.setChildren(Lists.of(JsonNode.string(VALUE1).setName(key1))));
+    }
+
     // set and get
 
     @Test

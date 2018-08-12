@@ -57,7 +57,7 @@ abstract class JsonParentNode extends JsonNode {
     final List<JsonNode> children;
 
     final JsonNode setChildren1(final List<JsonNode> children) {
-        return this.children.equals(children) ?
+        return Lists.equals(this.children, children, (first, other) -> first.equalsIgnoringParentAndChildren0(other) && first.equalsDescendants(other)) ?
                 this :
                 this.replaceChildren(children);
     }
@@ -66,7 +66,7 @@ abstract class JsonParentNode extends JsonNode {
     final JsonNode setChild(final JsonNode newChild) {
         final int index = newChild.index();
         final JsonNode previous = this.children.get(index);
-        return previous.equalsDescendants(newChild) ?
+        return previous.equalsIgnoringParentAndChildren0(newChild) && previous.equalsDescendants(newChild) ?
               this :
                this.replaceChild0(newChild, index);
     }
