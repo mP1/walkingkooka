@@ -18,10 +18,29 @@
 
 package walkingkooka.tree.pointer;
 
+import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.tree.json.JsonNodeName;
+
+import static org.junit.Assert.assertEquals;
 
 public final class NodeChildNamedNodePointerTest extends PackagePrivateClassTestCase<NodeChildNamedNodePointer<?, ?, ?, ?>> {
+
+    @Test
+    public void testWithSlash() {
+        this.checkToString(NodeChildNamedNodePointer.with(JsonNodeName.with("slash/")), "/slash~1");
+    }
+
+    @Test
+    public void testWithTilde() {
+        this.checkToString(NodeChildNamedNodePointer.with(JsonNodeName.with("tilde~")), "/tilde~0");
+    }
+
+    private void checkToString(final NodePointer<?, ?, ?, ?> pointer, final String toString) {
+        assertEquals(toString, pointer.toString());
+    }
+
     @Override
     protected Class<NodeChildNamedNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(NodeChildNamedNodePointer.class);
