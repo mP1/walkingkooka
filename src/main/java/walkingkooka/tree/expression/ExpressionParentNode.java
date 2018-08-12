@@ -61,7 +61,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
         Objects.requireNonNull(children, "children");
 
         final List<ExpressionNode> copy = copy(children);
-        return this.children().equals(copy) ?
+        return Lists.equals(this.children(), copy, (first, other) -> first.equalsIgnoringParentAndChildren(other) && first.equalsDescendants0(other)) ?
                 this :
                 this.replaceChildren(copy);
     }
@@ -70,7 +70,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
     final ExpressionNode setChild(final ExpressionNode newChild) {
         final int index = newChild.index();
         final ExpressionNode previous = this.children().get(index);
-        return previous.equalsDescendants(newChild) ?
+        return previous.equalsIgnoringParentAndChildren(newChild) && previous.equalsDescendants(newChild) ?
                 this :
                 this.replaceChild0(newChild, index);
     }

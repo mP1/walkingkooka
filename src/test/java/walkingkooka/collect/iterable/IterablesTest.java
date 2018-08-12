@@ -17,11 +17,92 @@
 
 package walkingkooka.collect.iterable;
 
+import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
+import java.util.function.BiPredicate;
+
+import static org.junit.Assert.assertEquals;
 
 final public class IterablesTest extends PublicStaticHelperTestCase<Iterables> {
+
+    private final static BiPredicate<String, String> EQUIVALENCY = (first, other)->first.equalsIgnoreCase(other);
+    private final static String A = "a";
+    private final static String B = "b";
+    private final static String C = "c";
+
+    @Test(expected = NullPointerException.class)
+    public void testEqualsNullIterableFails() {
+        Iterables.equals(null, Iterables.fake(), EQUIVALENCY);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testEqualsNullOtherIterableFails() {
+        Iterables.equals(Iterables.fake(), null, EQUIVALENCY);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testEqualsNullEquivalenceFunctionFails() {
+        Iterables.equals(Iterables.fake(), Iterables.fake(), null);
+    }
+
+    @Test
+    public void testEqualsEmpty() {
+        this.notEqualsAndCheck();
+    }
+
+    @Test
+    public void testEqualsDifferent() {
+        this.notEqualsAndCheck("different", B, C);
+    }
+
+    @Test
+    public void testEqualsDifferent2() {
+        this.notEqualsAndCheck("different");
+    }
+
+    @Test
+    public void testEqualsDifferent3() {
+        this.notEqualsAndCheck(A, B, "different");
+    }
+
+    @Test
+    public void testEqualsShorter() {
+        this.notEqualsAndCheck(A, B);
+    }
+
+    @Test
+    public void testEqualsLonger() {
+        this.notEqualsAndCheck(A, B, C, "Z");
+    }
+
+    @Test
+    public void testEquals() {
+        this.equalsAndCheck(A, B, "C");
+    }
+
+    @Test
+    public void testEqualsBothEmpty() {
+        this.equalsAndCheck0(Lists.empty(), Lists.empty(), true);
+    }
+
+    private void equalsAndCheck(final String...other) {
+        this.equalsAndCheck0(Lists.of(other), true);
+    }
+
+    private void notEqualsAndCheck(final String...other) {
+        this.equalsAndCheck0(Lists.of(other), false);
+    }
+
+    private void equalsAndCheck0(final Iterable<String> other, final boolean equals) {
+        equalsAndCheck0(Lists.of(A, B, C), other, equals);
+    }
+
+    private void equalsAndCheck0(final Iterable<String> iterable, final Iterable<String> other, final boolean equals) {
+        assertEquals(iterable + " AND " + other, equals, Iterables.equals(iterable, other, EQUIVALENCY));
+    }
 
     @Override
     protected Class<Iterables> type() {

@@ -17,6 +17,7 @@
 
 package walkingkooka.collect.set;
 
+import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Collections;
@@ -28,6 +29,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.BiPredicate;
 
 final public class Sets implements PublicStaticHelper {
     /**
@@ -35,6 +37,13 @@ final public class Sets implements PublicStaticHelper {
      */
     public static <T> Set<T> empty() {
         return Collections.emptySet();
+    }
+
+    /**
+     * Tests if both {@Set Set} are equal using the {@link BiPredicate} to test each and every element.
+     */
+    public static <T> boolean equals(final Set<T> Set, final Set<T> other, final BiPredicate<? super T, ? super T> equivalency) {
+        return Iterables.equals(Set, other, equivalency);
     }
 
     /**
