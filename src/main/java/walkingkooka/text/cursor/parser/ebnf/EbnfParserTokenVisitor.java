@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.visit.Visiting;
@@ -139,31 +138,12 @@ public abstract class EbnfParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
-
-    final void acceptSymbol(final EbnfSymbolParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            this.visit(token);
-        }
-    }
-
     protected void visit(final EbnfSymbolParserToken token) {
         // nop
     }
 
-    final void acceptTerminal(final EbnfTerminalParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            this.visit(token);
-        }
-    }
-
     protected void visit(final EbnfTerminalParserToken token) {
         // nop
-    }
-
-    final void acceptWhitespace(final EbnfWhitespaceParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            this.visit(token);
-        }
     }
 
     protected void visit(final EbnfWhitespaceParserToken token) {
@@ -171,14 +151,6 @@ public abstract class EbnfParserTokenVisitor extends ParserTokenVisitor {
     }
 
     // ParserToken.......................................................................
-
-    private void acceptParserToken(final ParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            if(token instanceof EbnfParserToken) {
-                this.acceptEbnfParserToken(Cast.to(token));
-            }
-        }
-    }
 
     protected Visiting startVisit(final ParserToken token) {
         return Visiting.CONTINUE;
@@ -189,12 +161,6 @@ public abstract class EbnfParserTokenVisitor extends ParserTokenVisitor {
     }
 
     // EbnfParserToken.......................................................................
-
-    private void acceptEbnfParserToken(final EbnfParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            token.accept(this);
-        }
-    }
 
     protected Visiting startVisit(final EbnfParserToken token) {
         return Visiting.CONTINUE;
