@@ -122,7 +122,7 @@ abstract class ExpressionParentNode extends ExpressionNode {
     }
 
     @Override
-    public final boolean isNumber() {
+    public final boolean isBigInteger() {
         return false;
     }
 

@@ -27,12 +27,12 @@ import java.util.function.BiFunction;
 
 import static org.junit.Assert.assertEquals;
 
-public class TransformingParserTest extends ParserTestCase2<TransformingParser<StringParserToken, NumberParserToken, FakeParserContext>, NumberParserToken> {
+public class TransformingParserTest extends ParserTestCase2<TransformingParser<StringParserToken, BigIntegerParserToken, FakeParserContext>, BigIntegerParserToken> {
 
     private final static int RADIX = 10;
     private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
-    private final static BiFunction<StringParserToken, FakeParserContext, NumberParserToken> TRANSFORMER = (t, c) -> {
-        return ParserTokens.number(new BigInteger(t.value(), RADIX), t.text());
+    private final static BiFunction<StringParserToken, FakeParserContext, BigIntegerParserToken> TRANSFORMER = (t, c) -> {
+        return ParserTokens.bigInteger(new BigInteger(t.value(), RADIX), t.text());
     };
 
     @Test(expected = NullPointerException.class)
@@ -81,7 +81,7 @@ public class TransformingParserTest extends ParserTestCase2<TransformingParser<S
     }
 
     @Override
-    protected TransformingParser<StringParserToken, NumberParserToken, FakeParserContext> createParser() {
+    protected TransformingParser<StringParserToken, BigIntegerParserToken, FakeParserContext> createParser() {
         return TransformingParser.with(PARSER, TRANSFORMER);
     }
 
@@ -97,17 +97,17 @@ public class TransformingParserTest extends ParserTestCase2<TransformingParser<S
                 textAfter);
     }
 
-    private TextCursor parseAndCheck4(final Parser<NumberParserToken, FakeParserContext> parser, final String from, final long value, final String text, final String textAfter){
+    private TextCursor parseAndCheck4(final Parser<BigIntegerParserToken, FakeParserContext> parser, final String from, final long value, final String text, final String textAfter){
         return this.parseAndCheck(parser,
                 this.createContext(),
                 TextCursors.charSequence(from),
-                ParserTokens.number(BigInteger.valueOf(value), text),
+                ParserTokens.bigInteger(BigInteger.valueOf(value), text),
                 text,
                 textAfter);
     }
 
     @Override
-    protected Class<TransformingParser<StringParserToken, NumberParserToken, FakeParserContext>> type() {
+    protected Class<TransformingParser<StringParserToken, BigIntegerParserToken, FakeParserContext>> type() {
         return Cast.to(TransformingParser.class);
     }
 }

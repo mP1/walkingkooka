@@ -71,7 +71,7 @@ public final class SpreadsheetDivisionParserTokenTest extends SpreadsheetBinaryP
             }
 
             @Override
-            protected void visit(final SpreadsheetNumberParserToken t) {
+            protected void visit(final SpreadsheetBigIntegerParserToken t) {
                 b.append("5");
                 visited.add(t);
             }

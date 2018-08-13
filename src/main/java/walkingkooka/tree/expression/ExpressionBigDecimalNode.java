@@ -69,7 +69,7 @@ public final class ExpressionBigDecimalNode extends ExpressionLeafValueNode<BigD
     }
 
     @Override
-    public boolean isNumber() {
+    public boolean isBigInteger() {
         return false;
     }
 

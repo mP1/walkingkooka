@@ -27,12 +27,12 @@ import java.math.BigInteger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetNumberParserTokenTest extends SpreadsheetNumericParserTokenTestCase<SpreadsheetNumberParserToken, BigInteger> {
+public final class SpreadsheetBigIntegerParserTokenTest extends SpreadsheetNumericParserTokenTestCase<SpreadsheetBigIntegerParserToken, BigInteger> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final SpreadsheetNumberParserToken token = this.createToken();
+        final SpreadsheetBigIntegerParserToken token = this.createToken();
 
         new FakeSpreadsheetParserTokenVisitor() {
             @Override
@@ -62,7 +62,7 @@ public final class SpreadsheetNumberParserTokenTest extends SpreadsheetNumericPa
             }
 
             @Override
-            protected void visit(final SpreadsheetNumberParserToken t) {
+            protected void visit(final SpreadsheetBigIntegerParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -72,7 +72,7 @@ public final class SpreadsheetNumberParserTokenTest extends SpreadsheetNumericPa
 
     @Test
     public void testToExpressionNode() {
-        this.toExpressionNodeAndCheck(ExpressionNode.number(this.value()));
+        this.toExpressionNodeAndCheck(ExpressionNode.bigInteger(this.value()));
     }
 
     @Override
@@ -86,17 +86,17 @@ public final class SpreadsheetNumberParserTokenTest extends SpreadsheetNumericPa
     }
 
     @Override
-    protected SpreadsheetNumberParserToken createToken(final BigInteger value, final String text) {
-        return SpreadsheetNumberParserToken.with(value, text);
+    protected SpreadsheetBigIntegerParserToken createToken(final BigInteger value, final String text) {
+        return SpreadsheetBigIntegerParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetNumberParserToken createDifferentToken() {
-        return SpreadsheetNumberParserToken.with(BigInteger.valueOf(-1), "'different'");
+    protected SpreadsheetBigIntegerParserToken createDifferentToken() {
+        return SpreadsheetBigIntegerParserToken.with(BigInteger.valueOf(-1), "'different'");
     }
 
     @Override
-    protected Class<SpreadsheetNumberParserToken> type() {
-        return SpreadsheetNumberParserToken.class;
+    protected Class<SpreadsheetBigIntegerParserToken> type() {
+        return SpreadsheetBigIntegerParserToken.class;
     }
 }

@@ -25,18 +25,18 @@ import java.math.BigInteger;
 
 import static org.junit.Assert.assertEquals;
 
-public class NumberParserTest extends ParserTemplateTestCase<NumberParser<FakeParserContext>, NumberParserToken> {
+public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParser<FakeParserContext>, BigIntegerParserToken> {
 
     private final static int RADIX = 10;
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithNegativeRadixFails() {
-        NumberParser.with(-1);
+        BigIntegerParser.with(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithZeroRadixFails() {
-        NumberParser.with(0);
+        BigIntegerParser.with(0);
     }
 
     @Test
@@ -111,17 +111,17 @@ public class NumberParserTest extends ParserTemplateTestCase<NumberParser<FakePa
 
     @Test
     public void testToString() {
-        assertEquals("number", this.createParser().toString());
+        assertEquals("BigInteger", this.createParser().toString());
     }
 
     @Test
     public void testToString2() {
-        assertEquals("number(base=8)", NumberParser.with(8).toString());
+        assertEquals("BigInteger(base=8)", BigIntegerParser.with(8).toString());
     }
 
     @Override
-    protected NumberParser createParser() {
-        return NumberParser.with(RADIX);
+    protected BigIntegerParser createParser() {
+        return BigIntegerParser.with(RADIX);
     }
 
     private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter){
@@ -129,20 +129,20 @@ public class NumberParserTest extends ParserTemplateTestCase<NumberParser<FakePa
     }
 
     private TextCursor parseAndCheck2(final String in, final BigInteger value, final String text, final String textAfter){
-        return this.parseAndCheck(in, NumberParserToken.with(value, text), text, textAfter);
+        return this.parseAndCheck(in, BigIntegerParserToken.with(value, text), text, textAfter);
     }
 
     private TextCursor parseAndCheck3(final int radix, final String from, final long value, final String text, final String textAfter){
-        return this.parseAndCheck(NumberParser.with(radix),
+        return this.parseAndCheck(BigIntegerParser.with(radix),
                 this.createContext(),
                 TextCursors.charSequence(from),
-                NumberParserToken.with(BigInteger.valueOf(value), text),
+                BigIntegerParserToken.with(BigInteger.valueOf(value), text),
                 text,
                 textAfter);
     }
 
     @Override
-    protected Class<NumberParser<FakeParserContext>> type() {
-        return Cast.to(NumberParser.class);
+    protected Class<BigIntegerParser<FakeParserContext>> type() {
+        return Cast.to(BigIntegerParser.class);
     }
 }

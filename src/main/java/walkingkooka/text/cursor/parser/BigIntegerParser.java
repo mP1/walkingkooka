@@ -26,23 +26,23 @@ import java.util.Optional;
  * A {@link Parser} that matches a number using a given radix. Note it does not require or match a leading prefix.
  * Note this only parses numeric digits and not any leading minus sign.
  */
-final class NumberParser<C extends ParserContext> extends ParserTemplate2<NumberParserToken, C> {
+final class BigIntegerParser<C extends ParserContext> extends ParserTemplate2<BigIntegerParserToken, C> {
 
     /**
-     * Factory that creates a {@link NumberParser}
+     * Factory that creates a {@link BigIntegerParser}
      */
-    static <C extends ParserContext> NumberParser<C> with(final int radix) {
+    static <C extends ParserContext> BigIntegerParser<C> with(final int radix) {
         if(radix <= 0) {
             throw new IllegalArgumentException("Radix " + radix + " must be > 0");
         }
 
-        return new NumberParser<>(radix);
+        return new BigIntegerParser<>(radix);
     }
 
     /**
      * Private ctor to limit subclassing.
      */
-    private NumberParser(final int radix) {
+    private BigIntegerParser(final int radix) {
         this.radix = radix;
         this.radixBigInteger = BigInteger.valueOf(radix);
     }
@@ -51,8 +51,8 @@ final class NumberParser<C extends ParserContext> extends ParserTemplate2<Number
      * Reads character by character until a non digit is found, using a {@link BigInteger} to hold the value.
      */
     @Override
-    Optional<NumberParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
-        Optional<NumberParserToken> token;
+    Optional<BigIntegerParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+        Optional<BigIntegerParserToken> token;
 
         final int radix = this.radix;
         BigInteger number = BigInteger.ZERO;
@@ -108,8 +108,8 @@ final class NumberParser<C extends ParserContext> extends ParserTemplate2<Number
         return token;
     }
 
-    private Optional<NumberParserToken> createToken(final BigInteger value, final TextCursorSavePoint save){
-        return NumberParserToken.with(value,
+    private Optional<BigIntegerParserToken> createToken(final BigInteger value, final TextCursorSavePoint save){
+        return BigIntegerParserToken.with(value,
                 save.textBetween().toString())
                 .success();
     }
@@ -120,6 +120,6 @@ final class NumberParser<C extends ParserContext> extends ParserTemplate2<Number
     @Override
     public String toString() {
         final int radix = this.radix;
-        return 10 == radix ? "number" : "number(base=" + radix+ ")";
+        return 10 == radix ? "BigInteger" : "BigInteger(base=" + radix+ ")";
     }
 }

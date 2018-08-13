@@ -63,7 +63,7 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
         // nop
     }
 
-    protected void visit(final ExpressionNumberNode node) {
+    protected void visit(final ExpressionBigIntegerNode node) {
         // nop
     }
 

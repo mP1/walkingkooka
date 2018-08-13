@@ -135,7 +135,7 @@ public class SequenceParserTokenNodeTest extends ParserTokenNodeTestCase<Sequenc
 
         final SequenceParserTokenNode root = sequence("a1b2c3d4",
                 STRING1,
-                ParserTokens.sequence(Lists.of(STRING2, STRING3, ParserTokens.number(BigInteger.ZERO, "**")), "b2c3**"),
+                ParserTokens.sequence(Lists.of(STRING2, STRING3, ParserTokens.bigInteger(BigInteger.ZERO, "**")), "b2c3**"),
                 STRING4);
 
         assertEquals(Lists.of("a1", "b2", "c3", "d4"),

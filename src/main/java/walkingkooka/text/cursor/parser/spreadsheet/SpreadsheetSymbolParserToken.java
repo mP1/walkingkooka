@@ -39,6 +39,11 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     }
 
     @Override
+    public final boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public final boolean isColumn() {
         return false;
     }
@@ -60,11 +65,6 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
 
     @Override
     public final boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNumber() {
         return false;
     }
 

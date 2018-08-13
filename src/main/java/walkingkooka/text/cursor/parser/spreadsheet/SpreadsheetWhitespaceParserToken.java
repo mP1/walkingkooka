@@ -61,6 +61,11 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetLeafParse
     }
 
     @Override
+    public boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public boolean isColumn() {
         return false;
     }
@@ -84,12 +89,7 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetLeafParse
     public boolean isLong() {
         return false;
     }
-
-    @Override
-    public boolean isNumber() {
-        return false;
-    }
-
+    
     @Override
     public boolean isRow() {
         return false;

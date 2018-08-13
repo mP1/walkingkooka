@@ -102,7 +102,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
     public void testToExpressionNode() {
         this.toExpressionNodeAndCheck(ExpressionNode.function(
                 ExpressionNodeName.with(FUNCTION),
-                Lists.of(ExpressionNode.number(new BigInteger(NUMBER1, 10)))));
+                Lists.of(ExpressionNode.bigInteger(new BigInteger(NUMBER1, 10)))));
     }
 
     private void checkFunction(final SpreadsheetFunctionParserToken function, final SpreadsheetFunctionName name) {

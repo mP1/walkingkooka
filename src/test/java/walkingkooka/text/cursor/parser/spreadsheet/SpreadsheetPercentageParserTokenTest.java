@@ -71,7 +71,7 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
             }
 
             @Override
-            protected void visit(final SpreadsheetNumberParserToken t) {
+            protected void visit(final SpreadsheetBigIntegerParserToken t) {
                 b.append("5");
                 visited.add(t);
             }
@@ -106,7 +106,7 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
 
     @Test
     public final void testToExpressionNode() {
-        this.toExpressionNodeAndCheck(ExpressionNode.multiplication(ExpressionNode.number(new BigInteger(NUMBER1)),
+        this.toExpressionNodeAndCheck(ExpressionNode.multiplication(ExpressionNode.bigInteger(new BigInteger(NUMBER1)),
                 ExpressionNode.longNode(100L)));
     }
 

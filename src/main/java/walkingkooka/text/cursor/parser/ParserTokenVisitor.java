@@ -49,6 +49,10 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
         // nop
     }
 
+    protected void visit(final BigIntegerParserToken token) {
+        // nop
+    }
+
     protected void visit(final CharacterParserToken token) {
         // nop
     }
@@ -66,10 +70,6 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
     }
 
     protected void visit(final MissingParserToken token) {
-        // nop
-    }
-
-    protected void visit(final NumberParserToken token) {
         // nop
     }
 

@@ -204,6 +204,11 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
+    protected void visit(final SpreadsheetBigIntegerParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final SpreadsheetColumnParserToken token) {
         throw new UnsupportedOperationException();
     }
@@ -280,11 +285,6 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
 
     @Override
     protected void visit(final SpreadsheetNotEqualsSymbolParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override 
-    protected void visit(final SpreadsheetNumberParserToken token) {
         throw new UnsupportedOperationException();
     }
 

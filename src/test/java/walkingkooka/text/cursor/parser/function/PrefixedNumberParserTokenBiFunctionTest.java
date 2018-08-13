@@ -18,15 +18,15 @@ package walkingkooka.text.cursor.parser.function;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.FakeParserContext;
-import walkingkooka.text.cursor.parser.NumberParserToken;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokens;
 
 import java.math.BigInteger;
 
-public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunctionTestCase2<PrefixedNumberParserTokenBiFunction<FakeParserContext>, NumberParserToken> {
+public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunctionTestCase2<PrefixedNumberParserTokenBiFunction<FakeParserContext>, BigIntegerParserToken> {
 
     @Test(expected = ParserException.class)
     public void testInvalidFirstToken() {
@@ -41,10 +41,10 @@ public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunct
     @Test
     public void testApply() {
         this.applyAndCheck(this.firstToken(), this.secondToken(),
-                ParserTokens.number(BigInteger.valueOf(31), "0x1f"));
+                ParserTokens.bigInteger(BigInteger.valueOf(31), "0x1f"));
     }
 
-    private void applyAndCheck(final ParserToken first, final ParserToken second, final NumberParserToken result) {
+    private void applyAndCheck(final ParserToken first, final ParserToken second, final BigIntegerParserToken result) {
         this.applyAndCheck(this.sequence(first, second), result);
     }
 
@@ -71,6 +71,6 @@ public final class PrefixedNumberParserTokenBiFunctionTest extends ParserBiFunct
     }
 
     private ParserToken secondToken() {
-        return ParserTokens.number(BigInteger.valueOf(31), "1f");
+        return ParserTokens.bigInteger(BigInteger.valueOf(31), "1f");
     }
 }

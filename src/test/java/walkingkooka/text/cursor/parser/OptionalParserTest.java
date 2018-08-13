@@ -86,7 +86,7 @@ public class OptionalParserTest extends ParserTestCase2<OptionalParser<FakeParse
     public void testOptionalDifferentName() {
         final OptionalParser<FakeParserContext> parser = this.createParser();
 
-        final ParserTokenNodeName different = NumberParserToken.NAME;
+        final ParserTokenNodeName different = BigIntegerParserToken.NAME;
         final OptionalParser<FakeParserContext> parser2 = parser.optional(different);
 
         assertNotSame(parser, parser2);

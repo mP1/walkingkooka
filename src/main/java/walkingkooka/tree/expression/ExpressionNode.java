@@ -58,6 +58,13 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
+     * {@see ExpressionBigIntegerNode}
+     */
+    public static ExpressionBigIntegerNode bigInteger(final BigInteger value) {
+        return ExpressionBigIntegerNode.with(value);
+    }
+
+    /**
      * {@see ExpressionBooleanNode}
      */
     public static ExpressionBooleanNode booleanNode(final boolean value) {
@@ -167,13 +174,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      */
     public static ExpressionNotEqualsNode notEquals(final ExpressionNode left, final ExpressionNode right){
         return ExpressionNotEqualsNode.with(left, right);
-    }
-
-    /**
-     * {@see ExpressionNumberNode}
-     */
-    public static ExpressionNumberNode number(final BigInteger value) {
-        return ExpressionNumberNode.with(value);
     }
     
     /**
@@ -404,9 +404,9 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     public abstract boolean isNotEquals();
 
     /**
-     * Only {@link ExpressionNumberNode} returns true
+     * Only {@link ExpressionBigIntegerNode} returns true
      */
-    public abstract boolean isNumber();
+    public abstract boolean isBigInteger();
 
     /**
      * Only {@link ExpressionOrNode} returns true

@@ -68,7 +68,7 @@ public final class ExpressionReferenceNode extends ExpressionLeafValueNode<Expre
     }
 
     @Override
-    public boolean isNumber() {
+    public boolean isBigInteger() {
         return false;
     }
 

@@ -69,6 +69,13 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     }
 
     /**
+     * {@see SpreadsheetBigIntegerParserToken}
+     */
+    public static SpreadsheetBigIntegerParserToken bigInteger(final BigInteger value, final String text){
+        return SpreadsheetBigIntegerParserToken.with(value, text);
+    }
+
+    /**
      * {@see SpreadsheetCellParserToken}
      */
     public static SpreadsheetCellParserToken cell(final List<ParserToken> value, final String text){
@@ -262,13 +269,6 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
      */
     public static SpreadsheetNotEqualsSymbolParserToken notEqualsSymbol(final String value, final String text) {
         return SpreadsheetNotEqualsSymbolParserToken.with(value, text);
-    }
-    
-    /**
-     * {@see SpreadsheetNumberParserToken}
-     */
-    public static SpreadsheetNumberParserToken number(final BigInteger value, final String text){
-        return SpreadsheetNumberParserToken.with(value, text);
     }
 
     /**
@@ -550,9 +550,9 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     public abstract boolean isNotEqualsSymbol();
 
     /**
-     * Only {@link SpreadsheetNumberParserToken} return true
+     * Only {@link SpreadsheetBigIntegerParserToken} return true
      */
-    public abstract boolean isNumber();
+    public abstract boolean isBigInteger();
 
     /**
      * Only {@link SpreadsheetOpenParenthesisSymbolParserToken} return true

@@ -261,6 +261,11 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
     protected void visit(final SpreadsheetBigDecimalParserToken token) {
         this.add(ExpressionNode.bigDecimal(token.value()), token);
     }
+    
+    @Override
+    protected void visit(final SpreadsheetBigIntegerParserToken token) {
+        this.add(ExpressionNode.bigInteger(token.value()), token);
+    }
 
     @Override
     protected void visit(final SpreadsheetDoubleParserToken token) {
@@ -275,11 +280,6 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
     @Override
     protected void visit(final SpreadsheetLongParserToken token) {
         this.add(ExpressionNode.longNode(token.value()), token);
-    }
-
-    @Override
-    protected void visit(final SpreadsheetNumberParserToken token) {
-        this.add(ExpressionNode.number(token.value()), token);
     }
 
     @Override
