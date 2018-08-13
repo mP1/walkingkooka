@@ -54,6 +54,11 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
     }
 
     @Override
+    public boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public boolean isBoolean() {
         return false;
     }
@@ -65,11 +70,6 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
 
     @Override
     public boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public boolean isBigInteger() {
         return false;
     }
 

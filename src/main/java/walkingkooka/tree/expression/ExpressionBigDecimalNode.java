@@ -54,6 +54,11 @@ public final class ExpressionBigDecimalNode extends ExpressionLeafValueNode<BigD
     }
 
     @Override
+    public boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public boolean isBoolean() {
         return false;
     }
@@ -68,10 +73,6 @@ public final class ExpressionBigDecimalNode extends ExpressionLeafValueNode<BigD
         return false;
     }
 
-    @Override
-    public boolean isBigInteger() {
-        return false;
-    }
 
     @Override
     public boolean isReference() {

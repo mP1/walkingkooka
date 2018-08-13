@@ -324,6 +324,11 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     public abstract boolean isBigDecimal();
 
     /**
+     * Only {@link ExpressionBigIntegerNode} returns true
+     */
+    public abstract boolean isBigInteger();
+
+    /**
      * Only {@link ExpressionBooleanNode} returns true
      */
     public abstract boolean isBoolean();
@@ -402,11 +407,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      * Only {@link ExpressionNotEqualsNode} returns true
      */
     public abstract boolean isNotEquals();
-
-    /**
-     * Only {@link ExpressionBigIntegerNode} returns true
-     */
-    public abstract boolean isBigInteger();
 
     /**
      * Only {@link ExpressionOrNode} returns true

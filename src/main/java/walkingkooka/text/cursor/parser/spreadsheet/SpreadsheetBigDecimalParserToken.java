@@ -55,17 +55,17 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
     }
 
     @Override
+    public boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public boolean isDouble() {
         return false;
     }
 
     @Override
     public boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public boolean isBigInteger() {
         return false;
     }
 

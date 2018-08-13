@@ -50,6 +50,11 @@ public final class ExpressionDoubleNode extends ExpressionLeafValueNode<Double> 
     }
 
     @Override
+    public boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public boolean isBoolean() {
         return false;
     }
@@ -64,10 +69,6 @@ public final class ExpressionDoubleNode extends ExpressionLeafValueNode<Double> 
         return false;
     }
 
-    @Override
-    public boolean isBigInteger() {
-        return false;
-    }
 
     @Override
     public boolean isReference() {
