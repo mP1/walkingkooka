@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import java.util.Objects;
-
 /**
  * A long number value.
  */
@@ -46,12 +44,12 @@ public final class ExpressionLongNode extends ExpressionLeafValueNode<Long> {
     }
 
     @Override
-    public boolean isBoolean() {
+    public boolean isBigDecimal() {
         return false;
     }
 
     @Override
-    public boolean isDecimal() {
+    public boolean isBoolean() {
         return false;
     }
 

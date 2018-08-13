@@ -26,12 +26,12 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionDecimalNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionDecimalNode, BigDecimal>{
+public final class ExpressionBigDecimalNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionBigDecimalNode, BigDecimal>{
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final ExpressionDecimalNode node = this.createExpressionNode();
+        final ExpressionBigDecimalNode node = this.createExpressionNode();
 
         new FakeExpressionNodeVisitor() {
             @Override
@@ -48,7 +48,7 @@ public final class ExpressionDecimalNodeTest extends ExpressionLeafValueNodeTest
             }
 
             @Override
-            protected void visit(final ExpressionDecimalNode n) {
+            protected void visit(final ExpressionBigDecimalNode n) {
                 assertSame(node, n);
                 b.append("3");
             }
@@ -67,8 +67,8 @@ public final class ExpressionDecimalNodeTest extends ExpressionLeafValueNodeTest
     }
 
     @Override
-    ExpressionDecimalNode createExpressionNode(final BigDecimal value) {
-        return ExpressionDecimalNode.with(value);
+    ExpressionBigDecimalNode createExpressionNode(final BigDecimal value) {
+        return ExpressionBigDecimalNode.with(value);
     }
 
     @Override
@@ -82,7 +82,7 @@ public final class ExpressionDecimalNodeTest extends ExpressionLeafValueNodeTest
     }
 
     @Override
-    Class<ExpressionDecimalNode> expressionNodeType() {
-        return ExpressionDecimalNode.class;
+    Class<ExpressionBigDecimalNode> expressionNodeType() {
+        return ExpressionBigDecimalNode.class;
     }
 }

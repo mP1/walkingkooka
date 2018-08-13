@@ -24,33 +24,33 @@ import java.math.BigDecimal;
 /**
  * Holds a single decimal number.
  */
-public final class SpreadsheetDecimalParserToken extends SpreadsheetNumericParserToken<BigDecimal> {
+public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericParserToken<BigDecimal> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetDecimalParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetBigDecimalParserToken.class);
 
-    static SpreadsheetDecimalParserToken with(final BigDecimal value, final String text){
+    static SpreadsheetBigDecimalParserToken with(final BigDecimal value, final String text){
         checkValue(value);
         checkText(text);
 
-        return new SpreadsheetDecimalParserToken(value, text);
+        return new SpreadsheetBigDecimalParserToken(value, text);
     }
 
-    private SpreadsheetDecimalParserToken(final BigDecimal value, final String text){
+    private SpreadsheetBigDecimalParserToken(final BigDecimal value, final String text){
         super(value, text);
     }
 
     @Override
-    public SpreadsheetDecimalParserToken setText(final String text) {
+    public SpreadsheetBigDecimalParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    SpreadsheetDecimalParserToken replaceText(final String text) {
-        return new SpreadsheetDecimalParserToken(this.value, text);
+    SpreadsheetBigDecimalParserToken replaceText(final String text) {
+        return new SpreadsheetBigDecimalParserToken(this.value, text);
     }
 
     @Override
-    public boolean isDecimal() {
+    public boolean isBigDecimal() {
         return true;
     }
 
@@ -91,7 +91,7 @@ public final class SpreadsheetDecimalParserToken extends SpreadsheetNumericParse
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetDecimalParserToken;
+        return other instanceof SpreadsheetBigDecimalParserToken;
     }
 
     @Override

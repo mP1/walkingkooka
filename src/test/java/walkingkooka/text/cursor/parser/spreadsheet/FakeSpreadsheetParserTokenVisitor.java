@@ -199,17 +199,17 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
+    protected void visit(final SpreadsheetBigDecimalParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final SpreadsheetColumnParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected void visit(final SpreadsheetCloseParenthesisSymbolParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final SpreadsheetDecimalParserToken token) {
         throw new UnsupportedOperationException();
     }
 

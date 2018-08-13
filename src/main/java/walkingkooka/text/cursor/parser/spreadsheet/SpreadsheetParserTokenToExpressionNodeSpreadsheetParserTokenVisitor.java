@@ -258,8 +258,8 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
     // ignore all SymbolParserTokens, dont bother to collect them.
 
     @Override
-    protected void visit(final SpreadsheetDecimalParserToken token) {
-        this.add(ExpressionNode.decimal(token.value()), token);
+    protected void visit(final SpreadsheetBigDecimalParserToken token) {
+        this.add(ExpressionNode.bigDecimal(token.value()), token);
     }
 
     @Override

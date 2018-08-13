@@ -30,21 +30,21 @@ import java.util.Optional;
  * A {@link Parser} that parser that parsers {@link BigDecimal} numbers, including the sign, decimals and any exponent.
  * Note unlike {@link DoubleParser} which returns doubles, NAN and +/- INFINITY is not supported.
  */
-final class DecimalParser<C extends ParserContext> extends ParserTemplate2<DecimalParserToken, C> {
+final class BigDecimalParser<C extends ParserContext> extends ParserTemplate2<BigDecimalParserToken, C> {
 
     /**
-     * Factory that creates a {@link DecimalParser}
+     * Factory that creates a {@link BigDecimalParser}
      */
-    static <C extends ParserContext> DecimalParser<C> with(final char decimal, final MathContext context) {
+    static <C extends ParserContext> BigDecimalParser<C> with(final char decimal, final MathContext context) {
         Objects.requireNonNull(context, "context");
 
-        return new DecimalParser<>(decimal, context);
+        return new BigDecimalParser<>(decimal, context);
     }
 
     /**
      * Private ctor to limit subclassing.
      */
-    private DecimalParser(final char decimal, final MathContext context) {
+    private BigDecimalParser(final char decimal, final MathContext context) {
         this.decimal = decimal;
         this.context = context;
     }
@@ -73,8 +73,8 @@ final class DecimalParser<C extends ParserContext> extends ParserTemplate2<Decim
      * Concepts such as negative zero which are not supported by bigdecimal natively end up being plain zero.
      */
     @Override
-    Optional<DecimalParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
-        Optional<DecimalParserToken> token = Optional.empty();
+    Optional<BigDecimalParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+        Optional<BigDecimalParserToken> token = Optional.empty();
 
         // optional(+/-)
         // 0 OR 1-9
@@ -222,8 +222,8 @@ final class DecimalParser<C extends ParserContext> extends ParserTemplate2<Decim
         return value * RADIX + digit;
     }
 
-    private static Optional<DecimalParserToken> token(final BigDecimal value, final TextCursorSavePoint save){
-        return DecimalParserToken.with(value,
+    private static Optional<BigDecimalParserToken> token(final BigDecimal value, final TextCursorSavePoint save){
+        return BigDecimalParserToken.with(value,
                 save.textBetween().toString())
                 .success();
     }

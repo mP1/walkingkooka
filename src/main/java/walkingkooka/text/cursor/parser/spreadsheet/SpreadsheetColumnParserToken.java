@@ -56,13 +56,13 @@ public final class SpreadsheetColumnParserToken extends SpreadsheetLeafParserTok
     }
 
     @Override
-    public boolean isColumn() {
-        return true;
+    public boolean isBigDecimal() {
+        return false;
     }
 
     @Override
-    public boolean isDecimal() {
-        return false;
+    public boolean isColumn() {
+        return true;
     }
 
     @Override

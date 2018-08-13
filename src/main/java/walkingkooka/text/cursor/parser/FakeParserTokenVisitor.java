@@ -34,12 +34,12 @@ public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
     }
 
     @Override
-    protected void visit(final CharacterParserToken token) {
+    protected void visit(final BigDecimalParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final DecimalParserToken token) {
+    protected void visit(final CharacterParserToken token) {
         throw new UnsupportedOperationException();
     }
 

@@ -48,12 +48,12 @@ public final class ExpressionReferenceNode extends ExpressionLeafValueNode<Expre
     }
 
     @Override
-    public boolean isBoolean() {
+    public boolean isBigDecimal() {
         return false;
     }
 
     @Override
-    public boolean isDecimal() {
+    public boolean isBoolean() {
         return false;
     }
 

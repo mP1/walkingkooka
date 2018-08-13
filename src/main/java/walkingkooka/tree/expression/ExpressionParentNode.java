@@ -102,12 +102,12 @@ abstract class ExpressionParentNode extends ExpressionNode {
     // is........................................................................................................
 
     @Override
-    public final boolean isBoolean() {
+    public final boolean isBigDecimal() {
         return false;
     }
 
     @Override
-    public final boolean isDecimal() {
+    public final boolean isBoolean() {
         return false;
     }
 

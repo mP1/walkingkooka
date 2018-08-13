@@ -44,6 +44,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see BigDecimalParser}
+     */
+    public static <C extends ParserContext> Parser<BigDecimalParserToken, C> bigDecimal(final char decimal, final MathContext context) {
+        return BigDecimalParser.with(decimal, context);
+    }
+
+    /**
      * {@see CharacterCharPredicateParser}
      */
     public static <C extends ParserContext> Parser<CharacterParserToken, C> character(final CharPredicate predicate) {
@@ -55,13 +62,6 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <T extends ParserToken, C extends ParserContext> Parser<T, C> customToString(final Parser<T, C> parser, final String toString) {
         return CustomToStringParser.wrap(parser, toString);
-    }
-
-    /**
-     * {@see DecimalParser}
-     */
-    public static <C extends ParserContext> Parser<DecimalParserToken, C> decimal(final char decimal, final MathContext context) {
-        return DecimalParser.with(decimal, context);
     }
 
     /**

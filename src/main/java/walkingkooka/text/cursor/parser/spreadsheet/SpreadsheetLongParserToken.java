@@ -47,7 +47,7 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     }
 
     @Override
-    public boolean isDecimal() {
+    public boolean isBigDecimal() {
         return false;
     }
 

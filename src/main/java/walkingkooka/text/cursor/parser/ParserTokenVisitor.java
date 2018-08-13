@@ -45,11 +45,11 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
         // nop
     }
 
-    protected void visit(final CharacterParserToken token) {
+    protected void visit(final BigDecimalParserToken token) {
         // nop
     }
 
-    protected void visit(final DecimalParserToken token) {
+    protected void visit(final CharacterParserToken token) {
         // nop
     }
 

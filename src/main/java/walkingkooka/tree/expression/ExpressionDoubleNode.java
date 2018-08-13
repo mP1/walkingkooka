@@ -45,12 +45,12 @@ public final class ExpressionDoubleNode extends ExpressionLeafValueNode<Double> 
     }
 
     @Override
-    public boolean isBoolean() {
+    public boolean isBigDecimal() {
         return false;
     }
 
     @Override
-    public boolean isDecimal() {
+    public boolean isBoolean() {
         return false;
     }
 
