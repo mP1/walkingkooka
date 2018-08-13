@@ -33,6 +33,13 @@ public final class ParserTokens implements PublicStaticHelper {
     }
 
     /**
+     * {@see BigIntegerParserToken}
+     */
+    public static BigIntegerParserToken bigInteger(final BigInteger value, final String text) {
+        return BigIntegerParserToken.with(value, text);
+    }
+
+    /**
      * {@see CharacterParserToken}
      */
     public static CharacterParserToken character(final char value, final String text) {
@@ -65,13 +72,6 @@ public final class ParserTokens implements PublicStaticHelper {
      */
     public static MissingParserToken missing(final ParserTokenNodeName name, final String text) {
         return MissingParserToken.with(name, text);
-    }
-    
-    /**
-     * {@see NumberParserToken}
-     */
-    public static NumberParserToken number(final BigInteger value, final String text) {
-        return NumberParserToken.with(value, text);
     }
 
     /**

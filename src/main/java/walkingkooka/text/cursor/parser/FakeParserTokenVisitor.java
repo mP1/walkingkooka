@@ -39,6 +39,11 @@ public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
     }
 
     @Override
+    protected void visit(final BigIntegerParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final CharacterParserToken token) {
         throw new UnsupportedOperationException();
     }
@@ -60,11 +65,6 @@ public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
 
     @Override
     protected void visit(final MissingParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final NumberParserToken token) {
         throw new UnsupportedOperationException();
     }
 

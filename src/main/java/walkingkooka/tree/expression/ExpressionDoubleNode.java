@@ -65,7 +65,7 @@ public final class ExpressionDoubleNode extends ExpressionLeafValueNode<Double> 
     }
 
     @Override
-    public boolean isNumber() {
+    public boolean isBigInteger() {
         return false;
     }
 

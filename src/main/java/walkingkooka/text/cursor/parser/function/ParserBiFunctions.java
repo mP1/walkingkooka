@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.function;
 
-import walkingkooka.text.cursor.parser.NumberParserToken;
+import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
@@ -32,7 +32,7 @@ public final class ParserBiFunctions implements PublicStaticHelper {
     /**
      * {@see PrefixedNumberParserTokenBiFunction}
      */
-    public static <C extends ParserContext> BiFunction<SequenceParserToken, C, NumberParserToken> prefixedNumber() {
+    public static <C extends ParserContext> BiFunction<SequenceParserToken, C, BigIntegerParserToken> prefixedNumber() {
         return PrefixedNumberParserTokenBiFunction.get();
     }
 

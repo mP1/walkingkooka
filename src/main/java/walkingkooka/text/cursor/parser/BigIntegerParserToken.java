@@ -22,28 +22,28 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link BigInteger}.
  */
-public final class NumberParserToken extends ParserTemplateToken<BigInteger> {
+public final class BigIntegerParserToken extends ParserTemplateToken<BigInteger> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(NumberParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigIntegerParserToken.class);
 
-    public static NumberParserToken with(final BigInteger value, final String text) {
+    public static BigIntegerParserToken with(final BigInteger value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
 
-        return new NumberParserToken(value, text);
+        return new BigIntegerParserToken(value, text);
     }
 
-    private NumberParserToken(final BigInteger value, final String text) {
+    private BigIntegerParserToken(final BigInteger value, final String text) {
         super(value, text);
     }
 
     @Override
-    public NumberParserToken setText(final String text){
+    public BigIntegerParserToken setText(final String text){
         return this.setText0(text).cast();
     }
 
     @Override
-    NumberParserToken replaceText(final String text) {
+    BigIntegerParserToken replaceText(final String text) {
         return with(this.value(), text);
     }
 
@@ -59,7 +59,7 @@ public final class NumberParserToken extends ParserTemplateToken<BigInteger> {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NumberParserToken;
+        return other instanceof BigIntegerParserToken;
     }
 
     @Override

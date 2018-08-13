@@ -62,7 +62,7 @@ public final class SpreadsheetDoubleParserToken extends SpreadsheetNumericParser
     }
 
     @Override
-    public boolean isNumber() {
+    public boolean isBigInteger() {
         return false;
     }
 

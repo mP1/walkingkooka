@@ -24,22 +24,22 @@ import java.math.BigInteger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class NumberParserTokenTest extends ParserTokenTestCase<NumberParserToken> {
+public final class BigIntegerParserTokenTest extends ParserTokenTestCase<BigIntegerParserToken> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullValueFails() {
-        NumberParserToken.with(null, "123");
+        BigIntegerParserToken.with(null, "123");
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTextFails() {
-        NumberParserToken.with(BigInteger.ZERO, null);
+        BigIntegerParserToken.with(BigInteger.ZERO, null);
     }
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final NumberParserToken token = this.createToken();
+        final BigIntegerParserToken token = this.createToken();
 
         new FakeParserTokenVisitor() {
             @Override
@@ -56,7 +56,7 @@ public final class NumberParserTokenTest extends ParserTokenTestCase<NumberParse
             }
 
             @Override
-            protected void visit(final NumberParserToken t) {
+            protected void visit(final BigIntegerParserToken t) {
                 assertSame(token, t);
                 b.append("3");
             }
@@ -66,26 +66,26 @@ public final class NumberParserTokenTest extends ParserTokenTestCase<NumberParse
     
     @Test
     public void testIgnoresPrefix() {
-        NumberParserToken.with(BigInteger.valueOf(123), "+123");
+        BigIntegerParserToken.with(BigInteger.valueOf(123), "+123");
     }
 
     @Test
     public void testHex() {
-        NumberParserToken.with(BigInteger.valueOf(0x1234), "0x1234");
+        BigIntegerParserToken.with(BigInteger.valueOf(0x1234), "0x1234");
     }
 
     @Override
-    protected NumberParserToken createToken() {
-        return NumberParserToken.with(BigInteger.valueOf(123), "123");
+    protected BigIntegerParserToken createToken() {
+        return BigIntegerParserToken.with(BigInteger.valueOf(123), "123");
     }
 
     @Override
-    protected NumberParserToken createDifferentToken() {
-        return NumberParserToken.with(BigInteger.valueOf(987), "987");
+    protected BigIntegerParserToken createDifferentToken() {
+        return BigIntegerParserToken.with(BigInteger.valueOf(987), "987");
     }
 
     @Override
-    protected Class<NumberParserToken> type() {
-        return NumberParserToken.class;
+    protected Class<BigIntegerParserToken> type() {
+        return BigIntegerParserToken.class;
     }
 }

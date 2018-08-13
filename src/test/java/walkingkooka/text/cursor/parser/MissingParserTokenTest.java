@@ -71,7 +71,7 @@ public final class MissingParserTokenTest extends ParserTokenTestCase<MissingPar
 
     @Override
     protected MissingParserToken createDifferentToken() {
-        return MissingParserToken.with(NumberParserToken.NAME, "xyz");
+        return MissingParserToken.with(BigIntegerParserToken.NAME, "xyz");
     }
 
     @Override

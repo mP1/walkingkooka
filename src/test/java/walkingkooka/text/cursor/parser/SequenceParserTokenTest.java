@@ -67,7 +67,7 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test(expected = ClassCastException.class)
     public void testOptionalInvalidTypeFails() {
-        this.createToken().optional(0, NumberParserToken.class);
+        this.createToken().optional(0, BigIntegerParserToken.class);
     }
 
     @Test
@@ -101,7 +101,7 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test(expected = ClassCastException.class)
     public void testRequiredInvalidTypeFails() {
-        this.createToken().required(0, NumberParserToken.class);
+        this.createToken().required(0, BigIntegerParserToken.class);
     }
 
     @Test

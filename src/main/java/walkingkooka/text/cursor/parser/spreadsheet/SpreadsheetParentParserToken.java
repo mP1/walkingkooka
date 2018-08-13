@@ -81,6 +81,11 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
     }
 
     @Override
+    public final boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public final boolean isCloseParenthesisSymbol() {
         return false;
     }
@@ -157,11 +162,6 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
 
     @Override
     public final boolean isNotEqualsSymbol() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNumber() {
         return false;
     }
 

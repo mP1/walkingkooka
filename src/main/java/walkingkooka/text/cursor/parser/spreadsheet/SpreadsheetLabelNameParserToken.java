@@ -60,6 +60,11 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetLeafParser
     }
 
     @Override
+    public boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public boolean isColumn() {
         return false;
     }
@@ -81,11 +86,6 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetLeafParser
 
     @Override
     public boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public boolean isNumber() {
         return false;
     }
 

@@ -51,6 +51,13 @@ public final class Parsers implements PublicStaticHelper {
     }
 
     /**
+     * {@see BigIntegerParser}
+     */
+    public static <C extends ParserContext> Parser<BigIntegerParserToken, C> bigInteger(final int radix) {
+        return BigIntegerParser.with(radix);
+    }
+
+    /**
      * {@see CharacterCharPredicateParser}
      */
     public static <C extends ParserContext> Parser<CharacterParserToken, C> character(final CharPredicate predicate) {
@@ -97,13 +104,6 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <C extends ParserContext> Parser<LongParserToken, C> longParser(final int radix) {
         return LongParser.with(radix);
-    }
-    
-    /**
-     * {@see NumberParser}
-     */
-    public static <C extends ParserContext> Parser<NumberParserToken, C> number(final int radix) {
-        return NumberParser.with(radix);
     }
 
     /**

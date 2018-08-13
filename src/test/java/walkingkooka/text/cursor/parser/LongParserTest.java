@@ -177,12 +177,12 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<FakeParser
 
     @Test
     public void testToString() {
-        assertEquals("number", this.createParser().toString());
+        assertEquals("Long", this.createParser().toString());
     }
 
     @Test
     public void testToString2() {
-        assertEquals("number(base=8)", LongParser.with(8).toString());
+        assertEquals("Long(base=8)", LongParser.with(8).toString());
     }
 
     @Override

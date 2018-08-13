@@ -56,7 +56,7 @@ public class FakeExpressionNodeVisitor extends ExpressionNodeVisitor implements 
     }
 
     @Override
-    protected void visit(final ExpressionNumberNode node) {
+    protected void visit(final ExpressionBigIntegerNode node) {
         throw new UnsupportedOperationException();
     }
 

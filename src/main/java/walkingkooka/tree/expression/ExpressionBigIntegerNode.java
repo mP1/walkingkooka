@@ -24,16 +24,16 @@ import java.util.Objects;
 /**
  * A {@link BigInteger} number value.
  */
-public final class ExpressionNumberNode extends ExpressionLeafValueNode<BigInteger> {
+public final class ExpressionBigIntegerNode extends ExpressionLeafValueNode<BigInteger> {
 
-    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionNumberNode.class);
+    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBigIntegerNode.class);
 
-    static ExpressionNumberNode with(final BigInteger value) {
+    static ExpressionBigIntegerNode with(final BigInteger value) {
         Objects.requireNonNull(value, "value");
-        return new ExpressionNumberNode(NO_PARENT_INDEX, value);
+        return new ExpressionBigIntegerNode(NO_PARENT_INDEX, value);
     }
 
-    private ExpressionNumberNode(final int index, final BigInteger value){
+    private ExpressionBigIntegerNode(final int index, final BigInteger value){
         super(index, value);
     }
 
@@ -43,13 +43,18 @@ public final class ExpressionNumberNode extends ExpressionLeafValueNode<BigInteg
     }
 
     @Override
-    ExpressionNumberNode wrap1(final int index, final BigInteger value) {
-        return new ExpressionNumberNode(index, value);
+    ExpressionBigIntegerNode wrap1(final int index, final BigInteger value) {
+        return new ExpressionBigIntegerNode(index, value);
     }
 
     @Override
     public boolean isBigDecimal() {
         return false;
+    }
+
+    @Override
+    public boolean isBigInteger() {
+        return true;
     }
 
     @Override
@@ -65,11 +70,6 @@ public final class ExpressionNumberNode extends ExpressionLeafValueNode<BigInteg
     @Override
     public boolean isLong() {
         return false;
-    }
-
-    @Override
-    public boolean isNumber() {
-        return true;
     }
 
     @Override
@@ -89,7 +89,7 @@ public final class ExpressionNumberNode extends ExpressionLeafValueNode<BigInteg
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionNumberNode;
+        return other instanceof ExpressionBigIntegerNode;
     }
 
     @Override

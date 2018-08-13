@@ -22,36 +22,41 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import java.math.BigInteger;
 
 /**
- * Holds a single integer number.
+ * Holds a single {@link BigInteger} number.
  */
-public final class SpreadsheetNumberParserToken extends SpreadsheetNumericParserToken<BigInteger> {
+public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericParserToken<BigInteger> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetNumberParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetBigIntegerParserToken.class);
 
-    static SpreadsheetNumberParserToken with(final BigInteger value, final String text){
+    static SpreadsheetBigIntegerParserToken with(final BigInteger value, final String text){
         checkValue(value);
         checkText(text);
 
-        return new SpreadsheetNumberParserToken(value, text);
+        return new SpreadsheetBigIntegerParserToken(value, text);
     }
 
-    private SpreadsheetNumberParserToken(final BigInteger value, final String text){
+    private SpreadsheetBigIntegerParserToken(final BigInteger value, final String text){
         super(value, text);
     }
 
     @Override
-    public SpreadsheetNumberParserToken setText(final String text) {
+    public SpreadsheetBigIntegerParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    SpreadsheetNumberParserToken replaceText(final String text) {
-        return new SpreadsheetNumberParserToken(this.value, text);
+    SpreadsheetBigIntegerParserToken replaceText(final String text) {
+        return new SpreadsheetBigIntegerParserToken(this.value, text);
     }
 
     @Override
     public boolean isBigDecimal() {
         return false;
+    }
+
+    @Override
+    public boolean isBigInteger() {
+        return true;
     }
 
     @Override
@@ -62,11 +67,6 @@ public final class SpreadsheetNumberParserToken extends SpreadsheetNumericParser
     @Override
     public boolean isLong() {
         return false;
-    }
-
-    @Override
-    public boolean isNumber() {
-        return true;
     }
 
     @Override
@@ -91,7 +91,7 @@ public final class SpreadsheetNumberParserToken extends SpreadsheetNumericParser
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetNumberParserToken;
+        return other instanceof SpreadsheetBigIntegerParserToken;
     }
 
     @Override

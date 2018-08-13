@@ -119,6 +119,6 @@ final class LongParser<C extends ParserContext> extends ParserTemplate2<LongPars
     @Override
     public String toString() {
         final int radix = this.radix;
-        return 10 == radix ? "number" : "number(base=" + radix+ ")";
+        return 10 == radix ? "Long" : "Long(base=" + radix+ ")";
     }
 }

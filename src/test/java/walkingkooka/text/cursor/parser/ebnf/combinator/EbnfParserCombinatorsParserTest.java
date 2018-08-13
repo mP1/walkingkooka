@@ -32,7 +32,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.FakeParserContext;
-import walkingkooka.text.cursor.parser.NumberParserToken;
+import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -482,8 +482,8 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
         };
     }
 
-    private NumberParserToken number(final String text){
-        return ParserTokens.number(new BigInteger(text),text);
+    private BigIntegerParserToken number(final String text){
+        return ParserTokens.bigInteger(new BigInteger(text),text);
     }
 
     private StringParserToken string(final String text) {

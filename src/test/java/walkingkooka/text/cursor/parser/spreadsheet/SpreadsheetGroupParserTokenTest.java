@@ -90,7 +90,7 @@ public final class SpreadsheetGroupParserTokenTest extends SpreadsheetParentPars
 
     @Test
     public void testToExpressionNode() {
-        this.toExpressionNodeAndCheck(ExpressionNode.group(ExpressionNode.number(new BigInteger(NUMBER1, 10))));
+        this.toExpressionNodeAndCheck(ExpressionNode.group(ExpressionNode.bigInteger(new BigInteger(NUMBER1, 10))));
     }
 
     @Override

@@ -105,16 +105,16 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         return SpreadsheetParserToken.minusSymbol("-", "-");
     }
 
-    final SpreadsheetNumberParserToken number1() {
+    final SpreadsheetBigIntegerParserToken number1() {
         return this.number(1);
     }
 
-    final SpreadsheetNumberParserToken number2() {
+    final SpreadsheetBigIntegerParserToken number2() {
         return this.number(2);
     }
 
-    final SpreadsheetNumberParserToken number(final int value) {
-        return SpreadsheetParserToken.number(BigInteger.valueOf(value), String.valueOf(value));
+    final SpreadsheetBigIntegerParserToken number(final int value) {
+        return SpreadsheetParserToken.bigInteger(BigInteger.valueOf(value), String.valueOf(value));
     }
 
     final SpreadsheetPercentSymbolParserToken percentSymbol() {

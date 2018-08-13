@@ -26,12 +26,12 @@ import java.math.BigInteger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionNumberNode, BigInteger>{
+public final class ExpressionBigIntegerNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionBigIntegerNode, BigInteger>{
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final ExpressionNumberNode node = this.createExpressionNode();
+        final ExpressionBigIntegerNode node = this.createExpressionNode();
 
         new FakeExpressionNodeVisitor() {
             @Override
@@ -48,7 +48,7 @@ public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestC
             }
 
             @Override
-            protected void visit(final ExpressionNumberNode n) {
+            protected void visit(final ExpressionBigIntegerNode n) {
                 assertSame(node, n);
                 b.append("3");
             }
@@ -67,8 +67,8 @@ public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestC
     }
 
     @Override
-    ExpressionNumberNode createExpressionNode(final BigInteger value) {
-        return ExpressionNumberNode.with(value);
+    ExpressionBigIntegerNode createExpressionNode(final BigInteger value) {
+        return ExpressionBigIntegerNode.with(value);
     }
 
     @Override
@@ -82,7 +82,7 @@ public final class ExpressionNumberNodeTest extends ExpressionLeafValueNodeTestC
     }
 
     @Override
-    Class<ExpressionNumberNode> expressionNodeType() {
-        return ExpressionNumberNode.class;
+    Class<ExpressionBigIntegerNode> expressionNodeType() {
+        return ExpressionBigIntegerNode.class;
     }
 }
