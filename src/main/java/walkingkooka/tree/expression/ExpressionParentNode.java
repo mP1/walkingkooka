@@ -107,6 +107,11 @@ abstract class ExpressionParentNode extends ExpressionNode {
     }
 
     @Override
+    public final boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public final boolean isBoolean() {
         return false;
     }
@@ -118,11 +123,6 @@ abstract class ExpressionParentNode extends ExpressionNode {
 
     @Override
     public final boolean isLong() {
-        return false;
-    }
-
-    @Override
-    public final boolean isBigInteger() {
         return false;
     }
 

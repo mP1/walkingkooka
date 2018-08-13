@@ -410,6 +410,11 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     public abstract boolean isBigDecimal();
 
     /**
+     * Only {@link SpreadsheetBigIntegerParserToken} return true
+     */
+    public abstract boolean isBigInteger();
+
+    /**
      * Only {@link SpreadsheetCellParserToken} return true
      */
     public abstract boolean isCell();
@@ -548,11 +553,6 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
      * Only {@link SpreadsheetNotEqualsSymbolParserToken} returns true
      */
     public abstract boolean isNotEqualsSymbol();
-
-    /**
-     * Only {@link SpreadsheetBigIntegerParserToken} return true
-     */
-    public abstract boolean isBigInteger();
 
     /**
      * Only {@link SpreadsheetOpenParenthesisSymbolParserToken} return true

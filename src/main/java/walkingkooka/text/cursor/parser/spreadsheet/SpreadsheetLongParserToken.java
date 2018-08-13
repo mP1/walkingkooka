@@ -52,6 +52,11 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     }
 
     @Override
+    public boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public boolean isDouble() {
         return false;
     }
@@ -59,11 +64,6 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     @Override
     public boolean isLong() {
         return true;
-    }
-
-    @Override
-    public boolean isBigInteger() {
-        return false;
     }
 
     @Override
