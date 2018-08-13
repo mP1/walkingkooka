@@ -26,7 +26,7 @@ import java.math.MathContext;
 
 import static org.junit.Assert.assertEquals;
 
-public final class DecimalParserTest extends ParserTemplateTestCase<DecimalParser<FakeParserContext>, DecimalParserToken> {
+public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecimalParser<FakeParserContext>, BigDecimalParserToken> {
 
     @Test
     public void testFailure() {
@@ -369,8 +369,8 @@ public final class DecimalParserTest extends ParserTemplateTestCase<DecimalParse
     }
 
     @Override
-    protected DecimalParser createParser() {
-        return DecimalParser.with('.', MathContext.DECIMAL64);
+    protected BigDecimalParser createParser() {
+        return BigDecimalParser.with('.', MathContext.DECIMAL64);
     }
 
     private TextCursor parseAndCheck2(final String text){
@@ -390,11 +390,11 @@ public final class DecimalParserTest extends ParserTemplateTestCase<DecimalParse
     }
 
     private TextCursor parseAndCheck2(final String text, final BigDecimal value, final String textAfter){
-        return this.parseAndCheck(text + textAfter, ParserTokens.decimal(value, text), text, textAfter);
+        return this.parseAndCheck(text + textAfter, ParserTokens.bigDecimal(value, text), text, textAfter);
     }
 
     @Override
-    protected Class<DecimalParser<FakeParserContext>> type() {
-        return Cast.to(DecimalParser.class);
+    protected Class<BigDecimalParser<FakeParserContext>> type() {
+        return Cast.to(BigDecimalParser.class);
     }
 }

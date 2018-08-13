@@ -22,28 +22,28 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained within a {@link BigDecimal}
  */
-public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> {
+public final class BigDecimalParserToken extends ParserTemplateToken<BigDecimal> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DecimalParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigDecimalParserToken.class);
 
-    public static DecimalParserToken with(final BigDecimal value, final String text) {
+    public static BigDecimalParserToken with(final BigDecimal value, final String text) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(text, "text");
 
-        return new DecimalParserToken(value, text);
+        return new BigDecimalParserToken(value, text);
     }
 
-    private DecimalParserToken(final BigDecimal value, final String text) {
+    private BigDecimalParserToken(final BigDecimal value, final String text) {
         super(value, text);
     }
 
     @Override
-    public DecimalParserToken setText(final String text){
+    public BigDecimalParserToken setText(final String text){
         return this.setText0(text).cast();
     }
 
     @Override
-    DecimalParserToken replaceText(final String text) {
+    BigDecimalParserToken replaceText(final String text) {
         return with(this.value(), text);
     }
 
@@ -59,7 +59,7 @@ public final class DecimalParserToken extends ParserTemplateToken<BigDecimal> {
     
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof DecimalParserToken;
+        return other instanceof BigDecimalParserToken;
     }
 
     @Override

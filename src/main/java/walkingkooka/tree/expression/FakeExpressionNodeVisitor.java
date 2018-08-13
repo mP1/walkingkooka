@@ -36,12 +36,12 @@ public class FakeExpressionNodeVisitor extends ExpressionNodeVisitor implements 
     }
 
     @Override
-    protected void visit(final ExpressionBooleanNode node) {
+    protected void visit(final ExpressionBigDecimalNode node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final ExpressionDecimalNode node) {
+    protected void visit(final ExpressionBooleanNode node) {
         throw new UnsupportedOperationException();
     }
 

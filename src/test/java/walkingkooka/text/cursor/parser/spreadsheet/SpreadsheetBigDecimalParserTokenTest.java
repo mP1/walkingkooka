@@ -27,12 +27,12 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetDecimalParserTokenTest extends SpreadsheetNumericParserTokenTestCase<SpreadsheetDecimalParserToken, BigDecimal> {
+public final class SpreadsheetBigDecimalParserTokenTest extends SpreadsheetNumericParserTokenTestCase<SpreadsheetBigDecimalParserToken, BigDecimal> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final SpreadsheetDecimalParserToken token = this.createToken();
+        final SpreadsheetBigDecimalParserToken token = this.createToken();
 
         new FakeSpreadsheetParserTokenVisitor() {
             @Override
@@ -62,7 +62,7 @@ public final class SpreadsheetDecimalParserTokenTest extends SpreadsheetNumericP
             }
 
             @Override
-            protected void visit(final SpreadsheetDecimalParserToken t) {
+            protected void visit(final SpreadsheetBigDecimalParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -72,7 +72,7 @@ public final class SpreadsheetDecimalParserTokenTest extends SpreadsheetNumericP
 
     @Test
     public void testToExpressionNode() {
-        this.toExpressionNodeAndCheck(ExpressionNode.decimal(this.value()));
+        this.toExpressionNodeAndCheck(ExpressionNode.bigDecimal(this.value()));
     }
 
     @Override
@@ -86,17 +86,17 @@ public final class SpreadsheetDecimalParserTokenTest extends SpreadsheetNumericP
     }
 
     @Override
-    protected SpreadsheetDecimalParserToken createToken(final BigDecimal value, final String text) {
-        return SpreadsheetDecimalParserToken.with(value, text);
+    protected SpreadsheetBigDecimalParserToken createToken(final BigDecimal value, final String text) {
+        return SpreadsheetBigDecimalParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetDecimalParserToken createDifferentToken() {
-        return SpreadsheetDecimalParserToken.with(new BigDecimal(-1), "'different'");
+    protected SpreadsheetBigDecimalParserToken createDifferentToken() {
+        return SpreadsheetBigDecimalParserToken.with(new BigDecimal(-1), "'different'");
     }
 
     @Override
-    protected Class<SpreadsheetDecimalParserToken> type() {
-        return SpreadsheetDecimalParserToken.class;
+    protected Class<SpreadsheetBigDecimalParserToken> type() {
+        return SpreadsheetBigDecimalParserToken.class;
     }
 }

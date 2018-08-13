@@ -24,22 +24,22 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class DecimalParserTokenTest extends ParserTokenTestCase<DecimalParserToken> {
+public final class BigDecimalParserTokenTest extends ParserTokenTestCase<BigDecimalParserToken> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullValueFails() {
-        DecimalParserToken.with(null, "123");
+        BigDecimalParserToken.with(null, "123");
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTextFails() {
-        DecimalParserToken.with(BigDecimal.ZERO, null);
+        BigDecimalParserToken.with(BigDecimal.ZERO, null);
     }
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final DecimalParserToken token = this.createToken();
+        final BigDecimalParserToken token = this.createToken();
 
         new FakeParserTokenVisitor() {
             @Override
@@ -56,7 +56,7 @@ public final class DecimalParserTokenTest extends ParserTokenTestCase<DecimalPar
             }
 
             @Override
-            protected void visit(final DecimalParserToken t) {
+            protected void visit(final BigDecimalParserToken t) {
                 assertSame(token, t);
                 b.append("3");
             }
@@ -66,26 +66,26 @@ public final class DecimalParserTokenTest extends ParserTokenTestCase<DecimalPar
     
     @Test
     public void testIgnoresPrefix() {
-        DecimalParserToken.with(BigDecimal.valueOf(123), "+123");
+        BigDecimalParserToken.with(BigDecimal.valueOf(123), "+123");
     }
 
     @Test
     public void testWithFractions() {
-        DecimalParserToken.with(BigDecimal.valueOf(12.5), "12.5 nonsense");
+        BigDecimalParserToken.with(BigDecimal.valueOf(12.5), "12.5 nonsense");
     }
 
     @Override
-    protected DecimalParserToken createToken() {
-        return DecimalParserToken.with(BigDecimal.valueOf(123), "123");
+    protected BigDecimalParserToken createToken() {
+        return BigDecimalParserToken.with(BigDecimal.valueOf(123), "123");
     }
 
     @Override
-    protected DecimalParserToken createDifferentToken() {
-        return DecimalParserToken.with(BigDecimal.valueOf(987), "987");
+    protected BigDecimalParserToken createDifferentToken() {
+        return BigDecimalParserToken.with(BigDecimal.valueOf(987), "987");
     }
 
     @Override
-    protected Class<DecimalParserToken> type() {
-        return DecimalParserToken.class;
+    protected Class<BigDecimalParserToken> type() {
+        return BigDecimalParserToken.class;
     }
 }

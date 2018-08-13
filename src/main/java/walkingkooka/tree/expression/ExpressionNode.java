@@ -51,17 +51,17 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
+     * {@see ExpressionBigDecimalNode}
+     */
+    public static ExpressionBigDecimalNode bigDecimal(final BigDecimal value){
+        return ExpressionBigDecimalNode.with(value);
+    }
+
+    /**
      * {@see ExpressionBooleanNode}
      */
     public static ExpressionBooleanNode booleanNode(final boolean value) {
         return ExpressionBooleanNode.with(value);
-    }
-
-    /**
-     * {@see ExpressionDecimalNode}
-     */
-    public static ExpressionDecimalNode decimal(final BigDecimal value){
-        return ExpressionDecimalNode.with(value);
     }
 
     /**
@@ -319,14 +319,14 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     public abstract boolean isAnd();
 
     /**
+     * Only {@link ExpressionBigDecimalNode} returns true
+     */
+    public abstract boolean isBigDecimal();
+
+    /**
      * Only {@link ExpressionBooleanNode} returns true
      */
     public abstract boolean isBoolean();
-
-    /**
-     * Only {@link ExpressionDecimalNode} returns true
-     */
-    public abstract boolean isDecimal();
 
     /**
      * Only {@link ExpressionDoubleNode} returns true

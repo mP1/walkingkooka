@@ -76,22 +76,17 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
     }
 
     @Override
+    public final boolean isBigDecimal() {
+        return false;
+    }
+
+    @Override
     public final boolean isCloseParenthesisSymbol() {
         return false;
     }
 
     @Override
     public final boolean isColumn() {
-        return false;
-    }
-
-    @Override
-    public final boolean isFunctionParameterSeparatorSymbol() {
-        return false;
-    }
-
-    @Override
-    public final boolean isDecimal() {
         return false;
     }
 
@@ -112,6 +107,11 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
 
     @Override
     public final boolean isFunctionName() {
+        return false;
+    }
+
+    @Override
+    public final boolean isFunctionParameterSeparatorSymbol() {
         return false;
     }
     

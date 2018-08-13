@@ -50,7 +50,7 @@ public final class SpreadsheetNumberParserToken extends SpreadsheetNumericParser
     }
 
     @Override
-    public boolean isDecimal() {
+    public boolean isBigDecimal() {
         return false;
     }
 

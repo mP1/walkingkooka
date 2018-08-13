@@ -34,12 +34,12 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     }
 
     @Override
-    public final boolean isColumn() {
+    public final boolean isBigDecimal() {
         return false;
     }
 
     @Override
-    public final boolean isDecimal() {
+    public final boolean isColumn() {
         return false;
     }
 

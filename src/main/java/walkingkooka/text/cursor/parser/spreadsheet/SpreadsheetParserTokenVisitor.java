@@ -201,19 +201,15 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
+    protected void visit(final SpreadsheetBigDecimalParserToken token) {
+        // nop
+    }
+
     protected void visit(final SpreadsheetCloseParenthesisSymbolParserToken token) {
         // nop
     }
 
-    protected void visit(final SpreadsheetFunctionParameterSeparatorSymbolParserToken token) {
-        // nop
-    }
-
     protected void visit(final SpreadsheetColumnParserToken token) {
-        // nop
-    }
-
-    protected void visit(final SpreadsheetDecimalParserToken token) {
         // nop
     }
 
@@ -230,6 +226,10 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     }
     
     protected void visit(final SpreadsheetFunctionNameParserToken token) {
+        // nop
+    }
+
+    protected void visit(final SpreadsheetFunctionParameterSeparatorSymbolParserToken token) {
         // nop
     }
 

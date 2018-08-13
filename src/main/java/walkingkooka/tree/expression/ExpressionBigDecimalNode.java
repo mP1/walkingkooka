@@ -25,16 +25,16 @@ import java.util.Objects;
 /**
  * A {@link BigDecimal} number value.
  */
-public final class ExpressionDecimalNode extends ExpressionLeafValueNode<BigDecimal> {
+public final class ExpressionBigDecimalNode extends ExpressionLeafValueNode<BigDecimal> {
 
-    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionDecimalNode.class);
+    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBigDecimalNode.class);
 
-    static ExpressionDecimalNode with(final BigDecimal value) {
+    static ExpressionBigDecimalNode with(final BigDecimal value) {
         Objects.requireNonNull(value, "value");
-        return new ExpressionDecimalNode(NO_PARENT_INDEX, value);
+        return new ExpressionBigDecimalNode(NO_PARENT_INDEX, value);
     }
 
-    private ExpressionDecimalNode(final int index, final BigDecimal value){
+    private ExpressionBigDecimalNode(final int index, final BigDecimal value){
         super(index, value);
     }
 
@@ -44,18 +44,18 @@ public final class ExpressionDecimalNode extends ExpressionLeafValueNode<BigDeci
     }
 
     @Override
-    ExpressionDecimalNode wrap1(final int index, final BigDecimal value) {
-        return new ExpressionDecimalNode(index, value);
+    ExpressionBigDecimalNode wrap1(final int index, final BigDecimal value) {
+        return new ExpressionBigDecimalNode(index, value);
+    }
+
+    @Override
+    public boolean isBigDecimal() {
+        return true;
     }
 
     @Override
     public boolean isBoolean() {
         return false;
-    }
-
-    @Override
-    public boolean isDecimal() {
-        return true;
     }
 
     @Override
@@ -90,7 +90,7 @@ public final class ExpressionDecimalNode extends ExpressionLeafValueNode<BigDeci
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionDecimalNode;
+        return other instanceof ExpressionBigDecimalNode;
     }
 
     @Override

@@ -62,6 +62,13 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     }
 
     /**
+     * {@see SpreadsheetBigDecimalParserToken}
+     */
+    public static SpreadsheetBigDecimalParserToken bigDecimal(final BigDecimal value, final String text){
+        return SpreadsheetBigDecimalParserToken.with(value, text);
+    }
+
+    /**
      * {@see SpreadsheetCellParserToken}
      */
     public static SpreadsheetCellParserToken cell(final List<ParserToken> value, final String text){
@@ -80,13 +87,6 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
      */
     public static SpreadsheetColumnParserToken column(final SpreadsheetColumn value, final String text){
         return SpreadsheetColumnParserToken.with(value, text);
-    }
-    
-    /**
-     * {@see SpreadsheetDecimalParserToken}
-     */
-    public static SpreadsheetDecimalParserToken decimal(final BigDecimal value, final String text){
-        return SpreadsheetDecimalParserToken.with(value, text);
     }
 
     /**
@@ -405,6 +405,11 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     public abstract boolean isBetweenSymbol();
 
     /**
+     * Only {@link SpreadsheetBigDecimalParserToken} return true
+     */
+    public abstract boolean isBigDecimal();
+
+    /**
      * Only {@link SpreadsheetCellParserToken} return true
      */
     public abstract boolean isCell();
@@ -418,11 +423,6 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
      * Only {@link SpreadsheetColumnParserToken} return true
      */
     public abstract boolean isColumn();
-
-    /**
-     * Only {@link SpreadsheetDecimalParserToken} return true
-     */
-    public abstract boolean isDecimal();
 
     /**
      * Only {@link SpreadsheetDivideSymbolParserToken} returns true

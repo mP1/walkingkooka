@@ -26,17 +26,17 @@ import java.util.List;
 public final class ParserTokens implements PublicStaticHelper {
 
     /**
+     * {@see BigDecimalParserToken}
+     */
+    public static BigDecimalParserToken bigDecimal(final BigDecimal value, final String text) {
+        return BigDecimalParserToken.with(value, text);
+    }
+
+    /**
      * {@see CharacterParserToken}
      */
     public static CharacterParserToken character(final char value, final String text) {
         return CharacterParserToken.with(value, text);
-    }
-
-    /**
-     * {@see DecimalParserToken}
-     */
-    public static DecimalParserToken decimal(final BigDecimal value, final String text) {
-        return DecimalParserToken.with(value, text);
     }
 
     /**
