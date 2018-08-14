@@ -18,9 +18,14 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Value;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Factory methods for numerous {@link Converter converters}.
@@ -77,6 +82,13 @@ public final class Converters implements PublicStaticHelper {
                                       final Converter doubleConverter,
                                       final Converter longConverter) {
         return NumberNumberConverter.with(bigDecimal, bigInteger, doubleConverter, longConverter);
+    }
+
+    /**
+     * {@see ParserConverter}
+     */
+    public static <V, PT extends ParserToken & Value<V>, PC extends ParserContext> Converter parser(final Class<V> type, final Parser<PT , PC> parser, final Supplier<PC> context){
+        return ParserConverter.with(type, parser, context);
     }
 
     /**
