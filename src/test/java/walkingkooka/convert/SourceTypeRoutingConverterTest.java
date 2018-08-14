@@ -24,6 +24,16 @@ import walkingkooka.Cast;
 public final class SourceTypeRoutingConverterTest extends FixedTypeConverterTestCase<SourceTypeRoutingConverter<Boolean>, Boolean>{
 
     @Test
+    public void testAlreadyTargetBoolean(){
+        this.convertAndCheck(Boolean.TRUE);
+    }
+
+    @Test
+    public void testAlreadyTargetBoolean2(){
+        this.convertAndCheck(Boolean.FALSE);
+    }
+
+    @Test
     public void testStringValue() {
         this.convertAndCheck(Boolean.TRUE.toString(), Boolean.TRUE);
     }
