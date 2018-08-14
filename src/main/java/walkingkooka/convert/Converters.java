@@ -20,6 +20,8 @@ package walkingkooka.convert;
 
 import walkingkooka.type.PublicStaticHelper;
 
+import java.util.List;
+
 /**
  * Factory methods for numerous {@link Converter converters}.
  */
@@ -30,6 +32,13 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter booleanString(final String trueValue, final String falseValue) {
         return BooleanStringConverter.with(trueValue, falseValue);
+    }
+
+    /**
+     * {@see ConverterCollection}
+     */
+    public static Converter collection(final List<Converter> converters) {
+        return ConverterCollection.with(converters);
     }
 
     /**
