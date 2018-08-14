@@ -54,8 +54,8 @@ final class ParserConverter<V, PT extends ParserToken & Value<V>, PC extends Par
     }
 
     @Override
-    public boolean canConvert(final Class<?> type) {
-        return this.type == type;
+    public boolean canConvert(final Object value, final Class<?> type) {
+        return value instanceof String && this.type == type;
     }
 
     private final Class<V> type;

@@ -47,18 +47,17 @@ final class NumberNumberConverter implements Converter{
     }
 
     @Override
-    public boolean canConvert(final Class<?> type) {
-        return type == BigDecimal.class ||
+    public boolean canConvert(final Object value, final Class<?> type) {
+        return value instanceof Number && (
+                type == BigDecimal.class ||
                 type == BigInteger.class ||
                 type == Double.class ||
                 type == Long.class ||
-                type == Number.class;
+                type == Number.class);
     }
 
     @Override
     public <T> T convert(final Object value, final Class<T> type) {
-        T converted = null;
-
         return type == Number.class && value instanceof Number ?
                type.cast(value) :
                type == BigDecimal.class ?

@@ -34,11 +34,6 @@ final class NumberDoubleConverter extends NumberConverter<Double> {
     }
 
     @Override
-    Class<Double> onlySupportedType() {
-        return Double.class;
-    }
-
-    @Override
     Double bigDecimal(final BigDecimal value) {
         final double doubleValue = value.doubleValue();
         final BigDecimal back = new BigDecimal(doubleValue);
@@ -54,12 +49,12 @@ final class NumberDoubleConverter extends NumberConverter<Double> {
     }
 
     @Override
-    Double doubleValue(final double value) {
+    Double doubleValue(final Double value) {
         return value;
     }
 
     @Override
-    Double longValue(final long value) {
+    Double longValue(final Long value) {
         final double doubleValue = value;
         if(value != (long)doubleValue) {
             this.failConversion(value);
@@ -70,5 +65,10 @@ final class NumberDoubleConverter extends NumberConverter<Double> {
     @Override
     String toStringPrefix() {
         return "";
+    }
+
+    @Override
+    Class<Double> targetType(){
+        return Double.class;
     }
 }

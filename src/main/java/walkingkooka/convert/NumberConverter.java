@@ -18,6 +18,8 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.Cast;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -31,19 +33,25 @@ abstract class NumberConverter<T> extends FixedTypeConverter<T> {
         super();
     }
 
-    @Override final T convert1(final Object from) {
+    @Override
+    public boolean canConvert(final Object value, final Class<?> type) {
+        return value instanceof Number && this.targetType() == type;
+    }
+
+    @Override
+    final T convert1(final Object value, Class<T> type) {
         try {
-            return from instanceof BigDecimal ?
-                    this.bigDecimal((BigDecimal) from) :
-                    from instanceof BigInteger ?
-                            this.bigInteger((BigInteger) from) :
-                            from instanceof Double ?
-                                    this.doubleValue((Double) from) :
-                                    from instanceof Long ?
-                                            this.longValue((Long) from) :
-                                            this.failConversion(from);
+            return Cast.to(value instanceof BigDecimal ?
+                    this.bigDecimal((BigDecimal) value) :
+                    value instanceof BigInteger ?
+                            this.bigInteger((BigInteger) value) :
+                            value instanceof Double ?
+                                    this.doubleValue((Double) value) :
+                                    value instanceof Long ?
+                                            this.longValue((Long) value) :
+                                            this.failConversion(value, type));
         } catch(final ArithmeticException | NumberFormatException fail) {
-            return this.failConversion(from);
+            return this.failConversion(value, type);
         }
     }
 
@@ -51,13 +59,13 @@ abstract class NumberConverter<T> extends FixedTypeConverter<T> {
 
     abstract T bigInteger(final BigInteger value);
 
-    abstract T doubleValue(final double value);
+    abstract T doubleValue(final Double value);
 
-    abstract T longValue(final long value);
+    abstract T longValue(final Long value);
 
     @Override
     public final String toString() {
-        return this.toStringPrefix() + "BigDecimal|BigInteger|Double|Long->" + this.onlySupportedType().getSimpleName();
+        return this.toStringPrefix() + "BigDecimal|BigInteger|Double|Long->" + this.targetType().getSimpleName();
     }
 
     abstract String toStringPrefix();

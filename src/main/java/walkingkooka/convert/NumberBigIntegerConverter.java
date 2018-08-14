@@ -34,11 +34,6 @@ final class NumberBigIntegerConverter extends NumberConverter<BigInteger> {
     }
 
     @Override
-    Class<BigInteger> onlySupportedType() {
-        return BigInteger.class;
-    }
-
-    @Override
     BigInteger bigDecimal(final BigDecimal value) {
         return value.toBigIntegerExact();
     }
@@ -49,17 +44,22 @@ final class NumberBigIntegerConverter extends NumberConverter<BigInteger> {
     }
 
     @Override
-    BigInteger doubleValue(final double value) {
+    BigInteger doubleValue(final Double value) {
         return this.bigDecimal(new BigDecimal(value));
     }
 
     @Override
-    BigInteger longValue(final long value) {
+    BigInteger longValue(final Long value) {
         return BigInteger.valueOf(value);
     }
 
     @Override
     String toStringPrefix() {
         return "";
+    }
+
+    @Override
+    Class<BigInteger> targetType(){
+        return BigInteger.class;
     }
 }

@@ -33,17 +33,22 @@ final class StringConverter extends FixedTypeConverter<String> {
     }
 
     @Override
-    Class<String> onlySupportedType() {
-        return String.class;
+    public boolean canConvert(final Object value, final Class<?> type) {
+        return true;
     }
 
     @Override
-    String convert1(final Object value) {
+    String convert1(final Object value, final Class<String> type) {
         return value.toString();
     }
 
     @Override
     public String toString() {
         return "*->String";
+    }
+
+    @Override
+    Class<String> targetType() {
+        return String.class;
     }
 }

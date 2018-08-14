@@ -40,12 +40,12 @@ final class BooleanStringConverter extends FixedTypeConverter<String> {
     }
 
     @Override
-    Class<String> onlySupportedType() {
-        return String.class;
+    public boolean canConvert(final Object value, final Class<?> type) {
+        return value instanceof Boolean && String.class == type;
     }
 
     @Override
-    String convert1(final Object value) {
+    String convert1(final Object value, final Class<String> type) {
         return Boolean.TRUE.equals(value) ?
                 this.trueValue :
                 this.falseValue;
@@ -53,6 +53,11 @@ final class BooleanStringConverter extends FixedTypeConverter<String> {
 
     private final String trueValue;
     private final String falseValue;
+
+    @Override
+    Class<String> targetType() {
+        return String.class;
+    }
 
     @Override
     public String toString() {
