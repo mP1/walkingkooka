@@ -57,4 +57,9 @@ final class NumberBigIntegerConverter extends NumberConverter<BigInteger> {
     BigInteger longValue(final long value) {
         return BigInteger.valueOf(value);
     }
+
+    @Override
+    String toStringPrefix() {
+        return "";
+    }
 }

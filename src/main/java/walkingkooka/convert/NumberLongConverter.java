@@ -61,4 +61,9 @@ final class NumberLongConverter extends NumberConverter<Long> {
     Long longValue(final long value) {
         return value;
     }
+
+    @Override
+    String toStringPrefix() {
+        return "";
+    }
 }
