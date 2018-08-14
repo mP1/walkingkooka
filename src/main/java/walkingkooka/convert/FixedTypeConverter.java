@@ -34,7 +34,7 @@ abstract class FixedTypeConverter<T> extends ConverterTemplate {
 
     @Override
     public boolean canConvert(final Class<?> type) {
-        return this.onlySupportedType() == type;
+        return type.isAssignableFrom(this.onlySupportedType());
     }
 
     final <TT> TT convert0(final Object value, final Class<TT> type) {
