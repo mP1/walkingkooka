@@ -22,44 +22,50 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * Handles converting one of {@link BigDecimal}, {@link BigInteger}, {@link Double} or {@link Long} to {@link BigDecimal}
- * without any loss.
+ * A {@link Converter} for various {@link Number} sub classes that returns false for zeros, and true for all other values,
+ * following the truthy convention.
  */
-final class NumberBigDecimalConverter extends NumberConverter<BigDecimal> {
+final class TruthyNumberBooleanConverter extends NumberConverter<Boolean>{
 
-    final static NumberBigDecimalConverter INSTANCE = new NumberBigDecimalConverter();
+    /**
+     * Singleton
+     */
+    final static TruthyNumberBooleanConverter INSTANCE = new TruthyNumberBooleanConverter();
 
-    private NumberBigDecimalConverter() {
+    /**
+     * Private ctor use singleton
+     */
+    private TruthyNumberBooleanConverter() {
         super();
     }
 
     @Override
-    Class<BigDecimal> onlySupportedType() {
-        return BigDecimal.class;
+    Class<Boolean> onlySupportedType() {
+        return Boolean.class;
     }
 
     @Override
-    BigDecimal bigDecimal(final BigDecimal value) {
-        return value;
+    Boolean bigDecimal(final BigDecimal value) {
+        return value.signum() != 0;
     }
 
     @Override
-    BigDecimal bigInteger(final BigInteger value) {
-        return new BigDecimal(value);
+    Boolean bigInteger(final BigInteger value) {
+        return value.signum() != 0;
     }
 
     @Override
-    BigDecimal doubleValue(final double value) {
-        return BigDecimal.valueOf(value);
+    Boolean doubleValue(final double value) {
+        return 0 != value;
     }
 
     @Override
-    BigDecimal longValue(final long value) {
-        return BigDecimal.valueOf(value);
+    Boolean longValue(final long value) {
+        return 0 != value;
     }
 
     @Override
     String toStringPrefix() {
-        return "";
+        return "Truthy ";
     }
 }

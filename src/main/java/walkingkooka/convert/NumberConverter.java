@@ -25,7 +25,7 @@ import java.math.BigInteger;
  * A {@link Converter} that knows how to convert {@link String} to {@link BigDecimal}.
  * Requests for all other types will fail.
  */
-abstract class NumberConverter<T extends Number> extends FixedTypeConverter<T> {
+abstract class NumberConverter<T> extends FixedTypeConverter<T> {
 
     NumberConverter() {
         super();
@@ -57,6 +57,8 @@ abstract class NumberConverter<T extends Number> extends FixedTypeConverter<T> {
 
     @Override
     public final String toString() {
-        return "BigDecimal|BigInteger|Double|Long->" + this.onlySupportedType().getSimpleName();
+        return this.toStringPrefix() + "BigDecimal|BigInteger|Double|Long->" + this.onlySupportedType().getSimpleName();
     }
+
+    abstract String toStringPrefix();
 }

@@ -85,6 +85,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see TruthyNumberBooleanConverter}
+     */
+    public static Converter truthyNumberBoolean() {
+        return TruthyNumberBooleanConverter.INSTANCE;
+    }
+
+    /**
      * Stop creation
      */
     private Converters() {

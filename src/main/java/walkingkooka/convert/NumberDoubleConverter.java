@@ -66,4 +66,9 @@ final class NumberDoubleConverter extends NumberConverter<Double> {
         }
         return doubleValue;
     }
+
+    @Override
+    String toStringPrefix() {
+        return "";
+    }
 }
