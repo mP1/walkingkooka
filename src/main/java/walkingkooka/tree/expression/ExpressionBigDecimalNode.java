@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A {@link BigDecimal} number value.
  */
-public final class ExpressionBigDecimalNode extends ExpressionLeafValueNode<BigDecimal> {
+public final class ExpressionBigDecimalNode extends ExpressionLeafNode2<BigDecimal> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBigDecimalNode.class);
 
@@ -88,6 +88,18 @@ public final class ExpressionBigDecimalNode extends ExpressionLeafValueNode<BigD
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    /**
+     * Convert the other value to {@link BigDecimal}
+     */
+    @Override
+    final Class<Number> commonNumberType(final Class<? extends Number> type){
+        return BIG_DECIMAL;
+    }
+
+    // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

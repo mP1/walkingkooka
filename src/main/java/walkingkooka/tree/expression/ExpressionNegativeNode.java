@@ -18,8 +18,11 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.ShouldNeverHappenError;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
@@ -71,6 +74,74 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
         }
         visitor.endVisit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    @Override
+    public BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
+        return this.value().toBigDecimal(context).negate(context.mathContext());
+    }
+
+    @Override
+    public BigInteger toBigInteger(final ExpressionEvaluationContext context) {
+        return this.value().toBigInteger(context).negate();
+    }
+
+    @Override
+    public boolean toBoolean(final ExpressionEvaluationContext context) {
+        return context.convert(this.toNumber(context), Boolean.class);
+    }
+
+    @Override
+    public double toDouble(final ExpressionEvaluationContext context) {
+        return - this.value().toDouble(context);
+    }
+
+    @Override
+    public long toLong(final ExpressionEvaluationContext context) {
+        return - this.value().toLong(context);
+    }
+
+    @Override
+    public Number toNumber(final ExpressionEvaluationContext context) {
+        final Number number = this.value().toNumber(context);
+        return number instanceof BigDecimal ?
+                this.applyBigDecimal(BigDecimal.class.cast(number), context) :
+                number instanceof BigInteger ?
+                        this.applyBigInteger(BigInteger.class.cast(number), context) :
+                        number instanceof Double ?
+                                this.applyDouble(Double.class.cast(number), context) :
+                                number instanceof Long ?
+                                        this.applyLong(Long.class.cast(number), context) :
+                                            failToNumber();
+    }
+
+    private BigDecimal applyBigDecimal(final BigDecimal bigDecimal, final ExpressionEvaluationContext context) {
+        return bigDecimal.negate(context.mathContext());
+    }
+
+    private BigInteger applyBigInteger(final BigInteger bigInteger, final ExpressionEvaluationContext context) {
+        return bigInteger.negate();
+    }
+
+    private Double applyDouble(final Double doubleValue, final ExpressionEvaluationContext context) {
+        return -doubleValue;
+    }
+
+    private Long applyLong(final Long longValue, final ExpressionEvaluationContext context) {
+        return -longValue;
+    }
+
+    private Number failToNumber() {
+        throw new ShouldNeverHappenError(this.getClass().getName() + ".applyToNumber");
+    }
+
+    @Override
+    public String toText(final ExpressionEvaluationContext context) {
+        return context.convert(this.toNumber(context), String.class);
+    }
+
+    // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

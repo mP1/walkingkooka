@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionDoubleNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionDoubleNode, Double>{
+public final class ExpressionDoubleNodeTest extends ExpressionLeafNodeTestCase<ExpressionDoubleNode, Double>{
 
     @Test
     public void testAccept() {
@@ -53,7 +53,51 @@ public final class ExpressionDoubleNodeTest extends ExpressionLeafValueNodeTestC
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(0), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(1), true);
+    }
+
+    @Test
+    public void testToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToBigInteger() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToDouble() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToLong() {
+        this.evaluateAndCheckLong(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToNumberDouble() {
+        this.evaluateAndCheckNumberDouble(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToText() {
+        this.evaluateAndCheckText(this.createExpressionNode(123), "123.0");
+    }
+
+    // ToString ...................................................................................................
+
     @Test
     public void testToString() {
         assertEquals("1.0", this.createExpressionNode(1.0).toString());
@@ -62,6 +106,10 @@ public final class ExpressionDoubleNodeTest extends ExpressionLeafValueNodeTestC
     @Test
     public void testToString2() {
         assertEquals("234.5", this.createExpressionNode(234.5).toString());
+    }
+
+    private ExpressionDoubleNode createExpressionNode(final double value) {
+        return this.createExpressionNode(Double.valueOf(value));
     }
 
     @Override

@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -25,7 +26,7 @@ import java.util.Objects;
 /**
  * A text value.
  */
-public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
+public final class ExpressionTextNode extends ExpressionLeafNode2<String> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionTextNode.class);
 
@@ -87,6 +88,15 @@ public final class ExpressionTextNode extends ExpressionLeafValueNode<String> {
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    @Override
+    final Class<Number> commonNumberType(final Class<? extends Number> type){
+        return Cast.to(type);
+    }
+
+    // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

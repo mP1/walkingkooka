@@ -160,4 +160,16 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
     final void acceptValues(final ExpressionNodeVisitor visitor){
         visitor.accept(this.value());
     }
+    
+    // Evaluation...................................................................................................
+
+    @Override
+    public final Number toValue(final ExpressionEvaluationContext context) {
+        return this.toNumber(context);
+    }
+
+    @Override
+    Class<Number> commonNumberType(final Class<? extends Number> type) {
+        throw new UnsupportedOperationException();
+    }
 }

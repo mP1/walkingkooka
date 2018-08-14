@@ -18,10 +18,12 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
+
 /**
  * A boolean value.
  */
-public final class ExpressionBooleanNode extends ExpressionLeafValueNode<Boolean> {
+public final class ExpressionBooleanNode extends ExpressionLeafNode2<Boolean> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBooleanNode.class);
 
@@ -82,6 +84,15 @@ public final class ExpressionBooleanNode extends ExpressionLeafValueNode<Boolean
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    @Override
+    Class<Number> commonNumberType(final Class<? extends Number> type) {
+        return Cast.to(type);
+    }
+
+    // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

@@ -20,12 +20,13 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
  * A xor expression.
  */
-public final class ExpressionXorNode extends ExpressionBinaryNode {
+public final class ExpressionXorNode extends ExpressionLogicalBinaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionXorNode.class);
 
@@ -56,72 +57,12 @@ public final class ExpressionXorNode extends ExpressionBinaryNode {
     // is .........................................................................................................
 
     @Override
-    public boolean isAddition() {
-        return false;
-    }
-
-    @Override
     public boolean isAnd() {
         return false;
     }
 
     @Override
-    public boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public boolean isEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isModulo() {
-        return false;
-    }
-
-    @Override
-    public boolean isMultiplication() {
-        return false;
-    }
-
-    @Override
-    public boolean isNotEquals() {
-        return false;
-    }
-
-    @Override
     public boolean isOr() {
-        return false;
-    }
-
-    @Override
-    public boolean isPower() {
-        return false;
-    }
-
-    @Override
-    public boolean isSubtraction() {
         return false;
     }
 
@@ -139,6 +80,20 @@ public final class ExpressionXorNode extends ExpressionBinaryNode {
         }
         visitor.endVisit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    @Override
+    ExpressionNode applyBigInteger(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
+        return ExpressionNode.bigInteger(left.xor(right));
+    }
+
+    @Override
+    ExpressionNode applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
+        return ExpressionNode.longNode(left ^ right);
+    }
+
+    // Object ........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

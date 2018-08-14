@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionTextNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionTextNode, String>{
+public final class ExpressionTextNodeTest extends ExpressionLeafNodeTestCase<ExpressionTextNode, String>{
 
     @Test
     public void testAccept() {
@@ -53,7 +53,51 @@ public final class ExpressionTextNodeTest extends ExpressionLeafValueNodeTestCas
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode("false"), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode("true"), true);
+    }
+
+    @Test
+    public void testToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode("123"), 123);
+    }
+
+    @Test
+    public void testToBigInteger() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode("123"), 123);
+    }
+
+    @Test
+    public void testToDouble() {
+        this.evaluateAndCheckDouble(this.createExpressionNode("123"), 123);
+    }
+
+    @Test
+    public void testToLong() {
+        this.evaluateAndCheckLong(this.createExpressionNode("123"), 123);
+    }
+
+    @Test
+    public void testToNumber() {
+        this.evaluateAndCheckNumberBigDecimal(this.createExpressionNode("123"), 123);
+    }
+
+    @Test
+    public void testToText() {
+        this.evaluateAndCheckText(this.createExpressionNode("123"), "123");
+    }
+
+    // ToString ...................................................................................................
+
     @Test
     public void testToString() {
         assertEquals("\"abc123\"", this.createExpressionNode("abc123").toString());
