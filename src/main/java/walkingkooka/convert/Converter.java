@@ -35,6 +35,12 @@ public interface Converter {
      */
     <T> T convert(final Object value, final Class<T> type);
 
+    default void failIfUnsupportedType(final Object value, final Class<?> target) {
+        if(!this.canConvert(target)){
+            this.failConversion(value, target);
+        }
+    }
+
     default <TT> TT failConversion(final Object value, final Class<TT> target) {
         throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getName());
     }
