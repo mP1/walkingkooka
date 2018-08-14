@@ -34,11 +34,6 @@ final class NumberLongConverter extends NumberConverter<Long> {
     }
 
     @Override
-    Class<Long> onlySupportedType() {
-        return Long.class;
-    }
-
-    @Override
     Long bigDecimal(final BigDecimal value) {
         return value.longValueExact();
     }
@@ -49,8 +44,8 @@ final class NumberLongConverter extends NumberConverter<Long> {
     }
 
     @Override
-    Long doubleValue(final double value) {
-        final long longValue = Long.valueOf((long)value);
+    Long doubleValue(final Double value) {
+        final long longValue = value.longValue();
         if(longValue != value) {
             this.failConversion(value);
         }
@@ -58,12 +53,17 @@ final class NumberLongConverter extends NumberConverter<Long> {
     }
 
     @Override
-    Long longValue(final long value) {
+    Long longValue(final Long value) {
         return value;
     }
 
     @Override
     String toStringPrefix() {
         return "";
+    }
+
+    @Override
+    Class<Long> targetType(){
+        return Long.class;
     }
 }

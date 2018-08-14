@@ -40,8 +40,8 @@ final class TruthyNumberBooleanConverter extends NumberConverter<Boolean>{
     }
 
     @Override
-    Class<Boolean> onlySupportedType() {
-        return Boolean.class;
+    public boolean canConvert(final Object value, final Class<?> type) {
+        return value instanceof Number && Boolean.class == type;
     }
 
     @Override
@@ -55,17 +55,22 @@ final class TruthyNumberBooleanConverter extends NumberConverter<Boolean>{
     }
 
     @Override
-    Boolean doubleValue(final double value) {
-        return 0 != value;
+    Boolean doubleValue(final Double value) {
+        return 0 != value.doubleValue();
     }
 
     @Override
-    Boolean longValue(final long value) {
-        return 0 != value;
+    Boolean longValue(final Long value) {
+        return 0 != value.longValue();
     }
 
     @Override
     String toStringPrefix() {
         return "Truthy ";
+    }
+
+    @Override
+    Class<Boolean> targetType(){
+        return Boolean.class;
     }
 }

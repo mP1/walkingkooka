@@ -92,13 +92,6 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see SourceTypeRoutingConverterBuilder}
-     */
-    public static <T> SourceTypeRoutingConverterBuilder<T> sourceTypeRoutingConverterBuilder(final Class<T> targetType) {
-        return SourceTypeRoutingConverterBuilder.create(targetType);
-    }
-
-    /**
      * [@see StringConverter}
      */
     public static Converter string() {

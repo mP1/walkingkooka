@@ -51,7 +51,7 @@ public abstract class ConverterTestCase<C extends Converter> extends PackagePriv
     }
 
     protected Object convertAndCheck(final Converter converter, final Object value, final Class<?> target, final Object expected) {
-        assertTrue(converter + " can convert(" + target.getName() + ") returned false for " + value.getClass().getName() + "=" + value, converter.canConvert(target));
+        assertTrue(converter + " can convert(" + value.getClass().getName() + "," + target.getName() + ") returned false for " + value, converter.canConvert(value, target));
 
         final Object result = converter.convert(value, target);
         checkEquals("Failed to convert " + value.getClass().getName() + "=" + value + " to " + target.getName(), expected, result);

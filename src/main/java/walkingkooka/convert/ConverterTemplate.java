@@ -30,7 +30,7 @@ abstract class ConverterTemplate implements Converter {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(type, "type");
 
-        if(!this.canConvert(type)) {
+        if(!this.canConvert(value, type)) {
             failConversion(value, type);
         }
 

@@ -28,7 +28,7 @@ public interface Converter {
     /**
      * Queries whether this converter supports converting to the requested type.
      */
-    boolean canConvert(Class<?> type);
+    boolean canConvert(final Object value, Class<?> type);
 
     /**
      * Converts the object to the request type.
@@ -36,12 +36,12 @@ public interface Converter {
     <T> T convert(final Object value, final Class<T> type);
 
     default void failIfUnsupportedType(final Object value, final Class<?> target) {
-        if(!this.canConvert(target)){
+        if(!this.canConvert(value, target)){
             this.failConversion(value, target);
         }
     }
 
     default <TT> TT failConversion(final Object value, final Class<TT> target) {
-        throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getName());
+        throw new ConversionException("Failed to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName());
     }
 }

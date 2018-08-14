@@ -32,22 +32,17 @@ abstract class FixedTypeConverter<T> extends ConverterTemplate {
         super();
     }
 
-    @Override
-    public boolean canConvert(final Class<?> type) {
-        return type.isAssignableFrom(this.onlySupportedType());
-    }
-
     final <TT> TT convert0(final Object value, final Class<TT> type) {
-        return this.onlySupportedType().isInstance(value) ?
-               Cast.to(value) :
-               Cast.to(this.convert1(value));
+        return Cast.to(this.targetType()==value.getClass() ?
+               value :
+               this.convert1(value, Cast.to(type)));
     }
 
-    abstract Class<T> onlySupportedType();
-
-    abstract T convert1(Object value);
+    abstract T convert1(final Object value, Class<T> type);
 
     final T failConversion(final Object value) {
-        return this.failConversion(value, this.onlySupportedType());
+        return this.failConversion(value, this.targetType());
     }
+
+    abstract Class<T> targetType();
 }

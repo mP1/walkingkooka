@@ -58,22 +58,22 @@ final class ConverterCollection implements Converter{
     }
 
     @Override
-    public boolean canConvert(final Class<?> type) {
-        return this.converterForType(type).isPresent();
+    public boolean canConvert(final Object value, final Class<?> type) {
+        return this.converterForType(value, type).isPresent();
     }
 
     @Override
     public <T> T convert(final Object value, final Class<T> type) {
-        final Optional<Converter> converter = this.converterForType(type);
+        final Optional<Converter> converter = this.converterForType(value, type);
         if(!converter.isPresent()){
             this.failConversion(value, type);
         }
         return converter.get().convert(value, type);
     }
 
-    private Optional<Converter> converterForType(final Class<?> type) {
+    private Optional<Converter> converterForType(final Object value, final Class<?> type) {
         return this.converters.stream()
-            .filter(c -> c.canConvert(type))
+            .filter(c -> c.canConvert(value, type))
             .findFirst();
     }
 
