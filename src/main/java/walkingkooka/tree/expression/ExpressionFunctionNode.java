@@ -125,11 +125,6 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
     }
 
     @Override
-    public boolean isGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isModulo() {
         return false;
     }

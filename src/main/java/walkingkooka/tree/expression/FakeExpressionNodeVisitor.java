@@ -129,16 +129,6 @@ public class FakeExpressionNodeVisitor extends ExpressionNodeVisitor implements 
     protected void endVisit(final ExpressionGreaterThanEqualsNode node) {
         throw new UnsupportedOperationException();
     }
-    
-    @Override
-    protected Visiting startVisit(final ExpressionGroupNode node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void endVisit(final ExpressionGroupNode node) {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     protected Visiting startVisit(final ExpressionLessThanNode node) {

@@ -147,7 +147,9 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
 
     @Override
     protected void endVisit(final SpreadsheetGroupParserToken token) {
-        this.exitUnary(ExpressionNode::group, token);
+        final ExpressionNode parameter = this.children.get(0);
+        this.exit();
+        this.add(parameter, token);
     }
 
     @Override

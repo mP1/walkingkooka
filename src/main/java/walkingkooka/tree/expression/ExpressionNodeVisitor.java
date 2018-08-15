@@ -51,6 +51,10 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
         // nop
     }
 
+    protected void visit(final ExpressionBigIntegerNode node) {
+        // nop
+    }
+
     protected void visit(final ExpressionBooleanNode node) {
         // nop
     }
@@ -60,10 +64,6 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
     }
 
     protected void visit(final ExpressionLongNode node) {
-        // nop
-    }
-
-    protected void visit(final ExpressionBigIntegerNode node) {
         // nop
     }
 
@@ -128,14 +128,6 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
     }
 
     protected void endVisit(final ExpressionGreaterThanEqualsNode node) {
-        // nop
-    }
-    
-    protected Visiting startVisit(final ExpressionGroupNode node) {
-        return Visiting.CONTINUE;
-    }
-
-    protected void endVisit(final ExpressionGroupNode node) {
         // nop
     }
 
