@@ -92,6 +92,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see SimpleConverter}
+     */
+    public static Converter simple() {
+        return SimpleConverter.INSTANCE;
+    }
+
+    /**
      * [@see StringConverter}
      */
     public static Converter string() {
