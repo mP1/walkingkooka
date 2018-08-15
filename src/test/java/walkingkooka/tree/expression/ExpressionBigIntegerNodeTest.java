@@ -26,7 +26,7 @@ import java.math.BigInteger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionBigIntegerNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionBigIntegerNode, BigInteger>{
+public final class ExpressionBigIntegerNodeTest extends ExpressionLeafNodeTestCase<ExpressionBigIntegerNode, BigInteger>{
 
     @Test
     public void testAccept() {
@@ -55,7 +55,52 @@ public final class ExpressionBigIntegerNodeTest extends ExpressionLeafValueNodeT
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(0), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(1), true);
+    }
+
+    @Test
+    public void testToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToBigInteger() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToDouble() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToLong() {
+        this.evaluateAndCheckLong(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToNumberBigInteger() {
+        this.evaluateAndCheckNumberBigInteger(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToText() {
+        this.evaluateAndCheckText(this.createExpressionNode(123), "123");
+    }
+
+    // ToString ...................................................................................................
+
     @Test
     public void testToString() {
         assertEquals("1", this.createExpressionNode(BigInteger.ONE).toString());
@@ -64,6 +109,10 @@ public final class ExpressionBigIntegerNodeTest extends ExpressionLeafValueNodeT
     @Test
     public void testToString2() {
         assertEquals("234", this.createExpressionNode(BigInteger.valueOf(234)).toString());
+    }
+
+    private ExpressionBigIntegerNode createExpressionNode(final long value) {
+        return this.createExpressionNode(BigInteger.valueOf(value));
     }
 
     @Override

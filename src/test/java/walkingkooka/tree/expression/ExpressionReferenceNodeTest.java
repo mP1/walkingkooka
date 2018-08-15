@@ -25,10 +25,12 @@ import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetReferenceKind;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetRow;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.MathContext;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionReferenceNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionReferenceNode, ExpressionReference>{
+public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCase<ExpressionReferenceNode, ExpressionReference>{
 
     @Test
     public void testAccept() {
@@ -57,7 +59,51 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafValueNodeTe
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(), this.context("false"), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(), this.context("true"), true);
+    }
+
+    @Test
+    public void testToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToBigInteger() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToDouble() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToLong() {
+        this.evaluateAndCheckLong(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToNumber() {
+        this.evaluateAndCheckNumberBigDecimal(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToText() {
+        this.evaluateAndCheckText(this.createExpressionNode(), this.context("123"), "123");
+    }
+
+    // ToString ...................................................................................................
+
     @Test
     public void testToString() {
         assertEquals("$B$3", this.createExpressionNode().toString());
@@ -80,6 +126,30 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafValueNodeTe
 
     private SpreadsheetCell cell(final int column, final int row) {
         return SpreadsheetCell.with(SpreadsheetColumn.with(column, SpreadsheetReferenceKind.ABSOLUTE), SpreadsheetRow.with(row, SpreadsheetReferenceKind.ABSOLUTE));
+    }
+
+    final ExpressionEvaluationContext context(final String referenceText) {
+        final ExpressionEvaluationContext context = this.context();
+        final ExpressionReference value = this.value();
+
+        return new FakeExpressionEvaluationContext() {
+
+            @Override
+            public ExpressionNode reference(final ExpressionReference reference) {
+                assertEquals("reference", value, reference);
+                return ExpressionNode.text(referenceText);
+            }
+
+            @Override
+            public MathContext mathContext() {
+                return context.mathContext();
+            }
+
+            @Override
+            public <T> T convert(final Object value, final Class<T> target) {
+                return context.convert(value, target);
+            }
+        };
     }
 
     @Override

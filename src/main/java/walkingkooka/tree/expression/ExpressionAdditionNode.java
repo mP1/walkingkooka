@@ -20,13 +20,15 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * A addition expression.
  */
-public final class ExpressionAdditionNode extends ExpressionBinaryNode {
+public final class ExpressionAdditionNode extends ExpressionArithmeticBinaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionAdditionNode.class);
 
@@ -64,37 +66,7 @@ public final class ExpressionAdditionNode extends ExpressionBinaryNode {
     }
 
     @Override
-    public boolean isAnd() {
-        return false;
-    }
-
-    @Override
     public boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public boolean isEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isGreaterThanEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThan() {
-        return false;
-    }
-
-    @Override
-    public boolean isLessThanEquals() {
         return false;
     }
 
@@ -109,27 +81,12 @@ public final class ExpressionAdditionNode extends ExpressionBinaryNode {
     }
 
     @Override
-    public boolean isNotEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isOr() {
-        return false;
-    }
-
-    @Override
     public boolean isPower() {
         return false;
     }
 
     @Override
     public boolean isSubtraction() {
-        return false;
-    }
-
-    @Override
-    public boolean isXor() {
         return false;
     }
 
@@ -142,6 +99,30 @@ public final class ExpressionAdditionNode extends ExpressionBinaryNode {
         }
         visitor.endVisit(this);
     }
+
+    // Evaluation .......................................................................................................
+
+    @Override
+    BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
+        return left.add(right, context.mathContext());
+    }
+
+    @Override
+    BigInteger applyBigInteger0(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
+        return left.add(right);
+    }
+
+    @Override
+    double applyDouble0(final double left, final double right, final ExpressionEvaluationContext context) {
+        return left + right;
+    }
+
+    @Override
+    long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
+        return left + right;
+    }
+
+    // Object .........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

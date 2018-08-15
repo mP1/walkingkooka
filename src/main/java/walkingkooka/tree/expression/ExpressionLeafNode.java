@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
@@ -27,18 +29,44 @@ import java.util.Objects;
 /**
  * A leaf node, where a leaf has no children.
  */
-abstract class ExpressionLeafNode extends ExpressionNode {
+abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> {
 
-    ExpressionLeafNode(final int index){
+    ExpressionLeafNode(final int index, final V value){
         super(index);
+        this.value = value;
     }
+
+    @Override
+    public final V value() {
+        return this.value;
+    }
+
+    final V value;
+
+    //abstract ExpressionLeafNode<V> setValue(final V value);
+
+    final ExpressionLeafNode<V> setValue0(final V value) {
+        return Objects.equals(this.value(), value) ?
+                this :
+                this.replaceValue(value);
+    }
+
+    final ExpressionLeafNode<V> replaceValue(final V value) {
+        return this.wrap1(this.index, value)
+                .replaceChild(this.parent())
+                .cast();
+    }
+
+    final ExpressionLeafNode wrap0(final int index) {
+        return this.wrap1(index, this.value);
+    }
+
+    abstract ExpressionLeafNode wrap1(final int index, final V value);
 
     @Override
     final ExpressionNode wrap(final int index) {
         return this.wrap0(index);
     }
-
-    abstract ExpressionLeafValueNode wrap0(final int index);
 
     @Override
     public final List<ExpressionNode> children() {
@@ -149,5 +177,36 @@ abstract class ExpressionLeafNode extends ExpressionNode {
     @Override
     public final boolean isXor() {
         return false;
+    }
+
+    // Evaluation ....................................................................................................
+
+    @Override
+    public final V toValue(final ExpressionEvaluationContext context) {
+        return this.value();
+    }
+
+    // Object ......................................................................................................
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.value);
+    }
+
+    @Override
+    final boolean equalsDescendants0(final ExpressionNode other) {
+        return true;
+    }
+
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final ExpressionNode other) {
+        return other instanceof ExpressionLeafNode &&
+                equalsIgnoringParentAndChildren0(Cast.to(other));
+
+    }
+
+    private boolean equalsIgnoringParentAndChildren0(final ExpressionLeafNode other) {
+        return this.value.equals(other.value);
+
     }
 }

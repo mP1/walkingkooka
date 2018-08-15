@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -79,7 +80,67 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
                         not, not),
                 visited);
     }
-    
+
+    // evaluate.....................................................................................
+
+    @Test
+    public void testEvaluateToBigDecimal() {
+        final long value = 123;
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigDecimal(value)),BigInteger.valueOf(value).not());
+    }
+
+    @Test(expected = ExpressionEvaluationConversionException.class)
+    public void testEvaluateToBigDecimalWithDecimalsFails() {
+        this.createExpressionNode(bigDecimal(1.5)).toNumber(this.context());
+    }
+
+    @Test
+    public void testEvaluateToBigInteger() {
+        final BigInteger value = BigInteger.valueOf(123);
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(ExpressionNode.bigInteger(value)), value.not());
+    }
+
+    @Test
+    public void testEvaluateToDouble() {
+        final long value = 123;
+        this.evaluateAndCheckLong(this.createExpressionNode(ExpressionNode.doubleNode(value)), ~value);
+    }
+
+    @Test(expected = ExpressionEvaluationConversionException.class)
+    public void testEvaluateToDoubleWithDecimalsFails() {
+        this.createExpressionNode(doubleValue(1.5)).toNumber(this.context());
+    }
+
+    @Test
+    public void testEvaluateToLong() {
+        final long value = 123L;
+        this.evaluateAndCheckLong(this.createExpressionNode(ExpressionNode.longNode(value)), ~value);
+    }
+
+    @Test
+    public void testEvaluateToNumberBigDecimal() {
+        final long value = 123;
+        this.evaluateAndCheckNumberBigInteger(this.createExpressionNode(bigDecimal(value)), BigInteger.valueOf(value).not());
+    }
+
+    @Test
+    public void testEvaluateToNumberBigInteger() {
+        final BigInteger value = BigInteger.valueOf(123);
+        this.evaluateAndCheckNumberBigInteger(this.createExpressionNode(ExpressionNode.bigInteger(value)), value.not());
+    }
+
+    @Test
+    public void testEvaluateToNumberDouble() {
+        final long value = 123;
+        this.evaluateAndCheckLong(this.createExpressionNode(ExpressionNode.doubleNode(value)), ~value);
+    }
+
+    @Test
+    public void testEvaluateToNumberLong() {
+        final long value = 123L;
+        this.evaluateAndCheckNumberLong(this.createExpressionNode(ExpressionNode.longNode(value)), ~value);
+    }
+
     @Override
     ExpressionNotNode createExpressionNode(final ExpressionNode child) {
         return ExpressionNotNode.with(child);

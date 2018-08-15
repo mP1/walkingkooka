@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionBigDecimalNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionBigDecimalNode, BigDecimal>{
+public final class ExpressionBigDecimalNodeTest extends ExpressionLeafNodeTestCase<ExpressionBigDecimalNode, BigDecimal>{
 
     @Test
     public void testAccept() {
@@ -55,7 +55,52 @@ public final class ExpressionBigDecimalNodeTest extends ExpressionLeafValueNodeT
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(0), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(1), true);
+    }
+
+    @Test
+    public void testToBigDecimal() {
+        final BigDecimal value = BigDecimal.valueOf(123);
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(value), value);
+    }
+
+    @Test
+    public void testToBigInteger() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToDouble() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(123.5), 123.5);
+    }
+
+    @Test
+    public void testToLong() {
+        this.evaluateAndCheckLong(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToNumberBigDecimal() {
+        this.evaluateAndCheckNumberBigDecimal(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToText() {
+        this.evaluateAndCheckText(this.createExpressionNode(123), "123.0");
+    }
+
+    // ToString ...................................................................................................
+
     @Test
     public void testToString() {
         assertEquals("1", this.createExpressionNode(BigDecimal.valueOf(1)).toString());
@@ -64,6 +109,10 @@ public final class ExpressionBigDecimalNodeTest extends ExpressionLeafValueNodeT
     @Test
     public void testToString2() {
         assertEquals("234", this.createExpressionNode(BigDecimal.valueOf(234)).toString());
+    }
+
+    private ExpressionBigDecimalNode createExpressionNode(final double value) {
+        return this.createExpressionNode(BigDecimal.valueOf(value));
     }
 
     @Override

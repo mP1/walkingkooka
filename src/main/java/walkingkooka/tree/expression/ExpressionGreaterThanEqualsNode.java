@@ -22,7 +22,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-public final class ExpressionGreaterThanEqualsNode extends ExpressionBinaryNode {
+public final class ExpressionGreaterThanEqualsNode extends ExpressionComparisonBinaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionGreaterThanEqualsNode.class);
 
@@ -53,26 +53,6 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionBinaryNode 
     // is .........................................................................................................
 
     @Override
-    public boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public boolean isAnd() {
-        return false;
-    }
-
-    @Override
-    public boolean isDivision() {
-        return false;
-    }
-
-    @Override
-    public boolean isModulo() {
-        return false;
-    }
-
-    @Override
     public boolean isEquals() {
         return false;
     }
@@ -98,32 +78,7 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionBinaryNode 
     }
 
     @Override
-    public boolean isMultiplication() {
-        return false;
-    }
-
-    @Override
     public boolean isNotEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isOr() {
-        return false;
-    }
-
-    @Override
-    public boolean isPower() {
-        return false;
-    }
-
-    @Override
-    public boolean isSubtraction() {
-        return false;
-    }
-
-    @Override
-    public boolean isXor() {
         return false;
     }
 
@@ -136,6 +91,15 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionBinaryNode 
         }
         visitor.endVisit(this);
     }
+
+    // Evaluation .......................................................................................................
+
+    @Override
+    boolean isComparisonTrue(final int comparisonResult) {
+        return comparisonResult >= 0;
+    }
+
+    // Object .........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

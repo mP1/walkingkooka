@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionLongNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionLongNode, Long>{
+public final class ExpressionLongNodeTest extends ExpressionLeafNodeTestCase<ExpressionLongNode, Long>{
 
     @Test
     public void testAccept() {
@@ -53,7 +53,51 @@ public final class ExpressionLongNodeTest extends ExpressionLeafValueNodeTestCas
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(0), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(1), true);
+    }
+
+    @Test
+    public void testToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToBigInteger() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToDouble() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToLong() {
+        this.evaluateAndCheckLong(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToNumber() {
+        this.evaluateAndCheckNumberLong(this.createExpressionNode(123), 123);
+    }
+
+    @Test
+    public void testToText() {
+        this.evaluateAndCheckText(this.createExpressionNode(123), "123");
+    }
+
+    // ToString ...................................................................................................
+
     @Test
     public void testToString() {
         assertEquals("1", this.createExpressionNode(1L).toString());
@@ -62,6 +106,10 @@ public final class ExpressionLongNodeTest extends ExpressionLeafValueNodeTestCas
     @Test
     public void testToString2() {
         assertEquals("234", this.createExpressionNode(234L).toString());
+    }
+
+    private ExpressionLongNode createExpressionNode(final long value) {
+        return this.createExpressionNode(Long.valueOf(value));
     }
 
     @Override

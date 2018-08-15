@@ -20,8 +20,11 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Represents a function with zero or more parameters.
@@ -177,6 +180,65 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);
+    }
+
+    // evaluation .....................................................................................................
+
+    @Override
+    public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, BigDecimal.class);
+    }
+
+    @Override
+    public final BigInteger toBigInteger(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, BigInteger.class);
+    }
+
+    @Override
+    public final boolean toBoolean(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, Boolean.class);
+    }
+
+    @Override
+    public final double toDouble(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, Double.class);
+    }
+
+    @Override
+    public final long toLong(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, Long.class);
+    }
+
+    @Override
+    public final Number toNumber(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, Number.class);
+    }
+
+    @Override
+    public final String toText(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, String.class);
+    }
+
+    @Override
+    public final Object toValue(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context);
+    }
+
+    private <T> T executeFunction(final ExpressionEvaluationContext context, final Class<T> target) {
+        return context.convert(this.executeFunction(context), target);
+    }
+
+    private Object executeFunction(final ExpressionEvaluationContext context) {
+        return context.function(this.name(),
+                this.value()
+                        .stream()
+                        .map(v -> v.toValue(context))
+                        .collect(Collectors.toList()));
+    }
+
+    @Override
+    Class<Number> commonNumberType(Class<? extends Number> type) {
+        throw new UnsupportedOperationException();
     }
 
     // Object.........................................................................................................

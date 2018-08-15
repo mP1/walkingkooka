@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * A {@link BigInteger} number value.
  */
-public final class ExpressionBigIntegerNode extends ExpressionLeafValueNode<BigInteger> {
+public final class ExpressionBigIntegerNode extends ExpressionLeafNode2<BigInteger> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBigIntegerNode.class);
 
@@ -86,6 +86,17 @@ public final class ExpressionBigIntegerNode extends ExpressionLeafValueNode<BigI
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    @Override
+    final Class<Number> commonNumberType(final Class<? extends Number> type){
+        return BigInteger.class == type || Long.class == type ?
+               BIG_INTEGER :
+               BIG_DECIMAL; // BigDecimal & Double -> BigDecimal.class
+    }
+
+    // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

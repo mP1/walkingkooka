@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionBooleanNodeTest extends ExpressionLeafValueNodeTestCase<ExpressionBooleanNode, Boolean>{
+public final class ExpressionBooleanNodeTest extends ExpressionLeafNodeTestCase<ExpressionBooleanNode, Boolean>{
 
     @Test
     public void testAccept() {
@@ -53,7 +53,71 @@ public final class ExpressionBooleanNodeTest extends ExpressionLeafValueNodeTest
         }.accept(node);
         assertEquals("132", b.toString());
     }
-    
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(ExpressionBooleanNode.with(false), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(ExpressionBooleanNode.with(true), true);
+    }
+
+    @Test
+    public void testTrueToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(ExpressionBooleanNode.with(true), 1);
+    }
+
+    @Test
+    public void testFalseToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(ExpressionBooleanNode.with(false), 0);
+    }
+
+    @Test
+    public void testTrueToBigInteger() {
+        this.evaluateAndCheckBigInteger(ExpressionBooleanNode.with(true), 1);
+    }
+
+    @Test
+    public void testFalseToBigInteger() {
+        this.evaluateAndCheckBigInteger(ExpressionBooleanNode.with(false), 0);
+    }
+
+    @Test
+    public void testTrueToDouble() {
+        this.evaluateAndCheckDouble(ExpressionBooleanNode.with(true), 1);
+    }
+
+    @Test
+    public void testFalseToDouble() {
+        this.evaluateAndCheckDouble(ExpressionBooleanNode.with(false), 0);
+    }
+
+    @Test
+    public void testTrueToLong() {
+        this.evaluateAndCheckLong(ExpressionBooleanNode.with(true), 1);
+    }
+
+    @Test
+    public void testFalseToLong() {
+        this.evaluateAndCheckLong(ExpressionBooleanNode.with(false), 0);
+    }
+
+    @Test
+    public void testTrueToText() {
+        this.evaluateAndCheckText(ExpressionBooleanNode.with(true), "true");
+    }
+
+    @Test
+    public void testFalseToText() {
+        this.evaluateAndCheckText(ExpressionBooleanNode.with(false), "false");
+    }
+
+    // ToString ...................................................................................................
+
     @Test
     public void testToStringTrue() {
         assertEquals("true", this.createExpressionNode(true).toString());

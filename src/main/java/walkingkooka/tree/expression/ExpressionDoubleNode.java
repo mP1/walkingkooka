@@ -22,7 +22,7 @@ package walkingkooka.tree.expression;
 /**
  * A {@link Double} number value.
  */
-public final class ExpressionDoubleNode extends ExpressionLeafValueNode<Double> {
+public final class ExpressionDoubleNode extends ExpressionLeafNode2<Double> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionDoubleNode.class);
 
@@ -84,6 +84,20 @@ public final class ExpressionDoubleNode extends ExpressionLeafValueNode<Double> 
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    /**
+     * If the type is {@link Double} return {@link Double} otherwise widen.
+     */
+    @Override
+    final Class<Number> commonNumberType(final Class<? extends Number> type){
+        return Double.class == type ?
+               DOUBLE :
+               BIG_DECIMAL;
+    }
+
+    // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

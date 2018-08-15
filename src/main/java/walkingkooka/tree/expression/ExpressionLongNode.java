@@ -18,10 +18,13 @@
 
 package walkingkooka.tree.expression;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  * A long number value.
  */
-public final class ExpressionLongNode extends ExpressionLeafValueNode<Long> {
+public final class ExpressionLongNode extends ExpressionLeafNode2<Long> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionLongNode.class);
 
@@ -49,6 +52,11 @@ public final class ExpressionLongNode extends ExpressionLeafValueNode<Long> {
     }
 
     @Override
+    public boolean isBigInteger() {
+        return false;
+    }
+
+    @Override
     public boolean isBoolean() {
         return false;
     }
@@ -61,11 +69,6 @@ public final class ExpressionLongNode extends ExpressionLeafValueNode<Long> {
     @Override
     public boolean isLong() {
         return true;
-    }
-
-    @Override
-    public boolean isBigInteger() {
-        return false;
     }
 
     @Override
@@ -82,6 +85,19 @@ public final class ExpressionLongNode extends ExpressionLeafValueNode<Long> {
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    @Override
+    final Class<Number> commonNumberType(final Class<? extends Number> type){
+        return BigDecimal.class==type || Double.class == type ?
+                BIG_DECIMAL :
+                BigInteger.class == type ?
+                        BIG_INTEGER :
+                        LONG;
+    }
+
+    // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

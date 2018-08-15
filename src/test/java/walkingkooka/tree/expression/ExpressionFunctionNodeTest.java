@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.MathContext;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -107,6 +108,79 @@ public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTest
                         text3, text3, text3,
                         function, function),
                 visited);
+    }
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(), this.context("false"), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(), this.context("true"), true);
+    }
+
+    @Test
+    public void testToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToBigInteger() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToDouble() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToLong() {
+        this.evaluateAndCheckLong(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToNumber() {
+        this.evaluateAndCheckNumberBigDecimal(this.createExpressionNode(), this.context("123"), 123);
+    }
+
+    @Test
+    public void testToText() {
+        this.evaluateAndCheckText(this.createExpressionNode(), this.context("123"), "123");
+    }
+
+    final ExpressionEvaluationContext context(final String functionValue) {
+        final ExpressionEvaluationContext context = this.context();
+
+        return new FakeExpressionEvaluationContext() {
+
+            @Override
+            public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+                assertEquals("function name", name("fx"), name);
+                assertEquals("parameter values", Lists.of("child-111", "child-222", "child-333"), parameters);
+                return functionValue;
+            }
+
+            @Override
+            public MathContext mathContext() {
+                return context.mathContext();
+            }
+
+            @Override
+            public <T> T convert(final Object value, final Class<T> target) {
+                return context.convert(value, target);
+            }
+        };
+    }
+
+    // ToString ...................................................................................................
+
+    @Test
+    public void testToString() {
+        assertEquals("fx(\"child-111\",\"child-222\",\"child-333\")", this.createExpressionNode().toString());
     }
 
     @Override

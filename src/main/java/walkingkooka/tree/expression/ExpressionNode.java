@@ -435,6 +435,60 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
 
     abstract void accept(final ExpressionNodeVisitor visitor);
 
+    // Eval................................................................................................................
+
+    /**
+     * Evaluates this node as a {@link BigDecimal}
+     */
+    public abstract BigDecimal toBigDecimal(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a {@link BigInteger}
+     */
+    public abstract BigInteger toBigInteger(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a boolean
+     */
+    public abstract boolean toBoolean(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a {@link double}
+     */
+    public abstract double toDouble(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a {@link long}
+     */
+    public abstract long toLong(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a {@link Number}
+     */
+    public abstract Number toNumber(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a {@link String}
+     */
+    public abstract String toText(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node returning its value.
+     */
+    public abstract Object toValue(final ExpressionEvaluationContext context);
+
+    /**
+     * Only actually implemented by {@link ExpressionBinaryNode} allowing two types to find a common {@link Number}
+     * wide enough to represent both values.
+     * @param value
+     */
+    abstract Class<Number> commonNumberType(final Class<? extends Number> value);
+
+    final static Class<Number> BIG_DECIMAL = Cast.to(BigDecimal.class);
+    final static Class<Number> BIG_INTEGER = Cast.to(BigInteger.class);
+    final static Class<Number> DOUBLE = Cast.to(Double.class);
+    final static Class<Number> LONG = Cast.to(Long.class);
+
     // Object .......................................................................................................
 
     @Override

@@ -18,12 +18,16 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.ShouldNeverHappenError;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Objects;
 
 /**
  * A reference expression.
  */
-public final class ExpressionReferenceNode extends ExpressionLeafValueNode<ExpressionReference> {
+public final class ExpressionReferenceNode extends ExpressionLeafNode<ExpressionReference> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionReferenceNode.class);
 
@@ -86,6 +90,50 @@ public final class ExpressionReferenceNode extends ExpressionLeafValueNode<Expre
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
     }
+
+    // evaluation .....................................................................................................
+
+    @Override
+    final Class<Number> commonNumberType(final Class<? extends Number> type){
+        throw new ShouldNeverHappenError(this.getClass() + ".bestNumberType");
+    }
+
+    @Override
+    public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toBigDecimal(context);
+    }
+
+    @Override
+    public final BigInteger toBigInteger(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toBigInteger(context);
+    }
+
+    @Override
+    public final boolean toBoolean(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toBoolean(context);
+    }
+
+    @Override
+    public final double toDouble(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toDouble(context);
+    }
+
+    @Override
+    public final long toLong(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toLong(context);
+    }
+
+    @Override
+    public final Number toNumber(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toNumber(context);
+    }
+
+    @Override
+    public final String toText(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toText(context);
+    }
+
+    // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

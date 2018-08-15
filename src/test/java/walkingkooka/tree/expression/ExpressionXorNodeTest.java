@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionXorNodeTest extends ExpressionBinaryNodeTestCase<ExpressionXorNode>{
+public final class ExpressionXorNodeTest extends ExpressionLogicalBinaryNodeTestCase<ExpressionXorNode> {
 
     @Test
     public void testAccept() {
@@ -81,7 +81,131 @@ public final class ExpressionXorNodeTest extends ExpressionBinaryNodeTestCase<Ex
                         xor, xor),
                 visited);
     }
-    
+
+    // toBoolean.....................................................................................
+
+    @Test
+    public void testEvaluateToBooleanTrue() {
+        // left ^ right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(7), bigDecimal(3)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanFalse() {
+        // left ^ right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(8), bigDecimal(8)), false);
+    }
+
+    // toBigDecimal.....................................................................................
+
+    @Test
+    public void testEvaluateToBigDecimal() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), bigDecimal(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToBigDecimal2() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), bigInteger(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToBigDecimal3() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), doubleValue(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToBigDecimal4() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(6), longValue(3)), 6^3);
+    }
+
+    // toBigInteger.....................................................................................
+
+    @Test
+    public void testEvaluateToBigInteger() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(6), bigDecimal(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToBigInteger2() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(6), bigInteger(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToBigInteger3() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(6), doubleValue(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToBigInteger4() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(6), longValue(3)), 6^3);
+    }
+
+    // toDouble.....................................................................................
+
+    @Test
+    public void testEvaluateToDouble() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(6), bigDecimal(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToDouble2() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(6), bigInteger(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToDouble3() {
+        this.evaluateAndCheckLong(this.createExpressionNode(doubleValue(6), doubleValue(3)), 6^3);
+    }
+
+    @Test
+    public void testEvaluateToDouble4() {
+        this.evaluateAndCheckLong(this.createExpressionNode(doubleValue(6), longValue(3)), 6^3);
+    }
+
+    // toLong...............................................................................................
+
+    @Test
+    public void testEvaluateToLong() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(longValue(6), bigDecimal(3)), 6L ^ 3L);
+    }
+
+    @Test
+    public void testEvaluateToLong2() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(longValue(6), bigInteger(3)), 6L ^ 3L);
+    }
+
+    @Test
+    public void testEvaluateToLong3() {
+        this.evaluateAndCheckLong(this.createExpressionNode(longValue(6), doubleValue(3)), 6L ^ 3);
+    }
+
+    @Test
+    public void testEvaluateToLong4() {
+        this.evaluateAndCheckLong(this.createExpressionNode(longValue(6), longValue(3)), 6L ^ 3L);
+    }
+
+    // toNumber...............................................................................................
+
+    @Test
+    public void testEvaluateToNumber() {
+        this.evaluateAndCheckNumberBigInteger(this.createExpressionNode(longValue(6), bigDecimal(3)), 6 ^ 3);
+    }
+
+    @Test
+    public void testEvaluateToNumber2() {
+        this.evaluateAndCheckNumberBigInteger(this.createExpressionNode(longValue(6), bigInteger(3)), 6 ^ 3);
+    }
+
+    @Test
+    public void testEvaluateToNumber3() {
+        this.evaluateAndCheckNumberBigInteger(this.createExpressionNode(longValue(6), doubleValue(3)), 6 ^ 3);
+    }
+
+    @Test
+    public void testEvaluateToNumber4() {
+        this.evaluateAndCheckNumberLong(this.createExpressionNode(longValue(6), longValue(3)), 6 ^ 3);
+    }
+
     @Override
     ExpressionXorNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionXorNode.with(left, right);
