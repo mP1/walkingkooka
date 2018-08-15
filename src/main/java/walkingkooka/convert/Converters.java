@@ -33,10 +33,10 @@ import java.util.function.Supplier;
 public final class Converters implements PublicStaticHelper {
 
     /**
-     * [@see BooleanStringConverter}
+     * [@see BooleanConverter}
      */
-    public static Converter booleanString(final String trueValue, final String falseValue) {
-        return BooleanStringConverter.with(trueValue, falseValue);
+    public static <T> Converter booleanConverter(final Class<T> type, final T trueValue, final T falseValue) {
+        return BooleanConverter.with(type, trueValue, falseValue);
     }
 
     /**

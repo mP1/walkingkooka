@@ -24,43 +24,47 @@ import java.util.Objects;
  * A {@link Converter} that knows how to convert {@link Boolean} to {@link String}.
  * Requests for all other types will fail.
  */
-final class BooleanStringConverter extends FixedTypeConverter<String> {
+final class BooleanConverter<T> extends FixedTypeConverter<T> {
 
-    final static BooleanStringConverter with(final String trueValue, final String falseValue){
+    final static <T> BooleanConverter<T> with(final Class<T> type, final T trueValue, final T falseValue){
+        Objects.requireNonNull(type, "type");
         Objects.requireNonNull(trueValue, "trueValue");
         Objects.requireNonNull(falseValue, "falseValue");
 
-        return new BooleanStringConverter(trueValue, falseValue);
+        return new BooleanConverter(type, trueValue, falseValue);
     }
 
-    private BooleanStringConverter(final String trueValue, final String falseValue) {
+    private BooleanConverter(final Class<T> type, final T trueValue, final T falseValue) {
         super();
+        this.type = type;
         this.trueValue = trueValue;
         this.falseValue = falseValue;
     }
 
     @Override
     public boolean canConvert(final Object value, final Class<?> type) {
-        return value instanceof Boolean && String.class == type;
+        return value instanceof Boolean && this.type == type;
     }
 
     @Override
-    String convert1(final Object value, final Class<String> type) {
+    T convert1(final Object value, final Class<T> type) {
         return Boolean.TRUE.equals(value) ?
                 this.trueValue :
                 this.falseValue;
     }
 
-    private final String trueValue;
-    private final String falseValue;
+    private final T trueValue;
+    private final T falseValue;
 
     @Override
-    Class<String> targetType() {
-        return String.class;
+    Class<T> targetType() {
+        return this.type;
     }
+
+    private Class<T> type;
 
     @Override
     public String toString() {
-        return "Boolean->String";
+        return "Boolean->" + this.type.getName();
     }
 }
