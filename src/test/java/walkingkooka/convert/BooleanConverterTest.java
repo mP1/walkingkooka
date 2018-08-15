@@ -22,19 +22,25 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public final class BooleanStringConverterTest extends FixedTypeConverterTestCase<BooleanStringConverter, String> {
+public final class BooleanConverterTest extends FixedTypeConverterTestCase<BooleanConverter, String> {
 
+    private final static Class<String> TYPE = String.class;
     private final static String TRUE = "true!!";
     private final static String FALSE = "false!!";
 
     @Test(expected = NullPointerException.class)
-    public void testNullTrueStringFails() {
-        BooleanStringConverter.with(null, FALSE);
+    public void testNullTypeFails() {
+        BooleanConverter.with(null,TRUE, FALSE);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNullFalseStringFails() {
-        BooleanStringConverter.with(TRUE, null);
+    public void testNullTrueValueFails() {
+        BooleanConverter.with(TYPE,null, FALSE);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNullFalseValueFails() {
+        BooleanConverter.with(TYPE, TRUE, null);
     }
 
     @Test
@@ -49,12 +55,12 @@ public final class BooleanStringConverterTest extends FixedTypeConverterTestCase
 
     @Test
     public void testToString() {
-        assertEquals("Boolean->String", this.createConverter().toString());
+        assertEquals("Boolean->" + TYPE.getName(), this.createConverter().toString());
     }
 
     @Override
-    protected BooleanStringConverter createConverter() {
-        return BooleanStringConverter.with(TRUE, FALSE);
+    protected BooleanConverter createConverter() {
+        return BooleanConverter.with(TYPE, TRUE, FALSE);
     }
 
     @Override
@@ -63,7 +69,7 @@ public final class BooleanStringConverterTest extends FixedTypeConverterTestCase
     }
 
     @Override
-    protected Class<BooleanStringConverter> type() {
-        return BooleanStringConverter.class;
+    protected Class<BooleanConverter> type() {
+        return BooleanConverter.class;
     }
 }
