@@ -97,11 +97,6 @@ abstract class ExpressionLeafNode extends ExpressionNode {
     }
 
     @Override
-    public final boolean isGroup() {
-        return false;
-    }
-
-    @Override
     public final boolean isLessThan() {
         return false;
     }

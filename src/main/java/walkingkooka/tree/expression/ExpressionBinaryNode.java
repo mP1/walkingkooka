@@ -66,11 +66,6 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
     }
 
     @Override
-    public final boolean isGroup() {
-        return false;
-    }
-
-    @Override
     public final boolean isNegative() {
         return false;
     }

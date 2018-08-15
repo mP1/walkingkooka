@@ -55,11 +55,6 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
     }
 
     @Override
-    public boolean isGroup() {
-        return false;
-    }
-
-    @Override
     public boolean isNegative() {
         return true;
     }

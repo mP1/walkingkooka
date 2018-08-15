@@ -114,13 +114,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     /**
-     * {@see ExpressionGroupNode}
-     */
-    public static ExpressionGroupNode group(final ExpressionNode expression){
-        return ExpressionGroupNode.with(expression);
-    }
-
-    /**
      * {@see ExpressionLessThanNode}
      */
     public static ExpressionLessThanNode lessThan(final ExpressionNode left, final ExpressionNode right){
@@ -362,11 +355,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      * Only {@link ExpressionGreaterThanEqualsNode} returns true
      */
     public abstract boolean isGreaterThanEquals();
-
-    /**
-     * Only {@link ExpressionGroupNode} returns true
-     */
-    public abstract boolean isGroup();
     
     /**
      * Only {@link ExpressionLessThanNode} returns true
