@@ -99,11 +99,17 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
      * Starting at the given {@link Node} pushes the next sibling.
      */
     private void pushNextSibling(final N node) {
-        final Optional<N> nextSibling = node.nextSibling();
-        if (nextSibling.isPresent()) {
-            this.unprocessed.push(nextSibling.get());
+        if(this.skipNextSibling) {
+            this.skipNextSibling = false;
+        } else {
+            final Optional<N> nextSibling = node.nextSibling();
+            if (nextSibling.isPresent()) {
+                this.unprocessed.push(nextSibling.get());
+            }
         }
     }
+
+    private boolean skipNextSibling = true;
 
     /**
      * Pushes the first child of the {@link Node} if it is a parent.
