@@ -92,7 +92,7 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         final CharSequence consumed = before.textBetween();
 
         final TextCursorSavePoint after = cursor.save();
-        this.moveToEnd(cursor);
+        cursor.end();
 
         CharSequence all = consumed;
         if(all.length() == 0){
@@ -108,12 +108,6 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
 
         after.restore();
         return cursor;
-    }
-
-    private void moveToEnd(final TextCursor cursor){
-        while(!cursor.isEmpty()){
-            cursor.next();
-        }
     }
 
     protected final TextCursor parseFailAndCheck(final String cursorText) {
@@ -139,12 +133,6 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
                 Optional.<T>empty(),
                 result);
         return cursor;
-    }
-
-    private boolean isMissing(final Optional<T> result) {
-        return result.isPresent() ?
-                result.get().isMissing() :
-                true;
     }
 
     protected final void parseThrows(final String cursorText) {
