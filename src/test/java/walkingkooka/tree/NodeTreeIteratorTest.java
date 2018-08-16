@@ -97,8 +97,8 @@ public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterato
 
         final TestFakeNode parent = new TestFakeNode("parent", child1, child2);
 
-        this.iterateAndCheck(parent.treeIterator(), child1, grandChild1, child2, grandChild2);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), child1, grandChild1, child2, grandChild2);
+        this.iterateAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2);
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent,child1, grandChild1, child2, grandChild2);
     }
 
     @Test
@@ -114,8 +114,25 @@ public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterato
 
         final TestFakeNode parent = new TestFakeNode("parent", child1, child2, child3);
 
-        this.iterateAndCheck(parent.treeIterator(), child1, grandChild1, child2, grandChild2, grandChild3, child3);
-        this.iterateUsingHasNextAndCheck(parent.treeIterator(), child1, grandChild1, child2, grandChild2, grandChild3, child3);
+        this.iterateAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2, grandChild3, child3);
+        this.iterateUsingHasNextAndCheck(parent.treeIterator(), parent, child1, grandChild1, child2, grandChild2, grandChild3, child3);
+    }
+
+    @Test
+    public void testWithGrandChildren4() {
+        final TestFakeNode grandChild1 = new TestFakeNode("grandChild1");
+        final TestFakeNode child1 = new TestFakeNode("child1", grandChild1);
+
+        final TestFakeNode grandChild2 = new TestFakeNode("grandChild2");
+        final TestFakeNode grandChild3 = new TestFakeNode("grandChild3");
+        final TestFakeNode child2 = new TestFakeNode("child2", grandChild2, grandChild3);
+
+        final TestFakeNode child3 = new TestFakeNode("child3");
+
+        new TestFakeNode("parent", child1, child2, child3);
+
+        this.iterateAndCheck(child1.treeIterator(), child1, grandChild1);
+        this.iterateUsingHasNextAndCheck(child1.treeIterator(), child1, grandChild1);
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -135,7 +152,7 @@ public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterato
     @Test
     public void testToStringNextAvailable() {
         final Iterator<TestFakeNode> iterator = this.createIterator();
-        assertEquals("root", iterator.toString());
+        assertEquals("\"root\"", iterator.toString());
     }
 
     @Override
