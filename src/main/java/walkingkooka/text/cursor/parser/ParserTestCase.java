@@ -99,15 +99,27 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
             all = after.textBetween();
         }
 
-        assertEquals("Incorrect result returned by parser: " + parser + " from text " + CharSequences.quoteAndEscape(all),
-                token,
-                result);
+        if(!token.equals(result)){
+            assertEquals("Incorrect result returned by parser: " + parser + " from text " + CharSequences.quoteAndEscape(all),
+                    this.toString(token),
+                    this.toString(result));
+        }
         assertEquals("incorrect consumed text", consumed, text);
         assertEquals("token consume text is incorrect", text, result.isPresent() ? result.get().text() : "");
         assertEquals("Incorrect text after match", textAfter, after.textBetween().toString());
 
         after.restore();
         return cursor;
+    }
+
+    private String toString(final Optional<? extends ParserToken> token) {
+        return token.isPresent() ?
+                this.toString(token.get()) :
+                "";
+    }
+
+    protected String toString(final ParserToken token) {
+        return token.toString();
     }
 
     protected final TextCursor parseFailAndCheck(final String cursorText) {

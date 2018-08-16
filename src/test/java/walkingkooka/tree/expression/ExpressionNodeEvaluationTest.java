@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
@@ -62,26 +61,64 @@ public class ExpressionNodeEvaluationTest extends TestCase {
     // FIXME Spreadsheet parsing ignores everything after the first right parens.
 
     @Test
-    @Ignore
     public void testParenthesis2() {
         this.parseEvaluateAndCheck("(1+2)*3.5",  (1+2)*3.5);
     }
 
     @Test
-    @Ignore
     public void testParenthesis3() {
         this.parseEvaluateAndCheck("((1+2)*3.5)",  ((1+2)*3.5));
     }
 
     @Test
-    @Ignore
     public void testParenthesis4() {
-        this.parseEvaluateAndCheck("(1+2)+(3+4.5)*-6",  (1+2)*(3+4.5)*-6);
+        this.parseEvaluateAndCheck("(1+2)+(3+4.5)",  (1+2)+(3+4.5));
+    }
+
+    @Test
+    public void testParenthesis5() {
+        this.parseEvaluateAndCheck("(1+2)+(3+4.5)*-6",  (1+2)+(3+4.5)*-6);
+    }
+
+    @Test
+    public void testParenthesis6() {
+        this.parseEvaluateAndCheck("(1+2*(3+4*(5+6)*-7))",  (1+2*(3+4*(5+6)*-7)));
+    }
+
+    @Test
+    public void testParenthesis7() {
+        this.parseEvaluateAndCheck("-(1+2*(3+4*(5+6)*-7))",  -(1+2*(3+4*(5+6)*-7)));
+    }
+
+    @Test
+    public void testParenthesis8() {
+        this.parseEvaluateAndCheck("-(1+2*(3+4*(5+6)*-(7*8+(9+0))))",  -(1+2*(3+4*(5+6)*-(7*8+(9+0)))));
+    }
+
+    @Test
+    public void testParenthesis9() {
+        this.parseEvaluateAndCheck("((((1+2))))",  ((((1+2)))));
+    }
+
+    @Test
+    public void testParenthesis10() {
+        this.parseEvaluateAndCheck("-(-(-(-(1+2))))",  -(-(-(-(1+2)))));
+    }
+
+    @Test
+    public void testLongFormulaWithoutParens() {
+        this.parseEvaluateAndCheck("1+2-3+4-5*6+7-8*9",  1+2-3+4-5*6+7-8*9);
+    }
+
+    @Test
+    public void testLongFormulaWithoutParens2() {
+        this.parseEvaluateAndCheck("-1+2-3+4-5*6+7-8*9",  -1+2-3+4-5*6+7-8*9);
     }
 
     private void parseEvaluateAndCheck(final String formulaText, final Object expectedText) {
         this.parseEvaluateAndCheck(formulaText, String.valueOf(expectedText));
     }
+
     private void parseEvaluateAndCheck(final String formulaText, final String expectedText) {
         final SpreadsheetParserToken formula = this.parse(formulaText);
         final Optional<ExpressionNode> maybeExpression = formula.expressionNode();

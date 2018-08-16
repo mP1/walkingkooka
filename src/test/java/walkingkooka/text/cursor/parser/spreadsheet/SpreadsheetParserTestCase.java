@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetParserContext>,
         T extends SpreadsheetParserToken> extends
@@ -29,5 +30,10 @@ public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetP
     @Override
     protected SpreadsheetParserContext createContext() {
         return new SpreadsheetParserContext();
+    }
+
+    @Override
+    protected String toString(final ParserToken token) {
+        return SpreadsheetParserPrettySpreadsheetParserTokenVisitor.toString(token);
     }
 }
