@@ -46,50 +46,6 @@ public final class NodeTest extends PublicClassTestCase<Node> {
         assertEquals(root, root);
     }
 
-    static final class TestFakeNode extends FakeNode<TestFakeNode, StringName, Name, Object>{
-
-        TestFakeNode(final String name, final TestFakeNode...children) {
-            this.name = Names.string(name);
-            this.children = Lists.of(children);
-            this.children.stream().forEach( n -> n.parent = Optional.of(this));
-        }
-
-        public StringName name() {
-            return this.name;
-        }
-
-        private final StringName name;
-
-        @Override
-        public Optional<TestFakeNode> parent() {
-            return this.parent;
-        }
-
-        private Optional<TestFakeNode> parent = Optional.empty();
-
-        public List<TestFakeNode> children() {
-            return this.children;
-        }
-
-        private List<TestFakeNode> children;
-
-        public int hashCode() {
-            return Objects.hash(this.name(), this.children());
-        }
-
-        public boolean equals(final Object other) {
-            return this == other || other instanceof TestFakeNode && this.equals0(Cast.to(other));
-        }
-
-        private boolean equals0(final TestFakeNode other) {
-            return this.name.equals(other.name) && this.children.equals(other.children);
-        }
-
-        public String toString() {
-            return this.name.toString();
-        }
-    }
-
     @Override
     protected Class<Node> type() {
         return Node.class;
