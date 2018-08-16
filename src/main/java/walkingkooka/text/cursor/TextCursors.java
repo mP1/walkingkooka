@@ -17,6 +17,9 @@
 
 package walkingkooka.text.cursor;
 
+import walkingkooka.naming.Name;
+import walkingkooka.text.HasText;
+import walkingkooka.tree.Node;
 import walkingkooka.type.PublicStaticHelper;
 
 /**
@@ -36,6 +39,16 @@ final public class TextCursors implements PublicStaticHelper {
      */
     public static TextCursor fake() {
         return FakeTextCursor.create();
+    }
+
+    /**
+     * {@see NodeTextCursor}
+     */
+    public static <N extends Node<N, NAME, ANAME, AVALUE> & HasText,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> TextCursor textCursor(final N node) {
+        return NodeTextCursor.with(node);
     }
 
     /**
