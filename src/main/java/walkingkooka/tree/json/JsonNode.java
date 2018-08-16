@@ -124,6 +124,11 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         return this.wrap(name, this.index);
     }
 
+    @Override
+    public final boolean hasUniqueNameAmongstSiblings() {
+        return true;
+    }
+
     // parent ..................................................................................................
 
     @Override

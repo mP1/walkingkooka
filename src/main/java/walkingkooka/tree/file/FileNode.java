@@ -106,6 +106,11 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
 
     private FileNodeName name;
 
+    @Override
+    public final boolean hasUniqueNameAmongstSiblings() {
+        return true;
+    }
+
     /**
      * Returns the parent of empty if this node is the root as determined by {@link FileNodeContext#rootPath()}
      */

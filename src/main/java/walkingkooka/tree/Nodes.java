@@ -18,13 +18,51 @@
 package walkingkooka.tree;
 
 import walkingkooka.naming.Name;
+import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.PublicStaticHelper;
+
+import java.util.Optional;
 
 final public class Nodes implements PublicStaticHelper {
 
     public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     Node<N, NAME, ANAME, AVALUE> fake() {
         return new FakeNode<>();
+    }
+
+    /**
+     * Only called by default method {@link Node#pointer()}. Walks the parent axis, until the axis and then begins
+     * building a {@link NodePointer}.
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodePointer<N, NAME, ANAME, AVALUE> pointer(final N node) {
+
+        return pointer0(node);
+    }
+
+    private static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodePointer<N, NAME, ANAME, AVALUE> pointer0(final N node) {
+
+        final Optional<N> parent = node.parent();
+        return parent.isPresent() ?
+               pointer1(parent.get(), node) :
+               NodePointer.all(node.getClass());
+    }
+
+    private static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodePointer<N, NAME, ANAME, AVALUE> pointer1(final N parent,
+                                                                 final N node) {
+
+        final NodePointer<N, NAME, ANAME, AVALUE> back = pointer0(parent);
+        return node.hasUniqueNameAmongstSiblings() ?
+               back.named(node.name()) :
+               back.index(node.index());
     }
 
     /**
