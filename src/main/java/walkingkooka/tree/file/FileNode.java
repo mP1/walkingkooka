@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
@@ -45,7 +46,9 @@ import java.util.Set;
 /**
  * A {@link FileNode} represents a file or directory under a path.
  */
-public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeAttributeName, String>, Value<Path> {
+public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeAttributeName, String>,
+        HasText,
+        Value<Path> {
 
     public final static String DIRECTORY_TYPE = "DIRECTORY";
     public final static String FILE_TYPE = "FILE";

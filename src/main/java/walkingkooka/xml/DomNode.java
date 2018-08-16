@@ -30,8 +30,8 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.HasText;
 import walkingkooka.text.Whitespace;
-import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -53,7 +53,9 @@ import java.util.Optional;
  * An immutable xml document, where all apparent mutator methods return a new document or node. As an example,
  * changing attributes on an element, returns a new element within an entire document.
  */
-public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName, DomAttributeName, String>, UsesToStringBuilder {
+public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName, DomAttributeName, String>,
+        HasText,
+        UsesToStringBuilder {
 
     final static String XMLNS_URI = "http://www.w3.org/2000/xmlns/";
     public final static DomNameSpacePrefix XMLNS = DomNameSpacePrefix.XMLNS;
