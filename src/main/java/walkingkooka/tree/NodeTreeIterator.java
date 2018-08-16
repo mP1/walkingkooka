@@ -93,7 +93,7 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * A {@link Stack} of {@link Node nodes} that remain unprocessed and are immediate candidates for match testing.
      */
-    Stack<N> unprocessed;
+    private final Stack<N> unprocessed;
 
     /**
      * Starting at the given {@link Node} pushes the next sibling.
@@ -109,13 +109,10 @@ final class NodeTreeIterator<N extends Node<N, NAME, ANAME, AVALUE>,
      * Pushes the first child of the {@link Node} if it is a parent.
      */
     private void pushFirstChild(final N node) {
-        //final Optional<N> parent = node.parent();
-        //if (parent.isPresent()) {
-            final Optional<N> firstChild = node.firstChild();
-            if (firstChild.isPresent()) {
-                this.unprocessed.push(firstChild.get());
-            }
-        //}
+        final Optional<N> firstChild = node.firstChild();
+        if (firstChild.isPresent()) {
+            this.unprocessed.push(firstChild.get());
+        }
     }
 
     @Override
