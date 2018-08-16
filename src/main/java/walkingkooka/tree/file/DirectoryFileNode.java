@@ -115,7 +115,7 @@ final class DirectoryFileNode extends FileNode{
     }
 
     @Override
-    String text() {
+    public String text() {
         return "";
     }
 

@@ -245,7 +245,7 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
 
     abstract String size();
 
-    abstract String text();
+    abstract public String text();
 
     abstract String type();
 
