@@ -170,6 +170,6 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
 
     @Override
     Class<Number> commonNumberType(final Class<? extends Number> type) {
-        throw new UnsupportedOperationException();
+        return this.value().commonNumberType(type);
     }
 }
