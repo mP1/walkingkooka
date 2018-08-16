@@ -89,7 +89,7 @@ final class FileFileNode extends FileNode{
     private String size;
 
     @Override
-    String text() {
+    public String text() {
         if(null != this.text && this.mustLoad(FileNodeCacheAtom.TEXT)){
             this.text = null;
         }
