@@ -92,6 +92,15 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
         throw new ShouldNeverHappenError(this.getClass().getSimpleName() + ".setChild");
     }
 
+    // HasText......................................................................................................
+
+    @Override
+    public String text() {
+        return String.valueOf(this.value());
+    }
+
+    // Object......................................................................................................
+
     @Override
     public final int hashCode() {
         return Objects.hash(this.name, this.value);

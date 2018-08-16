@@ -27,6 +27,7 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.HasText;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
@@ -40,7 +41,9 @@ import java.util.Optional;
  * Base class for all json nodes, all of which are immutable. Note that performing a seemingly mutable operation
  * actually returns a new graph of nodes as would be expected including all parents and the root.
  */
-public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Object>, HashCodeEqualsDefined {
+public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Object>,
+        HasText,
+        HashCodeEqualsDefined {
 
     public static JsonArrayNode array() {
         return JsonArrayNode.EMPTY;

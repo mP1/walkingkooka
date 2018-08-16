@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Base type for all the parent json nodes that hold other nodes, such as array and object
@@ -118,6 +119,20 @@ abstract class JsonParentNode extends JsonNode {
             visitor.accept(node);
         }
     }
+
+    // HasText......................................................................................................
+
+    /**
+     * Combine the text of all children(descendants). Note property names and indices will not be included.
+     */
+    @Override
+    public String text() {
+        return this.children().stream()
+                .map(c -> c.text())
+                .collect(Collectors.joining());
+    }
+
+    // Object.....................................................................................................
 
     @Override
     public final int hashCode() {
