@@ -664,6 +664,35 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         this.parseAndCheck(text, f, text);
     }
 
+    @Test
+    public void testGroupAndFurtherExpressions() {
+        final SpreadsheetParserToken left = bigInteger(1);
+        final SpreadsheetParserToken right = bigInteger(2);
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(left, plus(), right), "1+2");
+        final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(add), add.text());
+
+        final SpreadsheetParserToken last = bigInteger(3);
+        final SpreadsheetMultiplicationParserToken mul = SpreadsheetParserToken.multiplication(Lists.of(group, multiply(), last), group.text() + "*3");
+
+        this.parseAndCheck(mul.text(), mul, mul.text());
+    }
+
+    @Test
+    public void testNestedGroupAddition() {
+        final SpreadsheetParserToken left1 = bigInteger(1);
+        final SpreadsheetParserToken right1 = bigInteger(2);
+        final SpreadsheetAdditionParserToken add1 = SpreadsheetParserToken.addition(Lists.of(left1, plus(), right1), "1+2");
+        final SpreadsheetGroupParserToken group1 = SpreadsheetParserToken.group(Lists.of(add1), add1.text());
+
+        final SpreadsheetParserToken left2 = bigInteger(3);
+        final SpreadsheetParserToken right2 = bigInteger(4);
+        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(left2, plus(), right2), "3+4");
+        final SpreadsheetGroupParserToken group2 = SpreadsheetParserToken.group(Lists.of(add2), add2.text());
+
+        final SpreadsheetMultiplicationParserToken mul = SpreadsheetParserToken.multiplication(Lists.of(group1, multiply(), group1), group1.text() + "*" + group2.text());
+        this.parseAndCheck(mul.text(), mul, mul.text());
+    }
+
     @Override
     protected Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
         final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number = Parsers.<SpreadsheetParserContext>bigInteger(10)
