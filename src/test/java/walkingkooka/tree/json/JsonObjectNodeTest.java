@@ -335,6 +335,21 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testTextWithoutChildren() {
+        assertEquals("", JsonNode.object().text());
+    }
+
+    @Test
+    public void testTextWithChildren() {
+        final JsonObjectNode object = JsonNode.object()
+                .set(key1(), JsonNode.booleanNode(true))
+                .set(key2(), JsonNode.number(2))
+                .set(key3(), JsonNode.string("third"));
+
+        assertEquals("true2.0third", object.text());
+    }
+
+    @Test
     public void testToStringEmpty() {
         assertEquals("{}", this.createJsonNode().toString());
     }

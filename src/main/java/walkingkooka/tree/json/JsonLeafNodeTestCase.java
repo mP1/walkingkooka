@@ -154,6 +154,11 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
         // Ignored
     }
 
+    @Test
+    public final void testText() {
+        assertEquals(String.valueOf(this.value()), this.createJsonNode().text());
+    }
+
     @Override
     final N createJsonNode() {
         return this.createJsonNode(this.value());
