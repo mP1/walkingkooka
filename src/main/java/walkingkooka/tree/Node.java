@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.HasName;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visitable;
 
@@ -44,6 +45,13 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      * Returns the name of this node, or null if one is not present.
      */
     NAME name();
+
+    /**
+     * While all {@link Node node's} have {@link Name names} they might not all be unique amongst siblings.
+     */
+    default boolean hasUniqueNameAmongstSiblings() {
+        return false;
+    }
 
     public final static int ROOT_NODE_INDEX = -1;
 
@@ -240,5 +248,12 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     default Iterator<N> treeIterator() {
         return new NodeTreeIterator<N, NAME, ANAME, AVALUE>(Cast.to(this));
+    }
+
+    /**
+     * Returns a {@link NodePointer} that uniquely identifies this {@link Node} starting at the root.
+     */
+    default NodePointer<N, NAME, ANAME, AVALUE> pointer() {
+       return Nodes.pointer(Cast.to(this));
     }
 }

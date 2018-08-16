@@ -172,6 +172,11 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
 
     private final PojoName name;
 
+    @Override
+    public final boolean hasUniqueNameAmongstSiblings() {
+        return true;
+    }
+
     // parent ..................................................................................................
 
     @Override

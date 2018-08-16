@@ -69,6 +69,11 @@ final class TestFakeNode implements Node<TestFakeNode, StringName, StringName, O
     private final StringName name;
 
     @Override
+    public final boolean hasUniqueNameAmongstSiblings() {
+        return true;
+    }
+
+    @Override
     public Optional<TestFakeNode> parent() {
         return this.parent;
     }
