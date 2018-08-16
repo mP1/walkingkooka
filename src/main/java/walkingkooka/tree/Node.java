@@ -25,6 +25,7 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visitable;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -232,5 +233,12 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     default NodeSelector<N, NAME, ANAME, AVALUE> selector() {
         return NodeSelector.path(Cast.to(this));
+    }
+
+    /**
+     * An {@link Iterator} that walks starting at this {@link Node} depth first.
+     */
+    default Iterator<N> treeIterator() {
+        return new NodeTreeIterator<N, NAME, ANAME, AVALUE>(Cast.to(this));
     }
 }
