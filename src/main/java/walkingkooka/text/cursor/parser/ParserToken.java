@@ -18,11 +18,12 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
+import walkingkooka.text.HasText;
 
 /**
  * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
  */
-public interface ParserToken {
+public interface ParserToken extends HasText {
 
     /**
      * Returns the raw text that produced the token.
