@@ -59,12 +59,37 @@ public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
     }
 
     @Override
+    protected void visit(final LocalDateParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final LocalDateTimeParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final LocalTimeParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final LongParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected void visit(final MissingParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final OffsetDateTimeParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final OffsetTimeParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -100,6 +125,11 @@ public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
 
     @Override
     protected void visit(final StringParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ZonedDateTimeParserToken token) {
         throw new UnsupportedOperationException();
     }
 }

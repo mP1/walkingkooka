@@ -21,6 +21,12 @@ import walkingkooka.type.PublicStaticHelper;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public final class ParserTokens implements PublicStaticHelper {
@@ -61,6 +67,27 @@ public final class ParserTokens implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalDateParserToken}
+     */
+    public static LocalDateParserToken localDate(final LocalDate value, final String text) {
+        return LocalDateParserToken.with(value, text);
+    }
+
+    /**
+     * {@see LocalDateTimeParserToken}
+     */
+    public static LocalDateTimeParserToken localDateTime(final LocalDateTime value, final String text) {
+        return LocalDateTimeParserToken.with(value, text);
+    }
+
+    /**
+     * {@see LocalTimeParserToken}
+     */
+    public static LocalTimeParserToken localTime(final LocalTime value, final String text) {
+        return LocalTimeParserToken.with(value, text);
+    }
+    
+    /**
      * {@see LongParserToken}
      */
     public static LongParserToken longParserToken(final long value, final String text) {
@@ -72,6 +99,20 @@ public final class ParserTokens implements PublicStaticHelper {
      */
     public static MissingParserToken missing(final ParserTokenNodeName name, final String text) {
         return MissingParserToken.with(name, text);
+    }
+
+    /**
+     * {@see OffsetDateTimeParserToken}
+     */
+    public static OffsetDateTimeParserToken offsetDateTime(final OffsetDateTime value, final String text) {
+        return OffsetDateTimeParserToken.with(value, text);
+    }
+
+    /**
+     * {@see OffsetTimeParserToken}
+     */
+    public static OffsetTimeParserToken offsetTime(final OffsetTime value, final String text) {
+        return OffsetTimeParserToken.with(value, text);
     }
 
     /**
@@ -109,6 +150,13 @@ public final class ParserTokens implements PublicStaticHelper {
         return StringParserToken.with(value, text);
     }
 
+    /**
+     * {@see ZonedDateTimeParserToken}
+     */
+    public static ZonedDateTimeParserToken zonedDateTime(final ZonedDateTime value, final String text) {
+        return ZonedDateTimeParserToken.with(value, text);
+    }
+    
     /**
      * Stop creation
      */

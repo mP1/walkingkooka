@@ -20,6 +20,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.math.MathContext;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -98,6 +99,20 @@ public final class Parsers implements PublicStaticHelper {
     static <T extends ParserToken, C extends ParserContext> FixedParser<T, C> fixed(final Optional<T> result) {
         return FixedParser.with(result);
     }
+    
+    /**
+     * {@see LocalDateDateTimeFormatterParser}
+     */
+    public static <C extends ParserContext> Parser<LocalDateParserToken, C> localDate(final DateTimeFormatter formatter, final String pattern){
+        return LocalDateDateTimeFormatterParser.with(formatter, pattern);
+    }
+    
+    /**
+     * {@see LocalTimeDateTimeFormatterParser}
+     */
+    public static <C extends ParserContext> Parser<LocalTimeParserToken, C> localTime(final DateTimeFormatter formatter, final String pattern){
+        return LocalTimeDateTimeFormatterParser.with(formatter, pattern);
+    }
 
     /**
      * {@see LongParser}
@@ -106,6 +121,20 @@ public final class Parsers implements PublicStaticHelper {
         return LongParser.with(radix);
     }
 
+    /**
+     * {@see OffsetDateTimeDateTimeFormatterParser}
+     */
+    public static <C extends ParserContext> Parser<OffsetDateTimeParserToken, C> offsetDateTime(final DateTimeFormatter formatter, final String pattern){
+        return OffsetDateTimeDateTimeFormatterParser.with(formatter, pattern);
+    }
+
+    /**
+     * {@see OffsetTimeDateTimeFormatterParser}
+     */
+    public static <C extends ParserContext> Parser<OffsetTimeParserToken, C> offsetTime(final DateTimeFormatter formatter, final String pattern){
+        return OffsetTimeDateTimeFormatterParser.with(formatter, pattern);
+    }
+    
     /**
      * {@see OptionalParser}
      */
@@ -180,6 +209,13 @@ public final class Parsers implements PublicStaticHelper {
      */
     public static <C extends ParserContext> Parser<CharacterParserToken, C> unicodeEscapeCharacter() {
         return UnicodeEscapeCharacterParser.get();
+    }
+
+    /**
+     * {@see ZonedDateTimeDateTimeFormatterParser}
+     */
+    public static <C extends ParserContext> Parser<ZonedDateTimeParserToken, C> zonedDateTime(final DateTimeFormatter formatter, final String pattern){
+        return ZonedDateTimeDateTimeFormatterParser.with(formatter, pattern);
     }
 
     /**

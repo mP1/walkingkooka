@@ -65,6 +65,18 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
         // nop
     }
 
+    protected void visit(final LocalDateParserToken token) {
+        // nop
+    }
+    
+    protected void visit(final LocalDateTimeParserToken token) {
+        // nop
+    }
+
+    protected void visit(final LocalTimeParserToken token) {
+        // nop
+    }
+
     protected void visit(final LongParserToken token) {
         // nop
     }
@@ -73,6 +85,14 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
         // nop
     }
 
+    protected void visit(final OffsetDateTimeParserToken token) {
+        // nop
+    }
+
+    protected void visit(final OffsetTimeParserToken token) {
+        // nop
+    }
+    
     protected Visiting startVisit(final RepeatedParserToken token) {
         return Visiting.CONTINUE;
     }
@@ -98,6 +118,10 @@ public abstract class ParserTokenVisitor extends Visitor<ParserToken> {
     }
 
     protected void visit(final StringParserToken token) {
+        // nop
+    }
+
+    protected void visit(final ZonedDateTimeParserToken token) {
         // nop
     }
     
