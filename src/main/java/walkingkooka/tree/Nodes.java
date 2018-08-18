@@ -17,6 +17,7 @@
 
 package walkingkooka.tree;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.PublicStaticHelper;
@@ -50,7 +51,7 @@ final public class Nodes implements PublicStaticHelper {
         final Optional<N> parent = node.parent();
         return parent.isPresent() ?
                pointer1(parent.get(), node) :
-               NodePointer.all(node.getClass());
+                NodePointer.all(Cast.to(node.getClass()));
     }
 
     private static <N extends Node<N, NAME, ANAME, AVALUE>,

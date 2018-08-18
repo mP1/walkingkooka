@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/mP1/walkingkooka/badge.svg)](https://coveralls.io/github/mP1/walkingkooka)
 # Basic Project
 
 A very brief summary of some powerful features available in this project, with some large and small powerful items.
