@@ -28,6 +28,9 @@ import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -127,6 +130,27 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
         return ExpressionLessThanEqualsNode.with(left, right);
     }
 
+    /**
+     * {@see ExpressionLocalDateNode}
+     */
+    public static ExpressionLocalDateNode localDate(final LocalDate value) {
+        return ExpressionLocalDateNode.with(value);
+    }
+
+    /**
+     * {@see ExpressionLocalDateTimeNode}
+     */
+    public static ExpressionLocalDateTimeNode localDateTime(final LocalDateTime value) {
+        return ExpressionLocalDateTimeNode.with(value);
+    }
+
+    /**
+     * {@see ExpressionLocalTimeNode}
+     */
+    public static ExpressionLocalTimeNode localTime(final LocalTime value) {
+        return ExpressionLocalTimeNode.with(value);
+    }
+    
     /**
      * {@see ExpressionLongNode}
      */
@@ -365,7 +389,22 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      * Only {@link ExpressionLessThanEqualsNode} returns true
      */
     public abstract boolean isLessThanEquals();
-    
+
+    /**
+     * Only {@link ExpressionLocalDateNode} returns true
+     */
+    public abstract boolean isLocalDate();
+
+    /**
+     * Only {@link ExpressionLocalDateTimeNode} returns true
+     */
+    public abstract boolean isLocalDateTime();
+
+    /**
+     * Only {@link ExpressionLocalTimeNode} returns true
+     */
+    public abstract boolean isLocalTime();
+
     /**
      * Only {@link ExpressionLongNode} returns true
      */
@@ -456,6 +495,21 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      * Evaluates this node as a {@link double}
      */
     public abstract double toDouble(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a {@link LocalDate}
+     */
+    public abstract LocalDate toLocalDate(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a {@link LocalDateTime}
+     */
+    public abstract LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context);
+
+    /**
+     * Evaluates this node as a {@link LocalTime}
+     */
+    public abstract LocalTime toLocalTime(final ExpressionEvaluationContext context);
 
     /**
      * Evaluates this node as a {@link long}

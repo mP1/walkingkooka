@@ -63,6 +63,18 @@ public abstract class ExpressionNodeVisitor extends Visitor<ExpressionNode> {
         // nop
     }
 
+    protected void visit(final ExpressionLocalDateNode node) {
+        // nop
+    }
+
+    protected void visit(final ExpressionLocalDateTimeNode node) {
+        // nop
+    }
+
+    protected void visit(final ExpressionLocalTimeNode node) {
+        // nop
+    }
+
     protected void visit(final ExpressionLongNode node) {
         // nop
     }

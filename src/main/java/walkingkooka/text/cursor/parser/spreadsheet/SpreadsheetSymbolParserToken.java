@@ -64,6 +64,21 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     }
 
     @Override
+    public final boolean isLocalDate() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLocalDateTime() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLocalTime() {
+        return false;
+    }
+
+    @Override
     public final boolean isLong() {
         return false;
     }

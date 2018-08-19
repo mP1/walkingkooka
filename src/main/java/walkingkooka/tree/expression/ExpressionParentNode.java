@@ -122,6 +122,21 @@ abstract class ExpressionParentNode extends ExpressionNode {
     }
 
     @Override
+    public final boolean isLocalDate() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLocalDateTime() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLocalTime() {
+        return false;
+    }
+
+    @Override
     public final boolean isLong() {
         return false;
     }

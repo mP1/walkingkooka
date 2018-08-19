@@ -18,9 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 /**
  * A long number value.
  */
@@ -67,6 +64,21 @@ public final class ExpressionLongNode extends ExpressionLeafNode2<Long> {
     }
 
     @Override
+    public boolean isLocalDate() {
+        return false;
+    }
+
+    @Override
+    public boolean isLocalDateTime() {
+        return false;
+    }
+
+    @Override
+    public boolean isLocalTime() {
+        return false;
+    }
+
+    @Override
     public boolean isLong() {
         return true;
     }
@@ -90,11 +102,7 @@ public final class ExpressionLongNode extends ExpressionLeafNode2<Long> {
 
     @Override
     final Class<Number> commonNumberType(final Class<? extends Number> type){
-        return BigDecimal.class==type || Double.class == type ?
-                BIG_DECIMAL :
-                BigInteger.class == type ?
-                        BIG_INTEGER :
-                        LONG;
+        return this.commonNumberTypeLong(type);
     }
 
     // Object ....................................................................................................

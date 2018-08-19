@@ -37,6 +37,11 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -137,6 +142,30 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         return ExpressionNode.doubleNode(value);
     }
 
+    final LocalDate localDateValue(final long value) {
+        return Converters.numberLocalDate().convert(value, LocalDate.class);
+    }
+
+    final ExpressionLocalDateNode localDate(final long value) {
+        return ExpressionNode.localDate(localDateValue(value));
+    }
+
+    final LocalDateTime localDateTimeValue(final double value) {
+        return Converters.numberLocalDateTime().convert(value, LocalDateTime.class);
+    }
+
+    final ExpressionLocalDateTimeNode localDateTime(final double value) {
+        return ExpressionNode.localDateTime(localDateTimeValue(value));
+    }
+
+    final LocalTime localTimeValue(final long value) {
+        return Converters.numberLocalTime().convert(value, LocalTime.class);
+    }
+
+    final ExpressionLocalTimeNode localTime(final long value) {
+        return ExpressionNode.localTime(localTimeValue(value));
+    }
+
     final ExpressionLongNode longValue(final long value) {
         return ExpressionNode.longNode(value);
     }
@@ -191,6 +220,54 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
 
     final void evaluateAndCheckDouble(final ExpressionNode node, final ExpressionEvaluationContext context, final double expected) {
         this.checkEquals("toDouble of " + node + " failed", expected, node.toDouble(context));
+    }
+
+    final void evaluateAndCheckLocalDate(final ExpressionNode node, final long expected) {
+        this.evaluateAndCheckLocalDate(node, this.localDateValue(expected));
+    }
+
+    final void evaluateAndCheckLocalDate(final ExpressionNode node, final LocalDate expected) {
+        this.evaluateAndCheckLocalDate(node, this.context(), expected);
+    }
+
+    final void evaluateAndCheckLocalDate(final ExpressionNode node, final ExpressionEvaluationContext context, final long expected) {
+        this.evaluateAndCheckLocalDate(node, context, this.localDateValue(expected));
+    }
+
+    final void evaluateAndCheckLocalDate(final ExpressionNode node, final ExpressionEvaluationContext context, final LocalDate expected) {
+        this.checkEquals("toLocalDate of " + node + " failed", expected, node.toLocalDate(context));
+    }
+
+    final void evaluateAndCheckLocalDateTime(final ExpressionNode node, final double expected) {
+        this.evaluateAndCheckLocalDateTime(node, localDateTimeValue(expected));
+    }
+
+    final void evaluateAndCheckLocalDateTime(final ExpressionNode node, final LocalDateTime expected) {
+        this.evaluateAndCheckLocalDateTime(node, this.context(), expected);
+    }
+
+    final void evaluateAndCheckLocalDateTime(final ExpressionNode node, final ExpressionEvaluationContext context, final double expected) {
+        this.evaluateAndCheckLocalDateTime(node, context, localDateTimeValue(expected));
+    }
+
+    final void evaluateAndCheckLocalDateTime(final ExpressionNode node, final ExpressionEvaluationContext context, final LocalDateTime expected) {
+        this.checkEquals("toLocalDateTime of " + node + " failed", expected, node.toLocalDateTime(context));
+    }
+
+    final void evaluateAndCheckLocalTime(final ExpressionNode node, final long expected) {
+        this.evaluateAndCheckLocalTime(node, this.localTimeValue(expected));
+    }
+
+    final void evaluateAndCheckLocalTime(final ExpressionNode node, final LocalTime expected) {
+        this.evaluateAndCheckLocalTime(node, this.context(), expected);
+    }
+
+    final void evaluateAndCheckLocalTime(final ExpressionNode node, final ExpressionEvaluationContext context, final long expected) {
+        this.evaluateAndCheckLocalTime(node, context, this.localTimeValue(expected));
+    }
+
+    final void evaluateAndCheckLocalTime(final ExpressionNode node, final ExpressionEvaluationContext context, final LocalTime expected) {
+        this.checkEquals("toLocalTime of " + node + " failed", expected, node.toLocalTime(context));
     }
 
     final void evaluateAndCheckLong(final ExpressionNode node, final long expected) {
@@ -253,34 +330,91 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     static ExpressionEvaluationContext context() {
+        final Converter stringBigDecimal = Converters.parser(BigDecimal.class,
+                Parsers.bigDecimal('.', MathContext.DECIMAL32),
+                FakeParserContext::new);
+        final Converter stringNumber = Converters.parser(Number.class,
+                Cast.to(Parsers.bigDecimal('.', MathContext.DECIMAL32)),
+                FakeParserContext::new);
+        final Converter stringBigInteger = Converters.parser(BigInteger.class,
+                Parsers.bigInteger(10),
+                FakeParserContext::new);
+        final Converter stringDouble = Converters.parser(Double.class,
+                Parsers.doubleParser('.'),
+                FakeParserContext::new);
+        final Converter stringLocalDate = Converters.parser(LocalDate.class,
+                Parsers.localDate(DateTimeFormatter.ISO_LOCAL_DATE, "yyyy-MM-dd"),
+                FakeParserContext::new);
+        final Converter stringLocalDateTime = Converters.parser(LocalDateTime.class,
+                Parsers.localDateTime(DateTimeFormatter.ISO_LOCAL_DATE_TIME, "yyyy-MM-dd'T'hh:mm"),
+                FakeParserContext::new);
+        final Converter stringLocalTime = Converters.parser(LocalTime.class,
+                Parsers.localTime(DateTimeFormatter.ISO_LOCAL_TIME, "hh:mm"),
+                FakeParserContext::new);
+        final Converter stringLong =  Converters.parser(Long.class,
+                Parsers.longParser(10),
+                FakeParserContext::new);
+
         final Converter converters = Converters.collection(Lists.of(
+                Converters.simple(),
+                // localDate ->
+                toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
+                Converters.localDateBigDecimal(),
+                Converters.localDateBigInteger(),
+                Converters.localDateDouble(),
+                Converters.localDateLocalDateTime(),
+                Converters.fail(LocalDate.class, LocalTime.class),
+                Converters.localDateLong(),
+                Converters.forward(Converters.localDateLong(), Number.class, Long.class).setToString("LocalDate->Long"),
+                Converters.localDateString(DateTimeFormatter.ISO_LOCAL_DATE),
+                // localDateTime ->
+                toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
+                Converters.localDateTimeBigDecimal(),
+                Converters.localDateTimeBigInteger(),
+                Converters.localDateTimeDouble(),
+                Converters.localDateTimeLocalDate(),
+                Converters.localDateTimeLocalTime(),
+                Converters.localDateTimeLong(),
+                Converters.forward(Converters.localDateTimeDouble(), Number.class, Double.class).setToString("LocalDateTime->Number"),
+                Converters.localDateTimeString(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                // localTime
+                toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
+                Converters.localTimeBigDecimal(),
+                Converters.localTimeBigInteger(),
+                Converters.localTimeDouble(),
+                Converters.fail(LocalTime.class, LocalDate.class),
+                Converters.localTimeLocalDateTime(),
+                Converters.localTimeLong(),
+                Converters.forward(Converters.localTimeLong(), Number.class, Long.class).setToString("LocalTime->Long"),
+                Converters.localTimeString(DateTimeFormatter.ISO_LOCAL_TIME),
+                // number ->
                 Converters.numberBigDecimal(),
                 Converters.numberBigInteger(),
-                Converters.numberDouble(),
-                Converters.numberLong(),
-                Converters.parser(BigDecimal.class,
-                        Parsers.bigDecimal('.', MathContext.DECIMAL32),
-                        FakeParserContext::new),
-                Converters.parser(Number.class,
-                        Cast.to(Parsers.bigDecimal('.', MathContext.DECIMAL32)),
-                        FakeParserContext::new),
-                Converters.parser(BigInteger.class,
-                        Parsers.bigInteger(10),
-                        FakeParserContext::new),
-                Converters.parser(Double.class,
-                        Parsers.doubleParser('.'),
-                        FakeParserContext::new),
-                Converters.parser(Long.class,
-                        Parsers.longParser(10),
-                        FakeParserContext::new),
-                Converters.simple(),
-                Converters.stringBoolean(),
-                Converters.booleanConverter(Boolean.class, Boolean.FALSE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO),
-                Converters.booleanConverter(Boolean.class, Boolean.FALSE, BigInteger.class, BigInteger.ONE, BigInteger.ZERO),
-                Converters.booleanConverter(Boolean.class, Boolean.FALSE, Double.class, 1.0, 0.0),
-                Converters.booleanConverter(Boolean.class, Boolean.FALSE, Long.class, 1L, 0L),
                 Converters.truthyNumberBoolean(),
-                Converters.string()));
+                Converters.numberDouble(),
+                Converters.numberLocalDate(),
+                Converters.numberLocalDateTime(),
+                Converters.numberLocalTime(),
+                Converters.numberLong(),
+                // string ->
+                stringBigDecimal,
+                stringBigInteger,
+                Converters.stringBoolean(),
+                stringDouble,
+                stringLocalDate,
+                stringLocalDateTime,
+                stringLocalTime,
+                stringLong,
+                stringNumber,
+                Converters.string(),
+                // boolean ->
+                fromBoolean(BigDecimal.class, Converters.numberBigDecimal()),
+                fromBoolean(BigInteger.class, Converters.numberBigInteger()),
+                fromBoolean(Double.class, Converters.numberDouble()),
+                fromBoolean(LocalDate.class, Converters.numberLocalDate()),
+                fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime()),
+                fromBoolean(LocalTime.class, Converters.numberLocalTime()),
+                fromBoolean(Long.class, Converters.numberLong())));
 
         return new FakeExpressionEvaluationContext() {
 
@@ -294,8 +428,13 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
                 try {
-                    if (!(value instanceof Boolean || value instanceof Number || value instanceof String)) {
-                        fail("Cannot expects only Boolean | Number | String " + value.getClass().getName() + "=" + value);
+                    if (!(value instanceof Boolean ||
+                            value instanceof LocalDate ||
+                            value instanceof LocalDateTime ||
+                            value instanceof LocalTime ||
+                            value instanceof Number ||
+                            value instanceof String)) {
+                        fail("Cannot convert expects only Boolean | LocalDate | LocalDateTime, LocalTime | Number | String " + value.getClass().getName() + "=" + value);
                     }
                     return converters.convert(value, target);
                 } catch ( final ConversionException fail) {
@@ -303,5 +442,21 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                 }
             }
         };
+    }
+
+    private static <T> Converter fromBoolean(final Class<T> targetType, final Converter trueOrFalse) {
+        return Converters.booleanConverter(Boolean.class,
+                Boolean.FALSE,
+                targetType,
+                trueOrFalse.convert(1L, targetType),
+                trueOrFalse.convert(0L, targetType));
+    }
+
+    private static <S> Converter toBoolean(final Class<S> sourceType, final S falseValue) {
+        return Converters.booleanConverter(sourceType,
+                falseValue,
+                Boolean.class,
+                Boolean.TRUE,
+                Boolean.FALSE);
     }
 }

@@ -18,20 +18,23 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
+
+import java.time.LocalDate;
+import java.util.Objects;
 
 /**
- * A boolean value.
+ * A {@link LocalDate} number value.
  */
-public final class ExpressionBooleanNode extends ExpressionLeafNode2<Boolean> {
+public final class ExpressionLocalDateNode extends ExpressionLeafNode2<LocalDate> {
 
-    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBooleanNode.class);
+    public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionLocalDateNode.class);
 
-    static ExpressionBooleanNode with(final boolean value) {
-        return new ExpressionBooleanNode(NO_PARENT_INDEX, value);
+    static ExpressionLocalDateNode with(final LocalDate value) {
+        Objects.requireNonNull(value, "value");
+        return new ExpressionLocalDateNode(NO_PARENT_INDEX, value);
     }
 
-    private ExpressionBooleanNode(final int index, final Boolean value){
+    private ExpressionLocalDateNode(final int index, final LocalDate value){
         super(index, value);
     }
 
@@ -41,8 +44,8 @@ public final class ExpressionBooleanNode extends ExpressionLeafNode2<Boolean> {
     }
 
     @Override
-    ExpressionBooleanNode wrap1(final int index, final Boolean value) {
-        return new ExpressionBooleanNode(index, value);
+    ExpressionLocalDateNode wrap1(final int index, final LocalDate value) {
+        return new ExpressionLocalDateNode(index, value);
     }
 
     @Override
@@ -57,7 +60,7 @@ public final class ExpressionBooleanNode extends ExpressionLeafNode2<Boolean> {
 
     @Override
     public boolean isBoolean() {
-        return true;
+        return false;
     }
 
     @Override
@@ -67,7 +70,7 @@ public final class ExpressionBooleanNode extends ExpressionLeafNode2<Boolean> {
 
     @Override
     public boolean isLocalDate() {
-        return false;
+        return true;
     }
 
     @Override
@@ -102,16 +105,19 @@ public final class ExpressionBooleanNode extends ExpressionLeafNode2<Boolean> {
 
     // evaluation .....................................................................................................
 
+    /**
+     * Convert the other value to {@link java.lang.Long}
+     */
     @Override
-    Class<Number> commonNumberType(final Class<? extends Number> type) {
-        return Cast.to(type);
+    final Class<Number> commonNumberType(final Class<? extends Number> type){
+        return this.commonNumberTypeLong(type);
     }
 
     // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionBooleanNode;
+        return other instanceof ExpressionLocalDateNode;
     }
 
     @Override

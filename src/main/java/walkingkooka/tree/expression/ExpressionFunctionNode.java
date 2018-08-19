@@ -22,6 +22,9 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -204,6 +207,21 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
         return this.executeFunction(context, Double.class);
     }
 
+    @Override
+    public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, LocalDate.class);
+    }
+
+    @Override
+    public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, LocalDateTime.class);
+    }
+
+    @Override
+    public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, LocalTime.class);
+    }
+    
     @Override
     public final long toLong(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, Long.class);

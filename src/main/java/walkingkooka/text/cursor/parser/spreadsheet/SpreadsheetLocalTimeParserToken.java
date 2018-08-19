@@ -17,36 +17,39 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Optional;
 
 /**
- * Represents a label or name for a cell or range etc.
+ * Holds a single {@link LocalTime}
  */
-public final class SpreadsheetLabelNameParserToken extends SpreadsheetLeafParserToken2<SpreadsheetLabelName> implements SpreadsheetReferenceParserToken {
+public final class SpreadsheetLocalTimeParserToken extends SpreadsheetLeafParserToken2<LocalTime> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetLabelNameParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetLocalTimeParserToken.class);
 
-    static SpreadsheetLabelNameParserToken with(final SpreadsheetLabelName value, final String text){
+    static SpreadsheetLocalTimeParserToken with(final LocalTime value, final String text){
         checkValue(value);
-        checkText(text);
+        CharSequences.failIfNullOrEmpty(text, "text");
 
-        return new SpreadsheetLabelNameParserToken(value, text);
+        return new SpreadsheetLocalTimeParserToken(value, text);
     }
 
-    private SpreadsheetLabelNameParserToken(final SpreadsheetLabelName value, final String text){
+    private SpreadsheetLocalTimeParserToken(final LocalTime value, final String text){
         super(value, text);
     }
 
     @Override
-    public SpreadsheetLabelNameParserToken setText(final String text) {
+    public SpreadsheetLocalTimeParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    SpreadsheetLabelNameParserToken replaceText(final String text) {
-        return new SpreadsheetLabelNameParserToken(this.value, text);
+    SpreadsheetLocalTimeParserToken replaceText(final String text) {
+        return new SpreadsheetLocalTimeParserToken(this.value, text);
     }
 
     @Override
@@ -81,7 +84,7 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetLeafParser
 
     @Override
     public boolean isLabelName() {
-        return true;
+        return false;
     }
 
     @Override
@@ -96,7 +99,7 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetLeafParser
 
     @Override
     public boolean isLocalTime() {
-        return false;
+        return true;
     }
 
     @Override
@@ -131,7 +134,7 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetLeafParser
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetLabelNameParserToken;
+        return other instanceof SpreadsheetLocalTimeParserToken;
     }
 
     @Override
