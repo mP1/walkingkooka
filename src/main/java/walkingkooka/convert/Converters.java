@@ -96,7 +96,7 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see LocalDateBigIntegerConverter}
      */
-    public static Converter localDateBiglnteger() {
+    public static Converter localDateBigInteger() {
         return LocalDateBigIntegerConverter.INSTANCE;
     }
 
@@ -129,13 +129,6 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
-     * {@see LocalDateTimeStringDateTimeFormatterConverter}
-     */
-    public static Converter localDateTime(final DateTimeFormatter formatter) {
-        return LocalDateTimeStringDateTimeFormatterConverter.with(formatter);
-    }
-
-    /**
      * {@see LocalDateTimeBigDecimalConverter}
      */
     public static Converter localDateTimeBigDecimal() {
@@ -145,15 +138,8 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see LocalDateTimeBigIntegerConverter}
      */
-    public static Converter localDateTimeBiglnteger() {
+    public static Converter localDateTimeBigInteger() {
         return LocalDateTimeBigIntegerConverter.INSTANCE;
-    }
-
-    /**
-     * {@see LocalDateTimeLocalDateConverter}
-     */
-    public static Converter localDateTimeLocalDate() {
-        return LocalDateTimeLocalDateConverter.INSTANCE;
     }
 
     /**
@@ -161,6 +147,13 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter localDateTimeDouble() {
         return LocalDateTimeDoubleConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateTimeLocalDateConverter}
+     */
+    public static Converter localDateTimeLocalDate() {
+        return LocalDateTimeLocalDateConverter.INSTANCE;
     }
 
     /**
@@ -178,6 +171,14 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalDateTimeStringDateTimeFormatterConverter}
+     */
+    public static Converter localDateTimeString(final DateTimeFormatter formatter) {
+        return LocalDateTimeStringDateTimeFormatterConverter.with(formatter);
+    }
+
+
+    /**
      * {@see LocalTimeBigDecimalConverter}
      */
     public static Converter localTimeBigDecimal() {
@@ -187,7 +188,7 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see LocalTimeBigIntegerConverter}
      */
-    public static Converter localTimeBiglnteger() {
+    public static Converter localTimeBigInteger() {
         return LocalTimeBigIntegerConverter.INSTANCE;
     }
 
