@@ -80,9 +80,16 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalDateLocalDateTimeConverter}
+     */
+    public static Converter localDateLocalDateTime() {
+        return LocalDateLocalDateTimeConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalDateStringDateTimeFormatterConverter}
      */
-    public static Converter localDate(final DateTimeFormatter formatter) {
+    public static Converter localDateString(final DateTimeFormatter formatter) {
         return LocalDateStringDateTimeFormatterConverter.with(formatter);
     }
 
@@ -94,9 +101,16 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalTimeLocalDateTimeConverter}
+     */
+    public static Converter localTimeLocalDateTime() {
+        return LocalTimeLocalDateTimeConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalTimeStringDateTimeFormatterConverter}
      */
-    public static Converter localTime(final DateTimeFormatter formatter) {
+    public static Converter localTimeString(final DateTimeFormatter formatter) {
         return LocalTimeStringDateTimeFormatterConverter.with(formatter);
     }
 
