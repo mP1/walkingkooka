@@ -20,7 +20,7 @@ package walkingkooka.convert;
 
 import org.junit.Test;
 
-public abstract class NumberConverterTestCase<C extends NumberConverter<T>, T extends Number> extends FixedTypeConverterTestCase<C, T> {
+public abstract class NumberConverterTestCase<C extends NumberConverter<T>, T> extends FixedTypeConverterTestCase<C, T> {
 
     @Test
     public void testDoubleNanFails() {
