@@ -20,6 +20,8 @@ package walkingkooka.convert;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.Assert.assertEquals;
 
 public final class StringConverterTest extends FixedTypeConverterTestCase<StringConverter, String> {
@@ -32,6 +34,11 @@ public final class StringConverterTest extends FixedTypeConverterTestCase<String
     @Test
     public void testLong() {
         this.convertAndCheck(123L, "123");
+    }
+
+    @Test
+    public void testDifferentTargetTypeFails() {
+        this.convertFails(1L, BigDecimal.class);
     }
 
     @Test

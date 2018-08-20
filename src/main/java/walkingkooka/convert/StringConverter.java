@@ -34,7 +34,7 @@ final class StringConverter extends FixedTypeConverter<String> {
 
     @Override
     public boolean canConvert(final Object value, final Class<?> type) {
-        return true;
+        return String.class == type;
     }
 
     @Override
