@@ -18,25 +18,25 @@
 
 package walkingkooka.convert;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
+import org.junit.Test;
 
-/**
- * A {@link Converter} which formats a date/time type by calling its format method.
- */
-abstract class StringDateTimeFormatterConverter<T> extends FixedTypeConverter2<T, String> {
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-    StringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
-        Objects.requireNonNull(formatter, "formatter");
-        this.formatter = formatter;
+public final class LocalTimeLocalDateTimeConverterTest extends LocalDateTimeConverterTestCase<LocalTimeLocalDateTimeConverter, LocalTime>{
+
+    @Test
+    public void testLocalTime() {
+        this.convertAndCheck(LocalTime.of(12, 58, 59, 789), LocalDateTime.of(1970, 1, 1, 12, 58, 59, 789));
     }
 
     @Override
-    final Class<String> targetType() {
-        return String.class;
+    protected LocalTimeLocalDateTimeConverter createConverter() {
+        return LocalTimeLocalDateTimeConverter.INSTANCE;
     }
 
-    abstract String convert2(final T value);
-
-    final DateTimeFormatter formatter;
+    @Override
+    protected Class<LocalTimeLocalDateTimeConverter> type() {
+        return LocalTimeLocalDateTimeConverter.class;
+    }
 }
