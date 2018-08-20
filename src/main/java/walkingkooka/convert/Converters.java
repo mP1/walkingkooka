@@ -78,6 +78,34 @@ public final class Converters implements PublicStaticHelper {
     public static Converter collection(final List<Converter> converters) {
         return ConverterCollection.with(converters);
     }
+    
+    /**
+     * {@see LocalDateBigDecimalConverter}
+     */
+    public static Converter localDateBigDecimal() {
+        return LocalDateBigDecimalConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateBigIntegerConverter}
+     */
+    public static Converter localDateBiglnteger() {
+        return LocalDateBigIntegerConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateDoubleConverter}
+     */
+    public static Converter localDateDouble() {
+        return LocalDateDoubleConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateLongConverter}
+     */
+    public static Converter localDateLong() {
+        return LocalDateLongConverter.INSTANCE;
+    }
 
     /**
      * {@see LocalDateLocalDateTimeConverter}
