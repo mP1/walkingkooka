@@ -62,11 +62,7 @@ final class NumberLocalTimeConverter extends NumberConverter<LocalTime> {
 
     @Override
     LocalTime doubleValue(final Double value) {
-        final double doubleValue = value;
-        if(value != (long)doubleValue) {
-            this.failConversion(value);
-        }
-        return this.localTime((long)doubleValue);
+        return this.localTime(value.doubleValue());
     }
 
     @Override
@@ -75,12 +71,13 @@ final class NumberLocalTimeConverter extends NumberConverter<LocalTime> {
     }
 
     private LocalTime localTime(final double value) {
-        final double nanos = value * Converters.NANOS_PER_SECOND;
-        if(value!=nanos / Converters.NANOS_PER_SECOND) {
+        final double doubleNanos = value * Converters.NANOS_PER_SECOND;
+        final long nanos = (long) doubleNanos;
+        if(nanos != doubleNanos) {
             this.failConversion(value);
         }
 
-        return LocalTime.ofNanoOfDay((long)nanos);
+        return LocalTime.ofNanoOfDay(nanos);
     }
 
     private LocalTime localTime(final long value) {
