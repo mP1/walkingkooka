@@ -59,37 +59,42 @@ final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> 
 
     @Override
     LocalDateTime bigInteger(final BigInteger value) {
-        return this.localDateTime(value.longValueExact());
+        return this.localDateTime(value.longValueExact(), value);
     }
 
     @Override
     LocalDateTime doubleValue(final Double value) {
-        final double doubleValue = value;
-        if(value != (long)doubleValue) {
-            this.failConversion(value);
-        }
-        return this.localDateTime((long)doubleValue);
+        return this.localDateTime(value.doubleValue());
     }
 
     @Override
     LocalDateTime longValue(final Long value) {
-        return this.localDateTime(value);
+        return this.localDateTime(value, value);
     }
 
     private LocalDateTime localDateTime(final double value) {
+        if(!Double.isFinite(value)) {
+            this.failConversion(value);
+        }
         final double days = Math.floor(value);
 
-        return localDateTime((int)days, value - days);
+        return localDateTime((int)days, value - days, value);
     }
 
-    private LocalDateTime localDateTime(final long value) {
-        return localDateTime(value, 0);
+    private LocalDateTime localDateTime(final long longValue, final Number value) {
+        return localDateTime(longValue, 0, value);
     }
 
-    private LocalDateTime localDateTime(final long day, final double fraction) {
+    private LocalDateTime localDateTime(final long day, final double fraction, final Object value) {
+        final double doubleNano = fraction * Converters.NANOS_PER_DAY;
+        final long nano = (long)doubleNano;
+        if(nano != doubleNano){
+            this.failConversion(value);
+        }
+
         return LocalDateTime.of(
                 LocalDate.ofEpochDay(day),
-                LocalTime.ofNanoOfDay((long)(fraction * Converters.NANOS_PER_DAY)));
+                LocalTime.ofNanoOfDay(nano));
     }
 
     @Override
