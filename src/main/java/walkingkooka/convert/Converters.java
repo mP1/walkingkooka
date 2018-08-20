@@ -33,6 +33,11 @@ import java.util.function.Supplier;
 public final class Converters implements PublicStaticHelper {
 
     /**
+     * Nanos per second.
+     */
+    static final long NANOS_PER_SECOND =  1000_000_000L;
+
+    /**
      * [@see BooleanConverter}
      */
     public static <T> Converter booleanConverter(final Class<T> type, final T trueValue, final T falseValue) {
@@ -72,6 +77,13 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter numberLocalDate() {
         return NumberLocalDateConverter.INSTANCE;
+    }
+
+    /**
+     * {@see NumberLocalTimeConverter}
+     */
+    public static Converter numberLocalTime() {
+        return NumberLocalTimeConverter.INSTANCE;
     }
 
     /**
