@@ -18,19 +18,31 @@
 
 package walkingkooka.convert;
 
-import java.time.format.DateTimeFormatter;
+import java.math.BigDecimal;
 
 /**
- * A {@link Converter} which formats a date/time type by calling its format method.
+ * Converts {@link java.time.LocalDate} to {@link BigDecimal}
  */
-abstract class StringDateTimeFormatterConverter<T> extends DateTimeFormatterConverter<T, String> {
+final class LocalDateBigDecimalConverter extends LocalDateConverter<BigDecimal> {
 
-    StringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
-        super(formatter);
+    /**
+     * Singleton
+     */
+    static LocalDateBigDecimalConverter INSTANCE = new LocalDateBigDecimalConverter();
+
+    /**
+     * Private ctor use singleton
+     */
+    private LocalDateBigDecimalConverter() {
     }
 
     @Override
-    final Class<String> targetType() {
-        return String.class;
+    Class<BigDecimal> targetType() {
+        return BigDecimal.class;
+    }
+
+    @Override
+    BigDecimal convert3(final long value) {
+        return BigDecimal.valueOf(value);
     }
 }

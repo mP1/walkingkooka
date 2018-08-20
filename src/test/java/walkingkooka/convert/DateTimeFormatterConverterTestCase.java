@@ -18,19 +18,23 @@
 
 package walkingkooka.convert;
 
+import org.junit.Test;
+
 import java.time.format.DateTimeFormatter;
 
-/**
- * A {@link Converter} which formats a date/time type by calling its format method.
- */
-abstract class StringDateTimeFormatterConverter<T> extends DateTimeFormatterConverter<T, String> {
+public abstract class DateTimeFormatterConverterTestCase<C extends FixedTypeConverter2<S, T>, S, T> extends FixedTypeConverterTestCase<C, T> {
 
-    StringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
-        super(formatter);
+    @Test(expected = NullPointerException.class)
+    public final void testWithNullFormatterFails() {
+        this.createConverter(null);
     }
 
     @Override
-    final Class<String> targetType() {
-        return String.class;
+    protected C createConverter() {
+        return this.createConverter(this.formatter());
     }
+
+    abstract C createConverter(final DateTimeFormatter formatter);
+
+    abstract DateTimeFormatter formatter();
 }

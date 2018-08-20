@@ -18,19 +18,31 @@
 
 package walkingkooka.convert;
 
-import java.time.format.DateTimeFormatter;
+import java.math.BigInteger;
 
 /**
- * A {@link Converter} which formats a date/time type by calling its format method.
+ * Converts {@link java.time.LocalDate} to {@link BigInteger}
  */
-abstract class StringDateTimeFormatterConverter<T> extends DateTimeFormatterConverter<T, String> {
+final class LocalDateBigIntegerConverter extends LocalDateConverter<BigInteger> {
 
-    StringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
-        super(formatter);
+    /**
+     * Singleton
+     */
+    static LocalDateBigIntegerConverter INSTANCE = new LocalDateBigIntegerConverter();
+
+    /**
+     * Private ctor use singleton
+     */
+    private LocalDateBigIntegerConverter() {
     }
 
     @Override
-    final Class<String> targetType() {
-        return String.class;
+    Class<BigInteger> targetType() {
+        return BigInteger.class;
+    }
+
+    @Override
+    BigInteger convert3(final long value) {
+        return BigInteger.valueOf(value);
     }
 }

@@ -18,19 +18,33 @@
 
 package walkingkooka.convert;
 
-import java.time.format.DateTimeFormatter;
-
 /**
- * A {@link Converter} which formats a date/time type by calling its format method.
+ * Converts {@link java.time.LocalDate} to {@link Double}
  */
-abstract class StringDateTimeFormatterConverter<T> extends DateTimeFormatterConverter<T, String> {
+final class LocalDateDoubleConverter extends LocalDateConverter<Double> {
 
-    StringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
-        super(formatter);
+    /**
+     * Singleton
+     */
+    static LocalDateDoubleConverter INSTANCE = new LocalDateDoubleConverter();
+
+    /**
+     * Private ctor use singleton
+     */
+    private LocalDateDoubleConverter() {
     }
 
     @Override
-    final Class<String> targetType() {
-        return String.class;
+    Class<Double> targetType() {
+        return Double.class;
+    }
+
+    @Override
+    Double convert3(final long value) {
+        final double doubleValue = value;
+        if(value!=doubleValue){
+            this.failConversion(value);
+        }
+        return Double.valueOf(value);
     }
 }

@@ -18,19 +18,29 @@
 
 package walkingkooka.convert;
 
-import java.time.format.DateTimeFormatter;
-
 /**
- * A {@link Converter} which formats a date/time type by calling its format method.
+ * Converts {@link java.time.LocalDate} to {@link Long}
  */
-abstract class StringDateTimeFormatterConverter<T> extends DateTimeFormatterConverter<T, String> {
+final class LocalDateLongConverter extends LocalDateConverter<Long> {
 
-    StringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
-        super(formatter);
+    /**
+     * Singleton
+     */
+    static LocalDateLongConverter INSTANCE = new LocalDateLongConverter();
+
+    /**
+     * Private ctor use singleton
+     */
+    private LocalDateLongConverter() {
     }
 
     @Override
-    final Class<String> targetType() {
-        return String.class;
+    Class<Long> targetType() {
+        return Long.class;
+    }
+
+    @Override
+    Long convert3(final long value) {
+        return Long.valueOf(value);
     }
 }

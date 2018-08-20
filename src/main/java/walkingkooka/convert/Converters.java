@@ -78,6 +78,34 @@ public final class Converters implements PublicStaticHelper {
     public static Converter collection(final List<Converter> converters) {
         return ConverterCollection.with(converters);
     }
+    
+    /**
+     * {@see LocalDateBigDecimalConverter}
+     */
+    public static Converter localDateBigDecimal() {
+        return LocalDateBigDecimalConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateBigIntegerConverter}
+     */
+    public static Converter localDateBiglnteger() {
+        return LocalDateBigIntegerConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateDoubleConverter}
+     */
+    public static Converter localDateDouble() {
+        return LocalDateDoubleConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateLongConverter}
+     */
+    public static Converter localDateLong() {
+        return LocalDateLongConverter.INSTANCE;
+    }
 
     /**
      * {@see LocalDateLocalDateTimeConverter}
@@ -213,6 +241,27 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter stringBoolean() {
         return StringBooleanConverter.INSTANCE;
+    }
+
+    /**
+     * {@see StringLocalDateDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalDate(final DateTimeFormatter formatter) {
+        return StringLocalDateDateTimeFormatterConverter.with(formatter);
+    }
+
+    /**
+     * {@see StringLocalDateTimeDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalDateTime(final DateTimeFormatter formatter) {
+        return StringLocalDateTimeDateTimeFormatterConverter.with(formatter);
+    }
+
+    /**
+     * {@see StringLocalTimeDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalTime(final DateTimeFormatter formatter) {
+        return StringLocalTimeDateTimeFormatterConverter.with(formatter);
     }
 
     /**
