@@ -78,6 +78,13 @@ public final class Converters implements PublicStaticHelper {
     public static Converter collection(final List<Converter> converters) {
         return ConverterCollection.with(converters);
     }
+
+    /**
+     * {@see FailConverter}
+     */
+    public static <S, T> Converter fail(final Class<S> source, final Class<T> target) {
+        return FailConverter.with(source, target);
+    }
     
     /**
      * {@see LocalDateBigDecimalConverter}
