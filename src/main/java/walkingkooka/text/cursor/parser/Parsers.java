@@ -106,7 +106,14 @@ public final class Parsers implements PublicStaticHelper {
     public static <C extends ParserContext> Parser<LocalDateParserToken, C> localDate(final DateTimeFormatter formatter, final String pattern){
         return LocalDateDateTimeFormatterParser.with(formatter, pattern);
     }
-    
+
+    /**
+     * {@see LocalDateTimeDateTimeFormatterParser}
+     */
+    public static <C extends ParserContext> Parser<LocalDateTimeParserToken, C> localDateTime(final DateTimeFormatter formatter, final String pattern){
+        return LocalDateTimeDateTimeFormatterParser.with(formatter, pattern);
+    }
+
     /**
      * {@see LocalTimeDateTimeFormatterParser}
      */
