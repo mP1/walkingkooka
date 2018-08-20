@@ -18,19 +18,36 @@
 
 package walkingkooka.convert;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * A {@link Converter} which formats a date/time type by calling its format method.
+ * A {@link Converter} that parses a {@link String} into a {@link LocalDate}.
  */
-abstract class StringDateTimeFormatterConverter<T> extends DateTimeFormatterConverter<T, String> {
+final class StringLocalDateDateTimeFormatterConverter extends DateTimeFormatterConverter<String, LocalDate>{
 
-    StringDateTimeFormatterConverter(final DateTimeFormatter formatter) {
+    static StringLocalDateDateTimeFormatterConverter with(final DateTimeFormatter formatter) {
+        return new StringLocalDateDateTimeFormatterConverter(formatter);
+    }
+
+    /**
+     * Private ctor use static factory
+     */
+    StringLocalDateDateTimeFormatterConverter(final DateTimeFormatter formatter) {
         super(formatter);
     }
 
     @Override
-    final Class<String> targetType() {
+    Class<String> sourceType() {
         return String.class;
+    }
+
+    @Override Class<LocalDate> targetType() {
+        return LocalDate.class;
+    }
+
+    @Override
+    LocalDate convert2(final String value) {
+        return LocalDate.parse(value);
     }
 }

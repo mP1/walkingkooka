@@ -216,6 +216,27 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see StringLocalDateDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalDate(final DateTimeFormatter formatter) {
+        return StringLocalDateDateTimeFormatterConverter.with(formatter);
+    }
+
+    /**
+     * {@see StringLocalDateTimeDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalDateTime(final DateTimeFormatter formatter) {
+        return StringLocalDateTimeDateTimeFormatterConverter.with(formatter);
+    }
+
+    /**
+     * {@see StringLocalTimeDateTimeFormatterConverter}
+     */
+    public static Converter stringLocalTime(final DateTimeFormatter formatter) {
+        return StringLocalTimeDateTimeFormatterConverter.with(formatter);
+    }
+
+    /**
      * {@see TruthyNumberBooleanConverter}
      */
     public static Converter truthyNumberBoolean() {
