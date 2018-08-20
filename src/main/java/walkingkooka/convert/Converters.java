@@ -68,6 +68,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see NumberLocalDateConverter}
+     */
+    public static Converter numberLocalDate() {
+        return NumberLocalDateConverter.INSTANCE;
+    }
+
+    /**
      * [@see NumberLongConverter}
      */
     public static Converter numberLong() {
