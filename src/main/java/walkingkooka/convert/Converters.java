@@ -129,10 +129,38 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalDateTimeBigDecimalConverter}
+     */
+    public static Converter localDateTimeBigDecimal() {
+        return LocalDateTimeBigDecimalConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateTimeBigIntegerConverter}
+     */
+    public static Converter localDateTimeBiglnteger() {
+        return LocalDateTimeBigIntegerConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalDateTimeLocalDateConverter}
      */
     public static Converter localDateTimeLocalDate() {
         return LocalDateTimeLocalDateConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateTimeDoubleConverter}
+     */
+    public static Converter localDateTimeDouble() {
+        return LocalDateTimeDoubleConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalDateTimeLongConverter}
+     */
+    public static Converter localDateTimeLong() {
+        return LocalDateTimeLongConverter.INSTANCE;
     }
 
     /**
