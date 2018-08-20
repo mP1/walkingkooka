@@ -101,6 +101,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalDateTimeLocalDateConverter}
+     */
+    public static Converter localDateTimeLocalDate() {
+        return LocalDateTimeLocalDateConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalTimeLocalDateTimeConverter}
      */
     public static Converter localTimeLocalDateTime() {
