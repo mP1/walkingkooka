@@ -143,10 +143,38 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalTimeBigDecimalConverter}
+     */
+    public static Converter localTimeBigDecimal() {
+        return LocalTimeBigDecimalConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalTimeBigIntegerConverter}
+     */
+    public static Converter localTimeBiglnteger() {
+        return LocalTimeBigIntegerConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalTimeDoubleConverter}
+     */
+    public static Converter localTimeDouble() {
+        return LocalTimeDoubleConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalTimeLocalDateTimeConverter}
      */
     public static Converter localTimeLocalDateTime() {
         return LocalTimeLocalDateTimeConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LocalTimeLongConverter}
+     */
+    public static Converter localTimeLong() {
+        return LocalTimeLongConverter.INSTANCE;
     }
 
     /**
