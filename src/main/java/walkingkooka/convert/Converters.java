@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -76,6 +77,27 @@ public final class Converters implements PublicStaticHelper {
      */
     public static Converter collection(final List<Converter> converters) {
         return ConverterCollection.with(converters);
+    }
+
+    /**
+     * {@see LocalDateStringDateTimeFormatterConverter}
+     */
+    public static Converter localDate(final DateTimeFormatter formatter) {
+        return LocalDateStringDateTimeFormatterConverter.with(formatter);
+    }
+
+    /**
+     * {@see LocalDateTimeStringDateTimeFormatterConverter}
+     */
+    public static Converter localDateTime(final DateTimeFormatter formatter) {
+        return LocalDateTimeStringDateTimeFormatterConverter.with(formatter);
+    }
+
+    /**
+     * {@see LocalTimeStringDateTimeFormatterConverter}
+     */
+    public static Converter localTime(final DateTimeFormatter formatter) {
+        return LocalTimeStringDateTimeFormatterConverter.with(formatter);
     }
 
     /**
