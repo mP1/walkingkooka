@@ -24,43 +24,55 @@ import static org.junit.Assert.assertEquals;
 
 public final class BooleanConverterTest extends FixedTypeConverterTestCase<BooleanConverter, String> {
 
-    private final static Class<String> TYPE = String.class;
-    private final static String TRUE = "true!!";
-    private final static String FALSE = "false!!";
+    private final static Class<Integer> SOURCE_TYPE = Integer.class;
+    private final static Integer FALSE_VALUE = 1;
+    private final static Class<String> TARGET_TYPE = String.class;
+    private final static String TRUE_ANSWER = "true!!";
+    private final static String FALSE_ANSWER = "false!!";
 
     @Test(expected = NullPointerException.class)
-    public void testNullTypeFails() {
-        BooleanConverter.with(null,TRUE, FALSE);
+    public void testWithNullSourceTypeFails() {
+        BooleanConverter.with(null, FALSE_VALUE,TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNullTrueValueFails() {
-        BooleanConverter.with(TYPE,null, FALSE);
+    public void testWithNullFalseValueFails() {
+        BooleanConverter.with(SOURCE_TYPE, null,TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNullFalseValueFails() {
-        BooleanConverter.with(TYPE, TRUE, null);
+    public void testWithNullTargetTypeFails() {
+        BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE,null, TRUE_ANSWER, FALSE_ANSWER);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullTrueAnswerFails() {
+        BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE,null, FALSE_ANSWER);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullFalseAnswerFails() {
+        BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, null);
     }
 
     @Test
     public void testTrue() {
-        this.convertAndCheck(true, TRUE);
+        this.convertAndCheck(2, TRUE_ANSWER);
     }
 
     @Test
     public void testFalse() {
-        this.convertAndCheck(false, FALSE);
+        this.convertAndCheck(1, FALSE_ANSWER);
     }
 
     @Test
     public void testToString() {
-        assertEquals("Boolean->" + TYPE.getName(), this.createConverter().toString());
+        assertEquals(SOURCE_TYPE.getSimpleName() + "->" + TARGET_TYPE.getSimpleName(), this.createConverter().toString());
     }
 
     @Override
     protected BooleanConverter createConverter() {
-        return BooleanConverter.with(TYPE, TRUE, FALSE);
+        return BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
     }
 
     @Override
