@@ -190,7 +190,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     public final Optional<N> traverse(final N node) {
         Objects.requireNonNull(node, "node");
 
-        Optional<N> result = null;
+        Optional<N> result;
 
         N current = node;
         NodePointer<N, NAME, ANAME, AVALUE> pointer = this;

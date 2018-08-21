@@ -21,6 +21,8 @@ import walkingkooka.io.serialize.SerializationProxy;
 
 class StringPathRootSerializationProxy implements SerializationProxy {
 
+    private static final long serialVersionUID = 1L;
+
     final static StringPathRootSerializationProxy INSTANCE = new StringPathRootSerializationProxy();
 
     public StringPathRootSerializationProxy() {

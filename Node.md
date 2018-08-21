@@ -6,7 +6,7 @@ the root node.
 Whilst sharing the same name, this has nothing to do with NodeJS.
 
 ```java
-Node {
+interface Node {
     Node appendChild(Node);
     Map<ANAME, AVALUE> attributes();
     List<Node> children();

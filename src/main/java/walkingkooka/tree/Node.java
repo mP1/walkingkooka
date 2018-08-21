@@ -73,7 +73,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * Returns the parent {@Link Node}.
+     * Returns the parent {@link Node}.
      */
     Optional<N> parent();
 

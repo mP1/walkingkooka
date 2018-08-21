@@ -99,7 +99,7 @@ enum TextWithNumbersCharSequenceComparatorMode {
             // the longer run of digits must be the larger...
             state.result = digitCount1 - digitCount2;
 
-            TextWithNumbersCharSequenceComparatorMode next = null;
+            TextWithNumbersCharSequenceComparatorMode next;
             if (Comparators.EQUAL != state.result) {
                 next = STOP;
             } else {
@@ -182,7 +182,7 @@ enum TextWithNumbersCharSequenceComparatorMode {
                                                                      final TextWithNumbersCharSequenceComparatorState job) {
         job.result = job.comparator.compareNonDigits(c1, c2);
 
-        TextWithNumbersCharSequenceComparatorMode next = null;
+        TextWithNumbersCharSequenceComparatorMode next;
         if (Comparators.EQUAL == job.result) {
             job.next();
             next = this;
@@ -203,7 +203,7 @@ enum TextWithNumbersCharSequenceComparatorMode {
         final boolean digit1 = TextWithNumbersCharSequenceComparatorMode.isDigit(value1);
         final boolean digit2 = TextWithNumbersCharSequenceComparatorMode.isDigit(value2);
 
-        TextWithNumbersCharSequenceComparatorMode next = null;
+        TextWithNumbersCharSequenceComparatorMode next;
 
         // compare values if both are digits
         if (digit1 && digit2) {

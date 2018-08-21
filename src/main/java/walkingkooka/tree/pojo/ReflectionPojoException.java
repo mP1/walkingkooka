@@ -19,11 +19,13 @@ package walkingkooka.tree.pojo;
 
 public class ReflectionPojoException extends PojoException {
 
-    public ReflectionPojoException(String message) {
+    private static final long serialVersionUID = 1L;
+
+    public ReflectionPojoException(final String message) {
         super(message);
     }
 
-    public ReflectionPojoException(String message, Throwable cause) {
+    public ReflectionPojoException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

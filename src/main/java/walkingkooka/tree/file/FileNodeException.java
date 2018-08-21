@@ -25,6 +25,8 @@ import walkingkooka.tree.NodeException;
  */
 public class FileNodeException extends NodeException {
 
+    private static final long serialVersionUID = 1L;
+
     protected FileNodeException() {
         super();
     }

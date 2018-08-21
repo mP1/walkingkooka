@@ -160,7 +160,7 @@ public final class IpPort implements Comparable<IpPort>, HashCodeEqualsDefined, 
      * Returns a {@link IpPort} which was free by creating a {@link ServerSocket} and then releasing it.
      */
     public static IpPort free() {
-        IpPort port = null;
+        IpPort port;
         ServerSocket server = null;
         try {
             server = new ServerSocket(0);

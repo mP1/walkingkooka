@@ -20,7 +20,6 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 

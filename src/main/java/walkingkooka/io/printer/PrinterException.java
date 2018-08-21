@@ -27,6 +27,7 @@ import java.util.function.Function;
 public class PrinterException extends SystemException {
     public static Function<String, PrinterException> FACTORY = (message) -> new PrinterException(
             message);
+    private static final long serialVersionUID = 1L;
 
     /**
      * Protected for sub classing.

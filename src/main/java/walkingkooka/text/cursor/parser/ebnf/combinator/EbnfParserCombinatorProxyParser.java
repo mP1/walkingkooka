@@ -49,7 +49,6 @@ final class EbnfParserCombinatorProxyParser<T extends ParserToken, C extends Par
 
     /**
      * Return the identifier rather than the full rule definition, this will help prevent cycles and very long and complex toStrings.
-     * @return
      */
     @Override
     public String toString() {

@@ -76,7 +76,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .transform((string, context) -> EbnfIdentifierParserToken.with(EbnfIdentifierName.with(string.text()), string.text()))
                 .setToString("IDENTIFIER")
                 .castC();
-    };
+    }
 
     /**
      * <pre>
@@ -327,7 +327,6 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
 
     /**
      * Matches any of the tokens, assumes that any leading or trailing whitespace or comments is handled elsewhere...(parent)
-     * @return
      */
     private static Parser<ParserToken, EbnfParserContext> rhs() {
         if(null==RHS_CACHE) {
@@ -385,7 +384,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         return string.toString();
     }
 
-    private static final BiFunction<SequenceParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<ParserToken>, String, EbnfParserToken> wrapper) {
+    private static BiFunction<SequenceParserToken, EbnfParserContext, ParserToken> filterAndWrapMany(final BiFunction<List<ParserToken>, String, EbnfParserToken> wrapper) {
         return (sequence, context) -> {
             final List<EbnfParserToken> many = filterNonEbnfParserTokens(sequence);
             return wrapper.apply(Cast.to(many), sequence.text());

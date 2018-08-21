@@ -44,7 +44,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
 
     @Override
     public Optional<DomPublicId> publicId() {
-        if(null==this.publicId) {;
+        if(null==this.publicId) {
             this.publicId = DomPublicId.with(this.entityNode().getPublicId());
         }
         return this.publicId;
@@ -56,7 +56,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
 
     @Override
     public Optional<DomSystemId> systemId() {
-        if(null==this.systemId) {;
+        if(null==this.systemId) {
             this.systemId = DomSystemId.with(this.entityNode().getSystemId());
         }
         return this.systemId;

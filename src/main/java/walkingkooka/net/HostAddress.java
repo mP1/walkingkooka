@@ -74,7 +74,7 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
             // emails may have IPv6: after a [.
             if (email) {
                 if ((start + 5) < length) {
-                    if ((address.charAt(start + 0) == 'I') && //
+                    if ((address.charAt(start) == 'I') && //
                             (address.charAt(start + 1) == 'P') && //
                             (address.charAt(start + 2) == 'v') && //
                             (address.charAt(start + 3) == '6') && //
@@ -91,7 +91,7 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
             }
         }
         // only complain about [ if not email
-        HostAddress hostAddress = null;
+        HostAddress hostAddress;
 
         // try parsing as a name, then ip4 and finally ip6.
         for (; ; ) {
@@ -535,7 +535,7 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
                     }
 
                     if (-1 == emptyGroupAt) {
-                        final int index = (groupCounter - 0) * 2;
+                        final int index = groupCounter * 2;
                         values[index] = (byte) (groupValue >> 8);
                         values[index + 1] = (byte) (groupValue & 0xff);
                     } else {

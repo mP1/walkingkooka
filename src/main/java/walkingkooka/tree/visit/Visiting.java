@@ -24,5 +24,5 @@ package walkingkooka.tree.visit;
  */
 public enum Visiting {
     CONTINUE,
-    SKIP;
+    SKIP
 }

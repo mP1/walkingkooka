@@ -45,5 +45,5 @@ public class SystemException extends RuntimeException implements Serializable {
 
     // Serializable
 
-
+    private static final long serialVersionUID = 1L;
 }
