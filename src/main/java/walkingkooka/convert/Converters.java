@@ -80,6 +80,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see CustomToStringConverter}
+     */
+    public static Converter customToString(final Converter converter, final String toString) {
+        return CustomToStringConverter.wrap(converter, toString);
+    }
+
+    /**
      * {@see FailConverter}
      */
     public static <S, T> Converter fail(final Class<S> source, final Class<T> target) {
