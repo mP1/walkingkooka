@@ -44,5 +44,9 @@ abstract class FixedTypeConverter<T> extends ConverterTemplate {
         return this.failConversion(value, this.targetType());
     }
 
+    final T failConversion(final Object value, final Throwable cause) {
+        return this.failConversion(value, this.targetType(), cause);
+    }
+
     abstract Class<T> targetType();
 }

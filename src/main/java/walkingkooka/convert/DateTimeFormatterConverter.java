@@ -18,6 +18,7 @@
 
 package walkingkooka.convert;
 
+import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -32,4 +33,19 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedTypeConverter2<S, T
     }
 
     final DateTimeFormatter formatter;
+
+    /**
+     * Wraps the attempt to convert in {@link #convert3(Object)},
+     * capturing any exceptions thrown by the formatter.
+     */
+    @Override
+    final T convert2(final S value) {
+        try {
+            return this.convert3(value);
+        } catch (final DateTimeException cause) {
+            return this.failConversion(value, cause);
+        }
+    }
+
+    abstract T convert3(final S value) throws DateTimeException;
 }
