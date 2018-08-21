@@ -21,6 +21,9 @@ package walkingkooka.tree.expression;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -162,6 +165,21 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
     }
     
     // Evaluation...................................................................................................
+
+    @Override
+    public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
+        return context.convert(this.toNumber(context), LocalDate.class);
+    }
+
+    @Override
+    public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
+        return context.convert(this.toNumber(context), LocalDateTime.class);
+    }
+
+    @Override
+    public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
+        return context.convert(this.toNumber(context), LocalTime.class);
+    }
 
     @Override
     public final Number toValue(final ExpressionEvaluationContext context) {

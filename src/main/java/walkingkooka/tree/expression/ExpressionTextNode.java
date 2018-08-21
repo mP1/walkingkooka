@@ -70,6 +70,21 @@ public final class ExpressionTextNode extends ExpressionLeafNode2<String> {
     }
 
     @Override
+    public boolean isLocalDate() {
+        return false;
+    }
+
+    @Override
+    public boolean isLocalDateTime() {
+        return false;
+    }
+
+    @Override
+    public boolean isLocalTime() {
+        return false;
+    }
+
+    @Override
     public boolean isLong() {
         return false;
     }

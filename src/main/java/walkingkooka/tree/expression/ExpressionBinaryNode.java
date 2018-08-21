@@ -23,6 +23,9 @@ import walkingkooka.collect.list.Lists;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -134,6 +137,24 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
                 .toDouble(context);
     }
 
+    @Override
+    public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
+        return this.apply(this.left(), this.right(), context)
+                .toLocalDate(context);
+    }
+
+    @Override
+    public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
+        return this.apply(this.left(), this.right(), context)
+                .toLocalDateTime(context);
+    }
+
+    @Override
+    public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
+        return this.apply(this.left(), this.right(), context)
+                .toLocalTime(context);
+    }
+    
     @Override
     public final long toLong(final ExpressionEvaluationContext context) {
         return this.apply(this.left(), this.right(), context)

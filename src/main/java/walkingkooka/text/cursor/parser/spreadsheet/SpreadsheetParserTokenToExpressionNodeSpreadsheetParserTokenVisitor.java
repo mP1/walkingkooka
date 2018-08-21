@@ -280,6 +280,21 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
     }
 
     @Override
+    protected void visit(final SpreadsheetLocalDateParserToken token) {
+        this.add(ExpressionNode.localDate(token.value()), token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetLocalDateTimeParserToken token) {
+        this.add(ExpressionNode.localDateTime(token.value()), token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetLocalTimeParserToken token) {
+        this.add(ExpressionNode.localTime(token.value()), token);
+    }
+
+    @Override
     protected void visit(final SpreadsheetLongParserToken token) {
         this.add(ExpressionNode.longNode(token.value()), token);
     }

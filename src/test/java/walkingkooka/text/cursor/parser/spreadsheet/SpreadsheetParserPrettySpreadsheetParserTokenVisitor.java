@@ -341,6 +341,24 @@ final class SpreadsheetParserPrettySpreadsheetParserTokenVisitor extends Spreads
     }
 
     @Override
+    protected void visit(final SpreadsheetLocalDateParserToken token) {
+        this.leaf(token);
+        super.visit(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetLocalDateTimeParserToken token) {
+        this.leaf(token);
+        super.visit(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetLocalTimeParserToken token) {
+        this.leaf(token);
+        super.visit(token);
+    }
+
+    @Override
     protected void visit(final SpreadsheetLongParserToken token) {
         this.leaf(token);
         super.visit(token);

@@ -65,10 +65,24 @@ public final class ExpressionDoubleNode extends ExpressionLeafNode2<Double> {
     }
 
     @Override
-    public boolean isLong() {
+    public boolean isLocalDate() {
         return false;
     }
 
+    @Override
+    public boolean isLocalDateTime() {
+        return false;
+    }
+
+    @Override
+    public boolean isLocalTime() {
+        return false;
+    }
+
+    @Override
+    public boolean isLong() {
+        return false;
+    }
 
     @Override
     public boolean isReference() {
@@ -92,9 +106,7 @@ public final class ExpressionDoubleNode extends ExpressionLeafNode2<Double> {
      */
     @Override
     final Class<Number> commonNumberType(final Class<? extends Number> type){
-        return Double.class == type ?
-               DOUBLE :
-               BIG_DECIMAL;
+        return this.commonNumberTypeDouble(type);
     }
 
     // Object ....................................................................................................

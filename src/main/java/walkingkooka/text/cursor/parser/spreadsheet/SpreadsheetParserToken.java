@@ -30,6 +30,9 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -222,6 +225,27 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
         return SpreadsheetLessThanEqualsSymbolParserToken.with(value, text);
     }
 
+    /**
+     * {@see SpreadsheetLocalDateParserToken}
+     */
+    public static SpreadsheetLocalDateParserToken localDate(final LocalDate value, final String text){
+        return SpreadsheetLocalDateParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetLocalDateTimeParserToken}
+     */
+    public static SpreadsheetLocalDateTimeParserToken localDateTime(final LocalDateTime value, final String text){
+        return SpreadsheetLocalDateTimeParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetLocalTimeParserToken}
+     */
+    public static SpreadsheetLocalTimeParserToken localTime(final LocalTime value, final String text){
+        return SpreadsheetLocalTimeParserToken.with(value, text);
+    }
+    
     /**
      * {@see SpreadsheetLongParserToken}
      */
@@ -518,6 +542,21 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
      * Only {@link SpreadsheetLessThanEqualsSymbolParserToken} returns true
      */
     public abstract boolean isLessThanEqualsSymbol();
+
+    /**
+     * Only {@link SpreadsheetLocalDateParserToken} return true
+     */
+    public abstract boolean isLocalDate();
+
+    /**
+     * Only {@link SpreadsheetLocalDateTimeParserToken} return true
+     */
+    public abstract boolean isLocalDateTime();
+
+    /**
+     * Only {@link SpreadsheetLocalTimeParserToken} return true
+     */
+    public abstract boolean isLocalTime();
 
     /**
      * Only {@link SpreadsheetLongParserToken} return true

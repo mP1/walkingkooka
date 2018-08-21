@@ -86,6 +86,21 @@ public final class SpreadsheetColumnParserToken extends SpreadsheetLeafParserTok
     }
 
     @Override
+    public boolean isLocalDate() {
+        return false;
+    }
+
+    @Override
+    public boolean isLocalDateTime() {
+        return false;
+    }
+
+    @Override
+    public boolean isLocalTime() {
+        return false;
+    }
+
+    @Override
     public boolean isLong() {
         return false;
     }

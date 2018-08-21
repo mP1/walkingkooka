@@ -49,6 +49,21 @@ abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetLeafParserTok
     }
 
     @Override
+    public final boolean isLocalDate() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLocalDateTime() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLocalTime() {
+        return false;
+    }
+
+    @Override
     public final boolean isRow() {
         return false;
     }

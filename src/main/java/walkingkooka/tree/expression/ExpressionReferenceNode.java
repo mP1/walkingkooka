@@ -22,6 +22,9 @@ import walkingkooka.ShouldNeverHappenError;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -72,6 +75,21 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
     }
 
     @Override
+    public final boolean isLocalDate() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLocalDateTime() {
+        return false;
+    }
+
+    @Override
+    public final boolean isLocalTime() {
+        return false;
+    }
+
+    @Override
     public boolean isLong() {
         return false;
     }
@@ -118,6 +136,21 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
         return context.reference(this.value).toDouble(context);
     }
 
+    @Override
+    public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toLocalDate(context);
+    }
+
+    @Override
+    public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toLocalDateTime(context);
+    }
+
+    @Override
+    public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
+        return context.reference(this.value).toLocalTime(context);
+    }
+    
     @Override
     public final long toLong(final ExpressionEvaluationContext context) {
         return context.reference(this.value).toLong(context);

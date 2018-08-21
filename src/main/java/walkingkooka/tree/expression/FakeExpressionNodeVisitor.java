@@ -51,6 +51,21 @@ public class FakeExpressionNodeVisitor extends ExpressionNodeVisitor implements 
     }
 
     @Override
+    protected void visit(final ExpressionLocalDateNode node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ExpressionLocalDateTimeNode node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final ExpressionLocalTimeNode node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final ExpressionLongNode node) {
         throw new UnsupportedOperationException();
     }
