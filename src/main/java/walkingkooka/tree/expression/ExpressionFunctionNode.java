@@ -256,7 +256,7 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
 
     @Override
     Class<Number> commonNumberType(Class<? extends Number> type) {
-        throw new UnsupportedOperationException();
+        return BIG_DECIMAL; // https://github.com/mP1/walkingkooka/issues/168
     }
 
     // Object.........................................................................................................
