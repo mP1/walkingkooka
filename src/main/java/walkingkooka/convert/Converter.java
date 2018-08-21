@@ -44,4 +44,8 @@ public interface Converter {
     default <TT> TT failConversion(final Object value, final Class<TT> target) {
         throw new ConversionException("Failed to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName());
     }
+
+    default Converter setToString(final String toString) {
+        return Converters.customToString(this, toString);
+    }
 }
