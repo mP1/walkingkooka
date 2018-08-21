@@ -18,6 +18,7 @@
 
 package walkingkooka.convert;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -40,7 +41,7 @@ final class LocalDateTimeStringDateTimeFormatterConverter extends StringDateTime
     }
 
     @Override
-    String convert2(final LocalDateTime value) {
+    String convert3(final LocalDateTime value) throws DateTimeException {
         return value.format(this.formatter);
     }
 }

@@ -20,6 +20,7 @@ package walkingkooka.convert;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * A {@link Converter} that parses a {@link String} into a {@link LocalTime}.
@@ -47,7 +48,7 @@ final class StringLocalTimeDateTimeFormatterConverter extends DateTimeFormatterC
     }
 
     @Override
-    LocalTime convert2(final String value) {
+    LocalTime convert3(final String value) throws DateTimeParseException {
         return LocalTime.parse(value);
     }
 }
