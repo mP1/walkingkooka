@@ -27,7 +27,7 @@ import java.util.Comparator;
  */
 final class FakeComparator<T> implements Comparator<T>, Serializable, Fake {
 
-    private final static long XXXserialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     static <T> FakeComparator<T> create() {
         return new FakeComparator<T>();

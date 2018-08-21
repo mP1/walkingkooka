@@ -52,7 +52,7 @@ final public class Lists implements PublicStaticHelper {
     }
 
     /**
-     * Tests if both {@list List} are equal using the {@link BiPredicate} to test each and every element.
+     * Tests if both {@link List} are equal using the {@link BiPredicate} to test each and every element.
      */
     public static <T> boolean equals(final List<T> list, final List<T> other, final BiPredicate<? super T, ? super T> equivalency) {
         return Iterables.equals(list, other, equivalency);

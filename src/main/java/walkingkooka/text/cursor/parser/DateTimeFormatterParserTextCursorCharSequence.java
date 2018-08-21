@@ -39,7 +39,7 @@ final class DateTimeFormatterParserTextCursorCharSequence implements CharSequenc
 
     @Override
     public char charAt(final int index) {
-        char at = 0;
+        char at;
 
         if (index < this.b.length()) {
             at = this.b.charAt(index);

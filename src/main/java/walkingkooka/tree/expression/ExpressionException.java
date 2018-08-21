@@ -22,6 +22,8 @@ import walkingkooka.SystemException;
 
 public class ExpressionException extends SystemException {
 
+    private static final long serialVersionUID = 1L;
+
     protected ExpressionException() {
         super();
     }

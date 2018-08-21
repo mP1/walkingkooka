@@ -40,7 +40,7 @@ final public class Sets implements PublicStaticHelper {
     }
 
     /**
-     * Tests if both {@Set Set} are equal using the {@link BiPredicate} to test each and every element.
+     * Tests if both {@link Set} are equal using the {@link BiPredicate} to test each and every element.
      */
     public static <T> boolean equals(final Set<T> Set, final Set<T> other, final BiPredicate<? super T, ? super T> equivalency) {
         return Iterables.equals(Set, other, equivalency);

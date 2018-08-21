@@ -278,7 +278,7 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
         return CharSequences.quote(this.path.toString());
     }
 
-    private final String timeToString(final FileTime fileTime) {
+    private String timeToString(final FileTime fileTime) {
         return ISO_FORMATTER.format(LocalDateTime.ofInstant(fileTime.toInstant(), ZoneId.systemDefault()));
     }
 

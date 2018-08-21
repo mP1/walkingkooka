@@ -58,7 +58,7 @@ final class SurroundStringParser<C extends ParserContext> extends ParserTemplate
 
                 // try matching close...
                 for(;;) {
-                    if(cursor.isEmpty()) { ;
+                    if(cursor.isEmpty()) {
                         break;
                     }
                     final char at = cursor.at();

@@ -29,7 +29,6 @@ public @interface SkipPropertyNeverReturnsNullCheck {
 
     /**
      * When empty all derived methods are skipped, if some classes are contained the method only for those types are skipped.
-     * @return
      */
     Class<?>[] value();
 }

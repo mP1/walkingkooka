@@ -41,7 +41,7 @@ abstract class DomMap<K, V> extends AbstractMap<K, V> {
 
     @Override
     public final V get(final Object key) {
-        return this.isKey(key) ? get0(Cast.<K>to(key)) : null;
+        return this.isKey(key) ? get0(Cast.to(key)) : null;
     }
 
     abstract boolean isKey(final Object key);

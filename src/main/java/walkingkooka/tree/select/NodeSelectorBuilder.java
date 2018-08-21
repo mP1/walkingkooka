@@ -66,7 +66,7 @@ public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
      * {@see AncestorNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> ancestor() {
-        return this.append(AncestorNodeSelector.<N, NAME, ANAME, AVALUE>get());
+        return this.append(AncestorNodeSelector.get());
     }
 
     /**
@@ -115,14 +115,14 @@ public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
      * {@see ChildrenNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> children() {
-        return this.append(ChildrenNodeSelector.<N, NAME, ANAME, AVALUE>get());
+        return this.append(ChildrenNodeSelector.get());
     }
 
     /**
      * {@see DescendantNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> descendant() {
-        return this.append(DescendantNodeSelector.<N, NAME, ANAME, AVALUE>with(this.separator));
+        return this.append(DescendantNodeSelector.with(this.separator));
     }
 
     /**
@@ -136,14 +136,14 @@ public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
      * {@see FollowingNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> following() {
-        return this.append(FollowingNodeSelector.<N, NAME, ANAME, AVALUE>get());
+        return this.append(FollowingNodeSelector.get());
     }
 
     /**
      * {@see FollowingSiblingNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> followingSibling() {
-        return this.append(FollowingSiblingNodeSelector.<N, NAME, ANAME, AVALUE>get());
+        return this.append(FollowingSiblingNodeSelector.get());
     }
 
     /**
@@ -171,35 +171,35 @@ public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
      * {@see ParentNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> parent() {
-        return this.append(ParentNodeSelector.<N, NAME, ANAME, AVALUE>get());
+        return this.append(ParentNodeSelector.get());
     }
 
     /**
      * {@see PrecedingNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> preceding() {
-        return this.append(PrecedingNodeSelector.<N, NAME, ANAME, AVALUE>get());
+        return this.append(PrecedingNodeSelector.get());
     }
 
     /**
      * {@see PrecedingSiblingNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> precedingSibling() {
-        return this.append(PrecedingSiblingNodeSelector.<N, NAME, ANAME, AVALUE>get());
+        return this.append(PrecedingSiblingNodeSelector.get());
     }
 
     /**
      * {@see PredicateNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> predicate(final Predicate<N> predicate) {
-        return this.append(PredicateNodeSelector.<N, NAME, ANAME, AVALUE>with(predicate));
+        return this.append(PredicateNodeSelector.with(predicate));
     }
 
     /**
      * {@see SelfNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> self() {
-        return this.append(SelfNodeSelector.<N, NAME, ANAME, AVALUE>get());
+        return this.append(SelfNodeSelector.get());
     }
 
     private NodeSelectorBuilder<N, NAME, ANAME, AVALUE> append(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {

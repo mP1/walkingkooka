@@ -26,7 +26,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * The fragment within a {@Link Url}.
+ * The fragment within a {@link Url}.
  */
 public final class UrlFragment implements Value<String>, HashCodeEqualsDefined, Serializable {
 

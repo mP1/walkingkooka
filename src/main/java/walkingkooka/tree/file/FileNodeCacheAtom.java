@@ -30,5 +30,5 @@ public enum FileNodeCacheAtom {
     OWNER,
     SIZE,
     TEXT,
-    TYPE;
+    TYPE
 }

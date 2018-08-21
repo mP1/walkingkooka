@@ -102,7 +102,6 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
 
     /**
      * Lazily initialises the map of name to token.
-     * @return
      */
     private Map<EbnfIdentifierName, EbnfParserToken> identifierToToken() {
         if(null==this.identifierToToken) {

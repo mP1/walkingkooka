@@ -21,6 +21,7 @@ import walkingkooka.SystemException;
 
 public class TextException extends SystemException {
 
+    private static final long serialVersionUID = 1L;
 
     protected TextException() {
         super();

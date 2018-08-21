@@ -43,7 +43,7 @@ final class StringParser<C extends ParserContext> extends ParserTemplate2<String
 
     @Override
     Optional<StringParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
-        Optional<StringParserToken> result = null;
+        Optional<StringParserToken> result;
         int matched = 0;
         final String string = this.string;
 

@@ -21,6 +21,8 @@ import walkingkooka.SystemException;
 
 public class NodeException extends SystemException {
 
+    private static final long serialVersionUID = 1L;
+
     protected NodeException() {
         super();
     }

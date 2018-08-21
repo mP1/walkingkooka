@@ -135,7 +135,7 @@ public final class JsonNodeParsers implements PublicStaticHelper {
                 .transform((stringParserToken, context) -> factory.apply(stringParserToken.value(), stringParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
                 .castC();
-    };
+    }
 
     /**
      * VALUE

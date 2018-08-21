@@ -22,6 +22,8 @@ import walkingkooka.SystemException;
 
 public class ConversionException extends SystemException {
 
+    private static final long serialVersionUID = 1;
+
     protected ConversionException() {
         super();
     }

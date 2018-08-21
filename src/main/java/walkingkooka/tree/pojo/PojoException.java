@@ -20,11 +20,13 @@ import walkingkooka.tree.NodeException;
 
 public class PojoException extends NodeException {
 
-    public PojoException(String message) {
+    private static final long serialVersionUID = 1L;
+
+    public PojoException(final String message) {
         super(message);
     }
 
-    public PojoException(String message, Throwable cause) {
+    public PojoException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

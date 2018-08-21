@@ -19,6 +19,8 @@ package walkingkooka.text;
 
 class ReaderConsumingCharSequenceTextException extends TextException {
 
+    private static final long serialVersionUID = 1L;
+
     ReaderConsumingCharSequenceTextException(String message, Throwable cause) {
         super(message, cause);
     }
