@@ -254,11 +254,6 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
                         .collect(Collectors.toList()));
     }
 
-    @Override
-    Class<Number> commonNumberType(Class<? extends Number> type) {
-        return BIG_DECIMAL; // https://github.com/mP1/walkingkooka/issues/168
-    }
-
     // Object.........................................................................................................
 
     @Override

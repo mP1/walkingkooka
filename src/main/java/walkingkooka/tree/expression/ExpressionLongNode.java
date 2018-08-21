@@ -98,13 +98,6 @@ public final class ExpressionLongNode extends ExpressionLeafNode2<Long> {
         visitor.visit(this);
     }
 
-    // evaluation .....................................................................................................
-
-    @Override
-    final Class<Number> commonNumberType(final Class<? extends Number> type){
-        return this.commonNumberTypeLong(type);
-    }
-
     // Object ....................................................................................................
 
     @Override

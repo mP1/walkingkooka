@@ -103,16 +103,6 @@ public final class ExpressionBigDecimalNode extends ExpressionLeafNode2<BigDecim
         visitor.visit(this);
     }
 
-    // evaluation .....................................................................................................
-
-    /**
-     * Convert the other value to {@link BigDecimal}
-     */
-    @Override
-    final Class<Number> commonNumberType(final Class<? extends Number> type){
-        return BIG_DECIMAL;
-    }
-
     // Object ....................................................................................................
 
     @Override

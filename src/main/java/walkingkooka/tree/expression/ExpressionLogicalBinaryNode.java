@@ -18,10 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
-import walkingkooka.ShouldNeverHappenError;
-
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
@@ -102,22 +98,38 @@ abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
         return this.toNumber(context);
     }
 
-    /**
-     * Logical operations only work on numbers without decimals.
-     */
-    final Class<Number> commonNumberType(final Class<? extends Number> type) {
-        return Cast.to(BigDecimal.class == type || Double.class == type?
-                BigInteger.class :
-                type);
-    }
-
     @Override
-    final ExpressionNode applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
-        throw new ShouldNeverHappenError(this.getClass().getName() + ".applyBigDecimal");
-    }
+    final ExpressionNode apply(final ExpressionNode left,
+                               final ExpressionNode right,
+                               final ExpressionEvaluationContext context) {
+        final Number leftNumber = left.toNumber(context);
+        final Number rightNumber = right.toNumber(context);
 
-    @Override
-    final ExpressionNode applyDouble(final double left, final double right, final ExpressionEvaluationContext context) {
-        throw new ShouldNeverHappenError(this.getClass().getName() + ".applyDouble");
+        ExpressionNode result;
+
+        try {
+            for (; ; ) {
+                // both Long
+                final boolean leftLong = leftNumber instanceof Long;
+                final boolean rightLong = rightNumber instanceof Long;
+                if (leftLong && rightLong) {
+                    result = this.applyLong(
+                            context.convert(leftNumber, Long.class),
+                            context.convert(rightNumber, Long.class),
+                            context);
+                    break;
+                }
+                // default is to promote both to BigInteger, doubles and BigDecimal may fail if they have decimals.
+                result = this.applyBigInteger(
+                        context.convert(leftNumber, BigInteger.class),
+                        context.convert(rightNumber, BigInteger.class),
+                        context);
+                break;
+            }
+        } catch (final ArithmeticException cause) {
+            throw new ExpressionEvaluationException(cause.getMessage() + "\n" + this.toString(), cause);
+        }
+
+        return result;
     }
 }

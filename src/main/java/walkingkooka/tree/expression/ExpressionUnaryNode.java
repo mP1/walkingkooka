@@ -185,9 +185,4 @@ abstract class ExpressionUnaryNode extends ExpressionParentFixedNode implements 
     public final Number toValue(final ExpressionEvaluationContext context) {
         return this.toNumber(context);
     }
-
-    @Override
-    Class<Number> commonNumberType(final Class<? extends Number> type) {
-        return this.value().commonNumberType(type);
-    }
 }

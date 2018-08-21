@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.ShouldNeverHappenError;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -110,11 +108,6 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
     }
 
     // evaluation .....................................................................................................
-
-    @Override
-    final Class<Number> commonNumberType(final Class<? extends Number> type){
-        throw new ShouldNeverHappenError(this.getClass() + ".bestNumberType");
-    }
 
     @Override
     public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {

@@ -83,24 +83,4 @@ abstract class ExpressionLeafNode2<V> extends ExpressionLeafNode<V> {
     public final String toText(final ExpressionEvaluationContext context) {
         return context.convert(this.value(), String.class);
     }
-
-    /**
-     * Shared common numbner type for values that prefer double as their number form.
-     */
-    final Class<Number> commonNumberTypeDouble(final Class<? extends Number> type){
-        return Double.class == type ?
-                DOUBLE :
-                BIG_DECIMAL;
-    }
-
-    /**
-     * Shared logic for value types that prefer long as their number form.
-     */
-    final Class<Number> commonNumberTypeLong(final Class<? extends Number> type){
-        return BigDecimal.class==type || Double.class == type ?
-                BIG_DECIMAL :
-                BigInteger.class == type ?
-                        BIG_INTEGER :
-                        LONG;
-    }
 }
