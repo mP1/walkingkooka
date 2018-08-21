@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -102,13 +101,6 @@ public final class ExpressionTextNode extends ExpressionLeafNode2<String> {
     @Override
     public void accept(final ExpressionNodeVisitor visitor){
         visitor.visit(this);
-    }
-
-    // evaluation .....................................................................................................
-
-    @Override
-    final Class<Number> commonNumberType(final Class<? extends Number> type){
-        return Cast.to(type);
     }
 
     // Object ....................................................................................................

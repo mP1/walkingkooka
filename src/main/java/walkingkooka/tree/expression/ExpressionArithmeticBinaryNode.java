@@ -18,26 +18,19 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
  * Base class for all arithmetic {@link ExpressionBinaryNode} nodes such as addition, power etc.
  */
-abstract class ExpressionArithmeticBinaryNode extends ExpressionBinaryNode {
+abstract class ExpressionArithmeticBinaryNode extends ExpressionBinaryNode2 {
 
     ExpressionArithmeticBinaryNode(final int index, final ExpressionNode left, final ExpressionNode right){
         super(index, left, right);
     }
 
     // is .........................................................................................................
-
-    @Override
-    public final boolean isAnd() {
-        return false;
-    }
 
     @Override
     public final boolean isEquals() {
@@ -69,28 +62,11 @@ abstract class ExpressionArithmeticBinaryNode extends ExpressionBinaryNode {
         return false;
     }
 
-    @Override
-    public final boolean isOr() {
-        return false;
-    }
-
-    @Override
-    public final boolean isXor() {
-        return false;
-    }
-
     // evaluation .....................................................................................................
 
     @Override
     public final Number toValue(final ExpressionEvaluationContext context) {
         return this.toNumber(context);
-    }
-
-    /**
-     * Arithmetic operations accept all number types.
-     */
-    final Class<Number> commonNumberType(final Class<? extends Number> type) {
-        return Cast.to(type);
     }
 
     final ExpressionNode applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {

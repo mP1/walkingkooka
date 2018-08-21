@@ -103,16 +103,6 @@ public final class ExpressionLocalTimeNode extends ExpressionLeafNode2<LocalTime
         visitor.visit(this);
     }
 
-    // evaluation .....................................................................................................
-
-    /**
-     * Convert the other value to {@link java.lang.Long}
-     */
-    @Override
-    final Class<Number> commonNumberType(final Class<? extends Number> type){
-        return this.commonNumberTypeLong(type);
-    }
-
     // Object ....................................................................................................
 
     @Override

@@ -99,16 +99,6 @@ public final class ExpressionDoubleNode extends ExpressionLeafNode2<Double> {
         visitor.visit(this);
     }
 
-    // evaluation .....................................................................................................
-
-    /**
-     * If the type is {@link Double} return {@link Double} otherwise widen.
-     */
-    @Override
-    final Class<Number> commonNumberType(final Class<? extends Number> type){
-        return this.commonNumberTypeDouble(type);
-    }
-
     // Object ....................................................................................................
 
     @Override

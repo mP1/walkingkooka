@@ -102,15 +102,6 @@ public final class ExpressionBigIntegerNode extends ExpressionLeafNode2<BigInteg
         visitor.visit(this);
     }
 
-    // evaluation .....................................................................................................
-
-    @Override
-    final Class<Number> commonNumberType(final Class<? extends Number> type){
-        return BigInteger.class == type || Long.class == type ?
-               BIG_INTEGER :
-               BIG_DECIMAL; // BigDecimal & Double -> BigDecimal.class
-    }
-
     // Object ....................................................................................................
 
     @Override

@@ -531,18 +531,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      */
     public abstract Object toValue(final ExpressionEvaluationContext context);
 
-    /**
-     * Only actually implemented by {@link ExpressionBinaryNode} allowing two types to find a common {@link Number}
-     * wide enough to represent both values.
-     * @param value
-     */
-    abstract Class<Number> commonNumberType(final Class<? extends Number> value);
-
-    final static Class<Number> BIG_DECIMAL = Cast.to(BigDecimal.class);
-    final static Class<Number> BIG_INTEGER = Cast.to(BigInteger.class);
-    final static Class<Number> DOUBLE = Cast.to(Double.class);
-    final static Class<Number> LONG = Cast.to(Long.class);
-
     // Object .......................................................................................................
 
     @Override

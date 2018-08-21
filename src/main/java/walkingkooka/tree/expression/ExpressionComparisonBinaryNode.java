@@ -18,15 +18,13 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
  * Base class for all comparison {@link ExpressionBinaryNode} nodes such as LT, GTE etc.
  */
-abstract class ExpressionComparisonBinaryNode extends ExpressionBinaryNode {
+abstract class ExpressionComparisonBinaryNode extends ExpressionBinaryNode2 {
 
     ExpressionComparisonBinaryNode(final int index, final ExpressionNode left, final ExpressionNode right){
         super(index, left, right);
@@ -36,11 +34,6 @@ abstract class ExpressionComparisonBinaryNode extends ExpressionBinaryNode {
 
     @Override
     public final boolean isAddition() {
-        return false;
-    }
-
-    @Override
-    public final boolean isAnd() {
         return false;
     }
 
@@ -60,11 +53,6 @@ abstract class ExpressionComparisonBinaryNode extends ExpressionBinaryNode {
     }
 
     @Override
-    public final boolean isOr() {
-        return false;
-    }
-
-    @Override
     public final boolean isPower() {
         return false;
     }
@@ -74,23 +62,11 @@ abstract class ExpressionComparisonBinaryNode extends ExpressionBinaryNode {
         return false;
     }
 
-    @Override
-    public final boolean isXor() {
-        return false;
-    }
-
     // evaluation .....................................................................................................
 
     @Override
     public final Boolean toValue(final ExpressionEvaluationContext context) {
         return this.toBoolean(context);
-    }
-
-    /**
-     * Comparison operations accept all number types.
-     */
-    final Class<Number> commonNumberType(final Class<? extends Number> type) {
-        return Cast.to(type);
     }
 
     @Override

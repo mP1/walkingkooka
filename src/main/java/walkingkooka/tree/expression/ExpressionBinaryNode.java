@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.ShouldNeverHappenError;
 import walkingkooka.collect.list.Lists;
 
 import java.math.BigDecimal;
@@ -173,58 +172,11 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
                 .toText(context);
     }
 
-    final ExpressionNode apply(final ExpressionNode left,
-                               final ExpressionNode right,
-                               final ExpressionEvaluationContext context) {
-        final Number rightNumber = right.toNumber(context);
-        final Class<?> best = this.commonNumberType(left.commonNumberType(rightNumber.getClass()));
-
-        ExpressionNode result;
-
-        try {
-            for (; ; ) {
-                if (best == BigDecimal.class) {
-                    result = this.applyBigDecimal(
-                            left.toBigDecimal(context),
-                            context.convert(rightNumber, BigDecimal.class),
-                            context);
-                    break;
-                }
-                if (best == BigInteger.class) {
-                    result = this.applyBigInteger(
-                            left.toBigInteger(context),
-                            context.convert(rightNumber, BigInteger.class),
-                            context);
-                    break;
-                }
-                if (best == Double.class) {
-                    result = this.applyDouble(
-                            left.toDouble(context),
-                            context.convert(rightNumber, Double.class),
-                            context);
-                    break;
-                }
-                if (best == Long.class) {
-                    result = this.applyLong(
-                            left.toLong(context),
-                            context.convert(rightNumber, Long.class),
-                            context);
-                    break;
-                }
-                throw new ShouldNeverHappenError("Unexpected type=" + best.getName());
-            }
-        } catch (final ArithmeticException cause) {
-            throw new ExpressionEvaluationException(cause.getMessage() + "\n" + this.toString(), cause);
-        }
-
-        return result;
-    }
-
-    abstract ExpressionNode applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context);
+    abstract ExpressionNode apply(final ExpressionNode left,
+                         final ExpressionNode right,
+                         final ExpressionEvaluationContext context);
 
     abstract ExpressionNode applyBigInteger(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context);
-
-    abstract ExpressionNode applyDouble(final double left, final double right, final ExpressionEvaluationContext context);
 
     abstract ExpressionNode applyLong(final long left, final long right, final ExpressionEvaluationContext context);
 
