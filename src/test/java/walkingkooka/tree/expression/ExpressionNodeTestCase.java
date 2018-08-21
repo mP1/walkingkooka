@@ -275,10 +275,10 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                         FakeParserContext::new),
                 Converters.simple(),
                 Converters.stringBoolean(),
-                Converters.booleanConverter(BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO),
-                Converters.booleanConverter(BigInteger.class, BigInteger.ONE, BigInteger.ZERO),
-                Converters.booleanConverter(Double.class, 1.0, 0.0),
-                Converters.booleanConverter(Long.class, 1L, 0L),
+                Converters.booleanConverter(Boolean.class, Boolean.FALSE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO),
+                Converters.booleanConverter(Boolean.class, Boolean.FALSE, BigInteger.class, BigInteger.ONE, BigInteger.ZERO),
+                Converters.booleanConverter(Boolean.class, Boolean.FALSE, Double.class, 1.0, 0.0),
+                Converters.booleanConverter(Boolean.class, Boolean.FALSE, Long.class, 1L, 0L),
                 Converters.truthyNumberBoolean(),
                 Converters.string()));
 

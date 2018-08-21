@@ -21,50 +21,57 @@ package walkingkooka.convert;
 import java.util.Objects;
 
 /**
- * A {@link Converter} that knows how to convert {@link Boolean} to {@link String}.
- * Requests for all other types will fail.
+ * A {@link Converter} that knows how to convert towards a boolean answer.
  */
-final class BooleanConverter<T> extends FixedTypeConverter<T> {
+final class BooleanConverter<S, T> extends FixedTypeConverter<T> {
 
-    final static <T> BooleanConverter<T> with(final Class<T> type, final T trueValue, final T falseValue){
-        Objects.requireNonNull(type, "type");
-        Objects.requireNonNull(trueValue, "trueValue");
+    final static <S, T> BooleanConverter<S, T> with(final Class<S> sourceType, final S falseValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {
+        Objects.requireNonNull(sourceType, "sourceType");
         Objects.requireNonNull(falseValue, "falseValue");
+        Objects.requireNonNull(targetType, "targetType");
+        Objects.requireNonNull(trueAnswer, "trueAnswer");
+        Objects.requireNonNull(falseAnswer, "falseAnswer");
 
-        return new BooleanConverter(type, trueValue, falseValue);
+        return new BooleanConverter(sourceType, falseValue, targetType, trueAnswer, falseAnswer);
     }
 
-    private BooleanConverter(final Class<T> type, final T trueValue, final T falseValue) {
+    private BooleanConverter(final Class<S> sourceType, final S falseValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {
         super();
-        this.type = type;
-        this.trueValue = trueValue;
+        this.sourceType = sourceType;
         this.falseValue = falseValue;
+        this.targetType = targetType;
+        this.trueAnswer = trueAnswer;
+        this.falseAnswer = falseAnswer;
     }
 
     @Override
     public boolean canConvert(final Object value, final Class<?> type) {
-        return value instanceof Boolean && this.type == type;
+        return this.sourceType.isInstance(value) &&
+               this.targetType == type;
     }
+
+    private final Class<S> sourceType;
 
     @Override
     T convert1(final Object value, final Class<T> type) {
-        return Boolean.TRUE.equals(value) ?
-                this.trueValue :
-                this.falseValue;
+        return this.falseValue.equals(value) ?
+                this.falseAnswer :
+                this.trueAnswer;
     }
 
-    private final T trueValue;
-    private final T falseValue;
+    private final Object falseValue;
+    private final T trueAnswer;
+    private final T falseAnswer;
 
     @Override
     Class<T> targetType() {
-        return this.type;
+        return this.targetType;
     }
 
-    private Class<T> type;
+    private Class<T> targetType;
 
     @Override
     public String toString() {
-        return "Boolean->" + this.type.getName();
+        return this.sourceType.getSimpleName() + "->" + this.targetType.getSimpleName();
     }
 }
