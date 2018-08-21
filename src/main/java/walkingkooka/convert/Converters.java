@@ -85,6 +85,13 @@ public final class Converters implements PublicStaticHelper {
     public static <S, T> Converter fail(final Class<S> source, final Class<T> target) {
         return FailConverter.with(source, target);
     }
+
+    /**
+     * {@see ForwardingConverter}
+     */
+    public static <S, T> Converter forward(final Converter converter, final Class<S> sourceType, final Class<T> targetType) {
+        return ForwardingConverter.with(converter, sourceType, targetType);
+    }
     
     /**
      * {@see LocalDateBigDecimalConverter}
