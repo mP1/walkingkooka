@@ -99,7 +99,18 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
             final EbnfParserCombinatorProxyParser<ParserToken, C> proxy = Cast.to(parser);
 
             // the proxy will be lost but thats okay as we have the real parser now. Any forward refs will continue to hold the proxy.
-            identifierAndParser.setValue(proxy.parser.setToString(this.identifierToRule.get(identifier).toString()));
+            EbnfRuleParserToken rule = this.identifierToRule.get(identifier);
+
+            EbnfParserToken token = rule.token();
+            for(;;) {
+                if(!token.isIdentifier()) {
+                    break;
+                }
+                final EbnfIdentifierParserToken tokenIdentifier = token.cast();
+                token=this.identifierToRule.get(tokenIdentifier.value()).token();
+            }
+
+            identifierAndParser.setValue(proxy.parser.setToString(token.toString()));
         }
     }
 
