@@ -88,6 +88,12 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
         final Parser<StringParserToken, FakeParserContext> parser3 = Parsers.string("text3");
         assertEquals(this.createParser0(PARSER1, PARSER2, parser3), parser.or(parser3));
     }
+
+    @Test
+    public void testEmptyParserReporter() {
+        // AlternativesParser must not short circuit and skip trying all its parsers when its empty.
+        this.parseThrowsEndOfText(PARSER1.orReport(ParserReporters.basic()).cast(), "abc", 4,1);
+    }
     
     @Test
     public void testToString() {

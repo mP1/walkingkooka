@@ -166,7 +166,22 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
 
     protected final void parseThrowsEndOfText(final String cursorText, final int column, final int row) {
         // Message format from BasicParserReporter
-        this.parseThrows(cursorText, "End of text at (" + column + "," + row + ")");
+        this.parseThrows(cursorText, endOfText(column, row));
+    }
+
+    protected final void parseThrowsEndOfText(final Parser<T,C> parser, final String cursorText, final int column, final int row) {
+        this.parseThrowsEndOfText(parser, this.createContext(), cursorText, column, row);
+    }
+
+    protected final void parseThrowsEndOfText(final Parser<T,C> parser, final C context, final String cursorText, final int column, final int row) {
+        final TextCursor cursor = TextCursors.charSequence(cursorText);
+        cursor.end();
+
+        this.parseThrows(parser, context, cursor, endOfText(column, row));
+    }
+
+    protected final String endOfText(final int column, final int row) {
+        return "End of text at (" + column + "," + row + ")";
     }
 
     protected final void parseThrows(final String cursorText, final String messagePart) {
