@@ -290,7 +290,7 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
 
     @Override
     protected Parser<JsonNodeParserToken, JsonNodeParserContext> createParser() {
-        return JsonNodeParsers.value().cast(JsonNodeParserToken.class);
+        return JsonNodeParsers.value().cast();
     }
 
     @Override

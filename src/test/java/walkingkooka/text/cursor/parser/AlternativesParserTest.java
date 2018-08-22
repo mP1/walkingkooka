@@ -43,7 +43,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     @Test
     public void testWithOneNeverWrapped() {
-        assertSame(PARSER1, AlternativesParser.with(Lists.of(PARSER1.castC())));
+        assertSame(PARSER1, AlternativesParser.with(Lists.of(PARSER1.cast())));
     }
 
     @Test

@@ -697,7 +697,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     protected Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
         final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number = Parsers.<SpreadsheetParserContext>bigInteger(10)
                 .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigInteger(numberParserToken.value(), numberParserToken.text()))
-                .cast(SpreadsheetParserToken.class);
+                .cast();
 
         return SpreadsheetParsers.expression(number);
     }

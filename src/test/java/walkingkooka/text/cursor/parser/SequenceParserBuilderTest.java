@@ -25,9 +25,9 @@ import static org.junit.Assert.assertEquals;
 
 public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
 
-    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("1").castC();
-    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string("2").castC();
-    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string("3").castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("1").cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string("2").cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string("3").cast();
 
     @Test(expected = NullPointerException.class)
     public void testOptionalNullParserFails() {
@@ -115,7 +115,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     @Test
     public void testParserBuilder() {
         PARSER1.builder(StringParserToken.NAME)
-                .optional(PARSER2.castC(), StringParserToken.NAME)
+                .optional(PARSER2.cast(), StringParserToken.NAME)
                 .build();
     }
 

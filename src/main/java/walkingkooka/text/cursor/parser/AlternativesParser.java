@@ -40,7 +40,7 @@ final class AlternativesParser<C extends ParserContext> extends ParserTemplate<P
             case 0:
                 throw new IllegalArgumentException("At least one parser must be provided");
             case 1:
-                parser = parsers.get(0).castC();
+                parser = parsers.get(0).cast();
                 break;
             default:
                 parser = new AlternativesParser<C>(parsers);
@@ -75,7 +75,7 @@ final class AlternativesParser<C extends ParserContext> extends ParserTemplate<P
         // append the new parser to the current list and make a new AlternativesParser
         final List<Parser<ParserToken, C>> parsers = Lists.array();
         parsers.addAll(this.parsers);
-        parsers.add(parser.castC());
+        parsers.add(parser.cast());
 
         return new AlternativesParser(parsers);
     }

@@ -23,9 +23,9 @@ import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<SequenceParser> {
 
-    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("a").castC();
-    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string("b").castC();
-    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string("c").castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("a").cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string("b").cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string("c").cast();
     
     private final static ParserTokenNodeName NAME1 = ParserTokenNodeName.with(0);
     private final static ParserTokenNodeName NAME2 = ParserTokenNodeName.with(1);
@@ -67,8 +67,8 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
     @Test
     public void testEqualsBuiltUsingDefaultMethods() {
         this.checkEquals(PARSER1.builder(NAME1)
-                .required(PARSER2.castC(), NAME2)
-                .optional(PARSER3.castC(), NAME3)
+                .required(PARSER2.cast(), NAME2)
+                .optional(PARSER3.cast(), NAME3)
                 .build());
     }
 
