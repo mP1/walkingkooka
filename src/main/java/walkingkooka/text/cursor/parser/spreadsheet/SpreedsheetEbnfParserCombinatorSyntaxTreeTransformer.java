@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.RepeatedParserToken;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
@@ -206,7 +207,9 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
 
     @Override
     public Parser<ParserToken, SpreadsheetParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, SpreadsheetParserContext> parser, final EbnfParserCombinatorContext context) {
-        return parser; // leave as is...
+        return token.value().value().endsWith("REQUIRED") ?
+                parser.orReport(ParserReporters.basic()) :
+                parser; // leave as is...
     }
 
     @Override
