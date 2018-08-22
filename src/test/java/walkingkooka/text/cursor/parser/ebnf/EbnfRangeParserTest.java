@@ -30,22 +30,22 @@ public final class EbnfRangeParserTest extends EbnfParserTestCase2<EbnfRangePars
 
     @Test
     public void testBeginBetweenFails() {
-        this.parseFailAndCheck(TERMINAL1_TEXT + BETWEEN);
+        this.parseThrowsEndOfText(TERMINAL1_TEXT + BETWEEN);
     }
 
     @Test
     public void testBetweenOnlyFails() {
-        this.parseFailAndCheck(BETWEEN);
+        this.parseThrows(BETWEEN, '.', 1, 1);
     }
 
     @Test
     public void testDoubleBetweenFails() {
-        this.parseFailAndCheck(TERMINAL1_TEXT + BETWEEN + BETWEEN);
+        this.parseThrows(TERMINAL1_TEXT + BETWEEN + BETWEEN, BETWEEN.charAt(0), 16, 1);
     }
 
     @Test
-    public void testDoubleBetweenFail2s() {
-        this.parseFailAndCheck(TERMINAL1_TEXT + BETWEEN + BETWEEN + TERMINAL2_TEXT);
+    public void testDoubleBetweenFails2() {
+        this.parseThrows(TERMINAL1_TEXT + BETWEEN + BETWEEN + TERMINAL2_TEXT, BETWEEN.charAt(0), 16, 1);
     }
 
     @Test

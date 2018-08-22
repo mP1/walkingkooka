@@ -72,6 +72,36 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
                 text);
     }
 
+    @Test
+    public void testInvalidRuleNameDefinitionFails() {
+        this.parseThrows("123", '1', 1, 1);
+    }
+
+    @Test
+    public void testInvalidRuleDefinitionFails() {
+        this.parseThrows("abc!", '!', 4, 1);
+    }
+
+    @Test
+    public void testInvalidRuleMissingRhsFails() {
+        this.parseThrowsEndOfText(IDENTIFIER1 + ASSIGNMENT);
+    }
+
+    @Test
+    public void testInvalidRuleMissingTerminatorFails() {
+        this.parseThrowsEndOfText(IDENTIFIER1 + ASSIGNMENT + TERMINAL1_TEXT);
+    }
+
+    @Test
+    public void testInvalidRuleRhsFails() {
+        this.parseThrows(IDENTIFIER1 + ASSIGNMENT + "123", '1', IDENTIFIER1 + ASSIGNMENT + '1', 1);
+    }
+
+    @Test
+    public void testInvalidExceptionTokenFails() {
+        this.parseThrows(IDENTIFIER1 + ASSIGNMENT +"'A'-123", '1', IDENTIFIER1 + ASSIGNMENT +"'A'-'", 1);
+    }
+
     private EbnfGrammarParserToken grammar(final String text, final EbnfRuleParserToken...rules) {
         return EbnfGrammarParserToken.with(Lists.of(rules), text);
     }

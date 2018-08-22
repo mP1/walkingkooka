@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
@@ -61,16 +60,6 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
 
     final static String OPEN_REPEAT = "{";
     final static String CLOSE_REPEAT = "}";
-
-    @Test
-    public void testOrphanedAssignmentFail() {
-        this.parseFailAndCheck("=");
-    }
-
-    @Test
-    public void testInvalidSymbolToken() {
-        this.parseFailAndCheck("$");
-    }
 
     @Override
     protected final EbnfParserContext createContext() {

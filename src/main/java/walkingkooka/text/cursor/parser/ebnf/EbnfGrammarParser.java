@@ -19,7 +19,9 @@ package walkingkooka.text.cursor.parser.ebnf;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.parser.CharacterParserToken;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.RepeatedParserToken;
@@ -67,14 +69,24 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
             .setToString("identifier");
 
     private static Parser<ParserToken, EbnfParserContext> identifier() {
-        return Parsers.<EbnfParserContext>stringInitialAndPartCharPredicate(
-                EbnfIdentifierName.INITIAL,
-                EbnfIdentifierName.PART,
-                1,
-                Integer.MAX_VALUE)
-                .transform((string, context) -> EbnfIdentifierParserToken.with(EbnfIdentifierName.with(string.text()), string.text()))
+        return Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .required(Parsers.character(EbnfIdentifierName.INITIAL).cast())
+                .required(Parsers.character(EbnfIdentifierName.PART).repeating().orReport(ParserReporters.basic()).cast())
+                .build()
+                .transform(EbnfGrammarParser::ebnfIdentifierParserToken)
                 .setToString("IDENTIFIER")
                 .cast();
+    }
+
+    private static EbnfIdentifierParserToken ebnfIdentifierParserToken(final SequenceParserToken tokens, final EbnfParserContext context) {
+        final StringBuilder b = new StringBuilder();
+        for(ParserToken c : tokens.flat().value()) {
+            final CharacterParserToken character = c.cast();
+            b.append(character.value());
+        }
+
+        final String text = b.toString();
+        return EbnfParserToken.identifier(EbnfIdentifierName.with(text), text);
     }
 
     /**
@@ -188,7 +200,8 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
             .or(OPTIONAL)
             .or(REPETITION)
             .or(GROUPING)
-            .or(TERMINAL);
+            .or(TERMINAL)
+            .orReport(ParserReporters.basic());
 
     /**
      * <pre>
@@ -308,8 +321,10 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
     final static Parser<ParserToken, EbnfParserContext> RULE = rule();
 
     private static Parser<ParserToken, EbnfParserContext> rule() {
-        final Parser<ParserToken, EbnfParserContext> assign = symbol("=", "assign");
-        final Parser<ParserToken, EbnfParserContext> termination = symbol(";", "termination");
+        final Parser<ParserToken, EbnfParserContext> assign = symbol("=", "assign")
+                .orReport(ParserReporters.basic());
+        final Parser<ParserToken, EbnfParserContext> termination = symbol(";", "termination")
+                .orReport(ParserReporters.basic());
 
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
                 .optional(WHITESPACE_OR_COMMENT)
@@ -337,7 +352,8 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                     .or(RANGE) // must be before TERMINAL
                     .or(EXCEPTION)
                     .or(IDENTIFIER) // identifier & terminal are atoms of range, exception, alt and concat and must come after
-                    .or(TERMINAL);
+                    .or(TERMINAL)
+                    .orReport(ParserReporters.basic());
         }
         return RHS_CACHE;
     }
@@ -404,13 +420,24 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * grammar = { rule } ;
      * </pre>
      */
-    final static Parser<EbnfGrammarParserToken, EbnfParserContext> GRAMMAR = RULE.repeating()
-            .transform((repeated, context) -> {
-                return EbnfGrammarParserToken.with(
-                        Cast.to(repeated.value()), // list of rules
-                        repeated.text());
-            })
-            .cast();
+    final static Parser<EbnfGrammarParserToken, EbnfParserContext> GRAMMAR = grammar();
+
+    private static Parser<EbnfGrammarParserToken, EbnfParserContext> grammar() {
+        return Parsers.<EbnfParserContext>sequenceParserBuilder()
+                .optional(WHITESPACE_OR_COMMENT)
+                .required(RULE.orReport(ParserReporters.basic()))
+                .optional(RULE.repeating().cast())
+                .build()
+                .transform(EbnfGrammarParser::grammarParserToken)
+                .cast();
+    }
+
+    private static EbnfGrammarParserToken grammarParserToken(final SequenceParserToken sequence, final EbnfParserContext context) {
+        return EbnfGrammarParserToken.with(sequence.flat()
+                .removeMissing()
+                .value(),
+                sequence.text());
+    }
 
     @Override
     public Optional<EbnfGrammarParserToken> parse(final TextCursor cursor, final EbnfParserContext context) {
