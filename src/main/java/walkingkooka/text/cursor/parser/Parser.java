@@ -98,6 +98,14 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     }
 
     /**
+     * Returns a {@link ParserReporter} which will be triggered if this (original unwrapped) {@link Parser} fails.
+     */
+    default Parser<T, C> orReport(final ParserReporter<T, C> reporter) {
+        final Parser<ParserToken, C> that = this.cast();
+        return Parsers.alternatives(Lists.of(that, Parsers.report(Cast.to(reporter), that))).cast();
+    }
+
+    /**
      * Helper that makes casting and working around generics a little less noisy.
      */
     default <P extends Parser<?, ?>> P cast() {
