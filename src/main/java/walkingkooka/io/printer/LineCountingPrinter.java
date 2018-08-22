@@ -75,9 +75,7 @@ final class LineCountingPrinter implements Printer {
                             break;
                         }
                         // print everything that has not yet been printed.
-                        if (start < i) {
-                            printer.print(chars.subSequence(start, i));
-                        }
+                        printer.print(chars.subSequence(start, i));
                     }
                     break;
                 }

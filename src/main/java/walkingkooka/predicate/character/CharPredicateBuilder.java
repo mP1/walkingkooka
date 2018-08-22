@@ -180,5 +180,6 @@ final public class CharPredicateBuilder
     private CharPredicateBuilder(final CharPredicateBuilder copy) {
         super();
         this.predicate = copy.predicate;
+        this.toString = copy.toString;
     }
 }

@@ -25,7 +25,7 @@ import java.util.Objects;
  */
 final class BooleanConverter<S, T> extends FixedTypeConverter<T> {
 
-    final static <S, T> BooleanConverter<S, T> with(final Class<S> sourceType, final S falseValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {
+    static <S, T> BooleanConverter<S, T> with(final Class<S> sourceType, final S falseValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {
         Objects.requireNonNull(sourceType, "sourceType");
         Objects.requireNonNull(falseValue, "falseValue");
         Objects.requireNonNull(targetType, "targetType");
@@ -68,7 +68,7 @@ final class BooleanConverter<S, T> extends FixedTypeConverter<T> {
         return this.targetType;
     }
 
-    private Class<T> targetType;
+    private final Class<T> targetType;
 
     @Override
     public String toString() {

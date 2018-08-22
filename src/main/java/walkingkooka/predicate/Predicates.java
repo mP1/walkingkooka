@@ -94,7 +94,7 @@ final public class Predicates implements PublicStaticHelper {
         return JAVA_IDENTIFIER;
     }
 
-    private final static Predicate JAVA_IDENTIFIER = Predicates.initialAndPart(
+    private final static Predicate<CharSequence> JAVA_IDENTIFIER = Predicates.initialAndPart(
             (c) -> Character.isJavaIdentifierStart(c),
             (c) -> Character.isJavaIdentifierPart(c));
 

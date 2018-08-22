@@ -28,7 +28,7 @@ final class LocalDateBigDecimalConverter extends LocalDateConverter<BigDecimal> 
     /**
      * Singleton
      */
-    static LocalDateBigDecimalConverter INSTANCE = new LocalDateBigDecimalConverter();
+    static final LocalDateBigDecimalConverter INSTANCE = new LocalDateBigDecimalConverter();
 
     /**
      * Private ctor use singleton

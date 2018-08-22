@@ -49,13 +49,13 @@ final class PrefixedNumberParserTokenBiFunction<C extends ParserContext> impleme
     @Override
     public final BigIntegerParserToken apply(final SequenceParserToken token, final C c) {
         try {
-            return this.apply0(token, c);
+            return this.apply0(token);
         } catch (final ClassCastException | IllegalStateException | IndexOutOfBoundsException cause) {
             throw new ParserException("Failure while applying to token="+ token + ", message: " + cause, cause);
         }
     }
 
-    private BigIntegerParserToken apply0(final SequenceParserToken token, final C c) {
+    private BigIntegerParserToken apply0(final SequenceParserToken token) {
         token.checkTokenCount(2);
 
         final StringParserToken prefix = token.required(0, StringParserToken.class);

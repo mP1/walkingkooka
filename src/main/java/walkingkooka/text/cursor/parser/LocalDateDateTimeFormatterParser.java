@@ -28,7 +28,7 @@ import java.time.temporal.TemporalAccessor;
 final class LocalDateDateTimeFormatterParser<C extends ParserContext> extends LocalDateTimeFormatterParser<LocalDateParserToken, C>{
 
     static <C extends ParserContext> LocalDateDateTimeFormatterParser<C> with(final DateTimeFormatter formatter, final String pattern) {
-        return new LocalDateDateTimeFormatterParser(formatter, pattern);
+        return new LocalDateDateTimeFormatterParser<>(formatter, pattern);
     }
 
     private LocalDateDateTimeFormatterParser(DateTimeFormatter formatter, final String pattern) {

@@ -73,7 +73,7 @@ abstract public class IpAddress implements Value<byte[]>, HashCodeEqualsDefined,
         return this.components.clone(); // always copy never share
     }
 
-    byte[] components;
+    final byte[] components;
 
     // Object
 

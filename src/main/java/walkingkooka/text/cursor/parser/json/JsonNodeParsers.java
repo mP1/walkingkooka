@@ -54,13 +54,11 @@ public final class JsonNodeParsers implements PublicStaticHelper {
     
     private static final EbnfIdentifierName ARRAY_BEGIN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("ARRAY_BEGIN");
     private static final EbnfIdentifierName ARRAY_END_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("ARRAY_END");
-    private static final EbnfIdentifierName ARRAY_ELEMENT_REQUIRED = EbnfIdentifierName.with("ARRAY_ELEMENT_REQUIRED");
 
     private static final EbnfIdentifierName BOOLEAN_IDENTIFIER = EbnfIdentifierName.with("BOOLEAN");
     private static final EbnfIdentifierName NULL_IDENTIFIER = EbnfIdentifierName.with("NULL");
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
 
-    private static final EbnfIdentifierName OBJECT_PROPERTY_REQUIRED = EbnfIdentifierName.with("OBJECT_PROPERTY_REQUIRED");
     private static final EbnfIdentifierName OBJECT_ASSIGNMENT_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OBJECT_ASSIGNMENT");
     private static final EbnfIdentifierName OBJECT_BEGIN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OBJECT_BEGIN");
     private static final EbnfIdentifierName OBJECT_END_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OBJECT_END");
@@ -76,8 +74,6 @@ public final class JsonNodeParsers implements PublicStaticHelper {
     // required by JsonNodeEbnfParserCombinatorSyntaxTreeTransformer
     static final Set<EbnfIdentifierName> REPORT_FAILURE_IDENTIFIER_NAMES = Sets.of(
             OBJECT_ASSIGNMENT_SYMBOL_IDENTIFIER
-            //OBJECT_PROPERTY_REQUIRED,
-            //SEPARATOR_SYMBOL_IDENTIFIER
             );
 
     /**

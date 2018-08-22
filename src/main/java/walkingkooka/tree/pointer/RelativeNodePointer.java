@@ -36,7 +36,7 @@ final class RelativeNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME ext
             throw new IllegalArgumentException("Invalid ancestorCount " + ancestorCount + " values should be greater or equal to 0");
         }
 
-        return new RelativeNodePointer(ancestorCount, hash, NO_NEXT);
+        return new RelativeNodePointer<>(ancestorCount, hash, NO_NEXT);
     }
 
     /**
@@ -50,7 +50,7 @@ final class RelativeNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME ext
 
     @Override
     NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
-        return new RelativeNodePointer(this.ancestorCount, this.hash, this.appendToNext(pointer));
+        return new RelativeNodePointer<>(this.ancestorCount, this.hash, this.appendToNext(pointer));
     }
 
     @Override

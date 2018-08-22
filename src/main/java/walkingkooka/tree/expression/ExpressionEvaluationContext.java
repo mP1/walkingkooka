@@ -31,20 +31,20 @@ public interface ExpressionEvaluationContext extends Context {
     /**
      * Locates a function with the given name and then executes it with the provided parameter values (not {@link ExpressionNode}
      */
-    abstract Object function(final ExpressionNodeName name, final List<Object> parameters);
+    Object function(final ExpressionNodeName name, final List<Object> parameters);
 
     /**
      * Locates the value or a {@link ExpressionNode} for the given {@link ExpressionReference}
      */
-    abstract ExpressionNode reference(final ExpressionReference reference);
+    ExpressionNode reference(final ExpressionReference reference);
 
     /**
      * The {@link MathContext} to be used with math operations.
      */
-    abstract MathContext mathContext();
+    MathContext mathContext();
 
     /**
      * Handles converting the given value to the target.
      */
-    abstract <T> T convert(final Object value, final Class<T> target);
+    <T> T convert(final Object value, final Class<T> target);
 }

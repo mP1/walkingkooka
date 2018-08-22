@@ -68,7 +68,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
         try {
             sequence.charAt(index);
             Assert.fail();
-        } catch (final StringIndexOutOfBoundsException expected) {
+        } catch (final StringIndexOutOfBoundsException ignored) {
         }
     }
 
@@ -103,8 +103,8 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
         try {
             sequence.subSequence(from, to);
             Assert.fail();
-        } catch (final StringIndexOutOfBoundsException expected) {
-        } catch (final IllegalArgumentException expected) {
+        } catch (final StringIndexOutOfBoundsException ignored) {
+        } catch (final IllegalArgumentException ignored) {
         }
     }
 

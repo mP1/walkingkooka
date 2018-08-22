@@ -25,7 +25,7 @@ import java.util.List;
 public final class SequenceParserBuilder<C extends ParserContext> implements Builder<Parser<SequenceParserToken, C>> {
 
     static <C extends ParserContext> SequenceParserBuilder<C> create() {
-        return new SequenceParserBuilder();
+        return new SequenceParserBuilder<>();
     }
 
     private SequenceParserBuilder(){

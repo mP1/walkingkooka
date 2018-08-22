@@ -57,7 +57,7 @@ final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         // no point appending a preceedingSibling to another...
         return selector instanceof PrecedingSiblingNodeSelector ?
                 this :
-                new PrecedingSiblingNodeSelector(selector);
+                new PrecedingSiblingNodeSelector<>(selector);
     }
 
     @Override

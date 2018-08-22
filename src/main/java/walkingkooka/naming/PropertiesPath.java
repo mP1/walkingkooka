@@ -117,7 +117,7 @@ final public class PropertiesPath
         return this.path;
     }
 
-    private Optional<PropertiesPath> parent;
+    private final Optional<PropertiesPath> parent;
 
     /**
      * Returns the parent {@link PropertiesPath}.

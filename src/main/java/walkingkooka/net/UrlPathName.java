@@ -22,7 +22,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
-import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -118,7 +117,7 @@ public final class UrlPathName implements Serializable, Name, Comparable<UrlPath
     /**
      * Ensures singleton instance of any {@link UrlPathName#ROOT}.
      */
-    private Object readResolve() throws ObjectStreamException {
+    private Object readResolve() {
         return this.name.equals(UrlPathName.ROOT.name) ? UrlPathName.ROOT : this;
     }
 }

@@ -25,7 +25,7 @@ import java.util.function.Function;
  * The exception thrown if anything goes wrong when printing to a {@link Printer}
  */
 public class PrinterException extends SystemException {
-    public static Function<String, PrinterException> FACTORY = (message) -> new PrinterException(
+    public static final Function<String, PrinterException> FACTORY = (message) -> new PrinterException(
             message);
     private static final long serialVersionUID = 1L;
 

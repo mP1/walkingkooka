@@ -90,7 +90,7 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
 
             @Override
             public int compare(final Method method1, final Method method2) {
-                int value = 0;
+                int value;
 
                 do {
                     value = method1.getName().compareTo(method2.getName());

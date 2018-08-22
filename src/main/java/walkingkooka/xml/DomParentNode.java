@@ -42,7 +42,7 @@ abstract class DomParentNode extends DomNode{
         return this.children;
     }
 
-    List<DomNode> children;
+    final List<DomNode> children;
 
     final DomNode setChildren0(final List<DomNode> children) {
         Objects.requireNonNull(children, "children");

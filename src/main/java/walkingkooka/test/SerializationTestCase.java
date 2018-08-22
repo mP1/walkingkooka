@@ -41,8 +41,7 @@ abstract public class SerializationTestCase<S extends Serializable> extends Test
     }
 
     @Test final public void testSerialVersionUIDDeclared() {
-        final Class<S> type = this.type();
-        Class<?> t = type;
+        Class<?> t = this.type();
         do {
             try {
                 if (false == Serializable.class.isAssignableFrom(t)) {

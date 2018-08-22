@@ -122,7 +122,7 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate2<Double
                     if('N' == c){
                         cursor.next();
                         token = token(Double.NaN, save);
-                        mode = FINISH;
+                        mode = NAN_FINISH;
                         break;
                     }
                     empty = true;

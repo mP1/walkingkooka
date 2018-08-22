@@ -82,13 +82,12 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Serializab
      */
     @Override
     public ArrayStack<T> push(final T item) {
-        final Object[] old = this.array;
         final int last = this.last;
         final int newLast = last + 1;
 
         // copy the old array into the first slots
         final Object[] newArray = new Object[newLast];
-        System.arraycopy(old, 0, newArray, 0, last);
+        System.arraycopy(this.array, 0, newArray, 0, last);
 
         // save the new item in the last slot
         newArray[last] = item;
@@ -112,14 +111,13 @@ final class ArrayStack<T> implements Stack<T>, HashCodeEqualsDefined, Serializab
                 pushing.add(items.next());
             } while (items.hasNext());
 
-            final Object[] old = this.array;
             final int last = this.last;
             final int pushed = pushing.size();
             final int newLast = last + pushed;
 
             // copy the old array into the first slots
             final Object[] newArray = new Object[newLast];
-            System.arraycopy(old, 0, newArray, 0, last);
+            System.arraycopy(this.array, 0, newArray, 0, last);
 
             // append the iterator items onto the $newArray
             int i = last;

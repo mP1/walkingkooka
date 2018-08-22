@@ -170,7 +170,7 @@ public final class DomDocumentType extends DomLeafNode implements HasDomPublicId
 
         builder.separator(" ");
 
-        this.buildToString(this.publicId(),this.systemId(), builder);
+        buildToString(this.publicId(),this.systemId(), builder);
 
         // entities...
 //        <!DOCTYPE

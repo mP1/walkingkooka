@@ -40,5 +40,5 @@ final class DomMapEntrySet<K, V> extends AbstractSet<Entry<K, V>> {
         return this.map.size();
     }
 
-    private DomMap<K, V> map;
+    private final DomMap<K, V> map;
 }

@@ -39,7 +39,7 @@ final class PredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         Objects.requireNonNull(predicate, "predicate");
 
         final String predicateToString = predicate.toString();
-        return new PredicateNodeSelector(
+        return new PredicateNodeSelector<>(
                 predicateToString.startsWith("[") && predicateToString.endsWith("]") ?
                 predicate : // already returns preferred toString
                 Predicates.customToString(predicate, "[" + predicateToString + "]"));
@@ -64,7 +64,7 @@ final class PredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new PredicateNodeSelector(this.predicate, selector);
+        return new PredicateNodeSelector<>(this.predicate, selector);
     }
 
     @Override

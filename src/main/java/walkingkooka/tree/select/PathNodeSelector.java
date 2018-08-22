@@ -33,7 +33,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
 
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final N node) {
         Objects.requireNonNull(node, "node");
-        return node.isRoot() ? SelfNodeSelector.get() : new PathNodeSelector(node);
+        return node.isRoot() ? SelfNodeSelector.get() : new PathNodeSelector<>(node);
     }
 
     private PathNodeSelector(final N node) {

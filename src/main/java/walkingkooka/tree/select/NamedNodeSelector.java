@@ -64,7 +64,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new NamedNodeSelector(this.name, this.separator, selector);
+        return new NamedNodeSelector<>(this.name, this.separator, selector);
     }
 
     @Override

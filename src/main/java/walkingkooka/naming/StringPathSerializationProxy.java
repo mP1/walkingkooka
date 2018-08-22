@@ -23,7 +23,7 @@ class StringPathSerializationProxy implements SerializationProxy {
 
     private static final long serialVersionUID = 1L;
     
-    private String path;
+    private final String path;
 
     public StringPathSerializationProxy(final String path) {
         this.path = path;

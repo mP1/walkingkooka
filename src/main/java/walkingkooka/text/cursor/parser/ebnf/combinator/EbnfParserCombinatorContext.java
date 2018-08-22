@@ -75,7 +75,7 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
                 .filter(t -> t.isRule())
                 .forEach(t -> {
                     final EbnfRuleParserToken rule = t.cast();
-                    this.identifierToParser.put(rule.identifier().value(), new EbnfParserCombinatorProxyParser(rule.identifier()));
+                    this.identifierToParser.put(rule.identifier().value(), new EbnfParserCombinatorProxyParser<>(rule.identifier()));
                 });
     }
 

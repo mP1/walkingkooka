@@ -32,13 +32,13 @@ abstract class QuotedParser<T extends QuotedParserToken, C extends ParserContext
     @Override
     Optional<T> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
         return this.quoteChar() == cursor.at()?
-                this.tryParse1(cursor, context, start) :
+                this.tryParse1(cursor, start) :
                 this.fail();
     }
 
     abstract char quoteChar();
 
-    private Optional<T> tryParse1(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+    private Optional<T> tryParse1(final TextCursor cursor, final TextCursorSavePoint start) {
         final char quote = this.quoteChar();
 
         cursor.next();

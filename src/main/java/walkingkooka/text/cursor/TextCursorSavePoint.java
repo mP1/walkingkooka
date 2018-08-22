@@ -25,20 +25,20 @@ public interface TextCursorSavePoint extends TextCursorLike {
     /**
      * Restores the position of the parent {@link TextCursor}.
      */
-    abstract void restore();
+    void restore();
 
     /**
      * Saves the current position of the parent {@link TextCursor}.
      */
-    abstract void save();
+    void save();
 
     /**
      * Returns all the text between this {@link TextCursorSavePoint} and the parent {@link TextCursor}.
      */
-    abstract CharSequence textBetween();
+    CharSequence textBetween();
 
     /**
      * Returns a {@link TextCursorLineInfo} for the current position of this {@link TextCursor}
      */
-    abstract TextCursorLineInfo lineInfo();
+    TextCursorLineInfo lineInfo();
 }

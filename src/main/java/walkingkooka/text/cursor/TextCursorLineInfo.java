@@ -26,20 +26,20 @@ public interface TextCursorLineInfo extends TextCursorLike {
      * The entire line of text that the {@link TextCursor} is currently on. Note the text may include characters that were filtered and not returned by
      * the parent {@link TextCursor} itself.
      */
-    abstract CharSequence text();
+    CharSequence text();
 
     /**
      * Returns the line number of the cursor. Note that line numbering begins at 1.
      */
-    abstract int lineNumber();
+    int lineNumber();
 
     /**
      * Returns the column number of the {@link TextCursor}. Note that column numbering begins at 1.
      */
-    abstract int column();
+    int column();
 
     /**
      * Builds a string with with the column and line number separated by a comma and surrounded by parenthesis.
      */
-    abstract String summary();
+    String summary();
 }

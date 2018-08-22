@@ -74,7 +74,7 @@ abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
         try {
             printer.outdent();
             Assert.fail();
-        } catch (final IllegalStateException expected) {
+        } catch (final IllegalStateException ignored) {
         }
     }
 }

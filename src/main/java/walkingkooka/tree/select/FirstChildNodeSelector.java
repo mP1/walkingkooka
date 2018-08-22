@@ -57,7 +57,7 @@ final class FirstChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new FirstChildNodeSelector(selector);
+        return new FirstChildNodeSelector<>(selector);
     }
 
     // NodeSelector

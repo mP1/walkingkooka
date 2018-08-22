@@ -110,16 +110,16 @@ final class UnreadableStack<T> implements Stack<T>, HashCodeEqualsDefined {
     @Override
     public boolean equals(final Object object) {
         return (this == object) ||
-                ((object instanceof Stack) && this.equals0((Cast.<Stack>to(object))));
+                ((object instanceof Stack) && this.equals0((Cast.<Stack<?>>to(object))));
     }
 
-    private boolean equals0(final Stack<T> stack) {
+    private boolean equals0(final Stack<?> stack) {
         return stack instanceof UnreadableStack ?
                 this.equals1(Cast.to(stack)) :
                 this.stack.equals(stack);
     }
 
-    private boolean equals1(final UnreadableStack<T> stack) {
+    private boolean equals1(final UnreadableStack<?> stack) {
         return this.stack.equals(stack.stack);
     }
 

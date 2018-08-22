@@ -125,7 +125,7 @@ public final class ParserTokens implements PublicStaticHelper {
     /**
      * {@see SequenceParserToken}
      */
-    public static SequenceParserToken sequence(final List<? extends ParserToken> tokens, final String text) {
+    public static SequenceParserToken sequence(final List<ParserToken> tokens, final String text) {
         return SequenceParserToken.with(tokens, text);
     }
 

@@ -33,7 +33,7 @@ public final class SequenceParserToken extends ParserTemplateToken2 implements S
     /**
      * Factory that wraps many tokens in a {@link SequenceParserToken}.
      */
-    static <T extends ParserToken> SequenceParserToken with(final List tokens, final String text) {
+    static <T extends ParserToken> SequenceParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");
         Objects.requireNonNull(text, "text");
 
@@ -45,7 +45,7 @@ public final class SequenceParserToken extends ParserTemplateToken2 implements S
         return new SequenceParserToken(tokens, text);
     }
 
-    private SequenceParserToken(final List tokens, final String text) {
+    private SequenceParserToken(final List<ParserToken> tokens, final String text) {
         super(tokens, text);
     }
 

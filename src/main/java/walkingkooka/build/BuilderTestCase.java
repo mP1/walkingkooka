@@ -19,6 +19,7 @@ package walkingkooka.build;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.MemberVisibility;
 
@@ -98,10 +99,9 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
             }
 
             if (false == wrong.isEmpty()) {
-                final Set<String> all = Sets.of(firstRequired);
-                for (final String required : requireds) {
-                    all.add(required);
-                }
+                final Set<String> all = Sets.ordered();
+                all.add(firstRequired);
+                all.addAll(Lists.of(requireds));
                 assertEquals("Builder message missing properties", message, all.toString());
             }
         }

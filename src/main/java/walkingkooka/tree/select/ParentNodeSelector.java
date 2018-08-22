@@ -55,7 +55,7 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new ParentNodeSelector(selector);
+        return new ParentNodeSelector<>(selector);
     }
 
     @Override

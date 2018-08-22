@@ -52,7 +52,6 @@ abstract public class TestCase {
                 notOverridden = false;
             }
         } catch (final NoSuchMethodException cause) {
-            notOverridden = true;
         }
 
         if (notOverridden) {

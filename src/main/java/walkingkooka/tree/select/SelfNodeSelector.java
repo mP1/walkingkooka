@@ -59,7 +59,7 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
         // no point appending a self to another...
         return selector instanceof SelfNodeSelector ?
                 this :
-                new SelfNodeSelector(selector);
+                new SelfNodeSelector<>(selector);
     }
 
     @Override

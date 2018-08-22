@@ -28,7 +28,7 @@ final class LocalDateBigIntegerConverter extends LocalDateConverter<BigInteger> 
     /**
      * Singleton
      */
-    static LocalDateBigIntegerConverter INSTANCE = new LocalDateBigIntegerConverter();
+    static final LocalDateBigIntegerConverter INSTANCE = new LocalDateBigIntegerConverter();
 
     /**
      * Private ctor use singleton
