@@ -60,7 +60,7 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     @Test
     public void testAfterLastChar() {
         final String text = "first\nsecond\rthird";
-        this.lineWithPosition(text, text.length() + 1, "", 4, 1);
+        this.lineWithPosition(text, text.length() + 1, "third", 3, 6);
     }
 
     private void lineWithPosition(final String text, final String pos, final String line, final int lineNumber,
@@ -74,10 +74,9 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     private void lineWithPosition(final String text, final int pos, final String line, final int lineNumber,
                                   final int column) {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with(text, pos);
-        assertEquals("lineNumber", lineNumber, info.lineNumber());
-        assertEquals("lineNumber", lineNumber, info.lineNumber());
-        assertEquals("column()", column, info.column());
-        assertEquals("text()", line, info.text());
+        assertEquals("lineNumber=" + info, lineNumber, info.lineNumber());
+        assertEquals("column()=" + info, column, info.column());
+        assertEquals("text()=" + info, line, info.text());
     }
 
     @Test

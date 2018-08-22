@@ -77,17 +77,22 @@ public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColu
 
     @Test
     public void testEndAfterNewLine() {
-        this.determineAndCheck("\n", 1, "", 2, 1);
+        this.determineAndCheck("\n", 1, "", 1, 1);
     }
 
     @Test
     public void testEndAfterCarriageReturn() {
-        this.determineAndCheck("\r", 1, "", 2, 1);
+        this.determineAndCheck("\r", 1, "", 1, 1);
     }
 
     @Test
     public void testEndAfterCarriageReturnNewLine() {
-        this.determineAndCheck("\r\n", 2, "", 2, 1);
+        this.determineAndCheck("\r\n", 1, "", 1, 1);
+    }
+
+    @Test
+    public void testEndAfterCarriageReturnNewLine2() {
+        this.determineAndCheck("\r\n", 2, "", 1, 1);
     }
 
     @Test
@@ -97,17 +102,17 @@ public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColu
 
     @Test
     public void testCarriageReturnAfterLine() {
-        this.determineAndCheck("line\r", 4, "line", 1, 4);
+        this.determineAndCheck("line\r", 4, "line", 1, 5);
     }
 
     @Test
     public void testNewLineAfterLine() {
-        this.determineAndCheck("line\n", 4, "line", 1, 4);
+        this.determineAndCheck("line\n", 4, "line", 1, 5);
     }
 
     @Test
     public void testCarriageReturnNewLineAfterLine() {
-        this.determineAndCheck("line\r\n", 5, "line", 1, 4);
+        this.determineAndCheck("line\r\n", 5, "line", 1, 5);
     }
 
     @Test
@@ -161,17 +166,23 @@ public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColu
     @Test
     public void testEmptyLastLineTerminatedByCarriageReturn() {
         final String text = "first\n\r";
-        this.determineAndCheck(text, text.length(), "", 3, 1);
+        this.determineAndCheck(text, text.length(), "", 2, 1); // CR is line 2
     }
 
     @Test
     public void testEmptyLastLineTerminatedByNewLine() {
         final String text = "first\n\n";
-        this.determineAndCheck(text, text.length(), "", 3, 1);
+        this.determineAndCheck(text, text.length(), "", 2, 1); // 2nd NL is line 2
     }
 
     @Test
     public void testLastChar() {
+        final String text = "first";
+        this.determineAndCheck(text, text.length(), text, 1, 6);
+    }
+
+    @Test
+    public void testLastChar2() {
         final String text = "first\nsecond\rthird";
         this.determineAndCheck(text, text.length() - 1, "third", 3, 5);
     }
@@ -179,19 +190,46 @@ public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColu
     @Test
     public void testLastCharEndsWithCarriageReturn() {
         final String text = "first\nsecond\rthird\r";
-        this.determineAndCheck(text, text.length() - 1, "third", 3, 5);
+        this.determineAndCheck(text, text.length() - 2, "third", 3, 5);
+    }
+
+    @Test
+    public void testLastCharEndsWithCarriageReturn2() {
+        final String text = "first\nsecond\rthird\r";
+        this.determineAndCheck(text, text.length() - 2, "third", 3, 5);
     }
 
     @Test
     public void testLastCharEndsWithNewLine() {
         final String text = "first\nsecond\rthird\n";
-        this.determineAndCheck(text, text.length() - 1, "third", 3, 5);
+        this.determineAndCheck(text, text.length() - 1, "third", 3, 6);
+    }
+
+    @Test
+    public void testLastCharEndsWithNewLine2() {
+        final String text = "first\nsecond\rthird\n";
+        this.determineAndCheck(text, text.length() - 1, "third", 3, 6);
     }
 
     @Test(expected = StringIndexOutOfBoundsException.class)
     public void testAfterLastCharFails() {
         final String text = "first\nsecond\rthird";
         this.determineAndCheck(text, text.length() + 1, "", 4, 1);
+    }
+
+    @Test
+    public void testAfterEndOfText() {
+        this.determineAndCheck("abc", 3, "abc", 1, 4);
+    }
+
+    @Test
+    public void testAfterEndOfText2() {
+        this.determineAndCheck("abc\ndef", 7, "def", 2, 4);
+    }
+
+    @Test
+    public void testAfterEndOfText3() {
+        this.determineAndCheck("abc\rdef", 7, "def", 2, 4);
     }
 
     private void determineAndCheck(final String text, final String pos, final String line, final int lineNumber,
