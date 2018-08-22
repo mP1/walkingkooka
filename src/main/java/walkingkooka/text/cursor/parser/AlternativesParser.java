@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link Parser} that tries all parsers until one is matched and then ignores the remainder.
  */
-final class AlternativesParser<C extends ParserContext> extends ParserTemplate<ParserToken, C> implements HashCodeEqualsDefined {
+final class AlternativesParser<C extends ParserContext> implements Parser<ParserToken, C>, HashCodeEqualsDefined {
 
     static <C extends ParserContext> Parser<ParserToken, C> with(final List<Parser<ParserToken, C>> parsers){
         Objects.requireNonNull(parsers, "parsers");
@@ -54,8 +54,12 @@ final class AlternativesParser<C extends ParserContext> extends ParserTemplate<P
         this.parsers = parsers;
     }
 
+    /**
+     * Try all parsers even when the {@link TextCursor} is empty. This is necessary,
+     * because one parser might be a {@link ReportingParser} which wants to report a parsing failure.
+     */
     @Override
-    Optional<ParserToken> tryParse(final TextCursor cursor, final C context) {
+    public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
         Optional<ParserToken> token = null;
 
         for(Parser<ParserToken, C> parser : this.parsers) {
