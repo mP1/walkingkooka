@@ -291,43 +291,43 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
 
     @Test
     public void testInvalidJsonReported() {
-        this.parseThrows("!INVALID", "Unrecognized character '!' at");
+        this.parseThrows("!INVALID", '!', 1, 1);
     }
 
     @Test
     public void testInvalidObjectPropertyKeyReported() {
-        this.parseThrows("{!INVALID}", "Unrecognized character '!' at");
+        this.parseThrows("{!INVALID}", '!', 2, 1);
     }
 
     @Test
     public void testInvalidObjectPropertyValueReported() {
-        this.parseThrows("{\"key1\":!INVALID}", "Unrecognized character '!' at");
+        this.parseThrows("{\"key1\":!INVALID}", '!', 9, 1);
     }
 
     @Test
     public void testInvalidObjectPropertyReportedValue2() {
-        this.parseThrows("{\"key1\":true,\"key2\":false,\"key3\":!INVALID}", "Unrecognized character '!' at");
+        this.parseThrows("{\"key1\":true,\"key2\":false,\"key3\":!INVALID}", '!', 34, 1);
     }
 
     @Test
     public void testInvalidObjectPropertyAssignmentSymbolReported() {
-        this.parseThrows("{\"key1\":true,\"key2\":false,\"key3\"!true}", "Unrecognized character '!' at");
+        this.parseThrows("{\"key1\":true,\"key2\":false,\"key3\"!true}", '!', 33, 1);
     }
 
     @Test
     public void testInvalidArrayElementReported() {
-        this.parseThrows("[!ABC]", "Unrecognized character '!' at");
+        this.parseThrows("[!ABC]", '!', 2, 1);
     }
 
     @Test
     public void testInvalidArrayElementReported2() {
-        this.parseThrows("[true, 123, !ABC]", "Unrecognized character '!' at");
+        this.parseThrows("[true, 123, !ABC]", '!', 13, 1);
     }
 
     @Test
     public void testInvalidArrayElementSeparatorReported() {
         // is complaining that the token 123 <space> <exclaimation point> abc is invalid rather than the missing separator
-        this.parseThrows("[123 !ABC]", "Unrecognized character '1' at (2,1)");
+        this.parseThrows("[123 !ABC]", '1', 2, 1);
     }
 
     @Override

@@ -151,6 +151,11 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         this.parseThrows(cursorText, "");
     }
 
+    protected final void parseThrows(final String cursorText, final char c, final int column, final int row) {
+        // Message format from BasicParserReporter
+        this.parseThrows(cursorText, "Unrecognized character " + CharSequences.quoteAndEscape(c) + " at (" + column + "," + row + ")");
+    }
+
     protected final void parseThrows(final String cursorText, final String messagePart) {
         this.parseThrows(TextCursors.charSequence(cursorText), messagePart);
     }
