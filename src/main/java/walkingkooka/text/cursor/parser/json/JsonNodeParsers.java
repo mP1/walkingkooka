@@ -19,6 +19,7 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
@@ -39,6 +40,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiFunction;
 
 public final class JsonNodeParsers implements PublicStaticHelper {
@@ -52,22 +54,31 @@ public final class JsonNodeParsers implements PublicStaticHelper {
     
     private static final EbnfIdentifierName ARRAY_BEGIN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("ARRAY_BEGIN");
     private static final EbnfIdentifierName ARRAY_END_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("ARRAY_END");
+    private static final EbnfIdentifierName ARRAY_ELEMENT_REQUIRED = EbnfIdentifierName.with("ARRAY_ELEMENT_REQUIRED");
 
     private static final EbnfIdentifierName BOOLEAN_IDENTIFIER = EbnfIdentifierName.with("BOOLEAN");
     private static final EbnfIdentifierName NULL_IDENTIFIER = EbnfIdentifierName.with("NULL");
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
 
+    private static final EbnfIdentifierName OBJECT_PROPERTY_REQUIRED = EbnfIdentifierName.with("OBJECT_PROPERTY_REQUIRED");
     private static final EbnfIdentifierName OBJECT_ASSIGNMENT_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OBJECT_ASSIGNMENT");
     private static final EbnfIdentifierName OBJECT_BEGIN_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OBJECT_BEGIN");
     private static final EbnfIdentifierName OBJECT_END_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OBJECT_END");
 
-    private static final EbnfIdentifierName SEPARATOR_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("SEPARATOR");
+    static final EbnfIdentifierName SEPARATOR_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("SEPARATOR");
 
     private static final EbnfIdentifierName STRING_IDENTIFIER = EbnfIdentifierName.with("STRING");
 
     private static final EbnfIdentifierName WHITESPACE_IDENTIFIER = EbnfIdentifierName.with("WHITESPACE");
 
     private static final EbnfIdentifierName VALUE_IDENTIFIER = EbnfIdentifierName.with("VALUE");
+
+    // required by JsonNodeEbnfParserCombinatorSyntaxTreeTransformer
+    static final Set<EbnfIdentifierName> REPORT_FAILURE_IDENTIFIER_NAMES = Sets.of(
+            OBJECT_ASSIGNMENT_SYMBOL_IDENTIFIER
+            //OBJECT_PROPERTY_REQUIRED,
+            //SEPARATOR_SYMBOL_IDENTIFIER
+            );
 
     /**
      * BOOLEAN

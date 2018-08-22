@@ -19,6 +19,7 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.RepeatedParserToken;
 import walkingkooka.text.cursor.parser.SequenceParserToken;
@@ -27,6 +28,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfExceptionParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGroupParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfOptionalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRangeParserToken;
@@ -110,9 +112,15 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
         return parser;
     }
 
+    /**
+     * Any symbol with a name ending in "REQUIRED" or in {@link JsonNodeParsers#REPORT_FAILURE_IDENTIFIER_NAMES} will be marked as orreport, that is report a parse failure if the parser fails.
+     */
     @Override
     public Parser<ParserToken, JsonNodeParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, JsonNodeParserContext> parser, final EbnfParserCombinatorContext context) {
-        return parser; // leave as is...
+        final EbnfIdentifierName identifier =token.value();
+        return identifier.value().endsWith("REQUIRED") || JsonNodeParsers.REPORT_FAILURE_IDENTIFIER_NAMES.contains(token.value()) ?
+                parser.orReport(ParserReporters.basic()) :
+                parser; // leave as is...
     }
 
     @Override

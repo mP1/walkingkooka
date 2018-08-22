@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
 
 import java.util.Arrays;
@@ -288,9 +289,52 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
                 objectEnd()), text);
     }
 
+    @Test
+    public void testInvalidJsonReported() {
+        this.parseThrows("!INVALID", "Unrecognized character '!' at");
+    }
+
+    @Test
+    public void testInvalidObjectPropertyKeyReported() {
+        this.parseThrows("{!INVALID}", "Unrecognized character '!' at");
+    }
+
+    @Test
+    public void testInvalidObjectPropertyValueReported() {
+        this.parseThrows("{\"key1\":!INVALID}", "Unrecognized character '!' at");
+    }
+
+    @Test
+    public void testInvalidObjectPropertyReportedValue2() {
+        this.parseThrows("{\"key1\":true,\"key2\":false,\"key3\":!INVALID}", "Unrecognized character '!' at");
+    }
+
+    @Test
+    public void testInvalidObjectPropertyAssignmentSymbolReported() {
+        this.parseThrows("{\"key1\":true,\"key2\":false,\"key3\"!true}", "Unrecognized character '!' at");
+    }
+
+    @Test
+    public void testInvalidArrayElementReported() {
+        this.parseThrows("[!ABC]", "Unrecognized character '!' at");
+    }
+
+    @Test
+    public void testInvalidArrayElementReported2() {
+        this.parseThrows("[true, 123, !ABC]", "Unrecognized character '!' at");
+    }
+
+    @Test
+    public void testInvalidArrayElementSeparatorReported() {
+        // is complaining that the token 123 <space> <exclaimation point> abc is invalid rather than the missing separator
+        this.parseThrows("[123 !ABC]", "Unrecognized character '1' at (2,1)");
+    }
+
     @Override
     protected Parser<JsonNodeParserToken, JsonNodeParserContext> createParser() {
-        return JsonNodeParsers.value().cast();
+        return JsonNodeParsers.value()
+                .orReport(ParserReporters.basic())
+                .cast();
     }
 
     @Override
