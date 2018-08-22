@@ -28,7 +28,7 @@ import java.time.temporal.TemporalAccessor;
 final class OffsetDateTimeDateTimeFormatterParser<C extends ParserContext> extends OffsetDateTimeFormatterParser<OffsetDateTimeParserToken, C>{
 
     static <C extends ParserContext> OffsetDateTimeDateTimeFormatterParser<C> with(final DateTimeFormatter formatter, final String pattern) {
-        return new OffsetDateTimeDateTimeFormatterParser(formatter, pattern);
+        return new OffsetDateTimeDateTimeFormatterParser<>(formatter, pattern);
     }
 
     private OffsetDateTimeDateTimeFormatterParser(DateTimeFormatter formatter, final String pattern) {

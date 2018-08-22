@@ -26,7 +26,7 @@ final class SimpleConverter implements Converter{
     /**
      * Singleton
      */
-    static SimpleConverter INSTANCE = new SimpleConverter();
+    static final SimpleConverter INSTANCE = new SimpleConverter();
 
     /**
      * Private ctor

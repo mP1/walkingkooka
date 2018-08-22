@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.visit.Visiting;
@@ -315,14 +314,6 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
 
     // ParserToken.......................................................................
 
-    private void acceptParserToken(final ParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            if(token instanceof SpreadsheetParserToken) {
-                this.acceptSpreadsheetParserToken(Cast.to(token));
-            }
-        }
-    }
-
     protected Visiting startVisit(final ParserToken token) {
         return Visiting.CONTINUE;
     }
@@ -332,12 +323,6 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     }
 
     // SpreadsheetParserToken.......................................................................
-
-    private void acceptSpreadsheetParserToken(final SpreadsheetParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            token.accept(this);
-        }
-    }
 
     protected Visiting startVisit(final SpreadsheetParserToken token) {
         return Visiting.CONTINUE;

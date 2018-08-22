@@ -49,12 +49,12 @@ final class TransformingParser<TIN extends ParserToken, TOUT extends ParserToken
 
     }
 
-    private Parser<TIN, C> parser;
+    private final Parser<TIN, C> parser;
 
     /**
      * A {@link BiFunction} that transforms successful tokens into another.
      */
-    private BiFunction<TIN, C, TOUT> transformer;
+    private final BiFunction<TIN, C, TOUT> transformer;
 
     @Override
     public String toString() {

@@ -179,7 +179,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         return this.index;
     }
 
-    int index;
+    final int index;
 
     /**
      * Would be setter that returns an instance with the index, creating a new instance if necessary.

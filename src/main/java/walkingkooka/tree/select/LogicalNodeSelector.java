@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.ShouldNeverHappenError;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
@@ -85,12 +86,12 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     public final boolean equals(final Object other) {
-        return this == other || this.canBeEqual(other) && this.equals0((LogicalNodeSelector<N, NAME, ANAME, AVALUE>)other);
+        return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final LogicalNodeSelector<N, NAME, ANAME, AVALUE>other){
+    private boolean equals0(final LogicalNodeSelector<?, ?, ?, ?>other){
         return this.selectors.equals(other.selectors);
     }
 }

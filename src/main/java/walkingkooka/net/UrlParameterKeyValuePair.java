@@ -83,6 +83,6 @@ final class UrlParameterKeyValuePair {
      */
     final String encoded;
 
-    boolean separatorIncluded;
-    char separator;
+    final boolean separatorIncluded;
+    final char separator;
 }

@@ -74,7 +74,7 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
         try {
             handler.linePrinted(longLine, ending, printer);
             Assert.fail();
-        } catch (final RuntimeException expected) {
+        } catch (final RuntimeException ignored) {
         }
     }
 

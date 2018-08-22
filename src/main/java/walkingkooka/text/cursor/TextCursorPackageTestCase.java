@@ -66,7 +66,7 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
         try {
             cursor.next();
             fail("cursor.next() should have failed=" + cursor);
-        } catch (final TextCursorException expected) {
+        } catch (final TextCursorException ignored) {
         }
     }
 
@@ -74,7 +74,7 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
         try {
             cursor.next();
             fail(message + "=" + cursor);
-        } catch (final TextCursorException expected) {
+        } catch (final TextCursorException ignored) {
         }
     }
 
@@ -111,7 +111,7 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
         try {
             cursor.at();
             fail("cursor.at() should have failed=" + cursor);
-        } catch (final TextCursorException expected) {
+        } catch (final TextCursorException ignored) {
         }
     }
 
@@ -119,7 +119,7 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
         try {
             cursor.at();
             fail(message + '=' + cursor);
-        } catch (final TextCursorException expected) {
+        } catch (final TextCursorException ignored) {
         }
     }
 

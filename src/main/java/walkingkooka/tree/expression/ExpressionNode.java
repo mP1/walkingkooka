@@ -307,7 +307,7 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
         return this.index;
     }
 
-    int index;
+    final int index;
 
     abstract ExpressionNode wrap(final int index);
 

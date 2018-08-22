@@ -53,7 +53,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         return false;
     }
 
-    public final static int ROOT_NODE_INDEX = -1;
+    int ROOT_NODE_INDEX = -1;
 
     /**
      * If not the root returns the index of this node, or -1 for root.

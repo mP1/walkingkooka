@@ -34,7 +34,7 @@ final class NodeChildNamedNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NA
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeChildNamedNodePointer<N, NAME, ANAME, AVALUE> with(final NAME name) {
         Objects.requireNonNull(name, "name");
 
-        return new NodeChildNamedNodePointer(name, NO_NEXT);
+        return new NodeChildNamedNodePointer<>(name, NO_NEXT);
     }
 
     /**
@@ -47,7 +47,7 @@ final class NodeChildNamedNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     @Override
     NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
-        return new NodeChildNamedNodePointer(this.name, this.appendToNext(pointer));
+        return new NodeChildNamedNodePointer<>(this.name, this.appendToNext(pointer));
     }
 
     @Override

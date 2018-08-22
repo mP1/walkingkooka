@@ -80,7 +80,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
         try {
             final Object next = iterator.next();
             Assert.fail(message + "=" + next);
-        } catch (final NoSuchElementException expected) {
+        } catch (final NoSuchElementException ignored) {
         }
     }
 
@@ -93,7 +93,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
         try {
             iterator.remove();
             Assert.fail(message);
-        } catch (final IllegalStateException expected) {
+        } catch (final IllegalStateException ignored) {
         }
     }
 
@@ -109,7 +109,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
         try {
             iterator.remove();
             Assert.fail(message);
-        } catch (final UnsupportedOperationException expected) {
+        } catch (final UnsupportedOperationException ignored) {
         }
     }
 
@@ -122,7 +122,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
         try {
             iterator.remove();
             Assert.fail(message);
-        } catch (final UnsupportedOperationException expected) {
+        } catch (final UnsupportedOperationException ignored) {
         }
     }
 

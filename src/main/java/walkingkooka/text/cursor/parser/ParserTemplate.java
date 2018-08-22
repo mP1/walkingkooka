@@ -36,7 +36,7 @@ abstract class ParserTemplate<T extends ParserToken, C extends ParserContext> im
     /**
      * Returns an empty optional which matches an unsuccessful parser attempt.
      */
-    final <T> Optional<T> fail() {
+    final Optional<T> fail() {
         return Optional.empty();
     }
 

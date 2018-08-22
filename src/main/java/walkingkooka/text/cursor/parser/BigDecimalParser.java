@@ -64,8 +64,6 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate2<Bi
 
     private final static int FINISH = EXPONENT_DIGIT * 2;
 
-    private final static int FAIL = FINISH * 2;
-
     /**
      * Reads character by character until a non digit is found, using a {@link BigInteger} to hold the value.
      * Basically a cut down version of {@link DoubleParser#tryParse0(TextCursor, ParserContext, TextCursorSavePoint)},
@@ -181,10 +179,6 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate2<Bi
                 }
                 // invalid char
                 mode = FINISH;
-                break;
-            }
-
-            if(FAIL == mode){
                 break;
             }
 

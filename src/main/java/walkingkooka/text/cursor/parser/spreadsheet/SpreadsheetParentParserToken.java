@@ -67,7 +67,7 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
         return this.without;
     }
 
-    private Optional<SpreadsheetParserToken> without;
+    private final Optional<SpreadsheetParserToken> without;
 
     @Override
     public final boolean isBetweenSymbol() {

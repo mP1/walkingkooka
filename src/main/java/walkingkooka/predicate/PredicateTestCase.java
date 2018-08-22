@@ -39,7 +39,7 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
         try {
             this.test(null);
             Assert.fail();
-        } catch (final NullPointerException expected) {
+        } catch (final NullPointerException ignored) {
         }
     }
 

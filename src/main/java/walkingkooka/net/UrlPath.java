@@ -23,7 +23,6 @@ import walkingkooka.naming.Path;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
@@ -167,7 +166,7 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
         return this.name;
     }
 
-    transient private UrlPathName name;
+    transient private final UrlPathName name;
 
     @Override
     public Optional<UrlPath> parent() {
@@ -250,7 +249,7 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
 
     // Serialization....................................................................................................
 
-    private Object readResolve() throws ObjectStreamException {
+    private Object readResolve() {
         return UrlPath.parse(this.path);
     }
 

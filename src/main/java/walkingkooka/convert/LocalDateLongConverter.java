@@ -26,7 +26,7 @@ final class LocalDateLongConverter extends LocalDateConverter<Long> {
     /**
      * Singleton
      */
-    static LocalDateLongConverter INSTANCE = new LocalDateLongConverter();
+    static final LocalDateLongConverter INSTANCE = new LocalDateLongConverter();
 
     /**
      * Private ctor use singleton

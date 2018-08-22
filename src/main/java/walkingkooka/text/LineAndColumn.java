@@ -133,7 +133,7 @@ public final class LineAndColumn implements HashCodeEqualsDefined {
         return columnNumber;
     }
 
-    private CharSequence line;
+    private final CharSequence line;
 
     public CharSequence line(){
         return this.line;

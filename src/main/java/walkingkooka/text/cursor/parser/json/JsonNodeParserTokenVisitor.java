@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.Cast;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.visit.Visiting;
@@ -93,14 +92,6 @@ public abstract class JsonNodeParserTokenVisitor extends ParserTokenVisitor {
 
     // ParserToken.......................................................................
 
-    private void acceptParserToken(final ParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            if(token instanceof JsonNodeParserToken) {
-                this.acceptJsonNodeParserToken(Cast.to(token));
-            }
-        }
-    }
-
     protected Visiting startVisit(final ParserToken token) {
         return Visiting.CONTINUE;
     }
@@ -110,12 +101,6 @@ public abstract class JsonNodeParserTokenVisitor extends ParserTokenVisitor {
     }
 
     // JsonNodeParserToken.......................................................................
-
-    private void acceptJsonNodeParserToken(final JsonNodeParserToken token) {
-        if(Visiting.CONTINUE == this.startVisit(token)) {
-            token.accept(this);
-        }
-    }
 
     protected Visiting startVisit(final JsonNodeParserToken token) {
         return Visiting.CONTINUE;

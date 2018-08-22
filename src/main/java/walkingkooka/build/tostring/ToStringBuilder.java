@@ -892,8 +892,7 @@ final public class ToStringBuilder implements Builder<String> {
         final String before = this.before;
         final String after = this.after;
         final EnumSet<ToStringBuilderOption> options = this.options;
-        final EnumSet<ToStringBuilderOption> copy = EnumSet.copyOf(options);
-        this.options = copy;
+        this.options = EnumSet.copyOf(options);
 
         // increase depth
         final int depth = this.depth;

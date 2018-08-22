@@ -127,7 +127,7 @@ final class AnyCharPredicate implements CharPredicate, HashCodeEqualsDefined, Se
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.array);
+        return Arrays.hashCode(this.array);
     }
 
     @Override

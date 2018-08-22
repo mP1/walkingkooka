@@ -59,7 +59,7 @@ abstract class JsonNodeParentParserToken extends JsonNodeParserToken implements 
         return this.without.get() == this;
     }
 
-    private Optional<JsonNodeParserToken> without;
+    private final Optional<JsonNodeParserToken> without;
 
     final List<ParserToken> valueIfWithoutSymbolsOrWhitespaceOrNull() {
         return this == this.without.get() ? this.value : null;

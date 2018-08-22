@@ -52,7 +52,7 @@ final class ReflectionPojoNodeContext implements PojoNodeContext {
     /**
      * A cache that holds class to its properties for future reuse.
      */
-    private Map<Class<?>, List<PojoProperty>> typeToProperties = Maps.concurrent();
+    private final Map<Class<?>, List<PojoProperty>> typeToProperties = Maps.concurrent();
 
     private List<PojoProperty> discoverProperties(final Class<?> type) {
         if(type.isPrimitive()) {

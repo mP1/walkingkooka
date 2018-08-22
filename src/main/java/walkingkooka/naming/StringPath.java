@@ -101,7 +101,7 @@ final public class StringPath
         return this.path;
     }
 
-    private Optional<StringPath> parent;
+    private final Optional<StringPath> parent;
 
     /**
      * Returns the parent {@link StringPath}.

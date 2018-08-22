@@ -23,8 +23,6 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -110,11 +108,11 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
         return number instanceof BigDecimal ?
                 this.applyBigDecimal(BigDecimal.class.cast(number), context) :
                 number instanceof BigInteger ?
-                        this.applyBigInteger(BigInteger.class.cast(number), context) :
+                        this.applyBigInteger(BigInteger.class.cast(number)) :
                         number instanceof Double ?
-                                this.applyDouble(Double.class.cast(number), context) :
+                                this.applyDouble(Double.class.cast(number)) :
                                 number instanceof Long ?
-                                        this.applyLong(Long.class.cast(number), context) :
+                                        this.applyLong(Long.class.cast(number)) :
                                             failToNumber();
     }
 
@@ -122,15 +120,15 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
         return bigDecimal.negate(context.mathContext());
     }
 
-    private BigInteger applyBigInteger(final BigInteger bigInteger, final ExpressionEvaluationContext context) {
+    private BigInteger applyBigInteger(final BigInteger bigInteger) {
         return bigInteger.negate();
     }
 
-    private Double applyDouble(final Double doubleValue, final ExpressionEvaluationContext context) {
+    private Double applyDouble(final Double doubleValue) {
         return -doubleValue;
     }
 
-    private Long applyLong(final Long longValue, final ExpressionEvaluationContext context) {
+    private Long applyLong(final Long longValue) {
         return -longValue;
     }
 

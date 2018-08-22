@@ -94,7 +94,7 @@ final class DateTimeFormatterParserPatternBuilder {
         this.patterns.add(new DateTimeFormatterParserPatternBuilderToken(pattern));
     }
 
-    private List<DateTimeFormatterParserPatternBuilderToken> patterns = Lists.array();
+    private final List<DateTimeFormatterParserPatternBuilderToken> patterns = Lists.array();
 
     int[] build() {
         final List<DateTimeFormatterParserPatternBuilderToken> finished = Lists.array();

@@ -62,7 +62,7 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new IndexedChildNodeSelector(this.index, selector);
+        return new IndexedChildNodeSelector<>(this.index, selector);
     }
 
     @Override
@@ -78,7 +78,10 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     void toString0(final StringBuilder b, String separator){
-        b.append(separator).append("[" + this.index + "]");
+        b.append(separator)
+                .append("[")
+                .append(this.index)
+                .append(']');
         this.toStringNext(b, "");
     }
 

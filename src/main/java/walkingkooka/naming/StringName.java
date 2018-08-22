@@ -23,7 +23,6 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.text.Whitespace;
 
-import java.io.ObjectStreamException;
 import java.io.Serializable;
 
 /**
@@ -67,7 +66,7 @@ final public class StringName implements Name, ShouldBeQuoted, HashCodeEqualsDef
     /**
      * Ensures singleton instance of any {@link StringName#ROOT}.
      */
-    private Object readResolve() throws ObjectStreamException {
+    private Object readResolve() {
         return this.name.equals(StringName.ROOT.name) ? StringName.ROOT : this;
     }
 

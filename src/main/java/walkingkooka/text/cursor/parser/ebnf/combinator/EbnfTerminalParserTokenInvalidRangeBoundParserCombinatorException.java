@@ -35,7 +35,7 @@ public class EbnfTerminalParserTokenInvalidRangeBoundParserCombinatorException e
         return this.bound;
     }
 
-    private EbnfParserToken bound;
+    private final EbnfParserToken bound;
 
     private final static long serialVersionUID = 1L;
 }

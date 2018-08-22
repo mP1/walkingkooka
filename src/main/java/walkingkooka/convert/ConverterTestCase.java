@@ -76,7 +76,7 @@ public abstract class ConverterTestCase<C extends Converter> extends PackagePriv
         try{
             final Object result = converter.convert(value, type);
             fail("Expected " + converter + " with " + CharSequences.quoteIfChars(value) + " to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
-        } catch (final ConversionException expected) {
+        } catch (final ConversionException ignored) {
         }
     }
 

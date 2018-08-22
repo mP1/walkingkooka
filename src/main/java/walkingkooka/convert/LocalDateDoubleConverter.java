@@ -26,7 +26,7 @@ final class LocalDateDoubleConverter extends LocalDateConverter<Double> {
     /**
      * Singleton
      */
-    static LocalDateDoubleConverter INSTANCE = new LocalDateDoubleConverter();
+    static final LocalDateDoubleConverter INSTANCE = new LocalDateDoubleConverter();
 
     /**
      * Private ctor use singleton
@@ -41,7 +41,7 @@ final class LocalDateDoubleConverter extends LocalDateConverter<Double> {
 
     @Override
     Double convert3(final long value) {
-        final double doubleValue = value;
+        final double doubleValue = (double)value;
         if(value!=doubleValue){
             this.failConversion(value);
         }

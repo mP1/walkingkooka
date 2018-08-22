@@ -47,7 +47,7 @@ final class SequenceParserTokenNode extends ParserTokenNode{
 
     private SequenceParserTokenNodeList children;
 
-    Optional<ParserTokenNode> childrenParent;
+    final Optional<ParserTokenNode> childrenParent;
 
     @Override
     public SequenceParserTokenNode setChildren(final List<ParserTokenNode> children) {

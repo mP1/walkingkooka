@@ -25,22 +25,22 @@ public interface TextCursor extends TextCursorLike {
     /**
      * Test if the cursor is empty at the current position. False means that the current character is available to be read by {@link #at()}.
      */
-    abstract boolean isEmpty() throws TextCursorException;
+    boolean isEmpty() throws TextCursorException;
 
     /**
      * Retrieves the character at the current location
      */
-    abstract char at() throws TextCursorException;
+    char at() throws TextCursorException;
 
     /**
      * Advances the cursor to the next character which may be read. Note it is possible to move past the last character.
      */
-    abstract TextCursor next() throws TextCursorException;
+    TextCursor next() throws TextCursorException;
 
     /**
      * Moves the {@link TextCursor} to the end. Any future attempts to read a character or move will fail.
      */
-    default public TextCursor end() throws TextCursorException {
+    default TextCursor end() throws TextCursorException {
         while (false == this.isEmpty()) {
             this.next();
         }
@@ -50,10 +50,10 @@ public interface TextCursor extends TextCursorLike {
     /**
      * Creates a {@link TextCursorSavePoint} for this {@link TextCursor}.
      */
-    abstract TextCursorSavePoint save();
+    TextCursorSavePoint save();
 
     /**
      * Returns a {@link TextCursorLineInfo} for the current position of this {@link TextCursor}
      */
-    abstract TextCursorLineInfo lineInfo();
+    TextCursorLineInfo lineInfo();
 }

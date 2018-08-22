@@ -61,7 +61,7 @@ final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         // no point appending a preceeding to another...
         return selector instanceof PrecedingNodeSelector ?
                 this :
-                new PrecedingNodeSelector(selector);
+                new PrecedingNodeSelector<>(selector);
     }
 
     @Override

@@ -80,9 +80,6 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
                 } else {
                     final NAME name = nameFactory.apply(component.replace("~1", "/")
                             .replace("~0", "~"));
-                    if (relative) {
-                        throw new IllegalArgumentException("Expected number with relative pointer=" + CharSequences.quote(pointer));
-                    }
                     result = result.named(name);
                 }
             }

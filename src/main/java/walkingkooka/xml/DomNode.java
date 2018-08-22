@@ -272,7 +272,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
      */
     final org.w3c.dom.Node nodeCloneAll0() {
         final int index = this.index();
-        return NO_INDEX == index ? this.node.cloneNode(true) : this.nodeCloneAll2(this.node, index);
+        return NO_INDEX == index ? this.node.cloneNode(true) : nodeCloneAll2(this.node, index);
     }
 
     private static org.w3c.dom.Node nodeCloneAll1(final org.w3c.dom.Node node) {
@@ -459,7 +459,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     /**
      * Writes the entire document to the provided {@link Writer}.
      */
-    public final void toXml(final Transformer transformer, final Writer writer) throws IOException, TransformerException {
+    public final void toXml(final Transformer transformer, final Writer writer) throws TransformerException {
         Objects.requireNonNull(transformer, "transformer");
         Objects.requireNonNull(writer, "writer");
 

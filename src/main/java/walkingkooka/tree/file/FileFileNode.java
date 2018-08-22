@@ -98,7 +98,7 @@ final class FileFileNode extends FileNode{
             try {
                 this.text = this.context.text(this.path);
             } catch ( final Exception cause) {
-                throw this.exception("Failed to get text for " + pathToString(), cause);
+                throw exception("Failed to get text for " + pathToString(), cause);
             }
         }
         return this.text;

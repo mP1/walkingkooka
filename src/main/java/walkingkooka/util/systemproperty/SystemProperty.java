@@ -131,7 +131,7 @@ final public class SystemProperty implements Value<String>, HashCodeEqualsDefine
         return this.name;
     }
 
-    String name;
+    final String name;
 
     /**
      * Retrieves the current value of this system property. May return null if not set.

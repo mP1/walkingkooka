@@ -103,7 +103,7 @@ final public class OpenChecker<T extends Throwable> {
     /**
      * A flag that becomes true when closed
      */
-    private volatile AtomicBoolean closed = new AtomicBoolean();
+    private final AtomicBoolean closed = new AtomicBoolean();
 
     /**
      * Dumps the closed status of this guard.

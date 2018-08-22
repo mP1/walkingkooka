@@ -44,7 +44,7 @@ abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends
     }
 
     @Test
-    final public void testSeparatorConstant() throws Exception {
+    final public void testSeparatorConstant() {
         this.checkFieldIsPublicStaticFinal(this.type(), "SEPARATOR", PathSeparator.class);
     }
 

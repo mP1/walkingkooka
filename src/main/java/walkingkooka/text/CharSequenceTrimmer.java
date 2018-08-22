@@ -75,8 +75,7 @@ final class CharSequenceTrimmer implements PackagePrivateStaticHelper {
      * Finds the last non whitespace character in the {@link CharSequence}
      */
     static private int findEnd(final CharSequence chars, final int stop) {
-        final int length = chars.length();
-        int i = length;
+        int i = chars.length();
 
         while (i > stop) {
             i--;

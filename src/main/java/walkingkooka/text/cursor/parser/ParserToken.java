@@ -38,7 +38,7 @@ public interface ParserToken extends HasText {
     /**
      * Returns a {@link ParserTokenNode} for this {@link ParserToken}
      */
-    default public ParserTokenNode asNode() {
+    default ParserTokenNode asNode() {
         return ParserTokenNode.with(this);
     }
 
@@ -70,7 +70,7 @@ public interface ParserToken extends HasText {
     /**
      * Useful to get help reduce casting noise.
      */
-    public default <T extends ParserToken> T cast() {
+    default <T extends ParserToken> T cast() {
         return Cast.to(this);
     }
 }

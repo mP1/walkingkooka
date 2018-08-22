@@ -39,7 +39,7 @@ final class NoneNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
      * Creates a {@link NoneNodePointer}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NoneNodePointer<N, NAME, ANAME, AVALUE> with(final String toString) {
-        return new NoneNodePointer(toString);
+        return new NoneNodePointer<>(toString);
     }
 
     /**

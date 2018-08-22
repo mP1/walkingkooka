@@ -61,7 +61,7 @@ abstract public class PrinterTestCase<P extends Printer> extends PackagePrivateC
         try {
             printer.print("print should have been failed because is already closed");
             Assert.fail();
-        } catch (final PrinterException expected) {
+        } catch (final PrinterException ignored) {
         }
     }
 
@@ -72,7 +72,7 @@ abstract public class PrinterTestCase<P extends Printer> extends PackagePrivateC
         try {
             printer.lineEnding();
             Assert.fail();
-        } catch (final PrinterException expected) {
+        } catch (final PrinterException ignored) {
         }
     }
 
@@ -82,7 +82,7 @@ abstract public class PrinterTestCase<P extends Printer> extends PackagePrivateC
         try {
             printer.flush();
             Assert.fail();
-        } catch (final PrinterException expected) {
+        } catch (final PrinterException ignored) {
         }
     }
 
@@ -147,7 +147,7 @@ abstract public class PrinterTestCase<P extends Printer> extends PackagePrivateC
         try {
             printer.print(null);
             Assert.fail();
-        } catch (final RuntimeException expected) {
+        } catch (final RuntimeException ignored) {
         }
     }
 

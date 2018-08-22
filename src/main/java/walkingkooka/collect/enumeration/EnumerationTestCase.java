@@ -80,7 +80,7 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
         try {
             final Object next = enumeration.nextElement();
             Assert.fail(message + "=" + next);
-        } catch (final NoSuchElementException expected) {
+        } catch (final NoSuchElementException ignored) {
         }
     }
 

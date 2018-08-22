@@ -116,7 +116,7 @@ final class CharSequenceTextCursor implements TextCursor {
     int position;
 
     /**
-     * Returns a nice {@link #toString} highlighting the cursor and surrounding characters.
+     * Returns a nice {@link Object#toString} highlighting the cursor and surrounding characters.
      */
     @Override
     public String toString() {

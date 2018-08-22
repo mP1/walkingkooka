@@ -61,7 +61,7 @@ final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         // no point appending a following to another...
         return selector instanceof FollowingNodeSelector ?
                 this :
-                new FollowingNodeSelector(selector);
+                new FollowingNodeSelector<>(selector);
     }
 
     @Override

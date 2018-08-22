@@ -43,8 +43,6 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private static final SpreadsheetNumericParserToken NO_NUMBER = null;
-
     private SpreadsheetSubtractionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
         super(value, text, left, right, valueWithout);
     }

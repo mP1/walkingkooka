@@ -36,7 +36,7 @@ final class NodeChildElementNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, 
             throw new IllegalArgumentException("Invalid index " + index + " values should be greater or equal to 0");
         }
 
-        return new NodeChildElementNodePointer(index, NO_NEXT);
+        return new NodeChildElementNodePointer<>(index, NO_NEXT);
     }
 
     /**
@@ -49,7 +49,7 @@ final class NodeChildElementNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, 
 
     @Override
     NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
-        return new NodeChildElementNodePointer(this.index, this.appendToNext(pointer));
+        return new NodeChildElementNodePointer<>(this.index, this.appendToNext(pointer));
     }
 
     @Override
