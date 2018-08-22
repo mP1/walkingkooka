@@ -20,6 +20,8 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursors;
 
 public final class BasicParserReporterTest extends ParserReporterTestCase<BasicParserReporter<StringParserToken, FakeParserContext>, StringParserToken, FakeParserContext>{
 
@@ -27,6 +29,23 @@ public final class BasicParserReporterTest extends ParserReporterTestCase<BasicP
     public void testReport() {
         // has a dependency on the results of TextCursorLineInfo methods...
         this.reportAndCheck("abc def ghi", Parsers.fake().setToString("ABC").cast(), "Unrecognized character 'a' at (1,1) \"abc def ghi\" expected ABC");
+    }
+
+    @Test
+    public void testReport2() {
+       // has a dependency on the results of TextCursorLineInfo methods...
+        final TextCursor cursor = TextCursors.charSequence("abc def ghi");
+        cursor.next();
+        cursor.next();
+
+        this.reportAndCheck(cursor, Parsers.fake().setToString("ABC").cast(), "Unrecognized character 'c' at (3,1) \"abc def ghi\" expected ABC");
+    }
+
+    @Test
+    public void testReportEmptyTextCursor() {
+        final TextCursor cursor = TextCursors.charSequence("abc");
+        cursor.end();
+        this.reportAndCheck(cursor, Parsers.fake().setToString("XYZ").cast(), "End of text at (4,1) \"abc\" expected XYZ");
     }
 
     @Override

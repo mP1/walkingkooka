@@ -59,11 +59,27 @@ final class BasicParserReporter<T extends ParserToken, C extends ParserContext> 
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(parser, "parser");
 
+        final StringBuilder message = new StringBuilder();
+        if(cursor.isEmpty()){
+            message.append("End of text");
+        } else {
+            message.append("Unrecognized character ");
+            message.append(CharSequences.quoteAndEscape(cursor.at()));
+        }
+        message.append(" at ");
+
         final TextCursorLineInfo info = cursor.lineInfo();
-        throw new ParserReporterException("Unrecognized character " + CharSequences.quoteIfChars(cursor.at()) +
-                " at " + info.summary() +
-                " " + CharSequences.quoteAndEscape(info.text()) + " expected " + parser,
-                info);
+        message.append(info.summary());
+
+        final CharSequence text = info.text();
+        if(text.length() > 0) {
+            message.append(' ');
+            message.append(CharSequences.quoteAndEscape(info.text()));
+        }
+        message.append(" expected ");
+        message.append(parser);
+
+        throw new ParserReporterException(message.toString(), info);
     }
 
     @Override
