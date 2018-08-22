@@ -62,7 +62,8 @@ final class BasicParserReporter<T extends ParserToken, C extends ParserContext> 
         final TextCursorLineInfo info = cursor.lineInfo();
         throw new ParserReporterException("Unrecognized character " + CharSequences.quoteIfChars(cursor.at()) +
                 " at " + info.summary() +
-                " " + CharSequences.quoteAndEscape(info.text()) + " expected " + parser);
+                " " + CharSequences.quoteAndEscape(info.text()) + " expected " + parser,
+                info);
     }
 
     @Override
