@@ -68,6 +68,12 @@ public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T e
     }
 
     protected void reportAndCheck(final TextCursor cursor,
+                                  final Parser<T, C> parser,
+                                  final String messageContains) {
+        this.reportAndCheck(cursor, this.createContext(), parser, messageContains);
+    }
+
+    protected void reportAndCheck(final TextCursor cursor,
                                   final C context,
                                   final Parser<T, C> parser,
                                   final String messageContains) {
@@ -88,7 +94,7 @@ public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T e
         } catch (final ParserReporterException expected) {
             save.restore();
             final String message = expected.getMessage();
-            assertTrue("report message: " + message, message.contains(messageContains));
+            assertTrue("report message: " + CharSequences.quoteAndEscape(message) + " missing contains: " + CharSequences.quoteAndEscape(messageContains), message.contains(messageContains));
         }
     }
 
