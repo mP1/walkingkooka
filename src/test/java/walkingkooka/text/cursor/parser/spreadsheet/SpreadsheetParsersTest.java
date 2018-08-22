@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -691,6 +692,30 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
         final SpreadsheetMultiplicationParserToken mul = SpreadsheetParserToken.multiplication(Lists.of(group1, multiply(), group1), group1.text() + "*" + group2.text());
         this.parseAndCheck(mul.text(), mul, mul.text());
+    }
+
+    @Test
+    public void testInvalidTokenFails() {
+        this.parseThrows("!", this.reporterMessage('!', 1, 1));
+    }
+
+    @Test
+    public void testInvalidTokenFails2() {
+        this.parseThrows("  !", this.reporterMessage('!', 3, 1));
+    }
+
+    @Test
+    public void testInvalidBinaryTokenRightFails() {
+        this.parseThrows("1+!", this.reporterMessage('!', 3, 1));
+    }
+
+    @Test
+    public void testInvalidGroupTokenFails() {
+        this.parseThrows("( !", this.reporterMessage('!', 3, 1));
+    }
+
+    private String reporterMessage(final char c, final int column, final int row) {
+        return "Unrecognized character " + CharSequences.quoteIfChars(c) + " at (" + column + "," + row + ")";
     }
 
     @Override
