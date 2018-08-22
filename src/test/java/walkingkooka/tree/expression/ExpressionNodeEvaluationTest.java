@@ -214,7 +214,7 @@ public class ExpressionNodeEvaluationTest extends TestCase {
     private Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
         final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number = Parsers.<SpreadsheetParserContext>bigDecimal('.', MathContext.DECIMAL32)
                 .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigDecimal(numberParserToken.value(), numberParserToken.text()))
-                .cast(SpreadsheetParserToken.class);
+                .cast();
 
         return SpreadsheetParsers.expression(number);
     }

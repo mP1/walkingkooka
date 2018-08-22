@@ -177,7 +177,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
         final Parser<ParserToken, C> right = this.children.get(1);
         final Parser<ParserToken, C> parser = left.andNot(right)
                 .setToString(token.toString())
-                .castC();
+                .cast();
         this.exit();
         this.add(
                 this.context.syntaxTreeTransformer.exception(token, parser, this.context),
@@ -305,7 +305,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
         if(null == parser) {
             throw new NullPointerException("Null parser returned for " + token);
         }
-        this.children.add(parser.castC());
+        this.children.add(parser.cast());
     }
 
     private final EbnfParserCombinatorContext<C> context;

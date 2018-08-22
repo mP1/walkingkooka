@@ -127,7 +127,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             final Map<EbnfIdentifierName, Parser<ParserToken, SpreadsheetParserContext>> predefined = Maps.ordered();
             predefined.put(COLUMN_ROW_IDENTIFIER, columnRow());
             predefined.put(WHITESPACE_IDENTIFIER, whitespace());
-            predefined.put(NUMBER_IDENTIFIER, number.castC());
+            predefined.put(NUMBER_IDENTIFIER, number.cast());
             predefined.put(FUNCTION_NAME_IDENTIFIER, functionName());
             predefined.put(LABEL_NAME_IDENTIFIER, labelName());
 
@@ -160,7 +160,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
                     .combinator(predefined,
                             new SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer());
 
-            return result.get(EXPRESSION_IDENTIFIER).cast(SpreadsheetParserToken.class);
+            return result.get(EXPRESSION_IDENTIFIER).cast();
         } catch (final SpreadsheetParserException rethrow) {
             throw rethrow;
         } catch (final Exception cause){
@@ -203,13 +203,13 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             SpreadsheetFunctionName.MAX_LENGTH)
             .transform((stringParserToken, spreadsheetParserContext) -> Cast.to(SpreadsheetParserToken.functionName(SpreadsheetFunctionName.with(stringParserToken.value()), stringParserToken.text())))
             .setToString(SpreadsheetFunctionName.class.getSimpleName())
-            .castC();
+            .cast();
 
     /**
      * {@see SpreadsheetLabelNameParser}
      */
     public static Parser<ParserToken, SpreadsheetParserContext> labelName() {
-        return SpreadsheetLabelNameParser.INSTANCE.castC();
+        return SpreadsheetLabelNameParser.INSTANCE.cast();
     }
 
     /**
@@ -240,13 +240,13 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private final static Parser<ParserToken, SpreadsheetParserContext> WHITESPACE = Parsers.<SpreadsheetParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
             .transform((stringParserToken, spreadsheetParserContext) -> SpreadsheetParserToken.whitespace(stringParserToken.value(), stringParserToken.text()).cast())
             .setToString(SpreadsheetWhitespaceParserToken.class.getSimpleName())
-            .castC();
+            .cast();
 
     private static Parser<ParserToken, SpreadsheetParserContext> symbol(final String c, final BiFunction<String, String, ParserToken> factory, final Class<? extends SpreadsheetSymbolParserToken> tokenClass) {
         return Parsers.<SpreadsheetParserContext>string(c)
                 .transform((stringParserToken, context) -> factory.apply(stringParserToken.value(), stringParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
-                .castC();
+                .cast();
     }
 
     /**

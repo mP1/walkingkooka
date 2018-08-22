@@ -33,7 +33,7 @@ final class EbnfTerminalParser implements Parser<EbnfTerminalParserToken, EbnfPa
     /**
      * Singleton instance
      */
-    final static Parser<ParserToken, EbnfParserContext> INSTANCE = new EbnfTerminalParser().castC();
+    final static Parser<ParserToken, EbnfParserContext> INSTANCE = new EbnfTerminalParser().cast();
 
     EbnfTerminalParser(){
         super();

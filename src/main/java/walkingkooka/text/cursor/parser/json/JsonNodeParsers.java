@@ -128,13 +128,13 @@ public final class JsonNodeParsers implements PublicStaticHelper {
     private final static Parser<ParserToken, JsonNodeParserContext> WHITESPACE = Parsers.<JsonNodeParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
             .transform((stringParserToken, JsonNodeParserContext) -> JsonNodeParserToken.whitespace(stringParserToken.value(), stringParserToken.text()).cast())
             .setToString(JsonNodeWhitespaceParserToken.class.getSimpleName())
-            .castC();
+            .cast();
 
     private static Parser<ParserToken, JsonNodeParserContext> symbol(final String c, final BiFunction<String, String, ParserToken> factory, final Class<? extends JsonNodeSymbolParserToken> tokenClass) {
         return Parsers.<JsonNodeParserContext>string(c)
                 .transform((stringParserToken, context) -> factory.apply(stringParserToken.value(), stringParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
-                .castC();
+                .cast();
     }
 
     /**

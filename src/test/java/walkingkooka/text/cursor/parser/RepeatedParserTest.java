@@ -28,7 +28,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
         RepeatedParserToken> {
 
     private final static String TEXT = "abc";
-    private final static Parser<ParserToken, FakeParserContext> PARSER = Parsers.string(TEXT).castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER = Parsers.string(TEXT).cast();
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParserFails() {
@@ -38,7 +38,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
     @Test
     public void testWrapAnotherRepeatedParser() {
         final RepeatedParser<FakeParserContext> parser = this.createParser();
-        assertSame(parser, Parsers.repeated(parser.castC()));
+        assertSame(parser, Parsers.repeated(parser.cast()));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
         final String all = text1 + text2;
 
         this.parseAndCheck(
-                RepeatedParser.with(Parsers.singleQuoted().castC()),
+                RepeatedParser.with(Parsers.singleQuoted().cast()),
                 this.createContext(),
                 TextCursors.charSequence(all),
                 RepeatedParserToken.with(Lists.of(quoted(text1), quoted(text2)), all),
@@ -82,7 +82,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
         final String after = "!!!";
 
         this.parseAndCheck(
-                RepeatedParser.with(Parsers.singleQuoted().castC()),
+                RepeatedParser.with(Parsers.singleQuoted().cast()),
                 this.createContext(),
                 TextCursors.charSequence(all + after),
                 RepeatedParserToken.with(Lists.of(quoted(text1), quoted(text2)), all),

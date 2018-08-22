@@ -50,12 +50,11 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         final Parser<ParserToken, EbnfParserContext> comment = Parsers.<EbnfParserContext>surround("(*", "*)")
                 .transform((string, context) -> EbnfCommentParserToken.with(string.value(), string.text()))
                 .setToString("comment")
-                .castC();
+                .cast();
 
-        return whitespace.<EbnfParserContext>castC()
-                .or(comment)
+        return whitespace.or(comment.cast())
                 .repeating()
-                .castC();
+                .cast();
     }
 
     /**
@@ -75,7 +74,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 Integer.MAX_VALUE)
                 .transform((string, context) -> EbnfIdentifierParserToken.with(EbnfIdentifierName.with(string.text()), string.text()))
                 .setToString("IDENTIFIER")
-                .castC();
+                .cast();
     }
 
     /**
@@ -218,8 +217,8 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .build()
                 .repeating();
         final Parser<SequenceParserToken, EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
-                .required(required.castC())
-                .optional(optionalRepeating.castC())
+                .required(required.cast())
+                .optional(optionalRepeating.cast())
                 .build());
         return all
                 .transform(filterAndWrapMany(EbnfParserToken::alternative));
@@ -252,8 +251,8 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .build()
                 .repeating();
         final Parser<SequenceParserToken, EbnfParserContext> all = Cast.to(Parsers.sequenceParserBuilder()
-                .required(required.castC())
-                .optional(optionalRepeating.castC())
+                .required(required.cast())
+                .optional(optionalRepeating.cast())
                 .build());
         return all
                 .transform(filterAndWrapMany(EbnfParserToken::concatenation));
@@ -352,7 +351,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         return EbnfParserContext.string(c)
                 .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
                 .setToString(name)
-                .castC();
+                .cast();
     }
 
     /**
@@ -362,7 +361,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
         return EbnfParserContext.string(symbol)
                 .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
                 .setToString(name)
-                .castC();
+                .cast();
     }
 
     /**
@@ -411,7 +410,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                         Cast.to(repeated.value()), // list of rules
                         repeated.text());
             })
-            .cast(EbnfGrammarParserToken.class);
+            .cast();
 
     @Override
     public Optional<EbnfGrammarParserToken> parse(final TextCursor cursor, final EbnfParserContext context) {

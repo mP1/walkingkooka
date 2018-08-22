@@ -52,9 +52,9 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
 
         final SequenceParserBuilder<C> builder = Parsers.sequenceParserBuilder();
         if(this instanceof OptionalParser) {
-            builder.optional(this.castC(), name);
+            builder.optional(this.cast(), name);
         } else {
-            builder.required(this.castC(), name);
+            builder.required(this.cast(), name);
         }
         return builder;
     }
@@ -72,14 +72,14 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     default Parser<ParserToken, C> or(final Parser<? extends T, C> parser) {
         Objects.requireNonNull(parser, "parser");
 
-        return Parsers.alternatives( Lists.of(this.castTC(), parser.castTC()));
+        return Parsers.alternatives(Lists.of(this.cast(), parser.cast()));
     }
 
     /**
      * Makes this a repeating token.
      */
     default Parser<RepeatedParserToken, C> repeating(){
-        return Parsers.repeated(this.castC());
+        return Parsers.repeated(this.cast());
     }
 
 
@@ -100,22 +100,7 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     /**
      * Helper that makes casting and working around generics a little less noisy.
      */
-    default <PP extends Parser<TT, CC>, TT extends ParserToken, CC extends ParserContext> PP castTC() {
-        return Cast.to(this);
-    }
-
-
-    /**
-     * Helper that makes casting and working around generics a little less noisy.
-     */
-    default <C extends ParserContext> Parser<ParserToken, C> castC() {
-        return Cast.to(this);
-    }
-
-    /**
-     * Helper that makes casting and working around generics a little less noisy.
-     */
-    default <TT extends ParserToken> Parser<TT, C> cast(final Class<TT> token) {
+    default <P extends Parser<?, ?>> P cast() {
         return Cast.to(this);
     }
 }

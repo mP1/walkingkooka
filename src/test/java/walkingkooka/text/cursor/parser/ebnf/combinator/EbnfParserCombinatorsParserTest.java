@@ -357,7 +357,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
         final EbnfGrammarParserToken grammar = this.grammar(grammarResourceFile);
 
         final Map<EbnfIdentifierName, Parser<ParserToken, FakeParserContext>> defaults = Maps.hash();
-        defaults.put(EbnfIdentifierName.with("LETTERS"), Parsers.stringCharPredicate(CharPredicates.letter(), 1, Integer.MAX_VALUE).castC());
+        defaults.put(EbnfIdentifierName.with("LETTERS"), Parsers.stringCharPredicate(CharPredicates.letter(), 1, Integer.MAX_VALUE).cast());
         final Map<EbnfIdentifierName, Parser<ParserToken, FakeParserContext>> all = grammar.combinator(defaults, this.syntaxTreeTransformer());
 
         final Parser<ParserToken, FakeParserContext> test = Cast.to(all.get(TEST));
@@ -430,7 +430,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
 
                 return Parsers.<FakeParserContext>stringCharPredicate(CharPredicates.range(begin, end), 1, 1)
                         .setToString(token.toString())
-                        .castC();
+                        .cast();
             }
 
             private char characterForIdentifierOrTerminal(final EbnfParserToken token, final EbnfParserCombinatorContext context) {
@@ -477,7 +477,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
                     } catch (final NumberFormatException ignore) {
                     }
                     return result;
-                }).castC();
+                }).cast();
             }
         };
     }

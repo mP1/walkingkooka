@@ -28,9 +28,9 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
     private final static String TEXT3 = "123";
-    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string(TEXT1).castC();
-    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string(TEXT2).castC();
-    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string(TEXT3).castC();
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string(TEXT1).cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string(TEXT2).cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string(TEXT3).cast();
     private final static StringParserToken TOKEN1 = string(TEXT1);
     private final static StringParserToken TOKEN2 = string(TEXT2);
     private final static StringParserToken TOKEN3 = string(TEXT3);
