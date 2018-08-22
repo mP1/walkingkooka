@@ -25,12 +25,12 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testIdentifierOnlyFails() {
-        this.parseFailAndCheck(IDENTIFIER1_TEXT);
+        this.parseThrowsEndOfText(IDENTIFIER1_TEXT);
     }
 
     @Test
     public void testIdentifierAndAssignmentOnlyFails() {
-        this.parseFailAndCheck(IDENTIFIER1_TEXT +ASSIGNMENT);
+        this.parseThrowsEndOfText(IDENTIFIER1_TEXT +ASSIGNMENT);
     }
 
     @Test
@@ -40,7 +40,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
 
     @Test
     public void testDoubleTerminalFails() {
-        this.parseFailAndCheck(IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + ASSIGNMENT + TERMINAL1_TEXT);
+        this.parseThrows(IDENTIFIER1_TEXT +ASSIGNMENT + TERMINAL1_TEXT + ASSIGNMENT + TERMINAL1_TEXT, ASSIGNMENT.charAt(0), 21, 1);
     }
 
     @Test
@@ -353,7 +353,7 @@ public final class EbnfRuleParserTest extends EbnfParserTestCase2<EbnfRuleParser
     @Test
     public void testExceptionFails() {
         final String text = IDENTIFIER1_TEXT +ASSIGNMENT + EXCEPTION + TERMINAL2_TEXT + TERMINATOR;
-        this.parseFailAndCheck(text);
+        this.parseThrows(text, EXCEPTION.charAt(0), 8, 1);
     }
 
     @Test

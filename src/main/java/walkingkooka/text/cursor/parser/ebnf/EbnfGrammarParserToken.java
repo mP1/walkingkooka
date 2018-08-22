@@ -33,14 +33,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * A grammar holds all the rules and is the root of the graph.
+ * A grammar holds all the rules and is the root of the graph. Note the {@link #value()} will contain a mixture of rules,
+ * comments and whitespace until {@link #withoutCommentsSymbolsOrWhitespace()} is invoked.
  */
 public final class EbnfGrammarParserToken extends EbnfParentParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfGrammarParserToken.class);
 
     static EbnfGrammarParserToken with(final List<ParserToken> tokens, final String text) {
-        Objects.requireNonNull(tokens, "rules");
+        Objects.requireNonNull(tokens, "tokens");
         checkText(text);
 
         final List<ParserToken> copy = Lists.array();
@@ -50,13 +51,13 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
                 .filter(t -> t instanceof EbnfRuleParserToken)
                 .collect(Collectors.toList());
         if(onlyRules.isEmpty()){
-            throw new IllegalArgumentException("Missing rules=" + text);
+            throw new IllegalArgumentException("Missing at least 1 rule=" + text);
         }
 
         return new EbnfGrammarParserToken(copy, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
-    EbnfGrammarParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
+    private EbnfGrammarParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
         super(tokens, text, valueWithout);
         this.checkAtLeastOneRule();
     }

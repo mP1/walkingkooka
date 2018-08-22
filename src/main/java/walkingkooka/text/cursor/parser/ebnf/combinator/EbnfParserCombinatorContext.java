@@ -71,6 +71,8 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
     private void preloadProxies() {
         this.grammar.value()
                 .stream()
+                .map(m -> EbnfParserToken.class.cast(m))
+                .filter(t -> t.isRule())
                 .forEach(t -> {
                     final EbnfRuleParserToken rule = t.cast();
                     this.identifierToParser.put(rule.identifier().value(), new EbnfParserCombinatorProxyParser(rule.identifier()));

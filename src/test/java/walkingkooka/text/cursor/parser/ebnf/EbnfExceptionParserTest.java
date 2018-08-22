@@ -26,7 +26,7 @@ public final class EbnfExceptionParserTest extends EbnfParserTestCase2<EbnfExcep
 
     @Test
     public void testExceptionFails() {
-        this.parseFailAndCheck(EXCEPTION);
+        this.parseThrows(EXCEPTION, '-', 1, 1);
     }
 
     @Test

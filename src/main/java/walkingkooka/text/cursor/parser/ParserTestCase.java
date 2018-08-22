@@ -161,7 +161,7 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
     }
 
     protected final void parseThrowsEndOfText(final String cursorText) {
-        this.parseThrowsEndOfText(cursorText, cursorText.length(), 1);
+        this.parseThrowsEndOfText(cursorText, cursorText.length() + 1, 1);
     }
 
     protected final void parseThrowsEndOfText(final String cursorText, final int column, final int row) {
