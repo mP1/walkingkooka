@@ -69,7 +69,7 @@ public final class LineAndColumn implements HashCodeEqualsDefined {
 
         CharSequence line;
         int column = COLUMN_START;
-        if (pos >= length) {
+        if (pos > length) {
             lineNumber++;
             line = "";
         } else {
@@ -89,8 +89,10 @@ public final class LineAndColumn implements HashCodeEqualsDefined {
             }
             line = chars.subSequence(startOfLine, end);
             final int lineLength = line.length();
-            if ((lineLength > 0) && (column >= lineLength)) {
-                column = lineLength;
+            if (lineLength > 0) {
+                column = column <= lineLength ?
+                        column :
+                        lineLength + 1;
             }
         }
 
