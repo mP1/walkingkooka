@@ -17,6 +17,11 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.text.Whitespace;
+import walkingkooka.text.cursor.TextCursorLineInfo;
+
+import java.util.Objects;
+
 /**
  * This exception is used to report unrecoverable errors within text, such as an invalid escape character in a quoted string.
  */
@@ -24,15 +29,15 @@ public class ParserReporterException extends ParserException {
 
     private final static long serialVersionUID = 1L;
 
-    protected ParserReporterException() {
-        super();
+    public ParserReporterException(final String message, final TextCursorLineInfo lineInfo) {
+        super(Whitespace.failIfNullOrWhitespace(message, "message"));
+        Objects.requireNonNull(lineInfo, "lineInfo");
+        this.lineInfo = lineInfo;
     }
 
-    public ParserReporterException(final String message) {
-        super(message);
+    public final TextCursorLineInfo lineInfo() {
+        return this.lineInfo;
     }
 
-    public ParserReporterException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
+    private final TextCursorLineInfo lineInfo;
 }

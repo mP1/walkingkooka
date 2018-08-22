@@ -18,9 +18,39 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PublicThrowableTestCase;
+import org.junit.Ignore;
+import org.junit.Test;
+import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.text.cursor.TextCursorLineInfos;
 
-public final class ParserReporterExceptionTest extends PublicThrowableTestCase<ParserReporterException> {
+public final class ParserReporterExceptionTest extends PublicClassTestCase<ParserReporterException> {
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullMessageFails() {
+        new ParserReporterException(null, TextCursorLineInfos.fake());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithEmptyMessageFails() {
+        new ParserReporterException("", TextCursorLineInfos.fake());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithBlankMessageFails() {
+        new ParserReporterException("   ", TextCursorLineInfos.fake());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullLineInfoFails() {
+        new ParserReporterException("message!", null);
+    }
+
+    @Test
+    @Ignore
+    public void testAllConstructorsVisibility() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     protected Class<ParserReporterException> type() {
         return ParserReporterException.class;
