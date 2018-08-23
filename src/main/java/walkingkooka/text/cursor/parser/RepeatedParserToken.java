@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * This {@link ParserToken} holds one or more of the tokens of the same type but not equal.
  */
-public final class RepeatedParserToken extends ParserTemplateToken2 implements SupportsFlat<RepeatedParserToken, ParserToken> {
+public final class RepeatedParserToken extends ParserTemplateToken2<RepeatedParserToken> implements SupportsFlat<RepeatedParserToken, ParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(RepeatedParserToken.class);
 

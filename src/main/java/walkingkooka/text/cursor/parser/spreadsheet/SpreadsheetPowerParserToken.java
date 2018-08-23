@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents a power operation with its parameters.
  */
-public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserToken<SpreadsheetPowerParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetPowerParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserTo
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetPowerParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetPowerParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetPowerParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserTo
     }
 
     @Override
-    SpreadsheetPowerParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetPowerParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetPowerParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetPowerParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetPowerParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetPowerParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetPowerParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

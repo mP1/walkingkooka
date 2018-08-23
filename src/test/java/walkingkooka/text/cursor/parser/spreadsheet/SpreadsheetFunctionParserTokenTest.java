@@ -98,6 +98,11 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         this.checkParameters(token, number);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetValueMissingFunctionNameFails() {
+        this.createToken().setValue(Lists.of(this.number1()));
+    }
+
     @Test
     public void testToExpressionNode() {
         this.toExpressionNodeAndCheck(ExpressionNode.function(

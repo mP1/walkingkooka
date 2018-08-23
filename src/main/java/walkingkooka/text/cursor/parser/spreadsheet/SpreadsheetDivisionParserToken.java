@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents a division operation with its parameters.
  */
-public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParserToken<SpreadsheetDivisionParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetDivisionParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParse
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetDivisionParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetDivisionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetDivisionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParse
     }
 
     @Override
-    SpreadsheetDivisionParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetDivisionParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetDivisionParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetDivisionParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetDivisionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetDivisionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetDivisionParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

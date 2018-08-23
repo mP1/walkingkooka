@@ -19,11 +19,40 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
 
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
 
-public abstract class SpreadsheetBinaryParserTokenTestCase2<T extends SpreadsheetBinaryParserToken> extends SpreadsheetBinaryParserTokenTestCase<T> {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+public abstract class SpreadsheetBinaryParserTokenTestCase2<T extends SpreadsheetBinaryParserToken<T>> extends SpreadsheetBinaryParserTokenTestCase<T> {
+
+    @Test
+    public final void testSetValueDifferent() {
+        final T token = this.createToken();
+        final List<ParserToken> differentValues = Lists.of(this.number(3), this.number(4));
+        final T different = token.setValue(differentValues);
+        this.checkValue(different, differentValues);
+
+        assertEquals(Optional.of(different), different.withoutSymbolsOrWhitespace());
+    }
+
+    @Test
+    public final void testSetValueDifferent2() {
+        final T token = this.createToken();
+        final List<ParserToken> differentValues = Lists.of(this.number(3), this.number(4), this.whitespace());
+        final T different = token.setValue(differentValues);
+        this.checkValue(different, differentValues);
+
+        final Optional<SpreadsheetParserToken> differentWithout = different.withoutSymbolsOrWhitespace();
+        assertNotEquals(Optional.of(different), differentWithout);
+        this.checkValue(differentWithout.get(), differentValues.subList(0, 2));
+    }
 
     @Test
     public final void testToExpressionNode() {

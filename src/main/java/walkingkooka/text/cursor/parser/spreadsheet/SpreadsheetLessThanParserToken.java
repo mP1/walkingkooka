@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents a less than test with its parameters.
  */
-public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParserToken<SpreadsheetLessThanParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetLessThanParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetLessThanParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetLessThanParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetLessThanParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
     }
 
     @Override
-    SpreadsheetLessThanParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetLessThanParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetLessThanParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetLessThanParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetLessThanParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetLessThanParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetLessThanParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

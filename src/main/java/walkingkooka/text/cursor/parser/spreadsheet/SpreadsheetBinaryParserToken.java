@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.Value;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
@@ -25,24 +24,20 @@ import java.util.List;
 /**
  * Base class for any token with two parameters.
  */
-abstract class SpreadsheetBinaryParserToken extends SpreadsheetParentParserToken implements Value<List<ParserToken>> {
-
-    static SpreadsheetBinaryParserTokenConsumer checkLeftAndRight(final List<ParserToken> tokens) {
-        final SpreadsheetBinaryParserTokenConsumer checker = new SpreadsheetBinaryParserTokenConsumer();
-        tokens.stream()
-                .map(t -> SpreadsheetParserToken.class.cast(t))
-                .forEach(checker);
-        return checker;
-    }
+abstract class SpreadsheetBinaryParserToken<T extends SpreadsheetBinaryParserToken> extends SpreadsheetParentParserToken<T>{
 
     SpreadsheetBinaryParserToken(final List<ParserToken> value,
                                  final String text,
-                                 final SpreadsheetParserToken left,
-                                 final SpreadsheetParserToken right,
                                  final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
-        this.left = left;
-        this.right = right;
+
+        final List<SpreadsheetParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value();
+        final int count = without.size();
+        if(2 != count) {
+            throw new IllegalArgumentException("Expected 2 tokens but got " + count + "=" + without);
+        }
+        this.left = without.get(0);
+        this.right = without.get(1);
     }
 
     /**

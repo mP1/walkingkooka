@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.Value;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
@@ -25,19 +24,17 @@ import java.util.List;
 /**
  * Base class for any token with a single parameter.
  */
-abstract class SpreadsheetUnaryParserToken extends SpreadsheetParentParserToken implements Value<List<ParserToken>> {
+abstract class SpreadsheetUnaryParserToken<T extends SpreadsheetUnaryParserToken> extends SpreadsheetParentParserToken<T>{
 
-    static SpreadsheetUnaryParserTokenConsumer checkValue(final List<ParserToken> tokens) {
-        final SpreadsheetUnaryParserTokenConsumer checker = new SpreadsheetUnaryParserTokenConsumer();
-        tokens.stream()
-                .map(t -> SpreadsheetParserToken.class.cast(t))
-                .forEach(checker);
-        return checker;
-    }
-    
-    SpreadsheetUnaryParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final List<ParserToken> valueWithout) {
+    SpreadsheetUnaryParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
-        this.parameter = parameter;
+
+        final List<SpreadsheetParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value();
+        final int count = without.size();
+        if(1 != count) {
+            throw new IllegalArgumentException("Expected 1 tokens but got " + count + "=" + without);
+        }
+        this.parameter = without.get(0);
     }
 
     public final SpreadsheetParserToken parameter() {

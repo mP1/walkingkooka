@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents an exception token in the grammar. Note the grammar requires an exception to follow another token.
  */
-public final class EbnfExceptionParserToken extends EbnfParentParserToken {
+public final class EbnfExceptionParserToken extends EbnfParentParserToken<EbnfExceptionParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfExceptionParserToken.class);
 
@@ -50,13 +50,13 @@ public final class EbnfExceptionParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfExceptionParserToken replaceText(final String text) {
-        return new EbnfExceptionParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
+    public EbnfExceptionParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    EbnfExceptionParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfExceptionParserToken(tokens, this.text(), tokens);
+    EbnfExceptionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new EbnfExceptionParserToken(tokens, text, without);
     }
 
     /**

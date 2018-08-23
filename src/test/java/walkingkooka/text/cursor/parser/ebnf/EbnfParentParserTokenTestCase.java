@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParserTokenTestCase<T> {
+public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParserTokenTestCase<T> {
 
     final static String COMMENT1 = "(*comment-1*)";
     final static String COMMENT2 = "(*comment-2*)";
@@ -61,6 +61,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
     public void testWithoutCommentsSymbolsOrWhitespaceCached() {
         final T token = this.createToken();
         assertSame(token.withoutCommentsSymbolsOrWhitespace(), token.withoutCommentsSymbolsOrWhitespace());
+
         assertSame(token.withoutCommentsSymbolsOrWhitespace().get().withoutCommentsSymbolsOrWhitespace(), token.withoutCommentsSymbolsOrWhitespace().get().withoutCommentsSymbolsOrWhitespace());
     }
 
@@ -86,6 +87,23 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         this.checkValue(different.withoutCommentsSymbolsOrWhitespace().get().cast(), valueWithout);
 
         assertNotEquals("original token should have some comments/symbols/whitespace", token.value().size(), valueWithout.size());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public final void testSetValueNullFails() {
+        this.createToken().setValue(null);
+    }
+
+    @Test
+    public final void testSetValueSame() {
+        final T token = this.createToken();
+        assertSame(token, token.setValue(token.value()));
+    }
+
+    @Test
+    public final void testSetValueSame2() {
+        final T token = this.createToken();
+        assertSame(token, token.setValue(this.tokens()));
     }
 
     abstract T createTokenWithNoise();
@@ -159,7 +177,15 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
         return symbol(";");
     }
 
-    final void checkValue(final T parent, final List<ParserToken> values) {
+    final void checkValue(final EbnfParserToken parent, final ParserToken... values) {
+        checkValue(EbnfParentParserToken.class.cast(parent), values);
+    }
+
+    final void checkValue(final EbnfParentParserToken parent, final ParserToken... values) {
+        checkValue(parent, Lists.of(values));
+    }
+
+    final void checkValue(final EbnfParentParserToken parent, final List<ParserToken> values) {
         assertEquals("value", values, parent.value());
     }
 }

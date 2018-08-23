@@ -21,11 +21,13 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
-public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase2<T> {
+public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase2<T> {
 
     @Test(expected = IllegalArgumentException.class)
     public final void testTooManyTokensIgnoringCommentsSymbolsWhitespaceFails() {
@@ -45,6 +47,38 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
         assertEquals("value", Lists.of(identifier1), without.value());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetValueWrongCountFails() {
+        this.createToken().setValue(Lists.of(identifier1(), identifier2()));
+    }
+
+    @Test
+    public final void testSetValueDifferent() {
+        final T token = this.createToken();
+
+        final EbnfParserToken differentValue = this.identifier2();
+        final T different = token.setValue(Lists.of(differentValue));
+        assertNotSame(token, different);
+
+        this.checkValue(different, differentValue);
+        assertEquals(Optional.of(different), different.withoutCommentsSymbolsOrWhitespace());
+    }
+
+    @Test
+    public final void testSetValueDifferent2() {
+        final T token = this.createToken();
+
+        final EbnfParserToken differentValue = this.identifier2();
+        final T different = token.setValue(Lists.of(differentValue, whitespace()));
+        assertNotSame(token, different);
+
+        this.checkValue(different, differentValue, whitespace());
+
+        final Optional<EbnfParserToken> differentWithout = different.withoutCommentsSymbolsOrWhitespace();
+        assertNotEquals(Optional.of(different), differentWithout);
+
+        this.checkValue(differentWithout.get(), differentValue);
+    }
 
     @Override
     final List<ParserToken> tokens() {

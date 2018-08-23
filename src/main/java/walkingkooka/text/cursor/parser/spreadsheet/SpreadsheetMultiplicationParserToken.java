@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents a multiplication operation with its parameters.
  */
-public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinaryParserToken<SpreadsheetMultiplicationParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetMultiplicationParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetMultiplicationParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetMultiplicationParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetMultiplicationParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
     }
 
     @Override
-    SpreadsheetMultiplicationParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetMultiplicationParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetMultiplicationParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetMultiplicationParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetMultiplicationParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetMultiplicationParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetMultiplicationParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

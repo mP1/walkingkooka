@@ -25,5 +25,10 @@ import java.util.List;
 /**
  * Interface that all parent parser tokens must implement.
  */
-public interface ParentParserToken extends ParserToken, Value<List<ParserToken>> {
+public interface ParentParserToken<P extends ParentParserToken> extends ParserToken, Value<List<ParserToken>> {
+
+    /**
+     * Would be setter that returns an instance with the given tokens or value, creating a new instance if necessary.
+     */
+    P setValue(List<ParserToken> tokens);
 }

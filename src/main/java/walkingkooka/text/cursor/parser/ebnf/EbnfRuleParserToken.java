@@ -25,13 +25,23 @@ import java.util.List;
 /**
  * Represents a single rule definition within a grammar.
  */
-public final class EbnfRuleParserToken extends EbnfParentParserToken {
+public final class EbnfRuleParserToken extends EbnfParentParserToken<EbnfRuleParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfRuleParserToken.class);
 
     static EbnfRuleParserToken with(final List<ParserToken> tokens, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(tokens);
         checkText(text);
+
+        return new EbnfRuleParserToken(copy,
+                text,
+                WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    private EbnfRuleParserToken(final List<ParserToken> tokens,
+                        final String text,
+                        final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
 
         final EbnfRuleParserTokenConsumer checker = new EbnfRuleParserTokenConsumer();
         tokens.stream()
@@ -48,19 +58,6 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
             throw new IllegalArgumentException("Rule missing Token on rhs=" + text);
         }
 
-        return new EbnfRuleParserToken(copy,
-                text,
-                identifier,
-                token,
-                WITHOUT_COMPUTE_REQUIRED);
-    }
-
-    private EbnfRuleParserToken(final List<ParserToken> tokens,
-                        final String text,
-                        final EbnfIdentifierParserToken identifier,
-                        final EbnfParserToken token,
-                        final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
         this.identifier = identifier;
         this.token = token;
     }
@@ -71,8 +68,8 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfRuleParserToken replaceText(final String text) {
-        return new EbnfRuleParserToken(this.value(), text, this.identifier, this.token, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
+    public EbnfRuleParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     public EbnfIdentifierParserToken identifier() {
@@ -88,13 +85,10 @@ public final class EbnfRuleParserToken extends EbnfParentParserToken {
     private final EbnfParserToken token;
 
     @Override
-    EbnfRuleParserToken replaceTokens(final List<ParserToken> tokens) {
-        // cant use this.identifier and this.tokens because they wont be initialized yet
+    EbnfRuleParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new EbnfRuleParserToken(tokens,
-                this.text(),
-                EbnfIdentifierParserToken.class.cast(tokens.get(0)),
-                EbnfParserToken.class.cast(tokens.get(1)),
-                tokens);
+                text,
+                without);
     }
 
     @Override

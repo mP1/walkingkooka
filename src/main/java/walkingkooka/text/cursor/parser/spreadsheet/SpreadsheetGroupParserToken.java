@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A wrapper around a numeric type that is also a percentage.
  */
-public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserToken {
+public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserToken<SpreadsheetGroupParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetGroupParserToken.class);
 
@@ -46,13 +46,15 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
     }
 
     @Override
-    SpreadsheetGroupParserToken replaceText(final String text) {
-        return new SpreadsheetGroupParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+    public SpreadsheetGroupParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new SpreadsheetGroupParserToken(tokens, this.text(), tokens);
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens,
+                                              final String text,
+                                              final List<ParserToken> without) {
+        return new SpreadsheetGroupParserToken(tokens, text, without);
     }
 
     @Override

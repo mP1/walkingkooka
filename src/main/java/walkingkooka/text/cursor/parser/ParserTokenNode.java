@@ -158,7 +158,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
     }
 
     final List<ParserToken> valueAsList() {
-        return ParentParserToken.class.cast(this.value()).value();
+        return Cast.to(ParentParserToken.class.cast(this.value()).value());
     }
 
     final ParserToken token;

@@ -23,43 +23,38 @@ import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken implements ParentParserToken {
+abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserToken> extends SpreadsheetParserToken
+        implements ParentParserToken<T> {
 
     final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 
     SpreadsheetParentParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(text);
         this.value = value;
-        this.without =  null == valueWithout ?
-                computeWithout(value) :
-                Optional.of(this);
+        this.without = value.equals(valueWithout) ?
+                Optional.of(this) :
+                computeWithout(value);
     }
 
     private Optional<SpreadsheetParserToken> computeWithout(final List<ParserToken> value){
-        final List<ParserToken> without = Lists.array();
-
-        value.stream()
-                .forEach(t -> {
-                    if(t instanceof SpreadsheetParserToken) {
-                        final Optional<SpreadsheetParserToken> maybeWithout = SpreadsheetParserToken.class.cast(t).withoutSymbolsOrWhitespace();
-                        if (maybeWithout.isPresent()) {
-                            without.add(maybeWithout.get());
-                        }
-                    }
-                });
+        final List<ParserToken> without =  filterWithout(value);
 
         return Optional.of(value.size() == without.size() ?
                 this :
-                this.replaceTokens(without));
+                this.replace(without, this.text(), without));
     }
 
-    final List<ParserToken> valueIfWithoutSymbolsOrWhitespaceOrNull() {
-        return this == this.without.get() ? this.value : null;
+    private static List<ParserToken> filterWithout(final List<ParserToken> value){
+        return value.stream()
+                .filter(t -> t instanceof SpreadsheetParserToken && !t.isNoise())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -68,6 +63,36 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
     }
 
     private final Optional<SpreadsheetParserToken> without;
+
+    @Override
+    public final List<ParserToken> value() {
+        return this.value;
+    }
+
+    final SpreadsheetParentParserToken setValue0(final List<ParserToken> value) {
+        Objects.requireNonNull(value, "values");
+
+        final List<ParserToken> copy = Lists.array();
+        copy.addAll(value);
+
+        return this.value().equals(copy) ?
+                this :
+                this.replace(copy, this.text(), filterWithout(copy));
+    }
+
+    final List<ParserToken> value;
+
+    @Override
+    final SpreadsheetParentParserToken replaceText(final String text) {
+        return this.replace(this.value,
+                text,
+                WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    /**
+     * Factory that creates a new {@link SpreadsheetParentParserToken} with the same text but new tokens.
+     */
+    abstract SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without);
 
     @Override
     public final boolean isBetweenSymbol() {
@@ -218,18 +243,6 @@ abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken imple
     public final boolean isWhitespace() {
         return false;
     }
-
-    @Override
-    public final List<ParserToken> value() {
-        return this.value;
-    }
-
-    final List<ParserToken> value;
-
-    /**
-     * Factory that creates a new {@link SpreadsheetParentParserToken} with the same text but new tokens.
-     */
-    abstract SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens);
 
     @Override
     final int operatorPriority() {

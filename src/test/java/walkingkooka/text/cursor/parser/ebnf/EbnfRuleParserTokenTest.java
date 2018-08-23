@@ -22,8 +22,10 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
@@ -48,6 +50,40 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
     public void testWithoutCommentsSymbolsOrWhitespace() {
         final EbnfRuleParserToken token = this.createToken();
         assertNotSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetValueMissingIdentifierFails() {
+        this.createToken().setValue(Lists.of(assignment(), identifier1(), terminator()));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetValueMissingRhsFails() {
+        this.createToken().setValue(Lists.of(terminal1(), assignment()));
+    }
+
+    @Test
+    public final void testSetValueDifferentRule() {
+        final EbnfRuleParserToken token = this.createToken();
+
+        final List<ParserToken> tokens = Lists.of(identifier2(), terminal2());
+        final EbnfRuleParserToken different = token.setValue(tokens);
+        this.checkValue(different, tokens);
+        assertEquals(Optional.of(different), different.withoutCommentsSymbolsOrWhitespace());
+    }
+
+    @Test
+    public final void testSetValueDifferentRule2() {
+        final EbnfRuleParserToken token = this.createToken();
+
+        final List<ParserToken> tokens = Lists.of(whitespace(), identifier2(), assignment(), terminal2(), terminator());
+        final EbnfRuleParserToken different = token.setValue(tokens);
+        this.checkValue(different, tokens);
+
+        final Optional<EbnfParserToken> differentWithout = different.withoutCommentsSymbolsOrWhitespace();
+        assertNotEquals(Optional.of(different), different);
+
+        this.checkValue(differentWithout.get(), identifier2(), terminal2());
     }
 
     @Test

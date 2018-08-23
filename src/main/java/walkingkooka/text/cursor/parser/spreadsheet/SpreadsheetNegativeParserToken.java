@@ -26,24 +26,20 @@ import java.util.List;
 /**
  * A wrapper around a numeric type that is also a percentage.
  */
-public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParserToken {
+public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParserToken<SpreadsheetNegativeParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetNegativeParserToken.class);
 
     static SpreadsheetNegativeParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
-
-        final SpreadsheetUnaryParserTokenConsumer checker = checkValue(value);
-
         return new SpreadsheetNegativeParserToken(copy,
                 text,
-                checker.value(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final List<ParserToken> valueWithout){
-        super(value, text, parameter, valueWithout);
+    private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -52,13 +48,15 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
     }
 
     @Override
-    SpreadsheetNegativeParserToken replaceText(final String text) {
-        return new SpreadsheetNegativeParserToken(this.value, text, this.parameter, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+    public SpreadsheetNegativeParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new SpreadsheetNegativeParserToken(tokens, this.text(), tokens.get(0).cast(), tokens);
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetNegativeParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents a greater than equals test with its parameters.
  */
-public final class SpreadsheetGreaterThanEqualsParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetGreaterThanEqualsParserToken extends SpreadsheetBinaryParserToken<SpreadsheetGreaterThanEqualsParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetGreaterThanEqualsParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetGreaterThanEqualsParserToken extends SpreadsheetBi
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetGreaterThanEqualsParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetGreaterThanEqualsParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetGreaterThanEqualsParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetGreaterThanEqualsParserToken extends SpreadsheetBi
     }
 
     @Override
-    SpreadsheetGreaterThanEqualsParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetGreaterThanEqualsParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetGreaterThanEqualsParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetGreaterThanEqualsParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetGreaterThanEqualsParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetGreaterThanEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetGreaterThanEqualsParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

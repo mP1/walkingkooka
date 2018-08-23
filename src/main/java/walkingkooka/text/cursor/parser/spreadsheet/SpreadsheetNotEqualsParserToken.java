@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents a not equals test operation with its parameters.
  */
-public final class SpreadsheetNotEqualsParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetNotEqualsParserToken extends SpreadsheetBinaryParserToken<SpreadsheetNotEqualsParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetNotEqualsParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetNotEqualsParserToken extends SpreadsheetBinaryPars
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetNotEqualsParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetNotEqualsParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetNotEqualsParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetNotEqualsParserToken extends SpreadsheetBinaryPars
     }
 
     @Override
-    SpreadsheetNotEqualsParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetNotEqualsParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetNotEqualsParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetNotEqualsParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetNotEqualsParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetNotEqualsParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetNotEqualsParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

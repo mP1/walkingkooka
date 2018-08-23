@@ -25,7 +25,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
-public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase2<T> {
+public abstract class EbnfAlternativeConcatenationParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase2<T> {
 
     @Test(expected = IllegalArgumentException.class)
     public final void testOnlyOneTokenIgnoringCommentsSymbolsWhitespaceFails() {

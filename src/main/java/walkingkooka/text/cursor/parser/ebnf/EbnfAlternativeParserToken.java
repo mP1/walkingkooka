@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a list of alternative token in the grammar.
  */
-final public class EbnfAlternativeParserToken extends EbnfParentParserToken {
+final public class EbnfAlternativeParserToken extends EbnfParentParserToken<EbnfAlternativeParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfAlternativeParserToken.class);
 
@@ -44,13 +44,13 @@ final public class EbnfAlternativeParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfAlternativeParserToken replaceText(final String text) {
-        return new EbnfAlternativeParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
+    public EbnfAlternativeParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    EbnfAlternativeParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfAlternativeParserToken(tokens, this.text(), tokens);
+    EbnfAlternativeParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new EbnfAlternativeParserToken(tokens, text, without);
     }
 
     @Override

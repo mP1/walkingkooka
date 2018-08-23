@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a concatenation of tokens in the grammar.
  */
-public final class EbnfConcatenationParserToken extends EbnfParentParserToken {
+public final class EbnfConcatenationParserToken extends EbnfParentParserToken<EbnfConcatenationParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfConcatenationParserToken.class);
 
@@ -44,13 +44,13 @@ public final class EbnfConcatenationParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfConcatenationParserToken replaceText(final String text) {
-        return new EbnfConcatenationParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
+    public EbnfConcatenationParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    EbnfConcatenationParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfConcatenationParserToken(tokens, text(), tokens);
+    EbnfConcatenationParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new EbnfConcatenationParserToken(tokens, text, without);
     }
 
     @Override
