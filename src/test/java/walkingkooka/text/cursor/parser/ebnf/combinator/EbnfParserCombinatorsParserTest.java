@@ -78,7 +78,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
 
     @Test
     public void testParserToString() {
-        assertEquals("TEST = 'abc' (*comment*);", createParser2().toString());
+        assertEquals("'abc'", createParser2().toString());
     }
 
     @Test

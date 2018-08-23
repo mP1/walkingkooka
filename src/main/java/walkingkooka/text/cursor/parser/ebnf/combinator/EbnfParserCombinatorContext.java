@@ -45,7 +45,7 @@ final public class EbnfParserCombinatorContext<C extends ParserContext> implemen
     EbnfParserCombinatorContext(final EbnfGrammarParserToken grammar,
                                 final Map<EbnfIdentifierName, Parser<ParserToken, C>> identifierToParser,
                                 final EbnfParserCombinatorSyntaxTreeTransformer<C> syntaxTreeTransformer) {
-        this.grammar = grammar;
+        this.grammar = EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor.clean(grammar);
 
         this.identifierToParser = Maps.sorted();
         this.identifierToParser.putAll(identifierToParser);
