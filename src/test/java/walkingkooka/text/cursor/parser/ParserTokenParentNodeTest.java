@@ -28,6 +28,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTokenParentNode> {
 
@@ -49,15 +51,72 @@ public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTok
         this.childrenCheck2(node, STRING1, STRING2);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void testSetChildrenFails() {
-        this.createParserTokenNode().setChildren(Lists.empty());
+    @Test
+    public void testSetChildrenSame() {
+        final ParserTokenParentNode node = this.createParserTokenNode();
+        final ParserTokenNode node2 = node.setChildren(node.children());
+        assertSame(node, node2);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void testSetChildrenValuesFails() {
-        this.createParserTokenNode().setChildrenValues(Lists.empty());
+    @Test
+    public void testSetChildrenSame2() {
+        final ParserTokenParentNode node = this.createParserTokenNode();
+        final ParserTokenNode node2 = node.setChildren(node.children().stream().collect(Collectors.toList()));
+        assertSame(node, node2);
     }
+
+    @Test
+    public void testSetChildrenDifferent() {
+        final ParserTokenParentNode node = this.createParserTokenNode();
+        final ParserTokenNode node2 = node.setChildren(children(STRING3, STRING4));
+        assertNotSame(node, node2);
+
+        this.childrenCheck2(node2, STRING3, STRING4);
+        this.childrenCheck2(node, STRING1, STRING2);
+    }
+
+    @Test
+    public void testSetChildrenWithParent() {
+        final ParserTokenParentNode root = sequence("a1b2c3d4",
+                STRING1,
+                ParserTokens.sequence(Lists.of(STRING2, STRING3), "b2c3"),
+                STRING4);
+        final ParserTokenNode child = root.children().get(1);
+        final ParserTokenNode child2 = child.setChildren(children(STRING5, STRING6));
+        assertNotSame("a different node should have been returned after setting new children", child, child2);
+
+        final ParserTokenNode parent = child2.parent().get();
+        this.childrenCheck2(parent,
+                STRING1,
+                ParserTokens.sequence(Lists.of(STRING5, STRING6), "b2c3"),
+                STRING4);
+    }
+
+    @Test
+    public void testSetChildrenValuesSame() {
+        final ParserTokenParentNode node = this.createParserTokenNode();
+        final ParserTokenNode node2 = node.setChildrenValues(node.childrenValues());
+        assertSame(node, node2);
+    }
+
+    @Test
+    public void testSetChildrenValuesSame2() {
+        final ParserTokenParentNode node = this.createParserTokenNode();
+        final ParserTokenNode node2 = node.setChildrenValues(node.childrenValues().stream().collect(Collectors.toList()));
+        assertSame(node, node2);
+    }
+
+    @Test
+    public void testSetChildrenValuesDifferent() {
+        final ParserTokenParentNode node = this.createParserTokenNode();
+        final ParserTokenNode node2 = node.setChildrenValues(Lists.of(STRING3, STRING4));
+        assertNotSame(node, node2);
+
+        this.childrenCheck2(node2, STRING3, STRING4);
+        this.childrenCheck2(node, STRING1, STRING2);
+    }
+
+
 
     @Test
     public void testSelectorByName() {

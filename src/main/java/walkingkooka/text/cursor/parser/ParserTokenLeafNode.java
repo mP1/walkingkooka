@@ -55,4 +55,29 @@ final class ParserTokenLeafNode extends ParserTokenNode {
     }
 
     private final static Optional<ParserTokenNode> NO_CHILD = Optional.empty();
+
+    @Override
+    public ParserTokenNode setChildrenValues(final List<ParserToken> childrenValues) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ParserTokenNode setChildren(final List<ParserTokenNode> children) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ParserTokenNode appendChild(final ParserTokenNode child) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ParserTokenNode removeChild(final int child) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    ParserTokenNode replaceChild1(final ParserTokenNode child){
+        throw new UnsupportedOperationException();
+    }
 }
