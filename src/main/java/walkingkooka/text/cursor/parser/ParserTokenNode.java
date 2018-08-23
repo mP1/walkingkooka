@@ -20,12 +20,14 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -113,6 +115,15 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
      */
     abstract public List<ParserToken> childrenValues();
 
+    final ParserTokenNode replaceChild0(final Optional<ParserTokenNode> previousParent) {
+        return previousParent.isPresent() ?
+                previousParent.get()
+                        .replaceChild1(this)
+                        .children()
+                        .get(this.index()) :
+                this;
+    }
+
     /**
      * Only really implemented by {@link ParserTokenParentNode}
      */
@@ -128,12 +139,27 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
         return this.attributes;
     }
 
-    private Map<ParserTokenNodeAttributeName, String> attributes;
-
     @Override
     public final ParserTokenNode setAttributes(final Map<ParserTokenNodeAttributeName, String> attributes) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(attributes, "attributes");
+
+        return this.attributes().equals(attributes) ?
+                this :
+                this.replaceAttributes(attributes);
+
     }
+
+    private Map<ParserTokenNodeAttributeName, String> attributes;
+
+    private ParserTokenNode replaceAttributes(final Map<ParserTokenNodeAttributeName, String> attributes) {
+        final String text = attributes.get(ParserTokenNodeAttributeName.TEXT);
+        if(null==text) {
+            throw new IllegalArgumentException("Missing required attribute " + CharSequences.quote(ParserTokenNodeAttributeName.TEXT.value()));
+        }
+        return this.replaceText(text);
+    }
+
+    abstract ParserTokenNode replaceText(final String text);
 
     // Value ...........................................................................................................
 

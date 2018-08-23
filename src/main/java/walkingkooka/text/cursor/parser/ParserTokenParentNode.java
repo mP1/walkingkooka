@@ -88,15 +88,6 @@ final class ParserTokenParentNode extends ParserTokenNode{
                 .replaceChild0(this.parent());
     }
 
-    private ParserTokenNode replaceChild0(final Optional<ParserTokenNode> previousParent) {
-        return previousParent.isPresent() ?
-                previousParent.get()
-                        .replaceChild1(this)
-                        .children()
-                        .get(this.index()) :
-                this;
-    }
-
     /**
      * Uses the new given child and updates only that property and if the instance is different returns a new node.
      */
@@ -112,10 +103,11 @@ final class ParserTokenParentNode extends ParserTokenNode{
                 .replaceChild0(this.parent());
     }
 
-    private static String computeText(final List<ParserToken> children) {
-        return children.stream()
-                .map(n -> n.text())
-                .collect(Collectors.joining());
+    @Override
+    ParserTokenNode replaceText(final String text) {
+        return new ParserTokenParentNode(ParentParserToken.class.cast(this.token.setText(text)),
+                null,
+                this.index())
+                .replaceChild0(this.parent());
     }
-
 }
