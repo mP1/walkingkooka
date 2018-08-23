@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * The parser token representing the sign of a number. True means negative, false means positive
  */
-public final class SignParserToken extends ParserTemplateToken<Boolean> {
+public final class SignParserToken extends ParserTemplateToken<Boolean> implements LeafParserToken<Boolean>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SignParserToken.class);
 

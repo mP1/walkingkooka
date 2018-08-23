@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * The parser token for a time with the value contained in a {@link LocalTime}.
  */
-public final class LocalTimeParserToken extends ParserTemplateToken<LocalTime> {
+public final class LocalTimeParserToken extends ParserTemplateToken<LocalTime> implements LeafParserToken<LocalTime>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LocalTimeParserToken.class);
 

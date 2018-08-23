@@ -21,7 +21,7 @@ import java.util.Objects;
 /**
  * The parser token for a matched string.
  */
-public final class StringParserToken extends ParserTemplateToken<String> {
+public final class StringParserToken extends ParserTemplateToken<String> implements LeafParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(StringParserToken.class);
 

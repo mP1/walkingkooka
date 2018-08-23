@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained within a {@link BigDecimal}
  */
-public final class BigDecimalParserToken extends ParserTemplateToken<BigDecimal> {
+public final class BigDecimalParserToken extends ParserTemplateToken<BigDecimal> implements LeafParserToken<BigDecimal>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(BigDecimalParserToken.class);
 

@@ -17,7 +17,7 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
+import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class EbnfParentParserToken extends EbnfParserToken implements Value<List<ParserToken>> {
+abstract class EbnfParentParserToken extends EbnfParserToken implements ParentParserToken {
 
     final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 

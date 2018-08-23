@@ -16,14 +16,14 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.Value;
+import walkingkooka.text.cursor.parser.LeafParserToken;
 
 import java.util.Objects;
 
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken implements Value<T> {
+abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken implements LeafParserToken<T> {
 
     static void checkValue(final Object value) {
         Objects.requireNonNull(value, "value");

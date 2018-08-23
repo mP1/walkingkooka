@@ -18,8 +18,8 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
-import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken implements Value<List<ParserToken>> {
+abstract class SpreadsheetParentParserToken extends SpreadsheetParserToken implements ParentParserToken {
 
     final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 

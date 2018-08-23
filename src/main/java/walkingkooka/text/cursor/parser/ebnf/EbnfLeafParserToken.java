@@ -16,14 +16,14 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.Value;
+import walkingkooka.text.cursor.parser.LeafParserToken;
 
 import java.util.Objects;
 
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements Value<T> {
+abstract class EbnfLeafParserToken<T> extends EbnfParserToken implements LeafParserToken<T> {
 
     static void checkValue(final Object value) {
         Objects.requireNonNull(value, "value");
