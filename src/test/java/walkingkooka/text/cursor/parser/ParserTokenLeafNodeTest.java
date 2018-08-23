@@ -19,10 +19,16 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<ParserTokenLeafNode>{
+
+    private final static String TEXT = "abc123";
 
     @Test
     public void testChildren() {
@@ -44,9 +50,27 @@ public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<Parse
         this.createParserTokenNode().setChildrenValues(Lists.empty());
     }
 
+    @Test
+    public void testAttributes() {
+        assertEquals(Maps.one(ParserTokenNodeAttributeName.TEXT, TEXT), this.createParserTokenNode().attributes());
+    }
+
+    @Test
+    public void testSetAttributesDifferent() {
+        final ParserTokenLeafNode node = this.createParserTokenNode();
+
+        final String differentText = "different";
+        final Map<ParserTokenNodeAttributeName, String> attributes = Maps.one(ParserTokenNodeAttributeName.TEXT, differentText);
+        final ParserTokenNode different = node.setAttributes(attributes);
+        assertNotSame(node, different);
+
+        assertEquals("attributes", attributes, different.attributes());
+        assertEquals(node.value().setText(differentText).asNode(), different);
+    }
+
     @Override
     ParserTokenLeafNode createParserTokenNode() {
-        return Cast.to(string("string").asNode());
+        return Cast.to(string(TEXT).asNode());
     }
 
     @Override

@@ -16,9 +16,24 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import org.junit.Test;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.NodeTestCase;
 
+import static org.junit.Assert.assertSame;
+
 public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends NodeTestCase<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> {
+
+    @Test(expected = NullPointerException.class)
+    public void testSetAttributeNullFails() {
+        this.createNode().setAttributes(null);
+    }
+
+    @Test
+    public void testSetAttributesSame() {
+        final N node = this.createParserTokenNode();
+        assertSame(node, node.setAttributes(node.attributes()));
+    }
 
     final protected ParserTokenNode createNode() {
         return this.createParserTokenNode();

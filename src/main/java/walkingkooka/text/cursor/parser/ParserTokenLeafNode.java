@@ -80,4 +80,12 @@ final class ParserTokenLeafNode extends ParserTokenNode {
     ParserTokenNode replaceChild1(final ParserTokenNode child){
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    ParserTokenNode replaceText(final String text) {
+        return new ParserTokenLeafNode(this.token.setText(text),
+                null,
+                this.index())
+                .replaceChild0(this.parent());
+    }
 }

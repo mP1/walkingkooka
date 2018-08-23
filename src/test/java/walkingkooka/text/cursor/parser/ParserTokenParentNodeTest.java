@@ -19,11 +19,13 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,8 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTokenParentNode> {
+
+    private final static String TEXT = "a1b2";
 
     private final static StringParserToken STRING1 = string("a1");
     private final static StringParserToken STRING2 = string("b2");
@@ -116,7 +120,41 @@ public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTok
         this.childrenCheck2(node, STRING1, STRING2);
     }
 
+    @Test
+    public void testAttributes() {
+        assertEquals(Maps.one(ParserTokenNodeAttributeName.TEXT, TEXT), this.createParserTokenNode().attributes());
+    }
 
+    @Test
+    public void testSetAttributesDifferent() {
+        final ParserTokenParentNode node = this.createParserTokenNode();
+
+        final String differentText = "different";
+        final Map<ParserTokenNodeAttributeName, String> attributes = Maps.one(ParserTokenNodeAttributeName.TEXT, differentText);
+        final ParserTokenNode different = node.setAttributes(attributes);
+        assertNotSame(node, different);
+
+        assertEquals("attributes", attributes, different.attributes());
+        assertEquals(node.value().setText(differentText).asNode(), different);
+    }
+
+    @Test
+    public void testSetAttributesChildDifferent() {
+        final ParserTokenParentNode parent = this.createParserTokenNode();
+        final ParserTokenNode child = parent.children().get(0);
+
+        final String differentText = "different";
+        final Map<ParserTokenNodeAttributeName, String> attributes = Maps.one(ParserTokenNodeAttributeName.TEXT, differentText);
+        final ParserTokenNode differentChild = child.setAttributes(attributes);
+        assertNotSame(child, differentChild);
+
+        assertEquals("attributes", attributes, differentChild.attributes());
+        assertEquals(child.value().setText(differentText).asNode(), differentChild);
+
+        final Optional<ParserTokenNode> maybeDifferentParent = differentChild.parent();
+        final ParserTokenNode differentParent = maybeDifferentParent.get();
+        assertEquals("different parent", sequence(TEXT, STRING1.setText(differentText), STRING2), differentParent);
+    }
 
     @Test
     public void testSelectorByName() {
@@ -139,7 +177,7 @@ public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTok
 
     @Override
     ParserTokenParentNode createParserTokenNode() {
-        return sequence("a1b2", STRING1, STRING2);
+        return sequence(TEXT, STRING1, STRING2);
     }
 
     private ParserTokenParentNode sequence(final String text, final ParserToken...tokens) {
