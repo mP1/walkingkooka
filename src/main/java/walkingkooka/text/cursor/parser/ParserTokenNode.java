@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A {@link Node} wrapper around a {@link ParserToken}. This allows selectors to match and replace nodes typically
+ * A {@link Node} readonly wrapper around a {@link ParserToken}. This allows selectors to match and replace nodes typically
  * during a simplification phase.
  */
 public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String>,
@@ -59,7 +59,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     static ParserTokenNode with(final ParserToken token, final Optional<ParserTokenNode> parent, final int index) {
         return token instanceof SequenceParserToken ?
-                new SequenceParserTokenNode(Cast.to(token), parent, index) :
+                new ParserTokenParentNode(Cast.to(token), parent, index) :
                 new ParserTokenLeafNode(token, parent, index);
     }
 
@@ -67,10 +67,6 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
         this.token = token;
         this.parent = parent;
         this.index = index;
-    }
-
-    final SequenceParserToken asSequenceParserToken() {
-        return this.token.cast();
     }
 
     // Node ...........................................................................................................
@@ -102,7 +98,7 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
         if(UNKNOWN_INDEX == this.index) {
             final Optional<ParserTokenNode> parent = this.parent();
             this.index = parent.isPresent() ?
-                    this.findIndex(parent.get().asSequenceParserToken()) :
+                    parent.get().valueAsList().indexOf(this) :
                     -1;
         }
         return this.index;
@@ -110,26 +106,32 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     private int index;
 
-    private int findIndex(final SequenceParserToken parent) {
-        return parent.value().indexOf(this);
-    }
-
     // children ...........................................................................................................
-
-    /**
-     * Only really implemented by {@link SequenceParserTokenNode}
-     */
-    abstract ParserTokenNode replaceChild1(final ParserTokenNode child);
 
     /**
      * Returns the child values as actual {@link ParserToken}
      */
     abstract public List<ParserToken> childrenValues();
 
-    /**
-     * Would be setter that accepts actual {@link ParserToken} rather than {@link ParserTokenNode}
-     */
-    abstract public ParserTokenNode setChildrenValues(final List<ParserToken> childrenValues);
+    @Override
+    public final ParserTokenNode setChildrenValues(final List<ParserToken> childrenValues) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final ParserTokenNode setChildren(final List<ParserTokenNode> children) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final ParserTokenNode appendChild(final ParserTokenNode child) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final ParserTokenNode removeChild(final int child) {
+        throw new UnsupportedOperationException();
+    }
 
     // attributes ...........................................................................................................
 
@@ -153,6 +155,10 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
     @Override
     public final ParserToken value() {
         return this.token;
+    }
+
+    final List<ParserToken> valueAsList() {
+        return ParentParserToken.class.cast(this.value()).value();
     }
 
     final ParserToken token;

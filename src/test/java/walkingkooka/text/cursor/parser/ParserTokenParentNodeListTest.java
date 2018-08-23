@@ -24,7 +24,7 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public final class SequenceParserTokenNodeListTest extends PackagePrivateClassTestCase<SequenceParserTokenNodeList> {
+public final class ParserTokenParentNodeListTest extends PackagePrivateClassTestCase<ParserTokenParentNodeList> {
 
     private final static StringParserToken STRING1 = string("a1");
     private final static StringParserToken STRING2 = string("b2");
@@ -43,7 +43,7 @@ public final class SequenceParserTokenNodeListTest extends PackagePrivateClassTe
 
     @Test
     public void testEqualsSelf() {
-        final SequenceParserTokenNodeList list = this.createList();
+        final ParserTokenParentNodeList list = this.createList();
         assertEquals(list, list);
     }
 
@@ -67,11 +67,11 @@ public final class SequenceParserTokenNodeListTest extends PackagePrivateClassTe
         assertNotEquals(this.createList(), sequence("xyz", STRING3, STRING4).children());
     }
 
-    private SequenceParserTokenNodeList createList() {
+    private ParserTokenParentNodeList createList() {
         return Cast.to(sequence("a1b2", STRING1, STRING2).children());
     }
 
-    private SequenceParserTokenNode sequence(final String text, final ParserToken...tokens) {
+    private ParserTokenParentNode sequence(final String text, final ParserToken...tokens) {
         return Cast.to(ParserTokens.sequence(Lists.of(tokens), text).asNode());
     }
 
@@ -80,7 +80,7 @@ public final class SequenceParserTokenNodeListTest extends PackagePrivateClassTe
     }
 
     @Override
-    protected Class<SequenceParserTokenNodeList> type() {
-        return SequenceParserTokenNodeList.class;
+    protected Class<ParserTokenParentNodeList> type() {
+        return ParserTokenParentNodeList.class;
     }
 }
