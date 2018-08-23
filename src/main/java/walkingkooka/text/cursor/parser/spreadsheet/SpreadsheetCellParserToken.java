@@ -26,7 +26,8 @@ import java.util.List;
 /**
  * A reference that includes a defined name or column and row.
  */
-public final class SpreadsheetCellParserToken extends SpreadsheetParentParserToken implements SpreadsheetReferenceParserToken {
+public final class SpreadsheetCellParserToken extends SpreadsheetParentParserToken<SpreadsheetCellParserToken>
+        implements SpreadsheetReferenceParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetCellParserToken.class);
 
@@ -70,13 +71,13 @@ public final class SpreadsheetCellParserToken extends SpreadsheetParentParserTok
     }
 
     @Override
-    SpreadsheetCellParserToken replaceText(final String text) {
-        return new SpreadsheetCellParserToken(this.value, text, this.cell, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+    public SpreadsheetCellParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new SpreadsheetCellParserToken(tokens, this.text(), this.cell, tokens);
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetCellParserToken(tokens, text, this.cell, without);
     }
 
     @Override

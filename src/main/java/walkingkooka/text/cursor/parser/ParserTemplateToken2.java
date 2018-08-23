@@ -25,7 +25,8 @@ import java.util.Objects;
 /**
  * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
  */
-abstract class ParserTemplateToken2 extends ParserTemplateToken<List<ParserToken>> implements ParentParserToken {
+abstract class ParserTemplateToken2<T extends ParserTemplateToken2> extends ParserTemplateToken<List<ParserToken>>
+        implements ParentParserToken<T> {
 
     /**
      * Private ctor to limit subclassing.

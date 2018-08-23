@@ -19,8 +19,17 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.text.cursor.parser.ParserToken;
 
-public abstract class SpreadsheetUnaryParserTokenTestCase<T extends SpreadsheetUnaryParserToken> extends SpreadsheetParentParserTokenTestCase<T> {
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+
+public abstract class SpreadsheetUnaryParserTokenTestCase<T extends SpreadsheetUnaryParserToken<T>> extends SpreadsheetParentParserTokenTestCase<T> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithMissingNonNoisyToken() {
@@ -30,5 +39,36 @@ public abstract class SpreadsheetUnaryParserTokenTestCase<T extends SpreadsheetU
     @Test(expected = IllegalArgumentException.class)
     public void testWithMissingNonNoisyToken2() {
         this.createToken("", this.whitespace(), this.whitespace());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetValueWrongCountFails2() {
+        this.createToken().setValue(Lists.of(this.number1(), this.number2()));
+    }
+
+    @Test
+    public final void testSetValueDifferent() {
+        final T token = this.createToken();
+        final SpreadsheetParserToken value = this.number(123);
+        final T different = token.setValue(Lists.of(value));
+        assertNotSame(token, different);
+        this.checkValue(different, value);
+
+        assertEquals(Optional.of(different), different.withoutSymbolsOrWhitespace());
+    }
+
+    @Test
+    public final void testSetValueDifferent2() {
+        final T token = this.createToken();
+
+        final List<ParserToken> values = Lists.of(this.number(123), whitespace());
+        final T different = token.setValue(values);
+        assertNotSame(token, different);
+        this.checkValue(different, values);
+
+        final Optional<SpreadsheetParserToken> differentWithout = different.withoutSymbolsOrWhitespace();
+        assertNotEquals(Optional.of(different), differentWithout);
+
+        this.checkValue(differentWithout.get(), values.subList(0, 1));
     }
 }

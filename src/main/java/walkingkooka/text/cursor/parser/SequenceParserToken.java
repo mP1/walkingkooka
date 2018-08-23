@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * This {@link ParserToken} holds a sequence in order of tokens.
  */
-public final class SequenceParserToken extends ParserTemplateToken2 implements SupportsFlat<SequenceParserToken, ParserToken> {
+public final class SequenceParserToken extends ParserTemplateToken2<SequenceParserToken> implements SupportsFlat<SequenceParserToken, ParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SequenceParserToken.class);
 

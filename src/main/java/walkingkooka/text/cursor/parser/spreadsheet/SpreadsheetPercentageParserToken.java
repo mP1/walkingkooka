@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A wrapper around a numeric type that is also a percentage.
  */
-public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryParserToken {
+public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryParserToken<SpreadsheetPercentageParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetPercentageParserToken.class);
 
@@ -34,16 +34,13 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetUnaryParserTokenConsumer checker = checkValue(value);
-
         return new SpreadsheetPercentageParserToken(copy,
                 text,
-                checker.value(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken parameter, final List<ParserToken> valueWithout){
-        super(value, text, parameter, valueWithout);
+    private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -52,13 +49,15 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
     }
 
     @Override
-    SpreadsheetPercentageParserToken replaceText(final String text) {
-        return new SpreadsheetPercentageParserToken(this.value, text, this.parameter, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+    public SpreadsheetPercentageParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new SpreadsheetPercentageParserToken(tokens, this.text(), tokens.get(0).cast(), tokens);
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetPercentageParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

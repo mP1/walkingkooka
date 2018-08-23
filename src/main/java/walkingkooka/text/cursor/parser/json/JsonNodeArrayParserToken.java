@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * A wrapper around a numeric type that is also a percentage.
  */
-public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken {
+public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<JsonNodeArrayParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeArrayParserToken.class);
 
@@ -53,8 +53,13 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken {
     }
 
     @Override
-    JsonNodeParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new JsonNodeArrayParserToken(tokens, this.text(), tokens);
+    public JsonNodeArrayParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
+    }
+
+    @Override
+    JsonNodeParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without) {
+        return new JsonNodeArrayParserToken(tokens, this.text(), without);
     }
 
     @Override

@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParentParserToken> extends JsonNodeParserTokenTestCase<T> {
+public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParentParserToken<T>> extends JsonNodeParserTokenTestCase<T> {
 
     final static String NUMBER1 = "1";
     final static String NUMBER2 = "22";

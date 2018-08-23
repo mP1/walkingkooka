@@ -28,7 +28,7 @@ import java.util.List;
  * <br>
  * SUM(A10:A20)
  */
-public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParserToken {
+public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParserToken<SpreadsheetFunctionParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetFunctionParserToken.class);
 
@@ -36,32 +36,28 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetFunctionParserTokenConsumer checker = new SpreadsheetFunctionParserTokenConsumer();
-        copy.stream()
-             .filter(t -> t instanceof SpreadsheetParserToken)
-             .map(t -> SpreadsheetParserToken.class.cast(t))
-             .forEach(checker);
-        final SpreadsheetFunctionName name = checker.name;
-        if(null==name){
-            throw new IllegalArgumentException("Function name missing from " + value);
-        }
-
         return new SpreadsheetFunctionParserToken(copy,
                 text,
-                name,
-                checker.parameters,
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
     private SpreadsheetFunctionParserToken(final List<ParserToken> value,
                                            final String text,
-                                           final SpreadsheetFunctionName name,
-                                           final List<ParserToken> parameters,
                                            final List<ParserToken> valueWithout){
         super(value, text, valueWithout);
 
-        this.name = name;
-        this.parameters = parameters;
+        final List<ParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value();
+        final int count = without.size();
+        if(count < 1) {
+            throw new IllegalArgumentException("Expected at least 1 tokens but got " + count + "=" + without);
+        }
+        final SpreadsheetParserToken name = without.get(0).cast();
+        if(!name.isFunctionName()){
+            throw new IllegalArgumentException("Function name missing from " + value);
+        }
+
+        this.name = SpreadsheetFunctionNameParserToken.class.cast(name).value();
+        this.parameters = without.subList(1, without.size());
     }
 
     /**
@@ -85,18 +81,15 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     }
 
     @Override
-    SpreadsheetFunctionParserToken replaceText(final String text) {
-        return new SpreadsheetFunctionParserToken(this.value, text, this.name, this.parameters, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+    public SpreadsheetFunctionParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetParentParserToken replaceTokens(final List<ParserToken> tokens) {
-        // this method is called before the name and parameter fields are set.
+    SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
         return new SpreadsheetFunctionParserToken(tokens,
-                this.text(),
-                SpreadsheetFunctionNameParserToken.class.cast(tokens.get(0)).value(),
-                tokens.subList(1, tokens.size()),
-                tokens);
+                text,
+                without);
     }
 
     @Override

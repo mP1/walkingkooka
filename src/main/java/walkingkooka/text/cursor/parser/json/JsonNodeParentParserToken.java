@@ -18,26 +18,28 @@
 package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class JsonNodeParentParserToken extends JsonNodeParserToken implements ParentParserToken {
+abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> extends JsonNodeParserToken implements ParentParserToken<T> {
 
     final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 
     JsonNodeParentParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(text);
         this.value = value;
-        this.without = null == valueWithout ?
-                this.computeWithout(value) :
-                Optional.of(this);
+        this.without = value.equals(valueWithout) ?
+                Optional.of(this) :
+                computeWithout(value);
     }
 
     private Optional<JsonNodeParserToken> computeWithout(final List<ParserToken> value){
@@ -47,7 +49,7 @@ abstract class JsonNodeParentParserToken extends JsonNodeParserToken implements 
 
         return Optional.of(value.size() == without.size() ?
                 this:
-                this.replaceTokens(without));
+                this.replaceValue(without, without));
     }
 
     @Override
@@ -132,10 +134,21 @@ abstract class JsonNodeParentParserToken extends JsonNodeParserToken implements 
 
     final List<ParserToken> value;
 
+    final JsonNodeParentParserToken setValue0(final List<ParserToken> value) {
+        Objects.requireNonNull(value, "values");
+
+        final List<ParserToken> copy = Lists.array();
+        copy.addAll(value);
+
+        return this.value().equals(copy) ?
+               this :
+               this.replaceValue(copy, WITHOUT_COMPUTE_REQUIRED);
+    }
+
     /**
      * Factory that creates a new {@link JsonNodeParentParserToken} with the same text but new tokens.
      */
-    abstract JsonNodeParentParserToken replaceTokens(final List<ParserToken> tokens);
+    abstract JsonNodeParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without);
 
     final void acceptValues(final JsonNodeParserTokenVisitor visitor){
         for(ParserToken token: this.value()){

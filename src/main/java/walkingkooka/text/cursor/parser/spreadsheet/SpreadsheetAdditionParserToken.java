@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents a addition operation with its parameters.
  */
-public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParserToken<SpreadsheetAdditionParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetAdditionParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParse
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetAdditionParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetAdditionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetAdditionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParse
     }
 
     @Override
-    SpreadsheetAdditionParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetAdditionParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetAdditionParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetAdditionParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetAdditionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetAdditionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetAdditionParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

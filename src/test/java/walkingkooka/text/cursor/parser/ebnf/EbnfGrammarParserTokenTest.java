@@ -26,8 +26,10 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
 public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestCase<EbnfGrammarParserToken> {
@@ -41,6 +43,35 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     public void testWithoutCommentsSymbolsOrWhitespace() {
         final EbnfGrammarParserToken token = this.createToken();
         assertSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetValueMissingRuleFails() {
+        this.createToken().setValue(Lists.empty());
+    }
+
+    @Test
+    public final void testSetValueDifferentRules() {
+        final EbnfGrammarParserToken token = this.createToken();
+
+        final List<ParserToken> tokens = Lists.of(this.rule(identifier2()));
+        final EbnfGrammarParserToken different = token.setValue(tokens);
+        this.checkValue(different, tokens);
+        assertEquals(Optional.of(different), different.withoutCommentsSymbolsOrWhitespace());
+    }
+
+    @Test
+    public final void testSetValueDifferentRules2() {
+        final EbnfGrammarParserToken token = this.createToken();
+
+        final List<ParserToken> tokens = Lists.of(this.rule(identifier2()), whitespace());
+        final EbnfGrammarParserToken different = token.setValue(tokens);
+        this.checkValue(different, tokens);
+
+        final Optional<EbnfParserToken> differentWithout = different.withoutCommentsSymbolsOrWhitespace();
+        assertNotEquals(Optional.of(different), different);
+
+        this.checkValue(differentWithout.get(), tokens.get(0));
     }
 
     @Test
@@ -212,7 +243,11 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     private EbnfRuleParserToken rule() {
-        return this.rule(identifier1(), terminal1(), "identifier1:'terminal1';");
+        return this.rule(identifier1());
+    }
+
+    private EbnfRuleParserToken rule(final EbnfIdentifierParserToken identifier) {
+        return this.rule(identifier, terminal1(), "identifier1:'terminal1';");
     }
 
     private EbnfRuleParserToken rule(final EbnfIdentifierParserToken identifier, final EbnfParserToken rhs, final String text) {

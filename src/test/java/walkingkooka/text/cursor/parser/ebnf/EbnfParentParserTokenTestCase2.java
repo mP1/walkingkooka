@@ -17,8 +17,9 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 
-public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserToken> extends EbnfParentParserTokenTestCase<T> {
+public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase<T> {
 
     @Test(expected = IllegalArgumentException.class)
     public final void testOnlyCommentsFails() {
@@ -43,5 +44,10 @@ public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserT
     @Test(expected = IllegalArgumentException.class)
     public final void testOnlyCommentWhitespaceFails() {
         this.createToken(this.text(), this.whitespace("   "), this.whitespace(" "));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetValueEmptyFails() {
+        this.createToken().setValue(Lists.empty());
     }
 }

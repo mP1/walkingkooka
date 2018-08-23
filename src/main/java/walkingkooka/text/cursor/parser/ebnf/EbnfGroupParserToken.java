@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents an grouped token in the grammar.
  */
-public final class EbnfGroupParserToken extends EbnfParentParserToken {
+public final class EbnfGroupParserToken extends EbnfParentParserToken<EbnfGroupParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfGroupParserToken.class);
 
@@ -44,13 +44,13 @@ public final class EbnfGroupParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfGroupParserToken replaceText(final String text) {
-        return new EbnfGroupParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
+    public EbnfGroupParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    EbnfGroupParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfGroupParserToken(tokens, this.text(), tokens);
+    EbnfGroupParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new EbnfGroupParserToken(tokens, text, without);
     }
 
     @Override

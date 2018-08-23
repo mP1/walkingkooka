@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents an repeated token in the grammar.
  */
-public final class EbnfRepeatedParserToken extends EbnfParentParserToken {
+public final class EbnfRepeatedParserToken extends EbnfParentParserToken<EbnfRepeatedParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfRepeatedParserToken.class);
 
@@ -44,13 +44,13 @@ public final class EbnfRepeatedParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfRepeatedParserToken replaceText(final String text) {
-        return new EbnfRepeatedParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
+    public EbnfRepeatedParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    EbnfRepeatedParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfRepeatedParserToken(tokens, this.text(), tokens);
+    EbnfRepeatedParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new EbnfRepeatedParserToken(tokens, text, without);
     }
 
     @Override

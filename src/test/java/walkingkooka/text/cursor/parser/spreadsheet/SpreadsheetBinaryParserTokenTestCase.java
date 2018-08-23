@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public abstract class SpreadsheetBinaryParserTokenTestCase<T extends SpreadsheetBinaryParserToken> extends SpreadsheetParentParserTokenTestCase<T> {
+public abstract class SpreadsheetBinaryParserTokenTestCase<T extends SpreadsheetBinaryParserToken<T>> extends SpreadsheetParentParserTokenTestCase<T> {
 
     @Test(expected = IllegalArgumentException.class)
     public final void testWithLeftMissingFails() {
@@ -89,6 +89,16 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
 
         this.checkText(without, text);
         this.checkValue(without, left, right);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetValueWrongCountFails() {
+        this.createToken().setValue(Lists.of(this.number1()));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetValueWrongCountFails2() {
+        this.createToken().setValue(Lists.of(this.number1(), this.number2(), this.number(3)));
     }
 
     abstract SpreadsheetParserToken leftToken();

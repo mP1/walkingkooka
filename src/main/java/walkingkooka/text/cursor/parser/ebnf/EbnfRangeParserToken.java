@@ -25,13 +25,22 @@ import java.util.List;
 /**
  * Represents a list of alternative token in the grammar.
  */
-final public class EbnfRangeParserToken extends EbnfParentParserToken {
+final public class EbnfRangeParserToken extends EbnfParentParserToken<EbnfRangeParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfRangeParserToken.class);
 
     static EbnfRangeParserToken with(final List<ParserToken> tokens, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(tokens);
         checkText(text);
+
+        return new EbnfRangeParserToken(copy, text, WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    private EbnfRangeParserToken(final List<ParserToken> tokens,
+                                 final String text,
+                                 final List<ParserToken> valueWithout) {
+        super(tokens, text, valueWithout);
+        this.checkOnlyTwoTokens();
 
         final EbnfRangeParserTokenConsumer checker = new EbnfRangeParserTokenConsumer();
         tokens.stream()
@@ -48,17 +57,6 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
             throw new IllegalArgumentException("Range missing end terminal|identifier=" + text);
         }
 
-        return new EbnfRangeParserToken(copy, text, begin, end, WITHOUT_COMPUTE_REQUIRED);
-    }
-
-    private EbnfRangeParserToken(final List<ParserToken> tokens,
-                                 final String text,
-                                 final EbnfParserToken begin,
-                                 final EbnfParserToken end,
-                                 final List<ParserToken> valueWithout) {
-        super(tokens, text, valueWithout);
-        this.checkOnlyTwoTokens();
-
         this.begin = begin;
         this.end = end;
     }
@@ -69,14 +67,15 @@ final public class EbnfRangeParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfRangeParserToken replaceText(final String text) {
-        return new EbnfRangeParserToken(this.value(), text, this.begin, this.end, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
+    public EbnfRangeParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    EbnfRangeParserToken replaceTokens(final List<ParserToken> tokens) {
-        // this method is only called by the ctor which happens before the begin/end fields have been set.
-        return new EbnfRangeParserToken(tokens, this.text(), tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    EbnfRangeParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new EbnfRangeParserToken(tokens,
+                text,
+                without);
     }
 
     public EbnfParserToken begin() {

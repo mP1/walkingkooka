@@ -29,14 +29,14 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * A grammar holds all the rules and is the root of the graph. Note the {@link #value()} will contain a mixture of rules,
  * comments and whitespace until {@link #withoutCommentsSymbolsOrWhitespace()} is invoked.
  */
-public final class EbnfGrammarParserToken extends EbnfParentParserToken {
+public final class EbnfGrammarParserToken extends EbnfParentParserToken<EbnfGrammarParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(EbnfGrammarParserToken.class);
 
@@ -47,19 +47,18 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
         final List<ParserToken> copy = Lists.array();
         copy.addAll(tokens);
 
-        final List<ParserToken> onlyRules = copy.stream()
-                .filter(t -> t instanceof EbnfRuleParserToken)
-                .collect(Collectors.toList());
-        if(onlyRules.isEmpty()){
-            throw new IllegalArgumentException("Missing at least 1 rule=" + text);
-        }
-
         return new EbnfGrammarParserToken(copy, text, WITHOUT_COMPUTE_REQUIRED);
     }
 
     private EbnfGrammarParserToken(final List<ParserToken> tokens, final String text, final List<ParserToken> valueWithout) {
         super(tokens, text, valueWithout);
-        this.checkAtLeastOneRule();
+
+        final Optional<ParserToken> firstRule = tokens.stream()
+                .filter(t -> t instanceof EbnfRuleParserToken)
+                .findFirst();
+        if(!firstRule.isPresent()) {
+            throw new IllegalArgumentException("Grammar requires at least 1 rule=" + tokens);
+        }
     }
 
     @Override
@@ -68,13 +67,13 @@ public final class EbnfGrammarParserToken extends EbnfParentParserToken {
     }
 
     @Override
-    EbnfGrammarParserToken replaceText(final String text) {
-        return new EbnfGrammarParserToken(this.value(), text, this.valueIfWithoutCommentsSymbolsOrWhitespaceOrNull());
+    public EbnfGrammarParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    EbnfGrammarParserToken replaceTokens(final List<ParserToken> tokens) {
-        return new EbnfGrammarParserToken(tokens, this.text(), tokens);
+    EbnfGrammarParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new EbnfGrammarParserToken(tokens, text, without);
     }
 
     @Override

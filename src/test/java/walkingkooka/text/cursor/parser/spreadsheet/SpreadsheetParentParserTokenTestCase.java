@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class SpreadsheetParentParserTokenTestCase<T extends SpreadsheetParentParserToken> extends SpreadsheetParserTokenTestCase<T> {
+public abstract class SpreadsheetParentParserTokenTestCase<T extends SpreadsheetParentParserToken<T>> extends SpreadsheetParserTokenTestCase<T> {
 
     final static String NUMBER1 = "1";
     final static String NUMBER2 = "22";
@@ -71,6 +71,23 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
         assertSame(token.withoutSymbolsOrWhitespace().get(), token.withoutSymbolsOrWhitespace().get());
     }
 
+    @Test(expected = NullPointerException.class)
+    public final void testSetValueNullFails() {
+        this.createToken().setValue(null);
+    }
+
+    @Test
+    public final void testSetValueSame() {
+        final T token = this.createToken();
+        assertSame(token, token.setValue(token.value()));
+    }
+
+    @Test
+    public final void testSetValueSame2() {
+        final T token = this.createToken();
+        assertSame(token, token.setValue(this.tokens()));
+    }
+
     abstract T createToken(final String text, final List<ParserToken> tokens);
 
     final T createToken(final String text) {
@@ -85,9 +102,22 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
 
     abstract List<ParserToken> tokens();
 
-    final void checkValue(final T token, final ParserToken...tokens){
-        assertEquals("value", Lists.of(tokens), token.value());
+    final void checkValue(final SpreadsheetParserToken token, final ParserToken...value){
+        this.checkValue(token, Lists.of(value));
     }
+
+    final void checkValue(final SpreadsheetParserToken token, final List<ParserToken> value){
+        this.checkValue(SpreadsheetParentParserToken.class.cast(token), value);
+    }
+
+    final void checkValue(final SpreadsheetParentParserToken<?> token, final ParserToken...value){
+        this.checkValue(token, Lists.of(value));
+    }
+
+    final void checkValue(final SpreadsheetParentParserToken<?> token, final List<ParserToken> value){
+        assertEquals("value", value, token.value());
+    }
+
 
     final SpreadsheetLabelNameParserToken label1() {
         return this.label("label1");

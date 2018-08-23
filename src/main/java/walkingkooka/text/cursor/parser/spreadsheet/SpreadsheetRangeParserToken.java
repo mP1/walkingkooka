@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A wrapper around a numeric type that is also a percentage.
  */
-public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserToken<SpreadsheetRangeParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetRangeParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetRangeParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetRangeParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetRangeParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
     }
 
     @Override
-    SpreadsheetRangeParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetRangeParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetRangeParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetRangeParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetRangeParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetRangeParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetRangeParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

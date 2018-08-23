@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents a subtraction operation with its parameters.
  */
-public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryParserToken {
+public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryParserToken<SpreadsheetSubtractionParserToken> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetSubtractionParserToken.class);
 
@@ -34,17 +34,13 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
         final List<ParserToken> copy = copyAndCheckTokens(value);
         checkText(text);
 
-        final SpreadsheetBinaryParserTokenConsumer checker = checkLeftAndRight(value);
-
         return new SpreadsheetSubtractionParserToken(copy,
                 text,
-                checker.left(copy),
-                checker.right(copy),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetSubtractionParserToken(final List<ParserToken> value, final String text, final SpreadsheetParserToken left, final SpreadsheetParserToken right, final List<ParserToken> valueWithout){
-        super(value, text, left, right, valueWithout);
+    private SpreadsheetSubtractionParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
     }
 
     @Override
@@ -53,17 +49,15 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
     }
 
     @Override
-    SpreadsheetSubtractionParserToken replaceText(final String text) {
-        return this.replace(this.value, text);
+    public SpreadsheetSubtractionParserToken setValue(final List<ParserToken> value) {
+        return this.setValue0(value).cast();
     }
 
     @Override
-    SpreadsheetSubtractionParserToken replaceTokens(final List<ParserToken> tokens) {
-        return this.replace(tokens, this.text());
-    }
-
-    private SpreadsheetSubtractionParserToken replace(final List<ParserToken> tokens, final String text) {
-        return new SpreadsheetSubtractionParserToken(tokens, text, tokens.get(0).cast(), tokens.get(1).cast(), tokens);
+    SpreadsheetSubtractionParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetSubtractionParserToken(tokens,
+                text,
+                without);
     }
 
     @Override

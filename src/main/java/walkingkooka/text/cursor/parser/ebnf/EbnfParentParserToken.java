@@ -17,36 +17,42 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParentParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
-abstract class EbnfParentParserToken extends EbnfParserToken implements ParentParserToken {
+abstract class EbnfParentParserToken<T extends EbnfParentParserToken> extends EbnfParserToken implements ParentParserToken<T> {
 
     final static List<ParserToken> WITHOUT_COMPUTE_REQUIRED = null;
 
     EbnfParentParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(text);
         this.value = value;
-        this.without = null == valueWithout ?
-                computeWithout(value) :
-                Optional.of(this);
+        this.without = value.equals(valueWithout) ?
+                Optional.of(this) :
+                computeWithout(value);
     }
 
     private Optional<EbnfParserToken> computeWithout(final List<ParserToken> value){
-        final List<ParserToken> without = value.stream()
-                .filter(t -> !t.isNoise())
-                .collect(Collectors.toList());
+        final List<ParserToken> without = filterWithout(value);
 
         return Optional.of(value.size()==without.size() ?
                 this :
-                this.replaceTokens(without));
+                this.replace(without, this.text(), without));
+    }
+
+    private static List<ParserToken> filterWithout(final List<ParserToken> value){
+        return value.stream()
+                .filter(t -> t instanceof EbnfParserToken && !t.isNoise())
+                .collect(Collectors.toList());
     }
 
     final void checkOnlyOneToken() {
@@ -70,17 +76,49 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements ParentPa
         }
     }
 
-    final void checkAtLeastOneRule() {
-        final int count = this.tokenCount();
-        if(count <1) {
-            throw new IllegalArgumentException("Expected at least one rule(ignoring comments, symbols and whitespace) but was " + count + "=" + this.text());
-        }
-    }
-
     private int tokenCount() {
         final EbnfParentParserToken without = this.without.get().cast();
         return without.value().size();
     }
+
+    @Override
+    public final List<ParserToken> value() {
+        return this.value;
+    }
+
+    final EbnfParentParserToken setValue0(final List<ParserToken> value) {
+        Objects.requireNonNull(value, "values");
+
+        final List<ParserToken> copy = Lists.array();
+        copy.addAll(value);
+
+        return this.value().equals(copy) ?
+                this :
+                this.replace(copy, this.text(), filterWithout(copy));
+    }
+
+    final List<ParserToken> value;
+
+    @Override
+    public final Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
+        return this.without;
+    }
+
+    /**
+     * A cached copy of this parent/container without any comments, symbols or whitespace.
+     */
+    final Optional<EbnfParserToken> without;
+
+    @Override
+    final EbnfParserToken replaceText(final String text) {
+        return this.replace(this.value, text, WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    /**
+     * Factory that creates a new {@link EbnfParentParserToken} with the same text but new tokens.
+     * This is only called when creating the withoutCommentsSymbolsOrWhitespace() instance.
+     */
+    abstract EbnfParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without);
 
     @Override
     public final boolean isComment() {
@@ -106,33 +144,6 @@ abstract class EbnfParentParserToken extends EbnfParserToken implements ParentPa
     public final boolean isWhitespace() {
         return false;
     }
-
-    @Override
-    public final List<ParserToken> value() {
-        return this.value;
-    }
-
-    final List<ParserToken> value;
-
-    @Override
-    public final Optional<EbnfParserToken> withoutCommentsSymbolsOrWhitespace(){
-        return this.without;
-    }
-
-    /**
-     * A cached copy of this parent/container without any comments, symbols or whitespace.
-     */
-    final Optional<EbnfParserToken> without;
-
-    final List<ParserToken> valueIfWithoutCommentsSymbolsOrWhitespaceOrNull() {
-        return this == this.without.get() ? this.value : null;
-    }
-
-    /**
-     * Factory that creates a new {@link EbnfParentParserToken} with the same text but new tokens.
-     * This is only called when creating the withoutCommentsSymbolsOrWhitespace() instance.
-     */
-    abstract EbnfParentParserToken replaceTokens(final List<ParserToken> tokens);
 
     final void acceptValues(final EbnfParserTokenVisitor visitor){
         for(ParserToken token: this.value()){
