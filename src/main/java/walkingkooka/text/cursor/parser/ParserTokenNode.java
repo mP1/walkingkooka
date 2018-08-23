@@ -113,25 +113,10 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
      */
     abstract public List<ParserToken> childrenValues();
 
-    @Override
-    public final ParserTokenNode setChildrenValues(final List<ParserToken> childrenValues) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public final ParserTokenNode setChildren(final List<ParserTokenNode> children) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public final ParserTokenNode appendChild(final ParserTokenNode child) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public final ParserTokenNode removeChild(final int child) {
-        throw new UnsupportedOperationException();
-    }
+    /**
+     * Only really implemented by {@link ParserTokenParentNode}
+     */
+    abstract ParserTokenNode replaceChild1(final ParserTokenNode child);
 
     // attributes ...........................................................................................................
 

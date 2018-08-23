@@ -16,11 +16,14 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.Node;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A {@link Node} wrapper around a {@link ParentParserToken} which means it includes children.
@@ -42,6 +45,18 @@ final class ParserTokenParentNode extends ParserTokenNode{
         return this.children;
     }
 
+    @Override
+    public ParserTokenNode setChildren(final List<ParserTokenNode> children) {
+        Objects.requireNonNull(children, "children");
+
+        final List<ParserToken> childrenTokens = children instanceof ParserTokenParentNodeList ?
+                ParserTokenParentNodeList.class.cast(children).parent.valueAsList() :
+                children.stream()
+                        .map(n -> n.token)
+                        .collect(Collectors.toList());
+        return this.setChildrenValues0(childrenTokens);
+    }
+
     private ParserTokenParentNodeList children;
 
     final Optional<ParserTokenNode> childrenParent;
@@ -50,4 +65,57 @@ final class ParserTokenParentNode extends ParserTokenNode{
     public List<ParserToken> childrenValues() {
         return this.valueAsList();
     }
+
+    @Override
+    public ParserTokenNode setChildrenValues(final List<ParserToken> children) {
+        Objects.requireNonNull(children, "children");
+
+        final List<ParserToken> copy = Lists.array();
+        copy.addAll(children);
+        return this.setChildrenValues0(copy);
+    }
+
+    private ParserTokenNode setChildrenValues0(final List<ParserToken> children) {
+        return this.valueAsList().equals(children) ?
+                this :
+                Cast.to(this.replaceChildren(children));
+    }
+
+    private ParserTokenNode replaceChildren(final List<ParserToken> children) {
+        return new ParserTokenParentNode(ParentParserToken.class.cast(this.token).setValue(children),
+                null,
+                this.index())
+                .replaceChild0(this.parent());
+    }
+
+    private ParserTokenNode replaceChild0(final Optional<ParserTokenNode> previousParent) {
+        return previousParent.isPresent() ?
+                previousParent.get()
+                        .replaceChild1(this)
+                        .children()
+                        .get(this.index()) :
+                this;
+    }
+
+    /**
+     * Uses the new given child and updates only that property and if the instance is different returns a new node.
+     */
+    @Override
+    final ParserTokenNode replaceChild1(final ParserTokenNode child) {
+        final List<ParserToken> newChildren = Lists.array();
+        newChildren.addAll(this.valueAsList());
+        newChildren.set(child.index(), child.value());
+
+        return new ParserTokenParentNode(ParentParserToken.class.cast(this.token).setValue(newChildren),
+                null,
+                this.index())
+                .replaceChild0(this.parent());
+    }
+
+    private static String computeText(final List<ParserToken> children) {
+        return children.stream()
+                .map(n -> n.text())
+                .collect(Collectors.joining());
+    }
+
 }
