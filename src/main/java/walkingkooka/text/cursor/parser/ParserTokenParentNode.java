@@ -16,43 +16,38 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.Node;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link Node} wrapper around a {@link ParserToken}. This allows selectors to match and replace nodes typically
- * during a simplification phase.
+ * A {@link Node} wrapper around a {@link ParentParserToken} which means it includes children.
  */
-final class ParserTokenLeafNode extends ParserTokenNode {
+final class ParserTokenParentNode extends ParserTokenNode{
 
-    ParserTokenLeafNode(final ParserToken token, final Optional<ParserTokenNode> parent, final int index) {
+    ParserTokenParentNode(final ParentParserToken token, final Optional<ParserTokenNode> parent, final int index) {
         super(token, parent, index);
+        this.childrenParent = Optional.of(this);
     }
 
     // children ...........................................................................................................
 
     @Override
     public List<ParserTokenNode> children() {
-        return Lists.empty();
+        if(null == this.children) {
+            this.children = new ParserTokenParentNodeList(this);
+        }
+        return this.children;
     }
+
+    private ParserTokenParentNodeList children;
+
+    final Optional<ParserTokenNode> childrenParent;
 
     @Override
     public List<ParserToken> childrenValues() {
-        return Lists.empty();
+        return this.valueAsList();
     }
-
-    @Override
-    public Optional<ParserTokenNode> firstChild() {
-        return NO_CHILD;
-    }
-
-    @Override
-    public Optional<ParserTokenNode> lastChild() {
-        return NO_CHILD;
-    }
-
-    private final static Optional<ParserTokenNode> NO_CHILD = Optional.empty();
 }

@@ -1,0 +1,110 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+package walkingkooka.text.cursor.parser;
+
+import org.junit.Test;
+import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.select.NodeSelector;
+
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+
+public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTokenParentNode> {
+
+    private final static StringParserToken STRING1 = string("a1");
+    private final static StringParserToken STRING2 = string("b2");
+    private final static StringParserToken STRING3 = string("c3");
+    private final static StringParserToken STRING4 = string("d4");
+    private final static StringParserToken STRING5 = string("e5");
+    private final static StringParserToken STRING6 = string("f6");
+
+    @Test
+    public void testParent() {
+        assertEquals(Optional.empty(), this.createParserTokenNode().parent());
+    }
+
+    @Test
+    public void testChildren() {
+        final ParserTokenParentNode node = this.createParserTokenNode();
+        this.childrenCheck2(node, STRING1, STRING2);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testSetChildrenFails() {
+        this.createParserTokenNode().setChildren(Lists.empty());
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testSetChildrenValuesFails() {
+        this.createParserTokenNode().setChildrenValues(Lists.empty());
+    }
+
+    @Test
+    public void testSelectorByName() {
+        final NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> selector = ParserTokenNode.absoluteNodeSelectorBuilder()
+                .descendant()
+                .named(StringParserToken.NAME)
+                .build();
+
+        final ParserTokenParentNode root = sequence("a1b2c3d4",
+                STRING1,
+                ParserTokens.sequence(Lists.of(STRING2, STRING3, ParserTokens.bigInteger(BigInteger.ZERO, "**")), "b2c3**"),
+                STRING4);
+
+        assertEquals(Lists.of("a1", "b2", "c3", "d4"),
+                selector.accept(root, selector.nulObserver())
+                        .stream()
+                        .map(n -> n.value().text())
+                        .collect(Collectors.toList()));
+    }
+
+    @Override
+    ParserTokenParentNode createParserTokenNode() {
+        return sequence("a1b2", STRING1, STRING2);
+    }
+
+    private ParserTokenParentNode sequence(final String text, final ParserToken...tokens) {
+        return Cast.to(ParserTokens.sequence(Lists.of(tokens), text).asNode());
+    }
+
+    private List<ParserTokenNode> children(final ParserToken...tokens) {
+        return Arrays.stream(tokens)
+                .map(t -> t.asNode())
+                .collect(Collectors.toList());
+    }
+
+    private void childrenCheck2(final ParserTokenNode node, final ParserToken...tokens) {
+        this.childrenCheck(node);
+
+        int i = 0;
+        for(ParserTokenNode child: node.children()) {
+            assertEquals("token for child: " + i, tokens[i], child.token);
+            i++;
+        }
+    }
+
+    @Override
+    protected Class<ParserTokenNode> type() {
+        return Cast.to(ParserTokenParentNode.class);
+    }
+}

@@ -19,20 +19,18 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.Cast;
 
 import java.util.AbstractList;
-import java.util.List;
 
 /**
  * A read only list view of the tokens belonging to something like {@link SequenceParser}
  */
-final class SequenceParserTokenNodeList<T extends ParserToken> extends AbstractList<ParserTokenNode> {
+final class ParserTokenParentNodeList<T extends ParserToken> extends AbstractList<ParserTokenNode> {
 
     /**
      * Ctor called by {@link ParserTokenNode#children()}
      */
-    SequenceParserTokenNodeList(final List<ParserToken> tokens, final SequenceParserTokenNode parent) {
-        this.tokens = tokens;
+    ParserTokenParentNodeList(final ParserTokenParentNode parent) {
         this.parent = parent;
-        this.nodes = new ParserTokenNode[tokens.size()];
+        this.nodes = new ParserTokenNode[parent.valueAsList().size()];
     }
 
     // AbstractList ...............................................................................................
@@ -41,7 +39,7 @@ final class SequenceParserTokenNodeList<T extends ParserToken> extends AbstractL
     public ParserTokenNode get(final int index) {
         ParserTokenNode node = this.nodes[index];
         if(null==node) {
-            node = ParserTokenNode.with(this.tokens.get(index),
+            node = ParserTokenNode.with(this.parent.valueAsList().get(index),
                     this.parent.childrenParent,
                     index);
             this.nodes[index]=node;
@@ -50,40 +48,38 @@ final class SequenceParserTokenNodeList<T extends ParserToken> extends AbstractL
     }
 
     private final ParserTokenNode[] nodes;
-    final SequenceParserTokenNode parent;
+    final ParserTokenParentNode parent;
 
     @Override
     public int size() {
-        return this.tokens.size();
+        return this.parent.valueAsList().size();
     }
 
     // Object ...............................................................................................
 
     @Override
     public int hashCode() {
-        return this.tokens.hashCode();
+        return this.parent.hashCode();
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof SequenceParserTokenNodeList ?
+                other instanceof ParserTokenParentNodeList ?
                 this.equals0(Cast.to(other)) :
                 super.equals(other);
     }
 
     /**
-     * Optimisation if the other list is also a {@link SequenceParserTokenNodeList} save the trouble of wrapping nodes and compare
+     * Optimisation if the other list is also a {@link ParserTokenParentNodeList} save the trouble of wrapping nodes and compare
      * the tokens directly.
      */
-    private boolean equals0(final SequenceParserTokenNodeList other) {
-        return this.tokens.equals(other.tokens);
+    private boolean equals0(final ParserTokenParentNodeList other) {
+        return this.parent.equals(other.parent);
     }
 
     @Override
     public String toString() {
-        return this.tokens.toString();
+        return this.parent.toString();
     }
-
-    private final List<ParserToken> tokens;
 }
