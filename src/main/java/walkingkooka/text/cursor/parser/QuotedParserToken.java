@@ -21,7 +21,7 @@ import walkingkooka.text.CharSequences;
 /**
  * The parser token for a matched quoted string.
  */
-public abstract class QuotedParserToken extends ParserTemplateToken<String> {
+public abstract class QuotedParserToken extends ParserTemplateToken<String> implements LeafParserToken<String> {
 
     /**
      * Ctor only called by {@link CharacterCharPredicateParser}

@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link Long}.
  */
-public final class LongParserToken extends ParserTemplateToken<Long> {
+public final class LongParserToken extends ParserTemplateToken<Long> implements LeafParserToken<Long>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(LongParserToken.class);
 

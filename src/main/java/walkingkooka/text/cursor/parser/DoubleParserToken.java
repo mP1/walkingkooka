@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * The parser token for a number with the value contained in a {@link Double}.
  */
-public final class DoubleParserToken extends ParserTemplateToken<Double> {
+public final class DoubleParserToken extends ParserTemplateToken<Double> implements LeafParserToken<Double>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(DoubleParserToken.class);
 

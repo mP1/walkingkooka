@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * The parser token for a date+time with the value contained in a {@link OffsetDateTime}.
  */
-public final class OffsetDateTimeParserToken extends ParserTemplateToken<OffsetDateTime> {
+public final class OffsetDateTimeParserToken extends ParserTemplateToken<OffsetDateTime> implements LeafParserToken<OffsetDateTime> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(OffsetDateTimeParserToken.class);
 

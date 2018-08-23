@@ -17,15 +17,15 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.Value;
 import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
+import walkingkooka.text.cursor.parser.LeafParserToken;
 
 import java.util.Objects;
 
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class JsonNodeLeafParserToken<T> extends JsonNodeParserToken implements Value<T> {
+abstract class JsonNodeLeafParserToken<T> extends JsonNodeParserToken implements LeafParserToken<T> {
 
     static void checkValue(final Object value) {
         Objects.requireNonNull(value, "value");

@@ -21,7 +21,7 @@ import java.util.Objects;
 /**
  * The parser token for a single character match.
  */
-public final class CharacterParserToken extends ParserTemplateToken<Character> {
+public final class CharacterParserToken extends ParserTemplateToken<Character> implements LeafParserToken<Character>{
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(CharacterParserToken.class);
 

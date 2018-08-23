@@ -23,12 +23,16 @@ import walkingkooka.test.PublicClassTestCase;
 import walkingkooka.tree.visit.Visiting;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicClassTestCase<T> {
 
@@ -42,6 +46,53 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
         final Class<T> type = this.type();
         final Field field = type.getField("NAME");
         assertEquals("NAME constant has incorrect value", ParserTokenNodeName.fromClass(type), field.get(null));
+    }
+
+    @Test
+    public final void testImplementsEitherParentParserTokenOrLeafParserToken() {
+        for(;;){
+            final Class<T> type = this.type();
+            if(type.equals(MissingParserToken.class)) {
+                break;
+            }
+            final boolean leaf = LeafParserToken.class.isAssignableFrom(type);
+            final boolean parent = ParentParserToken.class.isAssignableFrom(type);
+            if(leaf){
+                assertFalse("Type " + type.getName() + " must implement either " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName() + " but not both", parent);
+                break;
+            }
+            if(parent){
+                break;
+            }
+            fail("Type " + type.getName() + " must implement either " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName());
+        }
+    }
+
+    @Test
+    public final void testValueType() {
+        for(;;){
+            final T token = this.createToken();
+            if(token instanceof MissingParserToken) {
+                break;
+            }
+            if(token instanceof LeafParserToken){
+                final Object value = LeafParserToken.class.cast(token).value();
+                assertFalse(token + " value must not be a Collection but was " + toString(value), value instanceof Collection);
+                break;
+            }
+            if(token instanceof ParentParserToken){
+                final Object value = ParentParserToken.class.cast(token).value();
+                assertTrue(token + " value must be a Collection but was " + toString(value), value instanceof Collection);
+                break;
+            }
+            fail("ParserToken: " + token + " must implement either " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName());
+        }
+    }
+
+    private static String toString(final Object instance) {
+        return null != instance ?
+               instance.getClass().getName() + "=" + instance :
+               "null";
     }
 
     @Test
