@@ -34,6 +34,11 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
         SearchSequenceNode.with(null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithEmptyFails() {
+        SearchSequenceNode.with(Lists.empty());
+    }
+
     @Test
     public void testSetChildDifferent() {
         this.setChildrenDifferent(Lists.of(this.text("different-1"), this.text("different-2")));

@@ -88,6 +88,15 @@ public final class SearchLocalTimeNode extends SearchLeafNode<LocalTime>{
         return false;
     }
 
+    // SearchQuery......................................................................................................
+
+    @Override
+    void select(final SearchQuery query, final SearchQueryContext context) {
+        query.visit(this, context);
+    }
+
+    // Visitor ..........................................................................................................
+
     @Override
     public void accept(final SearchNodeVisitor visitor){
         visitor.visit(this);

@@ -101,6 +101,13 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
         throw new UnsupportedOperationException();
     }
 
+    // Select...........................................................................................
+
+    @Override
+    final SearchSelectNode selected() {
+        return SearchNode.select(this);
+    }
+
     // Object....................................................................
 
     @Override

@@ -237,6 +237,15 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
         return Cast.to(this);
     }
 
+    // SearchQuery ...............................................................................................
+
+    abstract void select(final SearchQuery query, final SearchQueryContext context);
+
+    /**
+     * A factory used during selecting that wraps this {@link SearchNode} in a {@link SearchSelectNode}.
+     */
+    abstract SearchSelectNode selected();
+
     // Visitor .......................................................................................................
     /**
      * Begins the visiting process.

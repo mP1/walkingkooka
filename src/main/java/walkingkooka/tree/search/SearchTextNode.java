@@ -87,6 +87,15 @@ public final class SearchTextNode extends SearchLeafNode<String>{
         return true;
     }
 
+    // SearchQuery......................................................................................................
+
+    @Override
+    void select(final SearchQuery query, final SearchQueryContext context) {
+        query.visit(this, context);
+    }
+
+    // Visitor ..........................................................................................................
+
     @Override
     public void accept(final SearchNodeVisitor visitor){
         visitor.visit(this);

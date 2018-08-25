@@ -83,6 +83,18 @@ public final class SearchSelectNode extends SearchParentNode{
         return false;
     }
 
+    // SearchQuery ...............................................................................................
+
+    @Override
+    void select(final SearchQuery query, final SearchQueryContext context) {
+        // nop cant "search" a select.
+    }
+
+    @Override
+    SearchSelectNode selected() {
+        return this;
+    }
+
     // Visitor.........................................................................................................
 
     @Override
