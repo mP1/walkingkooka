@@ -25,7 +25,6 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
 public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<SearchSequenceNode> {
@@ -43,20 +42,6 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     @Test
     public void testSetChildDifferent2() {
         this.setChildrenDifferent(Lists.of(this.text("different")));
-    }
-
-    @Test
-    public void testEqualsDifferentChildren() {
-        final SearchSequenceNode node = this.createSearchNode();
-        final SearchSequenceNode different = SearchSequenceNode.with(Lists.of(this.text("different")));
-        assertNotEquals(node, different);
-    }
-
-    @Test
-    public void testEqualsDifferentChildren2() {
-        final SearchSequenceNode node = this.createSearchNode();
-        final SearchSequenceNode different = SearchSequenceNode.with(Lists.of(this.child2(), this.child1()));
-        assertNotEquals(node, different);
     }
 
     @Test
@@ -96,6 +81,11 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
         }.accept(node);
 
         assertEquals("1315215242", b.toString());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("[ \"child-1\", \"child-2\" ]", this.createSearchNode().toString());
     }
 
     @Override

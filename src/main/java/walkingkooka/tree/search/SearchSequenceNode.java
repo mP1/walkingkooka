@@ -93,4 +93,14 @@ public final class SearchSequenceNode extends SearchParentNode{
     boolean canBeEqual(final Object other) {
         return other instanceof SearchSequenceNode;
     }
+
+    @Override
+    String toStringPrefix() {
+        return "[ ";
+    }
+
+    @Override
+    String toStringSuffix() {
+        return " ]";
+    }
 }

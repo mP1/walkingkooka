@@ -99,4 +99,14 @@ public final class SearchSelectNode extends SearchParentNode{
     boolean canBeEqual(final Object other) {
         return other instanceof SearchSelectNode;
     }
+
+    @Override
+    String toStringPrefix() {
+        return "< ";
+    }
+
+    @Override
+    String toStringSuffix() {
+        return " >";
+    }
 }
