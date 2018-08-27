@@ -181,11 +181,19 @@ abstract class SearchParentNode extends SearchNode {
 
     @Override
     final void toString0(final StringBuilder b) {
+        b.append(this.toStringPrefix());
+
         String separator = "";
         for(SearchNode child : this.children()) {
             b.append(separator);
             child.toString0(b);
             separator = ", ";
         }
+
+        b.append(this.toStringSuffix());
     }
+
+    abstract String toStringPrefix();
+    abstract String toStringSuffix();
+
 }
