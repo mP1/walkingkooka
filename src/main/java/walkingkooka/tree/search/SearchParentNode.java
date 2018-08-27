@@ -153,6 +153,11 @@ abstract class SearchParentNode extends SearchNode {
         }
     }
 
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final SearchNode other) {
+        return this.canBeEqual(other);
+    }
+
     final boolean equalsDescendants0(final SearchNode other) {
         return this.equalsDescendants1(other.children());
     }

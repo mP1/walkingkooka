@@ -97,7 +97,7 @@ public final class SearchDoubleNodeTest extends SearchLeafNodeTestCase<SearchDou
     }
 
     @Override
-    Class<SearchDoubleNode> expressionNodeType() {
+    Class<SearchDoubleNode> searchNodeType() {
         return SearchDoubleNode.class;
     }
 }

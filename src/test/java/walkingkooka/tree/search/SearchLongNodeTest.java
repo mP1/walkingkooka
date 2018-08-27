@@ -97,7 +97,7 @@ public final class SearchLongNodeTest extends SearchLeafNodeTestCase<SearchLongN
     }
 
     @Override
-    Class<SearchLongNode> expressionNodeType() {
+    Class<SearchLongNode> searchNodeType() {
         return SearchLongNode.class;
     }
 }

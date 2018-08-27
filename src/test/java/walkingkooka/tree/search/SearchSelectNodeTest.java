@@ -26,6 +26,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
 public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchSelectNode> {
@@ -71,6 +72,13 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     @Ignore
     public void testRemoveChildLast() {
         throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testEqualsDifferentChildren() {
+        final SearchSelectNode node = this.createSearchNode();
+        final SearchSelectNode different = SearchSelectNode.with(this.text("different"));
+        assertNotEquals(node, different);
     }
 
     @Test
@@ -129,7 +137,7 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     }
 
     @Override
-    Class<SearchSelectNode> expressionNodeType() {
+    Class<SearchSelectNode> searchNodeType() {
         return SearchSelectNode.class;
     }
 }

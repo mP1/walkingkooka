@@ -74,4 +74,9 @@ public abstract class SearchParentNodeTestCase<N extends SearchParentNode> exten
         // horrible if equals is used comparison will fail because children have different parents.
         assertEquals("children", children.toString(), node.children().toString());
     }
+
+    @Override
+    final SearchNode differentSearchNode() {
+        return this.text("different");
+    }
 }

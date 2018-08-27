@@ -103,7 +103,7 @@ public final class SearchLocalDateNodeTest extends SearchLeafNodeTestCase<Search
     }
 
     @Override
-    Class<SearchLocalDateNode> expressionNodeType() {
+    Class<SearchLocalDateNode> searchNodeType() {
         return SearchLocalDateNode.class;
     }
 }

@@ -99,9 +99,4 @@ public final class SearchSelectNode extends SearchParentNode{
     boolean canBeEqual(final Object other) {
         return other instanceof SearchSelectNode;
     }
-
-    @Override
-    boolean equalsIgnoringParentAndChildren(final SearchNode other) {
-        return true;
-    }
 }
