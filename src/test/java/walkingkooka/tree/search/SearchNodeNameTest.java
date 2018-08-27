@@ -22,12 +22,33 @@ import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public final class SearchNodeNameTest extends NameTestCase<SearchNodeName> {
 
     @Test
     public void testWith() {
         this.createNameAndCheck("abc");
+    }
+
+    @Test
+    public void testDifferent() {
+        assertNotEquals(this.createName("abc"), this.createName("def"));
+    }
+
+    @Test
+    public void testEquals() {
+        assertEquals(this.createName("abc"), this.createName("abc"));
+    }
+
+    @Test
+    public void testCompare() {
+        assertEquals(0, this.createName("abc").compareTo(this.createName("abc")));
+    }
+
+    @Test
+    public void testCompare2() {
+        assertEquals(-3, this.createName("abc").compareTo(this.createName("def")));
     }
 
     @Test

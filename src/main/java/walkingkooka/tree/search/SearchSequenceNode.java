@@ -77,6 +77,20 @@ public final class SearchSequenceNode extends SearchParentNode{
         return true;
     }
 
+    // SearchQuery ...............................................................................................
+
+    @Override
+    void select(final SearchQuery query, final SearchQueryContext context) {
+        for(SearchNode child : this.children) {
+            child.select(query, context);
+        }
+    }
+
+    @Override
+    SearchSelectNode selected() {
+        return SearchNode.select(this);
+    }
+
     // Visitor.........................................................................................................
 
     @Override
