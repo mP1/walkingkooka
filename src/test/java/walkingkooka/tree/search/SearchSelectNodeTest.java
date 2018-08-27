@@ -21,8 +21,12 @@ package walkingkooka.tree.search;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchSelectNode> {
 
@@ -67,6 +71,47 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     @Ignore
     public void testRemoveChildLast() {
         throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final SearchSelectNode node = this.createSearchNode();
+        final SearchTextNode child = node.children().get(0).cast();
+
+        new FakeSearchNodeVisitor() {
+            @Override
+            protected Visiting startVisit(final SearchNode n) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final SearchNode n) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final SearchSelectNode n) {
+                assertSame(node, n);
+                b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final SearchSelectNode n) {
+                assertSame(node, n);
+                b.append("4");
+            }
+
+            @Override
+            protected void visit(final SearchTextNode n) {
+                assertSame(child, n);
+                b.append("5");
+            }
+        }.accept(node);
+
+        assertEquals("1315242", b.toString());
     }
 
     @Override
