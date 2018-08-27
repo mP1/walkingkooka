@@ -18,9 +18,9 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.SystemException;
+import walkingkooka.tree.NodeException;
 
-public class ExpressionException extends SystemException {
+public class ExpressionException extends NodeException {
 
     private static final long serialVersionUID = 1L;
 
