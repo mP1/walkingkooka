@@ -20,8 +20,12 @@ package walkingkooka.tree.search;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<SearchSequenceNode> {
 
@@ -38,6 +42,45 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     @Test
     public void testSetChildDifferent2() {
         this.setChildrenDifferent(Lists.of(this.text("different")));
+    }
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final SearchSequenceNode node = this.createSearchNode();
+
+        new FakeSearchNodeVisitor() {
+            @Override
+            protected Visiting startVisit(final SearchNode n) {
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final SearchNode n) {
+                b.append("2");
+            }
+
+            @Override
+            protected Visiting startVisit(final SearchSequenceNode n) {
+                assertSame(node, n);
+                b.append("3");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final SearchSequenceNode n) {
+                assertSame(node, n);
+                b.append("4");
+            }
+
+            @Override
+            protected void visit(final SearchTextNode n) {
+                b.append("5");
+            }
+        }.accept(node);
+
+        assertEquals("1315215242", b.toString());
     }
 
     @Override
