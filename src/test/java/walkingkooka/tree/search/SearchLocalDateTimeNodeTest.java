@@ -102,7 +102,7 @@ public final class SearchLocalDateTimeNodeTest extends SearchLeafNodeTestCase<Se
     }
 
     @Override
-    Class<SearchLocalDateTimeNode> expressionNodeType() {
+    Class<SearchLocalDateTimeNode> searchNodeType() {
         return SearchLocalDateTimeNode.class;
     }
 }

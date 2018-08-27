@@ -93,7 +93,7 @@ public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextN
     }
 
     @Override
-    Class<SearchTextNode> expressionNodeType() {
+    Class<SearchTextNode> searchNodeType() {
         return SearchTextNode.class;
     }
 }

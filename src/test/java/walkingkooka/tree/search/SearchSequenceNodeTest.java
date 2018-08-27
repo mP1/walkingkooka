@@ -25,6 +25,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
 public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<SearchSequenceNode> {
@@ -42,6 +43,20 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     @Test
     public void testSetChildDifferent2() {
         this.setChildrenDifferent(Lists.of(this.text("different")));
+    }
+
+    @Test
+    public void testEqualsDifferentChildren() {
+        final SearchSequenceNode node = this.createSearchNode();
+        final SearchSequenceNode different = SearchSequenceNode.with(Lists.of(this.text("different")));
+        assertNotEquals(node, different);
+    }
+
+    @Test
+    public void testEqualsDifferentChildren2() {
+        final SearchSequenceNode node = this.createSearchNode();
+        final SearchSequenceNode different = SearchSequenceNode.with(Lists.of(this.child2(), this.child1()));
+        assertNotEquals(node, different);
     }
 
     @Test
@@ -90,11 +105,19 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
 
     @Override
     List<SearchNode> children() {
-        return Lists.of(this.text("child-1"), this.text("child-2"));
+        return Lists.of(this.child1(), this.child2());
+    }
+
+    private SearchNode child1() {
+        return this.text("child-1");
+    }
+
+    private SearchNode child2() {
+        return this.text("child-2");
     }
 
     @Override
-    Class<SearchSequenceNode> expressionNodeType() {
+    Class<SearchSequenceNode> searchNodeType() {
         return SearchSequenceNode.class;
     }
 }

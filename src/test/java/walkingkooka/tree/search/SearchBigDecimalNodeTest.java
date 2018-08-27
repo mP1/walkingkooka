@@ -94,7 +94,7 @@ public final class SearchBigDecimalNodeTest extends SearchLeafNodeTestCase<Searc
     }
 
     @Override
-    Class<SearchBigDecimalNode> expressionNodeType() {
+    Class<SearchBigDecimalNode> searchNodeType() {
         return SearchBigDecimalNode.class;
     }
 }

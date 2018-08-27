@@ -81,6 +81,26 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         }
     }
 
+    @Test
+    public final void testEqualsNull() {
+        assertNotEquals(this.createSearchNode(), null);
+    }
+
+    @Test
+    public final void testEqualsObject() {
+        assertNotEquals(this.createSearchNode(), new Object());
+    }
+
+    @Test
+    public final void testEqualsDifferentType() {
+        assertNotEquals(this.createSearchNode(), this.differentSearchNode());
+    }
+
+    @Test
+    public final void testEquals() {
+        assertEquals(this.createSearchNode(), this.createSearchNode());
+    }
+
     @Override
     protected SearchNode createNode() {
         return this.createSearchNode();
@@ -88,12 +108,14 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
 
     abstract N createSearchNode();
 
+    abstract SearchNode differentSearchNode();
+
     @Override
     protected Class<SearchNode> type() {
-        return Cast.to(this.expressionNodeType());
+        return Cast.to(this.searchNodeType());
     }
 
-    abstract Class<N> expressionNodeType();
+    abstract Class<N> searchNodeType();
 
     @Override
     protected SearchNode appendChildAndCheck(final SearchNode parent, final SearchNode child) {

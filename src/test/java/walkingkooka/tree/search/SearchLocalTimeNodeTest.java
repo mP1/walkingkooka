@@ -98,7 +98,7 @@ public final class SearchLocalTimeNodeTest extends SearchLeafNodeTestCase<Search
     }
 
     @Override
-    Class<SearchLocalTimeNode> expressionNodeType() {
+    Class<SearchLocalTimeNode> searchNodeType() {
         return SearchLocalTimeNode.class;
     }
 }
