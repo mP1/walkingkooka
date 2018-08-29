@@ -39,6 +39,13 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
         super();
     }
 
+    @Test
+    public final void checkNaming() {
+        this.checkNamingStartAndEnd(this.requiredNamePrefix(), Visitor.class);
+    }
+
+    abstract protected String requiredNamePrefix();
+
     @Test(expected = NullPointerException.class)
     public final void testAcceptNullFails() {
         this.createVisitor().accept(null);

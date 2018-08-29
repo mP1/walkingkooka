@@ -35,6 +35,11 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
     }
 
     @Test
+    public final void testCheckNaming() {
+        this.checkNaming(Predicate.class);
+    }
+
+    @Test
     public void testNullFails() {
         try {
             this.test(null);

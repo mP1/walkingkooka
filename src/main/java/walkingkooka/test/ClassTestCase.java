@@ -360,8 +360,9 @@ abstract public class ClassTestCase<T> extends TestCase {
         assertNotNull("start is null", start);
         assertNotNull("end is null", end);
 
+        // Allow some FakeXXX classes dropping the Fake...this allows the Fakes to be used in some tests.
         final String name = type.getSimpleName();
-        if (false == name.startsWith(start)) {
+        if (false == name.startsWith(start) && false == name.startsWith(Fake.class.getSimpleName() + start)) {
             assertEquals("wrong start", name, start);
         }
 

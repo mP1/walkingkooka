@@ -18,6 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import org.junit.Test;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -26,6 +27,10 @@ public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetP
         T extends SpreadsheetParserToken> extends
         ParserTestCase3<P, T, SpreadsheetParserContext> {
 
+    @Test
+    public final void testCheckNaming() {
+        this.checkNamingStartAndEnd("Spreadsheet", Parser.class);
+    }
 
     @Override
     protected SpreadsheetParserContext createContext() {

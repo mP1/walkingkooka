@@ -26,7 +26,12 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<T, FakeParserContext>,
         T extends ParserToken>
-        extends ParserTestCase3<P, T, FakeParserContext>{
+        extends ParserTestCase<P, T, FakeParserContext>{
+
+    @Test
+    public final void testCheckNaming() {
+        this.checkNaming(DateTimeFormatter.class.getSimpleName() + Parser.class.getSimpleName());
+    }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFormatterFails() {

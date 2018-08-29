@@ -43,6 +43,13 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    public void testCheckNaming() {
+        this.checkNamingStartAndEnd(this.requiredNamePrefix(), Node.class);
+    }
+
+    abstract protected String requiredNamePrefix();
+
+    @Test
     final public void testNameCached() {
         final N node = this.createNode();
         this.checkCached(node, "name", node.name(), node.name());

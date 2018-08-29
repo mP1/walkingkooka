@@ -25,6 +25,11 @@ import static org.junit.Assert.assertEquals;
 public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T extends ParserToken> extends ParserTestCase<P, T, FakeParserContext> {
 
     @Test
+    public final void testCheckNaming() {
+        this.checkNaming(Parser.class);
+    }
+
+    @Test
     public void testEmptyCursorFail() {
         this.parseFailAndCheck("");
     }

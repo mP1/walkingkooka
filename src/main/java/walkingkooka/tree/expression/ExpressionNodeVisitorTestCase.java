@@ -21,4 +21,9 @@ package walkingkooka.tree.expression;
 import walkingkooka.tree.visit.VisitorTestCase;
 
 public abstract class ExpressionNodeVisitorTestCase<V extends ExpressionNodeVisitor> extends VisitorTestCase<ExpressionNodeVisitor, ExpressionNode> {
+
+    @Override
+    protected String requiredNamePrefix() {
+        return "Expression";
+    }
 }

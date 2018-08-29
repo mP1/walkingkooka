@@ -17,6 +17,7 @@
 
 package walkingkooka.xml;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -51,6 +52,12 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
      */
     @Rule
     public TestName rule = new TestName();
+
+    @Test
+    @Ignore
+    public void testCheckNaming() {
+        throw new UnsupportedOperationException();
+    }
 
     @Test
     public void testClassIsPackagePrivate() {
@@ -330,5 +337,10 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
                 return writer.toString();
             }
         }
+    }
+
+    @Override
+    protected final String requiredNamePrefix() {
+        return "Dom";
     }
 }

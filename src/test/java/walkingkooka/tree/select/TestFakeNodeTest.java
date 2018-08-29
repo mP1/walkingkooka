@@ -41,6 +41,11 @@ public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, St
     }
 
     @Override
+    protected String requiredNamePrefix() {
+        return "Test";
+    }
+
+    @Override
     protected Class<TestFakeNode> type() {
         return TestFakeNode.class;
     }
