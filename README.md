@@ -25,6 +25,9 @@ Yet another toString builder, that actually produces significantly more readable
 
 Click [here](ToStringBuilder.md) for samples and a summary of features and goals.
 
+## Design
+Click [here](Design.md) to read about the opinions on design and java use in the system.
+
 ## Dependencies
 
 Only junit!
