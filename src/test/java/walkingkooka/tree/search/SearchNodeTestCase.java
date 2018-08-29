@@ -37,11 +37,6 @@ import static org.junit.Assert.assertNotSame;
 public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestCase2<SearchNode, SearchNodeName, Name, Object> {
 
     @Test
-    public final void testCheckNaming() {
-        this.checkNamingStartAndEnd("Search", Node.class);
-    }
-
-    @Test
     public final void testPublicStaticFactoryMethod()  {
         this.publicStaticFactoryCheck(SearchNode.class, "Search", Node.class);
     }
@@ -129,5 +124,10 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         this.checkParentOfChildren(newParent);
 
         return newParent;
+    }
+
+    @Override
+    protected final String requiredNamePrefix() {
+        return "Search";
     }
 }

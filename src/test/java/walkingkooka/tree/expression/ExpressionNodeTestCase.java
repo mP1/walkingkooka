@@ -52,11 +52,6 @@ import static org.junit.Assert.fail;
 public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends NodeTestCase2<ExpressionNode, ExpressionNodeName, Name, Object> {
 
     @Test
-    public final void testCheckNaming() {
-        this.checkNamingStartAndEnd("Expression", Node.class);
-    }
-
-    @Test
     public final void testPublicStaticFactoryMethod()  {
         this.publicStaticFactoryCheck(ExpressionNode.class, "Expression", Node.class);
     }
@@ -458,5 +453,10 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                 Boolean.class,
                 Boolean.TRUE,
                 Boolean.FALSE);
+    }
+
+    @Override
+    protected final String requiredNamePrefix() {
+        return "Expression";
     }
 }

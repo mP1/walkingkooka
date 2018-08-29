@@ -17,7 +17,6 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.NodeTestCase;
 
 import static org.junit.Assert.assertSame;
@@ -43,5 +42,10 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends
 
     static StringParserToken string(final String text) {
         return ParserTokens.string(text, text);
+    }
+
+    @Override
+    protected final String requiredNamePrefix() {
+        return ParserToken.class.getSimpleName();
     }
 }

@@ -21,4 +21,9 @@ package walkingkooka.tree.json;
 import walkingkooka.tree.visit.VisitorTestCase;
 
 public abstract class JsonNodeVisitorTestCase<V extends JsonNodeVisitor> extends VisitorTestCase<JsonNodeVisitor, JsonNode> {
+
+    @Override
+    protected String requiredNamePrefix() {
+        return JsonNode.class.getSimpleName();
+    }
 }

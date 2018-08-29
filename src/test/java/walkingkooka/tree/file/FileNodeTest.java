@@ -377,6 +377,11 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
     }
 
     @Override
+    protected String requiredNamePrefix() {
+        return "File";
+    }
+
+    @Override
     protected Class<FileNode> type() {
         return FileNode.class;
     }
