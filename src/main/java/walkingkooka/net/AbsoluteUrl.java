@@ -69,6 +69,21 @@ public final class AbsoluteUrl extends Url {
     // Url
 
     @Override
+    public AbsoluteUrl setPath(final UrlPath path) {
+        return this.setPath0(path).cast();
+    }
+
+    @Override
+    public AbsoluteUrl setQuery(final UrlQueryString query) {
+        return this.setQuery0(query).cast();
+    }
+
+    @Override
+    public AbsoluteUrl setFragment(final UrlFragment fragment) {
+        return this.setFragment0(fragment).cast();
+    }
+
+    @Override
     public boolean isRelative() {
         return false;
     }
@@ -82,7 +97,7 @@ public final class AbsoluteUrl extends Url {
      * Unconditionally creates a new {@link AbsoluteUrl}
      */
     @Override
-    final Url replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
+    final AbsoluteUrl replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
         return new AbsoluteUrl(this.scheme, this.credentials, this.host, this.port, path, query, fragment);
     }
 
