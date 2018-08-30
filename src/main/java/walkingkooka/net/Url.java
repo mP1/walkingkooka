@@ -18,6 +18,7 @@
 
 package walkingkooka.net;
 
+import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
@@ -233,8 +234,13 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
     public final UrlPath path() {
         return this.path;
     }
+
+    /**
+     * Would be setter that returns a {@link Url} with the given path creating a new instance if necessary.
+     */
+    abstract public Url setPath(final UrlPath path);
     
-    final Url setPath(final UrlPath path) {
+    final Url setPath0(final UrlPath path) {
         Objects.requireNonNull(path, "path");
         return this.path.equals(path) ?
                this :
@@ -250,7 +256,12 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
         return this.query;
     }
 
-    final Url setQuery(final UrlQueryString query) {
+    /**
+     * Would be setter that returns a {@link Url} with the given query string creating a new instance if necessary.
+     */
+    abstract public Url setQuery(final UrlQueryString query);
+
+    final Url setQuery0(final UrlQueryString query) {
         Objects.requireNonNull(query, "query");
         return this.query.equals(query) ?
                 this :
@@ -268,7 +279,12 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
         return this.fragment;
     }
 
-    final Url setFragment(final UrlFragment fragment) {
+    /**
+     * Would be setter that returns a {@link Url} with the given fragment creating a new instance if necessary.
+     */
+    abstract public Url setFragment(final UrlFragment fragment);
+
+    final Url setFragment0(final UrlFragment fragment) {
         Objects.requireNonNull(fragment, "fragment");
         return this.fragment.equals(fragment) ?
                 this :
@@ -281,6 +297,13 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
      * Factory that creates a new {@link Url}
      */
     abstract Url replace(final UrlPath path, final UrlQueryString query, final UrlFragment fragment);
+
+    /**
+     * Convenient cast method used by would be public setters.
+     */
+    final <U extends Url> U cast() {
+        return Cast.to(this);
+    }
 
     // Object
 

@@ -90,9 +90,9 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
         assertEquals("credentials", CREDENTIALS, url.credentials());
         assertEquals("host", HOST, url.host());
         assertEquals("port", PORT, url.port());
-        assertEquals("path", PATH, url.path());
-        assertEquals("query", QUERY, url.query());
-        assertEquals("fragment", FRAGMENT, url.fragment());
+        this.checkPath(url, PATH);
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
     }
 
     @Test
@@ -102,9 +102,9 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
         assertEquals("credentials", CREDENTIALS, url.credentials());
         assertEquals("host", HOST, url.host());
         assertEquals("port", PORT, url.port());
-        assertEquals("path", PATH, url.path());
-        assertEquals("query", QUERY, url.query());
-        assertEquals("fragment", FRAGMENT, url.fragment());
+        this.checkPath(url, PATH);
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
     }
 
     @Test

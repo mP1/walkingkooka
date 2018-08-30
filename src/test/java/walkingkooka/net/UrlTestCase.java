@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 /**
@@ -63,9 +64,9 @@ abstract public class UrlTestCase<U extends Url> extends PublicClassTestCase<U> 
 
     public void testWith() {
         final U url = this.createUrl(PATH, QUERY, FRAGMENT);
-        assertSame("path", PATH, url.path());
-        assertSame("query", QUERY, url.query());
-        assertSame("fragment", FRAGMENT, url.fragment());
+        this.checkPath(url,PATH);
+        this.checkQueryString(url, QUERY);
+        this.checkFragment(url, FRAGMENT);
     }
 
     @Test
@@ -80,17 +81,90 @@ abstract public class UrlTestCase<U extends Url> extends PublicClassTestCase<U> 
         final U url = this.createUrl(PATH, UrlQueryString.EMPTY, FRAGMENT);
         assertSame("path", PATH, url.path());
         assertSame("query", UrlQueryString.EMPTY, url.query());
-        assertSame("fragment", FRAGMENT, url.fragment());
+        this.checkFragment(url, FRAGMENT);
     }
 
     @Test
     public void testWithoutFragment() {
         final U url = this.createUrl(PATH, QUERY, UrlFragment.EMPTY);
         assertSame("path", PATH, url.path());
-        assertSame("query", QUERY, url.query());
+        this.checkQueryString(url, QUERY);
         assertSame("fragment", UrlFragment.EMPTY, url.fragment());
     }
 
+    // would be setters
+    
+    // setPath .......................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public final void testSetPathNullFails() {
+        this.createUrl().setPath(null);
+    }
+
+    @Test
+    public final void testSetPathSame() {
+        final U url = this.createUrl();
+        assertSame(url, url.setPath(PATH));
+    }
+
+    @Test
+    public final void testSetPathDifferent() {
+        final U url = this.createUrl();
+
+        final UrlPath differentPath = UrlPath.parse("/different-path");
+        final Url different = url.setPath(differentPath);
+        assertNotSame(url, different);
+        assertEquals(this.createUrl(differentPath, QUERY, FRAGMENT), different);
+    }
+
+    // setQuery .......................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public final void testSetQueryNullFails() {
+        this.createUrl().setQuery(null);
+    }
+
+    @Test
+    public final void testSetQuerySame() {
+        final U url = this.createUrl();
+        assertSame(url, url.setQuery(QUERY));
+    }
+
+    @Test
+    public final void testSetQueryDifferent() {
+        final U url = this.createUrl();
+
+        final UrlQueryString differentQueryString = UrlQueryString.with("different=value");
+        final Url different = url.setQuery(differentQueryString);
+        assertNotSame(url, different);
+        assertEquals(this.createUrl(PATH, differentQueryString, FRAGMENT), different);
+    }
+
+    // setFragment .......................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public final void testSetFragmentNullFails() {
+        this.createUrl().setFragment(null);
+    }
+
+    @Test
+    public final void testSetFragmentSame() {
+        final U url = this.createUrl();
+        assertSame(url, url.setFragment(FRAGMENT));
+    }
+
+    @Test
+    public final void testSetFragmentDifferent() {
+        final U url = this.createUrl();
+
+        final UrlFragment differentFragment = UrlFragment.with("different-anchor");
+        final Url different = url.setFragment(differentFragment);
+        assertNotSame(url, different);
+        assertEquals(this.createUrl(PATH, QUERY, differentFragment), different);
+    }
+
+    // toString........................................................................
+    
     @Test
     abstract public void testToString();
 
@@ -119,5 +193,17 @@ abstract public class UrlTestCase<U extends Url> extends PublicClassTestCase<U> 
 
     static void checkToString(final Url url, final String expected) {
         assertEquals("Url.value", expected, url.toString());
+    }
+    
+    final void checkPath(final Url url, final UrlPath path) {
+        assertSame("path", path, url.path());
+    }
+
+    final void checkQueryString(final Url url, final UrlQueryString queryString) {
+        assertSame("queryString", queryString, url.query());
+    }
+
+    final void checkFragment(final Url url, final UrlFragment fragment) {
+        assertSame("fragment", fragment, url.fragment());
     }
 }
