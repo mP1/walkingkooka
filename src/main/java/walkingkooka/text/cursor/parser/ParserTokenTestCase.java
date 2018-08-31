@@ -20,6 +20,8 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchSequenceNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.lang.reflect.Field;
@@ -87,6 +89,35 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
             }
             fail("ParserToken: " + token + " must implement either " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName());
         }
+    }
+
+    @Test
+    public void testToSearchNode() {
+        final T token = this.createToken();
+        final SearchNode searchNode = token.toSearchNode();
+        assertEquals("text", token.text(), searchNode.text());
+
+        for(;;) {
+            if (token instanceof MissingParserToken) {
+                break;
+            }
+            if (token instanceof LeafParserToken) {
+                break;
+            }
+            if (token instanceof ParentParserToken) {
+                assertTrue("SearchNode should be a SearchSequenceNode=" + searchNode, searchNode.isSequence());
+
+                final ParentParserToken<?> parent = ParentParserToken.class.cast(token);
+                assertEquals("child count should be the same", parent.value().size(), SearchSequenceNode.class.cast(searchNode).children().size());
+                break;
+            }
+        }
+    }
+
+    @Test
+    public void testToSearchNode2() {
+        final T token = this.createToken();
+        assertEquals(token.toSearchNode(), token.toSearchNode());
     }
 
     private static String toString(final Object instance) {

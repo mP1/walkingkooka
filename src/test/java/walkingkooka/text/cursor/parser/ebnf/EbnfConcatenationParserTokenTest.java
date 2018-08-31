@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -93,6 +94,16 @@ public final class EbnfConcatenationParserTokenTest extends EbnfAlternativeConca
                         concat, concat, concat),
                 visited);
     }
+
+    @Test
+    public final void testToSearchNode() {
+        final EbnfConcatenationParserToken token = EbnfConcatenationParserToken.with(
+                Lists.of(this.identifier1(), symbol(","), this.identifier2()),
+                this.text());
+        final SearchNode searchNode = token.toSearchNode();
+
+        assertEquals("text", token.text(), searchNode.text());
+    }
     
     @Override
     EbnfConcatenationParserToken createToken(final String text, final List<ParserToken> tokens) {
@@ -101,7 +112,7 @@ public final class EbnfConcatenationParserTokenTest extends EbnfAlternativeConca
 
     @Override
     String text() {
-        return "identifier1,identifier2)";
+        return "identifier1,identifier2";
     }
 
     @Override

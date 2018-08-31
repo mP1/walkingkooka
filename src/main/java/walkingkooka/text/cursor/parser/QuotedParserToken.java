@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.search.SearchNode;
 
 /**
  * The parser token for a matched quoted string.
@@ -41,4 +42,13 @@ public abstract class QuotedParserToken extends ParserTemplateToken<String> impl
     public final String toString() {
         return CharSequences.quoteAndEscape(this.value()).toString();
     }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public final SearchNode toSearchNode()  {
+        final String text = this.text();
+        return SearchNode.text(text, text);
+    }
 }
+

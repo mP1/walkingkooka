@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,6 +79,14 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
         assertNotEquals(Optional.of(different), differentWithout);
 
         this.checkValue(differentWithout.get(), differentValue);
+    }
+
+    @Test
+    public final void testToSearchNode() {
+        final T token = this.createToken(this.text(), symbol(this.openChar()), this.identifier1(), symbol(this.closeChar()));
+        final SearchNode searchNode = token.toSearchNode();
+
+        assertEquals("text", token.text(), searchNode.text());
     }
 
     @Override

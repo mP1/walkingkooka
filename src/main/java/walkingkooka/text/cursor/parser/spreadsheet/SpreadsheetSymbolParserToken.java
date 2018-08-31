@@ -17,6 +17,8 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.tree.search.SearchNode;
+
 import java.util.Optional;
 
 /**
@@ -106,5 +108,12 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     @Override
     public final boolean isNoise() {
         return true;
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.text(this.text(), this.value());
     }
 }

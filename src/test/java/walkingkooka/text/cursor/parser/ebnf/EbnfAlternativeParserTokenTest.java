@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -92,6 +93,16 @@ public final class EbnfAlternativeParserTokenTest extends EbnfAlternativeConcate
                         identifier2, identifier2, identifier2, identifier2, identifier2,
                         alt, alt, alt),
                 visited);
+    }
+
+    @Test
+    public final void testToSearchNode() {
+        final EbnfAlternativeParserToken token = EbnfAlternativeParserToken.with(
+                Lists.of(this.identifier1(), symbol("|"), this.identifier2()),
+                this.text());
+        final SearchNode searchNode = token.toSearchNode();
+
+        assertEquals("text", token.text(), searchNode.text());
     }
 
     @Override

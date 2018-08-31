@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.search.SearchNode;
 
 import java.math.BigDecimal;
 
@@ -97,5 +98,12 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
     @Override
     public ParserTokenNodeName name() {
         return NAME;
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.bigDecimal(this.text(), this.value());
     }
 }

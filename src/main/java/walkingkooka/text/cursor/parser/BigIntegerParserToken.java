@@ -16,6 +16,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.tree.search.SearchNode;
+
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -70,5 +72,13 @@ public final class BigIntegerParserToken extends ParserTemplateToken<BigInteger>
     @Override
     public String toString() {
         return this.text();
+    }
+
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.bigInteger(this.text(), this.value());
     }
 }

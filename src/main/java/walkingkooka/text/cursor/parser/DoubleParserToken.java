@@ -17,6 +17,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.tree.search.SearchNode;
+
 import java.util.Objects;
 
 /**
@@ -69,5 +71,12 @@ public final class DoubleParserToken extends ParserTemplateToken<Double> impleme
     @Override
     public String toString() {
         return this.text();
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.doubleNode(this.text(), this.value());
     }
 }

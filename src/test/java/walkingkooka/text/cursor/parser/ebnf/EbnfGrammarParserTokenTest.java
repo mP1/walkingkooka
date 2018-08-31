@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.Iterator;
@@ -225,9 +226,20 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
                 .checkIdentifiers(EbnfGrammarParserToken.NO_EXTERNALS);
     }
 
+    @Test
+    public final void testToSearchNode() {
+        final String ruleText = "identifier2=\"terminal-2\";";
+        final EbnfParserToken rule = EbnfParserToken.rule(Lists.of(identifier2(), assignment(), terminal2(), terminator()), ruleText);
+
+        final EbnfGrammarParserToken token = EbnfGrammarParserToken.with(Lists.of(rule), ruleText);
+        final SearchNode searchNode = token.toSearchNode();
+
+        assertEquals("text", token.text(), searchNode.text());
+    }
+
     @Override
     protected EbnfGrammarParserToken createDifferentToken() {
-        final String ruleText = "identifier2:'terminal2';";
+        final String ruleText = "identifier2='terminal2';";
         final EbnfParserToken rule = EbnfParserToken.rule(Lists.of(identifier2(), assignment(), terminal1(), terminator()), ruleText);
 
         return EbnfGrammarParserToken.with(Lists.of(rule), ruleText);
@@ -235,7 +247,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
 
     @Override
     final String text() {
-        return "identifier1:'terminal1';";
+        return "identifier1='terminal-1';";
     }
 
     final List<ParserToken> tokens() {

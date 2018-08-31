@@ -122,7 +122,7 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
 
     @Override
     List<ParserToken> tokens() {
-        return Lists.of(this.number1(), this.percentSymbol());
+        return Lists.of(SpreadsheetParserToken.bigInteger(BigInteger.ONE, "100"), this.percentSymbol());
     }
 
     @Override
