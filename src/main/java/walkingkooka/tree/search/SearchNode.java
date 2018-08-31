@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
 
@@ -32,6 +33,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -152,18 +154,18 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
      * Sub classes must create a new copy of the parent and replace the identified child using its index or similar,
      * and also sets its parent after creation, returning the equivalent child at the same index.
      */
-    abstract SearchNode setChild(final SearchNode newChild);
+    abstract SearchNode setChild(final SearchNode newChild, final int index);
 
     /**
      * Only ever called after during the completion of a setChildren, basically used to recreate the parent graph
      * containing this child.
      */
-    final SearchNode replaceChild(final Optional<SearchNode> previousParent) {
+    final SearchNode replaceChild(final Optional<SearchNode> previousParent, final int index) {
         return previousParent.isPresent() ?
                 previousParent.get()
-                        .setChild(this)
+                        .setChild(this, index)
                         .children()
-                        .get(this.index()) :
+                        .get(index) :
                 this;
     }
 
@@ -179,6 +181,68 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
     @Override
     public final SearchNode setAttributes(final Map<Name, Object> attributes) {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Replaces part of all of the text of this node with another {@link SearchNode}.
+     */
+    public final SearchNode replace(final int beginOffset, final int endOffset, final SearchNode replace) {
+        final String text = this.checkBeginOffsetEndOffset(beginOffset, endOffset);
+        Objects.requireNonNull(replace, "replace");
+
+        return 0 == beginOffset && text.length() == endOffset ?
+                this.replaceAll(replace) :
+                this.replace0(beginOffset, endOffset, replace, text);
+    }
+
+    abstract SearchNode replaceAll(final SearchNode replace);
+
+    final SearchNode replaceAll0(final SearchNode replace) {
+        final Optional<SearchNode> parent = this.parent();
+        return parent.isPresent() ?
+                replace.replaceChild(parent, this.index()) :
+                replace;
+    }
+
+    abstract SearchNode replace0(final int beginOffset, final int endOffset, final SearchNode replace, final String text);
+
+    /**
+     * Extracts the {@SearchNode} that matches the begin and end offset.
+     */
+    final SearchNode extract(final int beginOffset, final int endOffset) {
+        final String text = this.checkBeginOffsetEndOffset(beginOffset, endOffset);
+        return 0 == beginOffset && text.length() == endOffset ?
+                this :
+                this.extract0(beginOffset, endOffset, text);
+    }
+
+    abstract SearchNode extract0(final int beginOffset, final int endOffset, final String text);
+
+    /**
+     * Verifies the begin and end offsets are valid for the text belonging to this node.
+     */
+    private String checkBeginOffsetEndOffset(final int beginOffset, final int endOffset) {
+        final String text = this.text();
+        final int textLength = text.length();
+
+        if(beginOffset < 0 || beginOffset >= textLength) {
+            throw new IllegalArgumentException("Begin offset " + beginOffset + " not between 0 and " + textLength + " text=" + CharSequences.quoteAndEscape(text));
+        }
+        if(endOffset < beginOffset || endOffset > textLength) {
+            throw new IllegalArgumentException("End offset " + endOffset + " not between " + beginOffset + " and " + textLength+ " text=" + CharSequences.quoteAndEscape(text));
+        }
+        return text;
+    }
+
+    final SearchNode text1(final int beginOffset, final int endOffset, final String text) {
+        return this.text0(text.substring(beginOffset, endOffset));
+    }
+
+    /**
+     * Factory which creates a node with the given text.
+     */
+    final SearchNode text0(final String text) {
+        return text(text, text);
     }
     
     /**

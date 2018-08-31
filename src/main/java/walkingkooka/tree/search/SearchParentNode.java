@@ -80,8 +80,7 @@ abstract class SearchParentNode extends SearchNode {
     }
 
     @Override
-    final SearchNode setChild(final SearchNode newChild) {
-        final int index = newChild.index();
+    final SearchNode setChild(final SearchNode newChild, final int index) {
         final SearchNode previous = this.children().get(index);
         return previous.equalsIgnoringParentAndChildren(newChild) && previous.equalsDescendants(newChild) ?
                 this :
@@ -98,8 +97,10 @@ abstract class SearchParentNode extends SearchNode {
 
     final SearchParentNode replaceChildren(final List<SearchNode> children) {
         this.replaceChildrenCheck(children);
-        return this.wrap0(this.index, children)
-                .replaceChild(this.parent())
+
+        final int index = this.index();
+        return this.wrap0(index, children)
+                .replaceChild(this.parent(), index)
                 .cast();
     }
 

@@ -83,7 +83,7 @@ public final class SearchLongNodeTest extends SearchLeafNodeTestCase<SearchLongN
 
     @Override
     Long value() {
-        return 1L;
+        return 12345L;
     }
 
     @Override
