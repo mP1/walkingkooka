@@ -74,6 +74,11 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     }
 
     @Test
+    public void testText() {
+        assertEquals(this.child().text(), this.createSearchNode().text());
+    }
+
+    @Test
     public void testSelected() {
         final SearchNode node = this.createSearchNode();
         assertSame(node, node.selected());
