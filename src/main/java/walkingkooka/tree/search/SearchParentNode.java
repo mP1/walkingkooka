@@ -52,10 +52,15 @@ abstract class SearchParentNode extends SearchNode {
 
     public final String text() {
         final StringBuilder b = new StringBuilder();
-        for(SearchNode child : this.children()) {
-            child.toString0(b);
-        }
+        this.appendText(b);
         return b.toString();
+    }
+
+    @Override
+    void appendText(final StringBuilder b) {
+        for(SearchNode child : this.children()) {
+            child.appendText(b);
+        }
     }
 
     @Override

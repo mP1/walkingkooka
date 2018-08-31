@@ -50,6 +50,11 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     }
 
     @Test
+    public void testText() {
+        assertEquals("child-1child-2", this.createSearchNode().text());
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final SearchSequenceNode node = this.createSearchNode();

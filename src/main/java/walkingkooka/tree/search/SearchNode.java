@@ -231,6 +231,11 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
      */
     public abstract boolean isText();
 
+    /**
+     * Optimisation to help gather text for all {@link SearchNode} by parents.
+     */
+    abstract void appendText(final StringBuilder b);
+
     // helper............................................................................................................
 
     final <T extends SearchNode> T cast() {

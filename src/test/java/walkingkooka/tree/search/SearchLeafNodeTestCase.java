@@ -133,6 +133,11 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode, V> extend
         // Ignored
     }
 
+    @Test
+    public final void testText() {
+        assertEquals(this.text(), this.createSearchNode().text());
+    }
+
     @Override
     final N createSearchNode() {
         return this.createSearchNode(this.text(), this.value());
