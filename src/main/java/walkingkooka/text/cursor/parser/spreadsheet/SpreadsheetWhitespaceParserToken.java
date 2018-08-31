@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.Optional;
 
@@ -143,5 +144,12 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetLeafParse
     @Override
     public boolean isNoise() {
         return true;
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.text(this.text(), this.value());
     }
 }

@@ -50,4 +50,6 @@ public abstract class EbnfParentParserTokenTestCase2<T extends EbnfParentParserT
     public final void testSetValueEmptyFails() {
         this.createToken().setValue(Lists.empty());
     }
+
+    public abstract void testToSearchNode();
 }

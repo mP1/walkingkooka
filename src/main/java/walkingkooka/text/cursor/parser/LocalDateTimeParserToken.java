@@ -17,6 +17,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.tree.search.SearchNode;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -70,5 +72,12 @@ public final class LocalDateTimeParserToken extends ParserTemplateToken<LocalDat
     @Override
     public String toString() {
         return this.text();
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.localDateTime(this.text(), this.value());
     }
 }

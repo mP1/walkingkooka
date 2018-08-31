@@ -96,7 +96,7 @@ public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParse
 
     @Override
     List<ParserToken> tokens() {
-        return Lists.of(this.column(), this.row());
+        return Lists.of(this.row(), this.column());
     }
 
     @Override

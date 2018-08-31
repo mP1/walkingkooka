@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.Optional;
 
@@ -138,5 +139,12 @@ public final class SpreadsheetTextParserToken extends SpreadsheetLeafParserToken
     @Override
     public ParserTokenNodeName name() {
         return NAME;
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.text(this.text(), this.value());
     }
 }

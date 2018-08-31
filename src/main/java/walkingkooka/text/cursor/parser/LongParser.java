@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.Optional;
 

@@ -130,7 +130,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
 
     @Override
     List<ParserToken> tokens() {
-        return Lists.of(this.function(), this.number1());
+        return Lists.of(this.function(), this.openParenthesisSymbol(), this.number1(), this.closeParenthesisSymbol());
     }
 
     private SpreadsheetFunctionNameParserToken function() {

@@ -19,16 +19,32 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.search.HasSearchNode;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
 
 /**
  * Interface that all parent parser tokens must implement.
  */
-public interface ParentParserToken<P extends ParentParserToken> extends ParserToken, Value<List<ParserToken>> {
+public interface ParentParserToken<P extends ParentParserToken> extends ParserToken, Value<List<ParserToken>>, HasSearchNode {
 
     /**
      * Would be setter that returns an instance with the given tokens or value, creating a new instance if necessary.
      */
     P setValue(List<ParserToken> tokens);
+
+    /**
+     * Creates a {@link SearchNode#sequence(List)} from all the converted child tokens.
+     */
+    default SearchNode toSearchNode() {
+        final List<SearchNode> children = Lists.array();
+
+        for(ParserToken child : this.value()) {
+            children.add(child.toSearchNode());
+        }
+
+        return SearchNode.sequence(children);
+    }
 }

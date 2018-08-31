@@ -17,6 +17,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.tree.search.SearchNode;
+
 import java.util.Objects;
 
 /**
@@ -69,5 +71,12 @@ public final class LongParserToken extends ParserTemplateToken<Long> implements 
     @Override
     public String toString() {
         return this.text();
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.longNode(this.text(), this.value());
     }
 }

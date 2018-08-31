@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.search.SearchNode;
 
 /**
  * Holds a single double precision number.
@@ -94,5 +95,12 @@ public final class SpreadsheetDoubleParserToken extends SpreadsheetNumericParser
     @Override
     public ParserTokenNodeName name() {
         return NAME;
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.doubleNode(this.text(), this.value());
     }
 }

@@ -105,7 +105,7 @@ public final class SpreadsheetGroupParserTokenTest extends SpreadsheetParentPars
 
     @Override
     List<ParserToken> tokens() {
-        return Lists.of(this.number1());
+        return Lists.of(this.openParenthesisSymbol(), this.number1(), this.closeParenthesisSymbol());
     }
 
     @Override

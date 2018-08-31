@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.search.SearchNode;
 
 import java.time.LocalTime;
 import java.util.Optional;
@@ -139,5 +140,12 @@ public final class SpreadsheetLocalTimeParserToken extends SpreadsheetLeafParser
     @Override
     public ParserTokenNodeName name() {
         return NAME;
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode()  {
+        return SearchNode.localTime(this.text(), this.value());
     }
 }
