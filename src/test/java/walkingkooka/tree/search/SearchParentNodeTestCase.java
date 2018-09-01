@@ -64,10 +64,6 @@ public abstract class SearchParentNodeTestCase<N extends SearchParentNode> exten
         this.checkChildren(different, differentChildren);
     }
 
-    final SearchTextNode text(final String text) {
-        return SearchNode.text(text, text);
-    }
-
     abstract List<SearchNode> children();
 
     final void checkChildren(final N node, final List<SearchNode> children) {

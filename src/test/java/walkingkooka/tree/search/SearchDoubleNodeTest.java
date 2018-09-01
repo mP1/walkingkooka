@@ -83,7 +83,7 @@ public final class SearchDoubleNodeTest extends SearchLeafNodeTestCase<SearchDou
 
     @Override
     Double value() {
-        return 1.0;
+        return 1234.5;
     }
 
     @Override

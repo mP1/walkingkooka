@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -65,6 +66,129 @@ public final class SearchSequenceNode extends SearchParentNode{
     @Override
     SearchParentNode wrap0(final int index, final List<SearchNode> children) {
         return new SearchSequenceNode(index, children);
+    }
+
+    @Override
+    SearchNode replaceAll(final SearchNode replace) {
+        return this.replaceAll0(replace);
+    }
+
+    // ABC DEF GHI
+    // begin=0 XY
+    // XY A DEF GHI
+    // ==========
+    // ABC DEF GHI
+    // begin = 5 XY
+    // ABC D XY GHI
+    // ==========
+
+    @Override
+    final SearchNode replace0(final int replaceBeginOffset, final int replaceEndOffset, final SearchNode replace, final String ignored) {
+        final List<SearchNode> newChildren = Lists.array();
+        int textOffset = 0;
+
+        for(SearchNode child : this.children()) {
+            final String childText = child.text();
+            final int childTextLength = childText.length();
+
+            final int childBeginOffset = textOffset;
+            final int childEndOffset = childBeginOffset + childTextLength;
+
+            textOffset = childEndOffset;
+
+            // replace begin is after child, just add child
+            if(replaceBeginOffset >= childEndOffset) {
+                newChildren.add(child);
+                continue;
+            }
+
+            // replace end is before child, just add child
+            if(replaceEndOffset <= childBeginOffset) {
+                newChildren.add(child);
+                continue;
+            }
+
+            if(childBeginOffset == replaceBeginOffset) {
+                // replacement
+                if(replaceEndOffset <= childEndOffset) {
+                    newChildren.add(
+                            child.replace(
+                                    0,
+                                    replaceEndOffset - childBeginOffset,
+                                    replace));
+
+                    continue;
+                }
+
+                // replacement probably covers several old children..
+                newChildren.add(replace);
+
+                // part of child may remain...
+                if(replaceEndOffset < childEndOffset) {
+                    newChildren.add(child.extract(replaceEndOffset - childBeginOffset, childEndOffset - childBeginOffset));
+                }
+                continue;
+            }
+
+            if(replaceBeginOffset > childBeginOffset) {
+                if(replaceEndOffset <= childEndOffset) {
+                    newChildren.add(
+                            child.replace(
+                                    replaceBeginOffset - childBeginOffset,
+                                    replaceEndOffset - childBeginOffset,
+                                    replace));
+
+                    continue;
+                }
+
+                newChildren.add(child.extract(0, replaceBeginOffset - childBeginOffset));
+                newChildren.add(replace);
+                continue;
+            }
+
+           // replace must have already been added...
+            if(replaceEndOffset >= childEndOffset) {
+                continue;
+            }
+
+            // part of child was not overlapped.
+            newChildren.add(child.extract(replaceEndOffset - childBeginOffset, childEndOffset - childBeginOffset));
+        }
+
+        return this.setChildren(newChildren);
+    }
+
+    @Override
+    final SearchNode extract0(final int extractBeginOffset, final int extractEndOffset, final String ignoredText) {
+        final List<SearchNode> extracted = Lists.array();
+        int textOffset = 0;
+
+        for(SearchNode child : this.children()) {
+            final String childText = child.text();
+            final int childTextLength = childText.length();
+
+            final int childBeginOffset = textOffset;
+            final int childEndOffset = childBeginOffset + childTextLength;
+
+            textOffset = childEndOffset;
+
+            // child is before extract begin
+            if (extractBeginOffset >= childEndOffset) {
+                continue;
+            }
+
+            // child is after extract range stop looking...
+            if (childBeginOffset >= extractEndOffset) {
+                break;
+            }
+
+            extracted.add(
+                    child.extract(
+                            Math.max(extractBeginOffset - childBeginOffset, 0),
+                            Math.min(childEndOffset, extractEndOffset) - childBeginOffset));
+        }
+
+        return new SearchSequenceNode(this.index(), extracted);
     }
 
     @Override

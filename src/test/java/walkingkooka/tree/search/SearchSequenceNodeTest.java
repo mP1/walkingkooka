@@ -51,7 +51,7 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
 
     @Test
     public void testText() {
-        assertEquals("child-1child-2", this.createSearchNode().text());
+        assertEquals("abcdEFGH", this.createSearchNode().text());
     }
 
     @Test
@@ -93,14 +93,215 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
         assertEquals("1315215242", b.toString());
     }
 
+    // extract ..............................................................................................................
+
+    @Test
+    public void testExtractFirstChild() {
+        this.extractAndCheck(0,
+                4,
+                this.child1());
+    }
+
+    @Test
+    public void testExtractMiddleChild() {
+        this.extractAndCheck(4,
+                8,
+                this.child2());
+    }
+
+    @Test
+    public void testExtractLastChild() {
+        this.extractAndCheck(8,
+                12,
+                this.child3());
+    }
+
+    @Test
+    public void testExtractPartFirstChild() {
+        this.extractAndCheck(0,
+                3,
+                this.text("abc"));
+    }
+
+    @Test
+    public void testExtractPartFirstChild2() {
+        this.extractAndCheck(1,
+                3,
+                this.text("bc"));
+    }
+
+    @Test
+    public void testExtractPartFirstChild3() {
+        this.extractAndCheck(2,
+                4,
+                this.text("cd"));
+    }
+
+    @Test
+    public void testExtractPartMiddleChild() {
+        // abcd efgh ijkl
+        this.extractAndCheck(5,
+                7,
+                this.text("FG"));
+    }
+
+    @Test
+    public void testExtractSpanFirstMiddleChild() {
+        // abcd efgh ijkl
+        this.extractAndCheck(2,
+                6,
+                this.text("cd"), this.text("EF"));
+    }
+
+    @Test
+    public void testExtractSpanFirstMiddleLastChild() {
+        // abcd efgh ijkl
+        this.extractAndCheck(2,
+                10,
+                this.text("cd"), this.child2(), this.text("ij"));
+    }
+
+    private void extractAndCheck(final int beginOffset, final int endOffset, final SearchNode...expected) {
+        this.extractAndCheck(this.sequence(this.child1(), this.child2(), this.child3()),
+                beginOffset,
+                endOffset,
+                expected);
+    }
+
+    private void extractAndCheck(final SearchSequenceNode sequence, final int beginOffset, final int endOffset, final SearchNode...expected) {
+        assertEquals("sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset,
+                this.sequence(expected),
+                sequence.extract(beginOffset, endOffset));
+    }
+
+    // replace ..............................................................................................................
+
+    @Test
+    public void testReplaceFirstChild() {
+        this.replaceAndCheck(0,
+                4,
+                this.replaceNode(), this.child2(), this.child3());
+    }
+
+    @Test
+    public void testReplaceMiddleChild() {
+        this.replaceAndCheck(4,
+                8,
+                this.child1(), this.replaceNode(), this.child3());
+    }
+
+    @Test
+    public void testReplaceFirstAndSecondChild() {
+        this.replaceAndCheck(0,
+                8,
+                this.replaceNode(), this.child3());
+    }
+
+    @Test
+    public void testReplaceLastChild() {
+        this.replaceAndCheck(8,
+                12,
+                this.child1(), this.child2(), this.replaceNode());
+    }
+
+    @Test
+    public void testReplaceSecondAndLastChild() {
+        this.replaceAndCheck(4,
+                12,
+                this.child1(), this.replaceNode());
+    }
+
+    @Test
+    public void testReplacePartFirstPartSecondChild() {
+        this.replaceAndCheck(2,
+                6,
+                this.text("ab"), this.replaceNode(), this.text("GH"), this.child3());
+    }
+
+    @Test
+    public void testReplacePartFirstPartSecondChild2() {
+        this.replaceAndCheck2(2,
+                6,
+                this.text("ab"), this.replaceNode(), this.text("GH"), this.child3(), this.child4());
+    }
+
+    @Test
+    public void testReplacePartFirstPartLastChild() {
+        this.replaceAndCheck(2,
+                2 + 4 + 4,
+                this.text("ab"), this.replaceNode(), this.text("kl"));
+    }
+
+    @Test
+    public void testReplacePartFirstPartLastChild2() {
+        this.replaceAndCheck2(1,
+                1 + 4 + 4,
+                this.text("a"), this.replaceNode(), this.text("jkl"), this.child4());
+    }
+
+    @Test
+    public void testReplaceGrandChild() {
+        this.replaceAndCheck(this.sequence(this.child1(), this.sequence(this.child2(), this.child3()), this.child4()),
+                4,
+                8,
+                this.child1(), this.sequence(this.replaceNode(), this.child3()), this.child4());
+    }
+
+    @Test
+    public void testReplaceGrandChild2() {
+        this.replaceAndCheck(this.sequence(this.child1(), this.sequence(this.child2(), this.child3()), this.child4()),
+                8,
+                12,
+                this.child1(), this.sequence(this.child2(), this.replaceNode()), this.child4());
+    }
+
+    @Test
+    public void testReplaceGrandChild3() {
+        // abcd EFGH ijkl MNOP
+        //            ^^
+        this.replaceAndCheck(this.sequence(this.child1(), this.sequence(this.child2(), this.child3()), this.child4()),
+                9,
+                11,
+                this.child1(),
+                this.sequence(this.child2(),
+                        this.sequence(this.text("i"), this.replaceNode(), this.text("l"))),
+                this.child4());
+    }
+
+    private void replaceAndCheck(final int beginOffset, final int endOffset, final SearchNode...children) {
+        this.replaceAndCheck(this.sequence(this.child1(), this.child2(), this.child3()),
+                beginOffset,
+                endOffset,
+                children);
+    }
+
+    private void replaceAndCheck2(final int beginOffset, final int endOffset, final SearchNode...children) {
+        this.replaceAndCheck(this.sequence(this.child1(), this.child2(), this.child3(), this.child4()),
+                beginOffset,
+                endOffset,
+                children);
+    }
+
+    private void replaceAndCheck(final SearchSequenceNode search, final int beginOffset, final int endOffset, final SearchNode...children) {
+        final SearchNode replace = this.replaceNode();
+
+        assertEquals(search + " replace " + beginOffset + "," + endOffset + " with " + replace + " failed",
+                this.sequence(children),
+                search.replace(beginOffset, endOffset, replace));
+    }
+
     @Test
     public void testToString() {
-        assertEquals("[ \"child-1\", \"child-2\" ]", this.createSearchNode().toString());
+        assertEquals("[ \"abcd\", \"EFGH\" ]", this.createSearchNode().toString());
     }
 
     @Override
     SearchSequenceNode createSearchNode() {
         return SearchSequenceNode.with(this.children());
+    }
+
+    private SearchSequenceNode createSearchNode(final SearchNode...children) {
+        return SearchSequenceNode.with(Lists.of(children));
     }
 
     @Override
@@ -109,11 +310,19 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     }
 
     private SearchNode child1() {
-        return this.text("child-1");
+        return this.text("abcd");
     }
 
     private SearchNode child2() {
-        return this.text("child-2");
+        return this.text("EFGH");
+    }
+
+    private SearchNode child3() {
+        return this.text("ijkl");
+    }
+
+    private SearchNode child4() {
+        return this.text("MNOP");
     }
 
     @Override

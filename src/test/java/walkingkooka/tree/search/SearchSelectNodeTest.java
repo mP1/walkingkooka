@@ -46,6 +46,21 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     }
 
     @Test
+    public final void testReplaceAll() {
+        final SearchSelectNode node = this.createSearchNode();
+        final SearchNode replace = this.replaceNode();
+        assertEquals(replace.selected(), node.replace(0, node.text().length(), replace));
+    }
+
+    @Test
+    public void testReplace() {
+        final SearchSelectNode node = SearchSelectNode.with(this.text("123"));
+        final SearchTextNode replacing = this.text("REPLACEMENT");
+        final SearchNode replaced = node.replace(1, 2, replacing);
+        assertEquals(this.sequence(this.text("1"), replacing, this.text("3")).selected(), replaced);
+    }
+
+    @Test
     @Ignore
     public void testReplaceChild() {
         throw new UnsupportedOperationException();

@@ -45,6 +45,10 @@ public final class SearchSelectNode extends SearchParentNode{
         return NAME;
     }
 
+    public SearchNode child() {
+        return this.children().get(0);
+    }
+
     @Override
     public SearchSelectNode setChildren(final List<SearchNode> children) {
         return this.setChildren0(children).cast();
@@ -71,6 +75,23 @@ public final class SearchSelectNode extends SearchParentNode{
     @Override
     public SearchNode removeChild(final int child) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    SearchNode replaceAll(final SearchNode replace) {
+        return this.replaceAll0(replace).selected();
+    }
+
+    @Override
+    SearchNode replace0(final int beginOffset, final int endOffset, final SearchNode replace, final String text) {
+        return this.child()
+                .replace0(beginOffset, endOffset, replace, text)
+                .selected();
+    }
+
+    @Override
+    final SearchNode extract0(final int beginOffset, final int endOffset, final String text) {
+        return this.text1(beginOffset, endOffset, text).selected();
     }
 
     @Override

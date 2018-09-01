@@ -20,6 +20,7 @@ package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +35,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
         Objects.requireNonNull(value, "value");
     }
 
-    SearchLeafNode(final int index, final String text, final V value){
+    SearchLeafNode(final int index, final String text, final V value) {
         super(index);
         this.text = text;
         this.value = value;
@@ -46,8 +47,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
 
     private final String text;
 
-    @Override
-    final void appendText(final StringBuilder b) {
+    @Override final void appendText(final StringBuilder b) {
         b.append(this.text);
     }
 
@@ -65,8 +65,10 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     }
 
     final SearchLeafNode<V> replaceValue(final V value) {
-        return this.wrap1(this.index, this.text, value)
-                .replaceChild(this.parent())
+        final int index = this.index();
+
+        return this.wrap1(index, this.text, value)
+                .replaceChild(this.parent(), index)
                 .cast();
     }
 
@@ -76,9 +78,36 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
 
     abstract SearchLeafNode wrap1(final int index, final String text, final V value);
 
-    @Override
-    final SearchNode wrap(final int index) {
+    @Override final SearchNode wrap(final int index) {
         return this.wrap0(index);
+    }
+
+    @Override
+    SearchNode replaceAll(final SearchNode replace) {
+        return this.replaceAll0(replace);
+    }
+
+    @Override
+    final SearchNode replace0(final int beginOffset, final int endOffset, final SearchNode replace, final String text) {
+        final int textLength = text.length();
+
+        return this.replaceAll(0==beginOffset ?
+                sequence(Lists.of(replace, text0(text.substring(endOffset)))):
+                sequence(
+                        endOffset ==textLength?
+                                Lists.of(text0(text.substring(0, beginOffset)),
+                                        replace): // nothing after
+                                Lists.of(
+                                        text0(text.substring(0, beginOffset)),
+                                        replace,
+                                        text0(text.substring(endOffset)))
+                )
+        );
+    }
+
+    @Override
+    final SearchNode extract0(final int beginOffset, final int endOffset, final String text) {
+        return this.text1(beginOffset, endOffset, text);
     }
 
     @Override
@@ -102,7 +131,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     }
 
     @Override
-    final SearchNode setChild(final SearchNode newChild) {
+    final SearchNode setChild(final SearchNode newChild, final int index) {
         throw new UnsupportedOperationException();
     }
 

@@ -21,6 +21,7 @@ package walkingkooka.tree.search;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
@@ -76,6 +77,46 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public final void testReplaceInvalidBeforeOffsetFails() {
+        this.createSearchNode().replace(-1, 1, this.replaceNode());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testReplaceInvalidBeforeOffsetFails2() {
+        final N node = this.createSearchNode();
+        final int before = node.text().length();
+        node.replace(before, before, this.replaceNode());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testReplaceInvalidBeforeOffsetFails3() {
+        final N node = this.createSearchNode();
+        final int before = node.text().length();
+        node.replace(before + 1, before, this.replaceNode());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testReplaceInvalidEndOffsetFails() {
+        final N node = this.createSearchNode();
+        node.replace(1, 0, this.replaceNode());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testReplaceInvalidEndOffsetFails2() {
+        final N node = this.createSearchNode();
+        node.replace(0, node.text().length() + 1, this.replaceNode());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public final void testReplaceNullNodeFails() {
+        this.createSearchNode().replace(0, 1, null);
+    }
+
+    final SearchNode replaceNode() {
+        return text("!REPLACE!");
+    }
+
     @Test
     public final void testEqualsNull() {
         assertNotEquals(this.createSearchNode(), null);
@@ -111,6 +152,14 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     }
 
     abstract Class<N> searchNodeType();
+
+    final SearchTextNode text(final String text) {
+        return SearchNode.text(text, text);
+    }
+
+    final SearchSequenceNode sequence(final SearchNode...children) {
+        return SearchNode.sequence(Lists.of(children));
+    }
 
     @Override
     protected SearchNode appendChildAndCheck(final SearchNode parent, final SearchNode child) {

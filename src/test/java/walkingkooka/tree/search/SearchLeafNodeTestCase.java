@@ -57,6 +57,87 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode, V> extend
     }
 
     @Test
+    public final void testReplaceAll() {
+        final N node = this.createSearchNode();
+        final SearchNode replace = this.replaceNode();
+        assertSame(replace, node.replace(0, node.text().length(), replace));
+    }
+
+    @Test
+    public final void testReplacePartBegin() {
+        final N node = this.createSearchNode();
+        final String text = node.text();
+
+        this.replacePartBeginAndCheck(node, text, 1);
+    }
+
+    @Test
+    public final void testReplacePartBegin2() {
+        final N node = this.createSearchNode();
+        final String text = node.text();
+
+        this.replacePartBeginAndCheck(node, text, text.length() - 1);
+    }
+
+    private void replacePartBeginAndCheck(final N node, final String text, final int beginOffset) {
+        final String before = text.substring(0, beginOffset);
+
+        final SearchNode replacing = this.replaceNode();
+        final SearchNode replaced = node.replace(beginOffset, text.length(), replacing);
+
+        assertEquals(this.sequence(this.text(before), replacing), replaced);
+    }
+
+    @Test
+    public final void testReplacePartBeginAndEnd() {
+        final N node = this.createSearchNode();
+        final String text = node.text();
+
+        this.replacePartBeginAndEndAndCheck(node, text, 1, text.length() -1);
+    }
+
+    @Test
+    public final void testReplacePartBeginAndEnd2() {
+        final N node = this.createSearchNode();
+        final String text = node.text();
+
+        this.replacePartBeginAndEndAndCheck(node, text, 2, text.length() -2);
+    }
+
+    private void replacePartBeginAndEndAndCheck(final N node, final String text, final int beginOffset, final int endOffset) {
+        final String before = text.substring(0, beginOffset);
+        final String after = text.substring(endOffset);
+
+        final SearchNode replacing = this.replaceNode();
+        final SearchNode replaced = node.replace(beginOffset, endOffset, replacing);
+        assertEquals(this.sequence(this.text(before), replacing, this.text(after)), replaced);
+    }
+
+    @Test
+    public final void testReplacePartEnd() {
+        final N node = this.createSearchNode();
+        final String text = node.text();
+
+        this.replacePartEndAndCheck(node, text, 1);
+    }
+
+    @Test
+    public final void testReplacePartEnd2() {
+        final N node = this.createSearchNode();
+        final String text = node.text();
+
+        this.replacePartEndAndCheck(node, text, text.length() -1);
+    }
+
+    private void replacePartEndAndCheck(final N node, final String text, final int endOffset) {
+        final String after = text.substring(endOffset);
+
+        final SearchNode replacing = this.replaceNode();
+        final SearchNode replaced = node.replace(0, endOffset, replacing);
+        assertEquals(this.sequence(replacing, this.text(after)), replaced);
+    }
+
+    @Test
     public void testEqualsDifferentValue() {
         assertNotEquals(this.createSearchNode(), this.createSearchNode(this.differentText(), this.differentValue()));
     }

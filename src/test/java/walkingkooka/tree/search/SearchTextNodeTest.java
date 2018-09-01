@@ -27,6 +27,22 @@ import static org.junit.Assert.assertSame;
 public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextNode, String> {
 
     @Test
+    public void testReplace() {
+        final SearchTextNode node = this.createSearchNode();
+        final SearchNode replace = this.text("XYZ");
+
+        assertEquals(this.sequence(this.text("ab"), this.text("XYZ"),this.text("ef")), node.replace(2, 4, replace));
+    }
+
+    @Test
+    public void testReplace2() {
+        final SearchTextNode node = this.createSearchNode();
+        final SearchNode replace = this.text("XYZ");
+
+        assertEquals(this.sequence(this.text("abc"), this.text("XYZ"),this.text("def")), node.replace(3, 3, replace));
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final SearchTextNode node = this.createSearchNode();
@@ -79,7 +95,7 @@ public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextN
 
     @Override
     String value() {
-        return "A";
+        return "abcdef";
     }
 
     @Override
