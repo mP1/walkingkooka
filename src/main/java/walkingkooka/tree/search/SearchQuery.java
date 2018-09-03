@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.text.CaseSensitivity;
+
 import java.util.Objects;
 
 /**
@@ -27,6 +29,10 @@ public abstract class SearchQuery {
 
     static SearchAndQuery and(final SearchQuery left, final SearchQuery right) {
         return SearchAndQuery.with(left, right);
+    }
+
+    static SearchContainsQuery contains(final SearchTextQueryValue value, final CaseSensitivity caseSensitivity) {
+        return SearchContainsQuery.with(value, caseSensitivity);
     }
 
     static SearchEqualsQuery equalsQuery(final SearchQueryValue value, final SearchQueryTester tester) {
@@ -81,77 +87,27 @@ public abstract class SearchQuery {
     /**
      * Searches the nodes starting at {@link SearchNode} using this query returning a new nodes with {@link SearchSelectNode} to select matches.
      */
-    public SearchNode select(final SearchNode node) {
+    public final SearchNode select(final SearchNode node) {
         Objects.requireNonNull(node, "node");
 
-        final SearchQueryContext context = SearchQueryContext.create();
-        context.set(node);
+        final SearchQueryContext context = SearchQueryContext2.with(node);
         node.select(this, context);
-
         return context.finish();
     }
 
-    final void visit(final SearchBigDecimalNode node, final SearchQueryContext context) {
-        if(this.test(node)) {
-            context.replace(node);
-        }
-    }
+    abstract void visit(final SearchBigDecimalNode node, final SearchQueryContext context);
 
-    final void visit(final SearchBigIntegerNode node, final SearchQueryContext context) {
-        if(this.test(node)) {
-            context.replace(node);
-        }
-    }
+    abstract void visit(final SearchBigIntegerNode node, final SearchQueryContext context);
 
-    final void visit(final SearchDoubleNode node, final SearchQueryContext context) {
-        if(this.test(node)) {
-            context.replace(node);
-        }
-    }
+    abstract void visit(final SearchDoubleNode node, final SearchQueryContext context);
 
-    final void visit(final SearchLocalDateNode node, final SearchQueryContext context) {
-        if(this.test(node)) {
-            context.replace(node);
-        }
-    }
+    abstract void visit(final SearchLocalDateNode node, final SearchQueryContext context);
 
-    final void visit(final SearchLocalDateTimeNode node, final SearchQueryContext context) {
-        if(this.test(node)) {
-            context.replace(node);
-        }
-    }
+    abstract void visit(final SearchLocalDateTimeNode node, final SearchQueryContext context);
 
-    final void visit(final SearchLocalTimeNode node, final SearchQueryContext context) {
-        if(this.test(node)) {
-            context.replace(node);
-        }
-    }
+    abstract void visit(final SearchLocalTimeNode node, final SearchQueryContext context);
 
-    final void visit(final SearchLongNode node, final SearchQueryContext context) {
-        if(this.test(node)) {
-            context.replace(node);
-        }
-    }
+    abstract void visit(final SearchLongNode node, final SearchQueryContext context);
 
-    final void visit(final SearchTextNode node, final SearchQueryContext context) {
-        if(this.test(node)) {
-            context.replace(node);
-        }
-    }
-
-    abstract boolean test(final SearchBigDecimalNode node);
-
-    abstract boolean test(final SearchBigIntegerNode node);
-
-    abstract boolean test(final SearchDoubleNode node);
-
-    abstract boolean test(final SearchLocalDateNode node);
-
-    abstract boolean test(final SearchLocalDateTimeNode node);
-
-    abstract boolean test(final SearchLocalTimeNode node);
-
-    abstract boolean test(final SearchLongNode node);
-
-    abstract boolean test(final SearchTextNode node);
+    abstract void visit(final SearchTextNode node, final SearchQueryContext context);
 }

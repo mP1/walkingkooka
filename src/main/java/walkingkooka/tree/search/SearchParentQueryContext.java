@@ -19,20 +19,21 @@
 package walkingkooka.tree.search;
 
 /**
- * Base class for all leaf query types.
+ * Base class for either Context used by sub classes of {@link SearchParentQuery}.
  */
-abstract class SearchLeafQuery extends SearchQuery {
+abstract class SearchParentQueryContext extends SearchQueryContext{
 
-    SearchLeafQuery(final SearchQueryValue value){
-        this.value = value;
+    /**
+     * Package private to limit sub classing.
+     */
+    SearchParentQueryContext(final SearchQueryContext context) {
+        this.context = context;
     }
-
-    final SearchQueryValue value;
 
     @Override
-    public final String toString() {
-        return this.toStringPrefix().concat(this.value.toString());
+    final SearchNode finish() {
+        return context.finish();
     }
 
-    abstract String toStringPrefix();
+    final SearchQueryContext context;
 }

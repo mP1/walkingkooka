@@ -31,51 +31,8 @@ final class SearchAndQuery extends SearchBinaryQuery {
     }
 
     @Override
-    boolean test(final SearchBigDecimalNode node) {
-        return this.left.test(node) &&
-                this.right.test(node);
-    }
-
-    @Override
-    boolean test(final SearchBigIntegerNode node) {
-        return this.left.test(node) &&
-                this.right.test(node);
-    }
-
-    @Override
-    boolean test(final SearchDoubleNode node) {
-        return this.left.test(node) &&
-                this.right.test(node);
-    }
-
-    @Override
-    boolean test(final SearchLocalDateNode node) {
-        return this.left.test(node) &&
-                this.right.test(node);
-    }
-
-    @Override
-    boolean test(final SearchLocalDateTimeNode node) {
-        return this.left.test(node) &&
-                this.right.test(node);
-    }
-
-    @Override
-    boolean test(final SearchLocalTimeNode node) {
-        return this.left.test(node) &&
-                this.right.test(node);
-    }
-
-    @Override
-    boolean test(final SearchLongNode node) {
-        return this.left.test(node) &&
-                this.right.test(node);
-    }
-
-    @Override
-    boolean test(final SearchTextNode node) {
-        return this.left.test(node) &&
-                this.right.test(node);
+    final SearchAndQueryContext context(final SearchQueryContext context) {
+        return SearchAndQueryContext.with(context, this.right);
     }
 
     @Override

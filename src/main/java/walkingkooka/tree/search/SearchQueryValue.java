@@ -98,4 +98,9 @@ public abstract class SearchQueryValue {
      */
     SearchQueryValue() {
     }
+
+    /**
+     * This method is only implemented by {@link SearchTextQueryValue}
+     */
+    abstract String text();
 }

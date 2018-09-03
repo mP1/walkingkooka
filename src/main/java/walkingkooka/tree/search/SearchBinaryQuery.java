@@ -32,11 +32,58 @@ abstract class SearchBinaryQuery extends SearchParentQuery{
         this.right = right;
     }
 
+    @Override
     public final SearchQuery not() {
         return SearchQuery.not(this);
     }
 
+    @Override
+    final void visit(final SearchBigDecimalNode node, final SearchQueryContext context) {
+        this.left.visit(node, this.context(context));
+    }
+
+    @Override
+    final void visit(final SearchBigIntegerNode node, final SearchQueryContext context) {
+        this.left.visit(node, this.context(context));
+    }
+
+    @Override
+    final void visit(final SearchDoubleNode node, final SearchQueryContext context) {
+        this.left.visit(node, this.context(context));
+    }
+
+    @Override
+    final void visit(final SearchLocalDateNode node, final SearchQueryContext context) {
+        this.left.visit(node, this.context(context));
+    }
+
+    @Override
+    final void visit(final SearchLocalDateTimeNode node, final SearchQueryContext context) {
+        this.left.visit(node, this.context(context));
+    }
+
+    @Override
+    final void visit(final SearchLocalTimeNode node, final SearchQueryContext context) {
+        this.left.visit(node, this.context(context));
+    }
+
+    @Override
+    final void visit(final SearchLongNode node, final SearchQueryContext context) {
+        this.left.visit(node, this.context(context));
+    }
+
+    @Override
+    final void visit(final SearchTextNode node, final SearchQueryContext context) {
+        this.left.visit(node, this.context(context));
+    }
+
     final SearchQuery left;
+
+    /**
+     * Factory that creates the binary query custom {@link SearchQueryContext}.
+     */
+    abstract SearchBinaryQueryContext context(final SearchQueryContext context);
+
     final SearchQuery right;
 
     @Override

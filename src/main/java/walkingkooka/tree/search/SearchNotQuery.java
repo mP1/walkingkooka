@@ -35,43 +35,8 @@ final class SearchNotQuery extends SearchUnaryQuery{
     }
 
     @Override
-    final boolean test(final SearchBigDecimalNode node){
-        return !this.query.test(node);
-    }
-
-    @Override
-    final boolean test(final SearchBigIntegerNode node){
-        return !this.query.test(node);
-    }
-
-    @Override
-    final boolean test(final SearchDoubleNode node){
-        return !this.query.test(node);
-    }
-
-    @Override
-    final boolean test(final SearchLocalDateNode node){
-        return !this.query.test(node);
-    }
-    
-    @Override
-    final boolean test(final SearchLocalDateTimeNode node){
-        return !this.query.test(node);
-    }
-
-    @Override
-    final boolean test(final SearchLocalTimeNode node){
-        return !this.query.test(node);
-    }
-    
-    @Override
-    final boolean test(final SearchLongNode node){
-        return !this.query.test(node);
-    }
-
-    @Override
-    final boolean test(final SearchTextNode node){
-        return !this.query.test(node);
+    SearchNotQueryContext context(final SearchQueryContext context) {
+        return SearchNotQueryContext.with(context);
     }
     
     @Override

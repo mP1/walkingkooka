@@ -18,65 +18,84 @@
 
 package walkingkooka.tree.search;
 
-import java.util.Objects;
+abstract class SearchLeafQuery2 extends SearchLeafQuery {
 
-/**
- * Base class for all queries that wrap another query.
- */
-abstract class SearchUnaryQuery extends SearchParentQuery{
-
-    static void check(final SearchQuery query) {
-        Objects.requireNonNull(query, "query");
-    }
-
-    SearchUnaryQuery(final SearchQuery query) {
-        this.query = query;
+    SearchLeafQuery2(final SearchQueryValue value, final SearchQueryTester tester){
+        super(value);
+        this.tester = tester;
     }
 
     @Override
     final void visit(final SearchBigDecimalNode node, final SearchQueryContext context) {
-        this.query.visit(node, this.context(context));
+        if(this.tester.test(node)) {
+            context.success(node);
+        } else {
+            context.failure(node);
+        }
     }
 
     @Override
     final void visit(final SearchBigIntegerNode node, final SearchQueryContext context) {
-        this.query.visit(node, this.context(context));
+        if(this.tester.test(node)) {
+            context.success(node);
+        } else {
+            context.failure(node);
+        }
     }
 
     @Override
     final void visit(final SearchDoubleNode node, final SearchQueryContext context) {
-        this.query.visit(node, this.context(context));
+        if(this.tester.test(node)) {
+            context.success(node);
+        } else {
+            context.failure(node);
+        }
     }
 
     @Override
     final void visit(final SearchLocalDateNode node, final SearchQueryContext context) {
-        this.query.visit(node, this.context(context));
+        if(this.tester.test(node)) {
+            context.success(node);
+        } else {
+            context.failure(node);
+        }
     }
 
     @Override
     final void visit(final SearchLocalDateTimeNode node, final SearchQueryContext context) {
-        this.query.visit(node, this.context(context));
+        if(this.tester.test(node)) {
+            context.success(node);
+        } else {
+            context.failure(node);
+        }
     }
 
     @Override
     final void visit(final SearchLocalTimeNode node, final SearchQueryContext context) {
-        this.query.visit(node, this.context(context));
+        if(this.tester.test(node)) {
+            context.success(node);
+        } else {
+            context.failure(node);
+        }
     }
 
     @Override
     final void visit(final SearchLongNode node, final SearchQueryContext context) {
-        this.query.visit(node, this.context(context));
+        if(this.tester.test(node)) {
+            context.success(node);
+        } else {
+            context.failure(node);
+        }
     }
 
     @Override
     final void visit(final SearchTextNode node, final SearchQueryContext context) {
-        this.query.visit(node, this.context(context));
+        if(this.tester.test(node)) {
+            context.success(node);
+        } else {
+            context.failure(node);
+        }
     }
 
-    final SearchQuery query;
-
-    /**
-     * Factory that creates the unary query custom {@link SearchUnaryQueryContext}.
-     */
-    abstract SearchUnaryQueryContext context(final SearchQueryContext context);
+    final SearchQueryTester tester;
 }

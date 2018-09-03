@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-final class SearchGreaterThanQuery extends SearchLeafQuery {
+final class SearchGreaterThanQuery extends SearchLeafQuery2 {
 
     static SearchGreaterThanQuery with(final SearchQueryValue value, final SearchQueryTester tester ){
         return new SearchGreaterThanQuery(value, tester);
