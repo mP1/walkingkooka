@@ -153,37 +153,84 @@ public enum CaseSensitivity {
     }
 
     /**
-     * Attempts to find the {@link CharSequence searchFor} within the {@link CharSequence}
+     * Attempts to find the first {@link CharSequence searchFor} within the {@link CharSequence}
      */
     final public int indexOf(final CharSequence chars, final CharSequence searchFor) {
+        return this.indexOf(chars, searchFor, 0);
+    }
+
+    /**
+     * Attempts to find the first {@link CharSequence searchFor} within the {@link CharSequence}
+     */
+    final public int indexOf(final CharSequence chars, final CharSequence searchFor, final int offset) {
         Objects.requireNonNull(chars, "chars");
         Objects.requireNonNull(searchFor, "searchFor");
 
         int index = -1;
-        final int stringLength = chars.length();
+        final int length = chars.length();
         final int searchForLength = searchFor.length();
-        if ((stringLength > 0) && (searchForLength > 0) && (searchForLength <= stringLength)) {
-            final char firstCharOfTest = this.maybeLowercase(searchFor.charAt(0));
-            final int lastCharSequenceCharacterToCheck = (stringLength - searchForLength) + 1;
 
-            for (int i = 0; i < lastCharSequenceCharacterToCheck; i++) {
-                if (firstCharOfTest == this.maybeLowercase(chars.charAt(i))) {
+        if (searchForLength > 0 &&
+            searchForLength + offset <= length) {
+
+            final int last = length - searchForLength + 1;
+
+            for (int i = offset; i < last; i++) {
+                if(this.isPresent(chars, searchFor, i)) {
                     index = i;
-                    for (int j = 1; j < searchForLength; j++) {
-                        final char c = chars.charAt(i + j);
-                        final char otherChar = searchFor.charAt(j);
-                        if (false == this.isEqual(c, otherChar)) {
-                            index = -1;
-                            break;
-                        }
-                    }
-                    if (-1 != index) {
-                        break;
-                    }
+                    break;
                 }
             }
         }
+
         return index;
+    }
+
+    /**
+     * Attempts to find the last {@link CharSequence searchFor} within the {@link CharSequence}
+     */
+    final public int lastIndexOf(final CharSequence chars, final CharSequence searchFor) {
+        return this.lastIndexOf(chars,
+                searchFor,
+                chars.length() -1);
+    }
+
+    /**
+     * Attempts to find the {@link CharSequence searchFor} within the {@link CharSequence}
+     */
+    final public int lastIndexOf(final CharSequence chars, final CharSequence searchFor, final int offset) {
+        Objects.requireNonNull(chars, "chars");
+        Objects.requireNonNull(searchFor, "searchFor");
+
+        int index = -1;
+        final int length = chars.length();
+        final int searchForLength = searchFor.length();
+
+        if (searchForLength > 0 && searchForLength <= length) {
+
+            for (int i = Math.min(offset, length - searchForLength); i >= 0; i--) {
+                if(this.isPresent(chars, searchFor, i)) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
+    }
+
+    /**
+     * Tests if the searchFor {@link CharSequence} is present at the given offset. No other scanning is performed.
+     */
+    private boolean isPresent(final CharSequence chars, final CharSequence searchFor, final int offset) {
+        final int length = searchFor.length();
+
+        boolean equals = true;
+        for(int i = 0; equals && i < length; i++) {
+            equals = this.isEqual(chars.charAt(i + offset), searchFor.charAt(i));
+        }
+
+        return equals;
     }
 
     /**
