@@ -519,7 +519,7 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
 
     @Test
     public void testIndexOfInsensitiveAbsent() {
-        this.indexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "@", -1);
+        this.indexOfFail(CaseSensitivity.INSENSITIVE, "abcde", "@");
     }
 
     // indexOf sensitive
@@ -571,52 +571,52 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
 
     @Test
     public void testIndexOfSensitiveStartsWithDifferentCase() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "A", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "A");
     }
 
     @Test
     public void testIndexOfSensitiveStartsWithDifferentCase2() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "AB", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "AB");
     }
 
     @Test
     public void testIndexOfSensitiveStartsWithDifferentCase3() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "ABC", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "ABC");
     }
 
     @Test
     public void testIndexOfSensitiveMiddleDifferentCase() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "C", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "C");
     }
 
     @Test
     public void testIndexOfSensitiveMiddleDifferentCase2() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "CD", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "CD");
     }
 
     @Test
     public void testIndexOfSensitiveMiddleDifferentCase3() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "CDE", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "CDE");
     }
 
     @Test
     public void testIndexOfSensitiveEndsWithDifferentCase() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "E", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "E");
     }
 
     @Test
     public void testIndexOfSensitiveEndsWithDifferentCase2() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "DE", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "DE");
     }
 
     @Test
     public void testIndexOfSensitiveEndsWithDifferentCase3() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "CDE", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "CDE");
     }
 
     @Test
     public void testIndexOfSensitiveAbsent() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "@", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "abcde", "@");
     }
 
     @Test
@@ -631,20 +631,354 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
 
     @Test
     public void testIndexOfSensitiveFalsePositiveDifferentCase() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "a abcdef", "ABC", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "a abcdef", "ABC");
     }
 
     @Test
     public void testIndexOfSensitiveFalsePositiveDifferentCase2() {
-        this.indexOfAndCheck(CaseSensitivity.SENSITIVE, "ab abcdef", "ABC", -1);
+        this.indexOfFail(CaseSensitivity.SENSITIVE, "ab abcdef", "ABC");
     }
 
-    private void indexOfAndCheck(final CaseSensitivity sensitivity, final CharSequence chars,
-                                 final CharSequence searchFor, final int expected) {
+    private void indexOfAndCheck(final CaseSensitivity sensitivity,
+                                 final CharSequence chars,
+                                 final CharSequence searchFor,
+                                 final int expected) {
+        this.indexOfAndCheck0(sensitivity, chars, searchFor, expected);
+        // try with offset
+
+        final int offset = searchFor.length();
+        this.indexOfOffsetAndCheck(sensitivity,
+                new StringBuilder(searchFor).append(chars),
+                searchFor,
+                offset, // offset should skip initial $searchFor
+                offset + expected);
+    }
+
+    private void indexOfFail(final CaseSensitivity sensitivity,
+                             final CharSequence chars,
+                             final CharSequence searchFor) {
+        this.indexOfAndCheck0(sensitivity,
+                chars,
+                searchFor,
+                -1);
+        // try with offset
+        this.indexOfOffsetAndCheck(sensitivity,
+                new StringBuilder(searchFor).append(chars),
+                searchFor,
+                searchFor.length(), // offset should skip initial $searchFor
+                -1);
+    }
+
+    private void indexOfAndCheck0(final CaseSensitivity sensitivity,
+                                 final CharSequence chars,
+                                 final CharSequence searchFor,
+                                 final int expected) {
         final int result = sensitivity.indexOf(chars, searchFor);
         if (expected != result) {
-            assertEquals(sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ","
+            assertEquals(sensitivity + " indexOf( " + CaseSensitivityTest.quote(chars) + ", "
                     + CaseSensitivityTest.quote(searchFor) + ")", expected, result);
+        }
+    }
+
+    private void indexOfOffsetAndCheck(final CaseSensitivity sensitivity,
+                                  final CharSequence chars,
+                                  final CharSequence searchFor,
+                                  final int offset,
+                                  final int expected) {
+        final int result = sensitivity.indexOf(chars, searchFor, offset);
+        if (expected != result) {
+            assertEquals(sensitivity + " indexOf( " +
+                    CaseSensitivityTest.quote(chars) + ", " +
+                    CaseSensitivityTest.quote(searchFor) + ", " +
+                    offset + ")", expected, result);
+        }
+    }
+
+    // lastIndexOf INSENSITIVE ......................................................................................
+
+    @Test
+    public void testLastIndexOfInsensitiveStartsWithSameCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "a", 0);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveStartsWithSameCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "ab", 0);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveStartsWithSameCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "abc", 0);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveMiddleSameCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "c", 2);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveMiddleSameCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "cd", 2);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveMiddleSameCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "cde", 2);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveEndsWithSameCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "e", 4);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveEndsWithSameCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "de", 3);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveEndsWithSameCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "cde", 2);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveStartsWithDifferentCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "A", 0);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveStartsWithDifferentCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "AB", 0);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveStartsWithDifferentCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "ABC", 0);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveMiddleDifferentCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "C", 2);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveMiddleDifferentCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "CD", 2);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveMiddleDifferentCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "CDE", 2);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveEndsWithDifferentCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "E", 4);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveEndsWithDifferentCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "DE", 3);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveEndsWithDifferentCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, "abcde", "CDE", 2);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveFalsePositive() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, " abcdef a", "ab", 1);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveFalsePositive2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, " abcdef ab", "abc", 1);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveFalsePositiveDifferentCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, " abcdef AB", "ABC", 1);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveFalsePositiveDifferentCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.INSENSITIVE, " abc AB def", "ABC", 1);
+    }
+
+    @Test
+    public void testLastIndexOfInsensitiveAbsent() {
+        this.lastIndexOfFail(CaseSensitivity.INSENSITIVE, "abcde", "@");
+    }
+
+    // lastIndexOf SENSITIVE...........................................................................................
+
+    @Test
+    public void testLastIndexOfSensitiveStartsWithSameCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "a", 0);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveStartsWithSameCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "ab", 0);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveStartsWithSameCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "abc", 0);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveMiddleSameCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "c", 2);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveMiddleSameCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "cd", 2);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveMiddleSameCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "cde", 2);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveEndsWithSameCase() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "e", 4);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveEndsWithSameCase2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "de", 3);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveEndsWithSameCase3() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, "abcde", "cde", 2);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveStartsWithDifferentCase() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "A");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveStartsWithDifferentCase2() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "AB");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveStartsWithDifferentCase3() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "ABC");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveMiddleDifferentCase() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "C");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveMiddleDifferentCase2() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "CD");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveMiddleDifferentCase3() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "CDE");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveEndsWithDifferentCase() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "E");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveEndsWithDifferentCase2() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "DE");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveEndsWithDifferentCase3() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "CDE");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveAbsent() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, "abcde", "@");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveFalsePositive() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, " abcdef aX", "ab", 1);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveFalsePositive2() {
+        this.lastIndexOfAndCheck(CaseSensitivity.SENSITIVE, " abcdef aXX", "abc", 1);
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveFalsePositiveDifferentCase() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, " abcdef ABX", "ABC");
+    }
+
+    @Test
+    public void testLastIndexOfSensitiveFalsePositiveDifferentCase2() {
+        this.lastIndexOfFail(CaseSensitivity.SENSITIVE, " abcdef abX", "ABC");
+    }
+
+    private void lastIndexOfAndCheck(final CaseSensitivity sensitivity,
+                                     final CharSequence chars,
+                                     final CharSequence searchFor,
+                                     final int expected) {
+        this.lastIndexOfAndCheck0(sensitivity, chars, searchFor, expected);
+        // try with offset
+
+        this.lastIndexOfOffsetAndCheck(sensitivity,
+                new StringBuilder(chars).append(searchFor),
+                searchFor,
+                chars.length() -1,
+                expected);
+    }
+
+    private void lastIndexOfFail(final CaseSensitivity sensitivity,
+                                 final CharSequence chars,
+                                 final CharSequence searchFor) {
+        this.lastIndexOfAndCheck0(sensitivity,
+                chars,
+                searchFor,
+                -1);
+        // try with offset
+        this.lastIndexOfOffsetAndCheck(sensitivity,
+                new StringBuilder(chars.toString()).append(searchFor),
+                searchFor,
+                chars.length() - searchFor.length(), // offset should skip initial $searchFor
+                -1);
+    }
+
+    private void lastIndexOfAndCheck0(final CaseSensitivity sensitivity,
+                                      final CharSequence chars,
+                                      final CharSequence searchFor,
+                                      final int expected) {
+        final int result = sensitivity.lastIndexOf(chars, searchFor);
+        if (expected != result) {
+            assertEquals(sensitivity + " lastIndexOf( " + CaseSensitivityTest.quote(chars) + ", "
+                    + CaseSensitivityTest.quote(searchFor) + ")", expected, result);
+        }
+    }
+
+    private void lastIndexOfOffsetAndCheck(final CaseSensitivity sensitivity,
+                                           final CharSequence chars,
+                                           final CharSequence searchFor,
+                                           final int offset,
+                                           final int expected) {
+        final int result = sensitivity.lastIndexOf(chars, searchFor, offset);
+        if (expected != result) {
+            assertEquals(sensitivity + " lastIndexOf( " +
+                    CaseSensitivityTest.quote(chars) + ", " +
+                    CaseSensitivityTest.quote(searchFor) + ", " +
+                    offset + ")", expected, result);
         }
     }
 
