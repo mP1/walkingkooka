@@ -58,6 +58,11 @@ abstract class SearchNumberQueryValue<N extends Number & Comparable<N>> extends 
     abstract SearchComparableQueryValueSearchQueryTester<N> tester(final SearchQueryValueSearchQueryTesterComparisonPredicate resultPredicate);
 
     @Override
+    final String text() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public final String toString() {
         return this.value.toString();
     }

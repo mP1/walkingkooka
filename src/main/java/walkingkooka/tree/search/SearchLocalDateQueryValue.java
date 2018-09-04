@@ -63,6 +63,11 @@ public final class SearchLocalDateQueryValue extends SearchQueryValue{
     final LocalDate value;
 
     @Override
+    final String text() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String toString() {
         return DateTimeFormatter.ISO_LOCAL_DATE.format(this.value);
     }

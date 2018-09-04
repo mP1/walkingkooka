@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 import org.junit.Test;
 import walkingkooka.text.CaseSensitivity;
 
-public final class SearchLessThanEqualsQueryTest extends SearchLeafQueryTestCase<SearchLessThanEqualsQuery>{
+public final class SearchLessThanEqualsQueryTest extends SearchLeafQuery2TestCase<SearchLessThanEqualsQuery> {
 
     // BigDecimal......................................................................................
 

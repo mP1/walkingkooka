@@ -37,7 +37,7 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends Package
     static final String DATE_LT = "1999-12-31";
     static final String DATE_GT = "2002-02-02";
 
-    static final String DATETIME = "2000-01-31T12:58:59";
+    static final String DATETIME = "2000-01-31T13:58:59";
     static final String DATETIME_LT = "1999-12-31T06:00:00";
     static final String DATETIME_GT = "2002-02-02T02:22:22";
 

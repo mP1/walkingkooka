@@ -19,92 +19,39 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.Context;
-import walkingkooka.ShouldNeverHappenError;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.Name;
-import walkingkooka.tree.pointer.NodePointer;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * The {@link Context} that accompanies each and every {@link SearchNode} test and accumulates matches.
  */
-final class SearchQueryContext implements Context {
+abstract class SearchQueryContext implements Context {
 
-    static SearchQueryContext create(){
-        return new SearchQueryContext();
-    }
-
-    private SearchQueryContext(){
+    /**
+     * Package private to limit sub classing.
+     */
+    SearchQueryContext(){
         super();
     }
 
-    void replace(final SearchNode match) {
-        this.replace(match, match.selected());
+    /**
+     * This method is called for each node that is not matched.
+     */
+    abstract void failure(final SearchNode node);
+
+    /**
+     * This method is called for each matched node. Currently only called by {@link SearchContainsQuery}.
+     */
+    final void success(final SearchNode match) {
+        this.success(match, match);
     }
 
     /**
-     * Records a match and its replacement, highlighting the node
+     * This method is called for each matched node, that has an alternate replacement.
      */
-    void replace(final SearchNode match, final SearchNode replacement) {
-        this.replace0(equivalent(match), replacement);
-    }
-
-    private SearchNode equivalent(final SearchNode match) {
-        final NodePointer<SearchNode, SearchNodeName, Name, Object> pointer = match.pointer();
-        final Optional<SearchNode> equivalent = pointer.traverse(this.result);
-        if(!equivalent.isPresent()){
-            throw new SearchQueryException("Unable to find equivalent node for match=" + match);
-        }
-        return equivalent.get();
-    }
-
-    private void replace0(final SearchNode match, final SearchNode replacement) {
-        final Optional<SearchNode> maybeParent = match.parent();
-        if(maybeParent.isPresent()) {
-            final SearchNode parent = maybeParent.get();
-            if(parent.isSelect()) {
-                this.replaceSelect(parent.cast(), replacement);
-            } else {
-                if(parent.isSequence()) {
-                    this.replaceSequence(match, parent.cast(), replacement);
-                } else {
-                    throw new ShouldNeverHappenError("Unknown parent SearchNode " + parent.getClass().getName() + "=" + parent);
-                }
-            }
-        } else {
-            this.set(replacement);
-        }
-    }
-
-    private void replaceSelect(final SearchSelectNode parent, final SearchNode replacement) {
-        this.set(parent.setChildren(Lists.of(replacement)));
-    }
-
-    private void replaceSequence(final SearchNode match, final SearchSequenceNode parent, final SearchNode replacement) {
-        final List<SearchNode> all = Lists.array();
-        all.addAll(parent.children());
-        all.set(match.index(), replacement);
-
-        this.set(parent.setChildren(all));
-    }
-
-    void set(final SearchNode node) {
-        this.result = node.root();
-    }
-
-    SearchNode finish() {
-        return this.result;
-    }
+    abstract void success(final SearchNode match, final SearchNode replacement);
 
     /**
-     * A {@link SearchNode} (probably a {@link SearchSequenceNode} that holds each match wrapped inside a {@link SearchSelectNode}.
+     * This is called after the node traversal is finished and contains the resulting node which may or may not
+     * have some selected nodes.
      */
-    private SearchNode result;
-
-    @Override
-    public String toString() {
-        return this.result.toString();
-    }
+    abstract SearchNode finish();
 }

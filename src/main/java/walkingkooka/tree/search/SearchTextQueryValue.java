@@ -38,6 +38,10 @@ public final class SearchTextQueryValue extends SearchQueryValue{
         this.value = value;
     }
 
+    public SearchQuery contains(final CaseSensitivity caseSensitivity) {
+        return SearchQuery.contains(this, caseSensitivity);
+    }
+
     public SearchQuery equalsQuery(final CaseSensitivity caseSensitivity) {
         return SearchQuery.equalsQuery(this, this.tester(caseSensitivity, SearchQueryValueSearchQueryTesterComparisonPredicate.EQUALS));
     }
@@ -68,6 +72,11 @@ public final class SearchTextQueryValue extends SearchQueryValue{
     }
 
     final String value;
+
+    @Override
+    final String text() {
+        return this.value;
+    }
 
     @Override
     public String toString() {

@@ -19,4 +19,8 @@
 package walkingkooka.tree.search;
 
 abstract class SearchParentQuery extends SearchQuery{
+
+    SearchParentQuery() {
+        super();
+    }
 }
