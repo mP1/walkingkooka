@@ -97,23 +97,32 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
 
     @Test
     public void testExtractFirstChild() {
-        this.extractAndCheck(0,
+        final SearchSequenceNode all = this.sequence(this.child1(), this.child2(), this.child3());
+
+        this.extractAndCheck(all,
+                0,
                 4,
-                this.child1());
+                all.children().get(0));
     }
 
     @Test
     public void testExtractMiddleChild() {
-        this.extractAndCheck(4,
+        final SearchSequenceNode all = this.sequence(this.child1(), this.child2(), this.child3());
+
+        this.extractAndCheck(all,
+                4,
                 8,
-                this.child2());
+                all.children().get(1));
     }
 
     @Test
     public void testExtractLastChild() {
-        this.extractAndCheck(8,
+        final SearchSequenceNode all = this.sequence(this.child1(), this.child2(), this.child3());
+
+        this.extractAndCheck(all,
+                8,
                 12,
-                this.child3());
+                all.children().get(2));
     }
 
     @Test
@@ -148,7 +157,7 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     @Test
     public void testExtractSpanFirstMiddleChild() {
         // abcd efgh ijkl
-        this.extractAndCheck(2,
+        this.extractAndCheck2(2,
                 6,
                 this.text("cd"), this.text("EF"));
     }
@@ -156,19 +165,32 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     @Test
     public void testExtractSpanFirstMiddleLastChild() {
         // abcd efgh ijkl
-        this.extractAndCheck(2,
+        this.extractAndCheck2(2,
                 10,
                 this.text("cd"), this.child2(), this.text("ij"));
     }
 
-    private void extractAndCheck(final int beginOffset, final int endOffset, final SearchNode...expected) {
+    private void extractAndCheck(final int beginOffset, final int endOffset, final SearchNode expected) {
         this.extractAndCheck(this.sequence(this.child1(), this.child2(), this.child3()),
                 beginOffset,
                 endOffset,
                 expected);
     }
 
-    private void extractAndCheck(final SearchSequenceNode sequence, final int beginOffset, final int endOffset, final SearchNode...expected) {
+    private void extractAndCheck(final SearchSequenceNode sequence, final int beginOffset, final int endOffset, final SearchNode expected) {
+        assertEquals("sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset,
+                expected,
+                sequence.extract(beginOffset, endOffset));
+    }
+
+    private void extractAndCheck2(final int beginOffset, final int endOffset, final SearchNode...expected) {
+        this.extractAndCheck2(this.sequence(this.child1(), this.child2(), this.child3()),
+                beginOffset,
+                endOffset,
+                expected);
+    }
+
+    private void extractAndCheck2(final SearchSequenceNode sequence, final int beginOffset, final int endOffset, final SearchNode...expected) {
         assertEquals("sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset,
                 this.sequence(expected),
                 sequence.extract(beginOffset, endOffset));
