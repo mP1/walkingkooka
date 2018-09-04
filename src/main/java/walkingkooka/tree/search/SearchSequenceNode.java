@@ -188,7 +188,10 @@ public final class SearchSequenceNode extends SearchParentNode{
                             Math.min(childEndOffset, extractEndOffset) - childBeginOffset));
         }
 
-        return new SearchSequenceNode(this.index(), extracted);
+        // only wrap multiple extracted nodes in a SearchSequenceNode.
+        return extracted.size() == 1 ?
+                extracted.get(0) :
+                new SearchSequenceNode(NO_PARENT_INDEX, extracted);
     }
 
     @Override
