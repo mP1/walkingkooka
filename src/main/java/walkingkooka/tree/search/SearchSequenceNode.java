@@ -195,6 +195,11 @@ public final class SearchSequenceNode extends SearchParentNode{
     }
 
     @Override
+    public boolean isIgnored() {
+        return false;
+    }
+
+    @Override
     public boolean isSelect() {
         return false;
     }
@@ -211,6 +216,11 @@ public final class SearchSequenceNode extends SearchParentNode{
         for(SearchNode child : this.children) {
             child.select(query, context);
         }
+    }
+
+    @Override
+    SearchIgnoredNode ignored() {
+        return SearchNode.ignored(this);
     }
 
     @Override

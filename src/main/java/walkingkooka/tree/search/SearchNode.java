@@ -68,6 +68,13 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
     }
 
     /**
+     * {@see SearchIgnoredNode}
+     */
+    public static SearchIgnoredNode ignored(final SearchNode child) {
+        return SearchIgnoredNode.with(child);
+    }
+
+    /**
      * {@see SearchLocalDateNode}
      */
     public static SearchLocalDateNode localDate(final String text, final LocalDate value) {
@@ -261,6 +268,11 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
     public abstract boolean isDouble();
 
     /**
+     * Only {@link SearchIgnoredNode} returns true.
+     */
+    public abstract boolean isIgnored();
+
+    /**
      * Only {@link SearchLocalDateNode} returns true.
      */
     public abstract boolean isLocalDate();
@@ -307,6 +319,11 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
     }
 
     // SearchQuery ...............................................................................................
+
+    /**
+     * A factory used during selecting that wraps this {@link SearchNode} in a {@link SearchIgnoredNode}.
+     */
+    abstract SearchIgnoredNode ignored();
 
     abstract void select(final SearchQuery query, final SearchQueryContext context);
 
