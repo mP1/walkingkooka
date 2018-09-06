@@ -18,9 +18,16 @@
 
 package walkingkooka.tree.search;
 
-abstract class SearchLeafQuery2 extends SearchLeafQuery {
+import walkingkooka.Cast;
 
-    SearchLeafQuery2(final SearchQueryValue value, final SearchQueryTester tester){
+import java.util.Objects;
+
+/**
+ * Base {@link SearchLeafQuery} that operate on values with a {@link SearchQueryTester}
+ */
+abstract class SearchValueComparisonLeafQuery extends SearchLeafQuery {
+
+    SearchValueComparisonLeafQuery(final SearchQueryValue value, final SearchQueryTester tester){
         super(value);
         this.tester = tester;
     }
@@ -98,4 +105,19 @@ abstract class SearchLeafQuery2 extends SearchLeafQuery {
     }
 
     final SearchQueryTester tester;
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.value, this.tester);
+    }
+
+    @Override
+    final boolean equals0(final SearchQuery other) {
+        return this.equals1(Cast.to(other));
+    }
+
+    private boolean equals1(final SearchValueComparisonLeafQuery other) {
+        return this.value.equals(other.value) &&
+                this.tester.equals(other.tester);
+    }
 }

@@ -36,4 +36,9 @@ public final class SearchLongQueryValue extends SearchNumberQueryValue<Long> {
     SearchLongQueryValueSearchQueryTester tester(final SearchQueryValueSearchQueryTesterComparisonPredicate resultPredicate) {
         return SearchLongQueryValueSearchQueryTester.with(this.value, resultPredicate);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLongQueryValue;
+    }
 }

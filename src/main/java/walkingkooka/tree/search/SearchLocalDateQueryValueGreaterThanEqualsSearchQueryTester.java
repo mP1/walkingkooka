@@ -43,4 +43,9 @@ final class SearchLocalDateQueryValueGreaterThanEqualsSearchQueryTester extends 
         final LocalDate otherValue = node.value();
         return this.value.equals(otherValue) || otherValue.isAfter(this.value);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalDateQueryValueGreaterThanEqualsSearchQueryTester;
+    }
 }

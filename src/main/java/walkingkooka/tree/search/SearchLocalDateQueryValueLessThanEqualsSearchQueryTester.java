@@ -43,4 +43,9 @@ final class SearchLocalDateQueryValueLessThanEqualsSearchQueryTester extends Sea
         final LocalDate otherValue = node.value();
         return this.value.equals(otherValue) || otherValue.isBefore(this.value);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalDateQueryValueLessThanEqualsSearchQueryTester;
+    }
 }

@@ -59,4 +59,14 @@ final class SearchBigDecimalQueryValueSearchQueryTester extends SearchComparable
     final boolean test(final SearchTextNode node) {
         return false;
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchBigDecimalQueryValueSearchQueryTester;
+    }
+
+    @Override
+    boolean equals3(final SearchComparableQueryValueSearchQueryTester other) {
+        return true; // no extra properties
+    }
 }

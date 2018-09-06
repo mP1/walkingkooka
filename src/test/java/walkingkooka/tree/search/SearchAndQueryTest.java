@@ -19,6 +19,7 @@
 package walkingkooka.tree.search;
 
 import org.junit.Test;
+import walkingkooka.text.CaseSensitivity;
 
 public final class SearchAndQueryTest extends SearchParentQueryTestCase<SearchAndQuery>{
 
@@ -90,6 +91,12 @@ public final class SearchAndQueryTest extends SearchParentQueryTestCase<SearchAn
                 .and(this.localTimeQueryValue(TIME_GT).lessThan());
 
         this.querySelectAndCheck(query, node, node.selected());
+    }
+
+    @Override
+    SearchAndQuery createSearchQuery() {
+        return SearchAndQuery.with(this.textQueryValue("left").equalsQuery(CaseSensitivity.SENSITIVE),
+                this.textQueryValue("right").equalsQuery(CaseSensitivity.SENSITIVE));
     }
     
     @Override

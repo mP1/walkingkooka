@@ -36,6 +36,11 @@ final class SearchOrQuery extends SearchBinaryQuery{
     }
 
     @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchOrQuery;
+    }
+
+    @Override
     String toStringBinaryOperator() {
         return "||";
     }

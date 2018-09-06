@@ -36,4 +36,9 @@ public final class SearchDoubleQueryValue extends SearchNumberQueryValue<Double>
     SearchDoubleQueryValueSearchQueryTester tester(final SearchQueryValueSearchQueryTesterComparisonPredicate resultPredicate) {
         return SearchDoubleQueryValueSearchQueryTester.with(this.value, resultPredicate);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchDoubleQueryValue;
+    }
 }

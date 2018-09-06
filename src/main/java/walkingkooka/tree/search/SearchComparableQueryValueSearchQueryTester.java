@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.Cast;
+
 abstract class SearchComparableQueryValueSearchQueryTester<T extends Comparable<T>> extends SearchQueryTester<T> {
 
     SearchComparableQueryValueSearchQueryTester(final T value, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
@@ -41,4 +43,16 @@ abstract class SearchComparableQueryValueSearchQueryTester<T extends Comparable<
     final boolean test(final SearchLocalTimeNode node) {
         return false;
     }
+
+    @Override
+    final boolean equals1(final SearchQueryTester other) {
+        return this.equals2(Cast.to(other));
+    }
+
+    private boolean equals2(final SearchComparableQueryValueSearchQueryTester other) {
+        return this.result == other.result &&
+               this.equals3(other);
+    }
+
+    abstract boolean equals3(final SearchComparableQueryValueSearchQueryTester other);
 }

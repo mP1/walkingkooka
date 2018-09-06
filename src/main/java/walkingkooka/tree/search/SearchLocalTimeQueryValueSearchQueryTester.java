@@ -87,4 +87,9 @@ abstract class SearchLocalTimeQueryValueSearchQueryTester extends SearchQueryTes
     final boolean test(final SearchTextNode node) {
         return false;
     }
+
+    @Override
+    boolean equals1(final SearchQueryTester other) {
+        return true; // no extra properties to test.
+    }
 }

@@ -42,4 +42,9 @@ final class SearchLocalDateTimeQueryValueNotEqualsSearchQueryTester extends Sear
     final boolean test(final SearchLocalDateTimeNode node) {
         return !this.value.equals(node.value());
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalDateTimeQueryValueNotEqualsSearchQueryTester;
+    }
 }

@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.search;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
@@ -25,6 +26,18 @@ import walkingkooka.text.CharSequences;
 import static org.junit.Assert.assertFalse;
 
 public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<SearchContainsQuery> {
+
+    @Test
+    @Ignore
+    public void testNot() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    public void testNotTwiceGivesOriginalQuery() {
+        throw new UnsupportedOperationException();
+    }
 
     // BigDecimal......................................................................................
 
@@ -285,6 +298,11 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         this.querySelectAndCheck(SearchQueryValue.text(text).contains(sensitivity),
                 node,
                 this.sequenceNode(expected));
+    }
+
+    @Override
+    SearchContainsQuery createSearchQuery() {
+        return SearchContainsQuery.with(this.textQueryValue("query"), CaseSensitivity.SENSITIVE);
     }
 
     @Override

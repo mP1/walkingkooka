@@ -42,4 +42,9 @@ final class SearchLocalDateTimeQueryValueLessThanSearchQueryTester extends Searc
     final boolean test(final SearchLocalDateTimeNode node) {
         return node.value().isBefore(this.value);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalDateTimeQueryValueLessThanSearchQueryTester;
+    }
 }

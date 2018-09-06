@@ -68,6 +68,16 @@ public final class SearchLocalTimeQueryValue extends SearchQueryValue{
     }
 
     @Override
+    final LocalTime value() {
+        return this.value;
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalTimeQueryValue;
+    }
+
+    @Override
     public String toString() {
         return DateTimeFormatter.ISO_LOCAL_TIME.format(this.value);
     }

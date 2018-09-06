@@ -42,4 +42,9 @@ final class SearchLocalTimeQueryValueEqualsSearchQueryTester extends SearchLocal
     final boolean test(final SearchLocalTimeNode node) {
         return this.value.equals(node.value());
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalTimeQueryValueEqualsSearchQueryTester;
+    }
 }

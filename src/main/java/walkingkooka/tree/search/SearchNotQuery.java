@@ -38,6 +38,11 @@ final class SearchNotQuery extends SearchUnaryQuery{
     SearchNotQueryContext context(final SearchQueryContext context) {
         return SearchNotQueryContext.with(context);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchNotQuery;
+    }
     
     @Override
     public String toString() {

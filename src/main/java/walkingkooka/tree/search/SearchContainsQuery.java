@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 
@@ -27,7 +28,7 @@ import java.util.Objects;
 /**
  * Searches the text of a {@link SearchQueryValue} if it contains text.
  */
-final class SearchContainsQuery extends SearchLeafQuery {
+final class SearchContainsQuery extends SearchLeafQuery<SearchTextQueryValue> {
 
     static SearchContainsQuery with(final SearchTextQueryValue value, final CaseSensitivity caseSensitivity) {
         Objects.requireNonNull(caseSensitivity, "caseSensitivity");
@@ -135,7 +136,27 @@ final class SearchContainsQuery extends SearchLeafQuery {
     private final CaseSensitivity caseSensitivity;
 
     @Override
-    String toStringPrefix() {
-        return "~";
+    public int hashCode() {
+        return Objects.hash(this.value, this.caseSensitivity);
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchContainsQuery;
+    }
+
+    @Override
+    boolean equals0(final SearchQuery other) {
+        return this.equals1(Cast.to(other));
+    }
+
+    private boolean equals1(final SearchContainsQuery other) {
+        return this.value.equals(other.value) &&
+                this.caseSensitivity.equals(other.caseSensitivity);
+    }
+
+    @Override
+    void toStringPrefix(final StringBuilder b) {
+        b.append('~');
     }
 }

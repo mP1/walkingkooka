@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.Cast;
+
 import java.util.Objects;
 
 abstract class SearchBinaryQuery extends SearchParentQuery{
@@ -85,6 +87,21 @@ abstract class SearchBinaryQuery extends SearchParentQuery{
     abstract SearchBinaryQueryContext context(final SearchQueryContext context);
 
     final SearchQuery right;
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.left, this.right);
+    }
+
+    @Override
+    final boolean equals0(final SearchQuery other) {
+        return this.equals1(Cast.to(other));
+    }
+
+    private boolean equals1(final SearchBinaryQuery other) {
+        return this.left.equals(other.left) &&
+               this.right.equals(other.right);
+    }
 
     @Override
     public final String toString() {

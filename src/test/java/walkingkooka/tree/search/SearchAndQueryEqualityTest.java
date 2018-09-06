@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.search;
 
-public abstract class SearchLeafQuery2TestCase<Q extends SearchLeafQuery> extends SearchLeafQueryTestCase<Q> {
-
+public final class SearchAndQueryEqualityTest extends SearchBinaryQueryEqualityTestCase<SearchAndQuery> {
+    @Override
+    SearchAndQuery createSearchQuery(final SearchQuery left, final SearchQuery right) {
+        return SearchAndQuery.with(left, right);
+    }
 }
