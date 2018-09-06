@@ -143,12 +143,12 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     // Select...........................................................................................
 
     @Override
-    final SearchIgnoredNode ignored() {
+    public final SearchIgnoredNode ignored() {
         return SearchNode.ignored(this);
     }
 
     @Override
-    final SearchSelectNode selected() {
+    public final SearchSelectNode selected() {
         return SearchNode.select(this);
     }
 
