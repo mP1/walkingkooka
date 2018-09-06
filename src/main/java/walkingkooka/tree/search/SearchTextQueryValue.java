@@ -38,6 +38,14 @@ public final class SearchTextQueryValue extends SearchQueryValue{
         this.value = value;
     }
 
+    public SearchQuery attributeValueEquals(final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchQuery.attributeValueEquals(this, attributeName, caseSensitivity);
+    }
+
+    public SearchQuery attributeValueNotEquals(final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchQuery.attributeValueNotEquals(this, attributeName, caseSensitivity);
+    }
+
     public SearchQuery contains(final CaseSensitivity caseSensitivity) {
         return SearchQuery.contains(this, caseSensitivity);
     }

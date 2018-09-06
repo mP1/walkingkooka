@@ -19,25 +19,47 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
- * A container or parent for one or more {@link SearchNode}.
+ * A container or parent for one or more {@link SearchNode}, adding tags or meta attributes which can then be queried
+ * and matched.
  */
-public final class SearchSelectNode extends SearchParentNode2 {
+public final class SearchMetaNode extends SearchParentNode {
 
-    public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchSelectNode.class);
+    public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchMetaNode.class);
 
-    static SearchSelectNode with(final SearchNode child) {
+    final static Map<SearchNodeAttributeName, String> NO_ATTRIBUTES = Maps.empty();
+
+    static SearchMetaNode with(final SearchNode child, final Map<SearchNodeAttributeName, String> attributes) {
         Objects.requireNonNull(child, "child");
-        return new SearchSelectNode(NO_PARENT_INDEX, Lists.of(child));
+
+        return new SearchMetaNode(NO_PARENT_INDEX, Lists.of(child), copy(attributes));
     }
 
-    private SearchSelectNode(final int index, final List<SearchNode> children) {
+    private static Map<SearchNodeAttributeName, String> copy(final Map<SearchNodeAttributeName, String> attributes) {
+        Objects.requireNonNull(attributes, "attributes");
+
+        final Map<SearchNodeAttributeName, String> copy = Maps.ordered();
+        copy.putAll(attributes);
+
+        if(copy.isEmpty()) {
+            throw new IllegalArgumentException("Attributes must not be empty");
+        }
+
+        return copy;
+    }
+
+    private SearchMetaNode(final int index,
+                           final List<SearchNode> children,
+                           final Map<SearchNodeAttributeName, String> attributes) {
         super(index, children);
+        this.attributes = Maps.readOnly(attributes);
     }
 
     @Override
@@ -50,7 +72,7 @@ public final class SearchSelectNode extends SearchParentNode2 {
     }
 
     @Override
-    public SearchSelectNode setChildren(final List<SearchNode> children) {
+    public SearchMetaNode setChildren(final List<SearchNode> children) {
         return this.setChildren0(children).cast();
     }
 
@@ -64,7 +86,7 @@ public final class SearchSelectNode extends SearchParentNode2 {
 
     @Override
     SearchParentNode wrap0(final int index, final List<SearchNode> children) {
-        return new SearchSelectNode(index, children);
+        return new SearchMetaNode(index, children, this.attributes);
     }
 
     @Override
@@ -75,6 +97,27 @@ public final class SearchSelectNode extends SearchParentNode2 {
     @Override
     public SearchNode removeChild(final int child) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Map<SearchNodeAttributeName, String> attributes() {
+        return this.attributes;
+    }
+
+    private final Map<SearchNodeAttributeName, String> attributes;
+
+    /**
+     * Would be setter that returns a {@link SearchMetaNode} with the given attributes, or this if attributes also match.
+     */
+    @Override
+    public final SearchMetaNode setAttributes(final Map<SearchNodeAttributeName, String> attributes) {
+        final Map<SearchNodeAttributeName, String> copy = copy(attributes);
+
+        return this.attributes.equals(copy) ?
+               this :
+               new SearchMetaNode(this.index, this.children, copy)
+                       .replaceChild(this.parent(), this.index)
+                       .cast();
     }
 
     @Override
@@ -100,8 +143,13 @@ public final class SearchSelectNode extends SearchParentNode2 {
     }
 
     @Override
-    public boolean isSelect() {
+    public boolean isMeta() {
         return true;
+    }
+
+    @Override
+    public boolean isSelect() {
+        return false;
     }
 
     @Override
@@ -113,7 +161,8 @@ public final class SearchSelectNode extends SearchParentNode2 {
 
     @Override
     void select(final SearchQuery query, final SearchQueryContext context) {
-        // nop cant "search" a select.
+        query.visit(this, context);
+        this.child().select(query, context);
     }
 
     @Override
@@ -122,8 +171,13 @@ public final class SearchSelectNode extends SearchParentNode2 {
     }
 
     @Override
+    public SearchMetaNode meta(final Map<SearchNodeAttributeName, String> attributes) {
+        return this.setAttributes(attributes);
+    }
+
+    @Override
     public SearchSelectNode selected() {
-        return this;
+        return SearchNode.select(this);
     }
 
     // Visitor.........................................................................................................
@@ -140,16 +194,27 @@ public final class SearchSelectNode extends SearchParentNode2 {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SearchSelectNode;
+        return other instanceof SearchMetaNode;
+    }
+
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final SearchNode other) {
+        return this.canBeEqual(other) && this.equalsIgnoringParentAndChildren0(other.cast());
+    }
+
+    private boolean equalsIgnoringParentAndChildren0(final SearchMetaNode other) {
+        return this.attributes.equals(other.attributes);
     }
 
     @Override
     String toStringPrefix() {
-        return "< ";
+        return "( ";
     }
 
     @Override
-    String toStringSuffix() {
-        return " >";
+    void toStringSuffix(final StringBuilder b) {
+        b.append(" ");
+        b.append(this.attributes());
+        b.append(')');
     }
 }

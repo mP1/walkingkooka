@@ -18,14 +18,12 @@
 
 package walkingkooka.tree.search;
 
-abstract class SearchParentQuery extends SearchQuery{
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-    SearchParentQuery() {
-        super();
-    }
+public final class SearchAttributeLeafQueryTest extends PackagePrivateClassTestCase<SearchAttributeLeafQuery> {
 
     @Override
-    final void visit(final SearchMetaNode node, final SearchQueryContext context) {
-        node.select(this, context);
+    protected Class<SearchAttributeLeafQuery> type() {
+        return SearchAttributeLeafQuery.class;
     }
 }

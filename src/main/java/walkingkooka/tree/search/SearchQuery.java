@@ -33,6 +33,34 @@ public abstract class SearchQuery implements HashCodeEqualsDefined {
         return SearchAndQuery.with(left, right);
     }
 
+    /**
+     * {@see SearchAttributeValueContainsQuery}
+     */
+    static SearchAttributeValueContainsQuery attributeValueContains(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchAttributeValueContainsQuery.with(value, attributeName, caseSensitivity);
+    }
+
+    /**
+     * {@see SearchAttributeValueDoesntContainsQuery}
+     */
+    static SearchAttributeValueDoesntContainsQuery attributeValueDoesntContains(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchAttributeValueDoesntContainsQuery.with(value, attributeName, caseSensitivity);
+    }
+
+    /**
+     * {@see SearchAttributeValueEqualsQuery}
+     */
+    static SearchAttributeValueEqualsQuery attributeValueEquals(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchAttributeValueEqualsQuery.with(value, attributeName, caseSensitivity);
+    }
+
+    /**
+     * {@see SearchAttributeValueNotEqualsQuery}
+     */
+    static SearchAttributeValueNotEqualsQuery attributeValueNotEquals(final SearchTextQueryValue value, final SearchNodeAttributeName attributeName, final CaseSensitivity caseSensitivity) {
+        return SearchAttributeValueNotEqualsQuery.with(value, attributeName, caseSensitivity);
+    }
+
     static SearchContainsQuery contains(final SearchTextQueryValue value, final CaseSensitivity caseSensitivity) {
         return SearchContainsQuery.with(value, caseSensitivity);
     }
@@ -110,6 +138,8 @@ public abstract class SearchQuery implements HashCodeEqualsDefined {
     abstract void visit(final SearchLocalTimeNode node, final SearchQueryContext context);
 
     abstract void visit(final SearchLongNode node, final SearchQueryContext context);
+
+    abstract void visit(final SearchMetaNode node, final SearchQueryContext context);
 
     abstract void visit(final SearchTextNode node, final SearchQueryContext context);
 

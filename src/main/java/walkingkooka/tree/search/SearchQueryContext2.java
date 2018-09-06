@@ -19,9 +19,7 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.Context;
-import walkingkooka.ShouldNeverHappenError;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.Name;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.List;
@@ -58,7 +56,7 @@ final class SearchQueryContext2 extends SearchQueryContext {
     }
 
     private SearchNode equivalent(final SearchNode node) {
-        final NodePointer<SearchNode, SearchNodeName, Name, Object> pointer = node.pointer();
+        final NodePointer<SearchNode, SearchNodeName, SearchNodeAttributeName, String> pointer = node.pointer();
         final Optional<SearchNode> equivalent = pointer.traverse(this.result);
         if(!equivalent.isPresent()){
             throw new SearchQueryException("Unable to find equivalent node for match=" + node);
@@ -70,22 +68,15 @@ final class SearchQueryContext2 extends SearchQueryContext {
         final Optional<SearchNode> maybeParent = node.parent();
         if(maybeParent.isPresent()) {
             final SearchNode parent = maybeParent.get();
-            if(parent.isSelect()) {
-                this.replaceSelect(parent.cast(), replacement);
+
+            if(parent.isSequence()) {
+                this.replaceSequence(node, parent.cast(), replacement);
             } else {
-                if(parent.isSequence()) {
-                    this.replaceSequence(node, parent.cast(), replacement);
-                } else {
-                    throw new ShouldNeverHappenError("Unknown parent SearchNode " + parent.getClass().getName() + "=" + parent);
-                }
+                this.replace(parent, replacement);
             }
         } else {
             this.set(replacement);
         }
-    }
-
-    private void replaceSelect(final SearchSelectNode parent, final SearchNode replacement) {
-        this.set(parent.setChildren(Lists.of(replacement)));
     }
 
     private void replaceSequence(final SearchNode match, final SearchSequenceNode parent, final SearchNode replacement) {
@@ -94,6 +85,10 @@ final class SearchQueryContext2 extends SearchQueryContext {
         all.set(match.index(), replacement);
 
         this.set(parent.setChildren(all));
+    }
+
+    private void replace(final SearchNode parent, final SearchNode replacement) {
+        this.set(parent.setChildren(Lists.of(replacement)));
     }
 
     private void set(final SearchNode node) {

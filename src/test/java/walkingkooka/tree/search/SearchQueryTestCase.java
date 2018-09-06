@@ -76,6 +76,10 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends Package
 
     // query testing.....................................................................................................
 
+    final void querySelectAndCheck(final SearchNode node, final SearchNode expected) {
+        this.querySelectAndCheck(this.createSearchQuery(), node, expected);
+    }
+
     final void querySelectAndCheck(final SearchQuery query, final SearchNode node, final SearchNode expected) {
         final SearchNode result = query.select(node);
         this.checkEquals("Query " + query + " returned wrong result", expected, result);
