@@ -21,6 +21,7 @@ package walkingkooka.tree.search;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -29,11 +30,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchSelectNode> {
+public final class SearchIgnoredNodeTest extends SearchParentNodeTestCase<SearchIgnoredNode> {
+
+    private final static String CHILD_TEXT = "child";
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
-        SearchSelectNode.with(null);
+        SearchIgnoredNode.with(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -48,14 +51,14 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
 
     @Test
     public final void testReplaceAll() {
-        final SearchSelectNode node = this.createSearchNode();
+        final SearchIgnoredNode node = this.createSearchNode();
         final SearchNode replace = this.replaceNode();
         assertEquals(replace.selected(), node.replace(0, node.text().length(), replace));
     }
 
     @Test
     public void testReplace() {
-        final SearchSelectNode node = SearchSelectNode.with(this.text("123"));
+        final SearchIgnoredNode node = SearchIgnoredNode.with(this.text("123"));
         final SearchTextNode replacing = this.text("REPLACEMENT");
         final SearchNode replaced = node.replace(1, 2, replacing);
         assertEquals(this.sequence(this.text("1"), replacing, this.text("3")).selected(), replaced);
@@ -97,19 +100,19 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     @Test
     public void testIgnored() {
         final SearchNode node = this.createSearchNode();
-        assertNotSame(node, node.ignored());
+        assertSame(node, node.ignored());
     }
 
     @Test
     public void testSelected() {
         final SearchNode node = this.createSearchNode();
-        assertSame(node, node.selected());
+        assertNotSame(node, node.selected());
     }
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final SearchSelectNode node = this.createSearchNode();
+        final SearchIgnoredNode node = this.createSearchNode();
         final SearchTextNode child = node.children().get(0).cast();
 
         new FakeSearchNodeVisitor() {
@@ -125,14 +128,14 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
             }
 
             @Override
-            protected Visiting startVisit(final SearchSelectNode n) {
+            protected Visiting startVisit(final SearchIgnoredNode n) {
                 assertSame(node, n);
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final SearchSelectNode n) {
+            protected void endVisit(final SearchIgnoredNode n) {
                 assertSame(node, n);
                 b.append("4");
             }
@@ -148,13 +151,21 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     }
 
     @Test
+    public void testQueryIgnores() {
+        final SearchTextQueryValue queryValue = SearchQueryValue.text(CHILD_TEXT);
+        final SearchIgnoredNode node = this.createSearchNode();
+        final SearchQuery query = queryValue.equalsQuery(CaseSensitivity.SENSITIVE);
+        assertSame(node, query.select(node));
+    }
+
+    @Test
     public void testToString() {
-        assertEquals("< \"child\" >", this.createSearchNode().toString());
+        assertEquals("<! \"child\" !>", this.createSearchNode().toString());
     }
 
     @Override
-    SearchSelectNode createSearchNode() {
-        return SearchSelectNode.with(this.child());
+    SearchIgnoredNode createSearchNode() {
+        return SearchIgnoredNode.with(this.child());
     }
 
     @Override
@@ -163,11 +174,11 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     }
 
     private SearchNode child() {
-        return this.text("child");
+        return this.text(CHILD_TEXT);
     }
 
     @Override
-    Class<SearchSelectNode> searchNodeType() {
-        return SearchSelectNode.class;
+    Class<SearchIgnoredNode> searchNodeType() {
+        return SearchIgnoredNode.class;
     }
 }

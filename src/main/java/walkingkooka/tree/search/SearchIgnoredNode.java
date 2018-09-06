@@ -25,18 +25,18 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A container or parent for one or more {@link SearchNode}.
+ * A container or parent for a {@link SearchNode node} that will be ignored during queries.
  */
-public final class SearchSelectNode extends SearchParentNode{
+public final class SearchIgnoredNode extends SearchParentNode{
 
-    public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchSelectNode.class);
+    public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchIgnoredNode.class);
 
-    static SearchSelectNode with(final SearchNode child) {
+    static SearchIgnoredNode with(final SearchNode child) {
         Objects.requireNonNull(child, "child");
-        return new SearchSelectNode(NO_PARENT_INDEX, Lists.of(child));
+        return new SearchIgnoredNode(NO_PARENT_INDEX, Lists.of(child));
     }
 
-    private SearchSelectNode(final int index, final List<SearchNode> children) {
+    private SearchIgnoredNode(final int index, final List<SearchNode> children) {
         super(index, children);
     }
 
@@ -50,7 +50,7 @@ public final class SearchSelectNode extends SearchParentNode{
     }
 
     @Override
-    public SearchSelectNode setChildren(final List<SearchNode> children) {
+    public SearchIgnoredNode setChildren(final List<SearchNode> children) {
         return this.setChildren0(children).cast();
     }
 
@@ -64,7 +64,7 @@ public final class SearchSelectNode extends SearchParentNode{
 
     @Override
     SearchParentNode wrap0(final int index, final List<SearchNode> children) {
-        return new SearchSelectNode(index, children);
+        return new SearchIgnoredNode(index, children);
     }
 
     @Override
@@ -96,12 +96,12 @@ public final class SearchSelectNode extends SearchParentNode{
 
     @Override
     public boolean isIgnored() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isSelect() {
-        return true;
+        return false;
     }
 
     @Override
@@ -116,14 +116,17 @@ public final class SearchSelectNode extends SearchParentNode{
         // nop cant "search" a select.
     }
 
+    /**
+     * No need to wrap again returns this.
+     */
     @Override
     SearchIgnoredNode ignored() {
-        return SearchNode.ignored(this.child());
+        return this;
     }
 
     @Override
     SearchSelectNode selected() {
-        return this;
+        return SearchNode.select(this);
     }
 
     // Visitor.........................................................................................................
@@ -140,16 +143,16 @@ public final class SearchSelectNode extends SearchParentNode{
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SearchSelectNode;
+        return other instanceof SearchIgnoredNode;
     }
 
     @Override
     String toStringPrefix() {
-        return "< ";
+        return "<! ";
     }
 
     @Override
     String toStringSuffix() {
-        return " >";
+        return " !>";
     }
 }

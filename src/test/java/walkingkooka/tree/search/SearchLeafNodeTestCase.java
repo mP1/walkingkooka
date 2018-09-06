@@ -138,6 +138,20 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode, V> extend
     }
 
     @Test
+    public final void testIgnored() {
+        final N node = this.createSearchNode();
+        final SearchIgnoredNode ignored = node.ignored();
+        assertEquals("ignored with child", SearchNode.ignored(node), ignored);
+    }
+
+    @Test
+    public final void testSelected() {
+        final N node = this.createSearchNode();
+        final SearchSelectNode selected = node.selected();
+        assertEquals("ignored with child", SearchNode.select(node), selected);
+    }
+
+    @Test
     public void testEqualsDifferentValue() {
         assertNotEquals(this.createSearchNode(), this.createSearchNode(this.differentText(), this.differentValue()));
     }
