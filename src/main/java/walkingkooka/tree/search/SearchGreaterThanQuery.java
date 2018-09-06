@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.search;
 
-final class SearchGreaterThanQuery extends SearchLeafQuery2 {
+final class SearchGreaterThanQuery extends SearchValueComparisonLeafQuery {
 
     static SearchGreaterThanQuery with(final SearchQueryValue value, final SearchQueryTester tester ){
         return new SearchGreaterThanQuery(value, tester);
@@ -30,11 +30,16 @@ final class SearchGreaterThanQuery extends SearchLeafQuery2 {
 
     @Override
     public SearchQuery not() {
-        return not(this);
+        return lessThanEquals(this.value, this.tester.not());
     }
 
     @Override
-    String toStringPrefix() {
-        return ">";
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchGreaterThanQuery;
+    }
+
+    @Override
+    void toStringPrefix(final StringBuilder b) {
+        b.append('>');
     }
 }

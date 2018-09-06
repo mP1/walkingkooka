@@ -18,6 +18,9 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -28,7 +31,7 @@ import java.util.Objects;
 /**
  * Holds a query value and provides factory methods to create {@link SearchQuery}.
  */
-public abstract class SearchQueryValue {
+public abstract class SearchQueryValue implements HashCodeEqualsDefined {
 
     /**
      * {@see SearchBigDecimalQueryValue}
@@ -103,4 +106,24 @@ public abstract class SearchQueryValue {
      * This method is only implemented by {@link SearchTextQueryValue}
      */
     abstract String text();
+
+    abstract Object value();
+
+    @Override
+    public final int hashCode() {
+        return this.value().hashCode();
+    }
+
+    @Override
+    public final boolean equals(final Object other) {
+        return this == other ||
+                this.canBeEqual(other) &&
+                        this.equals0(Cast.to(other));
+    }
+
+    abstract boolean canBeEqual(final Object other);
+
+    private boolean equals0(final SearchQueryValue other) {
+        return this.value().equals(other.value());
+    }
 }

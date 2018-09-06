@@ -42,4 +42,9 @@ final class SearchLocalDateQueryValueLessThanSearchQueryTester extends SearchLoc
     final boolean test(final SearchLocalDateNode node) {
         return node.value().isBefore(this.value);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalDateQueryValueLessThanSearchQueryTester;
+    }
 }

@@ -57,4 +57,14 @@ final class SearchLongQueryValueSearchQueryTester extends SearchComparableQueryV
     final boolean test(final SearchTextNode node) {
         return false;
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLongQueryValueSearchQueryTester;
+    }
+
+    @Override
+    boolean equals3(final SearchComparableQueryValueSearchQueryTester other) {
+        return true; // no extra properties
+    }
 }

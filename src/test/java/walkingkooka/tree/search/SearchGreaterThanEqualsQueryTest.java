@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 import org.junit.Test;
 import walkingkooka.text.CaseSensitivity;
 
-public final class SearchGreaterThanEqualsQueryTest extends SearchLeafQuery2TestCase<SearchGreaterThanEqualsQuery> {
+public final class SearchGreaterThanEqualsQueryTest extends SearchValueComparisonLeafQueryTestCase<SearchGreaterThanEqualsQuery> {
 
     // BigDecimal......................................................................................
 
@@ -750,6 +750,12 @@ public final class SearchGreaterThanEqualsQueryTest extends SearchLeafQuery2Test
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, lt, eq, gt, after),
                 this.sequenceNode(before, lt, eq.selected(), gt.selected(), after.selected()));
+    }
+
+    @Override
+    SearchGreaterThanEqualsQuery createSearchQuery() {
+        return SearchGreaterThanEqualsQuery.with(this.textQueryValue(TEXT2),
+                SearchTextQueryValueSearchQueryTester.with(TEXT2, CaseSensitivity.SENSITIVE, SearchQueryValueSearchQueryTesterComparisonPredicate.GREATER_THAN_EQUALS));
     }
 
     @Override

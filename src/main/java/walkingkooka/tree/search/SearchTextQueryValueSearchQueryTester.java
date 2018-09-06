@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 
 /**
@@ -65,4 +66,18 @@ final class SearchTextQueryValueSearchQueryTester extends SearchComparableQueryV
     }
 
     final CaseSensitivity caseSensitivity;
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchTextQueryValueSearchQueryTester;
+    }
+
+    @Override
+    boolean equals3(final SearchComparableQueryValueSearchQueryTester other) {
+        return this.equals3(Cast.to(other));
+    }
+
+    private boolean equals3(final SearchTextQueryValueSearchQueryTester other) {
+        return this.caseSensitivity.equals(other.caseSensitivity);
+    }
 }

@@ -21,18 +21,21 @@ package walkingkooka.tree.search;
 /**
  * Base class for all leaf query types.
  */
-abstract class SearchLeafQuery extends SearchQuery {
+abstract class SearchLeafQuery<V extends SearchQueryValue> extends SearchQuery {
 
-    SearchLeafQuery(final SearchQueryValue value){
+    SearchLeafQuery(final V value){
         this.value = value;
     }
 
-    final SearchQueryValue value;
+    final V value;
 
     @Override
     public final String toString() {
-        return this.toStringPrefix().concat(this.value.toString());
+        final StringBuilder b = new StringBuilder();
+        this.toStringPrefix(b);
+        b.append(this.value);
+        return b.toString();
     }
 
-    abstract String toStringPrefix();
+    abstract void toStringPrefix(final StringBuilder b);
 }

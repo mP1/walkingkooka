@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.search;
 
+import walkingkooka.Cast;
+
 import java.util.Objects;
 
 /**
@@ -79,4 +81,18 @@ abstract class SearchUnaryQuery extends SearchParentQuery{
      * Factory that creates the unary query custom {@link SearchUnaryQueryContext}.
      */
     abstract SearchUnaryQueryContext context(final SearchQueryContext context);
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.query);
+    }
+
+    @Override
+    final boolean equals0(final SearchQuery other) {
+        return this.equals1(Cast.to(other));
+    }
+
+    private boolean equals1(final SearchUnaryQuery other) {
+        return this.query.equals(other.query);
+    }
 }

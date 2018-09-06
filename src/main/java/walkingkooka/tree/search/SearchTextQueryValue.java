@@ -79,6 +79,16 @@ public final class SearchTextQueryValue extends SearchQueryValue{
     }
 
     @Override
+    final String value() {
+        return this.text();
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchTextQueryValue;
+    }
+
+    @Override
     public String toString() {
         return CharSequences.quoteAndEscape(this.value).toString();
     }

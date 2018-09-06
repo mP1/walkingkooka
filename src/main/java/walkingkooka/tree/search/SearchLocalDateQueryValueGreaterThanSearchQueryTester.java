@@ -42,4 +42,9 @@ final class SearchLocalDateQueryValueGreaterThanSearchQueryTester extends Search
     final boolean test(final SearchLocalDateNode node) {
         return node.value().isAfter(this.value);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalDateQueryValueGreaterThanSearchQueryTester;
+    }
 }

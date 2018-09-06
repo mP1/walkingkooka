@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.search;
 
+import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
@@ -29,6 +30,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
 public abstract class SearchQueryTestCase<Q extends SearchQuery> extends PackagePrivateClassTestCase<Q> {
@@ -56,6 +58,21 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends Package
     static final String TEXT2 = "mNop";
     static final String TEXT2_LT = "aBc";
     static final String TEXT2_GT = "xYz";
+
+    // tests.........................................................................................................
+
+    @Test
+    public void testNot() {
+        final Q query = this.createSearchQuery();
+        final SearchQuery not = query.not();
+        assertNotEquals(query, not);
+    }
+
+    @Test
+    public void testNotTwiceGivesOriginalQuery() {
+        final Q query = this.createSearchQuery();
+        assertEquals(query, query.not().not());
+    }
 
     // query testing.....................................................................................................
 
@@ -88,6 +105,8 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends Package
     final String toString(final SearchNode node) {
         return SearchPrettySearchNodeVisitor.toString(node);
     }
+
+    abstract Q createSearchQuery();
 
     // factory.....................................................................................................
 

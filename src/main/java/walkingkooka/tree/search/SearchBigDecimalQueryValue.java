@@ -38,4 +38,9 @@ public final class SearchBigDecimalQueryValue extends SearchNumberQueryValue<Big
     SearchBigDecimalQueryValueSearchQueryTester tester(final SearchQueryValueSearchQueryTesterComparisonPredicate resultPredicate) {
         return SearchBigDecimalQueryValueSearchQueryTester.with(this.value, resultPredicate);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchBigDecimalQueryValue;
+    }
 }

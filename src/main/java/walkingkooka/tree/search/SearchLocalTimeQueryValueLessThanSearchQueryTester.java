@@ -42,4 +42,9 @@ final class SearchLocalTimeQueryValueLessThanSearchQueryTester extends SearchLoc
     final boolean test(final SearchLocalTimeNode node) {
         return node.value().isBefore(this.value);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalTimeQueryValueLessThanSearchQueryTester;
+    }
 }

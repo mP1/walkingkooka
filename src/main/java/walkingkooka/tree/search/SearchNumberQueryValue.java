@@ -63,6 +63,11 @@ abstract class SearchNumberQueryValue<N extends Number & Comparable<N>> extends 
     }
 
     @Override
+    final N value() {
+        return this.value;
+    }
+
+    @Override
     public final String toString() {
         return this.value.toString();
     }

@@ -18,7 +18,10 @@
 
 package walkingkooka.tree.search;
 
-abstract class SearchQueryTester<T> {
+import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
+
+abstract class SearchQueryTester<T> implements HashCodeEqualsDefined {
 
     SearchQueryTester(final T value) {
         super();
@@ -44,4 +47,25 @@ abstract class SearchQueryTester<T> {
     abstract boolean test(final SearchTextNode node);
 
     final T value;
+
+    @Override
+    public final int hashCode() {
+        return this.value.hashCode();
+    }
+
+    @Override
+    public final boolean equals(final Object other) {
+        return this == other ||
+               this.canBeEqual(other) &&
+               this.equals0(Cast.to(other));
+    }
+
+    abstract boolean canBeEqual(final Object other);
+
+    private boolean equals0(final SearchQueryTester other) {
+        return this.value.equals(other.value) &&
+               this.equals1(other);
+    }
+
+    abstract boolean equals1(final SearchQueryTester other);
 }

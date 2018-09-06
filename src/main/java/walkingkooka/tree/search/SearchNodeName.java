@@ -25,12 +25,12 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import java.util.Objects;
 
 /**
- * The name of an expression node.
+ * The attributeName of an expression node.
  */
 public final class SearchNodeName implements Name, Comparable<SearchNodeName>, HashCodeEqualsDefined {
 
     public static SearchNodeName with(final String name) {
-        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(name, "attributeName");
         return new SearchNodeName(name);
     }
 

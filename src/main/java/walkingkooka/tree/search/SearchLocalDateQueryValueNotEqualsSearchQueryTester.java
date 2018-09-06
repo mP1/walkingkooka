@@ -42,4 +42,9 @@ final class SearchLocalDateQueryValueNotEqualsSearchQueryTester extends SearchLo
     final boolean test(final SearchLocalDateNode node) {
         return !this.value.equals(node.value());
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchLocalDateQueryValueNotEqualsSearchQueryTester;
+    }
 }

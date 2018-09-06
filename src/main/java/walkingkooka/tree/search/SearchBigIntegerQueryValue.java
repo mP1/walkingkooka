@@ -38,4 +38,9 @@ public final class SearchBigIntegerQueryValue extends SearchNumberQueryValue<Big
     SearchBigIntegerQueryValueSearchQueryTester tester(final SearchQueryValueSearchQueryTesterComparisonPredicate resultPredicate) {
         return SearchBigIntegerQueryValueSearchQueryTester.with(this.value, resultPredicate);
     }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof SearchBigIntegerQueryValue;
+    }
 }

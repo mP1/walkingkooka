@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.search;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import walkingkooka.text.CaseSensitivity;
 
 public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNotQuery>{
 
@@ -90,6 +92,17 @@ public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNo
                 .not();
 
         this.querySelectAndCheck(query, node, node);
+    }
+
+    @Test
+    @Ignore
+    public void testNotTwiceGivesOriginalQuery() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    SearchNotQuery createSearchQuery() {
+        return SearchNotQuery.with(this.textQueryValue("query").equalsQuery(CaseSensitivity.SENSITIVE));
     }
     
     @Override

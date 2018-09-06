@@ -18,7 +18,9 @@
 
 package walkingkooka.tree.search;
 
-public final class SearchLeafQueryTest extends SearchQueryTestCase<SearchLeafQuery> {
+import walkingkooka.test.PackagePrivateClassTestCase;
+
+public final class SearchLeafQueryTest extends PackagePrivateClassTestCase<SearchLeafQuery> {
     @Override
     protected Class<SearchLeafQuery> type() {
         return SearchLeafQuery.class;
