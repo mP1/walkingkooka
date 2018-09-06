@@ -21,8 +21,10 @@ package walkingkooka.tree.search;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -116,6 +118,11 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     }
 
     @Override
+    public final boolean isMeta() {
+        return false;
+    }
+
+    @Override
     public final boolean isSelect() {
         return false;
     }
@@ -140,11 +147,28 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
         throw new UnsupportedOperationException();
     }
 
+    // attributes........................................................................................
+
+    @Override
+    public final Map<SearchNodeAttributeName, String> attributes() {
+        return Maps.empty();
+    }
+
+    @Override
+    public final SearchNode setAttributes(final Map<SearchNodeAttributeName, String> attributes) {
+        throw new UnsupportedOperationException();
+    }
+
     // Select...........................................................................................
 
     @Override
     public final SearchIgnoredNode ignored() {
         return SearchNode.ignored(this);
+    }
+
+    @Override
+    public final SearchMetaNode meta(final Map<SearchNodeAttributeName, String> attributes) {
+        return SearchNode.meta(this, attributes);
     }
 
     @Override

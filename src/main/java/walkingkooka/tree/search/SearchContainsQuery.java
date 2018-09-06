@@ -82,6 +82,11 @@ final class SearchContainsQuery extends SearchLeafQuery<SearchTextQueryValue> {
     }
 
     @Override
+    final void visit(final SearchMetaNode node, final SearchQueryContext context) {
+        node.select(this, context);
+    }
+
+    @Override
     final void visit(final SearchTextNode node, final SearchQueryContext context) {
         this.visit0(node, context);
     }

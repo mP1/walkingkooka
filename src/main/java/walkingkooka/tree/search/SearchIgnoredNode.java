@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A container or parent for a {@link SearchNode node} that will be ignored during queries.
  */
-public final class SearchIgnoredNode extends SearchParentNode{
+public final class SearchIgnoredNode extends SearchParentNode2 {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchIgnoredNode.class);
 

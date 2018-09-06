@@ -19,110 +19,90 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Objects;
 
 /**
- * Base {@link SearchLeafQuery} that operate on values with a {@link SearchQueryTester}
+ * Base class for all leaf query types that operate on values and not attributes.
  */
-abstract class SearchValueComparisonLeafQuery extends SearchLeafQuery {
+abstract class SearchAttributeLeafQuery extends SearchLeafQuery<SearchTextQueryValue> {
 
-    SearchValueComparisonLeafQuery(final SearchQueryValue value, final SearchQueryTester tester){
+    SearchAttributeLeafQuery(final SearchTextQueryValue value, final SearchNodeAttributeName name, final CaseSensitivity caseSensitivity){
         super(value);
-        this.tester = tester;
+        this.attributeName = name;
+        this.caseSensitivity = caseSensitivity;
     }
+
+    final SearchNodeAttributeName attributeName;
+    final CaseSensitivity caseSensitivity;
+
 
     @Override
     final void visit(final SearchBigDecimalNode node, final SearchQueryContext context) {
-        if(this.tester.test(node)) {
-            context.success(node);
-        } else {
-            context.failure(node);
-        }
+        // nop
     }
 
     @Override
     final void visit(final SearchBigIntegerNode node, final SearchQueryContext context) {
-        if(this.tester.test(node)) {
-            context.success(node);
-        } else {
-            context.failure(node);
-        }
+        // nop
     }
 
     @Override
     final void visit(final SearchDoubleNode node, final SearchQueryContext context) {
-        if(this.tester.test(node)) {
-            context.success(node);
-        } else {
-            context.failure(node);
-        }
+        // nop
     }
 
     @Override
     final void visit(final SearchLocalDateNode node, final SearchQueryContext context) {
-        if(this.tester.test(node)) {
-            context.success(node);
-        } else {
-            context.failure(node);
-        }
+        // nop
     }
 
     @Override
     final void visit(final SearchLocalDateTimeNode node, final SearchQueryContext context) {
-        if(this.tester.test(node)) {
-            context.success(node);
-        } else {
-            context.failure(node);
-        }
+        // nop
     }
 
     @Override
     final void visit(final SearchLocalTimeNode node, final SearchQueryContext context) {
-        if(this.tester.test(node)) {
-            context.success(node);
-        } else {
-            context.failure(node);
-        }
+        // nop
     }
 
     @Override
     final void visit(final SearchLongNode node, final SearchQueryContext context) {
-        if(this.tester.test(node)) {
-            context.success(node);
-        } else {
-            context.failure(node);
-        }
+        // nop
     }
 
     @Override
     final void visit(final SearchMetaNode node, final SearchQueryContext context) {
-        context.failure(node);
-    }
-
-    @Override
-    final void visit(final SearchTextNode node, final SearchQueryContext context) {
-        if(this.tester.test(node)) {
+        if(this.test(this.value.text(), node.attributes().get(this.attributeName))) {
             context.success(node);
         } else {
             context.failure(node);
         }
     }
 
-    final SearchQueryTester tester;
+    abstract boolean test(final String text, final String attributeValue);
+
+    @Override
+    final void visit(final SearchTextNode node, final SearchQueryContext context) {
+        // nop
+    }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(this.value, this.tester);
+        return Objects.hash(this.attributeName, this.caseSensitivity);
     }
+
+    abstract boolean canBeEqual(final Object other);
 
     @Override
     final boolean equals0(final SearchQuery other) {
         return this.equals1(Cast.to(other));
     }
 
-    private boolean equals1(final SearchValueComparisonLeafQuery other) {
-        return this.value.equals(other.value) &&
-                this.tester.equals(other.tester);
+    private boolean equals1(final SearchAttributeLeafQuery other) {
+        return this.attributeName.equals(other.attributeName) &&
+               this.caseSensitivity.equals(other.caseSensitivity);
     }
 }

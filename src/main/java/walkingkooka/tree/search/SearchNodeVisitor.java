@@ -59,6 +59,14 @@ public abstract class SearchNodeVisitor extends Visitor<SearchNode> {
         // nop
     }
 
+    protected Visiting startVisit(final SearchMetaNode node) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final SearchMetaNode node) {
+        // nop
+    }
+    
     protected Visiting startVisit(final SearchSelectNode node) {
         return Visiting.CONTINUE;
     }

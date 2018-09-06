@@ -22,7 +22,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.Name;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
-public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestCase2<SearchNode, SearchNodeName, Name, Object> {
+public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestCase2<SearchNode, SearchNodeName, SearchNodeAttributeName, String> {
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -117,6 +117,16 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         return text("!REPLACE!");
     }
 
+    @Test(expected = NullPointerException.class)
+    public final void testMetaNullAttributesFails() {
+        this.createSearchNode().meta(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testMetaEmptyAttributesFails() {
+        this.createSearchNode().meta(Maps.empty());
+    }
+
     @Test
     public final void testEqualsNull() {
         assertNotEquals(this.createSearchNode(), null);
@@ -168,7 +178,7 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
 
         final List<N> children = Cast.to(newParent.children());
         assertNotEquals("children must have at least 1 child", 0, children.size());
-        //assertEquals("last child must be the added child", child.name(), children.get(children.size() - 1).name());
+        //assertEquals("last child must be the added child", child.attributeName(), children.get(children.size() - 1).attributeName());
 
         this.checkParentOfChildren(newParent);
 

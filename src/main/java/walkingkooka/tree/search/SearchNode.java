@@ -20,8 +20,6 @@ package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
@@ -39,7 +37,7 @@ import java.util.Optional;
 /**
  * A {@link Node} supporting numerous value types, that can be searched over.
  */
-public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Name, Object>, HasText {
+public abstract class SearchNode implements Node<SearchNode, SearchNodeName, SearchNodeAttributeName, String>, HasText {
 
     public final static List<SearchNode> NO_CHILDREN = Lists.empty();
 
@@ -101,7 +99,14 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
     public static SearchLongNode longNode(final String text, final long value) {
         return SearchLongNode.with(text, value);
     }
-    
+
+    /**
+     * {@see SearchMetaNode}
+     */
+    public static SearchMetaNode meta(final SearchNode child, final Map<SearchNodeAttributeName, String> attributes) {
+        return SearchMetaNode.with(child, attributes);
+    }
+
     /**
      * {@see SearchSelectNode}
      */
@@ -179,16 +184,6 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
     abstract SearchNode wrap(final int index);
 
     // attributes.......................................................................................................
-
-    @Override
-    public final Map<Name, Object> attributes() {
-        return Maps.empty();
-    }
-
-    @Override
-    public final SearchNode setAttributes(final Map<Name, Object> attributes) {
-        throw new UnsupportedOperationException();
-    }
 
     /**
      * Replaces part of all of the text of this node with another {@link SearchNode}.
@@ -293,6 +288,11 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
     public abstract boolean isLong();
 
     /**
+     * Only {@link SearchMetaNode} returns true.
+     */
+    public abstract boolean isMeta();
+
+    /**
      * Only {@link SearchSequenceNode} returns true.
      */
     public abstract boolean isSequence();
@@ -324,6 +324,11 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
      * A factory used during selecting that wraps this {@link SearchNode} in a {@link SearchIgnoredNode}.
      */
     abstract public SearchIgnoredNode ignored();
+
+    /**
+     * Wraps if necessary this node, so it contains the given attributes.
+     */
+    abstract public SearchMetaNode meta(final Map<SearchNodeAttributeName, String> attributes);
 
     abstract void select(final SearchQuery query, final SearchQueryContext context);
 

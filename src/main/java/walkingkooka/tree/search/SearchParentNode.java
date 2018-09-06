@@ -160,10 +160,6 @@ abstract class SearchParentNode extends SearchNode {
     }
 
     @Override
-    final boolean equalsIgnoringParentAndChildren(final SearchNode other) {
-        return this.canBeEqual(other);
-    }
-
     final boolean equalsDescendants0(final SearchNode other) {
         return this.equalsDescendants1(other.children());
     }
@@ -196,10 +192,11 @@ abstract class SearchParentNode extends SearchNode {
             separator = ", ";
         }
 
-        b.append(this.toStringSuffix());
+        this.toStringSuffix(b);
     }
 
     abstract String toStringPrefix();
-    abstract String toStringSuffix();
+
+    abstract void toStringSuffix(final StringBuilder b);
 
 }

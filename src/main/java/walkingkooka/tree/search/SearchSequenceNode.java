@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A container or parent for one or more {@link SearchNode}.
  */
-public final class SearchSequenceNode extends SearchParentNode{
+public final class SearchSequenceNode extends SearchParentNode2 {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchSequenceNode.class);
 

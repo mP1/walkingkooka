@@ -44,6 +44,30 @@ final class SearchPrettySearchNodeVisitor extends SearchNodeVisitor {
     }
 
     @Override
+    protected Visiting startVisit(final SearchIgnoredNode node) {
+        this.enter(node);
+        return super.startVisit(node);
+    }
+
+    @Override
+    protected void endVisit(final SearchIgnoredNode node) {
+        this.exit(node);
+        super.endVisit(node);
+    }
+    
+    @Override
+    protected Visiting startVisit(final SearchMetaNode node) {
+        this.enter(node);
+        return super.startVisit(node);
+    }
+
+    @Override
+    protected void endVisit(final SearchMetaNode node) {
+        this.exit(node);
+        super.endVisit(node);
+    }
+
+    @Override
     protected Visiting startVisit(final SearchSelectNode node) {
         this.enter(node);
         return super.startVisit(node);
