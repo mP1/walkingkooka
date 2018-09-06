@@ -120,12 +120,12 @@ public final class SearchIgnoredNode extends SearchParentNode{
      * No need to wrap again returns this.
      */
     @Override
-    SearchIgnoredNode ignored() {
+    public SearchIgnoredNode ignored() {
         return this;
     }
 
     @Override
-    SearchSelectNode selected() {
+    public SearchSelectNode selected() {
         return SearchNode.select(this);
     }
 

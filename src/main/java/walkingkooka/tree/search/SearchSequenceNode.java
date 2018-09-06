@@ -219,12 +219,12 @@ public final class SearchSequenceNode extends SearchParentNode{
     }
 
     @Override
-    SearchIgnoredNode ignored() {
+    public SearchIgnoredNode ignored() {
         return SearchNode.ignored(this);
     }
 
     @Override
-    SearchSelectNode selected() {
+    public SearchSelectNode selected() {
         return SearchNode.select(this);
     }
 

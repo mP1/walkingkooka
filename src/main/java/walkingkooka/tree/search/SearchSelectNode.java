@@ -117,12 +117,12 @@ public final class SearchSelectNode extends SearchParentNode{
     }
 
     @Override
-    SearchIgnoredNode ignored() {
+    public SearchIgnoredNode ignored() {
         return SearchNode.ignored(this.child());
     }
 
     @Override
-    SearchSelectNode selected() {
+    public SearchSelectNode selected() {
         return this;
     }
 

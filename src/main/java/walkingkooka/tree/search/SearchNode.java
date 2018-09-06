@@ -323,14 +323,14 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Nam
     /**
      * A factory used during selecting that wraps this {@link SearchNode} in a {@link SearchIgnoredNode}.
      */
-    abstract SearchIgnoredNode ignored();
+    abstract public SearchIgnoredNode ignored();
 
     abstract void select(final SearchQuery query, final SearchQueryContext context);
 
     /**
      * A factory used during selecting that wraps this {@link SearchNode} in a {@link SearchSelectNode}.
      */
-    abstract SearchSelectNode selected();
+    abstract public SearchSelectNode selected();
 
     // Visitor .......................................................................................................
     /**
