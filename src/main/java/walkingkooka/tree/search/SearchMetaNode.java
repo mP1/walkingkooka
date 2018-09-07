@@ -76,6 +76,14 @@ public final class SearchMetaNode extends SearchParentNode {
         return this.setChildren0(children).cast();
     }
 
+    /**
+     * While copying unwraps any {@link SearchIgnoredNode}
+     */
+    @Override
+    final List<SearchNode> copyChildren(final List<SearchNode> children) {
+        return copy(children);
+    }
+
     @Override
     void replaceChildrenCheck(final List<SearchNode> children) {
         final int count = children.size();

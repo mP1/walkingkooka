@@ -34,12 +34,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
     static SearchSequenceNode with(final List<SearchNode> children) {
         Objects.requireNonNull(children, "children");
 
-        final List<SearchNode> copy = copy(children);
-        if(copy.isEmpty()) {
-            throw new IllegalArgumentException("Expected at least one child");
-        }
-
-        return new SearchSequenceNode(NO_PARENT_INDEX, copy);
+        return new SearchSequenceNode(NO_PARENT_INDEX, children);
     }
 
     private SearchSequenceNode(final int index, final List<SearchNode> children) {
@@ -49,6 +44,11 @@ public final class SearchSequenceNode extends SearchParentNode2 {
     @Override
     public SearchNodeName name() {
         return NAME;
+    }
+
+    @Override
+    List<SearchNode> copyChildren(final List<SearchNode> children) {
+        return copy(children);
     }
 
     @Override
