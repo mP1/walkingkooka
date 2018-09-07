@@ -23,6 +23,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A container or parent for a {@link SearchNode node} that will be ignored during queries.
@@ -31,11 +32,20 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchIgnoredNode.class);
 
+    /**
+     * Factory that wraps the child or casts so that a {@link SearchIgnoredNode}
+     * is returned.
+     */
     static SearchIgnoredNode with(final SearchNode child) {
         Objects.requireNonNull(child, "child");
-        return new SearchIgnoredNode(NO_PARENT_INDEX, Lists.of(child));
+        return child.isIgnored() ?
+                child.cast() :
+                new SearchIgnoredNode(NO_PARENT_INDEX, Lists.of(child));
     }
 
+    /**
+     * Private ctor to limit sub classing.
+     */
     private SearchIgnoredNode(final int index, final List<SearchNode> children) {
         super(index, children);
     }
@@ -52,6 +62,22 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
     @Override
     public SearchIgnoredNode setChildren(final List<SearchNode> children) {
         return this.setChildren0(children).cast();
+    }
+
+    /**
+     * While copying unwraps any {@link SearchIgnoredNode}
+     */
+    @Override
+    final List<SearchNode> copyChildren(final List<SearchNode> children) {
+        return children.stream()
+                .map(SearchIgnoredNode::maybeUnwrap)
+                .collect(Collectors.toList());
+    }
+
+    private static SearchNode maybeUnwrap(final SearchNode node) {
+        return node.isIgnored() ?
+                SearchIgnoredNode.class.cast(node).child() :
+                node;
     }
 
     @Override

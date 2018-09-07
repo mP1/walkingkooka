@@ -36,6 +36,12 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
         SearchSelectNode.with(null);
     }
 
+    @Test
+    public void testWithDoesntWrapIgnored() {
+        final SearchSelectNode node = this.createSearchNode();
+        assertSame(node, SearchSelectNode.with(node));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testSetChildrenIncorrectCountFails() {
         this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2")));
@@ -44,6 +50,19 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     @Test
     public void testSetDifferentChildren() {
         this.setChildrenDifferent(Lists.of(this.text("different")));
+    }
+
+    @Test
+    public void testSetChildrenWithSameSelect() {
+        final SearchSelectNode node = this.createSearchNode();
+        assertSame(node, node.setChildren(Lists.of(node.child().selected())));
+    }
+
+    @Test
+    public void testSetChildrenWithDifferentSelectedChild() {
+        final SearchSelectNode node = this.createSearchNode();
+        final SearchNode child = this.differentSearchNode();
+        assertEquals(child.selected(), node.setChildren(Lists.of(child.selected())));
     }
 
     @Test

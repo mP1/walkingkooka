@@ -39,9 +39,28 @@ public final class SearchIgnoredNodeTest extends SearchParentNodeTestCase<Search
         SearchIgnoredNode.with(null);
     }
 
+    @Test
+    public void testWithDoesntWrapIgnored() {
+        final SearchIgnoredNode node = this.createSearchNode();
+        assertSame(node, SearchIgnoredNode.with(node));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testSetChildrenIncorrectCountFails() {
         this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2")));
+    }
+
+    @Test
+    public void testSetChildrenWithSameIgnored() {
+        final SearchIgnoredNode node = this.createSearchNode();
+        assertSame(node, node.setChildren(Lists.of(node.child().ignored())));
+    }
+
+    @Test
+    public void testSetChildrenWithDifferentIgnoredChild() {
+        final SearchIgnoredNode node = this.createSearchNode();
+        final SearchNode child = this.differentSearchNode();
+        assertEquals(child.ignored(), node.setChildren(Lists.of(child.ignored())));
     }
 
     @Test

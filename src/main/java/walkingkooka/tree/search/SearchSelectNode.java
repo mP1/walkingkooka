@@ -23,6 +23,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A container or parent for one or more {@link SearchNode}.
@@ -31,11 +32,20 @@ public final class SearchSelectNode extends SearchParentNode2 {
 
     public final static SearchNodeName NAME = SearchNodeName.fromClass(SearchSelectNode.class);
 
+    /**
+     * Factory that wraps the child or casts so that a {@link SearchSelectNode}
+     * is returned.
+     */
     static SearchSelectNode with(final SearchNode child) {
         Objects.requireNonNull(child, "child");
-        return new SearchSelectNode(NO_PARENT_INDEX, Lists.of(child));
+        return child.isSelect() ?
+               child.cast() :
+               new SearchSelectNode(NO_PARENT_INDEX, Lists.of(child));
     }
 
+    /**
+     * Private ctor to limit sub classing.
+     */
     private SearchSelectNode(final int index, final List<SearchNode> children) {
         super(index, children);
     }
@@ -52,6 +62,22 @@ public final class SearchSelectNode extends SearchParentNode2 {
     @Override
     public SearchSelectNode setChildren(final List<SearchNode> children) {
         return this.setChildren0(children).cast();
+    }
+
+    /**
+     * While copying unwraps any {@link SearchIgnoredNode}
+     */
+    @Override
+    final List<SearchNode> copyChildren(final List<SearchNode> children) {
+        return children.stream()
+                .map(SearchSelectNode::maybeUnwrap)
+                .collect(Collectors.toList());
+    }
+
+    private static SearchNode maybeUnwrap(final SearchNode node) {
+        return node.isSelect() ?
+                SearchSelectNode.class.cast(node).child() :
+                node;
     }
 
     @Override

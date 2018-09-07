@@ -29,12 +29,9 @@ import java.util.Optional;
  */
 abstract class SearchParentNode extends SearchNode {
 
-    static List<SearchNode> copy(final List<SearchNode> nodes) {
-        List<SearchNode> copy = Lists.array();
-        copy.addAll(nodes);
-        return copy;
-    }
-
+    /**
+     * Package private to limit sub classing.
+     */
     SearchParentNode(final int index, final List<SearchNode> children) {
         super(index);
 
@@ -48,6 +45,7 @@ abstract class SearchParentNode extends SearchNode {
             copy.add(child.setParent(p, i));
             i++;
         }
+        this.replaceChildrenCheck(copy);
     }
 
     public final String text() {
@@ -73,10 +71,25 @@ abstract class SearchParentNode extends SearchNode {
     final SearchNode setChildren0(final List<SearchNode> children) {
         Objects.requireNonNull(children, "children");
 
-        final List<SearchNode> copy = copy(children);
+        final List<SearchNode> copy = this.copyChildren(children);
         return Lists.equals(this.children(), copy, (first, other) -> first.equalsIgnoringParentAndChildren(other) && first.equalsDescendants0(other)) ?
                 this :
                 this.replaceChildren(copy);
+    }
+
+    /**
+     * Each sub class while copying may also perform other operations on each child,
+     * eg {@link SearchSelectNode} also unwraps already selected children.
+     */
+    abstract List<SearchNode> copyChildren(final List<SearchNode> children);
+
+    /**
+     * Makes a copy of the list.
+     */
+    static List<SearchNode> copy(final List<SearchNode> nodes) {
+        List<SearchNode> copy = Lists.array();
+        copy.addAll(nodes);
+        return copy;
     }
 
     @Override
