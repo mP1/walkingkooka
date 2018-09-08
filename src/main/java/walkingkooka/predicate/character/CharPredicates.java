@@ -93,7 +93,7 @@ final public class CharPredicates implements PublicStaticHelper {
      * {@see CaseInsensitiveCharPredicate}.
      */
     public static CharPredicate caseInsensitive(final CharPredicate predicate) {
-        return CaseInsensitiveCharPredicate.wrap(predicate);
+        return CaseInsensitiveCharPredicate.with(predicate);
     }
 
     /**

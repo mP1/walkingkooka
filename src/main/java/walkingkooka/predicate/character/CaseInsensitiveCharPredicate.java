@@ -31,13 +31,9 @@ final class CaseInsensitiveCharPredicate
 
     private static final long serialVersionUID = 1685526779265087445L;
 
-    static CharPredicate wrap(final CharPredicate predicate) {
+    static CharPredicate with(final CharPredicate predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
-        return CaseInsensitiveCharPredicate.with(predicate);
-    }
-
-    static CharPredicate with(final CharPredicate predicate) {
         return new CaseInsensitiveCharPredicate(predicate);
     }
 
@@ -102,6 +98,6 @@ final class CaseInsensitiveCharPredicate
 
     @Override
     public String toString() {
-        return this.predicate + " (CaseSensitivity)";
+        return this.predicate + " (CaseInsensitive)";
     }
 }
