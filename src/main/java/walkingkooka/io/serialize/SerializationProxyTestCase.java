@@ -55,7 +55,11 @@ abstract public class SerializationProxyTestCase<P extends SerializationProxy>
         Assert.assertTrue("Unable to find no args readResolve method on " + type, found);
     }
 
-    @Test final public void testCheckToStringOverridden() {
+    @Test
+    final public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
+
+    @Test
+    abstract public void testToString();
 }

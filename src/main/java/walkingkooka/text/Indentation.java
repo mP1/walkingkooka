@@ -38,13 +38,15 @@ final public class Indentation
      */
     final static int COUNT = 30;
 
+    final static char INDENTATION_CONSTANT_CHAR = ' ';
+
     static {
         final Indentation[] indentations = new Indentation[Indentation.COUNT];
         final StringBuilder b = new StringBuilder();
 
         for (int i = 0; i < Indentation.COUNT; i++) {
             indentations[i] = new Indentation(b.toString());
-            b.append(' ');
+            b.append(INDENTATION_CONSTANT_CHAR);
         }
 
         EMPTY = indentations[0];
@@ -106,7 +108,7 @@ final public class Indentation
                 break;
             }
             for (int i = 0; i < length; i++) {
-                if (' ' != indentation.charAt(i)) {
+                if (INDENTATION_CONSTANT_CHAR != indentation.charAt(i)) {
 
                     // includes something other than space can not be a constant.
                     result = new Indentation(indentation);
@@ -232,7 +234,8 @@ final public class Indentation
     /**
      * Returns either of the two {@link SerializationProxy}
      */
-    private Object writeReplace() {
+    // @VisibleForTesting
+    final Object writeReplace() {
         final String value = this.value;
         final int length = value.length();
         return (length < Indentation.COUNT) && (this == Indentation.CONSTANTS[length]) ?

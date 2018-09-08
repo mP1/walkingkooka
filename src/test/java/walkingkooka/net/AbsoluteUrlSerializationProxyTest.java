@@ -18,9 +18,23 @@
 
 package walkingkooka.net;
 
+import org.junit.Test;
 import walkingkooka.io.serialize.SerializationProxyTestCase;
 
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+
 public final class AbsoluteUrlSerializationProxyTest extends SerializationProxyTestCase<AbsoluteUrlSerializationProxy> {
+
+    @Test
+    public void testToString() {
+        final AbsoluteUrl url = UrlScheme.HTTPS.andHost(HostAddress.with("example.com"))
+                .setPort(Optional.of(IpPort.with(8080)))
+                .setPath(UrlPath.parse("/abc/def"))
+                .setQuery(UrlQueryString.with("ghi=jkl"));
+        assertEquals(url.toString(), url.writeReplace().toString());
+    }
 
     @Override
     protected Class<AbsoluteUrlSerializationProxy> type() {
