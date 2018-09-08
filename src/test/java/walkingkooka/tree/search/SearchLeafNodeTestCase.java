@@ -152,6 +152,11 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode, V> extend
     }
 
     @Test
+    public final void testReplaceSelected() {
+        this.replaceSelectedWithoutSelectedAndCheck(this.createSearchNode());
+    }
+
+    @Test
     public void testEqualsDifferentValue() {
         assertNotEquals(this.createSearchNode(), this.createSearchNode(this.differentText(), this.differentValue()));
     }

@@ -23,6 +23,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -150,6 +151,14 @@ public final class SearchSelectNode extends SearchParentNode2 {
     @Override
     public SearchSelectNode selected() {
         return this;
+    }
+
+    @Override
+    SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer) {
+        SearchNode answer = replacer.apply(this);
+        return this == answer ?
+               this :
+               answer.replaceChild(this.parent(), this.index());
     }
 
     // Visitor.........................................................................................................

@@ -312,6 +312,86 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
                 search.replace(beginOffset, endOffset, replace));
     }
 
+    // replaceSelected..................................................
+
+    @Test
+    public void testReplaceSelectedNotReplaced() {
+        final SearchNode node = this.text("not-replaced")
+                .selected();
+
+        this.replaceSelectedNothingAndCheck(this.sequence(node));
+    }
+
+    @Test
+    public void testReplaceSelectedIgnored() {
+        final SearchNode node = this.text("ignored")
+                .ignored();
+
+        this.replaceSelectedNothingAndCheck(this.sequence(node));
+    }
+
+    @Test
+    public void testReplaceSelected() {
+        final SearchNode node = this.text("will-be-replaced")
+                .selected();
+        final SearchNode replaced = this.text("replaced");
+
+        this.replaceSelectedAndCheck(this.sequence(node),
+                (n) -> replaced,
+                this.sequence(replaced));
+    }
+
+    @Test
+    public void testReplaceSelectedMany() {
+        final SearchNode node1 = this.text("will-be-replaced-1")
+                .selected();
+        final SearchNode node2 = this.text("will-be-replaced-2")
+                .selected();
+        final SearchNode replaced = this.text("replaced");
+
+        this.replaceSelectedAndCheck(this.sequence(node1, node2),
+                (n) -> replaced,
+                this.sequence(replaced, replaced));
+    }
+
+    @Test
+    public void testReplaceSelectedMany2() {
+        final SearchNode node1 = this.text("a1")
+                .selected();
+        final SearchNode node2 = this.text("b2")
+                .selected();
+
+        this.replaceSelectedAndCheck(this.sequence(node1, node2),
+                (n) -> this.text(n.text() + "!!!"),
+                this.sequence(this.text("a1!!!"), this.text("b2!!!")));
+    }
+
+    @Test
+    public void testReplaceSelectedSomeSelected() {
+        final SearchNode node1 = this.text("a1")
+                .selected();
+        final SearchNode node2 = this.text("b2");
+        final SearchNode replaced = this.text("replaced");
+
+        this.replaceSelectedAndCheck(this.sequence(node1, node2),
+                (n) -> replaced,
+                this.sequence(replaced, node2));
+    }
+
+    @Test
+    public void testReplaceSelectedSomeSelectedSomeReplaced() {
+        final SearchNode node1 = this.text("a1")
+                .selected();
+        final SearchNode node2 = this.text("b2");
+        final SearchNode node3 = this.text("c3")
+                .selected();
+        final SearchNode replaced = this.text("replaced");
+
+        this.replaceSelectedAndCheck(this.sequence(node1, node2, node3),
+                (n) -> n.equals(node1) ? replaced : n,
+                this.sequence(replaced, node2, node3));
+    }
+
     @Test
     public void testToString() {
         assertEquals("[ \"abcd\", \"EFGH\" ]", this.createSearchNode().toString());

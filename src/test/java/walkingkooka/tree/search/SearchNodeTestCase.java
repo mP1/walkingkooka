@@ -30,10 +30,12 @@ import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestCase2<SearchNode, SearchNodeName, SearchNodeAttributeName, String> {
 
@@ -127,6 +129,11 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         this.createSearchNode().meta(Maps.empty());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testReplaceSelectedWithNullFunctionFails() {
+        this.createSearchNode().replaceSelected(null);
+    }
+
     @Test
     public final void testEqualsNull() {
         assertNotEquals(this.createSearchNode(), null);
@@ -183,6 +190,25 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         this.checkParentOfChildren(newParent);
 
         return newParent;
+    }
+
+    protected final void replaceSelectedWithoutSelectedAndCheck(final SearchNode node) {
+        assertSame(node.toString(), node, node.replaceSelected((s) -> {throw new UnsupportedOperationException(); }));
+    }
+
+    protected final void replaceSelectedAndCheck(final SearchNode node,
+                                                 final Function<SearchSelectNode, SearchNode> replacer,
+                                                 final SearchNode expected) {
+        assertEquals(node.toString(), expected, node.replaceSelected(replacer));
+    }
+
+    protected final void replaceSelectedNothingAndCheck(final SearchNode node) {
+        this.replaceSelectedNothingAndCheck(node, (n) -> n);
+    }
+
+    protected final void replaceSelectedNothingAndCheck(final SearchNode node,
+                                                        final Function<SearchSelectNode, SearchNode> replacer) {
+        assertSame(node.toString(), node, node.replaceSelected(replacer));
     }
 
     @Override

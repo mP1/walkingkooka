@@ -25,6 +25,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * A container or parent for one or more {@link SearchNode}, adding tags or meta attributes which can then be queried
@@ -186,6 +187,14 @@ public final class SearchMetaNode extends SearchParentNode {
     @Override
     public SearchSelectNode selected() {
         return SearchNode.select(this);
+    }
+
+    /**
+     * Loop over all children and perform {@link #replaceSelected(Function)} and then calling setChildren.
+     */
+    @Override
+    SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer) {
+        return this.setChildren(Lists.of(this.child().replaceSelected0(replacer)));
     }
 
     // Visitor.........................................................................................................

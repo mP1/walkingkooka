@@ -129,6 +129,14 @@ public final class SearchIgnoredNodeTest extends SearchParentNodeTestCase<Search
     }
 
     @Test
+    public void testReplaceSelected() {
+        final SearchNode node = this.text("selected-child-text")
+                .selected()
+                .ignored();
+        this.replaceSelectedWithoutSelectedAndCheck(node);
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final SearchIgnoredNode node = this.createSearchNode();

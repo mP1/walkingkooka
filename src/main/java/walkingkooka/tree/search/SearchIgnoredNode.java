@@ -23,6 +23,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -153,6 +154,14 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
     @Override
     public SearchSelectNode selected() {
         return SearchNode.select(this);
+    }
+
+    /**
+     * An ignored node should never have a selected node as a child anyway, if it does its ignored.
+     */
+    @Override
+    SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer) {
+        return this;
     }
 
     // Visitor.........................................................................................................

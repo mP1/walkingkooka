@@ -26,6 +26,7 @@ import walkingkooka.collect.map.Maps;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * The base {@link SearchNode} for all leaf values that hold a value.
@@ -174,6 +175,14 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     @Override
     public final SearchSelectNode selected() {
         return SearchNode.select(this);
+    }
+
+    /**
+     * By definition {@link SearchLeafNode} never have a child so theres nothing to replace.
+     */
+    @Override
+    final SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer) {
+        return this;
     }
 
     // Object....................................................................
