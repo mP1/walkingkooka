@@ -234,7 +234,8 @@ public final class AbsoluteUrl extends Url {
     /**
      * Returns either of the two {@link SerializationProxy}
      */
-    private Object writeReplace() {
+    // @VisibleForTesting
+    final Object writeReplace() {
         return new AbsoluteUrlSerializationProxy(this);
     }
 

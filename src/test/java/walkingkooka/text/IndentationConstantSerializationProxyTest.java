@@ -17,10 +17,22 @@
 
 package walkingkooka.text;
 
+import org.junit.Test;
 import walkingkooka.io.serialize.SerializationProxyTestCase;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class IndentationConstantSerializationProxyTest
         extends SerializationProxyTestCase<IndentationConstantSerializationProxy> {
+
+    @Test
+    public void testToString() {
+        final Indentation indentation = Indentation.with(' ', 10);
+        assertSame("indentation instance is not a constant", indentation, Indentation.with(' ', 10));
+
+        assertEquals(indentation.toString(), indentation.writeReplace().toString());
+    }
 
     @Override
     protected Class<IndentationConstantSerializationProxy> type() {
