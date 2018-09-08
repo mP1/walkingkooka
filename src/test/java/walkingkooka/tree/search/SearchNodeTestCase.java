@@ -134,26 +134,6 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         this.createSearchNode().replaceSelected(null);
     }
 
-    @Test
-    public final void testEqualsNull() {
-        assertNotEquals(this.createSearchNode(), null);
-    }
-
-    @Test
-    public final void testEqualsObject() {
-        assertNotEquals(this.createSearchNode(), new Object());
-    }
-
-    @Test
-    public final void testEqualsDifferentType() {
-        assertNotEquals(this.createSearchNode(), this.differentSearchNode());
-    }
-
-    @Test
-    public final void testEquals() {
-        assertEquals(this.createSearchNode(), this.createSearchNode());
-    }
-
     @Override
     protected SearchNode createNode() {
         return this.createSearchNode();
