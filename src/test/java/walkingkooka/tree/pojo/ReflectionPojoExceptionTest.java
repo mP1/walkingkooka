@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree.pojo;
 
-final class ReflectionPojoException extends PojoException {
+import walkingkooka.test.PackagePrivateThrowableTestCase;
 
-    private static final long serialVersionUID = 1L;
+public final class ReflectionPojoExceptionTest extends PackagePrivateThrowableTestCase<ReflectionPojoException> {
 
-    ReflectionPojoException(final String message) {
-        super(message);
-    }
-
-    ReflectionPojoException(final String message, final Throwable cause) {
-        super(message, cause);
+    @Override
+    protected Class<ReflectionPojoException> type() {
+        return ReflectionPojoException.class;
     }
 }

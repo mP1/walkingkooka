@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.collect.set.Sets;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -29,6 +30,10 @@ public class EbnfGrammarParserTokenInvalidReferencesException extends EbnfParser
 
     EbnfGrammarParserTokenInvalidReferencesException(final String message, final Set<EbnfIdentifierName> references) {
         super(message);
+        Objects.requireNonNull(references, "references");
+        if(references.isEmpty()) {
+            throw new IllegalArgumentException("References must not be empty");
+        }
         this.references = references;
     }
 

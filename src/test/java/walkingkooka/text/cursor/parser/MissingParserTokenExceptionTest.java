@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
-package walkingkooka.tree.pojo;
+package walkingkooka.text.cursor.parser;
 
-final class ReflectionPojoException extends PojoException {
+import walkingkooka.test.PublicThrowableTestCase;
 
-    private static final long serialVersionUID = 1L;
-
-    ReflectionPojoException(final String message) {
-        super(message);
-    }
-
-    ReflectionPojoException(final String message, final Throwable cause) {
-        super(message, cause);
+public final class MissingParserTokenExceptionTest extends PublicThrowableTestCase<MissingParserTokenException> {
+    @Override
+    protected Class<MissingParserTokenException> type() {
+        return MissingParserTokenException.class;
     }
 }
