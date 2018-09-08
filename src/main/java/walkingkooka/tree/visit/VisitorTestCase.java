@@ -20,7 +20,7 @@ package walkingkooka.tree.visit;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
@@ -33,10 +33,18 @@ import static org.junit.Assert.assertEquals;
 
 abstract public class VisitorTestCase<V extends Visitor<T>, T>
         extends
-        ClassTestCase<V> {
+        PackagePrivateClassTestCase<V> {
 
     protected VisitorTestCase() {
         super();
+    }
+
+    /**
+     * All visitors must have protected constructors.
+     */
+    @Test
+    public void testAllConstructorsVisibility() {
+        this.checkAllConstructorsAreProtected(this.type());
     }
 
     @Test

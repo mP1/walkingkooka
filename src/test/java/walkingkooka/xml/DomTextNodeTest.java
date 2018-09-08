@@ -21,10 +21,10 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 
 public final class DomTextNodeTest extends PackagePrivateClassTestCase<DomTextNode> {
 
-    @Override
-    public void testClassIsPackagePrivate() {
-        // nop
-    }
+//    @Override
+//    public void testClassIsPackagePrivate() {
+//        // nop
+//    }
 
     @Override
     protected Class<DomTextNode> type() {

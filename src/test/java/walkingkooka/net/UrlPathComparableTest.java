@@ -38,4 +38,9 @@ public final class UrlPathComparableTest extends ComparableTestCase<UrlPath> {
     protected Class<UrlPath> type() {
         return UrlPath.class;
     }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
+    }
 }

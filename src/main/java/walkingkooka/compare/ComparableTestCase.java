@@ -126,4 +126,9 @@ abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassT
             }
         }
     }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
+    }
 }

@@ -19,6 +19,7 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -148,10 +149,6 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
     }
 
     @Override
-    public void testClassIsPackagePrivate() {
-        // nop
-    }
-    @Override
     protected CharPredicate createCharacterPredicate() {
         return this.createCharacterPredicate1("default.grammar");
     }
@@ -200,6 +197,13 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
         } catch (final IOException cause) {
             throw new Error("failed to read grammar from " + CharSequences.quote(resourceName));
         }
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testClassVisibility() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

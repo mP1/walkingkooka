@@ -28,6 +28,11 @@ import java.util.Objects;
  */
 public abstract class JsonNodeVisitor extends Visitor<JsonNode> {
 
+    protected JsonNodeVisitor() {
+        super();
+    }
+
+
     // JsonNode.......................................................................
 
     public final void accept(final JsonNode node) {

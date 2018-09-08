@@ -337,6 +337,11 @@ final public class ChainFactoryChainBuilderTest
         return Fake.class;
     }
 
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
+    }
+
     static private Fake createFake(final int value) {
         return new Fake() {
 

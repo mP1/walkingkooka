@@ -16,16 +16,22 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.json;
+package walkingkooka.text.cursor.parser.spreadsheet;
 
-public final class JsonNodeParserTokenVisitorTest extends JsonNodeParserTokenVisitorTestCase<FakeJsonNodeParserTokenVisitor> {
+public final class FakeSpreadsheetParserTokenVisitorTest extends SpreadsheetParserTokenVisitorTestCase<FakeSpreadsheetParserTokenVisitor> {
+
     @Override
-    protected FakeJsonNodeParserTokenVisitor createParserTokenVisitor() {
-        return new FakeJsonNodeParserTokenVisitor();
+    protected FakeSpreadsheetParserTokenVisitor createParserTokenVisitor() {
+        return new FakeSpreadsheetParserTokenVisitor();
     }
 
     @Override
-    protected Class<FakeJsonNodeParserTokenVisitor> parserTokenVisitorType() {
-        return FakeJsonNodeParserTokenVisitor.class;
+    protected Class<FakeSpreadsheetParserTokenVisitor> parserTokenVisitorType() {
+        return FakeSpreadsheetParserTokenVisitor.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
     }
 }

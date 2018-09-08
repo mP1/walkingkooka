@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 /**
  * Build that supports complex assembly / concatenation of one or more selectors.
  */
-public class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements Builder<NodeSelector<N, NAME, ANAME, AVALUE>> {
+public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements Builder<NodeSelector<N, NAME, ANAME, AVALUE>> {
 
     /**
      * Creates an selector that begins its search from the root of the graph.

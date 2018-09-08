@@ -53,7 +53,6 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
      * Check that only four constructors are available and that they are public except for the no
      * args.
      */
-    @Override
     @Test
     public void testAllConstructorsVisibility() throws Throwable {
         this.checkConstructorIsProtected(this.constructor());

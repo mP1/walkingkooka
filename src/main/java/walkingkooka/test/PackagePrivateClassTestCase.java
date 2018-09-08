@@ -22,7 +22,6 @@ import org.junit.Test;
 import walkingkooka.type.PublicClass;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,19 +34,6 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
 
     protected PackagePrivateClassTestCase() {
         super();
-    }
-
-    @Test
-    public void testClassIsFinalIfAllConstructorsArePrivate() {
-        this.classIsFinalIfAllConstructorsArePrivateTest();
-    }
-
-    /**
-     * Constructor is private if this class is final, otherwise they are package private.
-     */
-    @Test
-    public void testAllConstructorsArePackagePrivateOrPrivate() {
-        this.checkAllConstructorsVisibility();
     }
 
     /**
@@ -152,12 +138,8 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
         }
     }
 
-    @Test
-    public void testClassIsPackagePrivate() {
-        final Class<?> type = this.type();
-        if (false == type.isAnnotationPresent(PublicClass.class)) {
-            Assert.assertFalse(type.getName() + " is not package private=" + type,
-                    Modifier.isPublic(type.getModifiers()));
-        }
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }

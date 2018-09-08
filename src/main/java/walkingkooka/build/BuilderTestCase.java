@@ -110,4 +110,9 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     abstract protected B createBuilder();
 
     abstract protected Class<T> builderProductType();
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
+    }
 }

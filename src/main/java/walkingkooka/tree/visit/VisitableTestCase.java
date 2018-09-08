@@ -18,9 +18,9 @@
 
 package walkingkooka.tree.visit;
 
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 abstract public class VisitableTestCase<V extends Visitable>
         extends
-        ClassTestCase<V> {
+        PublicClassTestCase<V> {
 }
