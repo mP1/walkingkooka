@@ -20,15 +20,21 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.collect.set.Sets;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * Used to report at least one unknown duplicates within a grammar.
  */
-public class EbnfGrammarParserTokenDuplicateIdentifiersException extends EbnfParserException {
+public final class EbnfGrammarParserTokenDuplicateIdentifiersException extends EbnfParserException {
 
     EbnfGrammarParserTokenDuplicateIdentifiersException(final String message, final Set<EbnfRuleParserToken> duplicates) {
         super(message);
+
+        Objects.requireNonNull(duplicates, "duplicates");
+        if(duplicates.isEmpty()) {
+            throw new IllegalArgumentException("Duplicates is empty");
+        }
         this.duplicates = duplicates;
     }
 

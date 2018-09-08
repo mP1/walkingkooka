@@ -21,7 +21,11 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.cursor.TextCursorLineInfos;
+import walkingkooka.text.cursor.TextCursors;
+
+import static org.junit.Assert.assertEquals;
 
 public final class ParserReporterExceptionTest extends PublicClassTestCase<ParserReporterException> {
 
@@ -43,6 +47,13 @@ public final class ParserReporterExceptionTest extends PublicClassTestCase<Parse
     @Test(expected = NullPointerException.class)
     public void testWithNullLineInfoFails() {
         new ParserReporterException("message!", null);
+    }
+
+    @Test
+    public void testWith() {
+        final TextCursorLineInfo info = TextCursors.charSequence("").lineInfo();
+        final ParserReporterException exception = new ParserReporterException("message", info);
+        assertEquals("lineInfo", info, exception.lineInfo());
     }
 
     @Test
