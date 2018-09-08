@@ -41,7 +41,7 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
     // tests
 
     @Test
-    public void testNoArgumentsConstructorItNotPublic() throws Exception {
+    public void testNoArgumentsConstructorItNotPublic() throws Throwable {
         final Constructor<T> constructor = this.constructor();
         final int modifier = constructor.getModifiers();
         Assert.assertFalse(Modifier.isPublic(modifier));
@@ -55,34 +55,24 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
      */
     @Override
     @Test
-    public void testAllConstructorsVisibility() throws Exception {
+    public void testAllConstructorsVisibility() throws Throwable {
         this.checkConstructorIsProtected(this.constructor());
         this.checkConstructorIsPublic(this.constructor(String.class));
         this.checkConstructorIsPublic(this.constructor(String.class, Throwable.class));
     }
 
-    @Test
-    public void testCreateOnlyNullMessageFails() throws Exception {
-        try {
-            this.create(null);
-            Assert.fail("Passing a null message must fail.");
-        } catch (final InvocationTargetException expected) {
-            assertEquals(NullPointerException.class, expected.getTargetException().getClass());
-        }
+    @Test(expected = NullPointerException.class)
+    public void testCreateOnlyNullMessageFails() throws Throwable {
+        this.callConstructorString(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateOnlyEmptyMessageFails() throws Throwable {
+        this.callConstructorString("");
     }
 
     @Test
-    public void testCreateOnlyEmptyMessageFails() throws Exception {
-        try {
-            this.create("");
-            Assert.fail("Passing a empty message must fail.");
-        } catch (final InvocationTargetException expected) {
-            assertEquals(IllegalArgumentException.class, expected.getTargetException().getClass());
-        }
-    }
-
-    @Test
-    public void testCreateOnlyMessage() throws Exception {
+    public void testCreateOnlyMessage() throws Throwable {
         final Constructor<T> constructor = this.constructor(String.class);
         final T instance = constructor.newInstance(MESSAGE);
         assertEquals("message", MESSAGE, instance.getMessage());
@@ -90,55 +80,49 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
     }
 
     @Test(expected = NoSuchMethodException.class)
-    public void testShouldntHaveCauseOnlyConstructor() throws Exception {
+    public void testShouldntHaveCauseOnlyConstructor() throws Throwable {
         this.constructor(Throwable.class);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testCreateNullMessageAndCauseExceptionFails() throws Throwable {
+        callConstructorStringThrowable(null, CAUSE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateEmptyMessageAndNonNullCauseFails() throws Throwable {
+        callConstructorStringThrowable("", CAUSE);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testMessageAndNullCauseFails() throws Throwable {
+        this.callConstructorStringThrowable(MESSAGE, null);
+    }
+
     @Test
-    public void testCreateNullMessageAndCauseExceptionFails() throws Exception {
+    public void testMessageAndCause() throws Throwable {
+        this.callConstructorStringThrowable(MESSAGE, CAUSE);
+    }
+
+    private void callConstructorString(final String message) throws Throwable {
         try {
-            create(null, CAUSE);
-            Assert.fail("Passing empty String must fail.");
-        } catch (final InvocationTargetException expected) {
-            assertEquals(NullPointerException.class, expected.getTargetException().getClass());
+            final Constructor<T> constructor = this.constructor(String.class);
+            final T instance = constructor.newInstance(message);
+            assertEquals("message", message, instance.getMessage());
+            assertSame("cause", null, instance.getCause());
+        } catch (final InvocationTargetException cause) {
+            throw cause.getTargetException();
         }
     }
 
-    @Test
-    public void testCreateEmptyMessageAndNonNullCauseFails() throws Exception {
-        try {
-            create("", CAUSE);
-            Assert.fail("Passing empty String must fail.");
-        } catch (final InvocationTargetException expected) {
-            assertEquals(IllegalArgumentException.class, expected.getTargetException().getClass());
-        }
-    }
-
-    @Test
-    public void testMessageAndNullCauseFails() throws Exception {
-        this.create(MESSAGE, null);
-    }
-
-    @Test
-    public void testMessageAndCause() throws Exception {
-        this.create(MESSAGE, CAUSE);
-    }
-
-    private void create(final String message) throws Exception {
-        final Constructor<T> constructor = this.constructor(String.class);
-        final T instance = constructor.newInstance(message);
-        assertEquals("message", message, instance.getMessage());
-        assertSame("cause", null, instance.getCause());
-    }
-
-    private void create(final String message, final Throwable cause) throws Exception {
+    private void callConstructorStringThrowable(final String message, final Throwable cause) throws Throwable {
         final Constructor<T> constructor = this.constructor(String.class, Throwable.class);
         final T instance = constructor.newInstance(message, cause);
         assertEquals("message", message, instance.getMessage());
         assertSame("cause", cause, instance.getCause());
     }
 
-    private Constructor<T> constructor(final Class<?>... parameters) throws Exception {
+    private Constructor<T> constructor(final Class<?>... parameters) throws Throwable {
         final Constructor<T> constructor = this.type().getDeclaredConstructor(parameters);
         constructor.setAccessible(true);
         return constructor;
