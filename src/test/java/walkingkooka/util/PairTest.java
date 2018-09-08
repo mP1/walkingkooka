@@ -20,12 +20,12 @@ package walkingkooka.util;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class PairTest extends HashCodeEqualsDefinedTestCase<Pair<?, ?>> {
+final public class PairTest extends PublicClassTestCase<Pair<?, ?>> {
 
     private final static A A = new A(1);
 
@@ -129,7 +129,7 @@ final public class PairTest extends HashCodeEqualsDefinedTestCase<Pair<?, ?>> {
     }
 
     @Override
-    protected Class<? extends Pair<?, ?>> type() {
+    protected Class<Pair<?, ?>> type() {
         return Cast.to(Pair.class);
     }
 }

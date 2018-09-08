@@ -19,12 +19,12 @@ package walkingkooka.build.chain;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ChainTypeTest extends HashCodeEqualsDefinedTestCase<ChainType> {
+final public class ChainTypeTest extends PublicClassTestCase<ChainType> {
     // constants
 
     private final static String TYPE = "ALL";

@@ -19,14 +19,14 @@ package walkingkooka.text;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class IndentationTest extends HashCodeEqualsDefinedTestCase<Indentation> {
+final public class IndentationTest extends PublicClassTestCase<Indentation> {
 
     @Test
     public void testCarriageReturnRepeatingCharFails() {
@@ -217,7 +217,7 @@ final public class IndentationTest extends HashCodeEqualsDefinedTestCase<Indenta
     }
 
     @Override
-    protected Class<? extends Indentation> type() {
+    protected Class<Indentation> type() {
         return Indentation.class;
     }
 }

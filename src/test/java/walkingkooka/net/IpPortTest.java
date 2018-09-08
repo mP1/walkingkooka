@@ -19,7 +19,7 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,7 +28,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 
-public final class IpPortTest extends HashCodeEqualsDefinedTestCase<IpPort> {
+public final class IpPortTest extends PublicClassTestCase<IpPort> {
 
     @Test
     public void testIsPort() {

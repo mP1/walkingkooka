@@ -19,11 +19,11 @@ package walkingkooka.tree;
 
 import org.junit.Test;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 import java.util.Map;
 
-abstract public class NodeEqualityTestCase<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends HashCodeEqualsDefinedTestCase<N> {
+abstract public class NodeEqualityTestCase<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends HashCodeEqualsDefinedEqualityTestCase<N> {
 
     @Test
     public void testNoChildren(){
@@ -96,6 +96,11 @@ abstract public class NodeEqualityTestCase<N extends Node<N, NAME, ANAME, AVALUE
         final N node1 = this.createNode(0).appendChild(this.createNode(100)).setAttributes(this.createAttributes(0));
         final N node2 = this.createNode(0).appendChild(this.createNode(100)).setAttributes(this.createAttributes(1));
         this.checkNotEquals(node1, node2);
+    }
+
+    @Override
+    protected final N createObject() {
+        return this.createNode(0);
     }
 
     protected abstract N createNode(int i);

@@ -19,12 +19,12 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetCellTest extends HashCodeEqualsDefinedTestCase<SpreadsheetCell> {
+public final class SpreadsheetCellTest extends PublicClassTestCase<SpreadsheetCell> {
     
     @Test(expected = NullPointerException.class)
     public void testWithNullColumnFails() {

@@ -20,11 +20,11 @@ package walkingkooka.net;
 
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public final class UrlCredentialsTest extends HashCodeEqualsDefinedTestCase<UrlCredentials> {
+public final class UrlCredentialsTest extends PublicClassTestCase<UrlCredentials> {
 
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";

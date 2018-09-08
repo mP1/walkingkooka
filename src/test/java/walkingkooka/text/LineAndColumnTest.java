@@ -18,11 +18,11 @@
 package walkingkooka.text;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColumn> {
+public class LineAndColumnTest extends PublicClassTestCase<LineAndColumn> {
 
     private final static int LINE_NUMBER = 1;
     private final static int COLUMN_NUMBER = 2;
@@ -252,7 +252,8 @@ public class LineAndColumnTest extends HashCodeEqualsDefinedTestCase<LineAndColu
         return LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, LINE);
     }
 
-    @Override protected Class<? extends LineAndColumn> type() {
+    @Override
+    protected Class<LineAndColumn> type() {
         return LineAndColumn.class;
     }
 }
