@@ -20,6 +20,7 @@ package walkingkooka;
 import walkingkooka.text.Whitespace;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Root {@link Exception} inherited by all custom exceptions. Note Depending on the constructor
@@ -32,15 +33,25 @@ public class SystemException extends RuntimeException implements Serializable {
     }
 
     protected SystemException(final String message) {
-        super(Whitespace.failIfNullOrWhitespace(message, "message"));
+        super(checkMessage(message));
     }
 
     protected SystemException(final Throwable cause) {
-        super(cause);
+        super(checkCause(cause));
     }
 
     protected SystemException(final String message, final Throwable cause) {
-        super(Whitespace.failIfNullOrWhitespace(message, "message"), cause);
+        super(checkMessage(message), checkCause(cause));
+    }
+
+    private static String checkMessage(final String message) {
+        Whitespace.failIfNullOrWhitespace(message, "message");
+        return message;
+    }
+
+    private static Throwable checkCause(final Throwable cause) {
+        Objects.requireNonNull(cause, "cause");
+        return cause;
     }
 
     // Serializable

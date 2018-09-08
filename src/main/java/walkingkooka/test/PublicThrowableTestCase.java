@@ -116,10 +116,14 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
     }
 
     private void callConstructorStringThrowable(final String message, final Throwable cause) throws Throwable {
-        final Constructor<T> constructor = this.constructor(String.class, Throwable.class);
-        final T instance = constructor.newInstance(message, cause);
-        assertEquals("message", message, instance.getMessage());
-        assertSame("cause", cause, instance.getCause());
+        try {
+            final Constructor<T> constructor = this.constructor(String.class, Throwable.class);
+            final T instance = constructor.newInstance(message, cause);
+            assertEquals("message", message, instance.getMessage());
+            assertSame("cause", cause, instance.getCause());
+        } catch (final InvocationTargetException targetException) {
+            throw targetException.getTargetException();
+        }
     }
 
     private Constructor<T> constructor(final Class<?>... parameters) throws Throwable {
