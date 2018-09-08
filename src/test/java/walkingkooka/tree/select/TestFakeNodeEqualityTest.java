@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -27,19 +26,17 @@ import java.util.Map;
 
 public class TestFakeNodeEqualityTest extends NodeEqualityTestCase<TestFakeNode, StringName, StringName, Object> {
 
-    @Override protected TestFakeNode createNode(int i) {
+    @Override
+    protected TestFakeNode createNode(int i) {
         return new TestFakeNode("test-" + i);
     }
 
-    @Override protected Map<StringName, Object> createAttributes(int i) {
+    @Override
+    protected Map<StringName, Object> createAttributes(int i) {
         final Map<StringName, Object> attributes = Maps.ordered();
         for(int j = 0; j < i; j++) {
             attributes.put(Names.string("attribute-" + i), i);
         }
         return attributes;
-    }
-
-    @Override protected Class<? extends TestFakeNode> type() {
-        return Cast.to(TestFakeNode.class);
     }
 }

@@ -19,11 +19,11 @@ package walkingkooka.text;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertSame;
 
-final public class WhitespaceTest extends HashCodeEqualsDefinedTestCase<Whitespace> {
+final public class WhitespaceTest extends PublicClassTestCase<Whitespace> {
 
     @Test
     public void testNullFails() {

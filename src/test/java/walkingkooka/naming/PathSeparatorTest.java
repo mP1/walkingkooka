@@ -19,12 +19,12 @@ package walkingkooka.naming;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class PathSeparatorTest extends HashCodeEqualsDefinedTestCase<PathSeparator> {
+final public class PathSeparatorTest extends PublicClassTestCase<PathSeparator> {
 
     // constants
 

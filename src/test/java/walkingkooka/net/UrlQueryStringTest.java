@@ -22,7 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class UrlQueryStringTest extends HashCodeEqualsDefinedTestCase<UrlQueryString> {
+public final class UrlQueryStringTest extends PublicClassTestCase<UrlQueryString> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {

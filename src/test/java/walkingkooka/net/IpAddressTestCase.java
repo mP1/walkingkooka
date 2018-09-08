@@ -19,12 +19,12 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotSame;
 
-abstract public class IpAddressTestCase<A extends IpAddress> extends HashCodeEqualsDefinedTestCase<A> {
+abstract public class IpAddressTestCase<A extends IpAddress> extends PublicClassTestCase<A> {
 
     IpAddressTestCase() {
         super();

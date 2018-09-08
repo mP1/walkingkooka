@@ -19,7 +19,7 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
 import java.util.Arrays;
 
@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public final class HostAddressTest extends HashCodeEqualsDefinedTestCase<HostAddress> {
+public final class HostAddressTest extends PublicClassTestCase<HostAddress> {
 
     // tests
 
