@@ -182,6 +182,32 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
     }
 
     @Test
+    public void testReplaceSelectedWithout() {
+        this.replaceSelectedWithoutSelectedAndCheck(this.createSearchNode());
+    }
+
+    @Test
+    public void testReplaceSelectedNothingReplaced() {
+        final SearchNode node = this.text("will-be-replaced")
+                .selected()
+                .meta(this.attributes());
+
+        this.replaceSelectedNothingAndCheck(node);
+    }
+
+    @Test
+    public void testReplaceSelected() {
+        final SearchNode node = this.text("will-be-replaced")
+                .selected()
+                .meta(this.attributes());
+        final SearchNode replaced = this.text("replaced");
+
+        this.replaceSelectedAndCheck(node,
+                (n) -> replaced,
+                replaced.meta(this.attributes()));
+    }
+
+    @Test
     public void testQuery() {
         final SearchMetaNode node = this.createSearchNode();
         final SearchQuery query = SearchQueryValue.text(CHILD_TEXT).equalsQuery(CaseSensitivity.SENSITIVE);

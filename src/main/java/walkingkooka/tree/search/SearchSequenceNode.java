@@ -23,6 +23,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * A container or parent for one or more {@link SearchNode}.
@@ -226,6 +227,19 @@ public final class SearchSequenceNode extends SearchParentNode2 {
     @Override
     public SearchSelectNode selected() {
         return SearchNode.select(this);
+    }
+
+    /**
+     * Loop over all children and perform {@link #replaceSelected(Function)} and then calling setChildren.
+     */
+    @Override
+    SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer) {
+        final List<SearchNode> children = Lists.array();
+        for(SearchNode child : this.children()) {
+            children.add(child.replaceSelected0(replacer));
+        }
+
+        return this.setChildren(children);
     }
 
     // Visitor.........................................................................................................

@@ -126,6 +126,32 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
     }
 
     @Test
+    public void testReplaceSelectedNotReplaced() {
+        final SearchNode node = this.text("ignored")
+                .selected();
+
+        this.replaceSelectedNothingAndCheck(node);
+    }
+
+    @Test
+    public void testReplaceSelectedNothingReplaced() {
+        final SearchNode node = this.text("not-replaced")
+                .selected();
+        this.replaceSelectedNothingAndCheck(node);
+    }
+
+    @Test
+    public void testReplaceSelected() {
+        final SearchNode node = this.text("will-be-replaced")
+                .selected();
+        final SearchNode replaced = this.text("replaced");
+
+        this.replaceSelectedAndCheck(node,
+                (n) -> replaced,
+                replaced);
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final SearchSelectNode node = this.createSearchNode();

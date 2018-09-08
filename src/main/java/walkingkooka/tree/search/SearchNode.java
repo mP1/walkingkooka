@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A {@link Node} supporting numerous value types, that can be searched over.
@@ -336,6 +337,18 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
      * A factory used during selecting that wraps this {@link SearchNode} in a {@link SearchSelectNode}.
      */
     abstract public SearchSelectNode selected();
+
+    /**
+     * Used to visit and potentially replace zero or more of the {@link SearchSelectNode} given to the function.
+     * The function can return the initial token to indicate no replacement or replace with anything it wishes.
+     */
+    final public SearchNode replaceSelected(final Function<SearchSelectNode, SearchNode> replacer) {
+        Objects.requireNonNull(replacer, "replacer");
+
+        return this.replaceSelected0(replacer);
+    }
+
+    abstract SearchNode replaceSelected0(final Function<SearchSelectNode, SearchNode> replacer);
 
     // Visitor .......................................................................................................
     /**
