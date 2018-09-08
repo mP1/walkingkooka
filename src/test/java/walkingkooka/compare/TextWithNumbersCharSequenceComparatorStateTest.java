@@ -17,10 +17,23 @@
 
 package walkingkooka.compare;
 
+import org.junit.Test;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.text.CaseSensitivity;
+
+import static org.junit.Assert.assertEquals;
 
 final public class TextWithNumbersCharSequenceComparatorStateTest
         extends PackagePrivateClassTestCase<TextWithNumbersCharSequenceComparatorState> {
+
+    @Test
+    public void testToString() {
+        assertEquals("\"[a]bc\" \"[d]ef\"",
+                new TextWithNumbersCharSequenceComparatorState("abc",
+                        "def",
+                        TextWithNumbersCharSequenceComparator.with(CaseSensitivity.SENSITIVE, CharPredicates.is('.'))).toString());
+    }
 
     @Override
     protected Class<TextWithNumbersCharSequenceComparatorState> type() {

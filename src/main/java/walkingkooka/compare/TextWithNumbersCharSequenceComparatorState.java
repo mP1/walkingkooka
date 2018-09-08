@@ -22,7 +22,7 @@ import walkingkooka.text.CharSequences;
 /**
  * Only holds both {@link CharSequence} and the next character index for each.
  */
-class TextWithNumbersCharSequenceComparatorState {
+final class TextWithNumbersCharSequenceComparatorState {
 
     TextWithNumbersCharSequenceComparatorState(final CharSequence chars1, final CharSequence chars2,
                                                final TextWithNumbersCharSequenceComparator<?> comparator) {
