@@ -23,6 +23,10 @@ import walkingkooka.tree.visit.Visiting;
 
 public class FakeJsonNodeParserTokenVisitor extends JsonNodeParserTokenVisitor {
 
+    protected FakeJsonNodeParserTokenVisitor() {
+        super();
+    }
+
     @Override
     protected Visiting startVisit(final JsonNodeArrayParserToken token) {
         throw new UnsupportedOperationException();

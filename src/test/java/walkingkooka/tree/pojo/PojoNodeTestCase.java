@@ -130,4 +130,9 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
     protected final String requiredNamePrefix() {
         return "Pojo";
     }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
+    }
 }

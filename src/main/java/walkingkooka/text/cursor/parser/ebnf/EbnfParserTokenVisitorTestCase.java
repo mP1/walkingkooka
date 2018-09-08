@@ -16,17 +16,13 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.spreadsheet;
+package walkingkooka.text.cursor.parser.ebnf;
 
-public final class SpreadsheetParserTokenVisitorTest extends SpreadsheetParserTokenVisitorTestCase<FakeSpreadsheetParserTokenVisitor> {
+import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
 
-    @Override
-    protected FakeSpreadsheetParserTokenVisitor createParserTokenVisitor() {
-        return new FakeSpreadsheetParserTokenVisitor();
-    }
+public abstract class EbnfParserTokenVisitorTestCase<V extends EbnfParserTokenVisitor, T extends EbnfParserToken> extends ParserTokenVisitorTestCase<V, T> {
 
-    @Override
-    protected Class<FakeSpreadsheetParserTokenVisitor> parserTokenVisitorType() {
-        return FakeSpreadsheetParserTokenVisitor.class;
+    protected EbnfParserTokenVisitorTestCase() {
+        super();
     }
 }

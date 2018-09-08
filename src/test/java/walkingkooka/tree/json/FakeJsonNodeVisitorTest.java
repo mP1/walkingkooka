@@ -18,12 +18,20 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.tree.visit.VisitorTestCase;
-
-public abstract class JsonNodeVisitorTestCase<V extends JsonNodeVisitor> extends VisitorTestCase<V, JsonNode> {
+public final class FakeJsonNodeVisitorTest extends JsonNodeVisitorTestCase<FakeJsonNodeVisitor> {
 
     @Override
-    protected String requiredNamePrefix() {
-        return JsonNode.class.getSimpleName();
+    protected FakeJsonNodeVisitor createVisitor() {
+        return new FakeJsonNodeVisitor();
+    }
+
+    @Override
+    protected Class<FakeJsonNodeVisitor> type() {
+        return FakeJsonNodeVisitor.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
     }
 }

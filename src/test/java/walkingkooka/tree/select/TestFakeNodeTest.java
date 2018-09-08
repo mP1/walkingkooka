@@ -46,6 +46,11 @@ public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, St
     }
 
     @Override
+    protected boolean typeMustBePublic() {
+        return false;
+    }
+
+    @Override
     protected Class<TestFakeNode> type() {
         return TestFakeNode.class;
     }

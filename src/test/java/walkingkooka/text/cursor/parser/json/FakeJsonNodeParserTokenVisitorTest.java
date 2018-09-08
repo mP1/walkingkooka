@@ -16,16 +16,22 @@
  *
  */
 
-package walkingkooka.tree.json;
+package walkingkooka.text.cursor.parser.json;
 
-public final class JsonNodeVisitorTest extends JsonNodeVisitorTestCase<JsonNodeVisitor> {
+public final class FakeJsonNodeParserTokenVisitorTest extends JsonNodeParserTokenVisitorTestCase<FakeJsonNodeParserTokenVisitor> {
+
     @Override
-    protected JsonNodeVisitor createVisitor() {
-        return new FakeJsonNodeVisitor();
+    protected FakeJsonNodeParserTokenVisitor createParserTokenVisitor() {
+        return new FakeJsonNodeParserTokenVisitor();
     }
 
     @Override
-    protected Class<JsonNodeVisitor> type() {
-        return JsonNodeVisitor.class;
+    protected Class<FakeJsonNodeParserTokenVisitor> parserTokenVisitorType() {
+        return FakeJsonNodeParserTokenVisitor.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
     }
 }

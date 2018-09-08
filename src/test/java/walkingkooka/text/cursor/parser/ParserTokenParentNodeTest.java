@@ -201,6 +201,11 @@ public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTok
     }
 
     @Override
+    final protected boolean typeMustBePublic() {
+        return false;
+    }
+
+    @Override
     protected Class<ParserTokenNode> type() {
         return Cast.to(ParserTokenParentNode.class);
     }

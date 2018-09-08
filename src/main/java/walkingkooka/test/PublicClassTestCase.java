@@ -18,12 +18,10 @@
 package walkingkooka.test;
 
 import org.junit.Assert;
-import org.junit.Test;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 /**
  * Adds some additional tests to verify the visibility of the class and constructors.
@@ -32,16 +30,6 @@ abstract public class PublicClassTestCase<T> extends ClassTestCase<T> {
 
     protected PublicClassTestCase() {
         super();
-    }
-
-    @Test final public void testClassIsPublic() {
-        final Class<?> type = this.type();
-        Assert.assertTrue(type.getName() + " is not public=" + type,
-                Modifier.isPublic(type.getModifiers()));
-    }
-
-    @Test final public void testClassIsFinalIfAllConstructorsArePrivate() {
-        this.classIsFinalIfAllConstructorsArePrivateTest();
     }
 
     /**
@@ -62,11 +50,8 @@ abstract public class PublicClassTestCase<T> extends ClassTestCase<T> {
         Assert.assertTrue("The field " + name + " must be final=" + field, FieldAttributes.FINAL.is(field));
     }
 
-    /**
-     * Constructor is private if this class is final, otherwise they are package private.
-     */
-    @Test
-    public void testAllConstructorsVisibility() throws Throwable {
-        this.checkAllConstructorsVisibility();
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
     }
 }

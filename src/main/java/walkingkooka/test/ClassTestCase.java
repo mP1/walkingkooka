@@ -32,11 +32,14 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Contains various tests toassert the visibility and final-ness of all methods, fields. Note this
@@ -51,7 +54,18 @@ abstract public class ClassTestCase<T> extends TestCase {
 
     // tests
 
-    final protected void classIsFinalIfAllConstructorsArePrivateTest() {
+    @Test
+    public void testClassVisibility() {
+        final Class<?> type = this.type();
+        if(this.typeMustBePublic()) {
+            assertTrue(type.getName() + " is not public=" + type, Modifier.isPublic(type.getModifiers()));
+        } else {
+            assertFalse(type.getName() + " is not package private=" + type, Modifier.isPublic(type.getModifiers()));
+        }
+    }
+
+    @Test
+    public void testClassIsFinalIfAllConstructorsArePrivate() {
         final Class<T> type = this.type();
         if (false == this.isAbstract(type)) {
             boolean mustBeFinal = true;
@@ -71,7 +85,11 @@ abstract public class ClassTestCase<T> extends TestCase {
         }
     }
 
-    final protected void checkAllConstructorsVisibility() {
+    /**
+     * Constructor is private if this class is final, otherwise they are package private.
+     */
+    @Test
+    public void testAllConstructorsVisibility() throws Throwable {
         final Class<T> type = this.type();
         if (this.isFinal(type)) {
             this.checkAllConstructorsArePrivate(type);
@@ -81,28 +99,32 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     final protected void checkAllConstructorsArePrivate(final Class<T> type) {
-        for (final Constructor<?> constructor : type.getConstructors()) {
-            if (false == this.isPrivate(constructor)) {
-                Assert.fail("Constructor is not private=" + constructor);
-            }
-        }
+        this.checkAllConstructorsVisibility(type, this::checkConstructorIsPrivate);
+    }
+
+    final protected void checkAllConstructorsAreProtected(final Class<T> type) {
+        this.checkAllConstructorsVisibility(type, this::checkConstructorIsProtected);
     }
 
     final protected void checkAllConstructorsArePackagePrivate(final Class<T> type) {
+        this.checkAllConstructorsVisibility(type, this::checkConstructorIsPackagePrivate);
+    }
+
+    private void checkAllConstructorsVisibility(final Class<T> type, final Consumer<Constructor<?>> checker) {
         for (final Constructor<?> constructor : type.getConstructors()) {
-            this.checkConstructorIsPackagePrivate(constructor);
+            checker.accept(constructor);
         }
     }
 
-    final protected void checkConstructorIsPublic(final Constructor<?> constructor) {
-        if (false == this.isPublic(constructor)) {
-            Assert.fail("Constructor is not public=" + constructor);
+    final protected void checkConstructorIsPackagePrivate(final Constructor<?> constructor) {
+        if (false == this.isPackagePrivate(constructor)) {
+            Assert.fail("Constructor is not package private=" + constructor);
         }
     }
 
-    final protected void checkConstructorIsPublicOrPackagePrivate(final Constructor<?> constructor) {
-        if (false == this.isPublic(constructor)) {
-            Assert.fail("Constructor is not public=" + constructor);
+    final protected void checkConstructorIsPrivate(final Constructor<?> constructor) {
+        if (false == this.isPrivate(constructor)) {
+            Assert.fail("Constructor is not private=" + constructor);
         }
     }
 
@@ -112,9 +134,9 @@ abstract public class ClassTestCase<T> extends TestCase {
         }
     }
 
-    final protected void checkConstructorIsPackagePrivate(final Constructor<?> constructor) {
-        if (false == this.isPackagePrivate(constructor)) {
-            Assert.fail("Constructor is not package private=" + constructor);
+    final void checkConstructorIsPublic(final Constructor<?> constructor) {
+        if (false == this.isPublic(constructor)) {
+            Assert.fail("Constructor is not public=" + constructor);
         }
     }
 
@@ -218,6 +240,8 @@ abstract public class ClassTestCase<T> extends TestCase {
 
     abstract protected Class<T> type();
 
+    abstract protected boolean typeMustBePublic();
+
     final boolean isPublic(final Member member) {
         return Modifier.isPublic(member.getModifiers());
     }
@@ -298,14 +322,6 @@ abstract public class ClassTestCase<T> extends TestCase {
         this.checkNaming(names);
     }
 
-    protected void checkNamingIgnoringCase(final Class<?> superType) {
-        this.checkNaming(true, superType.getSimpleName());
-    }
-
-    protected void checkNamingIgnoringCase(final String... superTypes) {
-        this.checkNaming(true, superTypes);
-    }
-
     protected void checkNaming(final String... superTypes) {
         this.checkNaming(false, superTypes);
     }
@@ -322,15 +338,8 @@ abstract public class ClassTestCase<T> extends TestCase {
         }
 
         final String expected = b.toString();
-
-        if (ignoreCase) {
-            if (false == name.toLowerCase().endsWith(expected.toLowerCase())) {
-                assertEquals("wrong ending", expected, name);
-            }
-        } else {
-            if (false == name.endsWith(expected)) {
-                assertEquals("wrong ending", expected, name);
-            }
+        if (false == name.endsWith(expected)) {
+            assertEquals("wrong ending", expected, name);
         }
     }
 

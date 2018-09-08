@@ -23,6 +23,10 @@ import walkingkooka.tree.visit.Visiting;
 
 public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVisitor {
 
+    protected FakeSpreadsheetParserTokenVisitor() {
+        super();
+    }
+
     @Override
     protected Visiting startVisit(final SpreadsheetAdditionParserToken token) {
         throw new UnsupportedOperationException();

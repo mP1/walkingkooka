@@ -21,7 +21,11 @@ package walkingkooka.tree.json;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.visit.Visiting;
 
-public class FakeJsonNodeVisitor extends  JsonNodeVisitor implements Fake {
+public class FakeJsonNodeVisitor extends JsonNodeVisitor implements Fake {
+
+    protected FakeJsonNodeVisitor() {
+        super();
+    }
 
     @Override
     protected Visiting startVisit(final JsonNode node) {
