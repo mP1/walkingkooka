@@ -66,7 +66,7 @@ abstract public class PublicClassTestCase<T> extends ClassTestCase<T> {
      * Constructor is private if this class is final, otherwise they are package private.
      */
     @Test
-    public void testAllConstructorsVisibility() throws Exception {
+    public void testAllConstructorsVisibility() throws Throwable {
         this.checkAllConstructorsVisibility();
     }
 }
