@@ -37,9 +37,13 @@ abstract public class ComparatorTestCase<C extends Comparator<T>, T>
         this.checkNaming(Comparator.class);
     }
 
-    @Test final public void testCheckToStringOverridden() {
+    @Test
+    final public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
+
+    @Test
+    abstract public void testToString();
 
     // helpers
 

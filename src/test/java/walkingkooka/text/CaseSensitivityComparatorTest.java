@@ -21,124 +21,138 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparatorTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class CaseSensitivityComparatorTest
         extends ComparatorTestCase<CaseSensitivityComparator<CharSequence>, CharSequence> {
 
     // constants
 
-    private final CaseSensitivityComparator<CharSequence> SENSITIVE
+    private final static CaseSensitivityComparator<CharSequence> SENSITIVE
             = CaseSensitivityComparator.sensitive();
 
-    private final CaseSensitivityComparator<CharSequence> INSENSITIVE
+    private final static CaseSensitivityComparator<CharSequence> INSENSITIVE
             = CaseSensitivityComparator.insensitive();
 
     // SENSITIVE
 
     @Test
     public void testSensitiveSame() {
-        this.compareAndCheckEqual(this.SENSITIVE, "apple", "apple");
+        this.compareAndCheckEqual(SENSITIVE, "apple", "apple");
     }
 
     @Test
     public void testSensitiveSameButDifferentCase() {
-        this.compareAndCheckMore(this.SENSITIVE, "apple", "APPLE");
+        this.compareAndCheckMore(SENSITIVE, "apple", "APPLE");
     }
 
     @Test
     public void testSensitiveSameButDifferentCase2() {
-        this.compareAndCheckLess(this.SENSITIVE, "APPLE", "apple");
+        this.compareAndCheckLess(SENSITIVE, "APPLE", "apple");
     }
 
     @Test
     public void testSensitiveLess() {
-        this.compareAndCheckLess(this.SENSITIVE, "apple", "banana");
+        this.compareAndCheckLess(SENSITIVE, "apple", "banana");
     }
 
     @Test
     public void testSensitiveLessDifferentCase() {
-        this.compareAndCheckMore(this.SENSITIVE, "apple", "BANANA");
+        this.compareAndCheckMore(SENSITIVE, "apple", "BANANA");
     }
 
     @Test
     public void testSensitiveLessDifferentCase2() {
-        this.compareAndCheckLess(this.SENSITIVE, "APPLE", "banana");
+        this.compareAndCheckLess(SENSITIVE, "APPLE", "banana");
     }
 
     @Test
     public void testSensitiveMore() {
-        this.compareAndCheckMore(this.SENSITIVE, "zebra", "apple");
+        this.compareAndCheckMore(SENSITIVE, "zebra", "apple");
     }
 
     @Test
     public void testSensitiveMoreDifferentCase() {
-        this.compareAndCheckLess(this.SENSITIVE, "ZEBRA", "apple");
+        this.compareAndCheckLess(SENSITIVE, "ZEBRA", "apple");
     }
 
     @Test
     public void testSensitiveStartsWith() {
-        this.compareAndCheckLess(this.SENSITIVE, "apple", "apple-banana");
+        this.compareAndCheckLess(SENSITIVE, "apple", "apple-banana");
     }
 
     @Test
     public void testSensitiveStartsWithDifferentCase() {
-        this.compareAndCheckMore(this.SENSITIVE, "apple", "APPLE-BANANA");
+        this.compareAndCheckMore(SENSITIVE, "apple", "APPLE-BANANA");
     }
 
     // INSENSITIVE
 
     @Test
     public void testInsensitiveSame() {
-        this.compareAndCheckEqual(this.INSENSITIVE, "apple", "apple");
+        this.compareAndCheckEqual(INSENSITIVE, "apple", "apple");
     }
 
     @Test
     public void testInsensitiveSameButDifferentCase() {
-        this.compareAndCheckEqual(this.INSENSITIVE, "apple", "APPLE");
+        this.compareAndCheckEqual(INSENSITIVE, "apple", "APPLE");
     }
 
     @Test
     public void testInsensitiveLess() {
-        this.compareAndCheckLess(this.INSENSITIVE, "apple", "banana");
+        this.compareAndCheckLess(INSENSITIVE, "apple", "banana");
     }
 
     @Test
     public void testInsensitiveLessDifferentCase() {
-        this.compareAndCheckLess(this.INSENSITIVE, "apple", "BANANA");
+        this.compareAndCheckLess(INSENSITIVE, "apple", "BANANA");
     }
 
     @Test
     public void testInsensitiveMore() {
-        this.compareAndCheckMore(this.INSENSITIVE, "zebra", "apple");
+        this.compareAndCheckMore(INSENSITIVE, "zebra", "apple");
     }
 
     @Test
     public void testInsensitiveMoreDifferentCase() {
-        this.compareAndCheckMore(this.INSENSITIVE, "ZEBRA", "apple");
+        this.compareAndCheckMore(INSENSITIVE, "ZEBRA", "apple");
     }
 
     @Test
     public void testInsensitiveStartsWith() {
-        this.compareAndCheckLess(this.INSENSITIVE, "apple", "apple-banana");
+        this.compareAndCheckLess(INSENSITIVE, "apple", "apple-banana");
     }
 
     @Test
     public void testInsensitiveStartsWithDifferentCase() {
-        this.compareAndCheckLess(this.INSENSITIVE, "apple", "APPLE-BANANA");
+        this.compareAndCheckLess(INSENSITIVE, "apple", "APPLE-BANANA");
     }
 
     @Test
     public void testSameCharactersDifferentType() {
-        this.compareAndCheckEqual(this.INSENSITIVE, "apple", new StringBuilder("apple"));
+        this.compareAndCheckEqual(INSENSITIVE, "apple", new StringBuilder("apple"));
     }
 
     @Test
     public void testSameCharactersDifferentTypeDifferentCase() {
-        this.compareAndCheckEqual(this.INSENSITIVE, "apple", new StringBuilder("APPLE"));
+        this.compareAndCheckEqual(INSENSITIVE, "apple", new StringBuilder("APPLE"));
+    }
+
+    // toString
+
+    @Test
+    public void testToString() {
+        assertEquals("SENSITIVE", SENSITIVE.toString());
+    }
+
+    @Test
+    public void testToString2() {
+        assertEquals("INSENSITIVE", INSENSITIVE.toString());
     }
 
     @Override
     protected CaseSensitivityComparator<CharSequence> createComparator() {
-        return this.SENSITIVE;
+        return SENSITIVE;
     }
 
     @Override

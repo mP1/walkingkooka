@@ -48,6 +48,48 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
+     * Returns a new {@link CharSequence} which is a copy of chars, but with the same case as
+     * the caseSource. If the caseSource is shorter than chars, the extra characters in chars, will be copied
+     * without change.<br>
+     * This would be particularly useful for a search and replace functionality with preserveCase = true.
+     */
+    public static CharSequence copyCase(final CharSequence chars, final CharSequence caseSource) {
+        Objects.requireNonNull(chars, "chars");
+        Objects.requireNonNull(caseSource, "caseSource");
+
+        final StringBuilder b = new StringBuilder();
+
+        final int charsLength = chars.length();
+        final int caseSourceLength = caseSource.length();
+
+        final int count = Math.min(charsLength, caseSourceLength);
+        for(int i = 0; i < count; i++) {
+            char c = chars.charAt(i);
+            if(Character.isLetter(c)) {
+                final char d = caseSource.charAt(i);
+                if(Character.isLetter(d)) {
+                    final char lowerD = Character.toLowerCase(d);
+                    if(d == lowerD) {
+                        c = Character.toLowerCase(c);
+                    }
+                    final char upperD = Character.toUpperCase(d);
+                    if(d == upperD) {
+                        c = Character.toUpperCase(c);
+                    }
+                }
+            }
+
+            b.append(c);
+        }
+
+        if(caseSourceLength < charsLength) {
+            b.append(chars, caseSourceLength, charsLength);
+        }
+
+        return b;
+    }
+
+    /**
      * {@see EmptyCharSequence}
      */
     public static CharSequence empty() {
