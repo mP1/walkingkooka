@@ -67,7 +67,7 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetLeafParse
     }
 
     @Override
-    public boolean isColumn() {
+    public boolean isColumnReference() {
         return false;
     }
 
@@ -107,7 +107,7 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetLeafParse
     }
     
     @Override
-    public boolean isRow() {
+    public boolean isRowReference() {
         return false;
     }
 

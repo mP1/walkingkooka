@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
 
-public final class SpreadsheetColumnParserTest extends SpreadsheetParserTestCase<SpreadsheetColumnParser, SpreadsheetColumnParserToken> {
+public final class SpreadsheetColumnReferenceParserTest extends SpreadsheetParserTestCase<SpreadsheetColumnReferenceParser, SpreadsheetColumnReferenceParserToken> {
 
     private final static int A_VALUE = 0;
     private final static String A_TEXT = "A";
@@ -89,12 +89,12 @@ public final class SpreadsheetColumnParserTest extends SpreadsheetParserTestCase
 
     @Test
     public void testRelativeReferenceInvalid() {
-        this.parseThrows("" + INVALID, SpreadsheetColumn.invalidRowValue(SpreadsheetColumn.MAX + 1));
+        this.parseThrows("" + INVALID, SpreadsheetColumnReference.invalidRowValue(SpreadsheetColumnReference.MAX + 1));
     }
 
     @Test
     public void testAbsoluteReferenceInvalid() {
-        this.parseThrows("$" + INVALID, SpreadsheetColumn.invalidRowValue(SpreadsheetColumn.MAX + 1));
+        this.parseThrows("$" + INVALID, SpreadsheetColumnReference.invalidRowValue(SpreadsheetColumnReference.MAX + 1));
     }
 
     private void parseAndCheck2(final String text, final SpreadsheetReferenceKind referenceKind, final int column) {
@@ -105,17 +105,17 @@ public final class SpreadsheetColumnParserTest extends SpreadsheetParserTestCase
         this.parseAndCheck(text + textAfter, this.token(referenceKind, column, text), text, textAfter);
     }
 
-    private SpreadsheetColumnParserToken token(final SpreadsheetReferenceKind referenceKind, final int column, final String text) {
-        return SpreadsheetParserToken.column(referenceKind.column(column), text);
+    private SpreadsheetColumnReferenceParserToken token(final SpreadsheetReferenceKind referenceKind, final int column, final String text) {
+        return SpreadsheetParserToken.columnReference(referenceKind.column(column), text);
     }
 
     @Override
-    protected SpreadsheetColumnParser createParser() {
-        return SpreadsheetColumnParser.INSTANCE;
+    protected SpreadsheetColumnReferenceParser createParser() {
+        return SpreadsheetColumnReferenceParser.INSTANCE;
     }
 
     @Override
-    protected Class<SpreadsheetColumnParser> type() {
-        return SpreadsheetColumnParser.class;
+    protected Class<SpreadsheetColumnReferenceParser> type() {
+        return SpreadsheetColumnReferenceParser.class;
     }
 }

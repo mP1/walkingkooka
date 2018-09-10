@@ -25,20 +25,20 @@ import walkingkooka.text.cursor.parser.Parser;
 import java.util.Optional;
 
 /**
- * Base class for either a column or row {@link Parser}.
+ * Base class for either a column or row reference {@link Parser}.
  */
-abstract class SpreadsheetColumnOrRowParser<T extends SpreadsheetLeafParserToken> implements Parser<T, SpreadsheetParserContext> {
+abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafParserToken> implements Parser<T, SpreadsheetParserContext> {
 
     /**
      * Package private ctor use singleton
      */
-    SpreadsheetColumnOrRowParser() {
+    SpreadsheetColumnOrRowReferenceParser() {
         super();
     }
 
     // optional dollar sign
     // required digits
-    // SpreadsheetRow/Column
+    // SpreadsheetRowReference/SpreadsheetColumnReference
     @Override
     public final Optional<T> parse(final TextCursor cursor, final SpreadsheetParserContext context) {
         Optional<T> result = Optional.empty();

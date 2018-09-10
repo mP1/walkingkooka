@@ -24,23 +24,23 @@ import walkingkooka.test.PublicClassTestCase;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetCellTest extends PublicClassTestCase<SpreadsheetCell> {
+public final class SpreadsheetCellReferenceTest extends PublicClassTestCase<SpreadsheetCellReference> {
     
     @Test(expected = NullPointerException.class)
     public void testWithNullColumnFails() {
-        SpreadsheetCell.with(null, row());
+        SpreadsheetCellReference.with(null, row());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullRowFails() {
-        SpreadsheetCell.with(column(), null);
+        SpreadsheetCellReference.with(column(), null);
     }
 
     @Test
     public void testWith() {
-        final SpreadsheetColumn column = this.column();
-        final SpreadsheetRow row = this.row();
-        final SpreadsheetCell cell = SpreadsheetCell.with(column, row);
+        final SpreadsheetColumnReference column = this.column();
+        final SpreadsheetRowReference row = this.row();
+        final SpreadsheetCellReference cell = SpreadsheetCellReference.with(column, row);
         assertSame("column", column, cell.column());
         assertSame("row", row, cell.row());
     }
@@ -50,20 +50,20 @@ public final class SpreadsheetCellTest extends PublicClassTestCase<SpreadsheetCe
         assertEquals("$M$35", this.create().toString());
     }
 
-    private SpreadsheetCell create() {
-        return SpreadsheetCell.with(column(), row());
+    private SpreadsheetCellReference create() {
+        return SpreadsheetCellReference.with(column(), row());
     }
     
-    private SpreadsheetColumn column() {
-        return SpreadsheetColumn.with(12, SpreadsheetReferenceKind.ABSOLUTE);
+    private SpreadsheetColumnReference column() {
+        return SpreadsheetColumnReference.with(12, SpreadsheetReferenceKind.ABSOLUTE);
     }
 
-    private SpreadsheetRow row() {
-        return SpreadsheetRow.with(34, SpreadsheetReferenceKind.ABSOLUTE);
+    private SpreadsheetRowReference row() {
+        return SpreadsheetRowReference.with(34, SpreadsheetReferenceKind.ABSOLUTE);
     }
     
     @Override
-    protected Class<SpreadsheetCell> type() {
-        return SpreadsheetCell.class;
+    protected Class<SpreadsheetCellReference> type() {
+        return SpreadsheetCellReference.class;
     }
 }

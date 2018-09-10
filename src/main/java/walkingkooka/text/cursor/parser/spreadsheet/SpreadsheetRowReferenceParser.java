@@ -21,39 +21,39 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.text.cursor.parser.Parser;
 
 /**
- * A {@link Parser} that consumes a {@link SpreadsheetRowParserToken}
+ * A {@link Parser} that consumes a {@link SpreadsheetRowReferenceParserToken}
  */
-final class SpreadsheetRowParser extends SpreadsheetColumnOrRowParser<SpreadsheetRowParserToken> {
+final class SpreadsheetRowReferenceParser extends SpreadsheetColumnOrRowReferenceParser<SpreadsheetRowReferenceParserToken> {
 
     /**
      * Singleton
      */
-    final static SpreadsheetRowParser INSTANCE = new SpreadsheetRowParser();
+    final static SpreadsheetRowReferenceParser INSTANCE = new SpreadsheetRowReferenceParser();
 
     /**
      * Private ctor use singleton
      */
-    private SpreadsheetRowParser() {
+    private SpreadsheetRowReferenceParser() {
         super();
     }
 
     @Override
     int valueFromDigit(final char c) {
-        return Character.digit(c, SpreadsheetRow.RADIX);
+        return Character.digit(c, SpreadsheetRowReference.RADIX);
     }
 
     @Override
     int radix() {
-        return SpreadsheetRow.RADIX;
+        return SpreadsheetRowReference.RADIX;
     }
 
     @Override
-    SpreadsheetRowParserToken token1(final SpreadsheetReferenceKind absoluteOrRelative, final int row, final String text) {
-        return SpreadsheetParserToken.row(absoluteOrRelative.row(row), text);
+    SpreadsheetRowReferenceParserToken token1(final SpreadsheetReferenceKind absoluteOrRelative, final int row, final String text) {
+        return SpreadsheetParserToken.rowReference(absoluteOrRelative.row(row), text);
     }
 
     @Override
     public String toString() {
-        return SpreadsheetRowParserToken.NAME.toString();
+        return SpreadsheetRowReferenceParserToken.NAME.toString();
     }
 }

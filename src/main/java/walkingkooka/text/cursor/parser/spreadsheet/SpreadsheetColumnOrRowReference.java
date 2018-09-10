@@ -27,9 +27,9 @@ import java.util.Objects;
 /**
  * Captures the common features shared by a row or column.
  */
-abstract class SpreadsheetColumnOrRow implements Value<Integer>, HashCodeEqualsDefined {
+abstract class SpreadsheetColumnOrRowReference implements Value<Integer>, HashCodeEqualsDefined {
 
-    SpreadsheetColumnOrRow(final int value, final SpreadsheetReferenceKind referenceKind) {
+    SpreadsheetColumnOrRowReference(final int value, final SpreadsheetReferenceKind referenceKind) {
         this.value = value;
         this.referenceKind = referenceKind;
     }
@@ -60,7 +60,7 @@ abstract class SpreadsheetColumnOrRow implements Value<Integer>, HashCodeEqualsD
 
     abstract boolean canBeEqual(Object other);
 
-    private boolean equals0(final SpreadsheetColumnOrRow other) {
+    private boolean equals0(final SpreadsheetColumnOrRowReference other) {
         return this.value == other.value &&
                this.referenceKind == other.referenceKind;
     }

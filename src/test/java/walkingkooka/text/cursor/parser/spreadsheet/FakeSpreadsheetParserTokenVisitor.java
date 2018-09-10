@@ -38,12 +38,12 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
-    protected Visiting startVisit(final SpreadsheetCellParserToken token) {
+    protected Visiting startVisit(final SpreadsheetCellReferenceParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final SpreadsheetCellParserToken token) {
+    protected void endVisit(final SpreadsheetCellReferenceParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -213,7 +213,7 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override
-    protected void visit(final SpreadsheetColumnParserToken token) {
+    protected void visit(final SpreadsheetColumnReferenceParserToken token) {
         throw new UnsupportedOperationException();
     }
 
@@ -328,7 +328,7 @@ public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVis
     }
 
     @Override 
-    protected void visit(final SpreadsheetRowParserToken token) {
+    protected void visit(final SpreadsheetRowReferenceParserToken token) {
         throw new UnsupportedOperationException();
     }
 

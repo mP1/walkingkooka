@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-public final class SpreadsheetCellEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<SpreadsheetCell> {
+public final class SpreadsheetCellReferenceEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<SpreadsheetCellReference> {
 
     private final static int COLUMN = 12;
     private final static int ROW = 34;
@@ -37,13 +37,13 @@ public final class SpreadsheetCellEqualityTest extends HashCodeEqualsDefinedEqua
     }
 
     @Override
-    protected SpreadsheetCell createObject() {
+    protected SpreadsheetCellReference createObject() {
         return this.createSpreadsheetCell(COLUMN, ROW);
     }
 
-    private  SpreadsheetCell createSpreadsheetCell(final int column, final int row) {
-        return SpreadsheetCell.with(
-                SpreadsheetColumn.with(column, SpreadsheetReferenceKind.RELATIVE),
-                SpreadsheetRow.with(row, SpreadsheetReferenceKind.RELATIVE));
+    private SpreadsheetCellReference createSpreadsheetCell(final int column, final int row) {
+        return SpreadsheetCellReference.with(
+                SpreadsheetColumnReference.with(column, SpreadsheetReferenceKind.RELATIVE),
+                SpreadsheetRowReference.with(row, SpreadsheetReferenceKind.RELATIVE));
     }
 }

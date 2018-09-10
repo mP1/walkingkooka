@@ -115,7 +115,7 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
     }
 
     @Override
-    public final boolean isColumn() {
+    public final boolean isColumnReference() {
         return false;
     }
 
@@ -225,7 +225,7 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
     }
 
     @Override
-    public final boolean isRow() {
+    public final boolean isRowReference() {
         return false;
     }
 

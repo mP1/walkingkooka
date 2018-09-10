@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetCellParserToken> {
+public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetCellReferenceParserToken> {
 
     private final static String ROW_TEXT = "B";
     private final static int ROW_VALUE = 2;
@@ -52,41 +52,41 @@ public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParse
 
     @Test
     public void testWith() {
-        final SpreadsheetColumnParserToken column = this.column();
-        final SpreadsheetRowParserToken row = this.row();
+        final SpreadsheetColumnReferenceParserToken column = this.column();
+        final SpreadsheetRowReferenceParserToken row = this.row();
         final String text = ROW_TEXT + ":" + COLUMN_TEXT;
-        final SpreadsheetCellParserToken cell = this.createToken(text, row, column);
+        final SpreadsheetCellReferenceParserToken cell = this.createToken(text, row, column);
         this.checkText(cell, text);
         this.checkValue(cell, row, column);
-        assertEquals("cell", SpreadsheetCell.with(column.value(), row.value()), cell.cell());
+        assertEquals("cell", SpreadsheetCellReference.with(column.value(), row.value()), cell.cell());
 
         assertSame(cell, cell.withoutSymbolsOrWhitespace().get());
     }
 
     @Test
     public void testToExpressionNode() {
-        this.toExpressionNodeAndCheck(ExpressionNode.reference(SpreadsheetCell.with(column().value(), row().value())));
+        this.toExpressionNodeAndCheck(ExpressionNode.reference(SpreadsheetCellReference.with(column().value(), row().value())));
     }
 
     @Override
-    SpreadsheetCellParserToken createToken(final String text, final List<ParserToken> tokens) {
-        return SpreadsheetParserToken.cell(tokens, text);
+    SpreadsheetCellReferenceParserToken createToken(final String text, final List<ParserToken> tokens) {
+        return SpreadsheetParserToken.cellReference(tokens, text);
     }
 
-    private SpreadsheetColumnParserToken column() {
+    private SpreadsheetColumnReferenceParserToken column() {
         return column(COLUMN_VALUE);
     }
 
-    private SpreadsheetColumnParserToken column(final int value) {
-        return SpreadsheetParserToken.column(SpreadsheetColumn.with(value, SpreadsheetReferenceKind.RELATIVE), String.valueOf(value));
+    private SpreadsheetColumnReferenceParserToken column(final int value) {
+        return SpreadsheetParserToken.columnReference(SpreadsheetColumnReference.with(value, SpreadsheetReferenceKind.RELATIVE), String.valueOf(value));
     }
 
-    private SpreadsheetRowParserToken row() {
+    private SpreadsheetRowReferenceParserToken row() {
         return row(ROW_VALUE, ROW_TEXT);
     }
 
-    private SpreadsheetRowParserToken row(final int value, final String text) {
-        return SpreadsheetParserToken.row(SpreadsheetRow.with(value, SpreadsheetReferenceKind.RELATIVE), text);
+    private SpreadsheetRowReferenceParserToken row(final int value, final String text) {
+        return SpreadsheetParserToken.rowReference(SpreadsheetRowReference.with(value, SpreadsheetReferenceKind.RELATIVE), text);
     }
 
     @Override
@@ -100,12 +100,12 @@ public final class SpreadsheetCellParserTokenTest extends SpreadsheetParentParse
     }
 
     @Override
-    protected SpreadsheetCellParserToken createDifferentToken() {
+    protected SpreadsheetCellReferenceParserToken createDifferentToken() {
         return this.createToken("D9", Lists.of(this.column(9), this.row(3, "D")));
     }
 
     @Override
-    protected Class<SpreadsheetCellParserToken> type() {
-        return SpreadsheetCellParserToken.class;
+    protected Class<SpreadsheetCellReferenceParserToken> type() {
+        return SpreadsheetCellReferenceParserToken.class;
     }
 }

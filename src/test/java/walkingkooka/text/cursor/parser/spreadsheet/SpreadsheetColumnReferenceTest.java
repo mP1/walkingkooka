@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
 
-public final class SpreadsheetColumnTest extends SpreadsheetColumnOrRowTestCase<SpreadsheetColumn> {
+public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRowReferenceTestCase<SpreadsheetColumnReference> {
 
     @Test
     public void testToStringRelative() {
@@ -58,17 +58,17 @@ public final class SpreadsheetColumnTest extends SpreadsheetColumnOrRowTestCase<
     }
 
     @Override
-    SpreadsheetColumn create(final int value, final SpreadsheetReferenceKind kind) {
-        return SpreadsheetColumn.with(value, kind);
+    SpreadsheetColumnReference create(final int value, final SpreadsheetReferenceKind kind) {
+        return SpreadsheetColumnReference.with(value, kind);
     }
 
     @Override
     int maxValue() {
-        return SpreadsheetColumn.MAX;
+        return SpreadsheetColumnReference.MAX;
     }
 
     @Override
-    protected Class<SpreadsheetColumn> type() {
-        return SpreadsheetColumn.class;
+    protected Class<SpreadsheetColumnReference> type() {
+        return SpreadsheetColumnReference.class;
     }
 }

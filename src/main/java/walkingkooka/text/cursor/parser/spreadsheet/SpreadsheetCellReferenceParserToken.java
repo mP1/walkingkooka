@@ -26,58 +26,58 @@ import java.util.List;
 /**
  * A reference that includes a defined name or column and row.
  */
-public final class SpreadsheetCellParserToken extends SpreadsheetParentParserToken<SpreadsheetCellParserToken>
+public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParentParserToken<SpreadsheetCellReferenceParserToken>
         implements SpreadsheetReferenceParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetCellParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetCellReferenceParserToken.class);
 
-    static SpreadsheetCellParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetCellReferenceParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
-        final SpreadsheetCellParserTokenConsumer checker = new SpreadsheetCellParserTokenConsumer();
+        final SpreadsheetCellReferenceParserTokenConsumer checker = new SpreadsheetCellReferenceParserTokenConsumer();
         copy.stream()
                 .filter(t -> t instanceof SpreadsheetParserToken)
                 .map(t -> SpreadsheetParserToken.class.cast(t))
                 .forEach(checker);
-        final SpreadsheetRowParserToken row = checker.row;
+        final SpreadsheetRowReferenceParserToken row = checker.row;
         if(null==row){
             throw new IllegalArgumentException("Row missing from cell=" + text);
         }
-        final SpreadsheetColumnParserToken column = checker.column;
+        final SpreadsheetColumnReferenceParserToken column = checker.column;
         if(null==column){
             throw new IllegalArgumentException("Column missing from cell=" + text);
         }
 
-        return new SpreadsheetCellParserToken(copy,
+        return new SpreadsheetCellReferenceParserToken(copy,
                 checkText(text),
-                SpreadsheetCell.with(column.value(), row.value()),
+                SpreadsheetCellReference.with(column.value(), row.value()),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetCellParserToken(final List<ParserToken> value, final String text, final SpreadsheetCell cell, final List<ParserToken> valueWithout){
+    private SpreadsheetCellReferenceParserToken(final List<ParserToken> value, final String text, final SpreadsheetCellReference cell, final List<ParserToken> valueWithout){
         super(value, text, valueWithout);
         this.cell = cell;
     }
 
-    public SpreadsheetCell cell() {
+    public SpreadsheetCellReference cell() {
         return this.cell;
     }
 
-    private final SpreadsheetCell cell;
+    private final SpreadsheetCellReference cell;
 
     @Override
-    public SpreadsheetCellParserToken setText(final String text) {
+    public SpreadsheetCellReferenceParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    public SpreadsheetCellParserToken setValue(final List<ParserToken> value) {
+    public SpreadsheetCellReferenceParserToken setValue(final List<ParserToken> value) {
         return this.setValue0(value).cast();
     }
 
     @Override
     SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new SpreadsheetCellParserToken(tokens, text, this.cell, without);
+        return new SpreadsheetCellReferenceParserToken(tokens, text, this.cell, without);
     }
 
     @Override
@@ -86,7 +86,7 @@ public final class SpreadsheetCellParserToken extends SpreadsheetParentParserTok
     }
 
     @Override
-    public boolean isCell() {
+    public boolean isCellReference() {
         return true;
     }
 
@@ -175,7 +175,7 @@ public final class SpreadsheetCellParserToken extends SpreadsheetParentParserTok
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetCellParserToken;
+        return other instanceof SpreadsheetCellReferenceParserToken;
     }
 
     @Override

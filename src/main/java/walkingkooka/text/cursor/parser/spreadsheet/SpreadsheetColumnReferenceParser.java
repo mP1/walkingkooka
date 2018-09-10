@@ -21,19 +21,19 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.text.cursor.parser.Parser;
 
 /**
- * A {@link Parser} that consumes a {@link SpreadsheetColumnParserToken}
+ * A {@link Parser} that consumes a {@link SpreadsheetColumnReferenceParserToken}
  */
-final class SpreadsheetColumnParser extends SpreadsheetColumnOrRowParser<SpreadsheetColumnParserToken> {
+final class SpreadsheetColumnReferenceParser extends SpreadsheetColumnOrRowReferenceParser<SpreadsheetColumnReferenceParserToken> {
 
     /**
      * Singleton
      */
-    final static SpreadsheetColumnParser INSTANCE = new SpreadsheetColumnParser();
+    final static SpreadsheetColumnReferenceParser INSTANCE = new SpreadsheetColumnReferenceParser();
 
     /**
      * Private ctor use singleton
      */
-    private SpreadsheetColumnParser() {
+    private SpreadsheetColumnReferenceParser() {
         super();
     }
 
@@ -55,12 +55,12 @@ final class SpreadsheetColumnParser extends SpreadsheetColumnOrRowParser<Spreads
     private final static int RADIX = 26;
 
     @Override
-    SpreadsheetColumnParserToken token1(final SpreadsheetReferenceKind absoluteOrRelative, final int value, final String text) {
-        return SpreadsheetColumnParserToken.column(absoluteOrRelative.column(value), text);
+    SpreadsheetColumnReferenceParserToken token1(final SpreadsheetReferenceKind absoluteOrRelative, final int value, final String text) {
+        return SpreadsheetColumnReferenceParserToken.columnReference(absoluteOrRelative.column(value), text);
     }
 
     @Override
     public String toString() {
-        return SpreadsheetColumnParserToken.NAME.toString();
+        return SpreadsheetColumnReferenceParserToken.NAME.toString();
     }
 }

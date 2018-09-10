@@ -79,10 +79,10 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     }
 
     /**
-     * {@see SpreadsheetCellParserToken}
+     * {@see SpreadsheetCellReferenceParserToken}
      */
-    public static SpreadsheetCellParserToken cell(final List<ParserToken> value, final String text){
-        return SpreadsheetCellParserToken.with(value, text);
+    public static SpreadsheetCellReferenceParserToken cellReference(final List<ParserToken> value, final String text){
+        return SpreadsheetCellReferenceParserToken.with(value, text);
     }
 
     /**
@@ -93,10 +93,10 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     }
     
     /**
-     * {@see SpreadsheetColumnParserToken}
+     * {@see SpreadsheetColumnReferenceParserToken}
      */
-    public static SpreadsheetColumnParserToken column(final SpreadsheetColumn value, final String text){
-        return SpreadsheetColumnParserToken.with(value, text);
+    public static SpreadsheetColumnReferenceParserToken columnReference(final SpreadsheetColumnReference value, final String text){
+        return SpreadsheetColumnReferenceParserToken.with(value, text);
     }
 
     /**
@@ -345,10 +345,10 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     }
     
     /**
-     * {@see SpreadsheetRowParserToken}
+     * {@see SpreadsheetRowReferenceParserToken}
      */
-    public static SpreadsheetRowParserToken row(final SpreadsheetRow value, final String text){
-        return SpreadsheetRowParserToken.with(value, text);
+    public static SpreadsheetRowReferenceParserToken rowReference(final SpreadsheetRowReference value, final String text){
+        return SpreadsheetRowReferenceParserToken.with(value, text);
     }
     
     /**
@@ -439,9 +439,9 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     public abstract boolean isBigInteger();
 
     /**
-     * Only {@link SpreadsheetCellParserToken} return true
+     * Only {@link SpreadsheetCellReferenceParserToken} return true
      */
-    public abstract boolean isCell();
+    public abstract boolean isCellReference();
 
     /**
      * Only {@link SpreadsheetCloseParenthesisSymbolParserToken} return true
@@ -449,9 +449,9 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     public abstract boolean isCloseParenthesisSymbol();
 
     /**
-     * Only {@link SpreadsheetColumnParserToken} return true
+     * Only {@link SpreadsheetColumnReferenceParserToken} return true
      */
-    public abstract boolean isColumn();
+    public abstract boolean isColumnReference();
 
     /**
      * Only {@link SpreadsheetDivideSymbolParserToken} returns true
@@ -629,9 +629,9 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     public abstract boolean isRange();
 
     /**
-     * Only {@link SpreadsheetRowParserToken} return true
+     * Only {@link SpreadsheetRowReferenceParserToken} return true
      */
-    public abstract boolean isRow();
+    public abstract boolean isRowReference();
 
     /**
      * Only {@link SpreadsheetSubtractionParserToken} return true

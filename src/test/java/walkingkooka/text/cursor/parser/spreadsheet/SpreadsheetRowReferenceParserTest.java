@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
 
-public final class SpreadsheetRowParserTest extends SpreadsheetParserTestCase<SpreadsheetRowParser, SpreadsheetRowParserToken> {
+public final class SpreadsheetRowReferenceParserTest extends SpreadsheetParserTestCase<SpreadsheetRowReferenceParser, SpreadsheetRowReferenceParserToken> {
 
     private final static String ROW_TEXT = "1";
     private final static int ROW_VALUE = 0;
@@ -85,14 +85,14 @@ public final class SpreadsheetRowParserTest extends SpreadsheetParserTestCase<Sp
 
     @Test
     public void testRelativeReferenceInvalid() {
-        final int value = SpreadsheetRow.MAX + 1;
-        this.parseThrows("" + value, SpreadsheetRow.invalidRowValue(value - 1));
+        final int value = SpreadsheetRowReference.MAX + 1;
+        this.parseThrows("" + value, SpreadsheetRowReference.invalidRowValue(value - 1));
     }
 
     @Test
     public void testAbsoluteReferenceInvalid() {
-        final int value = SpreadsheetRow.MAX + 1;
-        this.parseThrows("$" + value, SpreadsheetRow.invalidRowValue(value - 1));
+        final int value = SpreadsheetRowReference.MAX + 1;
+        this.parseThrows("$" + value, SpreadsheetRowReference.invalidRowValue(value - 1));
     }
 
     private void parseAndCheck2(final String text, final SpreadsheetReferenceKind referenceKind, final int row) {
@@ -103,17 +103,17 @@ public final class SpreadsheetRowParserTest extends SpreadsheetParserTestCase<Sp
         this.parseAndCheck(text + textAfter, this.token(referenceKind, row, text), text, textAfter);
     }
 
-    private SpreadsheetRowParserToken token(final SpreadsheetReferenceKind referenceKind, final int row, final String text) {
-        return SpreadsheetParserToken.row(referenceKind.row(row), text);
+    private SpreadsheetRowReferenceParserToken token(final SpreadsheetReferenceKind referenceKind, final int row, final String text) {
+        return SpreadsheetParserToken.rowReference(referenceKind.row(row), text);
     }
 
     @Override
-    protected SpreadsheetRowParser createParser() {
-        return SpreadsheetRowParser.INSTANCE;
+    protected SpreadsheetRowReferenceParser createParser() {
+        return SpreadsheetRowReferenceParser.INSTANCE;
     }
 
     @Override
-    protected Class<SpreadsheetRowParser> type() {
-        return SpreadsheetRowParser.class;
+    protected Class<SpreadsheetRowReferenceParser> type() {
+        return SpreadsheetRowReferenceParser.class;
     }
 }

@@ -23,7 +23,7 @@ import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class SpreadsheetColumnOrRowTestCase<V extends SpreadsheetColumnOrRow> extends PublicClassTestCase<V> {
+public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference> extends PublicClassTestCase<V> {
 
     @Test(expected = IllegalArgumentException.class)
     public final void testWithNegativeValueFails() {

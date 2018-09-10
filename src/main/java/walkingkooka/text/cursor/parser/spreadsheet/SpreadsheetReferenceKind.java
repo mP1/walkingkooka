@@ -26,13 +26,13 @@ public enum SpreadsheetReferenceKind {
     ABSOLUTE {
 
         @Override
-        public SpreadsheetColumn column(final int value) {
-            return SpreadsheetColumn.with(value, this);
+        public SpreadsheetColumnReference column(final int value) {
+            return SpreadsheetColumnReference.with(value, this);
         }
 
         @Override
-        public SpreadsheetRow row(final int value){
-            return SpreadsheetRow.with(value, this);
+        public SpreadsheetRowReference row(final int value){
+            return SpreadsheetRowReference.with(value, this);
         }
 
         @Override
@@ -43,13 +43,13 @@ public enum SpreadsheetReferenceKind {
     RELATIVE {
 
         @Override
-        public SpreadsheetColumn column(final int value) {
-            return SpreadsheetColumn.with(value, this);
+        public SpreadsheetColumnReference column(final int value) {
+            return SpreadsheetColumnReference.with(value, this);
         }
 
         @Override
-        public SpreadsheetRow row(final int value){
-            return SpreadsheetRow.with(value, this);
+        public SpreadsheetRowReference row(final int value){
+            return SpreadsheetRowReference.with(value, this);
         }
 
         @Override
@@ -58,10 +58,10 @@ public enum SpreadsheetReferenceKind {
         }
     };
 
-    public abstract SpreadsheetColumn column(final int column);
+    public abstract SpreadsheetColumnReference column(final int column);
 
-    public abstract SpreadsheetRow row(final int row);
+    public abstract SpreadsheetRowReference row(final int row);
 
-    // only called by {@link SpreadsheetRow#toString()} or {@link SpreadsheetColumn#toString()}
+    // only called by {@link SpreadsheetRowReference#toString()} or {@link SpreadsheetColumnReference#toString()}
     abstract String prefix();
 }

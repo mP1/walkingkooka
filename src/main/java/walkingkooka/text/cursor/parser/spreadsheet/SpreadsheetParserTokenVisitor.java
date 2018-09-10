@@ -34,13 +34,13 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
-    // SpreadsheetCellParserToken....................................................................................
+    // SpreadsheetCellReferenceParserToken....................................................................................
 
-    protected Visiting startVisit(final SpreadsheetCellParserToken token) {
+    protected Visiting startVisit(final SpreadsheetCellReferenceParserToken token) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final SpreadsheetCellParserToken token) {
+    protected void endVisit(final SpreadsheetCellReferenceParserToken token) {
         // nop
     }
     
@@ -212,7 +212,7 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
-    protected void visit(final SpreadsheetColumnParserToken token) {
+    protected void visit(final SpreadsheetColumnReferenceParserToken token) {
         // nop
     }
 
@@ -300,7 +300,7 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
         // nop
     }
 
-    protected void visit(final SpreadsheetRowParserToken token) {
+    protected void visit(final SpreadsheetRowReferenceParserToken token) {
         // nop
     }
 

@@ -87,17 +87,17 @@ final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, 
 
             // try and parse into column + row
             if (0 == mode) {
-                final int digit = SpreadsheetColumnParser.valueFromDigit0(c);
+                final int digit = SpreadsheetColumnReferenceParser.valueFromDigit0(c);
                 if(-1 != digit){
-                    column = column * SpreadsheetColumn.RADIX + digit;
+                    column = column * SpreadsheetColumnReference.RADIX + digit;
                     continue;
                 }
                 mode = 1;
             }
             if (1 == mode) {
-                final int digit = Character.digit(c, SpreadsheetRow.RADIX);
+                final int digit = Character.digit(c, SpreadsheetRowReference.RADIX);
                 if (-1 != digit) {
-                    row = SpreadsheetRow.RADIX * row + digit;
+                    row = SpreadsheetRowReference.RADIX * row + digit;
                     continue;
                 }
                 mode = 2;
@@ -106,8 +106,8 @@ final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, 
 
         return 0 == mode ||
                 (1 == mode &&
-                column < SpreadsheetColumn.MAX &&
-                row < SpreadsheetRow.MAX);
+                column < SpreadsheetColumnReference.MAX &&
+                row < SpreadsheetRowReference.MAX);
     }
 
     /**

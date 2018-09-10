@@ -41,7 +41,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testCell() {
         final String text = "A1";
-        final SpreadsheetCellParserToken cell = cell(0, "A", 0);
+        final SpreadsheetCellReferenceParserToken cell = cell(0, "A", 0);
 
         this.parseAndCheck(text, cell, text);
     }
@@ -49,15 +49,15 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testCell2() {
         final String text = "AA678";
-        final SpreadsheetCellParserToken cell = this.cell(26, "AA", 678-1);
+        final SpreadsheetCellReferenceParserToken cell = this.cell(26, "AA", 678-1);
 
         this.parseAndCheck(text, cell, text);
     }
 
     @Test
     public void testRangeCellToCell() {
-        final SpreadsheetCellParserToken from = this.cell(0, "A", 0);
-        final SpreadsheetCellParserToken to = this.cell(1, "B", 1);
+        final SpreadsheetCellReferenceParserToken from = this.cell(0, "A", 0);
+        final SpreadsheetCellReferenceParserToken to = this.cell(1, "B", 1);
 
         final SpreadsheetRangeParserToken range = range(from, to);
         final String text = range.text();
@@ -78,7 +78,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testRangeCellToLabel() {
-        final SpreadsheetCellParserToken from = this.cell(0, "A", 0);
+        final SpreadsheetCellReferenceParserToken from = this.cell(0, "A", 0);
         final SpreadsheetLabelNameParserToken to = this.label("to");
 
         final SpreadsheetRangeParserToken range = range(from, to);
@@ -90,7 +90,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testRangeLabelToCell() {
         final SpreadsheetLabelNameParserToken from = this.label("to");
-        final SpreadsheetCellParserToken to = this.cell(0, "A", 0);
+        final SpreadsheetCellReferenceParserToken to = this.cell(0, "A", 0);
 
         final SpreadsheetRangeParserToken range = range(from, to);
         final String text = range.text();
@@ -100,8 +100,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testRangeWhitespace() {
-        final SpreadsheetCellParserToken from = this.cell(0, "A", 0);
-        final SpreadsheetCellParserToken to = this.cell(1, "B", 1);
+        final SpreadsheetCellReferenceParserToken from = this.cell(0, "A", 0);
+        final SpreadsheetCellReferenceParserToken to = this.cell(1, "B", 1);
 
         final String text = from.text() + "  " + between() + "  " + to.text();
         final SpreadsheetRangeParserToken range = SpreadsheetParserToken.range(Lists.of(from, whitespace(), between(), whitespace(), to), text);
@@ -653,8 +653,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testFunctionWithRangeArgument() {
-        final SpreadsheetCellParserToken from = this.cell(0, "A", 0);
-        final SpreadsheetCellParserToken to = this.cell(1, "B", 1);
+        final SpreadsheetCellReferenceParserToken from = this.cell(0, "A", 0);
+        final SpreadsheetCellReferenceParserToken to = this.cell(1, "B", 1);
 
         final SpreadsheetRangeParserToken range = range(from, to);
         final String rangeText = range.text();
@@ -736,10 +736,10 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         return SpreadsheetParserToken.bigInteger(BigInteger.valueOf(value), String.valueOf(value));
     }
 
-    private SpreadsheetCellParserToken cell(final int column, final String columnText, final int row) {
-        final SpreadsheetParserToken columnToken = SpreadsheetParserToken.column(SpreadsheetColumn.with(column, SpreadsheetReferenceKind.RELATIVE), columnText);
-        final SpreadsheetParserToken rowToken = SpreadsheetParserToken.row(SpreadsheetRow.with(row, SpreadsheetReferenceKind.RELATIVE), String.valueOf(1+row));
-        return SpreadsheetParserToken.cell(Lists.of(columnToken, rowToken), columnToken.text() + rowToken.text());
+    private SpreadsheetCellReferenceParserToken cell(final int column, final String columnText, final int row) {
+        final SpreadsheetParserToken columnToken = SpreadsheetParserToken.columnReference(SpreadsheetColumnReference.with(column, SpreadsheetReferenceKind.RELATIVE), columnText);
+        final SpreadsheetParserToken rowToken = SpreadsheetParserToken.rowReference(SpreadsheetRowReference.with(row, SpreadsheetReferenceKind.RELATIVE), String.valueOf(1+row));
+        return SpreadsheetParserToken.cellReference(Lists.of(columnToken, rowToken), columnToken.text() + rowToken.text());
     }
 
     private SpreadsheetParserToken functionName(final String name) {

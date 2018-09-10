@@ -19,10 +19,10 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
-import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCell;
-import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetColumn;
+import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
+import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetColumnReference;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetReferenceKind;
-import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetRow;
+import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetRowReference;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.MathContext;
@@ -124,8 +124,8 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
         return cell(30, 40);
     }
 
-    private SpreadsheetCell cell(final int column, final int row) {
-        return SpreadsheetCell.with(SpreadsheetColumn.with(column, SpreadsheetReferenceKind.ABSOLUTE), SpreadsheetRow.with(row, SpreadsheetReferenceKind.ABSOLUTE));
+    private SpreadsheetCellReference cell(final int column, final int row) {
+        return SpreadsheetCellReference.with(SpreadsheetColumnReference.with(column, SpreadsheetReferenceKind.ABSOLUTE), SpreadsheetRowReference.with(row, SpreadsheetReferenceKind.ABSOLUTE));
     }
 
     final ExpressionEvaluationContext context(final String referenceText) {
