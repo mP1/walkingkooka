@@ -21,9 +21,9 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import java.util.Objects;
 
 /**
- * Represents a single row.
+ * Represents a row reference
  */
-public final class SpreadsheetRow extends SpreadsheetColumnOrRow {
+public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReference {
 
     // https://support.office.com/en-us/article/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
     final static int MAX = 1_048_576;
@@ -33,26 +33,26 @@ public final class SpreadsheetRow extends SpreadsheetColumnOrRow {
     /**
      * Factory that creates a new column.
      */
-    public static SpreadsheetRow with(final int value, final SpreadsheetReferenceKind referenceKind) {
+    public static SpreadsheetRowReference with(final int value, final SpreadsheetReferenceKind referenceKind) {
         if(value < 0 || value >= MAX) {
             throw new IllegalArgumentException(invalidRowValue(value));
         }
         Objects.requireNonNull(referenceKind, "referenceKind");
 
-        return new SpreadsheetRow(value, referenceKind);
+        return new SpreadsheetRowReference(value, referenceKind);
     }
 
     static String invalidRowValue(final int value) {
         return "Invalid column value " + value + " expected between 0 and " + MAX;
     }
 
-    private SpreadsheetRow(final int value, final SpreadsheetReferenceKind referenceKind) {
+    private SpreadsheetRowReference(final int value, final SpreadsheetReferenceKind referenceKind) {
         super(value, referenceKind);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetRow;
+        return other instanceof SpreadsheetRowReference;
     }
 
     @Override

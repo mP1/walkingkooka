@@ -57,13 +57,13 @@ final class SpreadsheetParserPrettySpreadsheetParserTokenVisitor extends Spreads
     }
 
     @Override
-    protected Visiting startVisit(final SpreadsheetCellParserToken token) {
+    protected Visiting startVisit(final SpreadsheetCellReferenceParserToken token) {
         this.enter(token);
         return super.startVisit(token);
     }
 
     @Override
-    protected void endVisit(final SpreadsheetCellParserToken token) {
+    protected void endVisit(final SpreadsheetCellReferenceParserToken token) {
         this.exit(token);
         super.endVisit(token);
     }
@@ -275,7 +275,7 @@ final class SpreadsheetParserPrettySpreadsheetParserTokenVisitor extends Spreads
     }
 
     @Override
-    protected void visit(final SpreadsheetColumnParserToken token) {
+    protected void visit(final SpreadsheetColumnReferenceParserToken token) {
         this.leaf(token);
         super.visit(token);
     }
@@ -407,7 +407,7 @@ final class SpreadsheetParserPrettySpreadsheetParserTokenVisitor extends Spreads
     }
 
     @Override
-    protected void visit(final SpreadsheetRowParserToken token) {
+    protected void visit(final SpreadsheetRowReferenceParserToken token) {
         this.leaf(token);
         super.visit(token);
     }

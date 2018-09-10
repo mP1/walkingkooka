@@ -65,7 +65,7 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetLeafPar
     }
 
     @Override
-    public boolean isColumn() {
+    public boolean isColumnReference() {
         return false;
     }
 
@@ -105,7 +105,7 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetLeafPar
     }
 
     @Override
-    public boolean isRow() {
+    public boolean isRowReference() {
         return false;
     }
 

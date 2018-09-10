@@ -63,7 +63,7 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
     }
 
     @Override
-    public boolean isCell() {
+    public boolean isCellReference() {
         return false;
     }
 

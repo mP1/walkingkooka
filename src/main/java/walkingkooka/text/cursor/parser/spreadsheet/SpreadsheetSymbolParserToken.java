@@ -46,7 +46,7 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     }
 
     @Override
-    public final boolean isColumn() {
+    public final boolean isColumnReference() {
         return false;
     }
 
@@ -86,7 +86,7 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     }
 
     @Override
-    public final boolean isRow() {
+    public final boolean isRowReference() {
         return false;
     }
 

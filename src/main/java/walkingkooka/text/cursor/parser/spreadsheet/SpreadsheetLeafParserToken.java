@@ -46,7 +46,7 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
     }
 
     @Override
-    public boolean isCell() {
+    public boolean isCellReference() {
         return false;
     }
 

@@ -26,32 +26,32 @@ import java.util.Objects;
 /**
  * A reference that includes a defined name or column and row.
  */
-public final class SpreadsheetCell implements HashCodeEqualsDefined, ExpressionReference {
+public final class SpreadsheetCellReference implements HashCodeEqualsDefined, ExpressionReference {
 
-    public static SpreadsheetCell with(final SpreadsheetColumn column, final SpreadsheetRow row){
+    public static SpreadsheetCellReference with(final SpreadsheetColumnReference column, final SpreadsheetRowReference row){
         Objects.requireNonNull(column, "column");
         Objects.requireNonNull(row, "row");
 
-        return new SpreadsheetCell(column, row);
+        return new SpreadsheetCellReference(column, row);
     }
 
-    private SpreadsheetCell(final SpreadsheetColumn column, final SpreadsheetRow row){
+    private SpreadsheetCellReference(final SpreadsheetColumnReference column, final SpreadsheetRowReference row){
         super();
         this.column = column;
         this.row = row;
     }
 
-    public SpreadsheetRow row() {
+    public SpreadsheetRowReference row() {
         return this.row;
     }
 
-    private final SpreadsheetRow row;
+    private final SpreadsheetRowReference row;
 
-    public SpreadsheetColumn column() {
+    public SpreadsheetColumnReference column() {
         return this.column;
     }
 
-    private final SpreadsheetColumn column;
+    private final SpreadsheetColumnReference column;
 
     @Override
     public int hashCode() {
@@ -61,11 +61,11 @@ public final class SpreadsheetCell implements HashCodeEqualsDefined, ExpressionR
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof SpreadsheetCell &&
+               other instanceof SpreadsheetCellReference &&
                this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final SpreadsheetCell other) {
+    private boolean equals0(final SpreadsheetCellReference other) {
         return this.column.equals(other.column) &&
                this.row.equals(other.row);
     }

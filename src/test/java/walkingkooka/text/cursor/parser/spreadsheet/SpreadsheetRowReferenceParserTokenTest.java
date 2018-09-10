@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetRowParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetRowParserToken, SpreadsheetRow> {
+public final class SpreadsheetRowReferenceParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetRowReferenceParserToken, SpreadsheetRowReference> {
 
     @Test
     public void testToStringAbsolute() {
@@ -39,7 +39,7 @@ public final class SpreadsheetRowParserTokenTest extends SpreadsheetLeafParserTo
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final SpreadsheetRowParserToken token = this.createToken();
+        final SpreadsheetRowReferenceParserToken token = this.createToken();
 
         new FakeSpreadsheetParserTokenVisitor() {
             @Override
@@ -69,7 +69,7 @@ public final class SpreadsheetRowParserTokenTest extends SpreadsheetLeafParserTo
             }
 
             @Override
-            protected void visit(final SpreadsheetRowParserToken t) {
+            protected void visit(final SpreadsheetRowReferenceParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -83,22 +83,22 @@ public final class SpreadsheetRowParserTokenTest extends SpreadsheetLeafParserTo
     }
 
     @Override
-    SpreadsheetRow value() {
+    SpreadsheetRowReference value() {
         return SpreadsheetReferenceKind.RELATIVE.row(Integer.parseInt(this.text()));
     }
 
     @Override
-    protected SpreadsheetRowParserToken createToken(final SpreadsheetRow value, final String text) {
-        return SpreadsheetRowParserToken.with(value, text);
+    protected SpreadsheetRowReferenceParserToken createToken(final SpreadsheetRowReference value, final String text) {
+        return SpreadsheetRowReferenceParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetRowParserToken createDifferentToken() {
-        return SpreadsheetRowParserToken.with(SpreadsheetReferenceKind.RELATIVE.row(999), "ABC");
+    protected SpreadsheetRowReferenceParserToken createDifferentToken() {
+        return SpreadsheetRowReferenceParserToken.with(SpreadsheetReferenceKind.RELATIVE.row(999), "ABC");
     }
 
     @Override
-    protected Class<SpreadsheetRowParserToken> type() {
-        return SpreadsheetRowParserToken.class;
+    protected Class<SpreadsheetRowReferenceParserToken> type() {
+        return SpreadsheetRowReferenceParserToken.class;
     }
 }

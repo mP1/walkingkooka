@@ -15,25 +15,14 @@
  *
  *
  */
+
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import java.util.function.Consumer;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-/**
- * Used to filter the column and row for a {@link SpreadsheetCellParserToken}.
- */
-final class SpreadsheetCellParserTokenConsumer implements Consumer<SpreadsheetParserToken> {
-
+public final class SpreadsheetCellReferenceParserTokenConsumerTest extends PackagePrivateClassTestCase<SpreadsheetCellReferenceParserTokenConsumer> {
     @Override
-    public void accept(final SpreadsheetParserToken token) {
-        if(token.isColumn()){
-            this.column = token.cast();
-        }
-        if(token.isRow()){
-            this.row = token.cast();
-        }
+    protected Class<SpreadsheetCellReferenceParserTokenConsumer> type() {
+        return SpreadsheetCellReferenceParserTokenConsumer.class;
     }
-
-    SpreadsheetColumnParserToken column;
-    SpreadsheetRowParserToken row;
 }

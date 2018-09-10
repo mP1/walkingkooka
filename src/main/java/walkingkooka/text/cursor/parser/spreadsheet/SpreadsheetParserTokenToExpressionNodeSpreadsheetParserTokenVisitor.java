@@ -70,13 +70,13 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
     }
 
     @Override
-    protected Visiting startVisit(final SpreadsheetCellParserToken token) {
+    protected Visiting startVisit(final SpreadsheetCellReferenceParserToken token) {
         this.enter();
         return super.startVisit(token);
     }
 
     @Override
-    protected void endVisit(final SpreadsheetCellParserToken token) {
+    protected void endVisit(final SpreadsheetCellReferenceParserToken token) {
         this.exitReference(token.cell(), token);
     }
 

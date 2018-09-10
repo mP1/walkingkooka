@@ -49,7 +49,7 @@ abstract class SpreadsheetUnaryParserToken<T extends SpreadsheetUnaryParserToken
     }
 
     @Override
-    public final boolean isCell() {
+    public final boolean isCellReference() {
         return false;
     }
 

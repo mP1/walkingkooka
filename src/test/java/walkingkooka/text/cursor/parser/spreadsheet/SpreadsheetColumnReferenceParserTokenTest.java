@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetColumnParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetColumnParserToken, SpreadsheetColumn> {
+public final class SpreadsheetColumnReferenceParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetColumnReferenceParserToken, SpreadsheetColumnReference> {
 
     @Test
     public void testToStringAbsolute() {
@@ -39,7 +39,7 @@ public final class SpreadsheetColumnParserTokenTest extends SpreadsheetLeafParse
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final SpreadsheetColumnParserToken token = this.createToken();
+        final SpreadsheetColumnReferenceParserToken token = this.createToken();
 
         new FakeSpreadsheetParserTokenVisitor() {
             @Override
@@ -69,7 +69,7 @@ public final class SpreadsheetColumnParserTokenTest extends SpreadsheetLeafParse
             }
 
             @Override
-            protected void visit(final SpreadsheetColumnParserToken t) {
+            protected void visit(final SpreadsheetColumnReferenceParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -83,22 +83,22 @@ public final class SpreadsheetColumnParserTokenTest extends SpreadsheetLeafParse
     }
 
     @Override
-    SpreadsheetColumn value() {
+    SpreadsheetColumnReference value() {
         return SpreadsheetReferenceKind.RELATIVE.column(Integer.parseInt(this.text()));
     }
 
     @Override
-    protected SpreadsheetColumnParserToken createToken(final SpreadsheetColumn value, final String text) {
-        return SpreadsheetColumnParserToken.with(value, text);
+    protected SpreadsheetColumnReferenceParserToken createToken(final SpreadsheetColumnReference value, final String text) {
+        return SpreadsheetColumnReferenceParserToken.with(value, text);
     }
 
     @Override
-    protected SpreadsheetColumnParserToken createDifferentToken() {
-        return SpreadsheetColumnParserToken.with(SpreadsheetReferenceKind.RELATIVE.column(999), "999");
+    protected SpreadsheetColumnReferenceParserToken createDifferentToken() {
+        return SpreadsheetColumnReferenceParserToken.with(SpreadsheetReferenceKind.RELATIVE.column(999), "999");
     }
 
     @Override
-    protected Class<SpreadsheetColumnParserToken> type() {
-        return SpreadsheetColumnParserToken.class;
+    protected Class<SpreadsheetColumnReferenceParserToken> type() {
+        return SpreadsheetColumnReferenceParserToken.class;
     }
 }

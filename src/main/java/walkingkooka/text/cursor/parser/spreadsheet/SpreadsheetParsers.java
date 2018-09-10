@@ -91,21 +91,21 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     private static final EbnfIdentifierName LESS_THAN_EQUALS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("LESS_THAN_EQUALS_SYMBOL");
 
     /**
-     * {@see SpreadsheetColumnParser}
+     * {@see SpreadsheetColumnReferenceParser}
      */
     public static Parser<ParserToken, SpreadsheetParserContext> column() {
-        return Cast.to(SpreadsheetColumnParser.INSTANCE);
+        return Cast.to(SpreadsheetColumnReferenceParser.INSTANCE);
     }
 
     /**
-     * {@see SpreadsheetColumnParser}
+     * {@see SpreadsheetColumnReferenceParser}
      */
-    public static Parser<ParserToken, SpreadsheetParserContext> columnRow() {
-        return column().builder(SpreadsheetColumnParserToken.NAME)
-                .required(row(), SpreadsheetRowParserToken.NAME)
+    public static Parser<ParserToken, SpreadsheetParserContext> columnAndRow() {
+        return column().builder(SpreadsheetColumnReferenceParserToken.NAME)
+                .required(row(), SpreadsheetRowReferenceParserToken.NAME)
                 .build()
                 .transform((sequenceParserToken, spreadsheetParserContext) -> {
-                    return SpreadsheetParserToken.cell(sequenceParserToken.value(), sequenceParserToken.text()).cast();
+                    return SpreadsheetParserToken.cellReference(sequenceParserToken.value(), sequenceParserToken.text()).cast();
                 });
     }
 
@@ -125,7 +125,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             }
 
             final Map<EbnfIdentifierName, Parser<ParserToken, SpreadsheetParserContext>> predefined = Maps.ordered();
-            predefined.put(COLUMN_ROW_IDENTIFIER, columnRow());
+            predefined.put(COLUMN_ROW_IDENTIFIER, columnAndRow());
             predefined.put(WHITESPACE_IDENTIFIER, whitespace());
             predefined.put(NUMBER_IDENTIFIER, number.cast());
             predefined.put(FUNCTION_NAME_IDENTIFIER, functionName());
@@ -213,10 +213,10 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetRowParser}
+     * {@see SpreadsheetRowReferenceParser}
      */
     public static Parser<ParserToken, SpreadsheetParserContext> row() {
-        return Cast.to(SpreadsheetRowParser.INSTANCE);
+        return Cast.to(SpreadsheetRowReferenceParser.INSTANCE);
     }
 
     /**

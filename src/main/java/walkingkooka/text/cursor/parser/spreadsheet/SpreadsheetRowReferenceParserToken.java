@@ -23,31 +23,31 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import java.util.Optional;
 
 /**
- * A column
+ * A row name.
  */
-public final class SpreadsheetColumnParserToken extends SpreadsheetLeafParserToken2<SpreadsheetColumn> {
+public final class SpreadsheetRowReferenceParserToken extends SpreadsheetLeafParserToken2<SpreadsheetRowReference> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetColumnParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetRowReferenceParserToken.class);
 
-    static SpreadsheetColumnParserToken with(final SpreadsheetColumn value, final String text){
+    static SpreadsheetRowReferenceParserToken with(final SpreadsheetRowReference value, final String text){
         checkValue(value);
         CharSequences.failIfNullOrEmpty(text, "text");
 
-        return new SpreadsheetColumnParserToken(value, text);
+        return new SpreadsheetRowReferenceParserToken(value, text);
     }
 
-    private SpreadsheetColumnParserToken(final SpreadsheetColumn value, final String text){
+    private SpreadsheetRowReferenceParserToken(final SpreadsheetRowReference value, final String text){
         super(value, text);
     }
 
     @Override
-    public SpreadsheetColumnParserToken setText(final String text) {
+    public SpreadsheetRowReferenceParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    SpreadsheetColumnParserToken replaceText(final String text) {
-        return new SpreadsheetColumnParserToken(this.value, text);
+    SpreadsheetRowReferenceParserToken replaceText(final String text) {
+        return new SpreadsheetRowReferenceParserToken(this.value, text);
     }
 
     @Override
@@ -66,8 +66,8 @@ public final class SpreadsheetColumnParserToken extends SpreadsheetLeafParserTok
     }
 
     @Override
-    public boolean isColumn() {
-        return true;
+    public boolean isColumnReference() {
+        return false;
     }
 
     @Override
@@ -106,13 +106,13 @@ public final class SpreadsheetColumnParserToken extends SpreadsheetLeafParserTok
     }
 
     @Override
-    public boolean isRow() {
+    public boolean isSymbol() {
         return false;
     }
 
     @Override
-    public boolean isSymbol() {
-        return false;
+    public boolean isRowReference() {
+        return true;
     }
 
     @Override
@@ -132,7 +132,7 @@ public final class SpreadsheetColumnParserToken extends SpreadsheetLeafParserTok
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetColumnParserToken;
+        return other instanceof SpreadsheetRowReferenceParserToken;
     }
 
     @Override

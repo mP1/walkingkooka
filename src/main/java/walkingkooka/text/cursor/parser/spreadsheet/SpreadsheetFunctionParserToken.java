@@ -98,7 +98,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     }
 
     @Override
-    public boolean isCell() {
+    public boolean isCellReference() {
         return false;
     }
 

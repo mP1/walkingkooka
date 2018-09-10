@@ -34,7 +34,7 @@ abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetLeafParserTok
     }
 
     @Override
-    public final boolean isColumn() {
+    public final boolean isColumnReference() {
         return false;
     }
 
@@ -64,7 +64,7 @@ abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetLeafParserTok
     }
 
     @Override
-    public final boolean isRow() {
+    public final boolean isRowReference() {
         return false;
     }
 }

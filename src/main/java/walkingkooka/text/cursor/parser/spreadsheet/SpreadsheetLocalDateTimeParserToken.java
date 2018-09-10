@@ -68,7 +68,7 @@ public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetLeafPa
     }
 
     @Override
-    public boolean isColumn() {
+    public boolean isColumnReference() {
         return false;
     }
 
@@ -108,7 +108,7 @@ public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetLeafPa
     }
 
     @Override
-    public boolean isRow() {
+    public boolean isRowReference() {
         return false;
     }
 
