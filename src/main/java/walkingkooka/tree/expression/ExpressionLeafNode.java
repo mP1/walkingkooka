@@ -179,13 +179,6 @@ abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> 
         return false;
     }
 
-    // Evaluation ....................................................................................................
-
-    @Override
-    public final V toValue(final ExpressionEvaluationContext context) {
-        return this.value();
-    }
-
     // Object ......................................................................................................
 
     @Override

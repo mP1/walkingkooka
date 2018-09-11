@@ -121,42 +121,51 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
 
     @Override
     public final boolean toBoolean(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toBoolean(context);
+        return this.toExpressionNode(context).toBoolean(context);
     }
 
     @Override
     public final double toDouble(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toDouble(context);
+        return this.toExpressionNode(context).toDouble(context);
     }
 
     @Override
     public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toLocalDate(context);
+        return this.toExpressionNode(context).toLocalDate(context);
     }
 
     @Override
     public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toLocalDateTime(context);
+        return this.toExpressionNode(context).toLocalDateTime(context);
     }
 
     @Override
     public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toLocalTime(context);
+        return this.toExpressionNode(context).toLocalTime(context);
     }
-    
+
     @Override
     public final long toLong(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toLong(context);
+        return this.toExpressionNode(context).toLong(context);
     }
 
     @Override
     public final Number toNumber(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toNumber(context);
+        return this.toExpressionNode(context).toNumber(context);
     }
 
     @Override
     public final String toText(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toText(context);
+        return this.toExpressionNode(context).toText(context);
+    }
+
+    @Override
+    public final Object toValue(final ExpressionEvaluationContext context) {
+        return this.toExpressionNode(context).toValue(context);
+    }
+
+    private ExpressionNode toExpressionNode(final ExpressionEvaluationContext context) {
+        return context.reference(this.value);
     }
 
     // Object ....................................................................................................

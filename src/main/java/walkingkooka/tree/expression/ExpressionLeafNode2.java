@@ -83,4 +83,9 @@ abstract class ExpressionLeafNode2<V> extends ExpressionLeafNode<V> {
     public final String toText(final ExpressionEvaluationContext context) {
         return context.convert(this.value(), String.class);
     }
+
+    @Override
+    public final V toValue(final ExpressionEvaluationContext context) {
+        return this.value();
+    }
 }
