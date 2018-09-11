@@ -134,7 +134,7 @@ abstract public class ClassTestCase<T> extends TestCase {
         }
     }
 
-    final void checkConstructorIsPublic(final Constructor<?> constructor) {
+    final protected void checkConstructorIsPublic(final Constructor<?> constructor) {
         if (false == this.isPublic(constructor)) {
             Assert.fail("Constructor is not public=" + constructor);
         }

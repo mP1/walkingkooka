@@ -21,6 +21,8 @@ package walkingkooka.tree.expression;
 import org.junit.Test;
 import walkingkooka.ContextTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class ExpressionEvaluationContextTestCase<C extends ExpressionEvaluationContext> extends ContextTestCase<C> {
 
     @Test
@@ -51,5 +53,11 @@ public abstract class ExpressionEvaluationContextTestCase<C extends ExpressionEv
     @Test(expected = NullPointerException.class)
     public void testConvertNullTargetTypeFails() {
         this.createContext().convert("value", null);
+    }
+
+    protected void toValueAndCheck(final ExpressionNode node, final ExpressionEvaluationContext context, final Object value) {
+        assertEquals("ExpressionNode.toValue failed, node=" + node + " context=" + context,
+                value,
+                node.toValue(context));
     }
 }
