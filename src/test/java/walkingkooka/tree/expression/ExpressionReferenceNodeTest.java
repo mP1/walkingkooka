@@ -102,6 +102,11 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
         this.evaluateAndCheckText(this.createExpressionNode(), this.context("123"), "123");
     }
 
+    @Test
+    public void testToValue() {
+        this.evaluateAndCheckValue(this.createExpressionNode(), this.context("123"), "123");
+    }
+
     // ToString ...................................................................................................
 
     @Test

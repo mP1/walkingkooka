@@ -317,6 +317,19 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         this.checkEquals("toText of " + node + " failed", expected, node.toText(context));
     }
 
+    final void evaluateAndCheckValue(final ExpressionNode node, final Object expected) {
+        this.evaluateAndCheckValue(node, this.context(), expected);
+    }
+
+    final void evaluateAndCheckValue(final ExpressionNode node, final ExpressionEvaluationContext context, final Object expected) {
+        final Object value = node.toValue(context);
+        if(expected instanceof Comparable && value instanceof Comparable) {
+            this.checkEquals("toValue of " + node + " failed", Cast.to(expected), Cast.to(value));
+        } else {
+            assertEquals("toValue of " + node + " failed", expected, value);
+        }
+    }
+
     private <T extends Comparable<T>> void checkEquals(final String message, final T expected, final T actual) {
         // necessary because BigDecimals of different precisions (extra zeros) will not be equal.
         if(0!=expected.compareTo(actual)){
