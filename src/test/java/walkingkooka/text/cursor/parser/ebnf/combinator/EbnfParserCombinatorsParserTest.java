@@ -31,9 +31,10 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
+import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokens;
@@ -53,6 +54,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfParserContext;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRangeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRepeatedParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
 
 import java.io.IOException;
@@ -356,9 +358,10 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
     private Parser<ParserToken, FakeParserContext> createParser(final String grammarResourceFile) {
         final EbnfGrammarParserToken grammar = this.grammar(grammarResourceFile);
 
-        final Map<EbnfIdentifierName, Parser<ParserToken, FakeParserContext>> defaults = Maps.hash();
+        final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> defaults = Maps.hash();
         defaults.put(EbnfIdentifierName.with("LETTERS"), Parsers.stringCharPredicate(CharPredicates.letter(), 1, Integer.MAX_VALUE).cast());
-        final Map<EbnfIdentifierName, Parser<ParserToken, FakeParserContext>> all = grammar.combinator(defaults, this.syntaxTreeTransformer());
+        final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> all = grammar.combinator(defaults,
+                this.syntaxTreeTransformer(grammar));
 
         final Parser<ParserToken, FakeParserContext> test = Cast.to(all.get(TEST));
         Assert.assertNotNull(TEST + " parser not found in grammar\n" + grammar, test);
@@ -389,65 +392,76 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
         }
     }
 
-    private EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer() {
-        return new EbnfParserCombinatorSyntaxTreeTransformer<FakeParserContext>() {
+    private EbnfParserCombinatorSyntaxTreeTransformer syntaxTreeTransformer(final EbnfGrammarParserToken grammar) {
+        final Map<EbnfIdentifierName, EbnfParserToken> identifierToToken = Maps.sorted();
+        grammar.value()
+                .stream()
+                .filter(t -> t instanceof EbnfParserToken)
+                .map(t -> EbnfParserToken.class.cast(t))
+                .filter(t -> t.isRule())
+                .map(t -> EbnfRuleParserToken.class.cast(t))
+                .forEach(rule -> {
+                    identifierToToken.put(rule.identifier().value(), rule.token());
+                });
+
+        return new EbnfParserCombinatorSyntaxTreeTransformer() {
             @Override
-            public Parser<ParserToken, FakeParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, FakeParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, ParserContext> parser) {
                 return parser.transform((sequenceParserToken, fakeParserContext) -> {
                     return sequenceParserToken.removeMissing();
                 });
             }
 
             @Override
-            public Parser<ParserToken, FakeParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<ParserToken, ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, FakeParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<ParserToken, ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, FakeParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, FakeParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<ParserToken, ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, FakeParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, FakeParserContext> ignored, final EbnfParserCombinatorContext context) {
-                final char begin = this.characterForIdentifierOrTerminal(token.begin(), context);
-                final char end = this.characterForIdentifierOrTerminal(token.end(), context);
+            public Parser<ParserToken, ParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, ParserContext> ignored) {
+                final char begin = this.characterForIdentifierOrTerminal(token.begin());
+                final char end = this.characterForIdentifierOrTerminal(token.end());
 
                 return Parsers.<FakeParserContext>stringCharPredicate(CharPredicates.range(begin, end), 1, 1)
                         .setToString(token.toString())
                         .cast();
             }
 
-            private char characterForIdentifierOrTerminal(final EbnfParserToken token, final EbnfParserCombinatorContext context) {
+            private char characterForIdentifierOrTerminal(final EbnfParserToken token) {
                 return token.isTerminal() ?
                         this.characterFromTerminal(token.cast()) :
                         token.isIdentifier() ?
-                                this.characterFromIdentifierReference(token.cast(), context) :
+                                this.characterFromIdentifierReference(token.cast()) :
                                 failInvalidRangeBound("Invalid range bound, expected terminal or identifier indirectly pointing to a terminal but got " + token, token);
             }
 
-            private char characterFromIdentifierReference(final EbnfIdentifierParserToken identifier, final EbnfParserCombinatorContext context) {
+            private char characterFromIdentifierReference(final EbnfIdentifierParserToken identifier) {
                 final EbnfIdentifierName identifierName = identifier.value();
-                final Optional<EbnfParserToken> target = context.parserToken(identifierName);
-                if(!target.isPresent()) {
+                final EbnfParserToken target = identifierToToken.get(identifierName);
+                if(null==target) {
                     this.failInvalidRangeBound("Unknown identifier \"" + identifierName + "\"", identifier);
                 }
-                return this.characterForIdentifierOrTerminal(target.get(), context);
+                return this.characterForIdentifierOrTerminal(target);
             }
 
             private char characterFromTerminal(final EbnfTerminalParserToken terminal) {
@@ -464,12 +478,12 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
             }
 
             @Override
-            public Parser<RepeatedParserToken, FakeParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<RepeatedParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<RepeatedParserToken, ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<RepeatedParserToken, ParserContext> parser) {
                 return parser;
             }
 
             @Override
-            public Parser<ParserToken, FakeParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, FakeParserContext> parser, final EbnfParserCombinatorContext context) {
+            public Parser<ParserToken, ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, ParserContext> parser) {
                 return parser.transform((stringParserToken, contextIgnored) -> {
                     ParserToken result = stringParserToken;
                     try {

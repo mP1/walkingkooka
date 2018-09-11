@@ -21,6 +21,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.RepeatedParserToken;
@@ -35,7 +36,6 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfOptionalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRangeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRepeatedParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
-import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorContext;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformer;
 
 import java.util.Iterator;
@@ -46,14 +46,14 @@ import java.util.stream.Collectors;
  * A {@link EbnfParserCombinatorSyntaxTreeTransformer} that only transforms terminal and ranges into their corresponding {@link SpreadsheetParserToken} equivalents.
  * Processing of other tokens will be done after this process completes.
  */
-final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer<SpreadsheetParserContext> {
+final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
     @Override
-    public Parser<ParserToken, SpreadsheetParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, SpreadsheetParserContext> parser, final EbnfParserCombinatorContext context) {
+    public Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, SpreadsheetParserContext> concatenation(final EbnfConcatenationParserToken token, Parser<SequenceParserToken, SpreadsheetParserContext> parser, EbnfParserCombinatorContext context) {
+    public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, Parser<SequenceParserToken, ParserContext> parser) {
         // needs to examine tokens and wrap.. might be a group, or other type of tokens.
         return parser.transform(this::concatenation);
     }
@@ -66,7 +66,7 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
      * (* cell column/row OR label *)
      * CELL			        = COLUMN_ROW | LABEL_NAME;
      */
-    private ParserToken concatenation(final SequenceParserToken sequence, final SpreadsheetParserContext context) {
+    private ParserToken concatenation(final SequenceParserToken sequence, final ParserContext context) {
         ParserToken result;
 
         for(;;){
@@ -196,24 +196,24 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
     }
 
     @Override
-    public Parser<ParserToken, SpreadsheetParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, SpreadsheetParserContext> parser, final EbnfParserCombinatorContext context) {
+    public Parser<ParserToken, ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, SpreadsheetParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, SpreadsheetParserContext> parser, final EbnfParserCombinatorContext context) {
+    public Parser<ParserToken, ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, SpreadsheetParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, SpreadsheetParserContext> parser, final EbnfParserCombinatorContext context) {
+    public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, ParserContext> parser) {
         return token.value().value().endsWith("REQUIRED") ?
                 parser.orReport(ParserReporters.basic()) :
                 parser; // leave as is...
     }
 
     @Override
-    public Parser<ParserToken, SpreadsheetParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, SpreadsheetParserContext> parser, final EbnfParserCombinatorContext context) {
+    public Parser<ParserToken, ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, ParserContext> parser) {
         return parser;
     }
 
@@ -221,17 +221,17 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
      * Accepts the bounds tokens and creates a {@link SpreadsheetRangeParserToken}
      */
     @Override
-    public Parser<ParserToken, SpreadsheetParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, SpreadsheetParserContext> parser, final EbnfParserCombinatorContext contextd) {
+    public Parser<ParserToken, ParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, ParserContext> parser) {
         return parser.transform((sequenceParserToken, spreadsheetParserContext) -> SpreadsheetParserToken.range(Cast.to(sequenceParserToken.value()), sequenceParserToken.text()));
     }
 
     @Override
-    public Parser<RepeatedParserToken, SpreadsheetParserContext> repeated(final EbnfRepeatedParserToken token, Parser<RepeatedParserToken, SpreadsheetParserContext> parser, EbnfParserCombinatorContext context) {
+    public Parser<RepeatedParserToken, ParserContext> repeated(final EbnfRepeatedParserToken token, Parser<RepeatedParserToken, ParserContext> parser) {
         return parser;
     }
 
     @Override
-    public Parser<ParserToken, SpreadsheetParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, SpreadsheetParserContext> parser, final EbnfParserCombinatorContext context) {
+    public Parser<ParserToken, ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, ParserContext> parser) {
         throw new UnsupportedOperationException(token.toString());
     }
 }

@@ -39,27 +39,27 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
  * The {@link Context} accompanying a conversion of a {@link walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParser}
  * tokens (the lexer part) into a syntax tree token using this {@link EbnfParserCombinatorSyntaxTreeTransformer}.
  * <br>
- * Note if a different parser object is returned by {@link #terminal(EbnfTerminalParserToken, Parser, EbnfParserCombinatorContext)},
- * it will be ignored by {@link #range(EbnfRangeParserToken, Parser, EbnfParserCombinatorContext)} which reads the
+ * Note if a different parser object is returned by {@link #terminal(EbnfTerminalParserToken, Parser)},
+ * it will be ignored by {@link #range(EbnfRangeParserToken, Parser)} which reads the
  * tokens from the range token.
  */
-public interface EbnfParserCombinatorSyntaxTreeTransformer<C extends ParserContext> extends Context {
+public interface EbnfParserCombinatorSyntaxTreeTransformer extends Context {
 
-    Parser<ParserToken, C> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser);
 
-    Parser<ParserToken, C> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, ParserContext> parser);
 
-    Parser<ParserToken, C> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<ParserToken, ParserContext> exception(final EbnfExceptionParserToken token, final Parser<ParserToken, ParserContext> parser);
 
-    Parser<ParserToken, C> group(final EbnfGroupParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<ParserToken, ParserContext> group(final EbnfGroupParserToken token, final Parser<ParserToken, ParserContext> parser);
 
-    Parser<ParserToken, C> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, ParserContext> parser);
 
-    Parser<ParserToken, C> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<ParserToken, ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserToken, ParserContext> parser);
 
-    Parser<ParserToken, C> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, C> parser, final EbnfParserCombinatorContext contextd);
+    Parser<ParserToken, ParserContext> range(final EbnfRangeParserToken token, final Parser<SequenceParserToken, ParserContext> parserd);
 
-    Parser<RepeatedParserToken, C> repeated(final EbnfRepeatedParserToken token, final Parser<RepeatedParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<RepeatedParserToken, ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<RepeatedParserToken, ParserContext> parser);
 
-    Parser<ParserToken, C> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, C> parser, final EbnfParserCombinatorContext context);
+    Parser<ParserToken, ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<StringParserToken, ParserContext> parser);
 }
