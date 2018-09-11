@@ -20,5 +20,5 @@ package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.text.cursor.parser.ParserContext;
 
-public class JsonNodeParserContext implements ParserContext {
+public interface JsonNodeParserContext extends ParserContext {
 }

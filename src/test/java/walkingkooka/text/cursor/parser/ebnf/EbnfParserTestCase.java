@@ -63,7 +63,7 @@ public abstract class EbnfParserTestCase<T extends EbnfParserToken> extends Pars
 
     @Override
     protected final EbnfParserContext createContext() {
-        return new EbnfParserContext();
+        return EbnfParserContexts.basic();
     }
 
     final EbnfParserToken comment1() {

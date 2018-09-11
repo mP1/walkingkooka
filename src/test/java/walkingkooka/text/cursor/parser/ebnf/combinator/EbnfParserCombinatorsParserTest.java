@@ -50,7 +50,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfGroupParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfOptionalParserToken;
-import walkingkooka.text.cursor.parser.ebnf.EbnfParserContext;
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserContexts;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRangeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRepeatedParserToken;
@@ -376,7 +376,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
             final String text = this.resourceAsText(classs, classs.getSimpleName() + "/" + resourceName);
             final TextCursor cursor = TextCursors.charSequence(text);
             final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser()
-                    .parse(cursor, new EbnfParserContext());
+                    .parse(cursor, EbnfParserContexts.basic());
             if (!grammar.isPresent()) {
                 fail("Failed to parse a grammar from " + CharSequences.quote(resourceName) + "\n" + text);
             }
