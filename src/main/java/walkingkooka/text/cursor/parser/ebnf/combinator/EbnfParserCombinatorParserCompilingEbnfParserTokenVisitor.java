@@ -55,11 +55,13 @@ import java.util.Map.Entry;
 /**
  * Compiles all tokens, passing each token to the {@link EbnfParserCombinatorSyntaxTreeTransformer} allowing substitution.
  */
-final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends ParserToken, C extends ParserContext> extends EbnfParserTokenVisitor {
+final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends EbnfParserTokenVisitor {
 
-    EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor(final EbnfParserCombinatorContext context) {
+    EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser,
+                                                              final EbnfParserCombinatorSyntaxTreeTransformer transformer) {
         super();
-        this.context = context;
+        this.identifierToParser = identifierToParser;
+        this.transformer = transformer;
     }
 
     // GRAMMAR ........................................................................................................
@@ -84,19 +86,19 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
         // replace all EbnfParserCombinatorProxyParser with the parser they are wrapping. This also has the advantage that
         // all parsers display their complete source.
 
-        this.context.identifierToParser.entrySet().forEach(identifierAndParser -> {
+        this.identifierToParser.entrySet().forEach(identifierAndParser -> {
             this.fixRuleParserToString(identifierAndParser);
         });
         super.endVisit(token);
     }
 
-    private void fixRuleParserToString(final Entry<EbnfIdentifierName, Parser<ParserToken, C>> identifierAndParser) {
+    private void fixRuleParserToString(final Entry<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierAndParser) {
         final EbnfIdentifierName identifier = identifierAndParser.getKey();
-        final Parser<ParserToken, C> parser = identifierAndParser.getValue();
+        final Parser<ParserToken, ParserContext> parser = identifierAndParser.getValue();
 
         // Not all parsers may be proxy, because some parsers may be present in the initial map.
         if(parser instanceof EbnfParserCombinatorProxyParser) {
-            final EbnfParserCombinatorProxyParser<ParserToken, C> proxy = Cast.to(parser);
+            final EbnfParserCombinatorProxyParser<ParserToken, ParserContext> proxy = Cast.to(parser);
 
             // the proxy will be lost but thats okay as we have the real parser now. Any forward refs will continue to hold the proxy.
             EbnfRuleParserToken rule = this.identifierToRule.get(identifier);
@@ -122,7 +124,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
         this.accept(rule.token());
 
         // update the proxy holding all references to this rule...
-        final EbnfParserCombinatorProxyParser<?, C> proxy = Cast.to(this.context.identifierToParser.get(rule.identifier().value()));
+        final EbnfParserCombinatorProxyParser<?, ParserContext> proxy = Cast.to(this.identifierToParser.get(rule.identifier().value()));
         proxy.parser = Cast.to(this.children.get(0));
 
         return Visiting.SKIP; // skip because we dont want to visit LHS of rule.
@@ -143,11 +145,11 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void endVisit(final EbnfAlternativeParserToken token) {
-        final Parser<ParserToken, C> parser = Parsers.alternatives(this.children)
+        final Parser<ParserToken, ParserContext> parser = Parsers.alternatives(this.children)
                 .setToString(token.toString());
         this.exit();
         this.add(
-                this.context.syntaxTreeTransformer.alternatives(token, parser, this.context),
+                this.transformer.alternatives(token, parser),
                 token);
     }
 
@@ -161,16 +163,16 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void endVisit(final EbnfConcatenationParserToken token) {
-        final SequenceParserBuilder<C> b = Parsers.sequenceParserBuilder();
+        final SequenceParserBuilder<ParserContext> b = Parsers.sequenceParserBuilder();
         this.children.stream()
                 .forEach(p -> {
                     b.required(p);
                 });
-        final Parser<SequenceParserToken, C> parser = b.build()
+        final Parser<SequenceParserToken, ParserContext> parser = b.build()
                 .setToString(token.toString());
         this.exit();
         this.add(
-                this.context.syntaxTreeTransformer.concatenation(token, parser, this.context),
+                this.transformer.concatenation(token, parser),
                 token);
     }
 
@@ -184,14 +186,14 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void endVisit(final EbnfExceptionParserToken token) {
-        final Parser<ParserToken, C> left = this.children.get(0);
-        final Parser<ParserToken, C> right = this.children.get(1);
-        final Parser<ParserToken, C> parser = left.andNot(right)
+        final Parser<ParserToken, ParserContext> left = this.children.get(0);
+        final Parser<ParserToken, ParserContext> right = this.children.get(1);
+        final Parser<ParserToken, ParserContext> parser = left.andNot(right)
                 .setToString(token.toString())
                 .cast();
         this.exit();
         this.add(
-                this.context.syntaxTreeTransformer.exception(token, parser, this.context),
+                this.transformer.exception(token, parser),
                 token);
     }
 
@@ -205,11 +207,11 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void endVisit(final EbnfGroupParserToken token) {
-        final Parser<ParserToken, C> parser = this.children.get(0)
+        final Parser<ParserToken, ParserContext> parser = this.children.get(0)
                 .setToString(token.toString());
         this.exit();
         this.add(
-                this.context.syntaxTreeTransformer.group(token, parser, this.context),
+                this.transformer.group(token, parser),
                 token);
     }
 
@@ -223,13 +225,13 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void endVisit(final EbnfOptionalParserToken token) {
-        final Parser<ParserToken, C> parser = this.children.get(0)
+        final Parser<ParserToken, ParserContext> parser = this.children.get(0)
                 .optional(ParserTokenNodeName.with(0))
                 .setToString(token.toString());
 
         this.exit();
         this.add(
-                this.context.syntaxTreeTransformer.optional(token, parser, this.context),
+                this.transformer.optional(token, parser),
                 token);
     }
 
@@ -243,16 +245,16 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void endVisit(final EbnfRangeParserToken token) {
-        final SequenceParserBuilder<C> b = Parsers.sequenceParserBuilder();
+        final SequenceParserBuilder<ParserContext> b = Parsers.sequenceParserBuilder();
         this.children.stream()
                 .forEach(p -> {
                     b.required(p);
                 });
-        final Parser<SequenceParserToken, C> parser = b.build()
+        final Parser<SequenceParserToken, ParserContext> parser = b.build()
                 .setToString(token.toString());
         this.exit();
         this.add(
-                this.context.syntaxTreeTransformer.range(token, parser, this.context),
+                this.transformer.range(token, parser),
                 token);
     }
 
@@ -266,11 +268,11 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void endVisit(final EbnfRepeatedParserToken token) {
-        final Parser<RepeatedParserToken, C> parser = Parsers.repeated(this.children.get(0))
+        final Parser<RepeatedParserToken, ParserContext> parser = Parsers.repeated(this.children.get(0))
                 .setToString(token.toString());
         this.exit();
         this.add(
-                this.context.syntaxTreeTransformer.repeated(token, parser, this.context),
+                this.transformer.repeated(token, parser),
                 token);
     }
 
@@ -279,9 +281,8 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
     @Override
     protected void visit(final EbnfIdentifierParserToken identifier) {
         this.add(
-                this.context.syntaxTreeTransformer.identifier(identifier,
-                        this.context.identifierToParser.get(identifier.value()),
-                        this.context),
+                this.transformer.identifier(identifier,
+                        this.identifierToParser.get(identifier.value())),
                 identifier);
     }
 
@@ -289,10 +290,10 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
 
     @Override
     protected void visit(final EbnfTerminalParserToken token) {
-        final Parser<StringParserToken, C> parser = Parsers.<C>string(token.value())
+        final Parser<StringParserToken, ParserContext> parser = Parsers.<ParserContext>string(token.value())
                 .setToString(token.toString());
         this.add(
-                this.context.syntaxTreeTransformer.terminal(token, parser, this.context),
+                this.transformer.terminal(token, parser),
                 token);
     }
 
@@ -308,22 +309,23 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor<T extends 
         this.previousChildren = this.previousChildren.pop();
     }
 
-    private Stack<List<Parser<ParserToken, C>>> previousChildren = Stacks.arrayList();
+    private Stack<List<Parser<ParserToken, ParserContext>>> previousChildren = Stacks.arrayList();
 
-    private List<Parser<ParserToken, C>> children;
+    private List<Parser<ParserToken, ParserContext>> children;
 
-    private void add(final Parser<? extends ParserToken, C> parser, final EbnfParserToken token) {
+    private void add(final Parser<? extends ParserToken, ParserContext> parser, final EbnfParserToken token) {
         if(null == parser) {
             throw new NullPointerException("Null parser returned for " + token);
         }
         this.children.add(parser.cast());
     }
 
-    private final EbnfParserCombinatorContext<C> context;
+    private final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser;
+    private final EbnfParserCombinatorSyntaxTreeTransformer transformer;
 
     @Override
     public String toString() {
-        return this.context.toString();
+        return this.identifierToParser.toString();
     }
 }
 
