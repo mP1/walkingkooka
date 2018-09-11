@@ -19,8 +19,19 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.util.variable.Variable;
+
+import java.util.Set;
 
 public final class ExpressionEvaluationContexts implements PublicStaticHelper {
+
+    /**
+     * {@see CycleDetectingExpressionEvaluationContext}
+     */
+    public static ExpressionEvaluationContext cycleDetecting(final ExpressionEvaluationContext context,
+                                                             final Variable<Set<ExpressionReference>> cycles) {
+        return CycleDetectingExpressionEvaluationContext.with(context, cycles);
+    }
 
     /**
      * {@see FakeExpressionEvaluationContext}
