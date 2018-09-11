@@ -15,13 +15,22 @@
  *
  *
  */
+package walkingkooka.text.cursor.parser.ebnf;
 
-package walkingkooka.text.cursor.parser.spreadsheet;
-
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.text.cursor.parser.SequenceParserBuilder;
+import walkingkooka.text.cursor.parser.StringParserToken;
 
-/**
- * A {@link ParserContext} for all spreadsheet parsers.
- */
-public interface SpreadsheetParserContext extends ParserContext {
+final class BasicEbnfParserContext implements EbnfParserContext {
+
+    static BasicEbnfParserContext create() {
+        return new BasicEbnfParserContext();
+    }
+
+    private BasicEbnfParserContext() {
+    }
 }

@@ -18,10 +18,14 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.Context;
+public final class BasicEbnfParserCombinatorContextTest extends EbnfParserCombinatorContextTestCase<BasicEbnfParserCombinatorContext> {
+    @Override
+    protected BasicEbnfParserCombinatorContext createContext() {
+        return BasicEbnfParserCombinatorContext.create();
+    }
 
-/**
- * The {@link Context} accompanying a transformation of an EBNF grammar to something else.
- */
-public interface EbnfParserCombinatorContext extends Context {
+    @Override
+    protected Class<BasicEbnfParserCombinatorContext> type() {
+        return BasicEbnfParserCombinatorContext.class;
+    }
 }

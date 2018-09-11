@@ -364,7 +364,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
     private static Parser<ParserToken, EbnfParserContext> symbol(final char c, final String name){
-        return EbnfParserContext.string(c)
+        return Parsers.<EbnfParserContext>stringCharPredicate(CharPredicates.is(c), 1, 1)
                 .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
                 .setToString(name)
                 .cast();
@@ -374,7 +374,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
     private static Parser<ParserToken, EbnfParserContext> symbol(final String symbol, final String name){
-        return EbnfParserContext.string(symbol)
+        return Parsers.string(symbol)
                 .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
                 .setToString(name)
                 .cast();

@@ -18,10 +18,18 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.Context;
-
 /**
- * The {@link Context} accompanying a transformation of an EBNF grammar to something else.
+ * A context accompanies a combinator exercise.
  */
-public interface EbnfParserCombinatorContext extends Context {
+final class BasicEbnfParserCombinatorContext implements EbnfParserCombinatorContext {
+
+    static BasicEbnfParserCombinatorContext create() {
+        return new BasicEbnfParserCombinatorContext();
+    }
+
+    /**
+     * Ctor
+     */
+    private BasicEbnfParserCombinatorContext() {
+    }
 }

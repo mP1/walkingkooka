@@ -339,7 +339,7 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
 
     @Override
     protected JsonNodeParserContext createContext() {
-        return new JsonNodeParserContext();
+        return JsonNodeParserContexts.basic();
     }
 
     private JsonNodeParserToken arrayBegin() {

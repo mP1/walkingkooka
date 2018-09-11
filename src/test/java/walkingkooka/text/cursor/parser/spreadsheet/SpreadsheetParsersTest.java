@@ -729,7 +729,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Override
     protected SpreadsheetParserContext createContext() {
-        return new SpreadsheetParserContext();
+        return SpreadsheetParserContexts.basic();
     }
 
     private SpreadsheetParserToken bigInteger(final int value){

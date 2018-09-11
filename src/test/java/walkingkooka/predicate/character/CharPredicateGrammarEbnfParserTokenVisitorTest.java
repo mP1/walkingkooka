@@ -32,7 +32,7 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserTokenInvalidReferencesException;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
-import walkingkooka.text.cursor.parser.ebnf.EbnfParserContext;
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserContexts;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
 
@@ -183,7 +183,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
             final String text = this.resourceAsText(classs, classs.getSimpleName() + "/" + resourceName);
             final TextCursor cursor = TextCursors.charSequence(text);
             final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser()
-                    .parse(cursor, new EbnfParserContext());
+                    .parse(cursor, EbnfParserContexts.basic());
             if (!grammar.isPresent()) {
                 fail("Failed to parse a grammar from " + CharSequences.quote(resourceName) + "\n" + text);
             }

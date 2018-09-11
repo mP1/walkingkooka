@@ -16,12 +16,16 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.ebnf.combinator;
+package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.Context;
+public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserContextTestCase<BasicSpreadsheetParserContext> {
+    @Override
+    protected BasicSpreadsheetParserContext createContext() {
+        return BasicSpreadsheetParserContext.create();
+    }
 
-/**
- * The {@link Context} accompanying a transformation of an EBNF grammar to something else.
- */
-public interface EbnfParserCombinatorContext extends Context {
+    @Override
+    protected Class<BasicSpreadsheetParserContext> type() {
+        return BasicSpreadsheetParserContext.class;
+    }
 }

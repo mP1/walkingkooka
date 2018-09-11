@@ -18,10 +18,18 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.Context;
+import walkingkooka.test.PublicStaticHelperTestCase;
 
-/**
- * The {@link Context} accompanying a transformation of an EBNF grammar to something else.
- */
-public interface EbnfParserCombinatorContext extends Context {
+import java.lang.reflect.Method;
+
+public final class EbnfParserCombinatorContextsTest extends PublicStaticHelperTestCase<EbnfParserCombinatorContexts> {
+    @Override
+    protected Class<EbnfParserCombinatorContexts> type() {
+        return EbnfParserCombinatorContexts.class;
+    }
+
+    @Override
+    protected boolean canHavePublicTypes(Method method) {
+        return false;
+    }
 }

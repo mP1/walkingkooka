@@ -16,12 +16,9 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.ebnf.combinator;
+package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.Context;
+import walkingkooka.text.cursor.parser.ParserContextTestCase;
 
-/**
- * The {@link Context} accompanying a transformation of an EBNF grammar to something else.
- */
-public interface EbnfParserCombinatorContext extends Context {
+public abstract class EbnfParserContextTestCase<C extends EbnfParserContext> extends ParserContextTestCase<C> {
 }

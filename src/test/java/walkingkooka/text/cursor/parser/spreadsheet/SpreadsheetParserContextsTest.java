@@ -16,18 +16,20 @@
  *
  */
 
-package walkingkooka.tree.file;
+package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.ContextTestCase;
+import walkingkooka.test.PublicStaticHelperTestCase;
 
-public final class FileNodeContextTest extends ContextTestCase<FileNodeContext> {
+import java.lang.reflect.Method;
+
+public final class SpreadsheetParserContextsTest extends PublicStaticHelperTestCase<SpreadsheetParserContexts> {
     @Override
-    protected FileNodeContext createContext() {
-        return null;
+    protected Class<SpreadsheetParserContexts> type() {
+        return SpreadsheetParserContexts.class;
     }
 
     @Override
-    protected Class<FileNodeContext> type() {
-        return FileNodeContext.class;
+    protected boolean canHavePublicTypes(Method method) {
+        return false;
     }
 }

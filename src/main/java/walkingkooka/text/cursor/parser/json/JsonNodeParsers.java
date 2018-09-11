@@ -31,7 +31,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
-import walkingkooka.text.cursor.parser.ebnf.EbnfParserContext;
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserContexts;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
@@ -157,7 +157,7 @@ public final class JsonNodeParsers implements PublicStaticHelper {
     private static Parser<ParserToken, ParserContext> value0() {
         try {
             final TextCursor grammarFile = TextCursors.charSequence(readGrammarFile());
-            final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser().parse(grammarFile, new EbnfParserContext());
+            final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser().parse(grammarFile, EbnfParserContexts.basic());
             if (!grammar.isPresent() || !grammarFile.isEmpty()) {
                 final TextCursorSavePoint save = grammarFile.save();
                 grammarFile.end();

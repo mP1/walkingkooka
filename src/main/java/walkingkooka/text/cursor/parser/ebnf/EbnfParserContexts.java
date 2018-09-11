@@ -16,12 +16,23 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.ebnf.combinator;
+package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.Context;
+import walkingkooka.type.PublicStaticHelper;
 
-/**
- * The {@link Context} accompanying a transformation of an EBNF grammar to something else.
- */
-public interface EbnfParserCombinatorContext extends Context {
+public final class EbnfParserContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicEbnfParserContext}
+     */
+    public static EbnfParserContext basic() {
+        return BasicEbnfParserContext.create();
+    }
+
+    /**
+     * Stop creation.
+     */
+    private EbnfParserContexts() {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -27,6 +27,7 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContext;
+import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParsers;
 
@@ -197,7 +198,7 @@ public class ExpressionNodeEvaluationTest extends TestCase {
 
     private SpreadsheetParserToken parse(final String parse){
         final TextCursor cursor = TextCursors.charSequence(parse);
-        final Optional<SpreadsheetParserToken> spreadsheetFormula = this.createParser().parse(cursor, new SpreadsheetParserContext());
+        final Optional<SpreadsheetParserToken> spreadsheetFormula = this.createParser().parse(cursor, SpreadsheetParserContexts.basic());
         if(!spreadsheetFormula.isPresent()){
             fail("Parser failed to parse " + CharSequences.quoteAndEscape(parse));
         }

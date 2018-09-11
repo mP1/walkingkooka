@@ -18,9 +18,9 @@
 package walkingkooka;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-public abstract class ContextTestCase<C extends Context> extends PublicClassTestCase<C> {
+public abstract class ContextTestCase<C extends Context> extends PackagePrivateClassTestCase<C> {
 
     @Test
     public final void testNaming() {
