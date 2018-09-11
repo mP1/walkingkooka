@@ -19,6 +19,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Context;
+import walkingkooka.collect.list.Lists;
 
 import java.math.MathContext;
 import java.util.List;
@@ -27,6 +28,11 @@ import java.util.List;
  * Context that travels during any expression evaluation.
  */
 public interface ExpressionEvaluationContext extends Context {
+
+    /**
+     * Constant for functions without any parameters.
+     */
+    public final static List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
      * Locates a function with the given name and then executes it with the provided parameter values (not {@link ExpressionNode}

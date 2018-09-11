@@ -156,7 +156,7 @@ public class ExpressionNodeEvaluationTest extends TestCase {
         final ExpressionNodeName toTime = ExpressionNodeName.with("toTime");
 
         final ExpressionEvaluationContext context = ExpressionNodeTestCase.context();
-        return new ExpressionEvaluationContext() {
+        return new FakeExpressionEvaluationContext() {
             @Override
             public Object function(final ExpressionNodeName name, final List<Object> parameters) {
                 if(toDate.equals(name)){
