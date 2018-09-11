@@ -22,6 +22,7 @@ import walkingkooka.test.Fake;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Objects;
 
 public class FakeExpressionEvaluationContext implements ExpressionEvaluationContext, Fake {
 
@@ -31,11 +32,14 @@ public class FakeExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(parameters, "parameters");
         throw new UnsupportedOperationException();
     }
 
     @Override
     public ExpressionNode reference(final ExpressionReference reference) {
+        Objects.requireNonNull(reference, "reference");
         throw new UnsupportedOperationException();
     }
 
@@ -46,6 +50,9 @@ public class FakeExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public <T> T convert(final Object value, final Class<T> target) {
+        Objects.requireNonNull(value, "value");
+        Objects.requireNonNull(target, "target");
+
         throw new UnsupportedOperationException();
     }
 }
