@@ -96,7 +96,7 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see FixedParser}
      */
-    static <T extends ParserToken, C extends ParserContext> FixedParser<T, C> fixed(final Optional<T> result) {
+    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> fixed(final Optional<T> result) {
         return FixedParser.with(result);
     }
     
