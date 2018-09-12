@@ -18,12 +18,27 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.convert.Converter;
 import walkingkooka.type.PublicStaticHelper;
 import walkingkooka.util.variable.Variable;
 
+import java.math.MathContext;
+import java.util.List;
 import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public final class ExpressionEvaluationContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicExpressionEvaluationContext}
+     */
+    public static ExpressionEvaluationContext basic(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
+                                                 final Function<ExpressionReference, ExpressionNode> references,
+                                                 final MathContext mathContext,
+                                                 final Converter converter) {
+        return BasicExpressionEvaluationContext.with(functions, references, mathContext, converter);
+    }
 
     /**
      * {@see CycleDetectingExpressionEvaluationContext}
