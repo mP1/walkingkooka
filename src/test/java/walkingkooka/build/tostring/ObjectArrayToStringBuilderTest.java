@@ -20,6 +20,7 @@ package walkingkooka.build.tostring;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ObjectArrayToStringBuilderTest extends VectorToStringBuilderTestCase<Object[]> {
@@ -40,6 +41,28 @@ public class ObjectArrayToStringBuilderTest extends VectorToStringBuilderTestCas
         b.value(new Object[]{"ABC", 'z'});
 
         this.buildAndCheck(b, "\"ABC\", \'z\'");
+    }
+
+    @Test
+    public void testSurroundOptionalQuoted() {
+        final ToStringBuilder b = this.builder();
+        b.enable(ToStringBuilderOption.QUOTE);
+
+        b.surroundValues("((", "))");
+        b.value(new Object[]{Optional.of("1a"), 2});
+
+        this.buildAndCheck(b, "((\"1a\", 2))");
+    }
+
+    @Test
+    public void testSurroundOptionalUnquoted() {
+        final ToStringBuilder b = this.builder();
+        b.disable(ToStringBuilderOption.QUOTE);
+
+        b.surroundValues("((", "))");
+        b.value(new Object[]{Optional.of("1a"), 2});
+
+        this.buildAndCheck(b, "((1a, 2))");
     }
 
     @Override

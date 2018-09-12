@@ -17,6 +17,7 @@
 
 package walkingkooka.build.tostring;
 
+import walkingkooka.Cast;
 import walkingkooka.build.Builder;
 import walkingkooka.text.CharSequences;
 
@@ -719,11 +720,24 @@ final public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Adds an optional, with logicto skip optionals if {@link ToStringBuilderOption#SKIP_IF_DEFAULT_VALUE} is
+     * Adds an optional, with logic to skip optionals if {@link ToStringBuilderOption#SKIP_IF_DEFAULT_VALUE} is
      * true.
      */
     public ToStringBuilder value(final Optional<?> value) {
-        return this.value(null != value && value.isPresent() ? value.get() : null);
+        if ((value.isPresent())) {
+            this.value(value.get());
+        } else {
+            if (this.skipIfNotDefaultValue()) {
+                this.value(value.toString());
+            }
+        }
+        return this;
+    }
+
+    private void appendOptional(final Optional<?> value) {
+        if(value.isPresent()) {
+            this.appendValue(value.get());
+        }
     }
 
     /**
@@ -781,6 +795,10 @@ final public class ToStringBuilder implements Builder<String> {
             }
             if (value instanceof Enumeration) {
                 this.valueEnumeration((Enumeration<?>) value);
+                break;
+            }
+            if (value instanceof Optional) {
+                this.value(Cast.<Optional>to(value));
                 break;
             }
             if (value instanceof boolean[]) {
@@ -1078,6 +1096,10 @@ final public class ToStringBuilder implements Builder<String> {
             }
             if (value instanceof Object[]) {
                 this.appendArray((Object[]) value);
+                break;
+            }
+            if (value instanceof Optional) {
+                this.appendOptional(Cast.to(value));
                 break;
             }
             if (value instanceof short[]) {

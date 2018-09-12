@@ -33,6 +33,24 @@ public final class OptionalToStringBuilderTest extends ScalarToStringBuilderTest
         this.buildAndCheck(b, "abc");
     }
 
+    @Test
+    public void testOptionalQuoted() {
+        final ToStringBuilder b = this.builder();
+        b.enable(ToStringBuilderOption.QUOTE);
+        b.value(Optional.of("1a"));
+
+        this.buildAndCheck(b, "\"1a\"");
+    }
+
+    @Test
+    public void testOptionalUnquoted() {
+        final ToStringBuilder b = this.builder();
+        b.disable(ToStringBuilderOption.QUOTE);
+        b.value(Optional.of("1a"));
+
+        this.buildAndCheck(b, "1a");
+    }
+
     @Override
     void append(final ToStringBuilder builder, final Optional<Integer> value) {
         builder.append((Optional<Integer>) value);
@@ -60,7 +78,7 @@ public final class OptionalToStringBuilderTest extends ScalarToStringBuilderTest
 
     @Override
     String defaultValueToString() {
-        return "null";
+        return Optional.empty().toString();
     }
 
     @Override
