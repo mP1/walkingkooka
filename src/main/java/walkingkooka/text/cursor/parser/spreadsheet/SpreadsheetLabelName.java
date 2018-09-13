@@ -22,9 +22,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.expression.ExpressionReference;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -37,7 +35,7 @@ import java.util.function.Predicate;
  * For example, the name AB11 is invalid because AB11 is a valid cell reference. Names are not case sensitive.
  * </pre>
  */
-final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, Comparable<SpreadsheetLabelName>, ExpressionReference {
+final public class SpreadsheetLabelName extends SpreadsheetExpressionReference implements Name, Comparable<SpreadsheetLabelName> {
 
     private final static CharPredicate LETTER = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 
@@ -164,5 +162,22 @@ final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, 
     @Override
     public String toString() {
         return this.name;
+    }
+
+    // SpreadsheetExpressionReferenceComparator........................................................................
+
+    @Override
+    final int compare(final SpreadsheetExpressionReference other) {
+        return other.compare0(this);
+    }
+
+    @Override
+    final int compare0(final SpreadsheetCellReference other) {
+        return -LABEL_COMPARED_WITH_CELL_RESULT;
+    }
+
+    @Override
+    final int compare0(final SpreadsheetLabelName other) {
+        return other.name.compareToIgnoreCase(this.name);
     }
 }
