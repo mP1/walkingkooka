@@ -28,8 +28,8 @@ public final class SpreadsheetLabelNameParserTest extends SpreadsheetParserTestC
     }
 
     @Test
-    public void testColumnFail() {
-        this.parseFailAndCheck("A");
+    public void testColumnOnly() {
+        this.parseAndCheck2("A");
     }
 
     @Test

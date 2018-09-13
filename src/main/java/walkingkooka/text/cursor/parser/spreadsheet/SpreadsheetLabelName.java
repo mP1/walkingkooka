@@ -75,8 +75,16 @@ final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, 
         return name.length() < MAX_LENGTH;
     }
 
+    // modes used by isCellReference
+    private final static int MODE_COLUMN = 0;
+    private final static int MODE_ROW = MODE_COLUMN + 1;
+    private final static int MODE_FAIL = MODE_ROW + 1;
+
+    /**
+     * Tests if the {@link String name} is a valid cell reference.
+     */
     static boolean isCellReference(final String name) {
-        int mode = 0; // -1 too long or contains invalid char
+        int mode = MODE_COLUMN; // -1 too long or contains invalid char
         int column = 0;
         int row = 0;
 
@@ -86,28 +94,35 @@ final public class SpreadsheetLabelName implements Name, HashCodeEqualsDefined, 
             final char c = name.charAt(i);
 
             // try and parse into column + row
-            if (0 == mode) {
+            if (MODE_COLUMN == mode) {
                 final int digit = SpreadsheetColumnReferenceParser.valueFromDigit0(c);
                 if(-1 != digit){
                     column = column * SpreadsheetColumnReference.RADIX + digit;
+                    if(column >= SpreadsheetColumnReference.MAX) {
+                        mode = MODE_FAIL;
+                        break; // column is too big cant be a cell reference.
+                    }
                     continue;
                 }
-                mode = 1;
+                mode = MODE_ROW;
             }
-            if (1 == mode) {
+            if (MODE_ROW == mode) {
                 final int digit = Character.digit(c, SpreadsheetRowReference.RADIX);
                 if (-1 != digit) {
                     row = SpreadsheetRowReference.RADIX * row + digit;
+                    if(row >= SpreadsheetRowReference.MAX) {
+                        mode = MODE_FAIL;
+                        break; // row is too big cant be a cell reference.
+                    }
                     continue;
                 }
-                mode = 2;
+                mode = MODE_FAIL;
+                break;
             }
         }
 
-        return 0 == mode ||
-                (1 == mode &&
-                column < SpreadsheetColumnReference.MAX &&
-                row < SpreadsheetRowReference.MAX);
+        // ran out of characters still checking row must be a valid cell reference.
+        return MODE_ROW == mode;
     }
 
     /**

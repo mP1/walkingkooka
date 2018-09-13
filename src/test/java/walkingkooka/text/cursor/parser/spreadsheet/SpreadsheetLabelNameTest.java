@@ -73,17 +73,37 @@ final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabe
 
     @Test
     public void testWith3() {
-        this.createNameAndCheck("A" + (SpreadsheetRowReference.MAX + 1));
-    }
-
-    @Test
-    public void testWith4() {
         this.createNameAndCheck("A123Hello");
     }
 
     @Test
-    public void testWith5() {
+    public void testWith4() {
         this.createNameAndCheck("A1B2C2");
+    }
+
+    @Test
+    public void testWithMissingRow() {
+        this.createNameAndCheck("A");
+    }
+
+    @Test
+    public void testWithMissingRow2() {
+        this.createNameAndCheck("ABC");
+    }
+
+    @Test
+    public void testWithEnormousColumn() {
+        this.createNameAndCheck("ABCDEF1");
+    }
+
+    @Test
+    public void testWithEnormousColumn2() {
+        this.createNameAndCheck("ABCDEF");
+    }
+
+    @Test
+    public void testWithEnormousRow() {
+        this.createNameAndCheck("A" + (SpreadsheetRowReference.MAX + 1));
     }
 
     @Test
