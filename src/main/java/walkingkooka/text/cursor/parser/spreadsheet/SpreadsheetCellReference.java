@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A reference that includes a defined name or column and row.
  */
-public final class SpreadsheetCellReference extends SpreadsheetExpressionReference {
+public final class SpreadsheetCellReference extends SpreadsheetExpressionReference implements Comparable<SpreadsheetCellReference> {
 
     public static SpreadsheetCellReference with(final SpreadsheetColumnReference column, final SpreadsheetRowReference row){
         Objects.requireNonNull(column, "column");
@@ -71,6 +71,14 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
 
     public String toString() {
         return "" + this.column + this.row;
+    }
+
+    // Comparable ..................................................................................................
+
+    @Override
+    public int compareTo(final SpreadsheetCellReference other) {
+        // reverse sign because #compare0 does compare in reverse because of double dispatch.
+        return - this.compare0(other);
     }
 
     // SpreadsheetExpressionReferenceComparator........................................................................
