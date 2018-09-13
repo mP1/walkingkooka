@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
  * A {@link TestCase} for testing {@link Comparable comparables}. Many compareTo methods are
  * available that compare andassert the result.
  */
-abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassTestCase {
+abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassTestCase<C> {
 
     protected ComparableTestCase() {
         super();
@@ -39,7 +39,8 @@ abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassT
         this.compareToFails(null, NullPointerException.class);
     }
 
-    @Test final public void testSelfGivesZero() {
+    @Test
+    final public void testSelfGivesZero() {
         final C comparable = this.createComparable();
         this.compareToAndCheckEqual(comparable, comparable);
     }
