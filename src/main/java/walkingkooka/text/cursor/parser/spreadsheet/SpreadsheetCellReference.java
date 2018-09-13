@@ -18,15 +18,14 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.compare.Comparators;
 
 import java.util.Objects;
 
 /**
  * A reference that includes a defined name or column and row.
  */
-public final class SpreadsheetCellReference implements HashCodeEqualsDefined, ExpressionReference {
+public final class SpreadsheetCellReference extends SpreadsheetExpressionReference {
 
     public static SpreadsheetCellReference with(final SpreadsheetColumnReference column, final SpreadsheetRowReference row){
         Objects.requireNonNull(column, "column");
@@ -72,5 +71,25 @@ public final class SpreadsheetCellReference implements HashCodeEqualsDefined, Ex
 
     public String toString() {
         return "" + this.column + this.row;
+    }
+
+    // SpreadsheetExpressionReferenceComparator........................................................................
+
+    @Override
+    final int compare(final SpreadsheetExpressionReference other) {
+        return other.compare0(this);
+    }
+
+    @Override
+    final int compare0(final SpreadsheetCellReference other) {
+        final int result = other.column.value - this.column.value;
+        return Comparators.EQUAL != result ?
+               result :
+               other.row.value - this.row.value;
+    }
+
+    @Override
+    final int compare0(final SpreadsheetLabelName other) {
+        return LABEL_COMPARED_WITH_CELL_RESULT;
     }
 }
