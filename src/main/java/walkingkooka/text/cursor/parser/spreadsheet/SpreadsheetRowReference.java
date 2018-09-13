@@ -50,6 +50,13 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
         super(value, referenceKind);
     }
 
+    /**
+     * Creates a {@link SpreadsheetCellReference} from this row and the given column.
+     */
+    public SpreadsheetCellReference setColumn(final SpreadsheetColumnReference column) {
+        return column.setRow(this);
+    }
+
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetRowReference;

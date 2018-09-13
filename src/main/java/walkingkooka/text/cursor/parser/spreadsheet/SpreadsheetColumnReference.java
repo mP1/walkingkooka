@@ -51,6 +51,13 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
         super(value, referenceKind);
     }
 
+    /**
+     * Creates a {@link SpreadsheetCellReference} fromt this column and the new row.
+     */
+    public SpreadsheetCellReference setRow(final SpreadsheetRowReference row) {
+        return SpreadsheetCellReference.with(this, row);
+    }
+
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetColumnReference;
