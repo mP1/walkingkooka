@@ -65,7 +65,7 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
 
     @Test
     public void testToExpressionNode() {
-        this.toExpressionNodeAndCheck(ExpressionNode.reference(SpreadsheetCellReference.with(column().value(), row().value())));
+        this.toExpressionNodeAndCheck(ExpressionNode.reference(column().value().setRow(row().value())));
     }
 
     @Override

@@ -49,8 +49,7 @@ public final class SpreadsheetCellReferenceEqualityTest extends HashCodeEqualsDe
     }
 
     private SpreadsheetCellReference createSpreadsheetCell(final int column, final int row) {
-        return SpreadsheetCellReference.with(
-                SpreadsheetColumnReference.with(column, SpreadsheetReferenceKind.RELATIVE),
-                SpreadsheetRowReference.with(row, SpreadsheetReferenceKind.RELATIVE));
+        return SpreadsheetColumnReference.with(column, SpreadsheetReferenceKind.RELATIVE)
+                .setRow(SpreadsheetRowReference.with(row, SpreadsheetReferenceKind.RELATIVE));
     }
 }

@@ -20,7 +20,24 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public final class SpreadsheetRowReferenceTest extends SpreadsheetColumnOrRowReferenceTestCase<SpreadsheetRowReference> {
+
+    @Test(expected = NullPointerException.class)
+    public void testSetColumnNullFails() {
+        SpreadsheetReferenceKind.ABSOLUTE.row(23).setColumn(null);
+    }
+
+    @Test
+    public void testSetColumn() {
+        final SpreadsheetColumnReference column = SpreadsheetReferenceKind.ABSOLUTE.column(1);
+        final SpreadsheetRowReference row = SpreadsheetReferenceKind.ABSOLUTE.row(23);
+
+        final SpreadsheetCellReference cell = row.setColumn(column);
+        assertEquals("column", column, cell.column());
+        assertEquals("row", row, cell.row());
+    }
 
     @Test
     public void testToStringRelative() {

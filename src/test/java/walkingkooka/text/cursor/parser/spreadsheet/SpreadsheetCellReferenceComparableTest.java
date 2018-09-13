@@ -64,7 +64,7 @@ public final class SpreadsheetCellReferenceComparableTest extends ComparableTest
                                           final int column,
                                           final SpreadsheetReferenceKind rowKind,
                                           final int row) {
-        return SpreadsheetCellReference.with(columnKind.column(column), rowKind.row(row));
+        return columnKind.column(column).setRow(rowKind.row(row));
     }
 
     @Override

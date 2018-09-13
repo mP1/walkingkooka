@@ -50,7 +50,7 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
 
         return new SpreadsheetCellReferenceParserToken(copy,
                 checkText(text),
-                SpreadsheetCellReference.with(column.value(), row.value()),
+                column.value().setRow(row.value()),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
