@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * Represents a row reference
  */
-public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReference {
+public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReference implements Comparable<SpreadsheetRowReference>{
 
     // https://support.office.com/en-us/article/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
     final static int MAX = 1_048_576;
@@ -66,5 +66,12 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
     public String toString() {
         // in text form columns start at 1 but internally are zero based.
         return this.referenceKind().prefix() + (this.value + 1);
+    }
+
+    // Comparable......................................................................................................
+
+    @Override
+    public int compareTo(final SpreadsheetRowReference other) {
+        return this.value - other.value;
     }
 }
