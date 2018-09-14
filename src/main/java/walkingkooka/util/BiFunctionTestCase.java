@@ -23,7 +23,7 @@ import java.util.function.BiFunction;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class BiFunctionTestCase<F extends BiFunction, T, U, R> extends PackagePrivateClassTestCase<F> {
+public abstract class BiFunctionTestCase<F extends BiFunction<T, U, R>, T, U, R> extends PackagePrivateClassTestCase<F> {
 
     protected void applyAndCheck(final T in1, final U in2, final R result) {
         this.applyAndCheck(this.createBiFunction(), in1, in2, result);
