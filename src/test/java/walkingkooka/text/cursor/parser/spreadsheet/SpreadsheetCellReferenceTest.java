@@ -25,7 +25,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetCellReferenceTest extends PublicClassTestCase<SpreadsheetCellReference> {
-    
+
+    private final static int COLUMN = 12;
+    private final static int ROW = 34;
+
     @Test(expected = NullPointerException.class)
     public void testWithNullColumnFails() {
         SpreadsheetCellReference.with(null, row());
@@ -41,9 +44,55 @@ public final class SpreadsheetCellReferenceTest extends PublicClassTestCase<Spre
         final SpreadsheetColumnReference column = this.column();
         final SpreadsheetRowReference row = this.row();
         final SpreadsheetCellReference cell = SpreadsheetCellReference.with(column, row);
-        assertSame("column", column, cell.column());
-        assertSame("row", row, cell.row());
+        this.checkColumn(cell, column);
+        this.checkRow(cell, row);
     }
+    
+    // setColumn..................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSetColumnNullFails() {
+        this.create().setColumn(null);
+    }
+
+    @Test
+    public void testSetColumnSame() {
+        final SpreadsheetCellReference cell = this.create();
+        assertSame(cell, cell.setColumn(this.column(COLUMN)));
+    }
+
+    @Test
+    public void testSetColumnDifferent() {
+        final SpreadsheetCellReference cell = this.create();
+        final SpreadsheetColumnReference differentColumn = this.column(99);
+        final SpreadsheetCellReference different = cell.setColumn(differentColumn);
+        this.checkRow(different, this.row());
+        this.checkColumn(different, differentColumn);
+    }
+
+    // setRow..................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSetRowNullFails() {
+        this.create().setRow(null);
+    }
+
+    @Test
+    public void testSetRowSame() {
+        final SpreadsheetCellReference cell = this.create();
+        assertSame(cell, cell.setRow(this.row(ROW)));
+    }
+
+    @Test
+    public void testSetRowDifferent() {
+        final SpreadsheetCellReference cell = this.create();
+        final SpreadsheetRowReference differentRow = this.row(99);
+        final SpreadsheetCellReference different = cell.setRow(differentRow);
+        this.checkColumn(different, this.column());
+        this.checkRow(different, differentRow);
+    }
+
+    // toString..................................................................................................
 
     @Test
     public void testToString() {
@@ -55,11 +104,27 @@ public final class SpreadsheetCellReferenceTest extends PublicClassTestCase<Spre
     }
     
     private SpreadsheetColumnReference column() {
-        return SpreadsheetColumnReference.with(12, SpreadsheetReferenceKind.ABSOLUTE);
+        return this.column(COLUMN);
+    }
+
+    private SpreadsheetColumnReference column(final int value) {
+        return SpreadsheetColumnReference.with(value, SpreadsheetReferenceKind.ABSOLUTE);
     }
 
     private SpreadsheetRowReference row() {
-        return SpreadsheetRowReference.with(34, SpreadsheetReferenceKind.ABSOLUTE);
+        return this.row(ROW);
+    }
+
+    private SpreadsheetRowReference row(final int value) {
+        return SpreadsheetRowReference.with(value, SpreadsheetReferenceKind.ABSOLUTE);
+    }
+
+    private void checkColumn(final SpreadsheetCellReference cell, final SpreadsheetColumnReference column) {
+        assertEquals("column", column, cell.column());
+    }
+
+    private void checkRow(final SpreadsheetCellReference cell, final SpreadsheetRowReference row) {
+        assertEquals("row", row, cell.row());
     }
     
     @Override
