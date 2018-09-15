@@ -28,8 +28,8 @@ import java.util.Objects;
 public final class SpreadsheetCellReference extends SpreadsheetExpressionReference implements Comparable<SpreadsheetCellReference> {
 
     public static SpreadsheetCellReference with(final SpreadsheetColumnReference column, final SpreadsheetRowReference row){
-        Objects.requireNonNull(column, "column");
-        Objects.requireNonNull(row, "row");
+        checkColumn(column);
+        checkRow(row);
 
         return new SpreadsheetCellReference(column, row);
     }
@@ -44,13 +44,39 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
         return this.row;
     }
 
+    public SpreadsheetCellReference setRow(final SpreadsheetRowReference row) {
+        checkRow(row);
+        return this.row.equals(row) ?
+                this :
+                this.replace(this.column, row);
+    }
+
     private final SpreadsheetRowReference row;
+
+    private static void checkRow(final SpreadsheetRowReference row) {
+        Objects.requireNonNull(row, "row");
+    }
 
     public SpreadsheetColumnReference column() {
         return this.column;
     }
 
+    public SpreadsheetCellReference setColumn(final SpreadsheetColumnReference column) {
+        checkColumn(column);
+        return this.column.equals(column) ?
+               this :
+               this.replace(column, this.row);
+    }
+
     private final SpreadsheetColumnReference column;
+    
+    private static void checkColumn(final SpreadsheetColumnReference column) {
+        Objects.requireNonNull(column, "column");
+    }
+
+    private SpreadsheetCellReference replace(final SpreadsheetColumnReference column, final SpreadsheetRowReference row) {
+        return new SpreadsheetCellReference(column, row);
+    }
 
     @Override
     public int hashCode() {
