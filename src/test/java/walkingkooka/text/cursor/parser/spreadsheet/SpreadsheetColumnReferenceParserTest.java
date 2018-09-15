@@ -89,12 +89,12 @@ public final class SpreadsheetColumnReferenceParserTest extends SpreadsheetParse
 
     @Test
     public void testRelativeReferenceInvalid() {
-        this.parseThrows("" + INVALID, SpreadsheetColumnReference.invalidRowValue(SpreadsheetColumnReference.MAX + 1));
+        this.parseThrows("" + INVALID, SpreadsheetColumnReference.invalidColumnValue(SpreadsheetColumnReference.MAX + 1));
     }
 
     @Test
     public void testAbsoluteReferenceInvalid() {
-        this.parseThrows("$" + INVALID, SpreadsheetColumnReference.invalidRowValue(SpreadsheetColumnReference.MAX + 1));
+        this.parseThrows("$" + INVALID, SpreadsheetColumnReference.invalidColumnValue(SpreadsheetColumnReference.MAX + 1));
     }
 
     private void parseAndCheck2(final String text, final SpreadsheetReferenceKind referenceKind, final int column) {

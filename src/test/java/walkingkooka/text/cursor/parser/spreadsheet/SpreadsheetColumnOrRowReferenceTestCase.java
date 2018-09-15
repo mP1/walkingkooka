@@ -22,8 +22,13 @@ import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference> extends PublicClassTestCase<V> {
+
+    final static int VALUE = 123;
+    final static SpreadsheetReferenceKind REFERENCE_KIND = SpreadsheetReferenceKind.ABSOLUTE;
 
     @Test(expected = IllegalArgumentException.class)
     public final void testWithNegativeValueFails() {
@@ -38,6 +43,43 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     @Test(expected = NullPointerException.class)
     public final void testWithNullKindFails() {
         this.create(0, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetValueInvalidFails() {
+        this.create().setValue(-1);
+    }
+
+    @Test
+    public final void testSetValueSame() {
+        final V reference = this.create();
+        assertSame(reference, reference.setValue(VALUE));
+    }
+
+    @Test
+    public final void testSetValueDifferent() {
+        final V reference = this.create();
+        final Integer differentValue = 999;
+        final SpreadsheetColumnOrRowReference different = reference.setValue(differentValue);
+        assertNotSame(reference, different);
+        assertEquals("value", differentValue, different.value());
+        assertSame("referenceKind", REFERENCE_KIND, different.referenceKind());
+    }
+
+    @Test
+    public final void testSetValueDifferent2() {
+        final SpreadsheetReferenceKind kind = SpreadsheetReferenceKind.RELATIVE;
+        final V reference = this.create(VALUE, kind);
+        final Integer differentValue = 999;
+        final SpreadsheetColumnOrRowReference different = reference.setValue(differentValue);
+        assertNotSame(reference, different);
+        assertEquals("value", differentValue, different.value());
+        assertSame("referenceKind", kind, different.referenceKind());
+        assertEquals("same type", this.type(), different.getClass());
+    }
+
+    final V create() {
+        return this.create(VALUE, REFERENCE_KIND);
     }
 
     abstract V create(final int value, final SpreadsheetReferenceKind kind);

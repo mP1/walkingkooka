@@ -34,9 +34,7 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
      * Factory that creates a new column.
      */
     public static SpreadsheetRowReference with(final int value, final SpreadsheetReferenceKind referenceKind) {
-        if(value < 0 || value >= MAX) {
-            throw new IllegalArgumentException(invalidRowValue(value));
-        }
+        checkValue(value);
         Objects.requireNonNull(referenceKind, "referenceKind");
 
         return new SpreadsheetRowReference(value, referenceKind);
@@ -48,6 +46,23 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
 
     private SpreadsheetRowReference(final int value, final SpreadsheetReferenceKind referenceKind) {
         super(value, referenceKind);
+    }
+
+    /**
+     * Would be setter that returns a {@link SpreadsheetRowReference} with the given value creating a new
+     * instance if it is different.
+     */
+    public SpreadsheetRowReference setValue(final int value) {
+        checkValue(value);
+        return this.value == value ?
+               this :
+               new SpreadsheetRowReference(value, this.referenceKind());
+    }
+
+    private static void checkValue(final int value) {
+        if(value < 0 || value >= MAX) {
+            throw new IllegalArgumentException(invalidRowValue(value));
+        }
     }
 
     /**
