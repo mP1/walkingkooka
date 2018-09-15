@@ -34,6 +34,8 @@ abstract class SpreadsheetColumnOrRowReference implements Value<Integer>, HashCo
         this.referenceKind = referenceKind;
     }
 
+    abstract SpreadsheetColumnOrRowReference setValue(final int value);
+
     @Override
     public final Integer value() {
         return this.value;
