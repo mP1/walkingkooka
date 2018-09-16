@@ -18,6 +18,8 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.Cast;
+
 import java.util.Objects;
 
 /**
@@ -43,6 +45,11 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
 
     private SpreadsheetColumnReference(final int value, final SpreadsheetReferenceKind referenceKind) {
         super(value, referenceKind);
+    }
+
+    @Override
+    public SpreadsheetColumnReference add(final int value) {
+        return Cast.to(this.add0(value));
     }
 
     /**

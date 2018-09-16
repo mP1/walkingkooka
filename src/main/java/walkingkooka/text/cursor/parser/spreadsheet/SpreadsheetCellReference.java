@@ -40,6 +40,15 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
         this.row = row;
     }
 
+    /**
+     * Adds a delta to the row and column and returns a {@link SpreadsheetCellReference} with the updated values.
+     * Row and column values of 0 and 0 will return this.
+     */
+    public SpreadsheetCellReference add(final int column, final int row) {
+        return this.setColumn(this.column().add(column))
+                .setRow(this.row().add(row));
+    }
+
     public SpreadsheetRowReference row() {
         return this.row;
     }
