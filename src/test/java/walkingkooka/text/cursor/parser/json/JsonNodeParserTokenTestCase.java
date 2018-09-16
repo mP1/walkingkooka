@@ -25,8 +25,6 @@ import walkingkooka.text.cursor.parser.ParserTokenTestCase;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -150,9 +148,7 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
     }
 
     private static String text(final JsonNodeParserToken...tokens){
-        return Arrays.stream(tokens)
-                .map(t -> t.text())
-                .collect(Collectors.joining());
+        return ParserToken.text(Lists.of(tokens));
     }
 
     final JsonNodeParserToken separator() {

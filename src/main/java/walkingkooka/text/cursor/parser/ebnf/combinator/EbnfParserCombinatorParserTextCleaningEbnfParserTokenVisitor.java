@@ -42,7 +42,6 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 /**
  * This visitor returns a new grammar, with comments removed, and text normalized, with a goal of reading compact
@@ -196,10 +195,7 @@ final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor extends
         final List<ParserToken> children = this.children;
         this.children = this.previousChildren.peek();
         this.previousChildren = this.previousChildren.pop();
-        final String text = children.stream()
-                .map(t -> t.text())
-                .collect(Collectors.joining());
-        this.add(factory.apply(children, text));
+        this.add(factory.apply(children, ParserToken.text(children)));
     }
 
     private void add(final EbnfParserToken token) {

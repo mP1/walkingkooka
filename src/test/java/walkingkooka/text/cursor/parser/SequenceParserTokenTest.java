@@ -20,10 +20,8 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -316,10 +314,7 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
     }
 
     private static SequenceParserToken sequence(final ParserToken...tokens) {
-        final String text = Arrays.stream(tokens)
-                .map(t -> t.text())
-                .collect(Collectors.joining());
-        return SequenceParserToken.with(Lists.of(tokens), text);
+        return sequence(ParserToken.text(Lists.of(tokens)), tokens);
     }
 
     private static SequenceParserToken sequence(final String text, final ParserToken...tokens) {
