@@ -21,10 +21,25 @@ import walkingkooka.Cast;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.search.HasSearchNode;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /**
  * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
  */
 public interface ParserToken extends HasText, HasSearchNode {
+
+    /**
+     * Concatenates the text from all given tokens into a single string.
+     */
+    static String text(final List<? extends ParserToken> tokens) {
+        Objects.requireNonNull(tokens, "tokens");
+
+        return tokens.stream()
+                .map(t -> t.text())
+                .collect(Collectors.joining());
+    }
 
     /**
      * Returns the raw text that produced the token.

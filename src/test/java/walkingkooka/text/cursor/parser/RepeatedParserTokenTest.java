@@ -20,9 +20,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -195,9 +193,7 @@ public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedP
     }
 
     private RepeatedParserToken repeated(final ParserToken...tokens) {
-        return repeated(
-                Arrays.stream(tokens).map(t -> t.text()).collect(Collectors.joining()),
-                tokens);
+        return repeated(ParserToken.text(Lists.of(tokens)), tokens);
     }
 
     private RepeatedParserToken repeated(final String text, final ParserToken...tokens) {
