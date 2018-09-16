@@ -26,6 +26,7 @@ import walkingkooka.tree.expression.ExpressionNode;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetCellReferenceParserToken> {
@@ -58,7 +59,27 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
         final SpreadsheetCellReferenceParserToken cell = this.createToken(text, row, column);
         this.checkText(cell, text);
         this.checkValue(cell, row, column);
-        assertEquals("cell", SpreadsheetCellReference.with(column.value(), row.value()), cell.cell());
+        this.checkCell(cell, row, column);
+
+        assertSame(cell, cell.withoutSymbolsOrWhitespace().get());
+    }
+
+    @Test
+    public void testSetValueDifferent() {
+        final SpreadsheetColumnReferenceParserToken column = this.column();
+        final SpreadsheetRowReferenceParserToken row = this.row();
+        final String text = ROW_TEXT + ":" + COLUMN_TEXT;
+        final SpreadsheetCellReferenceParserToken cell = this.createToken(text, row, column);
+
+        final SpreadsheetColumnReferenceParserToken differentColumn = this.column(1 + COLUMN_VALUE);
+        final SpreadsheetRowReferenceParserToken differentRow = this.row(1+ROW_VALUE, "C");
+        final SpreadsheetCellReferenceParserToken differentCell = cell.setValue(Lists.of(differentRow, differentColumn));
+
+        assertNotSame(cell, differentCell);
+
+        this.checkText(differentCell, text);// text not updated even when though child tokens are different.
+        this.checkValue(differentCell, differentRow, differentColumn);
+        this.checkCell(differentCell, differentRow, differentColumn);
 
         assertSame(cell, cell.withoutSymbolsOrWhitespace().get());
     }
@@ -87,6 +108,12 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
 
     private SpreadsheetRowReferenceParserToken row(final int value, final String text) {
         return SpreadsheetParserToken.rowReference(SpreadsheetRowReference.with(value, SpreadsheetReferenceKind.RELATIVE), text);
+    }
+
+    private void checkCell(final SpreadsheetCellReferenceParserToken cell,
+                           final SpreadsheetRowReferenceParserToken row,
+                           final SpreadsheetColumnReferenceParserToken column) {
+        assertEquals("cell", SpreadsheetCellReference.with(column.value(), row.value()), cell.cell());
     }
 
     @Override

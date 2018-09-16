@@ -32,10 +32,16 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
     public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetCellReferenceParserToken.class);
 
     static SpreadsheetCellReferenceParserToken with(final List<ParserToken> value, final String text){
-        final List<ParserToken> copy = copyAndCheckTokens(value);
+        return new SpreadsheetCellReferenceParserToken(copyAndCheckTokens(value),
+                checkText(text),
+                WITHOUT_COMPUTE_REQUIRED);
+    }
+
+    private SpreadsheetCellReferenceParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+        super(value, text, valueWithout);
 
         final SpreadsheetCellReferenceParserTokenConsumer checker = new SpreadsheetCellReferenceParserTokenConsumer();
-        copy.stream()
+        value.stream()
                 .filter(t -> t instanceof SpreadsheetParserToken)
                 .map(t -> SpreadsheetParserToken.class.cast(t))
                 .forEach(checker);
@@ -47,16 +53,7 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
         if(null==column){
             throw new IllegalArgumentException("Column missing from cell=" + text);
         }
-
-        return new SpreadsheetCellReferenceParserToken(copy,
-                checkText(text),
-                column.value().setRow(row.value()),
-                WITHOUT_COMPUTE_REQUIRED);
-    }
-
-    private SpreadsheetCellReferenceParserToken(final List<ParserToken> value, final String text, final SpreadsheetCellReference cell, final List<ParserToken> valueWithout){
-        super(value, text, valueWithout);
-        this.cell = cell;
+        this.cell = row.value().setColumn(column.value());
     }
 
     public SpreadsheetCellReference cell() {
@@ -77,7 +74,7 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
 
     @Override
     SpreadsheetParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
-        return new SpreadsheetCellReferenceParserToken(tokens, text, this.cell, without);
+        return new SpreadsheetCellReferenceParserToken(tokens, text, without);
     }
 
     @Override
