@@ -34,6 +34,17 @@ abstract class SpreadsheetColumnOrRowReference implements Value<Integer>, HashCo
         this.referenceKind = referenceKind;
     }
 
+    /**
+     * Adds a delta to the value and returns an instance with the result.
+     */
+    abstract SpreadsheetColumnOrRowReference add(final int value);
+
+    final SpreadsheetColumnOrRowReference add0(final int value) {
+        return 0 == value ?
+               this :
+               this.setValue(this.value + value);
+    }
+
     abstract SpreadsheetColumnOrRowReference setValue(final int value);
 
     @Override

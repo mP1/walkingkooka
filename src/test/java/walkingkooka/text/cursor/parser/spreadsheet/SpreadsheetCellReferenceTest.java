@@ -92,6 +92,45 @@ public final class SpreadsheetCellReferenceTest extends PublicClassTestCase<Spre
         this.checkRow(different, differentRow);
     }
 
+    // add .............................................................................................
+
+    @Test
+    public void testAddColumnZeroAndRowZero() {
+        final SpreadsheetCellReference cell = this.create();
+        assertSame(cell, cell.add(0, 0));
+    }
+
+    @Test
+    public void testAddColumnNonZeroAndRowNonZero() {
+        final SpreadsheetCellReference cell = this.create();
+        final int column= 10;
+        final int row = 100;
+
+        final SpreadsheetCellReference different = cell.add(column, row);
+        this.checkColumn(different, this.column().setValue(COLUMN + column));
+        this.checkRow(different, this.row().setValue(ROW + row));
+    }
+
+    @Test
+    public void testAddColumnNonZero() {
+        final SpreadsheetCellReference cell = this.create();
+        final int column= 10;
+
+        final SpreadsheetCellReference different = cell.add(column, 0);
+        this.checkColumn(different, this.column().setValue(COLUMN + column));
+        this.checkRow(different, this.row());
+    }
+
+    @Test
+    public void testAddRowNonZero() {
+        final SpreadsheetCellReference cell = this.create();
+        final int row = 100;
+
+        final SpreadsheetCellReference different = cell.add(0, row);
+        this.checkColumn(different, this.column());
+        this.checkRow(different, this.row().setValue(ROW + row));
+    }
+
     // toString..................................................................................................
 
     @Test
