@@ -24,7 +24,7 @@ import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
 public abstract class SpreadsheetParserTokenVisitorTestCase<V extends SpreadsheetParserTokenVisitor> extends ParserTokenVisitorTestCase<V, SpreadsheetParserToken> {
 
     @Override
-    protected final String requiredNamePrefix() {
+    protected String requiredNamePrefix() {
         return "Spreadsheet" + ParserToken.class.getSimpleName();
     }
 }
