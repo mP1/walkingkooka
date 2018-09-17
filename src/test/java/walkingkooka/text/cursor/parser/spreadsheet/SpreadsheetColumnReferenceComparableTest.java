@@ -19,9 +19,9 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.compare.ComparableTestCase;
+import walkingkooka.compare.LowerOrUpperTestCase;
 
-public final class SpreadsheetColumnReferenceComparableTest extends ComparableTestCase<SpreadsheetColumnReference> {
+public final class SpreadsheetColumnReferenceComparableTest extends LowerOrUpperTestCase<SpreadsheetColumnReference> {
 
     private final static int COLUMN = 123;
 
@@ -41,7 +41,7 @@ public final class SpreadsheetColumnReferenceComparableTest extends ComparableTe
     }
 
     @Override
-    protected SpreadsheetColumnReference createComparable() {
+    protected SpreadsheetColumnReference createLowerOrUpper() {
         return SpreadsheetReferenceKind.ABSOLUTE.column(COLUMN);
     }
 

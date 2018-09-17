@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
+import walkingkooka.compare.LowerOrUpper;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
@@ -27,7 +28,10 @@ import java.util.Objects;
 /**
  * Captures the common features shared by a row or column.
  */
-abstract class SpreadsheetColumnOrRowReference implements Value<Integer>, HashCodeEqualsDefined {
+abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowReference<R>> implements Value<Integer>,
+        Comparable<R>,
+        LowerOrUpper<R>,
+        HashCodeEqualsDefined {
 
     SpreadsheetColumnOrRowReference(final int value, final SpreadsheetReferenceKind referenceKind) {
         this.value = value;
@@ -60,12 +64,14 @@ abstract class SpreadsheetColumnOrRowReference implements Value<Integer>, HashCo
 
     private final SpreadsheetReferenceKind referenceKind;
 
+    // HashCodeEqualsDefined............................................................................
+
     @Override
     public final int hashCode() {
         return Objects.hash(this.value, this.referenceKind);
     }
 
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return this == other ||
                this.canBeEqual(other) &&
                this.equals0(Cast.to(other));
@@ -80,4 +86,8 @@ abstract class SpreadsheetColumnOrRowReference implements Value<Integer>, HashCo
 
     @Override
     abstract public String toString();
+
+    static void checkOther(final SpreadsheetColumnOrRowReference other) {
+        Objects.requireNonNull(other, "other");
+    }
 }

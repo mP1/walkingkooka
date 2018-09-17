@@ -60,7 +60,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     public final void testSetValueDifferent() {
         final V reference = this.create();
         final Integer differentValue = 999;
-        final SpreadsheetColumnOrRowReference different = reference.setValue(differentValue);
+        final SpreadsheetColumnOrRowReference<?> different = reference.setValue(differentValue);
         assertNotSame(reference, different);
         this.checkValue(different, differentValue);
         this.checkKind(different, REFERENCE_KIND);
@@ -71,7 +71,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
         final SpreadsheetReferenceKind kind = SpreadsheetReferenceKind.RELATIVE;
         final V reference = this.create(VALUE, kind);
         final Integer differentValue = 999;
-        final SpreadsheetColumnOrRowReference different = reference.setValue(differentValue);
+        final SpreadsheetColumnOrRowReference<?> different = reference.setValue(differentValue);
         assertNotSame(reference, different);
         this.checkValue(different, differentValue);
         this.checkKind(different, kind);
@@ -87,7 +87,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     @Test
     public final void testAddNonZeroPositive() {
         final V reference = this.create();
-        final SpreadsheetColumnOrRowReference different = reference.add(100);
+        final SpreadsheetColumnOrRowReference<?> different = reference.add(100);
         assertNotSame(reference, different);
         this.checkValue(different, VALUE + 100);
         this.checkType(different);
@@ -96,28 +96,70 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     @Test
     public final void testAddNonZeroNegative() {
         final V reference = this.create();
-        final SpreadsheetColumnOrRowReference different = reference.add(-100);
+        final SpreadsheetColumnOrRowReference<?> different = reference.add(-100);
         assertNotSame(reference, different);
         this.checkValue(different, VALUE - 100);
         this.checkKind(different, SpreadsheetReferenceKind.ABSOLUTE);
         this.checkType(different);
     }
 
+    // lower..........................................................................................
+
+    @Test
+    public void testLowerOtherLess() {
+        final V reference = this.create();
+        final V lower = this.create(VALUE - 99);
+        assertSame(lower, reference.lower(lower));
+        assertSame(lower, lower.lower(reference));
+    }
+
+    @Test
+    public void testLowerOtherGreater() {
+        final V reference = this.create();
+        final V higher = this.create(VALUE + 99);
+        assertSame(reference, reference.lower(higher));
+        assertSame(reference, higher.lower(reference));
+    }
+
+    // upper..........................................................................................
+
+    @Test
+    public void testUpperOtherLess() {
+        final V reference = this.create();
+        final V lower = this.create(VALUE - 99);
+        assertSame(reference, reference.upper(lower));
+        assertSame(reference, lower.upper(reference));
+    }
+
+    @Test
+    public void testUpperOtherGreater() {
+        final V reference = this.create();
+        final V higher = this.create(VALUE + 99);
+        assertSame(higher, reference.upper(higher));
+        assertSame(higher, higher.upper(reference));
+    }
+
+    // helper......................................................................................
+
     final V create() {
         return this.create(VALUE, REFERENCE_KIND);
     }
 
+    final V create(final int value) {
+        return this.create(value, REFERENCE_KIND);
+    }
+
     abstract V create(final int value, final SpreadsheetReferenceKind kind);
 
-    final void checkValue(final SpreadsheetColumnOrRowReference reference, final Integer value) {
+    final void checkValue(final SpreadsheetColumnOrRowReference<?> reference, final Integer value) {
         assertEquals("value", value, reference.value());
     }
 
-    private void checkKind(final SpreadsheetColumnOrRowReference reference, final SpreadsheetReferenceKind kind) {
+    private void checkKind(final SpreadsheetColumnOrRowReference<?> reference, final SpreadsheetReferenceKind kind) {
         assertSame("referenceKind", kind, reference.referenceKind());
     }
 
-    private void checkType(final SpreadsheetColumnOrRowReference reference) {
+    private void checkType(final SpreadsheetColumnOrRowReference<?> reference) {
         assertEquals("same type", this.type(), reference.getClass());
     }
 
