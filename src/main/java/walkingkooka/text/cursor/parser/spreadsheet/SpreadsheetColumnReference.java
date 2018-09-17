@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * Represents a column reference
  */
-public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowReference implements Comparable<SpreadsheetColumnReference>{
+public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowReference<SpreadsheetColumnReference>{
 
     // https://support.office.com/en-us/article/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
     final static int MAX = 16384;
@@ -80,6 +80,8 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
         return SpreadsheetCellReference.with(this, row);
     }
 
+    // HashCodeEqualsDefined.................................................................................
+
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetColumnReference;
@@ -113,6 +115,7 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
 
     @Override
     public int compareTo(final SpreadsheetColumnReference other) {
+        checkOther(other);
         return this.value - other.value;
     }
 }

@@ -19,13 +19,16 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
 import walkingkooka.compare.Comparators;
+import walkingkooka.compare.LowerOrUpper;
 
 import java.util.Objects;
 
 /**
  * A reference that includes a defined name or column and row.
  */
-public final class SpreadsheetCellReference extends SpreadsheetExpressionReference implements Comparable<SpreadsheetCellReference> {
+public final class SpreadsheetCellReference extends SpreadsheetExpressionReference
+        implements Comparable<SpreadsheetCellReference>,
+                   LowerOrUpper<SpreadsheetCellReference> {
 
     public static SpreadsheetCellReference with(final SpreadsheetColumnReference column, final SpreadsheetRowReference row){
         checkColumn(column);
@@ -86,6 +89,32 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
     private SpreadsheetCellReference replace(final SpreadsheetColumnReference column, final SpreadsheetRowReference row) {
         return new SpreadsheetCellReference(column, row);
     }
+
+    /**
+     * Returns the lower (Comparison wise) of two {@link SpreadsheetCellReference}
+     */
+    public SpreadsheetCellReference lower(final SpreadsheetCellReference other) {
+        checkOther(other);
+
+        return this.setColumn(this.column.lower(other.column))
+               .setRow(this.row.lower(other.row));
+    }
+
+    /**
+     * Returns the upper (Comparison wise) of two {@link SpreadsheetCellReference}
+     */
+    public SpreadsheetCellReference upper(final SpreadsheetCellReference other) {
+        checkOther(other);
+
+        return this.setColumn(this.column.upper(other.column))
+                .setRow(this.row.upper(other.row));
+    }
+
+    private static void checkOther(final SpreadsheetCellReference other) {
+        Objects.requireNonNull(other, "other");
+    }
+
+    // HashCodeEqualsDefined................................................................
 
     @Override
     public int hashCode() {

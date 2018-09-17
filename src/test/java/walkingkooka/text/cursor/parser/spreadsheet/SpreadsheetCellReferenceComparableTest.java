@@ -19,9 +19,9 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.compare.ComparableTestCase;
+import walkingkooka.compare.LowerOrUpperTestCase;
 
-public final class SpreadsheetCellReferenceComparableTest extends ComparableTestCase<SpreadsheetCellReference> {
+public final class SpreadsheetCellReferenceComparableTest extends LowerOrUpperTestCase<SpreadsheetCellReference> {
 
     private final static int COLUMN = 10;
     private final static int ROW = 20;
@@ -47,12 +47,12 @@ public final class SpreadsheetCellReferenceComparableTest extends ComparableTest
     }
 
     @Test
-    public void testDIfferentColumnDifferentReferenceKindDifferentRow() {
+    public void testDifferentColumnDifferentReferenceKindDifferentRow() {
         this.compareToAndCheckLess(this.cell(SpreadsheetReferenceKind.RELATIVE, COLUMN + 10, SpreadsheetReferenceKind.ABSOLUTE, ROW));
     }
 
     @Override
-    protected SpreadsheetCellReference createComparable() {
+    protected SpreadsheetCellReference createLowerOrUpper() {
         return this.cell(COLUMN, ROW);
     }
 
