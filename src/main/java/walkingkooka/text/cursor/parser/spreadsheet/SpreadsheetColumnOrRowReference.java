@@ -24,6 +24,7 @@ import walkingkooka.compare.LowerOrUpper;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
+import java.util.function.IntFunction;
 
 /**
  * Captures the common features shared by a row or column.
@@ -33,6 +34,22 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
         LowerOrUpper<R>,
         HashCodeEqualsDefined {
 
+    final static int CACHE_SIZE = 100;
+
+    /**
+     * Fills an array with what will become a cache of {@link SpreadsheetColumnOrRowReference}.
+     */
+    static <R extends SpreadsheetColumnOrRowReference<R>> R[] fillCache(final IntFunction<R> reference, final R[] array) {
+        for(int i = 0; i < CACHE_SIZE; i++) {
+            array[i] = reference.apply(i);
+        }
+
+        return array;
+    }
+
+    /**
+     * Package private to limit sub classing.
+     */
     SpreadsheetColumnOrRowReference(final int value, final SpreadsheetReferenceKind referenceKind) {
         this.value = value;
         this.referenceKind = referenceKind;

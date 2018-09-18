@@ -40,9 +40,19 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
         checkValue(value);
         Objects.requireNonNull(referenceKind, "referenceKind");
 
-        return new SpreadsheetColumnReference(value, referenceKind);
+        return value < CACHE_SIZE ?
+               referenceKind.columnFromCache(value):
+               new SpreadsheetColumnReference(value, referenceKind);
     }
 
+    static final SpreadsheetColumnReference[] ABSOLUTE = fillCache(i -> new SpreadsheetColumnReference(i, SpreadsheetReferenceKind.ABSOLUTE),
+            new SpreadsheetColumnReference[CACHE_SIZE]);
+    static final SpreadsheetColumnReference[] RELATIVE = fillCache(i -> new SpreadsheetColumnReference(i, SpreadsheetReferenceKind.RELATIVE),
+            new SpreadsheetColumnReference[CACHE_SIZE]);
+
+    /**
+     * Private ctor use factory
+     */
     private SpreadsheetColumnReference(final int value, final SpreadsheetReferenceKind referenceKind) {
         super(value, referenceKind);
     }

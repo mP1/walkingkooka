@@ -45,6 +45,44 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
         this.create(0, null);
     }
 
+    @Test
+    public final void testWithAbsolute() {
+        this.withAndCacheCheck(0, SpreadsheetReferenceKind.RELATIVE);
+    }
+
+    @Test
+    public final void testWithAbsolute2() {
+        this.withAndCacheCheck(SpreadsheetColumnOrRowReference.CACHE_SIZE-1, SpreadsheetReferenceKind.RELATIVE);
+    }
+
+    @Test
+    public final void testWithRelative() {
+        this.withAndCacheCheck(0, SpreadsheetReferenceKind.RELATIVE);
+    }
+
+    @Test
+    public final void testWithRelative2() {
+        this.withAndCacheCheck(SpreadsheetColumnOrRowReference.CACHE_SIZE-1, SpreadsheetReferenceKind.RELATIVE);
+    }
+
+    private void withAndCacheCheck(final int value, final SpreadsheetReferenceKind kind) {
+        final V reference = this.create(value, kind);
+        this.checkValue(reference, value);
+        this.checkKind(reference, kind);
+
+        assertSame(reference, this.create(value, kind));
+    }
+
+    @Test
+    public final void testWithNotCached() {
+        final int value = SpreadsheetColumnOrRowReference.CACHE_SIZE;
+        final V reference = this.create(value);
+        this.checkValue(reference, value);
+        this.checkKind(reference, REFERENCE_KIND);
+
+        assertNotSame(value,this.create(value));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public final void testSetValueInvalidFails() {
         this.create().setValue(-1);

@@ -33,14 +33,21 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
 
 
     /**
-     * Factory that creates a new column.
+     * Factory that creates a new row.
      */
     public static SpreadsheetRowReference with(final int value, final SpreadsheetReferenceKind referenceKind) {
         checkValue(value);
         Objects.requireNonNull(referenceKind, "referenceKind");
 
-        return new SpreadsheetRowReference(value, referenceKind);
+        return value < CACHE_SIZE ?
+                referenceKind.rowFromCache(value):
+                new SpreadsheetRowReference(value, referenceKind);
     }
+
+    static final SpreadsheetRowReference[] ABSOLUTE = fillCache(i -> new SpreadsheetRowReference(i, SpreadsheetReferenceKind.ABSOLUTE),
+            new SpreadsheetRowReference[CACHE_SIZE]);
+    static final SpreadsheetRowReference[] RELATIVE = fillCache(i -> new SpreadsheetRowReference(i, SpreadsheetReferenceKind.RELATIVE),
+            new SpreadsheetRowReference[CACHE_SIZE]);
 
     static String invalidRowValue(final int value) {
         return "Invalid column value " + value + " expected between 0 and " + MAX;
