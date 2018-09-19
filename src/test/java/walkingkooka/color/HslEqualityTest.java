@@ -1,0 +1,53 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ */
+
+package walkingkooka.color;
+
+import org.junit.Test;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
+
+public final class HslEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<Hsl> {
+
+    // constants
+
+    private final static HueHslComponent HUE = HueHslComponent.with(0);
+    private final static SaturationHslComponent SATURATION = SaturationHslComponent.with(0);
+    private final static LightnessHslComponent LIGHTNESS = LightnessHslComponent.with(0);
+
+    // tests
+
+    @Test
+    public void testDifferentHue() {
+        this.checkNotEquals(Hsl.with(HueHslComponent.with(180), SATURATION, LIGHTNESS));
+    }
+
+    @Test
+    public void testDifferentSaturation() {
+        this.checkNotEquals(Hsl.with(HUE, SaturationHslComponent.with(0.5f), LIGHTNESS));
+    }
+
+    @Test
+    public void testDifferentLightness() {
+        this.checkNotEquals(Hsl.with(HUE, SATURATION, LightnessHslComponent.with(0.5f)));
+    }
+
+    @Override
+    protected Hsl createObject() {
+        return Hsl.with(HUE, SATURATION, LIGHTNESS);
+    }
+}
