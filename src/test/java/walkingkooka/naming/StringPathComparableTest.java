@@ -25,6 +25,11 @@ final public class StringPathComparableTest extends ComparableTestCase<StringPat
     private final static String PATH = "/middle";
 
     @Test
+    public void testDifferentPath() {
+        this.checkNotEquals(StringPath.parse("/different"));
+    }
+
+    @Test
     public void testLess() {
         this.compareToAndCheckLess(StringPath.parse("/zebra"));
     }
@@ -37,10 +42,5 @@ final public class StringPathComparableTest extends ComparableTestCase<StringPat
     @Override
     protected StringPath createComparable() {
         return StringPath.parse(PATH);
-    }
-
-    @Override
-    protected Class<StringPath> type() {
-        return StringPath.class;
     }
 }

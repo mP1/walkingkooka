@@ -24,6 +24,11 @@ import walkingkooka.compare.ComparableTestCase;
 public final class UrlPathNameComparableTest extends ComparableTestCase<UrlPathName> {
 
     @Test
+    public void testDifferentName() {
+        this.checkNotEquals(UrlPathName.with("different"));
+    }
+    
+    @Test
     public void testLess() {
         this.compareToAndCheckLess(UrlPathName.with("zzzzz"));
     }
@@ -31,10 +36,5 @@ public final class UrlPathNameComparableTest extends ComparableTestCase<UrlPathN
     @Override
     protected UrlPathName createComparable() {
         return UrlPathName.with("aaaaaaaaaa");
-    }
-
-    @Override
-    protected Class<UrlPathName> type() {
-        return UrlPathName.class;
     }
 }

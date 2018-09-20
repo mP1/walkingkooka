@@ -29,6 +29,18 @@ import static org.junit.Assert.assertEquals;
 
 public final class IpPortComparableTest extends ComparableTestCase<IpPort> {
 
+    private final static int PORT = 80;
+
+    @Test
+    public void testDifferentPort() {
+        this.checkNotEquals(IpPort.HTTPS);
+    }
+
+    @Test
+    public void testEqual() {
+        this.checkEqualsAndHashCode(IpPort.with(PORT));
+    }
+
     @Test
     public void testLess() {
         this.compareToAndCheckLess(IpPort.HTTPS);
@@ -54,10 +66,5 @@ public final class IpPortComparableTest extends ComparableTestCase<IpPort> {
     @Override
     protected IpPort createComparable() {
         return IpPort.HTTP;
-    }
-
-    @Override
-    protected Class<IpPort> type() {
-        return IpPort.class;
     }
 }

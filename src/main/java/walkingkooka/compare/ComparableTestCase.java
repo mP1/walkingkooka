@@ -19,7 +19,8 @@ package walkingkooka.compare;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 import walkingkooka.test.TestCase;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertEquals;
  * A {@link TestCase} for testing {@link Comparable comparables}. Many compareTo methods are
  * available that compare andassert the result.
  */
-abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassTestCase<C> {
+abstract public class ComparableTestCase<C extends Comparable<C> & HashCodeEqualsDefined> extends HashCodeEqualsDefinedEqualityTestCase<C> {
 
     protected ComparableTestCase() {
         super();
@@ -46,6 +47,11 @@ abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassT
     }
 
     // helpers
+
+    @Override
+    protected final C createObject() {
+        return this.createComparable();
+    }
 
     protected abstract C createComparable();
 
@@ -77,15 +83,30 @@ abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassT
         this.compareToAndCheck(this.createComparable(), comparable, expected);
     }
 
-    final protected void compareToAndCheck(final C comparable1, final C comparable2,
+    final protected void compareToAndCheck(final C comparable1,
+                                           final C comparable2,
                                            final int expected) {
         ComparableTestCase.checkResult(expected, comparable1.compareTo(comparable2));
         if (Comparables.EQUAL != expected) {
-            ComparableTestCase.checkResult(
+            checkResult(
                     "Exchanging parameters and comparing did not return an inverted result.",
                     -expected,
                     comparable2.compareTo(comparable1));
+            if(this.compareAndEqualsMatch()) {
+                this.checkNotEquals(comparable1, comparable2);
+            }
+        } else {
+            if(this.compareAndEqualsMatch()) {
+                this.checkEquals(comparable1, comparable2);
+            }
         }
+    }
+
+    /**
+     * When true indicates that comparison equality matches object equality.
+     */
+    protected boolean compareAndEqualsMatch() {
+        return true;
     }
 
     private static void checkResult(final int expected, final int actual) {
@@ -126,10 +147,5 @@ abstract public class ComparableTestCase<C extends Comparable<C>> extends ClassT
                 }
             }
         }
-    }
-
-    @Override
-    protected boolean typeMustBePublic() {
-        return true;
     }
 }

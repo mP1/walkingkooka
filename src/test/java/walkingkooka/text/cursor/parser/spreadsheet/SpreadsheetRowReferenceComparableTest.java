@@ -46,7 +46,7 @@ public final class SpreadsheetRowReferenceComparableTest extends LowerOrUpperTes
     }
 
     @Override
-    protected Class<SpreadsheetRowReference> type() {
-        return SpreadsheetRowReference.class;
+    protected boolean compareAndEqualsMatch() {
+        return false;
     }
 }
