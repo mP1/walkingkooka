@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
@@ -30,12 +29,6 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
     private final static ParserTokenNodeName NAME1 = ParserTokenNodeName.with(0);
     private final static ParserTokenNodeName NAME2 = ParserTokenNodeName.with(1);
     private final static ParserTokenNodeName NAME3 = ParserTokenNodeName.with(2);
-
-    @Test
-    @Ignore
-    public void testEqualsOnlyOverridesAbstractOrObject() {
-        // nop
-    }
 
     @Test
     public void testEqualWithoutNames() {

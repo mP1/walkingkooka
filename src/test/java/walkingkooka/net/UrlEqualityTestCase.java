@@ -18,7 +18,6 @@
 
 package walkingkooka.net;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
@@ -31,12 +30,6 @@ abstract public class UrlEqualityTestCase<U extends Url> extends HashCodeEqualsD
     private final static UrlFragment FRAGMENT = UrlFragment.with("fragment123");
 
     // tests
-
-    @Ignore
-    @Test
-    public void testEqualsOnlyOverridesAbstractOrObject() {
-        // ignore
-    }
 
     @Test
     public final void testDifferentPath() {

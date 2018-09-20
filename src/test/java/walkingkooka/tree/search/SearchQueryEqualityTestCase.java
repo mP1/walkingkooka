@@ -18,26 +18,12 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
-import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 import walkingkooka.text.CaseSensitivity;
 
 public abstract class SearchQueryEqualityTestCase<Q extends SearchQuery> extends HashCodeEqualsDefinedEqualityTestCase<Q> {
 
     final static String DIFFERENT_TEXT = "different";
-
-    @Test
-    @Ignore
-    public final void testHashCodeAndEqualsInPairs() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    @Ignore
-    public void testEqualsOnlyOverridesAbstractOrObject() {
-        throw new UnsupportedOperationException();
-    }
 
     public final Q createObject() {
         return this.createSearchQuery();
