@@ -18,15 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
-import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 public abstract class SearchNodeEqualityTestCase<N extends SearchNode> extends HashCodeEqualsDefinedEqualityTestCase<N> {
-
-    @Test
-    @Ignore
-    public void testHashCodeAndEqualsInPairs() {
-        throw new UnsupportedOperationException();
-    }
 }

@@ -19,29 +19,32 @@
 package walkingkooka.tree.search;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.compare.ComparableTestCase;
 
-import static org.junit.Assert.assertEquals;
-
-public final class SearchNodeNameTest extends NameTestCase<SearchNodeName> {
+public final class SearchNodeNameComparableTest extends ComparableTestCase<SearchNodeName> {
 
     @Test
-    public void testWith() {
-        this.createNameAndCheck("abc");
+    public void testDifferent() {
+        this.checkNotEquals(SearchNodeName.with("Different"));
     }
 
     @Test
-    public void testToString() {
-        assertEquals("abc", this.createName("abc").toString());
+    public void testDifferentCase() {
+        this.checkNotEquals(SearchNodeName.with("jkl"));
+    }
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(SearchNodeName.with("XYZ"));
+    }
+
+    @Test
+    public void testMore() {
+        this.compareToAndCheckLess(SearchNodeName.with("abc"));
     }
 
     @Override
-    protected SearchNodeName createName(final String name) {
-        return SearchNodeName.with(name);
-    }
-
-    @Override
-    protected Class<SearchNodeName> type() {
-        return SearchNodeName.class;
+    protected SearchNodeName createComparable() {
+        return SearchNodeName.with("JKL");
     }
 }
