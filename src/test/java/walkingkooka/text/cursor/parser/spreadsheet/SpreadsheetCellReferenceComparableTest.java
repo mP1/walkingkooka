@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.compare.LowerOrUpperTestCase;
 
@@ -50,12 +49,6 @@ public final class SpreadsheetCellReferenceComparableTest extends LowerOrUpperTe
     @Test
     public void testDifferentColumnDifferentReferenceKindDifferentRow() {
         this.compareToAndCheckLess(this.cell(SpreadsheetReferenceKind.RELATIVE, COLUMN + 10, SpreadsheetReferenceKind.ABSOLUTE, ROW));
-    }
-
-    @Test
-    @Ignore
-    public void testEqualsOnlyOverridesAbstractOrObject() {
-        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -28,12 +28,6 @@ final public class CharacterConstantEqualityTest
 
     private final static char CHAR = 'a';
 
-    @Override
-    @Test
-    public void testEqualsObjectAndPossiblyType() {
-        // CharacterConstantEquality.equals(char) overload is an exception
-    }
-
     @Test
     public void testDifferent() {
         this.checkNotEquals(CharacterConstant.with((char) (CharacterConstantEqualityTest.CHAR
