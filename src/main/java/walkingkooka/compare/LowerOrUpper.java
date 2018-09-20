@@ -19,13 +19,14 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 
 /**
  * Defines two methods to return the lower or higher of two values.
  */
-public interface LowerOrUpper<T extends Comparable<T>> extends Comparable<T> {
+public interface LowerOrUpper<T extends Comparable<T>> extends Comparable<T>, HashCodeEqualsDefined {
 
     default T lower(final T other) {
         Objects.requireNonNull(other, "other");

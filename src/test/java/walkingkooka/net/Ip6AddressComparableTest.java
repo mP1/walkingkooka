@@ -25,6 +25,16 @@ import walkingkooka.compare.ComparableTestCase;
 public final class Ip6AddressComparableTest extends ComparableTestCase<Ip6Address> {
 
     @Test
+    public void testDifferent() {
+        this.checkNotEquals(Ip6Address.with(new byte[]{9, 10, 11, 12, 13, 14, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0}));
+    }
+
+    @Test
+    public void testIp4() {
+        this.checkNotEquals(Ip4Address.with(new byte[]{1, 2, 3, 4}));
+    }
+    
+    @Test
     public void testLess() {
         this.compareToAndCheckLess(
                 Ip6Address.with(new byte[]{(byte) 255, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}));
@@ -33,10 +43,5 @@ public final class Ip6AddressComparableTest extends ComparableTestCase<Ip6Addres
     @Override
     protected Ip6Address createComparable() {
         return Ip6Address.with(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0});
-    }
-
-    @Override
-    protected Class<Ip6Address> type() {
-        return Ip6Address.class;
     }
 }

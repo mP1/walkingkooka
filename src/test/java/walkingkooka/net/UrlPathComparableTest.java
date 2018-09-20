@@ -25,6 +25,16 @@ import walkingkooka.compare.ComparableTestCase;
 public final class UrlPathComparableTest extends ComparableTestCase<UrlPath> {
 
     @Test
+    public void testDifferentComponent() {
+        this.checkNotEquals(UrlPath.parse("/different/path"));
+    }
+
+    @Test
+    public void testDifferentName() {
+        this.checkNotEquals(UrlPath.parse("/path/different"));
+    }
+
+    @Test
     public void testLess() {
         this.compareToAndCheckLess(UrlPath.parse("/path/to/zzzzz"));
     }
@@ -32,15 +42,5 @@ public final class UrlPathComparableTest extends ComparableTestCase<UrlPath> {
     @Override
     protected UrlPath createComparable() {
         return UrlPath.parse("/path/to/resource");
-    }
-
-    @Override
-    protected Class<UrlPath> type() {
-        return UrlPath.class;
-    }
-
-    @Override
-    protected boolean typeMustBePublic() {
-        return true;
     }
 }
