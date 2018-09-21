@@ -25,7 +25,7 @@ import walkingkooka.tree.search.SearchNode;
  */
 public final class SpreadsheetDoubleParserToken extends SpreadsheetNumericParserToken<Double> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetDoubleParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetDoubleParserToken.class);
 
     static SpreadsheetDoubleParserToken with(final double value, final String text){
         checkText(text);

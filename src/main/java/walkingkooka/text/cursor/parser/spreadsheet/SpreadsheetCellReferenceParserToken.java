@@ -29,7 +29,7 @@ import java.util.List;
 public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParentParserToken<SpreadsheetCellReferenceParserToken>
         implements SpreadsheetReferenceParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetCellReferenceParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetCellReferenceParserToken.class);
 
     static SpreadsheetCellReferenceParserToken with(final List<ParserToken> value, final String text){
         return new SpreadsheetCellReferenceParserToken(copyAndCheckTokens(value),

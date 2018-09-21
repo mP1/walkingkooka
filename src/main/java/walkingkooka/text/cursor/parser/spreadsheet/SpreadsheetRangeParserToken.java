@@ -28,7 +28,7 @@ import java.util.List;
  */
 public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserToken<SpreadsheetRangeParserToken> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetRangeParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetRangeParserToken.class);
 
     static SpreadsheetRangeParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);

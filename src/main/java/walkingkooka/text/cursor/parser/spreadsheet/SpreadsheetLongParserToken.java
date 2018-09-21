@@ -25,7 +25,7 @@ import walkingkooka.tree.search.SearchNode;
  */
 public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserToken<Long> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetLongParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLongParserToken.class);
 
     static SpreadsheetLongParserToken with(final long value, final String text){
         checkText(text);

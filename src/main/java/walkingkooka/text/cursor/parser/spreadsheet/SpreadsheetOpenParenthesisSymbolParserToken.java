@@ -27,7 +27,7 @@ import java.util.List;
  */
 public final class SpreadsheetOpenParenthesisSymbolParserToken extends SpreadsheetSymbolParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetOpenParenthesisSymbolParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetOpenParenthesisSymbolParserToken.class);
 
     static SpreadsheetOpenParenthesisSymbolParserToken with(final String value, final String text){
         checkValue(value);

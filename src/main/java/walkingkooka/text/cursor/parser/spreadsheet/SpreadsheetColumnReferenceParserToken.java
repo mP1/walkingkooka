@@ -27,7 +27,7 @@ import java.util.Optional;
  */
 public final class SpreadsheetColumnReferenceParserToken extends SpreadsheetLeafParserToken2<SpreadsheetColumnReference> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetColumnReferenceParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetColumnReferenceParserToken.class);
 
     static SpreadsheetColumnReferenceParserToken with(final SpreadsheetColumnReference value, final String text){
         checkValue(value);

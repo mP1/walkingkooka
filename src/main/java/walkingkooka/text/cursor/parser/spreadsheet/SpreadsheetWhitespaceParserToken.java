@@ -28,7 +28,7 @@ import java.util.Optional;
  */
 public final class SpreadsheetWhitespaceParserToken extends SpreadsheetLeafParserToken2<String> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetWhitespaceParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetWhitespaceParserToken.class);
 
     static SpreadsheetWhitespaceParserToken with(final String value, final String text){
         checkValue(value);

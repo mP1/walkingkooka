@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetLeafParserToken2<LocalDateTime> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetLocalDateTimeParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLocalDateTimeParserToken.class);
 
     static SpreadsheetLocalDateTimeParserToken with(final LocalDateTime value, final String text){
         checkValue(value);

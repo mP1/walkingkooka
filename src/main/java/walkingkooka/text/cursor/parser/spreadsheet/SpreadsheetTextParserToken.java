@@ -28,7 +28,7 @@ import java.util.Optional;
  */
 public final class SpreadsheetTextParserToken extends SpreadsheetLeafParserToken2<String> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetTextParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetTextParserToken.class);
 
     static SpreadsheetTextParserToken with(final String value, final String text){
         checkValue(value);
