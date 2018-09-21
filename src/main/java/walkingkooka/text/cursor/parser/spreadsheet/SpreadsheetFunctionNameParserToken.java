@@ -26,7 +26,7 @@ import java.util.Optional;
  */
 public final class SpreadsheetFunctionNameParserToken extends SpreadsheetLeafParserToken2<SpreadsheetFunctionName> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetFunctionNameParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFunctionNameParserToken.class);
 
     static SpreadsheetFunctionNameParserToken with(final SpreadsheetFunctionName value, final String text){
         checkValue(value);

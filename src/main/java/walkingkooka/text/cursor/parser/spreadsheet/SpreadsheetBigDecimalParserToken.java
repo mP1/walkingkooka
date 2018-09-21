@@ -27,7 +27,7 @@ import java.math.BigDecimal;
  */
 public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericParserToken<BigDecimal> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetBigDecimalParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBigDecimalParserToken.class);
 
     static SpreadsheetBigDecimalParserToken with(final BigDecimal value, final String text){
         checkValue(value);

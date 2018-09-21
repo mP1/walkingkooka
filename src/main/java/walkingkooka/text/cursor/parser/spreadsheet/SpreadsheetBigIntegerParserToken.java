@@ -27,7 +27,7 @@ import java.math.BigInteger;
  */
 public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericParserToken<BigInteger> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetBigIntegerParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBigIntegerParserToken.class);
 
     static SpreadsheetBigIntegerParserToken with(final BigInteger value, final String text){
         checkValue(value);

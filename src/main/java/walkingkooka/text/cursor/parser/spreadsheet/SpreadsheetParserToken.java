@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.HasExpressionNode;
@@ -41,14 +40,6 @@ import java.util.Optional;
  * Represents a token within the grammar.
  */
 public abstract class SpreadsheetParserToken implements ParserToken, HasExpressionNode {
-
-    /**
-     * Factory used by all sub classes to create their {@link ParserTokenNodeName} constants.
-     */
-    static ParserTokenNodeName parserTokenNodeName(final Class<? extends SpreadsheetParserToken> type) {
-        final String name = type.getSimpleName();
-        return ParserTokenNodeName.with(name.substring(0, name.length() - ParserToken.class.getSimpleName().length()));
-    }
 
     /**
      * {@see SpreadsheetAdditionParserToken}

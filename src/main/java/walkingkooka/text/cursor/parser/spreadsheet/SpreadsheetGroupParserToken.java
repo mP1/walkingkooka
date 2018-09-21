@@ -28,7 +28,7 @@ import java.util.List;
  */
 public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserToken<SpreadsheetGroupParserToken> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetGroupParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetGroupParserToken.class);
 
     static SpreadsheetGroupParserToken with(final List<ParserToken> value, final String text){
         return new SpreadsheetGroupParserToken(copyAndCheckTokens(value),

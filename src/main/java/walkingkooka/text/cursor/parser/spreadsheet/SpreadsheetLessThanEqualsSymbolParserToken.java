@@ -27,7 +27,7 @@ import java.util.List;
  */
 public final class SpreadsheetLessThanEqualsSymbolParserToken extends SpreadsheetSymbolParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetLessThanEqualsSymbolParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLessThanEqualsSymbolParserToken.class);
 
     static SpreadsheetLessThanEqualsSymbolParserToken with(final String value, final String text){
         checkValue(value);

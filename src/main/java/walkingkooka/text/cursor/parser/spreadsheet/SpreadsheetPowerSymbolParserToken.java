@@ -27,7 +27,7 @@ import java.util.List;
  */
 public final class SpreadsheetPowerSymbolParserToken extends SpreadsheetSymbolParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetPowerSymbolParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPowerSymbolParserToken.class);
 
     static SpreadsheetPowerSymbolParserToken with(final String value, final String text){
         checkValue(value);

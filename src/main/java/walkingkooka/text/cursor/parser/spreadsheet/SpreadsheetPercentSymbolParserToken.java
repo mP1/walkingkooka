@@ -27,7 +27,7 @@ import java.util.List;
  */
 public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetSymbolParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetPercentSymbolParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPercentSymbolParserToken.class);
 
     static SpreadsheetPercentSymbolParserToken with(final String value, final String text){
         checkValue(value);

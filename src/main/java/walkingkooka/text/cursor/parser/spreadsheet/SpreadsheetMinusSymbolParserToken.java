@@ -27,7 +27,7 @@ import java.util.List;
  */
 public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetSymbolParserToken {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(SpreadsheetMinusSymbolParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetMinusSymbolParserToken.class);
 
     static SpreadsheetMinusSymbolParserToken with(final String value, final String text){
         checkValue(value);
