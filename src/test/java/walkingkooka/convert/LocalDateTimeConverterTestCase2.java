@@ -27,7 +27,7 @@ import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class LocalDateTimeConverterTestCase2<C extends FixedTypeConverter2<LocalDateTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
+public abstract class LocalDateTimeConverterTestCase2<C extends FixedSourceTypeTargetTypeConverter<LocalDateTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
 
     final static int VALUE = 123;
     final static LocalDate DAY = LocalDate.ofEpochDay(VALUE);

@@ -22,7 +22,7 @@ package walkingkooka.convert;
  * A {@link Converter} which only accepts a single source type and a single target type, with an offset which is
  * added to the date component.
  */
-abstract class LocalDateOrLocalDateTimeNumberConverter<S, T> extends FixedTypeConverter2<S, T> {
+abstract class LocalDateOrLocalDateTimeNumberConverter<S, T> extends FixedSourceTypeTargetTypeConverter<S, T> {
 
     LocalDateOrLocalDateTimeNumberConverter(final long offset) {
         super();

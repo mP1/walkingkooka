@@ -23,12 +23,12 @@ import walkingkooka.Cast;
 /**
  * A base converter that only accepts one target.
  */
-abstract class FixedTypeConverter<T> extends ConverterTemplate {
+abstract class FixedTargetTypeConverter<T> extends ConverterTemplate {
 
     /**
      * Package private to limit sub classing.
      */
-    FixedTypeConverter(){
+    FixedTargetTypeConverter(){
         super();
     }
 

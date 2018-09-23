@@ -21,7 +21,7 @@ package walkingkooka.convert;
 /**
  * A {@link Converter} invokes {@link Object#toString()} to convert any value into a {@link String}
  */
-final class StringConverter extends FixedTypeConverter<String> {
+final class StringConverter extends FixedTargetTypeConverter<String> {
 
     /**
      * Singleton

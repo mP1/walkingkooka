@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 
-public abstract class LocalDateTimeConverterTestCase<C extends FixedTypeConverter2<T, LocalDateTime>, T> extends FixedTypeConverterTestCase<C, LocalDateTime> {
+public abstract class LocalDateTimeConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<T, LocalDateTime>, T> extends FixedTypeConverterTestCase<C, LocalDateTime> {
 
     @Test
     public final void testWrongTypeFails() {

@@ -20,9 +20,9 @@ package walkingkooka.convert;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class FixedTypeConverterTest extends PackagePrivateClassTestCase<FixedTypeConverter> {
+public final class FixedTargetTypeConverterTest extends PackagePrivateClassTestCase<FixedTargetTypeConverter> {
     @Override
-    protected Class<FixedTypeConverter> type() {
-        return FixedTypeConverter.class;
+    protected Class<FixedTargetTypeConverter> type() {
+        return FixedTargetTypeConverter.class;
     }
 }

@@ -18,7 +18,11 @@
 
 package walkingkooka.convert;
 
-import java.time.LocalTime;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-public abstract class LocalTimeConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<LocalTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
+public final class FixedSourceTypeTargetTypeConverterTest extends PackagePrivateClassTestCase<FixedSourceTypeTargetTypeConverter> {
+    @Override
+    protected Class<FixedSourceTypeTargetTypeConverter> type() {
+        return FixedSourceTypeTargetTypeConverter.class;
+    }
 }

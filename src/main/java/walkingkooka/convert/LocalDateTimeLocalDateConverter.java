@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 /**
  * Accepts {@link LocalDateTime} and returns the {@link java.time.LocalDate}
  */
-final class LocalDateTimeLocalDateConverter extends FixedTypeConverter2<LocalDateTime, LocalDate>{
+final class LocalDateTimeLocalDateConverter extends FixedSourceTypeTargetTypeConverter<LocalDateTime, LocalDate> {
 
     /**
      * Singleton

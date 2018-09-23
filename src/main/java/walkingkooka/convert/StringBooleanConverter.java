@@ -22,7 +22,7 @@ package walkingkooka.convert;
  * A {@link Converter} that knows how to convert {@link String} to {@link Boolean}.
  * Requests for all other types will fail.
  */
-final class StringBooleanConverter extends FixedTypeConverter<Boolean> {
+final class StringBooleanConverter extends FixedTargetTypeConverter<Boolean> {
 
     final static StringBooleanConverter INSTANCE = new StringBooleanConverter();
 

@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import java.time.format.DateTimeFormatter;
 
-public abstract class DateTimeFormatterConverterTestCase<C extends FixedTypeConverter2<S, T>, S, T> extends FixedTypeConverterTestCase<C, T> {
+public abstract class DateTimeFormatterConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<S, T>, S, T> extends FixedTypeConverterTestCase<C, T> {
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullFormatterFails() {
