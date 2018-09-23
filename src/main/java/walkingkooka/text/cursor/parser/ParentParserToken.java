@@ -25,11 +25,21 @@ import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Interface that all parent parser tokens must implement.
  */
 public interface ParentParserToken<P extends ParentParserToken> extends ParserToken, Value<List<ParserToken>>, HasSearchNode {
+
+    /**
+     * Returns a {@link List} without any {@link ParserToken tokens} that return true for {@link #isNoise()}.
+     */
+    static List<ParserToken> filterWithoutNoise(final List<ParserToken> value){
+        return value.stream()
+                .filter(t -> !t.isNoise())
+                .collect(Collectors.toList());
+    }
 
     /**
      * Would be setter that returns an instance with the given tokens or value, creating a new instance if necessary.

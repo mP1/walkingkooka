@@ -25,7 +25,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
@@ -43,9 +42,7 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
     }
 
     private Optional<JsonNodeParserToken> computeWithout(final List<ParserToken> value){
-        final List<ParserToken> without = value.stream()
-             .filter(t -> !t.isNoise())
-             .collect(Collectors.toList());
+        final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
 
         return Optional.of(value.size() == without.size() ?
                 this:
