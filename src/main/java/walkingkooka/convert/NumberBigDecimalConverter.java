@@ -54,12 +54,17 @@ final class NumberBigDecimalConverter extends NumberConverter<BigDecimal> {
     }
 
     @Override
+    Class<BigDecimal> targetType(){
+        return BigDecimal.class;
+    }
+
+    @Override
     String toStringPrefix() {
         return "";
     }
 
     @Override
-    Class<BigDecimal> targetType(){
-        return BigDecimal.class;
+    String toStringSuffix() {
+        return "";
     }
 }

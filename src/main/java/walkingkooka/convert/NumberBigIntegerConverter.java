@@ -54,12 +54,17 @@ final class NumberBigIntegerConverter extends NumberConverter<BigInteger> {
     }
 
     @Override
+    Class<BigInteger> targetType(){
+        return BigInteger.class;
+    }
+
+    @Override
     String toStringPrefix() {
         return "";
     }
 
     @Override
-    Class<BigInteger> targetType(){
-        return BigInteger.class;
+    String toStringSuffix() {
+        return "";
     }
 }

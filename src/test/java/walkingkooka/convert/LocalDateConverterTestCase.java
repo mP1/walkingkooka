@@ -18,7 +18,63 @@
 
 package walkingkooka.convert;
 
+import org.junit.Test;
+
 import java.time.LocalDate;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class LocalDateConverterTestCase<C extends FixedTypeConverter2<LocalDate, T>, T> extends FixedTypeConverterTestCase<C, T> {
+
+    @Test
+    public final void testLocalDateZeroOffset() {
+        final int value = 123;
+        this.convertAndCheck(LocalDate.ofEpochDay(value), this.value(value));
+    }
+
+    @Test
+    public final void testLocalDateExcelOffset() {
+        final int value = 0;
+        this.convertAndCheck(this.createConverter(Converters.EXCEL_OFFSET),
+                LocalDate.ofEpochDay(value - Converters.EXCEL_OFFSET),
+                this.onlySupportedType(),
+                this.value(value));
+    }
+
+    @Test
+    public final void testLocalDateExcelOffset2() {
+        final int value = 123;
+        this.convertAndCheck(this.createConverter(Converters.EXCEL_OFFSET),
+                LocalDate.ofEpochDay(-Converters.EXCEL_OFFSET + value),
+                this.onlySupportedType(),
+                this.value(value));
+    }
+
+    @Test
+    public final void testToString() {
+        assertEquals(this.defaultToString(), this.createConverter().toString());
+    }
+
+    @Test
+    public final void testToStringWithPositiveOffset() {
+        assertEquals(this.defaultToString() + "(+123)", this.createConverter(123).toString());
+    }
+
+    @Test
+    public final void testToStringWithNegativeOffset() {
+        assertEquals(this.defaultToString() + "(-123)", this.createConverter(-123).toString());
+    }
+
+    private String defaultToString() {
+        return "LocalDate->" + this.onlySupportedType().getSimpleName();
+    }
+
+    @Override
+    protected C createConverter() {
+        return this.createConverter(Converters.JAVA_EPOCH_OFFSET);
+    }
+
+    abstract C createConverter(final long offset);
+
+    abstract T value(long value);
 }

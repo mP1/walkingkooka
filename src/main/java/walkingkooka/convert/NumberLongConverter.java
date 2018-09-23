@@ -58,12 +58,17 @@ final class NumberLongConverter extends NumberConverter<Long> {
     }
 
     @Override
+    Class<Long> targetType(){
+        return Long.class;
+    }
+
+    @Override
     String toStringPrefix() {
         return "";
     }
 
     @Override
-    Class<Long> targetType(){
-        return Long.class;
+    String toStringSuffix() {
+        return "";
     }
 }

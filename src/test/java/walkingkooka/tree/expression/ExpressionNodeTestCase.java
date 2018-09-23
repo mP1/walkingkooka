@@ -138,7 +138,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final LocalDate localDateValue(final long value) {
-        return Converters.numberLocalDate().convert(value, LocalDate.class);
+        return Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET).convert(value, LocalDate.class);
     }
 
     final ExpressionLocalDateNode localDate(final long value) {
@@ -146,7 +146,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final LocalDateTime localDateTimeValue(final double value) {
-        return Converters.numberLocalDateTime().convert(value, LocalDateTime.class);
+        return Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET).convert(value, LocalDateTime.class);
     }
 
     final ExpressionLocalDateTimeNode localDateTime(final double value) {
@@ -367,23 +367,23 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                 Converters.simple(),
                 // localDate ->
                 toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
-                Converters.localDateBigDecimal(),
-                Converters.localDateBigInteger(),
-                Converters.localDateDouble(),
+                Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
+                Converters.localDateBigInteger(Converters.JAVA_EPOCH_OFFSET),
+                Converters.localDateDouble(Converters.JAVA_EPOCH_OFFSET),
                 Converters.localDateLocalDateTime(),
                 Converters.fail(LocalDate.class, LocalTime.class),
-                Converters.localDateLong(),
-                Converters.forward(Converters.localDateLong(), Number.class, Long.class).setToString("LocalDate->Long"),
+                Converters.localDateLong(Converters.JAVA_EPOCH_OFFSET),
+                Converters.forward(Converters.localDateLong(Converters.JAVA_EPOCH_OFFSET), Number.class, Long.class).setToString("LocalDate->Long"),
                 Converters.localDateString(DateTimeFormatter.ISO_LOCAL_DATE),
                 // localDateTime ->
                 toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
-                Converters.localDateTimeBigDecimal(),
-                Converters.localDateTimeBigInteger(),
-                Converters.localDateTimeDouble(),
-                Converters.localDateTimeLocalDate(),
+                Converters.localDateTimeBigDecimal(Converters.JAVA_EPOCH_OFFSET),
+                Converters.localDateTimeBigInteger(Converters.JAVA_EPOCH_OFFSET),
+                Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET),
+                Converters.localDateTimeLocalDate(Converters.JAVA_EPOCH_OFFSET),
                 Converters.localDateTimeLocalTime(),
-                Converters.localDateTimeLong(),
-                Converters.forward(Converters.localDateTimeDouble(), Number.class, Double.class).setToString("LocalDateTime->Number"),
+                Converters.localDateTimeLong(Converters.JAVA_EPOCH_OFFSET),
+                Converters.forward(Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET), Number.class, Double.class).setToString("LocalDateTime->Number"),
                 Converters.localDateTimeString(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
@@ -400,8 +400,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                 Converters.numberBigInteger(),
                 Converters.truthyNumberBoolean(),
                 Converters.numberDouble(),
-                Converters.numberLocalDate(),
-                Converters.numberLocalDateTime(),
+                Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET),
+                Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
                 Converters.numberLocalTime(),
                 Converters.numberLong(),
                 // string ->
@@ -419,8 +419,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                 fromBoolean(BigDecimal.class, Converters.numberBigDecimal()),
                 fromBoolean(BigInteger.class, Converters.numberBigInteger()),
                 fromBoolean(Double.class, Converters.numberDouble()),
-                fromBoolean(LocalDate.class, Converters.numberLocalDate()),
-                fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime()),
+                fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalTime.class, Converters.numberLocalTime()),
                 fromBoolean(Long.class, Converters.numberLong())));
 

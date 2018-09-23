@@ -43,6 +43,14 @@ abstract class FixedTypeConverter2<S, T> extends FixedTypeConverter<T> {
 
     @Override
     public final String toString() {
-        return this.sourceType().getSimpleName() + "->" + this.targetType().getSimpleName();
+        final StringBuilder b = new StringBuilder();
+        b.append(this.sourceType().getSimpleName());
+        b.append("->");
+        b.append(this.targetType().getSimpleName());
+        b.append(this.toStringSuffix());
+
+        return b.toString();
     }
+
+    abstract String toStringSuffix();
 }

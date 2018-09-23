@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.function.Supplier;
@@ -32,6 +33,17 @@ import java.util.function.Supplier;
  * Factory methods for numerous {@link Converter converters}.
  */
 public final class Converters implements PublicStaticHelper {
+
+    /**
+     * Parameter to use as the offset for java date/datetimes
+     */
+    public final static long JAVA_EPOCH_OFFSET = 0;
+
+    /**
+     * Parameter to use to convert date/datetimes to an excel/spreadsheet number.
+     * A numeric value of 0 when formatted as a date/datetime shows a date component of 1899/12/30.
+     */
+    public final static long EXCEL_OFFSET = LocalDate.of(1899, 12, 30).toEpochDay();
 
     /**
      * Hours per day.
@@ -103,29 +115,29 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see LocalDateBigDecimalConverter}
      */
-    public static Converter localDateBigDecimal() {
-        return LocalDateBigDecimalConverter.INSTANCE;
+    public static Converter localDateBigDecimal(final long offset) {
+        return LocalDateBigDecimalConverter.with(offset);
     }
 
     /**
      * {@see LocalDateBigIntegerConverter}
      */
-    public static Converter localDateBigInteger() {
-        return LocalDateBigIntegerConverter.INSTANCE;
+    public static Converter localDateBigInteger(final long offset) {
+        return LocalDateBigIntegerConverter.with(offset);
     }
 
     /**
      * {@see LocalDateDoubleConverter}
      */
-    public static Converter localDateDouble() {
-        return LocalDateDoubleConverter.INSTANCE;
+    public static Converter localDateDouble(final long offset) {
+        return LocalDateDoubleConverter.with(offset);
     }
 
     /**
      * {@see LocalDateLongConverter}
      */
-    public static Converter localDateLong() {
-        return LocalDateLongConverter.INSTANCE;
+    public static Converter localDateLong(final long offset) {
+        return LocalDateLongConverter.with(offset);
     }
 
     /**
@@ -145,36 +157,36 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see LocalDateTimeBigDecimalConverter}
      */
-    public static Converter localDateTimeBigDecimal() {
-        return LocalDateTimeBigDecimalConverter.INSTANCE;
+    public static Converter localDateTimeBigDecimal(final long offset) {
+        return LocalDateTimeBigDecimalConverter.with(offset);
     }
 
     /**
      * {@see LocalDateTimeBigIntegerConverter}
      */
-    public static Converter localDateTimeBigInteger() {
-        return LocalDateTimeBigIntegerConverter.INSTANCE;
+    public static Converter localDateTimeBigInteger(final long offset) {
+        return LocalDateTimeBigIntegerConverter.with(offset);
     }
 
     /**
      * {@see LocalDateTimeDoubleConverter}
      */
-    public static Converter localDateTimeDouble() {
-        return LocalDateTimeDoubleConverter.INSTANCE;
+    public static Converter localDateTimeDouble(final long offset) {
+        return LocalDateTimeDoubleConverter.with(offset);
     }
 
     /**
      * {@see LocalDateTimeLocalDateConverter}
      */
-    public static Converter localDateTimeLocalDate() {
+    public static Converter localDateTimeLocalDate(final long offset) {
         return LocalDateTimeLocalDateConverter.INSTANCE;
     }
 
     /**
      * {@see LocalDateTimeLongConverter}
      */
-    public static Converter localDateTimeLong() {
-        return LocalDateTimeLongConverter.INSTANCE;
+    public static Converter localDateTimeLong(final long offset) {
+        return LocalDateTimeLongConverter.with(offset);
     }
 
     /**
@@ -258,15 +270,15 @@ public final class Converters implements PublicStaticHelper {
     /**
      * {@see NumberLocalDateConverter}
      */
-    public static Converter numberLocalDate() {
-        return NumberLocalDateConverter.INSTANCE;
+    public static Converter numberLocalDate(final long offset) {
+        return NumberLocalDateConverter.with(offset);
     }
 
     /**
      * {@see NumberLocalDateTimeConverter}
      */
-    public static Converter numberLocalDateTime() {
-        return NumberLocalDateTimeConverter.INSTANCE;
+    public static Converter numberLocalDateTime(final long offset) {
+        return NumberLocalDateTimeConverter.with(offset);
     }
 
     /**

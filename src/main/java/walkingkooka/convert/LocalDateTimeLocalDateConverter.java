@@ -51,4 +51,9 @@ final class LocalDateTimeLocalDateConverter extends FixedTypeConverter2<LocalDat
     LocalDate convert2(final LocalDateTime value) {
         return value.toLocalDate();
     }
+
+    @Override
+    String toStringSuffix() {
+        return "";
+    }
 }

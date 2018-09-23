@@ -18,34 +18,23 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
-
 import java.math.BigInteger;
-import java.time.LocalDate;
-
-import static org.junit.Assert.assertEquals;
 
 public final class LocalDateBigIntegerConverterTest extends LocalDateConverterTestCase<LocalDateBigIntegerConverter, BigInteger> {
 
-    @Test
-    public void testLocalDate() {
-        final int value = 123;
-        this.convertAndCheck(LocalDate.ofEpochDay(value), BigInteger.valueOf(value));
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("LocalDate->BigInteger", this.createConverter().toString());
-    }
-
     @Override
-    protected LocalDateBigIntegerConverter createConverter() {
-        return LocalDateBigIntegerConverter.INSTANCE;
+    final LocalDateBigIntegerConverter createConverter(final long offset) {
+        return LocalDateBigIntegerConverter.with(offset);
     }
 
     @Override
     protected Class<BigInteger> onlySupportedType() {
         return BigInteger.class;
+    }
+
+    @Override
+    final BigInteger value(final long value) {
+        return BigInteger.valueOf(value);
     }
 
     @Override

@@ -26,14 +26,18 @@ import java.math.BigInteger;
 final class LocalDateBigIntegerConverter extends LocalDateConverter<BigInteger> {
 
     /**
-     * Singleton
+     * Factory that creates a new instance with the given date offset.
+     * A value of zero = 1/1/1970.
      */
-    static final LocalDateBigIntegerConverter INSTANCE = new LocalDateBigIntegerConverter();
+    static final LocalDateBigIntegerConverter with(final long offset) {
+        return new LocalDateBigIntegerConverter(offset);
+    }
 
     /**
-     * Private ctor use singleton
+     * Private ctor use factory
      */
-    private LocalDateBigIntegerConverter() {
+    private LocalDateBigIntegerConverter(final long offset) {
+        super(offset);
     }
 
     @Override

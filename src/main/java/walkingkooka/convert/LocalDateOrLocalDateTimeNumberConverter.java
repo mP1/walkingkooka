@@ -18,33 +18,21 @@
 
 package walkingkooka.convert;
 
-import java.time.LocalTime;
-
 /**
- * Converts an object from a {@link LocalTime}
+ * A {@link Converter} which only accepts a single source type and a single target type, with an offset which is
+ * added to the date component.
  */
-abstract class LocalTimeConverter<T> extends FixedTypeConverter2<LocalTime, T>{
+abstract class LocalDateOrLocalDateTimeNumberConverter<S, T> extends FixedTypeConverter2<S, T> {
 
-    /**
-     * Package private to limit sub classing.
-     */
-    LocalTimeConverter() {
+    LocalDateOrLocalDateTimeNumberConverter(final long offset) {
+        super();
+        this.offset = offset;
     }
 
-    @Override
-    Class<LocalTime> sourceType() {
-        return LocalTime.class;
-    }
-
-    @Override
-    T convert2(final LocalTime value) {
-        return this.convert3(value.toSecondOfDay(), value.getNano(), value);
-    }
-
-    abstract T convert3(final long seconds, final long nano, final LocalTime localTime);
+    final long offset;
 
     @Override
     String toStringSuffix() {
-        return "";
+        return toStringOffset(this.offset);
     }
 }

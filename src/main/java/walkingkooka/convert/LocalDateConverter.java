@@ -23,12 +23,13 @@ import java.time.LocalDate;
 /**
  * Converts an object into a {@link LocalDate}
  */
-abstract class LocalDateConverter<T> extends FixedTypeConverter2<LocalDate, T>{
+abstract class LocalDateConverter<T> extends LocalDateOrLocalDateTimeNumberConverter<LocalDate, T> {
 
     /**
      * Package private to limit sub classing.
      */
-    LocalDateConverter() {
+    LocalDateConverter(final long offset) {
+        super(offset);
     }
 
     @Override
@@ -38,7 +39,7 @@ abstract class LocalDateConverter<T> extends FixedTypeConverter2<LocalDate, T>{
 
     @Override
     T convert2(final LocalDate value) {
-        return this.convert3(value.toEpochDay());
+        return this.convert3(value.toEpochDay() + this.offset);
     }
 
     abstract T convert3(final long value);

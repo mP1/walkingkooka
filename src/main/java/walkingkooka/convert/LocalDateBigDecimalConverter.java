@@ -26,14 +26,18 @@ import java.math.BigDecimal;
 final class LocalDateBigDecimalConverter extends LocalDateConverter<BigDecimal> {
 
     /**
-     * Singleton
+     * Factory that creates an instance with the given date offset.
+     * A value of zero = 1/1/1970,.
      */
-    static final LocalDateBigDecimalConverter INSTANCE = new LocalDateBigDecimalConverter();
+    static final LocalDateBigDecimalConverter with(final long offset) {
+        return new LocalDateBigDecimalConverter(offset);
+    }
 
     /**
-     * Private ctor use singleton
+     * Private ctor use factory
      */
-    private LocalDateBigDecimalConverter() {
+    private LocalDateBigDecimalConverter(final long offset) {
+        super(offset);
     }
 
     @Override

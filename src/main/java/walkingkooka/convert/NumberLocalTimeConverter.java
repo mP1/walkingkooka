@@ -85,12 +85,17 @@ final class NumberLocalTimeConverter extends NumberConverter<LocalTime> {
     }
 
     @Override
+    Class<LocalTime> targetType() {
+        return LocalTime.class;
+    }
+
+    @Override
     String toStringPrefix() {
         return "";
     }
 
     @Override
-    Class<LocalTime> targetType() {
-        return LocalTime.class;
+    String toStringSuffix() {
+        return "";
     }
 }

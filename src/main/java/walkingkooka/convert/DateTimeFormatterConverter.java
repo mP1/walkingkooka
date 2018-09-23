@@ -48,4 +48,9 @@ abstract class DateTimeFormatterConverter<S, T> extends FixedTypeConverter2<S, T
     }
 
     abstract T convert3(final S value) throws DateTimeException;
+
+    @Override
+    String toStringSuffix() {
+        return "";
+    }
 }

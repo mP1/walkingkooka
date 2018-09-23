@@ -26,14 +26,18 @@ import java.time.LocalDateTime;
 final class LocalDateTimeLongConverter extends LocalDateTimeConverter2<Long> {
 
     /**
-     * Singleton
+     * Creates a new instance with the given date offset.
+     * A value of zero = 1/1/1970.
      */
-    final static LocalDateTimeLongConverter INSTANCE = new LocalDateTimeLongConverter();
+    final static LocalDateTimeLongConverter with(final long offset) {
+        return new LocalDateTimeLongConverter(offset);
+    }
 
     /**
-     * Private ctor use singleton
+     * Private ctor use factory
      */
-    private LocalDateTimeLongConverter() {
+    private LocalDateTimeLongConverter(final long offset) {
+        super(offset);
     }
 
     @Override

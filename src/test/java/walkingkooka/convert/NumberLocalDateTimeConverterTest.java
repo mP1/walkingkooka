@@ -31,6 +31,7 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
 
     private final static int VALUE = 123;
     private final static LocalTime MIDNIGHT = LocalTime.ofSecondOfDay(0);
+    private final static LocalDateTime DATE_TIME_EXCEL_OFFSET =LocalDateTime.of(1900, 5, 2, 0, 0, 0);
 
     @Test
     public void testNonNumberTypeFails() {
@@ -53,8 +54,18 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
     }
 
     @Test
+    public void testBigDecimalWithExcelOffset() {
+        this.convertAndCheckExcelOffset(BigDecimal.valueOf(VALUE));
+    }
+
+    @Test
     public void testBigInteger() {
         this.convertAndCheck(BigInteger.valueOf(VALUE), this.localDateTime(VALUE, MIDNIGHT));
+    }
+
+    @Test
+    public void testBigIntegerWithExcelOffset() {
+        this.convertAndCheckExcelOffset(BigInteger.valueOf(VALUE));
     }
 
     @Test
@@ -68,6 +79,11 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
     }
 
     @Test
+    public void testDoubleWithExcelOffset() {
+        this.convertAndCheckExcelOffset(BigDecimal.valueOf(VALUE));
+    }
+
+    @Test
     @Ignore
     public void testDoubleMaxFails() {
         throw new UnsupportedOperationException();
@@ -78,9 +94,21 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
         this.convertAndCheck(Long.valueOf(VALUE), this.localDateTime(123, MIDNIGHT));
     }
 
+    @Test
+    public void testLongWithExcelOffset() {
+        this.convertAndCheckExcelOffset(Long.valueOf(VALUE));
+    }
+
+    private void convertAndCheckExcelOffset(final Number value) {
+        this.convertAndCheck(NumberLocalDateTimeConverter.with(Converters.EXCEL_OFFSET),
+                value,
+                LocalDateTime.class,
+                DATE_TIME_EXCEL_OFFSET);
+    }
+
     @Override
     protected NumberLocalDateTimeConverter createConverter() {
-        return NumberLocalDateTimeConverter.INSTANCE;
+        return NumberLocalDateTimeConverter.with(Converters.JAVA_EPOCH_OFFSET);
     }
 
     private LocalDateTime localDateTime(final int date, final int hours, final int minutes) {

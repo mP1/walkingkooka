@@ -33,10 +33,12 @@ public final class ExpressionLocalDateTimeNodeTest extends ExpressionLeafNodeTes
 
     private final static String DATETIMESTRING = "2000-01-31T12:59:00";
     private final static String DIFFERENT_DATETIME_STRING = "1999-12-31T12:58";
-    private final static double VALUE = Converters.localDateTimeDouble().convert(LocalDateTime.parse(DATETIMESTRING), Double.class);
+    private final static double VALUE = Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET)
+            .convert(LocalDateTime.parse(DATETIMESTRING), Double.class);
 
     private final static String DATETIMESTRING2 = "1999-12-31T00:00:00";
-    private final static long VALUE2 = Converters.localDateTimeLong().convert(LocalDateTime.parse(DATETIMESTRING2), Long.class);
+    private final static long VALUE2 = Converters.localDateTimeLong(Converters.JAVA_EPOCH_OFFSET)
+            .convert(LocalDateTime.parse(DATETIMESTRING2), Long.class);
 
     @Test
     public void testAccept() {
@@ -96,7 +98,8 @@ public final class ExpressionLocalDateTimeNodeTest extends ExpressionLeafNodeTes
     @Test
     public void testToLocalDate() {
         this.evaluateAndCheckLocalDate(this.createExpressionNode(),
-                Converters.localDateTimeLocalDate().convert(this.value(), LocalDate.class));
+                Converters.localDateTimeLocalDate(Converters.JAVA_EPOCH_OFFSET)
+                        .convert(this.value(), LocalDate.class));
     }
 
     @Test

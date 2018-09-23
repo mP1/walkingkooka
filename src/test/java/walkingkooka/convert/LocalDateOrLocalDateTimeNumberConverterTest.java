@@ -18,33 +18,11 @@
 
 package walkingkooka.convert;
 
-import java.time.LocalTime;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-/**
- * Converts an object from a {@link LocalTime}
- */
-abstract class LocalTimeConverter<T> extends FixedTypeConverter2<LocalTime, T>{
-
-    /**
-     * Package private to limit sub classing.
-     */
-    LocalTimeConverter() {
-    }
-
+public final class LocalDateOrLocalDateTimeNumberConverterTest extends PackagePrivateClassTestCase<LocalDateOrLocalDateTimeNumberConverter> {
     @Override
-    Class<LocalTime> sourceType() {
-        return LocalTime.class;
-    }
-
-    @Override
-    T convert2(final LocalTime value) {
-        return this.convert3(value.toSecondOfDay(), value.getNano(), value);
-    }
-
-    abstract T convert3(final long seconds, final long nano, final LocalTime localTime);
-
-    @Override
-    String toStringSuffix() {
-        return "";
+    protected Class<LocalDateOrLocalDateTimeNumberConverter> type() {
+        return LocalDateOrLocalDateTimeNumberConverter.class;
     }
 }
