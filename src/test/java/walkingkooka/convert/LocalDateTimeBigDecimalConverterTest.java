@@ -22,56 +22,38 @@ import org.junit.Test;
 import walkingkooka.Cast;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import static org.junit.Assert.assertEquals;
 
 public final class LocalDateTimeBigDecimalConverterTest extends LocalDateTimeConverterTestCase2<LocalDateTimeBigDecimalConverter, BigDecimal> {
 
-    private final static int VALUE = 123;
-    private final static LocalDate DAY_123 = LocalDate.ofEpochDay(VALUE);
-    private final static LocalTime MIDNIGHT = LocalTime.ofSecondOfDay(0);
-    private final static LocalTime QUARTER_DAY = LocalTime.of(6, 0);
-
-    @Test
-    public void testLocalDateTime() {
-        this.convertAndCheck(LocalDateTime.of(DAY_123, MIDNIGHT), BigDecimal.valueOf(VALUE));
-    }
-
     @Test
     public void testLocalDateTimeWithNonMidnightTime() {
-        this.convertAndCheck(LocalDateTime.of(DAY_123, QUARTER_DAY), BigDecimal.valueOf(VALUE + 0.25));
-    }
-
-    @Test
-    public void testConverterRoundTrip() {
-        final LocalDateTime localDateTime = LocalDateTime.of(DAY_123, MIDNIGHT);
-        final BigDecimal bigDecimal = Cast.to(this.convertAndCheck(localDateTime, BigDecimal.valueOf(VALUE)));
-        this.convertAndCheck(Converters.numberLocalDateTime(), bigDecimal, LocalDateTime.class, localDateTime);
+        this.convertAndCheck(LocalDateTime.of(DAY, QUARTER_DAY), BigDecimal.valueOf(VALUE + 0.25));
     }
 
     @Test
     public void testConverterRoundTripWithNonMidnightTime() {
-        final LocalDateTime localDateTime = LocalDateTime.of(DAY_123, QUARTER_DAY);
+        final LocalDateTime localDateTime = LocalDateTime.of(DAY, QUARTER_DAY);
         final BigDecimal bigDecimal = Cast.to(this.convertAndCheck(localDateTime, BigDecimal.valueOf(VALUE + 0.25)));
-        this.convertAndCheck(Converters.numberLocalDateTime(), bigDecimal, LocalDateTime.class, localDateTime);
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("LocalDateTime->BigDecimal", this.createConverter().toString());
+        this.convertAndCheck(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
+                bigDecimal,
+                LocalDateTime.class,
+                localDateTime);
     }
 
     @Override
-    protected LocalDateTimeBigDecimalConverter createConverter() {
-        return LocalDateTimeBigDecimalConverter.INSTANCE;
+    final LocalDateTimeBigDecimalConverter createConverter(final long offset) {
+        return LocalDateTimeBigDecimalConverter.with(offset);
     }
 
     @Override
     protected Class<BigDecimal> onlySupportedType() {
         return BigDecimal.class;
+    }
+
+    @Override
+    final BigDecimal value(final long value) {
+        return BigDecimal.valueOf(value);
     }
 
     @Override

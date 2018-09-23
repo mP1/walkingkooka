@@ -49,4 +49,26 @@ abstract class FixedTypeConverter<T> extends ConverterTemplate {
     }
 
     abstract Class<T> targetType();
+
+    /**
+     * Returns the {@link String} as a signed offset including a plus or minus when the value is non zero.
+     */
+    final static String toStringOffset(final long offset) {
+        return 0 == offset ?
+               "" :
+               toStringOffset0(offset);
+    }
+
+    private static String toStringOffset0(final long offset) {
+        final StringBuilder b = new StringBuilder();
+        b.append('(');
+
+        if(offset > 0) {
+            b.append('+');
+        }
+        b.append(offset);
+        b.append(')');
+
+        return b.toString();
+    }
 }

@@ -55,4 +55,8 @@ final class FailConverter<S, T> extends FixedTypeConverter2<S, T>{
     T convert2(final S value) {
         return this.failConversion(value);
     }
+
+    @Override String toStringSuffix() {
+        return "";
+    }
 }

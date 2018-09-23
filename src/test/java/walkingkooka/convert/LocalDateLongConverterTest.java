@@ -18,33 +18,21 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
-
-import java.time.LocalDate;
-
-import static org.junit.Assert.assertEquals;
-
 public final class LocalDateLongConverterTest extends LocalDateConverterTestCase<LocalDateLongConverter, Long> {
 
-    @Test
-    public void testLocalDate() {
-        final int value = 123;
-        this.convertAndCheck(LocalDate.ofEpochDay(value), Long.valueOf(value));
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("LocalDate->Long", this.createConverter().toString());
-    }
-
     @Override
-    protected LocalDateLongConverter createConverter() {
-        return LocalDateLongConverter.INSTANCE;
+    final LocalDateLongConverter createConverter(final long offset) {
+        return LocalDateLongConverter.with(offset);
     }
 
     @Override
     protected Class<Long> onlySupportedType() {
         return Long.class;
+    }
+
+    @Override
+    final Long value(final long value) {
+        return Long.valueOf(value);
     }
 
     @Override

@@ -63,12 +63,17 @@ final class NumberDoubleConverter extends NumberConverter<Double> {
     }
 
     @Override
+    Class<Double> targetType(){
+        return Double.class;
+    }
+
+    @Override
     String toStringPrefix() {
         return "";
     }
 
     @Override
-    Class<Double> targetType(){
-        return Double.class;
+    String toStringSuffix() {
+        return "";
     }
 }

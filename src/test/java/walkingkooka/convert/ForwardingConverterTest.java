@@ -33,17 +33,23 @@ public final class ForwardingConverterTest extends FixedTypeConverterTestCase<Fo
 
     @Test(expected = NullPointerException.class)
     public void testWithNullConverterFails() {
-        ForwardingConverter.with(null, SOURCE_TYPE, TARGET_TYPE);
+        ForwardingConverter.with(null,
+                SOURCE_TYPE,
+                TARGET_TYPE);
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullSourceTypeFails() {
-        ForwardingConverter.with(Converters.localDateBigDecimal(), null, TARGET_TYPE);
+        ForwardingConverter.with(Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
+                null,
+                TARGET_TYPE);
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTargetTypeFails() {
-        ForwardingConverter.with(Converters.localDateBigDecimal(), SOURCE_TYPE, null);
+        ForwardingConverter.with(Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
+                SOURCE_TYPE,
+                null);
     }
 
     @Test
@@ -69,7 +75,9 @@ public final class ForwardingConverterTest extends FixedTypeConverterTestCase<Fo
 
     @Override
     protected ForwardingConverter<Number, BigDecimal> createConverter() {
-        return ForwardingConverter.with(Converters.localDateBigDecimal(), SOURCE_TYPE, TARGET_TYPE);
+        return ForwardingConverter.with(Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
+                SOURCE_TYPE,
+                TARGET_TYPE);
     }
 
     @Override

@@ -28,15 +28,19 @@ import java.time.LocalDate;
 final class NumberLocalDateConverter extends NumberConverter<LocalDate> {
 
     /**
-     * Singleton
+     * Creates a new instance with the given date offset.
+     * A value of zero is 1/1/1970.
      */
-    final static NumberLocalDateConverter INSTANCE = new NumberLocalDateConverter();
+    final static NumberLocalDateConverter with(final long offset) {
+        return new NumberLocalDateConverter(offset);
+    }
 
     /**
      * Private ctor
      */
-    private NumberLocalDateConverter() {
+    private NumberLocalDateConverter(final long offset) {
         super();
+        this.offset = offset;
     }
 
     @Override
@@ -69,7 +73,14 @@ final class NumberLocalDateConverter extends NumberConverter<LocalDate> {
     }
 
     private LocalDate localDate(final long value) {
-        return LocalDate.ofEpochDay(value);
+        return LocalDate.ofEpochDay(value + this.offset);
+    }
+
+    private final long offset;
+
+    @Override
+    Class<LocalDate> targetType() {
+        return LocalDate.class;
     }
 
     @Override
@@ -78,7 +89,7 @@ final class NumberLocalDateConverter extends NumberConverter<LocalDate> {
     }
 
     @Override
-    Class<LocalDate> targetType() {
-        return LocalDate.class;
+    String toStringSuffix() {
+        return toStringOffset(this.offset);
     }
 }

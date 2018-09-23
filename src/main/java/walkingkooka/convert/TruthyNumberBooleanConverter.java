@@ -69,6 +69,10 @@ final class TruthyNumberBooleanConverter extends NumberConverter<Boolean>{
         return "Truthy ";
     }
 
+    String toStringSuffix() {
+        return "";
+    }
+
     @Override
     Class<Boolean> targetType(){
         return Boolean.class;

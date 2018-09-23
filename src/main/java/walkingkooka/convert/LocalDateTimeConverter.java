@@ -33,4 +33,9 @@ abstract class LocalDateTimeConverter<T> extends FixedTypeConverter2<T, LocalDat
     final Class<LocalDateTime> targetType() {
         return LocalDateTime.class;
     }
+
+    @Override
+    String toStringSuffix() {
+        return "";
+    }
 }

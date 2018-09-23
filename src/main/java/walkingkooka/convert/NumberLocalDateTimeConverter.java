@@ -31,15 +31,19 @@ import java.time.LocalTime;
 final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> {
 
     /**
-     * Singleton
+     * Creates a new instance with the given date offset.
+     * A value of zero is 1/1/1970.
      */
-    final static NumberLocalDateTimeConverter INSTANCE = new NumberLocalDateTimeConverter();
+    final static NumberLocalDateTimeConverter with(final long offset){
+        return new NumberLocalDateTimeConverter(offset);
+    }
 
     /**
      * Private ctor
      */
-    private NumberLocalDateTimeConverter() {
+    private NumberLocalDateTimeConverter(final long offset) {
         super();
+        this.offset = offset;
     }
 
     @Override
@@ -93,8 +97,15 @@ final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> 
         }
 
         return LocalDateTime.of(
-                LocalDate.ofEpochDay(day),
+                LocalDate.ofEpochDay(day + this.offset),
                 LocalTime.ofNanoOfDay(nano));
+    }
+
+    private final long offset;
+
+    @Override
+    Class<LocalDateTime> targetType() {
+        return LocalDateTime.class;
     }
 
     @Override
@@ -103,7 +114,7 @@ final class NumberLocalDateTimeConverter extends NumberConverter<LocalDateTime> 
     }
 
     @Override
-    Class<LocalDateTime> targetType() {
-        return LocalDateTime.class;
+    String toStringSuffix() {
+        return toStringOffset(this.offset);
     }
 }

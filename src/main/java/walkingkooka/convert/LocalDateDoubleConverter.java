@@ -24,14 +24,18 @@ package walkingkooka.convert;
 final class LocalDateDoubleConverter extends LocalDateConverter<Double> {
 
     /**
-     * Singleton
+     * Factory that creates a new instance with the given date offset.
+     * A value of zero = 1/1/1970.
      */
-    static final LocalDateDoubleConverter INSTANCE = new LocalDateDoubleConverter();
+    static final LocalDateDoubleConverter with(final long offset) {
+        return new LocalDateDoubleConverter(offset);
+    }
 
     /**
-     * Private ctor use singleton
+     * Private ctor use factory
      */
-    private LocalDateDoubleConverter() {
+    private LocalDateDoubleConverter(final long offset) {
+        super(offset);
     }
 
     @Override

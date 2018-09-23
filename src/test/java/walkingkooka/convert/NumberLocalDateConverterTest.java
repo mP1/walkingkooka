@@ -27,7 +27,9 @@ import java.time.LocalDate;
 
 public final class NumberLocalDateConverterTest extends NumberConverterTestCase<NumberLocalDateConverter, LocalDate> {
 
-    private final static int VALUE = 123;
+    private final static long VALUE = 123;
+    private final static LocalDate DATE_VALUE = LocalDate.ofEpochDay(VALUE);
+    private final static LocalDate DATE_VALUE_EXCEL_OFFSET = LocalDate.of(1900, 5, 2);
 
     @Test
     public void testNonNumberTypeFails() {
@@ -41,7 +43,7 @@ public final class NumberLocalDateConverterTest extends NumberConverterTestCase<
 
     @Test
     public void testBigDecimal() {
-        this.convertAndCheck(BigDecimal.valueOf(VALUE), LocalDate.ofEpochDay(VALUE));
+        this.convertAndCheck2(BigDecimal.valueOf(VALUE));
     }
 
     @Test
@@ -50,18 +52,33 @@ public final class NumberLocalDateConverterTest extends NumberConverterTestCase<
     }
 
     @Test
+    public void testBigDecimalWithExcelOffset() {
+        this.convertAndCheckExcelOffset(BigDecimal.valueOf(VALUE));
+    }
+
+    @Test
     public void testBigInteger() {
-        this.convertAndCheck(BigInteger.valueOf(123), LocalDate.ofEpochDay(VALUE));
+        this.convertAndCheck2(BigInteger.valueOf(VALUE));
+    }
+
+    @Test
+    public void testBigIntegerWithExcelOffset() {
+        this.convertAndCheckExcelOffset(BigInteger.valueOf(VALUE));
     }
 
     @Test
     public void testDouble() {
-        this.convertAndCheck(Double.valueOf(VALUE), LocalDate.ofEpochDay(VALUE));
+        this.convertAndCheck2(Double.valueOf(VALUE));
     }
 
     @Test
     public void testDoubleWithFraction() {
         this.convertFails(Double.valueOf(123.75));
+    }
+
+    @Test
+    public void testDoubleWithExcelOffset() {
+        this.convertAndCheckExcelOffset(Double.valueOf(VALUE));
     }
 
     @Test
@@ -75,9 +92,25 @@ public final class NumberLocalDateConverterTest extends NumberConverterTestCase<
         this.convertAndCheck(Long.valueOf(VALUE), LocalDate.ofEpochDay(VALUE));
     }
 
+    @Test
+    public void testLongWithExcelOffset() {
+        this.convertAndCheckExcelOffset(Long.valueOf(VALUE));
+    }
+
+    private void convertAndCheck2(final Number value) {
+        this.convertAndCheck(value, DATE_VALUE);
+    }
+
+    private void convertAndCheckExcelOffset(final Number value) {
+        this.convertAndCheck(NumberLocalDateConverter.with(Converters.EXCEL_OFFSET),
+                value,
+                LocalDate.class,
+                DATE_VALUE_EXCEL_OFFSET);
+    }
+
     @Override
     protected NumberLocalDateConverter createConverter() {
-        return NumberLocalDateConverter.INSTANCE;
+        return NumberLocalDateConverter.with(Converters.JAVA_EPOCH_OFFSET);
     }
 
     @Override

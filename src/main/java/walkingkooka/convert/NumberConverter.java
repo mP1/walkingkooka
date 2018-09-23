@@ -65,8 +65,13 @@ abstract class NumberConverter<T> extends FixedTypeConverter<T> {
 
     @Override
     public final String toString() {
-        return this.toStringPrefix() + "BigDecimal|BigInteger|Double|Long->" + this.targetType().getSimpleName();
+        return this.toStringPrefix() +
+                "BigDecimal|BigInteger|Double|Long->" +
+                this.targetType().getSimpleName() +
+                this.toStringSuffix();
     }
 
     abstract String toStringPrefix();
+
+    abstract String toStringSuffix();
 }
