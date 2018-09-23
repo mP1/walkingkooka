@@ -24,7 +24,7 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class LocalDateConverterTestCase<C extends FixedTypeConverter2<LocalDate, T>, T> extends FixedTypeConverterTestCase<C, T> {
+public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<LocalDate, T>, T> extends FixedTypeConverterTestCase<C, T> {
 
     @Test
     public final void testLocalDateZeroOffset() {

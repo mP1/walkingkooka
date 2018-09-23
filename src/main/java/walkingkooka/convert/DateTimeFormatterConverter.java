@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A {@link Converter} which uses a {@link DateTimeFormatter}.
  */
-abstract class DateTimeFormatterConverter<S, T> extends FixedTypeConverter2<S, T> {
+abstract class DateTimeFormatterConverter<S, T> extends FixedSourceTypeTargetTypeConverter<S, T> {
 
     DateTimeFormatterConverter(final DateTimeFormatter formatter) {
         Objects.requireNonNull(formatter, "formatter");

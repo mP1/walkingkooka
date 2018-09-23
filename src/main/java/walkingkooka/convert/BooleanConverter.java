@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * A {@link Converter} that knows how to convert towards a boolean answer.
  */
-final class BooleanConverter<S, T> extends FixedTypeConverter<T> {
+final class BooleanConverter<S, T> extends FixedTargetTypeConverter<T> {
 
     static <S, T> BooleanConverter<S, T> with(final Class<S> sourceType, final S falseValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {
         Objects.requireNonNull(sourceType, "sourceType");

@@ -25,7 +25,7 @@ import java.util.Objects;
  * This helps solve the problem of wishing to convert something to Number, but only having more derived converters,
  * eg Longa vailable.
  */
-final class ForwardingConverter<S, T> extends FixedTypeConverter<T>{
+final class ForwardingConverter<S, T> extends FixedTargetTypeConverter<T> {
 
     /**
      * Factory that creates a new {@link ForwardingConverter}

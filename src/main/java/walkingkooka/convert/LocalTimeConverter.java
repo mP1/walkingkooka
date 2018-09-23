@@ -23,7 +23,7 @@ import java.time.LocalTime;
 /**
  * Converts an object from a {@link LocalTime}
  */
-abstract class LocalTimeConverter<T> extends FixedTypeConverter2<LocalTime, T>{
+abstract class LocalTimeConverter<T> extends FixedSourceTypeTargetTypeConverter<LocalTime, T> {
 
     /**
      * Package private to limit sub classing.

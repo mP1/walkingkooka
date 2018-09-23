@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * A {@link Converter} that matches source of the given type and target type requests and ALWAYS fails.
  */
-final class FailConverter<S, T> extends FixedTypeConverter2<S, T>{
+final class FailConverter<S, T> extends FixedSourceTypeTargetTypeConverter<S, T> {
 
     static <S, T> FailConverter<S, T> with(final Class<S> source, final Class<T> target) {
         Objects.requireNonNull(source, "source");

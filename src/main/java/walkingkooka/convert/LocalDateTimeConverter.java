@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 /**
  * Base class for anything creating {@link java.time.LocalDateTime}
  */
-abstract class LocalDateTimeConverter<T> extends FixedTypeConverter2<T, LocalDateTime> {
+abstract class LocalDateTimeConverter<T> extends FixedSourceTypeTargetTypeConverter<T, LocalDateTime> {
 
     LocalDateTimeConverter(){
         super();

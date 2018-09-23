@@ -18,7 +18,7 @@
 
 package walkingkooka.convert;
 
-public abstract class StringDateTimeFormatterConverterTestCase<C extends FixedTypeConverter2<T, String>, T> extends DateTimeFormatterConverterTestCase<C, T, String> {
+public abstract class StringDateTimeFormatterConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<T, String>, T> extends DateTimeFormatterConverterTestCase<C, T, String> {
 
     @Override
     protected Class<String> onlySupportedType() {
