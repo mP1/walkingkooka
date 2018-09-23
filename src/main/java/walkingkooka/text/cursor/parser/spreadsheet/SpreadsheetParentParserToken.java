@@ -25,7 +25,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Base class for a token that contain another child token, with the class knowing the cardinality.
@@ -44,17 +43,11 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
     }
 
     private Optional<SpreadsheetParserToken> computeWithout(final List<ParserToken> value){
-        final List<ParserToken> without =  filterWithout(value);
+        final List<ParserToken> without =  ParentParserToken.filterWithoutNoise(value);
 
         return Optional.of(value.size() == without.size() ?
                 this :
                 this.replace(without, this.text(), without));
-    }
-
-    private static List<ParserToken> filterWithout(final List<ParserToken> value){
-        return value.stream()
-                .filter(t -> t instanceof SpreadsheetParserToken && !t.isNoise())
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -77,7 +70,7 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
 
         return this.value().equals(copy) ?
                 this :
-                this.replace(copy, this.text(), filterWithout(copy));
+                this.replace(copy, this.text(), ParentParserToken.filterWithoutNoise(copy));
     }
 
     final List<ParserToken> value;
