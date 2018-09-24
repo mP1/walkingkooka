@@ -31,7 +31,6 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
 
     static SpreadsheetBigIntegerParserToken with(final BigInteger value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetBigIntegerParserToken(value, text);
     }

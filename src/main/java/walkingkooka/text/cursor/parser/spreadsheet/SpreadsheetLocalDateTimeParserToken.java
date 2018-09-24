@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
@@ -33,13 +32,17 @@ public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetLeafPa
 
     static SpreadsheetLocalDateTimeParserToken with(final LocalDateTime value, final String text){
         checkValue(value);
-        CharSequences.failIfNullOrEmpty(text, "text");
 
         return new SpreadsheetLocalDateTimeParserToken(value, text);
     }
 
     private SpreadsheetLocalDateTimeParserToken(final LocalDateTime value, final String text){
         super(value, text);
+    }
+
+    @Override
+    void checkText(final String text) {
+        checkTextNullOrWhitespace(text);
     }
 
     @Override

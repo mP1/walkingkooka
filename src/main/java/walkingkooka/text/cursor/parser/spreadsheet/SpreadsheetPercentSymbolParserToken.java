@@ -31,7 +31,6 @@ public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetSymbol
 
     static SpreadsheetPercentSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetPercentSymbolParserToken(value, text);
     }

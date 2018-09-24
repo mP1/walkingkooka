@@ -31,7 +31,6 @@ public final class SpreadsheetPowerSymbolParserToken extends SpreadsheetSymbolPa
 
     static SpreadsheetPowerSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetPowerSymbolParserToken(value, text);
     }

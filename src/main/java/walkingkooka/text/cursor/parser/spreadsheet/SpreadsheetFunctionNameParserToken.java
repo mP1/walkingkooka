@@ -30,13 +30,17 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetLeafPar
 
     static SpreadsheetFunctionNameParserToken with(final SpreadsheetFunctionName value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetFunctionNameParserToken(value, text);
     }
 
     private SpreadsheetFunctionNameParserToken(final SpreadsheetFunctionName value, final String text){
         super(value, text);
+    }
+
+    @Override
+    void checkText(final String text) {
+        checkTextNullOrWhitespace(text);
     }
 
     @Override

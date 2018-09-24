@@ -31,7 +31,6 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
 
     static SpreadsheetPlusSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetPlusSymbolParserToken(value, text);
     }

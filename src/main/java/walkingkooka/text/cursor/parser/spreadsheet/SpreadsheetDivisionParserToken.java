@@ -32,7 +32,6 @@ public final class SpreadsheetDivisionParserToken extends SpreadsheetBinaryParse
 
     static SpreadsheetDivisionParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetDivisionParserToken(copy,
                 text,

@@ -31,7 +31,6 @@ public final class SpreadsheetGreaterThanSymbolParserToken extends SpreadsheetSy
 
     static SpreadsheetGreaterThanSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetGreaterThanSymbolParserToken(value, text);
     }

@@ -32,7 +32,6 @@ public final class SpreadsheetGreaterThanParserToken extends SpreadsheetBinaryPa
 
     static SpreadsheetGreaterThanParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetGreaterThanParserToken(copy,
                 text,

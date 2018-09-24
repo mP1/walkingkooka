@@ -17,14 +17,14 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Holds a single decimal number.
+ * Holds a text which may be empty
  */
 public final class SpreadsheetTextParserToken extends SpreadsheetLeafParserToken2<String> {
 
@@ -32,13 +32,17 @@ public final class SpreadsheetTextParserToken extends SpreadsheetLeafParserToken
 
     static SpreadsheetTextParserToken with(final String value, final String text){
         checkValue(value);
-        CharSequences.failIfNullOrEmpty(text, "text");
 
         return new SpreadsheetTextParserToken(value, text);
     }
 
     private SpreadsheetTextParserToken(final String value, final String text){
         super(value, text);
+    }
+
+    @Override
+    void checkText(final String text) {
+        Objects.requireNonNull(text, "text");
     }
 
     @Override

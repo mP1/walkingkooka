@@ -31,7 +31,6 @@ public final class SpreadsheetNotEqualsSymbolParserToken extends SpreadsheetSymb
 
     static SpreadsheetNotEqualsSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetNotEqualsSymbolParserToken(value, text);
     }

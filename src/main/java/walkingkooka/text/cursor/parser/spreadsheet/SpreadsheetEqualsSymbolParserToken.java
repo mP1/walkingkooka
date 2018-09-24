@@ -31,7 +31,6 @@ public final class SpreadsheetEqualsSymbolParserToken extends SpreadsheetSymbolP
 
     static SpreadsheetEqualsSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetEqualsSymbolParserToken(value, text);
     }

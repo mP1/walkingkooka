@@ -17,7 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 import java.util.Optional;
@@ -31,13 +30,17 @@ public final class SpreadsheetRowReferenceParserToken extends SpreadsheetLeafPar
 
     static SpreadsheetRowReferenceParserToken with(final SpreadsheetRowReference value, final String text){
         checkValue(value);
-        CharSequences.failIfNullOrEmpty(text, "text");
 
         return new SpreadsheetRowReferenceParserToken(value, text);
     }
 
     private SpreadsheetRowReferenceParserToken(final SpreadsheetRowReference value, final String text){
         super(value, text);
+    }
+
+    @Override
+    void checkText(final String text) {
+        checkTextNullOrWhitespace(text);
     }
 
     @Override

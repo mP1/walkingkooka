@@ -31,7 +31,6 @@ public final class SpreadsheetCloseParenthesisSymbolParserToken extends Spreadsh
 
     static SpreadsheetCloseParenthesisSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetCloseParenthesisSymbolParserToken(value, text);
     }

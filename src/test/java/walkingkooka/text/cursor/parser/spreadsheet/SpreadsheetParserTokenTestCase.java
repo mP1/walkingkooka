@@ -38,13 +38,28 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     }
 
     @Test(expected =  NullPointerException.class)
-    public final void testNullTextFails() {
+    public final void testWithNullTextFails() {
         this.createToken(null);
     }
 
     @Test(expected =  IllegalArgumentException.class)
-    public final void testEmptyTextFails() {
+    public void testWithEmptyTextFails() {
         this.createToken("");
+    }
+
+    @Test(expected =  IllegalArgumentException.class)
+    public void testWithWhitespaceTextFails() {
+        this.createToken("   ");
+    }
+
+    @Test(expected =  IllegalArgumentException.class)
+    public void testSetTextEmptyFails() {
+        this.createToken().setText("");
+    }
+
+    @Test(expected =  IllegalArgumentException.class)
+    public void testSetTextWhitespaceFails() {
+        this.createToken().setText("   ");
     }
 
     @Test

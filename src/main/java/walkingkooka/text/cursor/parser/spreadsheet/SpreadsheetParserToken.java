@@ -375,17 +375,20 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
         return copy;
     }
 
-    static String checkText(final String text) {
-        Whitespace.failIfNullOrWhitespace(text, "text");
-        return text;
-    }
-
     /**
      * Package private ctor to limit sub classing.
      */
     SpreadsheetParserToken(final String text) {
+        this.checkText(text);
         this.text = text;
     }
+
+    abstract void checkText(final String text);
+
+    static void checkTextNullOrWhitespace(final String text) {
+        Whitespace.failIfNullOrWhitespace(text, "text");
+    }
+
 
     @Override
     public final String text() {

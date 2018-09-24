@@ -32,7 +32,6 @@ public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserTo
 
     static SpreadsheetPowerParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetPowerParserToken(copy,
                 text,

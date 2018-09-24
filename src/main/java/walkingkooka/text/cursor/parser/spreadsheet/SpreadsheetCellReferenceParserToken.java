@@ -33,7 +33,7 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
 
     static SpreadsheetCellReferenceParserToken with(final List<ParserToken> value, final String text){
         return new SpreadsheetCellReferenceParserToken(copyAndCheckTokens(value),
-                checkText(text),
+                text,
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
