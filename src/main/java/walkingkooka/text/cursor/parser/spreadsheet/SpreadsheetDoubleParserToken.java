@@ -28,8 +28,6 @@ public final class SpreadsheetDoubleParserToken extends SpreadsheetNumericParser
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetDoubleParserToken.class);
 
     static SpreadsheetDoubleParserToken with(final double value, final String text){
-        checkText(text);
-
         return new SpreadsheetDoubleParserToken(value, text);
     }
 

@@ -31,7 +31,6 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserToken extend
 
     static SpreadsheetFunctionParameterSeparatorSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetFunctionParameterSeparatorSymbolParserToken(value, text);
     }

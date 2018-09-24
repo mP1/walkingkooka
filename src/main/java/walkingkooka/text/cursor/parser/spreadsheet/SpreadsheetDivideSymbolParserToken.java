@@ -31,7 +31,6 @@ public final class SpreadsheetDivideSymbolParserToken extends SpreadsheetSymbolP
 
     static SpreadsheetDivideSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetDivideSymbolParserToken(value, text);
     }

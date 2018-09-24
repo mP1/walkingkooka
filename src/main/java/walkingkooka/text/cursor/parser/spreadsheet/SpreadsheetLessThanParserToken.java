@@ -32,7 +32,6 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
 
     static SpreadsheetLessThanParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetLessThanParserToken(copy,
                 text,

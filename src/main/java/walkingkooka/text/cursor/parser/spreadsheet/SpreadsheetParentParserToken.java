@@ -42,6 +42,11 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
                 computeWithout(value);
     }
 
+    @Override
+    final void checkText(final String text) {
+        checkTextNullOrWhitespace(text);
+    }
+
     private Optional<SpreadsheetParserToken> computeWithout(final List<ParserToken> value){
         final List<ParserToken> without =  ParentParserToken.filterWithoutNoise(value);
 

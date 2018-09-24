@@ -32,7 +32,6 @@ public final class SpreadsheetAdditionParserToken extends SpreadsheetBinaryParse
 
     static SpreadsheetAdditionParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetAdditionParserToken(copy,
                 text,

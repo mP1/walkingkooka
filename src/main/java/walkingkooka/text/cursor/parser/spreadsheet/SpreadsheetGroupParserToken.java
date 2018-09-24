@@ -32,7 +32,7 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
 
     static SpreadsheetGroupParserToken with(final List<ParserToken> value, final String text){
         return new SpreadsheetGroupParserToken(copyAndCheckTokens(value),
-                checkText(text),
+                text,
                 WITHOUT_COMPUTE_REQUIRED);
     }
 

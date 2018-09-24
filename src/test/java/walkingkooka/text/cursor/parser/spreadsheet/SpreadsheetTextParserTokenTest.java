@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
@@ -26,6 +27,54 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetTextParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetTextParserToken, String> {
+
+    @Test
+    @Ignore
+    public void testWithEmptyTextFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    public void testWithWhitespaceTextFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    public void testSetTextEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    public void testSetTextWhitespaceFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testWithEmpty() {
+        final SpreadsheetTextParserToken token = this.createToken("");
+        this.checkText(token, "");
+    }
+
+    @Test
+    public void testWithWhitespace() {
+        final SpreadsheetTextParserToken token = this.createToken( "   ");
+        this.checkText(token, "   ");
+    }
+
+    @Test
+    public void testSetTextEmpty() {
+        final SpreadsheetTextParserToken token = this.createToken().setText("");
+        this.checkText(token, "");
+    }
+
+    @Test
+    public void testSetTextWhitespace() {
+        final SpreadsheetTextParserToken token = this.createToken().setText("   ");
+        this.checkText(token, "   ");
+    }
 
     @Test
     public void testAccept() {

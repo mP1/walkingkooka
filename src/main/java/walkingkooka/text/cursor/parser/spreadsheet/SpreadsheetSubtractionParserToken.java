@@ -32,7 +32,6 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
 
     static SpreadsheetSubtractionParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetSubtractionParserToken(copy,
                 text,

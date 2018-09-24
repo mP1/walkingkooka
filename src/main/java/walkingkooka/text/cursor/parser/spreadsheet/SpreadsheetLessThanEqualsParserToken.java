@@ -32,7 +32,6 @@ public final class SpreadsheetLessThanEqualsParserToken extends SpreadsheetBinar
 
     static SpreadsheetLessThanEqualsParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetLessThanEqualsParserToken(copy,
                 text,

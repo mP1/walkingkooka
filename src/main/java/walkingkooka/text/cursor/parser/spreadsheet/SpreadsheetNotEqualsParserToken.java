@@ -32,7 +32,6 @@ public final class SpreadsheetNotEqualsParserToken extends SpreadsheetBinaryPars
 
     static SpreadsheetNotEqualsParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetNotEqualsParserToken(copy,
                 text,

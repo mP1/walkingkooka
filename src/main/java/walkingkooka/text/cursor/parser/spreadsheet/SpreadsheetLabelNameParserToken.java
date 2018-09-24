@@ -30,13 +30,17 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetLeafParser
 
     static SpreadsheetLabelNameParserToken with(final SpreadsheetLabelName value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetLabelNameParserToken(value, text);
     }
 
     private SpreadsheetLabelNameParserToken(final SpreadsheetLabelName value, final String text){
         super(value, text);
+    }
+
+    @Override
+    void checkText(final String text) {
+        checkTextNullOrWhitespace(text);
     }
 
     @Override

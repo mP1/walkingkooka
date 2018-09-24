@@ -31,7 +31,6 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
 
     static SpreadsheetBigDecimalParserToken with(final BigDecimal value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetBigDecimalParserToken(value, text);
     }

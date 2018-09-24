@@ -31,7 +31,6 @@ public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetSymbolPa
 
     static SpreadsheetMinusSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetMinusSymbolParserToken(value, text);
     }

@@ -32,13 +32,17 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetLeafParse
 
     static SpreadsheetWhitespaceParserToken with(final String value, final String text){
         checkValue(value);
-        CharSequences.failIfNullOrEmpty(text, "text");
 
         return new SpreadsheetWhitespaceParserToken(value, text);
     }
 
     private SpreadsheetWhitespaceParserToken(final String value, final String text){
         super(value, text);
+    }
+
+    @Override
+    void checkText(final String text) {
+        CharSequences.failIfNullOrEmpty(text, "text");
     }
 
     @Override

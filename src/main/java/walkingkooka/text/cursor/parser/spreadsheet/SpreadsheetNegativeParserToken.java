@@ -32,7 +32,7 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
 
     static SpreadsheetNegativeParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
+
         return new SpreadsheetNegativeParserToken(copy,
                 text,
                 WITHOUT_COMPUTE_REQUIRED);

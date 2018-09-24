@@ -32,7 +32,6 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
 
     static SpreadsheetPercentageParserToken with(final List<ParserToken> value, final String text){
         final List<ParserToken> copy = copyAndCheckTokens(value);
-        checkText(text);
 
         return new SpreadsheetPercentageParserToken(copy,
                 text,

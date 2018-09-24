@@ -31,7 +31,6 @@ public final class SpreadsheetLessThanEqualsSymbolParserToken extends Spreadshee
 
     static SpreadsheetLessThanEqualsSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetLessThanEqualsSymbolParserToken(value, text);
     }

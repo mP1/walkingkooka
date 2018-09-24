@@ -29,6 +29,11 @@ abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetLeafParserTok
     }
 
     @Override
+    final void checkText(final String text) {
+        checkTextNullOrWhitespace(text);
+    }
+
+    @Override
     public final Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
         return Optional.of(this);
     }

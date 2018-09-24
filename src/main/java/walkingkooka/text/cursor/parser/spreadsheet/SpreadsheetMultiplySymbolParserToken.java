@@ -31,7 +31,6 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
 
     static SpreadsheetMultiplySymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetMultiplySymbolParserToken(value, text);
     }

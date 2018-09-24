@@ -28,8 +28,6 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLongParserToken.class);
 
     static SpreadsheetLongParserToken with(final long value, final String text){
-        checkText(text);
-
         return new SpreadsheetLongParserToken(value, text);
     }
 

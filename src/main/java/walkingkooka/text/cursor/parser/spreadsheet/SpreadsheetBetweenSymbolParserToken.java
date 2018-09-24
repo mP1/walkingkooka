@@ -31,7 +31,6 @@ public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetSymbol
 
     static SpreadsheetBetweenSymbolParserToken with(final String value, final String text){
         checkValue(value);
-        checkText(text);
 
         return new SpreadsheetBetweenSymbolParserToken(value, text);
     }
