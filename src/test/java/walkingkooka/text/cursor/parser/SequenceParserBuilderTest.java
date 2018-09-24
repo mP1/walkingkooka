@@ -20,14 +20,15 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
 public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
 
-    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("1").cast();
-    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string("2").cast();
-    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string("3").cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = parser("1");
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = parser("2");
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = parser("3");
 
     @Test(expected = NullPointerException.class)
     public void testOptionalNullParserFails() {
@@ -132,6 +133,10 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     @Override
     protected SequenceParserBuilder<FakeParserContext> createBuilder() {
         return SequenceParserBuilder.create();
+    }
+
+    private static Parser<ParserToken, FakeParserContext> parser(final String string) {
+        return CaseSensitivity.SENSITIVE.parser(string).cast();
     }
 
     @Override

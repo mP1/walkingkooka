@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.text.CaseSensitivity;
 
 public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringParserToken, FakeParserContext>, StringParserToken> {
 
@@ -116,7 +117,7 @@ public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringP
     }
 
     private Parser<StringParserToken, FakeParserContext> string(final String string) {
-        return Parsers.string(string);
+        return CaseSensitivity.SENSITIVE.parser(string);
     }
 
     @Override

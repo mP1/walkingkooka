@@ -16,6 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -28,27 +29,28 @@ import java.util.Optional;
  */
 final class StringParser<C extends ParserContext> extends ParserTemplate2<StringParserToken, C> {
 
-    static <C extends ParserContext> StringParser<C> with(final String string) {
-        Objects.requireNonNull(string, "string");
-        if(string.isEmpty()) {
-            throw new IllegalArgumentException("String must not be empty");
-        }
+    static <C extends ParserContext> StringParser<C> with(final String string, final CaseSensitivity caseSensitivity) {
+        CharSequences.failIfNullOrEmpty(string, "string");
+        Objects.requireNonNull(caseSensitivity, "caseSensitivity");
 
-        return new StringParser<>(string);
+        return new StringParser<>(string, caseSensitivity);
     }
 
-    private StringParser(final String string) {
+    private StringParser(final String string, final CaseSensitivity caseSensitivity) {
         this.string = string;
+        this.caseSensitivity = caseSensitivity;
     }
 
     @Override
     Optional<StringParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start) {
+        final String string = this.string;
+        final CaseSensitivity caseSensitivity = this.caseSensitivity;
+
         Optional<StringParserToken> result;
         int matched = 0;
-        final String string = this.string;
 
         for(;;) {
-            if(cursor.isEmpty() || string.charAt(matched) != cursor.at()) {
+            if(cursor.isEmpty() || false == caseSensitivity.isEqual(string.charAt(matched), cursor.at())) {
                 result = Optional.empty();
                 break;
             }
@@ -56,7 +58,8 @@ final class StringParser<C extends ParserContext> extends ParserTemplate2<String
             cursor.next();
 
             if(string.length() == matched) {
-                result = StringParserToken.with(this.string, this.string).success();
+                final String text = start.textBetween().toString();
+                result = StringParserToken.with(text, text).success();
                 break;
             }
         }
@@ -65,9 +68,17 @@ final class StringParser<C extends ParserContext> extends ParserTemplate2<String
     }
 
     private final String string;
+    private final CaseSensitivity caseSensitivity;
 
     @Override
     public String toString() {
-        return CharSequences.quoteAndEscape(this.string).toString();
+        final StringBuilder b = new StringBuilder();
+
+        b.append(CharSequences.quoteAndEscape(this.string));
+        if(CaseSensitivity.INSENSITIVE == this.caseSensitivity) {
+            b.append(" (CaseInsensivite)");
+        }
+
+        return b.toString();
     }
 }

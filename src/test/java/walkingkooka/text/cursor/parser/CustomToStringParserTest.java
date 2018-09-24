@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -26,7 +27,7 @@ import static org.junit.Assert.assertSame;
 public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, FakeParserContext>, StringParserToken>{
 
     private final static String STRING = "abc";
-    private final static Parser<StringParserToken, FakeParserContext> WRAPPED = Parsers.string(STRING);
+    private final static Parser<StringParserToken, FakeParserContext> WRAPPED = CaseSensitivity.SENSITIVE.parser(STRING);
     private final static String CUSTOM_TO_STRING = "!!abc!!";
 
     @Test(expected = NullPointerException.class)
