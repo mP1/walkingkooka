@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.CharacterParserToken;
 import walkingkooka.text.cursor.parser.Parser;
@@ -321,9 +322,9 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
     final static Parser<ParserToken, EbnfParserContext> RULE = rule();
 
     private static Parser<ParserToken, EbnfParserContext> rule() {
-        final Parser<ParserToken, EbnfParserContext> assign = symbol("=", "assign")
+        final Parser<ParserToken, EbnfParserContext> assign = symbol('=', "assign")
                 .orReport(ParserReporters.basic());
-        final Parser<ParserToken, EbnfParserContext> termination = symbol(";", "termination")
+        final Parser<ParserToken, EbnfParserContext> termination = symbol(';', "termination")
                 .orReport(ParserReporters.basic());
 
         return Parsers.<EbnfParserContext>sequenceParserBuilder()
@@ -364,8 +365,8 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
     private static Parser<ParserToken, EbnfParserContext> symbol(final char c, final String name){
-        return Parsers.<EbnfParserContext>stringCharPredicate(CharPredicates.is(c), 1, 1)
-                .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
+        return Parsers.character(CharPredicates.is(c))
+                .transform((character, context) -> EbnfSymbolParserToken.with(character.value().toString(), character.text()))
                 .setToString(name)
                 .cast();
     }
@@ -374,7 +375,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
      * Creates a parser that matches the given character and wraps it inside a {@link EbnfSymbolParserToken}
      */
     private static Parser<ParserToken, EbnfParserContext> symbol(final String symbol, final String name){
-        return Parsers.string(symbol)
+        return CaseSensitivity.SENSITIVE.parser(symbol)
                 .transform((character, context) -> EbnfSymbolParserToken.with(character.value(), character.text()))
                 .setToString(name)
                 .cast();

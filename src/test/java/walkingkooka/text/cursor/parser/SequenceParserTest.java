@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,9 +29,9 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
     private final static String TEXT3 = "123";
-    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string(TEXT1).cast();
-    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string(TEXT2).cast();
-    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string(TEXT3).cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = parser(TEXT1);
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = parser(TEXT2);
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = parser(TEXT3);
     private final static StringParserToken TOKEN1 = string(TEXT1);
     private final static StringParserToken TOKEN2 = string(TEXT2);
     private final static StringParserToken TOKEN3 = string(TEXT3);
@@ -153,6 +154,10 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
                 .required(PARSER2, StringParserToken.NAME)
                 .optional(PARSER3, StringParserToken.NAME)
                 .build());
+    }
+
+    private static Parser<ParserToken, FakeParserContext> parser(final String string) {
+        return CaseSensitivity.SENSITIVE.parser(string).cast();
     }
 
     private static StringParserToken string(final String s) {

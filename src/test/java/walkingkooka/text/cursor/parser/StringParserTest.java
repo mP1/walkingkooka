@@ -18,22 +18,29 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 
 public class StringParserTest extends ParserTemplateTestCase<StringParser<FakeParserContext>, StringParserToken> {
 
-    private final static String STRING = "abc";
+    private final static String STRING = "abcd";
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     @Test(expected = NullPointerException.class)
     public void testWithNullStringFails() {
-        StringParser.with(null);
+        StringParser.with(null, CASE_SENSITIVITY);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyStringFails() {
-        StringParser.with("");
+        StringParser.with("", CASE_SENSITIVITY);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullCaseSensitivityFails() {
+        StringParser.with(STRING, null);
     }
 
     @Test
@@ -47,13 +54,40 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<FakePa
     }
 
     @Test
+    public void testIncompleteInsensitive() {
+        this.parseFailAndCheck(this.createParserInsensitive(), "a");
+    }
+
+    @Test
+    public void testIncompleteInsensitive2() {
+        this.parseFailAndCheck(this.createParserInsensitive(),"ab");
+    }
+
+    @Test
     public void testStringEoc() {
-        this.parseAndCheck(STRING, StringParserToken.with(STRING, STRING), STRING, "");
+        this.parseAndCheck(STRING, this.token(), STRING, "");
+    }
+
+    @Test
+    public void testStringEocInsensitive() {
+        final String text = "abCD";
+        this.parseAndCheck(this.createParserInsensitive(),
+                text, this.token(text), text, "");
     }
 
     @Test
     public void testStringIgnoresRemainder() {
-        this.parseAndCheck(STRING + "xyz", StringParserToken.with(STRING, STRING), STRING, "xyz");
+        this.parseAndCheck(STRING + "xyz", this.token(), STRING, "xyz");
+    }
+
+    @Test
+    public void testStringIgnoresRemainderInsensitive() {
+        final String text = "abCD";
+        this.parseAndCheck(this.createParserInsensitive(),
+                text + "xyz",
+                this.token(text),
+                text,
+                "xyz");
     }
 
     @Test
@@ -61,9 +95,26 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<FakePa
         assertEquals(CharSequences.quoteAndEscape(STRING).toString(), this.createParser().toString());
     }
 
+    @Test
+    public void testToStringInsensitive() {
+        assertEquals(CharSequences.quoteAndEscape(STRING) + " (CaseInsensivite)", this.createParserInsensitive().toString());
+    }
+
     @Override
     protected StringParser createParser() {
-        return StringParser.with(STRING);
+        return StringParser.with(STRING, CASE_SENSITIVITY);
+    }
+
+    private StringParser createParserInsensitive() {
+        return StringParser.with(STRING, CaseSensitivity.INSENSITIVE);
+    }
+
+    private StringParserToken token() {
+        return this.token(STRING);
+    }
+
+    private StringParserToken token(final String text) {
+        return StringParserToken.with(text, text);
     }
 
     @Override

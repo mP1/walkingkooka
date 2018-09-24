@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursors;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +29,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
         RepeatedParserToken> {
 
     private final static String TEXT = "abc";
-    private final static Parser<ParserToken, FakeParserContext> PARSER = Parsers.string(TEXT).cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER = CaseSensitivity.SENSITIVE.parser(TEXT).cast();
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParserFails() {

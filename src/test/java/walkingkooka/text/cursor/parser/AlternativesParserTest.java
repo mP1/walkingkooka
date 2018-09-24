@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -28,8 +29,8 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
-    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = Parsers.string(TEXT1);
-    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = Parsers.string(TEXT2);
+    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = parser(TEXT1);
+    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = parser(TEXT2);
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParsersFails() {
@@ -85,7 +86,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     public void testOr() {
         final AlternativesParser<FakeParserContext> parser = createParser();
 
-        final Parser<StringParserToken, FakeParserContext> parser3 = Parsers.string("text3");
+        final Parser<StringParserToken, FakeParserContext> parser3 = parser("text3");
         assertEquals(this.createParser0(PARSER1, PARSER2, parser3), parser.or(parser3));
     }
 
@@ -111,6 +112,10 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     private static StringParserToken string(final String s) {
         return ParserTokens.string(s, s);
+    }
+
+    private static Parser<StringParserToken, FakeParserContext> parser(final String string) {
+        return CaseSensitivity.SENSITIVE.parser(string);
     }
 
     @Override

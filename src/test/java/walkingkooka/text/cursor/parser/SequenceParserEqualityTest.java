@@ -19,12 +19,13 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<SequenceParser> {
 
-    private final static Parser<ParserToken, FakeParserContext> PARSER1 = Parsers.string("a").cast();
-    private final static Parser<ParserToken, FakeParserContext> PARSER2 = Parsers.string("b").cast();
-    private final static Parser<ParserToken, FakeParserContext> PARSER3 = Parsers.string("c").cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = CaseSensitivity.SENSITIVE.parser("a").cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = CaseSensitivity.SENSITIVE.parser("b").cast();
+    private final static Parser<ParserToken, FakeParserContext> PARSER3 = CaseSensitivity.SENSITIVE.parser("c").cast();
     
     private final static ParserTokenNodeName NAME1 = ParserTokenNodeName.with(0);
     private final static ParserTokenNodeName NAME2 = ParserTokenNodeName.with(1);

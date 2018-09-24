@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.math.MathContext;
@@ -200,8 +201,9 @@ public final class Parsers implements PublicStaticHelper {
         /**
          * {@see StringParser}
          */
-    public static <C extends ParserContext> Parser<StringParserToken, C> string(final String literal) {
-        return StringParser.with(literal);
+    public static <C extends ParserContext> Parser<StringParserToken, C> string(final String literal,
+                                                                                final CaseSensitivity caseSensitivity) {
+        return StringParser.with(literal, caseSensitivity);
     }
 
     /**

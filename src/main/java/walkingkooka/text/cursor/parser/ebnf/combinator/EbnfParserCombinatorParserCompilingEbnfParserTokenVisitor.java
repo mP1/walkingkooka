@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -290,7 +291,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
 
     @Override
     protected void visit(final EbnfTerminalParserToken token) {
-        final Parser<StringParserToken, ParserContext> parser = Parsers.<ParserContext>string(token.value())
+        final Parser<StringParserToken, ParserContext> parser = CaseSensitivity.SENSITIVE.parser(token.value())
                 .setToString(token.toString());
         this.add(
                 this.transformer.terminal(token, parser),
