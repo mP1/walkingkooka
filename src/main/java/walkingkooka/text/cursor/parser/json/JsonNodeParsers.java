@@ -142,6 +142,8 @@ public final class JsonNodeParsers implements PublicStaticHelper {
         return VALUE;
     }
 
+    private final static EbnfGrammarLoader grammarLoader = EbnfGrammarLoader.with("json-parsers.grammar", JsonNodeParsers.class);
+
     private final static Parser<ParserToken, ParserContext> VALUE = value0();
 
     private static Parser<ParserToken, ParserContext> value0() {
@@ -177,8 +179,6 @@ public final class JsonNodeParsers implements PublicStaticHelper {
             throw new JsonNodeParserException("Failed to return parsers from JsonNode grammar file, message: " + cause.getMessage(), cause);
         }
     }
-
-    private final static EbnfGrammarLoader grammarLoader = EbnfGrammarLoader.with("json-parsers.grammar", JsonNodeParsers.class);
 
     /**
      * Stop construction
