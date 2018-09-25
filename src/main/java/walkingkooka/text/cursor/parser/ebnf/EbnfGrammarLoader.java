@@ -95,7 +95,7 @@ public final class EbnfGrammarLoader {
                 if (grammarFile.isEmpty()) {
                     final TextCursorSavePoint save = grammarFile.save();
                     grammarFile.end();
-                    throw new EbnfParserException("Unable to load loaded file " + this + "\nGrammar...\n" + grammar + "\n\nRemaining...\n" + save.textBetween());
+                    throw new EbnfParserException("Unable to load file " + this + "\nGrammar...\n" + grammar + "\n\nRemaining...\n" + save.textBetween());
                 }
             }
         } catch (final Exception fail) {
