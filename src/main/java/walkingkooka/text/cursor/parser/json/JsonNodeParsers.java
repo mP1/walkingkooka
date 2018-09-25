@@ -22,24 +22,15 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursorSavePoint;
-import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarLoader;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
-import walkingkooka.text.cursor.parser.ebnf.EbnfParserContexts;
-import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -155,13 +146,7 @@ public final class JsonNodeParsers implements PublicStaticHelper {
 
     private static Parser<ParserToken, ParserContext> value0() {
         try {
-            final TextCursor grammarFile = TextCursors.charSequence(readGrammarFile());
-            final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser().parse(grammarFile, EbnfParserContexts.basic());
-            if (!grammar.isPresent() || !grammarFile.isEmpty()) {
-                final TextCursorSavePoint save = grammarFile.save();
-                grammarFile.end();
-                throw new UnsupportedOperationException("Unable to load grammar file\nGrammar...\n" + grammar + "\n\nRemaining...\n" + save.textBetween());
-            }
+            final Optional<EbnfGrammarParserToken> grammar = grammarLoader.grammar();
 
             final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined = Maps.ordered();
             predefined.put(ARRAY_BEGIN_SYMBOL_IDENTIFIER, ARRAY_BEGIN_SYMBOL);
@@ -193,26 +178,7 @@ public final class JsonNodeParsers implements PublicStaticHelper {
         }
     }
 
-    private static CharSequence readGrammarFile() throws IOException, JsonNodeParserException {
-        final String grammarFilename = "json-parsers.grammar";
-        final InputStream inputStream = JsonNodeParsers.class.getResourceAsStream(grammarFilename);
-        if(null == inputStream){
-            throw new JsonNodeParserException("Unable to find " + CharSequences.quote(grammarFilename));
-        }
-
-        final char[] buffer = new char[ 4096];
-        final StringBuilder b = new StringBuilder();
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))){
-            for(;;) {
-                final int read = reader.read(buffer);
-                if (-1 == read) {
-                    break;
-                }
-                b.append(buffer, 0, read);
-            }
-        }
-        return b;
-    }
+    private final static EbnfGrammarLoader grammarLoader = EbnfGrammarLoader.with("json-parsers.grammar", JsonNodeParsers.class);
 
     /**
      * Stop construction
