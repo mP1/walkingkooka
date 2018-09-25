@@ -17,6 +17,7 @@
 
 package walkingkooka.text;
 
+import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.IOException;
@@ -51,11 +52,14 @@ final class ReaderConsumingCharSequence implements CharSequence, HashCodeEqualsD
         this.buffer = new char[bufferSize];
     }
 
-    @Override public int length() {
+    @Override
+    public int length() {
+        this.maybeFillBuffer(1);
         return this.content.length();
     }
 
-    @Override public char charAt(final int index) {
+    @Override
+    public char charAt(final int index) {
         if (index < 0) {
             throw new StringIndexOutOfBoundsException("Invalid index " + index);
         }
@@ -65,7 +69,8 @@ final class ReaderConsumingCharSequence implements CharSequence, HashCodeEqualsD
         return this.content.charAt(index);
     }
 
-    @Override public CharSequence subSequence(final int start, final int end) {
+    @Override
+    public CharSequence subSequence(final int start, final int end) {
         if (start < 0 || start > end) {
             throw new StringIndexOutOfBoundsException("Start index " + start + " must be between 0 and " + end);
         }
@@ -115,18 +120,23 @@ final class ReaderConsumingCharSequence implements CharSequence, HashCodeEqualsD
         }
     }
 
+    @Override
     public int hashCode() {
         return this.content.hashCode();
     }
 
+    @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof ReaderConsumingCharSequence && this.equals0((ReaderConsumingCharSequence) other);
+        return this == other ||
+               other instanceof ReaderConsumingCharSequence &&
+               this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ReaderConsumingCharSequence other) {
         return this.content.equals(other.content);
     }
 
+    @Override
     public String toString() {
         return this.content.toString();
     }

@@ -92,6 +92,24 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
     }
 
     @Test
+    public void testConsumeUsingLengthTests() throws Exception {
+        final String text = "abcdefghijklmnopqrstuvwxyz";
+        try(final StringReader reader = new StringReader(text)) {
+            final ReaderConsumingCharSequence chars = ReaderConsumingCharSequence.with(reader, 1);
+
+            final StringBuilder read = new StringBuilder();
+            for(;;) {
+                if(read.length() == chars.length()) {
+                    break;
+                }
+                read.append(chars.charAt(read.length()));
+            }
+
+            assertEquals("text", text, read.toString());
+        }
+    }
+
+    @Test
     public void testToString() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
