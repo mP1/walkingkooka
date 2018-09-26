@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
+import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
 import walkingkooka.type.PublicStaticHelper;
@@ -69,10 +70,26 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
                 .stream()
                 .map(m -> EbnfParserToken.class.cast(m))
                 .filter(t -> t.isRule())
-                .forEach(t -> {
-                    final EbnfRuleParserToken rule = t.cast();
-                    identifierToParser.put(rule.identifier().value(), new EbnfParserCombinatorProxyParser<>(rule.identifier()));
-                });
+                .forEach(t -> addProxy(t.cast(), identifierToParser));
+    }
+
+    private static void addProxy(final EbnfRuleParserToken rule, final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser) {
+        final EbnfIdentifierParserToken identifierParserToken = rule.identifier();
+        final EbnfIdentifierName identifierName = identifierParserToken.value();
+
+        final Object existing = identifierToParser.get(identifierName);
+        if (null != existing) {
+            failDuplicateRule(rule, existing);
+        }
+
+        identifierToParser.put(identifierName, new EbnfParserCombinatorProxyParser<>(identifierParserToken));
+    }
+
+    /**
+     * Reports an attempt to override a predefined rule to parser or a second rule with the same name.
+     */
+    private static void failDuplicateRule(final EbnfRuleParserToken duplicate, final Object existing) {
+        throw new EbnfParserCombinatorDuplicateRuleException("Rule with identifier " + duplicate.identifier().value() + " already exists=" + existing, duplicate);
     }
 
     /**
