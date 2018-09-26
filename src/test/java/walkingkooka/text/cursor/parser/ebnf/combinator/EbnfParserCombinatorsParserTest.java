@@ -129,6 +129,16 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
         this.parseAndCheck2(text, this.string(text), text);
     }
 
+    @Test(expected = EbnfParserCombinatorDuplicateRuleException.class)
+    public void testIdentifierDuplicateRuleGrammarFails() {
+        this.createParser2();
+    }
+
+    @Test(expected = EbnfParserCombinatorDuplicateRuleException.class)
+    public void testIdentifierDuplicateRulePredefinedFails() {
+        this.createParser2();
+    }
+
     @Test
     public void testIdentifierReference() {
         final String text = "abc123";
@@ -360,6 +370,8 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
 
         final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> defaults = Maps.hash();
         defaults.put(EbnfIdentifierName.with("LETTERS"), Parsers.stringCharPredicate(CharPredicates.letter(), 1, Integer.MAX_VALUE).cast());
+        defaults.put(EbnfIdentifierName.with("DUPLICATED"), Parsers.fake());
+
         final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> all = grammar.combinator(defaults,
                 this.syntaxTreeTransformer(grammar));
 
