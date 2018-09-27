@@ -67,6 +67,13 @@ public final class ParserTokens implements PublicStaticHelper {
     }
 
     /**
+     * {@see FakeParserToken}
+     */
+    public static FakeParserToken bigInteger() {
+        return new FakeParserToken();
+    }
+
+    /**
      * {@see LocalDateParserToken}
      */
     public static LocalDateParserToken localDate(final LocalDate value, final String text) {
