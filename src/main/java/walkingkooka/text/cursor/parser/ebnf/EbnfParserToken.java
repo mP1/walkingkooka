@@ -249,10 +249,7 @@ public abstract class EbnfParserToken implements ParserToken {
      */
     public abstract boolean isTerminal();
 
-    /**
-     * Only whitespace return true
-     */
-    public abstract boolean isWhitespace();
+    // Visitor......................................................................................................
 
     public final void accept(final ParserTokenVisitor visitor) {
         final EbnfParserTokenVisitor ebnfParserTokenVisitor = Cast.to(visitor);

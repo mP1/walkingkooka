@@ -643,11 +643,6 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     public abstract boolean isText();
 
     /**
-     * Only {@link SpreadsheetWhitespaceParserToken} return true
-     */
-    public abstract boolean isWhitespace();
-
-    /**
      * The priority of this token, tokens with a value of zero are left in their original position.
      */
     abstract int operatorPriority();
