@@ -48,82 +48,82 @@ final class JsonParserPrettyJsonNodeParserTokenVisitor extends JsonNodeParserTok
     }
 
     @Override
-	protected Visiting startVisit(final JsonNodeArrayParserToken token) {
+    protected Visiting startVisit(final JsonNodeArrayParserToken token) {
         this.printer.enter(token);
         return super.startVisit(token);
     }
 
     @Override
-	protected void endVisit(final JsonNodeArrayParserToken token) {
+    protected void endVisit(final JsonNodeArrayParserToken token) {
         this.printer.exit(token);
     }
 
     @Override
-	protected Visiting startVisit(final JsonNodeObjectParserToken token) {
+    protected Visiting startVisit(final JsonNodeObjectParserToken token) {
         this.printer.enter(token);
         return super.startVisit(token);
     }
 
     @Override
-	protected void endVisit(final JsonNodeObjectParserToken token) {
+    protected void endVisit(final JsonNodeObjectParserToken token) {
         this.printer.exit(token);
     }
 
     @Override
-	protected void visit(final JsonNodeArrayBeginSymbolParserToken token) {
+    protected void visit(final JsonNodeArrayBeginSymbolParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeArrayEndSymbolParserToken token) {
+    protected void visit(final JsonNodeArrayEndSymbolParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeBooleanParserToken token) {
+    protected void visit(final JsonNodeBooleanParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeNullParserToken token) {
+    protected void visit(final JsonNodeNullParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeNumberParserToken token) {
+    protected void visit(final JsonNodeNumberParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeObjectAssignmentSymbolParserToken token) {
+    protected void visit(final JsonNodeObjectAssignmentSymbolParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeObjectBeginSymbolParserToken token) {
+    protected void visit(final JsonNodeObjectBeginSymbolParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeObjectEndSymbolParserToken token) {
+    protected void visit(final JsonNodeObjectEndSymbolParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeSeparatorSymbolParserToken token) {
+    protected void visit(final JsonNodeSeparatorSymbolParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeStringParserToken token) {
+    protected void visit(final JsonNodeStringParserToken token) {
         this.printer.leaf(token);
     }
 
     @Override
-	protected void visit(final JsonNodeWhitespaceParserToken token) {
+    protected void visit(final JsonNodeWhitespaceParserToken token) {
         this.printer.leaf(token);
     }
-    
+
     private final VisitorPrettyPrinter<JsonNodeParserToken> printer;
 
     @Override
