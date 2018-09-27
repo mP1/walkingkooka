@@ -241,10 +241,7 @@ public abstract class JsonNodeParserToken implements ParserToken {
      */
     public abstract boolean isString();
 
-    /**
-     * Only {@link JsonNodeWhitespaceParserToken} return true
-     */
-    public abstract boolean isWhitespace();
+    // Visitor ......................................................................................................
 
     /**
      * Begins the visiting process.

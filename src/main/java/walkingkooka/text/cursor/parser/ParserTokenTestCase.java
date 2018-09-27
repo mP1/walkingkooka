@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchSequenceNode;
 import walkingkooka.tree.visit.Visiting;
@@ -90,6 +91,24 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
             fail("ParserToken: " + token + " must implement either " + LeafParserToken.class.getName() + " or " + ParentParserToken.class.getName());
         }
     }
+
+    /**
+     * If a type class name includes Whitespace its {@link ParserToken#isWhitespace()} should also return true.
+     */
+    @Test
+    public final void testIsWhitespace() {
+        final String type = this.type().getSimpleName();
+        final boolean whitespace = type.contains(WHITESPACE);
+
+        final T token = this.createToken();
+        assertEquals(token + " isWhitespace must be true if " + type + " contains " + CharSequences.quote(WHITESPACE), whitespace, token.isWhitespace());
+
+        if(whitespace) {
+            assertEquals(token + " isWhitespace==true, isNoise must also be true", whitespace, token.isNoise());
+        }
+    }
+
+    private final static String WHITESPACE = "Whitespace";
 
     @Test
     public void testToSearchNode() {

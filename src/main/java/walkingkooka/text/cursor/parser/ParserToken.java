@@ -78,6 +78,13 @@ public interface ParserToken extends HasText, HasSearchNode {
     }
 
     /**
+     * Only returns true for whitespace tokens but not other types of token..
+     */
+    default boolean isWhitespace() {
+        return false;
+    }
+
+    /**
      * Called by the visitor responsible for this group of tokens, which typically resides in the same package.
      * The token must then call the appropriate visit or start/end visit and also visit any child token values as appropriate.
      */
