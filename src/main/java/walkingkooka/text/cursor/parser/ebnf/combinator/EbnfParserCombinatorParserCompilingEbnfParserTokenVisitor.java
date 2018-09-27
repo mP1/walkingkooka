@@ -124,11 +124,18 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
         this.enter();
         this.accept(rule.token());
 
+        final EbnfIdentifierParserToken name = rule.identifier();
+
         // update the proxy holding all references to this rule...
-        final EbnfParserCombinatorProxyParser<?, ParserContext> proxy = Cast.to(this.identifierToParser.get(rule.identifier().value()));
-        proxy.parser = Cast.to(this.children.get(0));
+        final EbnfParserCombinatorProxyParser<?, ParserContext> proxy = Cast.to(this.identifierToParser.get(name.value()));
+        proxy.parser = this.transformer.identifier(name, this.children.get(0)).cast();
 
         return Visiting.SKIP; // skip because we dont want to visit LHS of rule.
+    }
+
+    @Override
+    protected void endVisit(EbnfRuleParserToken token) {
+        this.exit();
     }
 
     /**
@@ -281,10 +288,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
 
     @Override
     protected void visit(final EbnfIdentifierParserToken identifier) {
-        this.add(
-                this.transformer.identifier(identifier,
-                        this.identifierToParser.get(identifier.value())),
-                identifier);
+        this.add(this.identifierToParser.get(identifier.value()), identifier);
     }
 
     // TERMINAL ........................................................................................................
