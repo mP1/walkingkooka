@@ -38,7 +38,6 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfRepeatedParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformer;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,16 +70,15 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
 
         for(;;){
             final String text = sequence.text();
-            final List<ParserToken> tokens = sequence.flat().removeMissing().value();
+            final SequenceParserToken cleaned = sequence.flat()
+                    .removeMissing();
 
-            SpreadsheetParserToken first = null;
+            final SpreadsheetParserToken first = cleaned.removeWhitespace()
+                    .value()
+                    .get(0)
+                    .cast();
 
-            for(final Iterator<ParserToken> all = tokens.iterator(); all.hasNext();){
-                first = all.next().cast();
-                if(!first.isWhitespace()){
-                    break;
-                }
-            }
+            final List<ParserToken> tokens = cleaned.value();
 
             if(first.isFunctionName()){
                 result = SpreadsheetParserToken.function(tokens, text);

@@ -37,7 +37,6 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfRepeatedParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformer;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -69,22 +68,21 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
 
         for(;;){
             final String text = sequence.text();
-            final SequenceParserToken flat = sequence.flat();
-            final List<ParserToken> tokens = flat.removeMissing().value();
+            final SequenceParserToken cleaned = sequence.flat()
+                    .removeMissing();
 
-            JsonNodeParserToken first = null;
+            final JsonNodeParserToken first = cleaned.removeWhitespace()
+                    .value()
+                    .get(0)
+                    .cast();
 
-            for(final Iterator<ParserToken> all = tokens.iterator(); all.hasNext();){
-                first = all.next().cast();
-                if(!first.isWhitespace()){
-                    break;
-                }
-            }
+            final List<ParserToken> tokens = cleaned.value();
 
-            if(null == first) {
+            if(tokens.isEmpty()) {
                 result = sequence;
                 break;
             }
+
 
             if(first.isArrayBeginSymbol()) {
                 result = JsonNodeParserToken.array(tokens, text);
