@@ -192,6 +192,14 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         this.parseThrows(this.createParser(), this.createContext(), cursor, messagePart);
     }
 
+    protected final void parseThrows(final Parser <T, C> parser, final String cursor, final String messagePart) {
+        this.parseThrows(parser, TextCursors.charSequence(cursor), messagePart);
+    }
+
+    protected final void parseThrows(final Parser <T, C> parser, final TextCursor cursor, final String messagePart) {
+        this.parseThrows(parser, this.createContext(), cursor, messagePart);
+    }
+
     protected final void parseThrows(final Parser <T, C> parser, final C context, final TextCursor cursor, final String messagePart) {
         final TextCursorSavePoint before = cursor.save();
         try {
