@@ -44,6 +44,7 @@ import java.util.List;
  * Processing of other tokens will be done after this process completes.
  */
 final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
+    
     @Override
     public Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser) {
         return parser;
@@ -51,53 +52,11 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
 
     @Override
     public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, ParserContext> parser) {
-        // needs to examine tokens and wrap.. might be a group, or other type of tokens.
         return parser.transform(this::concatenation);
     }
 
-    /**
-     * (* addition, subtraction, multiplication, division, power, range *)
-     * BINARY_OPERATOR         = "+" | "-" | "*" | "/" | "^" | ":";
-     * BINARY_EXPRESSION       = EXPRESSION2, [ WHITESPACE ], BINARY_OPERATOR, [ WHITESPACE ], EXPRESSION2;
-     *
-     * (* cell column/row OR label *)
-     * CELL			        = COLUMN_ROW | LABEL_NAME;
-     */
     private ParserToken concatenation(final SequenceParserToken sequence, final ParserContext context) {
-        ParserToken result;
-
-        for(;;){
-            final String text = sequence.text();
-            final SequenceParserToken cleaned = sequence.flat()
-                    .removeMissing();
-
-            final JsonNodeParserToken first = cleaned.removeWhitespace()
-                    .value()
-                    .get(0)
-                    .cast();
-
-            final List<ParserToken> tokens = cleaned.value();
-
-            if(tokens.isEmpty()) {
-                result = sequence;
-                break;
-            }
-
-
-            if(first.isArrayBeginSymbol()) {
-                result = JsonNodeParserToken.array(tokens, text);
-                break;
-            }
-            if(first.isObjectBeginSymbol()) {
-                result = JsonNodeParserToken.object(tokens, text);
-                break;
-            }
-
-            result = sequence;
-            break;
-        }
-
-        return result;
+        return sequence.removeMissing();
     }
 
     @Override
@@ -111,12 +70,35 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
     }
 
     /**
-     * Any symbol with a name ending in "REQUIRED" or in {@link JsonNodeParsers#REPORT_FAILURE_IDENTIFIER_NAMES} will be marked as orreport, that is report a parse failure if the parser fails.
+     * If the identifier name ends in "REQUIRED" mark the parser so that it reports a failure.
      */
     @Override
-    public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, ParserContext> parser) {
-        final EbnfIdentifierName identifier =token.value();
-        return identifier.value().endsWith("REQUIRED") || JsonNodeParsers.REPORT_FAILURE_IDENTIFIER_NAMES.contains(token.value()) ?
+    public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token,
+                                                         final Parser<ParserToken, ParserContext> parser) {
+        final EbnfIdentifierName name = token.value();
+        return name.equals(JsonNodeParsers.ARRAY_IDENTIFIER) ?
+                parser.transform(this::array) :
+                name.equals(JsonNodeParsers.OBJECT_IDENTIFIER) ?
+                        parser.transform(this::object) :
+                        this.requiredCheck(name, parser);
+    }
+
+    private ParserToken array(final ParserToken token, final ParserContext context) {
+        return JsonNodeParserToken.array(this.clean(token.cast()),
+                token.text());
+    }
+
+    private ParserToken object(final ParserToken token, final ParserContext context) {
+        return JsonNodeParserToken.object(this.clean(token.cast()),
+                token.text());
+    }
+
+    private List<ParserToken> clean(final SequenceParserToken token) {
+        return token.flat().value();
+    }
+
+    private Parser<ParserToken, ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserToken, ParserContext> parser) {
+        return name.value().endsWith("REQUIRED") || JsonNodeParsers.REPORT_FAILURE_IDENTIFIER_NAMES.contains(name) ?
                 parser.orReport(ParserReporters.basic()) :
                 parser; // leave as is...
     }
