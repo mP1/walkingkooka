@@ -95,7 +95,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
         return parserFromGrammar(number, FUNCTION_IDENTIFIER);
     }
 
-    private static final EbnfIdentifierName FUNCTION_IDENTIFIER = EbnfIdentifierName.with("FUNCTION");
+    static final EbnfIdentifierName FUNCTION_IDENTIFIER = EbnfIdentifierName.with("FUNCTION");
 
     /**
      * A parser that returns {@see SpreadsheetFunctionName}
@@ -297,7 +297,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
 
             final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> result = grammarLoader.grammar().get()
                     .combinator(predefined,
-                            new SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer());
+                            new SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer());
 
             return result.get(parserName).orReport(ParserReporters.basic()).cast();
         } catch (final SpreadsheetParserException rethrow) {

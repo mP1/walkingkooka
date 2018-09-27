@@ -31,6 +31,7 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfAlternativeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfConcatenationParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfExceptionParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGroupParserToken;
+import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfOptionalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRangeParserToken;
@@ -45,7 +46,8 @@ import java.util.stream.Collectors;
  * A {@link EbnfParserCombinatorSyntaxTreeTransformer} that only transforms terminal and ranges into their corresponding {@link SpreadsheetParserToken} equivalents.
  * Processing of other tokens will be done after this process completes.
  */
-final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
+final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
+
     @Override
     public Parser<ParserToken, ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserToken, ParserContext> parser) {
         return parser;
@@ -53,17 +55,17 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
 
     @Override
     public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, Parser<SequenceParserToken, ParserContext> parser) {
-        // needs to examine tokens and wrap.. might be a group, or other type of tokens.
         return parser.transform(this::concatenation);
     }
 
     /**
+     * Special case for binary operators and operator priorities.
+     *
+     * <pre></pre>
      * (* addition, subtraction, multiplication, division, power, range *)
      * BINARY_OPERATOR         = "+" | "-" | "*" | "/" | "^" | ":";
      * BINARY_EXPRESSION       = EXPRESSION2, [ WHITESPACE ], BINARY_OPERATOR, [ WHITESPACE ], EXPRESSION2;
-     *
-     * (* cell column/row OR label *)
-     * CELL			        = COLUMN_ROW | LABEL_NAME;
+     * </pre>
      */
     private ParserToken concatenation(final SequenceParserToken sequence, final ParserContext context) {
         ParserToken result;
@@ -78,33 +80,12 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
                     .get(0)
                     .cast();
 
-            final List<ParserToken> tokens = cleaned.value();
-
-            if(first.isFunctionName()){
-                result = SpreadsheetParserToken.function(tokens, text);
-                break;
-            }
-            if(first.isOpenParenthesisSymbol()) {
-                result = SpreadsheetParserToken.group(tokens, text);
-                break;
-            }
-            if(first.isMinusSymbol()) {
-                result = SpreadsheetParserToken.negative(tokens, text);
-                break;
-            }
-
-            final SpreadsheetParserToken last = tokens.get(tokens.size() -1).cast();
-            if(last.isPercentSymbol()) {
-                result = SpreadsheetParserToken.percentage(tokens, text);
-                break;
-            }
-
-            if(first.isSymbol()) {
+            if (first.isSymbol()) {
                 result = sequence;
                 break;
             }
 
-            result = this.binaryOperandPrioritize(tokens, sequence);
+            result = this.binaryOperandPrioritize(cleaned.value(), sequence);
             break;
         }
 
@@ -203,9 +184,55 @@ final class SpreedsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
         return parser;
     }
 
+    /**
+     * For identified rules, the {@link SequenceParserToken} are flatted, missings removed and the {@link SpreadsheetPowerParserToken}
+     * created.
+     */
     @Override
-    public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserToken, ParserContext> parser) {
-        return token.value().value().endsWith("REQUIRED") ?
+    public Parser<ParserToken, ParserContext> identifier(final EbnfIdentifierParserToken token,
+                                                         final Parser<ParserToken, ParserContext> parser) {
+        final EbnfIdentifierName name = token.value();
+        return name.equals(SpreadsheetParsers.FUNCTION_IDENTIFIER) ?
+                parser.transform(this::function) :
+                name.equals(GROUP_IDENTIFIER) ?
+                        parser.transform(this::group) :
+                        name.equals(NEGATIVE_IDENTIFIER) ?
+                                parser.transform(this::negative) :
+                                name.equals(PERCENTAGE_IDENTIFIER) ?
+                                        parser.transform(this::percentage) :
+                                        this.requiredCheck(name, parser);
+    }
+
+    private ParserToken function(final ParserToken token, final ParserContext context) {
+        return SpreadsheetParserToken.function(this.clean(token.cast()), token.text());
+    }
+
+    private ParserToken group(final ParserToken token, final ParserContext context) {
+        return SpreadsheetParserToken.group(this.clean(token.cast()), token.text());
+    }
+
+    private static final EbnfIdentifierName GROUP_IDENTIFIER = EbnfIdentifierName.with("GROUP");
+
+    private ParserToken negative(final ParserToken token, final ParserContext context) {
+        return SpreadsheetParserToken.negative(this.clean(token.cast()), token.text());
+    }
+
+    private static final EbnfIdentifierName NEGATIVE_IDENTIFIER = EbnfIdentifierName.with("NEGATIVE");
+
+    private ParserToken percentage(final ParserToken token, final ParserContext context) {
+        return SpreadsheetParserToken.percentage(this.clean(token.cast()), token.text());
+    }
+
+    private static final EbnfIdentifierName PERCENTAGE_IDENTIFIER = EbnfIdentifierName.with("PERCENTAGE");
+
+    private List<ParserToken> clean(final SequenceParserToken token) {
+        return token.flat()
+                .removeMissing()
+                .value();
+    }
+
+    private Parser<ParserToken, ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserToken, ParserContext> parser) {
+        return name.value().endsWith("REQUIRED") ?
                 parser.orReport(ParserReporters.basic()) :
                 parser; // leave as is...
     }
