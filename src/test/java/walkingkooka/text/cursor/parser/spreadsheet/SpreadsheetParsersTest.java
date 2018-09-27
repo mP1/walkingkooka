@@ -38,12 +38,19 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         this.parseAndCheck(text, SpreadsheetTextParserToken.text("abc-123", text), text);
     }
 
+    // CELL & LABEL ......................................................................................................
+
+    @Test
+    public void testCellReferencesParserOtherExpressionFails() {
+        this.parseThrows(SpreadsheetParsers.cellReferences(), "1+2", "Unrecognized character '1' at (1,1) \"1+2\"");
+    }
+
     @Test
     public void testCell() {
         final String text = "A1";
         final SpreadsheetCellReferenceParserToken cell = cell(0, "A", 0);
 
-        this.parseAndCheck(text, cell, text);
+        this.cellReferenceParseAndCheck(text, cell, text);
     }
 
     @Test
@@ -51,7 +58,34 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "AA678";
         final SpreadsheetCellReferenceParserToken cell = this.cell(26, "AA", 678-1);
 
-        this.parseAndCheck(text, cell, text);
+        this.cellReferenceParseAndCheck(text, cell, text);
+    }
+
+    @Test
+    public void testLabel() {
+        final String text = "Hello";
+
+        this.cellReferenceParseAndCheck(text,
+                SpreadsheetParserToken.labelName(SpreadsheetLabelName.with(text), text),
+                text);
+    }
+
+    /**
+     * First parse the range using {@link SpreadsheetParsers#cellReferences()}} and then repeat again with
+     * {@link SpreadsheetParsers#expression(Parser)}.
+     */
+    private void cellReferenceParseAndCheck(final String from,
+                                            final SpreadsheetParserToken expected,
+                                            final String text) {
+        this.parseAndCheck(SpreadsheetParsers.cellReferences(), from, expected, text);
+        this.parseAndCheck(from, expected, text);
+    }
+
+    // RANGE............................................................................................................
+
+    @Test
+    public void testRangeParserOtherExpressionFails() {
+        this.parseThrows(SpreadsheetParsers.range(), "1+2", "Unrecognized character '1' at (1,1) \"1+2\"");
     }
 
     @Test
@@ -62,7 +96,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final SpreadsheetRangeParserToken range = range(from, to);
         final String text = range.text();
 
-        this.parseAndCheck(text, range, text);
+        this.rangeParseAndCheck(text, range, text);
     }
 
     @Test
@@ -73,7 +107,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final SpreadsheetRangeParserToken range = range(from, to);
         final String text = range.text();
 
-        this.parseAndCheck(text, range, text);
+        this.rangeParseAndCheck(text, range, text);
     }
 
     @Test
@@ -84,7 +118,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final SpreadsheetRangeParserToken range = range(from, to);
         final String text = range.text();
 
-        this.parseAndCheck(text, range, text);
+        this.rangeParseAndCheck(text, range, text);
     }
 
     @Test
@@ -95,7 +129,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final SpreadsheetRangeParserToken range = range(from, to);
         final String text = range.text();
 
-        this.parseAndCheck(text, range, text);
+        this.rangeParseAndCheck(text, range, text);
     }
 
     @Test
@@ -106,17 +140,18 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = from.text() + "  " + between() + "  " + to.text();
         final SpreadsheetRangeParserToken range = SpreadsheetParserToken.range(Lists.of(from, whitespace(), between(), whitespace(), to), text);
 
-        this.parseAndCheck(text, range, text);
+        this.rangeParseAndCheck(text, range, text);
     }
 
-    @Test
-    public void testLabel() {
-        final String text = "Hello";
-
-        this.parseAndCheck(text,
-                SpreadsheetParserToken.labelName(SpreadsheetLabelName.with(text), text),
-                text);
+    /**
+     * First parse the range using {@link SpreadsheetParsers#range()} and then repeat again with {@link SpreadsheetParsers#expression(Parser)}.
+     */
+    private void rangeParseAndCheck(final String from, final SpreadsheetRangeParserToken expected, final String text) {
+        this.parseAndCheck(SpreadsheetParsers.range(), from, expected, text);
+        this.parseAndCheck(from, expected, text);
     }
+
+    // Negative.........................................................................................
 
     @Test
     public void testNegativeNumber() {
@@ -562,12 +597,19 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         this.parseAndCheck(subText, sub, subText);
     }
 
+    // Function.........................................................................................................
+
+    @Test
+    public void testFunctionParserOtherExpressionFails() {
+        this.parseThrows(this.functionParser(), "1+2", "Unrecognized character '1' at (1,1) \"1+2\"");
+    }
+
     @Test
     public void testFunctionWithoutArguments() {
         final String text = "xyz()";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
 
     @Test
@@ -575,7 +617,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "xyz(  )";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), whitespace(), closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
 
     @Test
@@ -583,7 +625,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "xyz(123)";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigInteger(123), closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
 
     @Test
@@ -591,7 +633,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "xyz(  123)";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), whitespace(), bigInteger(123), closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
 
     @Test
@@ -599,7 +641,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "xyz(123  )";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigInteger(123), whitespace(), closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
 
     @Test
@@ -607,7 +649,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "xyz(  123  )";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), whitespace(), bigInteger(123), whitespace(), closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
 
     @Test
@@ -615,7 +657,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "xyz(123,456)";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigInteger(123), comma(), bigInteger(456), closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
 
     @Test
@@ -623,7 +665,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "xyz(1,2,3,4)";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigInteger(1), comma(), bigInteger(2), comma(), bigInteger(3), comma(), bigInteger(4), closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
 
     @Test
@@ -634,7 +676,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String xText = "x(" + yText + ")";
         final SpreadsheetFunctionParserToken x = SpreadsheetParserToken.function(Lists.of(functionName("x"), openParenthesis(), y, closeParenthesis()), xText);
 
-        this.parseAndCheck(xText, x, xText);
+        this.functionParseAndCheck(xText, x, xText);
     }
 
     @Test
@@ -648,7 +690,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String xText = "x(" + yText + ")";
         final SpreadsheetFunctionParserToken x = SpreadsheetParserToken.function(Lists.of(functionName("x"), openParenthesis(), y, closeParenthesis()), xText);
 
-        this.parseAndCheck(xText, x, xText);
+        this.functionParseAndCheck(xText, x, xText);
     }
 
     @Test
@@ -662,8 +704,25 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "xyz(" + rangeText + ")";
         final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), range, closeParenthesis()), text);
 
-        this.parseAndCheck(text, f, text);
+        this.functionParseAndCheck(text, f, text);
     }
+
+    /**
+     * First parse the range using {@link SpreadsheetParsers#function(Parser)} and then repeat again with
+     * {@link SpreadsheetParsers#expression(Parser)}. Both should give the same results.
+     */
+    private void functionParseAndCheck(final String from,
+                                       final SpreadsheetFunctionParserToken expected,
+                                       final String text) {
+        this.parseAndCheck(this.functionParser(), from, expected, text);
+        this.parseAndCheck(from, expected, text);
+    }
+
+    private Parser<SpreadsheetParserToken, SpreadsheetParserContext> functionParser() {
+        return SpreadsheetParsers.function(this.numberParser());
+    }
+
+    // Group ....................................................................................................
 
     @Test
     public void testGroupAndFurtherExpressions() {
@@ -720,11 +779,13 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Override
     protected Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
-        final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number = Parsers.<SpreadsheetParserContext>bigInteger(10)
+        return SpreadsheetParsers.expression(this.numberParser());
+    }
+
+    private Parser<SpreadsheetParserToken, SpreadsheetParserContext> numberParser() {
+        return Parsers.<SpreadsheetParserContext>bigInteger(10)
                 .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigInteger(numberParserToken.value(), numberParserToken.text()))
                 .cast();
-
-        return SpreadsheetParsers.expression(number);
     }
 
     @Override
