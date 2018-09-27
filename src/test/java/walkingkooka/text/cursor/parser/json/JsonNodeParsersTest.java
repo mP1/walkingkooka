@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
+import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -419,5 +420,10 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
         return Arrays.stream(tokens)
                 .map(t -> t.text())
                 .collect(Collectors.joining());
+    }
+
+    @Override
+    protected String toString(final ParserToken token) {
+        return JsonParserPrettyJsonNodeParserTokenVisitor.toString(token);
     }
 }
