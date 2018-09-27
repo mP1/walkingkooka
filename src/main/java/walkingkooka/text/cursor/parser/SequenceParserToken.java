@@ -21,6 +21,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -77,17 +78,31 @@ public final class SequenceParserToken extends ParserTemplateToken2<SequencePars
      * Removes any missing values, returning a new instance if necessary.
      */
     public SequenceParserToken removeMissing() {
-        return this.setValue(this.value().stream()
-                .filter( t -> ! t.isMissing())
-                .collect(Collectors.toList()));
+        return this.removeIf(t -> t.isMissing());
     }
 
     /**
      * Removes any noisy token values, returning a new instance if necessary.
      */
     public SequenceParserToken removeNoise() {
+        return this.removeIf(t -> t.isNoise());
+    }
+
+    /**
+     * Removes any whitespace token values, returning a new instance if necessary.
+     */
+    public SequenceParserToken removeWhitespace() {
+        return this.removeIf(t -> t.isWhitespace());
+    }
+
+    /**
+     * Removes any tokens that are matched by the {@link Predicate}.
+     */
+    private SequenceParserToken removeIf(final Predicate<ParserToken> removeIf) {
+        final Predicate<ParserToken> keep = removeIf.negate();
+
         return this.setValue(this.value().stream()
-                .filter( t -> ! t.isNoise())
+                .filter(keep)
                 .collect(Collectors.toList()));
     }
 

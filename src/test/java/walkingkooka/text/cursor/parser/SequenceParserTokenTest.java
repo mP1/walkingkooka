@@ -35,6 +35,18 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
     private final static StringParserToken STRING4 = ParserTokens.string("d4", "d4");
     private final static StringParserToken STRING5 = ParserTokens.string("e5", "e5");
     private final static StringParserToken STRING6 = ParserTokens.string("f6", "f6");
+    private final static ParserToken WHITESPACE = new FakeParserToken() {
+
+        @Override
+        public String text() {
+            return "";
+        }
+
+        @Override
+        public boolean isWhitespace() {
+            return true;
+        }
+    };
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTokensFails() {
@@ -163,6 +175,15 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
         assertSame(different, different.removeMissing());
     }
 
+    @Test
+    public void testRemovingMissingSomeIgnoresWhitespace() {
+        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3, WHITESPACE);
+        final SequenceParserToken different = token.removeMissing();
+
+        assertEquals("value", Lists.of(STRING1, STRING2, WHITESPACE), different.value());
+        assertSame(different, different.removeMissing());
+    }
+
     // removeNoise...........................................................................................................
 
     @Test
@@ -178,6 +199,41 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
         assertEquals("value", Lists.of(STRING1, STRING2), different.value());
         assertSame(different, different.removeNoise());
+    }
+
+    @Test
+    public void testRemovingNoiseSomeIgnoresWhitespace() {
+        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3, WHITESPACE);
+        final SequenceParserToken different = token.removeNoise();
+
+        assertEquals("value", Lists.of(STRING1, STRING2, WHITESPACE), different.value());
+        assertSame(different, different.removeNoise());
+    }
+
+    // removeWhitespace...........................................................................................................
+
+    @Test
+    public void testRemovingWhitespaceNone() {
+        final SequenceParserToken token = sequence(STRING1, STRING2);
+        assertSame(token, token.removeWhitespace());
+    }
+
+    @Test
+    public void testRemovingWhitespaceSome() {
+        final SequenceParserToken token = sequence(STRING1, STRING2, WHITESPACE);
+        final SequenceParserToken different = token.removeWhitespace();
+
+        assertEquals("value", Lists.of(STRING1, STRING2), different.value());
+        assertSame(different, different.removeWhitespace());
+    }
+
+    @Test
+    public void testRemovingWhitespaceSomeIgnoresMissing() {
+        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3, WHITESPACE);
+        final SequenceParserToken different = token.removeWhitespace();
+
+        assertEquals("value", Lists.of(STRING1, STRING2, MISSING3), different.value());
+        assertSame(different, different.removeWhitespace());
     }
     
     // flat...........................................................................................................
@@ -323,6 +379,16 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     private StringParserToken string(final String s) {
         return ParserTokens.string(s, s);
+    }
+
+    private ParserToken whitespace() {
+        return new FakeParserToken() {
+
+            @Override
+            public boolean isWhitespace() {
+                return true;
+            }
+        };
     }
 
     @Override
