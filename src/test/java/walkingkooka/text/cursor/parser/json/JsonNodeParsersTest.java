@@ -312,7 +312,7 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
 
     @Test
     public void testInvalidObjectPropertyAssignmentSymbolReported() {
-        this.parseThrows("{\"key1\":true,\"key2\":false,\"key3\"!true}", '!', 33, 1);
+        this.parseThrows("{\"key1\":true,\"key2\":false,\"key3\"!true}", '"', 27, 1);
     }
 
     @Test
