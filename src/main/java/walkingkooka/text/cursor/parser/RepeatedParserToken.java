@@ -24,16 +24,13 @@ import java.util.Objects;
 /**
  * This {@link ParserToken} holds one or more of the tokens of the same type but not equal.
  */
-public final class RepeatedParserToken extends ParserTemplateToken2<RepeatedParserToken> implements SupportsFlat<RepeatedParserToken, ParserToken> {
+public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<RepeatedParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(RepeatedParserToken.class);
 
     static RepeatedParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");
         Objects.requireNonNull(text, "text");
-        if(tokens.isEmpty()) {
-            throw new IllegalArgumentException("Tokens must not be empty");
-        }
 
         return new RepeatedParserToken(tokens, text);
     }
@@ -63,9 +60,7 @@ public final class RepeatedParserToken extends ParserTemplateToken2<RepeatedPars
 
     @Override
     public RepeatedParserToken flat() {
-        final List<ParserToken> tokens = this.value();
-        final List<ParserToken> flat = this.flat(tokens);
-        return tokens.equals(flat) ? this : new RepeatedParserToken(flat, this.text());
+        return this.setValue(this.flat0());
     }
 
     @Override

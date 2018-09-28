@@ -24,10 +24,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceParserToken> {
+public final class SequenceParserTokenTest extends RepeatedOrSequenceParserTokenTestCase<SequenceParserToken> {
 
     private final static StringParserToken STRING1 = ParserTokens.string("a1", "a1");
     private final static StringParserToken STRING2 = ParserTokens.string("b2", "b2");
@@ -47,26 +46,6 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
             return true;
         }
     };
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTokensFails() {
-        SequenceParserToken.with(null, "tokens");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithZeroTokensFails() {
-        SequenceParserToken.with(Lists.of(string("1")), "tokens");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithOneTokenFails() {
-        SequenceParserToken.with(Lists.of(STRING1), "tokens");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        SequenceParserToken.with(Lists.of(STRING1, STRING2), null);
-    }
     
     // optional...............................................................................................
 
@@ -136,39 +115,17 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
                 sequence.required(index, StringParserToken.class));
     }
 
-    // setValue...........................................................................................................
-
-    @Test(expected = NullPointerException.class)
-    public void testSetValueNullFails(){
-        this.createToken().setValue(null);
-    }
-
-    @Test
-    public void testSetValueSame(){
-        final SequenceParserToken token = this.createToken();
-        assertSame(token, token.setValue(token.value()));
-    }
-
-    @Test
-    public void testSetValueDifferent() {
-        final SequenceParserToken token = this.createToken();
-        final List<ParserToken> differentTokens = this.createDifferentToken().value();
-        final SequenceParserToken different = token.setValue(differentTokens);
-        assertNotSame(token, different);
-        assertEquals("value", differentTokens, different.value());
-    }
-
     // removeMissing...........................................................................................................
 
     @Test
     public void testRemovingMissingNone() {
-        final SequenceParserToken token = sequence(STRING1, STRING2);
+        final SequenceParserToken token = createToken(STRING1, STRING2);
         assertSame(token, token.removeMissing());
     }
 
     @Test
     public void testRemovingMissingSome() {
-        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3);
+        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3);
         final SequenceParserToken different = token.removeMissing();
 
         assertEquals("value", Lists.of(STRING1, STRING2), different.value());
@@ -177,7 +134,7 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test
     public void testRemovingMissingSomeIgnoresWhitespace() {
-        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3, WHITESPACE);
+        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3, WHITESPACE);
         final SequenceParserToken different = token.removeMissing();
 
         assertEquals("value", Lists.of(STRING1, STRING2, WHITESPACE), different.value());
@@ -188,13 +145,13 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test
     public void testRemovingNoiseNone() {
-        final SequenceParserToken token = sequence(STRING1, STRING2);
+        final SequenceParserToken token = createToken(STRING1, STRING2);
         assertSame(token, token.removeNoise());
     }
 
     @Test
     public void testRemovingNoiseSome() {
-        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3);
+        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3);
         final SequenceParserToken different = token.removeNoise();
 
         assertEquals("value", Lists.of(STRING1, STRING2), different.value());
@@ -203,7 +160,7 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test
     public void testRemovingNoiseSomeIgnoresWhitespace() {
-        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3, WHITESPACE);
+        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3, WHITESPACE);
         final SequenceParserToken different = token.removeNoise();
 
         assertEquals("value", Lists.of(STRING1, STRING2, WHITESPACE), different.value());
@@ -214,13 +171,13 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test
     public void testRemovingWhitespaceNone() {
-        final SequenceParserToken token = sequence(STRING1, STRING2);
+        final SequenceParserToken token = createToken(STRING1, STRING2);
         assertSame(token, token.removeWhitespace());
     }
 
     @Test
     public void testRemovingWhitespaceSome() {
-        final SequenceParserToken token = sequence(STRING1, STRING2, WHITESPACE);
+        final SequenceParserToken token = createToken(STRING1, STRING2, WHITESPACE);
         final SequenceParserToken different = token.removeWhitespace();
 
         assertEquals("value", Lists.of(STRING1, STRING2), different.value());
@@ -229,40 +186,11 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Test
     public void testRemovingWhitespaceSomeIgnoresMissing() {
-        final SequenceParserToken token = sequence(STRING1, STRING2, MISSING3, WHITESPACE);
+        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3, WHITESPACE);
         final SequenceParserToken different = token.removeWhitespace();
 
         assertEquals("value", Lists.of(STRING1, STRING2, MISSING3), different.value());
         assertSame(different, different.removeWhitespace());
-    }
-    
-    // flat...........................................................................................................
-
-    @Test
-    public void testFlat() {
-        final SequenceParserToken token = this.createToken();
-        assertSame(token, token.flat());
-    }
-
-    @Test
-    public void testFlatRequired() {
-        final SequenceParserToken child = sequence(STRING4, STRING5);
-        final SequenceParserToken parent = sequence(STRING1, STRING2, child);
-        final SequenceParserToken flat = parent.flat();
-        assertNotSame(parent, flat);
-        assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5), flat.value());
-        this.checkText(flat,"a1b2d4e5");
-    }
-
-    @Test
-    public void testFlatRequired2() {
-        final SequenceParserToken childChild = sequence(STRING5, STRING6);
-        final SequenceParserToken child = sequence(STRING4, childChild);
-        final SequenceParserToken parent = sequence(STRING1, STRING2, child);
-        final SequenceParserToken flat = parent.flat();
-        assertNotSame(parent, flat);
-        assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value());
-        this.checkText(flat,"a1b2d4e5f6");
     }
     
     // accept...........................................................................................................
@@ -361,34 +289,17 @@ public final class SequenceParserTokenTest extends ParserTokenTestCase<SequenceP
 
     @Override
     protected SequenceParserToken createToken() {
-        return sequence(STRING1, STRING2, MISSING3);
+        return this.createToken(STRING1, STRING2, MISSING3);
     }
 
     @Override
     protected SequenceParserToken createDifferentToken() {
-        return sequence(string("different"), string("different2"));
+        return this.createToken(string("different"), string("different2"));
     }
 
-    private static SequenceParserToken sequence(final ParserToken...tokens) {
-        return sequence(ParserToken.text(Lists.of(tokens)), tokens);
-    }
-
-    private static SequenceParserToken sequence(final String text, final ParserToken...tokens) {
-        return SequenceParserToken.with(Lists.of(tokens), text);
-    }
-
-    private StringParserToken string(final String s) {
-        return ParserTokens.string(s, s);
-    }
-
-    private ParserToken whitespace() {
-        return new FakeParserToken() {
-
-            @Override
-            public boolean isWhitespace() {
-                return true;
-            }
-        };
+    @Override
+    SequenceParserToken createToken(final List<ParserToken> value, final String text) {
+        return SequenceParserToken.with(value, text);
     }
 
     @Override

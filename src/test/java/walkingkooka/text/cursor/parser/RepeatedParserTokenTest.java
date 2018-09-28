@@ -23,75 +23,9 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedParserToken> {
-
-    private final static StringParserToken STRING1 = ParserTokens.string("a1", "a1");
-    private final static StringParserToken STRING2 = ParserTokens.string("b2", "b2");
-    private final static StringParserToken STRING4 = ParserTokens.string("d4", "d4");
-    private final static StringParserToken STRING5 = ParserTokens.string("e5", "e5");
-    private final static StringParserToken STRING6 = ParserTokens.string("f6", "f6");
-    
-    @Test(expected = NullPointerException.class)
-    public void testWithNullContentFails() {
-        RepeatedParserToken.with(null, "tokens");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        RepeatedParserToken.with(Lists.of(string("abc")), null);
-    }
-
-    // setValue...........................................................................................................
-
-    @Test(expected = NullPointerException.class)
-    public void testSetValueNullFails(){
-        this.createToken().setValue(null);
-    }
-
-    @Test
-    public void testSetValueSame(){
-        final RepeatedParserToken token = this.createToken();
-        assertSame(token, token.setValue(token.value()));
-    }
-
-    @Test
-    public void testSetValueDifferent() {
-        final RepeatedParserToken token = this.createToken();
-        final List<ParserToken> differentTokens = this.createDifferentToken().value();
-        final RepeatedParserToken different = token.setValue(differentTokens);
-        assertNotSame(token, different);
-        assertEquals("tokens", differentTokens, different.value());
-    }
-    
-    @Test
-    public void testFlat() {
-        final RepeatedParserToken token = this.createToken();
-        assertSame(token, token.flat());
-    }
-
-    @Test
-    public void testFlatRequired() {
-        final RepeatedParserToken child = repeated(STRING4, STRING5);
-        final RepeatedParserToken parent = repeated(STRING1, STRING2, child);
-        final RepeatedParserToken flat = parent.flat();
-        assertNotSame(parent, flat);
-        assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5), flat.value());
-        this.checkText(flat,"a1b2d4e5");
-    }
-
-    @Test
-    public void testFlatRequired2() {
-        final RepeatedParserToken childChild = repeated(STRING5, STRING6);
-        final RepeatedParserToken child = repeated(STRING4, childChild);
-        final RepeatedParserToken parent = repeated(STRING1, STRING2, child);
-        final RepeatedParserToken flat = parent.flat();
-        assertNotSame(parent, flat);
-        assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value());
-        this.checkText(flat,"a1b2d4e5f6");
-    }
+public final class RepeatedParserTokenTest extends RepeatedOrSequenceParserTokenTestCase<RepeatedParserToken> {
 
     @Test
     public void testAccept() {
@@ -99,7 +33,7 @@ public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedP
         final List<ParserToken> visited = Lists.array();
 
         final StringParserToken string = this.string("abc");
-        final RepeatedParserToken token = this.repeated(string);
+        final RepeatedParserToken token = this.createToken(string);
 
         new FakeParserTokenVisitor() {
             @Override
@@ -146,7 +80,7 @@ public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedP
         final List<ParserToken> visited = Lists.array();
 
         final StringParserToken string = this.string("abc");
-        final RepeatedParserToken token = this.repeated(string);
+        final RepeatedParserToken token = this.createToken(string);
 
         new FakeParserTokenVisitor() {
             @Override
@@ -184,24 +118,17 @@ public final class RepeatedParserTokenTest extends ParserTokenTestCase<RepeatedP
     
     @Override
     protected RepeatedParserToken createToken() {
-        return repeated("abc", string("abc"));
+        return createToken("abc", string("abc"));
     }
 
     @Override
     protected RepeatedParserToken createDifferentToken() {
-        return repeated("different", string("different"));
+        return createToken("different", string("different"));
     }
 
-    private RepeatedParserToken repeated(final ParserToken...tokens) {
-        return repeated(ParserToken.text(Lists.of(tokens)), tokens);
-    }
-
-    private RepeatedParserToken repeated(final String text, final ParserToken...tokens) {
-        return RepeatedParserToken.with(Lists.of(tokens), text);
-    }
-
-    private StringParserToken string(final String s) {
-        return ParserTokens.string(s, s);
+    @Override
+    RepeatedParserToken createToken(final List<ParserToken> value, final String text) {
+        return RepeatedParserToken.with(value, text);
     }
 
     @Override
