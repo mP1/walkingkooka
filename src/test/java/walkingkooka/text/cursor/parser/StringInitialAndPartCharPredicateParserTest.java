@@ -28,7 +28,7 @@ public class StringInitialAndPartCharPredicateParserTest extends ParserTemplateT
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.digit();
-    private final static int MIN_LENGTH = 1;
+    private final static int MIN_LENGTH = 4;
     private final static int MAX_LENGTH = 6;
 
     @Test(expected = NullPointerException.class)
@@ -62,49 +62,45 @@ public class StringInitialAndPartCharPredicateParserTest extends ParserTemplateT
     }
 
     @Test
-    public void testInitial() {
-        this.parseAndCheck2("a", "a", "");
+    public void testInitialOnlyShorterThanMinFails() {
+        this.parseFailAndCheck("a");
     }
 
     @Test
-    public void testInitial2() {
-        final String textAfter = "xyz";
-        this.parseAndCheck2("a" + textAfter, "a", textAfter);
+    public void testInitialAndPartShorterThanMinFails() {
+        this.parseFailAndCheck("a12");
     }
 
     @Test
     public void testInitialAndPart() {
-        this.parseAndCheck2("a1", "a1", "");
+        this.parseAndCheck2("a12345", "a12345");
     }
 
     @Test
     public void testInitialAndPart2() {
-        final String textAfter = "...";
-        this.parseAndCheck2("a1" + textAfter, "a1", textAfter);
+        this.parseAndCheck2("a12345-=", "a12345", "-=");
     }
 
     @Test
-    public void testInitialAndPart3() {
-        this.parseAndCheck2("a12345", "a12345", "");
+    public void testHonourMaxLength() {
+        this.parseAndCheck2("a12345678", "a12345", "678");
     }
 
     @Test
-    public void testInitialAndPart4() {
-        final String textAfter = "...";
-        this.parseAndCheck2("a12345" + textAfter, "a12345", textAfter);
-    }
-
-    @Test
-    public void testTooLongFail() {
-        this.parseFailAndCheck("a12345678");
+    public void testHonourMaxLength2() {
+        this.parseAndCheck(this.createParser(1, 2),"a12345678", this.string("a1"), "a1", "2345678");
     }
 
     private void parseAndCheck2(final String text, final String expected) {
-        this.parseAndCheck2(text, expected, expected);
+        this.parseAndCheck2(text, expected, "");
     }
 
     private void parseAndCheck2(final String text, final String expected, final String textAfter) {
-        this.parseAndCheck(text, ParserTokens.string(expected, expected), expected, textAfter);
+        this.parseAndCheck(text, this.string(expected), expected, textAfter);
+    }
+
+    private StringParserToken string(final String text) {
+        return ParserTokens.string(text, text);
     }
 
     @Test
@@ -114,7 +110,11 @@ public class StringInitialAndPartCharPredicateParserTest extends ParserTemplateT
 
     @Override
     protected StringInitialAndPartCharPredicateParser createParser() {
-        return StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MAX_LENGTH);
+        return this.createParser(MIN_LENGTH, MAX_LENGTH);
+    }
+
+    private StringInitialAndPartCharPredicateParser createParser(final int min, final int max) {
+        return StringInitialAndPartCharPredicateParser.with(INITIAL, PART, min, max);
     }
 
     @Override

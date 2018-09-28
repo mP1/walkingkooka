@@ -91,8 +91,8 @@ final class StringInitialAndPartCharPredicateParser<C extends ParserContext> ext
                     cursor.next();
 
                     // text too long...abort
-                    if (text.length() > this.maxLength) {
-                        result = Optional.empty();
+                    if (text.length() >= this.maxLength) {
+                        result = this.stringParserToken(text);
                         break;
                     }
                 }
