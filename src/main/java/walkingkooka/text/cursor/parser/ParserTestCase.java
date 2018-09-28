@@ -99,14 +99,15 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
             all = after.textBetween();
         }
 
+        final String textRemaining = after.textBetween().toString();
         if(!token.equals(result)){
-            assertEquals("Incorrect result returned by parser: " + parser + " from text " + CharSequences.quoteAndEscape(all),
+            assertEquals("Incorrect result returned by parser: " + parser + "\ntext:\n" + CharSequences.quoteAndEscape(all) + "\nunconsumed text:\n" + textRemaining,
                     this.toString(token),
                     this.toString(result));
         }
         assertEquals("incorrect consumed text", consumed, text);
         assertEquals("token consume text is incorrect", text, result.isPresent() ? result.get().text() : "");
-        assertEquals("Incorrect text after match", textAfter, after.textBetween().toString());
+        assertEquals("Incorrect text after match", textAfter, textRemaining);
 
         after.restore();
         return cursor;
