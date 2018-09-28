@@ -60,7 +60,7 @@ public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserToke
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "[true,null,\"abc\"]";
     }
 

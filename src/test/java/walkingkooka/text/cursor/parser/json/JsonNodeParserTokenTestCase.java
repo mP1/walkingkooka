@@ -35,19 +35,9 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
         this.publicStaticFactoryCheck(JsonNodeParserToken.class, "JsonNode", ParserToken.class);
     }
 
-    @Test(expected =  NullPointerException.class)
-    public final void testNullTextFails() {
-        this.createToken(null);
-    }
-
     @Test(expected =  IllegalArgumentException.class)
     public final void testEmptyTextFails() {
         this.createToken("");
-    }
-
-    @Test
-    public void testText() {
-        assertEquals(this.text(), this.createToken().text());
     }
 
     @Test
@@ -82,21 +72,6 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
                     method.invoke(token));
         }
     }
-
-    @Test
-    public final void testToString() {
-        assertEquals(this.text(), this.createToken().toString());
-    }
-
-    @Override
-    protected final T createToken() {
-        return this.createToken(this.text());
-    }
-
-    abstract T createToken(final String text);
-
-    abstract String text();
-
 
     final JsonNodeParserToken arrayBegin() {
         return JsonNodeParserToken.arrayBeginSymbol("[", "[");

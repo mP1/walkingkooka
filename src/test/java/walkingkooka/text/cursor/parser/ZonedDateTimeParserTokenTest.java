@@ -28,11 +28,6 @@ import static org.junit.Assert.assertSame;
 
 public final class ZonedDateTimeParserTokenTest extends ParserTokenTestCase<ZonedDateTimeParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        ZonedDateTimeParserToken.with(ZonedDateTime.now(), null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -62,17 +57,18 @@ public final class ZonedDateTimeParserTokenTest extends ParserTokenTestCase<Zone
     }
 
     @Override
-    protected ZonedDateTimeParserToken createToken() {
-        return zonedDateTime("2001-12-31T12:58:59+00:00");
+    protected ZonedDateTimeParserToken createToken(final String text) {
+        return ZonedDateTimeParserToken.with(ZonedDateTime.parse(text, DateTimeFormatter.ISO_DATE_TIME), text);
+    }
+
+    @Override
+    protected String text() {
+        return "2001-12-31T12:58:59+00:00";
     }
 
     @Override
     protected ZonedDateTimeParserToken createDifferentToken() {
-        return zonedDateTime("2002-01-01T01:02:59+00:00");
-    }
-
-    private ZonedDateTimeParserToken zonedDateTime(final String text) {
-        return ZonedDateTimeParserToken.with(ZonedDateTime.parse(text, DateTimeFormatter.ISO_DATE_TIME), text);
+        return this.createToken("2002-01-01T01:02:59+00:00");
     }
 
     @Override

@@ -82,7 +82,7 @@ public final class JsonNodeWhitespaceParserTokenTest extends JsonNodeLeafParserT
     }
 
     @Override
-    String text() {
+    protected String text() {
         return " ";
     }
 

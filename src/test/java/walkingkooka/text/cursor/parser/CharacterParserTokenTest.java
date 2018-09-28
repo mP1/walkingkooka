@@ -24,11 +24,6 @@ import static org.junit.Assert.assertSame;
 
 public final class CharacterParserTokenTest extends ParserTokenTestCase<CharacterParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        CharacterParserToken.with('a', null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -57,14 +52,24 @@ public final class CharacterParserTokenTest extends ParserTokenTestCase<Characte
         assertEquals("132", b.toString());
     }
 
+    @Test
+    public void testToString() {
+        assertEquals(this.text(), this.createToken().toString());
+    }
+
     @Override
-    protected CharacterParserToken createToken() {
-        return CharacterParserToken.with('a', "a");
+    protected CharacterParserToken createToken(final String text) {
+        return CharacterParserToken.with(null != text ? text.charAt(1) : '*', text);
+    }
+
+    @Override
+    protected String text() {
+        return "'A'";
     }
 
     @Override
     protected CharacterParserToken createDifferentToken() {
-        return CharacterParserToken.with('z', "z");
+        return this.createToken("'Z'");
     }
 
     @Override

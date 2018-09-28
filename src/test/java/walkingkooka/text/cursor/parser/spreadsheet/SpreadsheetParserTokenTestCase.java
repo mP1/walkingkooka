@@ -37,11 +37,6 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
         this.publicStaticFactoryCheck(SpreadsheetParserToken.class, "Spreadsheet", ParserToken.class);
     }
 
-    @Test(expected =  NullPointerException.class)
-    public final void testWithNullTextFails() {
-        this.createToken(null);
-    }
-
     @Test(expected =  IllegalArgumentException.class)
     public void testWithEmptyTextFails() {
         this.createToken("");
@@ -60,11 +55,6 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     @Test(expected =  IllegalArgumentException.class)
     public void testSetTextWhitespaceFails() {
         this.createToken().setText("   ");
-    }
-
-    @Test
-    public void testText() {
-        assertEquals(this.text(), this.createToken().text());
     }
 
     @Test
@@ -107,20 +97,6 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
             this.propertiesNeverReturnNullCheck(without.get());
         }
     }
-
-    @Test
-    public final void testToString() {
-        assertEquals(this.text(), this.createToken().toString());
-    }
-
-    @Override
-    protected final T createToken() {
-        return this.createToken(this.text());
-    }
-
-    abstract T createToken(final String text);
-
-    abstract String text();
 
     final void toExpressionNodeAndFail() {
         this.toExpressionNodeAndFail(this.createToken());

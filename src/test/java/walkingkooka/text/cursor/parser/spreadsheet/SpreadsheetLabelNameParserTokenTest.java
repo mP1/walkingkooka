@@ -68,7 +68,7 @@ public final class SpreadsheetLabelNameParserTokenTest extends SpreadsheetLeafPa
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "Hello";
     }
 

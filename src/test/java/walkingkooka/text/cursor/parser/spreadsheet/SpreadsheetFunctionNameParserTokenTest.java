@@ -73,7 +73,7 @@ public final class SpreadsheetFunctionNameParserTokenTest extends SpreadsheetLea
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "sum";
     }
 

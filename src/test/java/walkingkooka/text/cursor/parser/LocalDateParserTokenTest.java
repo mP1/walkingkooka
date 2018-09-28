@@ -27,11 +27,6 @@ import static org.junit.Assert.assertSame;
 
 public final class LocalDateParserTokenTest extends ParserTokenTestCase<LocalDateParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        LocalDateParserToken.with(LocalDate.of(2001, 12, 31), null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -61,13 +56,18 @@ public final class LocalDateParserTokenTest extends ParserTokenTestCase<LocalDat
     }
 
     @Override
-    protected LocalDateParserToken createToken() {
-        return LocalDateParserToken.with(LocalDate.of(2001, 12, 31), "31/12/2001");
+    protected LocalDateParserToken createToken(final String text) {
+        return LocalDateParserToken.with(LocalDate.parse(text), text);
+    }
+
+    @Override
+    protected String text() {
+        return "2000-12-31";
     }
 
     @Override
     protected LocalDateParserToken createDifferentToken() {
-        return LocalDateParserToken.with(LocalDate.of(2002, 01, 01), "01/01/2002");
+        return this.createToken("1999-12-31");
     }
 
     @Override

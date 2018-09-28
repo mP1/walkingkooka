@@ -154,11 +154,4 @@ public final class SequenceParserToken extends RepeatedOrSequenceParserToken<Seq
     boolean canBeEqual(final Object other) {
         return other instanceof SequenceParserToken;
     }
-
-    @Override
-    public String toString() {
-        return this.value().stream()
-                .map( e -> String.valueOf(e))
-                .collect(Collectors.joining(","));
-    }
 }

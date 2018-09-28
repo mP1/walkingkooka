@@ -66,9 +66,4 @@ public final class SignParserToken extends ParserTemplateToken<Boolean> implemen
     boolean equals1(final ParserTemplateToken<?> other) {
         return true; // no extra properties to compare
     }
-
-    @Override
-    public String toString() {
-        return this.value() ? "Negative" : "Positive";
-    }
 }

@@ -27,11 +27,6 @@ import static org.junit.Assert.assertSame;
 
 public final class OffsetDateTimeParserTokenTest extends ParserTokenTestCase<OffsetDateTimeParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        OffsetDateTimeParserToken.with(OffsetDateTime.MAX, null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -61,8 +56,13 @@ public final class OffsetDateTimeParserTokenTest extends ParserTokenTestCase<Off
     }
 
     @Override
-    protected OffsetDateTimeParserToken createToken() {
-        return OffsetDateTimeParserToken.with(OffsetDateTime.MAX, "OffsetDateTime.MAX");
+    protected OffsetDateTimeParserToken createToken(final String text) {
+        return OffsetDateTimeParserToken.with(OffsetDateTime.MAX, text);
+    }
+
+    @Override
+    protected String text() {
+        return "OffsetDateTime.MAX";
     }
 
     @Override

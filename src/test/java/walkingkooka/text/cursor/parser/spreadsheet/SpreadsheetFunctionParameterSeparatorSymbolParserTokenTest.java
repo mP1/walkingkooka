@@ -68,7 +68,7 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserTokenTest ex
     }
 
     @Override
-    String text() {
+    protected String text() {
         return ",";
     }
 

@@ -70,7 +70,7 @@ public final class JsonNodeStringParserTokenTest extends JsonNodeLeafParserToken
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "'A'";
     }
 

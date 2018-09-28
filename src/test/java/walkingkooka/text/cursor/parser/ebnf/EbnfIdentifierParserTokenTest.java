@@ -67,7 +67,7 @@ public final class EbnfIdentifierParserTokenTest extends EbnfLeafParserTokenTest
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "abc123";
     }
 

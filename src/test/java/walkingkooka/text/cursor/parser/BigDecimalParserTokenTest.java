@@ -31,11 +31,6 @@ public final class BigDecimalParserTokenTest extends ParserTokenTestCase<BigDeci
         BigDecimalParserToken.with(null, "123");
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        BigDecimalParserToken.with(BigDecimal.ZERO, null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -75,8 +70,13 @@ public final class BigDecimalParserTokenTest extends ParserTokenTestCase<BigDeci
     }
 
     @Override
-    protected BigDecimalParserToken createToken() {
-        return BigDecimalParserToken.with(BigDecimal.valueOf(123), "123");
+    protected BigDecimalParserToken createToken(final String text) {
+        return BigDecimalParserToken.with(new BigDecimal(text), text);
+    }
+
+    @Override
+    protected String text() {
+        return "123";
     }
 
     @Override

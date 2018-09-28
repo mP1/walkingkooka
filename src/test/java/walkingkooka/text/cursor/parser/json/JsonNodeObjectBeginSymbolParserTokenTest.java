@@ -68,7 +68,7 @@ public final class JsonNodeObjectBeginSymbolParserTokenTest extends JsonNodeSymb
     }
 
     @Override
-    String text() {
+    protected String text() {
         return ")";
     }
 

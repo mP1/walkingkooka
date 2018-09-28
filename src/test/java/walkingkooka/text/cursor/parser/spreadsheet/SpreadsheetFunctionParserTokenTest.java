@@ -124,7 +124,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
     }
 
     @Override
-    String text() {
+    protected String text() {
         return FUNCTION + "(" + NUMBER1 + ")";
     }
 

@@ -68,11 +68,6 @@ public final class LongParserToken extends ParserTemplateToken<Long> implements 
         return true; // no extra properties to compare
     }
 
-    @Override
-    public String toString() {
-        return this.text();
-    }
-
     // HasSearchNode ...............................................................................................
 
     @Override

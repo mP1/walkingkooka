@@ -188,7 +188,7 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
     }
 
     @Override
-    final String text() {
+    protected final String text() {
         return "abc123=def456";
     }
 

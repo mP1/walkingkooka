@@ -68,7 +68,7 @@ public final class SpreadsheetCloseParenthesisSymbolParserTokenTest extends Spre
     }
 
     @Override
-    String text() {
+    protected String text() {
         return ")";
     }
 

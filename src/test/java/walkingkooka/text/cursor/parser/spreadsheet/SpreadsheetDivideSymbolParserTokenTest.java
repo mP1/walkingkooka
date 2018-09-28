@@ -68,7 +68,7 @@ public final class SpreadsheetDivideSymbolParserTokenTest extends SpreadsheetSym
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "/";
     }
 

@@ -68,7 +68,7 @@ public final class SpreadsheetMultiplySymbolParserTokenTest extends SpreadsheetS
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "*";
     }
 

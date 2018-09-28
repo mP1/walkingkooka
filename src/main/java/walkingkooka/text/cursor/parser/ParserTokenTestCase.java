@@ -110,6 +110,16 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
 
     private final static String WHITESPACE = "Whitespace";
 
+    @Test(expected = NullPointerException.class)
+    public void testWithNullTextFails() {
+        this.createToken(null);
+    }
+
+    @Test
+    public final void testText() {
+        assertEquals(this.text(), this.createToken().text());
+    }
+
     @Test
     public void testToSearchNode() {
         final T token = this.createToken();
@@ -217,6 +227,11 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
     }
 
     @Test
+    public void testToString() {
+        assertEquals(this.text(), this.createToken().toString());
+    }
+
+    @Test
     public final void testEqualsNull() {
         assertNotEquals(this.createToken(), null);
     }
@@ -242,7 +257,13 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
         assertNotEquals(this.createToken(), this.createDifferentToken());
     }
 
-    protected abstract T createToken();
+    protected T createToken() {
+        return this.createToken(this.text());
+    }
+
+    abstract protected String text();
+
+    protected abstract T createToken(final String text);
 
     protected abstract T createDifferentToken();
 

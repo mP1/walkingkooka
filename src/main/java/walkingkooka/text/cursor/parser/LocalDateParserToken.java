@@ -69,11 +69,6 @@ public final class LocalDateParserToken extends ParserTemplateToken<LocalDate> i
         return true; // no extra properties to compare
     }
 
-    @Override
-    public String toString() {
-        return this.text();
-    }
-
     // HasSearchNode ...............................................................................................
 
     @Override

@@ -68,11 +68,6 @@ public final class DoubleParserToken extends ParserTemplateToken<Double> impleme
         return true; // no extra properties to compare
     }
 
-    @Override
-    public String toString() {
-        return this.text();
-    }
-
     // HasSearchNode ...............................................................................................
 
     @Override

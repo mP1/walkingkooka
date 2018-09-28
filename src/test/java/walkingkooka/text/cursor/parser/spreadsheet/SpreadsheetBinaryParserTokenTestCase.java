@@ -113,7 +113,7 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
     }
 
     @Override
-    String text() {
+    protected String text() {
         return this.leftToken().text() + this.operatorSymbol() + this.rightToken().text();
     }
 

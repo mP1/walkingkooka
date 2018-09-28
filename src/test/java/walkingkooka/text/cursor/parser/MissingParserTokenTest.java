@@ -31,11 +31,6 @@ public final class MissingParserTokenTest extends ParserTokenTestCase<MissingPar
         MissingParserToken.with(null, "\"abc\"");
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        MissingParserToken.with(MISSING_NAME, null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -65,8 +60,13 @@ public final class MissingParserTokenTest extends ParserTokenTestCase<MissingPar
     }
     
     @Override
-    protected MissingParserToken createToken() {
-        return MissingParserToken.with(MISSING_NAME, "abc");
+    protected MissingParserToken createToken(final String text) {
+        return MissingParserToken.with(MISSING_NAME, text);
+    }
+
+    @Override
+    protected String text() {
+        return "abc";
     }
 
     @Override

@@ -29,11 +29,6 @@ public final class StringParserTokenTest extends ParserTokenTestCase<StringParse
         StringParserToken.with(null, "\"abc\"");
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        StringParserToken.with("abc", null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -63,13 +58,18 @@ public final class StringParserTokenTest extends ParserTokenTestCase<StringParse
     }
     
     @Override
-    protected StringParserToken createToken() {
-        return StringParserToken.with("abc", "abc");
+    protected StringParserToken createToken(final String text) {
+        return StringParserToken.with(text, text);
+    }
+
+    @Override
+    protected String text() {
+        return "abc";
     }
 
     @Override
     protected StringParserToken createDifferentToken() {
-        return StringParserToken.with("xyz", "xyz");
+        return this.createToken("different");
     }
 
     @Override

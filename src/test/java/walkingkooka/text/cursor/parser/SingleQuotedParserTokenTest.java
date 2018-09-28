@@ -29,11 +29,6 @@ public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<Singl
         SingleQuotedParserToken.with(null, "\"abc\"");
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        SingleQuotedParserToken.with("abc", null);
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testWithMissingStartQuoteFails() {
         SingleQuotedParserToken.with("abc", "abc'");
@@ -73,13 +68,21 @@ public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<Singl
     }
     
     @Override
-    protected SingleQuotedParserToken createToken() {
-        return SingleQuotedParserToken.with("abc", "'abc'");
+    protected SingleQuotedParserToken createToken(final String text) {
+        return SingleQuotedParserToken.with(null == text ?
+                String.valueOf(null) :
+                text.substring(1, text.length() -1),
+                text);
+    }
+
+    @Override
+    protected String text() {
+        return "'abc'";
     }
 
     @Override
     protected SingleQuotedParserToken createDifferentToken() {
-        return SingleQuotedParserToken.with("different", "'different'");
+        return this.createToken("'different'");
     }
 
     @Override

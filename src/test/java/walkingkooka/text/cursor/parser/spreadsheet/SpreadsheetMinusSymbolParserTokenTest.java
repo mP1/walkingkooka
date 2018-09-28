@@ -68,7 +68,7 @@ public final class SpreadsheetMinusSymbolParserTokenTest extends SpreadsheetSymb
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "-";
     }
 

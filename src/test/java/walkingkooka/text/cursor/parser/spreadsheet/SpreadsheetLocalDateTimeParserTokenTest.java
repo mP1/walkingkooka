@@ -76,7 +76,7 @@ public final class SpreadsheetLocalDateTimeParserTokenTest extends SpreadsheetLe
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "2000-01-02T12:59";
     }
 

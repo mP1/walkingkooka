@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNode;
 
 /**
@@ -36,11 +35,6 @@ public abstract class QuotedParserToken extends ParserTemplateToken<String> impl
     @Override
     final boolean equals1(final ParserTemplateToken<?> other) {
         return true; // no extra properties to compare
-    }
-
-    @Override
-    public final String toString() {
-        return CharSequences.quoteAndEscape(this.value()).toString();
     }
 
     // HasSearchNode ...............................................................................................

@@ -26,11 +26,6 @@ import static org.junit.Assert.assertSame;
 
 public final class SignParserTokenTest extends ParserTokenTestCase<SignParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        SignParserToken.with(true, null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -60,8 +55,13 @@ public final class SignParserTokenTest extends ParserTokenTestCase<SignParserTok
     }
     
     @Override
-    protected SignParserToken createToken() {
-        return SignParserToken.with(true, "+");
+    protected SignParserToken createToken(final String text) {
+        return SignParserToken.with(true, text);
+    }
+
+    @Override
+    protected String text() {
+        return "+";
     }
 
     @Override
