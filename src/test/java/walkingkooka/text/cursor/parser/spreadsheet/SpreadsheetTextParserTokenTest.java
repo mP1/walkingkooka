@@ -123,7 +123,7 @@ public final class SpreadsheetTextParserTokenTest extends SpreadsheetLeafParserT
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "'A'";
     }
 

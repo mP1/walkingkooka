@@ -113,7 +113,7 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "{\"key\":\"value\"}";
     }
 

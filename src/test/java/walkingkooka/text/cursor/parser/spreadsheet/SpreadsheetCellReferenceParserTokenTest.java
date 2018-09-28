@@ -117,7 +117,7 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
     }
 
     @Override
-    String text() {
+    protected String text() {
         return ROW_TEXT + COLUMN_TEXT;
     }
 

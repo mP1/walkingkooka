@@ -67,7 +67,7 @@ public final class EbnfSymbolParserTokenTest extends EbnfLeafParserTokenTestCase
     }
 
     @Override
-    String text() {
+    protected String text() {
         return ";";
     }
 

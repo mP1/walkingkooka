@@ -74,7 +74,7 @@ public final class SpreadsheetDoubleParserTokenTest extends SpreadsheetNumericPa
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "123.5";
     }
 

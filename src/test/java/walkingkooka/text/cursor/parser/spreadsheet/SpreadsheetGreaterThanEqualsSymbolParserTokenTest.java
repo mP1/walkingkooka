@@ -68,7 +68,7 @@ public final class SpreadsheetGreaterThanEqualsSymbolParserTokenTest extends Spr
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "..";
     }
 

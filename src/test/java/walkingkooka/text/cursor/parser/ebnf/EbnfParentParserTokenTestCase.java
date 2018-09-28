@@ -109,7 +109,7 @@ public abstract class EbnfParentParserTokenTestCase<T extends EbnfParentParserTo
     abstract T createTokenWithNoise();
 
     @Override
-    final T createToken(final String text) {
+    protected final T createToken(final String text) {
         return this.createToken(text, this.tokens());
     }
 

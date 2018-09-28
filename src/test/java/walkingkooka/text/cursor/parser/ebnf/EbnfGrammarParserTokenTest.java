@@ -246,7 +246,7 @@ public final class EbnfGrammarParserTokenTest extends EbnfParentParserTokenTestC
     }
 
     @Override
-    final String text() {
+    final protected String text() {
         return "identifier1='terminal-1';";
     }
 

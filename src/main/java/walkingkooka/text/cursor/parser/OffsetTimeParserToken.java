@@ -66,9 +66,4 @@ public final class OffsetTimeParserToken extends ParserTemplateToken<OffsetTime>
     boolean equals1(final ParserTemplateToken<?> other) {
         return true; // no extra properties to compare
     }
-
-    @Override
-    public String toString() {
-        return this.text();
-    }
 }

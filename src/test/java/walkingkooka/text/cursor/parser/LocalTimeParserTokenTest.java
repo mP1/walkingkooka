@@ -27,11 +27,6 @@ import static org.junit.Assert.assertSame;
 
 public final class LocalTimeParserTokenTest extends ParserTokenTestCase<LocalTimeParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        LocalTimeParserToken.with(LocalTime.of(1, 58, 59), null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -61,13 +56,18 @@ public final class LocalTimeParserTokenTest extends ParserTokenTestCase<LocalTim
     }
 
     @Override
-    protected LocalTimeParserToken createToken() {
-        return LocalTimeParserToken.with(LocalTime.of(1, 58, 59), "1:58:59");
+    protected LocalTimeParserToken createToken(final String text) {
+        return LocalTimeParserToken.with(LocalTime.parse(text), text);
+    }
+
+    @Override
+    protected String text() {
+        return "12:58:59";
     }
 
     @Override
     protected LocalTimeParserToken createDifferentToken() {
-        return LocalTimeParserToken.with(LocalTime.of(12, 1, 2), "12:01:02");
+        return this.createToken("12:01:02");
     }
 
     @Override

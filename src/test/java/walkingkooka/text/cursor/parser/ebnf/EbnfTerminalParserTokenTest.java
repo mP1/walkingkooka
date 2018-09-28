@@ -67,7 +67,7 @@ public final class EbnfTerminalParserTokenTest extends EbnfLeafParserTokenTestCa
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "'A'";
     }
 

@@ -25,11 +25,6 @@ import static org.junit.Assert.assertSame;
 
 public final class LongParserTokenTest extends ParserTokenTestCase<LongParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        LongParserToken.with(0, null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -69,13 +64,20 @@ public final class LongParserTokenTest extends ParserTokenTestCase<LongParserTok
     }
 
     @Override
-    protected LongParserToken createToken() {
-        return LongParserToken.with(123, "123");
+    protected LongParserToken createToken(final String text) {
+        return LongParserToken.with(null != text ?
+                Long.parseLong(text) :
+                null, text);
+    }
+
+    @Override
+    protected String text() {
+        return "123";
     }
 
     @Override
     protected LongParserToken createDifferentToken() {
-        return LongParserToken.with(987, "987");
+        return this.createToken("789");
     }
 
     @Override

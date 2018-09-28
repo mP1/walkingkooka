@@ -67,7 +67,7 @@ public final class EbnfWhitespaceParserTokenTest extends EbnfLeafParserTokenTest
     }
 
     @Override
-    String text() {
+    protected String text() {
         return " ";
     }
 

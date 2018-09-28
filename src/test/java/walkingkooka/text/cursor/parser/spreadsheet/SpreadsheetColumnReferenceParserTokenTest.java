@@ -78,7 +78,7 @@ public final class SpreadsheetColumnReferenceParserTokenTest extends Spreadsheet
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "1";
     }
 

@@ -68,7 +68,7 @@ public final class SpreadsheetEqualsSymbolParserTokenTest extends SpreadsheetSym
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "==";
     }
 

@@ -148,7 +148,7 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
     }
 
     @Override
-    final String text() {
+    final protected String text() {
         return this.identifier1() + "-" + this.identifier2().text();
     }
 

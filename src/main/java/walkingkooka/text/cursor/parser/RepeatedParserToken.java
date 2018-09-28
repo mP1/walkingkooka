@@ -80,9 +80,4 @@ public final class RepeatedParserToken extends RepeatedOrSequenceParserToken<Rep
     boolean canBeEqual(final Object other) {
         return other instanceof RepeatedParserToken;
     }
-
-    @Override
-    public String toString() {
-        return this.value().toString();
-    }
 }

@@ -116,7 +116,7 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
     }
 
     @Override
-    String text() {
+    protected String text() {
         return NUMBER1 + "00" + "%";
     }
 

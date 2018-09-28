@@ -68,7 +68,7 @@ public final class JsonNodeArrayEndSymbolParserTokenTest extends JsonNodeSymbolP
     }
 
     @Override
-    String text() {
+    protected String text() {
         return ")";
     }
 

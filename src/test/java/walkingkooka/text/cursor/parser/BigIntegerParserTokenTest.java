@@ -31,11 +31,6 @@ public final class BigIntegerParserTokenTest extends ParserTokenTestCase<BigInte
         BigIntegerParserToken.with(null, "123");
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        BigIntegerParserToken.with(BigInteger.ZERO, null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -75,13 +70,18 @@ public final class BigIntegerParserTokenTest extends ParserTokenTestCase<BigInte
     }
 
     @Override
-    protected BigIntegerParserToken createToken() {
-        return BigIntegerParserToken.with(BigInteger.valueOf(123), "123");
+    protected BigIntegerParserToken createToken(final String text) {
+        return BigIntegerParserToken.with(new BigInteger(text), text);
+    }
+
+    @Override
+    protected String text() {
+        return "123";
     }
 
     @Override
     protected BigIntegerParserToken createDifferentToken() {
-        return BigIntegerParserToken.with(BigInteger.valueOf(987), "987");
+        return this.createToken("890");
     }
 
     @Override

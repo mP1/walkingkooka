@@ -208,7 +208,7 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
     }
 
     @Override
-    final String text() {
+    protected final String text() {
         return "\"terminal-1\"..\"terminal-2\"";
     }
 

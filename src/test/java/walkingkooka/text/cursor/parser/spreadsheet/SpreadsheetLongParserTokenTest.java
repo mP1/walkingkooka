@@ -74,7 +74,7 @@ public final class SpreadsheetLongParserTokenTest extends SpreadsheetNumericPars
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "123";
     }
 

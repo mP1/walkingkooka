@@ -70,7 +70,7 @@ public final class JsonNodeNullParserTokenTest extends JsonNodeLeafParserTokenTe
     }
 
     @Override
-    String text() {
+    protected String text() {
         return String.valueOf(this.value());
     }
 

@@ -68,7 +68,7 @@ public final class SpreadsheetPercentSymbolParserTokenTest extends SpreadsheetSy
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "%";
     }
 

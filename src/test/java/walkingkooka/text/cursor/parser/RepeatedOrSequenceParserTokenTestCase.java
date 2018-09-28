@@ -44,12 +44,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
 
     @Test(expected = IllegalArgumentException.class)
     public final void testWithZeroTokensFails() {
-        this.createToken("abc");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public final void testWithNullTextFails() {
-        SequenceParserToken.with(Lists.of(STRING1, STRING2), null);
+        this.createToken(Lists.empty(), "abc");
     }
 
     // setValue...........................................................................................................

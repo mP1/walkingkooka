@@ -76,7 +76,7 @@ public final class SpreadsheetLocalTimeParserTokenTest extends SpreadsheetLeafPa
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "12:59";
     }
 

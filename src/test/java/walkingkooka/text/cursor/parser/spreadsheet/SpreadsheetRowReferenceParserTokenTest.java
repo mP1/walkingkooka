@@ -78,7 +78,7 @@ public final class SpreadsheetRowReferenceParserTokenTest extends SpreadsheetLea
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "1";
     }
 

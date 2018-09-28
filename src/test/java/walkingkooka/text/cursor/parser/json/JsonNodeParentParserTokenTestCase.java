@@ -88,17 +88,16 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
         }
     }
 
-    abstract T createToken(final String text, final List<ParserToken> tokens);
-
-    final T createToken(final String text) {
+    @Override
+    protected T createToken(final String text) {
         return this.createToken(text, this.tokens());
     }
+
+    abstract T createToken(final String text, final List<ParserToken> tokens);
 
     final T createToken(final String text, final ParserToken...tokens) {
         return this.createToken(text, Lists.of(tokens));
     }
-
-    abstract String text();
 
     abstract List<ParserToken> tokens();
 

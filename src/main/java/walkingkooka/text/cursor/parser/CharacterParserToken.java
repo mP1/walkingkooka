@@ -67,11 +67,6 @@ public final class CharacterParserToken extends ParserTemplateToken<Character> i
         return true; // no extra properties to compare
     }
 
-    @Override
-    public String toString() {
-        return this.toString0();
-    }
-
     // HasSearchNode ...............................................................................................
 
     @Override

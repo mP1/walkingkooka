@@ -76,7 +76,7 @@ public final class SpreadsheetBigIntegerParserTokenTest extends SpreadsheetNumer
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "123";
     }
 

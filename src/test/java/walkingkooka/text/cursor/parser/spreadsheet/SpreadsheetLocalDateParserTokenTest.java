@@ -76,7 +76,7 @@ public final class SpreadsheetLocalDateParserTokenTest extends SpreadsheetLeafPa
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "2000-01-02";
     }
 

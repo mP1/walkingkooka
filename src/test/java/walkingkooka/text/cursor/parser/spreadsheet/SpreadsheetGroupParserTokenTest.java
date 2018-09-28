@@ -99,7 +99,7 @@ public final class SpreadsheetGroupParserTokenTest extends SpreadsheetParentPars
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "(" + NUMBER1 + ")";
     }
 

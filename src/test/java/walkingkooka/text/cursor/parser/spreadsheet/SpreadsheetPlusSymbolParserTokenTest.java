@@ -68,7 +68,7 @@ public final class SpreadsheetPlusSymbolParserTokenTest extends SpreadsheetSymbo
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "+";
     }
 

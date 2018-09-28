@@ -19,7 +19,6 @@ package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
-import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -92,9 +91,8 @@ abstract class ParserTemplateToken<V> implements ParserToken, Value<V> {
 
     abstract boolean equals1(final ParserTemplateToken<?> other);
 
-    final String toString0() {
-        final String text = CharSequences.quoteAndEscape(this.text).toString();
-        final String valueAsText = CharSequences.quoteAndEscape(this.value.toString()).toString();
-        return text.equals(valueAsText) ? text : valueAsText + "(" + text + ")" ;
+    @Override
+    public final String toString() {
+        return this.text();
     }
 }

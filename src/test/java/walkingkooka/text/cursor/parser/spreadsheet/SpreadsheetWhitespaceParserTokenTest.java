@@ -98,7 +98,7 @@ public final class SpreadsheetWhitespaceParserTokenTest extends SpreadsheetLeafP
     }
 
     @Override
-    String text() {
+    protected String text() {
         return " ";
     }
 

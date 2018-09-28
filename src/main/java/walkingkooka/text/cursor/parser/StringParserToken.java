@@ -68,11 +68,6 @@ public final class StringParserToken extends ParserTemplateToken<String> impleme
         return true; // no extra properties to compare
     }
 
-    @Override
-    public String toString() {
-        return this.value();
-    }
-
     // HasSearchNode ...............................................................................................
 
     @Override

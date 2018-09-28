@@ -115,7 +115,7 @@ public final class SpreadsheetNegativeParserTokenTest extends SpreadsheetUnaryPa
     }
 
     @Override
-    String text() {
+    protected String text() {
         return "-" + NUMBER1;
     }
 

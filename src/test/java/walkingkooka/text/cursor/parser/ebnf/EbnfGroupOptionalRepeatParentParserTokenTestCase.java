@@ -100,7 +100,7 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
     }
 
     @Override
-    final String text() {
+    final protected String text() {
         return this.openChar() + this.identifier1().text() + this.closeChar();
     }
 

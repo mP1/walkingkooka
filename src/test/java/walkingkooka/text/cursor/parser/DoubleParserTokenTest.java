@@ -25,11 +25,6 @@ import static org.junit.Assert.assertSame;
 
 public final class DoubleParserTokenTest extends ParserTokenTestCase<DoubleParserToken> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        DoubleParserToken.with(0, null);
-    }
-
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
@@ -64,13 +59,18 @@ public final class DoubleParserTokenTest extends ParserTokenTestCase<DoubleParse
     }
 
     @Override
-    protected DoubleParserToken createToken() {
-        return DoubleParserToken.with(123, "123");
+    protected DoubleParserToken createToken(final String text) {
+        return DoubleParserToken.with(Double.parseDouble(text), text);
+    }
+
+    @Override
+    protected String text() {
+        return "123.5";
     }
 
     @Override
     protected DoubleParserToken createDifferentToken() {
-        return DoubleParserToken.with(987, "987");
+        return this.createToken("789.5");
     }
 
     @Override

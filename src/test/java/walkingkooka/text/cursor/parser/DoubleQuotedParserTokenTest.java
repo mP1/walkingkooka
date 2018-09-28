@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.Assert.assertEquals;
@@ -27,11 +28,6 @@ public final class DoubleQuotedParserTokenTest extends ParserTokenTestCase<Doubl
     @Test(expected = NullPointerException.class)
     public void testWithNullContentFails() {
         DoubleQuotedParserToken.with(null, "\"abc\"");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullTextFails() {
-        DoubleQuotedParserToken.with("abc", null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -73,13 +69,18 @@ public final class DoubleQuotedParserTokenTest extends ParserTokenTestCase<Doubl
     }
     
     @Override
-    protected DoubleQuotedParserToken createToken() {
-        return DoubleQuotedParserToken.with("abc", "\"abc\"");
+    protected DoubleQuotedParserToken createToken(final String text) {
+        return DoubleQuotedParserToken.with(text.substring(1, text.length() -1), text);
+    }
+
+    @Override
+    protected String text() {
+        return CharSequences.quote("abc").toString();
     }
 
     @Override
     protected DoubleQuotedParserToken createDifferentToken() {
-        return DoubleQuotedParserToken.with("different", "\"different\"");
+        return this.createToken("\"different\"");
     }
 
     @Override
