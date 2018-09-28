@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * This {@link ParserToken} holds a sequence in order of tokens.
  */
-public final class SequenceParserToken extends ParserTemplateToken2<SequenceParserToken> implements SupportsFlat<SequenceParserToken, ParserToken> {
+public final class SequenceParserToken extends RepeatedOrSequenceParserToken<SequenceParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SequenceParserToken.class);
 
@@ -37,11 +37,6 @@ public final class SequenceParserToken extends ParserTemplateToken2<SequencePars
     static <T extends ParserToken> SequenceParserToken with(final List<ParserToken> tokens, final String text) {
         Objects.requireNonNull(tokens, "tokens");
         Objects.requireNonNull(text, "text");
-
-        final int count = tokens.size();
-        if(count <= 1) {
-            throw new IllegalArgumentException("Expected more than 1 token but got " + count + "=" + tokens);
-        }
 
         return new SequenceParserToken(tokens, text);
     }
@@ -116,9 +111,7 @@ public final class SequenceParserToken extends ParserTemplateToken2<SequencePars
 
     @Override
     public SequenceParserToken flat() {
-        final List<ParserToken> tokens = this.value();
-        final List<ParserToken> flat = this.flat(tokens);
-        return tokens.equals(flat) ? this : new SequenceParserToken(flat, this.text());
+        return this.setValue(this.flat0());
     }
 
     /**

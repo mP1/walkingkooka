@@ -23,16 +23,20 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a result of a parser attempt to consume a {@link walkingkooka.text.cursor.TextCursor}
+ * A common base class for both {@link RepeatedParserToken} and {@link SequenceParserToken}.
  */
-abstract class ParserTemplateToken2<T extends ParserTemplateToken2> extends ParserTemplateToken<List<ParserToken>>
+abstract public class RepeatedOrSequenceParserToken<T extends RepeatedOrSequenceParserToken> extends ParserTemplateToken<List<ParserToken>>
         implements ParentParserToken<T> {
 
     /**
      * Private ctor to limit subclassing.
      */
-    ParserTemplateToken2(final List<ParserToken> value, final String text) {
+    RepeatedOrSequenceParserToken(final List<ParserToken> value, final String text) {
         super(value, text);
+
+        if(value.isEmpty()) {
+            throw new IllegalArgumentException("Tokens must not be empty");
+        }
     }
 
     /**
@@ -57,15 +61,20 @@ abstract class ParserTemplateToken2<T extends ParserTemplateToken2> extends Pars
     }
 
     /**
-     * Takes the tokens of something that implements {@link SupportsFlat} and flattens them so no tokens that remain are also flattenable.
+     * Recursively flattens all embedded {@link RepeatedOrSequenceParserToken} into a single {@link RepeatedOrSequenceParserToken}.
      */
-    final List<ParserToken> flat(final List<ParserToken> tokens){
+    public abstract RepeatedOrSequenceParserToken<?> flat();
+
+    /**
+     * Takes the tokens of something that is a {@link RepeatedOrSequenceParserToken} and flattens them so no tokens that remain are also flattenable.
+     */
+    final List<ParserToken> flat0(){
         final List<ParserToken> flat = Lists.array();
 
-        for(ParserToken token : tokens) {
-            if(token instanceof SupportsFlat) {
-                final SupportsFlat<?, ParserToken> has = Cast.to(token);
-                flat.addAll(has.flat().value());
+        for(ParserToken token : this.value()) {
+            if(token instanceof RepeatedOrSequenceParserToken) {
+                final RepeatedOrSequenceParserToken<?> has = Cast.to(token);
+                flat.addAll(has.flat0());
             } else {
                 flat.add(token);
             }

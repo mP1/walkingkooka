@@ -16,11 +16,11 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
-public final class ParserTemplateToken2Test extends PackagePrivateClassTestCase<ParserTemplateToken2> {
+public final class RepeatedOrSequenceParserTokenTest extends PublicClassTestCase<RepeatedOrSequenceParserToken> {
     @Override
-    protected Class<ParserTemplateToken2> type() {
-        return ParserTemplateToken2.class;
+    protected Class<RepeatedOrSequenceParserToken> type() {
+        return RepeatedOrSequenceParserToken.class;
     }
 }
