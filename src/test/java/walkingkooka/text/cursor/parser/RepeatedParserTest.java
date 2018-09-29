@@ -22,6 +22,8 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursors;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
@@ -50,6 +52,10 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
     @Test
     public void testIncomplete2() {
         this.parseFailAndCheck("ab");
+    }
+
+    public void testSkipsMissing() {
+        this.parseFailAndCheck(RepeatedParser.with(Parsers.fixed(Optional.of(ParserTokens.missing(ParserTokenNodeName.with("Missing"), "Missing")))), "ABC");
     }
 
     @Test
