@@ -43,6 +43,27 @@ public final class VisitorPrettyPrinter<T> {
     }
 
     /**
+     * Attempts to remove the prefix and suffix and returns the type name of the given object.
+     */
+    public static String computeFromClassSimpleName(final Object object, final String prefix, final String suffix) {
+        Objects.requireNonNull(object, "object");
+        Objects.requireNonNull(prefix, "prefix");
+        Objects.requireNonNull(suffix, "suffix");
+
+        final String typeName = object.getClass().getSimpleName();
+
+        final int start = typeName.startsWith(prefix) ?
+                prefix.length() :
+                0;
+
+        final int end = typeName.endsWith(suffix) ?
+                typeName.length() - suffix.length():
+                typeName.length();
+
+        return typeName.substring(start, end);
+    }
+
+    /**
      * Package private
      */
     private VisitorPrettyPrinter(final IndentingPrinter printer,

@@ -24,6 +24,7 @@ import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
@@ -66,6 +67,80 @@ public final class VisitorPrettyPrinterTest extends PublicClassTestCase<VisitorP
         printer.exit("1");
 
         assertEquals("1\n  2\n    3=3\n  4\n    5=5\n", b.toString());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testComputeFromClassSimpleNameObjectNullFails() {
+        VisitorPrettyPrinter.computeFromClassSimpleName(null, "prefix", "suffix");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testComputeFromClassSimpleNamePrefixNullFails() {
+        VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), null, "suffix");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testComputeFromClassSimpleNameSuffixNullFails() {
+        VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), "prefix", null);
+    }
+
+    @Test
+    public void testComputeFromClassSimpleNameWithoutPrefixWithoutSuffix() {
+        this.computeFromClassSimpleNameAndCheck(new Object(),
+                "<",
+                ">",
+                Object.class.getSimpleName());
+    }
+
+    @Test
+    public void testComputeFromClassSimpleNameWithPrefix() {
+        this.computeFromClassSimpleNameAndCheck(new Object(),
+                "O",
+                ">",
+                "bject");
+    }
+
+    @Test
+    public void testComputeFromClassSimpleNameWithSuffix() {
+        this.computeFromClassSimpleNameAndCheck(new Object(),
+                "<",
+                "ct",
+                "Obje");
+    }
+
+    @Test
+    public void testComputeFromClassSimpleNameWithPrefixAndSuffix() {
+        this.computeFromClassSimpleNameAndCheck(new Object(),
+                "Ob",
+                "ct",
+                "je");
+    }
+
+    @Test
+    public void testComputeFromClassSimpleNameWithPrefixAndSuffix2() {
+        this.computeFromClassSimpleNameAndCheck("Hello String",
+                "St",
+                "g",
+                "rin");
+    }
+
+    @Test
+    public void testComputeFromClassSimpleNameWithPrefixAndSuffix3() {
+        this.computeFromClassSimpleNameAndCheck(this,
+                "V",
+                "Test",
+                "isitorPrettyPrinter");
+    }
+
+    private void computeFromClassSimpleNameAndCheck(final Object object,
+                                                    final String prefix,
+                                                    final String suffix,
+                                                    final String expected) {
+        assertEquals("object: " + object.getClass().getSimpleName() +
+                " prefix=" + CharSequences.quoteAndEscape(prefix) +
+                " suffix: " + CharSequences.quoteAndEscape(suffix),
+                expected,
+                VisitorPrettyPrinter.computeFromClassSimpleName(object, prefix, suffix));
     }
 
     @Test
