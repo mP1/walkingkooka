@@ -21,6 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
@@ -29,8 +31,8 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
-    private final static Parser<StringParserToken, FakeParserContext> PARSER1 = parser(TEXT1);
-    private final static Parser<StringParserToken, FakeParserContext> PARSER2 = parser(TEXT2);
+    private final static Parser<ParserToken, FakeParserContext> PARSER1 = parser(TEXT1);
+    private final static Parser<ParserToken, FakeParserContext> PARSER2 = parser(TEXT2);
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParsersFails() {
@@ -83,10 +85,18 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     }
 
     @Test
+    public void testIgnoresMissing() {
+        this.parseAndCheck(this.createParser0(Parsers.fixed(Optional.of(ParserTokens.missing(ParserTokenNodeName.with("Skipped"), ""))).cast(), PARSER2),
+                TEXT2,
+                string(TEXT2),
+                TEXT2);
+    }
+
+    @Test
     public void testOr() {
         final AlternativesParser<FakeParserContext> parser = createParser();
 
-        final Parser<StringParserToken, FakeParserContext> parser3 = parser("text3");
+        final Parser<ParserToken, FakeParserContext> parser3 = parser("text3");
         assertEquals(this.createParser0(PARSER1, PARSER2, parser3), parser.or(parser3));
     }
 
@@ -106,7 +116,7 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
         return this.createParser0(PARSER1, PARSER2);
     }
 
-    private AlternativesParser<FakeParserContext> createParser0(final Parser<StringParserToken, FakeParserContext>...parsers) {
+    private AlternativesParser<FakeParserContext> createParser0(final Parser<ParserToken, FakeParserContext>...parsers) {
         return Cast.to(AlternativesParser.with(Cast.to(Lists.of(parsers))));
     }
 
@@ -114,8 +124,8 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
         return ParserTokens.string(s, s);
     }
 
-    private static Parser<StringParserToken, FakeParserContext> parser(final String string) {
-        return CaseSensitivity.SENSITIVE.parser(string);
+    private static Parser<ParserToken, FakeParserContext> parser(final String string) {
+        return CaseSensitivity.SENSITIVE.parser(string).cast();
     }
 
     @Override
