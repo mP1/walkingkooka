@@ -22,7 +22,25 @@ import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.cursor.parser.BigDecimalParserToken;
+import walkingkooka.text.cursor.parser.BigIntegerParserToken;
+import walkingkooka.text.cursor.parser.CharacterParserToken;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.DoubleQuotedParserToken;
+import walkingkooka.text.cursor.parser.LocalDateParserToken;
+import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
+import walkingkooka.text.cursor.parser.LocalTimeParserToken;
+import walkingkooka.text.cursor.parser.LongParserToken;
+import walkingkooka.text.cursor.parser.MissingParserToken;
+import walkingkooka.text.cursor.parser.OffsetDateTimeParserToken;
+import walkingkooka.text.cursor.parser.OffsetTimeParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.text.cursor.parser.RepeatedParserToken;
+import walkingkooka.text.cursor.parser.SequenceParserToken;
+import walkingkooka.text.cursor.parser.SignParserToken;
+import walkingkooka.text.cursor.parser.SingleQuotedParserToken;
+import walkingkooka.text.cursor.parser.StringParserToken;
+import walkingkooka.text.cursor.parser.ZonedDateTimeParserToken;
 import walkingkooka.tree.visit.Visiting;
 import walkingkooka.tree.visit.VisitorPrettyPrinter;
 
@@ -38,12 +56,11 @@ final class JsonParserPrettyJsonNodeParserTokenVisitor extends JsonNodeParserTok
         return b.toString();
     }
 
-    private static String tokenName(final JsonNodeParserToken token) {
-        final String typeName = token.getClass().getSimpleName();
-        return typeName.substring("JsonNode".length(), typeName.length() - "ParserToken".length());
+    private static String tokenName(final ParserToken token) {
+        return VisitorPrettyPrinter.computeFromClassSimpleName(token, "JsonNode", ParserToken.class.getSimpleName());
     }
 
-    private JsonParserPrettyJsonNodeParserTokenVisitor(final VisitorPrettyPrinter<JsonNodeParserToken> printer) {
+    private JsonParserPrettyJsonNodeParserTokenVisitor(final VisitorPrettyPrinter<ParserToken> printer) {
         this.printer = printer;
     }
 
@@ -124,7 +141,107 @@ final class JsonParserPrettyJsonNodeParserTokenVisitor extends JsonNodeParserTok
         this.printer.leaf(token);
     }
 
-    private final VisitorPrettyPrinter<JsonNodeParserToken> printer;
+    @Override
+    protected Visiting startVisit(final RepeatedParserToken token) {
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final RepeatedParserToken token) {
+        super.endVisit(token);
+    }
+
+    @Override
+    protected Visiting startVisit(final SequenceParserToken token) {
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final SequenceParserToken token) {
+        super.endVisit(token);
+    }
+
+    @Override
+    protected void visit(final BigDecimalParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final BigIntegerParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final CharacterParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final DoubleParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final DoubleQuotedParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final LocalDateParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final LocalDateTimeParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final LocalTimeParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final LongParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final MissingParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final OffsetDateTimeParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final OffsetTimeParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final SingleQuotedParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final SignParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final StringParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final ZonedDateTimeParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    private final VisitorPrettyPrinter<ParserToken> printer;
 
     @Override
     public String toString() {

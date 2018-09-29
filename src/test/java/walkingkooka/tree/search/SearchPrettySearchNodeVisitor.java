@@ -22,6 +22,7 @@ import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.Node;
 import walkingkooka.tree.visit.Visiting;
 import walkingkooka.tree.visit.VisitorPrettyPrinter;
 
@@ -41,8 +42,7 @@ final class SearchPrettySearchNodeVisitor extends SearchNodeVisitor {
     }
 
     private static String tokenName(final SearchNode token) {
-        final String typeName = token.getClass().getSimpleName();
-        return typeName.substring("Search".length(), typeName.length() - "ParserToken".length());
+        return VisitorPrettyPrinter.computeFromClassSimpleName(token, "Search", Node.class.getSimpleName());
     }
 
     private SearchPrettySearchNodeVisitor(final VisitorPrettyPrinter<SearchNode> printer) {
