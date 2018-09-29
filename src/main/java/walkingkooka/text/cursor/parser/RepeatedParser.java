@@ -47,11 +47,15 @@ final class RepeatedParser<C extends ParserContext> extends ParserTemplate2<Repe
         final List<ParserToken> tokens = Lists.array();
 
         for(;;) {
-            final Optional<ParserToken> token = this.parser.parse(cursor, context);
-            if(!token.isPresent()){
+            final Optional<ParserToken> maybe = this.parser.parse(cursor, context);
+            if(!maybe.isPresent()){
                 break;
             }
-            tokens.add(token.get());
+            final ParserToken token = maybe.get();
+            if(token.isMissing()) {
+                break;
+            }
+            tokens.add(token);
         }
 
         return tokens.isEmpty() ?
