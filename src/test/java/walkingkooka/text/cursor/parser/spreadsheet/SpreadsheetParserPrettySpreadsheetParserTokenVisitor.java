@@ -423,21 +423,24 @@ final class SpreadsheetParserPrettySpreadsheetParserTokenVisitor extends Spreads
 
     @Override
     protected Visiting startVisit(final RepeatedParserToken token) {
+        this.printer.enter(token);
         return super.startVisit(token);
     }
 
     @Override
     protected void endVisit(final RepeatedParserToken token) {
-        super.endVisit(token);
+        this.printer.exit(token);
     }
 
     @Override
     protected Visiting startVisit(final SequenceParserToken token) {
+        this.printer.enter(token);
         return super.startVisit(token);
     }
 
     @Override
     protected void endVisit(final SequenceParserToken token) {
+        this.printer.exit(token);
         super.endVisit(token);
     }
 
