@@ -60,11 +60,12 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
      */
     @Override
     public Optional<ParserToken> parse(final TextCursor cursor, final C context) {
-        Optional<ParserToken> token = null;
+        Optional<ParserToken> token = Optional.empty();
 
         for(Parser<ParserToken, C> parser : this.parsers) {
-            token = parser.parse(cursor, context);
-            if(token.isPresent()){
+            Optional<ParserToken> possible = parser.parse(cursor, context);
+            if(possible.isPresent() && false == possible.get().isMissing()){
+                token = possible;
                 break;
             }
         }
