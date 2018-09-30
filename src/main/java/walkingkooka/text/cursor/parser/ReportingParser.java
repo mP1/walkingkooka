@@ -32,26 +32,44 @@ final class ReportingParser<T extends ParserToken, C extends ParserContext> impl
     /**
      * Static factory
      */
-    static <T extends ParserToken, C extends ParserContext> ReportingParser<T, C> with(final ParserReporter<T, C> reporter,
-                                                             final Parser<T, C> parser) {
+    static <T extends ParserToken, C extends ParserContext> ReportingParser<T, C> with(final ParserReporterCondition condition,
+                                                                                       final ParserReporter<T, C> reporter,
+                                                                                       final Parser<T, C> parser) {
+        Objects.requireNonNull(condition, "condition");
         Objects.requireNonNull(reporter, "reporter");
         Objects.requireNonNull(parser, "parser");
 
-        return new ReportingParser<>(reporter, parser);
+        return new ReportingParser<>(condition, reporter, parser);
     }
 
     /**
      * Private ctor
      */
-    private ReportingParser(final ParserReporter<T, C> reporter, final Parser<T, C> parser) {
+    private ReportingParser(final ParserReporterCondition condition, final ParserReporter<T, C> reporter, final Parser<T, C> parser) {
+        super();
+
+        this.condition = condition;
         this.reporter = reporter;
         this.parser = parser;
     }
 
     @Override
     public Optional<T> parse(final TextCursor cursor, final C context) {
+        return this.condition.parse(cursor, this, context);
+    }
+
+    final Optional<T> report(final TextCursor cursor, final C context) {
         return this.reporter.report(cursor, context, this.parser);
     }
+
+    final Optional<T> reportIfNotEmpty(final TextCursor cursor, final C context) {
+        final Optional<T> result = this.parser.parse(cursor, context);
+        return cursor.isEmpty() ?
+               result :
+               this.report(cursor, context);
+    }
+
+    private final ParserReporterCondition condition;
 
     private final ParserReporter<T, C> reporter;
 

@@ -299,7 +299,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
                     .combinator(predefined,
                             new SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer());
 
-            return result.get(parserName).orReport(ParserReporters.basic()).cast();
+            return result.get(parserName).cast();
         } catch (final SpreadsheetParserException rethrow) {
             throw rethrow;
         } catch (final Exception cause){

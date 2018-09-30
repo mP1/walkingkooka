@@ -43,7 +43,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testCellReferencesParserOtherExpressionFails() {
-        this.parseThrows(SpreadsheetParsers.cellReferences(), "1+2", "Unrecognized character '1' at (1,1) \"1+2\"");
+        this.parseFailAndCheck(SpreadsheetParsers.cellReferences(), "1+2");
     }
 
     @Test
@@ -86,7 +86,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testRangeParserOtherExpressionFails() {
-        this.parseThrows(SpreadsheetParsers.range(), "1+2", "Unrecognized character '1' at (1,1) \"1+2\"");
+        this.parseFailAndCheck(SpreadsheetParsers.range(), "1+2");
     }
 
     @Test
@@ -602,7 +602,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testFunctionParserOtherExpressionFails() {
-        this.parseThrows(this.functionParser(), "1+2", "Unrecognized character '1' at (1,1) \"1+2\"");
+        this.parseFailAndCheck(this.functionParser(), "1+2");
     }
 
     @Test

@@ -51,14 +51,12 @@ public final class EbnfGrammarParserTest extends EbnfParserTestCase<EbnfGrammarP
 
     @Test
     public void testWhitespaceAfterRules() {
-        final String text = RULE1+RULE2;
-        final String textAfter = "   ";
-        this.parseAndCheck(text + textAfter,
+        final String text = RULE1+RULE2 +  "   ";
+        this.parseAndCheck(text,
                 grammar(text,
                         rule1(),
                         rule2()),
-                text,
-                textAfter);
+                text);
     }
 
     @Test

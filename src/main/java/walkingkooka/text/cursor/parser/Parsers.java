@@ -160,9 +160,10 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see ReportingParser}
      */
-    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> report(final ParserReporter<T, C> reporter,
+    public static <T extends ParserToken, C extends ParserContext> Parser<T, C> report(final ParserReporterCondition condition,
+                                                                                       final ParserReporter<T, C> reporter,
                                                                                        final Parser<T, C> parser) {
-        return ReportingParser.with(reporter, parser);
+        return ReportingParser.with(condition, reporter, parser);
     }
 
     /**
