@@ -98,11 +98,18 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     }
 
     /**
-     * Returns a {@link ParserReporter} which will be triggered if this (original unwrapped) {@link Parser} fails.
+     * The {@link ParserReporter} will be triggered if this {@link Parser} failed and returned a {@link Optional#empty()}.
      */
     default Parser<T, C> orReport(final ParserReporter<T, C> reporter) {
         final Parser<ParserToken, C> that = this.cast();
-        return Parsers.alternatives(Lists.of(that, Parsers.report(Cast.to(reporter), that))).cast();
+        return Parsers.alternatives(Lists.of(that, Parsers.report(ParserReporterCondition.ALWAYS, Cast.to(reporter), that))).cast();
+    }
+
+    /**
+     * Returns a {@link Parser} which will use the {@link ParserReporter} if the {@link TextCursor} is not empty.
+     */
+    default Parser<T, C> orFailIfCursorNotEmpty(final ParserReporter<T, C> reporter) {
+        return Parsers.report(ParserReporterCondition.NOT_EMPTY, Cast.to(reporter), this);
     }
 
     /**

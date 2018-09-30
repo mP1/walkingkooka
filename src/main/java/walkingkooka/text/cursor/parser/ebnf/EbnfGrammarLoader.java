@@ -21,8 +21,8 @@ package walkingkooka.text.cursor.parser.ebnf;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.ParserReporters;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -88,14 +88,11 @@ public final class EbnfGrammarLoader {
                         CharSequences.readerConsuming(
                                 new InputStreamReader(inputStream2, Charset.defaultCharset()),
                                 4096));
-                final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser().parse(grammarFile, EbnfParserContexts.basic());
+                final Optional<EbnfGrammarParserToken> grammar = EbnfParserToken.grammarParser()
+                        .orFailIfCursorNotEmpty(ParserReporters.basic())
+                        .parse(grammarFile, EbnfParserContexts.basic());
                 if (grammar.isPresent()) {
                     result = grammar;
-                }
-                if (grammarFile.isEmpty()) {
-                    final TextCursorSavePoint save = grammarFile.save();
-                    grammarFile.end();
-                    throw new EbnfParserException("Unable to load file " + this + "\nGrammar...\n" + grammar + "\n\nRemaining...\n" + save.textBetween());
                 }
             }
         } catch (final Exception fail) {

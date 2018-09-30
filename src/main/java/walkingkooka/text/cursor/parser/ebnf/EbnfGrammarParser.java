@@ -428,6 +428,7 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
                 .optional(WHITESPACE_OR_COMMENT)
                 .required(RULE.orReport(ParserReporters.basic()))
                 .optional(RULE.repeating().cast())
+                .optional(WHITESPACE_OR_COMMENT)
                 .build()
                 .transform(EbnfGrammarParser::grammarParserToken)
                 .cast();
