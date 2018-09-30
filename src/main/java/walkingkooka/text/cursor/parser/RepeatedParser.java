@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that only matches one or more tokens matched by a different provided {@link Parser}.
  */
-final class RepeatedParser<C extends ParserContext> extends ParserTemplate2<RepeatedParserToken, C> {
+final class RepeatedParser<C extends ParserContext> extends ParserTemplate<RepeatedParserToken, C> {
 
     static <C extends ParserContext> RepeatedParser<C> with(final Parser<ParserToken, C> parser){
         Objects.requireNonNull(parser, "parser");

@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that only matches the given {@link String} which must not be null or empty.
  */
-final class StringParser<C extends ParserContext> extends ParserTemplate2<StringParserToken, C> {
+final class StringParser<C extends ParserContext> extends ParserTemplate<StringParserToken, C> {
 
     static <C extends ParserContext> StringParser<C> with(final String string, final CaseSensitivity caseSensitivity) {
         CharSequences.failIfNullOrEmpty(string, "string");

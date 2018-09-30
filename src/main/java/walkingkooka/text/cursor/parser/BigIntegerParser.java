@@ -26,7 +26,7 @@ import java.util.Optional;
  * A {@link Parser} that matches a number using a given radix. Note it does not require or match a leading prefix.
  * Note this only parses numeric digits and not any leading minus sign.
  */
-final class BigIntegerParser<C extends ParserContext> extends ParserTemplate2<BigIntegerParserToken, C> {
+final class BigIntegerParser<C extends ParserContext> extends ParserTemplate<BigIntegerParserToken, C> {
 
     /**
      * Factory that creates a {@link BigIntegerParser}

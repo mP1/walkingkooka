@@ -20,7 +20,6 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
-import walkingkooka.tree.search.SearchNode;
 
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ import java.util.Optional;
  * A {@link Parser} that matches a long number using a given radix. Note it does not require or match a leading prefix.
  * Note this only parses numeric digits and not any leading minus sign.
  */
-final class LongParser<C extends ParserContext> extends ParserTemplate2<LongParserToken, C> {
+final class LongParser<C extends ParserContext> extends ParserTemplate<LongParserToken, C> {
 
     /**
      * Factory that creates a {@link LongParser}

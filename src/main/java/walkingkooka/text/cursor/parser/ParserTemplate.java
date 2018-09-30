@@ -14,9 +14,11 @@
  * limitations under the License.
  *
  */
+
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorSavePoint;
 
 import java.util.Optional;
 
@@ -25,6 +27,10 @@ import java.util.Optional;
  * on failures.
  */
 abstract class ParserTemplate<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
+
+    ParserTemplate() {
+        super();
+    }
 
     @Override
     public final Optional<T> parse(final TextCursor cursor, final C context) {
@@ -40,5 +46,19 @@ abstract class ParserTemplate<T extends ParserToken, C extends ParserContext> im
         return Optional.empty();
     }
 
-    abstract Optional<T> tryParse(final TextCursor cursor, final C context);
+    private Optional<T> tryParse(final TextCursor cursor, final C context) {
+        final TextCursorSavePoint start = cursor.save();
+
+        final Optional<T> result = this.tryParse0(cursor, context, start);
+        if(!result.isPresent()){
+            // unsuccessful restore cursor to original position...
+            start.restore();
+        }
+        return result;
+    }
+
+    /**
+     * This method is invoked with the first character and a {@link TextCursorSavePoint}.
+     */
+    abstract Optional<T> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint start);
 }

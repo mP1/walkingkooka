@@ -30,7 +30,7 @@ import java.util.Optional;
  * A {@link Parser} that parser that parsers {@link BigDecimal} numbers, including the sign, decimals and any exponent.
  * Note unlike {@link DoubleParser} which returns doubles, NAN and +/- INFINITY is not supported.
  */
-final class BigDecimalParser<C extends ParserContext> extends ParserTemplate2<BigDecimalParserToken, C> {
+final class BigDecimalParser<C extends ParserContext> extends ParserTemplate<BigDecimalParserToken, C> {
 
     /**
      * Factory that creates a {@link BigDecimalParser}
