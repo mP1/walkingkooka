@@ -193,6 +193,10 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         this.parseThrows(this.createParser(), this.createContext(), cursor, messagePart);
     }
 
+    protected final void parseThrows(final Parser <T, C> parser, final String cursor) {
+        this.parseThrows(parser, cursor, "");
+    }
+
     protected final void parseThrows(final Parser <T, C> parser, final String cursor, final String messagePart) {
         this.parseThrows(parser, TextCursors.charSequence(cursor), messagePart);
     }
@@ -205,7 +209,15 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         final TextCursorSavePoint before = cursor.save();
         try {
             final Optional<T> result = this.parse(parser, cursor, context);
-            fail("Expected ParserException from parser: " + parser + " but got result=" + result + " at " + CharSequences.quoteAndEscape(before.textBetween()));
+
+            final TextCursorSavePoint left = cursor.save();
+            cursor.end();
+
+            fail("Expected ParserException from parser: " + parser +
+                 " with text " + CharSequences.quoteAndEscape(before.textBetween()) +
+                 " but got result=" + result +
+                 " at " + left +
+                 "\n" + this.toString(result));
         } catch (final ParserException cause){
             final String message = cause.getMessage();
             assertTrue("Message: " + message + " missing " + messagePart, message.contains(messagePart));
