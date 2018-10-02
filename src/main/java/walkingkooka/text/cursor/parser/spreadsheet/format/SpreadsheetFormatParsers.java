@@ -43,6 +43,9 @@ import java.util.function.BiFunction;
  */
 public final class SpreadsheetFormatParsers implements PublicStaticHelper {
 
+
+    public final static char DECIMAL_POINT = '.';
+
     // shared
 
     private static final EbnfIdentifierName WHITESPACE_IDENTIFIER = EbnfIdentifierName.with("WHITESPACE");
@@ -278,7 +281,7 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     private static final EbnfIdentifierName NUMBER_GENERAL_IDENTIFIER = EbnfIdentifierName.with("NUMBER_GENERAL");
 
     private static void number(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
-        predefined.put(DECIMAL_POINT_IDENTIFIER, DECIMAL_POINT);
+        predefined.put(DECIMAL_POINT_IDENTIFIER, DECIMAL_POINT_PARSER);
         predefined.put(CURRENCY_IDENTIFIER, CURRENCY);
         predefined.put(FRACTION_SYMBOL_IDENTIFIER, FRACTION_SYMBOL);
         predefined.put(LEADING_ZERO_IDENTIFIER, LEADING_ZERO);
@@ -289,7 +292,7 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     }
 
     private static final EbnfIdentifierName DECIMAL_POINT_IDENTIFIER = EbnfIdentifierName.with("DECIMAL_POINT");
-    private static final Parser<ParserToken, ParserContext> DECIMAL_POINT = symbol('.',
+    private static final Parser<ParserToken, ParserContext> DECIMAL_POINT_PARSER = symbol('.',
             SpreadsheetFormatParserToken::decimalPoint,
             SpreadsheetFormatDecimalPointParserToken.class);
 
