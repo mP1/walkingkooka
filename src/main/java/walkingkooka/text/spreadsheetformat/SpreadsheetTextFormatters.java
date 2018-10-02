@@ -30,6 +30,14 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     }
 
     /**
+     * {@see LocalDateTimeSpreadsheetTextFormatter}
+     */
+    static SpreadsheetTextFormatter dateTime(final String pattern,
+                                             final SpreadsheetTextFormatter general) {
+        return LocalDateTimeSpreadsheetTextFormatter.with(pattern, general);
+    }
+
+    /**
      * {@see TextSpreadsheetTextFormatter}
      */
     public static SpreadsheetTextFormatter<String> text(final String pattern) {

@@ -18,9 +18,6 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.color.Color;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNameParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNumberParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
 
 /**
@@ -31,26 +28,7 @@ abstract class TextFormatterSpreadsheetFormatParserTokenVisitor extends Spreadsh
     /**
      * Package private to limit sub classing.
      */
-    TextFormatterSpreadsheetFormatParserTokenVisitor(final SpreadsheetTextFormatContext context) {
+    TextFormatterSpreadsheetFormatParserTokenVisitor() {
         super();
-        this.context = context;
     }
-
-    @Override
-    protected final void visit(final SpreadsheetFormatColorNameParserToken token) {
-        this.color = this.context.colorName(token.value());
-    }
-
-    @Override
-    protected final void visit(final SpreadsheetFormatColorNumberParserToken token) {
-        this.color = this.context.colorNumber(token.value());
-    }
-
-    final SpreadsheetTextFormatContext context;
-
-    /**
-     * Will be set either the {@link SpreadsheetFormatColorNameParserToken} or {@link SpreadsheetFormatColorNumberParserToken}
-     * is encountered.
-     */
-    Color color = null;
 }
