@@ -378,12 +378,17 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     @Test
-    public void testDateDayDayMonthMonthYearYear() {
-        this.dateParseAndCheck(day(), day(), monthOrMinute(), monthOrMinute(), year(), year());
+    public void testDateDay2Month2Year2() {
+        this.dateParseAndCheck(day(2), monthOrMinute(2), year(2));
     }
 
     @Test
-    public void testDateDayMonthYear2() {
+    public void testDateDay3Month3Year3() {
+        this.dateParseAndCheck(day(3), monthOrMinute(3), year(3));
+    }
+    
+    @Test
+    public void testDateDayMonthYearDateDayMonthYear() {
         this.dateParseAndCheck(day(), monthOrMinute(), year(), day(), monthOrMinute(), year());
     }
 
@@ -2662,12 +2667,17 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     @Test
-    public void testTimeHourHourMinuteMinuteSecondSecond() {
-        this.timeParseAndCheck(hour(), hour(), monthOrMinute(), monthOrMinute(), second(), second());
+    public void testTimeHour2Minute2Second2() {
+        this.timeParseAndCheck(hour(2), monthOrMinute(2), second(2));
     }
 
     @Test
-    public void testTimeHourMinuteSecond2() {
+    public void testTimeHour3Minute3Second3() {
+        this.timeParseAndCheck(hour(3), monthOrMinute(3), second(3));
+    }
+
+    @Test
+    public void testTimeHourMinuteSecondHourMinuteSecond() {
         this.timeParseAndCheck(hour(), monthOrMinute(), second(), hour(), monthOrMinute(), second());
     }
 
@@ -3606,9 +3616,14 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private static SpreadsheetFormatParserToken day() {
-        return SpreadsheetFormatParserToken.day("D", "D");
+        return day(1);
     }
 
+    private static SpreadsheetFormatParserToken day(final int count) {
+        final String text = repeat('D', count);
+        return SpreadsheetFormatParserToken.day(text, text);
+    }
+    
     private static SpreadsheetFormatParserToken decimalPoint() {
         return SpreadsheetFormatParserToken.decimalPoint(".", ".");
     }
@@ -3669,7 +3684,12 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private static SpreadsheetFormatParserToken hour() {
-        return SpreadsheetFormatParserToken.hour("H", "H");
+        return hour(1);
+    }
+
+    private static SpreadsheetFormatParserToken hour(final int count) {
+        final String text = repeat('H', count);
+        return SpreadsheetFormatParserToken.hour(text, text);
     }
 
     private static SpreadsheetFormatParserToken lessThan() {
@@ -3681,7 +3701,12 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private static SpreadsheetFormatParserToken monthOrMinute() {
-        return SpreadsheetFormatParserToken.monthOrMinute("M", "M");
+        return monthOrMinute(1);
+    }
+
+    private static SpreadsheetFormatParserToken monthOrMinute(final int count) {
+        final String text = repeat('M', count);
+        return SpreadsheetFormatParserToken.monthOrMinute(text, text);
     }
 
     private static SpreadsheetFormatParserToken notEquals() {
@@ -3705,7 +3730,12 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private static SpreadsheetFormatParserToken second() {
-        return SpreadsheetFormatParserToken.second("S", "S");
+        return second(1);
+    }
+
+    private static SpreadsheetFormatParserToken second(final int count) {
+        final String text = repeat('S', count);
+        return SpreadsheetFormatParserToken.second(text, text);
     }
 
     private static SpreadsheetFormatParserToken separator() {
@@ -3776,8 +3806,19 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
         return SpreadsheetFormatParserToken.whitespace("   ", "   ");
     }
 
-    private SpreadsheetFormatParserToken year() {
-        return SpreadsheetFormatParserToken.year("Y", "Y");
+    private static SpreadsheetFormatParserToken year() {
+        return year(1);
+    }
+
+    private static SpreadsheetFormatParserToken year(final int count) {
+        final String text = repeat('Y', count);
+        return SpreadsheetFormatParserToken.year(text, text);
+    }
+
+    private static String repeat(final char c, final int count) {
+        final char[] chars = new char[count];
+        Arrays.fill(chars, c);
+        return new String(chars);
     }
 
     @Override

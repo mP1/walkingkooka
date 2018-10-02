@@ -183,12 +183,12 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     }
 
     private static final EbnfIdentifierName DAY_IDENTIFIER = EbnfIdentifierName.with("DAY");
-    private static final Parser<ParserToken, ParserContext> DAY = symbol('D',
+    private static final Parser<ParserToken, ParserContext> DAY = repeatingSymbol('D',
             SpreadsheetFormatParserToken::day,
             SpreadsheetFormatDayParserToken.class);
 
     private static final EbnfIdentifierName YEAR_IDENTIFIER = EbnfIdentifierName.with("YEAR");
-    private static final Parser<ParserToken, ParserContext> YEAR = symbol('Y',
+    private static final Parser<ParserToken, ParserContext> YEAR = repeatingSymbol('Y',
             SpreadsheetFormatParserToken::year,
             SpreadsheetFormatSecondParserToken.class);
 
@@ -209,7 +209,7 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
 
     private static final EbnfIdentifierName MONTH_MINUTE_IDENTIFIER = EbnfIdentifierName.with("MONTH_MINUTE");
 
-    private static final Parser<ParserToken, ParserContext> MONTH_MINUTE = symbol('M',
+    private static final Parser<ParserToken, ParserContext> MONTH_MINUTE = repeatingSymbol('M',
             SpreadsheetFormatParserToken::monthOrMinute,
             SpreadsheetFormatMonthOrMinuteParserToken.class);
 
@@ -401,12 +401,12 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
             SpreadsheetFormatAmPmParserToken.class);
 
     private static final EbnfIdentifierName HOUR_IDENTIFIER = EbnfIdentifierName.with("HOUR");
-    private static final Parser<ParserToken, ParserContext> HOUR = symbol('H',
+    private static final Parser<ParserToken, ParserContext> HOUR = repeatingSymbol('H',
             SpreadsheetFormatParserToken::hour,
             SpreadsheetFormatHourParserToken.class);
 
     private static final EbnfIdentifierName SECOND_IDENTIFIER = EbnfIdentifierName.with("SECOND");
-    private static final Parser<ParserToken, ParserContext> SECOND = symbol('S',
+    private static final Parser<ParserToken, ParserContext> SECOND = repeatingSymbol('S',
             SpreadsheetFormatParserToken::second,
             SpreadsheetFormatSecondParserToken.class);
 
@@ -492,20 +492,25 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
                 .cast();
     }
 
-    private static Parser<ParserToken, ParserContext> symbol(final char c,
-                                                             final BiFunction<String, String, ParserToken> factory,
-                                                             final Class<? extends SpreadsheetFormatLeafParserToken> tokenClass) {
-        return symbol(c,
-                Character.isLetter(c) ? CaseSensitivity.INSENSITIVE : CaseSensitivity.SENSITIVE,
-                factory,
-                tokenClass);
+    /**
+     * Matches a token filled with the given c ignoring case.
+     */
+    private static Parser<ParserToken, ParserContext> repeatingSymbol(final char c,
+                                                                      final BiFunction<String, String, ParserToken> factory,
+                                                                      final Class<? extends SpreadsheetFormatLeafParserToken> tokenClass) {
+        return Parsers.stringCharPredicate(CaseSensitivity.INSENSITIVE.charPredicate(c), 1, Integer.MAX_VALUE)
+                .transform((stringParserToken, context) -> factory.apply(stringParserToken.value(), stringParserToken.text()))
+                .setToString(tokenClass.getSimpleName())
+                .cast();
     }
 
+    /**
+     * Matches a token holding a single character.
+     */
     private static Parser<ParserToken, ParserContext> symbol(final char c,
-                                                             final CaseSensitivity caseSensitivity,
                                                              final BiFunction<String, String, ParserToken> factory,
                                                              final Class<? extends SpreadsheetFormatLeafParserToken> tokenClass) {
-        return Parsers.character(caseSensitivity.charPredicate(c))
+        return Parsers.character(CaseSensitivity.SENSITIVE.charPredicate(c))
                 .transform((charParserToken, context) -> factory.apply(charParserToken.value().toString(), charParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
                 .cast();
@@ -515,7 +520,7 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
                                                              final BiFunction<String, String, ParserToken> factory,
                                                              final Class<? extends SpreadsheetFormatLeafParserToken> tokenClass) {
         return CaseSensitivity.INSENSITIVE.parser(text)
-                .transform((charParserToken, context) -> factory.apply(charParserToken.value().toString(), charParserToken.text()))
+                .transform((charParserToken, context) -> factory.apply(charParserToken.value(), charParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
                 .cast();
     }
