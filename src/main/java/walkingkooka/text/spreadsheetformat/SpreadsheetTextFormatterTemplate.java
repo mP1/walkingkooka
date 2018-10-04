@@ -18,59 +18,27 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
-import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserException;
-import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.Parsers;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
-import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * Base class for all {@link SpreadsheetTextFormatter} implementations.
  */
 abstract class SpreadsheetTextFormatterTemplate<T> implements SpreadsheetTextFormatter<T> {
 
-    static void check(final String pattern) {
-        Objects.requireNonNull(pattern, "pattern");
-    }
-
-    static void check(final MathContext mathContext) {
-        Objects.requireNonNull(mathContext, "mathContext");
+    static void check(final SpreadsheetFormatParserToken token) {
+        Objects.requireNonNull(token, "token");
     }
 
     /**
      * Package private to limit sub classing.
      */
-    SpreadsheetTextFormatterTemplate(final String pattern) {
+    SpreadsheetTextFormatterTemplate(final SpreadsheetFormatParserToken token) {
         super();
 
-        this.pattern = pattern;
-    }
-
-    /**
-     * Parses the pattern completely into a {@link SpreadsheetFormatParserToken} or fails.
-     */
-    static Optional<SpreadsheetFormatParserToken> parse(final String pattern,
-                                                       final MathContext mathContext,
-                                                       final Function<Parser<BigDecimalParserToken, SpreadsheetFormatParserContext>, Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext>> parserFactory) {
-        try {
-            final TextCursor cursor = TextCursors.charSequence(pattern);
-            return parserFactory.apply(Parsers.bigDecimal(SpreadsheetFormatParsers.DECIMAL_POINT, mathContext))
-                    .orFailIfCursorNotEmpty(ParserReporters.basic())
-                    .parse(cursor, SpreadsheetFormatParserContexts.basic());
-        } catch (final ParserException fail) {
-            throw new IllegalArgumentException(fail.getMessage(), fail);
-        }
+        this.token = token;
     }
 
     /**
@@ -91,8 +59,8 @@ abstract class SpreadsheetTextFormatterTemplate<T> implements SpreadsheetTextFor
      */
     @Override
     public final String toString() {
-        return this.pattern;
+        return this.token.text();
     }
 
-    private final String pattern;
+    final SpreadsheetFormatParserToken token;
 }

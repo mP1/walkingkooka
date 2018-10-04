@@ -19,9 +19,8 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 
-import java.math.MathContext;
 import java.util.Optional;
 
 /**
@@ -30,27 +29,22 @@ import java.util.Optional;
 final class TextSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<String> {
 
     /**
-     * Parses the pattern and creates a {@link TextSpreadsheetTextFormatter}
+     * Creates a {@link TextSpreadsheetTextFormatter} from a {@link SpreadsheetFormatTextParserToken}.
      */
-    static TextSpreadsheetTextFormatter parse(final String pattern) {
-        check(pattern);
-        return new TextSpreadsheetTextFormatter(pattern);
+    static TextSpreadsheetTextFormatter with(final SpreadsheetFormatTextParserToken token) {
+        check(token);
+        return new TextSpreadsheetTextFormatter(token);
     }
 
     /**
      * Private ctor use static parse.
      */
-    private TextSpreadsheetTextFormatter(final String pattern) {
-        super(pattern);
-        this.token = parse(pattern, MathContext.DECIMAL32, SpreadsheetFormatParsers::text);
+    private TextSpreadsheetTextFormatter(final SpreadsheetFormatParserToken token) {
+        super(token);
     }
 
     @Override
     Optional<SpreadsheetFormattedText> format0(final String value, final SpreadsheetTextFormatContext context) {
-        return this.token.isPresent() ?
-                Optional.of(TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor.format(this.token.get(), value, context)) :
-                Optional.empty();
+        return Optional.of(TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor.format(this.token, value, context));
     }
-
-    private final Optional<SpreadsheetFormatParserToken> token;
 }

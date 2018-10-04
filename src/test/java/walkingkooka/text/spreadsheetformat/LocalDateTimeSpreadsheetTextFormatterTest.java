@@ -19,9 +19,13 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.Cast;
-import walkingkooka.color.Color;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.BigDecimalParserToken;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,34 +33,12 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class LocalDateTimeSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTestCase<LocalDateTimeSpreadsheetTextFormatter, LocalDateTime> {
+public final class LocalDateTimeSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<
+        LocalDateTimeSpreadsheetTextFormatter,
+        LocalDateTime,
+        SpreadsheetFormatDateTimeParserToken> {
 
     private final static String GENERAL_FORMATTED = "GeneralFormatted";
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullGeneralTextFormatterFails() {
-        LocalDateTimeSpreadsheetTextFormatter.with("A", null);
-    }
-
-    @Test
-    public void testWithGeneral() {
-        this.parseFormatAndCheck("General", this.text(), GENERAL_FORMATTED);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testPatternWithConditionFails() {
-        this.createFormatter("[<100]@");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testEmptyPatternParseFails() {
-        this.createFormatter("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithDecimalPointFails() {
-        this.createFormatter(".");
-    }
 
     // year.............................................................................................
 
@@ -492,21 +474,6 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
         this.parseFormatAndCheck("\"Hello\"", this.text(), "Hello");
     }
 
-    // color ......................................................................................................
-
-    public void testColorDayMonthYear() {
-        final Color red = Color.fromRgb(0x0FF);
-        assertEquals(SpreadsheetFormattedText.with(Optional.of(red), "31/12/2000"),
-                this.createFormatter("[RED]d/m/y")
-                        .format(this.parse("2000-12-31T15:58:59"), new FakeSpreadsheetTextFormatContext() {
-                            @Override
-                            public Color colorName(final String name) {
-                                assertEquals("color name", "RED", name);
-                                return red;
-                            }
-                        }));
-    }
-
     // mixed.......................................................................................................
 
     @Test
@@ -538,52 +505,41 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
         this.parseFormatAndCheck0(pattern, value, context, SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, text));
     }
 
-    private void parseFormatAndCheck(final String pattern,
-                                     final String value,
-                                     final SpreadsheetTextFormatContext context,
-                                     final String text,
-                                     final Color color) {
-        this.parseFormatAndCheck0(pattern, value, context, SpreadsheetFormattedText.with(Optional.of(color), text));
-    }
-
     private void parseFormatAndCheck0(final String pattern,
                                       final String value,
                                       final SpreadsheetTextFormatContext context,
                                       final SpreadsheetFormattedText text) {
         assertEquals("Pattern=" + CharSequences.quote(pattern) + " dateTime=" + value,
                 Optional.of(text),
-                this.createFormatter(pattern).format(this.parse(value), context));
+                this.createFormatter(pattern).format(this.parseLocalDateTime(value), context));
     }
-
 
     @Override
-    protected LocalDateTimeSpreadsheetTextFormatter createFormatter() {
-        return Cast.to(this.createFormatter("YYYYMMDDHHMMSS"));
+    String pattern() {
+        return "YYYYMMDDHHMMSS";
     }
 
-    private SpreadsheetTextFormatter<LocalDateTime> createFormatter(final String pattern) {
-        return LocalDateTimeSpreadsheetTextFormatter.with(pattern, generalTextFormatter());
+    @Override
+    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal) {
+        return SpreadsheetFormatParsers.dateTime(bigDecimal);
+    }
+
+    @Override
+    LocalDateTimeSpreadsheetTextFormatter createFormatter0(final SpreadsheetFormatDateTimeParserToken token) {
+        return LocalDateTimeSpreadsheetTextFormatter.with(token);
     }
 
     @Override
     protected LocalDateTime value() {
-        return this.parse(this.text());
+        return this.parseLocalDateTime(this.text());
     }
 
     private String text() {
         return "2000-12-31T15:58:59";
     }
 
-    private LocalDateTime parse(final String value) {
+    private LocalDateTime parseLocalDateTime(final String value) {
         return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-    }
-
-    private SpreadsheetTextFormatter<LocalDateTime> generalTextFormatter() {
-        return (dateTime, context) -> Optional.of(general());
-    }
-
-    private SpreadsheetFormattedText general() {
-        return SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, GENERAL_FORMATTED);
     }
 
     @Override

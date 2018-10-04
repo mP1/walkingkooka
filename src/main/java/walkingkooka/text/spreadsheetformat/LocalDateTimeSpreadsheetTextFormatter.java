@@ -18,13 +18,10 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
-import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -33,30 +30,18 @@ import java.util.Optional;
 final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<LocalDateTime> {
 
     /**
-     * Parses the pattern and creates a {@link LocalDateTimeSpreadsheetTextFormatter}
+     * Creates a {@link LocalDateTimeSpreadsheetTextFormatter} from a {@link SpreadsheetFormatDateTimeParserToken}
      */
-    static SpreadsheetTextFormatter with(final String pattern, final SpreadsheetTextFormatter general) {
-        check(pattern);
-        Objects.requireNonNull(general, "general");
-
-        // special case if pattern is General...
-        final Optional<SpreadsheetFormatParserToken> maybe = parse(pattern, MathContext.DECIMAL32, SpreadsheetFormatParsers::dateTime);
-        if (!maybe.isPresent()) {
-            throw new IllegalArgumentException("Unable to parse pattern " + CharSequences.quote(pattern));
-        }
-        // need to ask for default when General..
-        final SpreadsheetFormatParserToken token = maybe.get();
-        return token.isGeneral() ?
-                general :
-                new LocalDateTimeSpreadsheetTextFormatter(pattern, token);
+    static LocalDateTimeSpreadsheetTextFormatter with(final SpreadsheetFormatDateTimeParserToken token) {
+        check(token);
+        return new LocalDateTimeSpreadsheetTextFormatter(token);
     }
 
     /**
      * Private ctor use static parse.
      */
-    private LocalDateTimeSpreadsheetTextFormatter(final String pattern, final SpreadsheetFormatParserToken token) {
-        super(pattern);
-        this.token = token;
+    private LocalDateTimeSpreadsheetTextFormatter(final SpreadsheetFormatParserToken token) {
+        super(token);
         this.twelveHour = LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor.is12HourTime(token);
 
     }
@@ -65,11 +50,6 @@ final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatt
     Optional<SpreadsheetFormattedText> format0(final LocalDateTime value, final SpreadsheetTextFormatContext context) {
         return LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor.format(this.token, value, context, this.twelveHour);
     }
-
-    /**
-     * A list of components that add text to the formatted output.
-     */
-    private final SpreadsheetFormatParserToken token;
 
     private final boolean twelveHour;
 }
