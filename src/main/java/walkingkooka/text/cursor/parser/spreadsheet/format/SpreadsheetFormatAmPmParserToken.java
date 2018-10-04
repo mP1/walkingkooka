@@ -39,7 +39,7 @@ public final class SpreadsheetFormatAmPmParserToken extends SpreadsheetFormatLea
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

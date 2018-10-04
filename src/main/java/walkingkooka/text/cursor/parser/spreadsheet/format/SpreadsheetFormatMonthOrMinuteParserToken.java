@@ -38,7 +38,7 @@ public final class SpreadsheetFormatMonthOrMinuteParserToken extends Spreadsheet
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

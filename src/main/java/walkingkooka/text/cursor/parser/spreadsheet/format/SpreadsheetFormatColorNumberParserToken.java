@@ -40,7 +40,7 @@ public final class SpreadsheetFormatColorNumberParserToken extends SpreadsheetFo
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

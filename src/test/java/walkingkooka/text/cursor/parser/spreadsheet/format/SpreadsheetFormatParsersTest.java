@@ -363,6 +363,56 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     @Test
+    public void testDateEscaped() {
+        this.dateParseAndCheck(escaped());
+    }
+
+    @Test
+    public void testDateDollar() {
+        this.dateParseAndCheck(textLiteralDollar());
+    }
+
+    @Test
+    public void testDateMinus() {
+        this.dateParseAndCheck(textLiteralMinus());
+    }
+
+    @Test
+    public void testDatePlus() {
+        this.dateParseAndCheck(textLiteralPlus());
+    }
+
+    @Test
+    public void testDateSlash() {
+        this.dateParseAndCheck(textLiteralSlash());
+    }
+
+    @Test
+    public void testDateOpenParen() {
+        this.dateParseAndCheck(textLiteralOpenParens());
+    }
+
+    @Test
+    public void testDateCloseParen() {
+        this.dateParseAndCheck(textLiteralCloseParens());
+    }
+
+    @Test
+    public void testDateColon() {
+        this.dateParseAndCheck(textLiteralColon());
+    }
+
+    @Test
+    public void testDateSpace() {
+        this.dateParseAndCheck(textLiteralSpace());
+    }
+
+    @Test
+    public void testDateQuotedText() {
+        this.dateParseAndCheck(quotedText());
+    }
+
+    @Test
     public void testDateDay() {
         this.dateParseAndCheck(day());
     }
@@ -927,6 +977,48 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     @Test
     public void testNumberGeneral() {
         this.parseAndCheck2(this.numberParser(), SpreadsheetFormatParserToken::general, general());
+    }
+
+    // literals only...........................................................................
+
+    @Test
+    public void testNumberEscaped() {
+        this.numberParseAndCheck(escaped());
+    }
+
+    @Test
+    public void testNumberMinus() {
+        this.numberParseAndCheck(textLiteralMinus());
+    }
+
+    @Test
+    public void testNumberPlus() {
+        this.numberParseAndCheck(textLiteralPlus());
+    }
+
+    @Test
+    public void testNumberOpenParen() {
+        this.numberParseAndCheck(textLiteralOpenParens());
+    }
+
+    @Test
+    public void testNumberCloseParen() {
+        this.numberParseAndCheck(textLiteralCloseParens());
+    }
+
+    @Test
+    public void testNumberColon() {
+        this.numberParseAndCheck(textLiteralColon());
+    }
+
+    @Test
+    public void testNumberSpace() {
+        this.numberParseAndCheck(textLiteralSpace());
+    }
+
+    @Test
+    public void testNumberQuotedText() {
+        this.numberParseAndCheck(quotedText());
     }
 
     // digitLeadingSpace
@@ -2632,6 +2724,56 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     @Test
+    public void testTimeEscaped() {
+        this.timeParseAndCheck(escaped());
+    }
+
+    @Test
+    public void testTimeDollar() {
+        this.timeParseAndCheck(textLiteralDollar());
+    }
+
+    @Test
+    public void testTimeMinus() {
+        this.timeParseAndCheck(textLiteralMinus());
+    }
+
+    @Test
+    public void testTimePlus() {
+        this.timeParseAndCheck(textLiteralPlus());
+    }
+
+    @Test
+    public void testTimeSlash() {
+        this.timeParseAndCheck(textLiteralSlash());
+    }
+
+    @Test
+    public void testTimeOpenParen() {
+        this.timeParseAndCheck(textLiteralOpenParens());
+    }
+
+    @Test
+    public void testTimeCloseParen() {
+        this.timeParseAndCheck(textLiteralCloseParens());
+    }
+
+    @Test
+    public void testTimeColon() {
+        this.timeParseAndCheck(textLiteralColon());
+    }
+
+    @Test
+    public void testTimeSpace() {
+        this.timeParseAndCheck(textLiteralSpace());
+    }
+
+    @Test
+    public void testTimeQuotedText() {
+        this.timeParseAndCheck(quotedText());
+    }
+    
+    @Test
     public void testTimeASlashP() {
         this.timeParseAndCheck(aSlashP());
     }
@@ -3157,6 +3299,58 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     public void testDateTimeGeneral() {
         this.parseAndCheck2(this.dateTimeParser(), SpreadsheetFormatParserToken::general, general());
     }
+    
+    // literals only...........................................................................
+
+    @Test
+    public void testDateTimeEscaped() {
+        this.dateTimeParseAndCheck(escaped());
+    }
+
+    @Test
+    public void testDateTimeDollar() {
+        this.dateTimeParseAndCheck(textLiteralDollar());
+    }
+
+    @Test
+    public void testDateTimeMinus() {
+        this.dateTimeParseAndCheck(textLiteralMinus());
+    }
+
+    @Test
+    public void testDateTimePlus() {
+        this.dateTimeParseAndCheck(textLiteralPlus());
+    }
+
+    @Test
+    public void testDateTimeSlash() {
+        this.dateTimeParseAndCheck(textLiteralSlash());
+    }
+
+    @Test
+    public void testDateTimeOpenParen() {
+        this.dateTimeParseAndCheck(textLiteralOpenParens());
+    }
+
+    @Test
+    public void testDateTimeCloseParen() {
+        this.dateTimeParseAndCheck(textLiteralCloseParens());
+    }
+
+    @Test
+    public void testDateTimeColon() {
+        this.dateTimeParseAndCheck(textLiteralColon());
+    }
+
+    @Test
+    public void testDateTimeSpace() {
+        this.dateTimeParseAndCheck(textLiteralSpace());
+    }
+
+    @Test
+    public void testDateTimeQuotedText() {
+        this.dateTimeParseAndCheck(quotedText());
+    }
 
     // date only........................................................................................................
 
@@ -3193,7 +3387,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     // date&time........................................................................................................
-
+    
     @Test
     public void testDateTimeDayHour() {
         this.dateTimeParseAndCheck(day(), hour());
@@ -3355,6 +3549,61 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     // expression ..............................................................................................
+
+    @Test
+    public void testExpressionEmptyFails() {
+        this.parseFailAndCheck(this.expressionParser(), "");
+    }
+
+    @Test
+    public void testExpressionEscaped() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, escaped()));
+    }
+
+    @Test
+    public void testExpressionDollarFails() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, currency()));
+    }
+
+    @Test
+    public void testExpressionMinus() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralMinus()));
+    }
+
+    @Test
+    public void testExpressionPlus() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralPlus()));
+    }
+
+    @Test
+    public void testExpressionSlashFails() {
+        this.parseFailAndCheck(this.expressionParser(), "/");
+    }
+
+    @Test
+    public void testExpressionOpenParen() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralOpenParens()));
+    }
+
+    @Test
+    public void testExpressionCloseParen() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralCloseParens()));
+    }
+
+    @Test
+    public void testExpressionColon() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralColon()));
+    }
+
+    @Test
+    public void testExpressionSpace() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralSpace()));
+    }
+
+    @Test
+    public void testExpressionQuotedText() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, quotedText()));
+    }
 
     @Test
     public void testExpressionDateTimeYear() {

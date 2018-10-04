@@ -39,7 +39,7 @@ public final class SpreadsheetFormatTextPlaceholderParserToken extends Spreadshe
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

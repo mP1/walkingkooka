@@ -48,7 +48,7 @@ abstract class SpreadsheetFormatConditionParserToken<T extends SpreadsheetFormat
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     public final SpreadsheetFormatParserToken right() {

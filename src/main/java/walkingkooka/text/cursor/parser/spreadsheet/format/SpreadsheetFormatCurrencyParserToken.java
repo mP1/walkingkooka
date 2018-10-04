@@ -38,7 +38,7 @@ public final class SpreadsheetFormatCurrencyParserToken extends SpreadsheetForma
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

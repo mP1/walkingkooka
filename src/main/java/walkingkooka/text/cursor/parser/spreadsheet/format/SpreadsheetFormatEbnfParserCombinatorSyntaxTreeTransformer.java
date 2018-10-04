@@ -96,9 +96,9 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
                                                         parser.transform(this::conditionLessThanEqual) :
                                                         name.equals(CONDITION_NOT_EQUAL_IDENTIFIER) ?
                                                                 parser.transform(this::conditionNotEqual) :
-                                                                name.equals(DATE_IDENTIFIER) ?
+                                                                name.equals(DATE_IDENTIFIER) || name.equals(DATE2_IDENTIFIER) ?
                                                                         parser.transform(this::date) :
-                                                                        name.equals(DATETIME_IDENTIFIER) ?
+                                                                        name.equals(DATETIME_IDENTIFIER) || name.equals(DATETIME2_IDENTIFIER) ?
                                                                                 parser.transform(this::dateTime) :
                                                                                 name.equals(SpreadsheetFormatParsers.EXPRESSION_IDENTIFIER) ?
                                                                                         parser.transform(this::expression) :
@@ -114,7 +114,7 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
                                                                                                                                 parser.transform(this::general) :
                                                                                                                                 name.equals(SpreadsheetFormatParsers.TEXT_IDENTIFIER) ?
                                                                                                                                         parser.transform(this::text) :
-                                                                                                                                        name.equals(TIME_IDENTIFIER) ?
+                                                                                                                                        name.equals(TIME_IDENTIFIER) || name.equals(TIME2_IDENTIFIER) ?
                                                                                                                                                 parser.transform(this::time) :
                                                                                                                                                 this.requiredCheck(name, parser);
     }
@@ -164,12 +164,14 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
     }
 
     private static final EbnfIdentifierName DATE_IDENTIFIER = EbnfIdentifierName.with("DATE");
+    private static final EbnfIdentifierName DATE2_IDENTIFIER = EbnfIdentifierName.with("DATE2");
 
     private ParserToken dateTime(final ParserToken token, final ParserContext context) {
         return this.clean(token, SpreadsheetFormatParserToken::dateTime);
     }
 
     private static final EbnfIdentifierName DATETIME_IDENTIFIER = EbnfIdentifierName.with("DATETIME");
+    private static final EbnfIdentifierName DATETIME2_IDENTIFIER = EbnfIdentifierName.with("DATETIME2");
 
     private ParserToken decimal(final ParserToken token, final ParserContext context) {
         return this.clean(token, SpreadsheetFormatParserToken::number);
@@ -215,6 +217,7 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
     }
 
     private static final EbnfIdentifierName TIME_IDENTIFIER = EbnfIdentifierName.with("TIME");
+    private static final EbnfIdentifierName TIME2_IDENTIFIER = EbnfIdentifierName.with("TIME2");
 
     private ParserToken clean(final ParserToken token, final BiFunction<List<ParserToken>, String, ParserToken> factory) {
         return token.isMissing() ?
