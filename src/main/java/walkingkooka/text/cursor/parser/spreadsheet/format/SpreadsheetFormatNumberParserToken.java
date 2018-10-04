@@ -53,7 +53,7 @@ public final class SpreadsheetFormatNumberParserToken extends SpreadsheetFormatP
 
     @Override
     void checkText(String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

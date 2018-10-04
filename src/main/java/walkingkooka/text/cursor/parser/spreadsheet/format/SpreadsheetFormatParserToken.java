@@ -20,7 +20,6 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
 import walkingkooka.tree.visit.Visiting;
@@ -439,10 +438,6 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
 
     static void checkTextNullOrEmpty(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
-    }
-
-    static void checkTextNullOrWhitespace(final String text) {
-        Whitespace.failIfNullOrWhitespace(text, "text");
     }
 
     @Override

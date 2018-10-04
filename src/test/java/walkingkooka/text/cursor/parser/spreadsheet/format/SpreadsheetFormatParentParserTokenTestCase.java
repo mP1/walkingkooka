@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 public abstract class SpreadsheetFormatParentParserTokenTestCase<T extends SpreadsheetFormatParentParserToken<T>> extends SpreadsheetFormatParserTokenTestCase<T> {
@@ -75,6 +76,16 @@ public abstract class SpreadsheetFormatParentParserTokenTestCase<T extends Sprea
     @Test(expected = NullPointerException.class)
     public final void testSetValueNullFails() {
         this.createToken().setValue(null);
+    }
+
+    @Test
+    public final void testSetTextWhitespace() {
+        final T token = this.createToken();
+        final String text = " ";
+        final T different = token.setText(text).cast();
+        assertNotSame(token, different);
+        this.checkText(different, text);
+        this.checkValue(different, this.tokens());
     }
 
     @Test

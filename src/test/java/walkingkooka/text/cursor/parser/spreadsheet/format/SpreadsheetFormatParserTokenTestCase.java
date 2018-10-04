@@ -40,6 +40,13 @@ public abstract class SpreadsheetFormatParserTokenTestCase<T extends Spreadsheet
         this.createToken("");
     }
 
+    @Test
+    public final void testWithWhitespace() {
+        final String text = " ";
+        final T token = this.createToken(text);
+        this.checkText(token, text);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testSetTextEmptyFails() {
         this.createToken().setText("");

@@ -39,7 +39,7 @@ public final class SpreadsheetFormatDayParserToken extends SpreadsheetFormatLeaf
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

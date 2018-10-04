@@ -54,7 +54,7 @@ public final class SpreadsheetFormatGeneralParserToken extends SpreadsheetFormat
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

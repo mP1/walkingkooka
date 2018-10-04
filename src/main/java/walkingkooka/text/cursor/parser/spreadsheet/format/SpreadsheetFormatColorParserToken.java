@@ -71,7 +71,7 @@ public final class SpreadsheetFormatColorParserToken extends SpreadsheetFormatPa
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

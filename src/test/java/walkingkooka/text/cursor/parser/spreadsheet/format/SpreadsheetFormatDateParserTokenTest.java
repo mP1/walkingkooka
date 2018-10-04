@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormatDateParserTokenTest extends SpreadsheetFormatParentParserTokenTestCase<SpreadsheetFormatDateParserToken> {
+public final class SpreadsheetFormatDateParserTokenTest extends SpreadsheetFormatDateDateTimeExpressionTimeParserTokenTestCase<SpreadsheetFormatDateParserToken> {
 
     @Test
     public void testAccept() {

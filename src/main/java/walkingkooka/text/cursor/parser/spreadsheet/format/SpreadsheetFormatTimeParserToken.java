@@ -53,7 +53,7 @@ public final class SpreadsheetFormatTimeParserToken extends SpreadsheetFormatPar
 
     @Override
     void checkText(String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNull(text);
     }
 
     @Override

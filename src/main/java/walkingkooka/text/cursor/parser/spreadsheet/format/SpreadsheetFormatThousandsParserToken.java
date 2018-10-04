@@ -38,7 +38,7 @@ public final class SpreadsheetFormatThousandsParserToken extends SpreadsheetForm
 
     @Override
     void checkText(final String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override

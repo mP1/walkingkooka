@@ -53,7 +53,7 @@ public final class SpreadsheetFormatFractionParserToken extends SpreadsheetForma
 
     @Override
     void checkText(String text) {
-        checkTextNullOrWhitespace(text);
+        checkTextNullOrEmpty(text);
     }
 
     @Override
