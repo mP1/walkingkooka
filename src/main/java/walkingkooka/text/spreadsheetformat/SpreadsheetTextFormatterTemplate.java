@@ -33,11 +33,16 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Base class for all {@link SpreadsheetTextFormatter} implementations.
  */
 abstract class SpreadsheetTextFormatterTemplate<T> implements SpreadsheetTextFormatter<T> {
+
+    static void check(final String pattern) {
+        Objects.requireNonNull(pattern, "pattern");
+    }
 
     static void check(final MathContext mathContext) {
         Objects.requireNonNull(mathContext, "mathContext");
@@ -49,22 +54,18 @@ abstract class SpreadsheetTextFormatterTemplate<T> implements SpreadsheetTextFor
     SpreadsheetTextFormatterTemplate(final String pattern) {
         super();
 
-        Objects.requireNonNull(pattern, "pattern");
         this.pattern = pattern;
     }
 
     /**
-     * Sub classes must return a parser.
-     */
-    abstract Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> parser);
-
-    /**
      * Parses the pattern completely into a {@link SpreadsheetFormatParserToken} or fails.
      */
-    final Optional<SpreadsheetFormatParserToken> parse(final String pattern, final MathContext mathContext) {
+    static Optional<SpreadsheetFormatParserToken> parse(final String pattern,
+                                                       final MathContext mathContext,
+                                                       final Function<Parser<BigDecimalParserToken, SpreadsheetFormatParserContext>, Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext>> parserFactory) {
         try {
             final TextCursor cursor = TextCursors.charSequence(pattern);
-            return this.parser(Parsers.bigDecimal(SpreadsheetFormatParsers.DECIMAL_POINT, mathContext))
+            return parserFactory.apply(Parsers.bigDecimal(SpreadsheetFormatParsers.DECIMAL_POINT, mathContext))
                     .orFailIfCursorNotEmpty(ParserReporters.basic())
                     .parse(cursor, SpreadsheetFormatParserContexts.basic());
         } catch (final ParserException fail) {

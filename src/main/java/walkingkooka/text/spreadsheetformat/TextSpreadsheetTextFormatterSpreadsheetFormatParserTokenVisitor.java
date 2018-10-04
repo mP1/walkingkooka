@@ -18,6 +18,9 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.color.Color;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNameParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNumberParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatEscapeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatQuotedTextParserToken;
@@ -47,9 +50,26 @@ final class TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor exte
      * Private ctor use static method.
      */
     TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor(final String value, final SpreadsheetTextFormatContext context) {
-        super(context);
+        super();
+        this.context = context;
         this.value = value;
     }
+
+    @Override
+    protected final void visit(final SpreadsheetFormatColorNameParserToken token) {
+        this.color = this.context.colorName(token.value());
+    }
+
+    @Override
+    protected final void visit(final SpreadsheetFormatColorNumberParserToken token) {
+        this.color = this.context.colorNumber(token.value());
+    }
+
+    /**
+     * Will be set either the {@link SpreadsheetFormatColorNameParserToken} or {@link SpreadsheetFormatColorNumberParserToken}
+     * is encountered.
+     */
+    private Color color = null;
 
     @Override
     protected void visit(final SpreadsheetFormatEscapeParserToken token) {
@@ -95,6 +115,8 @@ final class TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor exte
     private void append(final String text) {
         this.text.append(text);
     }
+
+    private final SpreadsheetTextFormatContext context;
 
     /**
      * Aggregates the formatted output text.

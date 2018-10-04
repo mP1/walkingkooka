@@ -18,9 +18,6 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
-import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 
@@ -36,6 +33,7 @@ final class TextSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplat
      * Parses the pattern and creates a {@link TextSpreadsheetTextFormatter}
      */
     static TextSpreadsheetTextFormatter parse(final String pattern) {
+        check(pattern);
         return new TextSpreadsheetTextFormatter(pattern);
     }
 
@@ -44,12 +42,7 @@ final class TextSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplat
      */
     private TextSpreadsheetTextFormatter(final String pattern) {
         super(pattern);
-        this.token = this.parse(pattern, MathContext.DECIMAL32);
-    }
-
-    @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> parser) {
-        return SpreadsheetFormatParsers.text(parser);
+        this.token = parse(pattern, MathContext.DECIMAL32, SpreadsheetFormatParsers::text);
     }
 
     @Override
