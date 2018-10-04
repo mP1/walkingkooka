@@ -18,6 +18,8 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
 public final class SpreadsheetTextFormatters implements PublicStaticHelper {
@@ -32,16 +34,15 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     /**
      * {@see LocalDateTimeSpreadsheetTextFormatter}
      */
-    static SpreadsheetTextFormatter dateTime(final String pattern,
-                                             final SpreadsheetTextFormatter general) {
-        return LocalDateTimeSpreadsheetTextFormatter.with(pattern, general);
+    static SpreadsheetTextFormatter localDateTime(final SpreadsheetFormatDateTimeParserToken token) {
+        return LocalDateTimeSpreadsheetTextFormatter.with(token);
     }
 
     /**
      * {@see TextSpreadsheetTextFormatter}
      */
-    public static SpreadsheetTextFormatter<String> text(final String pattern) {
-        return TextSpreadsheetTextFormatter.parse(pattern);
+    public static SpreadsheetTextFormatter<String> text(final SpreadsheetFormatTextParserToken token) {
+        return TextSpreadsheetTextFormatter.with(token);
     }
 
     /**
