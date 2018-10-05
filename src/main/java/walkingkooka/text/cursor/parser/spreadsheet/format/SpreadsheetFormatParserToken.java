@@ -49,7 +49,7 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     /**
      * {@see SpreadsheetFormatBigDecimalParserToken}
      */
-    public static SpreadsheetFormatBigDecimalParserToken bigDecimal(final BigDecimal value, final String text) {
+    public static SpreadsheetFormatBigDecimalParserToken bigDecimal(final List<ParserToken> value, final String text) {
         return SpreadsheetFormatBigDecimalParserToken.with(value, text);
     }
 
@@ -86,6 +86,13 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
      */
     public static SpreadsheetFormatColorNumberParserToken colorNumber(final Integer value, final String text) {
         return SpreadsheetFormatColorNumberParserToken.with(value, text);
+    }
+
+    /**
+     * {@see SpreadsheetFormatConditionNumberParserToken}
+     */
+    public static SpreadsheetFormatConditionNumberParserToken conditionNumber(final BigDecimal value, final String text) {
+        return SpreadsheetFormatConditionNumberParserToken.with(value, text);
     }
 
     /**
@@ -299,13 +306,6 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     }
 
     /**
-     * {@see SpreadsheetFormatNumberParserToken}
-     */
-    public static SpreadsheetFormatNumberParserToken number(final List<ParserToken> value, final String text) {
-        return SpreadsheetFormatNumberParserToken.with(value, text);
-    }
-
-    /**
      * {@see SpreadsheetFormatOpenBracketSymbolParserToken}
      */
     public static SpreadsheetFormatOpenBracketSymbolParserToken openBracketSymbol(final String value, final String text) {
@@ -500,6 +500,11 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     public abstract boolean isColorNumber();
 
     /**
+     * Only {@link SpreadsheetFormatConditionNumberParserToken} return true
+     */
+    public abstract boolean isConditionNumber();
+
+    /**
      * Only {@link SpreadsheetFormatCurrencyParserToken} return true
      */
     public abstract boolean isCurrency();
@@ -648,11 +653,6 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
      * Only {@link SpreadsheetFormatNotEqualsSymbolParserToken} return true
      */
     public abstract boolean isNotEqualsSymbol();
-
-    /**
-     * Only {@link SpreadsheetFormatNumberParserToken} return true
-     */
-    public abstract boolean isNumber();
 
     /**
      * Only {@link SpreadsheetFormatOpenBracketSymbolParserToken} return true

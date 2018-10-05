@@ -912,255 +912,255 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
         return SpreadsheetFormatParsers.date(this.bigDecimalNumberParser());
     }
 
-    // number........................................................................................................
+    // bigDecimal........................................................................................................
 
     @Test
-    public void testNumberDayFails() {
-        this.numberParseThrows(digitNonZero(), day());
+    public void testBigDecimalDayFails() {
+        this.bigDecimalParseThrows(digitNonZero(), day());
     }
 
     @Test
-    public void testNumberHourFails() {
-        this.numberParseThrows(digitNonZero(), hour());
+    public void testBigDecimalHourFails() {
+        this.bigDecimalParseThrows(digitNonZero(), hour());
     }
 
     @Test
-    public void testNumberMinuteOrMonthFails() {
-        this.numberParseThrows(digitNonZero(), monthOrMinute());
+    public void testBigDecimalMinuteOrMonthFails() {
+        this.bigDecimalParseThrows(digitNonZero(), monthOrMinute());
     }
 
     @Test
-    public void testNumberSecondFails() {
-        this.numberParseThrows(digitNonZero(), second());
+    public void testBigDecimalSecondFails() {
+        this.bigDecimalParseThrows(digitNonZero(), second());
     }
 
     @Test
-    public void testNumberStarFails() {
-        this.numberParseThrows(star());
+    public void testBigDecimalStarFails() {
+        this.bigDecimalParseThrows(star());
     }
 
     @Test
-    public void testNumberTextPlaceholderFails() {
-        this.numberParseThrows(digitNonZero(), textPlaceholder());
+    public void testBigDecimalTextPlaceholderFails() {
+        this.bigDecimalParseThrows(digitNonZero(), textPlaceholder());
     }
 
     @Test
-    public void testNumberUnderscoreFails() {
-        this.numberParseThrows(underscore());
+    public void testBigDecimalUnderscoreFails() {
+        this.bigDecimalParseThrows(underscore());
     }
 
     @Test
-    public void testNumberYearFails() {
-        this.numberParseThrows(digitNonZero(), year());
+    public void testBigDecimalYearFails() {
+        this.bigDecimalParseThrows(digitNonZero(), year());
     }
 
     @Test
-    public void testNumberSlashFails() {
-        this.numberParseThrows(fraction());
+    public void testBigDecimalSlashFails() {
+        this.bigDecimalParseThrows(fraction());
     }
 
     @Test
-    public void testNumberDigitLeadingSpaceNumberFails() {
-        this.numberParseThrows(digitLeadingSpace(), fraction());
+    public void testBigDecimalDigitLeadingSpaceNumberFails() {
+        this.bigDecimalParseThrows(digitLeadingSpace(), fraction());
     }
 
     @Test
-    public void testNumberDigitLeadingZeroNumberFails() {
-        this.numberParseThrows(digitLeadingZero(), fraction());
+    public void testBigDecimalDigitLeadingZeroNumberFails() {
+        this.bigDecimalParseThrows(digitLeadingZero(), fraction());
     }
 
     @Test
-    public void testNumberDigitNonZeroNumberFails() {
-        this.numberParseThrows(digitNonZero(), fraction());
+    public void testBigDecimalDigitNonZeroNumberFails() {
+        this.bigDecimalParseThrows(digitNonZero(), fraction());
     }
 
     @Test
-    public void testNumberGeneral() {
-        this.parseAndCheck2(this.numberParser(), SpreadsheetFormatParserToken::general, general());
+    public void testBigDecimalGeneral() {
+        this.parseAndCheck2(this.bigDecimalParser(), SpreadsheetFormatParserToken::general, general());
     }
 
     // literals only...........................................................................
 
     @Test
-    public void testNumberEscaped() {
-        this.numberParseAndCheck(escaped());
+    public void testBigDecimalEscaped() {
+        this.bigDecimalParseAndCheck(escaped());
     }
 
     @Test
-    public void testNumberMinus() {
-        this.numberParseAndCheck(textLiteralMinus());
+    public void testBigDecimalMinus() {
+        this.bigDecimalParseAndCheck(textLiteralMinus());
     }
 
     @Test
-    public void testNumberPlus() {
-        this.numberParseAndCheck(textLiteralPlus());
+    public void testBigDecimalPlus() {
+        this.bigDecimalParseAndCheck(textLiteralPlus());
     }
 
     @Test
-    public void testNumberOpenParen() {
-        this.numberParseAndCheck(textLiteralOpenParens());
+    public void testBigDecimalOpenParen() {
+        this.bigDecimalParseAndCheck(textLiteralOpenParens());
     }
 
     @Test
-    public void testNumberCloseParen() {
-        this.numberParseAndCheck(textLiteralCloseParens());
+    public void testBigDecimalCloseParen() {
+        this.bigDecimalParseAndCheck(textLiteralCloseParens());
     }
 
     @Test
-    public void testNumberColon() {
-        this.numberParseAndCheck(textLiteralColon());
+    public void testBigDecimalColon() {
+        this.bigDecimalParseAndCheck(textLiteralColon());
     }
 
     @Test
-    public void testNumberSpace() {
-        this.numberParseAndCheck(textLiteralSpace());
+    public void testBigDecimalSpace() {
+        this.bigDecimalParseAndCheck(textLiteralSpace());
     }
 
     @Test
-    public void testNumberQuotedText() {
-        this.numberParseAndCheck(quotedText());
-    }
-
-    // digitLeadingSpace
-
-    @Test
-    public void testNumberDigitLeadingSpaceNumberDigitLeadingSpace() {
-        this.numberParseAndCheck(digitLeadingSpace(), decimalPoint(), digitLeadingSpace());
-    }
-
-    @Test
-    public void testNumberDigitLeadingSpaceDigitLeadingSpaceNumberDigitLeadingSpace() {
-        this.numberParseAndCheck(digitLeadingSpace(), digitLeadingSpace(), decimalPoint(), digitLeadingSpace());
-    }
-
-    @Test
-    public void testNumberDigitLeadingSpaceDigitLeadingZeroNumberDigitLeadingSpace() {
-        this.numberParseAndCheck(digitLeadingSpace(), digitLeadingZero(), decimalPoint(), digitLeadingSpace());
-    }
-
-    @Test
-    public void testNumberDigitLeadingSpaceDigitNonZeroNumberDigitLeadingSpace() {
-        this.numberParseAndCheck(digitLeadingSpace(), digitNonZero(), decimalPoint(), digitLeadingSpace());
-    }
-
-    @Test
-    public void testNumberDigitLeadingSpaceNumberDigitLeadingSpaceDigitLeadingSpace() {
-        this.numberParseAndCheck(digitLeadingSpace(), decimalPoint(), digitLeadingSpace(), digitLeadingSpace());
+    public void testBigDecimalQuotedText() {
+        this.bigDecimalParseAndCheck(quotedText());
     }
 
     // digitLeadingSpace
 
     @Test
-    public void testNumberDigitLeadingZeroDigitLeadingSpaceNumberDigitLeadingZero() {
-        this.numberParseAndCheck(digitLeadingZero(), digitLeadingSpace(), decimalPoint(), digitLeadingZero());
+    public void testBigDecimalDigitLeadingSpaceNumberDigitLeadingSpace() {
+        this.bigDecimalParseAndCheck(digitLeadingSpace(), decimalPoint(), digitLeadingSpace());
     }
 
     @Test
-    public void testNumberDigitLeadingZeroDigitLeadingZeroNumberDigitLeadingZero() {
-        this.numberParseAndCheck(digitLeadingZero(), digitLeadingZero(), decimalPoint(), digitLeadingZero());
+    public void testBigDecimalDigitLeadingSpaceDigitLeadingSpaceNumberDigitLeadingSpace() {
+        this.bigDecimalParseAndCheck(digitLeadingSpace(), digitLeadingSpace(), decimalPoint(), digitLeadingSpace());
     }
 
     @Test
-    public void testNumberDigitLeadingZeroDigitNonZeroNumberDigitLeadingZero() {
-        this.numberParseAndCheck(digitLeadingZero(), digitNonZero(), decimalPoint(), digitLeadingZero());
+    public void testBigDecimalDigitLeadingSpaceDigitLeadingZeroNumberDigitLeadingSpace() {
+        this.bigDecimalParseAndCheck(digitLeadingSpace(), digitLeadingZero(), decimalPoint(), digitLeadingSpace());
     }
 
     @Test
-    public void testNumberDigitLeadingZeroNumberDigitLeadingZeroDigitLeadingZero() {
-        this.numberParseAndCheck(digitLeadingZero(), decimalPoint(), digitLeadingZero(), digitLeadingZero());
+    public void testBigDecimalDigitLeadingSpaceDigitNonZeroNumberDigitLeadingSpace() {
+        this.bigDecimalParseAndCheck(digitLeadingSpace(), digitNonZero(), decimalPoint(), digitLeadingSpace());
+    }
+
+    @Test
+    public void testBigDecimalDigitLeadingSpaceNumberDigitLeadingSpaceDigitLeadingSpace() {
+        this.bigDecimalParseAndCheck(digitLeadingSpace(), decimalPoint(), digitLeadingSpace(), digitLeadingSpace());
+    }
+
+    // digitLeadingSpace
+
+    @Test
+    public void testBigDecimalDigitLeadingZeroDigitLeadingSpaceNumberDigitLeadingZero() {
+        this.bigDecimalParseAndCheck(digitLeadingZero(), digitLeadingSpace(), decimalPoint(), digitLeadingZero());
+    }
+
+    @Test
+    public void testBigDecimalDigitLeadingZeroDigitLeadingZeroNumberDigitLeadingZero() {
+        this.bigDecimalParseAndCheck(digitLeadingZero(), digitLeadingZero(), decimalPoint(), digitLeadingZero());
+    }
+
+    @Test
+    public void testBigDecimalDigitLeadingZeroDigitNonZeroNumberDigitLeadingZero() {
+        this.bigDecimalParseAndCheck(digitLeadingZero(), digitNonZero(), decimalPoint(), digitLeadingZero());
+    }
+
+    @Test
+    public void testBigDecimalDigitLeadingZeroNumberDigitLeadingZeroDigitLeadingZero() {
+        this.bigDecimalParseAndCheck(digitLeadingZero(), decimalPoint(), digitLeadingZero(), digitLeadingZero());
     }
 
     // digitLeadingZero
 
     @Test
-    public void testNumberDigitNonZeroNumberDigitNonZero() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroNumberDigitNonZero() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDigitLeadingSpaceNumberDigitNonZero() {
-        this.numberParseAndCheck(digitNonZero(), digitLeadingSpace(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDigitLeadingSpaceNumberDigitNonZero() {
+        this.bigDecimalParseAndCheck(digitNonZero(), digitLeadingSpace(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDigitLeadingZeroNumberDigitNonZero() {
-        this.numberParseAndCheck(digitNonZero(), digitLeadingZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDigitLeadingZeroNumberDigitNonZero() {
+        this.bigDecimalParseAndCheck(digitNonZero(), digitLeadingZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDigitNonZeroNumberDigitNonZero() {
-        this.numberParseAndCheck(digitNonZero(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDigitNonZeroNumberDigitNonZero() {
+        this.bigDecimalParseAndCheck(digitNonZero(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroNumberDigitNonZeroDigitNonZero() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), digitNonZero());
+    public void testBigDecimalDigitNonZeroNumberDigitNonZeroDigitNonZero() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), digitNonZero());
     }
 
     // currency
 
     @Test
-    public void testNumberCurrencyDigitSlashDigit() {
-        this.numberParseAndCheck(currency(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalCurrencyDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(currency(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitCurrencySlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), currency(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitCurrencySlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), currency(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashCurrencyDigit() {
-        this.numberParseAndCheck(currency(), digitNonZero(), decimalPoint(), currency(), digitNonZero());
+    public void testBigDecimalDigitSlashCurrencyDigit() {
+        this.bigDecimalParseAndCheck(currency(), digitNonZero(), decimalPoint(), currency(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitCurrency() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), currency());
+    public void testBigDecimalDigitSlashDigitCurrency() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), currency());
     }
 
     // percentage
 
     @Test
-    public void testNumberPercentageDigitSlashDigit() {
-        this.numberParseAndCheck(percentage(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalPercentageDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(percentage(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitPercentageSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), percentage(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitPercentageSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), percentage(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashPercentageDigit() {
-        this.numberParseAndCheck(percentage(), digitNonZero(), decimalPoint(), percentage(), digitNonZero());
+    public void testBigDecimalDigitSlashPercentageDigit() {
+        this.bigDecimalParseAndCheck(percentage(), digitNonZero(), decimalPoint(), percentage(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitPercentage() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), percentage());
+    public void testBigDecimalDigitSlashDigitPercentage() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), percentage());
     }
 
     // thousands
 
     @Test
-    public void testNumberThousandsDigitSlashDigit() {
-        this.numberParseAndCheck(thousands(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalThousandsDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(thousands(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitThousandsSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), thousands(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitThousandsSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), thousands(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashThousandsDigit() {
-        this.numberParseAndCheck(thousands(), digitNonZero(), decimalPoint(), thousands(), digitNonZero());
+    public void testBigDecimalDigitSlashThousandsDigit() {
+        this.bigDecimalParseAndCheck(thousands(), digitNonZero(), decimalPoint(), thousands(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitThousands() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), thousands());
+    public void testBigDecimalDigitSlashDigitThousands() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), thousands());
     }
 
     // text literals
@@ -1168,309 +1168,309 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     // escaped
 
     @Test
-    public void testNumberDigitEscapedDigitSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), escaped());
+    public void testBigDecimalDigitEscapedDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), escaped());
     }
 
     @Test
-    public void testNumberDigitEscapedSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), escaped(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitEscapedSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), escaped(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashEscapedDigit() {
-        this.numberParseAndCheck(escaped(), digitNonZero(), decimalPoint(), escaped(), digitNonZero());
+    public void testBigDecimalDigitSlashEscapedDigit() {
+        this.bigDecimalParseAndCheck(escaped(), digitNonZero(), decimalPoint(), escaped(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitEscaped() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), escaped());
+    public void testBigDecimalDigitSlashDigitEscaped() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), escaped());
     }
 
     // quotedText
 
     @Test
-    public void testNumberQuotedTextDigitSlashDigit() {
-        this.numberParseAndCheck(quotedText(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalQuotedTextDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(quotedText(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitQuotedTextSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), quotedText(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitQuotedTextSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), quotedText(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashQuotedTextDigit() {
-        this.numberParseAndCheck(quotedText(), digitNonZero(), decimalPoint(), quotedText(), digitNonZero());
+    public void testBigDecimalDigitSlashQuotedTextDigit() {
+        this.bigDecimalParseAndCheck(quotedText(), digitNonZero(), decimalPoint(), quotedText(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitQuotedText() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), quotedText());
+    public void testBigDecimalDigitSlashDigitQuotedText() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), quotedText());
     }
 
     // closeParens
 
     @Test
-    public void testNumberCloseParensDigitSlashDigit() {
-        this.numberParseAndCheck(textLiteralCloseParens(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalCloseParensDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(textLiteralCloseParens(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitCloseParensSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), textLiteralCloseParens(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitCloseParensSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), textLiteralCloseParens(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashCloseParensDigit() {
-        this.numberParseAndCheck(textLiteralCloseParens(), digitNonZero(), decimalPoint(), textLiteralCloseParens(), digitNonZero());
+    public void testBigDecimalDigitSlashCloseParensDigit() {
+        this.bigDecimalParseAndCheck(textLiteralCloseParens(), digitNonZero(), decimalPoint(), textLiteralCloseParens(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitCloseParens() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralCloseParens());
+    public void testBigDecimalDigitSlashDigitCloseParens() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralCloseParens());
     }
 
     // colon
 
     @Test
-    public void testNumberColonDigitSlashDigit() {
-        this.numberParseAndCheck(textLiteralColon(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalColonDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(textLiteralColon(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitColonSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), textLiteralColon(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitColonSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), textLiteralColon(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashColonDigit() {
-        this.numberParseAndCheck(textLiteralColon(), digitNonZero(), decimalPoint(), textLiteralColon(), digitNonZero());
+    public void testBigDecimalDigitSlashColonDigit() {
+        this.bigDecimalParseAndCheck(textLiteralColon(), digitNonZero(), decimalPoint(), textLiteralColon(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitColon() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralColon());
+    public void testBigDecimalDigitSlashDigitColon() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralColon());
     }
 
     // minus
 
     @Test
-    public void testNumberMinusDigitSlashDigit() {
-        this.numberParseAndCheck(textLiteralMinus(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalMinusDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(textLiteralMinus(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitMinusSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), textLiteralMinus(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitMinusSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), textLiteralMinus(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashMinusDigit() {
-        this.numberParseAndCheck(textLiteralMinus(), digitNonZero(), decimalPoint(), textLiteralMinus(), digitNonZero());
+    public void testBigDecimalDigitSlashMinusDigit() {
+        this.bigDecimalParseAndCheck(textLiteralMinus(), digitNonZero(), decimalPoint(), textLiteralMinus(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitMinus() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralMinus());
+    public void testBigDecimalDigitSlashDigitMinus() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralMinus());
     }
 
     // openParens
 
     @Test
-    public void testNumberOpenParensDigitSlashDigit() {
-        this.numberParseAndCheck(textLiteralOpenParens(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalOpenParensDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(textLiteralOpenParens(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitOpenParensSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), textLiteralOpenParens(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitOpenParensSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), textLiteralOpenParens(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashOpenParensDigit() {
-        this.numberParseAndCheck(textLiteralOpenParens(), digitNonZero(), decimalPoint(), textLiteralOpenParens(), digitNonZero());
+    public void testBigDecimalDigitSlashOpenParensDigit() {
+        this.bigDecimalParseAndCheck(textLiteralOpenParens(), digitNonZero(), decimalPoint(), textLiteralOpenParens(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitOpenParens() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralOpenParens());
+    public void testBigDecimalDigitSlashDigitOpenParens() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralOpenParens());
     }
 
     // plus
 
     @Test
-    public void testNumberPlusDigitSlashDigit() {
-        this.numberParseAndCheck(textLiteralPlus(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalPlusDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(textLiteralPlus(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitPlusSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), textLiteralPlus(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitPlusSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), textLiteralPlus(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashPlusDigit() {
-        this.numberParseAndCheck(textLiteralPlus(), digitNonZero(), decimalPoint(), textLiteralPlus(), digitNonZero());
+    public void testBigDecimalDigitSlashPlusDigit() {
+        this.bigDecimalParseAndCheck(textLiteralPlus(), digitNonZero(), decimalPoint(), textLiteralPlus(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitPlus() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralPlus());
+    public void testBigDecimalDigitSlashDigitPlus() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralPlus());
     }
 
     // space
 
     @Test
-    public void testNumberSpaceDigitSlashDigit() {
-        this.numberParseAndCheck(textLiteralSpace(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalSpaceDigitSlashDigit() {
+        this.bigDecimalParseAndCheck(textLiteralSpace(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSpaceSlashDigit() {
-        this.numberParseAndCheck(digitNonZero(), textLiteralSpace(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitSpaceSlashDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), textLiteralSpace(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashSpaceDigit() {
-        this.numberParseAndCheck(textLiteralSpace(), digitNonZero(), decimalPoint(), textLiteralSpace(), digitNonZero());
+    public void testBigDecimalDigitSlashSpaceDigit() {
+        this.bigDecimalParseAndCheck(textLiteralSpace(), digitNonZero(), decimalPoint(), textLiteralSpace(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitSlashDigitSpace() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralSpace());
+    public void testBigDecimalDigitSlashDigitSpace() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), textLiteralSpace());
     }
 
     // equals
 
     @Test
-    public void testNumberEqualsDigitNonZeroDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(equals(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalEqualsDigitNonZeroDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(equals(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroEqualsDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), equals(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroEqualsDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), equals(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointEqualsDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), equals(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDecimalPointEqualsDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), equals(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointDigitNonZeroEqualsFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), equals());
+    public void testBigDecimalDigitNonZeroDecimalPointDigitNonZeroEqualsFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), equals());
     }
 
     // greaterThan
 
     @Test
-    public void testNumberGreaterThanDigitNonZeroDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(greaterThan(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalGreaterThanDigitNonZeroDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(greaterThan(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroGreaterThanDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), greaterThan(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroGreaterThanDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), greaterThan(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointGreaterThanDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), greaterThan(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDecimalPointGreaterThanDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), greaterThan(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointDigitNonZeroGreaterThanFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), greaterThan());
+    public void testBigDecimalDigitNonZeroDecimalPointDigitNonZeroGreaterThanFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), greaterThan());
     }
 
     // greaterThanEquals
 
     @Test
-    public void testNumberGreaterThanEqualsDigitNonZeroDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(greaterThanEquals(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalGreaterThanEqualsDigitNonZeroDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(greaterThanEquals(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroGreaterThanEqualsDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), greaterThanEquals(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroGreaterThanEqualsDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), greaterThanEquals(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointGreaterThanEqualsDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), greaterThanEquals(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDecimalPointGreaterThanEqualsDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), greaterThanEquals(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointDigitNonZeroGreaterThanEqualsFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), greaterThanEquals());
+    public void testBigDecimalDigitNonZeroDecimalPointDigitNonZeroGreaterThanEqualsFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), greaterThanEquals());
     }
 
     // lessThan
 
     @Test
-    public void testNumberLessThanDigitNonZeroDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(lessThan(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalLessThanDigitNonZeroDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(lessThan(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroLessThanDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), lessThan(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroLessThanDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), lessThan(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointLessThanDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), lessThan(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDecimalPointLessThanDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), lessThan(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointDigitNonZeroLessThanFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), lessThan());
+    public void testBigDecimalDigitNonZeroDecimalPointDigitNonZeroLessThanFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), lessThan());
     }
 
     // lessThanEquals
 
     @Test
-    public void testNumberLessThanEqualsDigitNonZeroDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(lessThanEquals(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalLessThanEqualsDigitNonZeroDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(lessThanEquals(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroLessThanEqualsDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), lessThanEquals(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroLessThanEqualsDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), lessThanEquals(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointLessThanEqualsDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), lessThanEquals(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDecimalPointLessThanEqualsDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), lessThanEquals(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointDigitNonZeroLessThanEqualsFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), lessThanEquals());
+    public void testBigDecimalDigitNonZeroDecimalPointDigitNonZeroLessThanEqualsFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), lessThanEquals());
     }
 
     // notEquals
 
     @Test
-    public void testNumberNotEqualsDigitNonZeroDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(notEquals(), digitNonZero(), decimalPoint(), digitNonZero());
+    public void testBigDecimalNotEqualsDigitNonZeroDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(notEquals(), digitNonZero(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroNotEqualsDecimalPointDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), notEquals(), decimalPoint(), digitNonZero());
+    public void testBigDecimalDigitNonZeroNotEqualsDecimalPointDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), notEquals(), decimalPoint(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointNotEqualsDigitNonZeroFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), notEquals(), digitNonZero());
+    public void testBigDecimalDigitNonZeroDecimalPointNotEqualsDigitNonZeroFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), notEquals(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitNonZeroDecimalPointDigitNonZeroNotEqualsFails() {
-        this.numberParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), notEquals());
+    public void testBigDecimalDigitNonZeroDecimalPointDigitNonZeroNotEqualsFails() {
+        this.bigDecimalParseThrows(digitNonZero(), decimalPoint(), digitNonZero(), notEquals());
     }
 
     // exponent.............................................................................
@@ -1478,18 +1478,18 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     // currency
 
     @Test
-    public void testNumberDigitExponentCurrencyDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(currency()));
+    public void testBigDecimalDigitExponentCurrencyDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(currency()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitCurrencyDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(currency()));
+    public void testBigDecimalDigitExponentDigitCurrencyDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(currency()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitCurrency() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(currency()));
+    public void testBigDecimalDigitExponentDigitCurrency() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(currency()));
     }
 
     // text literals
@@ -1497,352 +1497,352 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     // escaped
 
     @Test
-    public void testNumberDigitExponentEscapedDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(escaped()));
+    public void testBigDecimalDigitExponentEscapedDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(escaped()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitEscapedDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(escaped()));
+    public void testBigDecimalDigitExponentDigitEscapedDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(escaped()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitEscaped() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(escaped()));
+    public void testBigDecimalDigitExponentDigitEscaped() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(escaped()));
     }
 
     // quotedText
 
     @Test
-    public void testNumberDigitExponentQuotedTextDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(quotedText()));
+    public void testBigDecimalDigitExponentQuotedTextDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(quotedText()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitQuotedTextDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(quotedText()));
+    public void testBigDecimalDigitExponentDigitQuotedTextDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(quotedText()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitQuotedText() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(quotedText()));
+    public void testBigDecimalDigitExponentDigitQuotedText() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(quotedText()));
     }
 
     // closeParens
 
     @Test
-    public void testNumberDigitExponentCloseParensDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(textLiteralCloseParens()));
+    public void testBigDecimalDigitExponentCloseParensDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(textLiteralCloseParens()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitCloseParensDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(textLiteralCloseParens()));
+    public void testBigDecimalDigitExponentDigitCloseParensDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(textLiteralCloseParens()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitCloseParens() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(textLiteralCloseParens()));
+    public void testBigDecimalDigitExponentDigitCloseParens() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(textLiteralCloseParens()));
     }
 
     // colon
 
     @Test
-    public void testNumberDigitExponentColonDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(textLiteralColon()));
+    public void testBigDecimalDigitExponentColonDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(textLiteralColon()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitColonDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(textLiteralColon()));
+    public void testBigDecimalDigitExponentDigitColonDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(textLiteralColon()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitColon() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(textLiteralColon()));
+    public void testBigDecimalDigitExponentDigitColon() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(textLiteralColon()));
     }
 
     // minus
 
     @Test
-    public void testNumberDigitExponentMinusDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(textLiteralMinus()));
+    public void testBigDecimalDigitExponentMinusDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(textLiteralMinus()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitMinusDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(textLiteralMinus()));
+    public void testBigDecimalDigitExponentDigitMinusDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(textLiteralMinus()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitMinus() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(textLiteralMinus()));
+    public void testBigDecimalDigitExponentDigitMinus() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(textLiteralMinus()));
     }
 
     // openParens
 
     @Test
-    public void testNumberDigitExponentOpenParensDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(textLiteralOpenParens()));
+    public void testBigDecimalDigitExponentOpenParensDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(textLiteralOpenParens()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitOpenParensDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(textLiteralOpenParens()));
+    public void testBigDecimalDigitExponentDigitOpenParensDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(textLiteralOpenParens()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitOpenParens() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(textLiteralOpenParens()));
+    public void testBigDecimalDigitExponentDigitOpenParens() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(textLiteralOpenParens()));
     }
 
     // plus
 
     @Test
-    public void testNumberDigitExponentPlusDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(textLiteralPlus()));
+    public void testBigDecimalDigitExponentPlusDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(textLiteralPlus()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitPlusDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(textLiteralPlus()));
+    public void testBigDecimalDigitExponentDigitPlusDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(textLiteralPlus()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitPlus() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(textLiteralPlus()));
+    public void testBigDecimalDigitExponentDigitPlus() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(textLiteralPlus()));
     }
 
     // space
 
     @Test
-    public void testNumberDigitExponentSpaceDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(textLiteralSpace()));
+    public void testBigDecimalDigitExponentSpaceDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(textLiteralSpace()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitSpaceDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(textLiteralSpace()));
+    public void testBigDecimalDigitExponentDigitSpaceDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(textLiteralSpace()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitSpace() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(textLiteralSpace()));
+    public void testBigDecimalDigitExponentDigitSpace() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(textLiteralSpace()));
     }
 
     // equals
 
     @Test
-    public void testNumberDigitExponentEqualsDigit() {
-        this.numberParseThrows(digitNonZero(), exponent1(equals()));
+    public void testBigDecimalDigitExponentEqualsDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent1(equals()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitEqualsDigit() {
-        this.numberParseThrows(digitNonZero(), exponent2(equals()));
+    public void testBigDecimalDigitExponentDigitEqualsDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent2(equals()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitEquals() {
-        this.numberParseThrows(digitNonZero(), exponent3(equals()));
+    public void testBigDecimalDigitExponentDigitEquals() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent3(equals()));
     }
 
     // greaterThan
 
     @Test
-    public void testNumberDigitExponentGreaterThanDigit() {
-        this.numberParseThrows(digitNonZero(), exponent1(greaterThan()));
+    public void testBigDecimalDigitExponentGreaterThanDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent1(greaterThan()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitGreaterThanDigit() {
-        this.numberParseThrows(digitNonZero(), exponent2(greaterThan()));
+    public void testBigDecimalDigitExponentDigitGreaterThanDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent2(greaterThan()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitGreaterThan() {
-        this.numberParseThrows(digitNonZero(), exponent3(greaterThan()));
+    public void testBigDecimalDigitExponentDigitGreaterThan() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent3(greaterThan()));
     }
 
     // greaterThanEquals
 
     @Test
-    public void testNumberDigitExponentGreaterThanEqualsDigit() {
-        this.numberParseThrows(digitNonZero(), exponent1(greaterThanEquals()));
+    public void testBigDecimalDigitExponentGreaterThanEqualsDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent1(greaterThanEquals()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitGreaterThanEqualsDigit() {
-        this.numberParseThrows(digitNonZero(), exponent2(greaterThanEquals()));
+    public void testBigDecimalDigitExponentDigitGreaterThanEqualsDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent2(greaterThanEquals()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitGreaterThanEquals() {
-        this.numberParseThrows(digitNonZero(), exponent3(greaterThanEquals()));
+    public void testBigDecimalDigitExponentDigitGreaterThanEquals() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent3(greaterThanEquals()));
     }
 
     // lessThan
 
     @Test
-    public void testNumberDigitExponentLessThanDigit() {
-        this.numberParseThrows(digitNonZero(), exponent1(lessThan()));
+    public void testBigDecimalDigitExponentLessThanDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent1(lessThan()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitLessThanDigit() {
-        this.numberParseThrows(digitNonZero(), exponent2(lessThan()));
+    public void testBigDecimalDigitExponentDigitLessThanDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent2(lessThan()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitLessThan() {
-        this.numberParseThrows(digitNonZero(), exponent3(lessThan()));
+    public void testBigDecimalDigitExponentDigitLessThan() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent3(lessThan()));
     }
 
     // lessThanEquals
 
     @Test
-    public void testNumberDigitExponentLessThanEqualsDigit() {
-        this.numberParseThrows(digitNonZero(), exponent1(lessThanEquals()));
+    public void testBigDecimalDigitExponentLessThanEqualsDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent1(lessThanEquals()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitLessThanEqualsDigit() {
-        this.numberParseThrows(digitNonZero(), exponent2(lessThanEquals()));
+    public void testBigDecimalDigitExponentDigitLessThanEqualsDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent2(lessThanEquals()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitLessThanEquals() {
-        this.numberParseThrows(digitNonZero(), exponent3(lessThanEquals()));
+    public void testBigDecimalDigitExponentDigitLessThanEquals() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent3(lessThanEquals()));
     }
 
     // notEquals
 
     @Test
-    public void testNumberDigitExponentNotEqualsDigit() {
-        this.numberParseThrows(digitNonZero(), exponent1(notEquals()));
+    public void testBigDecimalDigitExponentNotEqualsDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent1(notEquals()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitNotEqualsDigit() {
-        this.numberParseThrows(digitNonZero(), exponent2(notEquals()));
+    public void testBigDecimalDigitExponentDigitNotEqualsDigit() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent2(notEquals()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitNotEquals() {
-        this.numberParseThrows(digitNonZero(), exponent3(notEquals()));
+    public void testBigDecimalDigitExponentDigitNotEquals() {
+        this.bigDecimalParseThrows(digitNonZero(), exponent3(notEquals()));
     }
 
     // color
 
     @Test
-    public void testNumberColorDigit() {
-        this.numberParseAndCheck(color(), digitNonZero());
+    public void testBigDecimalColorDigit() {
+        this.bigDecimalParseAndCheck(color(), digitNonZero());
     }
 
     @Test
-    public void testNumberDigitColor() {
-        this.numberParseAndCheck(digitNonZero(), color());
+    public void testBigDecimalDigitColor() {
+        this.bigDecimalParseAndCheck(digitNonZero(), color());
     }
 
     @Test
-    public void testNumberDigitDecimalColor() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), color());
+    public void testBigDecimalDigitDecimalColor() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), color());
     }
 
     @Test
-    public void testNumberDigitDecimalDigitColor() {
-        this.numberParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), color());
+    public void testBigDecimalDigitDecimalDigitColor() {
+        this.bigDecimalParseAndCheck(digitNonZero(), decimalPoint(), digitNonZero(), color());
     }
 
     @Test
-    public void testNumberDigitExponentColorDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent1(color()));
+    public void testBigDecimalDigitExponentColorDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent1(color()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitColorDigit() {
-        this.numberParseAndCheck(digitNonZero(), exponent2(color()));
+    public void testBigDecimalDigitExponentDigitColorDigit() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent2(color()));
     }
 
     @Test
-    public void testNumberDigitExponentDigitColor() {
-        this.numberParseAndCheck(digitNonZero(), exponent3(color()));
+    public void testBigDecimalDigitExponentDigitColor() {
+        this.bigDecimalParseAndCheck(digitNonZero(), exponent3(color()));
     }
 
     // condition
 
     @Test
-    public void testNumberConditionEqualsNumber() {
-        this.numberParseAndCheck(conditionEquals(), digitNonZero());
+    public void testBigDecimalConditionEqualsNumber() {
+        this.bigDecimalParseAndCheck(conditionEquals(), digitNonZero());
     }
 
     @Test
-    public void testNumberConditionGreaterThanNumber() {
-        this.numberParseAndCheck(conditionGreaterThan(), digitNonZero());
+    public void testBigDecimalConditionGreaterThanNumber() {
+        this.bigDecimalParseAndCheck(conditionGreaterThan(), digitNonZero());
     }
 
     @Test
-    public void testNumberConditionGreaterThanEqualsNumber() {
-        this.numberParseAndCheck(conditionGreaterThanEquals(), digitNonZero());
+    public void testBigDecimalConditionGreaterThanEqualsNumber() {
+        this.bigDecimalParseAndCheck(conditionGreaterThanEquals(), digitNonZero());
     }
 
     @Test
-    public void testNumberConditionLessThanNumber() {
-        this.numberParseAndCheck(conditionLessThan(), digitNonZero());
+    public void testBigDecimalConditionLessThanNumber() {
+        this.bigDecimalParseAndCheck(conditionLessThan(), digitNonZero());
     }
 
     @Test
-    public void testNumberConditionLessThanEqualsNumber() {
-        this.numberParseAndCheck(conditionLessThanEquals(), digitNonZero());
+    public void testBigDecimalConditionLessThanEqualsNumber() {
+        this.bigDecimalParseAndCheck(conditionLessThanEquals(), digitNonZero());
     }
 
     @Test
-    public void testNumberConditionNotEqualsNumber() {
-        this.numberParseAndCheck(conditionNotEquals(), digitNonZero());
+    public void testBigDecimalConditionNotEqualsNumber() {
+        this.bigDecimalParseAndCheck(conditionNotEquals(), digitNonZero());
     }
 
     @Test
-    public void testNumberNumberConditionEquals() {
-        this.numberParseAndCheck(digitNonZero(), conditionEquals());
+    public void testBigDecimalNumberConditionEquals() {
+        this.bigDecimalParseAndCheck(digitNonZero(), conditionEquals());
     }
 
     @Test
-    public void testNumberNumberConditionGreaterThan() {
-        this.numberParseAndCheck(digitNonZero(), conditionGreaterThan());
+    public void testBigDecimalNumberConditionGreaterThan() {
+        this.bigDecimalParseAndCheck(digitNonZero(), conditionGreaterThan());
     }
 
     @Test
-    public void testNumberNumberConditionGreaterThanEquals() {
-        this.numberParseAndCheck(digitNonZero(), conditionGreaterThanEquals());
+    public void testBigDecimalNumberConditionGreaterThanEquals() {
+        this.bigDecimalParseAndCheck(digitNonZero(), conditionGreaterThanEquals());
     }
 
     @Test
-    public void testNumberNumberConditionLessThan() {
-        this.numberParseAndCheck(digitNonZero(), conditionLessThan());
+    public void testBigDecimalNumberConditionLessThan() {
+        this.bigDecimalParseAndCheck(digitNonZero(), conditionLessThan());
     }
 
     @Test
-    public void testNumberNumberConditionLessThanEquals() {
-        this.numberParseAndCheck(digitNonZero(), conditionLessThanEquals());
+    public void testBigDecimalNumberConditionLessThanEquals() {
+        this.bigDecimalParseAndCheck(digitNonZero(), conditionLessThanEquals());
     }
 
     @Test
-    public void testNumberNumberConditionNotEquals() {
-        this.numberParseAndCheck(digitNonZero(), conditionNotEquals());
+    public void testBigDecimalNumberConditionNotEquals() {
+        this.bigDecimalParseAndCheck(digitNonZero(), conditionNotEquals());
     }
 
-    // number helpers...
+    // bigDecimal helpers...
 
-    private void numberParseAndCheck(final SpreadsheetFormatParserToken... tokens) {
-        this.parseAndCheck2(this.numberParser(), SpreadsheetFormatParserToken::number, tokens);
+    private void bigDecimalParseAndCheck(final SpreadsheetFormatParserToken... tokens) {
+        this.parseAndCheck2(this.bigDecimalParser(), SpreadsheetFormatParserToken::bigDecimal, tokens);
     }
 
-    private void numberParseThrows(final SpreadsheetFormatParserToken... tokens) {
-        this.parseThrows2(this.numberParser(), tokens);
+    private void bigDecimalParseThrows(final SpreadsheetFormatParserToken... tokens) {
+        this.parseThrows2(this.bigDecimalParser(), tokens);
     }
 
-    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> numberParser() {
-        return SpreadsheetFormatParsers.number(this.bigDecimalNumberParser());
+    private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> bigDecimalParser() {
+        return SpreadsheetFormatParsers.bigDecimal(this.bigDecimalNumberParser());
     }
 
     // fraction........................................................................................................
@@ -3557,22 +3557,22 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
 
     @Test
     public void testExpressionEscaped() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, escaped()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, escaped()));
     }
 
     @Test
     public void testExpressionDollarFails() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, currency()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, currency()));
     }
 
     @Test
     public void testExpressionMinus() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralMinus()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, textLiteralMinus()));
     }
 
     @Test
     public void testExpressionPlus() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralPlus()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, textLiteralPlus()));
     }
 
     @Test
@@ -3582,27 +3582,27 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
 
     @Test
     public void testExpressionOpenParen() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralOpenParens()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, textLiteralOpenParens()));
     }
 
     @Test
     public void testExpressionCloseParen() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralCloseParens()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, textLiteralCloseParens()));
     }
 
     @Test
     public void testExpressionColon() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralColon()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, textLiteralColon()));
     }
 
     @Test
     public void testExpressionSpace() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, textLiteralSpace()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, textLiteralSpace()));
     }
 
     @Test
     public void testExpressionQuotedText() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, quotedText()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, quotedText()));
     }
 
     @Test
@@ -3662,72 +3662,72 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
 
     @Test
     public void testExpressionNumberDigit() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, digitNonZero()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()));
     }
 
     @Test
     public void testExpressionNumberDigitDecimalPointDigit() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, digitNonZero(), decimalPoint(), digitNonZero()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero(), decimalPoint(), digitNonZero()));
     }
 
     @Test
     public void testExpressionNumberSeparator() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, digitNonZero()),
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
                 separator());
     }
 
     @Test
     public void testExpressionNumberSeparatorNumber() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, digitNonZero()),
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, digitNonZero()));
+                token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()));
     }
 
     @Test
     public void testExpressionNumberSeparatorNumberSeparator() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, digitNonZero()),
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, digitNonZero()),
+                token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
                 separator());
     }
 
     @Test
     public void testExpressionNumberSeparatorNumberSeparatorNumber() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, digitNonZero()),
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, digitNonZero()),
+                token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, digitNonZero()));
+                token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()));
     }
 
     @Test
     public void testExpressionNumberSeparatorNumberSeparatorNumberSeparator() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, digitNonZero()),
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, digitNonZero()),
+                token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, digitNonZero()));
+                token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()));
     }
 
     @Test
     public void testExpressionConditionNumber() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, conditionEquals(), digitNonZero()));
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, conditionEquals(), digitNonZero()));
     }
 
     @Test
     public void testExpressionConditionNumberSeparatorConditionNumber() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, conditionEquals(), digitNonZero()),
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, conditionEquals(), digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, conditionEquals(), digitNonZero()));
+                token(SpreadsheetFormatParserToken::bigDecimal, conditionEquals(), digitNonZero()));
     }
 
     @Test
     public void testExpressionConditionNumberSeparatorConditionNumberSeparatorConditionNumber() {
-        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::number, conditionEquals(), digitNonZero()),
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, conditionEquals(), digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, conditionEquals(), digitNonZero()),
+                token(SpreadsheetFormatParserToken::bigDecimal, conditionEquals(), digitNonZero()),
                 separator(),
-                token(SpreadsheetFormatParserToken::number, conditionEquals(), digitNonZero()));
+                token(SpreadsheetFormatParserToken::bigDecimal, conditionEquals(), digitNonZero()));
     }
 
     // helpers..................................................................................................
@@ -3802,7 +3802,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
 
     private static SpreadsheetFormatParserToken bigDecimal() {
         final String text = "12.75";
-        return SpreadsheetFormatParserToken.bigDecimal(new BigDecimal(text), text);
+        return SpreadsheetFormatParserToken.conditionNumber(new BigDecimal(text), text);
     }
 
     private static SpreadsheetFormatParserToken closeSquareBracket() {

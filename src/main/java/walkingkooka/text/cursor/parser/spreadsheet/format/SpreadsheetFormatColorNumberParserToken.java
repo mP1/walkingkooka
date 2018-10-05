@@ -59,11 +59,6 @@ public final class SpreadsheetFormatColorNumberParserToken extends SpreadsheetFo
     }
 
     @Override
-    public boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
     public boolean isColorName() {
         return false;
     }
@@ -71,6 +66,11 @@ public final class SpreadsheetFormatColorNumberParserToken extends SpreadsheetFo
     @Override
     public boolean isColorNumber() {
         return true;
+    }
+
+    @Override
+    public boolean isConditionNumber() {
+        return false;
     }
 
     @Override

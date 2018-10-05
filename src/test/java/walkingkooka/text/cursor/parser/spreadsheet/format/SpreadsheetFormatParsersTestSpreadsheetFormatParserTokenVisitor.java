@@ -43,6 +43,17 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
     }
 
     @Override
+    protected Visiting startVisit(final SpreadsheetFormatBigDecimalParserToken token) {
+        this.enter();
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final SpreadsheetFormatBigDecimalParserToken token) {
+        this.exit(SpreadsheetFormatParserToken::bigDecimal);
+    }
+
+    @Override
     protected Visiting startVisit(final SpreadsheetFormatColorParserToken token) {
         this.enter();
         return super.startVisit(token);
@@ -186,17 +197,6 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
     }
 
     @Override
-    protected Visiting startVisit(final SpreadsheetFormatNumberParserToken token) {
-        this.enter();
-        return super.startVisit(token);
-    }
-
-    @Override
-    protected void endVisit(final SpreadsheetFormatNumberParserToken token) {
-        this.exit(SpreadsheetFormatParserToken::number);
-    }
-
-    @Override
     protected Visiting startVisit(final SpreadsheetFormatTextParserToken token) {
         this.enter();
         return super.startVisit(token);
@@ -224,11 +224,6 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
     }
 
     @Override
-    protected void visit(final SpreadsheetFormatBigDecimalParserToken token) {
-        this.add(token);
-    }
-
-    @Override
     protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken token) {
         this.add(token);
     }
@@ -245,6 +240,11 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatColorNumberParserToken token) {
+        this.add(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetFormatConditionNumberParserToken token) {
         this.add(token);
     }
 

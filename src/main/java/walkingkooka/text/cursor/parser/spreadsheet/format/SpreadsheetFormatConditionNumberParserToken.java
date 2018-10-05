@@ -17,23 +17,25 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
+import walkingkooka.tree.search.SearchNode;
+
+import java.math.BigDecimal;
 
 /**
- * Represents a hour placeholder.
+ * Holds the condition number argument.
  */
-public final class SpreadsheetFormatHourParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatConditionNumberParserToken extends SpreadsheetFormatLeafParserToken2<BigDecimal> {
 
-    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatHourParserToken.class);
+    public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatConditionNumberParserToken.class);
 
-    static SpreadsheetFormatHourParserToken with(final String value, final String text) {
+    static SpreadsheetFormatConditionNumberParserToken with(final BigDecimal value, final String text) {
         checkValue(value);
 
-        return new SpreadsheetFormatHourParserToken(value, text);
+        return new SpreadsheetFormatConditionNumberParserToken(value, text);
     }
 
-    private SpreadsheetFormatHourParserToken(final String value, final String text) {
+    private SpreadsheetFormatConditionNumberParserToken(final BigDecimal value, final String text) {
         super(value, text);
     }
 
@@ -43,13 +45,13 @@ public final class SpreadsheetFormatHourParserToken extends SpreadsheetFormatLea
     }
 
     @Override
-    public SpreadsheetFormatHourParserToken setText(final String text) {
+    public SpreadsheetFormatConditionNumberParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
     @Override
-    SpreadsheetFormatHourParserToken replaceText(final String text) {
-        return new SpreadsheetFormatHourParserToken(this.value, text);
+    SpreadsheetFormatConditionNumberParserToken replaceText(final String text) {
+        return new SpreadsheetFormatConditionNumberParserToken(this.value, text);
     }
 
     @Override
@@ -69,7 +71,7 @@ public final class SpreadsheetFormatHourParserToken extends SpreadsheetFormatLea
 
     @Override
     public boolean isConditionNumber() {
-        return false;
+        return true;
     }
 
     @Override
@@ -109,7 +111,7 @@ public final class SpreadsheetFormatHourParserToken extends SpreadsheetFormatLea
 
     @Override
     public boolean isHour() {
-        return true;
+        return false;
     }
 
     @Override
@@ -169,11 +171,18 @@ public final class SpreadsheetFormatHourParserToken extends SpreadsheetFormatLea
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SpreadsheetFormatHourParserToken;
+        return other instanceof SpreadsheetFormatConditionNumberParserToken;
     }
 
     @Override
     public ParserTokenNodeName name() {
         return NAME;
+    }
+
+    // HasSearchNode ...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode() {
+        return SearchNode.bigDecimal(this.text(), this.value());
     }
 }

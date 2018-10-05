@@ -74,6 +74,11 @@ public final class SpreadsheetFormatFractionParserToken extends SpreadsheetForma
     // isXXX...........................................................................................................
 
     @Override
+    public boolean isBigDecimal() {
+        return false;
+    }
+
+    @Override
     public boolean isColor() {
         return false;
     }
@@ -135,11 +140,6 @@ public final class SpreadsheetFormatFractionParserToken extends SpreadsheetForma
 
     @Override
     public boolean isNotEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isNumber() {
         return false;
     }
 

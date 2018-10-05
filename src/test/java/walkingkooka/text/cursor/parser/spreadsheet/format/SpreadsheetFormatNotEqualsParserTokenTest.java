@@ -69,7 +69,7 @@ public final class SpreadsheetFormatNotEqualsParserTokenTest extends Spreadsheet
             }
 
             @Override
-            protected void visit(final SpreadsheetFormatBigDecimalParserToken t) {
+            protected void visit(final SpreadsheetFormatConditionNumberParserToken t) {
                 assertSame(right, t);
                 b.append("5");
                 visited.add(t);

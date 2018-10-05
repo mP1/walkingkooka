@@ -15,32 +15,44 @@
  *
  *
  */
+
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.visit.Visiting;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 /**
- * Holds a single decimal number.
+ * A token that contains number formatting tokens.
  */
-public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFormatLeafParserToken2<BigDecimal> {
+public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFormatParentParserToken<SpreadsheetFormatBigDecimalParserToken> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatBigDecimalParserToken.class);
 
-    static SpreadsheetFormatBigDecimalParserToken with(final BigDecimal value, final String text) {
-        checkValue(value);
+    /**
+     * Factory that creates a new {@link SpreadsheetFormatBigDecimalParserToken}.
+     */
+    static SpreadsheetFormatBigDecimalParserToken with(final List<ParserToken> value, final String text) {
+        final List<ParserToken> copy = copyAndCheckTokensFailIfEmpty(value);
 
-        return new SpreadsheetFormatBigDecimalParserToken(value, text);
+        return new SpreadsheetFormatBigDecimalParserToken(copy,
+                text,
+                WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetFormatBigDecimalParserToken(final BigDecimal value, final String text) {
-        super(value, text);
+    /**
+     * Private ctor use helper.
+     */
+    private SpreadsheetFormatBigDecimalParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
+        super(value, text, valueWithout);
+
+        SpreadsheetFormatParentParserToken.class.cast(this.withoutSymbols().get()).value();
     }
 
     @Override
-    void checkText(final String text) {
+    void checkText(String text) {
         checkTextNullOrEmpty(text);
     }
 
@@ -50,14 +62,16 @@ public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFor
     }
 
     @Override
-    SpreadsheetFormatBigDecimalParserToken replaceText(final String text) {
-        return new SpreadsheetFormatBigDecimalParserToken(this.value, text);
+    public SpreadsheetFormatBigDecimalParserToken setValue(final List<ParserToken> values) {
+        return this.setValue0(values).cast();
     }
 
     @Override
-    public boolean isAmPm() {
-        return false;
+    SpreadsheetFormatParentParserToken replace(final List<ParserToken> tokens, final String text, final List<ParserToken> without) {
+        return new SpreadsheetFormatBigDecimalParserToken(tokens, text, without);
     }
+
+    // isXXX...........................................................................................................
 
     @Override
     public boolean isBigDecimal() {
@@ -65,108 +79,86 @@ public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFor
     }
 
     @Override
-    public boolean isColorName() {
+    public boolean isColor() {
         return false;
     }
 
     @Override
-    public boolean isColorNumber() {
+    public boolean isDate() {
         return false;
     }
 
     @Override
-    public boolean isCurrency() {
+    public boolean isDateTime() {
         return false;
     }
 
     @Override
-    public boolean isDay() {
+    public boolean isEquals() {
         return false;
     }
 
     @Override
-    public boolean isDecimalPoint() {
+    public boolean isExponent() {
         return false;
     }
 
     @Override
-    public boolean isDigit() {
+    public boolean isExpression() {
         return false;
     }
 
     @Override
-    public boolean isDigitLeadingSpace() {
+    public boolean isFraction() {
         return false;
     }
 
     @Override
-    public boolean isDigitLeadingZero() {
+    public boolean isGeneral() {
         return false;
     }
 
     @Override
-    public boolean isEscape() {
+    public boolean isGreaterThan() {
         return false;
     }
 
     @Override
-    public boolean isHour() {
+    public boolean isGreaterThanEquals() {
         return false;
     }
 
     @Override
-    public boolean isMonthOrMinute() {
+    public boolean isLessThan() {
         return false;
     }
 
     @Override
-    public boolean isQuotedText() {
+    public boolean isLessThanEquals() {
         return false;
     }
 
     @Override
-    public boolean isSecond() {
+    public boolean isNotEquals() {
         return false;
     }
 
     @Override
-    public boolean isStar() {
+    public boolean isText() {
         return false;
     }
 
     @Override
-    public boolean isTextLiteral() {
+    public boolean isTime() {
         return false;
     }
 
     @Override
-    public boolean isTextPlaceholder() {
-        return false;
-    }
-
-    @Override
-    public boolean isThousands() {
-        return false;
-    }
-
-    @Override
-    public boolean isUnderscore() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
-    public boolean isYear() {
-        return false;
-    }
-
-    @Override
-    public void accept(final SpreadsheetFormatParserTokenVisitor visitor) {
-        visitor.visit(this);
+    public void accept(SpreadsheetFormatParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptValues(visitor);
+        }
+        visitor.endVisit(this);
     }
 
     @Override
@@ -177,12 +169,5 @@ public final class SpreadsheetFormatBigDecimalParserToken extends SpreadsheetFor
     @Override
     public ParserTokenNodeName name() {
         return NAME;
-    }
-
-    // HasSearchNode ...............................................................................................
-
-    @Override
-    public SearchNode toSearchNode() {
-        return SearchNode.bigDecimal(this.text(), this.value());
     }
 }
