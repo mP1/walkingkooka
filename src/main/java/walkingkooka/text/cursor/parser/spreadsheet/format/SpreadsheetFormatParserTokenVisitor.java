@@ -28,6 +28,14 @@ import walkingkooka.tree.visit.Visitor;
  */
 public abstract class SpreadsheetFormatParserTokenVisitor extends ParserTokenVisitor {
 
+    protected Visiting startVisit(final SpreadsheetFormatBigDecimalParserToken token) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final SpreadsheetFormatBigDecimalParserToken token) {
+        // nop
+    }
+    
     protected Visiting startVisit(final SpreadsheetFormatColorParserToken token) {
         return Visiting.CONTINUE;
     }
@@ -132,14 +140,6 @@ public abstract class SpreadsheetFormatParserTokenVisitor extends ParserTokenVis
         // nop
     }
 
-    protected Visiting startVisit(final SpreadsheetFormatNumberParserToken token) {
-        return Visiting.CONTINUE;
-    }
-
-    protected void endVisit(final SpreadsheetFormatNumberParserToken token) {
-        // nop
-    }
-
     protected Visiting startVisit(final SpreadsheetFormatTextParserToken token) {
         return Visiting.CONTINUE;
     }
@@ -162,10 +162,6 @@ public abstract class SpreadsheetFormatParserTokenVisitor extends ParserTokenVis
         // nop
     }
 
-    protected void visit(final SpreadsheetFormatBigDecimalParserToken token) {
-        // nop
-    }
-
     protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken token) {
         // nop
     }
@@ -179,6 +175,10 @@ public abstract class SpreadsheetFormatParserTokenVisitor extends ParserTokenVis
     }
 
     protected void visit(final SpreadsheetFormatColorNumberParserToken token) {
+        // nop
+    }
+
+    protected void visit(final SpreadsheetFormatConditionNumberParserToken token) {
         // nop
     }
 

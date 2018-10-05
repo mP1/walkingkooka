@@ -18,13 +18,12 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
 
 public abstract class SpreadsheetFormatParserTokenVisitorTestCase<V extends SpreadsheetFormatParserTokenVisitor> extends ParserTokenVisitorTestCase<V, SpreadsheetFormatParserToken> {
 
     @Override
     protected String requiredNamePrefix() {
-        return "SpreadsheetFormat" + ParserToken.class.getSimpleName();
+        return SpreadsheetFormatParserToken.class.getSimpleName();
     }
 }

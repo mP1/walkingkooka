@@ -92,6 +92,11 @@ public final class SpreadsheetFormatColorParserToken extends SpreadsheetFormatPa
     // isXXX...........................................................................................................
 
     @Override
+    public boolean isBigDecimal() {
+        return false;
+    }
+
+    @Override
     public boolean isColor() {
         return true;
     }
@@ -153,11 +158,6 @@ public final class SpreadsheetFormatColorParserToken extends SpreadsheetFormatPa
 
     @Override
     public boolean isNotEquals() {
-        return false;
-    }
-
-    @Override
-    public boolean isNumber() {
         return false;
     }
 

@@ -66,12 +66,12 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     static final EbnfIdentifierName COLOR_IDENTIFIER = EbnfIdentifierName.with("COLOR");
 
     private static void color(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
-        predefined.put(COLOR_AND_NUMBER_IDENTIFIER, COLOR_AND_NUMBER);
+        predefined.put(COLOR_AND_BIGDECIMAL_IDENTIFIER, COLOR_AND_NUMBER);
         predefined.put(COLOR_NAME_IDENTIFIER, COLOR_NAME);
-        predefined.put(COLOR_NUMBER_IDENTIFIER, COLOR_NUMBER);
+        predefined.put(COLOR_BIGDECIMAL_IDENTIFIER, COLOR_NUMBER);
     }
 
-    private static final EbnfIdentifierName COLOR_AND_NUMBER_IDENTIFIER = EbnfIdentifierName.with("COLOR_AND_NUMBER");
+    private static final EbnfIdentifierName COLOR_AND_BIGDECIMAL_IDENTIFIER = EbnfIdentifierName.with("COLOR_AND_NUMBER");
 
 
     private static final EbnfIdentifierName COLOR_NAME_IDENTIFIER = EbnfIdentifierName.with("COLOR_NAME");
@@ -85,11 +85,11 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
         return SpreadsheetFormatParserToken.colorName(string.value(), string.text());
     }
 
-    private static final EbnfIdentifierName COLOR_NUMBER_IDENTIFIER = EbnfIdentifierName.with("COLOR_NUMBER");
+    private static final EbnfIdentifierName COLOR_BIGDECIMAL_IDENTIFIER = EbnfIdentifierName.with("COLOR_NUMBER");
 
     private static final Parser<ParserToken, ParserContext> COLOR_NUMBER = Parsers.bigInteger(10)
             .transform(((bigIntegerParserToken, parserContext) -> SpreadsheetFormatParserToken.colorNumber(bigIntegerParserToken.value().intValueExact(), bigIntegerParserToken.text())))
-            .setToString(COLOR_NUMBER_IDENTIFIER.toString())
+            .setToString(COLOR_BIGDECIMAL_IDENTIFIER.toString())
             .cast();
 
     private static final Parser<ParserToken, ParserContext> COLOR_AND_NUMBER = CaseSensitivity.INSENSITIVE.parser("COLOR")
@@ -118,8 +118,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
 
     private static void condition(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined,
                                   final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        predefined.put(DECIMAL_LITERAL_IDENTIFIER, number.transform(SpreadsheetFormatParsers::bigDecimal)
-                .setToString(DECIMAL_LITERAL_IDENTIFIER.toString())
+        predefined.put(CONDITION_BIGDECIMAL_LITERAL_IDENTIFIER, number.transform(SpreadsheetFormatParsers::conditionNumber)
+                .setToString(CONDITION_BIGDECIMAL_LITERAL_IDENTIFIER.toString())
                 .cast());
 
         predefined.put(EQUALS_SYMBOL_IDENTIFIER, EQUALS_SYMBOL);
@@ -130,10 +130,10 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
         predefined.put(LESS_THAN_EQUALS_SYMBOL_IDENTIFIER, LESS_THAN_EQUALS_SYMBOL);
     }
 
-    private static final EbnfIdentifierName DECIMAL_LITERAL_IDENTIFIER = EbnfIdentifierName.with("DECIMAL");
+    private static final EbnfIdentifierName CONDITION_BIGDECIMAL_LITERAL_IDENTIFIER = EbnfIdentifierName.with("CONDITION_NUMBER");
 
-    private static SpreadsheetFormatBigDecimalParserToken bigDecimal(final BigDecimalParserToken token, final ParserContext context) {
-        return SpreadsheetFormatBigDecimalParserToken.with(token.value(), token.text());
+    private static SpreadsheetFormatConditionNumberParserToken conditionNumber(final BigDecimalParserToken token, final ParserContext context) {
+        return SpreadsheetFormatConditionNumberParserToken.with(token.value(), token.text());
     }
 
     private static final Parser<ParserToken, ParserContext> EQUALS_SYMBOL = symbol('=',
@@ -274,24 +274,24 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
      * /**
      * Returns a {@link Parser} that given text returns a {@link SpreadsheetFormatParserToken}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> number(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, NUMBER_GENERAL_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> bigDecimal(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
+        return parserFromGrammar(number, BIGDECIMAL_GENERAL_IDENTIFIER);
     }
 
-    private static final EbnfIdentifierName NUMBER_GENERAL_IDENTIFIER = EbnfIdentifierName.with("NUMBER_GENERAL");
+    private static final EbnfIdentifierName BIGDECIMAL_GENERAL_IDENTIFIER = EbnfIdentifierName.with("BIGDECIMAL_GENERAL");
 
-    private static void number(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
-        predefined.put(DECIMAL_POINT_IDENTIFIER, DECIMAL_POINT_PARSER);
+    private static void bigDecimal(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
+        predefined.put(BIGDECIMAL_DECIMAL_POINT_IDENTIFIER, DECIMAL_POINT_PARSER);
         predefined.put(CURRENCY_IDENTIFIER, CURRENCY);
         predefined.put(FRACTION_SYMBOL_IDENTIFIER, FRACTION_SYMBOL);
         predefined.put(LEADING_ZERO_IDENTIFIER, LEADING_ZERO);
         predefined.put(LEADING_SPACE_IDENTIFIER, LEADING_SPACE);
         predefined.put(NON_ZERO_IDENTIFIER, NON_ZERO);
-        predefined.put(PERCENTAGE_IDENTIFIER, PERCENTAGE);
+        predefined.put(BIGDECIMAL_PERCENTAGE_IDENTIFIER, BIGDECIMAL_PERCENTAGE);
         predefined.put(THOUSANDS_IDENTIFIER, THOUSANDS);
     }
 
-    private static final EbnfIdentifierName DECIMAL_POINT_IDENTIFIER = EbnfIdentifierName.with("DECIMAL_POINT");
+    private static final EbnfIdentifierName BIGDECIMAL_DECIMAL_POINT_IDENTIFIER = EbnfIdentifierName.with("BIGDECIMAL_DECIMAL_POINT");
     private static final Parser<ParserToken, ParserContext> DECIMAL_POINT_PARSER = symbol('.',
             SpreadsheetFormatParserToken::decimalPoint,
             SpreadsheetFormatDecimalPointParserToken.class);
@@ -322,8 +322,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
             SpreadsheetFormatParserToken::digit,
             SpreadsheetFormatDigitParserToken.class);
 
-    private static final EbnfIdentifierName PERCENTAGE_IDENTIFIER = EbnfIdentifierName.with("PERCENTAGE");
-    private static final Parser<ParserToken, ParserContext> PERCENTAGE = symbol('%',
+    private static final EbnfIdentifierName BIGDECIMAL_PERCENTAGE_IDENTIFIER = EbnfIdentifierName.with("BIGDECIMAL_PERCENTAGE");
+    private static final Parser<ParserToken, ParserContext> BIGDECIMAL_PERCENTAGE = symbol('%',
             SpreadsheetFormatParserToken::percentSymbol,
             SpreadsheetFormatPercentSymbolParserToken.class);
 
@@ -464,7 +464,7 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
             date(predefined);
             dateAndTime(predefined);
             general(predefined);
-            number(predefined);
+            bigDecimal(predefined);
             text(predefined);
             time(predefined);
 

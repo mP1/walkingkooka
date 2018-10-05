@@ -144,16 +144,16 @@ public abstract class SpreadsheetFormatParentParserTokenTestCase<T extends Sprea
         return SpreadsheetFormatParserToken.fractionSymbol("/", "/");
     }
 
-    final SpreadsheetFormatBigDecimalParserToken number1() {
+    final SpreadsheetFormatConditionNumberParserToken number1() {
         return this.number(1);
     }
 
-    final SpreadsheetFormatBigDecimalParserToken number2() {
+    final SpreadsheetFormatConditionNumberParserToken number2() {
         return this.number(2);
     }
 
-    final SpreadsheetFormatBigDecimalParserToken number(final int value) {
-        return SpreadsheetFormatParserToken.bigDecimal(BigDecimal.valueOf(value), String.valueOf(value));
+    final SpreadsheetFormatConditionNumberParserToken number(final int value) {
+        return SpreadsheetFormatParserToken.conditionNumber(BigDecimal.valueOf(value), String.valueOf(value));
     }
 
     final SpreadsheetFormatPercentSymbolParserToken percentSymbol() {

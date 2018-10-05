@@ -65,6 +65,18 @@ final class SpreadsheetFormatParserPrettySpreadsheetFormatParserTokenVisitor ext
     }
 
     @Override
+    protected Visiting startVisit(final SpreadsheetFormatBigDecimalParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final SpreadsheetFormatBigDecimalParserToken token) {
+        this.printer.exit(token);
+        super.endVisit(token);
+    }
+
+    @Override
     protected Visiting startVisit(final SpreadsheetFormatColorParserToken token) {
         this.printer.enter(token);
         return super.startVisit(token);
@@ -209,18 +221,6 @@ final class SpreadsheetFormatParserPrettySpreadsheetFormatParserTokenVisitor ext
     }
 
     @Override
-    protected Visiting startVisit(final SpreadsheetFormatNumberParserToken token) {
-        this.printer.enter(token);
-        return super.startVisit(token);
-    }
-
-    @Override
-    protected void endVisit(final SpreadsheetFormatNumberParserToken token) {
-        this.printer.exit(token);
-        super.endVisit(token);
-    }
-
-    @Override
     protected Visiting startVisit(final SpreadsheetFormatTextParserToken token) {
         this.printer.enter(token);
         return super.startVisit(token);
@@ -250,11 +250,6 @@ final class SpreadsheetFormatParserPrettySpreadsheetFormatParserTokenVisitor ext
     }
 
     @Override
-    protected void visit(final SpreadsheetFormatBigDecimalParserToken token) {
-        this.printer.leaf(token);
-    }
-
-    @Override
     protected void visit(final SpreadsheetFormatCloseBracketSymbolParserToken token) {
         this.printer.leaf(token);
     }
@@ -271,6 +266,11 @@ final class SpreadsheetFormatParserPrettySpreadsheetFormatParserTokenVisitor ext
 
     @Override
     protected void visit(final SpreadsheetFormatColorNumberParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final SpreadsheetFormatConditionNumberParserToken token) {
         this.printer.leaf(token);
     }
 

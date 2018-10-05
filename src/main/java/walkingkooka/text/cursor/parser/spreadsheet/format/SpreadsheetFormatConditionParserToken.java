@@ -37,7 +37,7 @@ abstract class SpreadsheetFormatConditionParserToken<T extends SpreadsheetFormat
         }
 
         final Optional<SpreadsheetFormatParserToken> bigDecimal = without.stream()
-                .filter(t -> t.isBigDecimal())
+                .filter(t -> t.isConditionNumber())
                 .findFirst();
         if (!bigDecimal.isPresent()) {
             throw new IllegalArgumentException("Missing number token got " + value);
@@ -56,6 +56,11 @@ abstract class SpreadsheetFormatConditionParserToken<T extends SpreadsheetFormat
     }
 
     final SpreadsheetFormatParserToken right;
+
+    @Override
+    public final boolean isBigDecimal() {
+        return false;
+    }
 
     @Override
     public final boolean isColor() {
@@ -89,11 +94,6 @@ abstract class SpreadsheetFormatConditionParserToken<T extends SpreadsheetFormat
 
     @Override
     public final boolean isGeneral() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNumber() {
         return false;
     }
 

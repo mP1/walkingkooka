@@ -57,17 +57,17 @@ public final class SpreadsheetFormatThousandsParserToken extends SpreadsheetForm
     }
 
     @Override
-    public boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
     public boolean isColorName() {
         return false;
     }
 
     @Override
     public boolean isColorNumber() {
+        return false;
+    }
+
+    @Override
+    public boolean isConditionNumber() {
         return false;
     }
 

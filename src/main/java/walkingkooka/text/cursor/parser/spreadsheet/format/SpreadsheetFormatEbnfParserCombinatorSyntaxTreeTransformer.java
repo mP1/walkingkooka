@@ -102,11 +102,11 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
                                                                                 parser.transform(this::dateTime) :
                                                                                 name.equals(SpreadsheetFormatParsers.EXPRESSION_IDENTIFIER) ?
                                                                                         parser.transform(this::expression) :
-                                                                                        name.equals(NUMBER_IDENTIFIER) ?
-                                                                                                parser.transform(this::decimal) :
-                                                                                                name.equals(NUMBER_EXPONENT_IDENTIFIER) ?
-                                                                                                        parser.transform(this::exponent) :
-                                                                                                        name.equals(NUMBER_EXPONENT_SYMBOL_IDENTIFIER) ?
+                                                                                        name.equals(BIGDECIMAL_IDENTIFIER) ?
+                                                                                                parser.transform(this::bigDecimal) :
+                                                                                                name.equals(BIGDECIMAL_EXPONENT_IDENTIFIER) ?
+                                                                                                        parser.transform(this::bigDecimalExponent) :
+                                                                                                        name.equals(BIGDECIMAL_EXPONENT_SYMBOL_IDENTIFIER) ?
                                                                                                                 parser.transform(this::exponentSymbol) :
                                                                                                                 name.equals(FRACTION_IDENTIFIER) ?
                                                                                                                         parser.transform(this::fraction) :
@@ -173,19 +173,19 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
     private static final EbnfIdentifierName DATETIME_IDENTIFIER = EbnfIdentifierName.with("DATETIME");
     private static final EbnfIdentifierName DATETIME2_IDENTIFIER = EbnfIdentifierName.with("DATETIME2");
 
-    private ParserToken decimal(final ParserToken token, final ParserContext context) {
-        return this.clean(token, SpreadsheetFormatParserToken::number);
+    private ParserToken bigDecimal(final ParserToken token, final ParserContext context) {
+        return this.clean(token, SpreadsheetFormatParserToken::bigDecimal);
     }
 
-    private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
+    private static final EbnfIdentifierName BIGDECIMAL_IDENTIFIER = EbnfIdentifierName.with("BIGDECIMAL");
 
-    private static final EbnfIdentifierName NUMBER_EXPONENT_IDENTIFIER = EbnfIdentifierName.with("NUMBER_EXPONENT");
+    private static final EbnfIdentifierName BIGDECIMAL_EXPONENT_IDENTIFIER = EbnfIdentifierName.with("BIGDECIMAL_EXPONENT");
 
-    private ParserToken exponent(final ParserToken token, final ParserContext context) {
+    private ParserToken bigDecimalExponent(final ParserToken token, final ParserContext context) {
         return this.clean(token, SpreadsheetFormatParserToken::exponent);
     }
 
-    private static final EbnfIdentifierName NUMBER_EXPONENT_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("NUMBER_EXPONENT_SYMBOL");
+    private static final EbnfIdentifierName BIGDECIMAL_EXPONENT_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("BIGDECIMAL_EXPONENT_SYMBOL");
 
     private ParserToken exponentSymbol(final ParserToken token, final ParserContext context) {
         final StringParserToken stringParserToken = StringParserToken.class.cast(token);
@@ -195,8 +195,6 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
     private ParserToken expression(final ParserToken token, final ParserContext context) {
         return this.clean(token, SpreadsheetFormatParserToken::expression);
     }
-
-    private static final EbnfIdentifierName EXPRESSION_IDENTIFIER = EbnfIdentifierName.with("EXPRESSION");
 
     private ParserToken fraction(final ParserToken token, final ParserContext context) {
         return this.clean(token, SpreadsheetFormatParserToken::fraction);

@@ -7,7 +7,7 @@ EXPRESSION                        = EXPRESSION_COMPONENT,
                                     [ EXPRESSION_SEPARATOR,
                                       TEXT ]]]]];
 
-EXPRESSION_COMPONENT              = GENERAL | DATETIME2 | FRACTION | NUMBER;
+EXPRESSION_COMPONENT              = GENERAL | DATETIME2 | FRACTION | BIGDECIMAL;
 
 
 
@@ -27,7 +27,7 @@ CONDITION_EQUAL                   = OPEN_SQUARE_BRACKET,
                                     [ WHITESPACE ],
                                     EQUALS,
                                     [ WHITESPACE ],
-                                    DECIMAL,
+                                    CONDITION_NUMBER,
                                     [ WHITESPACE ],
                                     CLOSE_SQUARE_BRACKET;
                                     
@@ -35,7 +35,7 @@ CONDITION_GREATER_THAN            = OPEN_SQUARE_BRACKET,
                                     [ WHITESPACE ],
                                     GREATER_THAN,
                                     [ WHITESPACE ],
-                                    DECIMAL,
+                                    CONDITION_NUMBER,
                                     [ WHITESPACE ],
                                     CLOSE_SQUARE_BRACKET;
 
@@ -43,7 +43,7 @@ CONDITION_GREATER_THAN_EQUAL      = OPEN_SQUARE_BRACKET,
                                     [ WHITESPACE ],
                                     GREATER_THAN_EQUALS,
                                     [ WHITESPACE ],
-                                    DECIMAL,
+                                    CONDITION_NUMBER,
                                     [ WHITESPACE ],
                                     CLOSE_SQUARE_BRACKET;
                                     
@@ -51,7 +51,7 @@ CONDITION_LESS_THAN               = OPEN_SQUARE_BRACKET,
                                     [ WHITESPACE ],
                                     LESS_THAN,
                                     [ WHITESPACE ],
-                                    DECIMAL,
+                                    CONDITION_NUMBER,
                                     [ WHITESPACE ],
                                     CLOSE_SQUARE_BRACKET;
 
@@ -59,7 +59,7 @@ CONDITION_LESS_THAN_EQUAL         = OPEN_SQUARE_BRACKET,
                                     [ WHITESPACE ],
                                     LESS_THAN_EQUALS,
                                     [ WHITESPACE ],
-                                    DECIMAL,
+                                    CONDITION_NUMBER,
                                     [ WHITESPACE ],
                                     CLOSE_SQUARE_BRACKET;
                                     
@@ -67,7 +67,7 @@ CONDITION_NOT_EQUAL               = OPEN_SQUARE_BRACKET,
                                     [ WHITESPACE ],
                                     NOT_EQUALS,
                                     [ WHITESPACE ],
-                                    DECIMAL,
+                                    CONDITION_NUMBER,
                                     [ WHITESPACE ],
                                     CLOSE_SQUARE_BRACKET;
 
@@ -138,18 +138,18 @@ FRACTION_DIGIT                    = LEADING_ZERO | LEADING_SPACE | NON_ZERO;
 
 
 
-(* number .......................................................................*)
-NUMBER_GENERAL                    = GENERAL | NUMBER;
+(* BIGDECIMAL .......................................................................*)
+BIGDECIMAL_GENERAL                = GENERAL | BIGDECIMAL;
 
-NUMBER                            = [{ DECIMAL_POINT | NUMBER_DIGIT | NUMBER_LITERAL | NUMBER_EXPONENT | PERCENTAGE }];
+BIGDECIMAL                        = [{ BIGDECIMAL_DECIMAL_POINT | BIGDECIMAL_DIGIT | BIGDECIMAL_LITERAL | BIGDECIMAL_EXPONENT | BIGDECIMAL_PERCENTAGE }];
 
-NUMBER_EXPONENT                   = NUMBER_EXPONENT_SYMBOL,
-                                    [{ DECIMAL_POINT | NUMBER_DIGIT | NUMBER_LITERAL }];
+BIGDECIMAL_EXPONENT               = BIGDECIMAL_EXPONENT_SYMBOL,
+                                    [{ BIGDECIMAL_DECIMAL_POINT | BIGDECIMAL_DIGIT | BIGDECIMAL_LITERAL }];
 
-NUMBER_EXPONENT_SYMBOL            = ( 'E+' | 'e+' | 'E-' | 'e-' );
+BIGDECIMAL_EXPONENT_SYMBOL        = ( 'E+' | 'e+' | 'E-' | 'e-' );
 
-NUMBER_LITERAL                    = COLOR | CONDITION | CURRENCY | ESCAPE | LITERAL2 | PERCENTAGE | QUOTED;
-NUMBER_DIGIT                      = LEADING_ZERO | LEADING_SPACE | NON_ZERO | THOUSANDS;
+BIGDECIMAL_LITERAL                = COLOR | CONDITION | CURRENCY | ESCAPE | LITERAL2 | BIGDECIMAL_PERCENTAGE | QUOTED;
+BIGDECIMAL_DIGIT                  = LEADING_ZERO | LEADING_SPACE | NON_ZERO | THOUSANDS;
 
 
 

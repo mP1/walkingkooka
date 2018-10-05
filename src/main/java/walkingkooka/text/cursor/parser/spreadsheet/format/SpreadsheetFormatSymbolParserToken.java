@@ -46,17 +46,17 @@ abstract class SpreadsheetFormatSymbolParserToken extends SpreadsheetFormatLeafP
     }
 
     @Override
-    public final boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
     public final boolean isColorName() {
         return false;
     }
 
     @Override
     public final boolean isColorNumber() {
+        return false;
+    }
+
+    @Override
+    public final boolean isConditionNumber() {
         return false;
     }
 

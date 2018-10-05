@@ -58,17 +58,17 @@ public final class SpreadsheetFormatQuotedTextParserToken extends SpreadsheetFor
     }
 
     @Override
-    public boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
     public boolean isColorName() {
         return false;
     }
 
     @Override
     public boolean isColorNumber() {
+        return false;
+    }
+
+    @Override
+    public boolean isConditionNumber() {
         return false;
     }
 

@@ -15,78 +15,113 @@
  *
  *
  */
+
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormatBigDecimalParserTokenTest extends SpreadsheetFormatLeafParserTokenTestCase<SpreadsheetFormatBigDecimalParserToken, BigDecimal> {
+public final class SpreadsheetFormatBigDecimalParserTokenTest extends SpreadsheetFormatParentParserTokenTestCase<SpreadsheetFormatBigDecimalParserToken> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
+        final List<ParserToken> visited = Lists.array();
+
         final SpreadsheetFormatBigDecimalParserToken token = this.createToken();
+        final SpreadsheetFormatParserToken text = token.value().get(0).cast();
+        final SpreadsheetFormatParserToken digit = token.value().get(1).cast();
 
         new FakeSpreadsheetFormatParserTokenVisitor() {
             @Override
-            protected Visiting startVisit(final ParserToken t) {
-                assertSame(token, t);
+            protected Visiting startVisit(final SpreadsheetFormatParserToken n) {
                 b.append("1");
+                visited.add(n);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final SpreadsheetFormatParserToken n) {
+                b.append("2");
+                visited.add(n);
+            }
+
+            @Override
+            protected Visiting startVisit(final SpreadsheetFormatBigDecimalParserToken t) {
+                assertSame(token, t);
+                b.append("3");
+                visited.add(t);
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final SpreadsheetFormatBigDecimalParserToken t) {
+                assertSame(token, t);
+                b.append("4");
+                visited.add(t);
+            }
+
+            @Override
+            protected void visit(final SpreadsheetFormatTextLiteralParserToken t) {
+                assertSame(text, t);
+                b.append("5");
+                visited.add(t);
+            }
+
+            @Override
+            protected void visit(final SpreadsheetFormatDigitParserToken t) {
+                assertSame(digit, t);
+                b.append("6");
+                visited.add(t);
+            }
+
+            @Override
+            protected Visiting startVisit(final ParserToken t) {
+                b.append("7");
+                visited.add(t);
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisit(final ParserToken t) {
-                assertSame(token, t);
-                b.append("2");
-            }
-
-            @Override
-            protected Visiting startVisit(final SpreadsheetFormatParserToken t) {
-                assertSame(token, t);
-                b.append("3");
-                return Visiting.CONTINUE;
-            }
-
-            @Override
-            protected void endVisit(final SpreadsheetFormatParserToken t) {
-                assertSame(token, t);
-                b.append("4");
-            }
-
-            @Override
-            protected void visit(final SpreadsheetFormatBigDecimalParserToken t) {
-                assertSame(token, t);
-                b.append("5");
+                b.append("8");
+                visited.add(t);
             }
         }.accept(token);
-        assertEquals("13542", b.toString());
+        assertEquals("7137152871628428", b.toString());
+        assertEquals("visited",
+                Lists.of(token, token, token,
+                        text, text, text, text, text,
+                        digit, digit, digit, digit, digit,
+                        token, token, token),
+                visited);
+    }
+
+    @Override
+    SpreadsheetFormatBigDecimalParserToken createToken(final String text, final List<ParserToken> tokens) {
+        return SpreadsheetFormatBigDecimalParserToken.with(tokens, text);
+    }
+
+    @Override
+    List<ParserToken> tokens() {
+        return Lists.of(this.text1(), this.digit().cast());
     }
 
     @Override
     protected String text() {
-        return "123.5";
-    }
-
-    @Override
-    BigDecimal value() {
-        return new BigDecimal(this.text());
-    }
-
-    @Override
-    protected SpreadsheetFormatBigDecimalParserToken createToken(final BigDecimal value, final String text) {
-        return SpreadsheetFormatBigDecimalParserToken.with(value, text);
+        return TEXT1 + "#";
     }
 
     @Override
     protected SpreadsheetFormatBigDecimalParserToken createDifferentToken() {
-        return SpreadsheetFormatBigDecimalParserToken.with(new BigDecimal(-1), "'different'");
+        return SpreadsheetFormatBigDecimalParserToken.with(Lists.of(this.text2()), TEXT2);
     }
 
     @Override

@@ -44,6 +44,11 @@ abstract class SpreadsheetFormatLeafParserToken<T> extends SpreadsheetFormatPars
     // isXXX..............................................................................................................
 
     @Override
+    public final boolean isBigDecimal() {
+        return false;
+    }
+
+    @Override
     public final boolean isColor() {
         return false;
     }
@@ -105,11 +110,6 @@ abstract class SpreadsheetFormatLeafParserToken<T> extends SpreadsheetFormatPars
 
     @Override
     public final boolean isNotEquals() {
-        return false;
-    }
-
-    @Override
-    public final boolean isNumber() {
         return false;
     }
 

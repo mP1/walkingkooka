@@ -101,11 +101,6 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
     }
 
     @Override
-    public final boolean isBigDecimal() {
-        return false;
-    }
-
-    @Override
     public final boolean isCloseBracketSymbol() {
         return false;
     }
@@ -122,6 +117,11 @@ abstract class SpreadsheetFormatParentParserToken<T extends SpreadsheetFormatPar
 
     @Override
     public final boolean isColorNumber() {
+        return false;
+    }
+
+    @Override
+    public final boolean isConditionNumber() {
         return false;
     }
 
