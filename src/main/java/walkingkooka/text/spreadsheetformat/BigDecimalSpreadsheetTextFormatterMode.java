@@ -32,7 +32,6 @@ enum BigDecimalSpreadsheetTextFormatterMode {
         @Override
         void decimalPoint(final BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor visitor) {
             visitor.mode = FRACTION;
-            visitor.add(BigDecimalSpreadsheetTextFormatterComponent.decimalPointSymbol());
         }
 
         @Override
@@ -99,7 +98,7 @@ enum BigDecimalSpreadsheetTextFormatterMode {
         @Override
         void exponent(final SpreadsheetFormatExponentParserToken token,
                       final BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor visitor) {
-            // nop
+            // impossible parser doesnt support
         }
 
         @Override

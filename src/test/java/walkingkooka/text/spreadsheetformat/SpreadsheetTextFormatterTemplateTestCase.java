@@ -30,7 +30,9 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 
 import java.math.MathContext;
 
-public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends SpreadsheetTextFormatterTemplate<V>,
+import static org.junit.Assert.assertEquals;
+
+public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends SpreadsheetTextFormatterTemplate<V, T>,
         V,
         T extends SpreadsheetFormatParserToken>
         extends SpreadsheetTextFormatterTestCase<F, V> {
@@ -38,6 +40,11 @@ public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends Spreads
     @Test(expected = NullPointerException.class)
     public final void testWithNullParserTokenFails() {
         this.createFormatter0(null);
+    }
+
+    @Test
+    public final void testToString() {
+        assertEquals(this.pattern(), this.createFormatter().toString());
     }
 
     @Override

@@ -33,6 +33,9 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
         this.createFormatter().format(this.value(), null);
     }
 
+    @Test
+    public abstract void testToString();
+
     protected abstract F createFormatter();
 
     protected abstract V value();

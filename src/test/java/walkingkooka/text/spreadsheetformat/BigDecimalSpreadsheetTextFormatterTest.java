@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
@@ -1163,6 +1164,23 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
     @Test
     public void testThousandsDividerCommaCommaDecimal123456789() {
         this.parseFormatAndCheck("0,,.0000##########,", 123456789, "++123..456789");
+    }
+
+    // misc tests...........................................................................................
+
+    @Test
+    public void testFractionDecimal() {
+        this.parseFormatAndCheck("#.#.", 1.5, "++1..5..");
+    }
+
+    @Test(expected = ParserReporterException.class)
+    public void testExponentDecimalFails() {
+        this.createFormatter("#E#.");
+    }
+
+    @Test(expected = ParserReporterException.class)
+    public void testExponentExponentFails() {
+        this.createFormatter("#E0E0");
     }
 
     //helpers .......................................................................................................

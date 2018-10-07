@@ -18,8 +18,26 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import org.junit.Test;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
+
+import static org.junit.Assert.assertEquals;
+
 public final class LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitorTest extends
         TextFormatterSpreadsheetFormatParserTokenVisitorTestCase<LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor> {
+
+    @Test
+    public void testToString24h() {
+        assertEquals("24h", this.createParserTokenVisitor().toString());
+    }
+
+    @Test
+    public void testToString12h() {
+        final LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor visitor = this.createParserTokenVisitor();
+        visitor.accept(SpreadsheetFormatParserToken.amPm("AMPM", "AMPM"));
+        assertEquals("12h", visitor.toString());
+    }
+
     @Override
     protected LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor createParserTokenVisitor() {
         return new LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor();
@@ -27,7 +45,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatPar
 
     @Override
     protected String requiredNamePrefix() {
-        return "LocalDateTimeSpreadsheetTextFormatter";
+        return LocalDateTimeSpreadsheetTextFormatter.class.getSimpleName();
     }
 
     @Override

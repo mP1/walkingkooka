@@ -18,18 +18,13 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.color.Color;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNameParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNumberParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatEscapeParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatQuotedTextParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatStarParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextLiteralParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextPlaceholderParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatUnderscoreParserToken;
-
-import java.util.Optional;
 
 /**
  * This visitor is used exclusively by {@link TextSpreadsheetTextFormatter#format(Object, SpreadsheetTextFormatContext)}.
@@ -40,10 +35,10 @@ final class TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor exte
     /**
      * Visits all the individual tokens in the given token which was compiled from the given pattern.
      */
-    static SpreadsheetFormattedText format(final SpreadsheetFormatParserToken token, final String value, final SpreadsheetTextFormatContext context) {
+    static SpreadsheetFormattedText format(final SpreadsheetFormatTextParserToken token, final String value, final SpreadsheetTextFormatContext context) {
         final TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor visitor = new TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor(value, context);
         visitor.accept(token);
-        return SpreadsheetFormattedText.with(Optional.ofNullable(visitor.color), visitor.text.toString());
+        return SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, visitor.text.toString());
     }
 
     /**
@@ -54,22 +49,6 @@ final class TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor exte
         this.context = context;
         this.value = value;
     }
-
-    @Override
-    protected final void visit(final SpreadsheetFormatColorNameParserToken token) {
-        this.color = this.context.colorName(token.value());
-    }
-
-    @Override
-    protected final void visit(final SpreadsheetFormatColorNumberParserToken token) {
-        this.color = this.context.colorNumber(token.value());
-    }
-
-    /**
-     * Will be set either the {@link SpreadsheetFormatColorNameParserToken} or {@link SpreadsheetFormatColorNumberParserToken}
-     * is encountered.
-     */
-    private Color color = null;
 
     @Override
     protected void visit(final SpreadsheetFormatEscapeParserToken token) {
