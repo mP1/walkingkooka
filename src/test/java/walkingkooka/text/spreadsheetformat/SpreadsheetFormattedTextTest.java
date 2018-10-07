@@ -26,6 +26,8 @@ import walkingkooka.text.CharSequences;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 public final class SpreadsheetFormattedTextTest extends PublicClassTestCase<SpreadsheetFormattedText> {
 
@@ -61,6 +63,50 @@ public final class SpreadsheetFormattedTextTest extends PublicClassTestCase<Spre
     private void createAndCheck(final Optional<Color> color, final String text) {
         final SpreadsheetFormattedText formatted = SpreadsheetFormattedText.with(color, text);
         this.check(formatted, color, text);
+    }
+
+    // setText...........................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSetTextNullFails() {
+        this.createFormattedText().setText(null);
+    }
+
+    @Test
+    public void testSetTextSame() {
+        final SpreadsheetFormattedText formatted = this.createFormattedText();
+        assertSame(formatted, formatted.setText(TEXT));
+    }
+
+    @Test
+    public void testSetTextDifferent() {
+        final String differentText = "different";
+        final SpreadsheetFormattedText formatted = this.createFormattedText();
+        final SpreadsheetFormattedText different = formatted.setText(differentText);
+        assertNotSame(formatted, different);
+        this.check(different, COLOR, differentText);
+    }
+
+    // setColor...........................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSetColorNullFails() {
+        this.createFormattedText().setColor(null);
+    }
+
+    @Test
+    public void testSetColorSame() {
+        final SpreadsheetFormattedText formatted = this.createFormattedText();
+        assertSame(formatted, formatted.setColor(COLOR));
+    }
+
+    @Test
+    public void testSetColorDifferent() {
+        final Optional<Color> differentColor = Optional.of(Color.fromRgb(123));
+        final SpreadsheetFormattedText formatted = this.createFormattedText();
+        final SpreadsheetFormattedText different = formatted.setColor(differentColor);
+        assertNotSame(formatted, different);
+        this.check(different, differentColor, TEXT);
     }
 
     private void check(final SpreadsheetFormattedText formatted, final Optional<Color> color, final String text) {
