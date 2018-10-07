@@ -22,8 +22,9 @@ package walkingkooka.text.spreadsheetformat;
  * A transport of the sign of a value used to query the {@link SpreadsheetTextFormatContext}.
  */
 public enum SpreadsheetTextFormatContextSign {
+
     NEGATIVE("-"),
-    ZERO(""),
+    ZERO("0"),
     POSITIVE("+");
 
     SpreadsheetTextFormatContextSign(final String symbol) {

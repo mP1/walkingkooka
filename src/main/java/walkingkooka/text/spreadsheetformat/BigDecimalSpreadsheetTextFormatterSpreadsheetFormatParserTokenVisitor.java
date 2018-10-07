@@ -74,6 +74,7 @@ final class BigDecimalSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
 
     @Override
     protected void visit(final SpreadsheetFormatDecimalPointParserToken token) {
+        this.add(BigDecimalSpreadsheetTextFormatterComponent.decimalPointSymbol());
         this.mode.decimalPoint(this);
     }
 

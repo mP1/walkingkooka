@@ -19,7 +19,6 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -27,7 +26,7 @@ import java.util.Optional;
 /**
  * A {@link SpreadsheetTextFormatter} that formats a {@link LocalDateTime}.
  */
-final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<LocalDateTime> {
+final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<LocalDateTime, SpreadsheetFormatDateTimeParserToken> {
 
     /**
      * Creates a {@link LocalDateTimeSpreadsheetTextFormatter} from a {@link SpreadsheetFormatDateTimeParserToken}
@@ -40,7 +39,7 @@ final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatt
     /**
      * Private ctor use static parse.
      */
-    private LocalDateTimeSpreadsheetTextFormatter(final SpreadsheetFormatParserToken token) {
+    private LocalDateTimeSpreadsheetTextFormatter(final SpreadsheetFormatDateTimeParserToken token) {
         super(token);
         this.twelveHour = LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor.is12HourTime(token);
 

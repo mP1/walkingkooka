@@ -27,15 +27,15 @@ public final class LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatPar
         TextFormatterSpreadsheetFormatParserTokenVisitorTestCase<LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor> {
 
     @Test
-    public void testToString12h() {
+    public void testToString24h() {
         assertEquals("24h", this.createParserTokenVisitor().toString());
     }
 
     @Test
-    public void testToString24h() {
+    public void testToString12h() {
         final LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatParserTokenVisitor visitor = this.createParserTokenVisitor();
-        visitor.accept(SpreadsheetFormatParserToken.amPm("AMPM", "AMPN"));
-        assertEquals("24h", this.createParserTokenVisitor().toString());
+        visitor.accept(SpreadsheetFormatParserToken.amPm("AMPM", "AMPM"));
+        assertEquals("12h", visitor.toString());
     }
 
     @Override
@@ -45,7 +45,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterAmPmSpreadsheetFormatPar
 
     @Override
     protected String requiredNamePrefix() {
-        return "LocalDateTimeSpreadsheetTextFormatter";
+        return LocalDateTimeSpreadsheetTextFormatter.class.getSimpleName();
     }
 
     @Override

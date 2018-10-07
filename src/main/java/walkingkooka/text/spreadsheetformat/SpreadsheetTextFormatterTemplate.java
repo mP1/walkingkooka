@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Base class for all {@link SpreadsheetTextFormatter} implementations.
  */
-abstract class SpreadsheetTextFormatterTemplate<T> implements SpreadsheetTextFormatter<T> {
+abstract class SpreadsheetTextFormatterTemplate<V, T extends SpreadsheetFormatParserToken> implements SpreadsheetTextFormatter<V> {
 
     static void check(final SpreadsheetFormatParserToken token) {
         Objects.requireNonNull(token, "token");
@@ -35,7 +35,7 @@ abstract class SpreadsheetTextFormatterTemplate<T> implements SpreadsheetTextFor
     /**
      * Package private to limit sub classing.
      */
-    SpreadsheetTextFormatterTemplate(final SpreadsheetFormatParserToken token) {
+    SpreadsheetTextFormatterTemplate(final T token) {
         super();
 
         this.token = token;
@@ -45,14 +45,14 @@ abstract class SpreadsheetTextFormatterTemplate<T> implements SpreadsheetTextFor
      * Accepts a value and uses the {@link TextFormatterSpreadsheetFormatParserTokenVisitor} to produce the formatted text.
      */
     @Override
-    public final Optional<SpreadsheetFormattedText> format(final T value, final SpreadsheetTextFormatContext context) {
+    public final Optional<SpreadsheetFormattedText> format(final V value, final SpreadsheetTextFormatContext context) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(context, "context");
 
         return this.format0(value, context);
     }
 
-    abstract Optional<SpreadsheetFormattedText> format0(final T value, final SpreadsheetTextFormatContext context);
+    abstract Optional<SpreadsheetFormattedText> format0(final V value, final SpreadsheetTextFormatContext context);
 
     /**
      * Returns the original pattern.
@@ -62,5 +62,5 @@ abstract class SpreadsheetTextFormatterTemplate<T> implements SpreadsheetTextFor
         return this.token.text();
     }
 
-    final SpreadsheetFormatParserToken token;
+    final T token;
 }

@@ -19,7 +19,6 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -30,7 +29,7 @@ import java.util.Optional;
 /**
  * A {@link SpreadsheetTextFormatter} that unconditionally formats a {@link BigDecimal}, without a {@link walkingkooka.color.Color}.
  */
-final class BigDecimalSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<BigDecimal> {
+final class BigDecimalSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<BigDecimal, SpreadsheetFormatBigDecimalParserToken> {
 
     /**
      * Creates a {@link BigDecimalSpreadsheetTextFormatter} from a {@link SpreadsheetFormatBigDecimalParserToken}.
@@ -46,7 +45,7 @@ final class BigDecimalSpreadsheetTextFormatter extends SpreadsheetTextFormatterT
     /**
      * Private ctor use static parse.
      */
-    private BigDecimalSpreadsheetTextFormatter(final SpreadsheetFormatParserToken token, final MathContext mathContext) {
+    private BigDecimalSpreadsheetTextFormatter(final SpreadsheetFormatBigDecimalParserToken token, final MathContext mathContext) {
         super(token);
 
         this.mathContext = mathContext;

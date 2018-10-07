@@ -18,7 +18,6 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 
 import java.util.Optional;
@@ -26,7 +25,7 @@ import java.util.Optional;
 /**
  * A {@link SpreadsheetTextFormatter} that formats a {@link String}.
  */
-final class TextSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<String> {
+final class TextSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<String, SpreadsheetFormatTextParserToken> {
 
     /**
      * Creates a {@link TextSpreadsheetTextFormatter} from a {@link SpreadsheetFormatTextParserToken}.
@@ -39,7 +38,7 @@ final class TextSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplat
     /**
      * Private ctor use static parse.
      */
-    private TextSpreadsheetTextFormatter(final SpreadsheetFormatParserToken token) {
+    private TextSpreadsheetTextFormatter(final SpreadsheetFormatTextParserToken token) {
         super(token);
     }
 

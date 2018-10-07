@@ -18,10 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.color.Color;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatAmPmParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNameParserToken;
-import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorNumberParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDayParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatEscapeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatHourParserToken;
@@ -52,7 +49,7 @@ final class LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatPars
                 context,
                 twelveHourTime);
         visitor.accept(token);
-        return Optional.of(SpreadsheetFormattedText.with(Optional.ofNullable(visitor.color), visitor.text.toString()));
+        return Optional.of(SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, visitor.text.toString()));
     }
 
     /**
@@ -69,23 +66,7 @@ final class LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatPars
         this.month = true;
     }
 
-    @Override
-    protected final void visit(final SpreadsheetFormatColorNameParserToken token) {
-        this.color = this.context.colorName(token.value());
-    }
-
-    @Override
-    protected final void visit(final SpreadsheetFormatColorNumberParserToken token) {
-        this.color = this.context.colorNumber(token.value());
-    }
-
     private final SpreadsheetTextFormatContext context;
-
-    /**
-     * Will be set either the {@link SpreadsheetFormatColorNameParserToken} or {@link SpreadsheetFormatColorNumberParserToken}
-     * is encountered.
-     */
-    private Color color = null;
 
     @Override
     protected void visit(final SpreadsheetFormatAmPmParserToken token) {
