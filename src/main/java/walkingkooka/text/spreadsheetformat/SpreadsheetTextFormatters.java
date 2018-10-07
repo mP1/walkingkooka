@@ -18,11 +18,25 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.MathContext;
+
+/**
+ * Collection of static factory methods for numerous {@link SpreadsheetTextFormatter}.
+ */
 public final class SpreadsheetTextFormatters implements PublicStaticHelper {
+
+    /**
+     * {@see BigDecimalSpreadsheetTextFormatter}
+     */
+    public static SpreadsheetTextFormatter bigDecimal(final SpreadsheetFormatBigDecimalParserToken token,
+                                                      final MathContext mathContext) {
+        return BigDecimalSpreadsheetTextFormatter.with(token, mathContext);
+    }
 
     /**
      * {@see FakeSpreadsheetTextFormatter}

@@ -39,22 +39,17 @@ public class FakeSpreadsheetTextFormatContext implements SpreadsheetTextFormatCo
     }
 
     @Override
-    public char currencySymbolPoint() {
+    public String currencySymbol() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public char decimalPoint() {
+    public String decimalPoint() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public char plusSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char minusSymbol() {
+    public String exponent() {
         throw new UnsupportedOperationException();
     }
 
@@ -69,7 +64,17 @@ public class FakeSpreadsheetTextFormatContext implements SpreadsheetTextFormatCo
     }
 
     @Override
-    public char thousandsSeparator() {
+    public String percentageSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String signSymbol(final SpreadsheetTextFormatContextSign sign) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String thousandsSeparator() {
         throw new UnsupportedOperationException();
     }
 
