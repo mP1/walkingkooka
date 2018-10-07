@@ -97,7 +97,7 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<FakePa
 
     @Test
     public void testToStringInsensitive() {
-        assertEquals(CharSequences.quoteAndEscape(STRING) + " (CaseInsensivite)", this.createParserInsensitive().toString());
+        assertEquals(CharSequences.quoteAndEscape(STRING) + " (CaseInsensitive)", this.createParserInsensitive().toString());
     }
 
     @Override

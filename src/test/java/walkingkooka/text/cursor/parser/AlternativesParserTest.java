@@ -21,9 +21,11 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<FakeParserContext>,
@@ -47,6 +49,23 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     @Test
     public void testWithOneNeverWrapped() {
         assertSame(PARSER1, AlternativesParser.with(Lists.of(PARSER1.cast())));
+    }
+
+    @Test
+    public void testWith() {
+        final List<Parser<ParserToken, FakeParserContext>> parsers = Lists.of(PARSER1, PARSER2);
+        final AlternativesParser<FakeParserContext> parser = AlternativesParser.with(parsers).cast();
+        assertNotSame(parsers, parser.parsers);
+        assertEquals(parsers, parser.parsers);
+    }
+
+    @Test
+    public void testWithAllCustomToStringParsers() {
+        final List<Parser<ParserToken, FakeParserContext>> parsers = Lists.of(PARSER1.setToString("1"), PARSER2.setToString("2"));
+        final CustomToStringParser<ParserToken, FakeParserContext> custom = AlternativesParser.with(parsers).cast();
+        final AlternativesParser<FakeParserContext> alt = custom.parser.cast();
+        assertEquals("parsers", Lists.of(PARSER1, PARSER2), alt.parsers);
+        assertEquals("custom toString", "(1 | 2)", custom.toString());
     }
 
     @Test
@@ -105,7 +124,24 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
         // AlternativesParser must not short circuit and skip trying all its parsers when its empty.
         this.parseThrowsEndOfText(PARSER1.orReport(ParserReporters.basic()).cast(), "abc", 4,1);
     }
-    
+
+    @Test
+    public void testParseAllCustomToStringParsers() {
+        this.testParseAllCustomToStringParsers(TEXT1);
+    }
+
+    @Test
+    public void testParseAllCustomToStringParsers2() {
+        this.testParseAllCustomToStringParsers(TEXT2);
+    }
+
+    private void testParseAllCustomToStringParsers(final String text) {
+        this.parseAndCheck(this.createParser1(PARSER1.setToString("1"), PARSER2.setToString("2")),
+                text,
+                this.string(text),
+                text);
+    }
+
     @Test
     public void testToString() {
         assertEquals("(" + PARSER1 + " | " + PARSER2 +")", this.createParser().toString());
@@ -117,7 +153,11 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     }
 
     private AlternativesParser<FakeParserContext> createParser0(final Parser<ParserToken, FakeParserContext>...parsers) {
-        return Cast.to(AlternativesParser.with(Cast.to(Lists.of(parsers))));
+        return this.createParser1(parsers).cast();
+    }
+
+    private Parser<ParserToken, FakeParserContext> createParser1(final Parser<ParserToken, FakeParserContext>...parsers) {
+        return AlternativesParser.with(Cast.to(Lists.of(parsers)));
     }
 
     private static StringParserToken string(final String s) {

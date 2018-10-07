@@ -31,9 +31,59 @@ import java.util.stream.Collectors;
  */
 final class AlternativesParser<C extends ParserContext> implements Parser<ParserToken, C>, HashCodeEqualsDefined {
 
+    /**
+     * Factory that creates a {@link Parser} possibly simplifying things.
+     */
     static <C extends ParserContext> Parser<ParserToken, C> with(final List<Parser<ParserToken, C>> parsers){
         Objects.requireNonNull(parsers, "parsers");
 
+        final List<Parser<ParserToken, C>> copy = Lists.array();
+
+        // visit all parsers,. flattening any that are themselves AlternativesParser
+        parsers.stream()
+                .forEach(p -> tryFlatten(p, copy));
+
+        final List<Parser<ParserToken, C>> withoutCustomToString =unwrapAllCustomToStringParsers(copy);
+        final boolean allCustomToStringParsers = withoutCustomToString.size() == copy.size();
+
+        final Parser<ParserToken, C> created = with0(allCustomToStringParsers ?
+                        withoutCustomToString :
+                        copy);
+
+        return allCustomToStringParsers ?
+               created.setToString(toString0(copy)) :
+               created;
+    }
+
+    /**
+     * Loop over all parsers, and if any is a {@link AlternativesParser} add its children parsers, effectively
+     * flattening.
+     */
+    private static <C extends ParserContext> void tryFlatten(final Parser<ParserToken, C> parser,
+                                                             final List<Parser<ParserToken, C>> copy) {
+        if(parser instanceof AlternativesParser) {
+            final AlternativesParser alt = parser.cast();
+            copy.addAll(alt.parsers);
+        } else {
+            copy.add(parser);
+        }
+    }
+
+    /**
+     * Loop over all parsers, unwrapping all {@link CustomToStringParser}.
+     */
+    private static <C extends ParserContext> List<Parser<ParserToken, C>> unwrapAllCustomToStringParsers(final List<Parser<ParserToken, C>> parsers) {
+        return parsers.stream()
+                .filter(p -> p instanceof CustomToStringParser)
+                .map(p -> CustomToStringParser.class.cast(p).parser.cast())
+                .map(p -> Cast.<Parser<ParserToken, C>>to(p))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * The actual factory method that accepts the copy of parsers that have been processed and possibly simplified.
+     */
+    private static <C extends ParserContext> Parser<ParserToken, C> with0(final List<Parser<ParserToken, C>> parsers){
         Parser<ParserToken, C> parser;
 
         switch(parsers.size()){
@@ -50,7 +100,11 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
         return parser;
     }
 
+    /**
+     * Private ctor
+     */
     private AlternativesParser(final List<Parser<ParserToken, C>> parsers){
+        super();
         this.parsers = parsers;
     }
 
@@ -82,10 +136,11 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
         parsers.addAll(this.parsers);
         parsers.add(parser.cast());
 
-        return new AlternativesParser(parsers);
+        return AlternativesParser.with(parsers);
     }
 
-    private final List<Parser<ParserToken, C>> parsers;
+    // @VisibleForTesting
+    final List<Parser<ParserToken, C>> parsers;
 
     // Object.................................................................................................
 
@@ -105,7 +160,11 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
 
     @Override
     public String toString() {
-        return this.parsers.stream()
+        return toString0(this.parsers);
+    }
+
+    private static <CC extends ParserContext> String toString0(final List<Parser<ParserToken, CC>> parsers) {
+        return parsers.stream()
                 .map(p -> p.toString())
                 .collect(Collectors.joining(" | ", "(", ")"));
     }
