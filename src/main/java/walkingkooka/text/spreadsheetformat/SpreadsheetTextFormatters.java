@@ -18,7 +18,9 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.convert.Converter;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 import walkingkooka.type.PublicStaticHelper;
@@ -36,6 +38,15 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     public static SpreadsheetTextFormatter bigDecimal(final SpreadsheetFormatBigDecimalParserToken token,
                                                       final MathContext mathContext) {
         return BigDecimalSpreadsheetTextFormatter.with(token, mathContext);
+    }
+
+    /**
+     * {@link ConditionSpreadsheetTextFormatter}
+     */
+    public static <T> SpreadsheetTextFormatter conditional(final SpreadsheetFormatConditionParserToken token,
+                                                           final Converter bigDecimalConverter,
+                                                           final SpreadsheetTextFormatter<T> formatter) {
+        return ConditionSpreadsheetTextFormatter.with(token, bigDecimalConverter, formatter);
     }
 
     /**
