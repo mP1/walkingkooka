@@ -27,6 +27,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
 
@@ -495,6 +496,15 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
                     }
                 })//
                 .value("1234567"), "12345abcde12345");
+    }
+
+    // misc
+
+    @Test
+    public void testValueBigDecimal() {
+        this.buildAndCheck(this.create()//
+                        .value(BigDecimal.valueOf(123.5)),
+                "123.5");
     }
 
     // buildFrom
