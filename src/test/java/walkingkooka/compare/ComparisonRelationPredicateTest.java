@@ -38,6 +38,13 @@ public final class ComparisonRelationPredicateTest extends PredicateTestCase<Com
         throw new UnsupportedOperationException();
     }
 
+    @Test
+    @Ignore
+    @Override
+    public void testAllMethodsVisibility() {
+        throw new UnsupportedOperationException();
+    }
+
     // EQ................................................................
 
     @Test
