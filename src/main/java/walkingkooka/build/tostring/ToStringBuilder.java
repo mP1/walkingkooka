@@ -870,6 +870,8 @@ final public class ToStringBuilder implements Builder<String> {
                 this.value(value.shortValue());
                 break;
             }
+            this.valueObject(value);
+            break;
         }
     }
 
