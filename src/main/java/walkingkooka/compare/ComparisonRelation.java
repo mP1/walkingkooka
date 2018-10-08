@@ -19,8 +19,11 @@
 package walkingkooka.compare;
 
 import walkingkooka.predicate.Predicates;
+import walkingkooka.text.CharSequences;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -94,5 +97,17 @@ public enum ComparisonRelation implements Predicate<Integer> {
      */
     public <C extends Comparable<C>> Predicate<C> predicate(final C left){
         return Predicates.comparisonRelation(left, this);
+    }
+
+    /**
+     * Finds a {@link ComparisonRelation} with the {@link String symbol} or throws a {@link IllegalArgumentException}.
+     */
+    public static ComparisonRelation findWithSymbol(final String symbol) {
+        Objects.requireNonNull(symbol);
+
+        return Arrays.stream(ComparisonRelation.values())
+                .filter(r -> r.symbol().equals(symbol))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unable to find symbol " + CharSequences.quote(symbol)));
     }
 }
