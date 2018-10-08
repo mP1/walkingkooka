@@ -21,7 +21,11 @@ package walkingkooka.compare;
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
+import java.util.function.Predicate;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public final class ComparisonRelationTest extends PublicClassTestCase<ComparisonRelation> {
 
@@ -57,6 +61,13 @@ public final class ComparisonRelationTest extends PublicClassTestCase<Comparison
 
     private void symbolAndCheck(final ComparisonRelation relation, final String pattern) {
         assertEquals("pattern for " + relation, pattern, relation.symbol());
+    }
+
+    @Test
+    public void testPredicate() {
+        final Predicate<String> predicate = ComparisonRelation.EQ.predicate("M");
+        assertTrue("EQ \"M\"", predicate.test("M"));
+        assertFalse("EQ \"Z\"", predicate.test("Z"));
     }
 
     @Test
