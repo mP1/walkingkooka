@@ -99,6 +99,11 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
     }
 
     protected void formatFailAndCheck(final SpreadsheetTextFormatter<V> formatter,
+                                      final V value) {
+        this.formatFailAndCheck(formatter, value, this.createContext());
+    }
+
+    protected void formatFailAndCheck(final SpreadsheetTextFormatter<V> formatter,
                                       final V value,
                                       final SpreadsheetTextFormatContext context) {
         this.formatAndCheck(formatter, value, context, Optional.empty());
