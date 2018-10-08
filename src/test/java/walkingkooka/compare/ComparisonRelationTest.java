@@ -25,6 +25,7 @@ import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class ComparisonRelationTest extends PublicClassTestCase<ComparisonRelation> {
@@ -68,6 +69,23 @@ public final class ComparisonRelationTest extends PublicClassTestCase<Comparison
         final Predicate<String> predicate = ComparisonRelation.EQ.predicate("M");
         assertTrue("EQ \"M\"", predicate.test("M"));
         assertFalse("EQ \"Z\"", predicate.test("Z"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFindWithSymbolNullFails() {
+        ComparisonRelation.findWithSymbol(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindWithSymbolUnknownFails() {
+        ComparisonRelation.findWithSymbol("?");
+    }
+
+    @Test
+    public void testFindWithSymbol() {
+        for (ComparisonRelation relation : ComparisonRelation.values()) {
+            assertSame(relation, ComparisonRelation.findWithSymbol(relation.symbol()));
+        }
     }
 
     @Test
