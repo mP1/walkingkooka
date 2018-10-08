@@ -26,6 +26,7 @@ import java.util.function.Predicate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -89,6 +90,38 @@ public final class ComparisonRelationTest extends PublicClassTestCase<Comparison
         assertNotEquals(result + " inverted " + inverted + " " + value + " " + value2,result, invertedResult);
     }
 
+    @Test
+    public void testInvertRoundTrip() {
+        for(ComparisonRelation relation: ComparisonRelation.values()) {
+            final ComparisonRelation inverted = relation.invert();
+            assertNotSame(inverted, relation);
+            assertSame(relation, inverted.invert());
+        }
+    }
+
+    @Test
+    public void testSwap() {
+        for(ComparisonRelation relation: ComparisonRelation.values()) {
+            predicateAndSwappedPredicateTest(relation, 0, -1);
+            predicateAndSwappedPredicateTest(relation, 0, 0);
+            predicateAndSwappedPredicateTest(relation, 0, +1);
+        }
+    }
+
+    private void predicateAndSwappedPredicateTest(final ComparisonRelation relation, final int value, final int value2) {
+        final boolean result = relation.predicate(value).test(value2);
+        final boolean swappedResult = relation.swap().predicate(value2).test(value);
+
+        assertEquals(value + " " + relation + " " + value2, result, swappedResult);
+    }
+
+    @Test
+    public void testSwapRoundTrip() {
+        for(ComparisonRelation relation: ComparisonRelation.values()) {
+            assertSame(relation, relation.swap().swap());
+        }
+    }
+    
     @Test(expected = NullPointerException.class)
     public void testFindWithSymbolNullFails() {
         ComparisonRelation.findWithSymbol(null);
