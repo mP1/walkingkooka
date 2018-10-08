@@ -49,165 +49,175 @@ public final class ComparisonRelationPredicateTest extends PredicateTestCase<Com
 
     @Test
     public void testEqNegative() {
-        this.testFalse(Integer.MIN_VALUE);
+        this.testFalse2(ComparisonRelation.EQ, Integer.MIN_VALUE);
     }
 
     @Test
     public void testEqNegative2() {
-        this.testFalse(-1);
+        this.testFalse2(ComparisonRelation.EQ,-1);
     }
 
     @Test
     public void testEqZero() {
-        this.testTrue(0);
+        this.testTrue2(ComparisonRelation.EQ,0);
     }
 
     @Test
     public void testEqPositive() {
-        this.testFalse(+1);
+        this.testFalse2(ComparisonRelation.EQ,+1);
     }
 
     @Test
     public void testEqPositive2() {
-        this.testFalse(Integer.MAX_VALUE);
+        this.testFalse2(ComparisonRelation.EQ, Integer.MAX_VALUE);
     }
 
     // GT................................................................
 
     @Test
     public void testGtNegative() {
-        this.testFalse(ComparisonRelation.GT, Integer.MIN_VALUE);
+        this.testFalse2(ComparisonRelation.GT, Integer.MIN_VALUE);
     }
 
     @Test
     public void testGtNegative2() {
-        this.testFalse(ComparisonRelation.GT, -1);
+        this.testFalse2(ComparisonRelation.GT, -1);
     }
 
     @Test
     public void testGtZero() {
-        this.testFalse(ComparisonRelation.GT, 0);
+        this.testFalse2(ComparisonRelation.GT, 0);
     }
 
     @Test
     public void testGtPositive() {
-        this.testTrue(ComparisonRelation.GT, +1);
+        this.testTrue2(ComparisonRelation.GT, +1);
     }
 
     @Test
     public void testGtPositive2() {
-        this.testTrue(ComparisonRelation.GT, Integer.MAX_VALUE);
+        this.testTrue2(ComparisonRelation.GT, Integer.MAX_VALUE);
     }
 
     // GTE................................................................
 
     @Test
     public void testGteNegative() {
-        this.testFalse(ComparisonRelation.GTE, Integer.MIN_VALUE);
+        this.testFalse2(ComparisonRelation.GTE, Integer.MIN_VALUE);
     }
 
     @Test
     public void testGteNegative2() {
-        this.testFalse(ComparisonRelation.GTE, -1);
+        this.testFalse2(ComparisonRelation.GTE, -1);
     }
 
     @Test
     public void testGteZero() {
-        this.testTrue(ComparisonRelation.GTE, 0);
+        this.testTrue2(ComparisonRelation.GTE, 0);
     }
 
     @Test
     public void testGtePositive() {
-        this.testTrue(ComparisonRelation.GTE, +1);
+        this.testTrue2(ComparisonRelation.GTE, +1);
     }
 
     @Test
     public void testGtePositive2() {
-        this.testTrue(ComparisonRelation.GTE, Integer.MAX_VALUE);
+        this.testTrue2(ComparisonRelation.GTE, Integer.MAX_VALUE);
     }
 
     // LT................................................................
 
     @Test
     public void testLtNegative() {
-        this.testTrue(ComparisonRelation.LT, Integer.MIN_VALUE);
+        this.testTrue2(ComparisonRelation.LT, Integer.MIN_VALUE);
     }
 
     @Test
     public void testLtNegative2() {
-        this.testTrue(ComparisonRelation.LT, -1);
+        this.testTrue2(ComparisonRelation.LT, -1);
     }
 
     @Test
     public void testLtZero() {
-        this.testFalse(ComparisonRelation.LT, 0);
+        this.testFalse2(ComparisonRelation.LT, 0);
     }
 
     @Test
     public void testLtPositive() {
-        this.testFalse(ComparisonRelation.LT, +1);
+        this.testFalse2(ComparisonRelation.LT, +1);
     }
 
     @Test
     public void testLtPositive2() {
-        this.testFalse(ComparisonRelation.LT, Integer.MAX_VALUE);
+        this.testFalse2(ComparisonRelation.LT, Integer.MAX_VALUE);
     }
 
     // LTE................................................................
 
     @Test
     public void testLteNegative() {
-        this.testTrue(ComparisonRelation.LTE, Integer.MIN_VALUE);
+        this.testTrue2(ComparisonRelation.LTE, Integer.MIN_VALUE);
     }
 
     @Test
     public void testLteNegative2() {
-        this.testTrue(ComparisonRelation.LTE, -1);
+        this.testTrue2(ComparisonRelation.LTE, -1);
     }
 
     @Test
     public void testLteZero() {
-        this.testTrue(ComparisonRelation.LTE, 0);
+        this.testTrue2(ComparisonRelation.LTE, 0);
     }
 
     @Test
     public void testLtePositive() {
-        this.testFalse(ComparisonRelation.LTE, +1);
+        this.testFalse2(ComparisonRelation.LTE, +1);
     }
 
     @Test
     public void testLtePositive2() {
-        this.testFalse(ComparisonRelation.LTE, Integer.MAX_VALUE);
+        this.testFalse2(ComparisonRelation.LTE, Integer.MAX_VALUE);
     }
 
     // NE................................................................
 
     @Test
     public void testNeNegative() {
-        this.testTrue(ComparisonRelation.NE, Integer.MIN_VALUE);
+        this.testTrue2(ComparisonRelation.NE, Integer.MIN_VALUE);
     }
 
     @Test
     public void testNeNegative2() {
-        this.testTrue(ComparisonRelation.NE, -1);
+        this.testTrue2(ComparisonRelation.NE, -1);
     }
 
     @Test
     public void testNeZero() {
-        this.testFalse(ComparisonRelation.NE, 0);
+        this.testFalse2(ComparisonRelation.NE, 0);
     }
 
     @Test
     public void testNePositive() {
-        this.testTrue(ComparisonRelation.NE, +1);
+        this.testTrue2(ComparisonRelation.NE, +1);
     }
 
     @Test
     public void testNePositive2() {
-        this.testTrue(ComparisonRelation.NE, Integer.MAX_VALUE);
+        this.testTrue2(ComparisonRelation.NE, Integer.MAX_VALUE);
     }
 
     // helpers............................................................
+    
+    private void testTrue2(final ComparisonRelation relation, final int value) {
+        this.testTrue(relation, value);
+        this.testFalse(relation.invert(), value);
+    }
+
+    private void testFalse2(final ComparisonRelation relation, final int value) {
+        this.testFalse(relation, value);
+        this.testTrue(relation.invert(), value);
+    }
 
     @Override
     protected ComparisonRelation createPredicate() {

@@ -25,6 +25,7 @@ import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -69,6 +70,23 @@ public final class ComparisonRelationTest extends PublicClassTestCase<Comparison
         final Predicate<String> predicate = ComparisonRelation.EQ.predicate("M");
         assertTrue("EQ \"M\"", predicate.test("M"));
         assertFalse("EQ \"Z\"", predicate.test("Z"));
+    }
+
+    @Test
+    public void testInvert() {
+        for(ComparisonRelation relation: ComparisonRelation.values()) {
+            predicateAndInvertedPredicateTest(relation, 0, -1);
+            predicateAndInvertedPredicateTest(relation, 0, 0);
+            predicateAndInvertedPredicateTest(relation, 0, +1);
+        }
+    }
+
+    private void predicateAndInvertedPredicateTest(final ComparisonRelation relation, final int value, final int value2) {
+        final boolean result = relation.predicate(value).test(value2);
+        final ComparisonRelation inverted = relation.invert();
+        final boolean invertedResult = inverted.predicate(value).test(value2);
+
+        assertNotEquals(result + " inverted " + inverted + " " + value + " " + value2,result, invertedResult);
     }
 
     @Test(expected = NullPointerException.class)
