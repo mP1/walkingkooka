@@ -41,6 +41,14 @@ public enum ComparisonRelation implements Predicate<Integer> {
         public ComparisonRelation invert() {
             return NE;
         }
+
+        /**
+         * Operand side does not affect test.
+         */
+        @Override
+        public ComparisonRelation swap() {
+            return this;
+        }
     },
     GTE(">=") {
         @Override
@@ -51,6 +59,11 @@ public enum ComparisonRelation implements Predicate<Integer> {
         @Override
         public ComparisonRelation invert() {
             return LT;
+        }
+
+        @Override
+        public ComparisonRelation swap() {
+            return LTE;
         }
     },
     GT(">") {
@@ -63,6 +76,11 @@ public enum ComparisonRelation implements Predicate<Integer> {
         public ComparisonRelation invert() {
             return LTE;
         }
+
+        @Override
+        public ComparisonRelation swap() {
+            return LT;
+        }
     },
     LTE("<=") {
         @Override
@@ -73,6 +91,11 @@ public enum ComparisonRelation implements Predicate<Integer> {
         @Override
         public ComparisonRelation invert() {
             return GT;
+        }
+
+        @Override
+        public ComparisonRelation swap() {
+            return GTE;
         }
     },
     LT("<") {
@@ -85,9 +108,13 @@ public enum ComparisonRelation implements Predicate<Integer> {
         public ComparisonRelation invert() {
             return GTE;
         }
+
+        @Override
+        public ComparisonRelation swap() {
+            return GT;
+        }
     },
     NE("!=") {
-
         @Override
         boolean test0(final int value) {
             return 0 != value;
@@ -96,6 +123,14 @@ public enum ComparisonRelation implements Predicate<Integer> {
         @Override
         public ComparisonRelation invert() {
             return EQ;
+        }
+
+        /**
+         * Operand side does not affect test.
+         */
+        @Override
+        public ComparisonRelation swap() {
+            return this;
         }
     };
 
@@ -125,11 +160,19 @@ public enum ComparisonRelation implements Predicate<Integer> {
     /**
      * Returns a {@link Predicate} that uses the given value as the left of a comparison.
      */
-    public <C extends Comparable<C>> Predicate<C> predicate(final C left){
+    public <C extends Comparable<C>> Predicate<C> predicate(final C left) {
         return Predicates.comparisonRelation(left, this);
     }
 
+    /**
+     * The inverted or opposite relation.
+     */
     abstract public ComparisonRelation invert();
+
+    /**
+     * Returns the {@link ComparisonRelation} when operands in a comparison sides are swapped.
+     */
+    abstract public ComparisonRelation swap();
 
     /**
      * Finds a {@link ComparisonRelation} with the {@link String symbol} or throws a {@link IllegalArgumentException}.
