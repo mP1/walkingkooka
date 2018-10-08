@@ -19,7 +19,6 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporterException;
@@ -30,9 +29,6 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * In expectations all symbols are doubled, as a means to verify the context is supplying the values.
@@ -1188,29 +1184,19 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
     private void parseFormatAndCheck(final String pattern,
                                      final double value,
                                      final String text) {
-        this.parseFormatAndCheck(pattern, String.valueOf(value), this.createContext(), text);
+        this.parseFormatAndCheck(pattern, String.valueOf(value), text);
     }
 
     private void parseFormatAndCheck(final String pattern,
                                      final String value,
                                      final String text) {
-        this.parseFormatAndCheck(pattern, value, this.createContext(), text);
-    }
-
-    private void parseFormatAndCheck(final String pattern,
-                                     final String value,
-                                     final SpreadsheetTextFormatContext context,
-                                     final String text) {
-        this.parseFormatAndCheck0(pattern, value, context, SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, text));
+        this.parseFormatAndCheck0(pattern, value, SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, text));
     }
 
     private void parseFormatAndCheck0(final String pattern,
                                       final String value,
-                                      final SpreadsheetTextFormatContext context,
                                       final SpreadsheetFormattedText text) {
-        assertEquals("Pattern=" + CharSequences.quote(pattern) + " Text=" + CharSequences.quote(value),
-                Optional.of(text),
-                this.createFormatter(pattern).format(new BigDecimal(value), context));
+        this.formatAndCheck(this.createFormatter(pattern), new BigDecimal(value), text);
     }
 
     @Override

@@ -97,9 +97,7 @@ public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextForma
                                       final String value,
                                       final SpreadsheetTextFormatContext context,
                                       final SpreadsheetFormattedText text) {
-        assertEquals("Pattern=" + CharSequences.quote(pattern) + " TEXT=" + CharSequences.quote(value),
-                Optional.of(text),
-                this.createFormatter(pattern).format(value, context));
+        this.formatAndCheck(this.createFormatter(pattern), value, context, text);
     }
 
     @Override

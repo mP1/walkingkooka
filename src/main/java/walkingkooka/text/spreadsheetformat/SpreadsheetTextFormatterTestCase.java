@@ -20,6 +20,11 @@ package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
 import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.text.CharSequences;
+
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
 
 public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetTextFormatter<V>, V> extends PackagePrivateClassTestCase<F> {
 
@@ -41,4 +46,44 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
     protected abstract V value();
 
     protected abstract SpreadsheetTextFormatContext createContext();
+
+    protected void formatAndCheck(final V value,
+                                  final SpreadsheetFormattedText formattedText) {
+        this.formatAndCheck(this.createFormatter(), value, formattedText);
+    }
+
+    protected void formatAndCheck(final SpreadsheetTextFormatter<V> formatter,
+                                  final V value,
+                                  final SpreadsheetFormattedText formattedText) {
+        this.formatAndCheck(formatter, value, this.createContext(), formattedText);
+    }
+
+    protected void formatAndCheck(final SpreadsheetTextFormatter<V> formatter,
+                                  final V value,
+                                  final SpreadsheetTextFormatContext context,
+                                  final SpreadsheetFormattedText formattedText) {
+        this.formatAndCheck(formatter, value, context, Optional.of(formattedText));
+    }
+
+    // format fail and check
+
+    protected void formatFailAndCheck(final V value,
+                                      final SpreadsheetTextFormatContext context) {
+        this.formatFailAndCheck(this.createFormatter(), value, context);
+    }
+
+    protected void formatFailAndCheck(final SpreadsheetTextFormatter<V> formatter,
+                                      final V value,
+                                      final SpreadsheetTextFormatContext context) {
+        this.formatAndCheck(formatter, value, context, Optional.empty());
+    }
+
+    // general format and check
+
+    protected void formatAndCheck(final SpreadsheetTextFormatter<V> formatter,
+                                  final V value,
+                                  final SpreadsheetTextFormatContext context,
+                                  final Optional<SpreadsheetFormattedText> formattedText) {
+        assertEquals(formatter + " " + CharSequences.quoteIfChars(value), formattedText, formatter.format(value, context));
+    }
 }
