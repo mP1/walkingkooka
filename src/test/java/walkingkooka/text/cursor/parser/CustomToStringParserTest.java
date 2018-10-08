@@ -18,6 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
@@ -91,13 +92,21 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
     }
 
     @Test
+    @Override
+    public void testOr() {
+        final CustomToStringParser<ParserToken, FakeParserContext> parser1 = this.createParser().cast();
+        final CustomToStringParser<ParserToken, FakeParserContext> parser2 = this.createParser().cast();
+        assertEquals(Parsers.alternatives(Lists.of(parser1, parser2)), parser1.or(parser2));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(CUSTOM_TO_STRING, this.createParser().toString());
     }
 
     @Override
     protected CustomToStringParser<StringParserToken, FakeParserContext> createParser() {
-        return Cast.to(CustomToStringParser.wrap(WRAPPED, CUSTOM_TO_STRING));
+        return CustomToStringParser.wrap(WRAPPED, CUSTOM_TO_STRING).cast();
     }
 
     @Override

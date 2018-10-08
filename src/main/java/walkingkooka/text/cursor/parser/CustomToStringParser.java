@@ -17,6 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.TextCursor;
 
@@ -26,7 +27,7 @@ import java.util.Optional;
 /**
  * Wraps another {@link Parser} replacing or ignoring its {@link Parser#toString()} with the provided {@link String}.
  */
-final class CustomToStringParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C> {
+final class CustomToStringParser<T extends ParserToken, C extends ParserContext> implements Parser<T, C>, HashCodeEqualsDefined {
 
     static <T extends ParserToken, C extends ParserContext> Parser<T, C> wrap(final Parser<T, C> parser, final String toString) {
         Objects.requireNonNull(parser, "parser");
@@ -63,6 +64,7 @@ final class CustomToStringParser<T extends ParserToken, C extends ParserContext>
         return this.parser.parse(cursor, context);
     }
 
+    @Override
     public Parser<T, C> setToString(final String toString) {
         return this.toString.equals(toString) ?
                 this :
@@ -71,6 +73,24 @@ final class CustomToStringParser<T extends ParserToken, C extends ParserContext>
 
     // @VisibleForTesting
     final Parser<T, C> parser;
+
+    // Object.................................................................................................
+
+    @Override
+    public int hashCode() {
+        return this.parser.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+               other instanceof CustomToStringParser && this.equals0(Cast.to(other));
+    }
+
+    private boolean equals0(final CustomToStringParser<?, ?> other) {
+        return this.parser.equals(other.parser) &&
+               this.toString.equals(other.toString);
+    }
 
     @Override
     public String toString() {

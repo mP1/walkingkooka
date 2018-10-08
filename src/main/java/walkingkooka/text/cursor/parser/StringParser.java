@@ -16,6 +16,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
@@ -27,7 +29,7 @@ import java.util.Optional;
 /**
  * A {@link Parser} that only matches the given {@link String} which must not be null or empty.
  */
-final class StringParser<C extends ParserContext> extends ParserTemplate<StringParserToken, C> {
+final class StringParser<C extends ParserContext> extends ParserTemplate<StringParserToken, C> implements HashCodeEqualsDefined {
 
     static <C extends ParserContext> StringParser<C> with(final String string, final CaseSensitivity caseSensitivity) {
         CharSequences.failIfNullOrEmpty(string, "string");
@@ -70,13 +72,31 @@ final class StringParser<C extends ParserContext> extends ParserTemplate<StringP
     private final String string;
     private final CaseSensitivity caseSensitivity;
 
+    // Object.................................................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.string, this.caseSensitivity);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+               other instanceof StringParser && this.equals0(Cast.to(other));
+    }
+
+    private boolean equals0(final StringParser<?> other) {
+        return this.string.equals(other.string) &&
+               this.caseSensitivity.equals(other.caseSensitivity);
+    }
+
     @Override
     public String toString() {
         final StringBuilder b = new StringBuilder();
 
         b.append(CharSequences.quoteAndEscape(this.string));
         if(CaseSensitivity.INSENSITIVE == this.caseSensitivity) {
-            b.append(" (CaseInsensivite)");
+            b.append(" (CaseInsensitive)");
         }
 
         return b.toString();
