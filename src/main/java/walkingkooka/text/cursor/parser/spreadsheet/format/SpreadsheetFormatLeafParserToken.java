@@ -54,6 +54,11 @@ abstract class SpreadsheetFormatLeafParserToken<T> extends SpreadsheetFormatPars
     }
 
     @Override
+    public final boolean isCondition() {
+        return false;
+    }
+
+    @Override
     public final boolean isDate() {
         return false;
     }

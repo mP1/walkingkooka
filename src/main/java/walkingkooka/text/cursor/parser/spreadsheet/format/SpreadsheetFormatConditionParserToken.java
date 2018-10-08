@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
+import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
@@ -25,8 +26,11 @@ import java.util.Optional;
 /**
  * Base class for any condition token, which includes a condition symbol and number.
  */
-abstract class SpreadsheetFormatConditionParserToken<T extends SpreadsheetFormatConditionParserToken> extends SpreadsheetFormatParentParserToken<T> {
+abstract public class SpreadsheetFormatConditionParserToken<T extends SpreadsheetFormatConditionParserToken> extends SpreadsheetFormatParentParserToken<T> {
 
+    /**
+     * Package private to limit sub classing.
+     */
     SpreadsheetFormatConditionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
@@ -51,6 +55,11 @@ abstract class SpreadsheetFormatConditionParserToken<T extends SpreadsheetFormat
         checkTextNullOrEmpty(text);
     }
 
+    /**
+     * Returns the matching {@link ComparisonRelation} for this token.
+     */
+    public abstract ComparisonRelation relation();
+
     public final SpreadsheetFormatParserToken right() {
         return this.right;
     }
@@ -65,6 +74,11 @@ abstract class SpreadsheetFormatConditionParserToken<T extends SpreadsheetFormat
     @Override
     public final boolean isColor() {
         return false;
+    }
+
+    @Override
+    public final boolean isCondition() {
+        return true;
     }
 
     @Override

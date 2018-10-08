@@ -84,6 +84,11 @@ public final class SpreadsheetFormatDateParserToken extends SpreadsheetFormatPar
     }
 
     @Override
+    public boolean isCondition() {
+        return false;
+    }
+
+    @Override
     public boolean isDate() {
         return true;
     }

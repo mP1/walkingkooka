@@ -69,6 +69,9 @@ public abstract class SpreadsheetFormatParserTokenTestCase<T extends Spreadsheet
                 continue;
             }
             final String methodName = method.getName();
+            if (methodName.equals("isCondition")) {
+                continue;
+            }
             if (methodName.equals("isNoise")) {
                 continue;
             }

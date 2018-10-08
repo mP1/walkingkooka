@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
@@ -75,6 +76,13 @@ public abstract class SpreadsheetFormatConditionParserTokenTestCase<T extends Sp
         assertNotEquals(Optional.of(different), differentWithout);
 
         this.checkValue(differentWithout.get(), values.subList(0, 1));
+    }
+
+    @Test
+    public final void testRelation() {
+        final T token = this.createToken();
+        final String symbol = this.operatorSymbol().value();
+        assertEquals("Wrong relation for token " + token, ComparisonRelation.findWithSymbol(symbol), token.relation());
     }
 
     abstract T createToken(final String text, final List<ParserToken> tokens);
