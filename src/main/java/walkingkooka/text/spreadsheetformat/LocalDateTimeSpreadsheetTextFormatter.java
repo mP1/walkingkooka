@@ -51,4 +51,9 @@ final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatt
     }
 
     private final boolean twelveHour;
+
+    @Override
+    String toStringSuffix() {
+        return "";
+    }
 }

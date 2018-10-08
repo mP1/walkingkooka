@@ -59,8 +59,10 @@ abstract class SpreadsheetTextFormatterTemplate<V, T extends SpreadsheetFormatPa
      */
     @Override
     public final String toString() {
-        return this.token.text();
+        return this.token.text() + this.toStringSuffix();
     }
 
     final T token;
+
+    abstract String toStringSuffix();
 }

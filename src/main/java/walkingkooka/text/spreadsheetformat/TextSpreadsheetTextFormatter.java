@@ -46,4 +46,9 @@ final class TextSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplat
     Optional<SpreadsheetFormattedText> format0(final String value, final SpreadsheetTextFormatContext context) {
         return Optional.of(TextSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor.format(this.token, value, context));
     }
+
+    @Override
+    String toStringSuffix() {
+        return "";
+    }
 }
