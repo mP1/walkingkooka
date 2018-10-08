@@ -19,7 +19,6 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
@@ -29,7 +28,6 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -509,9 +507,10 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
                                       final String value,
                                       final SpreadsheetTextFormatContext context,
                                       final SpreadsheetFormattedText text) {
-        assertEquals("Pattern=" + CharSequences.quote(pattern) + " dateTime=" + value,
-                Optional.of(text),
-                this.createFormatter(pattern).format(this.parseLocalDateTime(value), context));
+        this.formatAndCheck(this.createFormatter(pattern),
+                this.parseLocalDateTime(value),
+                context,
+                text);
     }
 
     @Override
