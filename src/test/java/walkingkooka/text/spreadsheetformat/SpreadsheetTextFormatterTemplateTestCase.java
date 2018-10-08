@@ -43,7 +43,7 @@ public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends Spreads
     }
 
     @Test
-    public final void testToString() {
+    public void testToString() {
         assertEquals(this.pattern(), this.createFormatter().toString());
     }
 
@@ -55,15 +55,21 @@ public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends Spreads
     abstract String pattern();
 
     final F createFormatter(final String pattern) {
-        return this.createFormatter0(this.parse(pattern));
+        return this.createFormatter0(this.parsePatternOrFail(this.parser(this.bigDecimalParser()), pattern).cast());
     }
 
-    final T parse(final String pattern) {
-        return this.parser(Parsers.bigDecimal('.', MathContext.UNLIMITED))
-                .orFailIfCursorNotEmpty(ParserReporters.basic())
+    final T parsePatternOrFail(final String pattern) {
+        return this.parsePatternOrFail(this.parser(bigDecimalParser()), pattern).cast();
+    }
+
+    final SpreadsheetFormatParserToken parsePatternOrFail(final Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser, final String pattern) {
+        return parser.orFailIfCursorNotEmpty(ParserReporters.basic())
                 .parse(TextCursors.charSequence(pattern), SpreadsheetFormatParserContexts.basic())
-                .get()
-                .cast();
+                .get();
+    }
+
+    final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimalParser() {
+        return Parsers.bigDecimal('.', MathContext.UNLIMITED);
     }
 
     abstract Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal);

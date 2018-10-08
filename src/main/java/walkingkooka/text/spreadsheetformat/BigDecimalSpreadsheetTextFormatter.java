@@ -102,4 +102,9 @@ final class BigDecimalSpreadsheetTextFormatter extends SpreadsheetTextFormatterT
      * When true thousands separators should appear in the output.
      */
     final BigDecimalSpreadsheetTextFormatterThousandsSeparator thousandsSeparator;
+
+    @Override
+    String toStringSuffix() {
+        return "";
+    }
 }
