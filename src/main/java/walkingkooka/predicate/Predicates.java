@@ -17,6 +17,7 @@
 
 package walkingkooka.predicate;
 
+import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
@@ -43,6 +44,14 @@ final public class Predicates implements PublicStaticHelper {
      */
     public static Predicate<CharSequence> charSequence(final CharPredicate predicate) {
         return CharPredicateCharSequencePredicate.with(predicate);
+    }
+
+    /**
+     * {@see ComparableComparisonRelationPredicate}
+     */
+    public static <C extends Comparable<C>> Predicate<C> comparisonRelation(final C left,
+                                                                            final ComparisonRelation relation) {
+        return ComparableComparisonRelationPredicate.with(left, relation);
     }
 
     /**

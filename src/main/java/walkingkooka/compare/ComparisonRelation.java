@@ -18,6 +18,8 @@
 
 package walkingkooka.compare;
 
+import walkingkooka.predicate.Predicates;
+
 import java.util.Comparator;
 import java.util.function.Predicate;
 
@@ -86,4 +88,11 @@ public enum ComparisonRelation implements Predicate<Integer> {
     }
 
     private final String symbol;
+
+    /**
+     * Returns a {@link Predicate} that uses the given value as the left of a comparison.
+     */
+    public <C extends Comparable<C>> Predicate<C> predicate(final C left){
+        return Predicates.comparisonRelation(left, this);
+    }
 }
