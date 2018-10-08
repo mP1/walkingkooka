@@ -48,8 +48,19 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
     protected abstract SpreadsheetTextFormatContext createContext();
 
     protected void formatAndCheck(final V value,
+                                  final String formattedText) {
+        this.formatAndCheck(value, this.formattedText(formattedText));
+    }
+
+    protected void formatAndCheck(final V value,
                                   final SpreadsheetFormattedText formattedText) {
         this.formatAndCheck(this.createFormatter(), value, formattedText);
+    }
+
+    protected void formatAndCheck(final SpreadsheetTextFormatter<V> formatter,
+                                  final V value,
+                                  final String formattedText) {
+        this.formatAndCheck(formatter, value, this.formattedText(formattedText));
     }
 
     protected void formatAndCheck(final SpreadsheetTextFormatter<V> formatter,
@@ -61,11 +72,26 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
     protected void formatAndCheck(final SpreadsheetTextFormatter<V> formatter,
                                   final V value,
                                   final SpreadsheetTextFormatContext context,
+                                  final String formattedText) {
+        this.formatAndCheck(formatter, value, context, this.formattedText(formattedText));
+    }
+
+    protected void formatAndCheck(final SpreadsheetTextFormatter<V> formatter,
+                                  final V value,
+                                  final SpreadsheetTextFormatContext context,
                                   final SpreadsheetFormattedText formattedText) {
         this.formatAndCheck(formatter, value, context, Optional.of(formattedText));
     }
 
+    private SpreadsheetFormattedText formattedText(final String text) {
+        return SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, text);
+    }
+
     // format fail and check
+
+    protected void formatFailAndCheck(final V value) {
+        this.formatFailAndCheck(value, this.createContext());
+    }
 
     protected void formatFailAndCheck(final V value,
                                       final SpreadsheetTextFormatContext context) {
