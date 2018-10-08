@@ -36,11 +36,21 @@ public enum ComparisonRelation implements Predicate<Integer> {
         boolean test0(final int value) {
             return 0 == value;
         }
+
+        @Override
+        public ComparisonRelation invert() {
+            return NE;
+        }
     },
     GTE(">=") {
         @Override
         boolean test0(final int value) {
             return value >= 0;
+        }
+
+        @Override
+        public ComparisonRelation invert() {
+            return LT;
         }
     },
     GT(">") {
@@ -48,11 +58,21 @@ public enum ComparisonRelation implements Predicate<Integer> {
         boolean test0(final int value) {
             return value > 0;
         }
+
+        @Override
+        public ComparisonRelation invert() {
+            return LTE;
+        }
     },
     LTE("<=") {
         @Override
         boolean test0(final int value) {
             return value <= 0;
+        }
+
+        @Override
+        public ComparisonRelation invert() {
+            return GT;
         }
     },
     LT("<") {
@@ -60,12 +80,22 @@ public enum ComparisonRelation implements Predicate<Integer> {
         boolean test0(final int value) {
             return value < 0;
         }
+
+        @Override
+        public ComparisonRelation invert() {
+            return GTE;
+        }
     },
     NE("!=") {
 
         @Override
         boolean test0(final int value) {
             return 0 != value;
+        }
+
+        @Override
+        public ComparisonRelation invert() {
+            return EQ;
         }
     };
 
@@ -98,6 +128,8 @@ public enum ComparisonRelation implements Predicate<Integer> {
     public <C extends Comparable<C>> Predicate<C> predicate(final C left){
         return Predicates.comparisonRelation(left, this);
     }
+
+    abstract public ComparisonRelation invert();
 
     /**
      * Finds a {@link ComparisonRelation} with the {@link String symbol} or throws a {@link IllegalArgumentException}.
