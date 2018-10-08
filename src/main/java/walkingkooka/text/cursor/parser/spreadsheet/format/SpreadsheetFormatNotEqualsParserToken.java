@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
+import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.visit.Visiting;
@@ -57,6 +58,11 @@ public final class SpreadsheetFormatNotEqualsParserToken extends SpreadsheetForm
         return new SpreadsheetFormatNotEqualsParserToken(tokens,
                 text,
                 without);
+    }
+
+    @Override
+    public ComparisonRelation relation() {
+        return ComparisonRelation.NE;
     }
 
     // isXXX..............................................................................................................

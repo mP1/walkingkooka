@@ -500,6 +500,11 @@ public abstract class SpreadsheetFormatParserToken implements ParserToken {
     public abstract boolean isColorNumber();
 
     /**
+     * All sub classes of {@link SpreadsheetFormatConditionParserToken} return true
+     */
+    public abstract boolean isCondition();
+
+    /**
      * Only {@link SpreadsheetFormatConditionNumberParserToken} return true
      */
     public abstract boolean isConditionNumber();
