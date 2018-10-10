@@ -29,7 +29,8 @@ abstract class BigDecimalSpreadsheetTextFormatterDigits implements UsesToStringB
     /**
      * {@see BigDecimalSpreadsheetTextFormatterIntegerDigits}
      */
-    static BigDecimalSpreadsheetTextFormatterDigits integer(final SpreadsheetTextFormatContextSign sign, final String text,
+    static BigDecimalSpreadsheetTextFormatterDigits integer(final SpreadsheetTextFormatContextSign sign,
+                                                            final String text,
                                                             final BigDecimalSpreadsheetTextFormatterThousandsSeparator thousandsSeparator) {
         return BigDecimalSpreadsheetTextFormatterIntegerDigits.with(sign, text, thousandsSeparator);
     }
