@@ -287,7 +287,7 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
         predefined.put(LEADING_ZERO_IDENTIFIER, LEADING_ZERO);
         predefined.put(LEADING_SPACE_IDENTIFIER, LEADING_SPACE);
         predefined.put(NON_ZERO_IDENTIFIER, NON_ZERO);
-        predefined.put(BIGDECIMAL_PERCENTAGE_IDENTIFIER, BIGDECIMAL_PERCENTAGE);
+        predefined.put(PERCENTAGE_IDENTIFIER, PERCENTAGE);
         predefined.put(THOUSANDS_IDENTIFIER, THOUSANDS);
     }
 
@@ -322,8 +322,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
             SpreadsheetFormatParserToken::digit,
             SpreadsheetFormatDigitParserToken.class);
 
-    private static final EbnfIdentifierName BIGDECIMAL_PERCENTAGE_IDENTIFIER = EbnfIdentifierName.with("BIGDECIMAL_PERCENTAGE");
-    private static final Parser<ParserToken, ParserContext> BIGDECIMAL_PERCENTAGE = symbol('%',
+    private static final EbnfIdentifierName PERCENTAGE_IDENTIFIER = EbnfIdentifierName.with("PERCENTAGE");
+    private static final Parser<ParserToken, ParserContext> PERCENTAGE = symbol('%',
             SpreadsheetFormatParserToken::percentSymbol,
             SpreadsheetFormatPercentSymbolParserToken.class);
 
