@@ -2154,6 +2154,28 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
         this.fractionParseAndCheck(digitNonZero(), fraction(), digitNonZero(), textLiteralOpenParens());
     }
 
+    // percentage
+
+    @Test
+    public void testFractionPercentageDigitSlashDigit() {
+        this.fractionParseAndCheck(percentage(), digitNonZero(), fraction(), digitNonZero());
+    }
+
+    @Test
+    public void testFractionDigitPercentageSlashDigit() {
+        this.fractionParseAndCheck(digitNonZero(), percentage(), fraction(), digitNonZero());
+    }
+
+    @Test
+    public void testFractionDigitSlashPercentageDigit() {
+        this.fractionParseAndCheck(percentage(), digitNonZero(), fraction(), percentage(), digitNonZero());
+    }
+
+    @Test
+    public void testFractionDigitSlashDigitPercentage() {
+        this.fractionParseAndCheck(digitNonZero(), fraction(), digitNonZero(), percentage());
+    }
+
     // plus
 
     @Test
@@ -2196,6 +2218,28 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     @Test
     public void testFractionDigitSlashDigitSpace() {
         this.fractionParseAndCheck(digitNonZero(), fraction(), digitNonZero(), textLiteralSpace());
+    }
+
+    // thousands
+
+    @Test
+    public void testFractionThousandsDigitSlashDigit() {
+        this.fractionParseAndCheck(thousands(), digitNonZero(), fraction(), digitNonZero());
+    }
+
+    @Test
+    public void testFractionDigitThousandsSlashDigit() {
+        this.fractionParseAndCheck(digitNonZero(), thousands(), fraction(), digitNonZero());
+    }
+
+    @Test
+    public void testFractionDigitSlashThousandsDigit() {
+        this.fractionParseAndCheck(thousands(), digitNonZero(), fraction(), thousands(), digitNonZero());
+    }
+
+    @Test
+    public void testFractionDigitSlashDigitThousands() {
+        this.fractionParseAndCheck(digitNonZero(), fraction(), digitNonZero(), thousands());
     }
 
     // equals
