@@ -19,13 +19,17 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.convert.Converter;
+import walkingkooka.math.Fraction;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatFractionParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.function.Function;
 
 /**
  * Collection of static factory methods for numerous {@link SpreadsheetTextFormatter}.
@@ -38,6 +42,15 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     public static SpreadsheetTextFormatter bigDecimal(final SpreadsheetFormatBigDecimalParserToken token,
                                                       final MathContext mathContext) {
         return BigDecimalSpreadsheetTextFormatter.with(token, mathContext);
+    }
+
+    /**
+     * {@see BigDecimalFractionSpreadsheetTextFormatter}
+     */
+    public static SpreadsheetTextFormatter bigDecimalFraction(final SpreadsheetFormatFractionParserToken token,
+                                                              final MathContext mathContext,
+                                                              final Function<BigDecimal, Fraction> fractioner) {
+        return BigDecimalFractionSpreadsheetTextFormatter.with(token, mathContext, fractioner);
     }
 
     /**
