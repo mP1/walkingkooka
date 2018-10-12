@@ -29,6 +29,7 @@ import walkingkooka.type.PublicStaticHelper;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.function.Function;
 
 /**
@@ -39,26 +40,26 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     /**
      * {@see BigDecimalSpreadsheetTextFormatter}
      */
-    public static SpreadsheetTextFormatter bigDecimal(final SpreadsheetFormatBigDecimalParserToken token,
-                                                      final MathContext mathContext) {
+    public static SpreadsheetTextFormatter<BigDecimal> bigDecimal(final SpreadsheetFormatBigDecimalParserToken token,
+                                                                  final MathContext mathContext) {
         return BigDecimalSpreadsheetTextFormatter.with(token, mathContext);
     }
 
     /**
      * {@see BigDecimalFractionSpreadsheetTextFormatter}
      */
-    public static SpreadsheetTextFormatter bigDecimalFraction(final SpreadsheetFormatFractionParserToken token,
-                                                              final MathContext mathContext,
-                                                              final Function<BigDecimal, Fraction> fractioner) {
+    public static SpreadsheetTextFormatter<BigDecimal> bigDecimalFraction(final SpreadsheetFormatFractionParserToken token,
+                                                                          final MathContext mathContext,
+                                                                          final Function<BigDecimal, Fraction> fractioner) {
         return BigDecimalFractionSpreadsheetTextFormatter.with(token, mathContext, fractioner);
     }
 
     /**
      * {@link ConditionSpreadsheetTextFormatter}
      */
-    public static <T> SpreadsheetTextFormatter conditional(final SpreadsheetFormatConditionParserToken token,
-                                                           final Converter bigDecimalConverter,
-                                                           final SpreadsheetTextFormatter<T> formatter) {
+    public static <T> SpreadsheetTextFormatter<T> conditional(final SpreadsheetFormatConditionParserToken token,
+                                                              final Converter bigDecimalConverter,
+                                                              final SpreadsheetTextFormatter<T> formatter) {
         return ConditionSpreadsheetTextFormatter.with(token, bigDecimalConverter, formatter);
     }
 
@@ -72,7 +73,7 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     /**
      * {@see LocalDateTimeSpreadsheetTextFormatter}
      */
-    static SpreadsheetTextFormatter localDateTime(final SpreadsheetFormatDateTimeParserToken token) {
+    public static SpreadsheetTextFormatter<LocalDateTime> localDateTime(final SpreadsheetFormatDateTimeParserToken token) {
         return LocalDateTimeSpreadsheetTextFormatter.with(token);
     }
 
