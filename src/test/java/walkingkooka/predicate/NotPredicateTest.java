@@ -18,6 +18,7 @@
 package walkingkooka.predicate;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 
@@ -65,7 +66,8 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Override
     @Test
-    public void testNullFails() {
+    @Ignore
+    public void testTestNullFails() {
         // nop
     }
 

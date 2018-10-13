@@ -17,6 +17,7 @@
 
 package walkingkooka.predicate;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 
@@ -27,8 +28,10 @@ import static org.junit.Assert.assertSame;
 
 final public class NeverPredicateTest extends PredicateTestCase<NeverPredicate<Object>, Object> {
     @Test
-    public void testNullFails() {
-        // nop
+    @Ignore
+    @Override
+    public void testTestNullFails() {
+        throw new UnsupportedOperationException();
     }
 
     @Test

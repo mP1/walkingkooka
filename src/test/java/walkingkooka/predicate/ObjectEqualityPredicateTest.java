@@ -18,6 +18,7 @@
 package walkingkooka.predicate;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
@@ -48,7 +49,8 @@ final public class ObjectEqualityPredicateTest
 
     @Override
     @Test
-    public void testNullFails() {
+    @Ignore
+    public void testTestNullFails() {
         // nop
     }
 

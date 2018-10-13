@@ -17,11 +17,12 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
 import java.util.function.Predicate;
+
+import static org.junit.Assert.fail;
 
 /**
  * Base class for testing a {@link Predicate} with mostly parameter checking tests and various
@@ -39,16 +40,13 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
         this.checkNaming(Predicate.class);
     }
 
-    @Test
-    public void testNullFails() {
-        try {
-            this.test(null);
-            Assert.fail();
-        } catch (final NullPointerException ignored) {
-        }
+    @Test(expected = NullPointerException.class)
+    public void testTestNullFails() {
+        this.test(null);
     }
 
-    @Test final public void testCheckToStringOverridden() {
+    @Test
+    final public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
 
@@ -62,9 +60,9 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
         this.testTrue(this.createPredicate(), value);
     }
 
-    final protected void testTrue(final Predicate<T> predicate, final T value) {
+    final protected <TT> void testTrue(final Predicate<TT> predicate, final TT value) {
         if (false == predicate.test(value)) {
-            Assert.fail(predicate + " did not match=" + value);
+            fail(predicate + " did not match=" + value);
         }
     }
 
@@ -72,9 +70,9 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
         this.testFalse(this.createPredicate(), value);
     }
 
-    final protected void testFalse(final Predicate<T> predicate, final T value) {
+    final protected <TT> void testFalse(final Predicate<TT> predicate, final TT value) {
         if (predicate.test(value)) {
-            Assert.fail(predicate + " should not have matched=" + value);
+            fail(predicate + " should not have matched=" + value);
         }
     }
 }

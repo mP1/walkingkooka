@@ -16,6 +16,7 @@
  */
 package walkingkooka.predicate;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 
@@ -65,8 +66,16 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
         assertSame("wrapped toString", CUSTOM_TO_STRING, wrapped.toString);
     }
 
+
     @Test
-    public void testTest() {
+    @Ignore
+    @Override
+    public void testTestNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testTestTrue() {
         this.testTrue(STRING);
     }
 
@@ -78,11 +87,6 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     @Test
     public void testToString() {
         assertEquals(CUSTOM_TO_STRING, this.createPredicate().toString());
-    }
-
-    @Override
-    public void testNullFails() {
-        // nop
     }
 
     @Override
