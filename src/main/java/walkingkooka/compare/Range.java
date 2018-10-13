@@ -91,7 +91,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
     /**
      * Returns a {@link Range} that matches true to both {@link Range ranges}.
      */
-    public Range<C> intersection(final Range<C> other) {
+    public Range<C> and(final Range<C> other) {
         Objects.requireNonNull(other, "other");
 
         final RangeBound<C> lower = this.lower.max(other.lower);

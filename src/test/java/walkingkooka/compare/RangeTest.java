@@ -38,8 +38,8 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     // parameter checks................................................
 
     @Test(expected = NullPointerException.class)
-    public void testIntersectionNullFails() {
-        this.createPredicate().intersection(null);
+    public void testAndNullFails() {
+        this.createPredicate().and(null);
     }
 
     // all ..............................................................................................
@@ -209,135 +209,135 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
         return Range.greaterThanEquals(LOWER_VALUE);
     }
 
-    // intersection with all..........................................................................................
+    // and with all..........................................................................................
 
     @Test
-    public void testIntersectionAllAndAll() {
-        intersectionAllAndCheck(all());
+    public void testAndAllAndAll() {
+        andAllAndCheck(all());
     }
 
     @Test
-    public void testIntersectionSingletonAllAll() {
-        intersectionAllAndCheck(singleton());
+    public void testAndSingletonAllAll() {
+        andAllAndCheck(singleton());
     }
 
     @Test
-    public void testIntersectionLessThanAllAll() {
-        intersectionAllAndCheck(lessThan());
+    public void testAndLessThanAllAll() {
+        andAllAndCheck(lessThan());
     }
 
     @Test
-    public void testIntersectionLessThanEqualsAllAll() {
-        intersectionAllAndCheck(lessThanEquals());
+    public void testAndLessThanEqualsAllAll() {
+        andAllAndCheck(lessThanEquals());
     }
 
     @Test
-    public void testIntersectionGreaterThanAllAll() {
-        intersectionAllAndCheck(greaterThan());
+    public void testAndGreaterThanAllAll() {
+        andAllAndCheck(greaterThan());
     }
 
     @Test
-    public void testIntersectionGreaterThanEqualsAllAll() {
-        intersectionAllAndCheck(greaterThanEquals());
+    public void testAndGreaterThanEqualsAllAll() {
+        andAllAndCheck(greaterThanEquals());
     }
 
-    private void intersectionAllAndCheck(final Range<Integer> range) {
+    private void andAllAndCheck(final Range<Integer> range) {
         final Range<Integer> all = all();
-        assertSame(range + " intersection with " + all, range, range.intersection(all));
-        assertSame(range + " intersection with " + all, range, all.intersection(range));
+        assertSame(range + " and with " + all, range, range.and(all));
+        assertSame(range + " and with " + all, range, all.and(range));
     }
 
-    // intersection with all..........................................................................................
+    // and with all..........................................................................................
 
     @Test
-    public void testIntersectionSingletonAndAll() {
-        intersectionSingletonAndCheck(all());
+    public void testAndSingletonAndAll() {
+        andSingletonAndCheck(all());
     }
 
     @Test
-    public void testIntersectionSingletonAndSingleton() {
+    public void testAndSingletonAndSingleton() {
         final Range<Integer> singleton = singleton();
         final Range<Integer> singleton2 = singleton();
-        assertSame(singleton + " intersection with " + singleton2, singleton, singleton.intersection(singleton2));
-        assertSame(singleton2 + " intersection with " + singleton, singleton2, singleton2.intersection(singleton));
+        assertSame(singleton + " and with " + singleton2, singleton, singleton.and(singleton2));
+        assertSame(singleton2 + " and with " + singleton, singleton2, singleton2.and(singleton));
     }
 
     @Test
-    public void testIntersectionSingletonAndLessThan() {
-        intersectionSingletonAndCheck(lessThan());
+    public void testAndSingletonAndLessThan() {
+        andSingletonAndCheck(lessThan());
     }
 
     @Test
-    public void testIntersectionSingletonAndLessThanEquals() {
-        intersectionSingletonAndCheck(lessThanEquals());
+    public void testAndSingletonAndLessThanEquals() {
+        andSingletonAndCheck(lessThanEquals());
     }
 
     @Test
-    public void testIntersectionSingletonAndGreaterThan() {
-        intersectionSingletonAndCheck(greaterThan());
+    public void testAndSingletonAndGreaterThan() {
+        andSingletonAndCheck(greaterThan());
     }
 
     @Test
-    public void testIntersectionSingletonAndGreaterThanEquals() {
-        intersectionSingletonAndCheck(greaterThanEquals());
+    public void testAndSingletonAndGreaterThanEquals() {
+        andSingletonAndCheck(greaterThanEquals());
     }
 
-    private void intersectionSingletonAndCheck(final Range<Integer> range) {
+    private void andSingletonAndCheck(final Range<Integer> range) {
         final Range<Integer> singleton = singleton();
-        assertSame(range + " intersection with " + singleton, singleton, range.intersection(singleton));
-        assertSame(singleton + " intersection with " + range, singleton, singleton.intersection(range));
+        assertSame(range + " and with " + singleton, singleton, range.and(singleton));
+        assertSame(singleton + " and with " + range, singleton, singleton.and(range));
     }
 
-    // intersection invalid.......................................................
+    // and invalid.......................................................
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionLessThanAndGreaterThanFails() {
-        lessThan().intersection(greaterThan());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionGreaterThanAndLessThanFails() {
-        greaterThan().intersection(lessThan());
+    public void testAndLessThanAndGreaterThanFails() {
+        lessThan().and(greaterThan());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionLessThanAndGreaterThanFails2() {
-        Range.lessThan(122).intersection(Range.greaterThan(123));
+    public void testAndGreaterThanAndLessThanFails() {
+        greaterThan().and(lessThan());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionLessThanEqualAndGreaterThanFails2() {
-        Range.lessThanEquals(122).intersection(Range.greaterThan(123));
+    public void testAndLessThanAndGreaterThanFails2() {
+        Range.lessThan(122).and(Range.greaterThan(123));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionLessThanEqualAndSingletonFails2() {
-        Range.lessThanEquals(122).intersection(Range.singleton(123));
+    public void testAndLessThanEqualAndGreaterThanFails2() {
+        Range.lessThanEquals(122).and(Range.greaterThan(123));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionSingletonAndGreaterThanFails2() {
-        Range.singleton(122).intersection(Range.greaterThan(123));
+    public void testAndLessThanEqualAndSingletonFails2() {
+        Range.lessThanEquals(122).and(Range.singleton(123));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionSingletonAndGreaterThanEqualsFails2() {
-        Range.singleton(122).intersection(Range.greaterThanEquals(123));
+    public void testAndSingletonAndGreaterThanFails2() {
+        Range.singleton(122).and(Range.greaterThan(123));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionNonOverlappingBoundedRangeBoundedRangeFails() {
-        Range.greaterThan(222).intersection(Range.lessThan(333))
-                .intersection(Range.greaterThan(888).intersection(Range.lessThan(999)));
+    public void testAndSingletonAndGreaterThanEqualsFails2() {
+        Range.singleton(122).and(Range.greaterThanEquals(123));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIntersectionNonOverlappingBoundedRangeBoundedRangeFails2() {
-        Range.greaterThan(222).intersection(Range.lessThan(333))
-                .intersection(Range.greaterThan(333).intersection(Range.lessThan(999)));
+    public void testAndNonOverlappingBoundedRangeBoundedRangeFails() {
+        Range.greaterThan(222).and(Range.lessThan(333))
+                .and(Range.greaterThan(888).and(Range.lessThan(999)));
     }
 
-    // intersection gt lt ......................................................................
+    @Test(expected = IllegalArgumentException.class)
+    public void testAndNonOverlappingBoundedRangeBoundedRangeFails2() {
+        Range.greaterThan(222).and(Range.lessThan(333))
+                .and(Range.greaterThan(333).and(Range.lessThan(999)));
+    }
+
+    // and gt lt ......................................................................
 
     @Test
     public void testGreaterThanLessThan_Less() {
@@ -375,10 +375,10 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     }
 
     private Range<Integer> greaterThanLessThan() {
-        return Range.greaterThan(LOWER_VALUE).intersection(Range.lessThan(UPPER_VALUE));
+        return Range.greaterThan(LOWER_VALUE).and(Range.lessThan(UPPER_VALUE));
     }
 
-    // intersection gte lt ......................................................................
+    // and gte lt ......................................................................
 
     @Test
     public void testGreaterThanEqualsLessThan_Less() {
@@ -416,10 +416,10 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     }
 
     private Range<Integer> greaterThanEqualsLessThan() {
-        return Range.greaterThanEquals(LOWER_VALUE).intersection(Range.lessThan(UPPER_VALUE));
+        return Range.greaterThanEquals(LOWER_VALUE).and(Range.lessThan(UPPER_VALUE));
     }
 
-    // intersection gt lte ......................................................................
+    // and gt lte ......................................................................
 
     @Test
     public void testGreaterThanLessThanEquals_Less() {
@@ -457,10 +457,10 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     }
 
     private Range<Integer> greaterThanLessThanEquals() {
-        return Range.greaterThan(LOWER_VALUE).intersection(Range.lessThanEquals(UPPER_VALUE));
+        return Range.greaterThan(LOWER_VALUE).and(Range.lessThanEquals(UPPER_VALUE));
     }
 
-    // intersection gte lte ......................................................................
+    // and gte lte ......................................................................
 
     @Test
     public void testGreaterThanEqualsLessThanEquals_Less() {
@@ -498,50 +498,50 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     }
 
     private Range<Integer> greaterThanEqualsLessThanEquals() {
-        return Range.greaterThanEquals(LOWER_VALUE).intersection(Range.lessThanEquals(UPPER_VALUE));
+        return Range.greaterThanEquals(LOWER_VALUE).and(Range.lessThanEquals(UPPER_VALUE));
     }
 
-    // intersection..............................................................................................
+    // and..............................................................................................
 
     @Test
-    public void testIntersectionLower() {
-        this.intersectionAndCheck(greaterThanEqualsLessThanEquals(),
+    public void testAndLower() {
+        this.andAndCheck(greaterThanEqualsLessThanEquals(),
                 Range.greaterThan(BELOW_LOWER_VALUE));
     }
 
     @Test
-    public void testIntersectionUpper() {
-        this.intersectionAndCheck(greaterThanEqualsLessThanEquals(),
+    public void testAndUpper() {
+        this.andAndCheck(greaterThanEqualsLessThanEquals(),
                 Range.lessThan(ABOVE_UPPER_VALUE));
     }
 
     @Test
-    public void testIntersectionLower2() {
+    public void testAndLower2() {
         final Range<Integer> range = greaterThanEqualsLessThanEquals();
-        this.intersectionAndCheck(range,
+        this.andAndCheck(range,
                 Range.greaterThan(ABOVE_LOWER_VALUE),
                 RangeBound.exclusive(ABOVE_LOWER_VALUE),
                 range.upper);
     }
 
     @Test
-    public void testIntersectionUpper2() {
-        this.intersectionAndCheck(greaterThanEqualsLessThanEquals(),
+    public void testAndUpper2() {
+        this.andAndCheck(greaterThanEqualsLessThanEquals(),
                 Range.lessThan(BELOW_UPPER_VALUE),
                 greaterThanEquals().lower,
                 RangeBound.exclusive(BELOW_UPPER_VALUE));
     }
 
-    private void intersectionAndCheck(final Range<Integer> range,
+    private void andAndCheck(final Range<Integer> range,
                                       final Range<Integer> other) {
-        this.intersectionAndCheck(range, other, range.lower, range.upper);
+        this.andAndCheck(range, other, range.lower, range.upper);
     }
 
-    private void intersectionAndCheck(final Range<Integer> range,
+    private void andAndCheck(final Range<Integer> range,
                                       final Range<Integer> other,
                                       final RangeBound<Integer> lower,
                                       final RangeBound<Integer> upper) {
-        final Range<Integer> intersected = range.intersection(other);
+        final Range<Integer> intersected = range.and(other);
         assertEquals(range + " and " + other + " lower", lower, intersected.lower);
         assertEquals(range + " and " + other + " upper", upper, intersected.upper);
     }
@@ -550,7 +550,7 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
 
     @Test
     public void testMultipleValuesCharacters() {
-        final Range<Character> range = Range.greaterThan('C').intersection(Range.lessThan('M'));
+        final Range<Character> range = Range.greaterThan('C').and(Range.lessThan('M'));
         this.testFalse(range, 'B');
         this.testFalse(range, 'C');
         this.testTrue(range, 'D');
@@ -561,7 +561,7 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
 
     @Test
     public void testMultipleValuesStrings() {
-        final Range<String> range = Range.greaterThan("CAT").intersection(Range.lessThan("MOUSE"));
+        final Range<String> range = Range.greaterThan("CAT").and(Range.lessThan("MOUSE"));
         this.testFalse(range, "BAT");
         this.testFalse(range, "CAT");
         this.testTrue(range, "COG");
@@ -573,7 +573,7 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
 
     @Test
     public void testMultipleValuesStrings2() {
-        final Range<String> range = Range.greaterThanEquals("CAT").intersection(Range.lessThanEquals("MOUSE"));
+        final Range<String> range = Range.greaterThanEquals("CAT").and(Range.lessThanEquals("MOUSE"));
         this.testFalse(range, "BAT");
         this.testTrue(range, "CAT");
         this.testTrue(range, "COG");
