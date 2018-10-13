@@ -19,7 +19,10 @@
 package walkingkooka.net;
 
 import walkingkooka.io.serialize.SerializationProxy;
+import walkingkooka.text.CharSequences;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -27,6 +30,63 @@ import java.util.Optional;
  * Note that equality is based by comparing all components, with only the scheme being compared while ignoring case.
  */
 public final class AbsoluteUrl extends Url {
+
+    public final static Optional<UrlCredentials> NO_CREDENTIALS = Optional.empty();
+    public final static Optional<IpPort> NO_PORT = Optional.empty();
+
+    /**
+     * Parses a {@link String url} into a {@link AbsoluteUrl}
+     */
+    public static AbsoluteUrl parse(final String url) {
+        return parseAbsolute0(url);
+    }
+
+    /**
+     * Parses a {@link String url} into a {@link AbsoluteUrl}
+     */
+    private static AbsoluteUrl parseAbsolute0(final String url) {
+        Objects.requireNonNull(url, "url");
+
+        try {
+            return parseAbsolute1(new URL(url));
+        } catch (final MalformedURLException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    private static AbsoluteUrl parseAbsolute1(final URL url) {
+        return AbsoluteUrl.with(UrlScheme.with(url.getProtocol()),
+                credentials(url),
+                HostAddress.with(url.getHost()),
+                ipPort(url),
+                UrlPath.parse(url.getPath()),
+                UrlQueryString.with(nullToEmpty(url.getQuery())),
+                UrlFragment.with(nullToEmpty(url.getRef())));
+    }
+
+    private static Optional<UrlCredentials> credentials(final URL url) {
+        final String userInfo = url.getUserInfo();
+        return CharSequences.isNullOrEmpty(userInfo) ?
+                NO_CREDENTIALS :
+                credentials0(userInfo);
+    }
+
+    private static Optional<UrlCredentials> credentials0(final String userInfo) {
+        final int separator = userInfo.indexOf(":");
+        if (-1 == separator) {
+            throw new IllegalArgumentException("Invalid user credentials " + userInfo);
+        }
+        return Optional.of(UrlCredentials.with(
+                userInfo.substring(0, separator),
+                userInfo.substring(separator + 1)));
+    }
+
+    private static Optional<IpPort> ipPort(final URL url) {
+        final int value = url.getPort();
+        return -1 != value ?
+                Optional.of(IpPort.with(value)) :
+                NO_PORT;
+    }
 
     /**
      * Factory that creates an {@link AbsoluteUrl}
@@ -36,7 +96,8 @@ public final class AbsoluteUrl extends Url {
                             final HostAddress host,
                             final Optional<IpPort> port,
                             final UrlPath path,
-                            final UrlQueryString query, final UrlFragment fragment) {
+                            final UrlQueryString query,
+                            final UrlFragment fragment) {
         Objects.requireNonNull(scheme, "scheme");
         Objects.requireNonNull(credentials, "credentials");
         Objects.requireNonNull(host, "host");

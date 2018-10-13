@@ -86,10 +86,11 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
     @Override
     public void testWith() {
         final AbsoluteUrl url = AbsoluteUrl.with(SCHEME, CREDENTIALS, HOST, PORT, PATH, QUERY, FRAGMENT);
-        assertSame("scheme", SCHEME, url.scheme());
-        assertEquals("credentials", CREDENTIALS, url.credentials());
-        assertEquals("host", HOST, url.host());
-        assertEquals("port", PORT, url.port());
+
+        this.checkScheme(url, SCHEME);
+        this.checkCredentials(url, CREDENTIALS);
+        this.checkHost(url, HOST);
+        this.checkPort(url, PORT);
         this.checkPath(url, PATH);
         this.checkQueryString(url, QUERY);
         this.checkFragment(url, FRAGMENT);
@@ -98,10 +99,11 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
     @Test
     public void testHttps() {
         final AbsoluteUrl url = AbsoluteUrl.with(UrlScheme.HTTPS, CREDENTIALS, HOST, PORT, PATH, QUERY, FRAGMENT);
-        assertEquals("https", UrlScheme.HTTPS, url.scheme());
-        assertEquals("credentials", CREDENTIALS, url.credentials());
-        assertEquals("host", HOST, url.host());
-        assertEquals("port", PORT, url.port());
+
+        this.checkScheme(url, UrlScheme.HTTPS);
+        this.checkCredentials(url, CREDENTIALS);
+        this.checkHost(url, HOST);
+        this.checkPort(url, PORT);
         this.checkPath(url, PATH);
         this.checkQueryString(url, QUERY);
         this.checkFragment(url, FRAGMENT);
@@ -236,6 +238,85 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
         assertSame("fragment", fragment, relative.fragment());
     }
 
+    // parseAbsolute..........................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testParseNullFails() {
+        AbsoluteUrl.parse(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseEmptyFails() {
+        AbsoluteUrl.parse("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseMissingSchemeFails() {
+        AbsoluteUrl.parse("example.com");
+    }
+
+    @Test
+    public void testParseSchemeHost() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com");
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.EMPTY);
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseSchemeHost2() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("https://example.com");
+        this.checkScheme(url, UrlScheme.HTTPS);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.EMPTY);
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseSchemeHostPort() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com:789");
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPort(url, IpPort.with(789));
+        this.checkPath(url, UrlPath.EMPTY);
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseSchemeCredentialsHost() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("http://abc:def@example.com");
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentials(url, UrlCredentials.with("abc", "def"));
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.EMPTY);
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseSchemeHostPathQueryStringFragment() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com/path123?query456#fragment789");
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.parse("path123"));
+        this.checkQueryString(url, UrlQueryString.with("query456"));
+        this.checkFragment(url, UrlFragment.with("fragment789"));
+    }
+
+    // toString..........................................................................................
+
     @Test
     public void testToString() {
         assertEquals("http://host:123/path?query=value#fragment", this.createUrl().toString());
@@ -258,6 +339,39 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
                 query,
                 fragment);
     }
+
+    private void checkScheme(final AbsoluteUrl url, final UrlScheme scheme) {
+        assertEquals("scheme", scheme, url.scheme());
+    }
+
+    private void checkCredentials(final AbsoluteUrl url, final UrlCredentials credentials) {
+        this.checkCredentials(url, Optional.of(credentials));
+    }
+
+    private void checkCredentialsAbsent(final AbsoluteUrl url) {
+        this.checkCredentials(url, AbsoluteUrl.NO_CREDENTIALS);
+    }
+
+    private void checkCredentials(final AbsoluteUrl url, final Optional<UrlCredentials> credentials) {
+        assertEquals("credentials", credentials, url.credentials());
+    }
+
+    private void checkHost(final AbsoluteUrl url, final HostAddress host) {
+        assertEquals("host", host, url.host());
+    }
+
+    private void checkPort(final AbsoluteUrl url, final IpPort port) {
+        this.checkPort(url, Optional.of(port));
+    }
+
+    private void checkPortAbsent(final AbsoluteUrl url) {
+        this.checkPort(url, AbsoluteUrl.NO_PORT);
+    }
+
+    private void checkPort(final AbsoluteUrl url, final Optional<IpPort> port) {
+        assertEquals("port", port, url.port());
+    }
+
 
     @Override
     protected Class<AbsoluteUrl> type() {

@@ -18,6 +18,8 @@
 
 package walkingkooka.net;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,6 +27,30 @@ import java.util.Optional;
  * A {@link RelativeUrl} holds a URL with getters available to retrieve components.
  */
 public final class RelativeUrl extends Url {
+
+    /**
+     * Parses a {@link String url} into a {@link RelativeUrl}
+     */
+    public static RelativeUrl parse(final String url) {
+        return parseRelative0(url);
+    }
+
+    private static RelativeUrl parseRelative0(final String url) {
+        Objects.requireNonNull(url, "url");
+
+        try {
+            return parseRelative1(new URL("http://example" + url));
+        } catch (final MalformedURLException cause) {
+            throw new IllegalArgumentException(cause.getMessage(), cause);
+        }
+    }
+
+    private static RelativeUrl parseRelative1(final URL url) {
+        return RelativeUrl.with(
+                UrlPath.parse(url.getPath()),
+                UrlQueryString.with(nullToEmpty(url.getQuery())),
+                UrlFragment.with(nullToEmpty(url.getRef())));
+    }
 
     /**
      * Factory.
