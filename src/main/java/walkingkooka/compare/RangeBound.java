@@ -65,7 +65,7 @@ abstract class RangeBound<C extends Comparable<C>> implements HashCodeEqualsDefi
      */
     abstract boolean upperTest(final C value);
 
-    // Range.intersection...........................................
+    // Range.and...........................................
 
     abstract RangeBound<C> min(final RangeBound<C> other);
 
