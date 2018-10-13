@@ -26,7 +26,38 @@ import static org.junit.Assert.assertTrue;
 
 public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> {
 
-    // tests
+    // parseRelative..........................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testParseNullFails() {
+        RelativeUrl.parse(null);
+    }
+
+    @Test
+    public void testParseEmptyPath() {
+        final RelativeUrl url = RelativeUrl.parse("");
+        this.checkPath(url, UrlPath.EMPTY);
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseSlash() {
+        final RelativeUrl url = RelativeUrl.parse("/");
+        this.checkPath(url, UrlPath.parse("/"));
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParsePathQueryStringFragment() {
+        final RelativeUrl url = RelativeUrl.parse("/path123?query456#fragment789");
+        this.checkPath(url, UrlPath.parse("path123"));
+        this.checkQueryString(url, UrlQueryString.with("query456"));
+        this.checkFragment(url, UrlFragment.with("fragment789"));
+    }
+    
+    // toString........................................................................
 
     @Test
     @Override

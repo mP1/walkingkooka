@@ -196,14 +196,14 @@ abstract public class UrlTestCase<U extends Url> extends PublicClassTestCase<U> 
     }
     
     final void checkPath(final Url url, final UrlPath path) {
-        assertSame("path", path, url.path());
+        assertEquals("path", path, url.path());
     }
 
     final void checkQueryString(final Url url, final UrlQueryString queryString) {
-        assertSame("queryString", queryString, url.query());
+        assertEquals("queryString", queryString, url.query());
     }
 
     final void checkFragment(final Url url, final UrlFragment fragment) {
-        assertSame("fragment", fragment, url.fragment());
+        assertEquals("fragment", fragment, url.fragment());
     }
 }

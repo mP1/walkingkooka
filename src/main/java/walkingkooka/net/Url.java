@@ -163,6 +163,34 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
     // factories..................................................................................................
 
     /**
+     * Examines the URL and attempts to parse it as a relative or absolute url.
+     */
+    public static Url parse(final String url) {
+        Objects.requireNonNull(url, "url");
+
+        final int colon = url.indexOf(':');
+        final int slash = url.indexOf('/');
+
+        return -1 != colon && colon < slash ?
+               parseAbsolute(url) :
+               parseRelative(url);
+    }
+
+    /**
+     * Parses a {@link String url} into a {@link AbsoluteUrl}
+     */
+    public static AbsoluteUrl parseAbsolute(final String url) {
+        return AbsoluteUrl.parse(url);
+    }
+    
+    /**
+     * Parses a {@link String url} into a {@link RelativeUrl}
+     */
+    public static RelativeUrl parseRelative(final String url) {
+        return RelativeUrl.parse(url);
+    }
+
+    /**
      * Creates a {@link AbsoluteUrl}.
      */
     public static AbsoluteUrl absolute(final UrlScheme scheme,
@@ -181,6 +209,17 @@ public abstract class Url implements Value<String>, ShouldBeQuoted, HashCodeEqua
     public static RelativeUrl relative(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
         return RelativeUrl.with(path, query, fragment);
     }
+
+    /**
+     * Helper used by all parse methods.
+     */
+    static String nullToEmpty(final String value) {
+        return null == value ?
+                "" :
+                value;
+    }
+
+    // ctor...........................................................................................................
 
     /**
      * Package private constructor to limit sub classing.
