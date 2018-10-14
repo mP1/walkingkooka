@@ -18,6 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
 
 public final class SpreadsheetParserContexts implements PublicStaticHelper {
@@ -25,8 +26,8 @@ public final class SpreadsheetParserContexts implements PublicStaticHelper {
     /**
      * {@see BasicSpreadsheetParserContext}
      */
-    public static SpreadsheetParserContext basic() {
-        return BasicSpreadsheetParserContext.create();
+    public static SpreadsheetParserContext basic(final DecimalNumberContext context) {
+        return BasicSpreadsheetParserContext.with(context);
     }
 
     /**

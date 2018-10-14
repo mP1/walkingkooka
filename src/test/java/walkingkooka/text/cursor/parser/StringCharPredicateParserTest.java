@@ -24,7 +24,7 @@ import walkingkooka.text.cursor.TextCursor;
 
 import static org.junit.Assert.assertEquals;
 
-public class StringCharPredicateParserTest extends ParserTemplateTestCase<StringCharPredicateParser<FakeParserContext>, StringParserToken> {
+public class StringCharPredicateParserTest extends ParserTemplateTestCase<StringCharPredicateParser<ParserContext>, StringParserToken> {
 
     private final static CharPredicate DIGITS = CharPredicates.digit();
     private final static int MIN_LENGTH = 2;
@@ -136,7 +136,7 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
     }
 
     @Override
-    protected Class<StringCharPredicateParser<FakeParserContext>> type() {
+    protected Class<StringCharPredicateParser<ParserContext>> type() {
         return Cast.to(StringCharPredicateParser.class);
     }
 }

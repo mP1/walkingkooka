@@ -23,11 +23,39 @@ package walkingkooka.text.cursor.parser.json;
  */
 final class BasicJsonNodeParserContext implements JsonNodeParserContext {
 
-    static BasicJsonNodeParserContext create() {
-        return new BasicJsonNodeParserContext();
+    /**
+     * Type safe getter
+     */
+    static BasicJsonNodeParserContext instance() {
+        return INSTANCE;
     }
+
+    /**
+     * Singleton
+     */
+    private final static BasicJsonNodeParserContext INSTANCE = new BasicJsonNodeParserContext();
 
     private BasicJsonNodeParserContext() {
         super();
+    }
+
+    @Override
+    public char decimalPoint() {
+        return '.';
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return 'E';
+    }
+
+    @Override
+    public char minusSign() {
+        return '-';
+    }
+
+    @Override
+    public char plusSign() {
+        return '+';
     }
 }

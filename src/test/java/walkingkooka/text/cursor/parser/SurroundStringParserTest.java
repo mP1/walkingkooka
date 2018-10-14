@@ -22,7 +22,7 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 
-public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStringParser<FakeParserContext>, StringParserToken> {
+public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStringParser<ParserContext>, StringParserToken> {
 
     private final static String OPEN = "<123";
     private final static String CLOSE = "456";
@@ -128,7 +128,7 @@ public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStr
     }
 
     @Override
-    protected Class<SurroundStringParser<FakeParserContext>> type() {
+    protected Class<SurroundStringParser<ParserContext>> type() {
         return Cast.to(SurroundStringParser.class);
     }
 }

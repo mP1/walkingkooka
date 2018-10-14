@@ -26,7 +26,7 @@ import java.math.MathContext;
 
 import static org.junit.Assert.assertEquals;
 
-public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecimalParser<FakeParserContext>, BigDecimalParserToken> {
+public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecimalParser<ParserContext>, BigDecimalParserToken> {
 
     @Test
     public void testFailure() {
@@ -364,13 +364,47 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
     }
 
     @Test
+    public void testDifferentDecimalPoint() {
+        this.parseAndCheck3("1!25", BigDecimal.valueOf(1.25));
+    }
+
+    @Test
+    public void testDifferentExponentSymbol() {
+        this.parseAndCheck3("5X2", new BigDecimal("5E2"));
+    }
+
+    @Test
+    public void testDifferentMinusSign() {
+        this.parseAndCheck3("M123", BigDecimal.valueOf(-123));
+    }
+
+    @Test
+    public void testDifferentPlusSign() {
+        this.parseAndCheck3("P123", BigDecimal.valueOf(123));
+    }
+
+    private TextCursor parseAndCheck3(final String text, final BigDecimal value) {
+        return this.parseAndCheck(this.createParser(),
+                ParserContexts.basic('!', 'X', 'M', 'P'),
+                text,
+                ParserTokens.bigDecimal(value, text),
+                text,
+                "");
+    }
+
+    @Test
     public void testToString() {
         assertEquals("Decimal", this.createParser().toString());
     }
 
     @Override
     protected BigDecimalParser createParser() {
-        return BigDecimalParser.with('.', MathContext.DECIMAL64);
+        return BigDecimalParser.with(MathContext.DECIMAL64);
+    }
+
+    @Override
+    protected ParserContext createContext() {
+        return ParserContexts.basic('.', 'E', '-', '+');
     }
 
     private TextCursor parseAndCheck2(final String text){
@@ -394,7 +428,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
     }
 
     @Override
-    protected Class<BigDecimalParser<FakeParserContext>> type() {
+    protected Class<BigDecimalParser<ParserContext>> type() {
         return Cast.to(BigDecimalParser.class);
     }
 }

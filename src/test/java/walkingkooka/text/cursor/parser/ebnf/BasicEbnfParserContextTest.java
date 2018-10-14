@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.ebnf;
 public final class BasicEbnfParserContextTest extends EbnfParserContextTestCase<BasicEbnfParserContext> {
     @Override
     protected BasicEbnfParserContext createContext() {
-        return BasicEbnfParserContext.create();
+        return BasicEbnfParserContext.instance();
     }
 
     @Override

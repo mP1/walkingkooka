@@ -23,7 +23,7 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 
-public class StringParserTest extends ParserTemplateTestCase<StringParser<FakeParserContext>, StringParserToken> {
+public class StringParserTest extends ParserTemplateTestCase<StringParser<ParserContext>, StringParserToken> {
 
     private final static String STRING = "abcd";
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
@@ -118,7 +118,7 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<FakePa
     }
 
     @Override
-    protected Class<StringParser<FakeParserContext>> type() {
+    protected Class<StringParser<ParserContext>> type() {
         return Cast.to(StringParser.class);
     }
 }

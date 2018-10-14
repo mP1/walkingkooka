@@ -25,7 +25,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FixedParserTest extends ParserTestCase2<FixedParser<MissingParserToken, FakeParserContext>, MissingParserToken> {
+public final class FixedParserTest extends ParserTestCase2<FixedParser<MissingParserToken, ParserContext>, MissingParserToken> {
 
     private final static MissingParserToken RESULT = ParserTokens.missing(StringParserToken.NAME, "");
 
@@ -76,16 +76,16 @@ public final class FixedParserTest extends ParserTestCase2<FixedParser<MissingPa
     }
 
     @Override
-    protected FixedParser<MissingParserToken, FakeParserContext> createParser() {
+    protected FixedParser<MissingParserToken, ParserContext> createParser() {
         return this.createParser(Optional.of(RESULT));
     }
 
-    private FixedParser<MissingParserToken, FakeParserContext> createParser(final Optional<MissingParserToken> result) {
+    private FixedParser<MissingParserToken, ParserContext> createParser(final Optional<MissingParserToken> result) {
         return FixedParser.with(result);
     }
 
     @Override
-    protected Class<FixedParser<MissingParserToken, FakeParserContext>> type() {
+    protected Class<FixedParser<MissingParserToken, ParserContext>> type() {
         return Cast.to(FixedParser.class);
     }
 }

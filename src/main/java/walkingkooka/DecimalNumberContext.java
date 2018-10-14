@@ -16,18 +16,20 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.spreadsheet;
+package walkingkooka;
 
-import walkingkooka.text.cursor.parser.ParserContexts;
+/**
+ * Context that typically accompanies another stateless component such as a number parser or formatter that involves decimals.
+ */
+public interface DecimalNumberContext extends NumberContext {
 
-public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserContextTestCase<BasicSpreadsheetParserContext> {
-    @Override
-    protected BasicSpreadsheetParserContext createContext() {
-        return BasicSpreadsheetParserContext.with(ParserContexts.basic('.', 'E', '-', '+'));
-    }
+    /**
+     * Returns the decimal point character
+     */
+    char decimalPoint();
 
-    @Override
-    protected Class<BasicSpreadsheetParserContext> type() {
-        return BasicSpreadsheetParserContext.class;
-    }
+    /**
+     * The exponentDigitSymbolCount
+     */
+    char exponentSymbol();
 }

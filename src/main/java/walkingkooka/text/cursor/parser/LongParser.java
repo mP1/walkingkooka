@@ -52,6 +52,9 @@ final class LongParser<C extends ParserContext> extends ParserTemplate<LongParse
      */
     @Override
     Optional<LongParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+        final char minusSign = context.minusSign();
+        final char plusSign = context.plusSign();
+
         Optional<LongParserToken> token ;
 
         final int radix = this.radix;
@@ -70,12 +73,12 @@ final class LongParser<C extends ParserContext> extends ParserTemplate<LongParse
 
             char c = cursor.at();
             if(empty && 10 == this.radix) {
-                if('-' == c){
+                if(minusSign == c){
                     signed = true;
                     cursor.next();
                     continue;
                 }
-                if('+' == c){
+                if(plusSign == c){
                     signed = false;
                     cursor.next();
                     continue;

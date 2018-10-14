@@ -18,6 +18,7 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.DecimalNumberContext;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
@@ -232,5 +233,29 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
         final Optional<TT> result = parser.parse(cursor, context);
         assertNotNull("parser returned null result", result);
         return result;
+    }
+
+    protected final DecimalNumberContext decimalNumberContext() {
+        return new DecimalNumberContext() {
+            @Override
+            public char decimalPoint() {
+                return '.';
+            }
+
+            @Override
+            public char exponentSymbol() {
+                return 'E';
+            }
+
+            @Override
+            public char minusSign() {
+                return '-';
+            }
+
+            @Override
+            public char plusSign() {
+                return '+';
+            }
+        };
     }
 }

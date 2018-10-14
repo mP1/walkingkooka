@@ -3828,12 +3828,12 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimalNumberParser() {
-        return Parsers.<SpreadsheetFormatParserContext>bigDecimal('.', MathContext.DECIMAL32);
+        return Parsers.<SpreadsheetFormatParserContext>bigDecimal(MathContext.DECIMAL32);
     }
 
     @Override
     protected SpreadsheetFormatParserContext createContext() {
-        return SpreadsheetFormatParserContexts.basic();
+        return SpreadsheetFormatParserContexts.basic(this.decimalNumberContext());
     }
 
     private static SpreadsheetFormatParserToken aSlashP() {

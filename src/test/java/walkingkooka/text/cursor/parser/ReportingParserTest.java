@@ -27,7 +27,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ReportingParserTest extends ParserTestCase2<ReportingParser<ParserToken, FakeParserContext>, ParserToken> {
+public final class ReportingParserTest extends ParserTestCase2<ReportingParser<ParserToken, ParserContext>, ParserToken> {
 
     private final static ParserReporterCondition CONDITION = ParserReporterCondition.ALWAYS;
 
@@ -86,24 +86,24 @@ public final class ReportingParserTest extends ParserTestCase2<ReportingParser<P
     }
 
     @Override
-    protected ReportingParser<ParserToken, FakeParserContext> createParser() {
+    protected ReportingParser<ParserToken, ParserContext> createParser() {
         return this.createParser(ParserReporterCondition.ALWAYS);
     }
 
-    private ReportingParser<ParserToken, FakeParserContext> createParser(final ParserReporterCondition condition) {
+    private ReportingParser<ParserToken, ParserContext> createParser(final ParserReporterCondition condition) {
         return ReportingParser.with(condition, this.reporter(), this.parser2());
     }
 
-    private ParserReporter<ParserToken, FakeParserContext> reporter() {
+    private ParserReporter<ParserToken, ParserContext> reporter() {
         return ParserReporters.basic();
     }
 
-    private Parser<ParserToken, FakeParserContext> parser2() {
+    private Parser<ParserToken, ParserContext> parser2() {
         return Parsers.character(CharPredicates.letter()).cast();
     }
 
     @Override
-    protected Class<ReportingParser<ParserToken, FakeParserContext>> type() {
+    protected Class<ReportingParser<ParserToken, ParserContext>> type() {
         return Cast.to(ReportingParser.class);
     }
 }

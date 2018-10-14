@@ -28,13 +28,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<FakeParserContext>,
+public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesParser<ParserContext>,
         ParserToken> {
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
-    private final static Parser<ParserToken, FakeParserContext> PARSER1 = parser(TEXT1);
-    private final static Parser<ParserToken, FakeParserContext> PARSER2 = parser(TEXT2);
+    private final static Parser<ParserToken, ParserContext> PARSER1 = parser(TEXT1);
+    private final static Parser<ParserToken, ParserContext> PARSER2 = parser(TEXT2);
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParsersFails() {
@@ -53,17 +53,17 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     @Test
     public void testWith() {
-        final List<Parser<ParserToken, FakeParserContext>> parsers = Lists.of(PARSER1, PARSER2);
-        final AlternativesParser<FakeParserContext> parser = AlternativesParser.with(parsers).cast();
+        final List<Parser<ParserToken, ParserContext>> parsers = Lists.of(PARSER1, PARSER2);
+        final AlternativesParser<ParserContext> parser = AlternativesParser.with(parsers).cast();
         assertNotSame(parsers, parser.parsers);
         assertEquals(parsers, parser.parsers);
     }
 
     @Test
     public void testWithAllCustomToStringParsers() {
-        final List<Parser<ParserToken, FakeParserContext>> parsers = Lists.of(PARSER1.setToString("1"), PARSER2.setToString("2"));
-        final CustomToStringParser<ParserToken, FakeParserContext> custom = AlternativesParser.with(parsers).cast();
-        final AlternativesParser<FakeParserContext> alt = custom.parser.cast();
+        final List<Parser<ParserToken, ParserContext>> parsers = Lists.of(PARSER1.setToString("1"), PARSER2.setToString("2"));
+        final CustomToStringParser<ParserToken, ParserContext> custom = AlternativesParser.with(parsers).cast();
+        final AlternativesParser<ParserContext> alt = custom.parser.cast();
         assertEquals("parsers", Lists.of(PARSER1, PARSER2), alt.parsers);
         assertEquals("custom toString", "(1 | 2)", custom.toString());
     }
@@ -113,9 +113,9 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
 
     @Test
     public void testOr() {
-        final AlternativesParser<FakeParserContext> parser = createParser();
+        final AlternativesParser<ParserContext> parser = createParser();
 
-        final Parser<ParserToken, FakeParserContext> parser3 = parser("text3");
+        final Parser<ParserToken, ParserContext> parser3 = parser("text3");
         assertEquals(this.createParser0(PARSER1, PARSER2, parser3), parser.or(parser3));
     }
 
@@ -148,15 +148,15 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
     }
 
     @Override
-    protected AlternativesParser<FakeParserContext> createParser() {
+    protected AlternativesParser<ParserContext> createParser() {
         return this.createParser0(PARSER1, PARSER2);
     }
 
-    private AlternativesParser<FakeParserContext> createParser0(final Parser<ParserToken, FakeParserContext>...parsers) {
+    private AlternativesParser<ParserContext> createParser0(final Parser<ParserToken, ParserContext>...parsers) {
         return this.createParser1(parsers).cast();
     }
 
-    private Parser<ParserToken, FakeParserContext> createParser1(final Parser<ParserToken, FakeParserContext>...parsers) {
+    private Parser<ParserToken, ParserContext> createParser1(final Parser<ParserToken, ParserContext>...parsers) {
         return AlternativesParser.with(Cast.to(Lists.of(parsers)));
     }
 
@@ -164,12 +164,12 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
         return ParserTokens.string(s, s);
     }
 
-    private static Parser<ParserToken, FakeParserContext> parser(final String string) {
+    private static Parser<ParserToken, ParserContext> parser(final String string) {
         return CaseSensitivity.SENSITIVE.parser(string).cast();
     }
 
     @Override
-    protected Class<AlternativesParser<FakeParserContext>> type() {
+    protected Class<AlternativesParser<ParserContext>> type() {
         return Cast.to(AlternativesParser.class);
     }
 }

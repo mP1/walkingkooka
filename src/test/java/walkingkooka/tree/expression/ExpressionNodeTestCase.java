@@ -28,6 +28,8 @@ import walkingkooka.convert.Converters;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.FakeParserContext;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
@@ -337,19 +339,19 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         }
     }
 
-    static ExpressionEvaluationContext context() {
+    static ExpressionEvaluationContext context() {;
         final Converter stringBigDecimal = Converters.parser(BigDecimal.class,
-                Parsers.bigDecimal('.', MathContext.DECIMAL32),
-                FakeParserContext::new);
+                Parsers.bigDecimal(MathContext.DECIMAL32),
+                ExpressionNodeTestCase::parserContext);
         final Converter stringNumber = Converters.parser(Number.class,
-                Cast.to(Parsers.bigDecimal('.', MathContext.DECIMAL32)),
-                FakeParserContext::new);
+                Cast.to(Parsers.bigDecimal(MathContext.DECIMAL32)),
+                ExpressionNodeTestCase::parserContext);
         final Converter stringBigInteger = Converters.parser(BigInteger.class,
                 Parsers.bigInteger(10),
-                FakeParserContext::new);
+                ExpressionNodeTestCase::parserContext);
         final Converter stringDouble = Converters.parser(Double.class,
-                Parsers.doubleParser('.'),
-                FakeParserContext::new);
+                Parsers.doubleParser(),
+                ExpressionNodeTestCase::parserContext);
         final Converter stringLocalDate = Converters.parser(LocalDate.class,
                 Parsers.localDate(DateTimeFormatter.ISO_LOCAL_DATE, "yyyy-MM-dd"),
                 FakeParserContext::new);
@@ -361,7 +363,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                 FakeParserContext::new);
         final Converter stringLong =  Converters.parser(Long.class,
                 Parsers.longParser(10),
-                FakeParserContext::new);
+                ExpressionNodeTestCase::parserContext);
 
         final Converter converters = Converters.collection(Lists.of(
                 Converters.simple(),
@@ -450,6 +452,10 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                 }
             }
         };
+    }
+
+    private static ParserContext parserContext() {
+        return ParserContexts.basic('.', 'E', '-', '+');
     }
 
     private static <T> Converter fromBoolean(final Class<T> targetType, final Converter trueOrFalse) {

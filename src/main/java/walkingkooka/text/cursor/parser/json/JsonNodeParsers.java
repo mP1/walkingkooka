@@ -105,9 +105,10 @@ public final class JsonNodeParsers implements PublicStaticHelper {
         return NUMBER;
     }
 
-    private final static Parser<ParserToken, ParserContext> NUMBER = Parsers.doubleParser('.')
+    private final static Parser<ParserToken, ParserContext> NUMBER = Parsers.doubleParser()
             .transform((doubleParserToken, context) -> JsonNodeParserToken.number(doubleParserToken.value(), doubleParserToken.text()).cast())
-            .setToString(JsonNodeNumberParserToken.class.getSimpleName());
+            .setToString(JsonNodeNumberParserToken.class.getSimpleName())
+            .cast();
 
     /**
      * String

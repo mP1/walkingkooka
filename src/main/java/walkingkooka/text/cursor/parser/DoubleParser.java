@@ -17,6 +17,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.Cast;
+import walkingkooka.DecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 
@@ -31,15 +33,17 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate<DoubleP
     /**
      * Factory that creates a {@link DoubleParser}
      */
-    static <C extends ParserContext> DoubleParser<C> with(final char decimal) {
-        return new DoubleParser<>(decimal);
+    static <C extends ParserContext> DoubleParser<C> instance() {
+        return Cast.to(INSTANCE);
     }
+
+    private final static DoubleParser<?> INSTANCE = new DoubleParser();
 
     /**
      * Private ctor to limit subclassing.
      */
-    private DoubleParser(final char decimal) {
-        this.decimal = decimal;
+    private DoubleParser() {
+        super();
     }
 
     private final static int RADIX = 10;
@@ -78,6 +82,12 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate<DoubleP
      */
     @Override
     Optional<DoubleParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+        final char decimalPoint = context.decimalPoint();
+        final char minusSign = context.minusSign();
+        final char plusSign = context.plusSign();
+        final char littleE = Character.toLowerCase(context.exponentSymbol());
+        final char bigE = Character.toUpperCase(littleE);
+
         Optional<DoubleParserToken> token = Optional.empty();
 
         // optional(+/-)
@@ -130,12 +140,12 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate<DoubleP
                     break;
                 }
                 if((NUMBER_SIGN & mode) != 0){
-                    if('+' == c){
+                    if(plusSign == c){
                         cursor.next();
                         mode = INFINITY_I | NUMBER_ZERO | NUMBER_DIGIT;
                         break;
                     }
-                    if('-' == c) {
+                    if(minusSign == c) {
                         cursor.next();
                         numberNegative = true;
                         mode = INFINITY_I | NUMBER_ZERO | NUMBER_DIGIT;
@@ -161,7 +171,7 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate<DoubleP
                     }
                 }
                 if((DECIMAL & mode) != 0){
-                    if(this.decimal == c) {
+                    if(decimalPoint == c) {
                         cursor.next();
                         mode = DECIMAL_DIGIT | EXPONENT;
                         break;
@@ -177,7 +187,7 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate<DoubleP
                     }
                 }
                 if((EXPONENT & mode) != 0){
-                    if('e' == c || 'E' ==c) {
+                    if(littleE == c || bigE ==c) {
                         cursor.next();
                         mode = EXPONENT_SIGN | EXPONENT_ZERO | EXPONENT_DIGIT;
                         break;
@@ -191,12 +201,12 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate<DoubleP
                     }
                 }
                 if((EXPONENT_SIGN & mode) != 0){
-                    if('+' == c){
+                    if(plusSign == c){
                         cursor.next();
                         mode = EXPONENT_DIGIT;
                         break;
                     }
-                    if('-' == c) {
+                    if(minusSign == c) {
                         cursor.next();
                         exponentNegative = true;
                         mode = EXPONENT_DIGIT;
@@ -329,8 +339,6 @@ final class DoubleParser<C extends ParserContext> extends ParserTemplate<DoubleP
                 save.textBetween().toString())
                 .success();
     }
-
-    private final char decimal;
 
     @Override
     public String toString() {

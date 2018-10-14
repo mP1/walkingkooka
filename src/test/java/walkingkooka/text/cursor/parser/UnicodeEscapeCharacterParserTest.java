@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.TextCursor;
 
 import static org.junit.Assert.assertEquals;
 
-public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCase<UnicodeEscapeCharacterParser<FakeParserContext>, CharacterParserToken> {
+public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCase<UnicodeEscapeCharacterParser<ParserContext>, CharacterParserToken> {
 
     @Test
     public void testFailure() {
@@ -99,7 +99,7 @@ public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCa
     }
 
     @Override
-    protected UnicodeEscapeCharacterParser<FakeParserContext> createParser() {
+    protected UnicodeEscapeCharacterParser<ParserContext> createParser() {
         return UnicodeEscapeCharacterParser.get();
     }
 
@@ -112,7 +112,7 @@ public final class UnicodeEscapeCharacterParserTest extends ParserTemplateTestCa
     }
 
     @Override
-    protected Class<UnicodeEscapeCharacterParser<FakeParserContext>> type() {
+    protected Class<UnicodeEscapeCharacterParser<ParserContext>> type() {
         return Cast.to(UnicodeEscapeCharacterParser.class);
     }
 }

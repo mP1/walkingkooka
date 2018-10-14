@@ -74,6 +74,11 @@ public class FakeSpreadsheetTextFormatContext implements SpreadsheetTextFormatCo
     }
 
     @Override
+    public char plusSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char thousandsSeparator() {
         throw new UnsupportedOperationException();
     }

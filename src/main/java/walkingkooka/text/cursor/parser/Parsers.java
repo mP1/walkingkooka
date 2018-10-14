@@ -48,8 +48,8 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see BigDecimalParser}
      */
-    public static <C extends ParserContext> Parser<BigDecimalParserToken, C> bigDecimal(final char decimal, final MathContext context) {
-        return BigDecimalParser.with(decimal, context);
+    public static <C extends ParserContext> Parser<BigDecimalParserToken, C> bigDecimal(final MathContext context) {
+        return BigDecimalParser.with(context);
     }
 
     /**
@@ -76,8 +76,8 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see DoubleParser}
      */
-    public static <C extends ParserContext> Parser<DoubleParserToken, C> doubleParser(final char decimal){
-        return DoubleParser.with(decimal);
+    public static <C extends ParserContext> Parser<DoubleParserToken, C> doubleParser(){
+        return DoubleParser.instance();
     }
 
     /**

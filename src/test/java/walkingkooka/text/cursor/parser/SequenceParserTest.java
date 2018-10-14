@@ -23,15 +23,15 @@ import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
-public final class SequenceParserTest extends ParserTemplateTestCase<SequenceParser<FakeParserContext>,
+public final class SequenceParserTest extends ParserTemplateTestCase<SequenceParser<ParserContext>,
         SequenceParserToken> {
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
     private final static String TEXT3 = "123";
-    private final static Parser<ParserToken, FakeParserContext> PARSER1 = parser(TEXT1);
-    private final static Parser<ParserToken, FakeParserContext> PARSER2 = parser(TEXT2);
-    private final static Parser<ParserToken, FakeParserContext> PARSER3 = parser(TEXT3);
+    private final static Parser<ParserToken, ParserContext> PARSER1 = parser(TEXT1);
+    private final static Parser<ParserToken, ParserContext> PARSER2 = parser(TEXT2);
+    private final static Parser<ParserToken, ParserContext> PARSER3 = parser(TEXT3);
     private final static StringParserToken TOKEN1 = string(TEXT1);
     private final static StringParserToken TOKEN2 = string(TEXT2);
     private final static StringParserToken TOKEN3 = string(TEXT3);
@@ -76,7 +76,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     @Test
     public void testMissingOptionalFirst() {
         final String text = TEXT2 + TEXT1;
-        this.parseAndCheck(SequenceParserBuilder.<FakeParserContext>create()
+        this.parseAndCheck(SequenceParserBuilder.<ParserContext>create()
                 .optional(PARSER3, StringParserToken.NAME)
                 .required(PARSER2, StringParserToken.NAME)
                 .required(PARSER1, StringParserToken.NAME)
@@ -148,15 +148,15 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     }
 
     @Override
-    protected SequenceParser<FakeParserContext> createParser() {
-        return Cast.to(SequenceParserBuilder.<FakeParserContext>create()
+    protected SequenceParser<ParserContext> createParser() {
+        return Cast.to(SequenceParserBuilder.<ParserContext>create()
                 .required(PARSER1, StringParserToken.NAME)
                 .required(PARSER2, StringParserToken.NAME)
                 .optional(PARSER3, StringParserToken.NAME)
                 .build());
     }
 
-    private static Parser<ParserToken, FakeParserContext> parser(final String string) {
+    private static Parser<ParserToken, ParserContext> parser(final String string) {
         return CaseSensitivity.SENSITIVE.parser(string).cast();
     }
 
@@ -165,7 +165,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     }
 
     @Override
-    protected Class<SequenceParser<FakeParserContext>> type() {
+    protected Class<SequenceParser<ParserContext>> type() {
         return Cast.to(SequenceParser.class);
     }
 }

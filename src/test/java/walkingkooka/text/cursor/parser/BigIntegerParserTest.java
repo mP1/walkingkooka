@@ -25,7 +25,7 @@ import java.math.BigInteger;
 
 import static org.junit.Assert.assertEquals;
 
-public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParser<FakeParserContext>, BigIntegerParserToken> {
+public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParser<ParserContext>, BigIntegerParserToken> {
 
     private final static int RADIX = 10;
 
@@ -110,6 +110,25 @@ public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParse
     }
 
     @Test
+    public void testDifferentMinusSign() {
+        this.parseAndCheck3("M123", -123);
+    }
+
+    @Test
+    public void testDifferentPlusSign() {
+        this.parseAndCheck3("P123", 123);
+    }
+
+    private TextCursor parseAndCheck3(final String text, final int value) {
+        return this.parseAndCheck(this.createParser(),
+                ParserContexts.basic('!', 'X', 'M', 'P'),
+                text,
+                ParserTokens.bigInteger(BigInteger.valueOf(value), text),
+                text,
+                "");
+    }
+
+    @Test
     public void testToString() {
         assertEquals("BigInteger", this.createParser().toString());
     }
@@ -122,6 +141,11 @@ public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParse
     @Override
     protected BigIntegerParser createParser() {
         return BigIntegerParser.with(RADIX);
+    }
+
+    @Override
+    protected ParserContext createContext() {
+        return ParserContexts.basic('.', 'E', '-', '+');
     }
 
     private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter){
@@ -142,7 +166,7 @@ public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParse
     }
 
     @Override
-    protected Class<BigIntegerParser<FakeParserContext>> type() {
+    protected Class<BigIntegerParser<ParserContext>> type() {
         return Cast.to(BigIntegerParser.class);
     }
 }

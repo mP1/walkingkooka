@@ -25,10 +25,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, FakeParserContext>, StringParserToken>{
+public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, ParserContext>, StringParserToken>{
 
     private final static String STRING = "abc";
-    private final static Parser<StringParserToken, FakeParserContext> WRAPPED = CaseSensitivity.SENSITIVE.parser(STRING);
+    private final static Parser<StringParserToken, ParserContext> WRAPPED = CaseSensitivity.SENSITIVE.parser(STRING);
     private final static String CUSTOM_TO_STRING = "!!abc!!";
 
     @Test(expected = NullPointerException.class)
@@ -58,8 +58,8 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
 
     @Test
     public void testUnwrapOtherCustomToStringParser() {
-        final Parser<StringParserToken, FakeParserContext> first = CustomToStringParser.wrap(WRAPPED, "different");
-        final CustomToStringParser<StringParserToken, FakeParserContext> wrapped = Cast.to(CustomToStringParser.wrap(first, CUSTOM_TO_STRING));
+        final Parser<StringParserToken, ParserContext> first = CustomToStringParser.wrap(WRAPPED, "different");
+        final CustomToStringParser<StringParserToken, ParserContext> wrapped = Cast.to(CustomToStringParser.wrap(first, CUSTOM_TO_STRING));
         assertNotSame(first, wrapped);
         assertSame("wrapped parser", WRAPPED, wrapped.parser);
         assertSame("wrapped toString", CUSTOM_TO_STRING, wrapped.toString);
@@ -94,8 +94,8 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
     @Test
     @Override
     public void testOr() {
-        final CustomToStringParser<ParserToken, FakeParserContext> parser1 = this.createParser().cast();
-        final CustomToStringParser<ParserToken, FakeParserContext> parser2 = this.createParser().cast();
+        final CustomToStringParser<ParserToken, ParserContext> parser1 = this.createParser().cast();
+        final CustomToStringParser<ParserToken, ParserContext> parser2 = this.createParser().cast();
         assertEquals(Parsers.alternatives(Lists.of(parser1, parser2)), parser1.or(parser2));
     }
 
@@ -105,12 +105,12 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
     }
 
     @Override
-    protected CustomToStringParser<StringParserToken, FakeParserContext> createParser() {
+    protected CustomToStringParser<StringParserToken, ParserContext> createParser() {
         return CustomToStringParser.wrap(WRAPPED, CUSTOM_TO_STRING).cast();
     }
 
     @Override
-    protected Class<CustomToStringParser<StringParserToken, FakeParserContext>> type() {
+    protected Class<CustomToStringParser<StringParserToken, ParserContext>> type() {
         return Cast.to(CustomToStringParser.class);
     }
 }

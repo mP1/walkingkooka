@@ -18,13 +18,13 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.Context;
+import walkingkooka.DecimalNumberContext;
 import walkingkooka.color.Color;
 
 /**
  * Context that accompanies a value format, holding local sensitive attributes such as the decimal point character.
  */
-public interface SpreadsheetTextFormatContext extends Context {
+public interface SpreadsheetTextFormatContext extends DecimalNumberContext {
 
     /**
      * Returns the selected AM or PM given the hour of the day (24 hour time).
@@ -45,21 +45,6 @@ public interface SpreadsheetTextFormatContext extends Context {
      * The currency symbol character.
      */
     char currencySymbol();
-
-    /**
-     * The decimal point character.
-     */
-    char decimalPoint();
-
-    /**
-     * The exponentDigitSymbolCount
-     */
-    char exponentSymbol();
-
-    /**
-     * The minus sign used for negative values.
-     */
-    char minusSign();
 
     /**
      * Returns the requested month in full. The month is zero index.

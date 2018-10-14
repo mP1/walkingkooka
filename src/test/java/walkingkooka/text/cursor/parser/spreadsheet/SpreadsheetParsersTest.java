@@ -791,7 +791,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Override
     protected SpreadsheetParserContext createContext() {
-        return SpreadsheetParserContexts.basic();
+        return SpreadsheetParserContexts.basic(this.decimalNumberContext());
     }
 
     private SpreadsheetParserToken bigInteger(final int value){

@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.TextCursor;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T extends ParserToken> extends ParserTestCase<P, T, FakeParserContext> {
+public abstract class ParserTestCase2<P extends Parser<T, ParserContext>, T extends ParserToken> extends ParserTestCase<P, T, ParserContext> {
 
     @Test
     public final void testCheckNaming() {
@@ -46,7 +46,7 @@ public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T 
 
     @Test
     public final void testRepeating() {
-        final Parser<RepeatedParserToken, FakeParserContext> parser = this.createParser().repeating();
+        final Parser<RepeatedParserToken, ParserContext> parser = this.createParser().repeating();
         assertEquals("" + parser, RepeatedParser.class, parser.getClass());
     }
 
@@ -63,11 +63,11 @@ public abstract class ParserTestCase2<P extends Parser<T, FakeParserContext>, T 
     }
 
     @Override
-    protected FakeParserContext createContext() {
-        return new FakeParserContext();
+    protected ParserContext createContext() {
+        return ParserContexts.fake();
     }
 
-    protected final TextCursor parseFailAndCheck(final Parser <T, FakeParserContext> parser, final TextCursor cursor) {
+    protected final TextCursor parseFailAndCheck(final Parser <T, ParserContext> parser, final TextCursor cursor) {
         return this.parseFailAndCheck(parser, this.createContext(), cursor);
     }
 }

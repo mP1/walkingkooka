@@ -13,43 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
+
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
-import walkingkooka.Cast;
 
 import static org.junit.Assert.assertEquals;
 
-public final class DoubleQuotedParserTest extends QuotedParserTestCase<DoubleQuotedParser<ParserContext>, DoubleQuotedParserToken> {
+public final class BasicParserContextTest extends ParserContextTestCase<BasicParserContext> {
 
     @Test
-    public void testToStringDoubleQuoted() {
-        assertEquals("double quoted string", this.createParser().toString());
+    public void testWith() {
+        final BasicParserContext context = this.createContext();
+        this.checkDecimalPoint(context, '.');
+        this.checkExponentSymbol(context, 'E');
+        this.checkMinusSign(context, '-');
+        this.checkPlusSign(context, '+');
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("'.' 'E' '-' '+'", this.createContext().toString());
     }
 
     @Override
-    protected DoubleQuotedParser createParser() {
-        return DoubleQuotedParser.instance();
+    protected BasicParserContext createContext() {
+        return BasicParserContext.with('.', 'E', '-', '+');
     }
 
     @Override
-    char quoteChar() {
-        return '"';
-    }
-
-    @Override
-    char otherQuoteChar(){
-        return '\'';
-    }
-
-    @Override
-    final DoubleQuotedParserToken createToken(final String content, final String text) {
-        return DoubleQuotedParserToken.with(content, text);
-    }
-
-    @Override
-    protected Class<DoubleQuotedParser<ParserContext>> type() {
-        return Cast.to(DoubleQuotedParser.class);
+    protected Class<BasicParserContext> type() {
+        return BasicParserContext.class;
     }
 }

@@ -35,17 +35,16 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate<Big
     /**
      * Factory that creates a {@link BigDecimalParser}
      */
-    static <C extends ParserContext> BigDecimalParser<C> with(final char decimal, final MathContext context) {
+    static <C extends ParserContext> BigDecimalParser<C> with(final MathContext context) {
         Objects.requireNonNull(context, "context");
 
-        return new BigDecimalParser<>(decimal, context);
+        return new BigDecimalParser<>(context);
     }
 
     /**
      * Private ctor to limit subclassing.
      */
-    private BigDecimalParser(final char decimal, final MathContext context) {
-        this.decimal = decimal;
+    private BigDecimalParser(final MathContext context) {
         this.context = context;
     }
 
@@ -72,6 +71,12 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate<Big
      */
     @Override
     Optional<BigDecimalParserToken> tryParse0(final TextCursor cursor, final C context, final TextCursorSavePoint save) {
+        final char decimalPoint = context.decimalPoint();
+        final int minusSign = context.minusSign();
+        final int plusSign = context.plusSign();
+        final char littleE = Character.toLowerCase(context.exponentSymbol());
+        final char bigE = Character.toUpperCase(littleE);
+
         Optional<BigDecimalParserToken> token = Optional.empty();
 
         // optional(+/-)
@@ -96,12 +101,12 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate<Big
 
             for(;;){
                 if((NUMBER_SIGN & mode) != 0){
-                    if('+' == c){
+                    if(plusSign == c){
                         cursor.next();
                         mode = NUMBER_ZERO | NUMBER_DIGIT;
                         break;
                     }
-                    if('-' == c) {
+                    if(minusSign == c) {
                         cursor.next();
                         numberNegative = true;
                         mode = NUMBER_ZERO | NUMBER_DIGIT;
@@ -127,7 +132,7 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate<Big
                     }
                 }
                 if((DECIMAL & mode) != 0){
-                    if(this.decimal == c) {
+                    if(decimalPoint == c) {
                         cursor.next();
                         mode = DECIMAL_DIGIT | EXPONENT;
                         break;
@@ -143,7 +148,7 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate<Big
                     }
                 }
                 if((EXPONENT & mode) != 0){
-                    if('e' == c || 'E' ==c) {
+                    if(littleE == c || bigE ==c) {
                         cursor.next();
                         mode = EXPONENT_SIGN | EXPONENT_ZERO | EXPONENT_DIGIT;
                         break;
@@ -157,12 +162,12 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate<Big
                     }
                 }
                 if((EXPONENT_SIGN & mode) != 0){
-                    if('+' == c){
+                    if(plusSign == c){
                         cursor.next();
                         mode = EXPONENT_DIGIT;
                         break;
                     }
-                    if('-' == c) {
+                    if(minusSign == c) {
                         cursor.next();
                         exponentNegative = true;
                         mode = EXPONENT_DIGIT;
@@ -222,7 +227,6 @@ final class BigDecimalParser<C extends ParserContext> extends ParserTemplate<Big
                 .success();
     }
 
-    private final char decimal;
     private final MathContext context;
 
     @Override

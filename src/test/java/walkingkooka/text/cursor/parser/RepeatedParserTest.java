@@ -27,11 +27,11 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<FakeParserContext>,
+public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<ParserContext>,
         RepeatedParserToken> {
 
     private final static String TEXT = "abc";
-    private final static Parser<ParserToken, FakeParserContext> PARSER = CaseSensitivity.SENSITIVE.parser(TEXT).cast();
+    private final static Parser<ParserToken, ParserContext> PARSER = CaseSensitivity.SENSITIVE.parser(TEXT).cast();
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParserFails() {
@@ -40,7 +40,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
 
     @Test
     public void testWrapAnotherRepeatedParser() {
-        final RepeatedParser<FakeParserContext> parser = this.createParser();
+        final RepeatedParser<ParserContext> parser = this.createParser();
         assertSame(parser, Parsers.repeated(parser.cast()));
     }
 
@@ -111,7 +111,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
 
     @Test
     public void testRepeating2() {
-        final RepeatedParser<FakeParserContext> parser = this.createParser();
+        final RepeatedParser<ParserContext> parser = this.createParser();
         assertSame(parser, parser.repeating());
     }
 
@@ -121,7 +121,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
     }
 
     @Override
-    protected RepeatedParser<FakeParserContext> createParser() {
+    protected RepeatedParser<ParserContext> createParser() {
         return RepeatedParser.with(PARSER);
     }
 
@@ -140,7 +140,7 @@ public class RepeatedParserTest extends ParserTemplateTestCase<RepeatedParser<Fa
     }
 
     @Override
-    protected Class<RepeatedParser<FakeParserContext>> type() {
+    protected Class<RepeatedParser<ParserContext>> type() {
         return Cast.to(RepeatedParser.class);
     }
 }
