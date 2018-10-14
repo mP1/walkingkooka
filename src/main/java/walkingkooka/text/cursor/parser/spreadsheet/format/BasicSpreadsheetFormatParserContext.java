@@ -18,16 +18,50 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
+import walkingkooka.DecimalNumberContext;
+
+import java.util.Objects;
+
 /**
  * A {@link SpreadsheetFormatParserContext} without any functionality.
  */
 final class BasicSpreadsheetFormatParserContext implements SpreadsheetFormatParserContext {
 
-    static BasicSpreadsheetFormatParserContext create() {
-        return new BasicSpreadsheetFormatParserContext();
+    static BasicSpreadsheetFormatParserContext with(final DecimalNumberContext context) {
+        Objects.requireNonNull(context, "context");
+
+        return new BasicSpreadsheetFormatParserContext(context);
     }
 
-    private BasicSpreadsheetFormatParserContext() {
+    private BasicSpreadsheetFormatParserContext(final DecimalNumberContext context) {
         super();
+        this.context = context;
+    }
+
+    @Override
+    public char decimalPoint() {
+        return this.context.decimalPoint();
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return this.context.exponentSymbol();
+    }
+
+    @Override
+    public char minusSign() {
+        return this.context.minusSign();
+    }
+
+    @Override
+    public char plusSign() {
+        return this.context.plusSign();
+    }
+
+    private final DecimalNumberContext context;
+
+    @Override
+    public String toString() {
+        return this.context.toString();
     }
 }

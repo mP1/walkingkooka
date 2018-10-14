@@ -15,24 +15,36 @@
  *
  *
  */
-
-package walkingkooka.text.cursor.parser.ebnf;
+package walkingkooka.text.cursor.parser;
 
 import walkingkooka.type.PublicStaticHelper;
 
-public final class EbnfParserContexts implements PublicStaticHelper {
+/**
+ * A collection of factory methods to create parsers.
+ */
+public final class ParserContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicEbnfParserContext}
+     * {@see BasicParserContext}
      */
-    public static EbnfParserContext basic() {
-        return BasicEbnfParserContext.instance();
+    public static ParserContext basic(final char decimalPoint,
+                                      final char exponentSymbol,
+                                      final char minusSign,
+                                      final char plusSign) {
+        return BasicParserContext.with(decimalPoint, exponentSymbol, minusSign, plusSign);
+    }
+
+    /**
+     * {@see FakeParserContext}
+     */
+    public static ParserContext fake() {
+        return new FakeParserContext();
     }
 
     /**
      * Stop creation.
      */
-    private EbnfParserContexts() {
+    private ParserContexts() {
         throw new UnsupportedOperationException();
     }
 }

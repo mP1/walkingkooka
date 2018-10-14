@@ -25,9 +25,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public class OptionalParserTest extends ParserTestCase2<OptionalParser<FakeParserContext>, ParserToken> {
+public class OptionalParserTest extends ParserTestCase2<OptionalParser<ParserContext>, ParserToken> {
 
-    private final static Parser<StringParserToken, FakeParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
+    private final static Parser<StringParserToken, ParserContext> PARSER = Parsers.stringCharPredicate(CharPredicates.digit(), 1, 10);
     private final static ParserTokenNodeName NAME = StringParserToken.NAME;
     private final static ParserToken MISSING = ParserTokens.missing(NAME, "");
 
@@ -78,16 +78,16 @@ public class OptionalParserTest extends ParserTestCase2<OptionalParser<FakeParse
 
     @Test
     public void testOptionalSameName() {
-        final OptionalParser<FakeParserContext> parser = this.createParser();
+        final OptionalParser<ParserContext> parser = this.createParser();
         assertSame(parser, parser.optional(NAME));
     }
 
     @Test
     public void testOptionalDifferentName() {
-        final OptionalParser<FakeParserContext> parser = this.createParser();
+        final OptionalParser<ParserContext> parser = this.createParser();
 
         final ParserTokenNodeName different = BigIntegerParserToken.NAME;
-        final OptionalParser<FakeParserContext> parser2 = parser.optional(different);
+        final OptionalParser<ParserContext> parser2 = parser.optional(different);
 
         assertNotSame(parser, parser2);
 
@@ -105,12 +105,12 @@ public class OptionalParserTest extends ParserTestCase2<OptionalParser<FakeParse
     }
 
     @Override
-    protected OptionalParser<FakeParserContext> createParser() {
+    protected OptionalParser<ParserContext> createParser() {
         return OptionalParser.with(PARSER, NAME);
     }
 
     @Override
-    protected Class<OptionalParser<FakeParserContext>> type() {
+    protected Class<OptionalParser<ParserContext>> type() {
         return Cast.to(OptionalParser.class);
     }
 }

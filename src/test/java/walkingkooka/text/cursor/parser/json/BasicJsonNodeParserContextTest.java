@@ -21,7 +21,7 @@ package walkingkooka.text.cursor.parser.json;
 public final class BasicJsonNodeParserContextTest extends JsonNodeParserContextTestCase<BasicJsonNodeParserContext> {
     @Override
     protected BasicJsonNodeParserContext createContext() {
-        return BasicJsonNodeParserContext.create();
+        return BasicJsonNodeParserContext.instance();
     }
 
     @Override

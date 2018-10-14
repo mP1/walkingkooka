@@ -16,18 +16,20 @@
  *
  */
 
-package walkingkooka.text.cursor.parser.spreadsheet;
+package walkingkooka;
 
-import walkingkooka.text.cursor.parser.ParserContexts;
+/**
+ * Context that typically accompanies another stateless component such as a number parser or formatter.
+ */
+public interface NumberContext extends Context {
 
-public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserContextTestCase<BasicSpreadsheetParserContext> {
-    @Override
-    protected BasicSpreadsheetParserContext createContext() {
-        return BasicSpreadsheetParserContext.with(ParserContexts.basic('.', 'E', '-', '+'));
-    }
+    /**
+     * Returns the minus sign.
+     */
+    char minusSign();
 
-    @Override
-    protected Class<BasicSpreadsheetParserContext> type() {
-        return BasicSpreadsheetParserContext.class;
-    }
+    /**
+     * Returns the plus sign.
+     */
+    char plusSign();
 }

@@ -22,7 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 
-public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringParserToken, FakeParserContext>, StringParserToken> {
+public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringParserToken, ParserContext>, StringParserToken> {
 
     private final static String LEFT = "left";
     private final static String RIGHT = "right";
@@ -91,24 +91,24 @@ public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringP
     }
 
     @Override
-    protected AndNotParser<StringParserToken, FakeParserContext> createParser() {
+    protected AndNotParser<StringParserToken, ParserContext> createParser() {
         return this.createParser(this.left(), this.right());
     }
 
-    protected AndNotParser<StringParserToken, FakeParserContext> createParser(final Parser<StringParserToken, FakeParserContext> left,
-                                                                              final Parser<StringParserToken, FakeParserContext> right) {
+    protected AndNotParser<StringParserToken, ParserContext> createParser(final Parser<StringParserToken, ParserContext> left,
+                                                                              final Parser<StringParserToken, ParserContext> right) {
         return AndNotParser.with(left, right);
     }
 
-    private Parser<StringParserToken, FakeParserContext> left() {
+    private Parser<StringParserToken, ParserContext> left() {
         return string(LEFT);
     }
 
-    private Parser<StringParserToken, FakeParserContext> right() {
+    private Parser<StringParserToken, ParserContext> right() {
         return string(RIGHT);
     }
 
-    private <T extends ParserToken> Parser<T, FakeParserContext> missing() {
+    private <T extends ParserToken> Parser<T, ParserContext> missing() {
         return Parsers.fixed(Cast.to(this.missingParserToken().success()));
     }
 
@@ -116,12 +116,12 @@ public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringP
         return ParserTokens.missing(ParserTokenNodeName.with(0), "");
     }
 
-    private Parser<StringParserToken, FakeParserContext> string(final String string) {
+    private Parser<StringParserToken, ParserContext> string(final String string) {
         return CaseSensitivity.SENSITIVE.parser(string);
     }
 
     @Override
-    protected Class<AndNotParser<StringParserToken, FakeParserContext>> type() {
+    protected Class<AndNotParser<StringParserToken, ParserContext>> type() {
         return Cast.to(AndNotParser.class);
     }
 }

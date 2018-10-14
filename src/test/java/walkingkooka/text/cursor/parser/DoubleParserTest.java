@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.TextCursor;
 
 import static org.junit.Assert.assertEquals;
 
-public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<FakeParserContext>, DoubleParserToken> {
+public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<ParserContext>, DoubleParserToken> {
 
     @Test
     public void testFailure() {
@@ -440,9 +440,43 @@ public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<
         assertEquals("Double", this.createParser().toString());
     }
 
+    @Test
+    public void testDifferentDecimalPoint() {
+        this.parseAndCheck3("1!25", 1.25);
+    }
+
+    @Test
+    public void testDifferentExponentSymbol() {
+        this.parseAndCheck3("5X2", Double.parseDouble("5E2"));
+    }
+
+    @Test
+    public void testDifferentMinusSign() {
+        this.parseAndCheck3("M123", -123);
+    }
+
+    @Test
+    public void testDifferentPlusSign() {
+        this.parseAndCheck3("P123", 123);
+    }
+
+    private TextCursor parseAndCheck3(final String text, final double value) {
+        return this.parseAndCheck(this.createParser(),
+                ParserContexts.basic('!', 'X', 'M', 'P'),
+                text,
+                ParserTokens.doubleParserToken(value, text),
+                text,
+                "");
+    }
+
     @Override
     protected DoubleParser createParser() {
-        return DoubleParser.with('.');
+        return DoubleParser.instance();
+    }
+
+    @Override
+    protected ParserContext createContext() {
+        return ParserContexts.basic('.', 'E', '-', '+');
     }
 
     private TextCursor parseAndCheck2(final String in, final double value){
@@ -454,7 +488,7 @@ public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<
     }
 
     @Override
-    protected Class<DoubleParser<FakeParserContext>> type() {
+    protected Class<DoubleParser<ParserContext>> type() {
         return Cast.to(DoubleParser.class);
     }
 }

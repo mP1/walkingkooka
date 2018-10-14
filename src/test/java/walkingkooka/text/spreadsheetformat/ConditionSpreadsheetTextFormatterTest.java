@@ -23,8 +23,9 @@ import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
-import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
@@ -185,7 +186,11 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     private Converter converter() {
-        return Converters.parser(BigDecimal.class, Parsers.bigDecimal('.', MathContext.UNLIMITED), FakeParserContext::new);
+        return Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.UNLIMITED), this::bigDecimalParserContext);
+    }
+
+    private ParserContext bigDecimalParserContext() {
+        return ParserContexts.basic('.', 'E', '-', '+');
     }
 
     private SpreadsheetTextFormatter<String> formatter() {
@@ -224,7 +229,27 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
 
     @Override
     protected SpreadsheetTextFormatContext createContext() {
-        return SpreadsheetTextFormatContexts.fake();
+        return new FakeSpreadsheetTextFormatContext() {
+            @Override
+            public char decimalPoint() {
+                return '.';
+            }
+
+            @Override
+            public char exponentSymbol() {
+                return 'E';
+            }
+
+            @Override
+            public char minusSign() {
+                return '-';
+            }
+
+            @Override
+            public char plusSign() {
+                return '+';
+            }
+        };
     }
 
     @Override

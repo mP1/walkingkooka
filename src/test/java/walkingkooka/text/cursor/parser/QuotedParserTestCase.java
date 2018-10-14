@@ -18,7 +18,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 
-public abstract class QuotedParserTestCase<P extends QuotedParser<T, FakeParserContext>, T extends QuotedParserToken> extends ParserTemplateTestCase<P, T> {
+public abstract class QuotedParserTestCase<P extends QuotedParser<T, ParserContext>, T extends QuotedParserToken> extends ParserTemplateTestCase<P, T> {
 
     @Test
     public final void testFirstNotQuote() {

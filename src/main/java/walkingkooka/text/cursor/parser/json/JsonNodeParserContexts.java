@@ -26,7 +26,7 @@ public final class JsonNodeParserContexts implements PublicStaticHelper {
      * {@see BasicJsonNodeParserContext}
      */
     public static JsonNodeParserContext basic() {
-        return BasicJsonNodeParserContext.create();
+        return BasicJsonNodeParserContext.instance();
     }
 
     /**

@@ -17,20 +17,35 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.Parsers;
-import walkingkooka.text.cursor.parser.SequenceParserBuilder;
-import walkingkooka.text.cursor.parser.StringParserToken;
-
 final class BasicEbnfParserContext implements EbnfParserContext {
 
-    static BasicEbnfParserContext create() {
-        return new BasicEbnfParserContext();
+    static BasicEbnfParserContext instance() {
+        return INSTANCE;
     }
 
+    private final static BasicEbnfParserContext INSTANCE = new BasicEbnfParserContext();
+
     private BasicEbnfParserContext() {
+        super();
+    }
+
+    @Override
+    public char decimalPoint() {
+        return '.';
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return 'E';
+    }
+
+    @Override
+    public char minusSign() {
+        return '-';
+    }
+
+    @Override
+    public char plusSign() {
+        return '+';
     }
 }

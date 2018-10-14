@@ -21,7 +21,8 @@ package walkingkooka.tree.expression;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converters;
-import walkingkooka.text.cursor.parser.FakeParserContext;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
@@ -280,11 +281,15 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
-                return Converters.parser(BigInteger.class, Parsers.bigInteger(10), FakeParserContext::new)
+                return Converters.parser(BigInteger.class, Parsers.bigInteger(10), CycleDetectingExpressionEvaluationContextTest::parserContext)
                         .convert(value, target);
             }
         });
         assertEquals(BigInteger.valueOf(123), context.convert("123", BigInteger.class));
+    }
+
+    private static ParserContext parserContext() {
+        return ParserContexts.basic('.', 'E', '-', '+');
     }
 
     @Override

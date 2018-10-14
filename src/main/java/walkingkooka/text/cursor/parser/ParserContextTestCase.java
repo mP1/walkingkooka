@@ -19,10 +19,28 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.ContextTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public abstract class ParserContextTestCase<C extends ParserContext> extends ContextTestCase<C> {
 
     @Test
     public final void testNaming2() {
         this.checkNaming(ParserContext.class);
+    }
+    
+    protected void checkDecimalPoint(final ParserContext context, final char decimalPoint) {
+        assertEquals("decimalPoint", decimalPoint, context.decimalPoint());
+    }
+
+    protected void checkExponentSymbol(final ParserContext context, final char exponentSymbol) {
+        assertEquals("exponentSymbol", exponentSymbol, context.exponentSymbol());
+    }
+
+    protected void checkMinusSign(final ParserContext context, final char minusSign) {
+        assertEquals("minusSign", minusSign, context.minusSign());
+    }
+
+    protected void checkPlusSign(final ParserContext context, final char plusSign) {
+        assertEquals("plusSign", plusSign, context.plusSign());
     }
 }

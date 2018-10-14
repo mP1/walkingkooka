@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 
 import static org.junit.Assert.assertEquals;
 
-public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuotedParser<FakeParserContext>, SingleQuotedParserToken> {
+public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuotedParser<ParserContext>, SingleQuotedParserToken> {
 
     @Test
     public void testToStringSingleQuoted() {
@@ -49,7 +49,7 @@ public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuo
     }
 
     @Override
-    protected Class<SingleQuotedParser<FakeParserContext>> type() {
+    protected Class<SingleQuotedParser<ParserContext>> type() {
         return Cast.to(SingleQuotedParser.class);
     }
 }

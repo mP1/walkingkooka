@@ -34,7 +34,7 @@ public abstract class SpreadsheetParserTestCase<P extends Parser<T, SpreadsheetP
 
     @Override
     protected SpreadsheetParserContext createContext() {
-        return SpreadsheetParserContexts.basic();
+        return SpreadsheetParserContexts.basic(this.decimalNumberContext());
     }
 
     @Override

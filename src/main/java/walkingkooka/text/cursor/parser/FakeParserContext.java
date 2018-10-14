@@ -19,6 +19,25 @@
 
 package walkingkooka.text.cursor.parser;
 
-final public class FakeParserContext implements ParserContext {
+public class FakeParserContext implements ParserContext {
 
+    @Override
+    public char decimalPoint() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char exponentSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char minusSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char plusSign() {
+        throw new UnsupportedOperationException();
+    }
 }

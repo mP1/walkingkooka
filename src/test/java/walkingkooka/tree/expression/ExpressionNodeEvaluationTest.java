@@ -25,6 +25,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContext;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContexts;
@@ -198,7 +199,8 @@ public class ExpressionNodeEvaluationTest extends TestCase {
 
     private SpreadsheetParserToken parse(final String parse){
         final TextCursor cursor = TextCursors.charSequence(parse);
-        final Optional<SpreadsheetParserToken> spreadsheetFormula = this.createParser().parse(cursor, SpreadsheetParserContexts.basic());
+        final Optional<SpreadsheetParserToken> spreadsheetFormula = this.createParser().parse(cursor,
+                SpreadsheetParserContexts.basic(ParserContexts.basic('.', 'E', '-', '+')));
         if(!spreadsheetFormula.isPresent()){
             fail("Parser failed to parse " + CharSequences.quoteAndEscape(parse));
         }
@@ -213,7 +215,7 @@ public class ExpressionNodeEvaluationTest extends TestCase {
     }
 
     private Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
-        final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number = Parsers.<SpreadsheetParserContext>bigDecimal('.', MathContext.DECIMAL32)
+        final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number = Parsers.<SpreadsheetParserContext>bigDecimal( MathContext.DECIMAL32)
                 .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigDecimal(numberParserToken.value(), numberParserToken.text()))
                 .cast();
 

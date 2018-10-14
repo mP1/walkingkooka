@@ -26,7 +26,7 @@ import java.math.BigInteger;
 
 import static org.junit.Assert.assertEquals;
 
-public class LongParserTest extends ParserTemplateTestCase<LongParser<FakeParserContext>, LongParserToken> {
+public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserContext>, LongParserToken> {
 
     private final static int RADIX = 10;
 
@@ -176,6 +176,25 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<FakeParser
     }
 
     @Test
+    public void testDifferentMinusSign() {
+        this.parseAndCheck3("M123", -123);
+    }
+
+    @Test
+    public void testDifferentPlusSign() {
+        this.parseAndCheck3("P123", 123);
+    }
+
+    private TextCursor parseAndCheck3(final String text, final long value) {
+        return this.parseAndCheck(this.createParser(),
+                ParserContexts.basic('!', 'X', 'M', 'P'),
+                text,
+                ParserTokens.longParserToken(value, text),
+                text,
+                "");
+    }
+
+    @Test
     public void testToString() {
         assertEquals("Long", this.createParser().toString());
     }
@@ -188,6 +207,11 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<FakeParser
     @Override
     protected LongParser createParser() {
         return LongParser.with(RADIX);
+    }
+
+    @Override
+    protected ParserContext createContext() {
+        return ParserContexts.basic('.', 'E', '-', '+');
     }
 
     private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter){
@@ -204,7 +228,7 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<FakeParser
     }
 
     @Override
-    protected Class<LongParser<FakeParserContext>> type() {
+    protected Class<LongParser<ParserContext>> type() {
         return Cast.to(LongParser.class);
     }
 }
