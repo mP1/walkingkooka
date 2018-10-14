@@ -24,10 +24,10 @@ package walkingkooka.text.spreadsheetformat;
  */
 abstract class BigDecimalSpreadsheetTextFormatterDigits2 extends BigDecimalSpreadsheetTextFormatterDigits {
 
-    BigDecimalSpreadsheetTextFormatterDigits2(final SpreadsheetTextFormatContextSign sign,
+    BigDecimalSpreadsheetTextFormatterDigits2(final BigDecimalSpreadsheetTextFormatterMinusSign minusSign,
                                               final String text) {
         super(text);
-        this.valueSign = sign;
+        this.minusSign = minusSign;
     }
 
     final void addDigits(final int start,
@@ -41,17 +41,14 @@ abstract class BigDecimalSpreadsheetTextFormatterDigits2 extends BigDecimalSprea
     }
 
     @Override final void sign(final BigDecimalSpreadsheetTextFormatterComponentContext context) {
-        final SpreadsheetTextFormatContextSign sign = this.valueSign;
-        if (this.formatSign.shouldAppendSymbol(sign)) {
-            context.appendSign(sign);
+        if (this.minusSign.shouldAppendSymbol()) {
+            context.appendMinusSign();
+            this.minusSign = BigDecimalSpreadsheetTextFormatterMinusSign.NOT_REQUIRED;
         }
-        this.formatSign = BigDecimalSpreadsheetTextFormatterSign.NOT_REQUIRED;
     }
-
-    final SpreadsheetTextFormatContextSign valueSign;
 
     /**
      * This will after the initial sign is inserted on demand.
      */
-    BigDecimalSpreadsheetTextFormatterSign formatSign = BigDecimalSpreadsheetTextFormatterSign.REQUIRED;
+    BigDecimalSpreadsheetTextFormatterMinusSign minusSign;
 }

@@ -48,7 +48,7 @@ public final class TypedSpreadsheetTextFormatterTest extends SpreadsheetTextForm
 
     @Test
     public void testFormatBigDecimal() {
-        this.formatAndCheck(BigDecimal.valueOf(123), "++123");
+        this.formatAndCheck(BigDecimal.valueOf(123), "123");
     }
 
     @Test
@@ -92,8 +92,8 @@ public final class TypedSpreadsheetTextFormatterTest extends SpreadsheetTextForm
     protected SpreadsheetTextFormatContext createContext() {
         return new FakeSpreadsheetTextFormatContext() {
             @Override
-            public String signSymbol(final SpreadsheetTextFormatContextSign sign) {
-                return "++";
+            public char minusSign() {
+                return '-';
             }
         };
     }

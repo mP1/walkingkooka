@@ -101,7 +101,7 @@ final class BigDecimalFractionSpreadsheetTextFormatter extends SpreadsheetTextFo
             denominator = denominator.add(FIVE).divide(BigInteger.TEN);
         }
 
-        return this.format2(BigDecimalFractionSpreadsheetTextFormatterComponentContext.with(SpreadsheetTextFormatContextSign.fromSignum(sign),
+        return this.format2(BigDecimalFractionSpreadsheetTextFormatterComponentContext.with(BigDecimalFractionSpreadsheetTextFormatterMinusSign.fromSignum(sign),
                 BigDecimalFractionSpreadsheetTextFormatterDigits.numerator(numerator.toString()),
                 BigDecimalFractionSpreadsheetTextFormatterDigits.denominator(denominator.toString()),
                 this,

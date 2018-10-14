@@ -30,7 +30,7 @@ final class BigDecimalFractionSpreadsheetTextFormatterComponentContext implement
     /**
      * Factory that creates a new context.
      */
-    static BigDecimalFractionSpreadsheetTextFormatterComponentContext with(final SpreadsheetTextFormatContextSign numeratorSign,
+    static BigDecimalFractionSpreadsheetTextFormatterComponentContext with(final BigDecimalFractionSpreadsheetTextFormatterMinusSign numeratorSign,
                                                                            final BigDecimalFractionSpreadsheetTextFormatterNumeratorDigits numerator,
                                                                            final BigDecimalFractionSpreadsheetTextFormatterDenominatorDigits demonimator,
                                                                            final BigDecimalFractionSpreadsheetTextFormatter formatter,
@@ -41,14 +41,14 @@ final class BigDecimalFractionSpreadsheetTextFormatterComponentContext implement
     /**
      * Private ctor use factory.
      */
-    private BigDecimalFractionSpreadsheetTextFormatterComponentContext(final SpreadsheetTextFormatContextSign numeratorSign,
+    private BigDecimalFractionSpreadsheetTextFormatterComponentContext(final BigDecimalFractionSpreadsheetTextFormatterMinusSign numeratorSign,
                                                                        final BigDecimalFractionSpreadsheetTextFormatterNumeratorDigits numerator,
                                                                        final BigDecimalFractionSpreadsheetTextFormatterDenominatorDigits demonimator,
                                                                        final BigDecimalFractionSpreadsheetTextFormatter formatter,
                                                                        final SpreadsheetTextFormatContext context) {
         super();
 
-        this.numeratorSign = numeratorSign;
+        this.sign = numeratorSign;
         this.numerator = numerator;
         this.demonimator = demonimator;
 
@@ -72,31 +72,26 @@ final class BigDecimalFractionSpreadsheetTextFormatterComponentContext implement
         this.text.append(c);
     }
 
+    void appendMinusSign() {
+        final BigDecimalFractionSpreadsheetTextFormatterMinusSign sign = this.sign;
+        if (sign.shouldAppendSymbol()) {
+            this.text.append(this.context.minusSign());
+            this.sign = BigDecimalFractionSpreadsheetTextFormatterMinusSign.NOT_REQUIRED;
+        }
+    }
+
+    private BigDecimalFractionSpreadsheetTextFormatterMinusSign sign;
+
     void appendPercentage() {
         this.text.append(this.context.percentageSymbol());
     }
 
-    void appendSign() {
-        final SpreadsheetTextFormatContextSign sign = this.numeratorSign;
-        if (this.formatSign.shouldAppendSymbol(sign)) {
-            this.text.append(this.context.signSymbol(sign));
-        }
-        this.formatSign = BigDecimalFractionSpreadsheetTextFormatterSign.NOT_REQUIRED;
-    }
-
     void appendSlash() {
-        this.appendSign();
+        this.appendMinusSign();
         this.text.append('/');
         this.digits = this.demonimator;
         this.digitSymbolCount = this.formatter.denominatorDigitSymbolCount;
     }
-
-    /**
-     * This will after the initial sign is inserted on demand.
-     */
-    private BigDecimalFractionSpreadsheetTextFormatterSign formatSign = BigDecimalFractionSpreadsheetTextFormatterSign.REQUIRED;
-
-    private final SpreadsheetTextFormatContextSign numeratorSign;
 
     void appendText(final String text) {
         this.text.append(text);
@@ -129,7 +124,7 @@ final class BigDecimalFractionSpreadsheetTextFormatterComponentContext implement
         return ToStringBuilder.create()
                 .disable(ToStringBuilderOption.QUOTE)
                 .separator("")
-                .labelSeparator(this.numeratorSign.symbol())
+                .labelSeparator(this.sign.symbol())
                 .value(this.numerator)
                 .label("/")
                 .value(this.demonimator)

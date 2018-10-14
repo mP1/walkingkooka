@@ -79,16 +79,16 @@ final class BigDecimalSpreadsheetTextFormatterComponentContext implements Contex
     }
 
     void appendExponent() {
-        this.text.append(this.context.exponent());
+        this.text.append(this.context.exponentSymbol());
         this.digits = this.exponent;
+    }
+    
+    void appendMinusSign() {
+        this.text.append(this.context.minusSign());
     }
 
     void appendPercentage() {
         this.text.append(this.context.percentageSymbol());
-    }
-
-    void appendSign(final SpreadsheetTextFormatContextSign sign) {
-        this.text.append(this.context.signSymbol(sign));
     }
 
     void appendText(final String text) {

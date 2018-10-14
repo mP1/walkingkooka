@@ -163,206 +163,206 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
 
     @Test
     public void testHashFractionHash0_0() {
-        this.parseFormatAndCheck("#/#", 0.0, "~~/1");
+        this.parseFormatAndCheck("#/#", 0.0, "/1");
     }
 
     @Test
     public void testHashFractionHash0_2() {
-        this.parseFormatAndCheck("#/#", 0.2, "++1/5");
+        this.parseFormatAndCheck("#/#", 0.2, "1/5");
     }
 
     @Test
     public void testHashFractionHash0_6() {
-        this.parseFormatAndCheck("#/#", 0.6, "++3/5");
+        this.parseFormatAndCheck("#/#", 0.6, "3/5");
     }
 
     @Test
     public void testHashFractionHash0_71() {
-        this.parseFormatAndCheck("#/#", 0.61, "++3/5");
+        this.parseFormatAndCheck("#/#", 0.61, "3/5");
     }
 
     @Test
     public void testHashFractionHash0_85() {
-        this.parseFormatAndCheck("#/#", 0.85, "++4/5");
+        this.parseFormatAndCheck("#/#", 0.85, "4/5");
     }
 
     @Test
     public void testHashFractionHash1_0() {
-        this.parseFormatAndCheck("#/#", 1, "++5/5");
+        this.parseFormatAndCheck("#/#", 1, "5/5");
     }
 
     @Test
     public void testHashFractionHash1_99() {
-        this.parseFormatAndCheck("#/#", 1.99, "++10/5");
+        this.parseFormatAndCheck("#/#", 1.99, "10/5");
     }
 
     @Test
     public void testHashFractionHash0_025() {
-        this.parseFormatAndCheck("#/#", 0.025, "~~/1");
+        this.parseFormatAndCheck("#/#", 0.025, "/1");
     }
 
     // fraction space. space dot space ...................................................................................
 
     @Test
     public void testQuestionFractionQuestion0_0() {
-        this.parseFormatAndCheck("?/?", 0.0, "~~ /1");
+        this.parseFormatAndCheck("?/?", 0.0, " /1");
     }
 
     @Test
     public void testQuestionFractionQuestion0_2() {
-        this.parseFormatAndCheck("?/?", 0.2, "++1/5");
+        this.parseFormatAndCheck("?/?", 0.2, "1/5");
     }
 
     @Test
     public void testQuestionFractionQuestion0_6() {
-        this.parseFormatAndCheck("?/?", 0.6, "++3/5");
+        this.parseFormatAndCheck("?/?", 0.6, "3/5");
     }
 
     @Test
     public void testQuestionFractionQuestion0_85() {
-        this.parseFormatAndCheck("?/?", 0.85, "++4/5");
+        this.parseFormatAndCheck("?/?", 0.85, "4/5");
     }
 
     @Test
     public void testQuestionFractionQuestion1_0() {
-        this.parseFormatAndCheck("?/?", 1, "++5/5");
+        this.parseFormatAndCheck("?/?", 1, "5/5");
     }
 
     @Test
     public void testQuestionFractionQuestion1_99() {
-        this.parseFormatAndCheck("?/?", 1.99, "++10/5");
+        this.parseFormatAndCheck("?/?", 1.99, "10/5");
     }
 
     @Test
     public void testQuestionFractionQuestion0_025() {
-        this.parseFormatAndCheck("?/?", 0.025, "~~ /1");
+        this.parseFormatAndCheck("?/?", 0.025, " /1");
     }
 
     // fraction zero. zero dot zero ...................................................................................
 
     @Test
     public void testZeroFractionZero0_0() {
-        this.parseFormatAndCheck("0/0", 0.0, "~~0/1");
+        this.parseFormatAndCheck("0/0", 0.0, "0/1");
     }
 
     @Test
     public void testZeroFractionZero0_2() {
-        this.parseFormatAndCheck("0/0", 0.2, "++1/5");
+        this.parseFormatAndCheck("0/0", 0.2, "1/5");
     }
 
     @Test
     public void testZeroFractionZero0_6() {
-        this.parseFormatAndCheck("0/0", 0.6, "++3/5");
+        this.parseFormatAndCheck("0/0", 0.6, "3/5");
     }
 
     @Test
     public void testZeroFractionZero0_71() {
-        this.parseFormatAndCheck("0/0", 0.71, "++3/5");
+        this.parseFormatAndCheck("0/0", 0.71, "3/5");
     }
 
     @Test
     public void testZeroFractionZero0_85() {
-        this.parseFormatAndCheck("0/0", 0.85, "++4/5");
+        this.parseFormatAndCheck("0/0", 0.85, "4/5");
     }
 
     @Test
     public void testZeroFractionZero1_0() {
-        this.parseFormatAndCheck("0/0", 1, "++5/5");
+        this.parseFormatAndCheck("0/0", 1, "5/5");
     }
 
     @Test
     public void testZeroFractionZero1_25() {
-        this.parseFormatAndCheck("0/0", 1.25, "++6/5");
+        this.parseFormatAndCheck("0/0", 1.25, "6/5");
     }
 
     @Test
     public void testZeroFractionZero1_975() {
-        this.parseFormatAndCheck("0/0", 1.975, "++10/5");
+        this.parseFormatAndCheck("0/0", 1.975, "10/5");
     }
 
     @Test
     public void testZeroFractionZero0_025() {
-        this.parseFormatAndCheck("0/0", 0.025, "~~0/1");
+        this.parseFormatAndCheck("0/0", 0.025, "0/1");
     }
 
     // long fraction patterns
 
     @Test
     public void testHashFractionHashHashHash0_0000005() {
-        this.parseFormatAndCheck("#/###", 0.0000005, "~~/1");
+        this.parseFormatAndCheck("#/###", 0.0000005, "/1");
     }
 
     @Test
     public void testQuestionFractionQuestionQuestionQuestion0_0000005() {
-        this.parseFormatAndCheck("?/???", 0.0000005, "~~ /  1");
+        this.parseFormatAndCheck("?/???", 0.0000005, " /  1");
     }
 
     @Test
     public void testZeroFractionZeroZeroZero0_0000005() {
-        this.parseFormatAndCheck("0/000", 0.0000005, "~~0/001");
+        this.parseFormatAndCheck("0/000", 0.0000005, "0/001");
     }
 
     // hash space zero.................................................................................
 
     @Test
     public void testHashFractionSpaceHash1_05() {
-        this.parseFormatAndCheck("?/?#", 1.05, "++52/50");
+        this.parseFormatAndCheck("?/?#", 1.05, "52/50");
     }
 
     @Test
     public void testHashFractionZeroHash1_05() {
-        this.parseFormatAndCheck("?/?0", 1.05, "++52/50");
+        this.parseFormatAndCheck("?/?0", 1.05, "52/50");
     }
 
     @Test
     public void testHashFractionSpaceZeroHash1_00005() {
-        this.parseFormatAndCheck("?/?", 1.005, "++5/5");
+        this.parseFormatAndCheck("?/?", 1.005, "5/5");
     }
 
     // currency .........................................................................................
 
     @Test
     public void testCurrency() {
-        this.parseFormatAndCheck("$0/0", 0.4, "$$++2/5");
+        this.parseFormatAndCheck("$0/0", 0.4, "D2/5");
     }
 
     // percentage .........................................................................................
 
     @Test
     public void testPercentage0() {
-        this.parseFormatAndCheck("0/0%", 0, "~~0/1%%");
+        this.parseFormatAndCheck("0/0%", 0, "0/1P");
     }
 
     @Test
     public void testPercentagePositive1() {
-        this.parseFormatAndCheck("0/0%", 1, "++500/5%%");
+        this.parseFormatAndCheck("0/0%", 1, "500/5P");
     }
 
     @Test
     public void testPercentageNegative1() {
-        this.parseFormatAndCheck("0/0%", -1, "--500/5%%");
+        this.parseFormatAndCheck("0/0%", -1, "M500/5P");
     }
 
     // thousands divider .........................................................................................
 
     @Test
     public void testThousandsDividerDigitComma0() {
-        this.parseFormatAndCheck("0/0,", 1, "~~0/1");
+        this.parseFormatAndCheck("0/0,", 1, "0/1");
     }
 
     @Test
     public void testThousandsDividerCommaSlash12345() {
-        this.parseFormatAndCheck("0,/#", 12345, "++61/5");
+        this.parseFormatAndCheck("0,/#", 12345, "61/5");
     }
 
     @Test
     public void testThousandsDividerCommaTextLiteralSLash12345() {
-        this.parseFormatAndCheck("0,\"Text\"/#", 12345, "++61Text/5");
+        this.parseFormatAndCheck("0,\"Text\"/#", 12345, "61Text/5");
     }
 
     @Test
     public void testThousandsDividerCommaCommaSlash123456789() {
-        this.parseFormatAndCheck("0,,/#", 123456789, "++617/5");
+        this.parseFormatAndCheck("0,,/#", 123456789, "617/5");
     }
 
     //helpers .......................................................................................................
@@ -430,27 +430,18 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
     protected SpreadsheetTextFormatContext createContext() {
         return new FakeSpreadsheetTextFormatContext() {
             @Override
-            public String currencySymbol() {
-                return "$$";
+            public char currencySymbol() {
+                return 'D';
             }
 
             @Override
-            public String percentageSymbol() {
-                return "%%";
+            public char minusSign() {
+                return 'M';
             }
 
             @Override
-            public String signSymbol(final SpreadsheetTextFormatContextSign value) {
-                switch (value) {
-                    case NEGATIVE:
-                        return "--";
-                    case ZERO:
-                        return "~~";
-                    case POSITIVE:
-                        return "++";
-                    default:
-                        throw new UnsupportedOperationException("exponentSign=" + value);
-                }
+            public char percentageSymbol() {
+                return 'P';
             }
         };
     }

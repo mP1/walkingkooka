@@ -19,28 +19,46 @@
 package walkingkooka.text.spreadsheetformat;
 
 /**
- * Handles inserting the exponentSign when required.
+ * Handles inserting the mins sign when required.
  */
-enum BigDecimalSpreadsheetTextFormatterSign {
+enum BigDecimalFractionSpreadsheetTextFormatterMinusSign {
     /**
-     * unconditionally adds a exponentSign
+     * unconditionally adds a minus sign.
      */
     REQUIRED {
         @Override
-        boolean shouldAppendSymbol(final SpreadsheetTextFormatContextSign valueSign) {
+        boolean shouldAppendSymbol() {
             return true;
+        }
+
+        @Override
+        String symbol() {
+            return "-";
         }
     },
 
     /**
-     * doesnt add a exponentSign.
+     * doesnt add a minus sign.
      */
     NOT_REQUIRED {
         @Override
-        boolean shouldAppendSymbol(final SpreadsheetTextFormatContextSign valueSign) {
+        boolean shouldAppendSymbol() {
             return false;
+        }
+
+        @Override
+        String symbol() {
+            return "";
         }
     };
 
-    abstract boolean shouldAppendSymbol(final SpreadsheetTextFormatContextSign valueSign);
+    abstract boolean shouldAppendSymbol();
+
+    abstract String symbol();
+
+    static BigDecimalFractionSpreadsheetTextFormatterMinusSign fromSignum(final int value) {
+        return value < 0 ?
+               REQUIRED :
+               NOT_REQUIRED;
+    }
 }

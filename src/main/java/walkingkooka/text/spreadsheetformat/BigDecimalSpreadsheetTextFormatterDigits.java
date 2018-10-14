@@ -29,10 +29,10 @@ abstract class BigDecimalSpreadsheetTextFormatterDigits implements UsesToStringB
     /**
      * {@see BigDecimalSpreadsheetTextFormatterIntegerDigits}
      */
-    static BigDecimalSpreadsheetTextFormatterDigits integer(final SpreadsheetTextFormatContextSign sign,
+    static BigDecimalSpreadsheetTextFormatterDigits integer(final BigDecimalSpreadsheetTextFormatterMinusSign minusSign,
                                                             final String text,
                                                             final BigDecimalSpreadsheetTextFormatterThousandsSeparator thousandsSeparator) {
-        return BigDecimalSpreadsheetTextFormatterIntegerDigits.with(sign, text, thousandsSeparator);
+        return BigDecimalSpreadsheetTextFormatterIntegerDigits.with(minusSign, text, thousandsSeparator);
     }
 
     /**
@@ -45,9 +45,9 @@ abstract class BigDecimalSpreadsheetTextFormatterDigits implements UsesToStringB
     /**
      * {@see BigDecimalSpreadsheetTextFormatterExponentDigits}
      */
-    static BigDecimalSpreadsheetTextFormatterDigits exponent(final SpreadsheetTextFormatContextSign valueSign,
+    static BigDecimalSpreadsheetTextFormatterDigits exponent(final BigDecimalSpreadsheetTextFormatterMinusSign minusSign,
                                                              final String text) {
-        return BigDecimalSpreadsheetTextFormatterExponentDigits.with(valueSign, text);
+        return BigDecimalSpreadsheetTextFormatterExponentDigits.with(minusSign, text);
     }
 
     /**
