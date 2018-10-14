@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
+import walkingkooka.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
 
 /**
@@ -32,6 +33,13 @@ public final class ParserContexts implements PublicStaticHelper {
                                       final char minusSign,
                                       final char plusSign) {
         return BasicParserContext.with(decimalPoint, exponentSymbol, minusSign, plusSign);
+    }
+
+    /**
+     * {@see DecimalNumberContextParserContext}
+     */
+    public static ParserContext decimalNumberContext(final DecimalNumberContext context) {
+        return DecimalNumberContextParserContext.with(context);
     }
 
     /**
