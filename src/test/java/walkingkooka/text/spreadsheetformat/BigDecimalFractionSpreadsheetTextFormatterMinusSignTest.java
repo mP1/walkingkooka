@@ -18,29 +18,11 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-/**
- * A transport of the sign of a value used to query the {@link SpreadsheetTextFormatContext}.
- */
-public enum SpreadsheetTextFormatContextSign {
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-    NEGATIVE("-"),
-    ZERO("0"),
-    POSITIVE("+");
-
-    SpreadsheetTextFormatContextSign(final String symbol) {
-        this.symbol = symbol;
-    }
-
-    public String symbol() {
-        return this.symbol;
-    }
-
-    private final String symbol;
-
-
-    static SpreadsheetTextFormatContextSign fromSignum(final int value) {
-        return 0 == value ? ZERO :
-                value < 0 ? NEGATIVE :
-                        POSITIVE;
+public final class BigDecimalFractionSpreadsheetTextFormatterMinusSignTest extends PackagePrivateClassTestCase<BigDecimalFractionSpreadsheetTextFormatterMinusSign> {
+    @Override
+    protected Class<BigDecimalFractionSpreadsheetTextFormatterMinusSign> type() {
+        return BigDecimalFractionSpreadsheetTextFormatterMinusSign.class;
     }
 }

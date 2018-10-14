@@ -44,17 +44,22 @@ public interface SpreadsheetTextFormatContext extends Context {
     /**
      * The currency symbol character.
      */
-    String currencySymbol();
+    char currencySymbol();
 
     /**
      * The decimal point character.
      */
-    String decimalPoint();
+    char decimalPoint();
 
     /**
      * The exponentDigitSymbolCount
      */
-    String exponent();
+    char exponentSymbol();
+
+    /**
+     * The minus sign used for negative values.
+     */
+    char minusSign();
 
     /**
      * Returns the requested month in full. The month is zero index.
@@ -69,17 +74,12 @@ public interface SpreadsheetTextFormatContext extends Context {
     /**
      * The percentage symbol.
      */
-    String percentageSymbol();
-
-    /**
-     * Should return the appropriate exponentSign symbol
-     */
-    String signSymbol(SpreadsheetTextFormatContextSign sign);
+    char percentageSymbol();
 
     /**
      * The thousands separator.
      */
-    String thousandsSeparator();
+    char thousandsSeparator();
 
     /**
      * Returns the requested week day in full. Sunday is 0.

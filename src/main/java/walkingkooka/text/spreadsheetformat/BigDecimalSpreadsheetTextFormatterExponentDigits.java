@@ -28,17 +28,17 @@ final class BigDecimalSpreadsheetTextFormatterExponentDigits extends BigDecimalS
     /**
      * Factory creates a new {@link BigDecimalSpreadsheetTextFormatterExponentDigits}
      */
-    static BigDecimalSpreadsheetTextFormatterExponentDigits with(final SpreadsheetTextFormatContextSign sign,
+    static BigDecimalSpreadsheetTextFormatterExponentDigits with(final BigDecimalSpreadsheetTextFormatterMinusSign minusSign,
                                                                  final String text) {
-        return new BigDecimalSpreadsheetTextFormatterExponentDigits(sign, text);
+        return new BigDecimalSpreadsheetTextFormatterExponentDigits(minusSign, text);
     }
 
     /**
      * Private ctor use factory
      */
-    private BigDecimalSpreadsheetTextFormatterExponentDigits(final SpreadsheetTextFormatContextSign sign,
+    private BigDecimalSpreadsheetTextFormatterExponentDigits(final BigDecimalSpreadsheetTextFormatterMinusSign minusSign,
                                                              final String text) {
-        super(sign, text);
+        super(minusSign, text);
     }
 
     @Override
@@ -70,6 +70,6 @@ final class BigDecimalSpreadsheetTextFormatterExponentDigits extends BigDecimalS
 
     @Override
     public void buildToString(final ToStringBuilder builder) {
-        builder.label("E" + this.valueSign.symbol()).value(this.text);
+        builder.label("E" + this.minusSign.symbol()).value(this.text);
     }
 }

@@ -28,19 +28,19 @@ final class BigDecimalSpreadsheetTextFormatterIntegerDigits extends BigDecimalSp
     /**
      * Creates a new {@link BigDecimalSpreadsheetTextFormatterIntegerDigits}
      */
-    static BigDecimalSpreadsheetTextFormatterIntegerDigits with(final SpreadsheetTextFormatContextSign sign,
+    static BigDecimalSpreadsheetTextFormatterIntegerDigits with(final BigDecimalSpreadsheetTextFormatterMinusSign minusSign,
                                                                 final String text,
                                                                 final BigDecimalSpreadsheetTextFormatterThousandsSeparator thousandsSeparator) {
-        return new BigDecimalSpreadsheetTextFormatterIntegerDigits(sign, text, thousandsSeparator);
+        return new BigDecimalSpreadsheetTextFormatterIntegerDigits(minusSign, text, thousandsSeparator);
     }
 
     /**
      * Private ctor use factory
      */
-    private BigDecimalSpreadsheetTextFormatterIntegerDigits(final SpreadsheetTextFormatContextSign sign,
+    private BigDecimalSpreadsheetTextFormatterIntegerDigits(final BigDecimalSpreadsheetTextFormatterMinusSign minusSign,
                                                             final String text,
                                                             final BigDecimalSpreadsheetTextFormatterThousandsSeparator thousandsSeparator) {
-        super(sign, text);
+        super(minusSign, text);
         this.thousandsSeparator = thousandsSeparator;
     }
 
@@ -75,6 +75,6 @@ final class BigDecimalSpreadsheetTextFormatterIntegerDigits extends BigDecimalSp
 
     @Override
     public void buildToString(final ToStringBuilder builder) {
-        builder.label(this.valueSign.symbol()).value(this.text);
+        builder.label(this.minusSign.symbol()).value(this.text);
     }
 }

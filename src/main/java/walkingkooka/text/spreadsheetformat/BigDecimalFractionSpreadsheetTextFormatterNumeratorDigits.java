@@ -40,7 +40,7 @@ final class BigDecimalFractionSpreadsheetTextFormatterNumeratorDigits extends Bi
     }
 
     @Override final void sign(final BigDecimalFractionSpreadsheetTextFormatterComponentContext context) {
-        context.appendSign();
+        context.appendMinusSign();
     }
 
     @Override

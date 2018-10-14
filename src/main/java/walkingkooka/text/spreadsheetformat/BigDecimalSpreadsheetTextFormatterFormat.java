@@ -54,7 +54,7 @@ enum BigDecimalSpreadsheetTextFormatterFormat {
             }
 
             return BigDecimalSpreadsheetTextFormatterComponentContext.with(
-                    BigDecimalSpreadsheetTextFormatterDigits.integer(SpreadsheetTextFormatContextSign.fromSignum(valueSign), integerDigits, thousandsSeparator),
+                    BigDecimalSpreadsheetTextFormatterDigits.integer(BigDecimalSpreadsheetTextFormatterMinusSign.fromSignum(valueSign), integerDigits, thousandsSeparator),
                     BigDecimalSpreadsheetTextFormatterDigits.fraction(fractionDigits),
                     NO_EXPONENT,
                     formatter,
@@ -89,9 +89,9 @@ enum BigDecimalSpreadsheetTextFormatterFormat {
             final int exponent = rounded.precision() - rounded.scale() - integerDigitCount;
 
             return BigDecimalSpreadsheetTextFormatterComponentContext.with(
-                    BigDecimalSpreadsheetTextFormatterDigits.integer(SpreadsheetTextFormatContextSign.fromSignum(value.signum()), digits.substring(0, integerDigitCount), thousandsSeparator),
+                    BigDecimalSpreadsheetTextFormatterDigits.integer(BigDecimalSpreadsheetTextFormatterMinusSign.fromSignum(value.signum()), digits.substring(0, integerDigitCount), thousandsSeparator),
                     BigDecimalSpreadsheetTextFormatterDigits.fraction(digits.substring(integerDigitCount, Math.min(integerDigitCount + fractionDigitCount, digitCount))),
-                    BigDecimalSpreadsheetTextFormatterDigits.exponent(SpreadsheetTextFormatContextSign.fromSignum(exponent), String.valueOf(Math.abs(exponent))),
+                    BigDecimalSpreadsheetTextFormatterDigits.exponent(BigDecimalSpreadsheetTextFormatterMinusSign.fromSignum(exponent), String.valueOf(Math.abs(exponent))),
                     formatter,
                     context);
         }
@@ -107,5 +107,5 @@ enum BigDecimalSpreadsheetTextFormatterFormat {
             final BigDecimalSpreadsheetTextFormatter formatter,
             final SpreadsheetTextFormatContext context);
 
-    final static BigDecimalSpreadsheetTextFormatterDigits NO_EXPONENT = BigDecimalSpreadsheetTextFormatterDigits.exponent(SpreadsheetTextFormatContextSign.ZERO, "");
+    final static BigDecimalSpreadsheetTextFormatterDigits NO_EXPONENT = BigDecimalSpreadsheetTextFormatterDigits.exponent(BigDecimalSpreadsheetTextFormatterMinusSign.NOT_REQUIRED, "");
 }

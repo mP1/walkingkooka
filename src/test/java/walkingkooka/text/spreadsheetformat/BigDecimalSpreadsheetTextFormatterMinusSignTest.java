@@ -20,9 +20,9 @@ package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class BigDecimalSpreadsheetTextFormatterSignTest extends PackagePrivateClassTestCase<BigDecimalSpreadsheetTextFormatterSign> {
+public final class BigDecimalSpreadsheetTextFormatterMinusSignTest extends PackagePrivateClassTestCase<BigDecimalSpreadsheetTextFormatterMinusSign> {
     @Override
-    protected Class<BigDecimalSpreadsheetTextFormatterSign> type() {
-        return BigDecimalSpreadsheetTextFormatterSign.class;
+    protected Class<BigDecimalSpreadsheetTextFormatterMinusSign> type() {
+        return BigDecimalSpreadsheetTextFormatterMinusSign.class;
     }
 }
