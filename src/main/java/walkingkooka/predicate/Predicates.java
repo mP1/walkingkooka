@@ -27,7 +27,17 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 final public class Predicates implements PublicStaticHelper {
+
     /**
+     * {@see AbsoluteUrlPredicate}
+     */
+    public static Predicate<String> absoluteUrl() {
+        return AbsoluteUrlPredicate.INSTANCE;
+    }
+
+    /**
+     *
+     /**
      * {@see AlwaysPredicate}.
      */
     public static <T> Predicate<T> always() {
