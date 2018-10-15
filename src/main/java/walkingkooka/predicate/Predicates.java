@@ -19,6 +19,7 @@ package walkingkooka.predicate;
 
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Objects;
@@ -45,6 +46,30 @@ final public class Predicates implements PublicStaticHelper {
      */
     public static Predicate<CharSequence> charSequence(final CharPredicate predicate) {
         return CharPredicateCharSequencePredicate.with(predicate);
+    }
+
+    /**
+     * {@see CaseSensitivity#predicateEndsWith}
+     */
+    public static <C extends CharSequence> Predicate<C> charSequenceEndsWith(final CaseSensitivity caseSensitivity,
+                                                                             final C endsWith) {
+        return caseSensitivity.predicateEndsWith(endsWith);
+    }
+
+    /**
+     * {@see CaseSensitivity#predicateContains}
+     */
+    public static <C extends CharSequence> Predicate<C> charSequenceContains(final CaseSensitivity caseSensitivity,
+                                                                             final C contains) {
+        return caseSensitivity.predicateContains(contains);
+    }
+
+    /**
+     * {@see CaseSensitivity#predicateStartsWith}
+     */
+    public static <C extends CharSequence> Predicate<C> charSequenceStartsWith(final CaseSensitivity caseSensitivity,
+                                                                               final C startsWith) {
+        return caseSensitivity.predicateStartsWith(startsWith);
     }
 
     /**
