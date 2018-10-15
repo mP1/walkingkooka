@@ -25,26 +25,32 @@ import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.PublicClassTestCase;
 
 import java.util.Arrays;
+import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 
 final public class EmailAddressTest extends PublicClassTestCase<EmailAddress> {
 
+    @Test(expected = NullPointerException.class)
+    public void testWithNullFails() {
+        EmailAddress.with(null);
+    }
 
-    @Test
-    public void testNullFails() {
-        this.withFails(null);
+    @Test(expected = NullPointerException.class)
+    public void testTryParseNullFails() {
+        EmailAddress.tryParse(null);
     }
 
     @Test
     public void testEmptyAddressFails() {
-        this.withFails("");
+        this.fails("");
     }
 
     @Test
     public void testOnlyWhitespaceFails() {
-        this.withFails("    ");
+        this.fails("    ");
     }
 
     @Test
@@ -52,44 +58,38 @@ final public class EmailAddressTest extends PublicClassTestCase<EmailAddress> {
         final char[] array = new char[EmailAddress.MAX_EMAIL_LENGTH - 5];
         Arrays.fill(array, 'x');
         final String email = "user@" + new String(array);
-        this.withFails(email, EmailAddress.EMAIL_TOO_LONG);
+        this.fails(email, EmailAddress.EMAIL_TOO_LONG);
     }
 
     @Test
     public void testTooShortFails() {
-        this.withFails(".");
+        this.fails(".");
     }
-
 
     @Test
     public void testUsernameWithLessThanFails() {
         this.invalidUserNameCharacter("user<@server", '<');
     }
 
-
     @Test
     public void testUsernameWithGreaterThanFails() {
         this.invalidUserNameCharacter("user>@server", '>');
     }
-
 
     @Test
     public void testUsernameWithOpeningSquareBracketFails() {
         this.invalidUserNameCharacter("user[@server", '[');
     }
 
-
     @Test
     public void testUsernameWithClosingSquareBracketFails() {
         this.invalidUserNameCharacter("user]@server", ']');
     }
 
-
     @Test
     public void testUsernameWithBackslashFails() {
         this.invalidUserNameCharacter("user\\@server", '\\');
     }
-
 
     @Test
     public void testUsernameWithInvalidFails() {
@@ -100,81 +100,87 @@ final public class EmailAddressTest extends PublicClassTestCase<EmailAddress> {
     private void invalidUserNameCharacter(final String email, final char c) {
         final int at = email.indexOf(c);
         assertNotEquals("invalid character '" + c + "' does not appear in email=" + email, -1, at);
-        this.withFails(email, EmailAddress.invalidCharacter(email, at));
+        this.fails(email, EmailAddress.invalidCharacter(email, at));
     }
-
 
     @Test
     public void testServerContainsInvalidCharacterFails() {
         final String email = "user@s erver";
-        this.withFails(email, HostAddressProblem.invalidCharacter(email.indexOf(' ')));
+        this.fails(email, HostAddressProblem.invalidCharacter(email.indexOf(' ')));
     }
-
 
     @Test
     public void testExtraAtSignFails() {
         final String email = "user@extra@atsign";
-        this.withFails(email, HostAddressProblem.invalidCharacter(email.lastIndexOf('@')));
+        this.fails(email, HostAddressProblem.invalidCharacter(email.lastIndexOf('@')));
     }
-
 
     @Test
     public void testWithoutUserFails() {
         final String email = "@server";
-        this.withFails(email, EmailAddress.missingUser(email));
+        this.fails(email, EmailAddress.missingUser(email));
     }
-
 
     @Test
     public void testWithoutHostFails() {
         final String email = "user@";
-        this.withFails(email, EmailAddress.missingHost(email));
+        this.fails(email, EmailAddress.missingHost(email));
     }
-
 
     @Test
     public void testDoubleDotFails() {
         final String email = "use..r@serve";
-        this.withFails(email, EmailAddress.invalidCharacter(email, email.indexOf("..") + 1));
+        this.fails(email, EmailAddress.invalidCharacter(email, email.indexOf("..") + 1));
     }
-
 
     @Test
     public void testIp4MissingClosingBracketFails() {
         final String email = "user@[1.2.3.4";
-        this.withFails(email, HostAddressProblem.incomplete());
+        this.fails(email, HostAddressProblem.incomplete());
     }
 
     @Test
     public void testIp6MissingClosingBracketFails() {
         final String email = "user@[1:2:3:4:5:6:7:8";
-        this.withFails(email, HostAddressProblem.incomplete());
+        this.fails(email, HostAddressProblem.incomplete());
     }
 
     @Test
     public void testIp4UnnecesssaryClosingBracketFails() {
         final String email = "user@1.2.3.4]";
-        this.withFails(email, HostAddressProblem.invalidCharacter(email.indexOf(']')));
+        this.fails(email, HostAddressProblem.invalidCharacter(email.indexOf(']')));
     }
 
     @Test
     public void testIp6EmbeddedIp4WithInvalidValueFails() {
         final String email = "user@1:2:3:4:5:6:7.888.9.0";
-        this.withFails(email, HostAddressProblem.invalidValue(email.indexOf('8')));
+        this.fails(email, HostAddressProblem.invalidValue(email.indexOf('8')));
     }
 
     @Test
     public void testIp6UnnecessaryClosingBracketFails() {
         final String email = "user@1:2:3:4:5:6:7:8]";
-        this.withFails(email, HostAddressProblem.invalidCharacter(email.indexOf(']')));
+        this.fails(email, HostAddressProblem.invalidCharacter(email.indexOf(']')));
     }
 
-    private void withFails(final String email) {
-        this.withFails(email, (String) null);
+    @Test
+    public void testUsernameTooLongFails() {
+        final char[] user = new char[EmailAddress.MAX_LOCAL_LENGTH];
+        Arrays.fill(user, 'a');
+        this.fails(new String(user) + "@example.com", EmailAddress.userNameTooLong(EmailAddress.MAX_LOCAL_LENGTH));
     }
 
-    private void withFails(final String address, final HostAddressProblem problem) {
-        this.withFails(address, problem.message(address));
+    private void fails(final String email) {
+        this.fails(email, (String) null);
+    }
+
+    private void fails(final String address, final HostAddressProblem problem) {
+        this.fails(address, problem.message(address));
+    }
+
+    private void fails(final String email, final String expectedMessage) {
+        withFails(email, expectedMessage);
+        assertEquals(email, Optional.empty(), EmailAddress.tryParse(email));
     }
 
     private void withFails(final String email, final String expectedMessage) {
@@ -193,80 +199,97 @@ final public class EmailAddressTest extends PublicClassTestCase<EmailAddress> {
 
     @Test
     public void testWith() {
-        this.with("user", "server");
+        this.createAndCheck("user", "server");
     }
 
     @Test
     public void testWith2() {
-        this.with("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!.#$%&'*+-/=?^_`{|}~", "server");
+        this.createAndCheck("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!.#$%&'*+-/=?^_`{|}~", "server");
     }
 
     @Test
     public void testUsernameWithQuotedSquareBrackets() {
-        this.with("user\"[]\"", "server");
+        this.createAndCheck("user\"[]\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedLessAndGreaterThan() {
-        this.with("user\"<>\"", "server");
+        this.createAndCheck("user\"<>\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedColon() {
-        this.with("user\":\"", "server");
+        this.createAndCheck("user\":\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedSemiColon() {
-        this.with("user\":\"", "server");
+        this.createAndCheck("user\":\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedAtSign() {
-        this.with("user\"@\"", "server");
+        this.createAndCheck("user\"@\"", "server");
     }
 
     @Test
     public void testUsernameWithQuotedBackslash() {
-        this.with("user\"\\\\\"", "server");
+        this.createAndCheck("user\"\\\\\"", "server");
     }
 
     @Test
     public void testIp4Address() {
-        this.with("user", "1.2.3.4");
+        this.createAndCheck("user", "1.2.3.4");
     }
 
     @Test
     public void testIp4AddressSurroundedBySquareBrackets() {
-        this.with("user", "[1.2.3.4]");
+        this.createAndCheck("user", "[1.2.3.4]");
     }
 
     @Test
     public void testIp6Address() {
-        this.with("user", "1111:2222:3333:4444:5555:6666:7777:8888");
+        this.createAndCheck("user", "1111:2222:3333:4444:5555:6666:7777:8888");
     }
 
     @Test
     public void testIp6AddressWithEmbeddedIp4() {
-        this.with("user", "1111:2222:3333:4444:5555:6666:255.7.8.9");
+        this.createAndCheck("user", "1111:2222:3333:4444:5555:6666:255.7.8.9");
     }
 
     @Test
     public void testIp6AddressSurroundedBySquareBrackets() {
-        this.with("user", "[1111:2222:3333:4444:5555:6666:7777:8888]");
+        this.createAndCheck("user", "[1111:2222:3333:4444:5555:6666:7777:8888]");
     }
 
     @Test
     public void testManyNoneConsecutiveDots() {
-        this.with("first.middle.last", "server");
+        this.createAndCheck("first.middle.last", "server");
     }
 
-    private void with(final String user, final String server) {
+    private void createAndCheck(final String user, final String server) {
         final String address = user + '@' + server;
-        final EmailAddress email = EmailAddress.with(address);
-        Assert.assertEquals("address", address, email.value());
-        Assert.assertEquals("user", user, email.user());
-        Assert.assertEquals("host", server, email.host().value());
+        final EmailAddress emailAddress = EmailAddress.with(address);
+        this.check(user, server, emailAddress);
+
+        final Optional<EmailAddress> parsed = EmailAddress.tryParse(address);
+        assertNotEquals("tryParse failed", Optional.empty(), parsed);
+        this.check(user, server, parsed.get());
+    }
+
+    private void check(final String user, final String server, final EmailAddress emailAddress) {
+        final String address = user + '@' + server;
+        assertEquals("address", address, emailAddress.value());
+        assertEquals("user", user, emailAddress.user());
+        assertEquals("host", server, emailAddress.host().value());
+    }
+    
+    // toString.................................................................
+
+    @Test
+    public void testToString() {
+        final String email = "hello@example.com";
+        assertEquals(email, EmailAddress.with(email).toString());
     }
 
     @Override
