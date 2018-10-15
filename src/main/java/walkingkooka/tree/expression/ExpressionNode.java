@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
@@ -33,11 +34,48 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionNodeName, Name, Object> {
 
     public final static List<ExpressionNode> NO_CHILDREN = Lists.empty();
+
+    /**
+     * Tests the value and creates the appropriate {@see ExpressionNode}.
+     */
+    public static ExpressionNode valueOrFail(final Object value) {
+        Objects.requireNonNull(value, "value");
+
+        return value instanceof BigDecimal ?
+                bigDecimal(Cast.to(value)) :
+                value instanceof BigInteger ?
+                        bigInteger(Cast.to(value)) :
+                        value instanceof Boolean ?
+                                booleanNode(Cast.to(value)) :
+                                value instanceof Double ?
+                                        doubleNode(Cast.to(value)) :
+                                        value instanceof LocalDate ?
+                                                localDate(Cast.to(value)) :
+                                                value instanceof LocalDateTime ?
+                                                        localDateTime(Cast.to(value)) :
+                                                        value instanceof LocalTime ?
+                                                                localTime(Cast.to(value)) :
+                                                                value instanceof Long ?
+                                                                        longNode(Cast.to(value)) :
+                                                                        value instanceof String ?
+                                                                                text(Cast.to(value)) :
+                                                                                valueOrFailFail(value);
+    }
+
+    /**
+     * Reports an unknown value type given to {@link #valueOrFailFail(Object)}
+     */
+    private static ExpressionNode valueOrFailFail(final Object value) {
+        throw new IllegalArgumentException("Unknown value " + CharSequences.quoteIfChars(value));
+    }
+
+    // ........................................................................................
 
     /**
      * {@see ExpressionAdditionNode}
