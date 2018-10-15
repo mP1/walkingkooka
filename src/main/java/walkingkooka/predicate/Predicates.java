@@ -22,6 +22,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 
 final public class Predicates implements PublicStaticHelper {
@@ -119,6 +120,13 @@ final public class Predicates implements PublicStaticHelper {
      */
     public static <T> Predicate<T> not(final Predicate<T> predicate) {
         return NotPredicate.wrap(predicate);
+    }
+
+    /**
+     * {@see SetContainsPredicate}
+     */
+    public static <T> Predicate<T> setContains(final Set<T> set) {
+        return SetContainsPredicate.with(set);
     }
 
     /**
