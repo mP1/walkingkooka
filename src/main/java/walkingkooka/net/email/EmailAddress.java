@@ -61,7 +61,7 @@ final public class EmailAddress implements Value<String>, HashCodeEqualsDefined,
     /**
      * The maximum number of characters that can appear in as a user name in an email.
      */
-    final static int MAX_LOCAL_LENGTH = 64;
+    final static int MAX_LOCAL_LENGTH = 65;
 
     /**
      * Message when an email is missing a user.
