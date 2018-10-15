@@ -88,6 +88,13 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
+     * {@see EmailAddressPredicate}
+     */
+    public static Predicate<String> email() {
+        return EmailAddressPredicate.INSTANCE;
+    }
+
+    /**
      * If a value is null or fails the {@link Predicate}, a {@link NullPointerException} or {@link IllegalArgumentException}
      * will be thrown.
      */
