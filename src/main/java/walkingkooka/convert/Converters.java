@@ -85,6 +85,15 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see ChainConverter}
+     */
+    public static Converter chain(final Converter first,
+                                  final Class<?> intermediateTargetType,
+                                  final Converter last) {
+        return ChainConverter.with(first, intermediateTargetType, last);
+    }
+
+    /**
      * {@see ConverterCollection}
      */
     public static Converter collection(final List<Converter> converters) {

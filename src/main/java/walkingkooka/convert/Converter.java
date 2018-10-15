@@ -52,4 +52,12 @@ public interface Converter {
     default Converter setToString(final String toString) {
         return Converters.customToString(this, toString);
     }
+
+    /**
+     * Chains this converter and another together.
+     */
+    default Converter then(final Class<?> intermediateTargetType,
+                           final Converter last) {
+        return Converters.chain(this, intermediateTargetType, last);
+    }
 }
