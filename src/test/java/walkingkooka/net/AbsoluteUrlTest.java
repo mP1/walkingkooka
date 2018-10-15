@@ -315,6 +315,17 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
         this.checkFragment(url, UrlFragment.with("fragment789"));
     }
 
+    @Test
+    public void testTryParseFails() {
+        assertEquals(Optional.empty(), AbsoluteUrl.tryParse("abc"));
+    }
+
+    @Test
+    public void testTryParseSuccess() {
+        final String url = "http://example.com/path123?query456#fragment789";
+        assertEquals(Optional.of(AbsoluteUrl.parse(url)), AbsoluteUrl.tryParse(url));
+    }
+
     // toString..........................................................................................
 
     @Test

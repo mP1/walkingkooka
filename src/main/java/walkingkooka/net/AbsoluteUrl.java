@@ -35,6 +35,19 @@ public final class AbsoluteUrl extends Url {
     public final static Optional<IpPort> NO_PORT = Optional.empty();
 
     /**
+     * Tries to create an {@link AbsoluteUrl} or returns {@link Optional#empty()}.
+     */
+    public static Optional<AbsoluteUrl> tryParse(final String url) {
+        AbsoluteUrl absoluteUrl = null;
+        try {
+            absoluteUrl = parse(url);
+        } catch (final IllegalArgumentException fail) {
+
+        }
+        return Optional.ofNullable(absoluteUrl);
+    }
+
+    /**
      * Parses a {@link String url} into a {@link AbsoluteUrl}
      */
     public static AbsoluteUrl parse(final String url) {
