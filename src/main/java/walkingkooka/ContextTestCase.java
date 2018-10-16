@@ -23,9 +23,11 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 public abstract class ContextTestCase<C extends Context> extends PackagePrivateClassTestCase<C> {
 
     @Test
-    public final void testNaming() {
-        this.checkNaming(Context.class);
+    public void testCheckNaming() {
+        this.checkNaming(this.requiredNameSuffix());
     }
+
+    abstract protected String requiredNameSuffix();
 
     protected abstract C createContext();
 }

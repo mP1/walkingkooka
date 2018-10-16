@@ -25,11 +25,6 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class ExpressionEvaluationContextTestCase<C extends ExpressionEvaluationContext> extends ContextTestCase<C> {
 
-    @Test
-    public final void testNaming2() {
-        this.checkNaming(ExpressionEvaluationContext.class);
-    }
-
     @Test(expected = NullPointerException.class)
     public void testFunctionNullNameFails() {
         this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS);
@@ -59,5 +54,10 @@ public abstract class ExpressionEvaluationContextTestCase<C extends ExpressionEv
         assertEquals("ExpressionNode.toValue failed, node=" + node + " context=" + context,
                 value,
                 node.toValue(context));
+    }
+
+    @Override
+    protected String requiredNameSuffix() {
+        return ExpressionEvaluationContext.class.getSimpleName();
     }
 }
