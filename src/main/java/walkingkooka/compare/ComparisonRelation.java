@@ -158,10 +158,10 @@ public enum ComparisonRelation implements Predicate<Integer> {
     private final String symbol;
 
     /**
-     * Returns a {@link Predicate} that uses the given value as the left of a comparison.
+     * Returns a {@link Predicate} that uses the given value as the right of a comparison.
      */
-    public <C extends Comparable<C>> Predicate<C> predicate(final C left) {
-        return Predicates.comparisonRelation(left, this);
+    public <C extends Comparable<C>> Predicate<C> predicate(final C right) {
+        return Predicates.comparisonRelation(this, right);
     }
 
     /**

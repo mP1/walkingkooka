@@ -24,120 +24,125 @@ import walkingkooka.compare.ComparisonRelation;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ComparatorComparisonRelationPredicateTest extends PredicateTestCase<ComparableComparisonRelationPredicate<String>, String> {
+public final class ComparableComparisonRelationPredicateTest extends PredicateTestCase<ComparableComparisonRelationPredicate<String>, String> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullComparableFails() {
-        ComparableComparisonRelationPredicate.with(null, ComparisonRelation.EQ);
-    }
+    private static final String LESS = "Z";
+    private static final String EQUALS = "M";
+    private static final String MORE = "A";
 
     @Test(expected = NullPointerException.class)
     public void testWithNullComparisonResultFails() {
-        ComparableComparisonRelationPredicate.with("A", null);
+        ComparableComparisonRelationPredicate.with(null, MORE);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullRightComparableFails() {
+        ComparableComparisonRelationPredicate.with(ComparisonRelation.EQ, null);
     }
 
     // EQ .................................................................................
 
     @Test
     public void testEQLess() {
-        this.testFalse("A");
+        this.testFalse(MORE);
     }
 
     @Test
     public void testEQEqual() {
-        this.testTrue("M");
+        this.testTrue(EQUALS);
     }
 
     @Test
     public void testEQGreater() {
-        this.testFalse("Z");
+        this.testFalse(LESS);
     }
 
     // GT .................................................................................
 
     @Test
     public void testGTLess() {
-        this.testTrue(ComparisonRelation.GT, "A");
+        this.testTrue(ComparisonRelation.GT, LESS);
     }
 
     @Test
     public void testGTGtual() {
-        this.testFalse(ComparisonRelation.GT, "M");
+        this.testFalse(ComparisonRelation.GT, EQUALS);
     }
 
     @Test
     public void testGTGreater() {
-        this.testFalse(ComparisonRelation.GT, "Z");
+        this.testFalse(ComparisonRelation.GT, MORE);
     }
 
     // GTE .................................................................................
 
     @Test
     public void testGTELess() {
-        this.testTrue(ComparisonRelation.GTE, "A");
+        this.testTrue(ComparisonRelation.GTE, LESS);
     }
 
     @Test
     public void testGTEEqeual() {
-        this.testTrue(ComparisonRelation.GTE, "M");
+        this.testTrue(ComparisonRelation.GTE, EQUALS);
     }
 
     @Test
     public void testGTEGreater() {
-        this.testFalse(ComparisonRelation.GTE, "Z");
+        this.testFalse(ComparisonRelation.GTE, MORE);
     }
 
     // LT .................................................................................
 
     @Test
     public void testLTLess() {
-        this.testFalse(ComparisonRelation.LT, "A");
+        this.testFalse(ComparisonRelation.LT, LESS);
     }
 
     @Test
     public void testLTEqual() {
-        this.testFalse(ComparisonRelation.LT, "M");
+        this.testFalse(ComparisonRelation.LT, EQUALS);
     }
 
     @Test
     public void testLTGreater() {
-        this.testTrue(ComparisonRelation.LT, "Z");
+        this.testTrue(ComparisonRelation.LT, MORE);
     }
 
     // LTE .................................................................................
 
     @Test
     public void testLTELess() {
-        this.testFalse(ComparisonRelation.LTE, "A");
+        this.testFalse(ComparisonRelation.LTE, LESS);
     }
 
     @Test
     public void testLTELEqual() {
-        this.testTrue(ComparisonRelation.LTE, "M");
+        this.testTrue(ComparisonRelation.LTE, EQUALS);
     }
 
     @Test
     public void testLTEGreater() {
-        this.testTrue(ComparisonRelation.LTE, "Z");
+        this.testTrue(ComparisonRelation.LTE, MORE);
     }
-
 
     // NE .................................................................................
 
     @Test
     public void testNELess() {
-        this.testTrue(ComparisonRelation.NE, "A");
+        this.testTrue(ComparisonRelation.NE, LESS);
     }
 
     @Test
     public void testNELEqual() {
-        this.testFalse(ComparisonRelation.NE, "M");
+        this.testFalse(ComparisonRelation.NE, EQUALS);
     }
 
     @Test
     public void testNEGreater() {
-        this.testTrue(ComparisonRelation.NE, "Z");
+        this.testTrue(ComparisonRelation.NE, MORE);
     }
+
+    // helpers .................................................................................
 
     private void testTrue(final ComparisonRelation relation, final String value) {
         this.testTrue(this.createPredicate(relation), value);
@@ -149,16 +154,16 @@ public final class ComparatorComparisonRelationPredicateTest extends PredicateTe
 
     @Test
     public void testToString() {
-        assertEquals("M EQ", this.createPredicate().toString());
+        assertEquals("EQ M", this.createPredicate().toString());
     }
 
     @Override
     protected ComparableComparisonRelationPredicate<String> createPredicate() {
-        return ComparableComparisonRelationPredicate.with("M", ComparisonRelation.EQ);
+        return this.createPredicate(ComparisonRelation.EQ);
     }
 
     private ComparableComparisonRelationPredicate<String> createPredicate(final ComparisonRelation relation) {
-        return ComparableComparisonRelationPredicate.with("M", relation);
+        return ComparableComparisonRelationPredicate.with(relation, EQUALS);
     }
 
     @Override

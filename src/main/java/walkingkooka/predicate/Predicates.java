@@ -85,9 +85,9 @@ final public class Predicates implements PublicStaticHelper {
     /**
      * {@see ComparableComparisonRelationPredicate}
      */
-    public static <C extends Comparable<C>> Predicate<C> comparisonRelation(final C left,
-                                                                            final ComparisonRelation relation) {
-        return ComparableComparisonRelationPredicate.with(left, relation);
+    public static <C extends Comparable<C>> Predicate<C> comparisonRelation(final ComparisonRelation relation,
+                                                                            final C right) {
+        return ComparableComparisonRelationPredicate.with(relation, right);
     }
 
     /**

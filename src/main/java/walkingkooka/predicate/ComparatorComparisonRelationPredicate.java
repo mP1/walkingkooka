@@ -32,39 +32,40 @@ final class ComparableComparisonRelationPredicate<C extends Comparable<C>> imple
     /**
      * Factory that creates a new {@link ComparableComparisonRelationPredicate}
      */
-    static <C extends Comparable<C>> ComparableComparisonRelationPredicate<C> with(final C left,
-                                                                                   final ComparisonRelation relation) {
-        Objects.requireNonNull(left, "left");
+    static <C extends Comparable<C>> ComparableComparisonRelationPredicate<C> with(final ComparisonRelation relation,
+                                                                                   final C right) {
         Objects.requireNonNull(relation, "relation");
+        Objects.requireNonNull(right, "right");
 
-        return new ComparableComparisonRelationPredicate(left, relation);
+        return new ComparableComparisonRelationPredicate(relation, right);
     }
 
     /**
      * Private ctor use factory
      */
-    private ComparableComparisonRelationPredicate(final C left, final ComparisonRelation relation) {
-        this.left = left;
+    private ComparableComparisonRelationPredicate(final ComparisonRelation relation, final C right) {
+        super();
         this.relation = relation;
+        this.right = right;
     }
 
     @Override
-    public boolean test(final C c) {
-        return relation.test(this.left.compareTo(c));
+    public boolean test(final C left) {
+        return relation.test(left.compareTo(this.right));
     }
-
-    /**
-     * The left or first of the {@link Comparable#compareTo(Object)}
-     */
-    private final C left;
 
     /**
      * The {@link ComparisonRelation} that tests the {@link Comparable#compareTo(Object)}.
      */
     private final ComparisonRelation relation;
 
+    /**
+     * The right or first of the {@link Comparable#compareTo(Object)}
+     */
+    private final C right;
+
     @Override
     public String toString() {
-        return this.left + " " + this.relation.toString();
+        return this.relation + " " + this.right;
     }
 }
