@@ -18,7 +18,13 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
+import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContextTestCase;
 
 public abstract class SpreadsheetFormatParserContextTestCase<C extends SpreadsheetFormatParserContext> extends ParserContextTestCase<C> {
+
+    @Override
+    protected String requiredNameSuffix() {
+        return SpreadsheetFormatParserContext.class.getSimpleName();
+    }
 }

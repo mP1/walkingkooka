@@ -21,4 +21,9 @@ package walkingkooka.text.spreadsheetformat;
 import walkingkooka.ContextTestCase;
 
 public abstract class SpreadsheetTextFormatContextTestCase<C extends SpreadsheetTextFormatContext> extends ContextTestCase<C> {
+
+    @Override
+    protected String requiredNameSuffix() {
+        return SpreadsheetTextFormatContext.class.getSimpleName();
+    }
 }

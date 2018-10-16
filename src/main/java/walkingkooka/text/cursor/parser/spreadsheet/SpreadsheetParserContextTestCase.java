@@ -21,4 +21,9 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.text.cursor.parser.ParserContextTestCase;
 
 public abstract class SpreadsheetParserContextTestCase<C extends SpreadsheetParserContext> extends ParserContextTestCase<C> {
+
+    @Override
+    protected String requiredNameSuffix() {
+        return SpreadsheetParserContext.class.getSimpleName();
+    }
 }

@@ -21,4 +21,9 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 import walkingkooka.ContextTestCase;
 
 public abstract class EbnfParserCombinatorContextTestCase<C extends EbnfParserCombinatorContext> extends ContextTestCase<C> {
+
+    @Override
+    protected String requiredNameSuffix() {
+        return EbnfParserCombinatorContext.class.getSimpleName();
+    }
 }
