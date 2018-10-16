@@ -32,6 +32,8 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionNotNode.class);
 
+    public final static String SYMBOL = "!";
+
     static ExpressionNotNode with(final ExpressionNode value){
         Objects.requireNonNull(value, "value");
         return new ExpressionNotNode(NO_PARENT_INDEX, value);
@@ -131,7 +133,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     @Override
     void toString0(final StringBuilder b) {
-        b.append('!');
+        b.append(SYMBOL);
         this.value().toString0(b);
     }
 }

@@ -30,6 +30,8 @@ public final class ExpressionXorNode extends ExpressionLogicalBinaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionXorNode.class);
 
+    public final static String SYMBOL = "^";
+
     static ExpressionXorNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionXorNode(NO_PARENT_INDEX, left, right);
@@ -102,6 +104,6 @@ public final class ExpressionXorNode extends ExpressionLogicalBinaryNode {
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('^');
+        b.append(SYMBOL);
     }
 }

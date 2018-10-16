@@ -31,6 +31,8 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionMultiplicationNode.class);
 
+    public final static String SYMBOL = "*";
+
     static ExpressionMultiplicationNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionMultiplicationNode(NO_PARENT_INDEX, left, right);
@@ -127,6 +129,6 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('*');
+        b.append(SYMBOL);
     }
 }

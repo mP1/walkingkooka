@@ -31,6 +31,8 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionSubtractionNode.class);
 
+    public final static String SYMBOL = "-";
+
     static ExpressionSubtractionNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionSubtractionNode(NO_PARENT_INDEX, left, right);
@@ -128,6 +130,6 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('-');
+        b.append(SYMBOL);
     }
 }

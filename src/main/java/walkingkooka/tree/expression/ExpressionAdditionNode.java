@@ -32,6 +32,8 @@ public final class ExpressionAdditionNode extends ExpressionArithmeticBinaryNode
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionAdditionNode.class);
 
+    public final static String SYMBOL = "+";
+
     static ExpressionAdditionNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionAdditionNode(NO_PARENT_INDEX, left, right);
@@ -131,6 +133,6 @@ public final class ExpressionAdditionNode extends ExpressionArithmeticBinaryNode
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('+');
+        b.append(SYMBOL);
     }
 }

@@ -289,7 +289,7 @@ public final class ExpressionEqualsNodeTest extends ExpressionComparisonBinaryNo
 
     @Override
     String expectedToString(){
-        return LEFT_TO_STRING + "&" + RIGHT_TO_STRING;
+        return LEFT_TO_STRING + "=" + RIGHT_TO_STRING;
     }
 
     @Override

@@ -30,6 +30,8 @@ public final class ExpressionDivisionNode extends ExpressionArithmeticBinaryNode
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionDivisionNode.class);
 
+    public final static String SYMBOL = "/";
+
     static ExpressionDivisionNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionDivisionNode(NO_PARENT_INDEX, left, right);
@@ -126,6 +128,6 @@ public final class ExpressionDivisionNode extends ExpressionArithmeticBinaryNode
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append("/");
+        b.append(SYMBOL);
     }
 }

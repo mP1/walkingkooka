@@ -26,6 +26,8 @@ public final class ExpressionGreaterThanNode extends ExpressionComparisonBinaryN
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionGreaterThanNode.class);
 
+    public final static String SYMBOL = ">";
+
     static ExpressionGreaterThanNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionGreaterThanNode(NO_PARENT_INDEX, left, right);
@@ -108,6 +110,6 @@ public final class ExpressionGreaterThanNode extends ExpressionComparisonBinaryN
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('&');
+        b.append(SYMBOL);
     }
 }
