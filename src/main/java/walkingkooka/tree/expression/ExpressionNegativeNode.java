@@ -33,6 +33,8 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionNegativeNode.class);
 
+    public final static String SYMBOL = "-";
+
     static ExpressionNegativeNode with(final ExpressionNode value){
         Objects.requireNonNull(value, "value");
         return new ExpressionNegativeNode(NO_PARENT_INDEX, value);
@@ -150,7 +152,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     @Override
     void toString0(final StringBuilder b) {
-        b.append('-');
+        b.append(SYMBOL);
         this.value().toString0(b);
     }
 }

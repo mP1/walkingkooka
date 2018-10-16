@@ -26,6 +26,8 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionComparisonB
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionGreaterThanEqualsNode.class);
 
+    public final static String SYMBOL = ">=";
+
     static ExpressionGreaterThanEqualsNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionGreaterThanEqualsNode(NO_PARENT_INDEX, left, right);
@@ -108,6 +110,6 @@ public final class ExpressionGreaterThanEqualsNode extends ExpressionComparisonB
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('&');
+        b.append(SYMBOL);
     }
 }

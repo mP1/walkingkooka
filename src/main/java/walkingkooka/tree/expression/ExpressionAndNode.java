@@ -27,6 +27,8 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionAndNode.class);
 
+    public final static String SYMBOL = "&";
+
     static ExpressionAndNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionAndNode(NO_PARENT_INDEX, left, right);
@@ -99,6 +101,6 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('&');
+        b.append(SYMBOL);
     }
 }

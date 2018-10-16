@@ -26,6 +26,8 @@ public final class ExpressionLessThanEqualsNode extends ExpressionComparisonBina
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionLessThanEqualsNode.class);
 
+    public final static String SYMBOL = "<=";
+
     static ExpressionLessThanEqualsNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionLessThanEqualsNode(NO_PARENT_INDEX, left, right);
@@ -108,6 +110,6 @@ public final class ExpressionLessThanEqualsNode extends ExpressionComparisonBina
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('&');
+        b.append(SYMBOL);
     }
 }

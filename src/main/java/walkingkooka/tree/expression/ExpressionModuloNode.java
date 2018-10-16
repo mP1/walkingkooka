@@ -31,6 +31,8 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionModuloNode.class);
 
+    public final static String SYMBOL = "%";
+
     static ExpressionModuloNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionModuloNode(NO_PARENT_INDEX, left, right);
@@ -127,6 +129,6 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('%');
+        b.append(SYMBOL);
     }
 }

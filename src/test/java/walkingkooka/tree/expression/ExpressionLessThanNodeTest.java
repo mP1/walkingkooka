@@ -385,7 +385,7 @@ public final class ExpressionLessThanNodeTest extends ExpressionComparisonBinary
 
     @Override
     String expectedToString(){
-        return LEFT_TO_STRING + "&" + RIGHT_TO_STRING;
+        return LEFT_TO_STRING + "<" + RIGHT_TO_STRING;
     }
 
     @Override

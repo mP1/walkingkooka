@@ -30,6 +30,8 @@ public final class ExpressionOrNode extends ExpressionLogicalBinaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionOrNode.class);
 
+    public final static String SYMBOL = "|";
+
     static ExpressionOrNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionOrNode(NO_PARENT_INDEX, left, right);
@@ -101,6 +103,6 @@ public final class ExpressionOrNode extends ExpressionLogicalBinaryNode {
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('|');
+        b.append(SYMBOL);
     }
 }

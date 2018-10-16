@@ -26,6 +26,8 @@ public final class ExpressionNotEqualsNode extends ExpressionComparisonBinaryNod
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionNotEqualsNode.class);
 
+    public final static String SYMBOL = "!=";
+
     static ExpressionNotEqualsNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionNotEqualsNode(NO_PARENT_INDEX, left, right);
@@ -108,6 +110,6 @@ public final class ExpressionNotEqualsNode extends ExpressionComparisonBinaryNod
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append('&');
+        b.append(SYMBOL);
     }
 }

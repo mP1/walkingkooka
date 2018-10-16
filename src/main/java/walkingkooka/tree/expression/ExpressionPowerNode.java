@@ -31,6 +31,8 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionPowerNode.class);
 
+    public final static String SYMBOL = "^^";
+
     static ExpressionPowerNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
         return new ExpressionPowerNode(NO_PARENT_INDEX, left, right);
@@ -136,6 +138,6 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
 
     @Override
     void appendSymbol(final StringBuilder b) {
-        b.append("^^");
+        b.append(SYMBOL);
     }
 }
