@@ -85,8 +85,7 @@ final class ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor
     }
 
     private void setRelation(final SpreadsheetFormatConditionParserToken token) {
-        // swap is necessary because constant on rhs of expression is actually on the lhs in the predicate.
-        this.relation = token.relation().swap();
+        this.relation = token.relation();
     }
 
     private ComparisonRelation relation;
