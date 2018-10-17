@@ -96,7 +96,7 @@ public final class ExpressionBigDecimalNodeTest extends ExpressionLeafNodeTestCa
 
     @Test
     public void testToText() {
-        this.evaluateAndCheckText(this.createExpressionNode(123), "123.0");
+        this.evaluateAndCheckText(this.createExpressionNode(123), "123");
     }
 
     // ToString ...................................................................................................

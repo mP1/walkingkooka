@@ -108,6 +108,13 @@ public final class Converters implements PublicStaticHelper {
     }
 
     /**
+     * {@see DecimalFormatStringConverter}
+     */
+    public static Converter decimalFormatString(final String pattern) {
+        return DecimalFormatStringConverter.with(pattern);
+    }
+
+    /**
      * {@see FailConverter}
      */
     public static <S, T> Converter fail(final Class<S> source, final Class<T> target) {

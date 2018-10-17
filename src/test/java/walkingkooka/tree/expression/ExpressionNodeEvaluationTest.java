@@ -83,7 +83,8 @@ public class ExpressionNodeEvaluationTest extends TestCase {
 
     @Test
     public void testParenthesis5() {
-        this.parseEvaluateAndCheck("(1+2)+(3+4.5)*-6",  (1+2)+(3+4.5)*-6);
+        assertEquals(-42.0, (1+2)+(3+4.5)*-6, 0.5);
+        this.parseEvaluateAndCheck("(1+2)+(3+4.5)*-6",  -42);
     }
 
     @Test
