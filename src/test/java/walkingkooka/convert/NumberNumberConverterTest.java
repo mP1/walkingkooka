@@ -157,6 +157,11 @@ public final class NumberNumberConverterTest extends ConverterTestCase<NumberNum
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<NumberNumberConverter> type() {
         return NumberNumberConverter.class;
     }

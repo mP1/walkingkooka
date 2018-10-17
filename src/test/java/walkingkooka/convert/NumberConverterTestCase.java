@@ -46,4 +46,9 @@ public abstract class NumberConverterTestCase<C extends NumberConverter<T>, T> e
     public void testDoubleMinFails() {
         this.convertFails(Double.MIN_VALUE);
     }
+
+    @Override
+    protected final ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
 }

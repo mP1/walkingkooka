@@ -34,12 +34,12 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return value instanceof Number && this.targetType() == type;
     }
 
     @Override
-    final T convert1(final Object value, Class<T> type) {
+    final T convert1(final Object value, final Class<T> type, final ConverterContext context) {
         try {
             return Cast.to(value instanceof BigDecimal ?
                     this.bigDecimal((BigDecimal) value) :

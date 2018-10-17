@@ -19,6 +19,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.visit.Visiting;
 
@@ -32,7 +33,9 @@ public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCas
 
     private final static String TIME_STRING = "12:59:00";
     private final static String DIFFERENT_TIME_STRING = "06:00";
-    private final static long VALUE = Converters.localTimeLong().convert(LocalTime.parse(TIME_STRING), Long.class);
+    private final static long VALUE = Converters.localTimeLong().convert(LocalTime.parse(TIME_STRING),
+            Long.class,
+            ConverterContexts.fake());
 
     @Test
     public void testAccept() {
@@ -97,7 +100,7 @@ public final class ExpressionLocalTimeNodeTest extends ExpressionLeafNodeTestCas
     @Test
     public void testToLocalDateTime() {
         this.evaluateAndCheckLocalDateTime(this.createExpressionNode(),
-                Converters.localTimeLocalDateTime().convert(this.value(), LocalDateTime.class));
+                Converters.localTimeLocalDateTime().convert(this.value(), LocalDateTime.class, ConverterContexts.fake()));
     }
 
     @Test

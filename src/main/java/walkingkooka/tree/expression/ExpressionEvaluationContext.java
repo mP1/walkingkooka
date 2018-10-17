@@ -19,6 +19,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Context;
+import walkingkooka.DecimalNumberContext;
 import walkingkooka.collect.list.Lists;
 
 import java.math.MathContext;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Context that travels during any expression evaluation.
  */
-public interface ExpressionEvaluationContext extends Context {
+public interface ExpressionEvaluationContext extends Context, DecimalNumberContext {
 
     /**
      * Constant for functions without any parameters.

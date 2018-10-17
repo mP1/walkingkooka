@@ -32,13 +32,13 @@ abstract class FixedTargetTypeConverter<T> extends ConverterTemplate {
         super();
     }
 
-    final <TT> TT convert0(final Object value, final Class<TT> type) {
+    final <TT> TT convert0(final Object value, final Class<TT> type, final ConverterContext context) {
         return Cast.to(this.targetType()==value.getClass() ?
                value :
-               this.convert1(value, Cast.to(type)));
+               this.convert1(value, Cast.to(type), context));
     }
 
-    abstract T convert1(final Object value, Class<T> type);
+    abstract T convert1(final Object value, final Class<T> type, final ConverterContext context);
 
     final T failConversion(final Object value) {
         return this.failConversion(value, this.targetType());

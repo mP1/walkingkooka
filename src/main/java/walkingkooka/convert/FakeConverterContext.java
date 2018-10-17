@@ -18,25 +18,30 @@
 
 package walkingkooka.convert;
 
-import java.util.Objects;
+import walkingkooka.test.Fake;
 
 /**
- * Base {link Converter} that performs some boring boilerplate.
+ * A {@link ConverterContext} where all methods throw {@link UnsupportedOperationException}.
  */
-abstract class ConverterTemplate implements Converter {
+public class FakeConverterContext implements ConverterContext, Fake {
 
     @Override
-    public final <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(type, "type");
-        Objects.requireNonNull(context, "context");
-
-        if(!this.canConvert(value, type, context)) {
-            failConversion(value, type);
-        }
-
-        return this.convert0(value, type, context);
+    public char decimalPoint() {
+        throw new UnsupportedOperationException();
     }
 
-    abstract <T> T convert0(final Object value, final Class<T> type, final ConverterContext context);
+    @Override
+    public char exponentSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char minusSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char plusSign() {
+        throw new UnsupportedOperationException();
+    }
 }

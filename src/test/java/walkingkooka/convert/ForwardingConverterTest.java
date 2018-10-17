@@ -81,6 +81,11 @@ public final class ForwardingConverterTest extends FixedTypeConverterTestCase<Fo
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<Number> onlySupportedType() {
         return Number.class;
     }

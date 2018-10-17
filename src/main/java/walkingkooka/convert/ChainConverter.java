@@ -48,13 +48,15 @@ final class ChainConverter implements Converter {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
-        return this.first.canConvert(value, this.intermediateTargetType);
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+        return this.first.canConvert(value, this.intermediateTargetType, context);
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type) {
-        return this.last.convert(this.first.convert(value, this.intermediateTargetType), type);
+    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
+        return this.last.convert(this.first.convert(value, this.intermediateTargetType, context),
+                type,
+                context);
     }
 
     private Converter first;

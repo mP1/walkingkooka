@@ -18,12 +18,11 @@
 
 package walkingkooka.convert;
 
-import java.time.LocalTime;
+import walkingkooka.Context;
+import walkingkooka.DecimalNumberContext;
 
-public abstract class LocalTimeConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<LocalTime, T>, T> extends FixedTypeConverterTestCase<C, T> {
-
-    @Override
-    protected final ConverterContext createContext() {
-        return ConverterContexts.fake();
-    }
+/**
+ * {@link Context} that accompanies a {@link Converter} and is intended to carry values that may be locale or user aware.
+ */
+public interface ConverterContext extends Context, DecimalNumberContext {
 }

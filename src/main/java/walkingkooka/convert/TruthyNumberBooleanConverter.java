@@ -40,7 +40,7 @@ final class TruthyNumberBooleanConverter extends NumberConverter<Boolean>{
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, ConverterContext context) {
         return value instanceof Number && Boolean.class == type;
     }
 

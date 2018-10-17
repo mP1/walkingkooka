@@ -33,12 +33,12 @@ final class StringConverter extends FixedTargetTypeConverter<String> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return String.class == type;
     }
 
     @Override
-    String convert1(final Object value, final Class<String> type) {
+    String convert1(final Object value, final Class<String> type, final ConverterContext context) {
         return value.toString();
     }
 

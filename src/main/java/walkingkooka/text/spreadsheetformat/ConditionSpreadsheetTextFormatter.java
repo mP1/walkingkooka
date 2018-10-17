@@ -19,6 +19,8 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
 
 import java.math.BigDecimal;
@@ -59,9 +61,11 @@ final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatte
 
     @Override
     Optional<SpreadsheetFormattedText> format0(final T value, final SpreadsheetTextFormatContext context) {
+        final ConverterContext converterContext = ConverterContexts.basic(context);
+        
         // predicate test result inverted because $value is on the wrong side of compare
-        return this.bigDecimalConverter.canConvert(value, BigDecimal.class) &&
-                this.predicate.test(this.bigDecimalConverter.convert(value, BigDecimal.class)) ?
+        return this.bigDecimalConverter.canConvert(value, BigDecimal.class, converterContext) &&
+                this.predicate.test(this.bigDecimalConverter.convert(value, BigDecimal.class, converterContext)) ?
                 this.formatter.format(value, context) :
                 Optional.empty();
     }

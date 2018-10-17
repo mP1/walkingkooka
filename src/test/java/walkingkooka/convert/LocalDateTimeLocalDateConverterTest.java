@@ -45,6 +45,11 @@ public final class LocalDateTimeLocalDateConverterTest extends FixedTypeConverte
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<LocalDate> onlySupportedType() {
         return LocalDate.class;
     }

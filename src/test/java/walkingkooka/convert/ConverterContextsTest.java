@@ -15,28 +15,21 @@
  *
  *
  */
-
 package walkingkooka.convert;
 
-import java.util.Objects;
+import walkingkooka.test.PublicStaticHelperTestCase;
 
-/**
- * Base {link Converter} that performs some boring boilerplate.
- */
-abstract class ConverterTemplate implements Converter {
+import java.lang.reflect.Method;
+
+public final class ConverterContextsTest extends PublicStaticHelperTestCase<ConverterContexts> {
 
     @Override
-    public final <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(type, "type");
-        Objects.requireNonNull(context, "context");
-
-        if(!this.canConvert(value, type, context)) {
-            failConversion(value, type);
-        }
-
-        return this.convert0(value, type, context);
+    protected Class<ConverterContexts> type() {
+        return ConverterContexts.class;
     }
 
-    abstract <T> T convert0(final Object value, final Class<T> type, final ConverterContext context);
+    @Override
+    protected boolean canHavePublicTypes(final Method method) {
+        return false;
+    }
 }

@@ -76,5 +76,10 @@ public abstract class LocalDateConverterTestCase<C extends FixedSourceTypeTarget
 
     abstract C createConverter(final long offset);
 
+    @Override
+    protected final ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
     abstract T value(long value);
 }

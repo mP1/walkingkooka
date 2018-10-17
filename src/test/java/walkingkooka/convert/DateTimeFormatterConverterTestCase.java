@@ -36,5 +36,10 @@ public abstract class DateTimeFormatterConverterTestCase<C extends FixedSourceTy
 
     abstract C createConverter(final DateTimeFormatter formatter);
 
+    @Override
+    protected final ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
     abstract DateTimeFormatter formatter();
 }

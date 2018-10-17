@@ -19,10 +19,9 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
-import walkingkooka.DecimalNumberContexts;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
@@ -280,17 +279,24 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
     @Test
     public void testConvert() {
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
+
+            @Override
+            public char minusSign() {
+                return '-';
+            }
+
+            @Override
+            public char plusSign() {
+                return '+';
+            }
+
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
-                return Converters.parser(BigInteger.class, Parsers.bigInteger(10), CycleDetectingExpressionEvaluationContextTest::parserContext)
-                        .convert(value, target);
+                return Converters.parser(BigInteger.class, Parsers.bigInteger(10), (c) -> ParserContexts.basic(c))
+                        .convert(value, target, ConverterContexts.basic(this));
             }
         });
         assertEquals(BigInteger.valueOf(123), context.convert("123", BigInteger.class));
-    }
-
-    private static ParserContext parserContext() {
-        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
     }
 
     @Override

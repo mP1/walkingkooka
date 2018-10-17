@@ -47,7 +47,7 @@ final class NumberNumberConverter implements Converter{
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return value instanceof Number && (
                 type == BigDecimal.class ||
                 type == BigInteger.class ||
@@ -57,17 +57,17 @@ final class NumberNumberConverter implements Converter{
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type) {
+    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
         return type == Number.class && value instanceof Number ?
                type.cast(value) :
                type == BigDecimal.class ?
-               this.bigDecimal.convert(value, type) :
+               this.bigDecimal.convert(value, type, context) :
                type == BigInteger.class ?
-               this.bigInteger.convert(value, type) :
+               this.bigInteger.convert(value, type, context) :
                type == Double.class ?
-               this.doubleConverter.convert(value, type) :
+               this.doubleConverter.convert(value, type, context) :
                type == Long.class ?
-               this.longConverter.convert(value, type) :
+               this.longConverter.convert(value, type, context) :
                this.failConversion(value, type);
     }
 

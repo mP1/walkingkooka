@@ -19,6 +19,8 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
+import walkingkooka.DecimalNumberContext;
+import walkingkooka.DecimalNumberContexts;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
@@ -31,29 +33,54 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
 public final class BasicExpressionEvaluationContextTest extends  ExpressionEvaluationContextTestCase<BasicExpressionEvaluationContext> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFunctionsFails() {
-        BasicExpressionEvaluationContext.with(null, this.references(), this.mathContext(), this.converter());
+        BasicExpressionEvaluationContext.with(null,
+                this.references(),
+                this.mathContext(),
+                this.converter(),
+                this.decimalNumberContext());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullReferencesFails() {
-        BasicExpressionEvaluationContext.with(this.functions(), null, this.mathContext(), this.converter());
+        BasicExpressionEvaluationContext.with(this.functions(),
+                null,
+                this.mathContext(),
+                this.converter(),
+                this.decimalNumberContext());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullMathContextFails() {
-        BasicExpressionEvaluationContext.with(this.functions(), this.references(), null, this.converter());
+        BasicExpressionEvaluationContext.with(this.functions(),
+                this.references(),
+                null,
+                this.converter(),
+                this.decimalNumberContext());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullConverterFails() {
-        BasicExpressionEvaluationContext.with(this.functions(), this.references(), this.mathContext(), null);
+        BasicExpressionEvaluationContext.with(this.functions(),
+                this.references(),
+                this.mathContext(),
+                null,
+                this.decimalNumberContext());
     }
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullDecimalNumberContextFails() {
+        BasicExpressionEvaluationContext.with(this.functions(),
+                this.references(),
+                this.mathContext(),
+                this.converter(),
+                null);
+    }
+
 
     @Test
     public void testFunction() {
@@ -77,7 +104,11 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
 
     @Override
     protected BasicExpressionEvaluationContext createContext() {
-        return BasicExpressionEvaluationContext.with(this.functions(), this.references(), this.mathContext(), this.converter());
+        return BasicExpressionEvaluationContext.with(this.functions(),
+                this.references(),
+                this.mathContext(),
+                this.converter(),
+                this.decimalNumberContext());
     }
 
     private BiFunction<ExpressionNodeName, List<Object>, Object> functions() {
@@ -125,6 +156,10 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
 
     private Converter converter() {
         return Converters.numberLong();
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.fake();
     }
 
     @Override
