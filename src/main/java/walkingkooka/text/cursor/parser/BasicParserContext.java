@@ -18,65 +18,55 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.DecimalNumberContext;
+
+import java.util.Objects;
 
 /**
- * A {@link ParserContext} that holds constant properties.
+ * An adaptor for {@link DecimalNumberContext} to {@link ParserContext}.
  */
 final class BasicParserContext implements ParserContext {
 
-    static BasicParserContext with(final char decimalPoint,
-                                   final char exponentSymbol,
-                                   final char minusSign,
-                                   final char plusSign) {
-        return new BasicParserContext(decimalPoint, exponentSymbol, minusSign, plusSign);
+    /**
+     * Creates a new {@link BasicParserContext}.
+     */
+    static BasicParserContext with(final DecimalNumberContext context) {
+        Objects.requireNonNull(context, "context");
+        return new BasicParserContext(context);
     }
 
-    private BasicParserContext(final char decimalPoint,
-                               final char exponentSymbol,
-                               final char minusSign,
-                               final char plusSign) {
+    /**
+     * Private ctor use factory
+     */
+    private BasicParserContext(final DecimalNumberContext context) {
         super();
-        this.decimalPoint = decimalPoint;
-        this.exponentSymbol = exponentSymbol;
-        this.minusSign = minusSign;
-        this.plusSign = plusSign;
+        this.context = context;
     }
 
     @Override
     public char decimalPoint() {
-        return this.decimalPoint;
+        return this.context.decimalPoint();
     }
-
-    private final char decimalPoint;
 
     @Override
     public char exponentSymbol() {
-        return this.exponentSymbol;
+        return this.context.exponentSymbol();
     }
-    private final char exponentSymbol;
 
     @Override
     public char minusSign() {
-        return this.minusSign;
+        return this.context.minusSign();
     }
-
-    private final char minusSign;
 
     @Override
     public char plusSign() {
-        return this.plusSign;
+        return this.context.plusSign();
     }
 
-    private final char plusSign;
+    private final DecimalNumberContext context;
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
-                .value(this.decimalPoint)
-                .value(this.exponentSymbol)
-                .value(this.minusSign)
-                .value(this.plusSign)
-                .build();
+        return this.context.toString();
     }
 }

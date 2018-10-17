@@ -20,6 +20,7 @@ package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.DecimalNumberContexts;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
@@ -190,7 +191,7 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     private ParserContext bigDecimalParserContext() {
-        return ParserContexts.basic('.', 'E', '-', '+');
+        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
     }
 
     private SpreadsheetTextFormatter<String> formatter() {

@@ -15,19 +15,21 @@
  *
  *
  */
+package walkingkooka;
 
-package walkingkooka.text.cursor.parser.spreadsheet;
+import walkingkooka.test.PublicStaticHelperTestCase;
 
-import walkingkooka.DecimalNumberContexts;
+import java.lang.reflect.Method;
 
-public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserContextTestCase<BasicSpreadsheetParserContext> {
+public final class DecimalNumberContextsTest extends PublicStaticHelperTestCase<DecimalNumberContexts> {
+
     @Override
-    protected BasicSpreadsheetParserContext createContext() {
-        return BasicSpreadsheetParserContext.with(DecimalNumberContexts.basic('.', 'E', '-', '+'));
+    protected Class<DecimalNumberContexts> type() {
+        return DecimalNumberContexts.class;
     }
 
     @Override
-    protected Class<BasicSpreadsheetParserContext> type() {
-        return BasicSpreadsheetParserContext.class;
+    protected boolean canHavePublicTypes(final Method method) {
+        return false;
     }
 }

@@ -19,6 +19,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
+import walkingkooka.DecimalNumberContexts;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converters;
 import walkingkooka.text.cursor.parser.ParserContext;
@@ -289,7 +290,7 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
     }
 
     private static ParserContext parserContext() {
-        return ParserContexts.basic('.', 'E', '-', '+');
+        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
     }
 
     @Override

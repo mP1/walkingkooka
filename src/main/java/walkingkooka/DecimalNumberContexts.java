@@ -15,34 +15,36 @@
  *
  *
  */
-package walkingkooka.text.cursor.parser;
+package walkingkooka;
 
-import walkingkooka.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
 
 /**
  * A collection of factory methods to create parsers.
  */
-public final class ParserContexts implements PublicStaticHelper {
+public final class DecimalNumberContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicParserContext}
+     * {@see BasicDecimalNumberContext}
      */
-    public static ParserContext basic(final DecimalNumberContext context) {
-        return BasicParserContext.with(context);
+    public static DecimalNumberContext basic(final char decimalPoint,
+                                             final char exponentSymbol,
+                                             final char minusSign,
+                                             final char plusSign) {
+        return BasicDecimalNumberContext.with(decimalPoint, exponentSymbol, minusSign, plusSign);
     }
 
     /**
-     * {@see FakeParserContext}
+     * {@see FakeDecimalNumberContext}
      */
-    public static ParserContext fake() {
-        return new FakeParserContext();
+    public static DecimalNumberContext fake() {
+        return new FakeDecimalNumberContext();
     }
 
     /**
      * Stop creation.
      */
-    private ParserContexts() {
+    private DecimalNumberContexts() {
         throw new UnsupportedOperationException();
     }
 }

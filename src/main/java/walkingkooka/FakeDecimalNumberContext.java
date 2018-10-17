@@ -15,34 +15,28 @@
  *
  *
  */
-package walkingkooka.text.cursor.parser;
 
-import walkingkooka.DecimalNumberContext;
-import walkingkooka.type.PublicStaticHelper;
+package walkingkooka;
 
-/**
- * A collection of factory methods to create parsers.
- */
-public final class ParserContexts implements PublicStaticHelper {
+public class FakeDecimalNumberContext implements DecimalNumberContext {
 
-    /**
-     * {@see BasicParserContext}
-     */
-    public static ParserContext basic(final DecimalNumberContext context) {
-        return BasicParserContext.with(context);
+    @Override
+    public char decimalPoint() {
+        throw new UnsupportedOperationException();
     }
 
-    /**
-     * {@see FakeParserContext}
-     */
-    public static ParserContext fake() {
-        return new FakeParserContext();
+    @Override
+    public char exponentSymbol() {
+        throw new UnsupportedOperationException();
     }
 
-    /**
-     * Stop creation.
-     */
-    private ParserContexts() {
+    @Override
+    public char minusSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char plusSign() {
         throw new UnsupportedOperationException();
     }
 }
