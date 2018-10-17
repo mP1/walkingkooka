@@ -27,7 +27,7 @@ import walkingkooka.type.PublicStaticHelper;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 /**
  * Factory methods for numerous {@link Converter converters}.
@@ -112,6 +112,13 @@ public final class Converters implements PublicStaticHelper {
      */
     public static <S, T> Converter fail(final Class<S> source, final Class<T> target) {
         return FailConverter.with(source, target);
+    }
+
+    /**
+     * {@see FakeConverter}
+     */
+    public static Converter fake() {
+        return new FakeConverter();
     }
 
     /**
@@ -319,7 +326,7 @@ public final class Converters implements PublicStaticHelper {
      */
     public static <V, PT extends ParserToken & Value<V>, PC extends ParserContext> Converter parser(final Class<V> type,
                                                                                                     final Parser<PT , PC> parser,
-                                                                                                    final Supplier<PC> context){
+                                                                                                    final Function<ConverterContext, PC> context){
         return ParserConverter.with(type, parser, context);
     }
 

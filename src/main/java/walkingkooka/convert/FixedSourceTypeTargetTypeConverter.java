@@ -27,7 +27,7 @@ abstract class FixedSourceTypeTargetTypeConverter<S, T> extends FixedTargetTypeC
     }
 
     @Override
-    public final boolean canConvert(final Object value, final Class<?> type) {
+    public final boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return this.sourceType().isInstance(value) &&
                 this.targetType() == type;
     }
@@ -35,7 +35,7 @@ abstract class FixedSourceTypeTargetTypeConverter<S, T> extends FixedTargetTypeC
     abstract Class<S> sourceType();
 
     @Override
-    final T convert1(final Object value, final Class<T> type) {
+    final T convert1(final Object value, final Class<T> type, final ConverterContext context) {
         return this.convert2(this.sourceType().cast(value));
     }
 

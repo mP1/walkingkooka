@@ -21,14 +21,14 @@ package walkingkooka.tree.expression;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.DecimalNumberContexts;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConversionException;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -46,6 +46,7 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -141,7 +142,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final LocalDate localDateValue(final long value) {
-        return Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET).convert(value, LocalDate.class);
+        return Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)
+                .convert(value, LocalDate.class, this.converterContext());
     }
 
     final ExpressionLocalDateNode localDate(final long value) {
@@ -149,7 +151,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final LocalDateTime localDateTimeValue(final double value) {
-        return Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET).convert(value, LocalDateTime.class);
+        return Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)
+                .convert(value, LocalDateTime.class, this.converterContext());
     }
 
     final ExpressionLocalDateTimeNode localDateTime(final double value) {
@@ -157,7 +160,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final LocalTime localTimeValue(final long value) {
-        return Converters.numberLocalTime().convert(value, LocalTime.class);
+        return Converters.numberLocalTime()
+                .convert(value, LocalTime.class, this.converterContext());
     }
 
     final ExpressionLocalTimeNode localTime(final long value) {
@@ -173,7 +177,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckBoolean(final ExpressionNode node, final boolean expected) {
-        this.evaluateAndCheckBoolean(node, this.context(), expected);
+        this.evaluateAndCheckBoolean(node, context(), expected);
     }
 
     final void evaluateAndCheckBoolean(final ExpressionNode node, final ExpressionEvaluationContext context, final boolean expected) {
@@ -185,7 +189,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckBigDecimal(final ExpressionNode node, final BigDecimal expected) {
-        this.evaluateAndCheckBigDecimal(node, this.context(), expected);
+        this.evaluateAndCheckBigDecimal(node, context(), expected);
     }
 
     final void evaluateAndCheckBigDecimal(final ExpressionNode node, final ExpressionEvaluationContext context, final double expected) {
@@ -201,7 +205,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckBigInteger(final ExpressionNode node, final BigInteger expected) {
-        this.evaluateAndCheckBigInteger(node, this.context(), expected);
+        this.evaluateAndCheckBigInteger(node, context(), expected);
     }
 
     final void evaluateAndCheckBigInteger(final ExpressionNode node, final ExpressionEvaluationContext context, final long expected) {
@@ -213,7 +217,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckDouble(final ExpressionNode node, final double expected) {
-        this.evaluateAndCheckDouble(node, this.context(), expected);
+        this.evaluateAndCheckDouble(node, context(), expected);
     }
 
     final void evaluateAndCheckDouble(final ExpressionNode node, final ExpressionEvaluationContext context, final double expected) {
@@ -225,7 +229,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckLocalDate(final ExpressionNode node, final LocalDate expected) {
-        this.evaluateAndCheckLocalDate(node, this.context(), expected);
+        this.evaluateAndCheckLocalDate(node, context(), expected);
     }
 
     final void evaluateAndCheckLocalDate(final ExpressionNode node, final ExpressionEvaluationContext context, final long expected) {
@@ -241,7 +245,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckLocalDateTime(final ExpressionNode node, final LocalDateTime expected) {
-        this.evaluateAndCheckLocalDateTime(node, this.context(), expected);
+        this.evaluateAndCheckLocalDateTime(node, context(), expected);
     }
 
     final void evaluateAndCheckLocalDateTime(final ExpressionNode node, final ExpressionEvaluationContext context, final double expected) {
@@ -257,7 +261,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckLocalTime(final ExpressionNode node, final LocalTime expected) {
-        this.evaluateAndCheckLocalTime(node, this.context(), expected);
+        this.evaluateAndCheckLocalTime(node, context(), expected);
     }
 
     final void evaluateAndCheckLocalTime(final ExpressionNode node, final ExpressionEvaluationContext context, final long expected) {
@@ -269,7 +273,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckLong(final ExpressionNode node, final long expected) {
-        this.evaluateAndCheckLong(node, this.context(), expected);
+        this.evaluateAndCheckLong(node, context(), expected);
     }
 
     final void evaluateAndCheckLong(final ExpressionNode node, final ExpressionEvaluationContext context, final long expected) {
@@ -305,7 +309,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckNumber(final ExpressionNode node, final Number expected) {
-        this.evaluateAndCheckNumber(node, this.context(), expected);
+        this.evaluateAndCheckNumber(node, context(), expected);
     }
 
     final void evaluateAndCheckNumber(final ExpressionNode node, final ExpressionEvaluationContext context, final Number expected) {
@@ -313,7 +317,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckText(final ExpressionNode node, final String expected) {
-        this.evaluateAndCheckText(node, this.context(), expected);
+        this.evaluateAndCheckText(node, context(), expected);
     }
 
     final void evaluateAndCheckText(final ExpressionNode node, final ExpressionEvaluationContext context, final String expected) {
@@ -321,7 +325,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     final void evaluateAndCheckValue(final ExpressionNode node, final Object expected) {
-        this.evaluateAndCheckValue(node, this.context(), expected);
+        this.evaluateAndCheckValue(node, context(), expected);
     }
 
     final void evaluateAndCheckValue(final ExpressionNode node, final ExpressionEvaluationContext context, final Object expected) {
@@ -340,31 +344,37 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         }
     }
 
+    private ConverterContext converterContext() {
+        return ConverterContexts.fake();
+    }
+
     static ExpressionEvaluationContext context() {;
+        final Function<ConverterContext, ParserContext> parserContext = (c)-> ParserContexts.basic(c);
+
         final Converter stringBigDecimal = Converters.parser(BigDecimal.class,
                 Parsers.bigDecimal(MathContext.DECIMAL32),
-                ExpressionNodeTestCase::parserContext);
+                parserContext);
         final Converter stringNumber = Converters.parser(Number.class,
                 Cast.to(Parsers.bigDecimal(MathContext.DECIMAL32)),
-                ExpressionNodeTestCase::parserContext);
+                parserContext);
         final Converter stringBigInteger = Converters.parser(BigInteger.class,
                 Parsers.bigInteger(10),
-                ExpressionNodeTestCase::parserContext);
+                parserContext);
         final Converter stringDouble = Converters.parser(Double.class,
                 Parsers.doubleParser(),
-                ExpressionNodeTestCase::parserContext);
+                parserContext);
         final Converter stringLocalDate = Converters.parser(LocalDate.class,
                 Parsers.localDate(DateTimeFormatter.ISO_LOCAL_DATE, "yyyy-MM-dd"),
-                FakeParserContext::new);
+                parserContext);
         final Converter stringLocalDateTime = Converters.parser(LocalDateTime.class,
                 Parsers.localDateTime(DateTimeFormatter.ISO_LOCAL_DATE_TIME, "yyyy-MM-dd'T'hh:mm"),
-                FakeParserContext::new);
+                parserContext);
         final Converter stringLocalTime = Converters.parser(LocalTime.class,
                 Parsers.localTime(DateTimeFormatter.ISO_LOCAL_TIME, "hh:mm"),
-                FakeParserContext::new);
+                parserContext);
         final Converter stringLong =  Converters.parser(Long.class,
                 Parsers.longParser(10),
-                ExpressionNodeTestCase::parserContext);
+                parserContext);
 
         final Converter converters = Converters.collection(Lists.of(
                 Converters.simple(),
@@ -430,6 +440,26 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         return new FakeExpressionEvaluationContext() {
 
             @Override
+            public char decimalPoint() {
+                return '.';
+            }
+
+            @Override
+            public char exponentSymbol() {
+                return 'E';
+            }
+
+            @Override
+            public char minusSign() {
+                return '-';
+            }
+
+            @Override
+            public char plusSign() {
+                return '+';
+            }
+
+            @Override
             public MathContext mathContext() {
                 return this.matchContext;
             }
@@ -447,7 +477,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                             value instanceof String)) {
                         fail("Cannot convert expects only Boolean | LocalDate | LocalDateTime, LocalTime | Number | String " + value.getClass().getName() + "=" + value);
                     }
-                    return converters.convert(value, target);
+                    return converters.convert(value, target, ConverterContexts.basic(this));
                 } catch ( final ConversionException fail) {
                     throw new ExpressionEvaluationConversionException(fail.getMessage(), fail);
                 }
@@ -455,16 +485,13 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         };
     }
 
-    private static ParserContext parserContext() {
-        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
-    }
-
     private static <T> Converter fromBoolean(final Class<T> targetType, final Converter trueOrFalse) {
+        final ConverterContext context = ConverterContexts.fake();
         return Converters.booleanConverter(Boolean.class,
                 Boolean.FALSE,
                 targetType,
-                trueOrFalse.convert(1L, targetType),
-                trueOrFalse.convert(0L, targetType));
+                trueOrFalse.convert(1L, targetType, context),
+                trueOrFalse.convert(0L, targetType, context));
     }
 
     private static <S> Converter toBoolean(final Class<S> sourceType, final S falseValue) {

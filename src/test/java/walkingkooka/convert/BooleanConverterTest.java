@@ -76,6 +76,11 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<String> onlySupportedType() {
         return String.class;
     }

@@ -122,6 +122,11 @@ public final class TruthyNumberBooleanConverterTest extends ConverterTestCase<Tr
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<TruthyNumberBooleanConverter> type() {
         return TruthyNumberBooleanConverter.class;
     }

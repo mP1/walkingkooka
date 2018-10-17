@@ -60,13 +60,13 @@ final class CustomToStringConverter implements Converter, HashCodeEqualsDefined 
 
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
-        return this.converter.canConvert(value, type);
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+        return this.converter.canConvert(value, type, context);
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type) {
-        return this.converter.convert(value, type);
+    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
+        return this.converter.convert(value, type, context);
     }
 
     // @VisibleForTesting

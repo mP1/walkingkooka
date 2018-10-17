@@ -71,6 +71,11 @@ public final class ConverterCollectionTest extends ConverterTestCase<ConverterCo
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<ConverterCollection> type() {
         return ConverterCollection.class;
     }

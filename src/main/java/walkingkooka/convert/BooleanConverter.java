@@ -45,7 +45,7 @@ final class BooleanConverter<S, T> extends FixedTargetTypeConverter<T> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return this.sourceType.isInstance(value) &&
                this.targetType == type;
     }
@@ -53,7 +53,7 @@ final class BooleanConverter<S, T> extends FixedTargetTypeConverter<T> {
     private final Class<S> sourceType;
 
     @Override
-    T convert1(final Object value, final Class<T> type) {
+    T convert1(final Object value, final Class<T> type, final ConverterContext context) {
         return this.falseValue.equals(value) ?
                 this.falseAnswer :
                 this.trueAnswer;

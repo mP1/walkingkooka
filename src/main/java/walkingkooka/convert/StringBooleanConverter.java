@@ -31,12 +31,12 @@ final class StringBooleanConverter extends FixedTargetTypeConverter<Boolean> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return value instanceof String && Boolean.class == type;
     }
 
     @Override
-    Boolean convert1(final Object value, final Class<Boolean> type) {
+    Boolean convert1(final Object value, final Class<Boolean> type, final ConverterContext context) {
         if(false==value instanceof String){
             failConversion(value);
         }

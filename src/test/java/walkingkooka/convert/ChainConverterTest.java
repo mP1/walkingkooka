@@ -76,6 +76,11 @@ public final class ChainConverterTest extends ConverterTestCase<ChainConverter> 
         return ChainConverter.with(this.stringToLocalDate(), this.intermediateTargetType(), this.localDateToBigDecimal());
     }
 
+    @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
     private Converter stringToLocalDate() {
         return Converters.stringLocalDate(DateTimeFormatter.ISO_LOCAL_DATE);
     }

@@ -52,6 +52,11 @@ public final class StringConverterTest extends FixedTypeConverterTestCase<String
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<String> onlySupportedType() {
         return String.class;
     }

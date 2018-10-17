@@ -44,7 +44,7 @@ final class NumberLocalDateConverter extends NumberConverter<LocalDate> {
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, ConverterContext context) {
         return value instanceof Number && LocalDate.class == type;
     }
 

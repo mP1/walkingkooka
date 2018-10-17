@@ -56,6 +56,26 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public char decimalPoint() {
+        return this.context.decimalPoint();
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return this.context.exponentSymbol();
+    }
+
+    @Override
+    public char minusSign() {
+        return this.context.minusSign();
+    }
+
+    @Override
+    public char plusSign() {
+        return this.context.plusSign();
+    }
+
+    @Override
     public Object function(final ExpressionNodeName expressionNodeName, final List<Object> parameters) {
         return this.context.function(expressionNodeName, parameters);
     }

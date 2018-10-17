@@ -28,15 +28,15 @@ public interface Converter {
     /**
      * Queries whether this converter supports converting to the requested type.
      */
-    boolean canConvert(final Object value, Class<?> type);
+    boolean canConvert(final Object value, final Class<?> type, final ConverterContext context);
 
     /**
      * Converts the object to the request type.
      */
-    <T> T convert(final Object value, final Class<T> type);
+    <T> T convert(final Object value, final Class<T> type, final ConverterContext context);
 
-    default void failIfUnsupportedType(final Object value, final Class<?> target) {
-        if(!this.canConvert(value, target)){
+    default void failIfUnsupportedType(final Object value, final Class<?> target, final ConverterContext context) {
+        if(!this.canConvert(value, target, context)){
             this.failConversion(value, target);
         }
     }

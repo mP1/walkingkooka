@@ -36,6 +36,8 @@ public abstract class ConverterTestCase<C extends Converter> extends PackagePriv
 
     protected abstract C createConverter();
 
+    protected abstract ConverterContext createContext();
+
     protected void convertAndCheck(final Object value) {
         assertSame(value, this.convertAndCheck(value, value.getClass(), value));
     }
@@ -50,10 +52,29 @@ public abstract class ConverterTestCase<C extends Converter> extends PackagePriv
         return this.convertAndCheck(this.createConverter(), value, target, expected);
     }
 
-    protected Object convertAndCheck(final Converter converter, final Object value, final Class<?> target, final Object expected) {
-        assertTrue(converter + " can convert(" + value.getClass().getName() + "," + target.getName() + ") returned false for " + value, converter.canConvert(value, target));
+    protected Object convertAndCheck(final Object value,
+                                     final Class<?> target,
+                                     final ConverterContext context,
+                                     final Object expected) {
+        return this.convertAndCheck(this.createConverter(), value, target, context, expected);
+    }
 
-        final Object result = converter.convert(value, target);
+    protected Object convertAndCheck(final Converter converter,
+                                     final Object value,
+                                     final Class<?> target,
+                                     final Object expected) {
+        return this.convertAndCheck(converter, value, target, this.createContext(), expected);
+    }
+
+    protected Object convertAndCheck(final Converter converter,
+                                     final Object value,
+                                     final Class<?> target,
+                                     final ConverterContext context,
+                                     final Object expected) {
+        assertTrue(converter + " can convert(" + value.getClass().getName() + "," + target.getName() + ") returned false for " + value,
+                converter.canConvert(value, target, context));
+
+        final Object result = converter.convert(value, target, context);
         checkEquals("Failed to convert " + value.getClass().getName() + "=" + value + " to " + target.getName(), expected, result);
 
         return result;
@@ -72,9 +93,17 @@ public abstract class ConverterTestCase<C extends Converter> extends PackagePriv
     protected <T> void convertFails(final Object value, final Class<?> type) {
         this.convertFails(this.createConverter(), value, type);
     }
+
     protected <T> void convertFails(final Converter converter, final Object value, final Class<?> type) {
+        this.convertFails(converter, value, type, this.createContext());
+    }
+
+    protected <T> void convertFails(final Converter converter,
+                                    final Object value,
+                                    final Class<?> type,
+                                    final ConverterContext context) {
         try{
-            final Object result = converter.convert(value, type);
+            final Object result = converter.convert(value, type, context);
             fail("Expected " + converter + " with " + CharSequences.quoteIfChars(value) + " to " + type.getName() + " to fail but got " + CharSequences.quoteIfChars(result));
         } catch (final ConversionException ignored) {
         }
@@ -85,6 +114,6 @@ public abstract class ConverterTestCase<C extends Converter> extends PackagePriv
     }
 
     protected Object convert(final Object value, final Class<?> type) {
-        return this.createConverter().convert(value, type);
+        return this.createConverter().convert(value, type, this.createContext());
     }
 }

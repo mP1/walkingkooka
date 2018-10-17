@@ -20,12 +20,10 @@ package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.DecimalNumberContexts;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
@@ -187,11 +185,9 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     private Converter converter() {
-        return Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.UNLIMITED), this::bigDecimalParserContext);
-    }
-
-    private ParserContext bigDecimalParserContext() {
-        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
+        return Converters.parser(BigDecimal.class,
+                Parsers.bigDecimal(MathContext.UNLIMITED),
+                (c) -> ParserContexts.basic(c));
     }
 
     private SpreadsheetTextFormatter<String> formatter() {

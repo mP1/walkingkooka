@@ -51,6 +51,11 @@ public final class FailConverterTest extends ConverterTestCase<FailConverter<Str
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<FailConverter<String, Integer>> type() {
         return Cast.to(FailConverter.class);
     }

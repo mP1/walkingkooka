@@ -19,6 +19,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.visit.Visiting;
 
@@ -34,11 +35,11 @@ public final class ExpressionLocalDateTimeNodeTest extends ExpressionLeafNodeTes
     private final static String DATETIMESTRING = "2000-01-31T12:59:00";
     private final static String DIFFERENT_DATETIME_STRING = "1999-12-31T12:58";
     private final static double VALUE = Converters.localDateTimeDouble(Converters.JAVA_EPOCH_OFFSET)
-            .convert(LocalDateTime.parse(DATETIMESTRING), Double.class);
+            .convert(LocalDateTime.parse(DATETIMESTRING), Double.class, ConverterContexts.fake());
 
     private final static String DATETIMESTRING2 = "1999-12-31T00:00:00";
     private final static long VALUE2 = Converters.localDateTimeLong(Converters.JAVA_EPOCH_OFFSET)
-            .convert(LocalDateTime.parse(DATETIMESTRING2), Long.class);
+            .convert(LocalDateTime.parse(DATETIMESTRING2), Long.class, ConverterContexts.fake());
 
     @Test
     public void testAccept() {
@@ -99,7 +100,7 @@ public final class ExpressionLocalDateTimeNodeTest extends ExpressionLeafNodeTes
     public void testToLocalDate() {
         this.evaluateAndCheckLocalDate(this.createExpressionNode(),
                 Converters.localDateTimeLocalDate(Converters.JAVA_EPOCH_OFFSET)
-                        .convert(this.value(), LocalDate.class));
+                        .convert(this.value(), LocalDate.class, ConverterContexts.fake()));
     }
 
     @Test
@@ -110,7 +111,7 @@ public final class ExpressionLocalDateTimeNodeTest extends ExpressionLeafNodeTes
     @Test
     public void testToLocalTime() {
         this.evaluateAndCheckLocalTime(this.createExpressionNode(),
-                Converters.localDateTimeLocalTime().convert(this.value(), LocalTime.class));
+                Converters.localDateTimeLocalTime().convert(this.value(), LocalTime.class, ConverterContexts.fake()));
     }
 
     @Test

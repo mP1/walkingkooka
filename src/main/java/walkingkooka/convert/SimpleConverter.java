@@ -35,12 +35,12 @@ final class SimpleConverter implements Converter{
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return type.isInstance(value);
     }
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type) {
+    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
         try {
             return type.cast(value);
         } catch (final ClassCastException fail) {

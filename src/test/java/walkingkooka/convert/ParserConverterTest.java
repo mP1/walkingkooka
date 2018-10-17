@@ -20,30 +20,33 @@ package walkingkooka.convert;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.DecimalNumberContexts;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
-import walkingkooka.text.cursor.parser.FakeParserContext;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ParserConverterTest extends FixedTypeConverterTestCase<ParserConverter<BigDecimal, BigDecimalParserToken, FakeParserContext>, BigDecimal> {
+public final class ParserConverterTest extends FixedTypeConverterTestCase<ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext>, BigDecimal> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTypeFails() {
-        ParserConverter.with(null, this.bigDecimalParser(), FakeParserContext::new);
+        ParserConverter.with(null, this.bigDecimalParser(), this.parserContextAdapter());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullParserFails() {
-        ParserConverter.with(BigDecimal.class, null, FakeParserContext::new);
+        ParserConverter.with(BigDecimal.class, null, this.parserContextAdapter());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWithNullParserContextSupplierFails() {
+    public void testWithNullParserContextAdapterFails() {
         ParserConverter.with(BigDecimal.class, this.bigDecimalParser(), null);
     }
 
@@ -63,37 +66,24 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     @Override
-    protected ParserConverter<BigDecimal, BigDecimalParserToken, FakeParserContext> createConverter() {
+    protected ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext> createConverter() {
         return ParserConverter.with(BigDecimal.class,
                 this.bigDecimalParser(),
-                TestFakeParserContext::new);
+                parserContextAdapter());
     }
 
-    private Parser<BigDecimalParserToken, FakeParserContext> bigDecimalParser() {
+    private Function<ConverterContext, ParserContext> parserContextAdapter() {
+        return (c) -> ParserContexts.basic(c);
+    }
+
+    @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
+    }
+
+    private Parser<BigDecimalParserToken, ParserContext> bigDecimalParser() {
         return Parsers.bigDecimal(MathContext.DECIMAL32);
     }
-
-    private class TestFakeParserContext extends FakeParserContext {
-        @Override
-        public char decimalPoint() {
-            return '.';
-        }
-
-        @Override
-        public char exponentSymbol() {
-            return 'E';
-        }
-
-        @Override
-        public char minusSign() {
-            return '-';
-        }
-
-        @Override
-        public char plusSign() {
-            return '+';
-        }
-    };
 
     @Override
     protected Class<BigDecimal> onlySupportedType() {
@@ -101,7 +91,7 @@ public final class ParserConverterTest extends FixedTypeConverterTestCase<Parser
     }
 
     @Override
-    protected Class<ParserConverter<BigDecimal, BigDecimalParserToken, FakeParserContext>> type() {
+    protected Class<ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext>> type() {
         return Cast.to(ParserConverter.class);
     }
 }

@@ -50,6 +50,11 @@ public final class StringBooleanConverterTest extends FixedTypeConverterTestCase
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<StringBooleanConverter> type() {
         return StringBooleanConverter.class;
     }

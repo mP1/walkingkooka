@@ -18,29 +18,32 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import walkingkooka.DecimalNumberContext;
+import walkingkooka.type.PublicStaticHelper;
 
-import java.time.LocalDateTime;
+/**
+ * Factory methods for numerous {@link Converter converters}.
+ */
+public final class ConverterContexts implements PublicStaticHelper {
 
-public abstract class LocalDateTimeConverterTestCase<C extends FixedSourceTypeTargetTypeConverter<T, LocalDateTime>, T> extends FixedTypeConverterTestCase<C, LocalDateTime> {
-
-    @Test
-    public final void testWrongTypeFails() {
-        this.convertFails(this);
+    /**
+     * {@see BasicConverterContext}
+     */
+    public static ConverterContext basic(final DecimalNumberContext context) {
+        return BasicConverterContext.with(context);
     }
 
-    @Test
-    public void testLocalDateTimeFails() {
-        this.convertFails(LocalDateTime.now());
+    /**
+     * {@see FakeConverterContext}
+     */
+    public static ConverterContext fake() {
+        return new FakeConverterContext();
     }
 
-    @Override
-    protected final ConverterContext createContext() {
-        return ConverterContexts.fake();
-    }
-
-    @Override
-    protected Class<LocalDateTime> onlySupportedType() {
-        return LocalDateTime.class;
+    /**
+     * Stop creation
+     */
+    private ConverterContexts() {
+        throw new UnsupportedOperationException();
     }
 }

@@ -28,7 +28,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 /**
  * A {@link Converter} that only accepts {@link String strings} and attempts to parse them and return the result from a {@link ParserToken} that has a {@link Value}.
@@ -36,7 +36,9 @@ import java.util.function.Supplier;
  */
 final class ParserConverter<V, PT extends ParserToken & Value<V>, PC extends ParserContext> implements Converter {
 
-    static <V, PT extends ParserToken & Value<V>, PC extends ParserContext> ParserConverter<V, PT, PC> with(final Class<V> type, final Parser<PT, PC> parser, final Supplier<PC> context) {
+    static <V, PT extends ParserToken & Value<V>, PC extends ParserContext> ParserConverter<V, PT, PC> with(final Class<V> type,
+                                                                                                            final Parser<PT, PC> parser,
+                                                                                                            final Function<ConverterContext, PC> context) {
         Objects.requireNonNull(type, "type");
         Objects.requireNonNull(parser, "parser");
         Objects.requireNonNull(context, "context");
@@ -47,28 +49,28 @@ final class ParserConverter<V, PT extends ParserToken & Value<V>, PC extends Par
     /**
      * Private ctor use factory.
      */
-    private ParserConverter(final Class<V> type, final Parser<PT, PC> parser, final Supplier<PC> context) {
+    private ParserConverter(final Class<V> type, final Parser<PT, PC> parser, final Function<ConverterContext, PC> context) {
         this.type = type;
         this.parser = parser;
         this.context = context;
     }
 
     @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
+    public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
         return value instanceof String && this.type == type;
     }
 
     private final Class<V> type;
 
     @Override
-    public <T> T convert(final Object value, final Class<T> type) {
+    public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
         if (false == value instanceof String) {
             this.failConversion(value, type);
         }
-        this.failIfUnsupportedType(value, type);
+        this.failIfUnsupportedType(value, type, context);
 
         final TextCursor cursor = TextCursors.charSequence((String) value);
-        final Optional<PT> result = this.parser.parse(cursor, context.get());
+        final Optional<PT> result = this.parser.parse(cursor, this.context.apply(context));
         if (!result.isPresent()) {
             this.failConversion(value, type);
         }
@@ -76,7 +78,7 @@ final class ParserConverter<V, PT extends ParserToken & Value<V>, PC extends Par
     }
 
     private final Parser<PT, PC> parser;
-    private final Supplier<PC> context;
+    private final Function<ConverterContext, PC> context;
 
     @Override
     public String toString() {

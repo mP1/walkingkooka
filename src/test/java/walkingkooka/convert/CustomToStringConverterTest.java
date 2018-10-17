@@ -79,6 +79,11 @@ public final class CustomToStringConverterTest extends ConverterTestCase<CustomT
     }
 
     @Override
+    protected ConverterContext createContext() {
+        return ConverterContexts.fake();
+    }
+
+    @Override
     protected Class<CustomToStringConverter> type() {
         return Cast.to(CustomToStringConverter.class);
     }

@@ -19,6 +19,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.visit.Visiting;
 
@@ -97,7 +98,7 @@ public final class ExpressionLocalDateNodeTest extends ExpressionLeafNodeTestCas
     @Test
     public void testToLocalDateTime() {
         this.evaluateAndCheckLocalDateTime(this.createExpressionNode(),
-                Converters.localDateLocalDateTime().convert(this.value(), LocalDateTime.class));
+                Converters.localDateLocalDateTime().convert(this.value(), LocalDateTime.class, ConverterContexts.fake()));
     }
 
     @Test(expected = ExpressionEvaluationException.class)

@@ -31,6 +31,26 @@ public class FakeExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
+    public char decimalPoint() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char exponentSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char minusSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char plusSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
