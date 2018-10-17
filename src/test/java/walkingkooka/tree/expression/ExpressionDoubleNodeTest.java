@@ -93,7 +93,7 @@ public final class ExpressionDoubleNodeTest extends ExpressionLeafNodeTestCase<E
 
     @Test
     public void testToText() {
-        this.evaluateAndCheckText(this.createExpressionNode(123), "123.0");
+        this.evaluateAndCheckText(this.createExpressionNode(123), "123");
     }
 
     // ToString ...................................................................................................

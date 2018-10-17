@@ -417,6 +417,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
                 Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
                 Converters.numberLocalTime(),
                 Converters.numberLong(),
+                Converters.decimalFormatString("#.###"),
                 // string ->
                 stringBigDecimal,
                 stringBigInteger,
