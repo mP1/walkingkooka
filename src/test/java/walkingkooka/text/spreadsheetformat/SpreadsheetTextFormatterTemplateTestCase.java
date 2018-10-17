@@ -19,6 +19,7 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
+import walkingkooka.DecimalNumberContexts;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
@@ -65,7 +66,8 @@ public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends Spreads
 
     final SpreadsheetFormatParserToken parsePatternOrFail(final Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser, final String pattern) {
         return parser.orFailIfCursorNotEmpty(ParserReporters.basic())
-                .parse(TextCursors.charSequence(pattern), SpreadsheetFormatParserContexts.basic(ParserContexts.basic('.', 'E', '-', '+')))
+                .parse(TextCursors.charSequence(pattern), SpreadsheetFormatParserContexts.basic(ParserContexts.basic(DecimalNumberContexts.basic(
+        '.', 'E', '-', '+'))))
                 .get();
     }
 

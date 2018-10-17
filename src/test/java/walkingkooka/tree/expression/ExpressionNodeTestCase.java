@@ -21,6 +21,7 @@ package walkingkooka.tree.expression;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.DecimalNumberContexts;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConversionException;
 import walkingkooka.convert.Converter;
@@ -455,7 +456,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     }
 
     private static ParserContext parserContext() {
-        return ParserContexts.basic('.', 'E', '-', '+');
+        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
     }
 
     private static <T> Converter fromBoolean(final Class<T> targetType, final Converter trueOrFalse) {

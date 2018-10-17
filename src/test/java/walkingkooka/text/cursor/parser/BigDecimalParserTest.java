@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.DecimalNumberContexts;
 import walkingkooka.text.cursor.TextCursor;
 
 import java.math.BigDecimal;
@@ -385,7 +386,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
 
     private TextCursor parseAndCheck3(final String text, final BigDecimal value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic('!', 'X', 'M', 'P'),
+                ParserContexts.basic(DecimalNumberContexts.basic('!', 'X', 'M', 'P')),
                 text,
                 ParserTokens.bigDecimal(value, text),
                 text,
@@ -404,7 +405,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
 
     @Override
     protected ParserContext createContext() {
-        return ParserContexts.basic('.', 'E', '-', '+');
+        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
     }
 
     private TextCursor parseAndCheck2(final String text){

@@ -19,28 +19,43 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.DecimalNumberContexts;
 
 import static org.junit.Assert.assertEquals;
 
 public final class BasicParserContextTest extends ParserContextTestCase<BasicParserContext> {
 
+    private final static char DECIMAL = 'D';
+    private final static char EXPONENT = 'X';
+    private final static char MINUS = 'M';
+    private final static char PLUS = 'P';
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullBasicFails() {
+        BasicParserContext.with(null);
+    }
+
     @Test
     public void testWith() {
         final BasicParserContext context = this.createContext();
-        this.checkDecimalPoint(context, '.');
-        this.checkExponentSymbol(context, 'E');
-        this.checkMinusSign(context, '-');
-        this.checkPlusSign(context, '+');
+        this.checkDecimalPoint(context, DECIMAL);
+        this.checkExponentSymbol(context, EXPONENT);
+        this.checkMinusSign(context, MINUS);
+        this.checkPlusSign(context, PLUS);
     }
 
     @Test
     public void testToString() {
-        assertEquals("'.' 'E' '-' '+'", this.createContext().toString());
+        assertEquals(this.basic().toString(), this.createContext().toString());
     }
 
     @Override
     protected BasicParserContext createContext() {
-        return BasicParserContext.with('.', 'E', '-', '+');
+        return BasicParserContext.with(this.basic());
+    }
+
+    private BasicParserContext basic() {
+        return BasicParserContext.with(DecimalNumberContexts.basic(DECIMAL, EXPONENT, MINUS, PLUS));
     }
 
     @Override
