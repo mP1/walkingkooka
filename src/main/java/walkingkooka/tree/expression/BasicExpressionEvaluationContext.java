@@ -71,6 +71,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
+    public String currencySymbol() {
+        return this.decimalNumberContext.currencySymbol();
+    }
+
+    @Override
     public char decimalPoint() {
         return this.decimalNumberContext.decimalPoint();
     }
@@ -81,8 +86,18 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
+    public char groupingSeparator() {
+        return this.decimalNumberContext.groupingSeparator();
+    }
+
+    @Override
     public char minusSign() {
         return this.decimalNumberContext.minusSign();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.decimalNumberContext.percentageSymbol();
     }
 
     @Override

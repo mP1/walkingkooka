@@ -25,9 +25,12 @@ import static org.junit.Assert.assertEquals;
 
 public final class BasicConverterContextTest extends ConverterContextTestCase<BasicConverterContext> {
 
+    private final static String CURRENCY = "$$";
     private final static char DECIMAL = 'D';
     private final static char EXPONENT = 'X';
+    private final static char GROUPING = 'G';
     private final static char MINUS = 'M';
+    private final static char PERCENTAGE = 'R';
     private final static char PLUS = 'P';
 
     @Test(expected = NullPointerException.class)
@@ -55,7 +58,7 @@ public final class BasicConverterContextTest extends ConverterContextTestCase<Ba
     }
 
     private BasicConverterContext basic() {
-        return BasicConverterContext.with(DecimalNumberContexts.basic(DECIMAL, EXPONENT, MINUS, PLUS));
+        return BasicConverterContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
     }
 
     @Override

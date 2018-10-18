@@ -82,6 +82,10 @@ final class BigDecimalSpreadsheetTextFormatterComponentContext implements Contex
         this.text.append(this.context.exponentSymbol());
         this.digits = this.exponent;
     }
+
+    void appendGroupingSeparator() {
+        this.text.append(this.context.groupingSeparator());
+    }
     
     void appendMinusSign() {
         this.text.append(this.context.minusSign());
@@ -93,10 +97,6 @@ final class BigDecimalSpreadsheetTextFormatterComponentContext implements Contex
 
     void appendText(final String text) {
         this.text.append(text);
-    }
-
-    void appendThousandsSeparator() {
-        this.text.append(this.context.thousandsSeparator());
     }
 
     private final SpreadsheetTextFormatContext context;

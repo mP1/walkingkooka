@@ -40,6 +40,11 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     }
 
     @Override
+    public String currencySymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char decimalPoint() {
         return '.';
     }
@@ -50,8 +55,18 @@ final class BasicJsonNodeParserContext implements JsonNodeParserContext {
     }
 
     @Override
+    public char groupingSeparator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char minusSign() {
         return '-';
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return '%';
     }
 
     @Override

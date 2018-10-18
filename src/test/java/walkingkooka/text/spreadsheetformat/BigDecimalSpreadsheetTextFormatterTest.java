@@ -1053,34 +1053,34 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
 
     @Test
     public void testCurrency() {
-        this.parseFormatAndCheck("$000", 100, "D100");
+        this.parseFormatAndCheck("$000", 100, "C100");
     }
 
     // percentage .........................................................................................
 
     @Test
     public void testPercentage0() {
-        this.parseFormatAndCheck("0%", 0, "0P");
+        this.parseFormatAndCheck("0%", 0, "0R");
     }
 
     @Test
     public void testPercentagePositive1() {
-        this.parseFormatAndCheck("0%", 1, "100P");
+        this.parseFormatAndCheck("0%", 1, "100R");
     }
 
     @Test
     public void testPercentageNegative1() {
-        this.parseFormatAndCheck("0%", -1, "M100P");
+        this.parseFormatAndCheck("0%", -1, "M100R");
     }
 
     @Test
     public void testPercentagePositive0_01() {
-        this.parseFormatAndCheck("0%", 0.01, "1P");
+        this.parseFormatAndCheck("0%", 0.01, "1R");
     }
 
     @Test
     public void testPercentagePositive0_001() {
-        this.parseFormatAndCheck("0.#%", 0.001, "0!1P");
+        this.parseFormatAndCheck("0.#%", 0.001, "0!1R");
     }
 
     // thousands grouping .........................................................................................
@@ -1112,27 +1112,27 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
 
     @Test
     public void testThousandsGrouping1234() {
-        this.parseFormatAndCheck("#,0", 1234, "1T234");
+        this.parseFormatAndCheck("#,0", 1234, "1G234");
     }
 
     @Test
     public void testThousandsGrouping12345() {
-        this.parseFormatAndCheck("#,0", 12345, "12T345");
+        this.parseFormatAndCheck("#,0", 12345, "12G345");
     }
 
     @Test
     public void testThousandsGrouping123456() {
-        this.parseFormatAndCheck("#,0", 123456, "123T456");
+        this.parseFormatAndCheck("#,0", 123456, "123G456");
     }
 
     @Test
     public void testThousandsGrouping1234567() {
-        this.parseFormatAndCheck("#,0", 1234567, "1T234T567");
+        this.parseFormatAndCheck("#,0", 1234567, "1G234G567");
     }
 
     @Test
     public void testThousandsGroupingThousandsGrouping1234567() {
-        this.parseFormatAndCheck("#,0", 1234567, "1T234T567");
+        this.parseFormatAndCheck("#,0", 1234567, "1G234G567");
     }
 
     @Test
@@ -1223,8 +1223,8 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
     protected SpreadsheetTextFormatContext createContext() {
         return new FakeSpreadsheetTextFormatContext() {
             @Override
-            public char currencySymbol() {
-                return 'D';
+            public String currencySymbol() {
+                return "C";
             }
 
             @Override
@@ -1236,6 +1236,11 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
             public char exponentSymbol() {
                 return 'E';
             }
+
+            @Override
+            public char groupingSeparator() {
+                return 'G';
+            }
             
             @Override
             public char minusSign() {
@@ -1244,12 +1249,12 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
             
             @Override
             public char percentageSymbol() {
-                return 'P';
+                return 'R';
             }
 
             @Override
-            public char thousandsSeparator() {
-                return 'T';
+            public char plusSign() {
+                return 'P';
             }
         };
     }

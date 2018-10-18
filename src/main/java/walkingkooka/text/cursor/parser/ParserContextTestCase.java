@@ -16,30 +16,12 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.ContextTestCase;
+import walkingkooka.DecimalNumberContextTestCase;
 
-import static org.junit.Assert.assertEquals;
-
-public abstract class ParserContextTestCase<C extends ParserContext> extends ContextTestCase<C> {
+public abstract class ParserContextTestCase<C extends ParserContext> extends DecimalNumberContextTestCase<C> {
 
     @Override
     protected String requiredNameSuffix() {
         return ParserContext.class.getSimpleName();
-    }
-    
-    protected void checkDecimalPoint(final ParserContext context, final char decimalPoint) {
-        assertEquals("decimalPoint", decimalPoint, context.decimalPoint());
-    }
-
-    protected void checkExponentSymbol(final ParserContext context, final char exponentSymbol) {
-        assertEquals("exponentSymbol", exponentSymbol, context.exponentSymbol());
-    }
-
-    protected void checkMinusSign(final ParserContext context, final char minusSign) {
-        assertEquals("minusSign", minusSign, context.minusSign());
-    }
-
-    protected void checkPlusSign(final ParserContext context, final char plusSign) {
-        assertEquals("plusSign", plusSign, context.plusSign());
     }
 }

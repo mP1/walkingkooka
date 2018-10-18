@@ -17,30 +17,12 @@
  */
 package walkingkooka.convert;
 
-import walkingkooka.ContextTestCase;
+import walkingkooka.DecimalNumberContextTestCase;
 
-import static org.junit.Assert.assertEquals;
-
-public abstract class ConverterContextTestCase<C extends ConverterContext> extends ContextTestCase<C> {
+public abstract class ConverterContextTestCase<C extends ConverterContext> extends DecimalNumberContextTestCase<C> {
 
     @Override
     protected String requiredNameSuffix() {
         return ConverterContext.class.getSimpleName();
-    }
-    
-    protected void checkDecimalPoint(final ConverterContext context, final char decimalPoint) {
-        assertEquals("decimalPoint", decimalPoint, context.decimalPoint());
-    }
-
-    protected void checkExponentSymbol(final ConverterContext context, final char exponentSymbol) {
-        assertEquals("exponentSymbol", exponentSymbol, context.exponentSymbol());
-    }
-
-    protected void checkMinusSign(final ConverterContext context, final char minusSign) {
-        assertEquals("minusSign", minusSign, context.minusSign());
-    }
-
-    protected void checkPlusSign(final ConverterContext context, final char plusSign) {
-        assertEquals("plusSign", plusSign, context.plusSign());
     }
 }

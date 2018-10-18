@@ -23,33 +23,51 @@ import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 public final class DecimalFormatStringConverterSymbolsEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<DecimalFormatStringConverterSymbols> {
 
+    private final static String CURRENCY = "C";
     private final static char DECIMAL = 'D';
     private final static char EXPONENT = 'E';
+    private final static char GROUPING = 'G';
     private final static char MINUS = 'M';
+    private final static char PERCENTAGE = 'R';
     private final static char PLUS = 'P';
 
     @Test
+    public void testDifferentCurrency() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with("!", DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
+    }
+
+    @Test
     public void testDifferentDecimal() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with('!', EXPONENT, MINUS, PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, '!', EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
     }
 
     @Test
     public void testDifferentExponent() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(DECIMAL, '!', MINUS, PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, '!', GROUPING, MINUS, PERCENTAGE, PLUS));
+    }
+
+    @Test
+    public void testDifferentGroupingSeparator() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, '!', MINUS, PERCENTAGE, PLUS));
     }
 
     @Test
     public void testDifferentMinus() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(DECIMAL, EXPONENT, '!', PLUS));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, '!', PERCENTAGE, PLUS));
+    }
+
+    @Test
+    public void testDifferentPercentage() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS,  '!', PLUS));
     }
 
     @Test
     public void testDifferentPlus() {
-        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(DECIMAL, EXPONENT, MINUS, '!'));
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, '!'));
     }
 
     @Override
     protected DecimalFormatStringConverterSymbols createObject() {
-        return DecimalFormatStringConverterSymbols.with(DECIMAL, EXPONENT, MINUS, PLUS);
+        return DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS);
     }
 }

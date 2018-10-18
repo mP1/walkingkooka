@@ -18,10 +18,10 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.FakeDecimalNumberContext;
 import walkingkooka.color.Color;
-import walkingkooka.test.Fake;
 
-public class FakeSpreadsheetTextFormatContext implements SpreadsheetTextFormatContext, Fake {
+public class FakeSpreadsheetTextFormatContext extends FakeDecimalNumberContext implements SpreadsheetTextFormatContext {
 
     @Override
     public String ampm(final int hourOfDay) {
@@ -39,26 +39,6 @@ public class FakeSpreadsheetTextFormatContext implements SpreadsheetTextFormatCo
     }
 
     @Override
-    public char currencySymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char decimalPoint() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char exponentSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char minusSign() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public String monthName(final int month) {
         throw new UnsupportedOperationException();
     }
@@ -70,16 +50,6 @@ public class FakeSpreadsheetTextFormatContext implements SpreadsheetTextFormatCo
 
     @Override
     public char percentageSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char plusSign() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char thousandsSeparator() {
         throw new UnsupportedOperationException();
     }
 

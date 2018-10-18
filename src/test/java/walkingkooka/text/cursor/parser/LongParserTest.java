@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.DecimalNumberContexts;
+import walkingkooka.FakeDecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 
@@ -188,7 +188,17 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserCont
 
     private TextCursor parseAndCheck3(final String text, final long value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic(DecimalNumberContexts.basic('!', 'X', 'M', 'P')),
+                ParserContexts.basic(new FakeDecimalNumberContext(){
+                    @Override
+                    public char minusSign() {
+                        return 'M';
+                    }
+
+                    @Override
+                    public char plusSign() {
+                        return 'P';
+                    }
+                }),
                 text,
                 ParserTokens.longParserToken(value, text),
                 text,
@@ -212,7 +222,7 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserCont
 
     @Override
     protected ParserContext createContext() {
-        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
+        return ParserContexts.basic(this.decimalNumberContext());
     }
 
     private TextCursor parseAndCheck2(final String in, final long value, final String text, final String textAfter){

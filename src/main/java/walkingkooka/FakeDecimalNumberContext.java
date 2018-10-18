@@ -21,6 +21,11 @@ package walkingkooka;
 public class FakeDecimalNumberContext implements DecimalNumberContext {
 
     @Override
+    public String currencySymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char decimalPoint() {
         throw new UnsupportedOperationException();
     }
@@ -31,7 +36,17 @@ public class FakeDecimalNumberContext implements DecimalNumberContext {
     }
 
     @Override
+    public char groupingSeparator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char minusSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char percentageSymbol() {
         throw new UnsupportedOperationException();
     }
 

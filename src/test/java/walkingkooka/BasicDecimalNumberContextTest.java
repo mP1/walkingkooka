@@ -24,23 +24,31 @@ import static org.junit.Assert.assertEquals;
 
 public final class BasicDecimalNumberContextTest extends DecimalNumberContextTestCase<BasicDecimalNumberContext> {
 
+    @Test(expected = NullPointerException.class)
+    public void testWithNullCurrencySymbol() {
+        BasicDecimalNumberContext.with(null, '.', 'E', ',', '-', '%','+');
+    }
+
     @Test
     public void testWith() {
         final BasicDecimalNumberContext context = this.createContext();
+        this.checkCurrencySymbol(context, "$");
         this.checkDecimalPoint(context, '.');
         this.checkExponentSymbol(context, 'E');
+        this.checkGroupingSeparator(context, ',');
         this.checkMinusSign(context, '-');
+        this.checkPercentageSymbol(context, '%');
         this.checkPlusSign(context, '+');
     }
 
     @Test
     public void testToString() {
-        assertEquals("'.' 'E' '-' '+'", this.createContext().toString());
+        assertEquals("\"$\" '.' 'E' ',' '-' '%' '+'", this.createContext().toString());
     }
 
     @Override
     protected BasicDecimalNumberContext createContext() {
-        return BasicDecimalNumberContext.with('.', 'E', '-', '+');
+        return BasicDecimalNumberContext.with("$", '.', 'E', ',', '-', '%','+');
     }
 
     @Override

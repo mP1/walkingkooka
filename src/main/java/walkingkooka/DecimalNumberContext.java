@@ -24,6 +24,11 @@ package walkingkooka;
 public interface DecimalNumberContext extends NumberContext {
 
     /**
+     * The currency symbol character.
+     */
+    String currencySymbol();
+
+    /**
      * Returns the decimal point character
      */
     char decimalPoint();
@@ -32,4 +37,14 @@ public interface DecimalNumberContext extends NumberContext {
      * The exponentDigitSymbolCount
      */
     char exponentSymbol();
+
+    /**
+     * The grouping separator.
+     */
+    char groupingSeparator();
+
+    /**
+     * The percentage symbol.
+     */
+    char percentageSymbol();
 }

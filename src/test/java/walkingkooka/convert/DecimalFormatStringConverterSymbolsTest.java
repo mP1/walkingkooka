@@ -27,7 +27,7 @@ public final class DecimalFormatStringConverterSymbolsTest extends PackagePrivat
 
     @Test
     public void testToString() {
-        assertEquals("'D' 'X' 'M' 'P'", DecimalFormatStringConverterSymbols.with('D', 'X', 'M', 'P').toString());
+        assertEquals("\"C\" 'D' 'X' 'G' 'M' 'R' 'P'", DecimalFormatStringConverterSymbols.with("C", 'D', 'X', 'G', 'M', 'R', 'P').toString());
     }
 
     @Override

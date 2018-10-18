@@ -58,8 +58,13 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
     }
 
     @Test
-    public void testBigInteger3() {
+    public void testBigIntegerMinus() {
         this.convertAndCheck2(BigInteger.valueOf(-9), "M09D00");
+    }
+
+    @Test
+    public void testBigIntegerPercentage() {
+        this.convertAndCheck2("####%", BigInteger.valueOf(9), "900R");
     }
 
     // BigDecimal........................................................................................
@@ -75,8 +80,23 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
     }
 
     @Test
-    public void testBigDecimal3() {
+    public void testBigDecimalMinus() {
         this.convertAndCheck2(BigDecimal.valueOf(-9), "M09D00");
+    }
+
+    @Test
+    public void testBigDecimalCurrency() {
+        this.convertAndCheck2("#\u00A4", BigDecimal.valueOf(9), "9C");
+    }
+
+    @Test
+    public void testBigDecimalGrouping() {
+        this.convertAndCheck2("#,###", BigDecimal.valueOf(1234), "1G234");
+    }
+
+    @Test
+    public void testBigDecimalPercentage() {
+        this.convertAndCheck2("#%", BigDecimal.valueOf(9), "900R");
     }
 
     // Double........................................................................................
@@ -92,8 +112,23 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
     }
 
     @Test
-    public void testDouble3() {
+    public void testDoubleMinus() {
         this.convertAndCheck2(-9.0, "M09D00");
+    }
+
+    @Test
+    public void testDoublePercentage() {
+        this.convertAndCheck2("#%", 9.0, "900R");
+    }
+
+    @Test
+    public void testDoubleCurrency() {
+        this.convertAndCheck2("#\u00A4", 9.0, "9C");
+    }
+
+    @Test
+    public void testDoubleGrouping() {
+        this.convertAndCheck2("#,###", 1234.0, "1G234");
     }
 
     // Integer........................................................................................
@@ -109,12 +144,34 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
     }
 
     @Test
-    public void testInteger3() {
+    public void testIntegerMinus() {
         this.convertAndCheck2(-9, "M09D00");
     }
 
+    @Test
+    public void testIntegerCurrency() {
+        this.convertAndCheck2("#\u00A4", 9, "9C");
+    }
+
+    @Test
+    public void testIntegerGrouping() {
+        this.convertAndCheck2("#,###", 1234, "1G234");
+    }
+
+    @Test
+    public void testIntegerPercentage() {
+        this.convertAndCheck2("#%", 9, "900R");
+    }
+
+    private void convertAndCheck2(final String pattern, final Number number, final String expected) {
+        this.convertAndCheck2(DecimalFormatStringConverter.with(pattern), number, expected);
+    }
+
     private void convertAndCheck2(final Number number, final String expected) {
-        final DecimalFormatStringConverter converter = this.createConverter();
+        this.convertAndCheck2(this.createConverter(), number, expected);
+    }
+
+    private void convertAndCheck2(final DecimalFormatStringConverter converter, final Number number, final String expected) {
         this.convertAndCheck(converter, number, String.class, expected);
         this.convertAndCheck(converter, number, String.class, expected);
         this.convertAndCheck(converter, number, String.class, expected);
@@ -135,7 +192,7 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
 
         this.convertAndCheck(converter, -9,
                 String.class,
-                this.createContext('d', 'x', 'm', 'p'),
+                this.createContext("C", 'd', 'x', 'g', 'm', 'r', 'p'),
                 "m09d00");
 
         this.convertAndCheck(converter,
@@ -161,11 +218,23 @@ public final class DecimalFormatStringConverterTest extends FixedTypeConverterTe
 
     @Override
     protected ConverterContext createContext() {
-        return createContext('D', 'X', 'M', 'P');
+        return createContext("C", 'D', 'X', 'G', 'M', 'R', 'P');
     }
 
-    private ConverterContext createContext(final char decimalPoint, final char exponentSymbol, final char minusSign, final char plusSign) {
-        return ConverterContexts.basic(DecimalNumberContexts.basic(decimalPoint, exponentSymbol, minusSign, plusSign));
+    private ConverterContext createContext(final String currencySymbol,
+                                           final char decimalPoint,
+                                           final char exponentSymbol,
+                                           final char groupingSeparator,
+                                           final char minusSign,
+                                           final char percentageSymbol,
+                                           final char plusSign) {
+        return ConverterContexts.basic(DecimalNumberContexts.basic(currencySymbol,
+                decimalPoint,
+                exponentSymbol,
+                groupingSeparator,
+                minusSign,
+                percentageSymbol,
+                plusSign));
     }
 
     @Override
