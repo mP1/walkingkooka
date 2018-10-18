@@ -20,29 +20,55 @@ package walkingkooka;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 
+import java.util.Objects;
+
 /**
  * A {@link DecimalNumberContext} that holds constant properties.
  */
 final class BasicDecimalNumberContext implements DecimalNumberContext {
 
-    static BasicDecimalNumberContext with(final char decimalPoint,
+    static BasicDecimalNumberContext with(final String currencySymbol,
+                                          final char decimalPoint,
                                           final char exponentSymbol,
+                                          final char groupingSeparator,
                                           final char minusSign,
+                                          final char percentageSymbol,
                                           final char plusSign) {
-        return new BasicDecimalNumberContext(decimalPoint, exponentSymbol, minusSign, plusSign);
+        Objects.requireNonNull(currencySymbol, "currencySymbol");
+
+
+        return new BasicDecimalNumberContext(currencySymbol,
+                decimalPoint,
+                exponentSymbol,
+                groupingSeparator,
+                minusSign,
+                percentageSymbol,
+                plusSign);
     }
 
-    private BasicDecimalNumberContext(final char decimalPoint,
+    private BasicDecimalNumberContext(final String currencySymbol,
+                                      final char decimalPoint,
                                       final char exponentSymbol,
+                                      final char groupingSeparator,
                                       final char minusSign,
+                                      final char percentageSymbol,
                                       final char plusSign) {
         super();
+        this.currencySymbol = currencySymbol;
         this.decimalPoint = decimalPoint;
         this.exponentSymbol = exponentSymbol;
+        this.groupingSeparator = groupingSeparator;
         this.minusSign = minusSign;
+        this.percentageSymbol = percentageSymbol;
         this.plusSign = plusSign;
     }
 
+    @Override
+    public String currencySymbol() {
+        return this.currencySymbol;
+    }
+    private final String currencySymbol;
+    
     @Override
     public char decimalPoint() {
         return this.decimalPoint;
@@ -57,12 +83,24 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     private final char exponentSymbol;
 
     @Override
+    public char groupingSeparator() {
+        return this.groupingSeparator;
+    }
+    private final char groupingSeparator;
+    
+    @Override
     public char minusSign() {
         return this.minusSign;
     }
 
     private final char minusSign;
 
+    @Override
+    public char percentageSymbol() {
+        return this.percentageSymbol;
+    }
+    private final char percentageSymbol;
+    
     @Override
     public char plusSign() {
         return this.plusSign;
@@ -73,9 +111,12 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
     @Override
     public String toString() {
         return ToStringBuilder.create()
+                .value(this.currencySymbol)
                 .value(this.decimalPoint)
                 .value(this.exponentSymbol)
+                .value(this.groupingSeparator)
                 .value(this.minusSign)
+                .value(this.percentageSymbol)
                 .value(this.plusSign)
                 .build();
     }

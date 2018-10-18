@@ -56,6 +56,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public String currencySymbol() {
+        return this.context.currencySymbol();
+    }
+
+    @Override
     public char decimalPoint() {
         return this.context.decimalPoint();
     }
@@ -66,8 +71,18 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public char groupingSeparator() {
+        return this.context.groupingSeparator();
+    }
+
+    @Override
     public char minusSign() {
         return this.context.minusSign();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.context.percentageSymbol();
     }
 
     @Override

@@ -25,9 +25,12 @@ import static org.junit.Assert.assertEquals;
 
 public final class BasicParserContextTest extends ParserContextTestCase<BasicParserContext> {
 
+    private final static String CURRENCY = "$$";
     private final static char DECIMAL = 'D';
     private final static char EXPONENT = 'X';
+    private final static char GROUPING = 'G';
     private final static char MINUS = 'M';
+    private final static char PERCENTAGE = 'R';
     private final static char PLUS = 'P';
 
     @Test(expected = NullPointerException.class)
@@ -38,8 +41,10 @@ public final class BasicParserContextTest extends ParserContextTestCase<BasicPar
     @Test
     public void testWith() {
         final BasicParserContext context = this.createContext();
+        this.checkCurrencySymbol(context, CURRENCY);
         this.checkDecimalPoint(context, DECIMAL);
         this.checkExponentSymbol(context, EXPONENT);
+        this.checkGroupingSeparator(context, GROUPING);
         this.checkMinusSign(context, MINUS);
         this.checkPlusSign(context, PLUS);
     }
@@ -55,7 +60,7 @@ public final class BasicParserContextTest extends ParserContextTestCase<BasicPar
     }
 
     private BasicParserContext basic() {
-        return BasicParserContext.with(DecimalNumberContexts.basic(DECIMAL, EXPONENT, MINUS, PLUS));
+        return BasicParserContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
     }
 
     @Override

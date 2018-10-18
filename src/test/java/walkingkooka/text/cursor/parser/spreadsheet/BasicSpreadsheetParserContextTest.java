@@ -18,12 +18,33 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import org.junit.Test;
 import walkingkooka.DecimalNumberContexts;
 
 public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserContextTestCase<BasicSpreadsheetParserContext> {
+
+    private final static String CURRENCY = "$$";
+    private final static char DECIMAL = 'D';
+    private final static char EXPONENT = 'X';
+    private final static char GROUPING = 'G';
+    private final static char MINUS = 'M';
+    private final static char PERCENTAGE = 'R';
+    private final static char PLUS = 'P';
+
+    @Test
+    public void testWith() {
+        final BasicSpreadsheetParserContext context = this.createContext();
+        this.checkCurrencySymbol(context, CURRENCY);
+        this.checkDecimalPoint(context, DECIMAL);
+        this.checkExponentSymbol(context, EXPONENT);
+        this.checkGroupingSeparator(context, GROUPING);
+        this.checkMinusSign(context, MINUS);
+        this.checkPlusSign(context, PLUS);
+    }
+
     @Override
     protected BasicSpreadsheetParserContext createContext() {
-        return BasicSpreadsheetParserContext.with(DecimalNumberContexts.basic('.', 'E', '-', '+'));
+        return BasicSpreadsheetParserContext.with(DecimalNumberContexts.basic(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
     }
 
     @Override

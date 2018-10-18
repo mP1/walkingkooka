@@ -430,8 +430,8 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
     protected SpreadsheetTextFormatContext createContext() {
         return new FakeSpreadsheetTextFormatContext() {
             @Override
-            public char currencySymbol() {
-                return 'D';
+            public String currencySymbol() {
+                return "D";
             }
 
             @Override

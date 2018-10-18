@@ -366,7 +366,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
 
     @Test
     public void testDifferentDecimalPoint() {
-        this.parseAndCheck3("1!25", BigDecimal.valueOf(1.25));
+        this.parseAndCheck3("1D25", BigDecimal.valueOf(1.25));
     }
 
     @Test
@@ -386,7 +386,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
 
     private TextCursor parseAndCheck3(final String text, final BigDecimal value) {
         return this.parseAndCheck(this.createParser(),
-                ParserContexts.basic(DecimalNumberContexts.basic('!', 'X', 'M', 'P')),
+                ParserContexts.basic(DecimalNumberContexts.basic("C", 'D', 'X', 'G', 'M', 'R', 'P')),
                 text,
                 ParserTokens.bigDecimal(value, text),
                 text,
@@ -405,7 +405,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
 
     @Override
     protected ParserContext createContext() {
-        return ParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+'));
+        return ParserContexts.basic(this.decimalNumberContext());
     }
 
     private TextCursor parseAndCheck2(final String text){

@@ -19,6 +19,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
+import walkingkooka.DecimalNumberContext;
 import walkingkooka.DecimalNumberContexts;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
@@ -201,7 +202,7 @@ public class ExpressionNodeEvaluationTest extends TestCase {
     private SpreadsheetParserToken parse(final String parse){
         final TextCursor cursor = TextCursors.charSequence(parse);
         final Optional<SpreadsheetParserToken> spreadsheetFormula = this.createParser().parse(cursor,
-                SpreadsheetParserContexts.basic(DecimalNumberContexts.basic('.', 'E', '-', '+')));
+                SpreadsheetParserContexts.basic(decimalNumberContext()));
         if(!spreadsheetFormula.isPresent()){
             fail("Parser failed to parse " + CharSequences.quoteAndEscape(parse));
         }
@@ -213,6 +214,10 @@ public class ExpressionNodeEvaluationTest extends TestCase {
             fail("Parser left " + CharSequences.quoteAndEscape(leftOver) + " from " + CharSequences.quoteAndEscape(parse));
         }
         return spreadsheetFormula.get();
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%','+');
     }
 
     private Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {

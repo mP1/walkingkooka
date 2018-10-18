@@ -27,11 +27,20 @@ public final class DecimalNumberContexts implements PublicStaticHelper {
     /**
      * {@see BasicDecimalNumberContext}
      */
-    public static DecimalNumberContext basic(final char decimalPoint,
+    public static DecimalNumberContext basic(final String currencySymbol,
+                                             final char decimalPoint,
                                              final char exponentSymbol,
+                                             final char groupingSeparator,
                                              final char minusSign,
+                                             final char percentageSymbol,
                                              final char plusSign) {
-        return BasicDecimalNumberContext.with(decimalPoint, exponentSymbol, minusSign, plusSign);
+        return BasicDecimalNumberContext.with(currencySymbol,
+                decimalPoint,
+                exponentSymbol,
+                groupingSeparator,
+                minusSign,
+                percentageSymbol,
+                plusSign);
     }
 
     /**

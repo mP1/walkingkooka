@@ -441,6 +441,11 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         return new FakeExpressionEvaluationContext() {
 
             @Override
+            public String currencySymbol() {
+                return "$";
+            }
+
+            @Override
             public char decimalPoint() {
                 return '.';
             }
@@ -451,8 +456,18 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
             }
 
             @Override
+            public char groupingSeparator() {
+                return ',';
+            }
+
+            @Override
             public char minusSign() {
                 return '-';
+            }
+
+            @Override
+            public char percentageSymbol() {
+                return '%';
             }
 
             @Override

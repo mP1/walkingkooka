@@ -26,6 +26,10 @@ public abstract class DecimalNumberContextTestCase<C extends DecimalNumberContex
         return DecimalNumberContext.class.getSimpleName();
     }
 
+    protected void checkCurrencySymbol(final DecimalNumberContext context, final String currencySymbol) {
+        assertEquals("currencySymbol", currencySymbol, context.currencySymbol());
+    }
+
     protected void checkDecimalPoint(final DecimalNumberContext context, final char decimalPoint) {
         assertEquals("decimalPoint", decimalPoint, context.decimalPoint());
     }
@@ -34,10 +38,18 @@ public abstract class DecimalNumberContextTestCase<C extends DecimalNumberContex
         assertEquals("exponentSymbol", exponentSymbol, context.exponentSymbol());
     }
 
+    protected void checkGroupingSeparator(final DecimalNumberContext context, final char groupingSeparator) {
+        assertEquals("groupingSeparator", groupingSeparator, context.groupingSeparator());
+    }
+
     protected void checkMinusSign(final DecimalNumberContext context, final char minusSign) {
         assertEquals("minusSign", minusSign, context.minusSign());
     }
-
+    
+    protected void checkPercentageSymbol(final DecimalNumberContext context, final char percentageSymbol) {
+        assertEquals("percentageSymbol", percentageSymbol, context.percentageSymbol());
+    }
+    
     protected void checkPlusSign(final DecimalNumberContext context, final char plusSign) {
         assertEquals("plusSign", plusSign, context.plusSign());
     }

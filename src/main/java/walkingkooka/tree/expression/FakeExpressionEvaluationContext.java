@@ -18,36 +18,16 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.test.Fake;
+import walkingkooka.FakeDecimalNumberContext;
 
 import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
 
-public class FakeExpressionEvaluationContext implements ExpressionEvaluationContext, Fake {
+public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext implements ExpressionEvaluationContext {
 
     public FakeExpressionEvaluationContext(){
         super();
-    }
-
-    @Override
-    public char decimalPoint() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char exponentSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char minusSign() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char plusSign() {
-        throw new UnsupportedOperationException();
     }
 
     @Override

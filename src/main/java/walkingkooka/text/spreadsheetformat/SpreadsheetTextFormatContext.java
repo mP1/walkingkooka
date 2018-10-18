@@ -42,11 +42,6 @@ public interface SpreadsheetTextFormatContext extends DecimalNumberContext {
     Color colorName(String name);
 
     /**
-     * The currency symbol character.
-     */
-    char currencySymbol();
-
-    /**
      * Returns the requested month in full. The month is zero index.
      */
     String monthName(int month);
@@ -55,16 +50,6 @@ public interface SpreadsheetTextFormatContext extends DecimalNumberContext {
      * Returns the requested month in abbreviated form. The month is zero index.
      */
     String monthNameAbbreviation(int month);
-
-    /**
-     * The percentage symbol.
-     */
-    char percentageSymbol();
-
-    /**
-     * The thousands separator.
-     */
-    char thousandsSeparator();
 
     /**
      * Returns the requested week day in full. Sunday is 0.

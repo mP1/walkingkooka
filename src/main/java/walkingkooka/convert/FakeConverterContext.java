@@ -18,30 +18,11 @@
 
 package walkingkooka.convert;
 
+import walkingkooka.FakeDecimalNumberContext;
 import walkingkooka.test.Fake;
 
 /**
  * A {@link ConverterContext} where all methods throw {@link UnsupportedOperationException}.
  */
-public class FakeConverterContext implements ConverterContext, Fake {
-
-    @Override
-    public char decimalPoint() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char exponentSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char minusSign() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char plusSign() {
-        throw new UnsupportedOperationException();
-    }
+public class FakeConverterContext extends FakeDecimalNumberContext implements ConverterContext, Fake {
 }

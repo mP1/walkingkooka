@@ -19,25 +19,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-public class FakeParserContext implements ParserContext {
+import walkingkooka.FakeDecimalNumberContext;
 
-    @Override
-    public char decimalPoint() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char exponentSymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char minusSign() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char plusSign() {
-        throw new UnsupportedOperationException();
-    }
+public class FakeParserContext extends FakeDecimalNumberContext implements ParserContext {
 }

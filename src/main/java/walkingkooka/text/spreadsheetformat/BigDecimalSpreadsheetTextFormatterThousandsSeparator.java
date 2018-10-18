@@ -30,7 +30,7 @@ enum BigDecimalSpreadsheetTextFormatterThousandsSeparator {
         @Override
         void append(final int numberDigitPosition, final BigDecimalSpreadsheetTextFormatterComponentContext context) {
             if (numberDigitPosition > 0 && 0 == numberDigitPosition % 3) {
-                context.appendThousandsSeparator();
+                context.appendGroupingSeparator();
             }
         }
     },

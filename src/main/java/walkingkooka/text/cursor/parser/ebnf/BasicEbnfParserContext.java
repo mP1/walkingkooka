@@ -30,6 +30,11 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     }
 
     @Override
+    public String currencySymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char decimalPoint() {
         return '.';
     }
@@ -40,8 +45,18 @@ final class BasicEbnfParserContext implements EbnfParserContext {
     }
 
     @Override
+    public char groupingSeparator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char minusSign() {
         return '-';
+    }
+
+    @Override
+    public char percentageSymbol() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

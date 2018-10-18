@@ -18,9 +18,9 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.ContextTestCase;
+import walkingkooka.DecimalNumberContextTestCase;
 
-public abstract class SpreadsheetTextFormatContextTestCase<C extends SpreadsheetTextFormatContext> extends ContextTestCase<C> {
+public abstract class SpreadsheetTextFormatContextTestCase<C extends SpreadsheetTextFormatContext> extends DecimalNumberContextTestCase<C> {
 
     @Override
     protected String requiredNameSuffix() {

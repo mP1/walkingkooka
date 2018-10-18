@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.Test;
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.DecimalNumberContexts;
 
 public final class BasicSpreadsheetFormatParserContextTest extends SpreadsheetFormatParserContextTestCase<BasicSpreadsheetFormatParserContext> {
 
@@ -30,27 +30,7 @@ public final class BasicSpreadsheetFormatParserContextTest extends SpreadsheetFo
 
     @Override
     protected BasicSpreadsheetFormatParserContext createContext() {
-        return BasicSpreadsheetFormatParserContext.with(new DecimalNumberContext() {
-            @Override
-            public char decimalPoint() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public char exponentSymbol() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public char minusSign() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public char plusSign() {
-                throw new UnsupportedOperationException();
-            }
-        });
+        return BasicSpreadsheetFormatParserContext.with(DecimalNumberContexts.fake());
     }
 
     @Override

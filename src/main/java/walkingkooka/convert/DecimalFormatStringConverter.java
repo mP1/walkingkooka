@@ -66,9 +66,13 @@ final class DecimalFormatStringConverter extends FixedTargetTypeConverter<String
             symbolToDecimalFormat.set(map);
         }
 
-        final DecimalFormatStringConverterSymbols symbols = DecimalFormatStringConverterSymbols.with(context.decimalPoint(),
+        final DecimalFormatStringConverterSymbols symbols = DecimalFormatStringConverterSymbols.with(
+                context.currencySymbol(),
+                context.decimalPoint(),
                 context.exponentSymbol(),
+                context.groupingSeparator(),
                 context.minusSign(),
+                context.percentageSymbol(),
                 context.plusSign());
         DecimalFormat format = map.get(symbols);
         if(null==format) {
