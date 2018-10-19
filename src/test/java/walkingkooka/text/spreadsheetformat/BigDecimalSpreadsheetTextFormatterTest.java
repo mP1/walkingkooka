@@ -19,7 +19,6 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
@@ -1205,8 +1204,8 @@ public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTex
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal) {
-        return SpreadsheetFormatParsers.bigDecimal(bigDecimal);
+    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+        return SpreadsheetFormatParsers.bigDecimal();
     }
 
     @Override

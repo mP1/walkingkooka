@@ -21,7 +21,6 @@ package walkingkooka.text.spreadsheetformat;
 import org.junit.Test;
 import walkingkooka.math.Fraction;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatFractionParserToken;
@@ -391,8 +390,8 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal) {
-        return SpreadsheetFormatParsers.fraction(bigDecimal);
+    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+        return SpreadsheetFormatParsers.fraction();
     }
 
     @Override

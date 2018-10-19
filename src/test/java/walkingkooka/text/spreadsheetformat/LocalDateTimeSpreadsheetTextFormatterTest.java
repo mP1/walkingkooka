@@ -19,7 +19,6 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
@@ -519,8 +518,8 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal) {
-        return SpreadsheetFormatParsers.dateTime(bigDecimal);
+    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+        return SpreadsheetFormatParsers.dateTime();
     }
 
     @Override

@@ -32,8 +32,8 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.MathContext;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
@@ -59,8 +59,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that returns a color format expression as {@link SpreadsheetFormatParserToken tokens}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> color(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, COLOR_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> color() {
+        return parserFromGrammar(COLOR_IDENTIFIER);
     }
 
     static final EbnfIdentifierName COLOR_IDENTIFIER = EbnfIdentifierName.with("COLOR");
@@ -110,15 +110,15 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that returns a condition format expression as {@link SpreadsheetFormatParserToken tokens}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> condition(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, CONDITION_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> condition() {
+        return parserFromGrammar(CONDITION_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName CONDITION_IDENTIFIER = EbnfIdentifierName.with("CONDITION");
 
-    private static void condition(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined,
-                                  final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        predefined.put(CONDITION_BIGDECIMAL_LITERAL_IDENTIFIER, number.transform(SpreadsheetFormatParsers::conditionNumber)
+    private static void condition(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
+        predefined.put(CONDITION_BIGDECIMAL_LITERAL_IDENTIFIER, Parsers.bigDecimal(MathContext.UNLIMITED)
+                .transform(SpreadsheetFormatParsers::conditionNumber)
                 .setToString(CONDITION_BIGDECIMAL_LITERAL_IDENTIFIER.toString())
                 .cast());
 
@@ -171,8 +171,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that returns a date format expression as {@link SpreadsheetFormatParserToken tokens}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> date(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, DATE_GENERAL_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> date() {
+        return parserFromGrammar(DATE_GENERAL_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName DATE_GENERAL_IDENTIFIER = EbnfIdentifierName.with("DATE_GENERAL");
@@ -197,8 +197,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that returns a datetime format expression as {@link SpreadsheetFormatParserToken tokens}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> dateTime(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, DATETIME_GENERAL_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> dateTime() {
+        return parserFromGrammar(DATETIME_GENERAL_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName DATETIME_GENERAL_IDENTIFIER = EbnfIdentifierName.with("DATETIME_GENERAL");
@@ -218,8 +218,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that given text returns a {@link SpreadsheetFormatParserToken}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> expression(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, EXPRESSION_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> expression() {
+        return parserFromGrammar(EXPRESSION_IDENTIFIER);
     }
 
     static final EbnfIdentifierName EXPRESSION_IDENTIFIER = EbnfIdentifierName.with("EXPRESSION");
@@ -238,8 +238,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that matches a general token.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> general(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, GENERAL_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> general() {
+        return parserFromGrammar(GENERAL_IDENTIFIER);
     }
 
     static final EbnfIdentifierName GENERAL_IDENTIFIER = EbnfIdentifierName.with("GENERAL");
@@ -264,8 +264,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that given text returns a {@link SpreadsheetFormatParserToken}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> fraction(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, FRACTION_GENERAL_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> fraction() {
+        return parserFromGrammar(FRACTION_GENERAL_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName FRACTION_GENERAL_IDENTIFIER = EbnfIdentifierName.with("FRACTION_GENERAL");
@@ -274,8 +274,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
      * /**
      * Returns a {@link Parser} that given text returns a {@link SpreadsheetFormatParserToken}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> bigDecimal(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, BIGDECIMAL_GENERAL_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> bigDecimal() {
+        return parserFromGrammar(BIGDECIMAL_GENERAL_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName BIGDECIMAL_GENERAL_IDENTIFIER = EbnfIdentifierName.with("BIGDECIMAL_GENERAL");
@@ -337,8 +337,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that returns a text format expression as {@link SpreadsheetFormatParserToken tokens}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> text(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, TEXT_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> text() {
+        return parserFromGrammar(TEXT_IDENTIFIER);
     }
 
     static final EbnfIdentifierName TEXT_IDENTIFIER = EbnfIdentifierName.with("TEXT");
@@ -377,8 +377,8 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that returns a time format expression as {@link SpreadsheetFormatParserToken tokens}.
      */
-    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> time(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number) {
-        return parserFromGrammar(number, TIME_GENERAL_IDENTIFIER);
+    public static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> time() {
+        return parserFromGrammar(TIME_GENERAL_IDENTIFIER);
     }
 
     static final EbnfIdentifierName TIME_GENERAL_IDENTIFIER = EbnfIdentifierName.with("TIME_GENERAL");
@@ -449,10 +449,7 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
     /**
      * Parsers the grammar and returns the selected parser.
      */
-    private static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parserFromGrammar(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> number,
-                                                                                                          final EbnfIdentifierName parserName) {
-        Objects.requireNonNull(number, "number");
-
+    private static Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parserFromGrammar(final EbnfIdentifierName parserName) {
         try {
             final Optional<EbnfGrammarParserToken> grammar = grammarLoader.grammar();
 
@@ -460,7 +457,7 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
 
             format(predefined);
             color(predefined);
-            condition(predefined, number);
+            condition(predefined);
             date(predefined);
             dateAndTime(predefined);
             general(predefined);

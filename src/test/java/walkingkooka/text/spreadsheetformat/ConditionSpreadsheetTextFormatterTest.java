@@ -22,7 +22,6 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -210,8 +209,8 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal) {
-        return SpreadsheetFormatParsers.condition(bigDecimal);
+    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+        return SpreadsheetFormatParsers.condition();
     }
 
     @Override

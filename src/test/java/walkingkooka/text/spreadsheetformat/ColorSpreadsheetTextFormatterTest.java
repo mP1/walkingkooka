@@ -21,7 +21,6 @@ package walkingkooka.text.spreadsheetformat;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.color.Color;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
@@ -107,12 +106,12 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
     }
 
     private SpreadsheetTextFormatter<String> textFormatter() {
-        return SpreadsheetTextFormatters.text(this.parsePatternOrFail(SpreadsheetFormatParsers.text(this.bigDecimalParser()), TEXT_PATTERN).cast());
+        return SpreadsheetTextFormatters.text(this.parsePatternOrFail(SpreadsheetFormatParsers.text(), TEXT_PATTERN).cast());
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal) {
-        return SpreadsheetFormatParsers.color(bigDecimal);
+    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+        return SpreadsheetFormatParsers.color();
     }
 
     @Override

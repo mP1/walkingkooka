@@ -22,16 +22,12 @@ import org.junit.Test;
 import walkingkooka.DecimalNumberContext;
 import walkingkooka.DecimalNumberContexts;
 import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
-
-import java.math.MathContext;
 
 import static org.junit.Assert.assertEquals;
 
@@ -58,11 +54,11 @@ public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends Spreads
     abstract String pattern();
 
     final F createFormatter(final String pattern) {
-        return this.createFormatter0(this.parsePatternOrFail(this.parser(this.bigDecimalParser()), pattern).cast());
+        return this.createFormatter0(this.parsePatternOrFail(this.parser(), pattern).cast());
     }
 
     final T parsePatternOrFail(final String pattern) {
-        return this.parsePatternOrFail(this.parser(bigDecimalParser()), pattern).cast();
+        return this.parsePatternOrFail(this.parser(), pattern).cast();
     }
 
     final SpreadsheetFormatParserToken parsePatternOrFail(final Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser, final String pattern) {
@@ -75,11 +71,7 @@ public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends Spreads
         return DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%','+');
     }
 
-    final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimalParser() {
-        return Parsers.bigDecimal(MathContext.UNLIMITED);
-    }
-
-    abstract Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal);
+    abstract Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser();
 
     abstract F createFormatter0(T token);
 }
