@@ -80,7 +80,7 @@ public final class SpreadsheetDoubleParserTokenTest extends SpreadsheetNumericPa
 
     @Override
     Double value() {
-        return new Double(this.text());
+        return Double.valueOf(this.text());
     }
 
     @Override
@@ -90,7 +90,7 @@ public final class SpreadsheetDoubleParserTokenTest extends SpreadsheetNumericPa
 
     @Override
     protected SpreadsheetDoubleParserToken createDifferentToken() {
-        return SpreadsheetDoubleParserToken.with(new Double(-1), "'different'");
+        return SpreadsheetDoubleParserToken.with(Double.valueOf(-1), "'different'");
     }
 
     @Override
