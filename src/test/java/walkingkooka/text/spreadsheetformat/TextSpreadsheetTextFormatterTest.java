@@ -19,17 +19,11 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
-
-import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
 
 public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<TextSpreadsheetTextFormatter, String, SpreadsheetFormatTextParserToken> {
 
@@ -106,8 +100,8 @@ public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextForma
     }
 
     @Override
-    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser(final Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimal) {
-        return SpreadsheetFormatParsers.text(bigDecimal);
+    Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> parser() {
+        return SpreadsheetFormatParsers.text();
     }
 
     @Override

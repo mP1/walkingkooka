@@ -20,15 +20,12 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.Parsers;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -111,7 +108,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> colorParser() {
-        return SpreadsheetFormatParsers.color(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.color();
     }
 
     // condition........................................................................................................
@@ -317,7 +314,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> conditionParser() {
-        return SpreadsheetFormatParsers.condition(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.condition();
     }
 
     // date........................................................................................................
@@ -909,7 +906,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> dateParser() {
-        return SpreadsheetFormatParsers.date(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.date();
     }
 
     // bigDecimal........................................................................................................
@@ -1842,7 +1839,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> bigDecimalParser() {
-        return SpreadsheetFormatParsers.bigDecimal(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.bigDecimal();
     }
 
     // fraction........................................................................................................
@@ -2479,7 +2476,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> fractionParser() {
-        return SpreadsheetFormatParsers.fraction(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.fraction();
     }
 
     // general .............................................................................................
@@ -2536,7 +2533,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> generalParser() {
-        return SpreadsheetFormatParsers.general(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.general();
     }
 
     // text........................................................................................................
@@ -2722,7 +2719,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> textParser() {
-        return SpreadsheetFormatParsers.text(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.text();
     }
 
     // time........................................................................................................
@@ -3334,7 +3331,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> timeParser() {
-        return SpreadsheetFormatParsers.time(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.time();
     }
 
     // dateAndTime....................................................................................................
@@ -3589,7 +3586,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> dateTimeParser() {
-        return SpreadsheetFormatParsers.dateTime(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.dateTime();
     }
 
     // expression ..............................................................................................
@@ -3781,7 +3778,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     private Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> expressionParser() {
-        return SpreadsheetFormatParsers.expression(this.bigDecimalNumberParser());
+        return SpreadsheetFormatParsers.expression();
     }
 
     private SpreadsheetFormatParserToken token(final BiFunction<List<ParserToken>, String, SpreadsheetFormatParserToken> factory,
@@ -3824,11 +3821,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
 
     @Override
     protected Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext> createParser() {
-        return SpreadsheetFormatParsers.expression(this.bigDecimalNumberParser());
-    }
-
-    private Parser<BigDecimalParserToken, SpreadsheetFormatParserContext> bigDecimalNumberParser() {
-        return Parsers.<SpreadsheetFormatParserContext>bigDecimal(MathContext.DECIMAL32);
+        return SpreadsheetFormatParsers.expression();
     }
 
     @Override
