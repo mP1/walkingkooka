@@ -142,13 +142,6 @@ public final class Parsers implements PublicStaticHelper {
     public static <C extends ParserContext> Parser<OffsetTimeParserToken, C> offsetTime(final DateTimeFormatter formatter, final String pattern){
         return OffsetTimeDateTimeFormatterParser.with(formatter, pattern);
     }
-    
-    /**
-     * {@see OptionalParser}
-     */
-    public static <C extends ParserContext> Parser<ParserToken, C> optional(final Parser<? extends ParserToken, C> parser, final ParserTokenNodeName name) {
-        return OptionalParser.with(parser, name);
-    }
 
     /**
      * {@see RepeatedParser}

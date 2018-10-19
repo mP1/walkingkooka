@@ -79,11 +79,6 @@ public class FakeParserTokenVisitor extends ParserTokenVisitor implements Fake {
     }
 
     @Override
-    protected void visit(final MissingParserToken token) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     protected void visit(final OffsetDateTimeParserToken token) {
         throw new UnsupportedOperationException();
     }

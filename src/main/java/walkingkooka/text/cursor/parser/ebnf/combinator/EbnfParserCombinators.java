@@ -82,7 +82,7 @@ public final class EbnfParserCombinators implements PublicStaticHelper {
             failDuplicateRule(rule, existing);
         }
 
-        identifierToParser.put(identifierName, new EbnfParserCombinatorProxyParser<>(identifierParserToken));
+        identifierToParser.put(identifierName, EbnfParserCombinatorProxyParser.with(identifierParserToken));
     }
 
     /**

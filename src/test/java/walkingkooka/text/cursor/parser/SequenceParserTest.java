@@ -35,9 +35,8 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     private final static StringParserToken TOKEN1 = string(TEXT1);
     private final static StringParserToken TOKEN2 = string(TEXT2);
     private final static StringParserToken TOKEN3 = string(TEXT3);
-    private final static MissingParserToken MISSING3 = ParserTokens.missing(StringParserToken.NAME, "");
     private final static SequenceParserToken SEQUENCE_MISSING = ParserTokens.sequence(
-            Lists.of(TOKEN1, TOKEN2, MISSING3),
+            Lists.of(TOKEN1, TOKEN2),
             TEXT1 + TEXT2);
     private final static SequenceParserToken SEQUENCE_TOKEN3 = ParserTokens.sequence(
             Lists.of(TOKEN1, TOKEN2, TOKEN3),
@@ -77,13 +76,13 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     public void testMissingOptionalFirst() {
         final String text = TEXT2 + TEXT1;
         this.parseAndCheck(SequenceParserBuilder.<ParserContext>create()
-                .optional(PARSER3, StringParserToken.NAME)
-                .required(PARSER2, StringParserToken.NAME)
-                .required(PARSER1, StringParserToken.NAME)
+                .optional(PARSER3)
+                .required(PARSER2)
+                .required(PARSER1)
                 .build(),
                 this.createContext(),
                 text,
-                ParserTokens.sequence(Lists.of(MISSING3, TOKEN2, TOKEN1), text),
+                ParserTokens.sequence(Lists.of(TOKEN2, TOKEN1), text),
                 text);
     }
 
@@ -150,9 +149,9 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     @Override
     protected SequenceParser<ParserContext> createParser() {
         return Cast.to(SequenceParserBuilder.<ParserContext>create()
-                .required(PARSER1, StringParserToken.NAME)
-                .required(PARSER2, StringParserToken.NAME)
-                .optional(PARSER3, StringParserToken.NAME)
+                .required(PARSER1)
+                .required(PARSER2)
+                .optional(PARSER3)
                 .build());
     }
 

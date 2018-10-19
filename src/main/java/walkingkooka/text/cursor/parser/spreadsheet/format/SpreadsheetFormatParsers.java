@@ -94,9 +94,9 @@ public final class SpreadsheetFormatParsers implements PublicStaticHelper {
 
     private static final Parser<ParserToken, ParserContext> COLOR_AND_NUMBER = CaseSensitivity.INSENSITIVE.parser("COLOR")
             .transform(SpreadsheetFormatParsers::colorLiteral)
-            .builder(SpreadsheetFormatColorLiteralSymbolParserToken.NAME)
-            .required(WHITESPACE, SpreadsheetFormatWhitespaceParserToken.NAME)
-            .required(COLOR_NUMBER, SpreadsheetFormatColorNumberParserToken.NAME)
+            .builder()
+            .required(WHITESPACE)
+            .required(COLOR_NUMBER)
             .build()
             .setToString(COLOR_NAME_IDENTIFIER.toString())
             .cast();

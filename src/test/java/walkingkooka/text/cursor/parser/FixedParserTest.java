@@ -25,9 +25,9 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FixedParserTest extends ParserTestCase2<FixedParser<MissingParserToken, ParserContext>, MissingParserToken> {
+public final class FixedParserTest extends ParserTestCase2<FixedParser<StringParserToken, ParserContext>, StringParserToken> {
 
-    private final static MissingParserToken RESULT = ParserTokens.missing(StringParserToken.NAME, "");
+    private final static StringParserToken RESULT = ParserTokens.string("abc", "");
 
     @Test
     @Ignore
@@ -44,11 +44,6 @@ public final class FixedParserTest extends ParserTestCase2<FixedParser<MissingPa
         FixedParser.with(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithEmptyTextParserTokenFails() {
-        this.createParser(Optional.of(ParserTokens.missing(StringParserToken.NAME, "contains-text-and-will-fail")));
-    }
-
     @Test
     public void testParse() {
         this.parseAndCheck("", RESULT, "", "");
@@ -61,7 +56,7 @@ public final class FixedParserTest extends ParserTestCase2<FixedParser<MissingPa
 
     @Test
     public void testParseEmptyOptionalResult() {
-        final Optional<MissingParserToken> result = Optional.empty();
+        final Optional<StringParserToken> result = Optional.empty();
          this.parseAndCheck(this.createParser(result),
                  this.createContext(),
                  TextCursors.charSequence(""),
@@ -76,16 +71,16 @@ public final class FixedParserTest extends ParserTestCase2<FixedParser<MissingPa
     }
 
     @Override
-    protected FixedParser<MissingParserToken, ParserContext> createParser() {
+    protected FixedParser<StringParserToken, ParserContext> createParser() {
         return this.createParser(Optional.of(RESULT));
     }
 
-    private FixedParser<MissingParserToken, ParserContext> createParser(final Optional<MissingParserToken> result) {
+    private FixedParser<StringParserToken, ParserContext> createParser(final Optional<StringParserToken> result) {
         return FixedParser.with(result);
     }
 
     @Override
-    protected Class<FixedParser<MissingParserToken, ParserContext>> type() {
+    protected Class<FixedParser<StringParserToken, ParserContext>> type() {
         return Cast.to(FixedParser.class);
     }
 }

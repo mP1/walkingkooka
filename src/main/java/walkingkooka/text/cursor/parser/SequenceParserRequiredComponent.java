@@ -22,13 +22,18 @@ import java.util.Optional;
 
 final class SequenceParserRequiredComponent<C extends ParserContext> extends SequenceParserComponent<C> {
 
-    SequenceParserRequiredComponent(final Parser parser, final ParserTokenNodeName name) {
-        super(parser, name);
+    SequenceParserRequiredComponent(final Parser parser) {
+        super(parser);
     }
 
     @Override
     final Optional<ParserToken> parse(final TextCursor cursor, final C context){
         return this.parser.parse(cursor, context);
+    }
+
+    @Override
+    boolean abortIfMissing() {
+        return true;
     }
 
     @Override

@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.Optional;
+
 public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringParserToken, ParserContext>, StringParserToken> {
 
     private final static String LEFT = "left";
@@ -44,11 +46,7 @@ public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringP
 
     @Test
     public void testLeftMissingFailed() {
-        this.parseAndCheck(AndNotParser.with(this.missing(), Parsers.fake()),
-            LEFT,
-            this.missingParserToken(),
-            "",
-            LEFT);
+        this.parseFailAndCheck(AndNotParser.with(this.missing(), Parsers.fake()), "A");
     }
 
     @Test
@@ -96,7 +94,7 @@ public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringP
     }
 
     protected AndNotParser<StringParserToken, ParserContext> createParser(final Parser<StringParserToken, ParserContext> left,
-                                                                              final Parser<StringParserToken, ParserContext> right) {
+                                                                          final Parser<StringParserToken, ParserContext> right) {
         return AndNotParser.with(left, right);
     }
 
@@ -109,11 +107,7 @@ public final class AndNotParserTest extends ParserTestCase2<AndNotParser<StringP
     }
 
     private <T extends ParserToken> Parser<T, ParserContext> missing() {
-        return Parsers.fixed(Cast.to(this.missingParserToken().success()));
-    }
-
-    private MissingParserToken missingParserToken() {
-        return ParserTokens.missing(ParserTokenNodeName.with(0), "");
+        return Parsers.fixed(Optional.empty());
     }
 
     private Parser<StringParserToken, ParserContext> string(final String string) {

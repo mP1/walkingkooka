@@ -61,7 +61,7 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
     }
 
     private ParserToken concatenation(final SequenceParserToken sequence, final ParserContext context) {
-        return sequence.removeMissing();
+        return sequence;
     }
 
     @Override
@@ -218,9 +218,7 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
     private static final EbnfIdentifierName TIME2_IDENTIFIER = EbnfIdentifierName.with("TIME2");
 
     private ParserToken clean(final ParserToken token, final BiFunction<List<ParserToken>, String, ParserToken> factory) {
-        return token.isMissing() ?
-                token :
-                factory.apply(clean0(token.cast()), token.text());
+        return factory.apply(clean0(token.cast()), token.text());
     }
 
     private List<ParserToken> clean0(final RepeatedOrSequenceParserToken<?> token) {

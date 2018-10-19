@@ -21,13 +21,13 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.RepeatedParserToken;
 import walkingkooka.text.cursor.parser.SequenceParserBuilder;
@@ -52,6 +52,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Compiles all tokens, passing each token to the {@link EbnfParserCombinatorSyntaxTreeTransformer} allowing substitution.
@@ -127,8 +128,10 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
         final EbnfIdentifierParserToken name = rule.identifier();
 
         // update the proxy holding all references to this rule...
-        final EbnfParserCombinatorProxyParser<?, ParserContext> proxy = Cast.to(this.identifierToParser.get(name.value()));
-        proxy.parser = this.transformer.identifier(name, this.children.get(0)).cast();
+        final EbnfParserCombinatorProxyParser<ParserToken, ParserContext> proxy = Cast.to(this.identifierToParser.get(name.value()));
+        final Parser<ParserToken, ParserContext> parser = this.children.get(0);
+        proxy.parser = this.transformer.identifier(name, parser).cast();
+        this.replaceParser(proxy, parser);
 
         return Visiting.SKIP; // skip because we dont want to visit LHS of rule.
     }
@@ -174,7 +177,7 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
         final SequenceParserBuilder<ParserContext> b = Parsers.sequenceParserBuilder();
         this.children.stream()
                 .forEach(p -> {
-                    b.required(p);
+                    this.concatenationParserToken(p, b);
                 });
         final Parser<SequenceParserToken, ParserContext> parser = b.build()
                 .setToString(token.toString());
@@ -182,6 +185,15 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
         this.add(
                 this.transformer.concatenation(token, parser),
                 token);
+    }
+
+    private void concatenationParserToken(final Parser<ParserToken, ParserContext> parser,
+                                          final SequenceParserBuilder<ParserContext> b) {
+        if(this.isOptional(parser)) {
+            b.optional(parser);
+        } else {
+            b.required(parser);
+        }
     }
 
     // EXCEPTION ........................................................................................................
@@ -234,12 +246,10 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
     @Override
     protected void endVisit(final EbnfOptionalParserToken token) {
         final Parser<ParserToken, ParserContext> parser = this.children.get(0)
-                .optional(ParserTokenNodeName.with(0))
                 .setToString(token.toString());
-
         this.exit();
         this.add(
-                this.transformer.optional(token, parser),
+                this.addOptional(this.transformer.optional(token, parser)),
                 token);
     }
 
@@ -327,6 +337,36 @@ final class EbnfParserCombinatorParserCompilingEbnfParserTokenVisitor extends Eb
 
     private final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> identifierToParser;
     private final EbnfParserCombinatorSyntaxTreeTransformer transformer;
+
+    /**
+     * Marks a new parser as optional if the previous was also optional.
+     */
+    private Parser<ParserToken, ParserContext> replaceParser(final Parser<ParserToken, ParserContext> parser,
+                                                                     final Parser<ParserToken, ParserContext> previous) {
+        return this.isOptional(previous) ?
+                this.addOptional(parser) :
+                parser;
+    }
+
+    /**
+     * Marks a parser as optional. This is used when building a concat parser using a {@link SequenceParserBuilder}.
+     */
+    private Parser<ParserToken, ParserContext> addOptional(final Parser<ParserToken, ParserContext> parser) {
+        this.optionalParsers.add(parser);
+        return parser;
+    }
+
+    /**
+     * Tests if this parser is optional.
+     */
+    private boolean isOptional(final Parser<ParserToken, ParserContext> parser) {
+        return this.optionalParsers.contains(parser);
+    }
+
+    /**
+     * Tracks which parsers are optional, so that the appropriate {@link SequenceParserBuilder} method can be called.
+     */
+    private final Set<Parser<?, ?>> optionalParsers = Sets.ordered();
 
     @Override
     public String toString() {

@@ -51,11 +51,7 @@ final class RepeatedParser<C extends ParserContext> extends ParserTemplate<Repea
             if(!maybe.isPresent()){
                 break;
             }
-            final ParserToken token = maybe.get();
-            if(token.isMissing()) {
-                break;
-            }
-            tokens.add(token);
+            tokens.add(maybe.get());
         }
 
         return tokens.isEmpty() ?

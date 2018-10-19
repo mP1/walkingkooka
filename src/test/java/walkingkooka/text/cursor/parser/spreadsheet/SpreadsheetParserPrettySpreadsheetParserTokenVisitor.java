@@ -31,7 +31,6 @@ import walkingkooka.text.cursor.parser.LocalDateParserToken;
 import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
 import walkingkooka.text.cursor.parser.LocalTimeParserToken;
 import walkingkooka.text.cursor.parser.LongParserToken;
-import walkingkooka.text.cursor.parser.MissingParserToken;
 import walkingkooka.text.cursor.parser.OffsetDateTimeParserToken;
 import walkingkooka.text.cursor.parser.OffsetTimeParserToken;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -486,11 +485,6 @@ final class SpreadsheetParserPrettySpreadsheetParserTokenVisitor extends Spreads
 
     @Override
     protected void visit(final LongParserToken token) {
-        this.printer.leaf(token);
-    }
-
-    @Override
-    protected void visit(final MissingParserToken token) {
         this.printer.leaf(token);
     }
 

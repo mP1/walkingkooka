@@ -56,7 +56,7 @@ final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfPar
     }
 
     private ParserToken concatenation(final SequenceParserToken sequence, final ParserContext context) {
-        return sequence.removeMissing();
+        return sequence;
     }
 
     @Override

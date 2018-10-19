@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -101,14 +100,6 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
                 string(TEXT2),
                 TEXT2,
                 extra);
-    }
-
-    @Test
-    public void testIgnoresMissing() {
-        this.parseAndCheck(this.createParser0(Parsers.fixed(Optional.of(ParserTokens.missing(ParserTokenNodeName.with("Skipped"), ""))).cast(), PARSER2),
-                TEXT2,
-                string(TEXT2),
-                TEXT2);
     }
 
     @Test

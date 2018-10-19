@@ -18,10 +18,10 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -30,10 +30,23 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     private final static StringParserToken STRING1 = ParserTokens.string("a1", "a1");
     private final static StringParserToken STRING2 = ParserTokens.string("b2", "b2");
-    private final static ParserToken MISSING3 =  ParserTokens.missing(StringParserToken.NAME, "");
-    private final static StringParserToken STRING4 = ParserTokens.string("d4", "d4");
-    private final static StringParserToken STRING5 = ParserTokens.string("e5", "e5");
-    private final static StringParserToken STRING6 = ParserTokens.string("f6", "f6");
+    private final static ParserToken NOISY3 =  new FakeParserToken() {
+        @Override
+        public boolean isNoise() {
+            return true;
+        }
+
+        @Override
+        public String text() {
+            return "";
+        }
+
+        @Override
+        public SearchNode toSearchNode() {
+            final String text = this.text();
+            return SearchNode.text(text, text);
+        }
+    };
     private final static ParserToken WHITESPACE = new FakeParserToken() {
 
         @Override
@@ -46,40 +59,6 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
             return true;
         }
     };
-    
-    // optional...............................................................................................
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void testOptionalInvalidIndexFails() {
-        this.createToken().optional(999, StringParserToken.class);
-    }
-
-    @Test(expected = ClassCastException.class)
-    public void testOptionalInvalidTypeFails() {
-        this.createToken().optional(0, BigIntegerParserToken.class);
-    }
-
-    @Test
-    public void testOptionalPresent() {
-        this.optionalAndGet(0, Optional.of(STRING1));
-    }
-
-    @Test
-    public void testOptionalPresent2() {
-        this.optionalAndGet(1, Optional.of(STRING2));
-    }
-
-    @Test
-    public void testOptionalMissing() {
-        this.optionalAndGet(2, Optional.empty());
-    }
-
-    private void optionalAndGet(final int index, final Optional<ParserToken> result) {
-        final SequenceParserToken sequence = this.createToken();
-        assertEquals("failed to get optional " + index + " from " + sequence,
-                result,
-                sequence.optional(index, StringParserToken.class));
-    }
 
     // required...............................................................................................
 
@@ -103,42 +82,11 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
         this.requiredAndGet(1, STRING2);
     }
 
-    @Test(expected = MissingParserTokenException.class)
-    public void testRequiredMissingFails() {
-        this.createToken().required(2, StringParserToken.class);
-    }
-
     private void requiredAndGet(final int index, final ParserToken result) {
         final SequenceParserToken sequence = this.createToken();
         assertEquals("failed to get required " + index + " from " + sequence,
                 result,
                 sequence.required(index, StringParserToken.class));
-    }
-
-    // removeMissing...........................................................................................................
-
-    @Test
-    public void testRemovingMissingNone() {
-        final SequenceParserToken token = createToken(STRING1, STRING2);
-        assertSame(token, token.removeMissing());
-    }
-
-    @Test
-    public void testRemovingMissingSome() {
-        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3);
-        final SequenceParserToken different = token.removeMissing();
-
-        assertEquals("value", Lists.of(STRING1, STRING2), different.value());
-        assertSame(different, different.removeMissing());
-    }
-
-    @Test
-    public void testRemovingMissingSomeIgnoresWhitespace() {
-        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3, WHITESPACE);
-        final SequenceParserToken different = token.removeMissing();
-
-        assertEquals("value", Lists.of(STRING1, STRING2, WHITESPACE), different.value());
-        assertSame(different, different.removeMissing());
     }
 
     // removeNoise...........................................................................................................
@@ -151,7 +99,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     @Test
     public void testRemovingNoiseSome() {
-        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3);
+        final SequenceParserToken token = createToken(STRING1, STRING2, NOISY3);
         final SequenceParserToken different = token.removeNoise();
 
         assertEquals("value", Lists.of(STRING1, STRING2), different.value());
@@ -160,7 +108,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     @Test
     public void testRemovingNoiseSomeIgnoresWhitespace() {
-        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3, WHITESPACE);
+        final SequenceParserToken token = createToken(STRING1, STRING2, NOISY3, WHITESPACE);
         final SequenceParserToken different = token.removeNoise();
 
         assertEquals("value", Lists.of(STRING1, STRING2, WHITESPACE), different.value());
@@ -186,10 +134,10 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     @Test
     public void testRemovingWhitespaceSomeIgnoresMissing() {
-        final SequenceParserToken token = createToken(STRING1, STRING2, MISSING3, WHITESPACE);
+        final SequenceParserToken token = createToken(STRING1, STRING2, NOISY3, WHITESPACE);
         final SequenceParserToken different = token.removeWhitespace();
 
-        assertEquals("value", Lists.of(STRING1, STRING2, MISSING3), different.value());
+        assertEquals("value", Lists.of(STRING1, STRING2, NOISY3), different.value());
         assertSame(different, different.removeWhitespace());
     }
     
@@ -232,19 +180,13 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
             }
 
             @Override
-            protected void visit(final MissingParserToken t) {
-                b.append("5");
-                visited.add(t);
-            }
-
-            @Override
             protected void visit(final StringParserToken t) {
                 b.append("6");
                 visited.add(t);
             }
         }.accept(token);
-        assertEquals("1316216215242", b.toString());
-        assertEquals("visited tokens", Lists.of(token, token, STRING1, STRING1, STRING1, STRING2, STRING2, STRING2, MISSING3, MISSING3, MISSING3, token, token), visited);
+        assertEquals("1316216242", b.toString());
+        assertEquals("visited tokens", Lists.of(token, token, STRING1, STRING1, STRING1, STRING2, STRING2, STRING2, token, token), visited);
     }
 
     @Test
@@ -298,7 +240,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
     }
 
     private List<ParserToken> tokens() {
-        return Lists.of(STRING1, STRING2, MISSING3);
+        return Lists.of(STRING1, STRING2);
     }
 
     @Override

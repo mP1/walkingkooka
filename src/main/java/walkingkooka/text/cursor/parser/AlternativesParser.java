@@ -118,7 +118,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
 
         for(Parser<ParserToken, C> parser : this.parsers) {
             Optional<ParserToken> possible = parser.parse(cursor, context);
-            if(possible.isPresent() && false == possible.get().isMissing()){
+            if(possible.isPresent()){
                 token = possible;
                 break;
             }

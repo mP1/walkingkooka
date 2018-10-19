@@ -55,9 +55,6 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
     public final void testImplementsEitherParentParserTokenOrLeafParserToken() {
         for(;;){
             final Class<T> type = this.type();
-            if(type.equals(MissingParserToken.class)) {
-                break;
-            }
             final boolean leaf = LeafParserToken.class.isAssignableFrom(type);
             final boolean parent = ParentParserToken.class.isAssignableFrom(type);
             if(leaf){
@@ -75,9 +72,6 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
     public final void testValueType() {
         for(;;){
             final T token = this.createToken();
-            if(token instanceof MissingParserToken) {
-                break;
-            }
             if(token instanceof LeafParserToken){
                 final Object value = LeafParserToken.class.cast(token).value();
                 assertFalse(token + " value must not be a Collection but was " + toString(value), value instanceof Collection);
@@ -127,9 +121,6 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
         assertEquals("text", token.text(), searchNode.text());
 
         for(;;) {
-            if (token instanceof MissingParserToken) {
-                break;
-            }
             if (token instanceof LeafParserToken) {
                 break;
             }
@@ -218,7 +209,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
     public void testIsNoisyGuess() {
         final T token = this.createToken();
         final String className = token.getClass().getSimpleName();
-        assertEquals(className.contains("Whitespace") | className.contains("Symbol") | className.contains("Comment") | token.isMissing(), token.isNoise());
+        assertEquals(className.contains("Whitespace") | className.contains("Symbol") | className.contains("Comment"), token.isNoise());
     }
 
     @Test

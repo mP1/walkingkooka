@@ -26,10 +26,6 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
     private final static Parser<ParserToken, FakeParserContext> PARSER1 = CaseSensitivity.SENSITIVE.parser("a").cast();
     private final static Parser<ParserToken, FakeParserContext> PARSER2 = CaseSensitivity.SENSITIVE.parser("b").cast();
     private final static Parser<ParserToken, FakeParserContext> PARSER3 = CaseSensitivity.SENSITIVE.parser("c").cast();
-    
-    private final static ParserTokenNodeName NAME1 = ParserTokenNodeName.with(0);
-    private final static ParserTokenNodeName NAME2 = ParserTokenNodeName.with(1);
-    private final static ParserTokenNodeName NAME3 = ParserTokenNodeName.with(2);
 
     @Test
     public void testEqualWithoutNames() {
@@ -43,35 +39,35 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
     @Test
     public void testDifferent() {
         this.checkNotEquals(SequenceParserBuilder.<FakeParserContext>create()
-                .required(PARSER3, NAME1)
-                .required(PARSER2, NAME2)
-                .required(PARSER1, NAME3)
+                .required(PARSER3)
+                .required(PARSER2)
+                .required(PARSER1)
                 .build());
     }
 
     @Test
     public void testDifferentRequiredOptionals() {
         this.checkNotEquals(SequenceParserBuilder.<FakeParserContext>create()
-                .optional(PARSER1, NAME1)
-                .required(PARSER2, NAME2)
-                .required(PARSER3, NAME3)
+                .optional(PARSER1)
+                .required(PARSER2)
+                .required(PARSER3)
                 .build());
     }
 
     @Test
     public void testEqualsBuiltUsingDefaultMethods() {
-        this.checkEquals(PARSER1.builder(NAME1)
-                .required(PARSER2.cast(), NAME2)
-                .optional(PARSER3.cast(), NAME3)
+        this.checkEquals(PARSER1.builder()
+                .required(PARSER2.cast())
+                .optional(PARSER3.cast())
                 .build());
     }
 
     @Override
     protected SequenceParser createObject() {
         return Cast.to(SequenceParserBuilder.<FakeParserContext>create()
-                .required(PARSER1, NAME1)
-                .required(PARSER2, NAME2)
-                .optional(PARSER3, NAME3)
+                .required(PARSER1)
+                .required(PARSER2)
+                .optional(PARSER3)
                 .build());
     }
 }
