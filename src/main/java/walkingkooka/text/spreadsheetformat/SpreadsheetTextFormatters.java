@@ -21,6 +21,7 @@ package walkingkooka.text.spreadsheetformat;
 import walkingkooka.convert.Converter;
 import walkingkooka.math.Fraction;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatFractionParserToken;
@@ -52,6 +53,14 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
                                                                           final MathContext mathContext,
                                                                           final Function<BigDecimal, Fraction> fractioner) {
         return BigDecimalFractionSpreadsheetTextFormatter.with(token, mathContext, fractioner);
+    }
+
+    /**
+     * {@see ColorSpreadsheetTextFormatter}
+     */
+    public static <T> SpreadsheetTextFormatter color(final SpreadsheetFormatColorParserToken token,
+                                                     final SpreadsheetTextFormatter<T> formatter) {
+        return ColorSpreadsheetTextFormatter.with(token, formatter);
     }
 
     /**
