@@ -80,7 +80,7 @@ public final class SpreadsheetLongParserTokenTest extends SpreadsheetNumericPars
 
     @Override
     Long value() {
-        return new Long(this.text());
+        return Long.valueOf(this.text());
     }
 
     @Override
