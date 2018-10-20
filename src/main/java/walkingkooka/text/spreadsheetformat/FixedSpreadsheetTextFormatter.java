@@ -30,18 +30,35 @@ final class FixedSpreadsheetTextFormatter<V> extends SpreadsheetTextFormatterTem
     /**
      * Creates a new {@link FixedSpreadsheetTextFormatter}.
      */
-    static FixedSpreadsheetTextFormatter with(final Optional<SpreadsheetFormattedText> formattedText) {
+    static <V> FixedSpreadsheetTextFormatter with(final Class<V> type, final Optional<SpreadsheetFormattedText> formattedText) {
+        Objects.requireNonNull(type, "type");
         Objects.requireNonNull(formattedText, "formattedText");
 
-        return new FixedSpreadsheetTextFormatter(formattedText);
+        return type == Object.class && SpreadsheetTextFormatter.NO_TEXT.equals(formattedText) ?
+                OBJECT_NO_TEXT :
+                new FixedSpreadsheetTextFormatter(type, formattedText);
     }
+
+    /**
+     * Singleton.
+     */
+    private final static FixedSpreadsheetTextFormatter<Object> OBJECT_NO_TEXT = new FixedSpreadsheetTextFormatter(Object.class, SpreadsheetTextFormatter.NO_TEXT);
 
     /**
      * Private ctor use factory.
      */
-    private FixedSpreadsheetTextFormatter(final Optional<SpreadsheetFormattedText> formattedText) {
+    private FixedSpreadsheetTextFormatter(final Class<V> type, final Optional<SpreadsheetFormattedText> formattedText) {
+        super();
+        this.type = type;
         this.formattedText = formattedText;
     }
+
+    @Override
+    public Class<V> type() {
+        return this.type;
+    }
+
+    private final Class<V> type;
 
     @Override
     Optional<SpreadsheetFormattedText> format0(final V value, final SpreadsheetTextFormatContext context) {

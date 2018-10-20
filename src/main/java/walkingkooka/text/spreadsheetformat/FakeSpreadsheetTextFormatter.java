@@ -32,6 +32,11 @@ public class FakeSpreadsheetTextFormatter<V> implements SpreadsheetTextFormatter
     }
 
     @Override
+    public Class<V> type() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<SpreadsheetFormattedText> format(final V value, final SpreadsheetTextFormatContext context) {
         throw new UnsupportedOperationException();
     }

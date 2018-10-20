@@ -83,8 +83,9 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     /**
      * {@see FixedSpreadsheetTextFormatter}
      */
-    public static <V> SpreadsheetTextFormatter<V> fixed(final Optional<SpreadsheetFormattedText> formattedText) {
-        return FixedSpreadsheetTextFormatter.with(formattedText);
+    public static <V> SpreadsheetTextFormatter<V> fixed(final Class<V> type,
+                                                        final Optional<SpreadsheetFormattedText> formattedText) {
+        return FixedSpreadsheetTextFormatter.with(type, formattedText);
     }
 
     /**

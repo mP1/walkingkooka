@@ -190,7 +190,12 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     private SpreadsheetTextFormatter<String> formatter() {
-        return new SpreadsheetTextFormatter() {
+        return new FakeSpreadsheetTextFormatter() {
+
+            @Override
+            public Class<String> type() {
+                return String.class;
+            }
 
             @Override
             public Optional<SpreadsheetFormattedText> format(final Object value, final SpreadsheetTextFormatContext context) {

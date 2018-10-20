@@ -64,6 +64,11 @@ final class ColorSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatterTem
     }
 
     @Override
+    public Class<T> type() {
+        return this.formatter.type();
+    }
+
+    @Override
     Optional<SpreadsheetFormattedText> format0(final T value, final SpreadsheetTextFormatContext context) {
         return this.formatter.format(value, context).map(t -> t.setColor(Optional.of(this.color(context))));
     }

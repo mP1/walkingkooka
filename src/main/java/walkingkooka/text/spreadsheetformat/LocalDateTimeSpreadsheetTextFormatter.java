@@ -46,6 +46,11 @@ final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatt
     }
 
     @Override
+    public Class<LocalDateTime> type() {
+        return LocalDateTime.class;
+    }
+
+    @Override
     Optional<SpreadsheetFormattedText> format0(final LocalDateTime value, final SpreadsheetTextFormatContext context) {
         return LocalDateTimeSpreadsheetTextFormatterFormattingSpreadsheetFormatParserTokenVisitor.format(this.token, value, context, this.twelveHour);
     }

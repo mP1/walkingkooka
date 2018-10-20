@@ -60,6 +60,11 @@ final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatte
     }
 
     @Override
+    public Class<T> type() {
+        return this.formatter.type();
+    }
+
+    @Override
     Optional<SpreadsheetFormattedText> format0(final T value, final SpreadsheetTextFormatContext context) {
         final ConverterContext converterContext = ConverterContexts.basic(context);
         
