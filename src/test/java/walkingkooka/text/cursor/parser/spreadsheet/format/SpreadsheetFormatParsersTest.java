@@ -3771,6 +3771,48 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
                 token(SpreadsheetFormatParserToken::bigDecimal, conditionEquals(), digitNonZero()));
     }
 
+    // empty separators......................................................................................
+
+    @Test
+    public void testExpressionSeparatorSeparatorSeparatorNumberFails() {
+        this.parseThrows2(this.expressionParser(),
+                separator(),
+                separator(),
+                separator(),
+                token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()));
+    }
+
+    @Test
+    public void testExpressionSeparator() {
+        this.expressionParseAndCheck(separator());
+    }
+
+    @Test
+    public void testExpressionSeparatorSeparator() {
+        this.expressionParseAndCheck(separator(), separator());
+    }
+
+    @Test
+    public void testExpressionSeparatorSeparatorSeparator() {
+        this.expressionParseAndCheck(separator(), separator(), separator());
+    }
+
+    @Test
+    public void testExpressionNumberSeparatorSeparator() {
+        this.expressionParseAndCheck(token(SpreadsheetFormatParserToken::bigDecimal, digitNonZero()),
+                separator(),
+                separator(),
+                separator());
+    }
+
+    @Test
+    public void testExpressionSeparatorSeparatorSeparatorTextPlaceholder() {
+        this.expressionParseAndCheck(separator(),
+                separator(),
+                separator(),
+                token(SpreadsheetFormatParserToken::text, textPlaceholder()));
+    }
+
     // helpers..................................................................................................
 
     private void expressionParseAndCheck(final SpreadsheetFormatParserToken... tokens) {

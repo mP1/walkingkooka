@@ -1,11 +1,9 @@
 (* expression .........................................................................*)
-EXPRESSION                        = EXPRESSION_COMPONENT,
-                                    [ EXPRESSION_SEPARATOR,
-                                    [ EXPRESSION_COMPONENT,
-                                    [ EXPRESSION_SEPARATOR,
-                                    [ EXPRESSION_COMPONENT,
-                                    [ EXPRESSION_SEPARATOR,
-                                      TEXT ]]]]];
+EXPRESSION                        = [ EXPRESSION_COMPONENT ],
+                                    [ EXPRESSION_SEPARATOR, [ EXPRESSION_COMPONENT ],
+                                    [ EXPRESSION_SEPARATOR, [ EXPRESSION_COMPONENT ],
+                                    [ EXPRESSION_SEPARATOR, [ TEXT ]]
+                                    ]];
 
 EXPRESSION_COMPONENT              = GENERAL | DATETIME2 | FRACTION | BIGDECIMAL;
 
