@@ -88,6 +88,13 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     }
 
     /**
+     * {@see GeneralSpreadsheetTextFormatter}
+     */
+    public static SpreadsheetTextFormatter<Object> general() {
+        return GeneralSpreadsheetTextFormatter.INSTANCE;
+    }
+
+    /**
      * {@see LocalDateTimeSpreadsheetTextFormatter}
      */
     public static SpreadsheetTextFormatter<LocalDateTime> localDateTime(final SpreadsheetFormatDateTimeParserToken token) {
