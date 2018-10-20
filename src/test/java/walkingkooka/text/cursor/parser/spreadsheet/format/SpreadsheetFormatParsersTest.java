@@ -3806,6 +3806,38 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     @Test
+    public void testExpressionGeneralSeparatorSeparatorSeparator() {
+        this.expressionParseAndCheck(general(),
+                separator(),
+                separator(),
+                separator());
+    }
+
+    @Test
+    public void testExpressionSeparatorGeneralSeparatorSeparator() {
+        this.expressionParseAndCheck(separator(),
+                general(),
+                separator(),
+                separator());
+    }
+
+    @Test
+    public void testExpressionSeparatorSeparatorGeneralSeparator() {
+        this.expressionParseAndCheck(separator(),
+                separator(),
+                general(),
+                separator());
+    }
+
+    @Test
+    public void testExpressionSeparatorSeparatorSeparatorGeneral() {
+        this.expressionParseAndCheck(separator(),
+                separator(),
+                separator(),
+                general());
+    }
+
+    @Test
     public void testExpressionSeparatorSeparatorSeparatorTextPlaceholder() {
         this.expressionParseAndCheck(separator(),
                 separator(),
