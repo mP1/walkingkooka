@@ -67,4 +67,8 @@ public interface SpreadsheetTextFormatContext extends DecimalNumberContext {
      */
     int width();
 
+    /**
+     * Handles converting the given value to the target.
+     */
+    <T> T convert(final Object value, final Class<T> target);
 }

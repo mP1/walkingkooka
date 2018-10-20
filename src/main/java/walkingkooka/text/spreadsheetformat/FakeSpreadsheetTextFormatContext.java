@@ -39,6 +39,11 @@ public class FakeSpreadsheetTextFormatContext extends FakeDecimalNumberContext i
     }
 
     @Override
+    public <T> T convert(final Object value, final Class<T> target) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String monthName(final int month) {
         throw new UnsupportedOperationException();
     }
