@@ -109,15 +109,6 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
     }
 
     /**
-     * {@see TypedSpreadsheetTextFormatter}
-     */
-    public static <T> SpreadsheetTextFormatter<Object> type(final Class<T> type,
-                                                            final SpreadsheetTextFormatter<T> formatter,
-                                                            final SpreadsheetTextFormatter<Object> formatter2) {
-        return TypedSpreadsheetTextFormatter.with(type, formatter, formatter2);
-    }
-
-    /**
      * Stops creation
      */
     private SpreadsheetTextFormatters() {
