@@ -42,6 +42,11 @@ public interface SpreadsheetTextFormatContext extends DecimalNumberContext {
     Color colorName(String name);
 
     /**
+     * A {@link java.text.DecimalFormat} pattern, that should be used for non text values.
+     */
+    String generalDecimalFormatPattern();
+
+    /**
      * Returns the requested month in full. The month is zero index.
      */
     String monthName(int month);

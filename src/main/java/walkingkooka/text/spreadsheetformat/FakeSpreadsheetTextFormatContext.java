@@ -44,6 +44,11 @@ public class FakeSpreadsheetTextFormatContext extends FakeDecimalNumberContext i
     }
 
     @Override
+    public String generalDecimalFormatPattern() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String monthName(final int month) {
         throw new UnsupportedOperationException();
     }

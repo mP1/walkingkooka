@@ -18,9 +18,17 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import org.junit.Test;
 import walkingkooka.DecimalNumberContextTestCase;
 
+import static org.junit.Assert.assertNotNull;
+
 public abstract class SpreadsheetTextFormatContextTestCase<C extends SpreadsheetTextFormatContext> extends DecimalNumberContextTestCase<C> {
+
+    @Test
+    public void testGeneralDecimalFormatPattern() {
+        assertNotNull("decimalDecimalFormatPattern", this.createContext().generalDecimalFormatPattern());
+    }
 
     @Override
     protected String requiredNameSuffix() {
