@@ -18,7 +18,11 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-public abstract class SpreadsheetTextFormatterTemplateTestCase<F extends SpreadsheetTextFormatterTemplate<V>,
-        V>
-        extends SpreadsheetTextFormatterTestCase<F, V> {
+import walkingkooka.test.PackagePrivateClassTestCase;
+
+public final class SpreadsheetTextFormatterTemplate2Test extends PackagePrivateClassTestCase<SpreadsheetTextFormatterTemplate2> {
+    @Override
+    protected Class<SpreadsheetTextFormatterTemplate2> type() {
+        return SpreadsheetTextFormatterTemplate2.class;
+    }
 }

@@ -36,7 +36,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<ConditionSpreadsheetTextFormatter<Object>,
+public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ConditionSpreadsheetTextFormatter<Object>,
         Object,
         SpreadsheetFormatConditionParserToken> {
 

@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * A {@link SpreadsheetTextFormatter} that unconditionally formats a {@link BigDecimal}, without a {@link walkingkooka.color.Color}.
  */
-final class BigDecimalSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<BigDecimal, SpreadsheetFormatBigDecimalParserToken> {
+final class BigDecimalSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate2<BigDecimal, SpreadsheetFormatBigDecimalParserToken> {
 
     /**
      * Creates a {@link BigDecimalSpreadsheetTextFormatter} from a {@link SpreadsheetFormatBigDecimalParserToken}.

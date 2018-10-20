@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * A {@link SpreadsheetTextFormatter} that formats a {@link LocalDateTime}.
  */
-final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate<LocalDateTime, SpreadsheetFormatDateTimeParserToken> {
+final class LocalDateTimeSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate2<LocalDateTime, SpreadsheetFormatDateTimeParserToken> {
 
     /**
      * Creates a {@link LocalDateTimeSpreadsheetTextFormatter} from a {@link SpreadsheetFormatDateTimeParserToken}

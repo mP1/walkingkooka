@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
 
-public final class LocalDateTimeSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<
+public final class LocalDateTimeSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<
         LocalDateTimeSpreadsheetTextFormatter,
         LocalDateTime,
         SpreadsheetFormatDateTimeParserToken> {
