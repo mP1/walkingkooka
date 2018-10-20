@@ -21,6 +21,7 @@ package walkingkooka.text.spreadsheetformat;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -43,18 +44,8 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     private final static String TEXT_PATTERN = "!@@";
 
     @Test(expected = NullPointerException.class)
-    public void testWithNullConverterFails() {
-        this.createFormatter(null, this.formatter());
-    }
-
-    @Test(expected = NullPointerException.class)
     public void testWithNullWrappedFormatterFails() {
-        this.createFormatter(this.converter(), null);
-    }
-
-    private ConditionSpreadsheetTextFormatter createFormatter(final Converter bigDecimalConverter,
-                                                              final SpreadsheetTextFormatter<String> formatter) {
-        return ConditionSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), bigDecimalConverter, formatter);
+        ConditionSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), null);
     }
 
     @Test
@@ -180,17 +171,11 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
 
     @Override
     ConditionSpreadsheetTextFormatter createFormatter0(final SpreadsheetFormatConditionParserToken token) {
-        return ConditionSpreadsheetTextFormatter.with(token, this.converter(), this.formatter());
-    }
-
-    private Converter converter() {
-        return Converters.parser(BigDecimal.class,
-                Parsers.bigDecimal(MathContext.UNLIMITED),
-                (c) -> ParserContexts.basic(c));
+        return ConditionSpreadsheetTextFormatter.with(token, this.formatter());
     }
 
     private SpreadsheetTextFormatter<String> formatter() {
-        return new FakeSpreadsheetTextFormatter() {
+        return new SpreadsheetTextFormatter() {
 
             @Override
             public Class<String> type() {
@@ -250,6 +235,15 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
             public char plusSign() {
                 return '+';
             }
+
+            @Override
+            public <T> T convert(final Object value, final Class<T> target) {
+                return this.converter.convert(value, target, ConverterContexts.basic(this));
+            }
+
+            private final Converter converter = Converters.parser(BigDecimal.class,
+                    Parsers.bigDecimal(MathContext.UNLIMITED),
+                    (c) -> ParserContexts.basic(c));
         };
     }
 

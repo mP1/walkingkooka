@@ -18,9 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.ConversionException;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatConditionParserToken;
 
 import java.math.BigDecimal;
@@ -37,24 +35,20 @@ final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatte
      * Creates a {@link ConditionSpreadsheetTextFormatter}
      */
     static <T> ConditionSpreadsheetTextFormatter<T> with(final SpreadsheetFormatConditionParserToken token,
-                                                         final Converter bigDecimalConverter,
                                                          final SpreadsheetTextFormatter<T> formatter) {
         check(token);
-        Objects.requireNonNull(bigDecimalConverter, "bigDecimalConverter");
         Objects.requireNonNull(formatter, "formatter");
 
-        return new ConditionSpreadsheetTextFormatter(token, bigDecimalConverter, formatter);
+        return new ConditionSpreadsheetTextFormatter(token, formatter);
     }
 
     /**
      * Private use factory
      */
     private ConditionSpreadsheetTextFormatter(final SpreadsheetFormatConditionParserToken token,
-                                              final Converter bigDecimalConverter,
                                               final SpreadsheetTextFormatter<T> formatter) {
         super(token);
 
-        this.bigDecimalConverter = bigDecimalConverter;
         this.predicate = ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor.predicateOrFail(token);
         this.formatter = formatter;
     }
@@ -66,19 +60,22 @@ final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatte
 
     @Override
     Optional<SpreadsheetFormattedText> format0(final T value, final SpreadsheetTextFormatContext context) {
-        final ConverterContext converterContext = ConverterContexts.basic(context);
-        
+
         // predicate test result inverted because $value is on the wrong side of compare
-        return this.bigDecimalConverter.canConvert(value, BigDecimal.class, converterContext) &&
-                this.predicate.test(this.bigDecimalConverter.convert(value, BigDecimal.class, converterContext)) ?
-                this.formatter.format(value, context) :
-                Optional.empty();
+        return this.test(value, context) ?
+               this.formatter.format(value, context) :
+               Optional.empty();
     }
 
-    /**
-     * Converts the incoming value to {@link BigDecimal}.
-     */
-    private final Converter bigDecimalConverter;
+    private boolean test(final T value, final SpreadsheetTextFormatContext context) {
+        boolean result;
+        try {
+            result = this.predicate.test(context.convert(value, BigDecimal.class));
+        } catch (final ConversionException fail) {
+            result = false;
+        }
+        return result;
+    }
 
     /**
      * The formatter that will be executed if the guard test passes.

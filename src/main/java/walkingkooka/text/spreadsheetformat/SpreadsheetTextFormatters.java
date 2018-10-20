@@ -18,7 +18,6 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.convert.Converter;
 import walkingkooka.math.Fraction;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatColorParserToken;
@@ -68,9 +67,8 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
      * {@link ConditionSpreadsheetTextFormatter}
      */
     public static <T> SpreadsheetTextFormatter<T> conditional(final SpreadsheetFormatConditionParserToken token,
-                                                              final Converter bigDecimalConverter,
                                                               final SpreadsheetTextFormatter<T> formatter) {
-        return ConditionSpreadsheetTextFormatter.with(token, bigDecimalConverter, formatter);
+        return ConditionSpreadsheetTextFormatter.with(token, formatter);
     }
 
     /**
