@@ -32,7 +32,7 @@ import java.math.MathContext;
 /**
  * In expectations all symbols are doubled, as a means to verify the context is supplying the values.
  */
-public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<BigDecimalSpreadsheetTextFormatter,
+public final class BigDecimalSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<BigDecimalSpreadsheetTextFormatter,
         BigDecimal,
         SpreadsheetFormatBigDecimalParserToken> {
 

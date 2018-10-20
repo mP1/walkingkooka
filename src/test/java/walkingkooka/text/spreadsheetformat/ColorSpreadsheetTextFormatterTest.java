@@ -31,7 +31,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<ColorSpreadsheetTextFormatter<String>,
+public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ColorSpreadsheetTextFormatter<String>,
         String,
         SpreadsheetFormatColorParserToken> {
 

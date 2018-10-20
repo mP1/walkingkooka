@@ -38,7 +38,7 @@ import static org.junit.Assert.fail;
 /**
  * In expectations all symbols are doubled, as a means to verify the context is supplying the values.
  */
-public final class BigDecimalFractionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<BigDecimalFractionSpreadsheetTextFormatter,
+public final class BigDecimalFractionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<BigDecimalFractionSpreadsheetTextFormatter,
         BigDecimal,
         SpreadsheetFormatFractionParserToken> {
 

@@ -18,34 +18,37 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
+
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Base class for all {@link SpreadsheetTextFormatter} implementations.
  */
-abstract class SpreadsheetTextFormatterTemplate<V> implements SpreadsheetTextFormatter<V> {
+abstract class SpreadsheetTextFormatterTemplate2<V, T extends SpreadsheetFormatParserToken> extends SpreadsheetTextFormatterTemplate<V> {
+
+    static void check(final SpreadsheetFormatParserToken token) {
+        Objects.requireNonNull(token, "token");
+    }
 
     /**
      * Package private to limit sub classing.
      */
-    SpreadsheetTextFormatterTemplate() {
+    SpreadsheetTextFormatterTemplate2(final T token) {
         super();
+
+        this.token = token;
     }
 
     /**
-     * Accepts a value and uses the {@link TextFormatterSpreadsheetFormatParserTokenVisitor} to produce the formatted text.
+     * Returns the original pattern.
      */
     @Override
-    public final Optional<SpreadsheetFormattedText> format(final V value, final SpreadsheetTextFormatContext context) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(context, "context");
-
-        return this.format0(value, context);
+    public final String toString() {
+        return this.token.text() + this.toStringSuffix();
     }
 
-    abstract Optional<SpreadsheetFormattedText> format0(final V value, final SpreadsheetTextFormatContext context);
+    final T token;
 
-    @Override
-    public abstract String toString();
+    abstract String toStringSuffix();
 }

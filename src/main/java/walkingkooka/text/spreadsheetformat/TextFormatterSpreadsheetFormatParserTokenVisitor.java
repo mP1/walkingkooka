@@ -21,7 +21,7 @@ package walkingkooka.text.spreadsheetformat;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserTokenVisitor;
 
 /**
- * A {@link SpreadsheetFormatParserTokenVisitor} sub classed and used by {@link SpreadsheetTextFormatterTemplate}.
+ * A {@link SpreadsheetFormatParserTokenVisitor} sub classed and used by {@link SpreadsheetTextFormatterTemplate2}.
  */
 abstract class TextFormatterSpreadsheetFormatParserTokenVisitor extends SpreadsheetFormatParserTokenVisitor {
 

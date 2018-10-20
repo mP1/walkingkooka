@@ -31,6 +31,7 @@ import walkingkooka.type.PublicStaticHelper;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -77,6 +78,13 @@ public final class SpreadsheetTextFormatters implements PublicStaticHelper {
      */
     public static <V> SpreadsheetTextFormatter<V> fake() {
         return new FakeSpreadsheetTextFormatter<V>();
+    }
+
+    /**
+     * {@see FixedSpreadsheetTextFormatter}
+     */
+    public static <V> SpreadsheetTextFormatter<V> fixed(final Optional<SpreadsheetFormattedText> formattedText) {
+        return FixedSpreadsheetTextFormatter.with(formattedText);
     }
 
     /**

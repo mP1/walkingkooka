@@ -25,7 +25,7 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParsers;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 
-public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<TextSpreadsheetTextFormatter, String, SpreadsheetFormatTextParserToken> {
+public final class TextSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<TextSpreadsheetTextFormatter, String, SpreadsheetFormatTextParserToken> {
 
     private final static String TEXT = "Abc123";
 
