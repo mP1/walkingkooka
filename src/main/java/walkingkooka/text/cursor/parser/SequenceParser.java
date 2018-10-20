@@ -44,7 +44,6 @@ final class SequenceParser<C extends ParserContext> extends ParserTemplate<Seque
         Optional<SequenceParserToken> result = Optional.empty();
 
         final List<ParserToken> tokens = Lists.array();
-        boolean success = true;
 
         for(SequenceParserComponent component : this.components) {
             final Optional<ParserToken> token = component.parse(cursor, context);
@@ -53,12 +52,12 @@ final class SequenceParser<C extends ParserContext> extends ParserTemplate<Seque
                 continue;
             }
             if(component.abortIfMissing()) {
-                success = false;
+                tokens.clear();
                 break;
             }
         }
 
-        if(success){
+        if(!tokens.isEmpty()){
             result = SequenceParserToken.with(tokens,
                     start.textBetween().toString())
                     .success();
