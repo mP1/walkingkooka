@@ -44,7 +44,7 @@ public final class ColorSpreadsheetTextFormatterTest extends SpreadsheetTextForm
 
     @Test
     public void testWrappedFormatterFails() {
-        this.formatFailAndCheck(ColorSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), new SpreadsheetTextFormatter<String>() {
+        this.formatFailAndCheck(ColorSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), new FakeSpreadsheetTextFormatter<String>() {
                     @Override
                     public Optional<SpreadsheetFormattedText> format(String value, SpreadsheetTextFormatContext context) {
                         return Optional.empty();

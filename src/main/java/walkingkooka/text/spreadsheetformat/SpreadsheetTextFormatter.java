@@ -31,6 +31,16 @@ public interface SpreadsheetTextFormatter<T> {
     Optional<SpreadsheetFormattedText> EMPTY = Optional.empty();
 
     /**
+     * Constant holding {@link SpreadsheetFormattedText} without color or text (aka empty {@link String}.
+     */
+    Optional<SpreadsheetFormattedText> NO_TEXT = Optional.of(SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, ""));
+
+    /**
+     * The type that this formatted can accept and successfully format.
+     */
+    Class<T> type();
+
+    /**
      * Accepts a value and returns a {@link SpreadsheetFormattedText}.
      */
     Optional<SpreadsheetFormattedText> format(final T value, final SpreadsheetTextFormatContext context);

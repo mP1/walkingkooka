@@ -65,6 +65,11 @@ final class BigDecimalSpreadsheetTextFormatter extends SpreadsheetTextFormatterT
     }
 
     @Override
+    public Class<BigDecimal> type() {
+        return BigDecimal.class;
+    }
+
+    @Override
     Optional<SpreadsheetFormattedText> format0(final BigDecimal value, final SpreadsheetTextFormatContext context) {
         return Optional.of(SpreadsheetFormattedText.with(
                 SpreadsheetFormattedText.WITHOUT_COLOR,

@@ -29,12 +29,28 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<FixedSpreadsheetTextFormatter<Object>, Object> {
 
+    private final static Class<Object> TYPE = Object.class;
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullTypeFails() {
+        FixedSpreadsheetTextFormatter.with(null, this.formattedText());
+    }
+
     @Test(expected = NullPointerException.class)
     public void testWithNullFormattedTextFails() {
-        FixedSpreadsheetTextFormatter.with(null);
+        FixedSpreadsheetTextFormatter.with(TYPE, null);
+    }
+
+    @Test
+    public void testWithObjectNoText() {
+        final FixedSpreadsheetTextFormatter<Object> formatter = FixedSpreadsheetTextFormatter.with(Object.class, SpreadsheetTextFormatter.NO_TEXT);
+        assertSame(formatter, FixedSpreadsheetTextFormatter.with(Object.class, SpreadsheetTextFormatter.NO_TEXT));
+
+        this.formatAndCheck(formatter, "", this.createContext(), SpreadsheetTextFormatter.NO_TEXT);
     }
 
     @Test
@@ -88,7 +104,7 @@ public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextForm
 
     @Override
     protected FixedSpreadsheetTextFormatter<Object> createFormatter() {
-        return FixedSpreadsheetTextFormatter.with(this.formattedText());
+        return FixedSpreadsheetTextFormatter.with(TYPE, this.formattedText());
     }
 
     private Optional<SpreadsheetFormattedText> formattedText() {

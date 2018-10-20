@@ -47,6 +47,11 @@ final class GeneralSpreadsheetTextFormatter implements SpreadsheetTextFormatter<
     }
 
     @Override
+    public Class<Object> type() {
+        return Object.class;
+    }
+
+    @Override
     public Optional<SpreadsheetFormattedText> format(final Object value, final SpreadsheetTextFormatContext context) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(context, "context");

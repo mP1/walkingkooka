@@ -25,17 +25,28 @@ import walkingkooka.text.CharSequences;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetTextFormatter<V>, V> extends PackagePrivateClassTestCase<F> {
 
     @Test(expected = NullPointerException.class)
-    public void testFormatNullValueFails() {
+    public final void testFormatNullValueFails() {
         this.createFormatter().format(null, this.createContext());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFormatNullContextFails() {
+    public final void testFormatNullContextFails() {
         this.createFormatter().format(this.value(), null);
+    }
+
+    @Test
+    public final void testType() {
+        final Class<V> type = this.createFormatter().type();
+        assertNotEquals(null, type);
+
+        final V value = this.value();
+        assertTrue(type.getName() + " " + value.getClass().getName() + "=" + value, type.isInstance(value));
     }
 
     @Test
