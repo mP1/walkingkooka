@@ -44,26 +44,11 @@ public interface Parser<T extends ParserToken, C extends ParserContext> {
     }
 
     /**
-     * Creates a new {@link SequenceParserBuilder} and adds this parser as a required(default) or optional(if already an optional).
+     * Creates a new {@link SequenceParserBuilder} and adds this parser as a required().
      * The builder may then be used to continue building...
      */
-    default SequenceParserBuilder<C> builder(final ParserTokenNodeName name){
-        Objects.requireNonNull(name, "name");
-
-        final SequenceParserBuilder<C> builder = Parsers.sequenceParserBuilder();
-        if(this instanceof OptionalParser) {
-            builder.optional(this.cast(), name);
-        } else {
-            builder.required(this.cast(), name);
-        }
-        return builder;
-    }
-
-    /**
-     * Converts this parser into an optional.
-     */
-    default Parser<ParserToken, C> optional(final ParserTokenNodeName name) {
-        return Parsers.optional(this, name);
+    default SequenceParserBuilder<C> builder(){
+        return Cast.to(Parsers.sequenceParserBuilder().required(this.cast()));
     }
 
     /**

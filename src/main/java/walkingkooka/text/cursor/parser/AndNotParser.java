@@ -46,13 +46,13 @@ final class AndNotParser<T extends ParserToken, C extends ParserContext> impleme
         final TextCursorSavePoint save = cursor.save();
 
         Optional<T> leftResult = this.left.parse(cursor, context);
-        if(this.isPresent(leftResult)){
+        if(leftResult.isPresent()){
 
             final TextCursorSavePoint save2 = cursor.save();
             save.restore();
 
             final Optional<? extends ParserToken> rightResult = this.right.parse(cursor, context);
-            if(this.isPresent(rightResult)) {
+            if(rightResult.isPresent()) {
                 leftResult = Optional.empty();
                 save.restore();
             } else {
@@ -63,12 +63,6 @@ final class AndNotParser<T extends ParserToken, C extends ParserContext> impleme
         }
 
         return leftResult;
-    }
-
-    private boolean isPresent(final Optional<? extends ParserToken> result){
-        return result.isPresent() ?
-                !result.get().isMissing() :
-                false;
     }
 
     private final Parser<T, C> left;

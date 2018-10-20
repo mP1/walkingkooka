@@ -24,7 +24,6 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarLoader;
@@ -71,8 +70,8 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
      * {@see SpreadsheetColumnReferenceParser}
      */
     public static Parser<ParserToken, ParserContext> columnAndRow() {
-        return column().builder(SpreadsheetColumnReferenceParserToken.NAME)
-                .required(row(), SpreadsheetRowReferenceParserToken.NAME)
+        return column().builder()
+                .required(row())
                 .build()
                 .transform((sequenceParserToken, spreadsheetParserContext) -> {
                     return SpreadsheetParserToken.cellReference(sequenceParserToken.value(), sequenceParserToken.text()).cast();

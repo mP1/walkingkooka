@@ -35,11 +35,6 @@ public abstract class ParserTestCase2<P extends Parser<T, ParserContext>, T exte
     }
 
     @Test(expected = NullPointerException.class)
-    public final void testOptionalNullNameFails() {
-        this.createParser().optional(null);
-    }
-
-    @Test(expected = NullPointerException.class)
     public final void testOrNullParserFails() {
         this.createParser().or(null);
     }
@@ -48,11 +43,6 @@ public abstract class ParserTestCase2<P extends Parser<T, ParserContext>, T exte
     public final void testRepeating() {
         final Parser<RepeatedParserToken, ParserContext> parser = this.createParser().repeating();
         assertEquals("" + parser, RepeatedParser.class, parser.getClass());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public final void testBuilderWithNull() {
-        this.createParser().builder(null);
     }
 
     @Test

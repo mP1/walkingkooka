@@ -64,13 +64,6 @@ public interface ParserToken extends HasText, HasSearchNode {
     ParserTokenNodeName name();
 
     /**
-     * Only returns true for missing tokens.
-     */
-    default boolean isMissing() {
-       return false;
-    }
-
-    /**
      * Only returns true for noise tokens including missing and whitespace.
      */
     default boolean isNoise() {

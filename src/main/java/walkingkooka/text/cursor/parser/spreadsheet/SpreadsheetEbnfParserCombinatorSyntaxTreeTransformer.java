@@ -72,8 +72,7 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
 
         for(;;){
             final String text = sequence.text();
-            final SequenceParserToken cleaned = sequence.flat()
-                    .removeMissing();
+            final SequenceParserToken cleaned = sequence.flat();
 
             final SpreadsheetParserToken first = cleaned.removeWhitespace()
                     .value()
@@ -227,7 +226,6 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
 
     private List<ParserToken> clean(final SequenceParserToken token) {
         return token.flat()
-                .removeMissing()
                 .value();
     }
 

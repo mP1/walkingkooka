@@ -100,13 +100,6 @@ public final class ParserTokens implements PublicStaticHelper {
     public static LongParserToken longParserToken(final long value, final String text) {
         return LongParserToken.with(value, text);
     }
-    
-    /**
-     * {@see MissingParserToken}
-     */
-    public static MissingParserToken missing(final ParserTokenNodeName name, final String text) {
-        return MissingParserToken.with(name, text);
-    }
 
     /**
      * {@see OffsetDateTimeParserToken}

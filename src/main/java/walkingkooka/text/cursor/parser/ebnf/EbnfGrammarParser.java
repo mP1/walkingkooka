@@ -436,7 +436,6 @@ final class EbnfGrammarParser implements Parser<EbnfGrammarParserToken, EbnfPars
 
     private static EbnfGrammarParserToken grammarParserToken(final SequenceParserToken sequence, final EbnfParserContext context) {
         return EbnfGrammarParserToken.with(sequence.flat()
-                .removeMissing()
                 .value(),
                 sequence.text());
     }

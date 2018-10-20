@@ -30,34 +30,23 @@ import java.util.stream.Collectors;
  */
 abstract class SequenceParserComponent<C extends ParserContext> implements HashCodeEqualsDefined {
 
-    SequenceParserComponent(final Parser<ParserToken, C> parser, final ParserTokenNodeName name) {
+    SequenceParserComponent(final Parser<ParserToken, C> parser) {
         Objects.requireNonNull(parser, "parser");
-        Objects.requireNonNull(name, "name");
 
         this.parser = parser;
-        this.name = name;
     }
 
     abstract Optional<ParserToken> parse(final TextCursor cursor, final C context);
 
-    final void checkName(final List<SequenceParserComponent<C>> components) {
-        final int index = this.name.index();
-        if(index != -1) {
-            final int requiredIndex = components.size();
-            if(index != requiredIndex) {
-                throw new IllegalArgumentException("Name contains invalid index " + index + " should have been " + requiredIndex);
-            }
-        }
-    }
+    abstract boolean abortIfMissing();
 
     final Parser<ParserToken, C> parser;
-    final ParserTokenNodeName name;
 
     // Object .............................................................................................................
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.parser, this.name);
+        return this.parser.hashCode();
     }
 
     @Override
@@ -69,7 +58,7 @@ abstract class SequenceParserComponent<C extends ParserContext> implements HashC
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final SequenceParserComponent<?> other){
-        return this.parser.equals(other.parser) && this.name.equals(other.name);
+        return this.parser.equals(other.parser);
     }
 
     @Override

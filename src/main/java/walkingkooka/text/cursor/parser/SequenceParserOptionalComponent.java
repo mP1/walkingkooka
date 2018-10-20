@@ -16,7 +16,6 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.text.cursor.TextCursor;
 
 import java.util.Optional;
@@ -26,16 +25,18 @@ import java.util.Optional;
  */
 final class SequenceParserOptionalComponent<C extends ParserContext> extends SequenceParserComponent<C> {
 
-    SequenceParserOptionalComponent(final Parser parser, final ParserTokenNodeName name) {
-        super(parser, name);
+    SequenceParserOptionalComponent(final Parser parser) {
+        super(parser);
     }
 
     @Override
     final Optional<ParserToken> parse(final TextCursor cursor, final C context){
-        final Optional<ParserToken> token = this.parser.parse(cursor, context);
-        return token.isPresent() ?
-                token :
-                Cast.to(ParserTokens.missing(this.name, "").success());
+        return this.parser.parse(cursor, context);
+    }
+
+    @Override
+    boolean abortIfMissing() {
+        return false;
     }
 
     @Override
