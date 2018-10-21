@@ -18,7 +18,6 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.math.Fraction;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatBigDecimalParserToken;
@@ -34,6 +33,7 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatGreat
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatLessThanEqualsParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatLessThanParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatNotEqualsParserToken;
+import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatSeparatorSymbolParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatTextParserToken;
 
@@ -41,9 +41,11 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
- * This visitor is used exclusively by {@link ExpressionSpreadsheetTextFormatter} to create formatters for all individual components
+ * This visitor is used exclusively by {@link ExpressionSpreadsheetTextFormatter} to create formatters for all individual formatters
  * in an expressioned.
  */
 final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor extends TextFormatterSpreadsheetFormatParserTokenVisitor {
@@ -55,23 +57,10 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
                                                      final MathContext mathContext,
                                                      final Function<BigDecimal, Fraction> fractioner) {
         final ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor visitor = new ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor(mathContext, fractioner);
-        visitor.accept(token);
-
-        final List<SpreadsheetTextFormatter<?>> formatters = visitor.formatters;
-
-        final SpreadsheetTextFormatter<?> formatter = visitor.formatter;
-        if(null != formatter){
-            formatters.add(visitor.formatter());
-        }
-
-        for(int i = formatters.size(); i < 4; i++) {
-            formatters.add(noText());
-        }
-
-        return Cast.to(formatters);
+        return visitor.acceptAndMakeFormatter(token);
     }
 
-    private static SpreadsheetTextFormatter<Object> noText() {
+    static SpreadsheetTextFormatter<Object> noText() {
         return SpreadsheetTextFormatters.fixed(Object.class, SpreadsheetTextFormatter.NO_TEXT);
     }
 
@@ -83,19 +72,19 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
         super();
         this.mathContext = mathContext;
         this.fractioner = fractioner;
-        this.formatter = noText();
+        this.createEmptyFormatter();
     }
 
     // BigDecimal.....................................................................................
 
     @Override
     protected void endVisit(final SpreadsheetFormatBigDecimalParserToken token) {
-        this.formatter = SpreadsheetTextFormatters.bigDecimal(token, this.mathContext);
+        this.setSpreadsheetTextFormatter(SpreadsheetTextFormatters.bigDecimal(token, this.mathContext), token);
     }
 
     @Override
     protected void endVisit(final SpreadsheetFormatFractionParserToken token) {
-        this.formatter = SpreadsheetTextFormatters.bigDecimalFraction(token, this.mathContext, this.fractioner);
+        this.setSpreadsheetTextFormatter(SpreadsheetTextFormatters.bigDecimalFraction(token, this.mathContext, this.fractioner), token);
     }
 
     private final MathContext mathContext;
@@ -105,91 +94,103 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
 
     @Override
     protected void endVisit(final SpreadsheetFormatColorParserToken token) {
-        this.color = token;
+        this.formatter.color = token;
     }
 
     // Condition.....................................................................................
 
     @Override
     protected void endVisit(final SpreadsheetFormatEqualsParserToken token) {
-        this.condition = token;
+        this.setCondition(token);
     }
 
     @Override
     protected void endVisit(final SpreadsheetFormatGreaterThanEqualsParserToken token) {
-        this.condition = token;
+        this.setCondition(token);
     }
 
     @Override
     protected void endVisit(final SpreadsheetFormatGreaterThanParserToken token) {
-        this.condition = token;
+        this.setCondition(token);
     }
 
     @Override
     protected void endVisit(final SpreadsheetFormatLessThanEqualsParserToken token) {
-        this.condition = token;
+        this.setCondition(token);
     }
 
     @Override
     protected void endVisit(final SpreadsheetFormatLessThanParserToken token) {
-        this.condition = token;
+        this.setCondition(token);
     }
 
     @Override
     protected void endVisit(final SpreadsheetFormatNotEqualsParserToken token) {
-        this.condition = token;
+        this.setCondition(token);
+    }
+
+    private void setCondition(final SpreadsheetFormatConditionParserToken token) {
+        this.formatter.condition = token;
     }
 
     // Date .....................................................................................................
 
     @Override
     protected void endVisit(final SpreadsheetFormatDateTimeParserToken token) {
-        this.formatter = SpreadsheetTextFormatters.localDateTime(token);
+        this.setSpreadsheetTextFormatter(SpreadsheetTextFormatters.localDateTime(token), token);
     }
 
     // General................................................................................................
 
     @Override
     protected void endVisit(final SpreadsheetFormatGeneralParserToken token) {
-        this.formatter = SpreadsheetTextFormatters.general();
+        this.setSpreadsheetTextFormatter(SpreadsheetTextFormatters.general(), token);
     }
 
     // Text..................................................................................................
 
     @Override
     protected void endVisit(final SpreadsheetFormatTextParserToken token) {
-        this.formatter = SpreadsheetTextFormatters.text(token);
+        this.setSpreadsheetTextFormatter(SpreadsheetTextFormatters.text(token), token);
     }
 
     // Separator.................................................................................................
 
     @Override
     protected void visit(final SpreadsheetFormatSeparatorSymbolParserToken token) {
-        this.formatters.add(this.formatter());
+        this.createEmptyFormatter();
     }
 
-    private SpreadsheetTextFormatter<?> formatter() {
-        SpreadsheetTextFormatter<?> formatter = this.formatter;
-        this.formatter = noText();
+    // main..............................................................................................
 
-        final SpreadsheetFormatColorParserToken color = this.color;
-        if(null!=color) {
-            formatter = SpreadsheetTextFormatters.color(color, formatter);
-            this.color = null;
-        }
+    private List<SpreadsheetTextFormatter<Object>> acceptAndMakeFormatter(final SpreadsheetFormatExpressionParserToken token) {
+        this.accept(token);
 
-        final SpreadsheetFormatConditionParserToken condition = this.condition;
-        if(null!=condition) {
-            formatter = SpreadsheetTextFormatters.conditional(condition, formatter);
-            this.condition = null;
-        }
-
-        return formatter;
+        final int count = this.formatters.size();
+        return IntStream.range(0, count)
+                .mapToObj(i -> this.formatters.get(i).formatter(i, this.numberFormatters))
+                .collect(Collectors.toList());
     }
 
-    private SpreadsheetFormatColorParserToken color;
-    private SpreadsheetFormatConditionParserToken<?> condition;
-    private SpreadsheetTextFormatter<?> formatter;
+    private void createEmptyFormatter() {
+        this.formatter = ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorFormatter.create();
+        this.formatters.add(this.formatter);
+    }
 
-    private List<SpreadsheetTextFormatter<?>> formatters = Lists.array();
+    private void setSpreadsheetTextFormatter(final SpreadsheetTextFormatter<?> formatter, final SpreadsheetFormatParserToken token) {
+        this.formatter.setFormatter(formatter);
+
+        if(!token.isText()) {
+            this.numberFormatters++;
+        }
+    }
+
+    /**
+     * Actually formatter, possible color and possible condition.
+     */
+    private ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorFormatter formatter;
+
+    private List<ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitorFormatter> formatters = Lists.array();
+
+    private int numberFormatters;
 }

@@ -32,6 +32,7 @@ import java.util.function.Function;
 
 /**
  * A {@link SpreadsheetTextFormatter} that formats a {@link String}.
+ * <a href="https://developers.google.com/sheets/api/guides/formats"></a>
  */
 final class ExpressionSpreadsheetTextFormatter extends SpreadsheetTextFormatterTemplate2<Object, SpreadsheetFormatExpressionParserToken> {
 
@@ -55,11 +56,10 @@ final class ExpressionSpreadsheetTextFormatter extends SpreadsheetTextFormatterT
     private ExpressionSpreadsheetTextFormatter(final SpreadsheetFormatExpressionParserToken token,
                                                final List<SpreadsheetTextFormatter<Object>> formatters) {
         super(token);
-        if(formatters.size() != 4) {
-            throw new IllegalArgumentException("Expected 4 formatters but got " + formatters.size() + "=" + formatters);
+        if(formatters.size() > 4) {
+            throw new IllegalArgumentException("Expected at most 4 formatters but got " + formatters.size() + "=" + formatters);
         }
         this.formatters = formatters;
-
     }
 
     @Override

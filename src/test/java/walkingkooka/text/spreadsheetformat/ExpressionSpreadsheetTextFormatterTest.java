@@ -61,14 +61,14 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
     @Test
     public void testNumberEmptyEmptyTextPlaceholderFormatNumber() {
         this.parseFormatAndCheck("#.0\"1st\";;;@",
-                BigDecimal.valueOf(123),
+                123,
                 "123.01st");
     }
 
     @Test
     public void testColorNumberNumberEmptyEmptyTextPlaceholderFormatNumber() {
         this.parseFormatAndCheck("[RED]#.0\"1st\";;;@",
-                BigDecimal.valueOf(123),
+                123,
                 RED,
                 "123.01st");
     }
@@ -76,7 +76,7 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
     @Test
     public void testColorNameNumberEmptyEmptyTextPlaceholderFormatNumber() {
         this.parseFormatAndCheck("[COLOR 31]#.0\"1st\";;;@",
-                BigDecimal.valueOf(123),
+                123,
                 COLOR31,
                 "123.01st");
     }
@@ -96,33 +96,126 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
         this.parseFormatAndCheck(";;;@", TEXT, TEXT);
     }
 
+    // conditional................................................................................................
+
     @Test
     public void testConditionalNumberFormatPositiveNumber() {
-        this.parseFormatAndCheck("[>1]\"positive\"#.0", BigDecimal.valueOf(123), "positive123.0");
+        this.parseFormatAndCheck("[>100]\"positive\"0", 123, "positive123");
     }
 
     @Test
+    public void testConditionalNumberNumberFormatPositiveNumber() {
+        this.parseFormatAndCheck(NUMBER100_NUMBER, 123, "positive123");
+    }
+
+    @Test
+    public void testConditionalNumberNumberFormatZero() {
+        this.parseFormatAndCheck(NUMBER100_NUMBER, 0, "else0");
+    }
+
+    @Test
+    public void testConditionalNumberNumberFormatNegativeNumber() {
+        this.parseFormatAndCheck(NUMBER100_NUMBER, -123, "else-123");
+    }
+
+    private final static String NUMBER100_NUMBER = "[>100]\"positive\"0;\"else\"0";
+
+    @Test
     public void testConditionalNumberConditionalNumberFormatNegativeNumber() {
-        this.parseFormatAndCheck("[>1]\"positive\"#.0;[<1]\"negative\"#.0", BigDecimal.valueOf(-123), "negative-123.0");
+        this.parseFormatAndCheck("[>100]\"positive\"0;[<-99]\"negative\"0", -123, "negative-123");
     }
 
     @Test
     public void testConditionalNumberConditionalNumberNumberFormatZeroNumber() {
-        this.parseFormatAndCheck("[>1]\"positive\"#.0;[>1]\"negative\"#.0;\"zero\"0.0", BigDecimal.ZERO, "zero0.0");
+        this.parseFormatAndCheck("[>100]\"positive\"0;[<-99]\"negative\"0;\"zero\"0", 0, "zero0");
     }
 
     @Test
     public void testConditionalNumberConditionalNumberNumberFormatText() {
         final String text = "abc123";
-        this.parseFormatAndCheck("[>1]\"positive\"#.0;[>1]\"negative\"#.0;\"zero\"0.0;\"Text\"@", text, "Text" + text);
+        this.parseFormatAndCheck(NUMBER100_NUMBER99_NUMBER_TEXT, text, "Text" + text);
+    }
+
+    @Test
+    public void testConditionalNumberConditionalNumberNumberFormatPositiveNumberFails1stCondition() {
+        this.parseFormatAndCheck(NUMBER100_NUMBER99_NUMBER_TEXT, 1, "else1");
+    }
+
+    @Test
+    public void testConditionalNumberConditionalNumberNumberFormatNegativeNumber2ndCondition() {
+        this.parseFormatAndCheck(NUMBER100_NUMBER99_NUMBER_TEXT, -1, "else-1");
+    }
+
+    private final static String NUMBER100_NUMBER99_NUMBER_TEXT = "[>100]\"positive\"0;[<-99]\"negative\"0;\"else\"0;\"Text\"@";
+
+    @Test
+    public void testConditionalNumberConditionalNumberNumberFormatPositiveNumber2ndCondition() {
+        this.parseFormatAndCheck("[>100]\"first\"0;[>10]\"second\"0;\"else\"0;\"Text\"@", 50, "second50");
+    }
+
+    @Test
+    public void testConditionalNumberConditionalNumberNumberFormatNumberFailsBothConditions() {
+        this.parseFormatAndCheck("[>100]\"first\"0;[>10]\"second\"0;\"else\"0;\"Text\"@", 5, "else5");
+    }
+
+    // number|number pattern without conditions................................................................
+
+    private final static String NUMERNUMBERPATTERN = "\"positiveAndZero\"0;\"negative\"0";
+
+    @Test
+    public void testNumberNumberFormatPositiveNumber() {
+        this.parseFormatAndCheck(NUMERNUMBERPATTERN, 123, "positiveAndZero123");
+    }
+
+    @Test
+    public void testNumberNumberFormatNegativeNumber() {
+        this.parseFormatAndCheck(NUMERNUMBERPATTERN, -123, "negative-123");
+    }
+
+    @Test
+    public void testNumberNumberFormatZeroNumber() {
+        this.parseFormatAndCheck(NUMERNUMBERPATTERN, 0, "positiveAndZero0");
+    }
+
+    // number|number|number pattern without conditions................................................................
+
+    private final static String NUMERNUMBERNUMBERPATTERN = "\"positive\"0;\"negative\"0;\"zero\"0";
+
+    @Test
+    public void testNumberNumberNumberFormatPositiveNumber() {
+        this.parseFormatAndCheck(NUMERNUMBERNUMBERPATTERN, 123, "positive123");
+    }
+
+    @Test
+    public void testNumberNumberNumberFormatNegativeNumber() {
+        this.parseFormatAndCheck(NUMERNUMBERNUMBERPATTERN, -123, "negative-123");
+    }
+
+    @Test
+    public void testNumberNumberNumberFormatZeroNumber() {
+        this.parseFormatAndCheck(NUMERNUMBERNUMBERPATTERN, 0, "zero0");
     }
 
     // helpers.......................................................................................................
 
     private void parseFormatAndCheck(final String pattern,
+                                     final long value,
+                                     final String text) {
+        this.parseFormatAndCheck(pattern, BigDecimal.valueOf(value), text);
+    }
+
+
+    private void parseFormatAndCheck(final String pattern,
                                      final Object value,
                                      final String text) {
         this.parseFormatAndCheck(pattern, value, SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, text));
+    }
+
+    private void parseFormatAndCheck(final String pattern,
+                                     final long value,
+                                     final Color color,
+                                     final String text) {
+        this.parseFormatAndCheck(pattern, BigDecimal.valueOf(value), color, text);
     }
 
     private void parseFormatAndCheck(final String pattern,
@@ -133,8 +226,8 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
     }
 
     private void parseFormatAndCheck(final String pattern,
-                                      final Object value,
-                                      final SpreadsheetFormattedText text) {
+                                     final Object value,
+                                     final SpreadsheetFormattedText text) {
         this.formatAndCheck(this.createFormatter(pattern),
                 value,
                 this.createContext(),
@@ -240,7 +333,7 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
 
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
-                if(target.isInstance(value)) {
+                if (target.isInstance(value)) {
                     return target.cast(value);
                 }
                 return Converters.localDateTimeBigDecimal(Converters.EXCEL_OFFSET).convert(value,
