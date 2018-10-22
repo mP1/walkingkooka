@@ -30,8 +30,8 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarLoader;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.math.MathContext;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.BiFunction;
 
 public final class SpreadsheetParsers implements PublicStaticHelper {
@@ -40,7 +40,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
      * A {@link Parser} that returns a cell reference token of some sort.
      */
     public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> cellReferences() {
-        return parserFromGrammar(Parsers.fake(), CELL_IDENTIFIER);
+        return parserFromGrammar(CELL_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName CELL_IDENTIFIER = EbnfIdentifierName.with("CELL");
@@ -81,8 +81,8 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that parsers expressions.
      */
-    public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> expression(final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number) {
-        return parserFromGrammar(number, EXPRESSION_IDENTIFIER);
+    public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> expression() {
+        return parserFromGrammar(EXPRESSION_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName EXPRESSION_IDENTIFIER = EbnfIdentifierName.with("EXPRESSION");
@@ -90,8 +90,8 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * Returns a {@link Parser} that parsers function invocations, starting with the name and parameters.
      */
-    public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> function(final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number) {
-        return parserFromGrammar(number, FUNCTION_IDENTIFIER);
+    public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> function() {
+        return parserFromGrammar(FUNCTION_IDENTIFIER);
     }
 
     static final EbnfIdentifierName FUNCTION_IDENTIFIER = EbnfIdentifierName.with("FUNCTION");
@@ -136,7 +136,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
      * A {@link Parser} that returns a range which will include cell references or labels.
      */
     public static Parser<SpreadsheetParserToken, SpreadsheetParserContext> range() {
-        return parserFromGrammar(Parsers.fake(), RANGE_IDENTIFIER);
+        return parserFromGrammar(RANGE_IDENTIFIER);
     }
 
     private static final EbnfIdentifierName RANGE_IDENTIFIER = EbnfIdentifierName.with("RANGE");
@@ -223,9 +223,8 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
 
     // misc.............................................................................................................
 
-    private static void misc(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined,
-                             final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number) {
-        predefined.put(NUMBER_IDENTIFIER, number.cast());
+    private static void misc(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
+        predefined.put(NUMBER_IDENTIFIER, NUMBER);
         predefined.put(PERCENT_SYMBOL_IDENTIFIER, PERCENT_SYMBOL);
 
         predefined.put(OPEN_PARENTHESIS_SYMBOL_IDENTIFIER, OPEN_PARENTHESIS_SYMBOL);
@@ -235,7 +234,12 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
 
         predefined.put(WHITESPACE_IDENTIFIER, whitespace());
     }
+
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
+    private static final Parser<ParserToken, ParserContext> NUMBER = Parsers.bigDecimal(MathContext.UNLIMITED)
+                .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigDecimal(numberParserToken.value(), numberParserToken.text()))
+                .cast();
+
     private static final EbnfIdentifierName PERCENT_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("PERCENT_SYMBOL");
     private static final EbnfIdentifierName OPEN_PARENTHESIS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OPEN_PARENTHESIS_SYMBOL");
     private static final EbnfIdentifierName CLOSE_PARENTHESIS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("CLOSE_PARENTHESIS_SYMBOL");
@@ -281,10 +285,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
     /**
      * Uses the grammar file to fetch one of the parsers.
      */
-    private static Parser<SpreadsheetParserToken, SpreadsheetParserContext> parserFromGrammar(final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number,
-                                                                                              final EbnfIdentifierName parserName) {
-        Objects.requireNonNull(number, "number");
-
+    private static Parser<SpreadsheetParserToken, SpreadsheetParserContext> parserFromGrammar(final EbnfIdentifierName parserName) {
         try {
             final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined = Maps.sorted();
 
@@ -292,7 +293,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             conditions(predefined);
             functions(predefined);
             math(predefined);
-            misc(predefined, number);
+            misc(predefined);
 
             final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> result = grammarLoader.grammar().get()
                     .combinator(predefined,
