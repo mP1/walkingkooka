@@ -24,9 +24,8 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.text.cursor.parser.Parsers;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<SpreadsheetParserToken, SpreadsheetParserContext>,
         SpreadsheetParserToken,
@@ -73,7 +72,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     /**
      * First parse the range using {@link SpreadsheetParsers#cellReferences()}} and then repeat again with
-     * {@link SpreadsheetParsers#expression(Parser)}.
+     * {@link SpreadsheetParsers#expression()}.
      */
     private void cellReferenceParseAndCheck(final String from,
                                             final SpreadsheetParserToken expected,
@@ -145,7 +144,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     }
 
     /**
-     * First parse the range using {@link SpreadsheetParsers#range()} and then repeat again with {@link SpreadsheetParsers#expression(Parser)}.
+     * First parse the range using {@link SpreadsheetParsers#range()} and then repeat again with {@link SpreadsheetParsers#expression()}.
      */
     private void rangeParseAndCheck(final String from, final SpreadsheetRangeParserToken expected, final String text) {
         this.parseAndCheck(SpreadsheetParsers.range(), from, expected, text);
@@ -159,7 +158,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "-1";
 
         this.parseAndCheck(text,
-                SpreadsheetParserToken.negative(Lists.of(minus(), bigInteger(1)), text),
+                SpreadsheetParserToken.negative(Lists.of(minus(), bigDecimal(1)), text),
                 text);
     }
 
@@ -168,7 +167,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "-  1";
 
         this.parseAndCheck(text,
-                SpreadsheetParserToken.negative(Lists.of(minus(), whitespace(), bigInteger(1)), text),
+                SpreadsheetParserToken.negative(Lists.of(minus(), whitespace(), bigDecimal(1)), text),
                 text);
     }
 
@@ -195,14 +194,14 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         final String text = "1%";
 
         this.parseAndCheck(text,
-                SpreadsheetParserToken.percentage(Lists.of(bigInteger(1), percent()), text),
+                SpreadsheetParserToken.percentage(Lists.of(bigDecimal(1), percent()), text),
                 text);
     }
 
     @Test
     public void testNegativeNumberPercentage() {
         final String text = "-1%";
-        final SpreadsheetParserToken percent = SpreadsheetParserToken.percentage(Lists.of(bigInteger(1), percent()), "1%");
+        final SpreadsheetParserToken percent = SpreadsheetParserToken.percentage(Lists.of(bigDecimal(1), percent()), "1%");
 
         this.parseAndCheck(text,
                 SpreadsheetParserToken.negative(Lists.of(minus(), percent), text),
@@ -231,7 +230,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testGroupNegativeNumber() {
-        final SpreadsheetParserToken negative = negative(bigInteger(123));
+        final SpreadsheetParserToken negative = negative(bigDecimal(123));
 
         final String groupText = "(-123)";
         final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(openParenthesis(), negative, closeParenthesis()), groupText);
@@ -242,7 +241,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testNegativeGroupNumber() {
         final String groupText = "(123)";
-        final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(openParenthesis(), bigInteger(123), closeParenthesis()), groupText);
+        final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(openParenthesis(), bigDecimal(123), closeParenthesis()), groupText);
 
         final String text = "-" + groupText;
         this.parseAndCheck(text, negative(group), text);
@@ -250,8 +249,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testAdd() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123+456";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(left, plus(), right), text);
 
@@ -260,13 +259,13 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testAdd2() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123+456";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(left, plus(), right), text);
 
         final String text2 = text + "+789";
-        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(add, plus(), bigInteger(789)), text2);
+        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(add, plus(), bigDecimal(789)), text2);
 
         this.parseAndCheck(text2, add2, text2);
     }
@@ -274,21 +273,21 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testAddNegative() {
         // 123+-456+789
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = negative(bigInteger(456));
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = negative(bigDecimal(456));
         final String text = "123+-456";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(left, plus(), right), text);
 
         final String text2 = text + "+789";
-        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(add, plus(), bigInteger(789)), text2);
+        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(add, plus(), bigDecimal(789)), text2);
 
         this.parseAndCheck(text2, add2, text2);
     }
 
     @Test
     public void testSubtract() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123-456";
         final SpreadsheetSubtractionParserToken add = SpreadsheetParserToken.subtraction(Lists.of(left, minus(), right), text);
 
@@ -297,21 +296,21 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testSubtract2() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123-456";
         final SpreadsheetSubtractionParserToken sub = SpreadsheetParserToken.subtraction(Lists.of(left, minus(), right), text);
 
         final String text2 = text + "-789";
-        final SpreadsheetSubtractionParserToken add2 = SpreadsheetParserToken.subtraction(Lists.of(sub, minus(), bigInteger(789)), text2);
+        final SpreadsheetSubtractionParserToken add2 = SpreadsheetParserToken.subtraction(Lists.of(sub, minus(), bigDecimal(789)), text2);
 
         this.parseAndCheck(text2, add2, text2);
     }
 
     @Test
     public void testSubtractNegative() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = negative(bigInteger(456));
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = negative(bigDecimal(456));
         final String text = "123--456";
         final SpreadsheetSubtractionParserToken add = SpreadsheetParserToken.subtraction(Lists.of(left, minus(), right), text);
 
@@ -320,34 +319,34 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testSubtractAdd() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123-456";
         final SpreadsheetSubtractionParserToken sub = SpreadsheetParserToken.subtraction(Lists.of(left, minus(), right), text);
 
         final String text2 = text + "+789";
-        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(sub, plus(), bigInteger(789)), text2);
+        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(sub, plus(), bigDecimal(789)), text2);
 
         this.parseAndCheck(text2, add2, text2);
     }
 
     @Test
     public void testSubtractWhitespaceAroundMinusSign() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123  -  456";
         final SpreadsheetSubtractionParserToken sub = SpreadsheetParserToken.subtraction(Lists.of(left, whitespace(), minus(), whitespace(), right), text);
 
         final String text2 = text + "+789";
-        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(sub, plus(), bigInteger(789)), text2);
+        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(sub, plus(), bigDecimal(789)), text2);
 
         this.parseAndCheck(text2, add2, text2);
     }
 
     @Test
     public void testMultiply() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123*456";
         final SpreadsheetMultiplicationParserToken multiply = SpreadsheetParserToken.multiplication(Lists.of(left, multiply(), right), text);
 
@@ -356,21 +355,21 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testMultiply2() {
-        final SpreadsheetParserToken left = bigInteger(222);
-        final SpreadsheetParserToken right = bigInteger(333);
+        final SpreadsheetParserToken left = bigDecimal(222);
+        final SpreadsheetParserToken right = bigDecimal(333);
         final String text = "222*333";
         final SpreadsheetMultiplicationParserToken multiply = SpreadsheetParserToken.multiplication(Lists.of(left, multiply(), right), text);
 
         final String text2 = "111+" + text;
-        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(bigInteger(111), plus(), multiply), text2);
+        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(bigDecimal(111), plus(), multiply), text2);
 
         this.parseAndCheck(text2, add2, text2);
     }
 
     @Test
     public void testNegativeMultiplyNegative() {
-        final SpreadsheetParserToken left = negative(bigInteger(123));
-        final SpreadsheetParserToken right = negative(bigInteger(456));
+        final SpreadsheetParserToken left = negative(bigDecimal(123));
+        final SpreadsheetParserToken right = negative(bigDecimal(456));
         final String text = "-123*-456";
         final SpreadsheetMultiplicationParserToken multiply = SpreadsheetParserToken.multiplication(Lists.of(left, multiply(), right), text);
 
@@ -379,8 +378,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testDivide() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123/456";
         final SpreadsheetDivisionParserToken divide = SpreadsheetParserToken.division(Lists.of(left, divide(), right), text);
 
@@ -389,21 +388,21 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testDivide2() {
-        final SpreadsheetParserToken left = bigInteger(222);
-        final SpreadsheetParserToken right = bigInteger(333);
+        final SpreadsheetParserToken left = bigDecimal(222);
+        final SpreadsheetParserToken right = bigDecimal(333);
         final String text = "222/333";
         final SpreadsheetDivisionParserToken divide = SpreadsheetParserToken.division(Lists.of(left, divide(), right), text);
 
         final String text2 = "111+" + text;
-        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(bigInteger(111), plus(), divide), text2);
+        final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(bigDecimal(111), plus(), divide), text2);
 
         this.parseAndCheck(text2, add2, text2);
     }
 
     @Test
     public void testNegativeDivideNegative() {
-        final SpreadsheetParserToken left = negative(bigInteger(123));
-        final SpreadsheetParserToken right = negative(bigInteger(456));
+        final SpreadsheetParserToken left = negative(bigDecimal(123));
+        final SpreadsheetParserToken right = negative(bigDecimal(456));
         final String text = "-123/-456";
         final SpreadsheetDivisionParserToken divide = SpreadsheetParserToken.division(Lists.of(left, divide(), right), text);
 
@@ -412,8 +411,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testPower() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123^456";
         final SpreadsheetPowerParserToken power = SpreadsheetParserToken.power(Lists.of(left, power(), right), text);
 
@@ -422,21 +421,21 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testPower2() {
-        final SpreadsheetParserToken left = bigInteger(222);
-        final SpreadsheetParserToken right = bigInteger(333);
+        final SpreadsheetParserToken left = bigDecimal(222);
+        final SpreadsheetParserToken right = bigDecimal(333);
         final String text = "222^333";
         final SpreadsheetPowerParserToken power = SpreadsheetParserToken.power(Lists.of(left, power(), right), text);
 
         final String text2 = "111*" + text;
-        final SpreadsheetMultiplicationParserToken multiply2 = SpreadsheetParserToken.multiplication(Lists.of(bigInteger(111), multiply(), power), text2);
+        final SpreadsheetMultiplicationParserToken multiply2 = SpreadsheetParserToken.multiplication(Lists.of(bigDecimal(111), multiply(), power), text2);
 
         this.parseAndCheck(text2, multiply2, text2);
     }
 
     @Test
     public void testEquals() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123==456";
         final SpreadsheetEqualsParserToken equals = SpreadsheetParserToken.equalsParserToken(Lists.of(left, equals(), right), text);
 
@@ -445,12 +444,12 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testEqualsAdd() {
-        final SpreadsheetParserToken middle = bigInteger(456);
-        final SpreadsheetParserToken right = bigInteger(789);
+        final SpreadsheetParserToken middle = bigDecimal(456);
+        final SpreadsheetParserToken right = bigDecimal(789);
         final String addText = "456+789";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
 
-        final SpreadsheetParserToken left = bigInteger(123);
+        final SpreadsheetParserToken left = bigDecimal(123);
         final String text = "123==" + addText;
         final SpreadsheetEqualsParserToken equals = SpreadsheetParserToken.equalsParserToken(Lists.of(left, equals(), add), text);
 
@@ -459,8 +458,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testNotEquals() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123!=456";
         final SpreadsheetNotEqualsParserToken ne = SpreadsheetParserToken.notEquals(Lists.of(left, notEquals(), right), text);
 
@@ -469,12 +468,12 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testNotEqualsAdd() {
-        final SpreadsheetParserToken middle = bigInteger(456);
-        final SpreadsheetParserToken right = bigInteger(789);
+        final SpreadsheetParserToken middle = bigDecimal(456);
+        final SpreadsheetParserToken right = bigDecimal(789);
         final String addText = "456+789";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
 
-        final SpreadsheetParserToken left = bigInteger(123);
+        final SpreadsheetParserToken left = bigDecimal(123);
         final String text = "123!=" + addText;
         final SpreadsheetNotEqualsParserToken ne = SpreadsheetParserToken.notEquals(Lists.of(left, notEquals(), add), text);
 
@@ -483,8 +482,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testGreaterThan() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123>456";
         final SpreadsheetGreaterThanParserToken gt = SpreadsheetParserToken.greaterThan(Lists.of(left, greaterThan(), right), text);
 
@@ -493,12 +492,12 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testGreaterThanAdd() {
-        final SpreadsheetParserToken middle = bigInteger(456);
-        final SpreadsheetParserToken right = bigInteger(789);
+        final SpreadsheetParserToken middle = bigDecimal(456);
+        final SpreadsheetParserToken right = bigDecimal(789);
         final String addText = "456+789";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
 
-        final SpreadsheetParserToken left = bigInteger(123);
+        final SpreadsheetParserToken left = bigDecimal(123);
         final String text = "123>" + addText;
         final SpreadsheetGreaterThanParserToken gt = SpreadsheetParserToken.greaterThan(Lists.of(left, greaterThan(), add), text);
 
@@ -507,8 +506,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testGreaterThanEquals() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123>=456";
         final SpreadsheetGreaterThanEqualsParserToken gte = SpreadsheetParserToken.greaterThanEquals(Lists.of(left, greaterThanEquals(), right), text);
 
@@ -517,12 +516,12 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testGreaterThanEqualsAdd() {
-        final SpreadsheetParserToken middle = bigInteger(456);
-        final SpreadsheetParserToken right = bigInteger(789);
+        final SpreadsheetParserToken middle = bigDecimal(456);
+        final SpreadsheetParserToken right = bigDecimal(789);
         final String addText = "456+789";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
 
-        final SpreadsheetParserToken left = bigInteger(123);
+        final SpreadsheetParserToken left = bigDecimal(123);
         final String text = "123>=" + addText;
         final SpreadsheetGreaterThanEqualsParserToken gte = SpreadsheetParserToken.greaterThanEquals(Lists.of(left, greaterThanEquals(), add), text);
 
@@ -531,8 +530,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testLessThan() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123<456";
         final SpreadsheetLessThanParserToken lt = SpreadsheetParserToken.lessThan(Lists.of(left, lessThan(), right), text);
 
@@ -541,12 +540,12 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testLessThanAdd() {
-        final SpreadsheetParserToken middle = bigInteger(456);
-        final SpreadsheetParserToken right = bigInteger(789);
+        final SpreadsheetParserToken middle = bigDecimal(456);
+        final SpreadsheetParserToken right = bigDecimal(789);
         final String addText = "456+789";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
 
-        final SpreadsheetParserToken left = bigInteger(123);
+        final SpreadsheetParserToken left = bigDecimal(123);
         final String text = "123<" + addText;
         final SpreadsheetLessThanParserToken lt = SpreadsheetParserToken.lessThan(Lists.of(left, lessThan(), add), text);
 
@@ -555,8 +554,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testLessThanEquals() {
-        final SpreadsheetParserToken left = bigInteger(123);
-        final SpreadsheetParserToken right = bigInteger(456);
+        final SpreadsheetParserToken left = bigDecimal(123);
+        final SpreadsheetParserToken right = bigDecimal(456);
         final String text = "123<=456";
         final SpreadsheetLessThanEqualsParserToken lte = SpreadsheetParserToken.lessThanEquals(Lists.of(left, lessThanEquals(), right), text);
 
@@ -565,12 +564,12 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testLessThanEqualsAdd() {
-        final SpreadsheetParserToken middle = bigInteger(456);
-        final SpreadsheetParserToken right = bigInteger(789);
+        final SpreadsheetParserToken middle = bigDecimal(456);
+        final SpreadsheetParserToken right = bigDecimal(789);
         final String addText = "456+789";
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(middle, plus(), right), addText);
 
-        final SpreadsheetParserToken left = bigInteger(123);
+        final SpreadsheetParserToken left = bigDecimal(123);
         final String text = "123<=" + addText;
         final SpreadsheetLessThanEqualsParserToken lte = SpreadsheetParserToken.lessThanEquals(Lists.of(left, lessThanEquals(), add), text);
 
@@ -581,16 +580,16 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     public void testComplexExpression() {
         //111+222+(-333)-444*555
         final String addText = "111+222";
-        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(bigInteger(111), plus(),  bigInteger(222)), addText);
+        final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(bigDecimal(111), plus(),  bigDecimal(222)), addText);
 
         final String groupText = "(-333)";
-        final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(openParenthesis(), negative(bigInteger(333)), closeParenthesis()), groupText);
+        final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(openParenthesis(), negative(bigDecimal(333)), closeParenthesis()), groupText);
 
         final String addText2 = add + "+" + groupText;
         final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(add, plus(), group), addText2);
 
         final String multiplyText = "444*555";
-        final SpreadsheetMultiplicationParserToken multiply = SpreadsheetParserToken.multiplication(Lists.of(bigInteger(444), multiply(),  bigInteger(555)), multiplyText);
+        final SpreadsheetMultiplicationParserToken multiply = SpreadsheetParserToken.multiplication(Lists.of(bigDecimal(444), multiply(),  bigDecimal(555)), multiplyText);
 
         final String subText = addText2 + "-" + multiplyText;
         final SpreadsheetSubtractionParserToken sub = SpreadsheetParserToken.subtraction(Lists.of(add2, minus(), multiply), subText);
@@ -624,7 +623,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testFunctionWithOneArgument() {
         final String text = "xyz(123)";
-        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigInteger(123), closeParenthesis()), text);
+        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigDecimal(123), closeParenthesis()), text);
 
         this.functionParseAndCheck(text, f, text);
     }
@@ -632,7 +631,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testFunctionWithOneArgument2() {
         final String text = "xyz(  123)";
-        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), whitespace(), bigInteger(123), closeParenthesis()), text);
+        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), whitespace(), bigDecimal(123), closeParenthesis()), text);
 
         this.functionParseAndCheck(text, f, text);
     }
@@ -640,7 +639,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testFunctionWithOneArgument3() {
         final String text = "xyz(123  )";
-        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigInteger(123), whitespace(), closeParenthesis()), text);
+        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigDecimal(123), whitespace(), closeParenthesis()), text);
 
         this.functionParseAndCheck(text, f, text);
     }
@@ -648,7 +647,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testFunctionWithOneArgument4() {
         final String text = "xyz(  123  )";
-        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), whitespace(), bigInteger(123), whitespace(), closeParenthesis()), text);
+        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), whitespace(), bigDecimal(123), whitespace(), closeParenthesis()), text);
 
         this.functionParseAndCheck(text, f, text);
     }
@@ -656,7 +655,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testFunctionWithTwoArguments() {
         final String text = "xyz(123,456)";
-        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigInteger(123), comma(), bigInteger(456), closeParenthesis()), text);
+        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigDecimal(123), comma(), bigDecimal(456), closeParenthesis()), text);
 
         this.functionParseAndCheck(text, f, text);
     }
@@ -664,7 +663,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testFunctionWithFourArguments() {
         final String text = "xyz(1,2,3,4)";
-        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigInteger(1), comma(), bigInteger(2), comma(), bigInteger(3), comma(), bigInteger(4), closeParenthesis()), text);
+        final SpreadsheetFunctionParserToken f = SpreadsheetParserToken.function(Lists.of(functionName("xyz"), openParenthesis(), bigDecimal(1), comma(), bigDecimal(2), comma(), bigDecimal(3), comma(), bigDecimal(4), closeParenthesis()), text);
 
         this.functionParseAndCheck(text, f, text);
     }
@@ -672,7 +671,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testFunctionWithinFunction() {
         final String yText = "y(123)";
-        final SpreadsheetFunctionParserToken y = SpreadsheetParserToken.function(Lists.of(functionName("y"), openParenthesis(), bigInteger(123), closeParenthesis()), yText);
+        final SpreadsheetFunctionParserToken y = SpreadsheetParserToken.function(Lists.of(functionName("y"), openParenthesis(), bigDecimal(123), closeParenthesis()), yText);
 
         final String xText = "x(" + yText + ")";
         final SpreadsheetFunctionParserToken x = SpreadsheetParserToken.function(Lists.of(functionName("x"), openParenthesis(), y, closeParenthesis()), xText);
@@ -683,7 +682,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     @Test
     public void testFunctionWithinFunctionWithinFunction() {
         final String zText = "z(123)";
-        final SpreadsheetFunctionParserToken z = SpreadsheetParserToken.function(Lists.of(functionName("z"), openParenthesis(), bigInteger(123), closeParenthesis()), zText);
+        final SpreadsheetFunctionParserToken z = SpreadsheetParserToken.function(Lists.of(functionName("z"), openParenthesis(), bigDecimal(123), closeParenthesis()), zText);
 
         final String yText = "y(" + zText + ")";
         final SpreadsheetFunctionParserToken y = SpreadsheetParserToken.function(Lists.of(functionName("y"), openParenthesis(), z, closeParenthesis()), yText);
@@ -709,8 +708,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     }
 
     /**
-     * First parse the range using {@link SpreadsheetParsers#function(Parser)} and then repeat again with
-     * {@link SpreadsheetParsers#expression(Parser)}. Both should give the same results.
+     * First parse the range using {@link SpreadsheetParsers#function()} and then repeat again with
+     * {@link SpreadsheetParsers#expression()}. Both should give the same results.
      */
     private void functionParseAndCheck(final String from,
                                        final SpreadsheetFunctionParserToken expected,
@@ -720,19 +719,19 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
     }
 
     private Parser<SpreadsheetParserToken, SpreadsheetParserContext> functionParser() {
-        return SpreadsheetParsers.function(this.numberParser());
+        return SpreadsheetParsers.function();
     }
 
     // Group ....................................................................................................
 
     @Test
     public void testGroupAndFurtherExpressions() {
-        final SpreadsheetParserToken left = bigInteger(1);
-        final SpreadsheetParserToken right = bigInteger(2);
+        final SpreadsheetParserToken left = bigDecimal(1);
+        final SpreadsheetParserToken right = bigDecimal(2);
         final SpreadsheetAdditionParserToken add = SpreadsheetParserToken.addition(Lists.of(left, plus(), right), "1+2");
         final SpreadsheetGroupParserToken group = SpreadsheetParserToken.group(Lists.of(this.openParenthesis(), add, this.closeParenthesis()), "(" + add.text() + ")");
 
-        final SpreadsheetParserToken last = bigInteger(3);
+        final SpreadsheetParserToken last = bigDecimal(3);
         final SpreadsheetMultiplicationParserToken mul = SpreadsheetParserToken.multiplication(Lists.of(group, multiply(), last), group.text() + "*3");
 
         this.parseAndCheck(mul.text(), mul, mul.text());
@@ -740,13 +739,13 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Test
     public void testNestedGroupAddition() {
-        final SpreadsheetParserToken left1 = bigInteger(1);
-        final SpreadsheetParserToken right1 = bigInteger(2);
+        final SpreadsheetParserToken left1 = bigDecimal(1);
+        final SpreadsheetParserToken right1 = bigDecimal(2);
         final SpreadsheetAdditionParserToken add1 = SpreadsheetParserToken.addition(Lists.of(left1, plus(), right1), "1+2");
         final SpreadsheetGroupParserToken group1 = SpreadsheetParserToken.group(Lists.of(this.openParenthesis(), add1, this.closeParenthesis()), "(" + add1.text() + ")");
 
-        final SpreadsheetParserToken left2 = bigInteger(3);
-        final SpreadsheetParserToken right2 = bigInteger(4);
+        final SpreadsheetParserToken left2 = bigDecimal(3);
+        final SpreadsheetParserToken right2 = bigDecimal(4);
         final SpreadsheetAdditionParserToken add2 = SpreadsheetParserToken.addition(Lists.of(left2, plus(), right2), "3+4");
         final SpreadsheetGroupParserToken group2 = SpreadsheetParserToken.group(Lists.of(this.openParenthesis(), add2, this.closeParenthesis()), "(" + add2.text() + ")");
 
@@ -780,13 +779,7 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
 
     @Override
     protected Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
-        return SpreadsheetParsers.expression(this.numberParser());
-    }
-
-    private Parser<SpreadsheetParserToken, SpreadsheetParserContext> numberParser() {
-        return Parsers.<SpreadsheetParserContext>bigInteger(10)
-                .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigInteger(numberParserToken.value(), numberParserToken.text()))
-                .cast();
+        return SpreadsheetParsers.expression();
     }
 
     @Override
@@ -794,8 +787,8 @@ public final class SpreadsheetParsersTest extends ParserTestCase3<Parser<Spreads
         return SpreadsheetParserContexts.basic(this.decimalNumberContext());
     }
 
-    private SpreadsheetParserToken bigInteger(final int value){
-        return SpreadsheetParserToken.bigInteger(BigInteger.valueOf(value), String.valueOf(value));
+    private SpreadsheetParserToken bigDecimal(final int value){
+        return SpreadsheetParserToken.bigDecimal(BigDecimal.valueOf(value), String.valueOf(value));
     }
 
     private SpreadsheetCellReferenceParserToken cell(final int column, final String columnText, final int row) {

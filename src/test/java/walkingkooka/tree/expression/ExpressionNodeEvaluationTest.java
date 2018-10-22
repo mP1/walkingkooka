@@ -27,7 +27,6 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
-import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContext;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetParserToken;
@@ -221,10 +220,6 @@ public class ExpressionNodeEvaluationTest extends TestCase {
     }
 
     private Parser<SpreadsheetParserToken, SpreadsheetParserContext> createParser() {
-        final Parser<SpreadsheetParserToken, SpreadsheetParserContext> number = Parsers.<SpreadsheetParserContext>bigDecimal( MathContext.DECIMAL32)
-                .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigDecimal(numberParserToken.value(), numberParserToken.text()))
-                .cast();
-
-        return SpreadsheetParsers.expression(number);
+        return SpreadsheetParsers.expression();
     }
 }
