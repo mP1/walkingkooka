@@ -20,7 +20,7 @@ package walkingkooka;
 import walkingkooka.type.PublicStaticHelper;
 
 /**
- * A collection of factory methods to create parsers.
+ * A collection of factory methods to create {@link DecimalNumberContext}.
  */
 public final class DecimalNumberContexts implements PublicStaticHelper {
 
