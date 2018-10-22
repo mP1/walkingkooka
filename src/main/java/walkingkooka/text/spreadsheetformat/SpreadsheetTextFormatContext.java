@@ -18,18 +18,14 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.DateTimeContext;
 import walkingkooka.DecimalNumberContext;
 import walkingkooka.color.Color;
 
 /**
  * Context that accompanies a value format, holding local sensitive attributes such as the decimal point character.
  */
-public interface SpreadsheetTextFormatContext extends DecimalNumberContext {
-
-    /**
-     * Returns the selected AM or PM given the hour of the day (24 hour time).
-     */
-    String ampm(int hourOfDay);
+public interface SpreadsheetTextFormatContext extends DecimalNumberContext, DateTimeContext {
 
     /**
      * Returns the {@link Color} with the given number.
@@ -45,26 +41,6 @@ public interface SpreadsheetTextFormatContext extends DecimalNumberContext {
      * A {@link java.text.DecimalFormat} pattern, that should be used for non text values.
      */
     String generalDecimalFormatPattern();
-
-    /**
-     * Returns the requested month in full. The month is zero index.
-     */
-    String monthName(int month);
-
-    /**
-     * Returns the requested month in abbreviated form. The month is zero index.
-     */
-    String monthNameAbbreviation(int month);
-
-    /**
-     * Returns the requested week day in full. Sunday is 0.
-     */
-    String weekDayName(int day);
-
-    /**
-     * Returns the requested week day in abbreviated form. Sunday is 0.
-     */
-    String weekDayNameAbbreviation(int day);
 
     /**
      * The width of the "cell" in characters.
