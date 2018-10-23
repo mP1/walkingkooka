@@ -19,7 +19,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Context;
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.collect.list.Lists;
 
 import java.math.MathContext;

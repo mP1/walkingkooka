@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.convert.Converter;
 import walkingkooka.type.PublicStaticHelper;
 import walkingkooka.util.variable.Variable;

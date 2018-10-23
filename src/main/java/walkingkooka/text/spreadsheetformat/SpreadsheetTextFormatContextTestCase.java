@@ -19,7 +19,7 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.DecimalNumberContextTestCase;
+import walkingkooka.math.DecimalNumberContextTestCase;
 
 import static org.junit.Assert.assertNotNull;
 

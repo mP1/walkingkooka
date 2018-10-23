@@ -15,36 +15,22 @@
  *
  *
  */
+package walkingkooka.math;
 
-package walkingkooka;
+import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.test.PublicStaticHelperTestCase;
 
-/**
- * Context that typically accompanies another stateless component such as a number parser or formatter that involves decimals.
- */
-public interface DecimalNumberContext extends NumberContext {
+import java.lang.reflect.Method;
 
-    /**
-     * The currency symbol character.
-     */
-    String currencySymbol();
+public final class DecimalNumberContextsTest extends PublicStaticHelperTestCase<DecimalNumberContexts> {
 
-    /**
-     * Returns the decimal point character
-     */
-    char decimalPoint();
+    @Override
+    protected Class<DecimalNumberContexts> type() {
+        return DecimalNumberContexts.class;
+    }
 
-    /**
-     * The exponentDigitSymbolCount
-     */
-    char exponentSymbol();
-
-    /**
-     * The grouping separator.
-     */
-    char groupingSeparator();
-
-    /**
-     * The percentage symbol.
-     */
-    char percentageSymbol();
+    @Override
+    protected boolean canHavePublicTypes(final Method method) {
+        return false;
+    }
 }

@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka;
+package walkingkooka.math;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 

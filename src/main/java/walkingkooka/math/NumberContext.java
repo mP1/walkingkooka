@@ -16,7 +16,9 @@
  *
  */
 
-package walkingkooka;
+package walkingkooka.math;
+
+import walkingkooka.Context;
 
 /**
  * Context that typically accompanies another stateless component such as a number parser or formatter.

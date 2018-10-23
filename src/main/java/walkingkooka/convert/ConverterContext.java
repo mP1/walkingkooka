@@ -19,7 +19,7 @@
 package walkingkooka.convert;
 
 import walkingkooka.Context;
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContext;
 
 /**
  * {@link Context} that accompanies a {@link Converter} and is intended to carry values that may be locale or user aware.

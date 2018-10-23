@@ -19,7 +19,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.FakeDecimalNumberContext;
+import walkingkooka.math.FakeDecimalNumberContext;
 
 public class FakeParserContext extends FakeDecimalNumberContext implements ParserContext {
 }

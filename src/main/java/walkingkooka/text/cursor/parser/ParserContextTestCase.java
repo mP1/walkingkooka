@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.DecimalNumberContextTestCase;
+import walkingkooka.math.DecimalNumberContextTestCase;
 
 public abstract class ParserContextTestCase<C extends ParserContext> extends DecimalNumberContextTestCase<C> {
 

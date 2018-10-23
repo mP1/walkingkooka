@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
 
 /**

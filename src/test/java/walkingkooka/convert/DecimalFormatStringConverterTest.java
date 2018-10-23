@@ -19,7 +19,7 @@
 package walkingkooka.convert;
 
 import org.junit.Test;
-import walkingkooka.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContexts;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
