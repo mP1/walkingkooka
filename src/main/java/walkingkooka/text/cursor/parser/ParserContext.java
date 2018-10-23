@@ -17,7 +17,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Context;
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContext;
 
 /**
  * A context that accompanies a parser invocation. This may be used to hold state that is used during parsing.

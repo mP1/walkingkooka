@@ -20,7 +20,7 @@ package walkingkooka.convert;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;

@@ -18,7 +18,7 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.FakeDecimalNumberContext;
+import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.test.Fake;
 
 /**

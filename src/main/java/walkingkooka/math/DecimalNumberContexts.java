@@ -15,7 +15,7 @@
  *
  *
  */
-package walkingkooka;
+package walkingkooka.math;
 
 import walkingkooka.type.PublicStaticHelper;
 

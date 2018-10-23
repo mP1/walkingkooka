@@ -19,8 +19,8 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
-import walkingkooka.DecimalNumberContext;
-import walkingkooka.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;

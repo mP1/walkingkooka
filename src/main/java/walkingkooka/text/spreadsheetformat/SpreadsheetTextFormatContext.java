@@ -19,7 +19,7 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.DateTimeContext;
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.color.Color;
 
 /**

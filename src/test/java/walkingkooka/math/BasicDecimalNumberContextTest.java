@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka;
+package walkingkooka.math;
 
 import org.junit.Test;
 

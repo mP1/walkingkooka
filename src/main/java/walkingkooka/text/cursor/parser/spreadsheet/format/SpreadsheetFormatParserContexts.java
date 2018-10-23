@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.type.PublicStaticHelper;
 
 public final class SpreadsheetFormatParserContexts implements PublicStaticHelper {

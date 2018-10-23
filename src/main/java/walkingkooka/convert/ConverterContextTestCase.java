@@ -17,7 +17,7 @@
  */
 package walkingkooka.convert;
 
-import walkingkooka.DecimalNumberContextTestCase;
+import walkingkooka.math.DecimalNumberContextTestCase;
 
 public abstract class ConverterContextTestCase<C extends ConverterContext> extends DecimalNumberContextTestCase<C> {
 

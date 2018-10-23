@@ -19,7 +19,7 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.FakeDecimalNumberContext;
+import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.text.cursor.TextCursor;
 
 import static org.junit.Assert.assertEquals;

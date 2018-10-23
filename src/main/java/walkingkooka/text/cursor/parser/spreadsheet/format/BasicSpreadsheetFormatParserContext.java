@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import walkingkooka.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContext;
 
 import java.util.Objects;
 

@@ -18,8 +18,8 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
-import walkingkooka.DecimalNumberContext;
-import walkingkooka.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;

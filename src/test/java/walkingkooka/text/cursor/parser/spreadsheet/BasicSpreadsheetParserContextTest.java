@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContexts;
 
 public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserContextTestCase<BasicSpreadsheetParserContext> {
 

@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka;
+package walkingkooka.math;
 
 public class FakeDecimalNumberContext implements DecimalNumberContext {
 
