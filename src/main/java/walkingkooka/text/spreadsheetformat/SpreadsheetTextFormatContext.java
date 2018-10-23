@@ -19,8 +19,8 @@
 package walkingkooka.text.spreadsheetformat;
 
 import walkingkooka.DateTimeContext;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.color.Color;
+import walkingkooka.math.DecimalNumberContext;
 
 /**
  * Context that accompanies a value format, holding local sensitive attributes such as the decimal point character.

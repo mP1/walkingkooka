@@ -18,9 +18,6 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.tree.search.SearchLocalDateQueryValueGreaterThanSearchQueryTester;
-import walkingkooka.tree.search.SearchQueryTesterTestCase;
-
 public final class SearchLocalDateQueryValueGreaterThanSearchQueryTesterTest extends  SearchQueryTesterTestCase<SearchLocalDateQueryValueGreaterThanSearchQueryTester>{
     @Override
     protected Class<SearchLocalDateQueryValueGreaterThanSearchQueryTester> type() {

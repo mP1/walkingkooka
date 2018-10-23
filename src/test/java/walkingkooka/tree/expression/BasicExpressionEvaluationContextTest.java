@@ -19,11 +19,11 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
-import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
 
 import java.math.MathContext;

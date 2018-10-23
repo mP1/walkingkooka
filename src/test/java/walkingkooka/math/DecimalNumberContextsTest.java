@@ -17,7 +17,6 @@
  */
 package walkingkooka.math;
 
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;

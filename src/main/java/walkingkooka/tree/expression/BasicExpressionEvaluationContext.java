@@ -18,11 +18,11 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.convert.ConversionException;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
+import walkingkooka.math.DecimalNumberContext;
 
 import java.math.MathContext;
 import java.util.List;

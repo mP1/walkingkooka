@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContextTestCase;
 
 public abstract class EbnfParserContextTestCase<C extends EbnfParserContext> extends ParserContextTestCase<C> {

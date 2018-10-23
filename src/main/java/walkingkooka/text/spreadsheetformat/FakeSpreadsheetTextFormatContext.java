@@ -18,8 +18,8 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.color.Color;
+import walkingkooka.math.FakeDecimalNumberContext;
 
 public class FakeSpreadsheetTextFormatContext extends FakeDecimalNumberContext implements SpreadsheetTextFormatContext {
 
