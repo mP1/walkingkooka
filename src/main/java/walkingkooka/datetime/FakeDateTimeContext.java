@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka;
+package walkingkooka.datetime;
 
 public class FakeDateTimeContext implements DateTimeContext {
 

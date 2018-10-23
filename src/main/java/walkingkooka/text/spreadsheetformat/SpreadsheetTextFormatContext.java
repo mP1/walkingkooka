@@ -18,8 +18,8 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.DateTimeContext;
 import walkingkooka.color.Color;
+import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 
 /**
