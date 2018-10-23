@@ -18,8 +18,6 @@
 
 package walkingkooka;
 
-import walkingkooka.color.Color;
-
 public class FakeDateTimeContext implements DateTimeContext {
 
     @Override

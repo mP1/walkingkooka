@@ -19,8 +19,8 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Context;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.math.DecimalNumberContext;
 
 import java.math.MathContext;
 import java.util.List;
