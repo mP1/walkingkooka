@@ -15,7 +15,7 @@
  *
  *
  */
-package walkingkooka;
+package walkingkooka.datetime;
 
 import walkingkooka.type.PublicStaticHelper;
 

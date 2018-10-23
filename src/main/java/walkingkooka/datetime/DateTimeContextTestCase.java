@@ -15,7 +15,9 @@
  *
  *
  */
-package walkingkooka;
+package walkingkooka.datetime;
+
+import walkingkooka.ContextTestCase;
 
 import static org.junit.Assert.assertEquals;
 
