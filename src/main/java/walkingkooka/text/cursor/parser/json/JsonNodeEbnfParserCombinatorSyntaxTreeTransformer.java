@@ -40,8 +40,8 @@ import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSynta
 import java.util.List;
 
 /**
- * A {@link EbnfParserCombinatorSyntaxTreeTransformer} that only transforms terminal and ranges into their corresponding {@link JsonNodeParserToken} equivalents.
- * Processing of other tokens will be done after this process completes.
+ * A {@link EbnfParserCombinatorSyntaxTreeTransformer} that only transforms terminal and ranges into their corresponding
+ * {@link JsonNodeParserToken} equivalents. Processing of other tokens will be done after this process completes.
  */
 final class JsonNodeEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
     

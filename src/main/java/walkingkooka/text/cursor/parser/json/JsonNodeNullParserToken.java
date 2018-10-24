@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Holds a single decimal number.
+ * Holds a json null value.
  */
 public final class JsonNodeNullParserToken extends JsonNodeLeafParserToken2<Void> {
 

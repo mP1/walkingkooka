@@ -18,24 +18,7 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.math.FakeDecimalNumberContext;
 
-/**
- * The {@link ParserException} that is thrown whenever json parsing fails
- */
-public class JsonNodeParserException extends ParserException {
-
-    protected JsonNodeParserException() {
-        super();
-    }
-
-    public JsonNodeParserException(final String message) {
-        super(message);
-    }
-
-    public JsonNodeParserException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
-
-    private final static long serialVersionUID = 1L;
+public class FakeJsonNodeParserContext extends FakeDecimalNumberContext implements JsonNodeParserContext {
 }

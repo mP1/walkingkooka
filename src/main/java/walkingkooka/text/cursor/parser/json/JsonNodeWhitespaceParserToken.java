@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Holds the combination of whitespace or comments.
+ * Holds the combination of whitespace.
  */
 public final class JsonNodeWhitespaceParserToken extends JsonNodeLeafParserToken2<String> {
 

@@ -28,7 +28,7 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 
 /**
- * A wrapper around a numeric type that is also a percentage.
+ * A wrapper around a json object.
  */
 public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<JsonNodeObjectParserToken> {
 

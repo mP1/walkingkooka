@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Holds a single decimal number.
+ * Holds a single integer or decimal number.
  */
 public final class JsonNodeNumberParserToken extends JsonNodeLeafParserToken2<Double> {
 
