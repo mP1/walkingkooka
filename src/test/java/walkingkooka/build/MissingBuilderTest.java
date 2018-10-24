@@ -223,7 +223,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     private void check(final MissingBuilder missing, final String message, final int total,
                        final int missingCount) {
-        assertEquals("message", message, missing.build());
+        this.buildAndCheck(missing, message);
         assertEquals("total", total, missing.total());
         assertEquals("missing", missingCount, missing.missing());
     }

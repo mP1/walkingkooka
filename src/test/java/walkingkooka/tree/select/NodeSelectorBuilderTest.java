@@ -286,7 +286,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
         b.named(Names.string(PARENT))
                 .attributeValueContains(Names.string("attribute-name"), "attribute-value");
 
-        assertEquals("parent[contains(@\"attribute-name\",\"attribute-value\")]", b.build().toString());
+        this.buildAndCheck2(b,"parent[contains(@\"attribute-name\",\"attribute-value\")]");
     }
 
     @Test
@@ -296,7 +296,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
                 .self()
                 .followingSibling();
 
-        assertEquals("preceding-sibling::.::following-sibling", b.build().toString());
+        this.buildAndCheck2(b,"preceding-sibling::.::following-sibling");
     }
 
     @Test
@@ -306,10 +306,11 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
                 .self()
                 .following();
 
-        assertEquals("preceding::.::following", b.build().toString());
+        this.buildAndCheck2(b, "preceding::.::following");
     }
 
-    @Override protected NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> createBuilder() {
+    @Override
+    protected NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> createBuilder() {
         return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
     }
 
