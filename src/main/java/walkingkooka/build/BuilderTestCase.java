@@ -48,6 +48,14 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
         this.checkNaming(Builder.class);
     }
 
+    protected void buildAndCheck(final Builder<T> builder, final T product) {
+        assertEquals(builder.toString(), product, builder.build());
+    }
+
+    protected void buildAndCheck2(final Builder<?> builder, final String productToString) {
+        assertEquals(builder.toString(), productToString, builder.build().toString());
+    }
+
     protected void buildFails() {
         this.buildFails(this.createBuilder());
     }
