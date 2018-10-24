@@ -1,0 +1,90 @@
+EXPRESSION                   = [ ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANT_SLASH_SLASH | PARENT_DOT_DOT | SELF_DOT | AXIS_NODE_PREDICATE ],
+                               [ { SLASH, [ PARENT_DOT_DOT | SELF_DOT | AXIS_NODE_PREDICATE ]} ];
+
+ABSOLUTE_AXIS_NODE_PREDICATE = ABSOLUTE, AXIS_NODE_PREDICATE;
+AXIS_NODE_PREDICATE          = [ AXIS ], NODE, [{ PREDICATE }];
+SLASH_AXIS_NODE_PREDICATE    = SLASH, AXIS_NODE_PREDICATE;
+
+
+
+(* axis ............................................................................................................*)
+AXIS                         = ANCESTOR | CHILD | DESCENDANT | FIRST_CHILD | FOLLOWING | FOLLOWING_SIBLING | LAST_CHILD | PARENT | PRECEDING | PRECEDING_SIBLING | SELF;
+
+
+
+(* node .............................................................................................................*)
+NODE                         = NODE_NAME | WILDCARD;
+
+
+
+(* predicate .......................................................................................................*)
+PREDICATE                    = BRACKET_OPEN,
+                               PREDICATE2,
+                               [ { AND_OR, PREDICATE2 } ],
+                               [ WHITESPACE ],
+                               BRACKET_CLOSE;
+
+PREDICATE2                   = [ WHITESPACE ],
+                               ( CONDITION | NUMBER | QUOTED_TEXT | FUNCTION );
+
+AND_OR                       = [ WHITESPACE ],
+                               ( AND | OR );
+
+
+(* condition [@attribute="string-value"] .........................................................................*)
+CONDITION                    = CONDITION_EQUALS | CONDITION_GREATER_THAN_EQUALS | CONDITION_GREATER_THAN |
+                               CONDITION_LESS_THAN_EQUALS | CONDITION_LESS_THAN | CONDITION_NOT_EQUALS;
+
+CONDITION_EQUALS             = CONDITION_VALUE,
+                               [ WHITESPACE ],
+                               EQUALS,
+                               CONDITION_VALUE_REQUIRED;
+                                    
+CONDITION_GREATER_THAN        = CONDITION_VALUE,
+                               [ WHITESPACE ],
+                               GREATER_THAN,
+                               CONDITION_VALUE_REQUIRED;
+
+CONDITION_GREATER_THAN_EQUALS = CONDITION_VALUE,
+                               [ WHITESPACE ],
+                               GREATER_THAN_EQUALS,
+                               CONDITION_VALUE_REQUIRED;
+                                    
+CONDITION_LESS_THAN          = CONDITION_VALUE,
+                               [ WHITESPACE ],
+                               LESS_THAN,
+                               [ WHITESPACE ],
+                               CONDITION_VALUE_REQUIRED;
+
+CONDITION_LESS_THAN_EQUALS   = CONDITION_VALUE,
+                               [ WHITESPACE ],
+                               LESS_THAN_EQUALS,
+                               CONDITION_VALUE_REQUIRED;
+                                    
+CONDITION_NOT_EQUALS         = CONDITION_VALUE,
+                               [ WHITESPACE ],
+                               NOT_EQUALS,
+                               CONDITION_VALUE_REQUIRED;
+
+CONDITION_VALUE              = [ WHITESPACE ],
+                               ( FUNCTION | NAME | NUMBER | QUOTED_TEXT );
+
+CONDITION_VALUE_REQUIRED     = CONDITION_VALUE;
+
+(* [starts-with(@attribute, "string-value") ..........................................................................*)
+FUNCTION                     = FUNCTION_NAME, PARENS_OPEN, [ WHITESPACE ], [ FUNCTION_PARAMETERS ], [ WHITESPACE ], PARENS_CLOSE;
+
+FUNCTION_PARAMETERS          = [ VALUE, [{ FUNCTION_PARAMETER_OTHERS }]];
+
+FUNCTION_PARAMETER_OTHERS    = [ WHITESPACE ],
+                               PARAMETER_SEPARATOR,
+                               VALUE_REQUIRED;
+
+NAME                         = ( ATSIGN, ATTRIBUTE_NAME ) |
+                               NODE_NAME;
+
+VALUE                        = [ WHITESPACE ],
+                               ( FUNCTION | NAME | CONDITION | NUMBER | QUOTED_TEXT );
+
+VALUE_REQUIRED               = VALUE;
+
