@@ -67,7 +67,7 @@ final public class AncestorNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("ancestor", this.createSelector().toString());
+        assertEquals("ancestor::*", this.createSelector().toString());
     }
 
     @Override

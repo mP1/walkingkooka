@@ -77,12 +77,8 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final int index;
 
     @Override
-    void toString0(final StringBuilder b, String separator){
-        b.append(separator)
-                .append("[")
-                .append(this.index)
-                .append(']');
-        this.toStringNext(b, "");
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.predicate(String.valueOf(this.index));
     }
 
     @Override

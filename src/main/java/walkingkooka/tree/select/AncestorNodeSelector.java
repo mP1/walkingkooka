@@ -74,9 +74,8 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    void toString0(final StringBuilder b, String separator){
-        b.append(separator).append("ancestor");
-        this.toStringNext(b, DEFAULT_AXIS_SEPARATOR);
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.axis("ancestor");
     }
 
     @Override

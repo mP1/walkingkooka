@@ -56,7 +56,7 @@ final public class PredicateNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("[" + PREDICATE.toString() + "]", this.createSelector().toString());
+        assertEquals("*[" + PREDICATE.toString() + "]", this.createSelector().toString());
     }
 
     @Override

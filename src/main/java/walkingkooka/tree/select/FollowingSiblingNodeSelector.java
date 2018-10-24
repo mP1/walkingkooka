@@ -67,9 +67,8 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    void toString0(final StringBuilder b, String separator){
-        b.append(separator).append("following-sibling");
-        this.toStringNext(b, DEFAULT_AXIS_SEPARATOR);
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.axis("following-sibling");
     }
 
     @Override

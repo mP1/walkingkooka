@@ -45,12 +45,7 @@ class FakeNodeSelector extends NodeSelector<TestFakeNode, StringName, StringName
     }
 
     @Override
-    void toString0(final StringBuilder b, final String separator){
-        b.append(separator).append("Fake");
-    }
-
-    @Override
-    void toStringNext(final StringBuilder b, final String separator) {
-        throw new UnsupportedOperationException();
+    void toString0(final NodeSelectorToStringBuilder b) {
+        b.append(this.getClass().getSimpleName());
     }
 }

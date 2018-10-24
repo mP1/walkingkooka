@@ -76,7 +76,7 @@ final public class ChildrenNodeSelectorTest
 
     @Test
     public void testToString() {
-        assertEquals("child", this.createSelector().toString());
+        assertEquals("child::*", this.createSelector().toString());
     }
 
     @Override

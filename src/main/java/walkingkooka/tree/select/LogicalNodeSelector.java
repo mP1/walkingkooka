@@ -64,20 +64,17 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         throw new ShouldNeverHappenError(this.getClass().getName() + ".match(Node, NodeSelectorContext)");
     }
 
-    @Override void toString0(final StringBuilder b, final String separator) {
-        String between = separator;
+    @Override
+    void toString0(final NodeSelectorToStringBuilder b) {
+        String between = "";
         for(NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
-            selector.toString0(b, between);
+            b.append(between);
+            selector.toString0(b);
             between = this.operatorToString();
         }
     }
 
     abstract String operatorToString();
-
-    @Override
-    void toStringNext(final StringBuilder b, final String separator) {
-        // there is no next.
-    }
 
     // Object
 

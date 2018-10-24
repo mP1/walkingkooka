@@ -24,7 +24,6 @@ import walkingkooka.tree.Node;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * An absolute path for a {@link Node}.
@@ -100,11 +99,8 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    void toString0(final StringBuilder b, final String separator) {
-        b.append(separator);
-        b.append(this.path.stream()
-                .map(i -> "[" + i + "]")
-                .collect(Collectors.joining("")));
+    void toString1(final NodeSelectorToStringBuilder b) {
+        this.path.stream().forEach(i -> b.predicate(i.toString()));
     }
 
     private final List<Integer> path;

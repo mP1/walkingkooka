@@ -70,9 +70,8 @@ final class LastChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     // Object
 
     @Override
-    void toString0(final StringBuilder b, String separator) {
-        b.append(separator).append("last-child");
-        this.toStringNext(b, DEFAULT_AXIS_SEPARATOR);
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.axis("last-child");
     }
 
     @Override

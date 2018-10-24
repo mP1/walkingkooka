@@ -68,9 +68,8 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    void toString0(final StringBuilder b, final String separator){
-        b.append(separator).append(".");
-        this.toStringNext(b, DEFAULT_AXIS_SEPARATOR);
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.self();
     }
 
     @Override

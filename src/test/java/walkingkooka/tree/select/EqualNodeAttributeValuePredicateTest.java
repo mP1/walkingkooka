@@ -40,7 +40,7 @@ public class EqualNodeAttributeValuePredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("[@\"attribute-1\"=\"123\"]", this.createPredicate().toString());
+        assertEquals("@\"attribute-1\"=\"123\"", this.createPredicate().toString());
     }
 
     @Override

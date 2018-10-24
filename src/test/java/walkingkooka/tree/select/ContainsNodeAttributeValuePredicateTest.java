@@ -40,7 +40,7 @@ public class ContainsNodeAttributeValuePredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("[contains(@\"attribute-1\",\"123\")]", this.createPredicate().toString());
+        assertEquals("contains(@\"attribute-1\",\"123\")", this.createPredicate().toString());
     }
 
     @Override

@@ -33,7 +33,7 @@ import java.util.function.Predicate;
 public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements Builder<NodeSelector<N, NAME, ANAME, AVALUE>> {
 
     /**
-     * Creates an selector that begins its search from the root of the graph.
+     * Creates an select that begins its search from the root of the graph.
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute(final PathSeparator separator) {
         Objects.requireNonNull(separator, "separator");
@@ -41,7 +41,7 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     /**
-     * Creates a selector that begins its search with the given node.
+     * Creates a select that begins its search with the given node.
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> relative(final PathSeparator separator) {
         Objects.requireNonNull(separator, "separator");

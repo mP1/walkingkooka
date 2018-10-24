@@ -71,7 +71,7 @@ final public class IndexedChildNodeSelectorTest extends
     @Test
     public void testToString() {
         assertEquals("INDEX", 2, IndexedChildNodeSelectorTest.INDEX);
-        assertEquals("[2]", this.createSelector().toString());
+        assertEquals("*[2]", this.createSelector().toString());
     }
 
     @Override

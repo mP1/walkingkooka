@@ -114,7 +114,7 @@ final public class FollowingNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("following", this.createSelector().toString());
+        assertEquals("following::*", this.createSelector().toString());
     }
 
     @Override

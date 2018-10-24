@@ -68,7 +68,7 @@ final public class LastChildNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("last-child", this.createSelector().toString());
+        assertEquals("last-child::*", this.createSelector().toString());
     }
 
     @Override

@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * A selector maybe used to select zero or more nodes within a tree given a {@link Node}.
+ * A select maybe used to select zero or more nodes within a tree given a {@link Node}.
  */
 public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> {
 
@@ -47,7 +47,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     // NodeSelector
 
     final NodeSelector<N, NAME, ANAME, AVALUE> append(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        Objects.requireNonNull(selector, "selector");
+        Objects.requireNonNull(selector, "select");
 
         return this.append0(selector);
     }
@@ -143,8 +143,6 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
      */
     abstract void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
-    final static String DEFAULT_AXIS_SEPARATOR = "::";
-
     /**
      * Returns a {@link Predicate} that returns true if at least one {@link Node} is matched.
      */
@@ -157,12 +155,10 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
      */
     @Override
     public final String toString() {
-        final StringBuilder b = new StringBuilder();
-        this.toString0(b, "");
-        return b.toString();
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.create();
+        this.toString0(b);
+        return b.build();
     }
 
-    abstract void toString0(final StringBuilder b, final String separator);
-
-    abstract void toStringNext(final StringBuilder b, final String separator);
+    abstract void toString0(final NodeSelectorToStringBuilder b);
 }

@@ -40,7 +40,7 @@ public class EndsWithNodeAttributeValuePredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("[ends-with(@\"attribute-1\",\"123\")]", this.createPredicate().toString());
+        assertEquals("ends-with(@\"attribute-1\",\"123\")", this.createPredicate().toString());
     }
 
     @Override

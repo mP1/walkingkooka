@@ -70,9 +70,8 @@ final class FirstChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     // Object
 
     @Override
-    void toString0(final StringBuilder b, String separator) {
-        b.append(separator).append("first-child");
-        this.toStringNext(b, DEFAULT_AXIS_SEPARATOR);
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.axis("first-child");
     }
 
     @Override
