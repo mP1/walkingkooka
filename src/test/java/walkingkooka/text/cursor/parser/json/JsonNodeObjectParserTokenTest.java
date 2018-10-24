@@ -35,37 +35,37 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithArrayKeyFails() {
-        JsonNodeParserToken.object(Lists.of(array()), "{[]}");
+        JsonNodeObjectParserToken.with(Lists.of(array()), "{[]}");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithBooleanKeyFails() {
-        JsonNodeParserToken.object(Lists.of(booleanToken(true)), "{true}");
+        JsonNodeObjectParserToken.with(Lists.of(booleanToken(true)), "{true}");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithNullKeyFails() {
-        JsonNodeParserToken.object(Lists.of(nul()), "{null}");
+        JsonNodeObjectParserToken.with(Lists.of(nul()), "{null}");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithMNumberKeyFails() {
-        JsonNodeParserToken.object(Lists.of(number(123)), "{123}");
+        JsonNodeObjectParserToken.with(Lists.of(number(123)), "{123}");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithObjectKeyFails() {
-        JsonNodeParserToken.object(Lists.of(object()), "{{}}");
+        JsonNodeObjectParserToken.with(Lists.of(object()), "{{}}");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithMissingValueFails() {
-        JsonNodeParserToken.object(Lists.of(string("key")), "{\"key\":}");
+        JsonNodeObjectParserToken.with(Lists.of(string("key")), "{\"key\":}");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithMissingValueFails2() {
-        JsonNodeParserToken.object(Lists.of(string("key1"), number(123), string("key2")), "{\"key1\":123,\"key2\"}");
+        JsonNodeObjectParserToken.with(Lists.of(string("key1"), number(123), string("key2")), "{\"key1\":123,\"key2\"}");
     }
 
     @Test
@@ -79,7 +79,7 @@ public final class JsonNodeObjectParserTokenTest extends JsonNodeParentParserTok
 
     @Test
     public void testToJsonNodeEmpty() {
-        assertEquals(Optional.of(JsonNode.object()), JsonNodeParserToken.object(Lists.empty(), "{}").toJsonNode());
+        assertEquals(Optional.of(JsonNode.object()), JsonNodeObjectParserToken.with(Lists.empty(), "{}").toJsonNode());
     }
 
     @Test
