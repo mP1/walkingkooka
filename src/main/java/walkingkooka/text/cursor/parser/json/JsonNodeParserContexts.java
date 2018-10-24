@@ -30,6 +30,13 @@ public final class JsonNodeParserContexts implements PublicStaticHelper {
     }
 
     /**
+     * {@see FakeJsonNodeParserContext}
+     */
+    public static JsonNodeParserContext fake() {
+        return new FakeJsonNodeParserContext();
+    }
+
+    /**
      * Stop creation.
      */
     private JsonNodeParserContexts() {

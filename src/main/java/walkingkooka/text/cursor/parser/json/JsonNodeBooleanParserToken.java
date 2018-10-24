@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Holds a single decimal number.
+ * Holds a either true or false boolean value
  */
 public final class JsonNodeBooleanParserToken extends JsonNodeLeafParserToken2<Boolean> {
 
