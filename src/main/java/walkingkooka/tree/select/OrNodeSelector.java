@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 /**
- * A {@link NodeSelector} that continues to walking the tree, continuously trying the next selector.
+ * A {@link NodeSelector} that continues to walking the tree, continuously trying the next select.
  */
 final class OrNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends

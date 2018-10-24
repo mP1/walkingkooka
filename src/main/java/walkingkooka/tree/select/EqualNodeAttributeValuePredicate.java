@@ -31,16 +31,19 @@ final class EqualNodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVAL
         super(name, value);
     }
 
-    @Override boolean test0(final AVALUE value, final AVALUE current) {
+    @Override
+    boolean test0(final AVALUE value, final AVALUE current) {
         return current.equals(value);
     }
 
-    @Override boolean isSameType(final Object other) {
+    @Override
+    boolean isSameType(final Object other) {
         return other instanceof EqualNodeAttributeValuePredicate;
     }
 
-    @Override String toString0(final ANAME name, final AVALUE value) {
+    @Override
+    String toString0(final ANAME name, final AVALUE value) {
         //[@for="xyz"]
-        return "[@" + name + "=" + CharSequences.quoteIfChars(value) + "]";
+        return "@" + name + "=" + CharSequences.quoteIfChars(value);
     }
 }

@@ -237,7 +237,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * Returns a selector that may be used to locate this {@link Node} starting at the root.
+     * Returns a select that may be used to locate this {@link Node} starting at the root.
      */
     default NodeSelector<N, NAME, ANAME, AVALUE> selector() {
         return NodeSelector.path(Cast.to(this));

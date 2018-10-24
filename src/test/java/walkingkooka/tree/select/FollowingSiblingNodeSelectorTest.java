@@ -102,7 +102,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("following-sibling", this.createSelector().toString());
+        assertEquals("following-sibling::*", this.createSelector().toString());
     }
 
     @Override

@@ -292,21 +292,33 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     @Test
     public void testToStringManySelectors() {
         final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.createBuilder();
-        b.precedingSibling()
+        b.absolute()
+                .precedingSibling()
                 .self()
                 .followingSibling();
 
-        this.buildAndCheck2(b,"preceding-sibling::.::following-sibling");
+        this.buildAndCheck2(b,"/preceding-sibling::*/./following-sibling::*");
     }
 
     @Test
     public void testToStringManySelectors2() {
         final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.createBuilder();
+        b.absolute()
+                .preceding()
+                .self()
+                .following();
+
+        this.buildAndCheck2(b, "/preceding::*/./following::*");
+    }
+
+    @Test
+    public void testToStringManySelectors3() {
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.createBuilder();
         b.preceding()
                 .self()
                 .following();
 
-        this.buildAndCheck2(b, "preceding::.::following");
+        this.buildAndCheck2(b, "preceding::*/./following::*");
     }
 
     @Override

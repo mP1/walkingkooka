@@ -89,7 +89,7 @@ final public class PrecedingSiblingNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("preceding-sibling", this.createSelector().toString());
+        assertEquals("preceding-sibling::*", this.createSelector().toString());
     }
 
     @Override

@@ -31,7 +31,7 @@ final public class AbsoluteNodeSelectorTest extends
         UnaryNodeSelectorTestCase<AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
-    private final static Predicate<TestFakeNode> PREDICATE = Predicates.always();
+    private final static Predicate<TestFakeNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPathSeparatorFails() {
@@ -75,13 +75,13 @@ final public class AbsoluteNodeSelectorTest extends
 
     @Test
     public void testToString2() {
-        assertEquals("/[" + PREDICATE + "]", this.createSelector2().toString());
+        assertEquals("/*[" + PREDICATE + "]", this.createSelector2().toString());
     }
 
     @Test
     public void testToStringPathSeparatorNotRequiredAtStart() {
         final PathSeparator separator = PathSeparator.notRequiredAtStart('/');
-        assertEquals("", this.createSelector(separator).toString());
+        assertEquals("/", this.createSelector(separator).toString());
     }
 
     @Override

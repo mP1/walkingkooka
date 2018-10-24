@@ -77,10 +77,9 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     private final NAME name;
 
     @Override
-    void toString0(final StringBuilder b, final String separator) {
-        b.append(separator).append(this.name.value());
-
-        this.toStringNext(b, this.separator.string());
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.separator(this.separator);
+        b.node(this.name.value());
     }
 
     private final PathSeparator separator;

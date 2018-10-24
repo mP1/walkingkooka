@@ -64,9 +64,8 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
     }
 
     @Override
-    void toString0(final StringBuilder b, String separator){
-        b.append(separator).append("..");
-        this.toStringNext(b, "");
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.parent();
     }
 
     @Override

@@ -73,9 +73,16 @@ abstract class UnaryNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    final void toStringNext(final StringBuilder b, final String separator){
+    void toString0(final NodeSelectorToStringBuilder b) {
+        this.toString1(b);
+        this.toStringNext(b);
+    }
+
+    abstract void toString1(final NodeSelectorToStringBuilder b);
+
+    final void toStringNext(final NodeSelectorToStringBuilder b){
         if(null!=this.next) {
-            this.next.toString0(b, separator);
+            this.next.toString0(b);
         }
     }
 

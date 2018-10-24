@@ -83,9 +83,8 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    void toString0(final StringBuilder b, String separator) {
-        b.append(this.separator).append(this.separator);
-        this.toStringNext(b, "");
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.descendant(this.separator);
     }
 
     // ignore in hashcode / equals...

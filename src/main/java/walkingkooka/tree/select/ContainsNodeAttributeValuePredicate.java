@@ -36,12 +36,14 @@ final class ContainsNodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, A
         return current.toString().contains(value.toString());
     }
 
-    @Override boolean isSameType(final Object other) {
+    @Override
+    boolean isSameType(final Object other) {
         return other instanceof ContainsNodeAttributeValuePredicate;
     }
 
-    @Override String toString0(final ANAME name, final AVALUE value) {
+    @Override
+    String toString0(final ANAME name, final AVALUE value) {
         // //a[contains(@href, '://')]
-        return "[contains(@" + name + "," + CharSequences.quoteIfChars(value) + ")]";
+        return "contains(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }

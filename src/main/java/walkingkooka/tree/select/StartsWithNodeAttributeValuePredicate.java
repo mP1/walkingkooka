@@ -36,12 +36,14 @@ final class StartsWithNodeAttributeValuePredicate<N extends Node<N, NAME, ANAME,
         return current.toString().startsWith(value.toString());
     }
 
-    @Override boolean isSameType(final Object other) {
+    @Override
+    boolean isSameType(final Object other) {
         return other instanceof StartsWithNodeAttributeValuePredicate;
     }
 
-    @Override String toString0(final ANAME name, final AVALUE value) {
+    @Override
+    String toString0(final ANAME name, final AVALUE value) {
         //[starts-with(@href, '/')]
-        return "[starts-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")]";
+        return "starts-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }

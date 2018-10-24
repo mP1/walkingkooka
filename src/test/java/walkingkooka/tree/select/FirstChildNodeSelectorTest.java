@@ -68,7 +68,7 @@ final public class FirstChildNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("first-child", this.createSelector().toString());
+        assertEquals("first-child::*", this.createSelector().toString());
     }
 
     @Override

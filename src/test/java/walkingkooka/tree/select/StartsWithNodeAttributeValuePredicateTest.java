@@ -40,7 +40,7 @@ public class StartsWithNodeAttributeValuePredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("[starts-with(@\"attribute-1\",\"123\")]", this.createPredicate().toString());
+        assertEquals("starts-with(@\"attribute-1\",\"123\")", this.createPredicate().toString());
     }
 
     @Override

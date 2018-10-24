@@ -71,11 +71,7 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    void toString0(final StringBuilder b, final String separator){
-        //nop
-    }
-
-    @Override void toStringNext(final StringBuilder b, final String separator) {
-        throw new ShouldNeverHappenError(this.getClass() + ".toStringNext(StringBuilder, String)");
+    void toString0(final NodeSelectorToStringBuilder b) {
+        // nop
     }
 }

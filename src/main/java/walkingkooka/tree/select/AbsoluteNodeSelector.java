@@ -79,12 +79,8 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    void toString0(final StringBuilder b, String separator) {
-        // must be first can never be next
-        if(this.separator.isRequiredAtStart()) {
-            b.append(this.separator);
-        }
-        this.toStringNext(b, "");
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.absolute(this.separator);
     }
 
     // ignore in hashcode / equals...

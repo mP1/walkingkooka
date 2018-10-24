@@ -78,7 +78,7 @@ final public class PathNodeSelectorTest extends
 
     @Test
     public void testToString2() {
-        assertEquals("[3][2]", PathNodeSelector.with(child3()).toString());
+        assertEquals("*[3]/*[2]", PathNodeSelector.with(child3()).toString());
     }
 
     @Override

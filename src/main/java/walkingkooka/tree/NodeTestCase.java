@@ -106,7 +106,7 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
         final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
         final Set<N> matches = selector.accept(node, selector.nulObserver());
-        assertEquals("Node's own selector should have matched only itself", Sets.of(node), matches);
+        assertEquals("Node's own select should have matched only itself", Sets.of(node), matches);
     }
 
     @Test(expected = UnsupportedOperationException.class)

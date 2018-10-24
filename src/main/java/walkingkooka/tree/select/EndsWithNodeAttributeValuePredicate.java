@@ -31,16 +31,19 @@ final class EndsWithNodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, A
         super(name, value);
     }
 
-    @Override boolean test0(final AVALUE value, final AVALUE currentValue) {
+    @Override
+    boolean test0(final AVALUE value, final AVALUE currentValue) {
         return currentValue.toString().endsWith(value.toString());
     }
 
-    @Override boolean isSameType(final Object other) {
+    @Override
+    boolean isSameType(final Object other) {
         return other instanceof EndsWithNodeAttributeValuePredicate;
     }
 
-    @Override String toString0(final ANAME name, final AVALUE value) {
+    @Override
+    String toString0(final ANAME name, final AVALUE value) {
         //[ends-with(@href, '/')]
-        return "[ends-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")]";
+        return "ends-with(@" + name + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }

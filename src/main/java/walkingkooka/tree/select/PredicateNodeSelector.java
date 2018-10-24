@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
@@ -38,11 +37,7 @@ final class PredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> PredicateNodeSelector<N, NAME, ANAME, AVALUE> with(final Predicate<N> predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
-        final String predicateToString = predicate.toString();
-        return new PredicateNodeSelector<>(
-                predicateToString.startsWith("[") && predicateToString.endsWith("]") ?
-                predicate : // already returns preferred toString
-                Predicates.customToString(predicate, "[" + predicateToString + "]"));
+        return new PredicateNodeSelector<>(predicate);
     }
 
     /**
@@ -96,7 +91,7 @@ final class PredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     }
 
     @Override
-    void toString0(final StringBuilder b, final String separator){
-        b.append(this.predicate.toString());
+    void toString1(final NodeSelectorToStringBuilder b) {
+        b.predicate(this.predicate.toString());
     }
 }
