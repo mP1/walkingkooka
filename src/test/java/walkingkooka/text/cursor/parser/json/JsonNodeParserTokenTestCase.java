@@ -122,10 +122,6 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
         return JsonNodeParserToken.object(Lists.of(tokens), text(tokens));
     }
 
-    private static String text(final JsonNodeParserToken...tokens){
-        return ParserToken.text(Lists.of(tokens));
-    }
-
     final JsonNodeParserToken separator() {
         return JsonNodeParserToken.separatorSymbol(",", ",");
     }
@@ -136,5 +132,9 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
 
     final JsonNodeParserToken whitespace() {
         return JsonNodeParserToken.whitespace("  ", "  ");
+    }
+
+    private static String text(final JsonNodeParserToken...tokens){
+        return ParserToken.text(Lists.of(tokens));
     }
 }

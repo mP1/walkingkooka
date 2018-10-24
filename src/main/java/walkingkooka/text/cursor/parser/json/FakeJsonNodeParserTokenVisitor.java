@@ -18,10 +18,11 @@
 
 package walkingkooka.text.cursor.parser.json;
 
+import walkingkooka.test.Fake;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-public class FakeJsonNodeParserTokenVisitor extends JsonNodeParserTokenVisitor {
+public class FakeJsonNodeParserTokenVisitor extends JsonNodeParserTokenVisitor implements Fake {
 
     protected FakeJsonNodeParserTokenVisitor() {
         super();

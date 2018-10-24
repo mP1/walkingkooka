@@ -26,9 +26,6 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTestCase3;
 import walkingkooka.text.cursor.parser.ParserToken;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodeParserToken, JsonNodeParserContext>,
         JsonNodeParserToken,
         JsonNodeParserContext> {
@@ -396,6 +393,14 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
         return JsonNodeParserToken.separatorSymbol(",", ",");
     }
 
+    private JsonNodeParserToken string(final String value) {
+        return JsonNodeParserToken.string(value, CharSequences.quoteAndEscape(value).toString());
+    }
+
+    private JsonNodeParserToken whitespace() {
+        return JsonNodeParserToken.whitespace("  ", "  ");
+    }
+
     private JsonNodeParserToken key1() {
         return string("key1");
     }
@@ -408,18 +413,8 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
         return string("key3");
     }
 
-    private JsonNodeParserToken string(final String value) {
-        return JsonNodeParserToken.string(value, CharSequences.quoteAndEscape(value).toString());
-    }
-
-    private JsonNodeParserToken whitespace() {
-        return JsonNodeParserToken.whitespace("  ", "  ");
-    }
-
     private static String text(final JsonNodeParserToken...tokens){
-        return Arrays.stream(tokens)
-                .map(t -> t.text())
-                .collect(Collectors.joining());
+        return ParserToken.text(Lists.of(tokens));
     }
 
     @Override
