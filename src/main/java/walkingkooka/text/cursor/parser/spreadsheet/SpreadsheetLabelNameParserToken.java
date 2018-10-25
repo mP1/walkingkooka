@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * Represents a label or name for a cell or range etc.
  */
-public final class SpreadsheetLabelNameParserToken extends SpreadsheetLeafParserToken2<SpreadsheetLabelName> implements SpreadsheetReferenceParserToken {
+public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolParserToken<SpreadsheetLabelName> implements SpreadsheetReferenceParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLabelNameParserToken.class);
 

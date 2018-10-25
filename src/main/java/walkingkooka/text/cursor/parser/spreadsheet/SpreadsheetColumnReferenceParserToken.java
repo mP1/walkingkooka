@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * A column
  */
-public final class SpreadsheetColumnReferenceParserToken extends SpreadsheetLeafParserToken2<SpreadsheetColumnReference> {
+public final class SpreadsheetColumnReferenceParserToken extends SpreadsheetNonSymbolParserToken<SpreadsheetColumnReference> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetColumnReferenceParserToken.class);
 

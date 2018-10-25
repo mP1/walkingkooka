@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * Holds the actual function name within a function token.
  */
-public final class SpreadsheetFunctionNameParserToken extends SpreadsheetLeafParserToken2<SpreadsheetFunctionName> {
+public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymbolParserToken<SpreadsheetFunctionName> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFunctionNameParserToken.class);
 

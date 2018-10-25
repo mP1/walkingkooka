@@ -24,9 +24,9 @@ import java.util.List;
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class SpreadsheetLeafParserToken2<T> extends SpreadsheetLeafParserToken<T> {
+abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserToken<T> {
 
-    SpreadsheetLeafParserToken2(final T value, final String text){
+    SpreadsheetNonSymbolParserToken(final T value, final String text){
         super(value, text);
     }
 
