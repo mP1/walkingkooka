@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * Holds a json string value.
  */
-public final class JsonNodeStringParserToken extends JsonNodeLeafParserToken2<String> {
+public final class JsonNodeStringParserToken extends JsonNodeValueParserToken<String> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeStringParserToken.class);
 

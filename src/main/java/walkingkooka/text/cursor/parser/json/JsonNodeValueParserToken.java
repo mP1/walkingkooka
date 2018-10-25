@@ -20,9 +20,9 @@ package walkingkooka.text.cursor.parser.json;
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class JsonNodeLeafParserToken2<T> extends JsonNodeLeafParserToken<T> {
+abstract class JsonNodeValueParserToken<T> extends JsonNodeLeafParserToken<T> {
 
-    JsonNodeLeafParserToken2(final T value, final String text){
+    JsonNodeValueParserToken(final T value, final String text){
         super(value, text);
     }
 
