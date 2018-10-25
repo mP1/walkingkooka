@@ -50,6 +50,11 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }
@@ -92,11 +97,6 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetBigIntegerParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

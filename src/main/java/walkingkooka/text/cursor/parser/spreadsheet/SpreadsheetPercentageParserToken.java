@@ -60,6 +60,11 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isNegative() {
         return false;
     }
@@ -80,10 +85,5 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetPercentageParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

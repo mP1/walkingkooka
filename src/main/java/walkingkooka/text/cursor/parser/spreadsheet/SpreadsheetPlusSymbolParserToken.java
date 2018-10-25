@@ -50,6 +50,11 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isBetweenSymbol() {
         return false;
     }
@@ -147,10 +152,5 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetPlusSymbolParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

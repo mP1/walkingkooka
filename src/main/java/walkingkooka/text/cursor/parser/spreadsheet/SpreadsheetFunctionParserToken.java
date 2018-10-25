@@ -92,6 +92,11 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isAddition() {
         return false;
     }
@@ -187,10 +192,5 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFunctionParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

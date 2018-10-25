@@ -20,7 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import java.util.Optional;
 
 /**
- * Base class for any leaf that holds
+ * Base class for any leaf that holds a numeric value.
  */
 abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetNonSymbolParserToken<T> {
 

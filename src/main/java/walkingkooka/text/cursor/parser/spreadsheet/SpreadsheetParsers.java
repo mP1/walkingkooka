@@ -34,6 +34,9 @@ import java.math.MathContext;
 import java.util.Map;
 import java.util.function.BiFunction;
 
+/**
+ * Numerous {@link Parser parsers} that parse individual components of a formula or an entire formula.
+ */
 public final class SpreadsheetParsers implements PublicStaticHelper {
 
     /**

@@ -23,7 +23,7 @@ import walkingkooka.tree.search.SearchNode;
 import java.math.BigDecimal;
 
 /**
- * Holds a single decimal number.
+ * Holds a single {@link BigDecimal} number.
  */
 public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericParserToken<BigDecimal> {
 
@@ -47,6 +47,11 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
     @Override
     SpreadsheetBigDecimalParserToken replaceText(final String text) {
         return new SpreadsheetBigDecimalParserToken(this.value, text);
+    }
+
+    @Override
+    public ParserTokenNodeName name() {
+        return NAME;
     }
 
     @Override
@@ -92,11 +97,6 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetBigDecimalParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

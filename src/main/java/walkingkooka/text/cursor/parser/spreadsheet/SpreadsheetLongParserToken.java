@@ -46,6 +46,11 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }
@@ -88,11 +93,6 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetLongParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

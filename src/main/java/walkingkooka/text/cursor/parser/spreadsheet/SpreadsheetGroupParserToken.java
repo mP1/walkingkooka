@@ -58,6 +58,11 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isAddition() {
         return false;
     }
@@ -153,10 +158,5 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetGroupParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

@@ -61,6 +61,11 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbol
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }
@@ -131,6 +136,11 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbol
     }
 
     @Override
+    public boolean isNoise() {
+        return true;
+    }
+
+    @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor){
         visitor.visit(this);
     }
@@ -138,16 +148,6 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbol
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetWhitespaceParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
-
-    @Override
-    public boolean isNoise() {
-        return true;
     }
 
     // HasSearchNode ...............................................................................................
