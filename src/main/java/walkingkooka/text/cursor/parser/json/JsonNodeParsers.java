@@ -36,6 +36,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
 
+/**
+ * Holds numerous {@link Parser parsers} that return individual json nodes including an entire {@link JsonNodeObjectParserToken}.
+ */
 public final class JsonNodeParsers implements PublicStaticHelper {
 
     private static final Parser<ParserToken, ParserContext> ARRAY_BEGIN_SYMBOL = symbol('[', JsonNodeParserToken::arrayBeginSymbol, JsonNodeArrayBeginSymbolParserToken.class);
@@ -133,7 +136,12 @@ public final class JsonNodeParsers implements PublicStaticHelper {
             .setToString(JsonNodeWhitespaceParserToken.class.getSimpleName())
             .cast();
 
-    private static Parser<ParserToken, ParserContext> symbol(final char c, final BiFunction<String, String, ParserToken> factory, final Class<? extends JsonNodeSymbolParserToken> tokenClass) {
+    /**
+     * Factory that parsers and returns a sub class of {@link JsonNodeSymbolParserToken}
+     */
+    private static Parser<ParserToken, ParserContext> symbol(final char c,
+                                                             final BiFunction<String, String, ParserToken> factory,
+                                                             final Class<? extends JsonNodeSymbolParserToken> tokenClass) {
         return Parsers.character(CharPredicates.is(c))
                 .transform((charParserToken, context) -> factory.apply(charParserToken.value().toString(), charParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
@@ -141,12 +149,15 @@ public final class JsonNodeParsers implements PublicStaticHelper {
     }
 
     /**
-     * VALUE
+     * Returns a {@link Parser} that returns any of the json values, such as array, boolean, null, number, object.
      */
     public static Parser<ParserToken, ParserContext> value() {
         return VALUE;
     }
 
+    /**
+     * Loads and caches the {@link EbnfGrammarParserToken}.
+     */
     private final static EbnfGrammarLoader grammarLoader = EbnfGrammarLoader.with("json-parsers.grammar", JsonNodeParsers.class);
 
     private final static Parser<ParserToken, ParserContext> VALUE = value0();
@@ -175,7 +186,7 @@ public final class JsonNodeParsers implements PublicStaticHelper {
 
             final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> result = grammar.get()
                     .combinator(predefined,
-                            new JsonNodeEbnfParserCombinatorSyntaxTreeTransformer());
+                            JsonNodeEbnfParserCombinatorSyntaxTreeTransformer.create());
 
             return result.get(VALUE_IDENTIFIER);
         } catch (final JsonNodeParserException rethrow) {
