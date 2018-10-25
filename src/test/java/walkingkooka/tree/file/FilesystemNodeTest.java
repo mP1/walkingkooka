@@ -48,7 +48,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, FileNodeAttributeName, String> {
+public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> {
 
     private final static String SUB = "sub";
     private final static String SUB_SUB = "subSub";
@@ -61,7 +61,7 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
 
     @Before
     public void createDirectoryStructure() throws IOException{
-        home = Files.createTempDirectory(FileNodeTest.class.getName() + "-");
+        home = Files.createTempDirectory(FilesystemNodeTest.class.getName() + "-");
 
         sub = Files.createDirectory(home.resolve(SUB)); // /sub
         subSub = Files.createDirectory(sub.resolve(SUB_SUB)); // /sub/subSub
@@ -95,7 +95,7 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
     /**
      * Static so tests can clear the cache by manipulating the map when they wish.
      */
-    static Map<Path, Map<FileNodeCacheAtom, String>> fileNodeToCache = Maps.ordered();
+    static Map<Path, Map<FilesystemNodeCacheAtom, String>> fileNodeToCache = Maps.ordered();
 
     // Tests ...........................................................................................................
 
@@ -106,60 +106,60 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
 
     @Test
     public void testDirectoryAttributesKeySet() {
-        assertEquals(DirectoryFileNode.ATTRIBUTE_NAMES, this.createNode().attributes().keySet());
+        assertEquals(DirectoryFilesystemNode.ATTRIBUTE_NAMES, this.createNode().attributes().keySet());
     }
 
     @Test
     public void testDirectoryAttributesValues() {
-        this.checkAttributes(this.createNode(), DirectoryFileNode.ATTRIBUTE_NAMES);
+        this.checkAttributes(this.createNode(), DirectoryFilesystemNode.ATTRIBUTE_NAMES);
     }
 
     @Test
     public void testChildrenOfRoot() {
-        final FileNode root = this.createNode();
-        final List<FileNode> children = root.children();
+        final FilesystemNode root = this.createNode();
+        final List<FilesystemNode> children = root.children();
         assertEquals("child count=" + children, 1, children.size());
 
         assertSame("children cached", children, root.children());
 
-        final FileNode child = root.children().get(0);
-        assertEquals("child", FileNodeName.with("sub"), child.name());
+        final FilesystemNode child = root.children().get(0);
+        assertEquals("child", FilesystemNodeName.with("sub"), child.name());
     }
 
     @Test
     public void testCreatedLastAccessedModifiedAttributes() {
-        final FileNode root = this.createNode();
+        final FilesystemNode root = this.createNode();
 
         final String today = DateTimeFormatter.ISO_DATE.format(LocalDateTime.now());
-        checkAttributeContains(root, FileNodeAttributeName.CREATED, today);
-        checkAttributeContains(root, FileNodeAttributeName.LAST_ACCESSED, today);
-        checkAttributeContains(root, FileNodeAttributeName.LAST_MODIFIED, today);
+        checkAttributeContains(root, FilesystemNodeAttributeName.CREATED, today);
+        checkAttributeContains(root, FilesystemNodeAttributeName.LAST_ACCESSED, today);
+        checkAttributeContains(root, FilesystemNodeAttributeName.LAST_MODIFIED, today);
     }
 
     @Test
     public void testHidden() {
-        final FileNode root = this.createNode();
+        final FilesystemNode root = this.createNode();
 
-        checkAttributeEquals(root, FileNodeAttributeName.HIDDEN, Boolean.FALSE.toString());
+        checkAttributeEquals(root, FilesystemNodeAttributeName.HIDDEN, Boolean.FALSE.toString());
     }
 
     @Test
     public void testChildrenOfGraphAndAttributes() {
-        final FileNode root = this.createNode();
-        final List<FileNode> children = root.children();
+        final FilesystemNode root = this.createNode();
+        final List<FilesystemNode> children = root.children();
         assertEquals("child count=" + children, 1, children.size());
 
         assertSame("children cached", children, root.children());
 
-        final FileNode child = root.children().get(0);
+        final FilesystemNode child = root.children().get(0);
         assertEquals("child", sub(), child.name());
 
-        FileNode subSub = null;
-        FileNode subFile = null;
-        FileNode subFile2 = null;
+        FilesystemNode subSub = null;
+        FilesystemNode subFile = null;
+        FilesystemNode subFile2 = null;
 
-        for(FileNode subChild : child.children()) {
-            final FileNodeName name = subChild.name();
+        for(FilesystemNode subChild : child.children()) {
+            final FilesystemNodeName name = subChild.name();
             if(name.equals(subSub())){
                 subSub = subChild;
                 continue;
@@ -182,63 +182,63 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
         checkIsDirectoryAndIsFile(subFile, false);
         checkIsDirectoryAndIsFile(subFile2, false);
 
-        checkAttributeEquals(subSub, FileNodeAttributeName.TYPE, FileNode.DIRECTORY_TYPE);
-        checkAttributeEquals(subSub, FileNodeAttributeName.HIDDEN, Boolean.FALSE.toString());
+        checkAttributeEquals(subSub, FilesystemNodeAttributeName.TYPE, FilesystemNode.DIRECTORY_TYPE);
+        checkAttributeEquals(subSub, FilesystemNodeAttributeName.HIDDEN, Boolean.FALSE.toString());
 
-        checkAttributeEquals(subFile, FileNodeAttributeName.TYPE, FileNode.FILE_TYPE);
-        checkAttributeEquals(subFile2, FileNodeAttributeName.TYPE, FileNode.FILE_TYPE);
+        checkAttributeEquals(subFile, FilesystemNodeAttributeName.TYPE, FilesystemNode.FILE_TYPE);
+        checkAttributeEquals(subFile2, FilesystemNodeAttributeName.TYPE, FilesystemNode.FILE_TYPE);
     }
 
-    private void checkIsDirectoryAndIsFile(final FileNode node, final boolean isDirectory) {
+    private void checkIsDirectoryAndIsFile(final FilesystemNode node, final boolean isDirectory) {
         assertEquals(node + " isDirectory()", node.isDirectory(), isDirectory);
         assertEquals(node + " isFile()", node.isFile(), !isDirectory);
     }
 
     @Test
     public void testFile() {
-        final FileNode subFile = this.subFileFileNode();
-        this.checkAttributeEquals(subFile, FileNodeAttributeName.SIZE, "" + CONTENT1.length());
-        this.checkAttributeEquals(subFile, FileNodeAttributeName.TEXT, CONTENT1);
-        this.checkAttributeEquals(subFile, FileNodeAttributeName.TEXT, CONTENT1);
-        this.checkAttributeEquals(subFile, FileNodeAttributeName.TEXT, CONTENT1);
+        final FilesystemNode subFile = this.subFileFileNode();
+        this.checkAttributeEquals(subFile, FilesystemNodeAttributeName.SIZE, "" + CONTENT1.length());
+        this.checkAttributeEquals(subFile, FilesystemNodeAttributeName.TEXT, CONTENT1);
+        this.checkAttributeEquals(subFile, FilesystemNodeAttributeName.TEXT, CONTENT1);
+        this.checkAttributeEquals(subFile, FilesystemNodeAttributeName.TEXT, CONTENT1);
     }
 
     @Test
     public void testFileTextRepeatedAfterClearingCache() {
-        final FileNode subFile = this.subFileFileNode();
-        final String text = this.checkAttributeEquals(subFile, FileNodeAttributeName.TEXT, CONTENT1);
-        final String textAgain = this.checkAttributeEquals(subFile, FileNodeAttributeName.TEXT, CONTENT1);
+        final FilesystemNode subFile = this.subFileFileNode();
+        final String text = this.checkAttributeEquals(subFile, FilesystemNodeAttributeName.TEXT, CONTENT1);
+        final String textAgain = this.checkAttributeEquals(subFile, FilesystemNodeAttributeName.TEXT, CONTENT1);
         assertSame("text was not cached", text, textAgain);
     }
 
     @Test
     public void testFileCreatedDoesntChangeAfterWrite() throws Exception {
-        final FileNode subFile = this.subFileFileNode();
-        this.checkAttributeEquals(subFile, FileNodeAttributeName.TEXT, CONTENT1);
+        final FilesystemNode subFile = this.subFileFileNode();
+        this.checkAttributeEquals(subFile, FilesystemNodeAttributeName.TEXT, CONTENT1);
 
-        final String created = attribute(subFile, FileNodeAttributeName.CREATED);
+        final String created = attribute(subFile, FilesystemNodeAttributeName.CREATED);
         writeFile(subFile.value(), DIFFERENT_CONTENT_TEXT);
 
-        this.checkAttributeEquals(subFile, FileNodeAttributeName.CREATED, created);
+        this.checkAttributeEquals(subFile, FilesystemNodeAttributeName.CREATED, created);
     }
 
     @Test
     public void testFileAttributesKeySet() {
-        assertEquals(FileFileNode.ATTRIBUTE_NAMES, this.subFileFileNode().attributes().keySet());
+        assertEquals(FileFilesystemNode.ATTRIBUTE_NAMES, this.subFileFileNode().attributes().keySet());
     }
 
     @Test
     public void testFileAttributesValues() {
-        this.checkAttributes(this.subFileFileNode(),  FileFileNode.ATTRIBUTE_NAMES);
+        this.checkAttributes(this.subFileFileNode(),  FileFilesystemNode.ATTRIBUTE_NAMES);
     }
 
-    private void checkAttributes(final FileNode node, final Set<FileNodeAttributeName> names) {
-        final Map<FileNodeAttributeName, String> read = node.attributes();
+    private void checkAttributes(final FilesystemNode node, final Set<FilesystemNodeAttributeName> names) {
+        final Map<FilesystemNodeAttributeName, String> read = node.attributes();
         assertEquals("read attributes size", names.size(), read.size());
 
-        final Map<FileNodeAttributeName, String> attributes = Maps.ordered();
-        for(Entry<FileNodeAttributeName, String> nameAndValue : read.entrySet()) {
-            final FileNodeAttributeName name = nameAndValue.getKey();
+        final Map<FilesystemNodeAttributeName, String> attributes = Maps.ordered();
+        for(Entry<FilesystemNodeAttributeName, String> nameAndValue : read.entrySet()) {
+            final FilesystemNodeAttributeName name = nameAndValue.getKey();
             assertNotNull("name key must not be null", name);
             final String value = nameAndValue.getValue();
             assertNotNull("value must not be null", value);
@@ -258,20 +258,20 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
 
     @Test
     public void testSelectorUsage() throws Exception {
-        final FileNode document = this.createNode();
-        final NodeSelector<FileNode, FileNodeName, FileNodeAttributeName, String> selector = FileNode.absoluteNodeSelectorBuilder()
+        final FilesystemNode document = this.createNode();
+        final NodeSelector<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> selector = FilesystemNode.absoluteNodeSelectorBuilder()
                 .descendant()
-                .named(FileNodeName.with(SUB_FILE))
+                .named(FilesystemNodeName.with(SUB_FILE))
                 .build();
-        final Set<FileNode> matches = selector.accept(document, selector.nulObserver());
+        final Set<FilesystemNode> matches = selector.accept(document, selector.nulObserver());
         assertEquals("should have matched a single file\n" + matches, 1, matches.size());
     }
 
-    private FileNode subFileFileNode() {
-        final FileNode root = this.createNode();
-        final FileNode sub = root.children().get(0);
-        for(FileNode subChild : sub.children()) {
-            final FileNodeName name = subChild.name();
+    private FilesystemNode subFileFileNode() {
+        final FilesystemNode root = this.createNode();
+        final FilesystemNode sub = root.children().get(0);
+        for(FilesystemNode subChild : sub.children()) {
+            final FilesystemNodeName name = subChild.name();
             if(name.equals(subFile())){
                 return subChild;
             }
@@ -280,33 +280,33 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
         return null;
     }
 
-    private FileNodeName sub() {
-        return FileNodeName.with(SUB);
+    private FilesystemNodeName sub() {
+        return FilesystemNodeName.with(SUB);
     }
 
-    private FileNodeName subSub() {
-        return FileNodeName.with(SUB_SUB);
+    private FilesystemNodeName subSub() {
+        return FilesystemNodeName.with(SUB_SUB);
     }
 
-    private FileNodeName subFile() {
-        return FileNodeName.with(SUB_FILE);
+    private FilesystemNodeName subFile() {
+        return FilesystemNodeName.with(SUB_FILE);
     }
 
-    private FileNodeName subFile2() {
-        return FileNodeName.with(SUB_FILE2);
+    private FilesystemNodeName subFile2() {
+        return FilesystemNodeName.with(SUB_FILE2);
     }
 
-    private String attribute(final FileNode node, final FileNodeAttributeName attribute) {
+    private String attribute(final FilesystemNode node, final FilesystemNodeAttributeName attribute) {
         return node.attributes().get(attribute);
     }
 
-    private String checkAttributeEquals(final FileNode node, final FileNodeAttributeName attribute, final String value) {
+    private String checkAttributeEquals(final FilesystemNode node, final FilesystemNodeAttributeName attribute, final String value) {
         final String actual = node.attributes().get(attribute);
         assertEquals(node.value().getFileName() + "." + attribute, value, actual);
         return actual;
     }
 
-    private String checkAttributeContains(final FileNode node, final FileNodeAttributeName attribute, final String value) {
+    private String checkAttributeContains(final FilesystemNode node, final FilesystemNodeAttributeName attribute, final String value) {
         final String actual = node.attributes().get(attribute);
         assertTrue(node.value().getFileName() + "." + attribute + "=" + CharSequences.quote(actual) + " doesnt contain " + CharSequences.quote(value), actual.contains(value));
         return actual;
@@ -315,10 +315,10 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
     // Helpers ...........................................................................................................
 
     @Override
-    protected FileNode createNode() {
-        return FileNode.directory(home, new FileNodeContext() {
+    protected FilesystemNode createNode() {
+        return FilesystemNode.directory(home, new FilesystemNodeContext() {
 
-            private Map<Path, FileNode> pathToFileNode = Maps.ordered();
+            private Map<Path, FilesystemNode> pathToFileNode = Maps.ordered();
 
             @Override
             public Path rootPath() {
@@ -326,29 +326,29 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
             }
 
             @Override
-            public FileNode directory(final Path path) {
-                FileNode node = pathToFileNode.get(path);
+            public FilesystemNode directory(final Path path) {
+                FilesystemNode node = pathToFileNode.get(path);
                 if(null == node) {
-                    node = FileNode.directory(path, this);
+                    node = FilesystemNode.directory(path, this);
                     pathToFileNode.put(path, node);
                 }
                 return node;
             }
 
             @Override
-            public FileNode file(final Path path) {
-                FileNode node = pathToFileNode.get(path);
+            public FilesystemNode file(final Path path) {
+                FilesystemNode node = pathToFileNode.get(path);
                 if(null == node) {
-                    node = FileNode.file(path, this);
+                    node = FilesystemNode.file(path, this);
                     pathToFileNode.put(path, node);
                 }
                 return node;
             }
 
             @Override
-            public boolean mustLoad(final FileNode node, final FileNodeCacheAtom atom) {
+            public boolean mustLoad(final FilesystemNode node, final FilesystemNodeCacheAtom atom) {
                 final Path path = node.value();
-                Map<FileNodeCacheAtom, String> fileNodeCache = fileNodeToCache.get(path);
+                Map<FilesystemNodeCacheAtom, String> fileNodeCache = fileNodeToCache.get(path);
                 if(null == fileNodeCache) {
                     fileNodeCache = Maps.hash();
                     fileNodeToCache.put(path, fileNodeCache);
@@ -382,7 +382,7 @@ public final class FileNodeTest extends NodeTestCase<FileNode, FileNodeName, Fil
     }
 
     @Override
-    protected Class<FileNode> type() {
-        return FileNode.class;
+    protected Class<FilesystemNode> type() {
+        return FilesystemNode.class;
     }
 }

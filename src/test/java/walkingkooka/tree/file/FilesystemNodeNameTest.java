@@ -23,7 +23,7 @@ import walkingkooka.naming.NameTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FileNodeNameTest extends NameTestCase<FileNodeName> {
+public final class FilesystemNodeNameTest extends NameTestCase<FilesystemNodeName> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -46,11 +46,11 @@ public final class FileNodeNameTest extends NameTestCase<FileNodeName> {
     }
 
     @Override
-    protected FileNodeName createName(final String name) {
-        return FileNodeName.with(name);
+    protected FilesystemNodeName createName(final String name) {
+        return FilesystemNodeName.with(name);
     }
 
-    @Override protected Class<FileNodeName> type() {
-        return FileNodeName.class;
+    @Override protected Class<FilesystemNodeName> type() {
+        return FilesystemNodeName.class;
     }
 }

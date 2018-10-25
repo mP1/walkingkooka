@@ -18,12 +18,11 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class FileNodeAttributeNameTest extends PublicClassTestCase<FileNodeAttributeName> {
-
+public final class FilesystemNodeAttributeMapEntrySetIteratorTest extends PackagePrivateClassTestCase<FilesystemNodeAttributeMapEntrySetIterator> {
     @Override
-    protected Class<FileNodeAttributeName> type() {
-        return FileNodeAttributeName.class;
+    protected Class<FilesystemNodeAttributeMapEntrySetIterator> type() {
+        return FilesystemNodeAttributeMapEntrySetIterator.class;
     }
 }

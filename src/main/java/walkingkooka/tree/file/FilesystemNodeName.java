@@ -29,7 +29,7 @@ import java.io.File;
 /**
  * A file or directory name. Note case-sensitivity matches the same rules of the underlying filesystem.
  */
-public final class FileNodeName implements Name, Comparable<FileNodeName>, HashCodeEqualsDefined {
+public final class FilesystemNodeName implements Name, Comparable<FilesystemNodeName>, HashCodeEqualsDefined {
 
     static CaseSensitivity fileSystemCaseSensitivity(){
         final String name = "lowercase";
@@ -46,15 +46,15 @@ public final class FileNodeName implements Name, Comparable<FileNodeName>, HashC
     private final static CaseSensitivity CASE_SENSITIVITY = fileSystemCaseSensitivity();
 
     /**
-     * Factory that creates a new {@link FileNodeName}
+     * Factory that creates a new {@link FilesystemNodeName}
      */
-    public static FileNodeName with(final String name) {
+    public static FilesystemNodeName with(final String name) {
         CharSequences.failIfNullOrEmpty(name, "name");
 
-        return new FileNodeName(name);
+        return new FilesystemNodeName(name);
     }
 
-    private FileNodeName(final String name) {
+    private FilesystemNodeName(final String name) {
         this.name = name;
     }
 
@@ -74,11 +74,11 @@ public final class FileNodeName implements Name, Comparable<FileNodeName>, HashC
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof FileNodeName &&
+               other instanceof FilesystemNodeName &&
                this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final FileNodeName other) {
+    private boolean equals0(final FilesystemNodeName other) {
         return CASE_SENSITIVITY.equals(this.name, other.name);
     }
 
@@ -90,7 +90,7 @@ public final class FileNodeName implements Name, Comparable<FileNodeName>, HashC
     // Comparable ...................................................................................................
 
     @Override
-    public int compareTo(final FileNodeName other) {
+    public int compareTo(final FilesystemNodeName other) {
         return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
 }

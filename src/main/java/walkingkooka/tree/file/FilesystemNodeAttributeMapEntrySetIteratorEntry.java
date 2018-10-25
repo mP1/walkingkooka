@@ -24,21 +24,25 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
- * The {@link Entry} for {@link FileNodeAttributeMapEntrySetIterator}
+ * The {@link Entry} for {@link FilesystemNodeAttributeMapEntrySetIterator}
  */
-final class FileNodeAttributeMapEntrySetIteratorEntry implements Entry<FileNodeAttributeName, String> {
+final class FilesystemNodeAttributeMapEntrySetIteratorEntry implements Entry<FilesystemNodeAttributeName, String> {
 
-    FileNodeAttributeMapEntrySetIteratorEntry(final FileNodeAttributeName key, final String value) {
+    static FilesystemNodeAttributeMapEntrySetIteratorEntry with(final FilesystemNodeAttributeName key, final String value) {
+        return new FilesystemNodeAttributeMapEntrySetIteratorEntry(key, value);
+    }
+
+    private FilesystemNodeAttributeMapEntrySetIteratorEntry(final FilesystemNodeAttributeName key, final String value) {
         this.key = key;
         this.value = value;
     }
 
     @Override
-    public FileNodeAttributeName getKey() {
+    public FilesystemNodeAttributeName getKey() {
         return this.key;
     }
 
-    private final FileNodeAttributeName key;
+    private final FilesystemNodeAttributeName key;
 
     @Override
     public String getValue() {

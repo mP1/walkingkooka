@@ -24,23 +24,27 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * A readonly {@link Set} view of entries belonging to the attribute Map view for a {@link FileNode}.
+ * A readonly {@link Set} view of entries belonging to the attribute Map view for a {@link FilesystemNode}.
  */
-final class FileNodeAttributeMapEntrySet extends AbstractSet<Entry<FileNodeAttributeName, String>> {
+final class FilesystemNodeAttributeMapEntrySet extends AbstractSet<Entry<FilesystemNodeAttributeName, String>> {
 
-    FileNodeAttributeMapEntrySet(final FileNode fileNode){
-        this.fileNode = fileNode;
+    static FilesystemNodeAttributeMapEntrySet with(final FilesystemNode node) {
+        return new FilesystemNodeAttributeMapEntrySet(node);
+    }
+
+    private FilesystemNodeAttributeMapEntrySet(final FilesystemNode node){
+        this.node = node;
     }
 
     @Override
-    public Iterator<Entry<FileNodeAttributeName, String>> iterator() {
-        return new FileNodeAttributeMapEntrySetIterator(this.fileNode);
+    public Iterator<Entry<FilesystemNodeAttributeName, String>> iterator() {
+        return FilesystemNodeAttributeMapEntrySetIterator.with(this.node);
     }
 
     @Override
     public int size() {
-        return this.fileNode.attributeNames().size();
+        return this.node.attributeNames().size();
     }
 
-    private final FileNode fileNode;
+    private final FilesystemNode node;
 }

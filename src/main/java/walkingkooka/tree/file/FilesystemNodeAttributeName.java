@@ -26,7 +26,7 @@ import walkingkooka.test.HashCodeEqualsDefined;
  * A directory has the following attributes: CREATED, GROUP, HIDDEN, LAST_ACCESSED, LAST_MODIFIED, OWNER, TYPE
  * A file has the following attributes: CREATED, GROUP, HIDDEN, LAST_ACCESSED, LAST_MODIFIED, OWNER, SIZE, TEXT, TYPE
  */
-public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeName>, HashCodeEqualsDefined {
+public enum FilesystemNodeAttributeName implements Name, Comparable<FilesystemNodeAttributeName>, HashCodeEqualsDefined {
 
     /**
      * An ISO_FORMATTED timestamp of the creation, taken from {@link java.nio.file.attribute.BasicFileAttributes}
@@ -34,7 +34,7 @@ public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeN
      */
     CREATED{
         @Override
-        String read(final FileNode node){
+        String read(final FilesystemNode node){
             return node.created();
         }
     },
@@ -44,7 +44,7 @@ public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeN
      */
     HIDDEN{
         @Override
-        String read(final FileNode node){
+        String read(final FilesystemNode node){
             return node.hidden();
         }
     },
@@ -55,7 +55,7 @@ public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeN
      */
     LAST_ACCESSED{
         @Override
-        String read(final FileNode node){
+        String read(final FilesystemNode node){
             return node.lastAccessed();
         }
     },
@@ -66,7 +66,7 @@ public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeN
      */
     LAST_MODIFIED{
         @Override
-        String read(final FileNode node){
+        String read(final FilesystemNode node){
             return node.lastModified();
         }
     },
@@ -76,7 +76,7 @@ public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeN
      */
     OWNER{
         @Override
-        String read(final FileNode node){
+        String read(final FilesystemNode node){
             return node.owner();
         }
     },
@@ -87,7 +87,7 @@ public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeN
      */
     SIZE{
         @Override
-        String read(final FileNode node){
+        String read(final FilesystemNode node){
             return node.size();
         }
     },
@@ -98,7 +98,7 @@ public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeN
      */
     TEXT{
         @Override
-        String read(final FileNode node){
+        String read(final FilesystemNode node){
             return node.text();
         }
     },
@@ -108,12 +108,12 @@ public enum FileNodeAttributeName implements Name, Comparable<FileNodeAttributeN
      */
     TYPE{
         @Override
-        String read(final FileNode node){
+        String read(final FilesystemNode node){
             return node.type();
         }
     };
 
-    abstract String read(final FileNode node);
+    abstract String read(final FilesystemNode node);
 
     @Override
     public final String value() {

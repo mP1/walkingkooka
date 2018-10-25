@@ -22,11 +22,15 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 /**
- * The {@link Iterator} returned by {@link FileNodeAttributeMapEntrySet#iterator()}
+ * The {@link Iterator} returned by {@link FilesystemNodeAttributeMapEntrySet#iterator()}
  */
-final class FileNodeAttributeMapEntrySetIterator implements Iterator<Entry<FileNodeAttributeName, String>> {
+final class FilesystemNodeAttributeMapEntrySetIterator implements Iterator<Entry<FilesystemNodeAttributeName, String>> {
 
-    FileNodeAttributeMapEntrySetIterator(final FileNode node){
+    static FilesystemNodeAttributeMapEntrySetIterator with(final FilesystemNode node) {
+        return new FilesystemNodeAttributeMapEntrySetIterator(node);
+    }
+
+    private FilesystemNodeAttributeMapEntrySetIterator(final FilesystemNode node){
         this.node = node;
         this.names = node.attributeNames().iterator();
     }
@@ -37,13 +41,13 @@ final class FileNodeAttributeMapEntrySetIterator implements Iterator<Entry<FileN
     }
 
     @Override
-    public Entry<FileNodeAttributeName, String> next() {
-        final FileNodeAttributeName name = this.names.next();
-        return new FileNodeAttributeMapEntrySetIteratorEntry(name, name.read(this.node));
+    public Entry<FilesystemNodeAttributeName, String> next() {
+        final FilesystemNodeAttributeName name = this.names.next();
+        return FilesystemNodeAttributeMapEntrySetIteratorEntry.with(name, name.read(this.node));
     }
 
-    private final Iterator<FileNodeAttributeName> names;
-    private final FileNode node;
+    private final Iterator<FilesystemNodeAttributeName> names;
+    private final FilesystemNode node;
 
     public String toString() {
         return this.node.toString();

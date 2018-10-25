@@ -26,13 +26,18 @@ import java.util.Set;
 /**
  * A {@link java.util.Map} that holds the attributes for both files and directories.
  */
-final class FileNodeAttributeMap<N extends FileNode> extends AbstractMap<FileNodeAttributeName, String> {
+final class FilesystemNodeAttributeMap<N extends FilesystemNode> extends AbstractMap<FilesystemNodeAttributeName, String> {
 
     /**
-     * Ctor only called by the {@link FileNode} ctor.
+     * Factory only called by the {@link FilesystemNode} ctor.
      */
-    FileNodeAttributeMap(final FileNode fileNode) {
-        this.fileNode = fileNode;
+
+    static FilesystemNodeAttributeMap with(final FilesystemNode node) {
+        return new FilesystemNodeAttributeMap(node);
+    }
+
+    private FilesystemNodeAttributeMap(final FilesystemNode node) {
+        this.fileNode = node;
     }
 
     @Override
@@ -41,18 +46,18 @@ final class FileNodeAttributeMap<N extends FileNode> extends AbstractMap<FileNod
     }
 
     @Override
-    public Set<Entry<FileNodeAttributeName, String>> entrySet() {
-        return new FileNodeAttributeMapEntrySet(this.fileNode);
+    public Set<Entry<FilesystemNodeAttributeName, String>> entrySet() {
+        return FilesystemNodeAttributeMapEntrySet.with(this.fileNode);
     }
 
     @Override
     public String get(final Object key) {
-        return key instanceof FileNodeAttributeName ?
+        return key instanceof FilesystemNodeAttributeName ?
                this.get0(Cast.to(key)) :
                null;
     }
 
-    private String get0(final FileNodeAttributeName key) {
+    private String get0(final FilesystemNodeAttributeName key) {
         return key.read(this.fileNode);
     }
 
@@ -65,7 +70,7 @@ final class FileNodeAttributeMap<N extends FileNode> extends AbstractMap<FileNod
     }
 
     @Override
-    public final Set<FileNodeAttributeName> keySet() {
+    public final Set<FilesystemNodeAttributeName> keySet() {
         return this.fileNode.attributeNames();
     }
 
@@ -82,5 +87,5 @@ final class FileNodeAttributeMap<N extends FileNode> extends AbstractMap<FileNod
         return this.fileNode.hashCode();
     }
 
-    private final FileNode fileNode;
+    private final FilesystemNode fileNode;
 }

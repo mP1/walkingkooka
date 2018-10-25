@@ -20,9 +20,9 @@ package walkingkooka.tree.file;
 
 import walkingkooka.test.PublicThrowableTestCase;
 
-public final class FileNodeExceptionTest extends PublicThrowableTestCase<FileNodeException> {
+public final class FilesystemNodeExceptionTest extends PublicThrowableTestCase<FilesystemNodeException> {
     @Override
-    protected Class<FileNodeException> type() {
-        return FileNodeException.class;
+    protected Class<FilesystemNodeException> type() {
+        return FilesystemNodeException.class;
     }
 }
