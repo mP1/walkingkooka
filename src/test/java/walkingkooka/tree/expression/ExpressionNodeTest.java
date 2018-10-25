@@ -92,7 +92,7 @@ public final class ExpressionNodeTest extends PublicClassTestCase<ExpressionNode
         this.valueOrFailAndCheck("abc123", ExpressionTextNode.class);
     }
 
-    private void valueOrFailAndCheck(final Object value, final Class<? extends ExpressionLeafNode2> type) {
+    private void valueOrFailAndCheck(final Object value, final Class<? extends ExpressionValueNode> type) {
         final ExpressionNode node = ExpressionNode.valueOrFail(value);
         assertEquals("node type of " + value, type, node.getClass());
         assertEquals("value", value, type.cast(node).value());

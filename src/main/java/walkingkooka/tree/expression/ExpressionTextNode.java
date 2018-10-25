@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A text value.
  */
-public final class ExpressionTextNode extends ExpressionLeafNode2<String> {
+public final class ExpressionTextNode extends ExpressionValueNode<String> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionTextNode.class);
 

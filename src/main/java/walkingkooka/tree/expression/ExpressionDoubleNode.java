@@ -22,7 +22,7 @@ package walkingkooka.tree.expression;
 /**
  * A {@link Double} number value.
  */
-public final class ExpressionDoubleNode extends ExpressionLeafNode2<Double> {
+public final class ExpressionDoubleNode extends ExpressionValueNode<Double> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionDoubleNode.class);
 

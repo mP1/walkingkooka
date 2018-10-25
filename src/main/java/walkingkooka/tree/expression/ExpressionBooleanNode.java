@@ -21,7 +21,7 @@ package walkingkooka.tree.expression;
 /**
  * A boolean value.
  */
-public final class ExpressionBooleanNode extends ExpressionLeafNode2<Boolean> {
+public final class ExpressionBooleanNode extends ExpressionValueNode<Boolean> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBooleanNode.class);
 
