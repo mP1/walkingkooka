@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * A {@link BigInteger} number value.
  */
-public final class ExpressionBigIntegerNode extends ExpressionLeafNode2<BigInteger> {
+public final class ExpressionBigIntegerNode extends ExpressionValueNode<BigInteger> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBigIntegerNode.class);
 

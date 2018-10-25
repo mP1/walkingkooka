@@ -20,9 +20,9 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class ExpressionLeafNode2Test extends PackagePrivateClassTestCase<ExpressionLeafNode2> {
+public final class ExpressionValueNodeTest extends PackagePrivateClassTestCase<ExpressionValueNode> {
     @Override
-    protected Class<ExpressionLeafNode2> type() {
-        return ExpressionLeafNode2.class;
+    protected Class<ExpressionValueNode> type() {
+        return ExpressionValueNode.class;
     }
 }

@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A {@link LocalTime} number value.
  */
-public final class ExpressionLocalTimeNode extends ExpressionLeafNode2<LocalTime> {
+public final class ExpressionLocalTimeNode extends ExpressionValueNode<LocalTime> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionLocalTimeNode.class);
 

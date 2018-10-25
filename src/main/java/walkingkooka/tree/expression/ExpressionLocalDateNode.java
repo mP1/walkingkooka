@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A {@link LocalDate} number value.
  */
-public final class ExpressionLocalDateNode extends ExpressionLeafNode2<LocalDate> {
+public final class ExpressionLocalDateNode extends ExpressionValueNode<LocalDate> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionLocalDateNode.class);
 

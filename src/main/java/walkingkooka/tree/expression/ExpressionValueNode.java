@@ -28,9 +28,9 @@ import java.time.LocalTime;
  * Base class for all leafs except {@link ExpressionReferenceNode}.
  * All toXXX methods take their value and convert it to the actual target value.
  */
-abstract class ExpressionLeafNode2<V> extends ExpressionLeafNode<V> {
+abstract class ExpressionValueNode<V> extends ExpressionLeafNode<V> {
 
-    ExpressionLeafNode2(final int index, final V value){
+    ExpressionValueNode(final int index, final V value){
         super(index, value);
     }
 

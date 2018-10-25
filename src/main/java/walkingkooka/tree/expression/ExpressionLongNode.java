@@ -21,7 +21,7 @@ package walkingkooka.tree.expression;
 /**
  * A long number value.
  */
-public final class ExpressionLongNode extends ExpressionLeafNode2<Long> {
+public final class ExpressionLongNode extends ExpressionValueNode<Long> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionLongNode.class);
 

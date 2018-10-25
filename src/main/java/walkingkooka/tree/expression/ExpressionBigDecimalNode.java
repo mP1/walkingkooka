@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A {@link BigDecimal} number value.
  */
-public final class ExpressionBigDecimalNode extends ExpressionLeafNode2<BigDecimal> {
+public final class ExpressionBigDecimalNode extends ExpressionValueNode<BigDecimal> {
 
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBigDecimalNode.class);
 
