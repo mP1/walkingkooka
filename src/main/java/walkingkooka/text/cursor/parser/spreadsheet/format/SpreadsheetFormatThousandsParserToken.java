@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a thousands token.
  */
-public final class SpreadsheetFormatThousandsParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatThousandsParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatThousandsParserToken.class);
 

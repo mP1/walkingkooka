@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a month or minute token both of which use 'm' using context decide which is meant.
  */
-public final class SpreadsheetFormatMonthOrMinuteParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatMonthOrMinuteParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatMonthOrMinuteParserToken.class);
 

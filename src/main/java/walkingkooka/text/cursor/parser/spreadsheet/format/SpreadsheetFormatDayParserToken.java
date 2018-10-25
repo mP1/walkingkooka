@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a day placeholder.
  */
-public final class SpreadsheetFormatDayParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatDayParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatDayParserToken.class);
 

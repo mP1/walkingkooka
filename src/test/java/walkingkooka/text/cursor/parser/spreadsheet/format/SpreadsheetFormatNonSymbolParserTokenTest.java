@@ -20,9 +20,9 @@ package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class SpreadsheetFormatLeafParserToken2Test extends PackagePrivateClassTestCase<SpreadsheetFormatLeafParserToken2> {
+public final class SpreadsheetFormatNonSymbolParserTokenTest extends PackagePrivateClassTestCase<SpreadsheetFormatNonSymbolParserToken> {
     @Override
-    protected Class<SpreadsheetFormatLeafParserToken2> type() {
-        return SpreadsheetFormatLeafParserToken2.class;
+    protected Class<SpreadsheetFormatNonSymbolParserToken> type() {
+        return SpreadsheetFormatNonSymbolParserToken.class;
     }
 }

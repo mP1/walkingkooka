@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents the underscore operand which adds a space with a width that matches the next character.
  */
-public final class SpreadsheetFormatUnderscoreParserToken extends SpreadsheetFormatLeafParserToken2<Character> {
+public final class SpreadsheetFormatUnderscoreParserToken extends SpreadsheetFormatNonSymbolParserToken<Character> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatUnderscoreParserToken.class);
 

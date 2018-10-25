@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents the decimal point token.
  */
-public final class SpreadsheetFormatDecimalPointParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatDecimalPointParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatDecimalPointParserToken.class);
 

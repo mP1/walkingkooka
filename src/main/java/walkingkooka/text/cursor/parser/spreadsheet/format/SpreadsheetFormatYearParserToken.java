@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a year placeholder.
  */
-public final class SpreadsheetFormatYearParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatYearParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatYearParserToken.class);
 

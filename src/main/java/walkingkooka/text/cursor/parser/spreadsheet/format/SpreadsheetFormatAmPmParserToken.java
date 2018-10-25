@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a am/pm placeholder.
  */
-public final class SpreadsheetFormatAmPmParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatAmPmParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatAmPmParserToken.class);
 

@@ -23,7 +23,7 @@ import walkingkooka.tree.search.SearchNode;
 /**
  * Represents an excel style escape sequence where the character following the backslash is included verbatim.
  */
-public final class SpreadsheetFormatEscapeParserToken extends SpreadsheetFormatLeafParserToken2<Character> {
+public final class SpreadsheetFormatEscapeParserToken extends SpreadsheetFormatNonSymbolParserToken<Character> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatEscapeParserToken.class);
 
