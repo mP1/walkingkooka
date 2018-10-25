@@ -28,13 +28,13 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FileNodeCacheAtomTest extends PublicClassTestCase<FileNodeCacheAtom> {
+public final class FilesystemNodeCacheAtomTest extends PublicClassTestCase<FilesystemNodeCacheAtom> {
 
     @Test
     public void testAtoms() {
-        final Set<String> atoms = names(FileNodeCacheAtom.class);
-        final Set<String> names = names(FileNodeAttributeName.class);
-        names.add(FileNodeCacheAtom.CHILDREN.name());
+        final Set<String> atoms = names(FilesystemNodeCacheAtom.class);
+        final Set<String> names = names(FilesystemNodeAttributeName.class);
+        names.add(FilesystemNodeCacheAtom.CHILDREN.name());
 
         assertEquals(atoms, names);
     }
@@ -47,7 +47,7 @@ public final class FileNodeCacheAtomTest extends PublicClassTestCase<FileNodeCac
     }
 
     @Override
-    protected Class<FileNodeCacheAtom> type() {
-        return FileNodeCacheAtom.class;
+    protected Class<FilesystemNodeCacheAtom> type() {
+        return FilesystemNodeCacheAtom.class;
     }
 }

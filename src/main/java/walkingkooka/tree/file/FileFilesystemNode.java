@@ -26,31 +26,31 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Represents file {@link FileNode}
+ * Represents file {@link FilesystemNode}
  */
-final class FileFileNode extends FileNode{
+final class FileFilesystemNode extends FilesystemNode {
 
     /**
-     * Factory that creates a new {@link FileFileNode}. This should only be called by a {@link FileNodeContext#file(Path)}
+     * Factory that creates a new {@link FileFilesystemNode}. This should only be called by a {@link FilesystemNodeContext#file(Path)}
      */
-    static FileFileNode with(final Path path, final FileNodeContext context) {
+    static FileFilesystemNode with(final Path path, final FilesystemNodeContext context) {
         check(path, context);
 
-        return new FileFileNode(path, context);
+        return new FileFilesystemNode(path, context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private FileFileNode(final Path path, final FileNodeContext context) {
+    private FileFilesystemNode(final Path path, final FilesystemNodeContext context) {
         super(path, context);
     }
 
     /**
-     * Files return an empty list, while directories return {@link FileNode} for each and every entry in their directory.
+     * Files return an empty list, while directories return {@link FilesystemNode} for each and every entry in their directory.
      */
     @Override
-    public List<FileNode> children() {
+    public List<FilesystemNode> children() {
         return Lists.empty();
     }
 
@@ -67,16 +67,16 @@ final class FileFileNode extends FileNode{
     // Attributes......................................................................................................
 
     @Override
-    Set<FileNodeAttributeName> attributeNames() {
+    Set<FilesystemNodeAttributeName> attributeNames() {
         return ATTRIBUTE_NAMES;
     }
 
     // VisibleForTesting
-    final static Set<FileNodeAttributeName> ATTRIBUTE_NAMES = EnumSet.allOf(FileNodeAttributeName.class);
+    final static Set<FilesystemNodeAttributeName> ATTRIBUTE_NAMES = EnumSet.allOf(FilesystemNodeAttributeName.class);
 
     @Override
     String size() {
-        if(null != this.size && this.mustLoad(FileNodeCacheAtom.SIZE)){
+        if(null != this.size && this.mustLoad(FilesystemNodeCacheAtom.SIZE)){
             this.size = null;
         }
 
@@ -90,7 +90,7 @@ final class FileFileNode extends FileNode{
 
     @Override
     public String text() {
-        if(null != this.text && this.mustLoad(FileNodeCacheAtom.TEXT)){
+        if(null != this.text && this.mustLoad(FilesystemNodeCacheAtom.TEXT)){
             this.text = null;
         }
 

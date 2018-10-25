@@ -27,33 +27,33 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Represents directory {@link FileNode}.
+ * Represents directory {@link FilesystemNode}.
  */
-final class DirectoryFileNode extends FileNode{
+final class DirectoryFilesystemNode extends FilesystemNode {
 
     /**
-     * Factory that creates a new {@link DirectoryFileNode}. This should only be called by a {@link FileNodeContext#directory(Path)}
+     * Factory that creates a new {@link DirectoryFilesystemNode}. This should only be called by a {@link FilesystemNodeContext#directory(Path)}
      */
-    static DirectoryFileNode with(final Path path, final FileNodeContext context) {
+    static DirectoryFilesystemNode with(final Path path, final FilesystemNodeContext context) {
         check(path, context);
 
-        return new DirectoryFileNode(path, context);
+        return new DirectoryFilesystemNode(path, context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private DirectoryFileNode(final Path path, final FileNodeContext context) {
+    private DirectoryFilesystemNode(final Path path, final FilesystemNodeContext context) {
         super(path, context);
         this.children = null;
     }
 
     /**
-     * Directories return {@link FileNode} for each and every entry in their directory.
+     * Directories return {@link FilesystemNode} for each and every entry in their directory.
      */
     @Override
-    public List<FileNode> children() {
-        if(null != this.children && this.mustLoad(FileNodeCacheAtom.CHILDREN)){
+    public List<FilesystemNode> children() {
+        if(null != this.children && this.mustLoad(FilesystemNodeCacheAtom.CHILDREN)){
             this.children = null;
         }
         if(null == this.children) {
@@ -62,13 +62,13 @@ final class DirectoryFileNode extends FileNode{
         return this.children;
     }
 
-    private List<FileNode> children;
+    private List<FilesystemNode> children;
 
     /**
      * Lists the immediate directory fetching nodes for each of the entries.
      */
-    private List<FileNode> makeFileNodesFromDirectoryListing() {
-        final List<FileNode> children = Lists.array();
+    private List<FilesystemNode> makeFileNodesFromDirectoryListing() {
+        final List<FilesystemNode> children = Lists.array();
         final File[] files = this.path.toFile().listFiles();
 
         if(null != files) {
@@ -97,17 +97,17 @@ final class DirectoryFileNode extends FileNode{
     }
 
     @Override
-    Set<FileNodeAttributeName> attributeNames() {
+    Set<FilesystemNodeAttributeName> attributeNames() {
         return ATTRIBUTE_NAMES;
     }
 
     // VisibleForTesting
-    final static Set<FileNodeAttributeName> ATTRIBUTE_NAMES = Sets.of(FileNodeAttributeName.CREATED,
-            FileNodeAttributeName.HIDDEN,
-            FileNodeAttributeName.LAST_ACCESSED,
-            FileNodeAttributeName.LAST_MODIFIED,
-            FileNodeAttributeName.OWNER,
-            FileNodeAttributeName.TYPE);
+    final static Set<FilesystemNodeAttributeName> ATTRIBUTE_NAMES = Sets.of(FilesystemNodeAttributeName.CREATED,
+            FilesystemNodeAttributeName.HIDDEN,
+            FilesystemNodeAttributeName.LAST_ACCESSED,
+            FilesystemNodeAttributeName.LAST_MODIFIED,
+            FilesystemNodeAttributeName.OWNER,
+            FilesystemNodeAttributeName.TYPE);
 
     @Override
     String size() {

@@ -18,11 +18,7 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.ContextTestCase;
 
-public final class FileNodeAttributeMapEntrySetIteratorEntryTest extends PackagePrivateClassTestCase<FileNodeAttributeMapEntrySetIteratorEntry> {
-    @Override
-    protected Class<FileNodeAttributeMapEntrySetIteratorEntry> type() {
-        return FileNodeAttributeMapEntrySetIteratorEntry.class;
-    }
+public abstract class FilesystemNodeContextTestCase<C extends FilesystemNodeContext> extends ContextTestCase<C> {
 }

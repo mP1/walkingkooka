@@ -20,9 +20,9 @@ package walkingkooka.tree.file;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class FileNodeAttributeMapEntrySetIteratorTest extends PackagePrivateClassTestCase<FileNodeAttributeMapEntrySetIterator> {
+public final class DirectoryFilesystemNodeTest extends PackagePrivateClassTestCase<DirectoryFilesystemNode> {
     @Override
-    protected Class<FileNodeAttributeMapEntrySetIterator> type() {
-        return FileNodeAttributeMapEntrySetIterator.class;
+    protected Class<DirectoryFilesystemNode> type() {
+        return DirectoryFilesystemNode.class;
     }
 }

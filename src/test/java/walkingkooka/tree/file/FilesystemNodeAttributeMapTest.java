@@ -18,17 +18,11 @@
 
 package walkingkooka.tree.file;
 
-/**
- * Individual representatives of each cachable atom belonging to a {@link FileNode}.
- */
-public enum FileNodeCacheAtom {
-    CHILDREN,
-    CREATED,
-    HIDDEN,
-    LAST_ACCESSED,
-    LAST_MODIFIED,
-    OWNER,
-    SIZE,
-    TEXT,
-    TYPE
+import walkingkooka.test.PackagePrivateClassTestCase;
+
+public final class FilesystemNodeAttributeMapTest extends PackagePrivateClassTestCase<FilesystemNodeAttributeMap> {
+    @Override
+    protected Class<FilesystemNodeAttributeMap> type() {
+        return FilesystemNodeAttributeMap.class;
+    }
 }

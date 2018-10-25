@@ -18,11 +18,17 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
-
-public final class DirectoryFileNodeTest extends PackagePrivateClassTestCase<DirectoryFileNode> {
-    @Override
-    protected Class<DirectoryFileNode> type() {
-        return DirectoryFileNode.class;
-    }
+/**
+ * Individual representatives of each cachable atom belonging to a {@link FilesystemNode}.
+ */
+public enum FilesystemNodeCacheAtom {
+    CHILDREN,
+    CREATED,
+    HIDDEN,
+    LAST_ACCESSED,
+    LAST_MODIFIED,
+    OWNER,
+    SIZE,
+    TEXT,
+    TYPE
 }

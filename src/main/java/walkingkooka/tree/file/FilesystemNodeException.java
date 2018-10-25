@@ -18,11 +18,24 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.tree.NodeException;
 
-public final class FileFileNodeTest extends PackagePrivateClassTestCase<FileFileNode> {
-    @Override
-    protected Class<FileFileNode> type() {
-        return FileFileNode.class;
+/**
+ * Used to report or wrap any exceptions thrown while performing file operations.
+ */
+public class FilesystemNodeException extends NodeException {
+
+    private static final long serialVersionUID = 1L;
+
+    protected FilesystemNodeException() {
+        super();
+    }
+
+    public FilesystemNodeException(final String message) {
+        super(message);
+    }
+
+    public FilesystemNodeException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

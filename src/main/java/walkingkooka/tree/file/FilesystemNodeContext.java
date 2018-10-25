@@ -23,32 +23,32 @@ import walkingkooka.Context;
 import java.nio.file.Path;
 
 /**
- * A context that accompanies the process of reading the filesystem and creating and updating the {@link FileNode} instances
+ * A context that accompanies the process of reading the filesystem and creating and updating the {@link FilesystemNode} instances
  * created to match. Because some attributes of a file, such as the text can be costly its not ideal to constantly
  * process the file again to get the "text" attribute so the context is responsible for controlling / clearing
  * cached values which will then be reloaded.
  */
-public interface FileNodeContext extends Context {
+public interface FilesystemNodeContext extends Context {
 
     /**
-     * The root path of the file system being represented as a {@link FileNode} graph.
+     * The root path of the file system being represented as a {@link FilesystemNode} graph.
      */
     Path rootPath();
 
     /**
-     * Factory that creates a {@link FileNode}. Implementations should use a cache of some sort matching paths to filenodes.
+     * Factory that creates a {@link FilesystemNode}. Implementations should use a cache of some sort matching paths to filenodes.
      */
-    FileNode directory(final Path path);
+    FilesystemNode directory(final Path path);
 
     /**
-     * Factory that creates a {@link FileNode}. Implementations should use a cache of some sort matching paths to filenodes.
+     * Factory that creates a {@link FilesystemNode}. Implementations should use a cache of some sort matching paths to filenodes.
      */
-    FileNode file(final Path path);
+    FilesystemNode file(final Path path);
 
     /**
      * This is called prior to any attribute or children being returned.
      */
-    boolean mustLoad(final FileNode node, final FileNodeCacheAtom atom);
+    boolean mustLoad(final FilesystemNode node, final FilesystemNodeCacheAtom atom);
 
     /**
      * Returns the text form for the given path. This might be as simple as reading a text file, returning nothing if

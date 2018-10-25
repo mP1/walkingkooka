@@ -44,9 +44,9 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A {@link FileNode} represents a file or directory under a path.
+ * A {@link FilesystemNode} represents a file or directory under a path.
  */
-public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeAttributeName, String>,
+public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String>,
         HasText,
         Value<Path> {
 
@@ -54,23 +54,23 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     public final static String FILE_TYPE = "FILE";
 
     /**
-     * Creates a {@link FileNode} for a directory.
+     * Creates a {@link FilesystemNode} for a directory.
      */
-    public static FileNode directory(final Path path, final FileNodeContext context) {
-        return DirectoryFileNode.with(path, context);
+    public static FilesystemNode directory(final Path path, final FilesystemNodeContext context) {
+        return DirectoryFilesystemNode.with(path, context);
     }
 
     /**
-     * Creates a {@link FileNode} for a file.
+     * Creates a {@link FilesystemNode} for a file.
      */
-    public static FileNode file(final Path path, final FileNodeContext context) {
-        return FileFileNode.with(path, context);
+    public static FilesystemNode file(final Path path, final FilesystemNodeContext context) {
+        return FileFilesystemNode.with(path, context);
     }
 
     /**
      * Parameter checks
      */
-    static void check(final Path path, final FileNodeContext context) {
+    static void check(final Path path, final FilesystemNodeContext context) {
         Objects.requireNonNull(path, "path");
         Objects.requireNonNull(context, "context");
     }
@@ -78,36 +78,36 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     /**
      * Absolute {@see NodeSelectorBuilder}
      */
-    public static NodeSelectorBuilder<FileNode, FileNodeName, FileNodeAttributeName, String> absoluteNodeSelectorBuilder() {
+    public static NodeSelectorBuilder<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> absoluteNodeSelectorBuilder() {
         return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
     }
 
     /**
      * Absolute {@see NodeSelectorBuilder}
      */
-    public static NodeSelectorBuilder<FileNode, FileNodeName, FileNodeAttributeName, String> relativeNodeSelectorBuilder() {
+    public static NodeSelectorBuilder<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> relativeNodeSelectorBuilder() {
         return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
     }
     
     /**
      * Package private to limit sub classing.
      */
-    FileNode(final Path path, final FileNodeContext context) {
+    FilesystemNode(final Path path, final FilesystemNodeContext context) {
         this.path = path;
         this.context = context;
-        this.attributes = new FileNodeAttributeMap<>(this);
+        this.attributes = FilesystemNodeAttributeMap.with(this);
     }
 
     @Override
-    public final FileNodeName name() {
+    public final FilesystemNodeName name() {
         if(null==this.name){
             // only want the filename and not a path including parent directories etc.
-            this.name = FileNodeName.with(this.path.getFileName().toString());
+            this.name = FilesystemNodeName.with(this.path.getFileName().toString());
         }
         return this.name;
     }
 
-    private FileNodeName name;
+    private FilesystemNodeName name;
 
     @Override
     public final boolean hasUniqueNameAmongstSiblings() {
@@ -115,10 +115,10 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     }
 
     /**
-     * Returns the parent of empty if this node is the root as determined by {@link FileNodeContext#rootPath()}
+     * Returns the parent of empty if this node is the root as determined by {@link FilesystemNodeContext#rootPath()}
      */
     @Override
-    public final Optional<FileNode> parent() {
+    public final Optional<FilesystemNode> parent() {
         if(null==this.parent) {
             final Path path = this.path;
             final Path root = this.context.rootPath();
@@ -129,13 +129,13 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
         return this.parent;
     }
 
-    private Optional<FileNode> parent;
+    private Optional<FilesystemNode> parent;
 
     /**
      * Updating children is not supported.
      */
     @Override
-    public final FileNode setChildren(final List<FileNode> children) {
+    public final FilesystemNode setChildren(final List<FilesystemNode> children) {
         Objects.requireNonNull(children, "children");
         throw new UnsupportedOperationException();
     }
@@ -146,28 +146,28 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
 
     // attributes...........................................................................................
 
-    public final Map<FileNodeAttributeName, String> attributes() {
+    public final Map<FilesystemNodeAttributeName, String> attributes() {
         return this.attributes;
     }
 
-    private final Map<FileNodeAttributeName, String> attributes;
+    private final Map<FilesystemNodeAttributeName, String> attributes;
 
     /**
      * The fixed set of available attribute names.
      */
-    abstract Set<FileNodeAttributeName> attributeNames();
+    abstract Set<FilesystemNodeAttributeName> attributeNames();
 
     /**
      * Update attributes is not supported.
      */
     @Override
-    public final FileNode setAttributes(final Map<FileNodeAttributeName, String> attributes) {
+    public final FilesystemNode setAttributes(final Map<FilesystemNodeAttributeName, String> attributes) {
         Objects.requireNonNull(attributes, "attributes");
         throw new UnsupportedOperationException();
     }
 
     final String created() {
-        if(null == this.created && this.mustLoad(FileNodeCacheAtom.CREATED)) {
+        if(null == this.created && this.mustLoad(FilesystemNodeCacheAtom.CREATED)) {
             this.created = null;
         }
 
@@ -181,7 +181,7 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     private String created;
 
     final String hidden() {
-        if(null == this.hidden && this.mustLoad(FileNodeCacheAtom.HIDDEN)) {
+        if(null == this.hidden && this.mustLoad(FilesystemNodeCacheAtom.HIDDEN)) {
             this.hidden = null;
         }
 
@@ -199,7 +199,7 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     private String hidden;
 
     final String lastAccessed() {
-        if(null == this.lastAccessed && this.mustLoad(FileNodeCacheAtom.LAST_ACCESSED)) {
+        if(null == this.lastAccessed && this.mustLoad(FilesystemNodeCacheAtom.LAST_ACCESSED)) {
             this.lastAccessed = null;
         }
 
@@ -213,7 +213,7 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     private String lastAccessed;
 
     final String lastModified() {
-        if(null == this.lastModified && this.mustLoad(FileNodeCacheAtom.LAST_MODIFIED)) {
+        if(null == this.lastModified && this.mustLoad(FilesystemNodeCacheAtom.LAST_MODIFIED)) {
             this.lastModified = null;
         }
 
@@ -227,7 +227,7 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     private String lastModified;
 
     final String owner() {
-        if(null == this.owner && this.mustLoad(FileNodeCacheAtom.OWNER)) {
+        if(null == this.owner && this.mustLoad(FilesystemNodeCacheAtom.OWNER)) {
             this.owner = null;
         }
 
@@ -263,14 +263,14 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
         return Files.getFileAttributeView(this.path, view);
     }
 
-    static FileNodeException exception(final String message, final Exception cause) {
-        return new FileNodeException(message + ", message: " + cause.getMessage(), cause);
+    static FilesystemNodeException exception(final String message, final Exception cause) {
+        return new FilesystemNodeException(message + ", message: " + cause.getMessage(), cause);
     }
 
     /**
-     * Queries the context to determine if a atom belonging to the {@link FileNode} must be loaded.
+     * Queries the context to determine if a atom belonging to the {@link FilesystemNode} must be loaded.
      */
-    final boolean mustLoad(final FileNodeCacheAtom atom) {
+    final boolean mustLoad(final FilesystemNodeCacheAtom atom) {
         return this.context.mustLoad(this, atom);
     }
 
@@ -285,12 +285,12 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     private final static DateTimeFormatter ISO_FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
 
     final Path path;
-    final FileNodeContext context;
+    final FilesystemNodeContext context;
 
     // Value..........................................................................................................
 
     /**
-     * Returns the {@link Path} for this {@link FileNode}.
+     * Returns the {@link Path} for this {@link FilesystemNode}.
      */
     @Override
     public final Path value() {
@@ -307,11 +307,11 @@ public abstract class FileNode implements Node<FileNode, FileNodeName, FileNodeA
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof FileNode &&
+               other instanceof FilesystemNode &&
                this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final FileNode other) {
+    private boolean equals0(final FilesystemNode other) {
         return this.path.equals(other.path);
     }
 
