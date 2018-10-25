@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Holds the combination of whitespace or comments.
  */
-public final class SpreadsheetWhitespaceParserToken extends SpreadsheetLeafParserToken2<String> {
+public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetWhitespaceParserToken.class);
 

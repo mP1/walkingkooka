@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Holds a single {@link LocalDateTime}
  */
-public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetLeafParserToken2<LocalDateTime> {
+public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetNonSymbolParserToken<LocalDateTime> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLocalDateTimeParserToken.class);
 

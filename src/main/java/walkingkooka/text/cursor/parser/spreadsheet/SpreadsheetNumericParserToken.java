@@ -22,7 +22,7 @@ import java.util.Optional;
 /**
  * Base class for any leaf that holds
  */
-abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetLeafParserToken2<T> {
+abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetNonSymbolParserToken<T> {
 
     SpreadsheetNumericParserToken(final T value, final String text){
         super(value, text);

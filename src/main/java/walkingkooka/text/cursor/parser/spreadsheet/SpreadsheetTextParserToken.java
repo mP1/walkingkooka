@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Holds a text which may be empty
  */
-public final class SpreadsheetTextParserToken extends SpreadsheetLeafParserToken2<String> {
+public final class SpreadsheetTextParserToken extends SpreadsheetNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetTextParserToken.class);
 
