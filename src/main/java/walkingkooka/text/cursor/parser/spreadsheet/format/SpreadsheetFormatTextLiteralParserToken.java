@@ -23,7 +23,7 @@ import walkingkooka.tree.search.SearchNode;
 /**
  * Holds literal text.
  */
-public final class SpreadsheetFormatTextLiteralParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatTextLiteralParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatTextLiteralParserToken.class);
 

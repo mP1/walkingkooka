@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a second placeholder.
  */
-public final class SpreadsheetFormatSecondParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatSecondParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatSecondParserToken.class);
 

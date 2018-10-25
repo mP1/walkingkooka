@@ -24,7 +24,7 @@ import walkingkooka.tree.search.SearchNode;
 /**
  * Holds whitespace
  */
-public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatWhitespaceParserToken.class);
 

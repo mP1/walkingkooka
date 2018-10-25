@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a color name token.
  */
-public final class SpreadsheetFormatColorNameParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatColorNameParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatColorNameParserToken.class);
 

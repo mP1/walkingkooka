@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 /**
  * Holds the condition number argument.
  */
-public final class SpreadsheetFormatConditionNumberParserToken extends SpreadsheetFormatLeafParserToken2<BigDecimal> {
+public final class SpreadsheetFormatConditionNumberParserToken extends SpreadsheetFormatNonSymbolParserToken<BigDecimal> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatConditionNumberParserToken.class);
 

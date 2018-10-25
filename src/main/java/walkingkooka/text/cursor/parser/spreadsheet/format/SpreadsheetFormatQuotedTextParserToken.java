@@ -23,7 +23,7 @@ import walkingkooka.tree.search.SearchNode;
 /**
  * Holds a quoted text.
  */
-public final class SpreadsheetFormatQuotedTextParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatQuotedTextParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatQuotedTextParserToken.class);
 

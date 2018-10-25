@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents the star fill with a character.
  */
-public final class SpreadsheetFormatStarParserToken extends SpreadsheetFormatLeafParserToken2<Character> {
+public final class SpreadsheetFormatStarParserToken extends SpreadsheetFormatNonSymbolParserToken<Character> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatStarParserToken.class);
 

@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a currency token.
  */
-public final class SpreadsheetFormatCurrencyParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatCurrencyParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatCurrencyParserToken.class);
 

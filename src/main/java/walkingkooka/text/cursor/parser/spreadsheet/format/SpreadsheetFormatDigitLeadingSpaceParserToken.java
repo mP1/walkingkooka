@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents a digit that replaces leading zeroes with spaces.
  */
-public final class SpreadsheetFormatDigitLeadingSpaceParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatDigitLeadingSpaceParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatDigitLeadingSpaceParserToken.class);
 

@@ -22,9 +22,9 @@ import java.util.Optional;
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class SpreadsheetFormatLeafParserToken2<T> extends SpreadsheetFormatLeafParserToken<T> {
+abstract class SpreadsheetFormatNonSymbolParserToken<T> extends SpreadsheetFormatLeafParserToken<T> {
 
-    SpreadsheetFormatLeafParserToken2(final T value, final String text) {
+    SpreadsheetFormatNonSymbolParserToken(final T value, final String text) {
         super(value, text);
     }
 

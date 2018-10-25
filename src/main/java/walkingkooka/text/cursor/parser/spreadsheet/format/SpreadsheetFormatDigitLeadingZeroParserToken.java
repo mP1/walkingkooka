@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 /**
  * Represents the digit including leading zeros.
  */
-public final class SpreadsheetFormatDigitLeadingZeroParserToken extends SpreadsheetFormatLeafParserToken2<String> {
+public final class SpreadsheetFormatDigitLeadingZeroParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatDigitLeadingZeroParserToken.class);
 
