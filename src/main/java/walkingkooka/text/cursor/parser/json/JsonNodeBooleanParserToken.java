@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * Holds a either true or false boolean value
  */
-public final class JsonNodeBooleanParserToken extends JsonNodeLeafParserToken2<Boolean> {
+public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<Boolean> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeBooleanParserToken.class);
 

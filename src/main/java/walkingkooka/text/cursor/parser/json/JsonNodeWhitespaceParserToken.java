@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * Holds the combination of whitespace.
  */
-public final class JsonNodeWhitespaceParserToken extends JsonNodeLeafParserToken2<String> {
+public final class JsonNodeWhitespaceParserToken extends JsonNodeValueParserToken<String> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeWhitespaceParserToken.class);
 

@@ -20,9 +20,9 @@ package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class JsonNodeLeafParserToken2Test extends PackagePrivateClassTestCase<JsonNodeLeafParserToken2> {
+public final class JsonNodeValueParserTokenTest extends PackagePrivateClassTestCase<JsonNodeValueParserToken> {
     @Override
-    protected Class<JsonNodeLeafParserToken2> type() {
-        return JsonNodeLeafParserToken2.class;
+    protected Class<JsonNodeValueParserToken> type() {
+        return JsonNodeValueParserToken.class;
     }
 }

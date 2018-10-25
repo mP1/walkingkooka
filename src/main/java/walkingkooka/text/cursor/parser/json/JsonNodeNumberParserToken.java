@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * Holds a single integer or decimal number.
  */
-public final class JsonNodeNumberParserToken extends JsonNodeLeafParserToken2<Double> {
+public final class JsonNodeNumberParserToken extends JsonNodeValueParserToken<Double> {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeNumberParserToken.class);
 
