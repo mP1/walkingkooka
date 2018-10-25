@@ -57,11 +57,7 @@ final class SpreadsheetFormatEbnfParserCombinatorSyntaxTreeTransformer implement
 
     @Override
     public Parser<ParserToken, ParserContext> concatenation(final EbnfConcatenationParserToken token, final Parser<SequenceParserToken, ParserContext> parser) {
-        return parser.transform(this::concatenation);
-    }
-
-    private ParserToken concatenation(final SequenceParserToken sequence, final ParserContext context) {
-        return sequence;
+        return parser.cast();
     }
 
     @Override

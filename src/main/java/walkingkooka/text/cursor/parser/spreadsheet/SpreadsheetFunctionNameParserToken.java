@@ -59,6 +59,11 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymb
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }
@@ -136,10 +141,5 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymb
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFunctionNameParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

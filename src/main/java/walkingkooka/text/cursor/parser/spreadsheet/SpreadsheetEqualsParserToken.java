@@ -60,6 +60,11 @@ public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserT
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isAddition() {
         return false;
     }
@@ -130,10 +135,5 @@ public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserT
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetEqualsParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

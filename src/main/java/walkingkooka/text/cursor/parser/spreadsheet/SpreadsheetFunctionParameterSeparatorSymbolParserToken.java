@@ -50,6 +50,11 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserToken extend
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isBetweenSymbol() {
         return false;
     }
@@ -148,10 +153,5 @@ public final class SpreadsheetFunctionParameterSeparatorSymbolParserToken extend
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetFunctionParameterSeparatorSymbolParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

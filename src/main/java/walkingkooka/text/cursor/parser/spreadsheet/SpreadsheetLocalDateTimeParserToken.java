@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
- * Holds a single {@link LocalDateTime}
+ * Holds a single {@link LocalDateTime} within a formula.
  */
 public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetNonSymbolParserToken<LocalDateTime> {
 

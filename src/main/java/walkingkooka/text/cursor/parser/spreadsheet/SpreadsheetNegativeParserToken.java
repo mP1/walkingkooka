@@ -60,6 +60,11 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isNegative() {
         return true;
     }
@@ -80,10 +85,5 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetNegativeParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

@@ -61,6 +61,11 @@ public final class SpreadsheetTextParserToken extends SpreadsheetNonSymbolParser
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isBigDecimal() {
         return false;
     }
@@ -138,11 +143,6 @@ public final class SpreadsheetTextParserToken extends SpreadsheetNonSymbolParser
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetTextParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 
     // HasSearchNode ...............................................................................................

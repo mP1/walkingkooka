@@ -22,7 +22,7 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import java.util.Optional;
 
 /**
- * A row name.
+ * A token that holds a row reference.
  */
 public final class SpreadsheetRowReferenceParserToken extends SpreadsheetNonSymbolParserToken<SpreadsheetRowReference> {
 
@@ -56,6 +56,11 @@ public final class SpreadsheetRowReferenceParserToken extends SpreadsheetNonSymb
     @Override
     public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
         return Optional.of(this);
+    }
+
+    @Override
+    public ParserTokenNodeName name() {
+        return NAME;
     }
 
     @Override
@@ -136,10 +141,5 @@ public final class SpreadsheetRowReferenceParserToken extends SpreadsheetNonSymb
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof SpreadsheetRowReferenceParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }
