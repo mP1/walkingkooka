@@ -220,7 +220,7 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatAmPmParserToken token) {
-        this.add(SpreadsheetFormatParserToken.amPm(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::amPm);
     }
 
     @Override
@@ -235,7 +235,7 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatColorNameParserToken token) {
-        this.add(SpreadsheetFormatParserToken.colorName(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::colorName);
     }
 
     @Override
@@ -255,7 +255,7 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatDayParserToken token) {
-        this.add(SpreadsheetFormatParserToken.day(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::day);
     }
 
     @Override
@@ -285,12 +285,12 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatEscapeParserToken token) {
-        this.add(SpreadsheetFormatParserToken.escape(Character.toLowerCase(token.value()), token.text().toLowerCase()));
+        this.addCharacter(token, SpreadsheetFormatParserToken::escape);
     }
 
     @Override
     protected void visit(final SpreadsheetFormatExponentSymbolParserToken token) {
-        this.add(SpreadsheetFormatParserToken.exponentSymbol(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::exponentSymbol);
     }
 
     @Override
@@ -300,7 +300,7 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatGeneralSymbolParserToken token) {
-        this.add(SpreadsheetFormatParserToken.generalSymbol(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::generalSymbol);
     }
 
     @Override
@@ -315,7 +315,7 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatHourParserToken token) {
-        this.add(SpreadsheetFormatParserToken.hour(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::hour);
     }
 
     @Override
@@ -330,7 +330,7 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatMonthOrMinuteParserToken token) {
-        this.add(SpreadsheetFormatParserToken.monthOrMinute(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::monthOrMinute);
     }
 
     @Override
@@ -350,12 +350,12 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatQuotedTextParserToken token) {
-        this.add(SpreadsheetFormatParserToken.quotedText(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::quotedText);
     }
 
     @Override
     protected void visit(final SpreadsheetFormatSecondParserToken token) {
-        this.add(SpreadsheetFormatParserToken.second(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::second);
     }
 
     @Override
@@ -365,12 +365,12 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatStarParserToken token) {
-        this.add(SpreadsheetFormatParserToken.star(Character.toLowerCase(token.value()), token.text().toLowerCase()));
+        this.add(token);
     }
 
     @Override
     protected void visit(final SpreadsheetFormatTextLiteralParserToken token) {
-        this.add(SpreadsheetFormatParserToken.textLiteral(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::textLiteral);
     }
 
     @Override
@@ -385,7 +385,7 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatUnderscoreParserToken token) {
-        this.add(SpreadsheetFormatParserToken.underscore(Character.toLowerCase(token.value()), token.text().toLowerCase()));
+        this.add(token);
     }
 
     @Override
@@ -395,7 +395,7 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
 
     @Override
     protected void visit(final SpreadsheetFormatYearParserToken token) {
-        this.add(SpreadsheetFormatParserToken.year(token.value().toLowerCase(), token.text().toLowerCase()));
+        this.addString(token, SpreadsheetFormatParserToken::year);
     }
 
     // GENERAL PURPOSE .................................................................................................
@@ -412,10 +412,17 @@ final class SpreadsheetFormatParsersTestSpreadsheetFormatParserTokenVisitor exte
         this.add(factory.apply(children, ParserToken.text(children)));
     }
 
+    private <T extends SpreadsheetFormatLeafParserToken<Character>> void addCharacter(final T token,
+                                                                                      final BiFunction<Character, String, T> factory) {
+        this.add(factory.apply(Character.toLowerCase(token.value()), token.text().toLowerCase()));
+    }
+
+    private <T extends SpreadsheetFormatLeafParserToken<String>> void addString(final T token,
+                                                                                final BiFunction<String, String, T> factory) {
+        this.add(factory.apply(token.value().toLowerCase(), token.text().toLowerCase()));
+    }
+
     private void add(final SpreadsheetFormatParserToken token) {
-        if (null == token) {
-            throw new NullPointerException("Null token returned for " + token);
-        }
         this.children.add(token);
     }
 
