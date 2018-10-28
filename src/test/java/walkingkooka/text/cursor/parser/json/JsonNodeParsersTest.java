@@ -272,7 +272,7 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
         this.parseAndCheck(text,
                 object(objectBegin(),
                         whitespace(), key1(), whitespace(), objectAssignment(), whitespace(), nul(), whitespace(),
-                objectEnd()),
+                        objectEnd()),
                 text);
     }
 
@@ -348,7 +348,7 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
         return JsonNodeParserToken.arrayEndSymbol("]", "]");
     }
 
-    private JsonNodeParserToken array(final JsonNodeParserToken...tokens) {
+    private JsonNodeParserToken array(final JsonNodeParserToken... tokens) {
         return JsonNodeParserToken.array(Lists.of(tokens), text(tokens));
     }
 
@@ -385,7 +385,7 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
         return JsonNodeParserToken.objectEndSymbol("}", "}");
     }
 
-    private JsonNodeParserToken object(final JsonNodeParserToken...tokens) {
+    private JsonNodeParserToken object(final JsonNodeParserToken... tokens) {
         return JsonNodeParserToken.object(Lists.of(tokens), text(tokens));
     }
 
@@ -413,7 +413,7 @@ public final class JsonNodeParsersTest extends ParserTestCase3<Parser<JsonNodePa
         return string("key3");
     }
 
-    private static String text(final JsonNodeParserToken...tokens){
+    private static String text(final JsonNodeParserToken... tokens) {
         return ParserToken.text(Lists.of(tokens));
     }
 

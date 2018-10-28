@@ -22,7 +22,6 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Holds a json null value.
@@ -31,13 +30,13 @@ public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeNullParserToken.class);
 
-    static JsonNodeNullParserToken with(final Void value, final String text){
+    static JsonNodeNullParserToken with(final Void value, final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
         return new JsonNodeNullParserToken(value, text);
     }
 
-    private JsonNodeNullParserToken(final Void value, final String text){
+    private JsonNodeNullParserToken(final Void value, final String text) {
         super(value, text);
     }
 
@@ -51,10 +50,14 @@ public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void
         return new JsonNodeNullParserToken(this.value, text);
     }
 
+    // name ...............................................................................................
+
     @Override
-    public Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
+    public ParserTokenNodeName name() {
+        return NAME;
     }
+
+    // is ...............................................................................................
 
     @Override
     public boolean isBoolean() {
@@ -77,17 +80,11 @@ public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
-    public void accept(final JsonNodeParserTokenVisitor visitor){
+    public void accept(final JsonNodeParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
-    @Override
-    final JsonNode toJsonNodeOrNull() {
+    @Override final JsonNode toJsonNodeOrNull() {
         return JsonNode.nullNode();
     }
 
@@ -99,10 +96,5 @@ public final class JsonNodeNullParserToken extends JsonNodeValueParserToken<Void
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof JsonNodeNullParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

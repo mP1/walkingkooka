@@ -17,13 +17,20 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
+import java.util.Optional;
+
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
-abstract class JsonNodeValueParserToken<T> extends JsonNodeLeafParserToken<T> {
+abstract class JsonNodeValueParserToken<V> extends JsonNodeLeafParserToken<V> {
 
-    JsonNodeValueParserToken(final T value, final String text){
+    JsonNodeValueParserToken(final V value, final String text) {
         super(value, text);
+    }
+
+    @Override
+    public final Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
+        return Optional.of(this);
     }
 
     @Override

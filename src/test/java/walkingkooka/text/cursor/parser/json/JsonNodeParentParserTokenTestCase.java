@@ -83,7 +83,7 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
     @Test
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
         final Optional<JsonNodeParserToken> without = this.createToken().withoutSymbolsOrWhitespace();
-        if(without.isPresent()){
+        if (without.isPresent()) {
             this.propertiesNeverReturnNullCheck(without.get());
         }
     }
@@ -95,13 +95,13 @@ public abstract class JsonNodeParentParserTokenTestCase<T extends JsonNodeParent
 
     abstract T createToken(final String text, final List<ParserToken> tokens);
 
-    final T createToken(final String text, final ParserToken...tokens) {
+    final T createToken(final String text, final ParserToken... tokens) {
         return this.createToken(text, Lists.of(tokens));
     }
 
     abstract List<ParserToken> tokens();
 
-    final void checkValue(final T token, final ParserToken...tokens){
+    final void checkValue(final T token, final ParserToken... tokens) {
         assertEquals("value", Lists.of(tokens), token.value());
     }
 }

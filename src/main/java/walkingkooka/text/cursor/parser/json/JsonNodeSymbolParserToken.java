@@ -27,7 +27,7 @@ import java.util.Optional;
  */
 abstract class JsonNodeSymbolParserToken extends JsonNodeLeafParserToken<String> {
 
-    JsonNodeSymbolParserToken(final String value, final String text){
+    JsonNodeSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -35,7 +35,7 @@ abstract class JsonNodeSymbolParserToken extends JsonNodeLeafParserToken<String>
     public final Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
         return Optional.empty();
     }
-    
+
     @Override
     public final boolean isBoolean() {
         return false;
@@ -62,22 +62,15 @@ abstract class JsonNodeSymbolParserToken extends JsonNodeLeafParserToken<String>
     }
 
     @Override
-    public final boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public final boolean isNoise() {
         return true;
     }
 
-    @Override
-    JsonNode toJsonNodeOrNull() {
+    @Override final JsonNode toJsonNodeOrNull() {
         return null;
     }
 
-    @Override
-    void addJsonNode(final List<JsonNode> children) {
+    @Override final void addJsonNode(final List<JsonNode> children) {
         // skip whitespace
     }
 }

@@ -23,7 +23,6 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Holds a either true or false boolean value
@@ -32,13 +31,13 @@ public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<B
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeBooleanParserToken.class);
 
-    static JsonNodeBooleanParserToken with(final boolean value, final String text){
+    static JsonNodeBooleanParserToken with(final boolean value, final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
         return new JsonNodeBooleanParserToken(value, text);
     }
 
-    private JsonNodeBooleanParserToken(final boolean value, final String text){
+    private JsonNodeBooleanParserToken(final boolean value, final String text) {
         super(value, text);
     }
 
@@ -52,10 +51,14 @@ public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<B
         return new JsonNodeBooleanParserToken(this.value, text);
     }
 
+    // name ...............................................................................................
+
     @Override
-    public Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
+    public ParserTokenNodeName name() {
+        return NAME;
     }
+
+    // is ...............................................................................................
 
     @Override
     public boolean isBoolean() {
@@ -77,18 +80,7 @@ public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<B
         return false;
     }
 
-    @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
-    public void accept(final JsonNodeParserTokenVisitor visitor){
-        visitor.visit(this);
-    }
-
-    @Override
-    final JsonNode toJsonNodeOrNull() {
+    @Override final JsonNode toJsonNodeOrNull() {
         return JsonNode.booleanNode(this.value);
     }
 
@@ -97,20 +89,24 @@ public final class JsonNodeBooleanParserToken extends JsonNodeValueParserToken<B
         children.add(JsonNode.booleanNode(this.value));
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof JsonNodeBooleanParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
-
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.text(this.text(), String.valueOf(this.value()));
+    }
+
+    // visitor ...............................................................................................
+
+    @Override
+    public void accept(final JsonNodeParserTokenVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    // Object ...............................................................................................
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof JsonNodeBooleanParserToken;
     }
 }

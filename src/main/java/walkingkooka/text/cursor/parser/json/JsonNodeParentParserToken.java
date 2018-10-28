@@ -41,11 +41,11 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
                 computeWithout(value);
     }
 
-    private Optional<JsonNodeParserToken> computeWithout(final List<ParserToken> value){
+    private Optional<JsonNodeParserToken> computeWithout(final List<ParserToken> value) {
         final List<ParserToken> without = ParentParserToken.filterWithoutNoise(value);
 
         return Optional.of(value.size() == without.size() ?
-                this:
+                this :
                 this.replaceValue(without, without));
     }
 
@@ -138,8 +138,8 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
         copy.addAll(value);
 
         return this.value().equals(copy) ?
-               this :
-               this.replaceValue(copy, WITHOUT_COMPUTE_REQUIRED);
+                this :
+                this.replaceValue(copy, WITHOUT_COMPUTE_REQUIRED);
     }
 
     /**
@@ -147,14 +147,13 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
      */
     abstract JsonNodeParentParserToken replaceValue(final List<ParserToken> tokens, final List<ParserToken> without);
 
-    final void acceptValues(final JsonNodeParserTokenVisitor visitor){
-        for(ParserToken token: this.value()){
+    final void acceptValues(final JsonNodeParserTokenVisitor visitor) {
+        for (ParserToken token : this.value()) {
             visitor.accept(token);
         }
     }
 
-    @Override
-    final boolean equals1(final JsonNodeParserToken other) {
+    @Override final boolean equals1(final JsonNodeParserToken other) {
         return this.equals2(Cast.to(other));
     }
 

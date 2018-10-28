@@ -23,7 +23,6 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Holds a json string value.
@@ -32,14 +31,14 @@ public final class JsonNodeStringParserToken extends JsonNodeValueParserToken<St
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeStringParserToken.class);
 
-    static JsonNodeStringParserToken with(final String value, final String text){
+    static JsonNodeStringParserToken with(final String value, final String text) {
         checkValue(value);
         CharSequences.failIfNullOrEmpty(text, "text");
 
         return new JsonNodeStringParserToken(value, text);
     }
 
-    private JsonNodeStringParserToken(final String value, final String text){
+    private JsonNodeStringParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -53,10 +52,14 @@ public final class JsonNodeStringParserToken extends JsonNodeValueParserToken<St
         return new JsonNodeStringParserToken(this.value, text);
     }
 
+    // name ...............................................................................................
+
     @Override
-    public Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
+    public ParserTokenNodeName name() {
+        return NAME;
     }
+
+    // is ...............................................................................................
 
     @Override
     public boolean isBoolean() {
@@ -79,16 +82,6 @@ public final class JsonNodeStringParserToken extends JsonNodeValueParserToken<St
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
-    public void accept(final JsonNodeParserTokenVisitor visitor){
-        visitor.visit(this);
-    }
-
-    @Override
     JsonNode toJsonNodeOrNull() {
         return JsonNode.string(this.value());
     }
@@ -98,20 +91,24 @@ public final class JsonNodeStringParserToken extends JsonNodeValueParserToken<St
         children.add(JsonNode.string(value()));
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof JsonNodeStringParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
-
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.text(this.text(), this.value());
+    }
+
+    // visitor ...............................................................................................
+
+    @Override
+    public void accept(final JsonNodeParserTokenVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    // Object ...............................................................................................
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof JsonNodeStringParserToken;
     }
 }

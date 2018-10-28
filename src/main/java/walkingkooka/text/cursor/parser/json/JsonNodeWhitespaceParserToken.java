@@ -19,27 +19,23 @@ package walkingkooka.text.cursor.parser.json;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
-import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.search.SearchNode;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Holds the combination of whitespace.
  */
-public final class JsonNodeWhitespaceParserToken extends JsonNodeValueParserToken<String> {
+public final class JsonNodeWhitespaceParserToken extends JsonNodeSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeWhitespaceParserToken.class);
 
-    static JsonNodeWhitespaceParserToken with(final String value, final String text){
+    static JsonNodeWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
         CharSequences.failIfNullOrEmpty(text, "text");
 
         return new JsonNodeWhitespaceParserToken(value, text);
     }
 
-    private JsonNodeWhitespaceParserToken(final String value, final String text){
+    private JsonNodeWhitespaceParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -53,28 +49,42 @@ public final class JsonNodeWhitespaceParserToken extends JsonNodeValueParserToke
         return new JsonNodeWhitespaceParserToken(this.value, text);
     }
 
-    @Override
-    public Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.empty();
-    }
+    // name ...............................................................................................
 
     @Override
-    public boolean isBoolean() {
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    // is ...............................................................................................
+
+    @Override
+    public boolean isArrayBeginSymbol() {
         return false;
     }
 
     @Override
-    public boolean isNull() {
+    public boolean isArrayEndSymbol() {
         return false;
     }
 
     @Override
-    public boolean isNumber() {
+    public boolean isObjectAssignmentSymbol() {
         return false;
     }
 
     @Override
-    public boolean isString() {
+    public boolean isObjectBeginSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isObjectEndSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isSeparatorSymbol() {
         return false;
     }
 
@@ -83,40 +93,24 @@ public final class JsonNodeWhitespaceParserToken extends JsonNodeValueParserToke
         return true;
     }
 
+    // HasSearchNode ...............................................................................................
+
     @Override
-    public void accept(final JsonNodeParserTokenVisitor visitor){
+    public SearchNode toSearchNode() {
+        return SearchNode.text(this.text(), this.value());
+    }
+
+    // Visitor ...............................................................................................
+
+    @Override
+    public void accept(final JsonNodeParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
-    @Override
-    JsonNode toJsonNodeOrNull() {
-        return null;
-    }
-
-    @Override
-    void addJsonNode(final List<JsonNode> children) {
-        // skip whitespace
-    }
+    // Object ...............................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof JsonNodeWhitespaceParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
-    }
-
-    @Override
-    public boolean isNoise() {
-        return true;
-    }
-
-    // HasSearchNode ...............................................................................................
-
-    @Override
-    public SearchNode toSearchNode()  {
-        return SearchNode.text(this.text(), this.value());
     }
 }
