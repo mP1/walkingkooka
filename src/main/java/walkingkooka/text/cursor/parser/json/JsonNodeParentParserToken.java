@@ -50,7 +50,7 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
     }
 
     @Override
-    public final Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
+    public final Optional<JsonNodeParserToken> withoutSymbols() {
         return this.without;
     }
 
@@ -60,7 +60,7 @@ abstract class JsonNodeParentParserToken<T extends JsonNodeParentParserToken> ex
 
     private final Optional<JsonNodeParserToken> without;
 
-    final List<ParserToken> valueIfWithoutSymbolsOrWhitespaceOrNull() {
+    final List<ParserToken> valueIfWithoutSymbolsOrNull() {
         return this == this.without.get() ? this.value : null;
     }
 

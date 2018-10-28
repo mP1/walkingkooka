@@ -48,7 +48,7 @@ public final class NodeSelectorLessThanParserToken extends NodeSelectorCondition
 
     @Override
     NodeSelectorLessThanParserToken replaceText(final String text) {
-        return new NodeSelectorLessThanParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+        return new NodeSelectorLessThanParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
     }
 
     @Override

@@ -32,7 +32,7 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
     }
 
     @Override
-    public final Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
+    public final Optional<SpreadsheetParserToken> withoutSymbols() {
         return Optional.of(this);
     }
 

@@ -45,7 +45,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
                                            final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
-        final List<ParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value();
+        final List<ParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbols().get()).value();
         final int count = without.size();
         if (count < 1) {
             throw new IllegalArgumentException("Expected at least 1 tokens but got " + count + "=" + without);

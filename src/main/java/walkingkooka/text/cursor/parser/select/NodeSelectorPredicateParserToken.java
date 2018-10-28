@@ -47,7 +47,7 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
 
     @Override
     NodeSelectorPredicateParserToken replaceText(final String text) {
-        return new NodeSelectorPredicateParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+        return new NodeSelectorPredicateParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
     }
 
     @Override

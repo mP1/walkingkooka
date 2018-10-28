@@ -33,7 +33,7 @@ public final class JsonNodeArrayParserTokenTest extends JsonNodeParentParserToke
     @Test
     public void testWithoutWhitespace() {
         final JsonNodeArrayParserToken array = array(arrayBegin(), whitespace(), string("abc"), arrayEnd()).cast();
-        final JsonNodeArrayParserToken without = array.withoutSymbolsOrWhitespace().get().cast();
+        final JsonNodeArrayParserToken without = array.withoutSymbols().get().cast();
         assertEquals("value", Lists.of(string("abc")), without.value());
     }
 

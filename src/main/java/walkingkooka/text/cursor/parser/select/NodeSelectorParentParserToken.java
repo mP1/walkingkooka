@@ -55,7 +55,7 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
     }
 
     @Override
-    public final Optional<NodeSelectorParserToken> withoutSymbolsOrWhitespace() {
+    public final Optional<NodeSelectorParserToken> withoutSymbols() {
         return this.without;
     }
 
@@ -65,7 +65,7 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
 
     private final Optional<NodeSelectorParserToken> without;
 
-    final List<ParserToken> valueIfWithoutSymbolsOrWhitespaceOrNull() {
+    final List<ParserToken> valueIfWithoutSymbolsOrNull() {
         return this == this.without.get() ? this.value : null;
     }
 

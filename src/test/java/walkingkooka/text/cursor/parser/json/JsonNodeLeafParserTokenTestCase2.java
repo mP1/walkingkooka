@@ -27,9 +27,9 @@ import static org.junit.Assert.assertEquals;
 public abstract class JsonNodeLeafParserTokenTestCase2<T extends JsonNodeLeafParserToken, V, N extends JsonNode> extends JsonNodeLeafParserTokenTestCase<T, V> {
 
     @Test
-    public final void testWithoutSymbolsOrWhitespace() {
+    public final void testWithoutSymbols() {
         final T token = this.createToken();
-        assertEquals(Optional.of(token), token.withoutSymbolsOrWhitespace());
+        assertEquals(Optional.of(token), token.withoutSymbols());
     }
 
     @Override

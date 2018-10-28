@@ -59,16 +59,16 @@ public abstract class SpreadsheetParentParserTokenTestCase<T extends Spreadsheet
     }
 
     @Test
-    public void testWithoutSymbolsOrWhitespaceCached() {
+    public void testWithoutSymbolsCached() {
         final T token = this.createToken();
-        assertSame(token.withoutSymbolsOrWhitespace(), token.withoutSymbolsOrWhitespace());
-        assertSame(token.withoutSymbolsOrWhitespace().get().withoutSymbolsOrWhitespace(), token.withoutSymbolsOrWhitespace().get().withoutSymbolsOrWhitespace());
+        assertSame(token.withoutSymbols(), token.withoutSymbols());
+        assertSame(token.withoutSymbols().get().withoutSymbols(), token.withoutSymbols().get().withoutSymbols());
     }
 
     @Test
-    public void testWithoutSymbolsOrWhitespaceDoubleSame() {
+    public void testWithoutSymbolsDoubleSame() {
         final T token = this.createToken();
-        assertSame(token.withoutSymbolsOrWhitespace().get(), token.withoutSymbolsOrWhitespace().get());
+        assertSame(token.withoutSymbols().get(), token.withoutSymbols().get());
     }
 
     @Test(expected = NullPointerException.class)

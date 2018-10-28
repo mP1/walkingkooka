@@ -46,7 +46,7 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
     }
 
     private void checkKeys(final String text) {
-        final List<ParserToken> without = this.valueIfWithoutSymbolsOrWhitespaceOrNull();
+        final List<ParserToken> without = this.valueIfWithoutSymbolsOrNull();
         if (null != without) {
             int i = 0;
             JsonNodeParserToken j = null;
@@ -73,7 +73,7 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
 
     @Override
     JsonNodeObjectParserToken replaceText(final String text) {
-        return new JsonNodeObjectParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+        return new JsonNodeObjectParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
     }
 
     @Override
@@ -108,7 +108,7 @@ public final class JsonNodeObjectParserToken extends JsonNodeParentParserToken<J
         final JsonObjectNode object = JsonNode.object();
         final List<JsonNode> objectChildren = Lists.array();
 
-        for (ParserToken element : JsonNodeObjectParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value()) {
+        for (ParserToken element : JsonNodeObjectParserToken.class.cast(this.withoutSymbols().get()).value()) {
             if (element instanceof JsonNodeParserToken) {
                 final JsonNodeParserToken j = JsonNodeParserToken.class.cast(element);
                 if (j.isNoise()) {

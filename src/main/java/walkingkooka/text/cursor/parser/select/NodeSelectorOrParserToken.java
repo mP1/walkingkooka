@@ -47,7 +47,7 @@ public final class NodeSelectorOrParserToken extends NodeSelectorBinaryParserTok
 
     @Override
     NodeSelectorOrParserToken replaceText(final String text) {
-        return new NodeSelectorOrParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+        return new NodeSelectorOrParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
     }
 
     @Override

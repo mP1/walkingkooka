@@ -47,7 +47,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         final SpreadsheetFunctionNameParserToken name = this.function();
         final SpreadsheetFunctionParserToken token = this.createToken(text, name, this.number1());
         this.checkText(token, text);
-        assertSame(token, token.withoutSymbolsOrWhitespace().get());
+        assertSame(token, token.withoutSymbols().get());
     }
 
     @Test
@@ -65,7 +65,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         this.checkFunction(token, this.functionName());
         this.checkParameters(token, number);
 
-        final SpreadsheetFunctionParserToken token2 = Cast.to(token.withoutSymbolsOrWhitespace().get());
+        final SpreadsheetFunctionParserToken token2 = Cast.to(token.withoutSymbols().get());
         assertNotSame(token, token2);
         this.checkText(token2, text);
         this.checkValue(token2, name, number);
@@ -90,7 +90,7 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         this.checkFunction(token, this.functionName());
         this.checkParameters(token, number);
 
-        final SpreadsheetFunctionParserToken token2 = Cast.to(token.withoutSymbolsOrWhitespace().get());
+        final SpreadsheetFunctionParserToken token2 = Cast.to(token.withoutSymbols().get());
         assertNotSame(token, token2);
         this.checkText(token2, text);
         this.checkValue(token2, name, number);

@@ -47,7 +47,7 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
 
     @Override
     NodeSelectorExpressionParserToken replaceText(final String text) {
-        return new NodeSelectorExpressionParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+        return new NodeSelectorExpressionParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
     }
 
     @Override

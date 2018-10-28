@@ -55,26 +55,26 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
     }
 
     @Test
-    public final void testWithoutSymbolsOrWhitespaceCached() {
+    public final void testWithoutSymbolsCached() {
         final T token = this.createToken();
-        assertSame(token.withoutSymbolsOrWhitespace(), token.withoutSymbolsOrWhitespace());
-        assertSame(token.withoutSymbolsOrWhitespace().get().withoutSymbolsOrWhitespace(), token.withoutSymbolsOrWhitespace().get().withoutSymbolsOrWhitespace());
+        assertSame(token.withoutSymbols(), token.withoutSymbols());
+        assertSame(token.withoutSymbols().get().withoutSymbols(), token.withoutSymbols().get().withoutSymbols());
     }
 
     @Test
-    public final void testWithoutSymbolsOrWhitespaceDoubleSame() {
+    public final void testWithoutSymbolsDoubleSame() {
         final T token = this.createToken();
-        assertSame(token.withoutSymbolsOrWhitespace(), token.withoutSymbolsOrWhitespace());
+        assertSame(token.withoutSymbols(), token.withoutSymbols());
     }
 
     @Test
     public final void testSetTextDifferentWithout() {
         final T token = this.createToken();
-        final List<?> childrenWithout = Cast.<T>to(token.withoutSymbolsOrWhitespace().get()).value();
+        final List<?> childrenWithout = Cast.<T>to(token.withoutSymbols().get()).value();
 
         final String differentText = this.createDifferentToken().text();
         final T different = token.setText(differentText).cast();
-        final T differentWithout = Cast.<T>to(different.withoutSymbolsOrWhitespace().get());
+        final T differentWithout = Cast.<T>to(different.withoutSymbols().get());
         assertEquals("children without", childrenWithout, differentWithout.value());
 
         assertTrue("without " + token.value().size() + " should have less than or equal tokens than with " + differentWithout.value().size(),
@@ -83,7 +83,7 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
 
     @Test
     public void testWithoutCommentsSymbolsOrWhitespacePropertiesNullCheck() throws Exception {
-        final Optional<NodeSelectorParserToken> without = this.createToken().withoutSymbolsOrWhitespace();
+        final Optional<NodeSelectorParserToken> without = this.createToken().withoutSymbols();
         if (without.isPresent()) {
             this.propertiesNeverReturnNullCheck(without.get());
         }
