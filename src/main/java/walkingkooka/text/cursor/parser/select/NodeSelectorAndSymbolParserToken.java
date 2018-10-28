@@ -131,6 +131,11 @@ public final class NodeSelectorAndSymbolParserToken extends NodeSelectorSymbolPa
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

@@ -21,12 +21,10 @@ import org.junit.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class NodeSelectorWhitespaceParserTokenTest extends NodeSelectorLeafParserTokenTestCase<NodeSelectorWhitespaceParserToken, String> {
+public final class NodeSelectorWhitespaceParserTokenTest extends NodeSelectorSymbolParserTokenTestCase<NodeSelectorWhitespaceParserToken, String> {
 
     @Test
     public void testAccept() {
@@ -67,12 +65,6 @@ public final class NodeSelectorWhitespaceParserTokenTest extends NodeSelectorLea
             }
         }.accept(token);
         assertEquals("13542", b.toString());
-    }
-
-    @Test
-    public void testWithoutSymbolsOrWhitespace() {
-        final NodeSelectorWhitespaceParserToken token = this.createToken();
-        assertEquals(Optional.empty(), token.withoutSymbolsOrWhitespace());
     }
 
     @Override

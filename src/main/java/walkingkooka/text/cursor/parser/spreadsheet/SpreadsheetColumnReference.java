@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * Represents a column reference
  */
-public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowReference<SpreadsheetColumnReference>{
+public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowReference<SpreadsheetColumnReference> {
 
     // https://support.office.com/en-us/article/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
     final static int MAX = 16384;
@@ -41,8 +41,8 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
         Objects.requireNonNull(referenceKind, "referenceKind");
 
         return value < CACHE_SIZE ?
-               referenceKind.columnFromCache(value):
-               new SpreadsheetColumnReference(value, referenceKind);
+                referenceKind.columnFromCache(value) :
+                new SpreadsheetColumnReference(value, referenceKind);
     }
 
     static final SpreadsheetColumnReference[] ABSOLUTE = fillCache(i -> new SpreadsheetColumnReference(i, SpreadsheetReferenceKind.ABSOLUTE),
@@ -74,7 +74,7 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
     }
 
     private static void checkValue(final int value) {
-        if(value < 0 || value >= MAX) {
+        if (value < 0 || value >= MAX) {
             throw new IllegalArgumentException(invalidColumnValue(value));
         }
     }
@@ -102,7 +102,7 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
         return toString0(this.value, this.referenceKind());
     }
 
-    private static String toString0(final int value, final SpreadsheetReferenceKind referenceKind){
+    private static String toString0(final int value, final SpreadsheetReferenceKind referenceKind) {
         // 0=A, 1=B, AA = 26 * 1
         final StringBuilder b = new StringBuilder();
         b.append(referenceKind.prefix());
@@ -114,11 +114,11 @@ public final class SpreadsheetColumnReference extends SpreadsheetColumnOrRowRefe
 
     private static void toString1(final int value, final StringBuilder b) {
         final int v = (value / RADIX);
-        if(v > 0) {
-            toString1(v-1, b);
+        if (v > 0) {
+            toString1(v - 1, b);
         }
         final int c = (value % RADIX) + 'A';
-        b.append((char)c);
+        b.append((char) c);
     }
 
     // Comparable......................................................................................................

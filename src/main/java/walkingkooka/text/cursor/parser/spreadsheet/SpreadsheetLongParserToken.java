@@ -27,11 +27,11 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLongParserToken.class);
 
-    static SpreadsheetLongParserToken with(final long value, final String text){
+    static SpreadsheetLongParserToken with(final long value, final String text) {
         return new SpreadsheetLongParserToken(value, text);
     }
 
-    private SpreadsheetLongParserToken(final Long value, final String text){
+    private SpreadsheetLongParserToken(final Long value, final String text) {
         super(value, text);
     }
 
@@ -86,7 +86,7 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -98,7 +98,7 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.longNode(this.text(), this.value());
     }
 }

@@ -40,7 +40,7 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
         Objects.requireNonNull(referenceKind, "referenceKind");
 
         return value < CACHE_SIZE ?
-                referenceKind.rowFromCache(value):
+                referenceKind.rowFromCache(value) :
                 new SpreadsheetRowReference(value, referenceKind);
     }
 
@@ -69,12 +69,12 @@ public final class SpreadsheetRowReference extends SpreadsheetColumnOrRowReferen
     public SpreadsheetRowReference setValue(final int value) {
         checkValue(value);
         return this.value == value ?
-               this :
-               new SpreadsheetRowReference(value, this.referenceKind());
+                this :
+                new SpreadsheetRowReference(value, this.referenceKind());
     }
 
     private static void checkValue(final int value) {
-        if(value < 0 || value >= MAX) {
+        if (value < 0 || value >= MAX) {
             throw new IllegalArgumentException(invalidRowValue(value));
         }
     }

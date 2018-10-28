@@ -19,12 +19,10 @@ package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.util.Optional;
-
 /**
  * Holds the combination any whitespace that may appear within a selector.
  */
-public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonSymbolParserToken<String> {
+public final class NodeSelectorWhitespaceParserToken extends NodeSelectorSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorWhitespaceParserToken.class);
 
@@ -54,11 +52,6 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonSymb
         return new NodeSelectorWhitespaceParserToken(this.value, text);
     }
 
-    @Override
-    public Optional<NodeSelectorParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.empty();
-    }
-
     // name................................................................................................
 
     @Override
@@ -69,97 +62,82 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonSymb
     // is................................................................................................
 
     @Override
-    public boolean isAbsolute() {
+    public boolean isAndSymbol() {
         return false;
     }
 
     @Override
-    public boolean isAncestor() {
+    public boolean isAtSignSymbol() {
         return false;
     }
 
     @Override
-    public boolean isAttributeName() {
+    public boolean isBracketOpenSymbol() {
         return false;
     }
 
     @Override
-    public boolean isChild() {
+    public boolean isBracketCloseSymbol() {
         return false;
     }
 
     @Override
-    public boolean isDescendant() {
+    public boolean isEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isFirstChild() {
+    public boolean isGreaterThanSymbol() {
         return false;
     }
 
     @Override
-    public boolean isFollowing() {
+    public boolean isGreaterThanEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isFollowingSibling() {
+    public boolean isLessThanSymbol() {
         return false;
     }
 
     @Override
-    public boolean isFunctionName() {
+    public boolean isLessThanEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isLastChild() {
+    public boolean isNotEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isNodeName() {
+    public boolean isOrSymbol() {
         return false;
     }
 
     @Override
-    public boolean isNumber() {
+    public boolean isParameterSeparatorSymbol() {
         return false;
     }
 
     @Override
-    public boolean isParentOf() {
+    public boolean isParenthesisOpenSymbol() {
         return false;
     }
 
     @Override
-    public boolean isPreceding() {
+    public boolean isParenthesisCloseSymbol() {
         return false;
     }
 
     @Override
-    public boolean isPrecedingSibling() {
-        return false;
-    }
-
-    @Override
-    public boolean isQuotedText() {
-        return false;
-    }
-
-    @Override
-    public boolean isSelf() {
+    public boolean isSlashSeparatorSymbol() {
         return false;
     }
 
     @Override
     public boolean isWhitespace() {
-        return true;
-    }
-
-    @Override
-    public boolean isNoise() {
         return true;
     }
 

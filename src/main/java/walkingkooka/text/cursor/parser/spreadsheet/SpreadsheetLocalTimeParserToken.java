@@ -30,13 +30,13 @@ public final class SpreadsheetLocalTimeParserToken extends SpreadsheetNonSymbolP
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLocalTimeParserToken.class);
 
-    static SpreadsheetLocalTimeParserToken with(final LocalTime value, final String text){
+    static SpreadsheetLocalTimeParserToken with(final LocalTime value, final String text) {
         checkValue(value);
 
         return new SpreadsheetLocalTimeParserToken(value, text);
     }
 
-    private SpreadsheetLocalTimeParserToken(final LocalTime value, final String text){
+    private SpreadsheetLocalTimeParserToken(final LocalTime value, final String text) {
         super(value, text);
     }
 
@@ -131,7 +131,7 @@ public final class SpreadsheetLocalTimeParserToken extends SpreadsheetNonSymbolP
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -148,7 +148,7 @@ public final class SpreadsheetLocalTimeParserToken extends SpreadsheetNonSymbolP
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.localTime(this.text(), this.value());
     }
 }

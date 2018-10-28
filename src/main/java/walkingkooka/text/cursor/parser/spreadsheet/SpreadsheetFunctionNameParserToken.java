@@ -28,13 +28,13 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymb
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFunctionNameParserToken.class);
 
-    static SpreadsheetFunctionNameParserToken with(final SpreadsheetFunctionName value, final String text){
+    static SpreadsheetFunctionNameParserToken with(final SpreadsheetFunctionName value, final String text) {
         checkValue(value);
 
         return new SpreadsheetFunctionNameParserToken(value, text);
     }
 
-    private SpreadsheetFunctionNameParserToken(final SpreadsheetFunctionName value, final String text){
+    private SpreadsheetFunctionNameParserToken(final SpreadsheetFunctionName value, final String text) {
         super(value, text);
     }
 
@@ -134,7 +134,7 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymb
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

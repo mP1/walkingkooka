@@ -30,7 +30,7 @@ public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserT
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetEqualsParserToken.class);
 
-    static SpreadsheetEqualsParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetEqualsParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetEqualsParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserT
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetEqualsParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+    private SpreadsheetEqualsParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -68,7 +68,7 @@ public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserT
     public boolean isAddition() {
         return false;
     }
-    
+
     @Override
     public boolean isDivision() {
         return false;
@@ -98,7 +98,7 @@ public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserT
     public boolean isLessThanEquals() {
         return false;
     }
-    
+
     @Override
     public boolean isMultiplication() {
         return false;
@@ -125,8 +125,8 @@ public final class SpreadsheetEqualsParserToken extends SpreadsheetBinaryParserT
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

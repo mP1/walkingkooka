@@ -26,7 +26,7 @@ import java.util.Optional;
  */
 abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<String> {
 
-    SpreadsheetSymbolParserToken(final String value, final String text){
+    SpreadsheetSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -64,7 +64,7 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     public final boolean isFunctionName() {
         return false;
     }
-    
+
     @Override
     public final boolean isLabelName() {
         return false;
@@ -118,7 +118,7 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.text(this.text(), this.value());
     }
 }

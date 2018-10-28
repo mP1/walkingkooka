@@ -29,13 +29,13 @@ public final class SpreadsheetGreaterThanSymbolParserToken extends SpreadsheetSy
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetGreaterThanSymbolParserToken.class);
 
-    static SpreadsheetGreaterThanSymbolParserToken with(final String value, final String text){
+    static SpreadsheetGreaterThanSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetGreaterThanSymbolParserToken(value, text);
     }
 
-    private SpreadsheetGreaterThanSymbolParserToken(final String value, final String text){
+    private SpreadsheetGreaterThanSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetGreaterThanSymbolParserToken extends SpreadsheetSy
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return GREATER_THAN_LESS_THAN_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.greaterThan(tokens, text);
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

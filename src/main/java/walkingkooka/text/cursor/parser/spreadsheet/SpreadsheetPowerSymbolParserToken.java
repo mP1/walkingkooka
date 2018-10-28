@@ -29,13 +29,13 @@ public final class SpreadsheetPowerSymbolParserToken extends SpreadsheetSymbolPa
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPowerSymbolParserToken.class);
 
-    static SpreadsheetPowerSymbolParserToken with(final String value, final String text){
+    static SpreadsheetPowerSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetPowerSymbolParserToken(value, text);
     }
 
-    private SpreadsheetPowerSymbolParserToken(final String value, final String text){
+    private SpreadsheetPowerSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetPowerSymbolParserToken extends SpreadsheetSymbolPa
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return POWER_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.power(tokens, text);
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

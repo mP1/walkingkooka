@@ -29,13 +29,13 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPlusSymbolParserToken.class);
 
-    static SpreadsheetPlusSymbolParserToken with(final String value, final String text){
+    static SpreadsheetPlusSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetPlusSymbolParserToken(value, text);
     }
 
-    private SpreadsheetPlusSymbolParserToken(final String value, final String text){
+    private SpreadsheetPlusSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -135,17 +135,15 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return ADDITION_SUBTRACTION_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.addition(tokens, text);
     }
 

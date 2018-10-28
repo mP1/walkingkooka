@@ -131,6 +131,11 @@ public final class NodeSelectorParenthesisOpenSymbolParserToken extends NodeSele
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

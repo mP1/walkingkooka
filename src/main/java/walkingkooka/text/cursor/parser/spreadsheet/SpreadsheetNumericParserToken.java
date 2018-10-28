@@ -24,12 +24,11 @@ import java.util.Optional;
  */
 abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetNonSymbolParserToken<T> {
 
-    SpreadsheetNumericParserToken(final T value, final String text){
+    SpreadsheetNumericParserToken(final T value, final String text) {
         super(value, text);
     }
 
-    @Override
-    final void checkText(final String text) {
+    @Override final void checkText(final String text) {
         checkTextNullOrWhitespace(text);
     }
 

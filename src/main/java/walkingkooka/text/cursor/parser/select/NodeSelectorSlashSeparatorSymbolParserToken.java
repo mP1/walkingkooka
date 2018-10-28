@@ -131,6 +131,11 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
         return true;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

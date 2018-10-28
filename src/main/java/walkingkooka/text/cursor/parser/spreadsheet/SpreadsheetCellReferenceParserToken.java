@@ -31,13 +31,13 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetCellReferenceParserToken.class);
 
-    static SpreadsheetCellReferenceParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetCellReferenceParserToken with(final List<ParserToken> value, final String text) {
         return new SpreadsheetCellReferenceParserToken(copyAndCheckTokens(value),
                 text,
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetCellReferenceParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+    private SpreadsheetCellReferenceParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
         final SpreadsheetCellReferenceParserTokenConsumer checker = new SpreadsheetCellReferenceParserTokenConsumer();
@@ -46,11 +46,11 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
                 .map(t -> SpreadsheetParserToken.class.cast(t))
                 .forEach(checker);
         final SpreadsheetRowReferenceParserToken row = checker.row;
-        if(null==row){
+        if (null == row) {
             throw new IllegalArgumentException("Row missing from cell=" + text);
         }
         final SpreadsheetColumnReferenceParserToken column = checker.column;
-        if(null==column){
+        if (null == column) {
             throw new IllegalArgumentException("Column missing from cell=" + text);
         }
         this.cell = row.value().setColumn(column.value());
@@ -168,8 +168,8 @@ public final class SpreadsheetCellReferenceParserToken extends SpreadsheetParent
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

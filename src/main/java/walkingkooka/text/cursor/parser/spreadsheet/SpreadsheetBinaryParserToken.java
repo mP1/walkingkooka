@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Base class for any token with two parameters.
  */
-abstract class SpreadsheetBinaryParserToken<T extends SpreadsheetBinaryParserToken> extends SpreadsheetParentParserToken<T>{
+abstract class SpreadsheetBinaryParserToken<T extends SpreadsheetBinaryParserToken> extends SpreadsheetParentParserToken<T> {
 
     SpreadsheetBinaryParserToken(final List<ParserToken> value,
                                  final String text,
@@ -33,7 +33,7 @@ abstract class SpreadsheetBinaryParserToken<T extends SpreadsheetBinaryParserTok
 
         final List<SpreadsheetParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value();
         final int count = without.size();
-        if(2 != count) {
+        if (2 != count) {
             throw new IllegalArgumentException("Expected 2 tokens but got " + count + "=" + without);
         }
         this.left = without.get(0);

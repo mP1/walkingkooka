@@ -42,22 +42,22 @@ final class SpreadsheetLabelNameParser implements Parser<SpreadsheetLabelNamePar
     private SpreadsheetLabelNameParser() {
         super();
     }
-    
+
     @Override
     public Optional<SpreadsheetLabelNameParserToken> parse(final TextCursor cursor, final SpreadsheetParserContext context) {
         final TextCursorSavePoint save = cursor.save();
         final Optional<StringParserToken> stringParserToken = LABEL.parse(cursor, context);
         return stringParserToken.isPresent() ?
-               this.token(stringParserToken.get(), save) :
-               Optional.empty();
+                this.token(stringParserToken.get(), save) :
+                Optional.empty();
 
     }
 
     private Optional<SpreadsheetLabelNameParserToken> token(final StringParserToken stringParserToken, final TextCursorSavePoint save) {
         final String text = stringParserToken.text();
         return SpreadsheetLabelName.isAcceptableLength(text) && !SpreadsheetLabelName.isCellReference(text) ?
-            Optional.of(SpreadsheetParserToken.labelName(SpreadsheetLabelName.with(text), text)) :
-            restoreAndNothing(save);
+                Optional.of(SpreadsheetParserToken.labelName(SpreadsheetLabelName.with(text), text)) :
+                restoreAndNothing(save);
     }
 
     private Optional<SpreadsheetLabelNameParserToken> restoreAndNothing(final TextCursorSavePoint save) {
@@ -66,10 +66,10 @@ final class SpreadsheetLabelNameParser implements Parser<SpreadsheetLabelNamePar
     }
 
     private final static Parser<StringParserToken, SpreadsheetParserContext> LABEL = Parsers.stringInitialAndPartCharPredicate(
-        SpreadsheetLabelName.INITIAL,
-        SpreadsheetLabelName.PART,
-        1,
-        SpreadsheetLabelName.MAX_LENGTH
+            SpreadsheetLabelName.INITIAL,
+            SpreadsheetLabelName.PART,
+            1,
+            SpreadsheetLabelName.MAX_LENGTH
     );
 
     @Override

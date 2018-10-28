@@ -32,7 +32,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFunctionParserToken.class);
 
-    static SpreadsheetFunctionParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetFunctionParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetFunctionParserToken(copy,
@@ -42,16 +42,16 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
 
     private SpreadsheetFunctionParserToken(final List<ParserToken> value,
                                            final String text,
-                                           final List<ParserToken> valueWithout){
+                                           final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
         final List<ParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value();
         final int count = without.size();
-        if(count < 1) {
+        if (count < 1) {
             throw new IllegalArgumentException("Expected at least 1 tokens but got " + count + "=" + without);
         }
         final SpreadsheetParserToken name = without.get(0).cast();
-        if(!name.isFunctionName()){
+        if (!name.isFunctionName()) {
             throw new IllegalArgumentException("Function name missing from " + value);
         }
 
@@ -130,7 +130,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     public boolean isGreaterThanEquals() {
         return false;
     }
-    
+
     @Override
     public boolean isGroup() {
         return false;
@@ -145,7 +145,7 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     public boolean isLessThanEquals() {
         return false;
     }
-    
+
     @Override
     public boolean isMultiplication() {
         return false;
@@ -155,12 +155,12 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     public boolean isNegative() {
         return false;
     }
-    
+
     @Override
     public boolean isNotEquals() {
         return false;
     }
-    
+
     @Override
     public boolean isPercentage() {
         return false;
@@ -182,8 +182,8 @@ public final class SpreadsheetFunctionParserToken extends SpreadsheetParentParse
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

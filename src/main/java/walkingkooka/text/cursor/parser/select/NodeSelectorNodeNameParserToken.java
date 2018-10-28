@@ -19,8 +19,6 @@ package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.util.Optional;
-
 /**
  * Holds a function name.
  */
@@ -52,11 +50,6 @@ public final class NodeSelectorNodeNameParserToken extends NodeSelectorNonSymbol
     @Override
     NodeSelectorNodeNameParserToken replaceText(final String text) {
         return new NodeSelectorNodeNameParserToken(this.value, text);
-    }
-
-    @Override
-    public Optional<NodeSelectorParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     // name................................................................................................
@@ -150,11 +143,6 @@ public final class NodeSelectorNodeNameParserToken extends NodeSelectorNonSymbol
 
     @Override
     public boolean isSelf() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
         return false;
     }
 

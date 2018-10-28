@@ -40,7 +40,7 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
      * Fills an array with what will become a cache of {@link SpreadsheetColumnOrRowReference}.
      */
     static <R extends SpreadsheetColumnOrRowReference<R>> R[] fillCache(final IntFunction<R> reference, final R[] array) {
-        for(int i = 0; i < CACHE_SIZE; i++) {
+        for (int i = 0; i < CACHE_SIZE; i++) {
             array[i] = reference.apply(i);
         }
 
@@ -62,8 +62,8 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
 
     final SpreadsheetColumnOrRowReference add0(final int value) {
         return 0 == value ?
-               this :
-               this.setValue(this.value + value);
+                this :
+                this.setValue(this.value + value);
     }
 
     abstract SpreadsheetColumnOrRowReference setValue(final int value);
@@ -90,15 +90,15 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
 
     public final boolean equals(final Object other) {
         return this == other ||
-               this.canBeEqual(other) &&
-               this.equals0(Cast.to(other));
+                this.canBeEqual(other) &&
+                        this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(Object other);
 
     private boolean equals0(final SpreadsheetColumnOrRowReference other) {
         return this.value == other.value &&
-               this.referenceKind == other.referenceKind;
+                this.referenceKind == other.referenceKind;
     }
 
     @Override

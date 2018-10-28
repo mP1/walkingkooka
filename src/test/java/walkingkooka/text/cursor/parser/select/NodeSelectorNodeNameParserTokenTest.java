@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class NodeSelectorNodeNameParserTokenTest extends NodeSelectorLeafParserTokenTestCase2<NodeSelectorNodeNameParserToken, NodeSelectorNodeName> {
+public final class NodeSelectorNodeNameParserTokenTest extends NodeSelectorNonSymbolParserTokenTestCase<NodeSelectorNodeNameParserToken, NodeSelectorNodeName> {
 
     @Test
     public void testAccept() {

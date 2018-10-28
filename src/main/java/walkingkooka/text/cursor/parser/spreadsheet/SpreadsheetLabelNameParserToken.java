@@ -28,13 +28,13 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolP
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLabelNameParserToken.class);
 
-    static SpreadsheetLabelNameParserToken with(final SpreadsheetLabelName value, final String text){
+    static SpreadsheetLabelNameParserToken with(final SpreadsheetLabelName value, final String text) {
         checkValue(value);
 
         return new SpreadsheetLabelNameParserToken(value, text);
     }
 
-    private SpreadsheetLabelNameParserToken(final SpreadsheetLabelName value, final String text){
+    private SpreadsheetLabelNameParserToken(final SpreadsheetLabelName value, final String text) {
         super(value, text);
     }
 
@@ -134,7 +134,7 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolP
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

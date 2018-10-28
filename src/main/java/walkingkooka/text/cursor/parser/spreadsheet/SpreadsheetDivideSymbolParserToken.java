@@ -29,13 +29,13 @@ public final class SpreadsheetDivideSymbolParserToken extends SpreadsheetSymbolP
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetDivideSymbolParserToken.class);
 
-    static SpreadsheetDivideSymbolParserToken with(final String value, final String text){
+    static SpreadsheetDivideSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetDivideSymbolParserToken(value, text);
     }
 
-    private SpreadsheetDivideSymbolParserToken(final String value, final String text){
+    private SpreadsheetDivideSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetDivideSymbolParserToken extends SpreadsheetSymbolP
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return MULTIPLY_DIVISION_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.division(tokens, text);
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

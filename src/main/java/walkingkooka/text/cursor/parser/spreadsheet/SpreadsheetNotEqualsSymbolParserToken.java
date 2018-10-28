@@ -29,13 +29,13 @@ public final class SpreadsheetNotEqualsSymbolParserToken extends SpreadsheetSymb
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetNotEqualsSymbolParserToken.class);
 
-    static SpreadsheetNotEqualsSymbolParserToken with(final String value, final String text){
+    static SpreadsheetNotEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetNotEqualsSymbolParserToken(value, text);
     }
 
-    private SpreadsheetNotEqualsSymbolParserToken(final String value, final String text){
+    private SpreadsheetNotEqualsSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetNotEqualsSymbolParserToken extends SpreadsheetSymb
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return GREATER_THAN_LESS_THAN_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.notEquals(tokens, text);
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

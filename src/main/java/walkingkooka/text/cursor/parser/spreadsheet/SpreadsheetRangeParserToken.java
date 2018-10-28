@@ -30,7 +30,7 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetRangeParserToken.class);
 
-    static SpreadsheetRangeParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetRangeParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetRangeParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetRangeParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+    private SpreadsheetRangeParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -125,8 +125,8 @@ public final class SpreadsheetRangeParserToken extends SpreadsheetBinaryParserTo
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

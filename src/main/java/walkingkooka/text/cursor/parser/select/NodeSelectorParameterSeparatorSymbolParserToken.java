@@ -131,6 +131,11 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

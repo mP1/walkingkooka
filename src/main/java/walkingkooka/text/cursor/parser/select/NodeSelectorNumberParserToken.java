@@ -19,8 +19,6 @@ package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.util.Optional;
-
 /**
  * Holds a single decimal number.
  */
@@ -51,11 +49,6 @@ public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolPa
     @Override
     NodeSelectorNumberParserToken replaceText(final String text) {
         return new NodeSelectorNumberParserToken(this.value, text);
-    }
-
-    @Override
-    public Optional<NodeSelectorParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     // name................................................................................................
@@ -148,11 +141,6 @@ public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolPa
 
     @Override
     public boolean isSelf() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
         return false;
     }
 

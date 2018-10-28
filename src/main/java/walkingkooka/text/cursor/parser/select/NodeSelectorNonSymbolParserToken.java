@@ -17,6 +17,8 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
+import java.util.Optional;
+
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
@@ -24,6 +26,11 @@ abstract class NodeSelectorNonSymbolParserToken<T> extends NodeSelectorLeafParse
 
     NodeSelectorNonSymbolParserToken(final T value, final String text) {
         super(value, text);
+    }
+
+    @Override
+    public final Optional<NodeSelectorParserToken> withoutSymbolsOrWhitespace() {
+        return Optional.of(this);
     }
 
     @Override
@@ -103,6 +110,11 @@ abstract class NodeSelectorNonSymbolParserToken<T> extends NodeSelectorLeafParse
 
     @Override
     public final boolean isSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isWhitespace() {
         return false;
     }
 }

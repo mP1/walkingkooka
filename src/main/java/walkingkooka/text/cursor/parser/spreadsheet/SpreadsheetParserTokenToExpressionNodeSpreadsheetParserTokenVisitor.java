@@ -45,16 +45,16 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
         return count == 1 ?
                 Optional.of(nodes.get(0)) :
                 count == 0 ?
-                Optional.empty() :
-                fail(count, nodes);
+                        Optional.empty() :
+                        fail(count, nodes);
     }
 
-    private static Optional<ExpressionNode> fail(final int count, final List<ExpressionNode> nodes){
+    private static Optional<ExpressionNode> fail(final int count, final List<ExpressionNode> nodes) {
         throw new SpreadsheetParserException("Expected either 0 or 1 ExpressionNodes but got " + count + "=" + nodes);
     }
 
     // @VisibleForTesting
-    SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor(){
+    SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor() {
         super();
     }
 
@@ -263,7 +263,7 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
     protected void visit(final SpreadsheetBigDecimalParserToken token) {
         this.add(ExpressionNode.bigDecimal(token.value()), token);
     }
-    
+
     @Override
     protected void visit(final SpreadsheetBigIntegerParserToken token) {
         this.add(ExpressionNode.bigInteger(token.value()), token);
@@ -315,7 +315,7 @@ final class SpreadsheetParserTokenToExpressionNodeSpreadsheetParserTokenVisitor 
         final ExpressionNode left = this.children.get(0);
         final ExpressionNode right = this.children.get(1);
         this.exit();
-        this.add(factory.apply(left,right), token);
+        this.add(factory.apply(left, right), token);
     }
 
     private void exitUnary(final Function<ExpressionNode, ExpressionNode> factory, final SpreadsheetParserToken token) {

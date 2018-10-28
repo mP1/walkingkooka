@@ -29,13 +29,13 @@ public final class SpreadsheetOpenParenthesisSymbolParserToken extends Spreadshe
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetOpenParenthesisSymbolParserToken.class);
 
-    static SpreadsheetOpenParenthesisSymbolParserToken with(final String value, final String text){
+    static SpreadsheetOpenParenthesisSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetOpenParenthesisSymbolParserToken(value, text);
     }
 
-    private SpreadsheetOpenParenthesisSymbolParserToken(final String value, final String text){
+    private SpreadsheetOpenParenthesisSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetOpenParenthesisSymbolParserToken extends Spreadshe
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return LOWEST_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

@@ -24,14 +24,14 @@ import java.util.List;
 /**
  * Base class for any token with a single parameter.
  */
-abstract class SpreadsheetUnaryParserToken<T extends SpreadsheetUnaryParserToken> extends SpreadsheetParentParserToken<T>{
+abstract class SpreadsheetUnaryParserToken<T extends SpreadsheetUnaryParserToken> extends SpreadsheetParentParserToken<T> {
 
     SpreadsheetUnaryParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
         final List<SpreadsheetParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value();
         final int count = without.size();
-        if(1 != count) {
+        if (1 != count) {
             throw new IllegalArgumentException("Expected 1 tokens but got " + count + "=" + without);
         }
         this.parameter = without.get(0);
@@ -97,7 +97,7 @@ abstract class SpreadsheetUnaryParserToken<T extends SpreadsheetUnaryParserToken
     public final boolean isMultiplication() {
         return false;
     }
-    
+
     @Override
     public final boolean isNotEquals() {
         return false;
