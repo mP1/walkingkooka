@@ -29,13 +29,13 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBigDecimalParserToken.class);
 
-    static SpreadsheetBigDecimalParserToken with(final BigDecimal value, final String text){
+    static SpreadsheetBigDecimalParserToken with(final BigDecimal value, final String text) {
         checkValue(value);
 
         return new SpreadsheetBigDecimalParserToken(value, text);
     }
 
-    private SpreadsheetBigDecimalParserToken(final BigDecimal value, final String text){
+    private SpreadsheetBigDecimalParserToken(final BigDecimal value, final String text) {
         super(value, text);
     }
 
@@ -90,7 +90,7 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -102,7 +102,7 @@ public final class SpreadsheetBigDecimalParserToken extends SpreadsheetNumericPa
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.bigDecimal(this.text(), this.value());
     }
 }

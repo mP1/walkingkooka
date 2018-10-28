@@ -54,11 +54,6 @@ public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbol
         return new NodeSelectorAbsoluteParserToken(this.value, text);
     }
 
-    @Override
-    public Optional<NodeSelectorParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
-    }
-
     // name................................................................................................
 
     @Override
@@ -150,11 +145,6 @@ public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbol
 
     @Override
     public boolean isSelf() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
         return false;
     }
 

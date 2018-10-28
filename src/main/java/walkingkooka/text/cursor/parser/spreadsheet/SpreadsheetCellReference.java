@@ -28,16 +28,16 @@ import java.util.Objects;
  */
 public final class SpreadsheetCellReference extends SpreadsheetExpressionReference
         implements Comparable<SpreadsheetCellReference>,
-                   LowerOrUpper<SpreadsheetCellReference> {
+        LowerOrUpper<SpreadsheetCellReference> {
 
-    public static SpreadsheetCellReference with(final SpreadsheetColumnReference column, final SpreadsheetRowReference row){
+    public static SpreadsheetCellReference with(final SpreadsheetColumnReference column, final SpreadsheetRowReference row) {
         checkColumn(column);
         checkRow(row);
 
         return new SpreadsheetCellReference(column, row);
     }
 
-    private SpreadsheetCellReference(final SpreadsheetColumnReference column, final SpreadsheetRowReference row){
+    private SpreadsheetCellReference(final SpreadsheetColumnReference column, final SpreadsheetRowReference row) {
         super();
         this.column = column;
         this.row = row;
@@ -76,12 +76,12 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
     public SpreadsheetCellReference setColumn(final SpreadsheetColumnReference column) {
         checkColumn(column);
         return this.column.equals(column) ?
-               this :
-               this.replace(column, this.row);
+                this :
+                this.replace(column, this.row);
     }
 
     private final SpreadsheetColumnReference column;
-    
+
     private static void checkColumn(final SpreadsheetColumnReference column) {
         Objects.requireNonNull(column, "column");
     }
@@ -97,7 +97,7 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
         checkOther(other);
 
         return this.setColumn(this.column.lower(other.column))
-               .setRow(this.row.lower(other.row));
+                .setRow(this.row.lower(other.row));
     }
 
     /**
@@ -124,13 +124,13 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               other instanceof SpreadsheetCellReference &&
-               this.equals0(Cast.to(other));
+                other instanceof SpreadsheetCellReference &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final SpreadsheetCellReference other) {
         return this.column.equals(other.column) &&
-               this.row.equals(other.row);
+                this.row.equals(other.row);
     }
 
     public String toString() {
@@ -142,26 +142,23 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
     @Override
     public int compareTo(final SpreadsheetCellReference other) {
         // reverse sign because #compare0 does compare in reverse because of double dispatch.
-        return - this.compare0(other);
+        return -this.compare0(other);
     }
 
     // SpreadsheetExpressionReferenceComparator........................................................................
 
-    @Override
-    final int compare(final SpreadsheetExpressionReference other) {
+    @Override final int compare(final SpreadsheetExpressionReference other) {
         return other.compare0(this);
     }
 
-    @Override
-    final int compare0(final SpreadsheetCellReference other) {
+    @Override final int compare0(final SpreadsheetCellReference other) {
         final int result = other.column.value - this.column.value;
         return Comparators.EQUAL != result ?
-               result :
-               other.row.value - this.row.value;
+                result :
+                other.row.value - this.row.value;
     }
 
-    @Override
-    final int compare0(final SpreadsheetLabelName other) {
+    @Override final int compare0(final SpreadsheetLabelName other) {
         return LABEL_COMPARED_WITH_CELL_RESULT;
     }
 }

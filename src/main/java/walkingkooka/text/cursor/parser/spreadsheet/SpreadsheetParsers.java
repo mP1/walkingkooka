@@ -240,8 +240,8 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
 
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
     private static final Parser<ParserToken, ParserContext> NUMBER = Parsers.bigDecimal(MathContext.UNLIMITED)
-                .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigDecimal(numberParserToken.value(), numberParserToken.text()))
-                .cast();
+            .transform((numberParserToken, parserContext) -> SpreadsheetParserToken.bigDecimal(numberParserToken.value(), numberParserToken.text()))
+            .cast();
 
     private static final EbnfIdentifierName PERCENT_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("PERCENT_SYMBOL");
     private static final EbnfIdentifierName OPEN_PARENTHESIS_SYMBOL_IDENTIFIER = EbnfIdentifierName.with("OPEN_PARENTHESIS_SYMBOL");
@@ -305,7 +305,7 @@ public final class SpreadsheetParsers implements PublicStaticHelper {
             return result.get(parserName).cast();
         } catch (final SpreadsheetParserException rethrow) {
             throw rethrow;
-        } catch (final Exception cause){
+        } catch (final Exception cause) {
             throw new SpreadsheetParserException("Failed to return parser " + parserName + " from  file, message: " + cause.getMessage(), cause);
         }
     }

@@ -43,17 +43,17 @@ abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafPa
     public final Optional<T> parse(final TextCursor cursor, final SpreadsheetParserContext context) {
         Optional<T> result = Optional.empty();
 
-        if(!cursor.isEmpty()){
+        if (!cursor.isEmpty()) {
             final TextCursorSavePoint save = cursor.save();
             SpreadsheetReferenceKind absoluteOrRelativer = SpreadsheetReferenceKind.RELATIVE;
 
             final char c = cursor.at();
-            if('$' == c) {
+            if ('$' == c) {
                 absoluteOrRelativer = SpreadsheetReferenceKind.ABSOLUTE;
                 cursor.next();
             }
             result = this.parseReference(cursor, absoluteOrRelativer, save);
-            if(!result.isPresent()) {
+            if (!result.isPresent()) {
                 save.restore();
             }
         }
@@ -70,15 +70,15 @@ abstract class SpreadsheetColumnOrRowReferenceParser<T extends SpreadsheetLeafPa
         int digitCounter = 0;
         final int radix = this.radix();
 
-        for(;;){
-            if(cursor.isEmpty()){
-                result = token(digitCounter, absoluteOrRelative, value-1, save);
+        for (; ; ) {
+            if (cursor.isEmpty()) {
+                result = token(digitCounter, absoluteOrRelative, value - 1, save);
                 break;
             }
 
-            final int digit = valueFromDigit( cursor.at());
-            if(-1 == digit) {
-                result = token(digitCounter, absoluteOrRelative, value-1, save);
+            final int digit = valueFromDigit(cursor.at());
+            if (-1 == digit) {
+                result = token(digitCounter, absoluteOrRelative, value - 1, save);
                 break;
             }
 

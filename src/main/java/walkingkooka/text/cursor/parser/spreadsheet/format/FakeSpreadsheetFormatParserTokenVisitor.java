@@ -32,7 +32,7 @@ public class FakeSpreadsheetFormatParserTokenVisitor extends SpreadsheetFormatPa
     protected void endVisit(final SpreadsheetFormatBigDecimalParserToken token) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     protected Visiting startVisit(final SpreadsheetFormatColorParserToken token) {
         throw new UnsupportedOperationException();

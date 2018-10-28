@@ -131,6 +131,11 @@ public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorSymbo
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

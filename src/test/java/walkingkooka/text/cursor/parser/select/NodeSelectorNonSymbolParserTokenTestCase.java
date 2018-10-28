@@ -23,7 +23,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class NodeSelectorLeafParserTokenTestCase2<T extends NodeSelectorLeafParserToken, V> extends NodeSelectorLeafParserTokenTestCase<T, V> {
+public abstract class NodeSelectorNonSymbolParserTokenTestCase<T extends NodeSelectorLeafParserToken, V> extends NodeSelectorLeafParserTokenTestCase<T, V> {
 
     @Test
     public final void testWithoutSymbolsOrWhitespace() {

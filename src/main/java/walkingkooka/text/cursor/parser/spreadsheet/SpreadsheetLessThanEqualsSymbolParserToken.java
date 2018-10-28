@@ -29,13 +29,13 @@ public final class SpreadsheetLessThanEqualsSymbolParserToken extends Spreadshee
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLessThanEqualsSymbolParserToken.class);
 
-    static SpreadsheetLessThanEqualsSymbolParserToken with(final String value, final String text){
+    static SpreadsheetLessThanEqualsSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetLessThanEqualsSymbolParserToken(value, text);
     }
 
-    private SpreadsheetLessThanEqualsSymbolParserToken(final String value, final String text){
+    private SpreadsheetLessThanEqualsSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetLessThanEqualsSymbolParserToken extends Spreadshee
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return GREATER_THAN_LESS_THAN_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.lessThanEquals(tokens, text);
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

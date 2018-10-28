@@ -30,7 +30,7 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetSubtractionParserToken.class);
 
-    static SpreadsheetSubtractionParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetSubtractionParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetSubtractionParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetSubtractionParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+    private SpreadsheetSubtractionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -125,8 +125,8 @@ public final class SpreadsheetSubtractionParserToken extends SpreadsheetBinaryPa
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

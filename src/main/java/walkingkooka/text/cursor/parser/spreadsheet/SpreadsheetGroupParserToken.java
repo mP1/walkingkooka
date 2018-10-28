@@ -30,13 +30,13 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetGroupParserToken.class);
 
-    static SpreadsheetGroupParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetGroupParserToken with(final List<ParserToken> value, final String text) {
         return new SpreadsheetGroupParserToken(copyAndCheckTokens(value),
                 text,
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetGroupParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+    private SpreadsheetGroupParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -52,8 +52,8 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
 
     @Override
     SpreadsheetParentParserToken replace(final List<ParserToken> tokens,
-                                              final String text,
-                                              final List<ParserToken> without) {
+                                         final String text,
+                                         final List<ParserToken> without) {
         return new SpreadsheetGroupParserToken(tokens, text, without);
     }
 
@@ -76,12 +76,12 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
     public boolean isDivision() {
         return false;
     }
-    
+
     @Override
     public boolean isEquals() {
         return false;
     }
-    
+
     @Override
     public boolean isFunction() {
         return false;
@@ -148,8 +148,8 @@ public final class SpreadsheetGroupParserToken extends SpreadsheetParentParserTo
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

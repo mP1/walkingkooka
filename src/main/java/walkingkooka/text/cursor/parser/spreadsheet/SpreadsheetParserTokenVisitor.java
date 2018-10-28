@@ -43,7 +43,7 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     protected void endVisit(final SpreadsheetCellReferenceParserToken token) {
         // nop
     }
-    
+
     // SpreadsheetDivisionParserToken....................................................................................
 
     protected Visiting startVisit(final SpreadsheetDivisionParserToken token) {
@@ -93,7 +93,7 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     protected void endVisit(final SpreadsheetGreaterThanEqualsParserToken token) {
         // nop
     }
-    
+
     // SpreadsheetGroupParserToken....................................................................................
 
     protected Visiting startVisit(final SpreadsheetGroupParserToken token) {
@@ -133,7 +133,7 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     protected void endVisit(final SpreadsheetMultiplicationParserToken token) {
         // nop
     }
-    
+
     // SpreadsheetNegativeParserToken....................................................................................
 
     protected Visiting startVisit(final SpreadsheetNegativeParserToken token) {
@@ -153,7 +153,7 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     protected void endVisit(final SpreadsheetNotEqualsParserToken token) {
         // nop
     }
-    
+
     // SpreadsheetPercentageParserToken....................................................................................
 
     protected Visiting startVisit(final SpreadsheetPercentageParserToken token) {
@@ -227,7 +227,7 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     protected void visit(final SpreadsheetEqualsSymbolParserToken token) {
         // nop
     }
-    
+
     protected void visit(final SpreadsheetFunctionNameParserToken token) {
         // nop
     }
@@ -239,7 +239,7 @@ public abstract class SpreadsheetParserTokenVisitor extends ParserTokenVisitor {
     protected void visit(final SpreadsheetGreaterThanSymbolParserToken token) {
         // nop
     }
-    
+
     protected void visit(final SpreadsheetGreaterThanEqualsSymbolParserToken token) {
         // nop
     }

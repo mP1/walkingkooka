@@ -30,7 +30,7 @@ public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserTo
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPowerParserToken.class);
 
-    static SpreadsheetPowerParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetPowerParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetPowerParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserTo
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetPowerParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+    private SpreadsheetPowerParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -125,8 +125,8 @@ public final class SpreadsheetPowerParserToken extends SpreadsheetBinaryParserTo
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

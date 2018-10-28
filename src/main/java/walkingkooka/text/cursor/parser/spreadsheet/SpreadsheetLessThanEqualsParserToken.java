@@ -30,7 +30,7 @@ public final class SpreadsheetLessThanEqualsParserToken extends SpreadsheetBinar
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLessThanEqualsParserToken.class);
 
-    static SpreadsheetLessThanEqualsParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetLessThanEqualsParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetLessThanEqualsParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetLessThanEqualsParserToken extends SpreadsheetBinar
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetLessThanEqualsParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+    private SpreadsheetLessThanEqualsParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -68,7 +68,7 @@ public final class SpreadsheetLessThanEqualsParserToken extends SpreadsheetBinar
     public boolean isAddition() {
         return false;
     }
-    
+
     @Override
     public boolean isDivision() {
         return false;
@@ -98,12 +98,12 @@ public final class SpreadsheetLessThanEqualsParserToken extends SpreadsheetBinar
     public boolean isLessThanEquals() {
         return true;
     }
-    
+
     @Override
     public boolean isMultiplication() {
         return false;
     }
-    
+
     @Override
     public boolean isNotEquals() {
         return false;
@@ -125,8 +125,8 @@ public final class SpreadsheetLessThanEqualsParserToken extends SpreadsheetBinar
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

@@ -29,13 +29,13 @@ public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetSymbol
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBetweenSymbolParserToken.class);
 
-    static SpreadsheetBetweenSymbolParserToken with(final String value, final String text){
+    static SpreadsheetBetweenSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetBetweenSymbolParserToken(value, text);
     }
 
-    private SpreadsheetBetweenSymbolParserToken(final String value, final String text){
+    private SpreadsheetBetweenSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetSymbol
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return RANGE_BETWEEN_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.range(tokens, text);
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

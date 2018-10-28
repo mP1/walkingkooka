@@ -131,6 +131,11 @@ public final class NodeSelectorGreaterThanEqualsSymbolParserToken extends NodeSe
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

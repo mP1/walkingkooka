@@ -30,13 +30,13 @@ public final class SpreadsheetLocalDateParserToken extends SpreadsheetNonSymbolP
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLocalDateParserToken.class);
 
-    static SpreadsheetLocalDateParserToken with(final LocalDate value, final String text){
+    static SpreadsheetLocalDateParserToken with(final LocalDate value, final String text) {
         checkValue(value);
 
         return new SpreadsheetLocalDateParserToken(value, text);
     }
 
-    private SpreadsheetLocalDateParserToken(final LocalDate value, final String text){
+    private SpreadsheetLocalDateParserToken(final LocalDate value, final String text) {
         super(value, text);
     }
 
@@ -131,7 +131,7 @@ public final class SpreadsheetLocalDateParserToken extends SpreadsheetNonSymbolP
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -148,7 +148,7 @@ public final class SpreadsheetLocalDateParserToken extends SpreadsheetNonSymbolP
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.localDate(this.text(), this.value());
     }
 }

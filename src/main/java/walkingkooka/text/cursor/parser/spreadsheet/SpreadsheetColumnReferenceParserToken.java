@@ -28,13 +28,13 @@ public final class SpreadsheetColumnReferenceParserToken extends SpreadsheetNonS
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetColumnReferenceParserToken.class);
 
-    static SpreadsheetColumnReferenceParserToken with(final SpreadsheetColumnReference value, final String text){
+    static SpreadsheetColumnReferenceParserToken with(final SpreadsheetColumnReference value, final String text) {
         checkValue(value);
 
         return new SpreadsheetColumnReferenceParserToken(value, text);
     }
 
-    private SpreadsheetColumnReferenceParserToken(final SpreadsheetColumnReference value, final String text){
+    private SpreadsheetColumnReferenceParserToken(final SpreadsheetColumnReference value, final String text) {
         super(value, text);
     }
 
@@ -134,7 +134,7 @@ public final class SpreadsheetColumnReferenceParserToken extends SpreadsheetNonS
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

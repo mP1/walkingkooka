@@ -42,7 +42,7 @@ final public class SpreadsheetFunctionName implements Name, HashCodeEqualsDefine
         CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, SpreadsheetFunctionName.class.getSimpleName(), INITIAL, PART);
 
         final int length = name.length();
-        if(length > MAX_LENGTH) {
+        if (length > MAX_LENGTH) {
             throw new IllegalArgumentException("Function name length " + length + " greater than allowed of " + MAX_LENGTH);
         }
 

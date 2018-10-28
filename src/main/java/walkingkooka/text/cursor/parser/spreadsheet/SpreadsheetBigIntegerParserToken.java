@@ -29,13 +29,13 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetBigIntegerParserToken.class);
 
-    static SpreadsheetBigIntegerParserToken with(final BigInteger value, final String text){
+    static SpreadsheetBigIntegerParserToken with(final BigInteger value, final String text) {
         checkValue(value);
 
         return new SpreadsheetBigIntegerParserToken(value, text);
     }
 
-    private SpreadsheetBigIntegerParserToken(final BigInteger value, final String text){
+    private SpreadsheetBigIntegerParserToken(final BigInteger value, final String text) {
         super(value, text);
     }
 
@@ -90,7 +90,7 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -102,7 +102,7 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.bigInteger(this.text(), this.value());
     }
 }

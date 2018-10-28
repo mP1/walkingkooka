@@ -30,7 +30,7 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetNegativeParserToken.class);
 
-    static SpreadsheetNegativeParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetNegativeParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetNegativeParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+    private SpreadsheetNegativeParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -75,8 +75,8 @@ public final class SpreadsheetNegativeParserToken extends SpreadsheetUnaryParser
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

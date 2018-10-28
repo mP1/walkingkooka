@@ -55,14 +55,14 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
     public static SpreadsheetLabelName with(final String name) {
         Objects.requireNonNull(name, "name");
 
-        if(!isAcceptableLength(name)){
+        if (!isAcceptableLength(name)) {
             throw new IllegalArgumentException("Label length " + name.length() + " is greater than allowed " + MAX_LENGTH);
         }
 
-        if(!PREDICATE.test(name)){
+        if (!PREDICATE.test(name)) {
             throw new IllegalArgumentException("Label contains invalid character(s)=" + CharSequences.quote(name));
         }
-        if(isCellReference(name)){
+        if (isCellReference(name)) {
             throw new IllegalArgumentException("Label is a valid cell reference=" + CharSequences.quote(name));
         }
 
@@ -94,9 +94,9 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
             // try and parse into column + row
             if (MODE_COLUMN == mode) {
                 final int digit = SpreadsheetColumnReferenceParser.valueFromDigit0(c);
-                if(-1 != digit){
+                if (-1 != digit) {
                     column = column * SpreadsheetColumnReference.RADIX + digit;
-                    if(column >= SpreadsheetColumnReference.MAX) {
+                    if (column >= SpreadsheetColumnReference.MAX) {
                         mode = MODE_FAIL;
                         break; // column is too big cant be a cell reference.
                     }
@@ -108,7 +108,7 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
                 final int digit = Character.digit(c, SpreadsheetRowReference.RADIX);
                 if (-1 != digit) {
                     row = SpreadsheetRowReference.RADIX * row + digit;
-                    if(row >= SpreadsheetRowReference.MAX) {
+                    if (row >= SpreadsheetRowReference.MAX) {
                         mode = MODE_FAIL;
                         break; // row is too big cant be a cell reference.
                     }
@@ -166,18 +166,15 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
 
     // SpreadsheetExpressionReferenceComparator........................................................................
 
-    @Override
-    final int compare(final SpreadsheetExpressionReference other) {
+    @Override final int compare(final SpreadsheetExpressionReference other) {
         return other.compare0(this);
     }
 
-    @Override
-    final int compare0(final SpreadsheetCellReference other) {
+    @Override final int compare0(final SpreadsheetCellReference other) {
         return -LABEL_COMPARED_WITH_CELL_RESULT;
     }
 
-    @Override
-    final int compare0(final SpreadsheetLabelName other) {
+    @Override final int compare0(final SpreadsheetLabelName other) {
         return other.name.compareToIgnoreCase(this.name);
     }
 }

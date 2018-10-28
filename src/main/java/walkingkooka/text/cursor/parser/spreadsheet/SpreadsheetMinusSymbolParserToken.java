@@ -29,13 +29,13 @@ public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetSymbolPa
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetMinusSymbolParserToken.class);
 
-    static SpreadsheetMinusSymbolParserToken with(final String value, final String text){
+    static SpreadsheetMinusSymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetMinusSymbolParserToken(value, text);
     }
 
-    private SpreadsheetMinusSymbolParserToken(final String value, final String text){
+    private SpreadsheetMinusSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetSymbolPa
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return ADDITION_SUBTRACTION_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.subtraction(tokens, text);
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

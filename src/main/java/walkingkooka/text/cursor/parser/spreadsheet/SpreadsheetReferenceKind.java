@@ -24,7 +24,6 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 public enum SpreadsheetReferenceKind {
 
     ABSOLUTE {
-
         @Override
         public SpreadsheetColumnReference column(final int value) {
             return SpreadsheetColumnReference.with(value, this);
@@ -36,7 +35,7 @@ public enum SpreadsheetReferenceKind {
         }
 
         @Override
-        public SpreadsheetRowReference row(final int value){
+        public SpreadsheetRowReference row(final int value) {
             return SpreadsheetRowReference.with(value, this);
         }
 
@@ -46,12 +45,11 @@ public enum SpreadsheetReferenceKind {
         }
 
         @Override
-        String prefix(){
+        String prefix() {
             return "$";
         }
     },
     RELATIVE {
-
         @Override
         public SpreadsheetColumnReference column(final int value) {
             return SpreadsheetColumnReference.with(value, this);
@@ -63,7 +61,7 @@ public enum SpreadsheetReferenceKind {
         }
 
         @Override
-        public SpreadsheetRowReference row(final int value){
+        public SpreadsheetRowReference row(final int value) {
             return SpreadsheetRowReference.with(value, this);
         }
 
@@ -73,7 +71,7 @@ public enum SpreadsheetReferenceKind {
         }
 
         @Override
-        String prefix(){
+        String prefix() {
             return "";
         }
     };

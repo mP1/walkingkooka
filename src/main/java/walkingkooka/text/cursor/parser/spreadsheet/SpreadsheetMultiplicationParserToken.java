@@ -30,7 +30,7 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetMultiplicationParserToken.class);
 
-    static SpreadsheetMultiplicationParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetMultiplicationParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetMultiplicationParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetMultiplicationParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+    private SpreadsheetMultiplicationParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -125,8 +125,8 @@ public final class SpreadsheetMultiplicationParserToken extends SpreadsheetBinar
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

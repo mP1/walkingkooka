@@ -30,7 +30,7 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetPercentageParserToken.class);
 
-    static SpreadsheetPercentageParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetPercentageParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetPercentageParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+    private SpreadsheetPercentageParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -75,8 +75,8 @@ public final class SpreadsheetPercentageParserToken extends SpreadsheetUnaryPars
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

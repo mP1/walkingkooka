@@ -131,11 +131,6 @@ abstract class NodeSelectorSymbolParserToken extends NodeSelectorLeafParserToken
     }
 
     @Override
-    public final boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public final boolean isNoise() {
         return true;
     }

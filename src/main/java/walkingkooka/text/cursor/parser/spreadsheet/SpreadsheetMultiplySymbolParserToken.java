@@ -29,13 +29,13 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetMultiplySymbolParserToken.class);
 
-    static SpreadsheetMultiplySymbolParserToken with(final String value, final String text){
+    static SpreadsheetMultiplySymbolParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetMultiplySymbolParserToken(value, text);
     }
 
-    private SpreadsheetMultiplySymbolParserToken(final String value, final String text){
+    private SpreadsheetMultiplySymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -134,18 +134,16 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return MULTIPLY_DIVISION_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return SpreadsheetParserToken.multiplication(tokens, text);
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 

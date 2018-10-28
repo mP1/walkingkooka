@@ -26,7 +26,7 @@ import java.util.List;
  */
 abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserToken<T> {
 
-    SpreadsheetNonSymbolParserToken(final T value, final String text){
+    SpreadsheetNonSymbolParserToken(final T value, final String text) {
         super(value, text);
     }
 
@@ -59,7 +59,7 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
     public final boolean isGreaterThanSymbol() {
         return false;
     }
-    
+
     @Override
     public final boolean isGreaterThanEqualsSymbol() {
         return false;
@@ -74,7 +74,7 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
     public final boolean isLessThanEqualsSymbol() {
         return false;
     }
-    
+
     @Override
     public final boolean isMinusSymbol() {
         return false;
@@ -89,7 +89,7 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
     public final boolean isNotEqualsSymbol() {
         return false;
     }
-    
+
     @Override
     public final boolean isOpenParenthesisSymbol() {
         return false;
@@ -110,13 +110,11 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
         return false;
     }
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return LOWEST_PRIORITY;
     }
 
-    @Override
-    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         throw new UnsupportedOperationException();
     }
 }

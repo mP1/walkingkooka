@@ -35,7 +35,7 @@ public abstract class SpreadsheetFormatParserTokenVisitor extends ParserTokenVis
     protected void endVisit(final SpreadsheetFormatBigDecimalParserToken token) {
         // nop
     }
-    
+
     protected Visiting startVisit(final SpreadsheetFormatColorParserToken token) {
         return Visiting.CONTINUE;
     }

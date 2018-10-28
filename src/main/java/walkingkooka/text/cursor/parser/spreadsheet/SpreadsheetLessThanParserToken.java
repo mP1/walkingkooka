@@ -30,7 +30,7 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetLessThanParserToken.class);
 
-    static SpreadsheetLessThanParserToken with(final List<ParserToken> value, final String text){
+    static SpreadsheetLessThanParserToken with(final List<ParserToken> value, final String text) {
         final List<ParserToken> copy = copyAndCheckTokens(value);
 
         return new SpreadsheetLessThanParserToken(copy,
@@ -38,7 +38,7 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private SpreadsheetLessThanParserToken(final List<ParserToken> value, final String text,  final List<ParserToken> valueWithout){
+    private SpreadsheetLessThanParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -68,7 +68,7 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
     public boolean isAddition() {
         return false;
     }
-    
+
     @Override
     public boolean isDivision() {
         return false;
@@ -98,12 +98,12 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
     public boolean isLessThanEquals() {
         return false;
     }
-    
+
     @Override
     public boolean isMultiplication() {
         return false;
     }
-    
+
     @Override
     public boolean isNotEquals() {
         return false;
@@ -125,8 +125,8 @@ public final class SpreadsheetLessThanParserToken extends SpreadsheetBinaryParse
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
             this.acceptValues(visitor);
         }
         visitor.endVisit(this);

@@ -30,13 +30,13 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbol
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetWhitespaceParserToken.class);
 
-    static SpreadsheetWhitespaceParserToken with(final String value, final String text){
+    static SpreadsheetWhitespaceParserToken with(final String value, final String text) {
         checkValue(value);
 
         return new SpreadsheetWhitespaceParserToken(value, text);
     }
 
-    private SpreadsheetWhitespaceParserToken(final String value, final String text){
+    private SpreadsheetWhitespaceParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -114,7 +114,7 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbol
     public boolean isLong() {
         return false;
     }
-    
+
     @Override
     public boolean isRowReference() {
         return false;
@@ -141,7 +141,7 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbol
     }
 
     @Override
-    public void accept(final SpreadsheetParserTokenVisitor visitor){
+    public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -153,7 +153,7 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbol
     // HasSearchNode ...............................................................................................
 
     @Override
-    public SearchNode toSearchNode()  {
+    public SearchNode toSearchNode() {
         return SearchNode.text(this.text(), this.value());
     }
 }

@@ -26,10 +26,10 @@ final class SpreadsheetCellReferenceParserTokenConsumer implements Consumer<Spre
 
     @Override
     public void accept(final SpreadsheetParserToken token) {
-        if(token.isColumnReference()){
+        if (token.isColumnReference()) {
             this.column = token.cast();
         }
-        if(token.isRowReference()){
+        if (token.isRowReference()) {
             this.row = token.cast();
         }
     }

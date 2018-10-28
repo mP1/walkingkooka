@@ -70,7 +70,7 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
     private ParserToken concatenation(final SequenceParserToken sequence, final ParserContext context) {
         ParserToken result;
 
-        for(;;){
+        for (; ; ) {
             final String text = sequence.text();
             final SequenceParserToken cleaned = sequence.flat();
 
@@ -94,15 +94,15 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
     private ParserToken binaryOperandPrioritize(final List<ParserToken> tokens, final SequenceParserToken parent) {
         List<ParserToken> prioritized = this.maybeExpandNegatives(tokens);
 
-        for(int priority = SpreadsheetParserToken.HIGHEST_PRIORITY; priority > SpreadsheetParserToken.LOWEST_PRIORITY; priority--) {
+        for (int priority = SpreadsheetParserToken.HIGHEST_PRIORITY; priority > SpreadsheetParserToken.LOWEST_PRIORITY; priority--) {
             boolean changed;
 
             do {
                 changed = false;
                 int i = 0;
-                for(ParserToken t : prioritized) {
+                for (ParserToken t : prioritized) {
                     final SpreadsheetParserToken s = t.cast();
-                    if(s.operatorPriority() == priority) {
+                    if (s.operatorPriority() == priority) {
                         changed = true;
 
                         final int firstIndex = this.findNonWhitespaceSiblingToken(prioritized, i - 1, -1);
@@ -125,12 +125,12 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
                     }
                     i++;
                 }
-            } while(changed && prioritized.size() > 1);
+            } while (changed && prioritized.size() > 1);
         }
 
         return prioritized.size() == 1 ?
-               prioritized.get(0) :
-               parent.setValue(prioritized);
+                prioritized.get(0) :
+                parent.setValue(prioritized);
     }
 
     /**
@@ -141,14 +141,14 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
         final List<ParserToken> expanded = Lists.array();
         boolean expand = false;
 
-        for(ParserToken t : tokens) {
+        for (ParserToken t : tokens) {
             final SpreadsheetParserToken s = t.cast();
-            if(s.isWhitespace()) {
+            if (s.isWhitespace()) {
                 expanded.add(t);
                 continue;
             }
 
-            if(s.isNegative() && expand) {
+            if (s.isNegative() && expand) {
                 final SpreadsheetNegativeParserToken negativeParserToken = s.cast();
                 expanded.addAll(negativeParserToken.value());
                 expand = true;
@@ -163,9 +163,9 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
 
     private int findNonWhitespaceSiblingToken(final List<ParserToken> tokens, final int startIndex, final int step) {
         int i = startIndex;
-        for(;;) {
+        for (; ; ) {
             final SpreadsheetParserToken token = tokens.get(i).cast();
-            if(!token.isWhitespace()){
+            if (!token.isWhitespace()) {
                 break;
             }
             i = i + step;

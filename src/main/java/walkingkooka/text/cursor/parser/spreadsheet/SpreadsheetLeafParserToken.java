@@ -29,7 +29,7 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
         Objects.requireNonNull(value, "value");
     }
 
-    SpreadsheetLeafParserToken(final T value, final String text){
+    SpreadsheetLeafParserToken(final T value, final String text) {
         super(text);
         this.value = value;
     }
@@ -54,12 +54,12 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
     public final boolean isDivision() {
         return false;
     }
-    
+
     @Override
     public final boolean isEquals() {
         return false;
     }
-    
+
     @Override
     public final boolean isFunction() {
         return false;
@@ -74,7 +74,7 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
     public final boolean isGreaterThanEquals() {
         return false;
     }
-    
+
     @Override
     public final boolean isGroup() {
         return false;
@@ -127,8 +127,7 @@ abstract class SpreadsheetLeafParserToken<T> extends SpreadsheetParserToken impl
 
     abstract public void accept(final SpreadsheetParserTokenVisitor visitor);
 
-    @Override
-    final boolean equals1(final SpreadsheetParserToken other) {
+    @Override final boolean equals1(final SpreadsheetParserToken other) {
         return this.equals2(other.cast());
     }
 
