@@ -32,13 +32,13 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<Js
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeArrayParserToken.class);
 
-    static JsonNodeArrayParserToken with(final List<ParserToken> value, final String text){
+    static JsonNodeArrayParserToken with(final List<ParserToken> value, final String text) {
         return new JsonNodeArrayParserToken(copyAndCheckTokens(value),
                 checkText(text),
                 WITHOUT_COMPUTE_REQUIRED);
     }
 
-    private JsonNodeArrayParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout){
+    private JsonNodeArrayParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
     }
 
@@ -63,6 +63,11 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<Js
     }
 
     @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    @Override
     public boolean isArray() {
         return true;
     }
@@ -73,14 +78,6 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<Js
     }
 
     @Override
-    public void accept(final JsonNodeParserTokenVisitor visitor){
-        if(Visiting.CONTINUE == visitor.startVisit(this)) {
-            this.acceptValues(visitor);
-        }
-        visitor.endVisit(this);
-    }
-
-    @Override
     JsonNode toJsonNodeOrNull() {
         final List<JsonNode> children = Lists.array();
         this.addJsonNode(children);
@@ -88,22 +85,28 @@ public final class JsonNodeArrayParserToken extends JsonNodeParentParserToken<Js
         return JsonNode.array().setChildren(children);
     }
 
-    @Override
-    final void addJsonNode(final List<JsonNode> children) {
-        for(ParserToken element : this.value()) {
-            if(element instanceof JsonNodeParserToken) {
+    @Override final void addJsonNode(final List<JsonNode> children) {
+        for (ParserToken element : this.value()) {
+            if (element instanceof JsonNodeParserToken) {
                 JsonNodeParserToken.class.cast(element).addJsonNode(children);
             }
         }
     }
 
+    // visitor ...............................................................................................
+
+    @Override
+    public void accept(final JsonNodeParserTokenVisitor visitor) {
+        if (Visiting.CONTINUE == visitor.startVisit(this)) {
+            this.acceptValues(visitor);
+        }
+        visitor.endVisit(this);
+    }
+
+    // Object ...............................................................................................
+
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof JsonNodeArrayParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

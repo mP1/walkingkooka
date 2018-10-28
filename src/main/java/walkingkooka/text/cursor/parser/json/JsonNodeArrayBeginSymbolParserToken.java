@@ -26,14 +26,14 @@ public final class JsonNodeArrayBeginSymbolParserToken extends JsonNodeSymbolPar
 
     public final static ParserTokenNodeName NAME = parserTokenNodeName(JsonNodeArrayBeginSymbolParserToken.class);
 
-    static JsonNodeArrayBeginSymbolParserToken with(final String value, final String text){
+    static JsonNodeArrayBeginSymbolParserToken with(final String value, final String text) {
         checkValue(value);
         checkText(text);
 
         return new JsonNodeArrayBeginSymbolParserToken(value, text);
     }
 
-    private JsonNodeArrayBeginSymbolParserToken(final String value, final String text){
+    private JsonNodeArrayBeginSymbolParserToken(final String value, final String text) {
         super(value, text);
     }
 
@@ -46,6 +46,15 @@ public final class JsonNodeArrayBeginSymbolParserToken extends JsonNodeSymbolPar
     JsonNodeArrayBeginSymbolParserToken replaceText(final String text) {
         return new JsonNodeArrayBeginSymbolParserToken(this.value, text);
     }
+
+    // name ...............................................................................................
+
+    @Override
+    public ParserTokenNodeName name() {
+        return NAME;
+    }
+
+    // is ...............................................................................................
 
     @Override
     public boolean isArrayBeginSymbol() {
@@ -78,17 +87,21 @@ public final class JsonNodeArrayBeginSymbolParserToken extends JsonNodeSymbolPar
     }
 
     @Override
-    public void accept(final JsonNodeParserTokenVisitor visitor){
+    public boolean isWhitespace() {
+        return false;
+    }
+
+    // visitor ...............................................................................................
+
+    @Override
+    public void accept(final JsonNodeParserTokenVisitor visitor) {
         visitor.visit(this);
     }
+
+    // Object ...............................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof JsonNodeArrayBeginSymbolParserToken;
-    }
-
-    @Override
-    public ParserTokenNodeName name() {
-        return NAME;
     }
 }

@@ -191,7 +191,7 @@ public final class JsonNodeParsers implements PublicStaticHelper {
             return result.get(VALUE_IDENTIFIER);
         } catch (final JsonNodeParserException rethrow) {
             throw rethrow;
-        } catch (final Exception cause){
+        } catch (final Exception cause) {
             throw new JsonNodeParserException("Failed to return parsers from JsonNode grammar file, message: " + cause.getMessage(), cause);
         }
     }

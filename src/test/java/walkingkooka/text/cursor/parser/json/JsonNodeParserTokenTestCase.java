@@ -31,11 +31,11 @@ import static org.junit.Assert.assertEquals;
 public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken> extends ParserTokenTestCase<T> {
 
     @Test
-    public final void testPublicStaticFactoryMethod()  {
+    public final void testPublicStaticFactoryMethod() {
         this.publicStaticFactoryCheck(JsonNodeParserToken.class, "JsonNode", ParserToken.class);
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public final void testEmptyTextFails() {
         this.createToken("");
     }
@@ -52,19 +52,19 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
 
-        for(Method method : token.getClass().getMethods()) {
-            if(MethodAttributes.STATIC.is(method)) {
+        for (Method method : token.getClass().getMethods()) {
+            if (MethodAttributes.STATIC.is(method)) {
                 continue;
             }
             final String methodName = method.getName();
-            if(methodName.equals("isNoise")) {
+            if (methodName.equals("isNoise")) {
                 continue;
             }
-            if(methodName.equals("isSymbol")) {
+            if (methodName.equals("isSymbol")) {
                 continue;
             }
 
-            if(!methodName.startsWith("is")) {
+            if (!methodName.startsWith("is")) {
                 continue;
             }
             assertEquals(method + " returned",
@@ -81,7 +81,7 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
         return JsonNodeParserToken.arrayEndSymbol("]", "]");
     }
 
-    final JsonNodeParserToken array(final JsonNodeParserToken...tokens) {
+    final JsonNodeParserToken array(final JsonNodeParserToken... tokens) {
         return JsonNodeParserToken.array(Lists.of(tokens), text(tokens));
     }
 
@@ -118,7 +118,7 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
         return JsonNodeParserToken.objectEndSymbol("}", "}");
     }
 
-    final JsonNodeParserToken object(final JsonNodeParserToken...tokens) {
+    final JsonNodeParserToken object(final JsonNodeParserToken... tokens) {
         return JsonNodeParserToken.object(Lists.of(tokens), text(tokens));
     }
 
@@ -134,7 +134,7 @@ public abstract class JsonNodeParserTokenTestCase<T extends JsonNodeParserToken>
         return JsonNodeParserToken.whitespace("  ", "  ");
     }
 
-    private static String text(final JsonNodeParserToken...tokens){
+    private static String text(final JsonNodeParserToken... tokens) {
         return ParserToken.text(Lists.of(tokens));
     }
 }
