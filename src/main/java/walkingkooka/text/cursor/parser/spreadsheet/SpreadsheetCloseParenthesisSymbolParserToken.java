@@ -134,6 +134,11 @@ public final class SpreadsheetCloseParenthesisSymbolParserToken extends Spreadsh
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     @Override final int operatorPriority() {
         return LOWEST_PRIORITY;
     }

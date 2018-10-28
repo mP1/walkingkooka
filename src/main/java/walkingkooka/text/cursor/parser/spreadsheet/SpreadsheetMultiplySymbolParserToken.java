@@ -134,7 +134,13 @@ public final class SpreadsheetMultiplySymbolParserToken extends SpreadsheetSymbo
         return false;
     }
 
-    @Override final int operatorPriority() {
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
+    @Override
+    final int operatorPriority() {
         return MULTIPLY_DIVISION_PRIORITY;
     }
 

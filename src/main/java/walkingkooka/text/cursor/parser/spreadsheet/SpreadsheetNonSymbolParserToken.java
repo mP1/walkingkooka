@@ -20,6 +20,7 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
@@ -28,6 +29,11 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
 
     SpreadsheetNonSymbolParserToken(final T value, final String text) {
         super(value, text);
+    }
+
+    @Override
+    public final Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
+        return Optional.of(this);
     }
 
     @Override
@@ -107,6 +113,11 @@ abstract class SpreadsheetNonSymbolParserToken<T> extends SpreadsheetLeafParserT
 
     @Override
     public final boolean isPowerSymbol() {
+        return false;
+    }
+
+    @Override
+    public final boolean isWhitespace() {
         return false;
     }
 

@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetColumnReferenceParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetColumnReferenceParserToken, SpreadsheetColumnReference> {
+public final class SpreadsheetColumnReferenceParserTokenTest extends SpreadsheetNonSymbolParserTokenTestCase<SpreadsheetColumnReferenceParserToken, SpreadsheetColumnReference> {
 
     @Test
     public void testToStringAbsolute() {

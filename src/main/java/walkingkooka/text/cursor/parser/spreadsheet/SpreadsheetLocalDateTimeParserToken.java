@@ -21,7 +21,6 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * Holds a single {@link LocalDateTime} within a formula.
@@ -53,11 +52,6 @@ public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetNonSym
     @Override
     SpreadsheetLocalDateTimeParserToken replaceText(final String text) {
         return new SpreadsheetLocalDateTimeParserToken(this.value, text);
-    }
-
-    @Override
-    public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     @Override
@@ -122,11 +116,6 @@ public final class SpreadsheetLocalDateTimeParserToken extends SpreadsheetNonSym
 
     @Override
     public boolean isText() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
         return false;
     }
 

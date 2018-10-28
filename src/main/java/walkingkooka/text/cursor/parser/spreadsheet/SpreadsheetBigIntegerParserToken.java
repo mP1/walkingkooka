@@ -85,11 +85,6 @@ public final class SpreadsheetBigIntegerParserToken extends SpreadsheetNumericPa
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }

@@ -134,6 +134,11 @@ public final class SpreadsheetPowerSymbolParserToken extends SpreadsheetSymbolPa
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     @Override final int operatorPriority() {
         return POWER_PRIORITY;
     }

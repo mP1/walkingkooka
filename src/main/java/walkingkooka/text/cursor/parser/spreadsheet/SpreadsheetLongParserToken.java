@@ -81,11 +81,6 @@ public final class SpreadsheetLongParserToken extends SpreadsheetNumericParserTo
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }

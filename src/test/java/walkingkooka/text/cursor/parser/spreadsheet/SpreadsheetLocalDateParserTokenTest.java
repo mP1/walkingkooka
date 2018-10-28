@@ -27,7 +27,7 @@ import java.time.LocalDate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetLocalDateParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetLocalDateParserToken, LocalDate> {
+public final class SpreadsheetLocalDateParserTokenTest extends SpreadsheetNonSymbolParserTokenTestCase<SpreadsheetLocalDateParserToken, LocalDate> {
 
     @Test
     public void testAccept() {

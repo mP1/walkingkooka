@@ -134,6 +134,11 @@ public final class SpreadsheetBetweenSymbolParserToken extends SpreadsheetSymbol
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     @Override final int operatorPriority() {
         return RANGE_BETWEEN_PRIORITY;
     }

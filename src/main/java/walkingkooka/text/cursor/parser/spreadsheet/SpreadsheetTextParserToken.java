@@ -21,7 +21,6 @@ import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Holds a text which may be empty
@@ -53,11 +52,6 @@ public final class SpreadsheetTextParserToken extends SpreadsheetNonSymbolParser
     @Override
     SpreadsheetTextParserToken replaceText(final String text) {
         return new SpreadsheetTextParserToken(this.value, text);
-    }
-
-    @Override
-    public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     @Override
@@ -128,11 +122,6 @@ public final class SpreadsheetTextParserToken extends SpreadsheetNonSymbolParser
     @Override
     public boolean isText() {
         return true;
-    }
-
-    @Override
-    public boolean isWhitespace() {
-        return false;
     }
 
     @Override

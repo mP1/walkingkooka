@@ -134,7 +134,13 @@ public final class SpreadsheetMinusSymbolParserToken extends SpreadsheetSymbolPa
         return false;
     }
 
-    @Override final int operatorPriority() {
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
+    @Override
+    final int operatorPriority() {
         return ADDITION_SUBTRACTION_PRIORITY;
     }
 

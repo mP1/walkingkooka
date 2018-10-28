@@ -134,7 +134,13 @@ public final class SpreadsheetLessThanSymbolParserToken extends SpreadsheetSymbo
         return false;
     }
 
-    @Override final int operatorPriority() {
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
+    @Override
+    final int operatorPriority() {
         return GREATER_THAN_LESS_THAN_PRIORITY;
     }
 
