@@ -153,11 +153,6 @@ public final class SpreadsheetFormatQuotedTextParserToken extends SpreadsheetFor
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public boolean isYear() {
         return false;
     }

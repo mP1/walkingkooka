@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormatCurrencyParserTokenTest extends SpreadsheetFormatLeafParserTokenTestCase<SpreadsheetFormatCurrencyParserToken, String> {
+public final class SpreadsheetFormatCurrencyParserTokenTest extends SpreadsheetFormatNonSymbolParserTokenTestCase<SpreadsheetFormatCurrencyParserToken, String> {
 
     @Test
     public void testAccept() {

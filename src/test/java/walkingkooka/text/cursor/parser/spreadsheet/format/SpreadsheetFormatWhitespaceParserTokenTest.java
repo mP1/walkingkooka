@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormatWhitespaceParserTokenTest extends SpreadsheetFormatLeafParserTokenTestCase<SpreadsheetFormatWhitespaceParserToken, String> {
+public final class SpreadsheetFormatWhitespaceParserTokenTest extends SpreadsheetFormatSymbolParserTokenTestCase<SpreadsheetFormatWhitespaceParserToken> {
 
     @Test
     public void testAccept() {
@@ -70,11 +70,6 @@ public final class SpreadsheetFormatWhitespaceParserTokenTest extends Spreadshee
     @Override
     protected String text() {
         return "'A'";
-    }
-
-    @Override
-    String value() {
-        return this.text();
     }
 
     @Override

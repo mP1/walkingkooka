@@ -24,7 +24,7 @@ import walkingkooka.tree.search.SearchNode;
 /**
  * Holds whitespace
  */
-public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFormatNonSymbolParserToken<String> {
+public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFormatSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetFormatWhitespaceParserToken.class);
 
@@ -40,11 +40,6 @@ public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFor
     }
 
     @Override
-    void checkText(final String text) {
-        checkTextNullOrEmpty(text);
-    }
-
-    @Override
     public SpreadsheetFormatWhitespaceParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
@@ -55,118 +50,78 @@ public final class SpreadsheetFormatWhitespaceParserToken extends SpreadsheetFor
     }
 
     @Override
-    public boolean isAmPm() {
+    public boolean isCloseBracketSymbol() {
         return false;
     }
 
     @Override
-    public boolean isColorName() {
+    public boolean isColorLiteralSymbol() {
         return false;
     }
 
     @Override
-    public boolean isColorNumber() {
+    public boolean isEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isConditionNumber() {
+    public boolean isExponentSymbol() {
         return false;
     }
 
     @Override
-    public boolean isCurrency() {
+    public boolean isFractionSymbol() {
         return false;
     }
 
     @Override
-    public boolean isDay() {
+    public boolean isGeneralSymbol() {
         return false;
     }
 
     @Override
-    public boolean isDecimalPoint() {
+    public boolean isGreaterThanSymbol() {
         return false;
     }
 
     @Override
-    public boolean isDigit() {
+    public boolean isGreaterThanEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isDigitLeadingSpace() {
+    public boolean isLessThanSymbol() {
         return false;
     }
 
     @Override
-    public boolean isDigitLeadingZero() {
+    public boolean isLessThanEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isEscape() {
+    public boolean isNotEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isHour() {
+    public boolean isOpenBracketSymbol() {
         return false;
     }
 
     @Override
-    public boolean isMonthOrMinute() {
+    public boolean isPercentSymbol() {
         return false;
     }
 
     @Override
-    public boolean isNoise() {
-        return true;
-    }
-
-    @Override
-    public boolean isQuotedText() {
-        return false;
-    }
-
-    @Override
-    public boolean isSecond() {
-        return false;
-    }
-
-    @Override
-    public boolean isStar() {
-        return false;
-    }
-
-    @Override
-    public boolean isTextLiteral() {
-        return false;
-    }
-
-    @Override
-    public boolean isTextPlaceholder() {
-        return false;
-    }
-
-    @Override
-    public boolean isThousands() {
-        return false;
-    }
-
-    @Override
-    public boolean isUnderscore() {
+    public boolean isSeparatorSymbol() {
         return false;
     }
 
     @Override
     public boolean isWhitespace() {
         return true;
-    }
-
-    @Override
-    public boolean isYear() {
-        return false;
     }
 
     @Override

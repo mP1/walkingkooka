@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormatGeneralSymbolParserTokenTest extends SpreadsheetFormatLeafParserTokenTestCase<SpreadsheetFormatGeneralSymbolParserToken, String> {
+public final class SpreadsheetFormatGeneralSymbolParserTokenTest extends SpreadsheetFormatSymbolParserTokenTestCase<SpreadsheetFormatGeneralSymbolParserToken> {
 
     @Test
     public void testAccept() {
@@ -70,11 +70,6 @@ public final class SpreadsheetFormatGeneralSymbolParserTokenTest extends Spreads
     @Override
     protected String text() {
         return "GENEral";
-    }
-
-    @Override
-    String value() {
-        return this.text();
     }
 
     @Override

@@ -152,11 +152,6 @@ public final class SpreadsheetFormatUnderscoreParserToken extends SpreadsheetFor
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public boolean isYear() {
         return false;
     }

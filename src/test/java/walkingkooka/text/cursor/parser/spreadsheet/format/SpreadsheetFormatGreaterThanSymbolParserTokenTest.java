@@ -73,11 +73,6 @@ public final class SpreadsheetFormatGreaterThanSymbolParserTokenTest extends Spr
     }
 
     @Override
-    String value() {
-        return this.text();
-    }
-
-    @Override
     protected SpreadsheetFormatGreaterThanSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatGreaterThanSymbolParserToken.with(value, text);
     }

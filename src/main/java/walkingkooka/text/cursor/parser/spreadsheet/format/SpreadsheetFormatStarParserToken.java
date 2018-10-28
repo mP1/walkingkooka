@@ -152,11 +152,6 @@ public final class SpreadsheetFormatStarParserToken extends SpreadsheetFormatNon
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public boolean isYear() {
         return false;
     }

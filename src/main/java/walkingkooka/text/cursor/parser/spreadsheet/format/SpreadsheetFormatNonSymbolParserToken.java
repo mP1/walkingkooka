@@ -110,4 +110,9 @@ abstract class SpreadsheetFormatNonSymbolParserToken<T> extends SpreadsheetForma
     public final boolean isSymbol() {
         return false;
     }
+
+    @Override
+    public final boolean isWhitespace() {
+        return false;
+    }
 }

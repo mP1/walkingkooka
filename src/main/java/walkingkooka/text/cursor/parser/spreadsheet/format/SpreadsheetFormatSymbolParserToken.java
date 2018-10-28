@@ -150,11 +150,6 @@ abstract class SpreadsheetFormatSymbolParserToken extends SpreadsheetFormatLeafP
     }
 
     @Override
-    public final boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public final boolean isYear() {
         return false;
     }

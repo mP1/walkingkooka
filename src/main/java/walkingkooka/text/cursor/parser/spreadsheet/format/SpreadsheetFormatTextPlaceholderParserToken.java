@@ -153,11 +153,6 @@ public final class SpreadsheetFormatTextPlaceholderParserToken extends Spreadshe
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public boolean isYear() {
         return false;
     }

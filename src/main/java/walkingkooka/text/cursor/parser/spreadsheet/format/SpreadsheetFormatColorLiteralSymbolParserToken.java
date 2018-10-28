@@ -117,6 +117,11 @@ public final class SpreadsheetFormatColorLiteralSymbolParserToken extends Spread
     }
 
     @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
+    @Override
     public void accept(final SpreadsheetFormatParserTokenVisitor visitor) {
         visitor.visit(this);
     }

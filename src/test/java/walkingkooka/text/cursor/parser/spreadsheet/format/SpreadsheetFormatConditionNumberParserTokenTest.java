@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormatConditionNumberParserTokenTest extends SpreadsheetFormatLeafParserTokenTestCase<SpreadsheetFormatConditionNumberParserToken, BigDecimal> {
+public final class SpreadsheetFormatConditionNumberParserTokenTest extends SpreadsheetFormatNonSymbolParserTokenTestCase<SpreadsheetFormatConditionNumberParserToken, BigDecimal> {
 
     @Test
     public void testAccept() {
