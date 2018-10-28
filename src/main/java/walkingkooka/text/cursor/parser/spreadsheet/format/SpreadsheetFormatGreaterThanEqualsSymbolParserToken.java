@@ -117,6 +117,11 @@ public final class SpreadsheetFormatGreaterThanEqualsSymbolParserToken extends S
     }
 
     @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
+    @Override
     public void accept(final SpreadsheetFormatParserTokenVisitor visitor) {
         visitor.visit(this);
     }

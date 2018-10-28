@@ -73,11 +73,6 @@ public final class SpreadsheetFormatExponentSymbolParserTokenTest extends Spread
     }
 
     @Override
-    String value() {
-        return this.text();
-    }
-
-    @Override
     protected SpreadsheetFormatExponentSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatExponentSymbolParserToken.with(value, text);
     }

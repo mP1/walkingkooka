@@ -73,11 +73,6 @@ public final class SpreadsheetFormatEqualsSymbolParserTokenTest extends Spreadsh
     }
 
     @Override
-    String value() {
-        return this.text();
-    }
-
-    @Override
     protected SpreadsheetFormatEqualsSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatEqualsSymbolParserToken.with(value, text);
     }

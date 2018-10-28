@@ -15,7 +15,6 @@
  *
  *
  */
-
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
 import org.junit.Test;
@@ -24,15 +23,11 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class SpreadsheetFormatSymbolParserTokenTestCase<T extends SpreadsheetFormatSymbolParserToken> extends SpreadsheetFormatLeafParserTokenTestCase<T, String> {
+public abstract class SpreadsheetFormatNonSymbolParserTokenTestCase<T extends SpreadsheetFormatNonSymbolParserToken<V>, V> extends SpreadsheetFormatLeafParserTokenTestCase<T, V> {
 
     @Test
-    public final void testWithoutSymbols() {
+    public final void testWithoutSymbolsOrWhitespace() {
         final T token = this.createToken();
-        assertEquals(Optional.empty(), token.withoutSymbols());
-    }
-
-    @Override final String value() {
-        return this.text();
+        assertEquals(Optional.of(token), token.withoutSymbols());
     }
 }

@@ -73,11 +73,6 @@ public final class SpreadsheetFormatOpenBracketSymbolParserTokenTest extends Spr
     }
 
     @Override
-    String value() {
-        return this.text();
-    }
-
-    @Override
     protected SpreadsheetFormatOpenBracketSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatOpenBracketSymbolParserToken.with(value, text);
     }

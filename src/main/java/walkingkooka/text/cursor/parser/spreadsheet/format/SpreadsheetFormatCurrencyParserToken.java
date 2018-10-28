@@ -152,11 +152,6 @@ public final class SpreadsheetFormatCurrencyParserToken extends SpreadsheetForma
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public boolean isYear() {
         return false;
     }

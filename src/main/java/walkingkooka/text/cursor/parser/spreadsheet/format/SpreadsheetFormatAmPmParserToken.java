@@ -153,11 +153,6 @@ public final class SpreadsheetFormatAmPmParserToken extends SpreadsheetFormatNon
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public boolean isYear() {
         return false;
     }

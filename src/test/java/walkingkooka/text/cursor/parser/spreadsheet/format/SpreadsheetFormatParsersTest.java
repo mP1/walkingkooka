@@ -433,7 +433,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     public void testDateDay3Month3Year3() {
         this.dateParseAndCheck(day(3), monthOrMinute(3), year(3));
     }
-    
+
     @Test
     public void testDateDayMonthYearDateDayMonthYear() {
         this.dateParseAndCheck(day(), monthOrMinute(), year(), day(), monthOrMinute(), year());
@@ -2813,7 +2813,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     public void testTimeQuotedText() {
         this.timeParseAndCheck(quotedText());
     }
-    
+
     @Test
     public void testTimeASlashP() {
         this.timeParseAndCheck(aSlashP());
@@ -3340,7 +3340,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     public void testDateTimeGeneral() {
         this.parseAndCheck2(this.dateTimeParser(), SpreadsheetFormatParserToken::general, general());
     }
-    
+
     // literals only...........................................................................
 
     @Test
@@ -3428,7 +3428,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
     }
 
     // date&time........................................................................................................
-    
+
     @Test
     public void testDateTimeDayHour() {
         this.dateTimeParseAndCheck(day(), hour());
@@ -3983,7 +3983,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
         final String text = repeat('D', count);
         return SpreadsheetFormatParserToken.day(text, text);
     }
-    
+
     private static SpreadsheetFormatParserToken decimalPoint() {
         return SpreadsheetFormatParserToken.decimalPoint(".", ".");
     }

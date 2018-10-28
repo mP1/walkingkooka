@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormatAmPmParserTokenTest extends SpreadsheetFormatLeafParserTokenTestCase<SpreadsheetFormatAmPmParserToken, String> {
+public final class SpreadsheetFormatAmPmParserTokenTest extends SpreadsheetFormatNonSymbolParserTokenTestCase<SpreadsheetFormatAmPmParserToken, String> {
 
     @Test
     public void testAccept() {

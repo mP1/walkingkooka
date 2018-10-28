@@ -73,11 +73,6 @@ public final class SpreadsheetFormatLessThanSymbolParserTokenTest extends Spread
     }
 
     @Override
-    String value() {
-        return this.text();
-    }
-
-    @Override
     protected SpreadsheetFormatLessThanSymbolParserToken createToken(final String value, final String text) {
         return SpreadsheetFormatLessThanSymbolParserToken.with(value, text);
     }

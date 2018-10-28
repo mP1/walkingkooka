@@ -153,11 +153,6 @@ public final class SpreadsheetFormatDayParserToken extends SpreadsheetFormatNonS
     }
 
     @Override
-    public boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public boolean isYear() {
         return false;
     }
