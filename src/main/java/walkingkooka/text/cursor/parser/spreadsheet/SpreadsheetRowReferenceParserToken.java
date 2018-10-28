@@ -19,8 +19,6 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.util.Optional;
-
 /**
  * A token that holds a row reference.
  */
@@ -51,11 +49,6 @@ public final class SpreadsheetRowReferenceParserToken extends SpreadsheetNonSymb
     @Override
     SpreadsheetRowReferenceParserToken replaceText(final String text) {
         return new SpreadsheetRowReferenceParserToken(this.value, text);
-    }
-
-    @Override
-    public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     @Override
@@ -125,11 +118,6 @@ public final class SpreadsheetRowReferenceParserToken extends SpreadsheetNonSymb
 
     @Override
     public boolean isText() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
         return false;
     }
 

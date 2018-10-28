@@ -17,8 +17,6 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import java.util.Optional;
-
 /**
  * Base class for any leaf that holds a numeric value.
  */
@@ -30,11 +28,6 @@ abstract class SpreadsheetNumericParserToken<T> extends SpreadsheetNonSymbolPars
 
     @Override final void checkText(final String text) {
         checkTextNullOrWhitespace(text);
-    }
-
-    @Override
-    public final Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     @Override

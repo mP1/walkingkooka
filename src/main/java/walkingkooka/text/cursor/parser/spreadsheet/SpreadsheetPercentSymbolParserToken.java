@@ -134,7 +134,13 @@ public final class SpreadsheetPercentSymbolParserToken extends SpreadsheetSymbol
         return false;
     }
 
-    @Override final int operatorPriority() {
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
+    @Override
+    final int operatorPriority() {
         return LOWEST_PRIORITY;
     }
 

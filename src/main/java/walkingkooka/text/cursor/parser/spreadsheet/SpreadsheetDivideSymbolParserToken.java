@@ -134,6 +134,11 @@ public final class SpreadsheetDivideSymbolParserToken extends SpreadsheetSymbolP
         return false;
     }
 
+    @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
     @Override final int operatorPriority() {
         return MULTIPLY_DIVISION_PRIORITY;
     }

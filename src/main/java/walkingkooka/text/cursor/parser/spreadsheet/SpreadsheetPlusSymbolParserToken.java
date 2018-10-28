@@ -135,6 +135,11 @@ public final class SpreadsheetPlusSymbolParserToken extends SpreadsheetSymbolPar
     }
 
     @Override
+    public boolean isWhitespace() {
+        return false;
+    }
+
+    @Override
     public void accept(final SpreadsheetParserTokenVisitor visitor) {
         visitor.visit(this);
     }

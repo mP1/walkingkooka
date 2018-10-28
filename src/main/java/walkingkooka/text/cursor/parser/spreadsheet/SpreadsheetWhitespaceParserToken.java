@@ -18,15 +18,16 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 import walkingkooka.tree.search.SearchNode;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Holds the combination of whitespace or comments.
  */
-public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbolParserToken<String> {
+public final class SpreadsheetWhitespaceParserToken extends SpreadsheetSymbolParserToken {
 
     public final static ParserTokenNodeName NAME = ParserTokenNodeName.fromClass(SpreadsheetWhitespaceParserToken.class);
 
@@ -56,87 +57,106 @@ public final class SpreadsheetWhitespaceParserToken extends SpreadsheetNonSymbol
     }
 
     @Override
-    public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.empty();
-    }
-
-    @Override
     public ParserTokenNodeName name() {
         return NAME;
     }
 
     @Override
-    public boolean isBigDecimal() {
+    final int operatorPriority() {
+        return LOWEST_PRIORITY;
+    }
+
+    /**
+     * By chance all other {@link SpreadsheetSymbolParserToken} participate as the operand of a binary operand or similar,
+     * except for whitespace.
+     */
+    @Override
+    final SpreadsheetParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isBetweenSymbol() {
         return false;
     }
 
     @Override
-    public boolean isBigInteger() {
+    public boolean isCloseParenthesisSymbol() {
         return false;
     }
 
     @Override
-    public boolean isColumnReference() {
+    public boolean isDivideSymbol() {
         return false;
     }
 
     @Override
-    public boolean isDouble() {
+    public boolean isEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isFunctionName() {
+    public boolean isFunctionParameterSeparatorSymbol() {
         return false;
     }
 
     @Override
-    public boolean isLabelName() {
+    public boolean isGreaterThanSymbol() {
         return false;
     }
 
     @Override
-    public boolean isLocalDate() {
+    public boolean isGreaterThanEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isLocalDateTime() {
+    public boolean isLessThanSymbol() {
         return false;
     }
 
     @Override
-    public boolean isLocalTime() {
+    public boolean isLessThanEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isLong() {
+    public boolean isMinusSymbol() {
         return false;
     }
 
     @Override
-    public boolean isRowReference() {
+    public boolean isMultiplySymbol() {
         return false;
     }
 
     @Override
-    public boolean isSymbol() {
+    public boolean isNotEqualsSymbol() {
         return false;
     }
 
     @Override
-    public boolean isText() {
+    public boolean isOpenParenthesisSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isPercentSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isPowerSymbol() {
+        return false;
+    }
+
+    @Override
+    public boolean isPlusSymbol() {
         return false;
     }
 
     @Override
     public boolean isWhitespace() {
-        return true;
-    }
-
-    @Override
-    public boolean isNoise() {
         return true;
     }
 

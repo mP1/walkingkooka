@@ -18,5 +18,6 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-public abstract class SpreadsheetNumericParserTokenTestCase<T extends SpreadsheetNumericParserToken<V>, V extends Number> extends SpreadsheetNonSymbolParserTokenTestCase<T, V> {
+public abstract class SpreadsheetNonSymbolParserTokenTestCase<T extends SpreadsheetNonSymbolParserToken<V>, V> extends SpreadsheetLeafParserTokenTestCase<T, V>{
+
 }

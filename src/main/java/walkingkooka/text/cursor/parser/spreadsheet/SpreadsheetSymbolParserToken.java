@@ -106,11 +106,6 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     }
 
     @Override
-    public final boolean isWhitespace() {
-        return false;
-    }
-
-    @Override
     public final boolean isNoise() {
         return true;
     }

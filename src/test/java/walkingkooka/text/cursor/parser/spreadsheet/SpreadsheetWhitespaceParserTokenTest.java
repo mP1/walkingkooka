@@ -25,7 +25,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetWhitespaceParserTokenTest extends SpreadsheetLeafParserTokenTestCase<SpreadsheetWhitespaceParserToken, String> {
+public final class SpreadsheetWhitespaceParserTokenTest extends SpreadsheetSymbolParserTokenTestCase<SpreadsheetWhitespaceParserToken> {
 
     @Test
     @Ignore
@@ -90,11 +90,6 @@ public final class SpreadsheetWhitespaceParserTokenTest extends SpreadsheetLeafP
             }
         }.accept(token);
         assertEquals("13542", b.toString());
-    }
-
-    @Test
-    public void testToExpressionNode() {
-        this.toExpressionNodeAndFail();
     }
 
     @Override

@@ -19,8 +19,6 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.util.Optional;
-
 /**
  * Represents a label or name for a cell or range etc.
  */
@@ -51,11 +49,6 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolP
     @Override
     SpreadsheetLabelNameParserToken replaceText(final String text) {
         return new SpreadsheetLabelNameParserToken(this.value, text);
-    }
-
-    @Override
-    public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     @Override
@@ -125,11 +118,6 @@ public final class SpreadsheetLabelNameParserToken extends SpreadsheetNonSymbolP
 
     @Override
     public boolean isText() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
         return false;
     }
 

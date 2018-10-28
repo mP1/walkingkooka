@@ -19,8 +19,6 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.util.Optional;
-
 /**
  * Holds the actual function name within a function token.
  */
@@ -51,11 +49,6 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymb
     @Override
     SpreadsheetFunctionNameParserToken replaceText(final String text) {
         return new SpreadsheetFunctionNameParserToken(this.value, text);
-    }
-
-    @Override
-    public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
-        return Optional.of(this);
     }
 
     @Override
@@ -125,11 +118,6 @@ public final class SpreadsheetFunctionNameParserToken extends SpreadsheetNonSymb
 
     @Override
     public boolean isText() {
-        return false;
-    }
-
-    @Override
-    public boolean isWhitespace() {
         return false;
     }
 
