@@ -38,7 +38,32 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
 
     private NodeSelectorFunctionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
+
+        final List<ParserToken> without = NodeSelectorFunctionParserToken.class.cast(this.withoutSymbols().get()).value();
+        final int count = without.size();
+        if (count < 1) {
+            throw new IllegalArgumentException("Expected at least 1 tokens but got " + count + "=" + without);
+        }
+        final NodeSelectorParserToken name = without.get(0).cast();
+        if (!name.isFunctionName()) {
+            throw new IllegalArgumentException("Function name missing from " + value);
+        }
+
+        this.functionName = NodeSelectorFunctionNameParserToken.class.cast(name).value();
+        this.parameters = without.subList(1, without.size());
     }
+
+    public NodeSelectorFunctionName functionName() {
+        return this.functionName;
+    }
+
+    private final NodeSelectorFunctionName functionName;
+
+    public List<ParserToken> parameters() {
+        return this.parameters;
+    }
+
+    private final List<ParserToken> parameters;
 
     @Override
     public NodeSelectorFunctionParserToken setText(final String text) {

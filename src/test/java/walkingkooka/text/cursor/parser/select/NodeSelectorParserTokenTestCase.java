@@ -168,11 +168,11 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return function(functionName(), parenthesisOpen(), number(), comma(), quotedText(), parenthesisClose());
     }
 
-    final NodeSelectorParserToken functionName() {
+    final NodeSelectorFunctionNameParserToken functionName() {
         return functionName("contains");
     }
 
-    final NodeSelectorParserToken functionName(final String text) {
+    final NodeSelectorFunctionNameParserToken functionName(final String text) {
         return NodeSelectorParserToken.functionName(NodeSelectorFunctionName.with(text), text);
     }
 

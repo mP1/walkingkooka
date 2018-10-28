@@ -32,6 +32,46 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
 
     // [ends-with(@href, '/')]
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithMissingFunctionNameFails() {
+        NodeSelectorFunctionParserToken.with(Lists.of(number()), number().text());
+    }
+
+    @Test
+    public void testWithNoParameters() {
+        final NodeSelectorFunctionNameParserToken functionName = functionName();
+        final List<ParserToken> tokens = Lists.of(functionName, parenthesisOpen(), parenthesisClose());
+
+        final NodeSelectorFunctionParserToken function = NodeSelectorFunctionParserToken.with(tokens, ParserToken.text(tokens));
+        this.check(function, functionName.value());
+    }
+
+    @Test
+    public void testWithOneParameter() {
+        final NodeSelectorFunctionParserToken function = this.createToken();
+        this.check(function, functionName().value(), quotedText());
+    }
+
+    @Test
+    public void testWithManyParameters() {
+        final NodeSelectorFunctionNameParserToken functionName = functionName();
+        final NodeSelectorParserToken parameter0 = number();
+        final NodeSelectorParserToken parameter1 = number2();
+        final NodeSelectorParserToken parameter2 = number(3);
+
+        final List<ParserToken> tokens = Lists.of(functionName, parenthesisOpen(), parameter0, comma(), parameter1, comma(), parameter2, parenthesisClose());
+
+        final NodeSelectorFunctionParserToken function = NodeSelectorFunctionParserToken.with(tokens, ParserToken.text(tokens));
+        this.check(function, functionName.value(), parameter0, parameter1, parameter2);
+    }
+
+    private void check(final NodeSelectorFunctionParserToken function,
+                       final NodeSelectorFunctionName functionName,
+                       final ParserToken... parameters) {
+        assertEquals("functionName", functionName, function.functionName());
+        assertEquals("parameters", Lists.of(parameters), function.parameters());
+    }
+
     @Test
     public void testWithoutSymbols() {
         final NodeSelectorFunctionParserToken expression = this.createToken();
