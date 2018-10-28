@@ -33,9 +33,9 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
     // [ends-with(@href, '/')]
 
     @Test
-    public void testWithoutSymbolsExpressionWhitespace() {
+    public void testWithoutSymbols() {
         final NodeSelectorFunctionParserToken expression = this.createToken();
-        final NodeSelectorFunctionParserToken without = expression.withoutSymbolsOrWhitespace().get().cast();
+        final NodeSelectorFunctionParserToken without = expression.withoutSymbols().get().cast();
         assertEquals("value", Lists.of(functionName(), quotedText()), without.value());
     }
 

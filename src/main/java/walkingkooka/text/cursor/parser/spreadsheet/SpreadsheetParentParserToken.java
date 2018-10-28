@@ -55,7 +55,7 @@ abstract class SpreadsheetParentParserToken<T extends SpreadsheetParentParserTok
     }
 
     @Override
-    public final Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
+    public final Optional<SpreadsheetParserToken> withoutSymbols() {
         return this.without;
     }
 

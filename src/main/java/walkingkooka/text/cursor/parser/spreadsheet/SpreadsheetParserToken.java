@@ -410,7 +410,7 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
      * Returns a copy without any symbols or whitespace tokens. The original text form will still contain
      * those tokens as text, but the tokens themselves will be removed.
      */
-    abstract public Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace();
+    abstract public Optional<SpreadsheetParserToken> withoutSymbols();
 
     /**
      * Only {@link SpreadsheetAdditionParserToken} return true

@@ -36,7 +36,7 @@ abstract class SpreadsheetSymbolParserToken extends SpreadsheetLeafParserToken<S
     }
 
     @Override
-    public final Optional<SpreadsheetParserToken> withoutSymbolsOrWhitespace() {
+    public final Optional<SpreadsheetParserToken> withoutSymbols() {
         return Optional.empty();
     }
 

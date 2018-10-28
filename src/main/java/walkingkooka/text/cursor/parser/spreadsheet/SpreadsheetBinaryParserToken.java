@@ -31,7 +31,7 @@ abstract class SpreadsheetBinaryParserToken<T extends SpreadsheetBinaryParserTok
                                  final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
-        final List<SpreadsheetParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbolsOrWhitespace().get()).value();
+        final List<SpreadsheetParserToken> without = SpreadsheetParentParserToken.class.cast(this.withoutSymbols().get()).value();
         final int count = without.size();
         if (2 != count) {
             throw new IllegalArgumentException("Expected 2 tokens but got " + count + "=" + without);

@@ -32,7 +32,7 @@ abstract class JsonNodeSymbolParserToken extends JsonNodeLeafParserToken<String>
     }
 
     @Override
-    public final Optional<JsonNodeParserToken> withoutSymbolsOrWhitespace() {
+    public final Optional<JsonNodeParserToken> withoutSymbols() {
         return Optional.empty();
     }
 

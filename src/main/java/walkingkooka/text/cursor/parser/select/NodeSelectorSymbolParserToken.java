@@ -34,7 +34,7 @@ abstract class NodeSelectorSymbolParserToken extends NodeSelectorLeafParserToken
     }
 
     @Override
-    public final Optional<NodeSelectorParserToken> withoutSymbolsOrWhitespace() {
+    public final Optional<NodeSelectorParserToken> withoutSymbols() {
         return Optional.empty();
     }
 

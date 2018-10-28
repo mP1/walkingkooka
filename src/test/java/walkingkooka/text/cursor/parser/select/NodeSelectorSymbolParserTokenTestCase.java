@@ -26,8 +26,8 @@ import static org.junit.Assert.assertEquals;
 public abstract class NodeSelectorSymbolParserTokenTestCase<T extends NodeSelectorSymbolParserToken, V> extends NodeSelectorLeafParserTokenTestCase<T, V> {
 
     @Test
-    public final void testWithoutSymbolsOrWhitespace() {
+    public final void testWithoutSymbols() {
         final T token = this.createToken();
-        assertEquals(Optional.empty(), token.withoutSymbolsOrWhitespace());
+        assertEquals(Optional.empty(), token.withoutSymbols());
     }
 }

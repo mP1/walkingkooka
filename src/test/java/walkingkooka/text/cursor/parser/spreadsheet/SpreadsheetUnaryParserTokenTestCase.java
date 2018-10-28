@@ -54,7 +54,7 @@ public abstract class SpreadsheetUnaryParserTokenTestCase<T extends SpreadsheetU
         assertNotSame(token, different);
         this.checkValue(different, value);
 
-        assertEquals(Optional.of(different), different.withoutSymbolsOrWhitespace());
+        assertEquals(Optional.of(different), different.withoutSymbols());
     }
 
     @Test
@@ -66,7 +66,7 @@ public abstract class SpreadsheetUnaryParserTokenTestCase<T extends SpreadsheetU
         assertNotSame(token, different);
         this.checkValue(different, values);
 
-        final Optional<SpreadsheetParserToken> differentWithout = different.withoutSymbolsOrWhitespace();
+        final Optional<SpreadsheetParserToken> differentWithout = different.withoutSymbols();
         assertNotEquals(Optional.of(different), differentWithout);
 
         this.checkValue(differentWithout.get(), values.subList(0, 1));

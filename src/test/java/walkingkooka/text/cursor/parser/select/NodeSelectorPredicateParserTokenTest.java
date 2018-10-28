@@ -33,9 +33,9 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
     // [ends-with(@href, '/')]
 
     @Test
-    public void testWithoutSymbolsOrWhitespace() {
+    public void testWithoutSymbols() {
         final NodeSelectorPredicateParserToken predicate = this.createToken();
-        final NodeSelectorPredicateParserToken without = predicate.withoutSymbolsOrWhitespace().get().cast();
+        final NodeSelectorPredicateParserToken without = predicate.withoutSymbols().get().cast();
         assertEquals("value", predicate.value(), without.value());
     }
 

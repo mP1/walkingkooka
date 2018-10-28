@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 public abstract class SpreadsheetFormatNonSymbolParserTokenTestCase<T extends SpreadsheetFormatNonSymbolParserToken<V>, V> extends SpreadsheetFormatLeafParserTokenTestCase<T, V> {
 
     @Test
-    public final void testWithoutSymbolsOrWhitespace() {
+    public final void testWithoutSymbols() {
         final T token = this.createToken();
         assertEquals(Optional.of(token), token.withoutSymbols());
     }

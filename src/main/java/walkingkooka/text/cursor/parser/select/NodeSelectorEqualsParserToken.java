@@ -48,7 +48,7 @@ public final class NodeSelectorEqualsParserToken extends NodeSelectorConditionPa
 
     @Override
     NodeSelectorEqualsParserToken replaceText(final String text) {
-        return new NodeSelectorEqualsParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+        return new NodeSelectorEqualsParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
     }
 
     @Override

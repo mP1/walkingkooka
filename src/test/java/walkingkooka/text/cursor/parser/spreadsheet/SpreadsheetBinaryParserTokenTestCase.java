@@ -68,7 +68,7 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
         this.checkText(token, text);
         this.checkValue(token, left, right);
 
-        assertSame(token, token.withoutSymbolsOrWhitespace().get());
+        assertSame(token, token.withoutSymbols().get());
     }
 
     @Test
@@ -84,7 +84,7 @@ public abstract class SpreadsheetBinaryParserTokenTestCase<T extends Spreadsheet
         this.checkText(token, text);
         this.checkValue(token, left, operator, right);
 
-        final T without = Cast.to(token.withoutSymbolsOrWhitespace().get());
+        final T without = Cast.to(token.withoutSymbols().get());
         assertNotSame(token, without);
 
         this.checkText(without, text);

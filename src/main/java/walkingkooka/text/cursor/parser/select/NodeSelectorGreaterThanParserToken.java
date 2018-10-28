@@ -48,7 +48,7 @@ public final class NodeSelectorGreaterThanParserToken extends NodeSelectorCondit
 
     @Override
     NodeSelectorGreaterThanParserToken replaceText(final String text) {
-        return new NodeSelectorGreaterThanParserToken(this.value, text, this.valueIfWithoutSymbolsOrWhitespaceOrNull());
+        return new NodeSelectorGreaterThanParserToken(this.value, text, this.valueIfWithoutSymbolsOrNull());
     }
 
     @Override

@@ -39,7 +39,7 @@ public abstract class SpreadsheetBinaryParserTokenTestCase2<T extends Spreadshee
         final T different = token.setValue(differentValues);
         this.checkValue(different, differentValues);
 
-        assertEquals(Optional.of(different), different.withoutSymbolsOrWhitespace());
+        assertEquals(Optional.of(different), different.withoutSymbols());
     }
 
     @Test
@@ -49,7 +49,7 @@ public abstract class SpreadsheetBinaryParserTokenTestCase2<T extends Spreadshee
         final T different = token.setValue(differentValues);
         this.checkValue(different, differentValues);
 
-        final Optional<SpreadsheetParserToken> differentWithout = different.withoutSymbolsOrWhitespace();
+        final Optional<SpreadsheetParserToken> differentWithout = different.withoutSymbols();
         assertNotEquals(Optional.of(different), differentWithout);
         this.checkValue(differentWithout.get(), differentValues.subList(0, 2));
     }
