@@ -13,51 +13,72 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
+
 package walkingkooka.tree.select;
 
 import org.junit.Before;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.text.cursor.parser.select.NodeSelectorAttributeName;
+import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
 
-public final class NodeSelectorPredicateTest extends PredicateTestCase<NodeSelectorPredicate<TestFakeNode, StringName, StringName, Object>,
-        TestFakeNode> {
+import static org.junit.Assert.assertEquals;
 
-    private final static StringName NAME = Names.string("match!");
+public final class NodeSelectorPredicateTest extends PredicateTestCase<NodeSelectorPredicate<TestFakeNode, StringName, StringName, Object>, TestFakeNode> {
+
+    private final static String ATTRIBUTE_NAME = "text";
 
     @Before
-    public void resetTestFakeNodeNames() {
+    public void beforeTest() {
         TestFakeNode.names.clear();
+        ;
     }
 
     @Test
-    public void testUnmatched() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
-        this.testFalse(parent);
+    public void testAttributePresentContainsText() {
+        this.testTrue(node("1", "abc123"));
     }
 
     @Test
-    public void testUnmatched2() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node(NAME.value(), child);
-        this.testFalse(parent.child(0));
+    public void testAttributePresentWithoutText() {
+        this.testFalse(node("1", "xyz"));
     }
 
     @Test
-    public void testMatched() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node(NAME.value(), child);
-        this.testTrue(parent);
+    public void testAttributeAbsent() {
+        this.testFalse(TestFakeNode.node("1"));
+    }
+
+    private static TestFakeNode node(final String name, final String attribute, final TestFakeNode... nodes) {
+        return TestFakeNode.node(name)
+                .setAttributes(Maps.one(Names.string(ATTRIBUTE_NAME), attribute))
+                .setChildren(Lists.of(nodes));
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals(this.node().toString(), this.createPredicate().toString());
     }
 
     @Override
     protected NodeSelectorPredicate<TestFakeNode, StringName, StringName, Object> createPredicate() {
-        return new NodeSelectorPredicate(NamedNodeSelector.with(NAME, PathSeparator.requiredAtStart('/')));
+        return NodeSelectorPredicate.with(this.node());
+    }
+
+    private ExpressionNode node() {
+        return ExpressionNode.function(ExpressionNodeName.with("contains"), Lists.of(ExpressionNode.reference(this.attributeName()), ExpressionNode.text("abc")));
+    }
+
+    private NodeSelectorAttributeName attributeName() {
+        return NodeSelectorAttributeName.with(ATTRIBUTE_NAME);
     }
 
     @Override
