@@ -37,7 +37,7 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute(final PathSeparator separator) {
         Objects.requireNonNull(separator, "separator");
-        return new NodeSelectorBuilder<>(separator);
+        return new NodeSelectorBuilder<N, NAME, ANAME, AVALUE>(separator).absolute();
     }
 
     /**
