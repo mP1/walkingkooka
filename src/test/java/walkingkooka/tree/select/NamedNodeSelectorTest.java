@@ -26,7 +26,7 @@ import walkingkooka.naming.StringName;
 import static org.junit.Assert.assertEquals;
 
 final public class NamedNodeSelectorTest extends
-        UnaryNodeSelectorTestCase<NamedNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<NamedNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     private final static StringName NAME = Names.string("never");
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');

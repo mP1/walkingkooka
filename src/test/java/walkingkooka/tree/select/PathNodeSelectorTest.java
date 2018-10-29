@@ -23,7 +23,7 @@ import walkingkooka.naming.StringName;
 import static org.junit.Assert.assertEquals;
 
 final public class PathNodeSelectorTest extends
-        UnaryNodeSelectorTestCase<PathNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<PathNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     private static TestFakeNode make() {
         final TestFakeNode childChild = TestFakeNode.node("childChild");

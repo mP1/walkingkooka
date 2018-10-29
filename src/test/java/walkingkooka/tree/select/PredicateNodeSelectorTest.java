@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 
 final public class PredicateNodeSelectorTest extends
-        UnaryNodeSelectorTestCase<PredicateNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<PredicateNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     // constants
 

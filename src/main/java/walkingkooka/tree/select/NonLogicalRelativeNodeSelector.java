@@ -26,14 +26,14 @@ import java.util.function.Consumer;
 /**
  * Base class for all non logical (binary) selectors without any additional properties.
  */
-abstract class UnaryRelativeNodeSelector2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-    extends UnaryNodeSelector2<N, NAME, ANAME, AVALUE> {
+abstract class NonLogicalRelativeNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+    extends NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
-    UnaryRelativeNodeSelector2() {
+    NonLogicalRelativeNodeSelector() {
         super();
     }
 
-    UnaryRelativeNodeSelector2(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    NonLogicalRelativeNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super(next);
     }
 

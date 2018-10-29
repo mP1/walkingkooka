@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 final public class AbsoluteNodeSelectorTest extends
-        UnaryNodeSelectorTestCase<AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
     private final static Predicate<TestFakeNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");
