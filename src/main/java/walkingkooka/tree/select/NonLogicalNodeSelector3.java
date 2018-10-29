@@ -22,25 +22,25 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
-/**
- * Base class for all non logical (binary) selectors without any additional properties.
- */
-abstract class UnaryNodeSelector2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-    extends UnaryNodeSelector<N, NAME, ANAME, AVALUE> {
+import java.util.Set;
+import java.util.function.Consumer;
 
-    UnaryNodeSelector2() {
-        super();
+/**
+ * Base class for all non logical (binary) selectors.
+ */
+abstract class NonLogicalNodeSelector3<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+    extends NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
+
+    NonLogicalNodeSelector3() {
+        this(TerminalNodeSelector.get());
     }
 
-    UnaryNodeSelector2(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    NonLogicalNodeSelector3(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super(next);
     }
 
-    final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
-        return next.hashCode();
-    }
-
-    final boolean equals1(final UnaryNodeSelector<N, NAME, ANAME, AVALUE> other) {
-        return true; // no extra properties...
+    @Override
+    public final Set<N> accept(final N node, final Consumer<N> observer) {
+        return this.accept1(node, observer);
     }
 }

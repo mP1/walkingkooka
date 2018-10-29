@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  */
 final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        UnaryNodeSelector2<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link AbsoluteNodeSelector} getter

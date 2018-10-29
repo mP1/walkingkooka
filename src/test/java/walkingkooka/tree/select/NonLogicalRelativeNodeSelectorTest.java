@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class UnaryRelativeNodeSelector2Test extends PackagePrivateClassTestCase<NonLogicalRelativeNodeSelector<?, ?, ?, ?>> {
+public final class NonLogicalRelativeNodeSelectorTest extends PackagePrivateClassTestCase<NonLogicalRelativeNodeSelector> {
     @Override
-    protected Class<NonLogicalRelativeNodeSelector<?, ?, ?, ?>> type() {
-        return Cast.to(NonLogicalRelativeNodeSelector.class);
+    protected Class<NonLogicalRelativeNodeSelector> type() {
+        return NonLogicalRelativeNodeSelector.class;
     }
 }

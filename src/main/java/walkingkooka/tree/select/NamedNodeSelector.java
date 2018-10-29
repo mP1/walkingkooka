@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        UnaryRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector3<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link NamedNodeSelector} getter
@@ -92,7 +92,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
         return other instanceof NamedNodeSelector;
     }
 
-    @Override boolean equals1(final UnaryNodeSelector<N, NAME, ANAME, AVALUE> other) {
+    @Override boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other) {
         return other instanceof NamedNodeSelector;
     }
 }

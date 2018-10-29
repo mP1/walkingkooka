@@ -24,7 +24,7 @@ import walkingkooka.naming.StringName;
 import static org.junit.Assert.assertEquals;
 
 final public class DescendantNodeSelectorTest extends
-        UnaryNodeSelectorTestCase<DescendantNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<DescendantNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPathSeparatorFails() {

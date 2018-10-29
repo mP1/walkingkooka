@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * An absolute path for a {@link Node}.
  */
-final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends UnaryRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NonLogicalNodeSelector3<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final N node) {
         Objects.requireNonNull(node, "node");
@@ -90,7 +90,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    boolean equals1(final UnaryNodeSelector<N, NAME, ANAME, AVALUE> other) {
+    boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other) {
         return this.equals2(Cast.to(other));
     }
 

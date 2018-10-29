@@ -24,7 +24,7 @@ import walkingkooka.naming.StringName;
 import static org.junit.Assert.assertEquals;
 
 final public class ParentNodeSelectorTest
-        extends UnaryNodeSelectorTestCase<ParentNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        extends NonLogicalNodeSelectorTestCase<ParentNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     @Test
     public void testRoot() {

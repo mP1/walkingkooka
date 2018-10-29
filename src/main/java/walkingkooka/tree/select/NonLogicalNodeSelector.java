@@ -29,14 +29,14 @@ import java.util.function.Consumer;
 /**
  * Base class for all non logical (binary) selectors.
  */
-abstract class UnaryNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     extends NodeSelector<N, NAME, ANAME, AVALUE> {
 
-    UnaryNodeSelector() {
+    NonLogicalNodeSelector() {
         this(TerminalNodeSelector.get());
     }
 
-    UnaryNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    NonLogicalNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super();
         this.next = next;
     }
@@ -100,9 +100,9 @@ abstract class UnaryNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final UnaryNodeSelector<N, NAME, ANAME, AVALUE> other) {
+    private boolean equals0(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other) {
         return this.equals1(other) && this.next.equals(other.next);
     }
 
-    abstract boolean equals1(final UnaryNodeSelector<N, NAME, ANAME, AVALUE> other);
+    abstract boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other);
 }
