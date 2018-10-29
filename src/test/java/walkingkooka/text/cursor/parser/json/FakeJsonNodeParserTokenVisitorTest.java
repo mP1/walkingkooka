@@ -18,11 +18,18 @@
 
 package walkingkooka.text.cursor.parser.json;
 
+import walkingkooka.test.Fake;
+
 public final class FakeJsonNodeParserTokenVisitorTest extends JsonNodeParserTokenVisitorTestCase<FakeJsonNodeParserTokenVisitor> {
 
     @Override
     protected FakeJsonNodeParserTokenVisitor createParserTokenVisitor() {
         return new FakeJsonNodeParserTokenVisitor();
+    }
+
+    @Override
+    protected String requiredNamePrefix() {
+        return Fake.class.getSimpleName();
     }
 
     @Override

@@ -25,4 +25,9 @@ public abstract class EbnfParserTokenVisitorTestCase<V extends EbnfParserTokenVi
     protected EbnfParserTokenVisitorTestCase() {
         super();
     }
+
+    @Override
+    protected final String requiredNameSuffix() {
+        return EbnfParserTokenVisitor.class.getSimpleName();
+    }
 }

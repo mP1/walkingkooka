@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
 public abstract class SpreadsheetFormatParserTokenVisitorTestCase<V extends SpreadsheetFormatParserTokenVisitor> extends ParserTokenVisitorTestCase<V, SpreadsheetFormatParserToken> {
 
     @Override
-    protected String requiredNamePrefix() {
-        return SpreadsheetFormatParserToken.class.getSimpleName();
+    protected final String requiredNameSuffix() {
+        return SpreadsheetFormatParserTokenVisitor.class.getSimpleName();
     }
 }

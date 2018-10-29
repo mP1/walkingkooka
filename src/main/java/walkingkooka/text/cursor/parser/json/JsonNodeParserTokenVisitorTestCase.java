@@ -18,14 +18,12 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitorTestCase;
-import walkingkooka.tree.json.JsonNode;
 
 public abstract class JsonNodeParserTokenVisitorTestCase<V extends JsonNodeParserTokenVisitor> extends ParserTokenVisitorTestCase<V, JsonNodeParserToken> {
 
     @Override
-    protected final String requiredNamePrefix() {
-        return JsonNode.class.getSimpleName() + ParserToken.class.getSimpleName();
+    protected final String requiredNameSuffix() {
+        return JsonNodeParserTokenVisitor.class.getSimpleName();
     }
 }

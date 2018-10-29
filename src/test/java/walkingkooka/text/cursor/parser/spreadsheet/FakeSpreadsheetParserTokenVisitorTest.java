@@ -18,11 +18,18 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.test.Fake;
+
 public final class FakeSpreadsheetParserTokenVisitorTest extends SpreadsheetParserTokenVisitorTestCase<FakeSpreadsheetParserTokenVisitor> {
 
     @Override
     protected FakeSpreadsheetParserTokenVisitor createParserTokenVisitor() {
         return new FakeSpreadsheetParserTokenVisitor();
+    }
+
+    @Override
+    protected String requiredNamePrefix() {
+        return Fake.class.getSimpleName();
     }
 
     @Override
