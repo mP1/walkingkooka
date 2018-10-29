@@ -281,16 +281,16 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Test
-    public void testToStringNodeAndAttributeSelector() {
+    public void testToStringAbsoluteNodeAndAttributeSelector() {
         final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.createBuilder();
         b.named(Names.string(PARENT))
                 .attributeValueContains(Names.string("attribute-name"), "attribute-value");
 
-        this.buildAndCheck2(b,"parent[contains(@\"attribute-name\",\"attribute-value\")]");
+        this.buildAndCheck2(b,"/parent[contains(@\"attribute-name\",\"attribute-value\")]");
     }
 
     @Test
-    public void testToStringManySelectors() {
+    public void testToStringAbsoluteManySelectors() {
         final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.createBuilder();
         b.absolute()
                 .precedingSibling()
@@ -301,7 +301,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Test
-    public void testToStringManySelectors2() {
+    public void testToStringAbsoluteManySelectors2() {
         final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.createBuilder();
         b.absolute()
                 .preceding()
@@ -312,8 +312,18 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Test
-    public void testToStringManySelectors3() {
+    public void testToStringAbsoluteManySelectors3() {
         final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.createBuilder();
+        b.preceding()
+                .self()
+                .following();
+
+        this.buildAndCheck2(b, "/preceding::*/./following::*");
+    }
+
+    @Test
+    public void testToStringRelativeManySelectors3() {
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= NodeSelectorBuilder.relative(separator());;
         b.preceding()
                 .self()
                 .following();
@@ -323,7 +333,11 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Override
     protected NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> createBuilder() {
-        return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
+        return NodeSelectorBuilder.absolute(this.separator());
+    }
+
+    private PathSeparator separator() {
+        return PathSeparator.requiredAtStart('/');
     }
 
     @Override
