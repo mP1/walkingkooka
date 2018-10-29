@@ -43,9 +43,7 @@ abstract class UnaryNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector){
-        return this.append1(null == this.next ?
-            selector : // we are the last append!
-            this.next.append0(selector));
+        return this.append1(this.next.append0(selector));
     }
     
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector);

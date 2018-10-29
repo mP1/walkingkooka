@@ -23,14 +23,22 @@ import walkingkooka.tree.Node;
 import java.util.Set;
 import java.util.function.Consumer;
 
-class NodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+/**
+ * The default {@link NodeSelectorContext}
+ */
+final class NodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
-    NodeSelectorNodeSelectorContext(final Consumer<N> observer, final Set<N> matched) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final Consumer<N> observer, final Set<N> matched) {
+        return new NodeSelectorNodeSelectorContext(observer, matched);
+    }
+
+    private NodeSelectorNodeSelectorContext(final Consumer<N> observer, final Set<N> matched) {
         this.observer = observer;
         this.matched = matched;
     }
 
+    @Override
     Consumer<N> observer() {
         return this.observer;
     }
@@ -42,8 +50,12 @@ class NodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NA
         this.matched.add(node);
     }
 
+    /**
+     * A {@link Set} that records all matches.
+     */
     private final Set<N> matched;
 
+    @Override
     public String toString() {
         return this.matched.toString();
     }

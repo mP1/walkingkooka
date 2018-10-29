@@ -17,14 +17,25 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Context;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.function.Consumer;
 
-abstract class NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> {
+/**
+ * The {@link Context} that accompanies all match requests.
+ */
+abstract class NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements Context {
 
+    /**
+     * A {@link Consumer} that observes each and every match attempt. This exists primarily to keep track or count of
+     * match operations to prevent denial of service.
+     */
     abstract Consumer<N> observer();
 
+    /**
+     * Callback that receives each and every matched node by each individual {@link NodeSelector} during matching.
+     */
     abstract void match(final N node);
 }
