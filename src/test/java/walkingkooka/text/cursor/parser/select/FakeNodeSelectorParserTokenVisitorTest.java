@@ -18,11 +18,18 @@
 
 package walkingkooka.text.cursor.parser.select;
 
+import walkingkooka.test.Fake;
+
 public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<FakeNodeSelectorParserTokenVisitor> {
 
     @Override
     protected FakeNodeSelectorParserTokenVisitor createParserTokenVisitor() {
         return new FakeNodeSelectorParserTokenVisitor();
+    }
+
+    @Override
+    protected String requiredNamePrefix() {
+        return Fake.class.getSimpleName();
     }
 
     @Override

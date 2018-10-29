@@ -49,10 +49,12 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
 
     @Test
     public final void checkNaming() {
-        this.checkNamingStartAndEnd(this.requiredNamePrefix(), Visitor.class);
+        this.checkNamingStartAndEnd(this.requiredNamePrefix(), this.requiredNameSuffix());
     }
 
     abstract protected String requiredNamePrefix();
+
+    abstract protected String requiredNameSuffix();
 
     @Test(expected = NullPointerException.class)
     public final void testAcceptNullFails() {

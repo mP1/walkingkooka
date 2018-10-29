@@ -18,11 +18,18 @@
 
 package walkingkooka.tree.json;
 
+import walkingkooka.test.Fake;
+
 public final class FakeJsonNodeVisitorTest extends JsonNodeVisitorTestCase<FakeJsonNodeVisitor> {
 
     @Override
     protected FakeJsonNodeVisitor createVisitor() {
         return new FakeJsonNodeVisitor();
+    }
+
+    @Override
+    protected String requiredNamePrefix() {
+        return Fake.class.getSimpleName();
     }
 
     @Override
