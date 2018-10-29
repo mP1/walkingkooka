@@ -50,7 +50,7 @@ abstract class UnaryNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     final Set<N> accept1(final N node, final Consumer<N> observer) {
         final Set<N> matches = Sets.ordered();
-        this.accept(node, new NodeSelectorNodeSelectorContext<>(observer, matches));
+        this.accept(node, NodeSelectorNodeSelectorContext.with(observer, matches));
         return matches;
     }
 

@@ -60,7 +60,7 @@ final class OrNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends 
     @Override
     public Set<N> accept(final N node, final Consumer<N> observer) {
         final Set<N> matches = Sets.ordered();
-        this.accept(node, new NodeSelectorNodeSelectorContext<>(observer, matches));
+        this.accept(node, NodeSelectorNodeSelectorContext.with(observer, matches));
         return matches;
     }
 

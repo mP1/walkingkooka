@@ -61,7 +61,7 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
 
         for(NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
             final Set<N> current = Sets.ordered();
-            selector.accept(node, new NodeSelectorNodeSelectorContext<>(observer, current));
+            selector.accept(node, NodeSelectorNodeSelectorContext.with(observer, current));
 
             if(null==all) {
                 all = current;
