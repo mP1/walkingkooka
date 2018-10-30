@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree.select;
@@ -27,24 +28,24 @@ import java.util.function.Consumer;
 
 
 /**
- * A {@link NodeSelector} that selects all the descendants of a given {@link Node} until all are visited.
+ * A {@link NodeSelector} that selects all the descendants or self of a given {@link Node} until all are visited.
  */
-final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
         NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
-     * Type safe {@link DescendantNodeSelector} getter
+     * Type safe {@link DescendantOrSelfNodeSelector} getter
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
         Objects.requireNonNull(separator, "separator");
-        return new DescendantNodeSelector(separator);
+        return new DescendantOrSelfNodeSelector(separator);
     }
 
     /**
      * Private constructor use type safe getter
      */
-    private DescendantNodeSelector(final PathSeparator separator) {
+    private DescendantOrSelfNodeSelector(final PathSeparator separator) {
         super();
         this.separator = separator;
     }
@@ -52,7 +53,7 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * Private constructor
      */
-    private DescendantNodeSelector(final PathSeparator separator, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    private DescendantOrSelfNodeSelector(final PathSeparator separator, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         super(selector);
         this.separator = separator;
     }
@@ -61,9 +62,9 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a descending to another...
-        return selector instanceof DescendantNodeSelector ?
+        return selector instanceof DescendantOrSelfNodeSelector ?
                 this :
-                new DescendantNodeSelector(this.separator, selector);
+                new DescendantOrSelfNodeSelector(this.separator, selector);
     }
 
     @Override
@@ -73,6 +74,7 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.match(node, context);
         this.matchChildren(node, context);
     }
 
@@ -85,7 +87,7 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.descendant(this.separator);
+        b.axis("descendant-or-self");
     }
 
     // ignore in hashcode / equals...
@@ -93,6 +95,6 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof DescendantNodeSelector;
+        return other instanceof DescendantOrSelfNodeSelector;
     }
 }

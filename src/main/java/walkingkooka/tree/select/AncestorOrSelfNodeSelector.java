@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.tree.select;
@@ -22,33 +23,33 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 /**
- * A {@link NodeSelector} that selects all the ancestors of a given {@link Node} until the root of the graph is reached.
+ * A {@link NodeSelector} that selects all the ancestors or self of a given {@link Node} until the root of the graph is reached.
  */
-final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
         NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
-     * Type safe {@link AncestorNodeSelector} getter
+     * Type safe {@link AncestorOrSelfNodeSelector} getter
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AncestorNodeSelector<N, NAME, ANAME, AVALUE> get() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AncestorOrSelfNodeSelector<N, NAME, ANAME, AVALUE> get() {
         return Cast.to(INSTANCE);
     }
 
     @SuppressWarnings("rawtypes")
-    private final static AncestorNodeSelector INSTANCE = new AncestorNodeSelector();
+    private final static AncestorOrSelfNodeSelector INSTANCE = new AncestorOrSelfNodeSelector();
 
     /**
      * Private constructor use type safe getter
      */
-    private AncestorNodeSelector() {
+    private AncestorOrSelfNodeSelector() {
         super();
     }
 
     /**
      * Private constructor
      */
-    private AncestorNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    private AncestorOrSelfNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         super(selector);
     }
 
@@ -56,13 +57,14 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
          // no point appending a ancestor to another...
-        return selector instanceof AncestorNodeSelector ?
+        return selector instanceof AncestorOrSelfNodeSelector ?
                 this :
-                new AncestorNodeSelector(selector);
+                new AncestorOrSelfNodeSelector(selector);
     }
 
     @Override
     final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.match(node, context);
         this.matchParent(node, context);
     }
 
@@ -75,11 +77,11 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("ancestor");
+        b.axis("ancestor-or-self");
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof AncestorNodeSelector;
+        return other instanceof AncestorOrSelfNodeSelector;
     }
 }

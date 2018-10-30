@@ -20,25 +20,25 @@ package walkingkooka.text.cursor.parser.select;
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
 /**
- * Holds an ancestor axis
+ * Holds a descendant-or-self:: selector.
  */
-public final class NodeSelectorAncestorParserToken extends NodeSelectorNonSymbolParserToken<String> {
+public final class NodeSelectorDescendantOrSelfParserToken extends NodeSelectorNonSymbolParserToken<String> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAncestorParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorDescendantOrSelfParserToken.class);
 
-    static NodeSelectorAncestorParserToken with(final String value, final String text) {
+    static NodeSelectorDescendantOrSelfParserToken with(final String value, final String text) {
         checkValue(value);
         checkTextNullOrWhitespace(text);
 
-        return new NodeSelectorAncestorParserToken(value, text);
+        return new NodeSelectorDescendantOrSelfParserToken(value, text);
     }
 
-    private NodeSelectorAncestorParserToken(final String value, final String text) {
+    private NodeSelectorDescendantOrSelfParserToken(final String value, final String text) {
         super(value, text);
     }
 
     @Override
-    public NodeSelectorAncestorParserToken setText(final String text) {
+    public NodeSelectorDescendantOrSelfParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -48,8 +48,8 @@ public final class NodeSelectorAncestorParserToken extends NodeSelectorNonSymbol
     }
 
     @Override
-    NodeSelectorAncestorParserToken replaceText(final String text) {
-        return new NodeSelectorAncestorParserToken(this.value, text);
+    NodeSelectorDescendantOrSelfParserToken replaceText(final String text) {
+        return new NodeSelectorDescendantOrSelfParserToken(this.value, text);
     }
 
     // name................................................................................................
@@ -68,7 +68,7 @@ public final class NodeSelectorAncestorParserToken extends NodeSelectorNonSymbol
 
     @Override
     public boolean isAncestor() {
-        return true;
+        return false;
     }
 
     @Override
@@ -93,7 +93,7 @@ public final class NodeSelectorAncestorParserToken extends NodeSelectorNonSymbol
 
     @Override
     public boolean isDescendantOrSelf() {
-        return false;
+        return true;
     }
 
     @Override
@@ -167,6 +167,6 @@ public final class NodeSelectorAncestorParserToken extends NodeSelectorNonSymbol
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorAncestorParserToken;
+        return other instanceof NodeSelectorDescendantOrSelfParserToken;
     }
 }

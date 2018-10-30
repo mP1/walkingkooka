@@ -58,6 +58,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     }
 
     /**
+     * {@see NodeSelectorAncestorOrSelfParserToken}
+     */
+    public static NodeSelectorAncestorOrSelfParserToken ancestorOrSelf(final String value, final String text) {
+        return NodeSelectorAncestorOrSelfParserToken.with(value, text);
+    }
+    
+    /**
      * {@see NodeSelectorAndParserToken}
      */
     public static NodeSelectorAndParserToken and(final List<ParserToken> value, final String text) {
@@ -113,6 +120,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
         return NodeSelectorDescendantParserToken.with(value, text);
     }
 
+    /**
+     * {@see NodeSelectorDescendantOrSelfParserToken}
+     */
+    public static NodeSelectorDescendantOrSelfParserToken descendantOrSelf(final String value, final String text) {
+        return NodeSelectorDescendantOrSelfParserToken.with(value, text);
+    }
+    
     /**
      * {@see NodeSelectorEqualsParserToken}
      */
@@ -411,6 +425,11 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     public abstract boolean isAncestor();
 
     /**
+     * Only {@link NodeSelectorAncestorOrSelfParserToken} return true
+     */
+    public abstract boolean isAncestorOrSelf();
+
+    /**
      * Only {@link NodeSelectorAndParserToken} return true
      */
     public abstract boolean isAnd();
@@ -449,6 +468,11 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      * Only {@link NodeSelectorDescendantParserToken} return true
      */
     public abstract boolean isDescendant();
+
+    /**
+     * Only {@link NodeSelectorDescendantOrSelfParserToken} return true
+     */
+    public abstract boolean isDescendantOrSelf();
 
     /**
      * Only {@link NodeSelectorEqualsParserToken} return true

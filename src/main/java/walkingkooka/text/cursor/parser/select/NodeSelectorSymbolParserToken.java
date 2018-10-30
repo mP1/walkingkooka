@@ -51,6 +51,11 @@ abstract class NodeSelectorSymbolParserToken extends NodeSelectorLeafParserToken
     }
 
     @Override
+    public final boolean isAncestorOrSelf() {
+        return false;
+    }
+
+    @Override
     public final boolean isAttributeName() {
         return false;
     }
@@ -62,6 +67,11 @@ abstract class NodeSelectorSymbolParserToken extends NodeSelectorLeafParserToken
 
     @Override
     public final boolean isDescendant() {
+        return false;
+    }
+
+    @Override
+    public final boolean isDescendantOrSelf() {
         return false;
     }
 

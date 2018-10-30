@@ -70,6 +70,13 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     /**
+     * {@see AncestorOrSelfNodeSelector}
+     */
+    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> ancestorOrSelf() {
+        return this.append(AncestorOrSelfNodeSelector.get());
+    }
+
+    /**
      * {@see AndNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> and(final NodeSelector<N, NAME, ANAME, AVALUE> ...selectors) {
@@ -123,6 +130,13 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> descendant() {
         return this.append(DescendantNodeSelector.with(this.separator));
+    }
+
+    /**
+     * {@see DescendantOrSelfNodeSelector}
+     */
+    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> descendantOrSelf() {
+        return this.append(DescendantOrSelfNodeSelector.with(this.separator));
     }
 
     /**

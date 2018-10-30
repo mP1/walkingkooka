@@ -71,6 +71,11 @@ public final class NodeSelectorPrecedingSiblingParserToken extends NodeSelectorN
     }
 
     @Override
+    public boolean isAncestorOrSelf() {
+        return false;
+    }
+
+    @Override
     public boolean isAttributeName() {
         return false;
     }
@@ -82,6 +87,11 @@ public final class NodeSelectorPrecedingSiblingParserToken extends NodeSelectorN
 
     @Override
     public boolean isDescendant() {
+        return false;
+    }
+
+    @Override
+    public boolean isDescendantOrSelf() {
         return false;
     }
 

@@ -70,6 +70,11 @@ public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolPa
     }
 
     @Override
+    public boolean isAncestorOrSelf() {
+        return false;
+    }
+
+    @Override
     public boolean isAttributeName() {
         return false;
     }
@@ -81,6 +86,11 @@ public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolPa
 
     @Override
     public boolean isDescendant() {
+        return false;
+    }
+
+    @Override
+    public boolean isDescendantOrSelf() {
         return false;
     }
 

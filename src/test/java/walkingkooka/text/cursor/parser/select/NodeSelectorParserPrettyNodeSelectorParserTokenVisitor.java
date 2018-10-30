@@ -187,6 +187,11 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
     }
 
     @Override
+    protected void visit(final NodeSelectorAncestorOrSelfParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
     protected void visit(final NodeSelectorAndSymbolParserToken token) {
         this.printer.leaf(token);
     }
@@ -218,6 +223,11 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
 
     @Override
     protected void visit(final NodeSelectorDescendantParserToken token) {
+        this.printer.leaf(token);
+    }
+
+    @Override
+    protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
         this.printer.leaf(token);
     }
 
