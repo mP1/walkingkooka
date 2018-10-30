@@ -105,6 +105,11 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
     }
 
     @Override
+    public final boolean isAncestorOrSelf() {
+        return false;
+    }
+
+    @Override
     public final boolean isAndSymbol() {
         return false;
     }
@@ -136,6 +141,11 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
 
     @Override
     public final boolean isDescendant() {
+        return false;
+    }
+
+    @Override
+    public final boolean isDescendantOrSelf() {
         return false;
     }
 

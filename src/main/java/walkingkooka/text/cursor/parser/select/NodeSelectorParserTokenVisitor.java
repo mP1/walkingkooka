@@ -143,6 +143,10 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
         // nop
     }
 
+    protected void visit(final NodeSelectorAncestorOrSelfParserToken token) {
+        // nop
+    }
+
     protected void visit(final NodeSelectorAndSymbolParserToken token) {
         // nop
     }
@@ -168,6 +172,10 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
     }
 
     protected void visit(final NodeSelectorDescendantParserToken token) {
+        // nop
+    }
+
+    protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
         // nop
     }
 

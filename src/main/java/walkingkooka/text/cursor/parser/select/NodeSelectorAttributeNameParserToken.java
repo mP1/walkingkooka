@@ -72,6 +72,11 @@ public final class NodeSelectorAttributeNameParserToken extends NodeSelectorNonS
     }
 
     @Override
+    public boolean isAncestorOrSelf() {
+        return false;
+    }
+
+    @Override
     public boolean isAttributeName() {
         return true;
     }
@@ -83,6 +88,11 @@ public final class NodeSelectorAttributeNameParserToken extends NodeSelectorNonS
 
     @Override
     public boolean isDescendant() {
+        return false;
+    }
+
+    @Override
+    public boolean isDescendantOrSelf() {
         return false;
     }
 

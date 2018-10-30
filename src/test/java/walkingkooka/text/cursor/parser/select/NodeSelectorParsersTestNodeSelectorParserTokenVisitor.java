@@ -176,6 +176,11 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
     }
 
     @Override
+    protected void visit(final NodeSelectorAncestorOrSelfParserToken token) {
+        this.add(token, NodeSelectorParserToken::ancestorOrSelf);
+    }
+
+    @Override
     protected void visit(final NodeSelectorAndSymbolParserToken token) {
         this.add(token, NodeSelectorParserToken::andSymbol);
     }
@@ -208,6 +213,11 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
     @Override
     protected void visit(final NodeSelectorDescendantParserToken token) {
         this.add(token, NodeSelectorParserToken::descendant);
+    }
+
+    @Override
+    protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
+        this.add(token, NodeSelectorParserToken::descendantOrSelf);
     }
 
     @Override

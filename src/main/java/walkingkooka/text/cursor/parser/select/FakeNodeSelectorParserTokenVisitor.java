@@ -147,6 +147,11 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     }
 
     @Override
+    protected void visit(final NodeSelectorAncestorOrSelfParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final NodeSelectorAndSymbolParserToken token) {
         throw new UnsupportedOperationException();
     }
@@ -178,6 +183,11 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
 
     @Override
     protected void visit(final NodeSelectorDescendantParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
         throw new UnsupportedOperationException();
     }
 
