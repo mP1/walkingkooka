@@ -57,6 +57,13 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
         this.parseAndCheck2(selfDot());
     }
 
+    // selfDot ...............................................................................................
+
+    @Test
+    public void testWildcard() {
+        this.parseAndCheck2(wildcard());
+    }
+
     // absolute node................................................................................................
 
     @Test
@@ -1531,7 +1538,7 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
     }
 
     final NodeSelectorParserToken wildcard() {
-        return NodeSelectorParserToken.child("*", "*");
+        return NodeSelectorParserToken.self("*", "*");
     }
 
     private static String text(final NodeSelectorParserToken... tokens) {

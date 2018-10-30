@@ -83,7 +83,6 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
     private static void axis(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
         predefined.put(ANCESTOR_IDENTIFIER, ANCESTOR_PARSER);
         predefined.put(CHILD_IDENTIFIER, CHILD_PARSER);
-        predefined.put(CHILD_WILCARD_IDENTIFIER, CHILD_WILDCARD_PARSER);
         predefined.put(DESCENDANT_IDENTIFIER, DESCENDANT_PARSER);
         predefined.put(DESCENDANT_SLASH_SLASH_IDENTIFIER, SLASH_SLASH_PARSER);
         predefined.put(FIRST_CHILD_IDENTIFIER, FIRST_CHILD_PARSER);
@@ -96,6 +95,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
         predefined.put(PRECEDING_SIBLING_IDENTIFIER, PRECEDING_SIBLING_PARSER);
         predefined.put(SELF_IDENTIFIER, SELF_PARSER);
         predefined.put(SELF_DOT_IDENTIFIER, DOT_PARSER);
+        predefined.put(SELF_WILCARD_IDENTIFIER, SELF_WILDCARD_PARSER);
     }
 
     private static final EbnfIdentifierName ANCESTOR_IDENTIFIER = EbnfIdentifierName.with("ANCESTOR");
@@ -105,11 +105,6 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     private static final EbnfIdentifierName CHILD_IDENTIFIER = EbnfIdentifierName.with("CHILD");
     private static final Parser<ParserToken, ParserContext> CHILD_PARSER = literal("child::",
-            NodeSelectorParserToken::child,
-            NodeSelectorChildParserToken.class);
-
-    private static final EbnfIdentifierName CHILD_WILCARD_IDENTIFIER = EbnfIdentifierName.with("WILDCARD");
-    private static final Parser<ParserToken, ParserContext> CHILD_WILDCARD_PARSER = literal("*",
             NodeSelectorParserToken::child,
             NodeSelectorChildParserToken.class);
 
@@ -164,14 +159,19 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             NodeSelectorPrecedingSiblingParserToken.class);
 
     private static final EbnfIdentifierName SELF_IDENTIFIER = EbnfIdentifierName.with("SELF");
-    private static final Parser<ParserToken, ParserContext> SELF_PARSER = literal("self::",
-            NodeSelectorParserToken::self,
-            NodeSelectorSelfParserToken.class);
+    private static final Parser<ParserToken, ParserContext> SELF_PARSER = self("self::");
 
     private static final EbnfIdentifierName SELF_DOT_IDENTIFIER = EbnfIdentifierName.with("SELF_DOT");
-    private static final Parser<ParserToken, ParserContext> DOT_PARSER = literal('.',
-            NodeSelectorParserToken::self,
-            NodeSelectorSelfParserToken.class);
+    private static final Parser<ParserToken, ParserContext> DOT_PARSER = self(".");
+
+    private static final EbnfIdentifierName SELF_WILCARD_IDENTIFIER = EbnfIdentifierName.with("WILDCARD");
+    private static final Parser<ParserToken, ParserContext> SELF_WILDCARD_PARSER = self("*");
+
+    private static Parser<ParserToken, ParserContext> self(final String literal) {
+        return literal(literal,
+                NodeSelectorParserToken::self,
+                NodeSelectorSelfParserToken.class);
+    }
 
     // PREDICATE .....................................................................................................
 
@@ -373,6 +373,14 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
     private static Parser<ParserToken, ParserContext> literal(final String text,
                                                               final BiFunction<String, String, ParserToken> factory,
                                                               final Class<? extends NodeSelectorLeafParserToken> tokenClass) {
+        return text.length() == 1 ?
+                literal(text.charAt(0), factory, tokenClass) :
+                literal0(text, factory, tokenClass);
+    }
+
+    private static Parser<ParserToken, ParserContext> literal0(final String text,
+                                                               final BiFunction<String, String, ParserToken> factory,
+                                                               final Class<? extends NodeSelectorLeafParserToken> tokenClass) {
         return CaseSensitivity.INSENSITIVE.parser(text)
                 .transform((stringParserToken, context) -> factory.apply(stringParserToken.value(), stringParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
