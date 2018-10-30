@@ -275,6 +275,10 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
         // nop
     }
 
+    protected void visit(final NodeSelectorWildcardParserToken token) {
+        // nop
+    }
+
     // ParserToken.......................................................................
 
     protected Visiting startVisit(final ParserToken token) {

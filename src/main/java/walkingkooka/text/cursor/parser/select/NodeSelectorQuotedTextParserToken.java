@@ -155,6 +155,11 @@ public final class NodeSelectorQuotedTextParserToken extends NodeSelectorNonSymb
         return false;
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

@@ -141,6 +141,11 @@ abstract class NodeSelectorSymbolParserToken extends NodeSelectorLeafParserToken
     }
 
     @Override
+    public final boolean isWildcard() {
+        return false;
+    }
+
+    @Override
     public final boolean isNoise() {
         return true;
     }

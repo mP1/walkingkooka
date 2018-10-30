@@ -156,6 +156,11 @@ public final class NodeSelectorFollowingParserToken extends NodeSelectorNonSymbo
         return false;
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

@@ -1622,7 +1622,7 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
     }
 
     final NodeSelectorParserToken wildcard() {
-        return NodeSelectorParserToken.self("*", "*");
+        return NodeSelectorParserToken.wildcard("*", "*");
     }
 
     private static String text(final NodeSelectorParserToken... tokens) {

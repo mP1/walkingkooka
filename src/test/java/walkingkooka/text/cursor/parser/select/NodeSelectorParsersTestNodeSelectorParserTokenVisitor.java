@@ -340,6 +340,11 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
         this.add(token);
     }
 
+    @Override
+    protected void visit(final NodeSelectorWildcardParserToken token) {
+        this.add(token);
+    }
+
     // GENERAL PURPOSE .................................................................................................
 
     private void enter() {

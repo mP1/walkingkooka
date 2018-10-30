@@ -39,7 +39,7 @@ public final class NodeSelectorAndParserTokenTest extends NodeSelectorBinaryPars
 
         final NodeSelectorNodeNameParserToken nodeName = and.value().get(0).cast();
         final NodeSelectorAndSymbolParserToken andSymbol = and.value().get(1).cast();
-        final NodeSelectorChildParserToken child = and.value().get(2).cast();
+        final NodeSelectorWildcardParserToken wildcard = and.value().get(2).cast();
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override
@@ -85,8 +85,8 @@ public final class NodeSelectorAndParserTokenTest extends NodeSelectorBinaryPars
             }
 
             @Override
-            protected void visit(final NodeSelectorChildParserToken t) {
-                assertSame(child, t);
+            protected void visit(final NodeSelectorWildcardParserToken t) {
+                assertSame(wildcard, t);
                 b.append("7");
                 visited.add(t);
             }
@@ -97,7 +97,7 @@ public final class NodeSelectorAndParserTokenTest extends NodeSelectorBinaryPars
                 Lists.of(and, and,
                         nodeName, nodeName, nodeName,
                         andSymbol, andSymbol, andSymbol,
-                        child, child, child,
+                        wildcard, wildcard, wildcard,
                         and, and),
                 visited);
     }

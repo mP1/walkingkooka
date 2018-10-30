@@ -365,6 +365,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
         return NodeSelectorWhitespaceParserToken.with(value, text);
     }
 
+    /**
+     * {@see NodeSelectorWildcardParserToken}
+     */
+    public static NodeSelectorWildcardParserToken wildcard(final String value, final String text) {
+        return NodeSelectorWildcardParserToken.with(value, text);
+    }
+
     static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
@@ -644,6 +651,11 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     public abstract boolean isSymbol();
 
+    /**
+     * Only {@link NodeSelectorWildcardParserToken} return true
+     */
+    public abstract boolean isWildcard();
+    
     // Visitor ......................................................................................................
 
     /**

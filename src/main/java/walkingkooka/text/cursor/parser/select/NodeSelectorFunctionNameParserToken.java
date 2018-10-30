@@ -156,6 +156,11 @@ public final class NodeSelectorFunctionNameParserToken extends NodeSelectorNonSy
         return false;
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

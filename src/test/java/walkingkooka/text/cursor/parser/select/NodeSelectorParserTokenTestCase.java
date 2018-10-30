@@ -309,7 +309,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
     }
 
     final NodeSelectorParserToken wildcard() {
-        return NodeSelectorParserToken.child("*", "*");
+        return NodeSelectorParserToken.wildcard("*", "*");
     }
 
     private static String text(final NodeSelectorParserToken... tokens) {

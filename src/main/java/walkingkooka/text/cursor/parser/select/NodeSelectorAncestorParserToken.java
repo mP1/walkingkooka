@@ -156,6 +156,11 @@ public final class NodeSelectorAncestorParserToken extends NodeSelectorNonSymbol
         return false;
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

@@ -39,7 +39,7 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
 
         final NodeSelectorExpressionParserToken expression = this.createToken();
 
-        final NodeSelectorChildParserToken child = expression.value().get(0).cast();
+        final NodeSelectorWildcardParserToken wildcard = expression.value().get(0).cast();
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override
@@ -71,8 +71,8 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
             }
 
             @Override
-            protected void visit(final NodeSelectorChildParserToken t) {
-                assertSame(child, t);
+            protected void visit(final NodeSelectorWildcardParserToken t) {
+                assertSame(wildcard, t);
                 b.append("5");
                 visited.add(t);
             }
@@ -80,7 +80,7 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
         assertEquals("1315242", b.toString());
         assertEquals("visited",
                 Lists.of(expression, expression,
-                        child, child, child,
+                        wildcard, wildcard, wildcard,
                         expression, expression),
                 visited);
     }

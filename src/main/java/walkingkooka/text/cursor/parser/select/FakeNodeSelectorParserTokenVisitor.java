@@ -312,6 +312,11 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     }
 
     @Override
+    protected void visit(final NodeSelectorWildcardParserToken token) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected Visiting startVisit(final NodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
