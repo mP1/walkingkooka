@@ -39,8 +39,93 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
     // descendant ...........................................................................................
 
     @Test
-    public void testDescendantSlashSlash() {
-        this.parseAndCheck2(descendantSlashSlash());
+    public void testDescendantSlashSlashFails() {
+        this.parseThrows2(descendantSlashSlash());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashFails() {
+        this.parseThrows2(nodeName(), descendantSlashSlash());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashSlashFails() {
+        this.parseThrows2(nodeName(), descendantSlashSlash(), slash());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashWildcard() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), wildcard());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashSelfDot() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), selfDot());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashParentDotDot() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), parentDotDot());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashAncestorNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), ancestor(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashChildNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), child(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashDescendantNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), descendant(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashFirstChildNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), firstChild(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashFollowingNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), following(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashFollowingSiblingNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), followingSibling(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashLastChildNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), lastChild(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashParentOfNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), parent(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashPrecedingNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), preceding(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashPrecedingSiblingNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), precedingSibling(), nodeName2());
+    }
+
+    @Test
+    public void testNodeNameDescendantSlashSlashSelfNodeName() {
+        this.parseAndCheck2(nodeName(), descendantSlashSlash(), self(), nodeName2());
     }
 
     // parentDot ...............................................................................................
@@ -1196,7 +1281,7 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
         this.parseAndCheck2(self(), nodeName());
     }
 
-// relative axis wildcard....................................................................................
+    // relative axis wildcard....................................................................................
 
     @Test
     public void testRelativeAncestorWildcardFails() {
@@ -1257,7 +1342,6 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
     public void testRelativeSelfWildcard() {
         this.parseAndCheck2(self(), wildcard());
     }
-
 
     // helpers....................................................................................................
 
