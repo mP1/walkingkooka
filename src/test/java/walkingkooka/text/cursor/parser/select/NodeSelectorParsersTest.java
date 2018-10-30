@@ -40,92 +40,92 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
 
     @Test
     public void testDescendantSlashSlashFails() {
-        this.parseThrows2(descendantSlashSlash());
+        this.parseThrows2(descendantOrSelfSlashSlash());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashFails() {
-        this.parseThrows2(nodeName(), descendantSlashSlash());
+        this.parseThrows2(nodeName(), descendantOrSelfSlashSlash());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashSlashFails() {
-        this.parseThrows2(nodeName(), descendantSlashSlash(), slash());
+        this.parseThrows2(nodeName(), descendantOrSelfSlashSlash(), slash());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashWildcard() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), wildcard());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), wildcard());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashSelfDot() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), selfDot());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), selfDot());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashParentDotDot() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), parentDotDot());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), parentDotDot());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashAncestorNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), ancestor(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), ancestor(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashChildNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), child(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), child(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashDescendantNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), descendant(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), descendant(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashFirstChildNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), firstChild(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), firstChild(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashFollowingNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), following(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), following(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashFollowingSiblingNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), followingSibling(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), followingSibling(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashLastChildNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), lastChild(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), lastChild(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashParentOfNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), parent(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), parent(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashPrecedingNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), preceding(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), preceding(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashPrecedingSiblingNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), precedingSibling(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), precedingSibling(), nodeName2());
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashSelfNodeName() {
-        this.parseAndCheck2(nodeName(), descendantSlashSlash(), self(), nodeName2());
+        this.parseAndCheck2(nodeName(), descendantOrSelfSlashSlash(), self(), nodeName2());
     }
 
     // parentDot ...............................................................................................
@@ -857,6 +857,16 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
     }
 
     @Test
+    public void testAbsoluteAncestorOrSelfWildcardFails() {
+        this.parseThrows2(absolute(), ancestorOrSelf());
+    }
+
+    @Test
+    public void testAbsoluteAncestorOrSelfWildcard() {
+        this.parseAndCheck2(absolute(), ancestorOrSelf(), wildcard());
+    }
+
+    @Test
     public void testAbsoluteChildWildcard() {
         this.parseAndCheck2(absolute(), child(), wildcard());
     }
@@ -866,6 +876,11 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
         this.parseAndCheck2(absolute(), descendant(), wildcard());
     }
 
+    @Test
+    public void testAbsoluteDescendantOrSelfWildcard() {
+        this.parseAndCheck2(absolute(), descendantOrSelf(), wildcard());
+    }
+    
     @Test
     public void testAbsoluteFirstChildWildcard() {
         this.parseAndCheck2(absolute(), firstChild(), wildcard());
@@ -1232,13 +1247,38 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
     }
 
     @Test
+    public void testRelativeAncestorOrSelfNodeNameMissingFails() {
+        this.parseThrows2(ancestorOrSelf());
+    }
+
+    @Test
+    public void testRelativeAncestorOrSelfNodeName() {
+        this.parseAndCheck2(ancestorOrSelf(), nodeName());
+    }
+
+    @Test
     public void testRelativeChildNodeName() {
         this.parseAndCheck2(child(), nodeName());
     }
 
     @Test
+    public void testRelativeDescendantNodeNameMissingFails() {
+        this.parseThrows2(descendant());
+    }
+
+    @Test
     public void testRelativeDescendantNodeName() {
         this.parseAndCheck2(descendant(), nodeName());
+    }
+
+    @Test
+    public void testRelativeDescendantOrSelfNodeNameMissingFails() {
+        this.parseThrows2(descendantOrSelf());
+    }
+
+    @Test
+    public void testRelativeDescendantOrSelfNodeName() {
+        this.parseAndCheck2(descendantOrSelf(), nodeName());
     }
 
     @Test
@@ -1397,6 +1437,10 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
         return NodeSelectorParserToken.ancestor("ancestor::", "ancestor::");
     }
 
+    final NodeSelectorParserToken ancestorOrSelf() {
+        return NodeSelectorParserToken.ancestorOrSelf("ancestor-or-self::", "ancestor-or-self::");
+    }
+
     final NodeSelectorAndParserToken and(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.and(Lists.of(tokens), text(tokens));
     }
@@ -1441,8 +1485,12 @@ public final class NodeSelectorParsersTest extends ParserTestCase3<Parser<NodeSe
         return NodeSelectorParserToken.descendant("descendant::", "descendant::");
     }
 
-    final NodeSelectorParserToken descendantSlashSlash() {
-        return NodeSelectorParserToken.descendant("//", "//");
+    final NodeSelectorParserToken descendantOrSelf() {
+        return NodeSelectorParserToken.descendantOrSelf("descendant-or-self::", "descendant-or-self::");
+    }
+
+    final NodeSelectorParserToken descendantOrSelfSlashSlash() {
+        return NodeSelectorParserToken.descendantOrSelf("//", "//");
     }
 
     final NodeSelectorEqualsParserToken equalsParserToken(final NodeSelectorParserToken... tokens) {

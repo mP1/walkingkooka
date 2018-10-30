@@ -129,7 +129,7 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
      * {@see DescendantNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> descendant() {
-        return this.append(DescendantNodeSelector.with(this.separator));
+        return this.append(DescendantNodeSelector.get());
     }
 
     /**

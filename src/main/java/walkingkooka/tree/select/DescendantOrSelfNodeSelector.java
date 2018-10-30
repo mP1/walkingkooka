@@ -87,7 +87,7 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.axis("descendant-or-self");
+        b.descendantOrSelf(this.separator);
     }
 
     // ignore in hashcode / equals...

@@ -26,11 +26,6 @@ import static org.junit.Assert.assertEquals;
 final public class DescendantNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<DescendantNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullPathSeparatorFails() {
-        DescendantNodeSelector.with(null);
-    }
-
     @Test
     public void testChildless() {
         this.acceptAndCheck(TestFakeNode.node("only"));
@@ -86,20 +81,12 @@ final public class DescendantNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("//", this.createSelector().toString());
-    }
-
-    @Test
-    public void testToStringAbsolute() {
-        assertEquals("//",
-                AbsoluteNodeSelector.<TestFakeNode, StringName, StringName, Object>with(SEPARATOR)
-                        .append(this.createSelector())
-                        .toString());
+        assertEquals("descendant::*", this.createSelector().toString());
     }
 
     @Override
     protected DescendantNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
-        return DescendantNodeSelector.with(SEPARATOR);
+        return DescendantNodeSelector.get();
     }
 
     @Override

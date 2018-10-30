@@ -82,9 +82,11 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     private static void axis(final Map<EbnfIdentifierName, Parser<ParserToken, ParserContext>> predefined) {
         predefined.put(ANCESTOR_IDENTIFIER, ANCESTOR_PARSER);
+        predefined.put(ANCESTOR_OR_SELF_IDENTIFIER, ANCESTOR_OR_SELF_PARSER);
         predefined.put(CHILD_IDENTIFIER, CHILD_PARSER);
         predefined.put(DESCENDANT_IDENTIFIER, DESCENDANT_PARSER);
-        predefined.put(DESCENDANT_SLASH_SLASH_IDENTIFIER, SLASH_SLASH_PARSER);
+        predefined.put(DESCENDANTORSELF_IDENTIFIER, DESCENDANTORSELF_PARSER);
+        predefined.put(DESCENDANTORSELF_SLASH_SLASH_IDENTIFIER, DESCENDANTORSELF_SLASH_SLASH_PARSER);
         predefined.put(FIRST_CHILD_IDENTIFIER, FIRST_CHILD_PARSER);
         predefined.put(FOLLOWING_IDENTIFIER, FOLLOWING_PARSER);
         predefined.put(FOLLOWING_SIBLING_IDENTIFIER, FOLLOWING_SIBLING_PARSER);
@@ -102,6 +104,11 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             NodeSelectorParserToken::ancestor,
             NodeSelectorAncestorParserToken.class);
 
+    private static final EbnfIdentifierName ANCESTOR_OR_SELF_IDENTIFIER = EbnfIdentifierName.with("ANCESTOR_OR_SELF");
+    private static final Parser<ParserToken, ParserContext> ANCESTOR_OR_SELF_PARSER = literal("ancestor-or-self::",
+            NodeSelectorParserToken::ancestorOrSelf,
+            NodeSelectorAncestorOrSelfParserToken.class);
+
     private static final EbnfIdentifierName CHILD_IDENTIFIER = EbnfIdentifierName.with("CHILD");
     private static final Parser<ParserToken, ParserContext> CHILD_PARSER = literal("child::",
             NodeSelectorParserToken::child,
@@ -112,10 +119,17 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             NodeSelectorParserToken::descendant,
             NodeSelectorDescendantParserToken.class);
 
-    private static final EbnfIdentifierName DESCENDANT_SLASH_SLASH_IDENTIFIER = EbnfIdentifierName.with("DESCENDANT_SLASH_SLASH");
-    private static final Parser<ParserToken, ParserContext> SLASH_SLASH_PARSER = literal("//",
-            NodeSelectorParserToken::descendant,
-            NodeSelectorDescendantParserToken.class);
+    private static final EbnfIdentifierName DESCENDANTORSELF_IDENTIFIER = EbnfIdentifierName.with("DESCENDANT_OR_SELF");
+    private static final Parser<ParserToken, ParserContext> DESCENDANTORSELF_PARSER = descendantOrSelf("descendant-or-self::");
+    
+    private static final EbnfIdentifierName DESCENDANTORSELF_SLASH_SLASH_IDENTIFIER = EbnfIdentifierName.with("DESCENDANTORSELF_SLASH_SLASH");
+    private static final Parser<ParserToken, ParserContext> DESCENDANTORSELF_SLASH_SLASH_PARSER = descendantOrSelf("//");
+
+    private static Parser<ParserToken, ParserContext> descendantOrSelf(final String literal) {
+        return literal(literal,
+                NodeSelectorParserToken::descendantOrSelf,
+                NodeSelectorDescendantOrSelfParserToken.class);
+    }
 
     private static final EbnfIdentifierName FIRST_CHILD_IDENTIFIER = EbnfIdentifierName.with("FIRST_CHILD");
     private static final Parser<ParserToken, ParserContext> FIRST_CHILD_PARSER = literal("first-child::",
