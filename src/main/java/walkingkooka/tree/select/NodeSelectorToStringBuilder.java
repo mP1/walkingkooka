@@ -24,7 +24,7 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.naming.PathSeparator;
 
 /**
- * Accepts the string representation of an axis, name and predicate node selector and builds up a {@link NodeSelector#toString()}.
+ * Accepts the string representation of an axis, node and predicate node selector and builds up a {@link NodeSelector#toString()}.
  */
 final class NodeSelectorToStringBuilder implements Builder<String> {
 
@@ -73,17 +73,20 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
     }
 
     void axis(final String toString) {
-        if(null!=this.axis) {
+        // cant combine two axis.
+        if (null != this.axis ) {
             this.commit();
         }
+        // output this step with the given axis, and start afresh with any next axis/node/predicate additions.
         this.axis = toString;
+        this.commit();
     }
 
     void node(final String toString) {
-        if(null!=this.name) {
+        if(null!=this.node) {
             this.commit();
         }
-        this.name = toString;
+        this.node = toString;
     }
 
     void predicate(final String toString) {
@@ -95,11 +98,11 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
 
     private void commit() {
         final String axis = this.axis;
-        final String name = this.name;
+        final String node = this.node;
         final String predicate = this.predicate;
 
         final int action = (null != axis ? 1 : 0) +
-                (null != name ? 2 : 0) +
+                (null != node ? 2 : 0) +
                 (null != predicate ? 4 : 0);
 
         if(action > 0) {
@@ -110,37 +113,37 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         switch(action) {
             case 0:
                 break;
-            case 1:
+            case 1: // axis
                 b.append(axis).append("::*");
                 this.axis = null;
                 break;
-            case 2:
-                b.append(name);
-                this.name = null;
+            case 2: // node
+                b.append(node);
+                this.node = null;
                 break;
-            case 3:
-                b.append(axis).append("::").append(name);
+            case 3: // axis node
+                b.append(axis).append("::").append(node);
                 this.axis = null;
-                this.name = null;
+                this.node = null;
                 break;
-            case 4:
+            case 4: // predicate
                 b.append("*[").append(predicate).append(']');
                 this.predicate = null;
                 break;
-            case 5:
+            case 5: // axis :: wildcard predicate
                 b.append(axis).append("::*[").append(predicate).append(']');
                 this.axis = null;
                 this.predicate = null;
                 break;
-            case 6:
-                b.append(name).append("[").append(predicate).append(']');
-                this.name = null;
+            case 6: // node predicate
+                b.append(node).append("[").append(predicate).append(']');
+                this.node = null;
                 this.predicate = null;
                 break;
-            case 7:
-                b.append(axis).append("::").append(name).append("[").append(predicate).append(']');
+            case 7: // axis node predicate
+                b.append(axis).append("::").append(node).append("[").append(predicate).append(']');
                 this.axis = null;
-                this.name = null;
+                this.node = null;
                 this.predicate = null;
                 break;
             default:
@@ -169,7 +172,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
     }
 
     private String axis;
-    private String name;
+    private String node;
     private String predicate;
     private PathSeparator separator = PathSeparator.requiredAtStart('/');
 
@@ -179,7 +182,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
     public String toString() {
         return ToStringBuilder.create()
                 .value(this.axis)
-                .value(this.name)
+                .value(this.node)
                 .value(this.predicate)
                 .build();
     }
