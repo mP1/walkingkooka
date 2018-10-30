@@ -95,7 +95,6 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
         predefined.put(PRECEDING_SIBLING_IDENTIFIER, PRECEDING_SIBLING_PARSER);
         predefined.put(SELF_IDENTIFIER, SELF_PARSER);
         predefined.put(SELF_DOT_IDENTIFIER, DOT_PARSER);
-        predefined.put(SELF_WILCARD_IDENTIFIER, SELF_WILDCARD_PARSER);
     }
 
     private static final EbnfIdentifierName ANCESTOR_IDENTIFIER = EbnfIdentifierName.with("ANCESTOR");
@@ -163,9 +162,6 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     private static final EbnfIdentifierName SELF_DOT_IDENTIFIER = EbnfIdentifierName.with("SELF_DOT");
     private static final Parser<ParserToken, ParserContext> DOT_PARSER = self(".");
-
-    private static final EbnfIdentifierName SELF_WILCARD_IDENTIFIER = EbnfIdentifierName.with("WILDCARD");
-    private static final Parser<ParserToken, ParserContext> SELF_WILDCARD_PARSER = self("*");
 
     private static Parser<ParserToken, ParserContext> self(final String literal) {
         return literal(literal,
@@ -300,6 +296,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
         predefined.put(NODE_NAME_IDENTIFIER, NODE_NAME_PARSER);
         predefined.put(SLASHSEPARATORSYMBOL_IDENTIFIER, SLASHSEPARATORSYMBOL_PARSER);
         predefined.put(WHITESPACE_IDENTIFIER, WHITESPACE_PARSER);
+        predefined.put(WILDCARD_IDENTIFIER, WILDCARD_PARSER);
     }
 
     private static final EbnfIdentifierName ABSOLUTE_IDENTIFIER = EbnfIdentifierName.with("ABSOLUTE");
@@ -357,6 +354,11 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             .transform((stringParserToken, nodeSelectorParserContext) -> NodeSelectorParserToken.whitespace(stringParserToken.value(), stringParserToken.text()).cast())
             .setToString(NodeSelectorWhitespaceParserToken.class.getSimpleName())
             .cast();
+
+    private static final EbnfIdentifierName WILDCARD_IDENTIFIER = EbnfIdentifierName.with("WILDCARD");
+    private static final Parser<ParserToken, ParserContext> WILDCARD_PARSER = literal('*',
+            NodeSelectorParserToken::wildcard,
+            NodeSelectorWildcardParserToken.class);
 
     /**
      * Matches a token holding a single character.

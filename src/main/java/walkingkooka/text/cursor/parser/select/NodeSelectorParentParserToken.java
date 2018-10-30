@@ -274,6 +274,11 @@ abstract class NodeSelectorParentParserToken<T extends NodeSelectorParentParserT
         return false;
     }
 
+    @Override
+    public final boolean isWildcard() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     final void acceptValues(final NodeSelectorParserTokenVisitor visitor) {

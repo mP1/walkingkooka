@@ -19,28 +19,26 @@ package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.util.Optional;
-
 /**
- * Holds an absolute path
+ * A token for "*"
  */
-public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbolParserToken<String> {
+public final class NodeSelectorWildcardParserToken extends NodeSelectorNonSymbolParserToken<String> {
 
-    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorAbsoluteParserToken.class);
+    public final static ParserTokenNodeName NAME = parserTokenNodeName(NodeSelectorWildcardParserToken.class);
 
-    static NodeSelectorAbsoluteParserToken with(final String value, final String text) {
+    static NodeSelectorWildcardParserToken with(final String value, final String text) {
         checkValue(value);
         checkTextNullOrWhitespace(text);
 
-        return new NodeSelectorAbsoluteParserToken(value, text);
+        return new NodeSelectorWildcardParserToken(value, text);
     }
 
-    private NodeSelectorAbsoluteParserToken(final String value, final String text) {
+    private NodeSelectorWildcardParserToken(final String value, final String text) {
         super(value, text);
     }
 
     @Override
-    public NodeSelectorAbsoluteParserToken setText(final String text) {
+    public NodeSelectorWildcardParserToken setText(final String text) {
         return this.setText0(text).cast();
     }
 
@@ -50,8 +48,8 @@ public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbol
     }
 
     @Override
-    NodeSelectorAbsoluteParserToken replaceText(final String text) {
-        return new NodeSelectorAbsoluteParserToken(this.value, text);
+    NodeSelectorWildcardParserToken replaceText(final String text) {
+        return new NodeSelectorWildcardParserToken(this.value, text);
     }
 
     // name................................................................................................
@@ -65,7 +63,7 @@ public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbol
 
     @Override
     public boolean isAbsolute() {
-        return true;
+        return false;
     }
 
     @Override
@@ -160,7 +158,7 @@ public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbol
 
     @Override
     public boolean isWildcard() {
-        return false;
+        return true;
     }
 
     // Visitor................................................................................................
@@ -174,6 +172,6 @@ public final class NodeSelectorAbsoluteParserToken extends NodeSelectorNonSymbol
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorAbsoluteParserToken;
+        return other instanceof NodeSelectorWildcardParserToken;
     }
 }

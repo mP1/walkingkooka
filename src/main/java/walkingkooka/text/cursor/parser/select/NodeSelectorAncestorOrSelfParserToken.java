@@ -156,6 +156,11 @@ public final class NodeSelectorAncestorOrSelfParserToken extends NodeSelectorNon
         return false;
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // Visitor................................................................................................
 
     @Override

@@ -351,6 +351,11 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
         this.printer.leaf(token);
     }
 
+    @Override
+    protected void visit(final NodeSelectorWildcardParserToken token) {
+        this.printer.leaf(token);
+    }
+
     // ParserToken......................................................................................................
 
     @Override
