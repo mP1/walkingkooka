@@ -94,15 +94,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("descendant-or-self::*", this.createSelector().toString());
-    }
-
-    @Test
-    public void testToStringAbsolute() {
-        assertEquals("/descendant-or-self::*",
-                AbsoluteNodeSelector.<TestFakeNode, StringName, StringName, Object>with(SEPARATOR)
-                        .append(this.createSelector())
-                        .toString());
+        assertEquals("//", this.createSelector().toString());
     }
 
     @Override

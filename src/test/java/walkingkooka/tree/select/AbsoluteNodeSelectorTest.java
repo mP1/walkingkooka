@@ -40,7 +40,7 @@ final public class AbsoluteNodeSelectorTest extends
 
     @Test
     public void testAppendDescendant() {
-        final DescendantNodeSelector<TestFakeNode, StringName, StringName, Object> descendantNodeSelector = DescendantNodeSelector.with(SEPARATOR);
+        final DescendantNodeSelector<TestFakeNode, StringName, StringName, Object> descendantNodeSelector = DescendantNodeSelector.get();
         assertSame(descendantNodeSelector, this.createSelector().append(descendantNodeSelector));
     }
 

@@ -56,7 +56,7 @@ public final class AndNodeSelectorTest extends
         final TestFakeNode sibling = TestFakeNode.node("sibling");
         final TestFakeNode root = TestFakeNode.node("root", parent, sibling);
 
-        this.acceptAndCheck(this.createSelector0(ChildrenNodeSelector.get(), DescendantNodeSelector.with(SEPARATOR)),
+        this.acceptAndCheck(this.createSelector0(ChildrenNodeSelector.get(), DescendantNodeSelector.get()),
                 root.child(0),
                 child);
     }

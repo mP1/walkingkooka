@@ -109,7 +109,7 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
 
     @Override
     protected NodeSelectorExpressionParserToken createDifferentToken() {
-        return expression(descendantSlashSlash());
+        return expression(descendantOrSelfSlashSlash());
     }
 
     @Override

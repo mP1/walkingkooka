@@ -55,7 +55,7 @@ final public class SelfNodeSelectorTest
 
     private NodeSelector<TestFakeNode, StringName, StringName, Object> selfAndDescendant() {
         return Cast.to(SelfNodeSelector.get()
-                .append(DescendantNodeSelector.with(PathSeparator.requiredAtStart('/'))));
+                .append(DescendantNodeSelector.get()));
     }
 
     @Test

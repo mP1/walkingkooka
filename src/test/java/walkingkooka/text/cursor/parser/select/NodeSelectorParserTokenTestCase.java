@@ -84,6 +84,10 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.ancestor("ancestor::", "ancestor::");
     }
 
+    final NodeSelectorParserToken ancestorOrSelf() {
+        return NodeSelectorParserToken.ancestorOrSelf("ancestor-or-self::", "ancestor-or-self::");
+    }
+    
     final NodeSelectorAndParserToken and(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.and(Lists.of(tokens), text(tokens));
     }
@@ -127,9 +131,13 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
     final NodeSelectorParserToken descendant() {
         return NodeSelectorParserToken.descendant("descendant::", "descendant::");
     }
-
-    final NodeSelectorParserToken descendantSlashSlash() {
-        return NodeSelectorParserToken.descendant("//", "//");
+    
+    final NodeSelectorParserToken descendantOrSelf() {
+        return NodeSelectorParserToken.descendantOrSelf("descendant-or-self::", "descendant-or-self::");
+    }
+    
+    final NodeSelectorParserToken descendantOrSelfSlashSlash() {
+        return NodeSelectorParserToken.descendantOrSelf("//", "//");
     }
 
     final NodeSelectorEqualsParserToken equalsParserToken(final NodeSelectorParserToken... tokens) {

@@ -301,33 +301,33 @@ public final class NodeSelectorToStringBuilderTest extends BuilderTestCase<NodeS
     }
 
     @Test
-    public void testDescendant() {
+    public void testDescendantOrSelf() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.create();
-        b.descendant(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
         this.buildAndCheck(b, "//");
     }
 
     @Test
-    public void testDescendantNode() {
+    public void testDescendantOrSelfNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.create();
-        b.descendant(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
         b.node("abc1");
         this.buildAndCheck(b, "//abc1");
     }
 
     @Test
-    public void testDescendantNode2() {
+    public void testDescendantOrSelfNode2() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.create();
-        b.descendant(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
         b.node("abc1");
         b.node("def2");
         this.buildAndCheck(b, "//abc1/def2");
     }
 
     @Test
-    public void testDescendantNodePredicateNode() {
+    public void testDescendantOrSelfNodePredicateNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.create();
-        b.descendant(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
         b.node("abc1");
         b.predicate("i>1");
         b.node("def2");
@@ -337,7 +337,7 @@ public final class NodeSelectorToStringBuilderTest extends BuilderTestCase<NodeS
     @Test
     public void testNodePredicateAxis() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.create();
-        b.descendant(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
         b.node("abc1");
         b.predicate("i>1");
         b.axis("child1");
@@ -347,7 +347,7 @@ public final class NodeSelectorToStringBuilderTest extends BuilderTestCase<NodeS
     @Test
     public void testNodePredicateAxisNode() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.create();
-        b.descendant(PathSeparator.requiredAtStart('/'));
+        b.descendantOrSelf(PathSeparator.requiredAtStart('/'));
         b.node("abc1");
         b.predicate("i>1");
         b.axis("child1");

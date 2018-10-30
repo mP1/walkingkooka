@@ -17,13 +17,9 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
-
-import java.util.Objects;
-import java.util.Set;
-import java.util.function.Consumer;
 
 
 /**
@@ -31,30 +27,30 @@ import java.util.function.Consumer;
  */
 final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
+        NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link DescendantNodeSelector} getter
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
-        Objects.requireNonNull(separator, "separator");
-        return new DescendantNodeSelector(separator);
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantNodeSelector<N, NAME, ANAME, AVALUE> get() {
+        return Cast.to(INSTANCE);
     }
+
+    @SuppressWarnings("rawtypes")
+    private final static DescendantNodeSelector INSTANCE = new DescendantNodeSelector();
 
     /**
      * Private constructor use type safe getter
      */
-    private DescendantNodeSelector(final PathSeparator separator) {
+    private DescendantNodeSelector() {
         super();
-        this.separator = separator;
     }
 
     /**
      * Private constructor
      */
-    private DescendantNodeSelector(final PathSeparator separator, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    private DescendantNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         super(selector);
-        this.separator = separator;
     }
 
     // NodeSelector
@@ -63,13 +59,9 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         // no point appending a descending to another...
         return selector instanceof DescendantNodeSelector ?
                 this :
-                new DescendantNodeSelector(this.separator, selector);
+                new DescendantNodeSelector(selector);
     }
 
-    @Override
-    public Set<N> accept(final N node, final Consumer<N> observer) {
-        return this.accept1(node.root(), observer);
-    }
 
     @Override
     final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
@@ -85,11 +77,8 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.descendant(this.separator);
+        b.axis("descendant");
     }
-
-    // ignore in hashcode / equals...
-    private final PathSeparator separator;
 
     @Override
     boolean canBeEqual(final Object other) {

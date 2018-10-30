@@ -42,7 +42,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         this.b.append(separator.character());
     }
 
-    void descendant(final PathSeparator separator) {
+    void descendantOrSelf(final PathSeparator separator) {
         this.separator = separator;
         this.commit();
 
