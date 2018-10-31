@@ -101,6 +101,11 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
     // Evaluation .......................................................................................................
 
     @Override
+    String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(left +SYMBOL + right); // MAYBE try and convert right to int and times the string.
+    }
+
+    @Override
     BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
         return left.multiply(right, context.mathContext());
     }

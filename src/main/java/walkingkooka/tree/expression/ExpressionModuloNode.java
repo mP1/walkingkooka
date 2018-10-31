@@ -101,6 +101,11 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
     // Evaluation .......................................................................................................
 
     @Override
+    String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(left + SYMBOL + right);
+    }
+
+    @Override
     BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
         return left.remainder(right, context.mathContext());
     }

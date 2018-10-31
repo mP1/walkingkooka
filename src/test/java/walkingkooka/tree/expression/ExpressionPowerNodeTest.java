@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionPowerNodeTest extends ExpressionArithmeticBinaryNodeTestCase<ExpressionPowerNode>{
+public final class ExpressionPowerNodeTest extends ExpressionArithmeticBinaryNodeTestCase2<ExpressionPowerNode>{
 
     @Test
     public void testAccept() {

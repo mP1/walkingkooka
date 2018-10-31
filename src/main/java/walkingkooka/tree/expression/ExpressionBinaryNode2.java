@@ -48,47 +48,64 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
     final ExpressionNode apply(final ExpressionNode left,
                                final ExpressionNode right,
                                final ExpressionEvaluationContext context) {
-        final Number leftNumber = left.toNumber(context);
-        final Number rightNumber = right.toNumber(context);
-
         ExpressionNode result;
 
         try {
             for (; ; ) {
+                // both String
+                final Object leftValue = left.toValue(context);
+                final Object rightValue = right.toValue(context);
+                
+                final boolean leftString = leftValue instanceof String;
+                if (leftString) {
+
+                    result = this.applyText(
+                            context.convert(leftValue, String.class),
+                            context.convert(rightValue, String.class),
+                            context);
+                    break;
+                }
+                
+                //final Number leftNumber = left.toNumber(context);
+                //final Number rightNumber = right.toNumber(context);
+
+//                final Number leftNumber = context.convert(leftValue, )
+//                final Number rightNumber = right.toNumber(context);
+
                 // both Long
-                final boolean leftLong = leftNumber instanceof Long;
-                final boolean rightLong = rightNumber instanceof Long;
+                final boolean leftLong = leftValue instanceof Long;
+                final boolean rightLong = rightValue instanceof Long;
                 if (leftLong && rightLong) {
                     result = this.applyLong(
-                            context.convert(leftNumber, Long.class),
-                            context.convert(rightNumber, Long.class),
+                            context.convert(leftValue, Long.class),
+                            context.convert(rightValue, Long.class),
                             context);
                     break;
                 }
                 // BigInteger and Long or both BigInteger
-                final boolean leftBigInteger = leftNumber instanceof BigInteger;
-                final boolean rightBigInteger = rightNumber instanceof BigInteger;
+                final boolean leftBigInteger = leftValue instanceof BigInteger;
+                final boolean rightBigInteger = rightValue instanceof BigInteger;
                 if (leftBigInteger && rightBigInteger ||
                     leftBigInteger && rightLong ||
                     leftLong && rightBigInteger) {
                     result = this.applyBigInteger(
-                            context.convert(leftNumber, BigInteger.class),
-                            context.convert(rightNumber, BigInteger.class),
+                            context.convert(leftValue, BigInteger.class),
+                            context.convert(rightValue, BigInteger.class),
                             context);
                     break;
                 }
                 // both must be double,
-                if (leftNumber instanceof Double && rightNumber instanceof Double) {
+                if (leftValue instanceof Double && rightValue instanceof Double) {
                     result = this.applyDouble(
-                            context.convert(leftNumber, Double.class),
-                            context.convert(rightNumber, Double.class),
+                            context.convert(leftValue, Double.class),
+                            context.convert(rightValue, Double.class),
                             context);
                     break;
                 }
                 // default is to promote both to BigDecimal.
                 result = this.applyBigDecimal(
-                            context.convert(leftNumber, BigDecimal.class),
-                            context.convert(rightNumber, BigDecimal.class),
+                            context.convert(leftValue, BigDecimal.class),
+                            context.convert(rightValue, BigDecimal.class),
                             context);
                 break;
             }
@@ -98,6 +115,8 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
 
         return result;
     }
+
+    abstract ExpressionNode applyText(final String left, final String right, final ExpressionEvaluationContext context);
 
     abstract ExpressionNode applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context);
 

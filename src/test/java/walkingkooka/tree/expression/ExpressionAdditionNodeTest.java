@@ -427,6 +427,50 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
         this.evaluateAndCheckNumberLong(this.createExpressionNode(longValue(12), longValue(34)), 12 + 34);
     }
 
+    // toText.....................................................................................
+
+    @Test
+    public void testEvaluateToTextBigDecimal() {
+        this.evaluateAndCheckText(this.createExpressionNode(text(12), bigDecimal(34)), "1234");
+    }
+
+    @Test
+    public void testEvaluateToTextBigInteger() {
+        this.evaluateAndCheckText(this.createExpressionNode(text(12), bigInteger(34)), "1234");
+    }
+
+    @Test
+    public void testEvaluateToTextDouble() {
+        this.evaluateAndCheckText(this.createExpressionNode(text(12), doubleValue(34)), "1234");
+    }
+
+    @Test
+    public void testEvaluateToTextLocalDate() {
+        this.evaluateAndCheckText(this.createExpressionNode(text(12), localDate(34)), "12" + textText(localDate(34)));
+    }
+
+    @Test
+    public void testEvaluateToTextLocalDateTime() {
+        this.evaluateAndCheckText(this.createExpressionNode(text(12), localDateTime(34)), "12" + textText(localDateTime(34)));
+    }
+
+    @Test
+    public void testEvaluateToTextLocalTime() {
+        this.evaluateAndCheckText(this.createExpressionNode(text(12), localTime(34)), "12" + textText(localTime(34)));
+    }
+
+    @Test
+    public void testEvaluateToTextLong() {
+        this.evaluateAndCheckText(this.createExpressionNode(text(12), longValue(34)), "1234");
+    }
+
+    @Test
+    public void testEvaluateToTextText() {
+        this.evaluateAndCheckText(this.createExpressionNode(text(12), text(34)), "1234");
+    }
+
+    // helpers.........................................................................................................
+
     @Override
     ExpressionAdditionNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionAdditionNode.with(left, right);

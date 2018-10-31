@@ -395,6 +395,98 @@ public final class ExpressionLessThanNodeTest extends ExpressionComparisonBinary
         // left lt right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(-99)), false);
     }
+
+    // Long ................................................................................................
+
+    @Test
+    public void testEvaluateToBooleanTextBigDecimal() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigDecimal(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextBigDecimal2() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigDecimal(12)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextBigDecimal3() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigDecimal(-99)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextBigInteger() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigInteger(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextBigInteger2() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigInteger(12)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextBigInteger3() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigInteger(-99)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextDouble() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), doubleValue(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextDouble2() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), doubleValue(12)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextDouble3() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), doubleValue(-99)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextLong() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), longValue(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextLong2() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), longValue(12)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextLong3() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), longValue(-99)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextText() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextText2() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(12)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextText3() {
+        // left lt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(-99)), false);
+    }
     
     @Override
     ExpressionLessThanNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {

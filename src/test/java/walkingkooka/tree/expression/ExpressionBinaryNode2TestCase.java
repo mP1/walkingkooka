@@ -18,5 +18,9 @@
 
 package walkingkooka.tree.expression;
 
-public abstract class ExpressionArithmeticBinaryNodeTestCase<N extends ExpressionArithmeticBinaryNode> extends ExpressionBinaryNode2TestCase<N> {
+public abstract class ExpressionBinaryNode2TestCase<N extends ExpressionBinaryNode2> extends ExpressionBinaryNodeTestCase<N> {
+
+    ExpressionBinaryNode2TestCase() {
+        super();
+    }
 }
