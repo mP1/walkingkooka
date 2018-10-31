@@ -27,6 +27,7 @@ import walkingkooka.math.DecimalNumberContext;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -39,7 +40,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
     static BasicExpressionEvaluationContext with(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
-                                                 final Function<ExpressionReference, ExpressionNode> references,
+                                                 final Function<ExpressionReference, Optional<ExpressionNode>> references,
                                                  final MathContext mathContext,
                                                  final Converter converter,
                                                  final DecimalNumberContext context) {
@@ -56,7 +57,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Private ctor use factory
      */
     private BasicExpressionEvaluationContext(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
-                                             final Function<ExpressionReference, ExpressionNode> references,
+                                             final Function<ExpressionReference, Optional<ExpressionNode>> references,
                                              final MathContext mathContext,
                                              final Converter converter,
                                              final DecimalNumberContext context) {
@@ -115,11 +116,15 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private final BiFunction<ExpressionNodeName, List<Object>, Object> functions;
 
     @Override
-    public ExpressionNode reference(final ExpressionReference reference) {
-        return this.references.apply(reference);
+    public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+        final Optional<ExpressionNode> node = this.references.apply(reference);
+        if (!node.isPresent()) {
+            new ExpressionEvaluationReferenceException("Missing reference: " + reference);
+        }
+        return node;
     }
 
-    private final Function<ExpressionReference, ExpressionNode> references;
+    private final Function<ExpressionReference, Optional<ExpressionNode>> references;
 
     @Override
     public MathContext mathContext() {
