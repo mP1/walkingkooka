@@ -69,7 +69,7 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     public Set<N> accept(final N node, final Consumer<N> observer) {
-        return this.accept1(node.root(), observer);
+        return this.accept1(node, observer);
     }
 
     @Override

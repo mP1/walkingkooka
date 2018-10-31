@@ -43,7 +43,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
         final TestFakeNode child = TestFakeNode.node("child");
         final TestFakeNode parent = TestFakeNode.node("parent", child);
 
-        this.acceptAndCheck(child, child);
+        this.acceptAndCheck(parent.child(0), child);
     }
 
     @Test
@@ -85,11 +85,11 @@ final public class DescendantOrSelfNodeSelectorTest extends
     public void testIgnoresSiblings() {
         final TestFakeNode child = TestFakeNode.node("child");
         final TestFakeNode parent = TestFakeNode.node("parent", child);
-        final TestFakeNode siblingOfParent = TestFakeNode.node("siblingOfParent", child);
-        final TestFakeNode grandParent = TestFakeNode.node("grandParent", parent, siblingOfParent);
+        final TestFakeNode siblingOfParent = TestFakeNode.node("siblingOfParent");
+        final TestFakeNode root = TestFakeNode.node("root", parent, siblingOfParent);
 
-        this.acceptAndCheck(parent, parent, child);
-        this.acceptAndCheck(parent.child(0), parent, child);
+        this.acceptAndCheck(root, root, parent, child, siblingOfParent);
+        this.acceptAndCheck(parent.child(0), child);
     }
 
     @Test
