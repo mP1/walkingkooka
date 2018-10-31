@@ -175,7 +175,7 @@ public class ExpressionNodeEvaluationTest extends TestCase {
             }
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
                 return context.reference(reference);
             }
 

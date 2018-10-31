@@ -26,6 +26,7 @@ import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetRowReference;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.MathContext;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -140,9 +141,9 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
                 assertEquals("reference", value, reference);
-                return ExpressionNode.text(referenceText);
+                return Optional.of(ExpressionNode.text(referenceText));
             }
 
             @Override

@@ -23,6 +23,7 @@ import walkingkooka.math.FakeDecimalNumberContext;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext implements ExpressionEvaluationContext {
 
@@ -38,7 +39,7 @@ public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext im
     }
 
     @Override
-    public ExpressionNode reference(final ExpressionReference reference) {
+    public Optional<ExpressionNode> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
         throw new UnsupportedOperationException();
     }

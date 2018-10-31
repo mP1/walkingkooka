@@ -29,6 +29,7 @@ import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetLabelName;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -89,7 +90,7 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
 
     @Test
     public void testReferences() {
-        assertEquals(this.expressionNode(), this.createContext().reference(this.expressionReference()));
+        assertEquals(Optional.of(this.expressionNode()), this.createContext().reference(this.expressionReference()));
     }
 
     @Test
@@ -134,11 +135,11 @@ public final class BasicExpressionEvaluationContextTest extends  ExpressionEvalu
         return "function-value-234";
     }
 
-    private Function<ExpressionReference, ExpressionNode> references() {
+    private Function<ExpressionReference, Optional<ExpressionNode>> references() {
         return (r -> {
             Objects.requireNonNull(r, "references");
             assertEquals("reference", this.expressionReference(), r);
-            return this.expressionNode();
+            return Optional.of(this.expressionNode());
         });
     }
 

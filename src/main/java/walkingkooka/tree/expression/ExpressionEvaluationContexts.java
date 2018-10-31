@@ -25,6 +25,7 @@ import walkingkooka.util.variable.Variable;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -35,7 +36,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      * {@see BasicExpressionEvaluationContext}
      */
     public static ExpressionEvaluationContext basic(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
-                                                    final Function<ExpressionReference, ExpressionNode> references,
+                                                    final Function<ExpressionReference, Optional<ExpressionNode>> references,
                                                     final MathContext mathContext,
                                                     final Converter converter,
                                                     final DecimalNumberContext context) {

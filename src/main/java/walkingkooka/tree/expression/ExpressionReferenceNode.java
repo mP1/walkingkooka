@@ -111,12 +111,12 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
 
     @Override
     public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toBigDecimal(context);
+        return context.referenceOrFail(this.value).toBigDecimal(context);
     }
 
     @Override
     public final BigInteger toBigInteger(final ExpressionEvaluationContext context) {
-        return context.reference(this.value).toBigInteger(context);
+        return context.referenceOrFail(this.value).toBigInteger(context);
     }
 
     @Override
@@ -165,7 +165,7 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
     }
 
     private ExpressionNode toExpressionNode(final ExpressionEvaluationContext context) {
-        return context.reference(this.value);
+        return context.referenceOrFail(this.value);
     }
 
     // Object ....................................................................................................

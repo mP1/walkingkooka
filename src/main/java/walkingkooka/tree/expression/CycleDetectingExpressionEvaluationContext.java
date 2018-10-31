@@ -25,6 +25,7 @@ import walkingkooka.util.variable.Variables;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -96,21 +97,21 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public ExpressionNode reference(final ExpressionReference reference) {
+    public Optional<ExpressionNode> reference(final ExpressionReference reference) {
         final Set<ExpressionReference> cycles = this.cycles();
 
         this.cycleCheck(reference, cycles);
 
         try {
            cycles.add(reference);
-           final ExpressionNode result =  this.context.reference(reference);
+           final ExpressionNode result =  this.context.referenceOrFail(reference);
 
             if(result.isReference()) {
                 final ExpressionReferenceNode referenceNode = result.cast();
                 this.cycleCheck(referenceNode.value(), cycles);
             }
 
-           return result;
+           return Optional.of(result);
         } finally {
             cycles.remove(reference);
         }

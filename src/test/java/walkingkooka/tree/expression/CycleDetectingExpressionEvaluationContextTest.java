@@ -32,6 +32,7 @@ import walkingkooka.util.variable.Variables;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -75,12 +76,12 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
                 assertSame("cell", cell, reference);
-                return text;
+                return Optional.of(text);
             }
         });
-        assertSame(text, context.reference(cell));
+        assertSame(text, context.reference(cell).get());
     }
 
     @Test
@@ -90,9 +91,9 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
                 assertSame("label", label, reference);
-                return text();
+                return Optional.of(text());
             }
         });
         final ExpressionNode expression = ExpressionNode.reference(label);
@@ -116,7 +117,11 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+                return Optional.of(this.reference0(reference));
+            }
+
+            private ExpressionNode reference0(final ExpressionReference reference) {
                 if (label2 == reference) {
                     return label2Expression;
                 }
@@ -150,9 +155,9 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
                 if (label == reference) {
-                    return labelExpression;
+                    return Optional.of(labelExpression);
                 }
                 return this.unknownReference(reference);
             }
@@ -177,7 +182,11 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+                return Optional.of(this.reference0(reference));
+            }
+
+            private ExpressionNode reference0(final ExpressionReference reference) {
                 if (label2 == reference) {
                     return label1Expression;
                 }
@@ -208,7 +217,11 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+                return Optional.of(this.reference0(reference));
+            }
+
+            private ExpressionNode reference0(final ExpressionReference reference) {
                 if (label2 == reference || label3 == reference) {
                     return label1Expression;
                 }
@@ -239,7 +252,11 @@ public final class CycleDetectingExpressionEvaluationContextTest extends Express
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
-            public ExpressionNode reference(final ExpressionReference reference) {
+            public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+                return Optional.of(this.reference0(reference));
+            }
+
+            private ExpressionNode reference0(final ExpressionReference reference) {
                 if (label2 == reference) {
                     return label1Expression;
                 }

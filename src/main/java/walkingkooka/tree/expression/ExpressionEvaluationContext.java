@@ -24,6 +24,7 @@ import walkingkooka.math.DecimalNumberContext;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Context that travels during any expression evaluation.
@@ -43,7 +44,15 @@ public interface ExpressionEvaluationContext extends Context, DecimalNumberConte
     /**
      * Locates the value or a {@link ExpressionNode} for the given {@link ExpressionReference}
      */
-    ExpressionNode reference(final ExpressionReference reference);
+    Optional<ExpressionNode> reference(final ExpressionReference reference);
+
+    /**
+     * Locates the value or a {@link ExpressionNode} for the given {@link ExpressionReference} or throws a
+     * {@link ExpressionEvaluationReferenceException}.
+     */
+    default ExpressionNode referenceOrFail(final ExpressionReference reference) {
+        return this.reference(reference).orElseThrow(() -> new ExpressionEvaluationReferenceException("Unable to find " + reference));
+    }
 
     /**
      * The {@link MathContext} to be used with math operations.
