@@ -105,4 +105,9 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     }
 
     abstract boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other);
+
+    @Override
+    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
+        return this;
+    }
 }

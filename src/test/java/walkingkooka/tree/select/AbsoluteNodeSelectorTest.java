@@ -69,6 +69,15 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
+    public void testStartUnimportantCustomToString() {
+        final TestFakeNode grandChild = TestFakeNode.node("grandChild");
+        final TestFakeNode child = TestFakeNode.node("child!", grandChild);
+        final TestFakeNode parent = TestFakeNode.node("parent!", child);
+
+        this.acceptAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
+    }
+
+    @Test
     public void testToString() {
         assertEquals("/", this.createSelector().toString());
     }

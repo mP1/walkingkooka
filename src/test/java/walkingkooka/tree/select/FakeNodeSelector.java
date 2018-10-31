@@ -48,4 +48,9 @@ class FakeNodeSelector extends NodeSelector<TestFakeNode, StringName, StringName
     void toString0(final NodeSelectorToStringBuilder b) {
         b.append(this.getClass().getSimpleName());
     }
+
+    @Override
+    NodeSelector<TestFakeNode, StringName, StringName, Object> unwrapIfCustomToStringNodeSelector() {
+        throw new UnsupportedOperationException();
+    }
 }

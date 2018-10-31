@@ -58,6 +58,20 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
         this.createSelector().append(null);
     }
 
+    @Test(expected = NullPointerException.class)
+    public final void testSetToStringNullFails() {
+        this.createSelector().setToString(null);
+    }
+
+    @Test
+    public final void testSetToString() {
+        final S selector = this.createSelector();
+
+        final String toString = "custom " + selector;
+        final NodeSelector<TestFakeNode, StringName, StringName, Object> custom = selector.setToString(toString);
+        assertEquals("toString", toString, custom.toString());
+    }
+
     abstract S createSelector();
 
     final void acceptAndCheck(final TestFakeNode start) {
