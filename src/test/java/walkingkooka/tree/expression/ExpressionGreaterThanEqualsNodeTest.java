@@ -155,6 +155,24 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), longValue(-99)), true);
     }
+
+    @Test
+    public void testEvaluateToBooleanBigDecimalText() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), text(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigDecimalText2() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), text(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigDecimalText3() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), text(-99)), true);
+    }
     
     // BigInteger................................................................................................
 
@@ -229,7 +247,25 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), longValue(-99)), true);
     }
-    
+
+    @Test
+    public void testEvaluateToBooleanBigIntegerText() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), text(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigIntegerText2() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), text(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigIntegerText3() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), text(-99)), true);
+    }
+
     // Double ................................................................................................
 
     @Test
@@ -302,6 +338,24 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
     public void testEvaluateToBooleanDoubleLong3() {
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), longValue(-99)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanDoubleText() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), text(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanDoubleText2() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), text(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanDoubleText3() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), text(-99)), true);
     }
     
     // Long................................................................................................
@@ -376,6 +430,24 @@ public final class ExpressionGreaterThanEqualsNodeTest extends ExpressionCompari
     public void testEvaluateToBooleanLongLong3() {
         // left gte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), longValue(-99)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText2() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText3() {
+        // left gte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(-99)), true);
     }
     
     @Override

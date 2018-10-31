@@ -81,89 +81,109 @@ public final class ExpressionPowerNodeTest extends ExpressionArithmeticBinaryNod
     // toBigDecimal...............................................................................................
     
     @Test
-    public void testEvaluateToBigDecimal() {
+    public void testEvaluateToBigDecimalBigDecimal() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(100), bigDecimal(0.5)), Math.pow(100, 0.5));
     }
 
     @Test
-    public void testEvaluateToBigDecimal2() {
+    public void testEvaluateToBigDecimalBigInteger() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(100), bigInteger(2)), Math.pow(100, 2));
     }
 
     @Test
-    public void testEvaluateToBigDecimal3() {
+    public void testEvaluateToBigDecimalDouble() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(100), doubleValue(0.5)), (int)Math.pow(100, 0.5));
     }
 
     @Test
-    public void testEvaluateToBigDecimal4() {
+    public void testEvaluateToBigDecimalLong() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(100), longValue(2)), (int)Math.pow(100, 2));
+    }
+
+    @Test
+    public void testEvaluateToBigDecimalText() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(100), text(2)), (int)Math.pow(100, 2));
     }
 
     // toBigInteger....................................................................................................
 
     @Test
-    public void testEvaluateToBigInteger() {
+    public void testEvaluateToBigIntegerBigDecimal() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(100), bigDecimal(2)), (int)Math.pow(100, 2));
     }
 
     @Test
-    public void testEvaluateToBigInteger2() {
+    public void testEvaluateToBigIntegerBigInteger() {
         this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(100), bigInteger(2)), (int)Math.pow(100, 2));
     }
 
     @Test
-    public void testEvaluateToBigInteger3() {
+    public void testEvaluateToBigIntegerDouble() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigInteger(100), doubleValue(0.5)), Math.pow(100, 0.5));
     }
 
     @Test
-    public void testEvaluateToBigInteger4() {
+    public void testEvaluateToBigIntegerLong() {
         this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(100), longValue(2)), (int)Math.pow(100, 2));
+    }
+
+    @Test
+    public void testEvaluateToBigIntegerText() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(100), text(2)), (int)Math.pow(100, 2));
     }
 
     // toDouble....................................................................................................
 
     @Test
-    public void testEvaluateToDouble() {
+    public void testEvaluateToDoubleBigDecimal() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(100), bigDecimal(0.5)), Math.pow(100, 0.5));
     }
 
     @Test
-    public void testEvaluateToDouble2() {
+    public void testEvaluateToDoubleBigInteger() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(doubleValue(100), bigInteger(2)), Math.pow(100, 2));
     }
 
     @Test
-    public void testEvaluateToDouble3() {
+    public void testEvaluateToDoubleDouble() {
         this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(100), doubleValue(0.5)), Math.pow(100, 0.5));
     }
 
     @Test
-    public void testEvaluateToDouble4() {
+    public void testEvaluateToDoubleLong() {
         this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(100), longValue(2)), Math.pow(100, 2));
+    }
+
+    @Test
+    public void testEvaluateToDoubleText() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(100), text(2)), Math.pow(100, 2));
     }
 
     // toLong....................................................................................................
 
     @Test
-    public void testEvaluateToLong() {
+    public void testEvaluateToLongBigDecimal() {
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(longValue(100), bigDecimal(0.5)), Math.pow(100, 0.5));
     }
 
     @Test
-    public void testEvaluateToLong2() {
+    public void testEvaluateToLongBigInteger() {
         this.evaluateAndCheckBigInteger(this.createExpressionNode(longValue(100), bigInteger(2)), (int)Math.pow(100, 2));
     }
 
     @Test
-    public void testEvaluateToLong3() {
+    public void testEvaluateToLongDouble() {
         this.evaluateAndCheckDouble(this.createExpressionNode(longValue(100), doubleValue(0.5)), Math.pow(100, 0.5));
     }
 
     @Test
-    public void testEvaluateToLong4() {
+    public void testEvaluateToLongLong() {
         this.evaluateAndCheckLong(this.createExpressionNode(longValue(100), longValue(2)), (long)Math.pow(100, 2));
+    }
+
+    @Test
+    public void testEvaluateToLongText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(longValue(100), text(2)), (long)Math.pow(100, 2));
     }
 
     // toNumber.....................................................................................

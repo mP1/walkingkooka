@@ -132,6 +132,18 @@ public final class ExpressionNotEqualsNodeTest extends ExpressionComparisonBinar
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), longValue(12)), false);
     }
 
+    @Test
+    public void testEvaluateToBooleanBigDecimalText() {
+        // left ne right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), text(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigDecimalText2() {
+        // left ne right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(12), text(12)), false);
+    }
+
     // BigInteger ................................................................................................
 
     @Test
@@ -182,6 +194,17 @@ public final class ExpressionNotEqualsNodeTest extends ExpressionComparisonBinar
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), longValue(12)), false);
     }
 
+    @Test
+    public void testEvaluateToBooleanBigIntegerText() {
+        // left ne right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), text(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigIntegerText2() {
+        // left ne right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(12), text(12)), false);
+    }
     // Double  ................................................................................................
 
     @Test
@@ -232,6 +255,17 @@ public final class ExpressionNotEqualsNodeTest extends ExpressionComparisonBinar
         this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), longValue(12)), false);
     }
 
+    @Test
+    public void testEvaluateToBooleanDoubleText() {
+        // left ne right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), text(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanDoubleText2() {
+        // left ne right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(doubleValue(12), text(12)), false);
+    }
     // Long ....................................................................................................
 
     @Test
@@ -280,6 +314,18 @@ public final class ExpressionNotEqualsNodeTest extends ExpressionComparisonBinar
     public void testEvaluateToBooleanLongLong2() {
         // left ne right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), longValue(12)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText() {
+        // left ne right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText2() {
+        // left ne right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(12)), false);
     }
     
     @Override

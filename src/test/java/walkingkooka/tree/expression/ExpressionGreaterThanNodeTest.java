@@ -377,7 +377,25 @@ public final class ExpressionGreaterThanNodeTest extends ExpressionComparisonBin
         // left gt right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), longValue(-99)), true);
     }
-    
+
+    @Test
+    public void testEvaluateToBooleanLongText() {
+        // left gt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText2() {
+        // left gt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(12)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText3() {
+        // left gt right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(-99)), true);
+    }
+
     @Override
     ExpressionGreaterThanNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionGreaterThanNode.with(left, right);

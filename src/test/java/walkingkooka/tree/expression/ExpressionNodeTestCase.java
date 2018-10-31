@@ -176,6 +176,10 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         return ExpressionNode.text(value);
     }
 
+    final ExpressionTextNode text(final Object value) {
+        return text(context().convert(value, String.class));
+    }
+
     final void evaluateAndCheckBoolean(final ExpressionNode node, final boolean expected) {
         this.evaluateAndCheckBoolean(node, context(), expected);
     }
@@ -339,7 +343,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
 
     private <T extends Comparable<T>> void checkEquals(final String message, final T expected, final T actual) {
         // necessary because BigDecimals of different precisions (extra zeros) will not be equal.
-        if(0!=expected.compareTo(actual)){
+        if(expected.getClass()!=actual.getClass() || 0!=expected.compareTo(actual)){
             assertEquals(message, expected, actual);
         }
     }
