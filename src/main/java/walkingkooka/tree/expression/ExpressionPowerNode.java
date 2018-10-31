@@ -104,6 +104,11 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
     // FIXME using Math.pow limits the precision of the calculation. A proper power for BigDecimal and BigInteger is required.
 
     @Override
+    String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(left + SYMBOL + right);
+    }
+
+    @Override
     BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
         return new BigDecimal(Math.pow(left.doubleValue(), right.doubleValue()));
     }

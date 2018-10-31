@@ -69,6 +69,17 @@ abstract class ExpressionArithmeticBinaryNode extends ExpressionBinaryNode2 {
         return this.toNumber(context);
     }
 
+    @Override
+    final ExpressionNode applyText(final String left, final String right, final ExpressionEvaluationContext context) {
+        return ExpressionNode.text(this.applyText0(left, right, context));
+    }
+
+    /**
+     * Currently only addition supports two text parameters, which it concats both, all other operands throw
+     * {@link UnsupportedOperationException}
+     */
+    abstract String applyText0(final String left, final String right, final ExpressionEvaluationContext context);
+
     final ExpressionNode applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
         return ExpressionNode.bigDecimal(this.applyBigDecimal0(left, right, context));
     }

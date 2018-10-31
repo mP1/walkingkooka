@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionModuloNodeTest extends ExpressionArithmeticBinaryNodeTestCase<ExpressionModuloNode>{
+public final class ExpressionModuloNodeTest extends ExpressionArithmeticBinaryNodeTestCase2<ExpressionModuloNode>{
 
     @Test
     public void testAccept() {

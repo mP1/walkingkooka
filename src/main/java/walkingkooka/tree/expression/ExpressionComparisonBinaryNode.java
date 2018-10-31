@@ -70,6 +70,11 @@ abstract class ExpressionComparisonBinaryNode extends ExpressionBinaryNode2 {
     }
 
     @Override
+    final ExpressionNode applyText(final String left, final String right, final ExpressionEvaluationContext context) {
+        return ExpressionNode.booleanNode(this.isComparisonTrue(left.compareTo(right)));
+    }
+
+    @Override
     final ExpressionNode applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
         return ExpressionNode.booleanNode(this.isComparisonTrue(left.compareTo(right)));
     }

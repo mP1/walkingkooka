@@ -29,7 +29,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBinaryNodeTestCase<ExpressionSubtractionNode>{
+public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBinaryNodeTestCase2<ExpressionSubtractionNode>{
 
     @Test
     public void testAccept() {
@@ -411,7 +411,7 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
 
     @Test
     public void testEvaluateToNumberLocalDate() {
-        this.evaluateAndCheckNumberLong(this.createExpressionNode(longValue(12), localDate(34)), 12 - 34);
+        this.evaluateAndCheckNumberBigDecimal(this.createExpressionNode(longValue(12), localDate(34)), 12 - 34);
     }
 
     @Test
@@ -421,7 +421,7 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
     
     @Test
     public void testEvaluateToNumberLocalTime() {
-        this.evaluateAndCheckNumberLong(this.createExpressionNode(longValue(12), localTime(34)), 12 - 34);
+        this.evaluateAndCheckNumberBigDecimal(this.createExpressionNode(longValue(12), localTime(34)), 12 - 34);
     }
     
     @Test

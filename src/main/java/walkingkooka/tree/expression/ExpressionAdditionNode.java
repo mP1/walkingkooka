@@ -104,6 +104,14 @@ public final class ExpressionAdditionNode extends ExpressionArithmeticBinaryNode
 
     // Evaluation .......................................................................................................
 
+    /**
+     * Addition between two strings results in concatenation of both operands.
+     */
+    @Override
+    String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
+        return left.concat(right);
+    }
+
     @Override
     BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
         return left.add(right, context.mathContext());

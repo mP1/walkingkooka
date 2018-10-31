@@ -329,6 +329,70 @@ public final class ExpressionEqualsNodeTest extends ExpressionComparisonBinaryNo
         // left eq right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(12)), true);
     }
+
+
+
+    // Long................................................................................................
+
+    @Test
+    public void testEvaluateToBooleanTextBigDecimal() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigDecimal(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextBigDecimal2() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigDecimal(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextBigInteger() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigInteger(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextBigInteger2() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), bigInteger(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextDouble() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), doubleValue(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextDouble2() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), doubleValue(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextLong() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), longValue(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextLong2() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), longValue(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextText() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(34)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanTextText2() {
+        // left eq right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(text(12), text(12)), true);
+    }
     
     @Override
     ExpressionEqualsNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {

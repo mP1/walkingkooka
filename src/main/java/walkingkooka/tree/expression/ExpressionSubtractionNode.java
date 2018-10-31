@@ -102,6 +102,11 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
     // Evaluation .......................................................................................................
 
     @Override
+    String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(left + SYMBOL + right); // TODO maybe if right exists in left "remove" it, else throw.
+    }
+
+    @Override
     BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
         return left.subtract(right, context.mathContext());
     }

@@ -180,6 +180,10 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         return text(context().convert(value, String.class));
     }
 
+    final String textText(final ExpressionValueNode value) {
+        return value.toText(context());
+    }
+
     final void evaluateAndCheckBoolean(final ExpressionNode node, final boolean expected) {
         this.evaluateAndCheckBoolean(node, context(), expected);
     }
