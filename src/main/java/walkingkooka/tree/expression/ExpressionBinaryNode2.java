@@ -52,12 +52,10 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
 
         try {
             for (; ; ) {
-                // both String
                 final Object leftValue = left.toValue(context);
                 final Object rightValue = right.toValue(context);
                 
-                final boolean leftString = leftValue instanceof String;
-                if (leftString) {
+                if (leftValue instanceof String) {
 
                     result = this.applyText(
                             context.convert(leftValue, String.class),
@@ -65,12 +63,6 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                             context);
                     break;
                 }
-                
-                //final Number leftNumber = left.toNumber(context);
-                //final Number rightNumber = right.toNumber(context);
-
-//                final Number leftNumber = context.convert(leftValue, )
-//                final Number rightNumber = right.toNumber(context);
 
                 // both Long
                 final boolean leftLong = leftValue instanceof Long;
