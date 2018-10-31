@@ -135,6 +135,11 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), longValue(34)), BigDecimal.valueOf(12-34));
     }
 
+    @Test
+    public void testEvaluateToBigDecimalText() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), text(34)), BigDecimal.valueOf(12-34));
+    }
+
     // toBigInteger....................................................................................................
 
     @Test
@@ -170,6 +175,11 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
     @Test
     public void testEvaluateToBigIntegerLong() {
         this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), longValue(34)), BigInteger.valueOf(12-34));
+    }
+
+    @Test
+    public void testEvaluateToBigIntegerText() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), text(34)), BigInteger.valueOf(12-34));
     }
 
     // toDouble....................................................................................................
@@ -209,6 +219,11 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
         this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), longValue(34)), 12.0-34.0);
     }
 
+    @Test
+    public void testEvaluateToDoubleText() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), text(34)), 12.0-34.0);
+    }
+
     // toLocalDate....................................................................................................
 
     @Test
@@ -244,6 +259,11 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
     @Test
     public void testEvaluateToLocalDateLong() {
         this.evaluateAndCheckLong(this.createExpressionNode(localDate(12), longValue(34)), 12L - 34L);
+    }
+
+    @Test
+    public void testEvaluateToLocalDateText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(localDate(12), text(34)), 12L - 34L);
     }
 
     // toLocalDateTime....................................................................................................
@@ -283,6 +303,11 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
         this.evaluateAndCheckLong(this.createExpressionNode(localDateTime(12), longValue(34)), 12L - 34L);
     }
 
+    @Test
+    public void testEvaluateToLocalDateTimeText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(localDateTime(12), text(34)), 12L - 34L);
+    }
+
     // toLocalTime....................................................................................................
 
     @Test
@@ -318,6 +343,11 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
     @Test
     public void testEvaluateToLocalTimeLong() {
         this.evaluateAndCheckLong(this.createExpressionNode(localTime(12), longValue(34)), 12L - 34L);
+    }
+
+    @Test
+    public void testEvaluateToLocalTimeText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(localTime(12), text(34)), 12L - 34L);
     }
 
     // toLong....................................................................................................
@@ -357,6 +387,11 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
         this.evaluateAndCheckLong(this.createExpressionNode(longValue(12), longValue(34)), 12L - 34L);
     }
 
+    @Test
+    public void testEvaluateToLongText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(longValue(12), text(34)), 12L - 34L);
+    }
+
     // toNumber.....................................................................................
 
     @Test
@@ -393,7 +428,7 @@ public final class ExpressionSubtractionNodeTest extends ExpressionArithmeticBin
     public void testEvaluateToNumberLong() {
         this.evaluateAndCheckNumberLong(this.createExpressionNode(longValue(12), longValue(34)), 12 - 34);
     }
-    
+
     @Override
     ExpressionSubtractionNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionSubtractionNode.with(left, right);

@@ -377,7 +377,25 @@ public final class ExpressionLessThanEqualsNodeTest extends ExpressionComparison
         // left lte right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), longValue(-99)), false);
     }
-    
+
+    @Test
+    public void testEvaluateToBooleanLongText() {
+        // left lte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(34)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText2() {
+        // left lte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(12)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongText3() {
+        // left lte right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(12), text(-99)), false);
+    }
+
     @Override
     ExpressionLessThanEqualsNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionLessThanEqualsNode.with(left, right);

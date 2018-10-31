@@ -133,6 +133,11 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
         this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), longValue(34)), 12+34);
     }
 
+    @Test
+    public void testEvaluateToBigDecimalText() {
+        this.evaluateAndCheckBigDecimal(this.createExpressionNode(bigDecimal(12), text("34")), 12+34);
+    }
+
     // toBigInteger.....................................................................................
 
     @Test
@@ -168,6 +173,11 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
     @Test
     public void testEvaluateToBigIntegerLong() {
         this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), longValue(34)), 12+34);
+    }
+
+    @Test
+    public void testEvaluateToBigIntegerText() {
+        this.evaluateAndCheckBigInteger(this.createExpressionNode(bigInteger(12), text("34")), 12+34);
     }
 
     // toDouble.....................................................................................
@@ -207,6 +217,11 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
         this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), longValue(34)), 12.0+34.0);
     }
 
+    @Test
+    public void testEvaluateToDoubleText() {
+        this.evaluateAndCheckDouble(this.createExpressionNode(doubleValue(12), text("34.5")), 12.0+34.5);
+    }
+
     // toLocalDate..............................................................................................................
 
     @Test
@@ -242,6 +257,11 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
     @Test
     public void testEvaluateToLocalDateLong() {
         this.evaluateAndCheckLong(this.createExpressionNode(localDate(12), localDate(34)), 12L + 34L);
+    }
+
+    @Test
+    public void testEvaluateToLocalDateText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(localDate(12), text(34)), 12L + 34L);
     }
 
     // toLocalDateTime..............................................................................................................
@@ -281,6 +301,11 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
         this.evaluateAndCheckLong(this.createExpressionNode(localDateTime(12), localDate(34)), 12L + 34L);
     }
 
+    @Test
+    public void testEvaluateToLocalDateTimeText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(localDateTime(12), text(34)), 12L + 34L);
+    }
+
     // toLocalTime..............................................................................................................
 
     @Test
@@ -318,6 +343,11 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
         this.evaluateAndCheckLong(this.createExpressionNode(localTime(12), localDate(34)), 12L + 34L);
     }
 
+    @Test
+    public void testEvaluateToLocalTimeText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(localTime(12), text(34)), 12L + 34L);
+    }
+
     // toLong...............................................................................................
 
     @Test
@@ -353,6 +383,11 @@ public final class ExpressionAdditionNodeTest extends ExpressionArithmeticBinary
     @Test
     public void testEvaluateToLongLong() {
         this.evaluateAndCheckLong(this.createExpressionNode(longValue(12), longValue(34)), 12L + 34L);
+    }
+
+    @Test
+    public void testEvaluateToLongText() {
+        this.evaluateAndCheckLong(this.createExpressionNode(longValue(12), text(34)), 12L + 34L);
     }
 
     // toNumber.....................................................................................
