@@ -62,13 +62,33 @@ public final class ExpressionNodeTest extends PublicClassTestCase<ExpressionNode
     }
 
     @Test
+    public void testValueOrFailFloat() {
+        this.valueOrFailAndCheck(123.5f, ExpressionDoubleNode.class, 123.5);
+    }
+
+    @Test
     public void testValueOrFailDouble() {
-        this.valueOrFailAndCheck(Double.valueOf(123.5), ExpressionDoubleNode.class);
+        this.valueOrFailAndCheck(123.5, ExpressionDoubleNode.class);
+    }
+
+    @Test
+    public void testValueOrFailByte() {
+        this.valueOrFailAndCheck((byte) 123, ExpressionLongNode.class, 123L);
+    }
+
+    @Test
+    public void testValueOrFailShort() {
+        this.valueOrFailAndCheck((short) 123, ExpressionLongNode.class, 123L);
+    }
+
+    @Test
+    public void testValueOrFailInteger() {
+        this.valueOrFailAndCheck(123, ExpressionLongNode.class, 123L);
     }
 
     @Test
     public void testValueOrFailLong() {
-        this.valueOrFailAndCheck(Long.valueOf(123), ExpressionLongNode.class);
+        this.valueOrFailAndCheck(123L, ExpressionLongNode.class);
     }
 
     @Test
@@ -93,9 +113,13 @@ public final class ExpressionNodeTest extends PublicClassTestCase<ExpressionNode
     }
 
     private void valueOrFailAndCheck(final Object value, final Class<? extends ExpressionValueNode> type) {
+        valueOrFailAndCheck(value, type, value);
+    }
+
+    private void valueOrFailAndCheck(final Object value, final Class<? extends ExpressionValueNode> type, final Object expected) {
         final ExpressionNode node = ExpressionNode.valueOrFail(value);
         assertEquals("node type of " + value, type, node.getClass());
-        assertEquals("value", value, type.cast(node).value());
+        assertEquals("value", expected, type.cast(node).value());
     }
 
     @Override

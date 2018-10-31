@@ -53,19 +53,33 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
                         bigInteger(Cast.to(value)) :
                         value instanceof Boolean ?
                                 booleanNode(Cast.to(value)) :
-                                value instanceof Double ?
-                                        doubleNode(Cast.to(value)) :
-                                        value instanceof LocalDate ?
-                                                localDate(Cast.to(value)) :
-                                                value instanceof LocalDateTime ?
-                                                        localDateTime(Cast.to(value)) :
-                                                        value instanceof LocalTime ?
-                                                                localTime(Cast.to(value)) :
-                                                                value instanceof Long ?
-                                                                        longNode(Cast.to(value)) :
+                                value instanceof Byte | value instanceof Short | value instanceof Integer | value instanceof Long ?
+                                        valueOrFailLongNode(Cast.to(value)) :
+                                        value instanceof Float || value instanceof Double ?
+                                                valueOrFailDoubleNode(Cast.to(value)) :
+                                                value instanceof LocalDate ?
+                                                        localDate(Cast.to(value)) :
+                                                        value instanceof LocalDateTime ?
+                                                                localDateTime(Cast.to(value)) :
+                                                                value instanceof LocalTime ?
+                                                                        localTime(Cast.to(value)) :
                                                                         value instanceof String ?
                                                                                 text(Cast.to(value)) :
                                                                                 valueOrFailFail(value);
+    }
+
+    /**
+     * Expects float or double and creates a {@link ExpressionDoubleNode}
+     */
+    private static ExpressionNode valueOrFailDoubleNode(final Number value) {
+        return doubleNode(value.doubleValue());
+    }
+
+    /**
+     * Expects any of the primitive numeric types except for float or double.
+     */
+    private static ExpressionNode valueOrFailLongNode(final Number value) {
+        return longNode(value.longValue());
     }
 
     /**
