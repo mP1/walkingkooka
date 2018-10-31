@@ -30,8 +30,6 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         extends
         NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
 
-    private final static int INDEX_BIAS = 1;
-
     /**
      * Creates a {@link IndexedChildNodeSelector}
      */

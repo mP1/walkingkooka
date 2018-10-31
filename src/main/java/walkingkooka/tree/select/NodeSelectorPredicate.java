@@ -13,36 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
+
 package walkingkooka.tree.select;
 
+import walkingkooka.convert.ConversionException;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.function.Predicate;
 
 /**
- * A {@link Predicate} that returns true if more than zero nodes are returned for the given select and any nodes given to test.
+ * A {@link Predicate} that evaluates a {@link ExpressionNode} along with a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
  */
-final class NodeSelectorPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>  implements Predicate<N> {
+final class NodeSelectorPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements Predicate<N> {
 
     /**
-     * Ctor only called by {@link NodeSelector#asPredicate()}
+     * Factory that creates a {@link NodeSelectorPredicate}.
      */
-    NodeSelectorPredicate(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        this.selector = selector;
+    static NodeSelectorPredicate with(final ExpressionNode expressionNode) {
+        return new NodeSelectorPredicate(expressionNode);
+    }
+
+    /**
+     * Private ctor use factory
+     */
+    private NodeSelectorPredicate(final ExpressionNode expressionNode) {
+        super();
+        this.expressionNode = expressionNode;
     }
 
     @Override
-    public boolean test(final N node) {
-        return this.selector.accept(node, this.selector.nulObserver()).size() > 0;
+    public boolean test(final N n) {
+        boolean test;
+        try {
+            test = this.expressionNode.toBoolean(NodeSelectorPredicateExpressionEvaluationContext.with(n));
+        } catch (final ConversionException | NodeSelectorException fail) {
+            test = false;
+        }
+        return test;
     }
 
-    private final NodeSelector<N, NAME, ANAME, AVALUE> selector;
+    private final ExpressionNode expressionNode;
 
     @Override
     public String toString() {
-        return "[" + this.selector + "]";
+        return this.expressionNode.toString();
     }
-
 }

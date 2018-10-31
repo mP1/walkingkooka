@@ -43,7 +43,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
 
     private static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> void walkAncestorPath(final N node, final List<Integer> path) {
         final Optional<N> parent = node.parent();
-        if(parent.isPresent()) {
+        if (parent.isPresent()) {
             walkAncestorPath(parent.get(), path);
             path.add(node.index() + 1);
         }
@@ -54,17 +54,17 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
         boolean abort = false;
 
         N current = node;
-        for(Integer index : this.path) {
+        for (Integer index : this.path) {
             final int zeroIndex = index - 1;
             final List<N> children = current.children();
-            if(zeroIndex >= children.size()) {
+            if (zeroIndex >= children.size()) {
                 abort = true;
                 break;
             }
             current = children.get(zeroIndex);
         }
 
-        if(!abort) {
+        if (!abort) {
             this.match(current, context);
         }
     }

@@ -216,7 +216,8 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
         return this.append(SelfNodeSelector.get());
     }
 
-    private NodeSelectorBuilder<N, NAME, ANAME, AVALUE> append(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    // called by NodeSelectorNodeSelectorParserTokenVisitor
+    NodeSelectorBuilder<N, NAME, ANAME, AVALUE> append(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         this.selector = null != this.selector ? this.selector.append(selector) : selector;
         return this;
     }
