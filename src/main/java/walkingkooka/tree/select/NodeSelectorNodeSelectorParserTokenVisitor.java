@@ -83,7 +83,8 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     private NodeSelector<N, NAME, ANAME, AVALUE> acceptAndBuild(final NodeSelectorParserToken token) {
         this.accept(token);
         this.maybeComplete(NodeSelector.children());
-        return this.builder.build();
+        return this.builder.build()
+                .setToString(token.text());
     }
 
     @Override

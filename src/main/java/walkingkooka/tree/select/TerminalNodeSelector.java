@@ -74,4 +74,9 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     void toString0(final NodeSelectorToStringBuilder b) {
         // nop
     }
+
+    @Override
+    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
+        return this;
+    }
 }

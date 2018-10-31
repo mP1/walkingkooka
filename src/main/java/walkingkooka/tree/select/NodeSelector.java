@@ -82,6 +82,13 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     /**
+     * {@see CustomToStringNodeSelector}
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> customToString(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final String toString) {
+        return CustomToStringNodeSelector.with(selector, toString);
+    }
+
+    /**
      * {@see DescendanNodeSelector}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantNodeSelector<N, NAME, ANAME, AVALUE> descendant() {
@@ -312,4 +319,16 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     abstract void toString0(final NodeSelectorToStringBuilder b);
+
+    /**
+     * Returns a {@link NodeSelector} with the given {@link String toString}, without changing functionality.
+     */
+    public final NodeSelector<N, NAME, ANAME, AVALUE> setToString(final String toString) {
+        return NodeSelector.customToString(this, toString);
+    }
+
+    /**
+     * All sub classes except for {@link CustomToStringNodeSelector} return this.
+     */
+    abstract NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector();
 }

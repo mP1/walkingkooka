@@ -66,6 +66,15 @@ final public class AncestorNodeSelectorTest extends
     }
 
     @Test
+    public void testIgnoresSiblingsCustomToString() {
+        final TestFakeNode child1 = TestFakeNode.node("child1");
+        final TestFakeNode child2 = TestFakeNode.node("child2");
+        final TestFakeNode parent = TestFakeNode.node("parent", child1, child2);
+
+        this.acceptAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
+    }
+
+    @Test
     public void testToString() {
         assertEquals("ancestor::*", this.createSelector().toString());
     }
