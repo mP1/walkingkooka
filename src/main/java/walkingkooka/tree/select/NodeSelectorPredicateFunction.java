@@ -35,6 +35,8 @@ abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Objec
      */
     final static Map<ExpressionNodeName, NodeSelectorPredicateFunction<?>> NAME_TO_FUNCTION = Maps.ordered();
 
+    final static NodeSelectorPredicateBooleanFunction BOOLEAN = NodeSelectorPredicateBooleanFunction.INSTANCE;
+
     final static NodeSelectorPredicateConcatFunction CONCAT = NodeSelectorPredicateConcatFunction.INSTANCE;
 
     final static NodeSelectorPredicateContainsFunction CONTAINS = NodeSelectorPredicateContainsFunction.INSTANCE;
