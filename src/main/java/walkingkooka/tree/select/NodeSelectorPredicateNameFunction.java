@@ -39,7 +39,8 @@ final class NodeSelectorPredicateNameFunction extends NodeSelectorPredicateFunct
     }
 
     @Override
-    public String apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public String apply(final List<Object> parameters,
+                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         return context.node().name().value();
     }
 

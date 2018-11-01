@@ -37,7 +37,8 @@ final class NodeSelectorPredicateTextFunction extends NodeSelectorPredicateFunct
     }
 
     @Override
-    public String apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public String apply(final List<Object> parameters,
+                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         this.checkParameterCount(parameters, 1);
 
         return context.string(parameters, 0);

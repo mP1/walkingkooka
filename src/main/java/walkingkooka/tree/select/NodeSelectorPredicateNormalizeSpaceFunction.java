@@ -43,7 +43,8 @@ final class NodeSelectorPredicateNormalizeSpaceFunction extends NodeSelectorPred
     }
 
     @Override
-    public String apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public String apply(final List<Object> parameters,
+                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         this.checkParameterCount(parameters, 1);
 
         final String trimmed = context.string(parameters, 0)

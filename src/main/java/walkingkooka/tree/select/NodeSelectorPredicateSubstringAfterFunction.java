@@ -38,7 +38,8 @@ final class NodeSelectorPredicateSubstringAfterFunction extends NodeSelectorPred
     }
 
     @Override
-    public String apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public String apply(final List<Object> parameters,
+                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         this.checkParameterCount(parameters, 2);
 
         final String string = context.string(parameters, 0);

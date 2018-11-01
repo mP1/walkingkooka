@@ -48,7 +48,8 @@ final class NodeSelectorPredicateComparisonFunction extends NodeSelectorPredicat
     }
 
     @Override
-    public Boolean apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public Boolean apply(final List<Object> parameters,
+                         final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         this.checkParameterCount(parameters, 2);
 
         final Comparable first = context.comparable(parameters, 0);

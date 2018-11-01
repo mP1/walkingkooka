@@ -38,7 +38,8 @@ final class NodeSelectorPredicateTrueFunction extends NodeSelectorPredicateFunct
     }
 
     @Override
-    public Boolean apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public Boolean apply(final List<Object> parameters,
+                         final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         return Boolean.TRUE;
     }
 
