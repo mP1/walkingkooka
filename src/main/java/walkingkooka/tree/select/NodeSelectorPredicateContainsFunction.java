@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-
 import java.util.List;
 
 /**
@@ -40,11 +38,11 @@ final class NodeSelectorPredicateContainsFunction extends NodeSelectorPredicateF
     }
 
     @Override
-    public Boolean apply(final List<Object> parameters, final ExpressionEvaluationContext context) {
+    public Boolean apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
         this.checkParameterCount(parameters, 2);
 
-        return this.string(parameters, 0, context)
-                .contains(this.string(parameters, 1, context));
+        return context.string(parameters, 0)
+                .contains(context.string(parameters, 1));
     }
 
     @Override

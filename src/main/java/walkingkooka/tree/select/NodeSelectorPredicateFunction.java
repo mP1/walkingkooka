@@ -19,7 +19,6 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
 import java.util.List;
@@ -29,7 +28,7 @@ import java.util.function.BiFunction;
 /**
  * Base class for all predicate functions.
  */
-abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Object>, ExpressionEvaluationContext, T> {
+abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext, T> {
 
     /**
      * A {@link Map} holding all functions by name. This requires that all functions are stateless.
@@ -87,50 +86,6 @@ abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Objec
         if (expectedCount != count) {
             throw new IllegalArgumentException("Expected " + expectedCount + " but got " + count + "=" + parameters);
         }
-    }
-
-    final boolean booleanValue(final Object value, final ExpressionEvaluationContext context) {
-        return context.convert(value, Boolean.class);
-    }
-
-    final int integer(final Object value, final ExpressionEvaluationContext context) {
-        return context.convert(value, Integer.class);
-    }
-
-    final String string(final Object value, final ExpressionEvaluationContext context) {
-        return context.convert(value, String.class);
-    }
-
-    /**
-     * Type safe String parameter getter.
-     */
-    final String string(final List<?> parameters, final int i, final ExpressionEvaluationContext context) {
-        return this.string(this.parameter(parameters, i), context);
-    }
-
-    /**
-     * Type safe integer parameter getter.
-     */
-    final int integer(final List<?> parameters, final int i, final ExpressionEvaluationContext context) {
-        return this.integer(this.parameter(parameters, i), context);
-    }
-
-    /**
-     * Retrieves the parameter at the index or throws a nice exception message.
-     */
-    final Object parameter(final List<?> parameters, final int i) {
-        final int count = parameters.size();
-        if (i < 0 || i >= count) {
-            throw new NodeSelectorException("Parameter " + i + " missing from " + parameters);
-        }
-        return parameters.get(i);
-    }
-
-    /**
-     * Retrieves the requested parameter and then converts it to the requested target type.
-     */
-    final <T> T parameter(final List<?> parameters, final int i, final Class<T> type, final ExpressionEvaluationContext context) {
-        return context.convert(this.parameter(parameters, i), type);
     }
 
     @Override

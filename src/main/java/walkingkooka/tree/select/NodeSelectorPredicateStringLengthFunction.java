@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-
 import java.util.List;
 
 /**
@@ -41,10 +39,10 @@ final class NodeSelectorPredicateStringLengthFunction extends NodeSelectorPredic
     }
 
     @Override
-    public Long apply(final List<Object> parameters, final ExpressionEvaluationContext context) {
+    public Long apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
         this.checkParameterCount(parameters, 1);
 
-        return Long.valueOf(this.string(parameters, 0, context).length());
+        return Long.valueOf(context.string(parameters, 0).length());
     }
 
     @Override

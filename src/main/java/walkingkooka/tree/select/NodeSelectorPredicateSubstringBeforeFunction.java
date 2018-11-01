@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-
 import java.util.List;
 
 /**
@@ -40,11 +38,11 @@ final class NodeSelectorPredicateSubstringBeforeFunction extends NodeSelectorPre
     }
 
     @Override
-    public String apply(final List<Object> parameters, final ExpressionEvaluationContext context) {
+    public String apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
         this.checkParameterCount(parameters, 2);
 
-        final String string = this.string(parameters, 0, context);
-        final String find = this.string(parameters, 1, context);
+        final String string = context.string(parameters, 0);
+        final String find = context.string(parameters, 1);
         final int offset = string.indexOf(find);
 
         return -1 != offset ?

@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-
 import java.util.List;
 
 /**
@@ -41,7 +39,7 @@ final class NodeSelectorPredicateSubstringFunction extends NodeSelectorPredicate
     }
 
     @Override
-    public String apply(final List<Object> parameters, final ExpressionEvaluationContext context) {
+    public String apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
         final int parameterCount = parameters.size();
         switch (parameterCount) {
             case 2:
@@ -52,13 +50,13 @@ final class NodeSelectorPredicateSubstringFunction extends NodeSelectorPredicate
                 throw new IllegalArgumentException("Expected 2 or 3 parameters (String, offset, [length])=" + parameters);
         }
 
-        final String string = this.string(parameters, 0, context);
+        final String string = context.string(parameters, 0);
 
-        final int offset = this.integer(parameters, 1, context);
+        final int offset = context.integer(parameters, 1);
         final int zeroOffset = offset - NodeSelector.INDEX_BIAS;
 
         final int length = parameterCount == 3 ?
-                this.integer(parameters, 2, context) :
+                context.integer(parameters, 2) :
                 string.length() - offset + NodeSelector.INDEX_BIAS;
 
         return string.substring(zeroOffset, length + zeroOffset);
