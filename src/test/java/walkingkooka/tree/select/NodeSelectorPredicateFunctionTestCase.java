@@ -42,6 +42,13 @@ public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelect
     final <TT, RR> void applyAndCheck2(final BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext, RR> function,
                                        final List<Object> parameters,
                                        final RR result) {
+        this.applyAndCheck2(function, parameters, this.createContext(), result);
+    }
+
+    final <TT, RR> void applyAndCheck2(final BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext, RR> function,
+                                       final List<Object> parameters,
+                                       final NodeSelectorPredicateExpressionEvaluationContext context,
+                                       final RR result) {
         assertEquals("Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters),
                 result,
                 function.apply(parameters, this.createContext()));
