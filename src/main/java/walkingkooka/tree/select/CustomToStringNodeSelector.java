@@ -22,8 +22,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
-import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * A {@link NodeSelector} that wraps another but contains a custom toString passed as a parameter.
@@ -61,21 +59,13 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     @Override
-    public Set<N> accept(final N node, final Consumer<N> observer) {
-        return this.selector.accept(node, observer);
-    }
-
-    // @VisibleForTesting
-    final NodeSelector<N, NAME, ANAME, AVALUE> selector;
-
-    @Override
-    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.selector.accept0(node, context);
+    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.selector.accept1(node, context);
     }
 
     @Override
-    void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.selector.match(node, context);
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.selector.select(node, context);
     }
 
     @Override
@@ -89,4 +79,7 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
         return this.selector;
     }
+
+    // @VisibleForTesting
+    final NodeSelector<N, NAME, ANAME, AVALUE> selector;
 }

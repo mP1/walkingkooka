@@ -26,7 +26,7 @@ import walkingkooka.tree.Node;
  */
 final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link FollowingSiblingNodeSelector} getter
@@ -36,14 +36,7 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @SuppressWarnings("rawtypes")
-    private final static FollowingSiblingNodeSelector INSTANCE = new FollowingSiblingNodeSelector();
-
-    /**
-     * Package private constructor use type safe getter
-     */
-    FollowingSiblingNodeSelector() {
-        super();
-    }
+    private final static FollowingSiblingNodeSelector INSTANCE = new FollowingSiblingNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor
@@ -62,8 +55,8 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.matchFollowingSiblings(node, context);
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.selectFollowingSiblings(node, context);
     }
 
     @Override

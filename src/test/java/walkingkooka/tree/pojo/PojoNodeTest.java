@@ -20,9 +20,11 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -42,10 +44,19 @@ public final class PojoNodeTest extends PublicClassTestCase<PojoNode> {
         final PojoNode node = PojoNode.wrap(PojoName.property("TestBean"),
                 bean,
                 new ReflectionPojoNodeContext());
+        final Set<PojoNode> selected = Sets.ordered();
+        selector.accept(node, new FakeNodeSelectorContext<PojoNode, PojoName, PojoNodeAttributeName, Object>(){
+            @Override
+            public void potential(final PojoNode node) {
 
-        assertEquals(Sets.of("1", "2", "3"),
-                        selector.accept(node, selector.nulObserver())
-                                .stream().map(n -> n.value()).collect(Collectors.toCollection(TreeSet::new)));
+            }
+
+            @Override
+            public void selected(final PojoNode node) {
+                selected.add(node);
+            }
+        });
+        assertEquals(Sets.of("1", "2", "3"), selected.stream().map(n -> n.value()).collect(Collectors.toCollection(TreeSet::new)));
     }
 
     @Override

@@ -26,6 +26,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -774,8 +776,19 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
                 .descendant()
                 .named(DomName.element("img"))
                 .build();
-        final Set<DomNode> matches = selector.accept(document, selector.nulObserver());
-        assertEquals("should have matched img tags\n" + matches, 20, matches.size());
+        final Set<DomNode> selected = Sets.ordered();
+        selector.accept(document, new FakeNodeSelectorContext<DomNode, DomName, DomAttributeName, String>(){
+            @Override
+            public void potential(final DomNode node) {
+
+            }
+
+            @Override
+            public void selected(final DomNode node) {
+                selected.add(node);
+            }
+        });
+        assertEquals("should have matched img tags\n" + selected, 20, selected.size());
     }
 
     @Test
@@ -787,8 +800,19 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
                 .named(DomName.element("a"))
                 .attributeValueContains(DomNode.attribute("href", DomNode.NO_PREFIX), "19")
                 .build();
-        final Set<DomNode> matches = selector.accept(document, selector.nulObserver());
-        assertEquals("should have matched 3 links with 19 in href\n" + matches, 3, matches.size());
+        final Set<DomNode> selected = Sets.ordered();
+        selector.accept(document, new FakeNodeSelectorContext<DomNode, DomName, DomAttributeName, String>(){
+            @Override
+            public void potential(final DomNode node) {
+
+            }
+
+            @Override
+            public void selected(final DomNode node) {
+                selected.add(node);
+            }
+        });
+        assertEquals("should have matched 3 links with 19 in href\n" + selected, 3, selected.size());
     }
 
     // toString ..................................................................................................

@@ -94,7 +94,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
 
     @Override
     protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
-        this.predicates.add(NodeSelectorPredicate.with(NodeSelectorPredicateNodeSelectorParserTokenVisitor.toExpressionNode(token)));
+        this.predicates.add(ExpressionNodeSelectorPredicate.with(ExpressionNodeSelectorPredicateNodeSelectorParserTokenVisitor.toExpressionNode(token)));
         return Visiting.SKIP;
     }
 
@@ -246,7 +246,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     /**
      * Zero or more predicates for this step.
      */
-    private List<NodeSelectorPredicate<N, NAME, ANAME, AVALUE>> predicates;
+    private List<ExpressionNodeSelectorPredicate> predicates;
 
     /**
      * Builds the selector.

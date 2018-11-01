@@ -23,8 +23,6 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
-import java.util.Set;
-import java.util.function.Consumer;
 
 
 /**
@@ -39,15 +37,7 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
         Objects.requireNonNull(separator, "separator");
-        return new DescendantOrSelfNodeSelector(separator);
-    }
-
-    /**
-     * Private constructor use type safe getter
-     */
-    private DescendantOrSelfNodeSelector(final PathSeparator separator) {
-        super();
-        this.separator = separator;
+        return new DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE>(separator, NodeSelector.terminal());
     }
 
     /**
@@ -68,21 +58,16 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    public Set<N> accept(final N node, final Consumer<N> observer) {
-        return this.accept1(node, observer);
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.select(node, context);
+        this.selectChildren(node, context);
     }
 
     @Override
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.match(node, context);
-        this.matchChildren(node, context);
-    }
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        super.select(node, context);
 
-    @Override
-    void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        super.match(node, context);
-
-        this.matchChildren(node, context);
+        this.selectChildren(node, context);
     }
 
     @Override

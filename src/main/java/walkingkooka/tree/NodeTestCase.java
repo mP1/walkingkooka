@@ -19,8 +19,11 @@ package walkingkooka.tree;
 
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.Converters;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.NodeSelectorContexts;
 import walkingkooka.tree.visit.VisitableTestCase;
 
 import java.util.List;
@@ -105,15 +108,26 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     public final void testSelector() {
         final N node = this.createNode();
         final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
-        final Set<N> matches = selector.accept(node, selector.nulObserver());
-        assertEquals("Node's own select should have matched only itself", Sets.of(node), matches);
+        final Set<N> selected = Sets.ordered();
+        selector.accept(node,
+                NodeSelectorContexts.basic(
+                        (n)->{},
+                        (n)-> selected.add(n),
+                        Converters.fake(),
+                        DecimalNumberContexts.fake()));
+        assertEquals("Node's own select should have matched only itself", Sets.of(node), selected);
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public final void testSelectorObserverThrow() {
+    public final void testSelectorPotentialFails() {
         final N node = this.createNode();
         final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
-        selector.accept(node, (n) -> { throw new UnsupportedOperationException();});
+        selector.accept(node,
+                NodeSelectorContexts.basic(
+                        (n) -> { throw new UnsupportedOperationException();},
+                        (n)->{},
+                        Converters.fake(),
+                        DecimalNumberContexts.fake()));
     }
 
     @Test

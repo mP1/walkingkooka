@@ -28,10 +28,10 @@ import java.util.Objects;
  */
 final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalNodeSelector3<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
-     * Type safe {@link NamedNodeSelector} getter
+     * Type safe {@link NamedNodeSelector} factory
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
@@ -40,16 +40,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(separator, "separator");
 
-        return new NamedNodeSelector<>(name, separator);
-    }
-
-    /**
-     * Private constructor use type safe getter
-     */
-    private NamedNodeSelector(final NAME name, final PathSeparator separator) {
-        super();
-        this.name = name;
-        this.separator = separator;
+        return new NamedNodeSelector<N, NAME, ANAME, AVALUE>(name, separator, NodeSelector.terminal());
     }
 
     /**
@@ -68,9 +59,9 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     }
 
     @Override
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         if (this.name.equals(node.name())) {
-            this.match(node, context);
+            this.select(node, context);
         }
     }
 

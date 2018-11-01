@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
+import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visiting;
 
@@ -294,8 +295,19 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 .descendant()
                 .named(selected.name())
                 .build();
-        final Set<JsonNode> matched = selector.accept(array, selector.nulObserver());
-        assertEquals("matched nodes", Sets.of(selected), matched);
+        final Set<JsonNode> all = Sets.ordered();
+        selector.accept(array, new FakeNodeSelectorContext<JsonNode, JsonNodeName, Name, Object>(){
+            @Override
+            public void potential(final JsonNode node) {
+                // ignore
+            }
+
+            @Override
+            public void selected(final JsonNode node) {
+                all.add(node);
+            }
+        });
+        assertEquals("selected nodes", Sets.of(selected), all);
     }
 
     @Test

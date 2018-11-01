@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link PrecedingNodeSelector} getter
@@ -39,14 +39,7 @@ final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     }
 
     @SuppressWarnings("rawtypes")
-    private final static PrecedingNodeSelector INSTANCE = new PrecedingNodeSelector();
-
-    /**
-     * Private constructor use type safe getter
-     */
-    private PrecedingNodeSelector() {
-        super();
-    }
+    private final static PrecedingNodeSelector INSTANCE = new PrecedingNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor
@@ -65,20 +58,20 @@ final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     }
 
     @Override
-    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.matchChildren(node, context);
-        this.matchPrecedingSiblings(node, context);
+    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.selectChildren(node, context);
+        this.selectPrecedingSiblings(node, context);
 
         final Optional<N> parent = node.parent();
         if (parent.isPresent()) {
-            this.matchPrecedingSiblings(parent.get(), context);
+            this.selectPrecedingSiblings(parent.get(), context);
         }
     }
 
     @Override
-    void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        super.match(node, context);
-        this.matchChildren(node, context);
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        super.select(node, context);
+        this.selectChildren(node, context);
     }
 
     @Override

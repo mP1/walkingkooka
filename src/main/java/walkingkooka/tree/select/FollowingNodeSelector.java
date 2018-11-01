@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link FollowingNodeSelector} getter
@@ -39,14 +39,7 @@ final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     }
 
     @SuppressWarnings("rawtypes")
-    private final static FollowingNodeSelector INSTANCE = new FollowingNodeSelector();
-
-    /**
-     * Private constructor use type safe getter
-     */
-    private FollowingNodeSelector() {
-        super();
-    }
+    private final static FollowingNodeSelector INSTANCE = new FollowingNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor
@@ -65,20 +58,20 @@ final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     }
 
     @Override
-    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.matchChildren(node, context);
-        this.matchFollowingSiblings(node, context);
+    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.selectChildren(node, context);
+        this.selectFollowingSiblings(node, context);
 
         final Optional<N> parent = node.parent();
         if (parent.isPresent()) {
-            this.matchFollowingSiblings(parent.get(), context);
+            this.selectFollowingSiblings(parent.get(), context);
         }
     }
 
     @Override
-    void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        super.match(node, context);
-        this.matchChildren(node, context);
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        super.select(node, context);
+        this.selectChildren(node, context);
     }
 
     @Override

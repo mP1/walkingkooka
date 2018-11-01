@@ -18,13 +18,10 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.Optional;
-import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * Base class for all non logical (binary) selectors.
@@ -32,46 +29,36 @@ import java.util.function.Consumer;
 abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     extends NodeSelector<N, NAME, ANAME, AVALUE> {
 
-    NonLogicalNodeSelector() {
-        this(TerminalNodeSelector.get());
-    }
-
     NonLogicalNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super();
         this.next = next;
     }
 
     @Override
-    NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector){
+    final NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector){
         return this.append1(this.next.append0(selector));
     }
     
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
-    final Set<N> accept1(final N node, final Consumer<N> observer) {
-        final Set<N> matches = Sets.ordered();
-        this.accept(node, NodeSelectorNodeSelectorContext.with(observer, matches));
-        return matches;
-    }
-
     /**
      * Used to match a node wrapped in an optional. Empty optionals have no effect.
      */
-    final void match(final Optional<N> node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void select(final Optional<N> node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         if(node.isPresent()){
-            this.match(node.get(), context);
+            this.select(node.get(), context);
         }
     }
 
     /**
      * The default simply records the {@link Node} to the {@link NodeSelectorContext}.
      */
-    void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.next.accept(node, context);
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.next.accept0(node, context);
     }
 
     @Override
-    void toString0(final NodeSelectorToStringBuilder b) {
+    final void toString0(final NodeSelectorToStringBuilder b) {
         this.toString1(b);
         this.toStringNext(b);
     }

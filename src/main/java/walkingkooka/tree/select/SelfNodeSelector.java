@@ -27,7 +27,7 @@ import java.util.List;
  * A {@link NodeSelector} that pushes any given {@link Node} to the {@link List}.
  */
 final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+        extends NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link ChildrenNodeSelector} getter
@@ -37,14 +37,7 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @SuppressWarnings("rawtypes")
-    private final static SelfNodeSelector INSTANCE = new SelfNodeSelector();
-
-    /**
-     * Private constructor use type safe getter
-     */
-    private SelfNodeSelector() {
-        super();
-    }
+    private final static SelfNodeSelector INSTANCE = new SelfNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor
@@ -63,8 +56,8 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.match(node, context);
+    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.select(node, context);
     }
 
     @Override

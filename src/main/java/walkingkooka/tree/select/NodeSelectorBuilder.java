@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -84,31 +85,38 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     /**
-     * {@see ContainsNodeAttributeValuePredicate}
+     * {@see NodeAttributeValueContainsPredicate}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> attributeValueContains(final ANAME name, final AVALUE value) {
-        return this.predicate(new ContainsNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE>(name, value));
+        return this.nodePredicate(NodeAttributeValuePredicate.contains(name, value));
     }
 
     /**
-     * {@see EndsWithNodeAttributeValuePredicate}
+     * {@see NodeAttributeValueEndsWithPredicate}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> attributeValueEndsWith(final ANAME name, final AVALUE value) {
-        return this.predicate(new EndsWithNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE>(name, value));
+        return this.nodePredicate(NodeAttributeValuePredicate.endsWith(name, value));
     }
 
     /**
-     * {@see EqualNodeAttributeValuePredicate}
+     * {@see NodeAttributeValueEqualsPredicate}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> attributeValueEquals(final ANAME name, final AVALUE value) {
-        return this.predicate(new EqualNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE>(name, value));
+        return this.nodePredicate(NodeAttributeValuePredicate.equalsPredicate(name, value));
     }
 
     /**
-     * {@see StartsWithNodeAttributeValuePredicate}
+     * {@see NodeAttributeValueStartsWithPredicate}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> attributeValueStartsWith(final ANAME name, final AVALUE value) {
-        return this.predicate(new StartsWithNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE>(name, value));
+        return this.nodePredicate(NodeAttributeValuePredicate.startsWith(name, value));
+    }
+
+     /**
+      * {@see ExpressionNodeSelector}
+     */
+    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> nodePredicate(final Predicate<N> predicate) {
+        return this.append(NodeSelector.nodePredicate(predicate));
     }
 
     /**
@@ -203,10 +211,10 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     /**
-     * {@see PredicateNodeSelector}
+     * {@see ExpressionNodeSelector}
      */
-    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> predicate(final Predicate<N> predicate) {
-        return this.append(PredicateNodeSelector.with(predicate));
+    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> predicate(final Predicate<ExpressionEvaluationContext> predicate) {
+        return this.append(ExpressionNodeSelector.with(predicate));
     }
 
     /**

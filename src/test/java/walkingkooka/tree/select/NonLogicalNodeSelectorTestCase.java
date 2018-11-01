@@ -18,9 +18,13 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.Converters;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -42,10 +46,15 @@ extends NodeSelectorTestCase<S>{
     final void acceptAndCheckRequiringOrder(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
                                             final TestFakeNode start,
                                             final String[] nodes) {
-        final List<String> actual = selector.accept(start, selector.nulObserver())
+        final Set<TestFakeNode> selected = Sets.ordered();
+        selector.accept(start, NodeSelectorContexts.basic((n)->{},
+                (n)->selected.add(n),
+                Converters.fake(),
+                DecimalNumberContexts.fake()));
+        final List<String> selectedNames = selected
                 .stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
-        assertEquals("names of matched nodes", Lists.of(nodes), actual);
+        assertEquals("names of selected nodes", Lists.of(nodes), selectedNames);
     }
 }

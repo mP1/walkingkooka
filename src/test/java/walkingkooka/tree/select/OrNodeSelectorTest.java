@@ -27,7 +27,7 @@ public final class OrNodeSelectorTest extends
         LogicalNodeSelectorTestCase<OrNodeSelector<TestFakeNode, StringName, StringName, Object>> {
 
     @Test
-    public void testNothingMatched() {
+    public void testNothing() {
         final TestFakeNode child = TestFakeNode.node("child");
         final TestFakeNode parent = TestFakeNode.node("parent", child);
         final TestFakeNode sibling = TestFakeNode.node("sibling");

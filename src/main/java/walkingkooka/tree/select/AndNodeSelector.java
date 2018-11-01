@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * A {@link NodeSelector} that continues to walking the tree, continuously trying the next select.
@@ -56,12 +55,12 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
     }
 
     @Override
-    public Set<N> accept(final N node, final Consumer<N> observer) {
+    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         Set<N> all = null;
 
         for(NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
             final Set<N> current = Sets.ordered();
-            selector.accept(node, NodeSelectorNodeSelectorContext.with(observer, current));
+            selector.accept0(node, AndNodeSelectorNodeSelectorContext.with(context, (s)->current.add(s)));
 
             if(null==all) {
                 all = current;
@@ -73,14 +72,8 @@ final class AndNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
             }
         }
 
-        return all;
-    }
-
-    @Override
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        for(N match : this.accept(node, context.observer())) {
-            context.match(match);
-        }
+        all.stream()
+                .forEach(n -> context.selected(n));
     }
 
     @Override

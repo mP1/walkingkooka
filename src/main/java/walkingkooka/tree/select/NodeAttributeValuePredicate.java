@@ -29,6 +29,53 @@ import java.util.Objects;
 abstract class NodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         implements java.util.function.Predicate<N> {
 
+    /**
+     * {@see NodeAttributeValueContainsPredicate}
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodeAttributeValueContainsPredicate<N, NAME, ANAME, AVALUE> contains(final ANAME name, final AVALUE value) {
+        return NodeAttributeValueContainsPredicate.with(name, value);
+    }
+
+    /**
+     * {@see NodeAttributeValueEndsWithPredicate}
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodeAttributeValueEndsWithPredicate<N, NAME, ANAME, AVALUE> endsWith(final ANAME name, final AVALUE value) {
+        return NodeAttributeValueEndsWithPredicate.with(name, value);
+    }
+
+    /**
+     * {@see NodeAttributeValueEqualsPredicate}
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodeAttributeValueEqualsPredicate<N, NAME, ANAME, AVALUE> equalsPredicate(final ANAME name, final AVALUE value) {
+        return NodeAttributeValueEqualsPredicate.with(name, value);
+    }
+
+    /**
+     * {@see NodeAttributeValueStartsWithPredicate}
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodeAttributeValueStartsWithPredicate<N, NAME, ANAME, AVALUE> startsWith(final ANAME name, final AVALUE value) {
+        return NodeAttributeValueStartsWithPredicate.with(name, value);
+    }
+
+    /**
+     * Package private to limit sub classing.
+     */
     NodeAttributeValuePredicate(final ANAME name, final AVALUE value) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(value, "value");
@@ -40,6 +87,7 @@ abstract class NodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVALUE
     private final ANAME name;
     private final AVALUE value;
 
+    @Override
     public final boolean test(final N node) {
         final AVALUE current = node.attributes().get(this.name);
         return null != current && this.test0(this.value, current);
@@ -47,10 +95,12 @@ abstract class NodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVALUE
 
     abstract boolean test0(final AVALUE value, final AVALUE current);
 
+    @Override
     public final int hashCode() {
         return Objects.hash(this.name, this.value);
     }
 
+    @Override
     public final boolean equals(final Object other) {
         return this == other || this.isSameType(other) && this.equals0(Cast.to(other));
     }
@@ -61,6 +111,7 @@ abstract class NodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVALUE
         return this.name.equals(predicate.name) && this.value.equals(predicate.value);
     }
 
+    @Override
     public final String toString() {
         return this.toString0(this.name, this.value);
     }

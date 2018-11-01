@@ -28,7 +28,7 @@ import java.util.List;
  */
 final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Creates a {@link IndexedChildNodeSelector}
@@ -38,15 +38,7 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         if (index < INDEX_BIAS) {
             throw new IllegalArgumentException("Invalid index " + index + " must begin at " + INDEX_BIAS);
         }
-        return new IndexedChildNodeSelector<>(index);
-    }
-
-    /**
-     * Private constructor use factory
-     */
-    private IndexedChildNodeSelector(final int index) {
-        super();
-        this.index = index;
+        return new IndexedChildNodeSelector<N, NAME, ANAME, AVALUE>(index, NodeSelector.terminal());
     }
 
     /**
@@ -64,11 +56,11 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     }
 
     @Override
-    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         final List<N> children = node.children();
         final int index = this.index-INDEX_BIAS;
         if (index < children.size()) {
-            this.match(children.get(index), context);
+            this.select(children.get(index), context);
         }
     }
 

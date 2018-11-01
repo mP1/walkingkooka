@@ -23,10 +23,10 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorNodeName;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -56,84 +56,173 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * {@see AbsoluteNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AbsoluteNodeSelector<N, NAME, ANAME, AVALUE> absolute(final PathSeparator separator) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> AbsoluteNodeSelector<N, NAME, ANAME, AVALUE> absolute(final PathSeparator separator) {
         return AbsoluteNodeSelector.with(separator);
     }
 
     /**
      * {@see AncestorNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AncestorNodeSelector<N, NAME, ANAME, AVALUE> ancestor() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    AncestorNodeSelector<N, NAME, ANAME, AVALUE> ancestor() {
         return AncestorNodeSelector.get();
     }
 
     /**
      * {@see AncestorOrSelfNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AncestorOrSelfNodeSelector<N, NAME, ANAME, AVALUE> ancestorOrSelf() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    AncestorOrSelfNodeSelector<N, NAME, ANAME, AVALUE> ancestorOrSelf() {
         return AncestorOrSelfNodeSelector.get();
+    }
+
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodePredicateNodeSelector<N, NAME, ANAME, AVALUE> attributeValueContains(final ANAME name, final AVALUE value) {
+        return nodePredicate(NodeAttributeValuePredicate.<N, NAME, ANAME, AVALUE>contains(name, value));
+    }
+
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodePredicateNodeSelector<N, NAME, ANAME, AVALUE> attributeValueEndsWith(final ANAME name, final AVALUE value) {
+        return nodePredicate(NodeAttributeValuePredicate.<N, NAME, ANAME, AVALUE>endsWith(name, value));
+    }
+
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodePredicateNodeSelector<N, NAME, ANAME, AVALUE> attributeValueEquals(final ANAME name, final AVALUE value) {
+        return nodePredicate(NodeAttributeValuePredicate.<N, NAME, ANAME, AVALUE>equalsPredicate(name, value));
+    }
+
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodePredicateNodeSelector<N, NAME, ANAME, AVALUE> attributeValueStartsWith(final ANAME name, final AVALUE value) {
+        return nodePredicate(NodeAttributeValuePredicate.<N, NAME, ANAME, AVALUE>startsWith(name, value));
     }
 
     /**
      * {@see ChildrenNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> ChildrenNodeSelector<N, NAME, ANAME, AVALUE> children() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    ChildrenNodeSelector<N, NAME, ANAME, AVALUE> children() {
         return ChildrenNodeSelector.get();
     }
 
     /**
      * {@see CustomToStringNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> customToString(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final String toString) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodeSelector<N, NAME, ANAME, AVALUE> customToString(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final String toString) {
         return CustomToStringNodeSelector.with(selector, toString);
     }
 
     /**
      * {@see DescendanNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantNodeSelector<N, NAME, ANAME, AVALUE> descendant() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    DescendantNodeSelector<N, NAME, ANAME, AVALUE> descendant() {
         return DescendantNodeSelector.get();
     }
-    
+
     /**
      * {@see DescendantOrSelfNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE> descendantOrSelf(final PathSeparator separator) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    DescendantOrSelfNodeSelector<N, NAME, ANAME, AVALUE> descendantOrSelf(final PathSeparator separator) {
         return DescendantOrSelfNodeSelector.with(separator);
+    }
+
+    /**
+     * {@link ExpressionNodeSelector}
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    ExpressionNodeSelector<N, NAME, ANAME, AVALUE> expressionNodePredicate(final Predicate<ExpressionEvaluationContext> predicate) {
+        return ExpressionNodeSelector.with(predicate);
     }
 
     /**
      * {@see FirstChildNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> FirstChildNodeSelector<N, NAME, ANAME, AVALUE> firstChild() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    FirstChildNodeSelector<N, NAME, ANAME, AVALUE> firstChild() {
         return FirstChildNodeSelector.get();
     }
 
     /**
      * {@see FollowingNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> FollowingNodeSelector<N, NAME, ANAME, AVALUE> following() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name, AVALUE>
+    FollowingNodeSelector<N, NAME, ANAME, AVALUE> following() {
         return FollowingNodeSelector.get();
     }
-    
+
     /**
      * {@see FollowingSiblingNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> FollowingSiblingNodeSelector<N, NAME, ANAME, AVALUE> followingSibling() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    FollowingSiblingNodeSelector<N, NAME, ANAME, AVALUE> followingSibling() {
         return FollowingSiblingNodeSelector.get();
     }
 
     /**
      * {@see IndexedChildNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> IndexedChildNodeSelector<N, NAME, ANAME, AVALUE> indexedChild(final int index) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    IndexedChildNodeSelector<N, NAME, ANAME, AVALUE> indexedChild(final int index) {
         return IndexedChildNodeSelector.with(index);
     }
-    
+
     /**
      * {@see LastChildNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> LastChildNodeSelector<N, NAME, ANAME, AVALUE> lastChild() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    LastChildNodeSelector<N, NAME, ANAME, AVALUE> lastChild() {
         return LastChildNodeSelector.get();
     }
 
@@ -143,56 +232,86 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NamedNodeSelector<N, NAME, ANAME, AVALUE> name(final NAME name, final PathSeparator separator) {
+            AVALUE>
+    NamedNodeSelector<N, NAME, ANAME, AVALUE> name(final NAME name, final PathSeparator separator) {
         return NamedNodeSelector.with(name, separator);
+    }
+
+    /**
+     * {@link NodePredicateNodeSelector}
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodePredicateNodeSelector<N, NAME, ANAME, AVALUE> nodePredicate(final Predicate<N> predicate) {
+        return NodePredicateNodeSelector.with(predicate);
     }
 
     /**
      * {@see ParentNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> ParentNodeSelector<N, NAME, ANAME, AVALUE> parent() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    ParentNodeSelector<N, NAME, ANAME, AVALUE> parent() {
         return ParentNodeSelector.get();
     }
-    
+
     /**
      * {@see PrecedingNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> PrecedingNodeSelector<N, NAME, ANAME, AVALUE> preceding() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    PrecedingNodeSelector<N, NAME, ANAME, AVALUE> preceding() {
         return PrecedingNodeSelector.get();
     }
 
     /**
      * {@see PrecedingSiblingNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> PrecedingSiblingNodeSelector<N, NAME, ANAME, AVALUE> precedingSibling() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    PrecedingSiblingNodeSelector<N, NAME, ANAME, AVALUE> precedingSibling() {
         return PrecedingSiblingNodeSelector.get();
-    }
-
-    /**
-     * {@link PredicateNodeSelector}
-     */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> PredicateNodeSelector<N, NAME, ANAME, AVALUE> predicate(final Predicate<N> predicate) {
-        return PredicateNodeSelector.with(predicate);
     }
 
     /**
      * This method is only ever called by {@link Node#selector()}
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> path(final N node) {
+    // Node.path
+    public static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodeSelector<N, NAME, ANAME, AVALUE> path(final N node) {
         return PathNodeSelector.with(node);
     }
 
     /**
      * {@see SelfNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> SelfNodeSelector<N, NAME, ANAME, AVALUE> self() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    SelfNodeSelector<N, NAME, ANAME, AVALUE> self() {
         return SelfNodeSelector.get();
     }
-    
+
     /**
-       * {@see TerminalNodeSelector}
+     * {@see TerminalNodeSelector}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> TerminalNodeSelector<N, NAME, ANAME, AVALUE> terminal() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    TerminalNodeSelector<N, NAME, ANAME, AVALUE> terminal() {
         return TerminalNodeSelector.get();
     }
     
@@ -213,36 +332,34 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
     /**
-     * Returns a {@link Consumer} that does nothing and may be passed to {@link #accept(Node, Consumer)}
-     */
-    final public Consumer<N> nulObserver() {
-        return NodeSelectorNulObserverConsumer.get();
-    }
-
-    /**
      * Accepts a starting {@link Node} anywhere in a tree returning all matching nodes.
      * The {@link Consumer} is invoked for each and every {@link Node} prior to any test and continued traversal. It may be
      * used to abort the visiting process by throwing an {@link RuntimeException}
      */
-    abstract public Set<N> accept(final N node, final Consumer<N> observer);
+    final public void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        Objects.requireNonNull(node, "node");
+        Objects.requireNonNull(context, "context");
 
-    /**
-     * Sub classes must call this method which calls the observer and then immediately calls {@link #accept0(Node, NodeSelectorContext)}
-     */
-    final void accept(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        context.observer().accept(node);
         this.accept0(node, context);
     }
 
     /**
-     * Sub classes must implement this to contain the core logic in testing if a node is match or unmatched.
+     * Sub classes must call this method which calls the observer and then immediately calls {@link #accept1(Node, NodeSelectorContext)}
      */
-    abstract void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
+    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        context.potential(node);
+        this.accept1(node, context);
+    }
+
+    /**
+     * Sub classes must implement this to contain the core logic in testing if a node is actually selected.
+     */
+    abstract void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     /**
      * Pushes all siblings {@link Node nodes} until itself is reached.
      */
-    final void matchPrecedingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void selectPrecedingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         final Optional<N> parent = node.parent();
 
         if (parent.isPresent()) {
@@ -253,7 +370,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
                     break;
                 }
                 current = next.get();
-                this.match(current, context);
+                this.select(current, context);
             }
         }
     }
@@ -261,7 +378,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * Pushes all siblings {@link Node nodes} after itself.
      */
-    final void matchFollowingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void selectFollowingSiblings(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         final Optional<N> parent = node.parent();
         if (parent.isPresent()) {
 
@@ -272,7 +389,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
                     break;
                 }
                 current = next.get();
-                this.match(current, context);
+                this.select(current, context);
             }
         }
     }
@@ -280,33 +397,26 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * Pushes all direct children of the {@link Node node}.`
      */
-    final void matchChildren(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void selectChildren(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         for (final N child : node.children()) {
-            this.match(child, context);
+            this.select(child, context);
         }
     }
 
     /**
      * Matches the parent only if one is present.
      */
-    final void matchParent(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void selectParent(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         final Optional<N> parent = node.parent();
         if (parent.isPresent()) {
-            this.match(parent.get(), context);
+            this.select(parent.get(), context);
         }
     }
 
     /**
-     * Handles a matched {@link Node}
+     * Handles a selected {@link Node}
      */
-    abstract void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
-
-    /**
-     * Returns a {@link Predicate} that returns true if at least one {@link Node} is matched.
-     */
-    public final Predicate<N> asPredicate() {
-        return new NodeSelectorNodeAttributeValuePredicate<>(this);
-    }
+    abstract void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     /**
      * Force sub classes to implement.
