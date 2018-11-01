@@ -1016,6 +1016,26 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
         this.parseExpressionAndCheck("//*[number(@id) > 300]", root, leaf);
     }
 
+    // function: position().......................................................................................
+
+    @Test
+    public void testPosition() {
+        final TestFakeNode leaf1 = node("leaf1");
+        final TestFakeNode branch1 = node("branch1", leaf1);
+
+        final TestFakeNode leaf2 = node("leaf2");
+        final TestFakeNode branch2 = node("branch2", leaf2);
+
+        final TestFakeNode leaf3a = node("leaf3a");
+        final TestFakeNode leaf3b = node("leaf3b");
+        final TestFakeNode branch3 = node("branch3", leaf3a, leaf3b);
+
+        final TestFakeNode root = node("root", branch1, branch2, branch3);
+
+        this.parseExpressionAndCheck("//*[position() = 2]", root, branch2, leaf3b);
+        this.parseExpressionAndCheck("//*[position() = 3]", root, branch3);
+    }
+    
     // function: text().......................................................................................
 
     @Test

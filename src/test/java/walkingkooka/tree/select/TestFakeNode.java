@@ -36,7 +36,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-final class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object> {
+class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object> {
 
     final static Optional<TestFakeNode> NO_PARENT = Optional.empty();
 
