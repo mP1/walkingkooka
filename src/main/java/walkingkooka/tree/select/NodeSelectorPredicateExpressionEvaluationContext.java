@@ -70,7 +70,14 @@ interface NodeSelectorPredicateExpressionEvaluationContext<N extends Node<N, NAM
     }
 
     /**
-     * Type safe integer parameter getter.
+     * Type safe {@link Boolean} parameter getter.
+     */
+    default Boolean booleanValue(final List<?> parameters, final int i) {
+        return this.booleanValue(this.parameter(parameters, i));
+    }
+
+    /**
+     * Type safe {@link Comparable} parameter getter.
      */
     default Comparable comparable(final List<?> parameters, final int i) {
         return this.comparable(this.parameter(parameters, i));

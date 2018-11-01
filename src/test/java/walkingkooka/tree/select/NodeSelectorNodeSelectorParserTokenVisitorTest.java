@@ -421,7 +421,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
         final TestFakeNode root = node("root", leaf1, leaf2);
 
         this.parseExpressionAndCheck("//*[@id<3]", root, root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id<2]", root, root,leaf1);
+        this.parseExpressionAndCheck("//*[@id<2]", root, root, leaf1);
         this.parseExpressionAndCheck("//*[@id<-1]", root, root);
     }
 
@@ -433,10 +433,10 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
 
         final TestFakeNode root = node("root", leaf1, leaf2, leaf3);
 
-        this.parseExpressionAndCheck("//*[@id<7]", root,root, leaf1, leaf2);
-        this.parseExpressionAndCheck("//*[@id<2]", root, root,leaf1);
+        this.parseExpressionAndCheck("//*[@id<7]", root, root, leaf1, leaf2);
+        this.parseExpressionAndCheck("//*[@id<2]", root, root, leaf1);
         this.parseExpressionAndCheck("//*[@id<1]", root, root);
-        this.parseExpressionAndCheck("//*[@id<-999]", root,root);
+        this.parseExpressionAndCheck("//*[@id<-999]", root, root);
     }
 
     // predicate LTE ...............................................................................................
@@ -486,7 +486,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
         this.parseExpressionAndCheck("//*[@id<=77]", root, root, leaf1, leaf2);
         this.parseExpressionAndCheck("//*[@id<=3]", root, root, leaf1, leaf2);
         this.parseExpressionAndCheck("//*[@id<=1]", root, root, leaf1);
-        this.parseExpressionAndCheck("//*[@id<=-999]", root, root );
+        this.parseExpressionAndCheck("//*[@id<=-999]", root, root);
     }
 
     // predicate NE ...............................................................................................
@@ -498,7 +498,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
 
         final TestFakeNode root = node("root", leaf1, leaf2);
 
-        this.parseExpressionAndCheck("//*[@id!=\"attribute-value-1\"]", root,root,  leaf2);
+        this.parseExpressionAndCheck("//*[@id!=\"attribute-value-1\"]", root, root, leaf2);
         this.parseExpressionAndCheck("//*[@id!=\"attribute-value-2\"]", root, root, leaf1);
     }
 
@@ -976,6 +976,16 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
 
         this.parseExpressionAndCheck(".", root, root);
         this.parseExpressionAndCheck(".", root.child(0), branch1);
+    }
+
+    // function: boolean().......................................................................................
+
+    @Test
+    public void testBoolean() {
+        final TestFakeNode branch = node("branch");
+        final TestFakeNode root = node("root", branch);
+
+        this.parseExpressionAndCheck("//*[boolean(starts-with(name(), \"b\"))]", root, branch);
     }
 
     // function: name.......................................................................................
