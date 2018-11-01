@@ -118,10 +118,16 @@ final class BasicNodeSelectorPredicateExpressionEvaluationContext<N extends Node
                                                 this.failConversion(value, target));
     }
 
+    /**
+     * Currently {@link walkingkooka.tree.expression.ExpressionBinaryNode} will convert a pair of {@link Boolean} into
+     * {@link BigDecimal} prior to performing the operation such as equals.
+     */
     private BigDecimal convertToBigDecimal(final Object value) {
-        final Converter converter = value instanceof String ?
-                Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.DECIMAL32), (c) -> ParserContexts.basic(c)) :
-                Converters.numberBigDecimal();
+        final Converter converter = value instanceof Boolean ?
+                Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
+                value instanceof String ?
+                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.DECIMAL32), (c) -> ParserContexts.basic(c)) :
+                        Converters.numberBigDecimal();
         return converter.convert(value, BigDecimal.class, this.converterContext);
     }
 
