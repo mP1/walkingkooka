@@ -42,8 +42,13 @@ public final class NumberBigIntegerConverterTest extends NumberConverterTestCase
     }
 
     @Test
+    public void testFloat() {
+        this.convertAndCheck(123f, BigInteger.valueOf(123));
+    }
+
+    @Test
     public void testDouble() {
-        this.convertAndCheck(Double.valueOf(123), BigInteger.valueOf(123));
+        this.convertAndCheck(123.0, BigInteger.valueOf(123));
     }
 
     @Test
@@ -58,8 +63,23 @@ public final class NumberBigIntegerConverterTest extends NumberConverterTestCase
     }
 
     @Test
+    public void testByte() {
+        this.convertAndCheck((byte)123, BigInteger.valueOf(123));
+    }
+
+    @Test
+    public void testShort() {
+        this.convertAndCheck((short)123, BigInteger.valueOf(123));
+    }
+
+    @Test
+    public void testInteger() {
+        this.convertAndCheck(123, BigInteger.valueOf(123));
+    }
+
+    @Test
     public void testLong() {
-        this.convertAndCheck(Long.valueOf(123), BigInteger.valueOf(123));
+        this.convertAndCheck(123L, BigInteger.valueOf(123));
     }
 
     @Override

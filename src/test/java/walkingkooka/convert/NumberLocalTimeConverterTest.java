@@ -27,7 +27,7 @@ import java.time.LocalTime;
 
 public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<NumberLocalTimeConverter, LocalTime> {
 
-    private final static int VALUE = 123;
+    private final static byte VALUE = 123;
 
     @Test
     public void testNonNumberTypeFails() {
@@ -41,7 +41,7 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
 
     @Test
     public void testBigDecimal() {
-        this.convertAndCheck(BigDecimal.valueOf(VALUE), LocalTime.ofSecondOfDay(VALUE));
+        this.convertAndCheck2(BigDecimal.valueOf(VALUE));
     }
 
     @Test
@@ -51,12 +51,17 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
 
     @Test
     public void testBigInteger() {
-        this.convertAndCheck(BigInteger.valueOf(123), LocalTime.ofSecondOfDay(VALUE));
+        this.convertAndCheck2(BigInteger.valueOf(123));
+    }
+
+    @Test
+    public void testFloat() {
+        this.convertAndCheck2((float)VALUE);
     }
 
     @Test
     public void testDouble() {
-        this.convertAndCheck(Double.valueOf(VALUE), LocalTime.ofSecondOfDay(VALUE));
+        this.convertAndCheck2((double)VALUE);
     }
 
     @Test
@@ -71,8 +76,27 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
     }
 
     @Test
+    public void testByte() {
+        this.convertAndCheck2((byte)VALUE);
+    }
+
+    @Test
+    public void testShort() {
+        this.convertAndCheck2((short)VALUE);
+    }
+
+    @Test
+    public void testInteger() {
+        this.convertAndCheck2((int)VALUE);
+    }
+
+    @Test
     public void testLong() {
-        this.convertAndCheck(Long.valueOf(VALUE), LocalTime.ofSecondOfDay(VALUE));
+        this.convertAndCheck2((long)VALUE);
+    }
+
+    private void convertAndCheck2(final Object value) {
+        this.convertAndCheck(value, LocalTime.ofSecondOfDay(VALUE));
     }
 
     @Override

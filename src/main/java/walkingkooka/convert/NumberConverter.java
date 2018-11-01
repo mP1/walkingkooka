@@ -38,6 +38,10 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
         return value instanceof Number && this.targetType() == type;
     }
 
+    /**
+     * Accepts an assumed {@link Number} and dispatches to one of the sub classes of {@link Number} which then
+     * call one of four abstract methods.
+     */
     @Override
     final T convert1(final Object value, final Class<T> type, final ConverterContext context) {
         try {
@@ -45,12 +49,14 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
                     this.bigDecimal((BigDecimal) value) :
                     value instanceof BigInteger ?
                             this.bigInteger((BigInteger) value) :
-                            value instanceof Double ?
-                                    this.doubleValue((Double) value) :
-                                    value instanceof Long ?
-                                            this.longValue((Long) value) :
-                                            this.failConversion(value, type));
-        } catch(final ArithmeticException | NumberFormatException fail) {
+                            value instanceof Float ?
+                                    this.floatValue((Float) value) :
+                                    value instanceof Double ?
+                                            this.doubleValue((Double) value) :
+                                            value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Long ?
+                                                    this.number(Cast.to(value)) :
+                                                    this.failConversion(value, type));
+        } catch (final ArithmeticException | NumberFormatException fail) {
             return this.failConversion(value, type);
         }
     }
@@ -59,14 +65,22 @@ abstract class NumberConverter<T> extends FixedTargetTypeConverter<T> {
 
     abstract T bigInteger(final BigInteger value);
 
+    private T floatValue(final Float value) {
+        return this.doubleValue(value.doubleValue());
+    }
+
     abstract T doubleValue(final Double value);
+
+    private T number(final Number value) {
+        return this.longValue(value.longValue());
+    }
 
     abstract T longValue(final Long value);
 
     @Override
     public final String toString() {
         return this.toStringPrefix() +
-                "BigDecimal|BigInteger|Double|Long->" +
+                "BigDecimal|BigInteger|Byte|Short|Integer|Long|Float|Double->" +
                 this.targetType().getSimpleName() +
                 this.toStringSuffix();
     }

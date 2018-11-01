@@ -25,6 +25,8 @@ import java.math.BigInteger;
 
 public final class NumberLongConverterTest extends NumberConverterTestCase<NumberLongConverter, Long> {
 
+    private final static byte VALUE = 123;
+
     @Test
     public void testBigDecimal() {
         this.convertAndCheck(BigDecimal.valueOf(123), 123L);
@@ -51,8 +53,13 @@ public final class NumberLongConverterTest extends NumberConverterTestCase<Numbe
     }
 
     @Test
+    public void testFloat() {
+        this.convertAndCheck2((float)VALUE);
+    }
+
+    @Test
     public void testDouble() {
-        this.convertAndCheck(Double.valueOf(123), 123L);
+        this.convertAndCheck2((double)VALUE);
     }
 
     @Test
@@ -66,8 +73,27 @@ public final class NumberLongConverterTest extends NumberConverterTestCase<Numbe
     }
 
     @Test
+    public void testByte() {
+        this.convertAndCheck2((byte)VALUE);
+    }
+
+    @Test
+    public void testShort() {
+        this.convertAndCheck2((short)VALUE);
+    }
+
+    @Test
+    public void testInteger() {
+        this.convertAndCheck2((int)VALUE);
+    }
+
+    @Test
     public void testLong() {
-        this.convertAndCheck(123L);
+        this.convertAndCheck2((long)VALUE);
+    }
+
+    private void convertAndCheck2(final Object value) {
+        this.convertAndCheck(value, (long)VALUE);
     }
 
     @Override

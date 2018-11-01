@@ -45,7 +45,7 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
 
     @Test
     public void testBigDecimal() {
-        this.convertAndCheck(BigDecimal.valueOf(123), this.localDateTime(VALUE, MIDNIGHT));
+        this.convertAndCheck2(BigDecimal.valueOf(123));
     }
 
     @Test
@@ -60,7 +60,7 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
 
     @Test
     public void testBigInteger() {
-        this.convertAndCheck(BigInteger.valueOf(VALUE), this.localDateTime(VALUE, MIDNIGHT));
+        this.convertAndCheck2(BigInteger.valueOf(VALUE));
     }
 
     @Test
@@ -69,8 +69,13 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
     }
 
     @Test
+    public void testFloat() {
+        this.convertAndCheck2(123.0f);
+    }
+
+    @Test
     public void testDouble() {
-        this.convertAndCheck(BigDecimal.valueOf(123.0), this.localDateTime(VALUE, MIDNIGHT));
+        this.convertAndCheck2(123.0);
     }
 
     @Test
@@ -90,13 +95,32 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
     }
 
     @Test
+    public void testByte() {
+        this.convertAndCheck2((byte)123);
+    }
+
+    @Test
+    public void testShort() {
+        this.convertAndCheck2((short)123);
+    }
+
+    @Test
+    public void testInteger() {
+        this.convertAndCheck2(123);
+    }
+
+    @Test
     public void testLong() {
-        this.convertAndCheck(Long.valueOf(VALUE), this.localDateTime(123, MIDNIGHT));
+        this.convertAndCheck2(Long.valueOf(VALUE));
     }
 
     @Test
     public void testLongWithExcelOffset() {
         this.convertAndCheckExcelOffset(Long.valueOf(VALUE));
+    }
+
+    private void convertAndCheck2(final Object value) {
+        this.convertAndCheck(value, this.localDateTime(VALUE, MIDNIGHT));
     }
 
     private void convertAndCheckExcelOffset(final Number value) {

@@ -62,7 +62,7 @@ public final class ConverterCollectionTest extends ConverterTestCase<ConverterCo
 
     @Test
     public void testToString() {
-        assertEquals("String->Boolean | BigDecimal|BigInteger|Double|Long->Long", this.createConverter().toString());
+        assertEquals("String->Boolean | BigDecimal|BigInteger|Byte|Short|Integer|Long|Float|Double->Long", this.createConverter().toString());
     }
 
     @Override

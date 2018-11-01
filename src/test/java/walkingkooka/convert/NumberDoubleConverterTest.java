@@ -52,6 +52,53 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
     }
 
     @Test
+    public void testByte() {
+        this.convertAndCheck((byte)123, 123.0);
+    }
+
+    @Test
+    public void testShort() {
+        this.convertAndCheck((short)123, 123.0);
+    }
+
+    @Test
+    public void testInteger() {
+        this.convertAndCheck(123, 123.0);
+    }
+
+    @Test
+    @Ignore
+    public void testLongMaxValueFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    public void testLongMinValueFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testLongMaxValue() {
+        this.convertAndCheck(Long.MAX_VALUE, (double) Long.MAX_VALUE);
+    }
+
+    @Test
+    public void testLongMinValue() {
+        this.convertAndCheck(Long.MIN_VALUE, (double) Long.MIN_VALUE);
+    }
+
+    @Test
+    public void testLong() {
+        this.convertAndCheck(123L, 123.0);
+    }
+
+    @Test
+    public void testFloat() {
+        this.convertAndCheck(123.5f, 123.5);
+    }
+
+    @Test
     public void testDouble() {
         this.convertAndCheck(123.0);
     }
@@ -114,33 +161,6 @@ public final class NumberDoubleConverterTest extends NumberConverterTestCase<Num
     @Ignore
     public void testDoubleMinFails() {
         throw new UnsupportedOperationException();
-    }
-
-    @Test
-    public void testLong() {
-        this.convertAndCheck(Long.valueOf(123), 123.0);
-    }
-
-    @Test
-    @Ignore
-    public void testLongMaxValueFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    @Ignore
-    public void testLongMinValueFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    public void testLongMaxValue() {
-        this.convertAndCheck(Long.MAX_VALUE, (double) Long.MAX_VALUE);
-    }
-
-    @Test
-    public void testLongMinValue() {
-        this.convertAndCheck(Long.MIN_VALUE, (double) Long.MIN_VALUE);
     }
 
     @Override
