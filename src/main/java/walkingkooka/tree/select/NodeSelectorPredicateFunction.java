@@ -41,6 +41,8 @@ abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Objec
 
     final static NodeSelectorPredicateEndsWithFunction ENDS_WITH = NodeSelectorPredicateEndsWithFunction.INSTANCE;
 
+    final static NodeSelectorPredicateFalseFunction FALSE = NodeSelectorPredicateFalseFunction.INSTANCE;
+
     final static NodeSelectorPredicateNameFunction NAME = NodeSelectorPredicateNameFunction.INSTANCE;
 
     final static NodeSelectorPredicateNormalizeSpaceFunction NORMALIZE_SPACE = NodeSelectorPredicateNormalizeSpaceFunction.INSTANCE;
@@ -54,6 +56,8 @@ abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Objec
     final static NodeSelectorPredicateSubstringAfterFunction SUBSTRING_AFTER = NodeSelectorPredicateSubstringAfterFunction.INSTANCE;
 
     final static NodeSelectorPredicateSubstringBeforeFunction SUBSTRING_BEFORE = NodeSelectorPredicateSubstringBeforeFunction.INSTANCE;
+
+    final static NodeSelectorPredicateTrueFunction TRUE = NodeSelectorPredicateTrueFunction.INSTANCE;
 
     /**
      * Checks that the given function name is a supported function name.
