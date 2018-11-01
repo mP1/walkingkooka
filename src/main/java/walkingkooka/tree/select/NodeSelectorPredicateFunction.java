@@ -41,6 +41,8 @@ abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Objec
 
     final static NodeSelectorPredicateEndsWithFunction ENDS_WITH = NodeSelectorPredicateEndsWithFunction.INSTANCE;
 
+    final static NodeSelectorPredicateNameFunction NAME = NodeSelectorPredicateNameFunction.INSTANCE;
+
     final static NodeSelectorPredicateNormalizeSpaceFunction NORMALIZE_SPACE = NodeSelectorPredicateNormalizeSpaceFunction.INSTANCE;
 
     final static NodeSelectorPredicateStartsWithFunction STARTS_WITH = NodeSelectorPredicateStartsWithFunction.INSTANCE;
