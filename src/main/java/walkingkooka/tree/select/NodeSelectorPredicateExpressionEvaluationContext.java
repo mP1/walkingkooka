@@ -18,114 +18,183 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.naming.Name;
+import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConversionException;
+import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.ParserContexts;
+import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.text.cursor.parser.select.NodeSelectorAttributeName;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.ExpressionReference;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link ExpressionEvaluationContext} that is used when evaluating predicates.
- * It includes numerous methods for converting values to the basic types of all functions, as well as retrieving the current node.
  */
-interface NodeSelectorPredicateExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE>
-        extends ExpressionEvaluationContext {
+final class NodeSelectorPredicateExpressionEvaluationContext implements
+        ExpressionEvaluationContext {
 
     /**
-     * Returns the current node.
-     *
-     * @return
+     * Factory that creates a new {@link NodeSelectorPredicateExpressionEvaluationContext}, using the given {@link Node} as the context.
      */
-    abstract N node();
-
-    /**
-     * Converts a value into a boolean.
-     */
-    default boolean booleanValue(final Object value) {
-        return this.convert(value, Boolean.class);
+    static NodeSelectorPredicateExpressionEvaluationContext with(final Node<?, ?, ?, ?> node) {
+        return new NodeSelectorPredicateExpressionEvaluationContext(node);
     }
 
     /**
-     * Converts a value into a {@link Comparable} with type parameters.
+     * Private ctor use factory.
      */
-    default Comparable comparable(final Object value) {
-        return this.convert(value, Comparable.class);
+    private NodeSelectorPredicateExpressionEvaluationContext(final Node<?, ?, ?, ?> node) {
+        super();
+        this.node = node;
+    }
+
+    @Override
+    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+        final NodeSelectorPredicateFunction function = NodeSelectorPredicateFunction.NAME_TO_FUNCTION.get(name);
+
+        final List<Object> nodeAndParameters = Lists.array();
+        nodeAndParameters.add(this.node);
+        nodeAndParameters.addAll(parameters);
+
+        return function.apply(Lists.readOnly(nodeAndParameters), this);
     }
 
     /**
-     * Converts a value into an integer.
+     * The reference should be an attribute name, cast and find the owner attribute.
      */
-    default int integer(final Object value) {
-        return this.convert(value, Integer.class);
-    }
+    @Override
+    public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+        Objects.requireNonNull(reference, "reference");
 
-    /**
-     * Converts a value into a {@link Number}.
-     */
-    default Number number(final Object value) {
-        return this.convert(value, Number.class);
-    }
-
-    /**
-     * Converts a value into a string.
-     */
-    default String string(final Object value) {
-        return this.convert(value, String.class);
-    }
-
-    /**
-     * Type safe {@link Boolean} parameter getter.
-     */
-    default Boolean booleanValue(final List<?> parameters, final int i) {
-        return this.booleanValue(this.parameter(parameters, i));
-    }
-
-    /**
-     * Type safe {@link Comparable} parameter getter.
-     */
-    default Comparable comparable(final List<?> parameters, final int i) {
-        return this.comparable(this.parameter(parameters, i));
-    }
-
-    /**
-     * Type safe integer parameter getter.
-     */
-    default int integer(final List<?> parameters, final int i) {
-        return this.integer(this.parameter(parameters, i));
-    }
-
-    /**
-     * Type safe integer parameter getter.
-     */
-    default Number number(final List<?> parameters, final int i) {
-        return this.number(this.parameter(parameters, i));
-    }
-
-    /**
-     * Type safe String parameter getter.
-     */
-    default String string(final List<?> parameters, final int i) {
-        return this.string(this.parameter(parameters, i));
-    }
-
-    /**
-     * Retrieves the parameter at the index or throws a nice exception message.
-     */
-    default <T> T parameter(final List<?> parameters, final int i, final Class<T> type) {
-        return this.convert(this.parameter(parameters, i), type);
-    }
-
-    /**
-     * Retrieves the parameter at the index or throws a nice exception message.
-     */
-    default Object parameter(final List<?> parameters, final int i) {
-        final int count = parameters.size();
-        if (i < 0 || i >= count) {
-            throw new NodeSelectorException("Parameter " + i + " missing from " + parameters);
+        if (false == reference instanceof NodeSelectorAttributeName) {
+            throw new IllegalArgumentException("Expected attribute name but got " + reference);
         }
-        return parameters.get(i);
+        final NodeSelectorAttributeName attributeName = Cast.to(reference);
+        final String attributeNameString = attributeName.value();
+
+        final Optional<ExpressionNode> attributeValue = this.node.attributes()
+                .entrySet()
+                .stream()
+                .filter(nameAndValue -> nameAndValue.getKey().value().equals(attributeNameString))
+                .map(nameAndValue -> ExpressionNode.valueOrFail(nameAndValue.getValue()))
+                .findFirst();
+        return attributeValue.isPresent() ?
+                attributeValue :
+                ABSENT;
+    }
+
+    /**
+     * The node which will become parameter 0 in all function parameters.
+     */
+    private final Node<?, ?, ?, ?> node;
+
+    private final static Optional<ExpressionNode> ABSENT = Optional.of(ExpressionNode.text(""));
+
+    @Override
+    public MathContext mathContext() {
+        return MathContext.DECIMAL32;
+    }
+
+    @Override
+    public <T> T convert(final Object value, final Class<T> target) {
+        Objects.requireNonNull(value, "value");
+        Objects.requireNonNull(target, "target");
+
+        return Cast.to(target.isInstance(value) ?
+                target.cast(value) :
+                target == BigDecimal.class ?
+                        this.convertToBigDecimal(value) :
+                        target == Boolean.class ?
+                                this.convertToBoolean(value) :
+                                target == Integer.class ?
+                                        this.convertToInteger(value) :
+                                        target == String.class ?
+                                                this.convertToString(value) :
+                                                this.failConversion(value, target));
+    }
+
+    /**
+     * Currently {@link walkingkooka.tree.expression.ExpressionBinaryNode} will convert a pair of {@link Boolean} into
+     * {@link BigDecimal} prior to performing the operation such as equals.
+     */
+    private BigDecimal convertToBigDecimal(final Object value) {
+        final Converter converter = value instanceof Boolean ?
+                Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
+                value instanceof String ?
+                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.DECIMAL32), (c) -> ParserContexts.basic(c)) :
+                        Converters.numberBigDecimal();
+        return converter.convert(value, BigDecimal.class, this.converterContext);
+    }
+
+    private Boolean convertToBoolean(final Object value) {
+        return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext);
+    }
+
+    private Integer convertToInteger(final Object value) {
+        return Converters.string().convert(value, Integer.class, this.converterContext);
+    }
+
+    private String convertToString(final Object value) {
+        return Converters.string().convert(value, String.class, this.converterContext);
+    }
+
+    private <T> T failConversion(final Object value, final Class<T> target) {
+        throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
+    }
+
+    private final ConverterContext converterContext = ConverterContexts.basic(this);
+
+    @Override
+    public String currencySymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char decimalPoint() {
+        return '.';
+    }
+
+    @Override
+    public char exponentSymbol() {
+        return 'E';
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return ',';
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return '%';
+    }
+
+    @Override
+    public char minusSign() {
+        return '-';
+    }
+
+    @Override
+    public char plusSign() {
+        return '+';
+    }
+
+    @Override
+    public String toString() {
+        return this.node.toString();
     }
 }

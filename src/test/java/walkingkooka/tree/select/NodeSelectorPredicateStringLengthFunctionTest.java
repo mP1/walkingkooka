@@ -37,23 +37,23 @@ public final class NodeSelectorPredicateStringLengthFunctionTest extends NodeSel
 
     @Test
     public void testEmptyString() {
-        this.applyAndCheck2(list(""), 0L);
+        this.applyAndCheck2(parameters(""), 0L);
     }
 
 
     @Test
     public void testString() {
-        this.applyAndCheck2(list("xyz"), 3L);
+        this.applyAndCheck2(parameters("xyz"), 3L);
     }
 
     @Test
     public void testNumber() {
-        this.applyAndCheck2(list(123), 3L);
+        this.applyAndCheck2(parameters(123), 3L);
     }
 
     @Test
     public void testBoolean() {
-        this.applyAndCheck2(list(true), 4L);
+        this.applyAndCheck2(parameters(true), 4L);
     }
 
     @Test

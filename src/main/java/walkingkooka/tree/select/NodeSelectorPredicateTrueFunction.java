@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+
 import java.util.List;
 
 /**
@@ -39,7 +41,7 @@ final class NodeSelectorPredicateTrueFunction extends NodeSelectorPredicateFunct
 
     @Override
     public Boolean apply(final List<Object> parameters,
-                         final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
+                         final ExpressionEvaluationContext context) {
         return Boolean.TRUE;
     }
 

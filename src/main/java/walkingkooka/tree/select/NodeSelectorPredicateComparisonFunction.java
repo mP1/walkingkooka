@@ -18,8 +18,8 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Cast;
 import walkingkooka.compare.ComparisonRelation;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.List;
 import java.util.Objects;
@@ -49,24 +49,13 @@ final class NodeSelectorPredicateComparisonFunction extends NodeSelectorPredicat
 
     @Override
     public Boolean apply(final List<Object> parameters,
-                         final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
+                         final ExpressionEvaluationContext context) {
         this.checkParameterCount(parameters, 2);
 
-        final Comparable first = context.comparable(parameters, 0);
-        final Comparable second = Cast.to(context.parameter(parameters, 1, first.getClass())); // compiler fails to infer T=Comparable
+        final Comparable first = this.comparable(parameters, 0, context);
+        final Comparable second = this.parameter(parameters, 1, first.getClass(), context);
 
         return this.relation.predicate(second).test(first);
-    }
-
-    interface X<T> {
-        <T> T make(Class<T> t);
-    };
-
-    interface Y<T> extends  X<T>{
-
-        default <T> T make2(Class<T> t) {
-            return null;
-        }
     }
 
     private final ComparisonRelation relation;

@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+
 import java.util.List;
 
 /**
@@ -39,11 +41,11 @@ final class NodeSelectorPredicateStartsWithFunction extends NodeSelectorPredicat
 
     @Override
     public Boolean apply(final List<Object> parameters,
-                         final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
+                         final ExpressionEvaluationContext context) {
         this.checkParameterCount(parameters, 2);
 
-        return context.string(parameters, 0)
-                .startsWith(context.string(parameters, 1));
+        return this.string(parameters, 0, context)
+                .startsWith(this.string(parameters, 1, context));
     }
 
     @Override

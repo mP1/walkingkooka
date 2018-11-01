@@ -19,6 +19,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.List;
 
@@ -39,8 +40,8 @@ final class NodeSelectorPredicatePositionFunction extends NodeSelectorPredicateF
     }
 
     @Override
-    public Long apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
-        final Node<?, ?, ?, ?> node = context.node();
+    public Long apply(final List<Object> parameters, final ExpressionEvaluationContext context) {
+        final Node<?, ?, ?, ?> node = this.node(parameters);
         return Long.valueOf(node.index() + NodeSelector.INDEX_BIAS);
     }
 

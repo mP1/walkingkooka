@@ -106,7 +106,7 @@ public final class NodeSelectorPredicateNormalizeSpaceFunctionTest extends NodeS
     }
 
     private void applyAndCheck3(final Object value, final String expected) {
-        this.applyAndCheck2(list(value), expected);
+        this.applyAndCheck2(parameters(value), expected);
     }
 
     @Test

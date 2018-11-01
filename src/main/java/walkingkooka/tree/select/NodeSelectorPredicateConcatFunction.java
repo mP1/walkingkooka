@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,14 +42,15 @@ final class NodeSelectorPredicateConcatFunction extends NodeSelectorPredicateFun
 
     @Override
     public String apply(final List<Object> parameters,
-                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
-        final int count = parameters.size();
+                        final ExpressionEvaluationContext context) {
+        final int count = parameters.size() - 1;
         if (count < 1) {
-            throw new IllegalArgumentException("Expected at least 1 parameter but got " + parameters.size() + "=" + parameters);
+            throw new IllegalArgumentException("Expected at least 1 parameter but got " + count + "=" + parameters.subList(1, count));
         }
 
         return parameters.stream()
-                .map(p -> context.string(p))
+                .skip(1) // the node or this...
+                .map(p -> this.string(p, context))
                 .collect(Collectors.joining());
     }
 

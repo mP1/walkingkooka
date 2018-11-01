@@ -42,37 +42,37 @@ public final class NodeSelectorPredicateEndsWithFunctionTest extends NodeSelecto
 
     @Test
     public void testMissing() {
-        this.applyAndCheck2(list("abc", "d"), false);
+        this.applyAndCheck2(parameters("abc", "d"), false);
     }
 
     @Test
     public void testMissing2() {
-        this.applyAndCheck2(list("abcd", "abx"), false);
+        this.applyAndCheck2(parameters("abcd", "abx"), false);
     }
 
     @Test
     public void testMissingStartsWith() {
-        this.applyAndCheck2(list("abcd", "ab"), false);
+        this.applyAndCheck2(parameters("abcd", "ab"), false);
     }
 
     @Test
     public void testPresent() {
-        this.applyAndCheck2(list("abc", "c"), true);
+        this.applyAndCheck2(parameters("abc", "c"), true);
     }
 
     @Test
     public void testPresent2() {
-        this.applyAndCheck2(list("abcd", "bcd"), true);
+        this.applyAndCheck2(parameters("abcd", "bcd"), true);
     }
 
     @Test
     public void testPresentDifferentCase() {
-        this.applyAndCheck2(list("abc", "C"), false);
+        this.applyAndCheck2(parameters("abc", "C"), false);
     }
 
     @Test
     public void testContainsEmpty() {
-        this.applyAndCheck2(list("abc", ""), true);
+        this.applyAndCheck2(parameters("abc", ""), true);
     }
 
     @Test

@@ -19,6 +19,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.List;
 
@@ -40,8 +41,8 @@ final class NodeSelectorPredicateNameFunction extends NodeSelectorPredicateFunct
 
     @Override
     public String apply(final List<Object> parameters,
-                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
-        return context.node().name().value();
+                        final ExpressionEvaluationContext context) {
+        return this.node(parameters).name().value();
     }
 
     @Override

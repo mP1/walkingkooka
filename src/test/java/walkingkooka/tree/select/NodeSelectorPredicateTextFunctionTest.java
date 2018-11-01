@@ -37,17 +37,17 @@ public final class NodeSelectorPredicateTextFunctionTest extends NodeSelectorPre
 
     @Test
     public void testBoolean() {
-        this.applyAndCheck2(list(true), "true");
+        this.applyAndCheck2(parameters(true), "true");
     }
 
     @Test
     public void testNumber() {
-        this.applyAndCheck2(list(123), "123");
+        this.applyAndCheck2(parameters(123), "123");
     }
 
     @Test
     public void testString() {
-        this.applyAndCheck2(list("abc123"), "abc123");
+        this.applyAndCheck2(parameters("abc123"), "abc123");
     }
 
     @Test

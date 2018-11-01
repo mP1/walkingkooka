@@ -19,7 +19,6 @@
 package walkingkooka.tree.select;
 
 import org.junit.Test;
-import walkingkooka.tree.Node;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,15 +28,7 @@ public final class NodeSelectorPredicateNameFunctionTest extends NodeSelectorPre
     public void testExecuteFunction() {
         final String name = "Abc123";
 
-        this.applyAndCheck2(this.createBiFunction(),
-                list(),
-                new FakeNodeSelectorPredicateExpressionEvaluationContext() {
-                    @Override
-                    public Node node() {
-                        return TestFakeNode.node(name);
-                    }
-                },
-                name);
+        this.applyAndCheck2(this.createBiFunction(), parameters(TestFakeNode.node(name)), name);
     }
 
     @Test

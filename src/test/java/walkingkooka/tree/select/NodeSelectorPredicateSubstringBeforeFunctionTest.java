@@ -42,32 +42,32 @@ public final class NodeSelectorPredicateSubstringBeforeFunctionTest extends Node
 
     @Test
     public void testMissing() {
-        this.applyAndCheck2(list("abcdef", "z"), "");
+        this.applyAndCheck2(parameters("abcdef", "z"), "");
     }
 
     @Test
     public void testMissingWrongCase() {
-        this.applyAndCheck2(list("abcdef", "A"), "");
+        this.applyAndCheck2(parameters("abcdef", "A"), "");
     }
 
     @Test
     public void testPresent() {
-        this.applyAndCheck2(list("abc", "c"), "ab");
+        this.applyAndCheck2(parameters("abc", "c"), "ab");
     }
 
     @Test
     public void testPresent2() {
-        this.applyAndCheck2(list("abcdef", "de"), "abc");
+        this.applyAndCheck2(parameters("abcdef", "de"), "abc");
     }
 
     @Test
     public void testPresent3() {
-        this.applyAndCheck2(list("abcdef", "bcde"), "a");
+        this.applyAndCheck2(parameters("abcdef", "bcde"), "a");
     }
 
     @Test
     public void testPresentFirst() {
-        this.applyAndCheck2(list("abcd", "a"), "");
+        this.applyAndCheck2(parameters("abcd", "a"), "");
     }
 
     @Test

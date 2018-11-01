@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -44,7 +46,7 @@ final class NodeSelectorPredicateNotFunction extends NodeSelectorPredicateFuncti
 
     @Override
     public Boolean apply(final List<Object> parameters,
-                         final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
+                         final ExpressionEvaluationContext context) {
         this.checkParameterCount(parameters, 2);
 
         return Boolean.valueOf(!context.convert(this.function.apply(parameters, context), Boolean.class));
