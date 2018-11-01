@@ -36,12 +36,12 @@ public final class NodeSelectorPredicateNumberFunctionTest extends NodeSelectorP
 
     @Test
     public void testInteger() {
-        this.applyAndCheck2(list(123), 123);
+        this.applyAndCheck2(parameters(123), 123);
     }
 
     @Test
     public void testString() {
-        this.applyAndCheck2(list("123"), 123);
+        this.applyAndCheck2(parameters("123"), 123);
     }
 
     @Test(expected = NumberFormatException.class)

@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+
 import java.util.List;
 
 /**
@@ -38,10 +40,10 @@ final class NodeSelectorPredicateNumberFunction extends NodeSelectorPredicateFun
 
     @Override
     public Number apply(final List<Object> parameters,
-                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
+                        final ExpressionEvaluationContext context) {
         this.checkParameterCount(parameters, 1);
 
-        return context.number(parameters, 0);
+        return this.number(parameters, 0, context);
     }
 
     @Override

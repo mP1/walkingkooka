@@ -156,7 +156,7 @@ public final class NodeSelectorPredicateComparisonFunctionTest extends NodeSelec
                               final Object first,
                               final Object second,
                               final Boolean result) {
-        this.applyAndCheck2(NodeSelectorPredicateComparisonFunction.with(relation), list(first, second), result);
+        this.applyAndCheck2(NodeSelectorPredicateComparisonFunction.with(relation), parameters(first, second), result);
     }
 
     @Test

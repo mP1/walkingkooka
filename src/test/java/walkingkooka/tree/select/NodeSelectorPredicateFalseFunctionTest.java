@@ -26,7 +26,7 @@ public final class NodeSelectorPredicateFalseFunctionTest extends NodeSelectorPr
 
     @Test
     public void testExecuteFunction() {
-        this.applyAndCheck2(list(), Boolean.FALSE);
+        this.applyAndCheck2(parameters(), Boolean.FALSE);
     }
 
     @Test

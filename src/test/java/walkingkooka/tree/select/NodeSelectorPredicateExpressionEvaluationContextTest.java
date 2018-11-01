@@ -18,16 +18,18 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.naming.Name;
-import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
+import walkingkooka.Cast;
+import walkingkooka.tree.expression.ExpressionEvaluationContextTestCase;
 
-public class FakeNodeSelectorPredicateExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends FakeExpressionEvaluationContext implements NodeSelectorPredicateExpressionEvaluationContext<N, NAME, ANAME, AVALUE> {
+public final class NodeSelectorPredicateExpressionEvaluationContextTest extends ExpressionEvaluationContextTestCase<NodeSelectorPredicateExpressionEvaluationContext> {
+
     @Override
-    public N node() {
-        throw new UnsupportedOperationException();
+    protected NodeSelectorPredicateExpressionEvaluationContext createContext() {
+        return NodeSelectorPredicateExpressionEvaluationContext.with(null);
+    }
+
+    @Override
+    protected Class<NodeSelectorPredicateExpressionEvaluationContext> type() {
+        return Cast.to(NodeSelectorPredicateExpressionEvaluationContext.class);
     }
 }

@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+
 import java.util.List;
 
 /**
@@ -44,10 +46,10 @@ final class NodeSelectorPredicateNormalizeSpaceFunction extends NodeSelectorPred
 
     @Override
     public String apply(final List<Object> parameters,
-                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
+                        final ExpressionEvaluationContext context) {
         this.checkParameterCount(parameters, 1);
 
-        final String trimmed = context.string(parameters, 0)
+        final String trimmed = this.string(parameters, 0, context)
                 .trim();
 
         final StringBuilder b = new StringBuilder();

@@ -37,32 +37,32 @@ public final class NodeSelectorPredicateContainsFunctionTest extends NodeSelecto
 
     @Test
     public void testContains() {
-        this.applyAndCheck2(list("xyz", "x"), true);
+        this.applyAndCheck2(parameters("xyz", "x"), true);
     }
 
     @Test
     public void testContains2() {
-        this.applyAndCheck2(list("xyz", "z"), true);
+        this.applyAndCheck2(parameters("xyz", "z"), true);
     }
 
     @Test
     public void testContains3() {
-        this.applyAndCheck2(list(123, 1), true);
+        this.applyAndCheck2(parameters(123, 1), true);
     }
 
     @Test
     public void testMissing() {
-        this.applyAndCheck2(list("xyz", "a"), false);
+        this.applyAndCheck2(parameters("xyz", "a"), false);
     }
 
     @Test
     public void testMissing2() {
-        this.applyAndCheck2(list(123, 4), false);
+        this.applyAndCheck2(parameters(123, 4), false);
     }
 
     @Test
     public void testMissingCaseSensitive() {
-        this.applyAndCheck2(list("xyz", "Z"), false);
+        this.applyAndCheck2(parameters("xyz", "Z"), false);
     }
 
     @Test

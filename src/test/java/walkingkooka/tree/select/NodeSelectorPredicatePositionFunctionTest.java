@@ -19,7 +19,6 @@
 package walkingkooka.tree.select;
 
 import org.junit.Test;
-import walkingkooka.tree.Node;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,18 +29,12 @@ public final class NodeSelectorPredicatePositionFunctionTest extends NodeSelecto
         final int index = 123;
         this.applyAndCheck2(
                 this.createBiFunction(),
-                list(),
-                new FakeNodeSelectorPredicateExpressionEvaluationContext() {
+                parameters(new TestFakeNode("node") {
                     @Override
-                    public Node<?, ?, ?, ?> node() {
-                        return new TestFakeNode("node") {
-                            @Override
-                            public int index() {
-                                return index;
-                            }
-                        };
+                    public int index() {
+                        return index;
                     }
-                },
+                }),
                 Long.valueOf(index + NodeSelector.INDEX_BIAS));
     }
 

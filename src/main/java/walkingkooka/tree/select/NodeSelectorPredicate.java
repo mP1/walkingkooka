@@ -49,7 +49,7 @@ final class NodeSelectorPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     public boolean test(final N n) {
         boolean test;
         try {
-            test = this.expressionNode.toBoolean(BasicNodeSelectorPredicateExpressionEvaluationContext.with(n));
+            test = this.expressionNode.toBoolean(NodeSelectorPredicateExpressionEvaluationContext.with(n));
         } catch (final ConversionException | NodeSelectorException fail) {
             test = false;
         }

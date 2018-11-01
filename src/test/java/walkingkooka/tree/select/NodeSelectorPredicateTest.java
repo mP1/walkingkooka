@@ -74,7 +74,8 @@ public final class NodeSelectorPredicateTest extends PredicateTestCase<NodeSelec
     }
 
     private ExpressionNode node() {
-        return ExpressionNode.function(ExpressionNodeName.with("contains"), Lists.of(ExpressionNode.reference(this.attributeName()), ExpressionNode.text("abc")));
+        return ExpressionNode.function(ExpressionNodeName.with("contains"),
+                Lists.of(ExpressionNode.reference(this.attributeName()), ExpressionNode.text("abc")));
     }
 
     private NodeSelectorAttributeName attributeName() {

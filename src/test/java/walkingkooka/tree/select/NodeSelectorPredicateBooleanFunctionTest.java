@@ -37,27 +37,27 @@ public final class NodeSelectorPredicateBooleanFunctionTest extends NodeSelector
 
     @Test
     public void testEmptyString() {
-        this.applyAndCheck2(list(""), false);
+        this.applyAndCheck2(parameters(""), false);
     }
 
     @Test
     public void testStringTrue() {
-        this.applyAndCheck2(list("true"), true);
+        this.applyAndCheck2(parameters("true"), true);
     }
 
     @Test
     public void testStringFalse() {
-        this.applyAndCheck2(list("false"), false);
+        this.applyAndCheck2(parameters("false"), false);
     }
 
     @Test
     public void testBooleanTrue() {
-        this.applyAndCheck2(list(true), true);
+        this.applyAndCheck2(parameters(true), true);
     }
 
     @Test
     public void testBooleanFalse() {
-        this.applyAndCheck2(list(false), false);
+        this.applyAndCheck2(parameters(false), false);
     }
 
     @Test

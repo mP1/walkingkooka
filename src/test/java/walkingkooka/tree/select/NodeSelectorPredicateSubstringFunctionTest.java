@@ -61,27 +61,27 @@ public final class NodeSelectorPredicateSubstringFunctionTest extends NodeSelect
 
     @Test
     public void testSubstring() {
-        this.applyAndCheck2(list("abcdef", 3, 0), "");
+        this.applyAndCheck2(parameters("abcdef", 3, 0), "");
     }
 
     @Test
     public void testSubstring2() {
-        this.applyAndCheck2(list("abcdef", 4, 1), "d");
+        this.applyAndCheck2(parameters("abcdef", 4, 1), "d");
     }
 
     @Test
     public void testSubstring3() {
-        this.applyAndCheck2(list("abcdef", 3, 2), "cd");
+        this.applyAndCheck2(parameters("abcdef", 3, 2), "cd");
     }
 
     @Test
     public void testSubstringLengthMissing() {
-        this.applyAndCheck2(list("abcdef", 2), "bcdef");
+        this.applyAndCheck2(parameters("abcdef", 2), "bcdef");
     }
 
     @Test
     public void testSubstringLengthMissing2() {
-        this.applyAndCheck2(list("abc", 3), "c");
+        this.applyAndCheck2(parameters("abc", 3), "c");
     }
 
     @Test
