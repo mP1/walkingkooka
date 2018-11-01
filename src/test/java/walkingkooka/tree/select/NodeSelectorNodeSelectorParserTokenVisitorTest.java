@@ -1005,6 +1005,17 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
         this.parseExpressionAndCheck("//*[starts-with(name(), \"leaf\")]", root, leaf1, leaf2);
     }
 
+    // function: number().......................................................................................
+
+    @Test
+    public void testNumber() {
+        final TestFakeNode leaf = node("leaf", 789);
+        final TestFakeNode branch = node("branch", "123", leaf);
+        final TestFakeNode root = node("root", "456", branch);
+
+        this.parseExpressionAndCheck("//*[number(@id) > 300]", root, leaf);
+    }
+
     // function: text().......................................................................................
 
     @Test
