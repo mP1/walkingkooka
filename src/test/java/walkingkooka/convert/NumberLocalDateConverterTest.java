@@ -27,7 +27,7 @@ import java.time.LocalDate;
 
 public final class NumberLocalDateConverterTest extends NumberConverterTestCase<NumberLocalDateConverter, LocalDate> {
 
-    private final static long VALUE = 123;
+    private final static byte VALUE = 123;
     private final static LocalDate DATE_VALUE = LocalDate.ofEpochDay(VALUE);
     private final static LocalDate DATE_VALUE_EXCEL_OFFSET = LocalDate.of(1900, 5, 2);
 
@@ -67,6 +67,36 @@ public final class NumberLocalDateConverterTest extends NumberConverterTestCase<
     }
 
     @Test
+    public void testByte() {
+        this.convertAndCheck2(Byte.valueOf(VALUE));
+    }
+
+    @Test
+    public void testShort() {
+        this.convertAndCheck2(Short.valueOf(VALUE));
+    }
+
+    @Test
+    public void testInteger() {
+        this.convertAndCheck2(Integer.valueOf(VALUE));
+    }
+
+    @Test
+    public void testLong() {
+        this.convertAndCheck(Long.valueOf(VALUE), LocalDate.ofEpochDay(VALUE));
+    }
+
+    @Test
+    public void testLongWithExcelOffset() {
+        this.convertAndCheckExcelOffset(Long.valueOf(VALUE));
+    }
+
+    @Test
+    public void testFloat() {
+        this.convertAndCheck2(Float.valueOf(VALUE));
+    }
+
+    @Test
     public void testDouble() {
         this.convertAndCheck2(Double.valueOf(VALUE));
     }
@@ -85,16 +115,6 @@ public final class NumberLocalDateConverterTest extends NumberConverterTestCase<
     @Ignore
     public void testDoubleMaxFails() {
         throw new UnsupportedOperationException();
-    }
-
-    @Test
-    public void testLong() {
-        this.convertAndCheck(Long.valueOf(VALUE), LocalDate.ofEpochDay(VALUE));
-    }
-
-    @Test
-    public void testLongWithExcelOffset() {
-        this.convertAndCheckExcelOffset(Long.valueOf(VALUE));
     }
 
     private void convertAndCheck2(final Number value) {

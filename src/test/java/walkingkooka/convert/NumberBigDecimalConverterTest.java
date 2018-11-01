@@ -37,13 +37,38 @@ public final class NumberBigDecimalConverterTest extends NumberConverterTestCase
     }
 
     @Test
+    public void testByte() {
+        this.convertAndCheck((byte)123, BigDecimal.valueOf(123));
+    }
+
+    @Test
+    public void testShort() {
+        this.convertAndCheck((short)123, BigDecimal.valueOf(123));
+    }
+
+    @Test
+    public void testInteger() {
+        this.convertAndCheck(123, BigDecimal.valueOf(123));
+    }
+
+    @Test
+    public void testLong() {
+        this.convertAndCheck(123L, BigDecimal.valueOf(123));
+    }
+
+    @Test
+    public void testFloat() {
+        this.convertAndCheck(123.5f, BigDecimal.valueOf(123.5));
+    }
+
+    @Test
     public void testDouble() {
-        this.convertAndCheck(Double.valueOf(123), BigDecimal.valueOf(123));
+        this.convertAndCheck(123.5, BigDecimal.valueOf(123.5));
     }
 
     @Test
     public void testDoubleWithFraction() {
-        this.convertAndCheck(Double.valueOf(123.75), BigDecimal.valueOf(123.75));
+        this.convertAndCheck(123.75, BigDecimal.valueOf(123.75));
     }
 
     @Test
@@ -66,11 +91,6 @@ public final class NumberBigDecimalConverterTest extends NumberConverterTestCase
     @Test
     public void testDoubleMin() {
         this.convertAndCheck(Double.MIN_VALUE, BigDecimal.valueOf(Double.MIN_VALUE));
-    }
-
-    @Test
-    public void testLong() {
-        this.convertAndCheck(Long.valueOf(123), BigDecimal.valueOf(123));
     }
 
     @Override

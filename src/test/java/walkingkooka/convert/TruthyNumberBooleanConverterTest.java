@@ -99,7 +99,7 @@ public final class TruthyNumberBooleanConverterTest extends ConverterTestCase<Tr
 
     @Test
     public void testToString() {
-        assertEquals("Truthy BigDecimal|BigInteger|Double|Long->Boolean", this.createConverter().toString());
+        assertEquals("Truthy BigDecimal|BigInteger|Byte|Short|Integer|Long|Float|Double->Boolean", this.createConverter().toString());
     }
 
     // helper............................................................................................................
