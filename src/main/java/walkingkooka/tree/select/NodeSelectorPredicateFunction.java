@@ -51,6 +51,8 @@ abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Objec
 
     final static NodeSelectorPredicateNumberFunction NUMBER = NodeSelectorPredicateNumberFunction.INSTANCE;
 
+    final static NodeSelectorPredicatePositionFunction POSITION = NodeSelectorPredicatePositionFunction.INSTANCE;
+
     final static NodeSelectorPredicateStartsWithFunction STARTS_WITH = NodeSelectorPredicateStartsWithFunction.INSTANCE;
 
     final static NodeSelectorPredicateStringLengthFunction STRING_LENGTH = NodeSelectorPredicateStringLengthFunction.INSTANCE;
