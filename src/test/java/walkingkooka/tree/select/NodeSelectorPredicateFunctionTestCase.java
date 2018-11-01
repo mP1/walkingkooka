@@ -21,8 +21,6 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 import walkingkooka.util.BiFunctionTestCase;
 
 import java.util.List;
@@ -30,7 +28,7 @@ import java.util.function.BiFunction;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelectorPredicateFunction<V>, V> extends BiFunctionTestCase<F, List<Object>, ExpressionEvaluationContext, V> {
+public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelectorPredicateFunction<V>, V> extends BiFunctionTestCase<F, List<Object>, NodeSelectorPredicateExpressionEvaluationContext, V> {
 
     final void apply2(final Object... parameters) {
         this.createBiFunction().apply(list(parameters), this.createContext());
@@ -41,7 +39,7 @@ public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelect
         this.applyAndCheck2(this.createBiFunction(), parameters, result);
     }
 
-    final <TT, RR> void applyAndCheck2(final BiFunction<List<Object>, ExpressionEvaluationContext, RR> function,
+    final <TT, RR> void applyAndCheck2(final BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext, RR> function,
                                        final List<Object> parameters,
                                        final RR result) {
         assertEquals("Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters),
@@ -49,27 +47,30 @@ public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelect
                 function.apply(parameters, this.createContext()));
     }
 
-    final ExpressionEvaluationContext createContext() {
-        return new FakeExpressionEvaluationContext() {
+    NodeSelectorPredicateExpressionEvaluationContext createContext() {
+        return new FakeNodeSelectorPredicateExpressionEvaluationContext() {
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
-                if (target.isInstance(value)) {
-                    return target.cast(value);
-                }
-                if (target == String.class) {
-                    return Cast.to(value.toString());
-                }
-                if (target == Boolean.class) {
-                    return Cast.to(Boolean.parseBoolean(value.toString()));
-                }
-                if (Number.class.isAssignableFrom(target)) {
-                    return Cast.to(Integer.parseInt(value.toString()));
-                }
-                throw new UnsupportedOperationException("Unable to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName());
+                return NodeSelectorPredicateFunctionTestCase.this.convert(value, target);
             }
         };
     }
 
+    final <T> T convert(final Object value, final Class<T> target) {
+        if (target.isInstance(value)) {
+            return target.cast(value);
+        }
+        if (target == String.class) {
+            return Cast.to(value.toString());
+        }
+        if (target == Boolean.class) {
+            return Cast.to(Boolean.parseBoolean(value.toString()));
+        }
+        if (Number.class.isAssignableFrom(target)) {
+            return Cast.to(Integer.parseInt(value.toString()));
+        }
+        throw new UnsupportedOperationException("Unable to convert " + value.getClass().getName() + "=" + CharSequences.quoteIfChars(value) + " to " + target.getName());
+    }
 
     final List<Object> list(final Object... values) {
         return Lists.of(values);
