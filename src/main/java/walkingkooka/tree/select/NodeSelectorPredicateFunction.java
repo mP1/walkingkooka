@@ -28,7 +28,7 @@ import java.util.function.BiFunction;
 /**
  * Base class for all predicate functions.
  */
-abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext, T> {
+abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?>, T> {
 
     /**
      * A {@link Map} holding all functions by name. This requires that all functions are stateless.

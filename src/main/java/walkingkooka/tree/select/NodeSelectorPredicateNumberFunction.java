@@ -37,7 +37,8 @@ final class NodeSelectorPredicateNumberFunction extends NodeSelectorPredicateFun
     }
 
     @Override
-    public Number apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public Number apply(final List<Object> parameters,
+                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         this.checkParameterCount(parameters, 1);
 
         return context.number(parameters, 0);

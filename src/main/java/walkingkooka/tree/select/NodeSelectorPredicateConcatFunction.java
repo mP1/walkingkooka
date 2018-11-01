@@ -39,7 +39,8 @@ final class NodeSelectorPredicateConcatFunction extends NodeSelectorPredicateFun
     }
 
     @Override
-    public String apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public String apply(final List<Object> parameters,
+                        final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         final int count = parameters.size();
         if (count < 1) {
             throw new IllegalArgumentException("Expected at least 1 parameter but got " + parameters.size() + "=" + parameters);

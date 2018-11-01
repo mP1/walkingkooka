@@ -38,7 +38,8 @@ final class NodeSelectorPredicateStartsWithFunction extends NodeSelectorPredicat
     }
 
     @Override
-    public Boolean apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public Boolean apply(final List<Object> parameters,
+                         final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         this.checkParameterCount(parameters, 2);
 
         return context.string(parameters, 0)

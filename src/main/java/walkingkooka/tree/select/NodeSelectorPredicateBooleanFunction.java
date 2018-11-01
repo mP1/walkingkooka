@@ -37,7 +37,8 @@ final class NodeSelectorPredicateBooleanFunction extends NodeSelectorPredicateFu
     }
 
     @Override
-    public Boolean apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public Boolean apply(final List<Object> parameters,
+                         final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         this.checkParameterCount(parameters, 1);
 
         return context.booleanValue(parameters, 0);

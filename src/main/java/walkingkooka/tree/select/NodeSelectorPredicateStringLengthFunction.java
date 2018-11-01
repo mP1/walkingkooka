@@ -39,7 +39,8 @@ final class NodeSelectorPredicateStringLengthFunction extends NodeSelectorPredic
     }
 
     @Override
-    public Long apply(final List<Object> parameters, final NodeSelectorPredicateExpressionEvaluationContext context) {
+    public Long apply(final List<Object> parameters,
+                      final NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> context) {
         this.checkParameterCount(parameters, 1);
 
         return Long.valueOf(context.string(parameters, 0).length());

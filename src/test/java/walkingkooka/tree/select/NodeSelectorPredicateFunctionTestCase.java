@@ -28,7 +28,7 @@ import java.util.function.BiFunction;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelectorPredicateFunction<V>, V> extends BiFunctionTestCase<F, List<Object>, NodeSelectorPredicateExpressionEvaluationContext, V> {
+public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelectorPredicateFunction<V>, V> extends BiFunctionTestCase<F, List<Object>, NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?>, V> {
 
     final void apply2(final Object... parameters) {
         this.createBiFunction().apply(list(parameters), this.createContext());
@@ -39,13 +39,13 @@ public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelect
         this.applyAndCheck2(this.createBiFunction(), parameters, result);
     }
 
-    final <TT, RR> void applyAndCheck2(final BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext, RR> function,
+    final <TT, RR> void applyAndCheck2(final BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?>, RR> function,
                                        final List<Object> parameters,
                                        final RR result) {
         this.applyAndCheck2(function, parameters, this.createContext(), result);
     }
 
-    final <TT, RR> void applyAndCheck2(final BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext, RR> function,
+    final <TT, RR> void applyAndCheck2(final BiFunction<List<Object>, NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?>, RR> function,
                                        final List<Object> parameters,
                                        final NodeSelectorPredicateExpressionEvaluationContext context,
                                        final RR result) {
@@ -54,7 +54,7 @@ public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelect
                 function.apply(parameters, context));
     }
 
-    NodeSelectorPredicateExpressionEvaluationContext createContext() {
+    NodeSelectorPredicateExpressionEvaluationContext<?, ?, ?, ?> createContext() {
         return new FakeNodeSelectorPredicateExpressionEvaluationContext() {
             @Override
             public <T> T convert(final Object value, final Class<T> target) {
