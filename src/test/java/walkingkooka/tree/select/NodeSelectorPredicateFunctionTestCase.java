@@ -51,7 +51,7 @@ public abstract class NodeSelectorPredicateFunctionTestCase<F extends NodeSelect
                                        final RR result) {
         assertEquals("Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters),
                 result,
-                function.apply(parameters, this.createContext()));
+                function.apply(parameters, context));
     }
 
     NodeSelectorPredicateExpressionEvaluationContext createContext() {
