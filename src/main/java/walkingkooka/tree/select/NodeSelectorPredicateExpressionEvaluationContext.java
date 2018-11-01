@@ -63,6 +63,13 @@ interface NodeSelectorPredicateExpressionEvaluationContext<N extends Node<N, NAM
     }
 
     /**
+     * Converts a value into a {@link Number}.
+     */
+    default Number number(final Object value) {
+        return this.convert(value, Number.class);
+    }
+
+    /**
      * Converts a value into a string.
      */
     default String string(final Object value) {
@@ -88,6 +95,13 @@ interface NodeSelectorPredicateExpressionEvaluationContext<N extends Node<N, NAM
      */
     default int integer(final List<?> parameters, final int i) {
         return this.integer(this.parameter(parameters, i));
+    }
+
+    /**
+     * Type safe integer parameter getter.
+     */
+    default Number number(final List<?> parameters, final int i) {
+        return this.number(this.parameter(parameters, i));
     }
 
     /**
