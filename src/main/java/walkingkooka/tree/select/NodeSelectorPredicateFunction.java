@@ -59,6 +59,8 @@ abstract class NodeSelectorPredicateFunction<T> implements BiFunction<List<Objec
 
     final static NodeSelectorPredicateSubstringBeforeFunction SUBSTRING_BEFORE = NodeSelectorPredicateSubstringBeforeFunction.INSTANCE;
 
+    final static NodeSelectorPredicateTextFunction TEXT = NodeSelectorPredicateTextFunction.INSTANCE;
+
     final static NodeSelectorPredicateTrueFunction TRUE = NodeSelectorPredicateTrueFunction.INSTANCE;
 
     /**
