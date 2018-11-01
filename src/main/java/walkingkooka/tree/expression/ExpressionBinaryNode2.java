@@ -65,9 +65,9 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                 }
 
                 // both Long
-                final boolean leftLong = leftValue instanceof Long;
-                final boolean rightLong = rightValue instanceof Long;
-                if (leftLong && rightLong) {
+                final boolean leftByteShortIntegerLong = isByteShortIntegerLong(leftValue);
+                final boolean rightByteShortIntegerLong = isByteShortIntegerLong(rightValue);
+                if (leftByteShortIntegerLong && rightByteShortIntegerLong) {
                     result = this.applyLong(
                             context.convert(leftValue, Long.class),
                             context.convert(rightValue, Long.class),
@@ -78,8 +78,8 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                 final boolean leftBigInteger = leftValue instanceof BigInteger;
                 final boolean rightBigInteger = rightValue instanceof BigInteger;
                 if (leftBigInteger && rightBigInteger ||
-                    leftBigInteger && rightLong ||
-                    leftLong && rightBigInteger) {
+                    leftBigInteger && rightByteShortIntegerLong ||
+                    leftByteShortIntegerLong && rightBigInteger) {
                     result = this.applyBigInteger(
                             context.convert(leftValue, BigInteger.class),
                             context.convert(rightValue, BigInteger.class),
@@ -87,7 +87,7 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
                     break;
                 }
                 // both must be double,
-                if (leftValue instanceof Double && rightValue instanceof Double) {
+                if (isFloatDouble(leftValue) && isFloatDouble(rightValue)) {
                     result = this.applyDouble(
                             context.convert(leftValue, Double.class),
                             context.convert(rightValue, Double.class),
@@ -106,6 +106,14 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
         }
 
         return result;
+    }
+
+    private boolean isByteShortIntegerLong(final Object value) {
+        return value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Long;
+    }
+
+    private boolean isFloatDouble(final Object value) {
+        return value instanceof Float || value instanceof Double;
     }
 
     abstract ExpressionNode applyText(final String left, final String right, final ExpressionEvaluationContext context);
