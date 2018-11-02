@@ -17,15 +17,12 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * A {@link NodeSelector} that continues to walking the tree, continuously trying the next select.
@@ -58,16 +55,9 @@ final class OrNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends 
     // LogicalNodeSelector
 
     @Override
-    public Set<N> accept(final N node, final Consumer<N> observer) {
-        final Set<N> matches = Sets.ordered();
-        this.accept(node, NodeSelectorNodeSelectorContext.with(observer, matches));
-        return matches;
-    }
-
-    @Override
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         for(NodeSelector<N, NAME, ANAME, AVALUE> selector : this.selectors) {
-            selector.accept(node, context);
+            selector.accept1(node, context);
         }
     }
 

@@ -103,7 +103,7 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     private NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector2() {
-        return this.createSelector().append(PredicateNodeSelector.with(PREDICATE));
+        return this.createSelector().append(NodeSelector.nodePredicate(PREDICATE));
     }
 
     @Override

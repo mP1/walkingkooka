@@ -27,7 +27,7 @@ import walkingkooka.tree.Node;
  */
 final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link AncestorOrSelfNodeSelector} getter
@@ -37,14 +37,7 @@ final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     @SuppressWarnings("rawtypes")
-    private final static AncestorOrSelfNodeSelector INSTANCE = new AncestorOrSelfNodeSelector();
-
-    /**
-     * Private constructor use type safe getter
-     */
-    private AncestorOrSelfNodeSelector() {
-        super();
-    }
+    private final static AncestorOrSelfNodeSelector INSTANCE = new AncestorOrSelfNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor
@@ -63,16 +56,16 @@ final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     @Override
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.match(node, context);
-        this.matchParent(node, context);
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.select(node, context);
+        this.selectParent(node, context);
     }
 
     @Override
-    void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        super.match(node, context);
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        super.select(node, context);
 
-        this.matchParent(node, context);
+        this.selectParent(node, context);
     }
 
     @Override

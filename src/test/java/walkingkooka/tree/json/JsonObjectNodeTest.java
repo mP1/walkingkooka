@@ -27,6 +27,7 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visiting;
 
@@ -316,8 +317,19 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .descendant()
                 .named(key2)
                 .build();
-        final Set<JsonNode> matched = selector.accept(object, selector.nulObserver());
-        assertEquals("matched nodes", Sets.of(object.get(key2).get()), matched);
+        final Set<JsonNode> selected = Sets.ordered();
+        selector.accept(object, new FakeNodeSelectorContext<JsonNode, JsonNodeName, Name, Object>(){
+            @Override
+            public void potential(final JsonNode node) {
+
+            }
+
+            @Override
+            public void selected(final JsonNode node) {
+                selected.add(node);
+            }
+        });
+        assertEquals("matched nodes", Sets.of(object.get(key2).get()), selected);
     }
 
     @Test

@@ -1091,7 +1091,21 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
 
     private void parseExpressionAndCheck(final String expression, final TestFakeNode root, final Set<String> expected) {
         final NodeSelector<TestFakeNode, StringName, StringName, Object> selector = this.parseExpression(expression);
-        assertEquals(expression + "\n" + root, expected, names(selector.accept(root, selector.nulObserver())));
+
+        final Set<TestFakeNode> selected = Sets.ordered();
+        selector.accept(root, new FakeNodeSelectorContext<TestFakeNode, StringName, StringName, Object>(){
+            @Override
+            public void potential(final TestFakeNode node) {
+
+            }
+
+            @Override
+            public void selected(final TestFakeNode node) {
+                selected.add(node);
+            }
+        });
+
+        assertEquals(expression + "\n" + root, expected, names(selected));
     }
 
     private Set<String> names(final Collection<TestFakeNode> nodes) {

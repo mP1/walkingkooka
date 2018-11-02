@@ -22,9 +22,6 @@ import walkingkooka.ShouldNeverHappenError;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
-import java.util.Set;
-import java.util.function.Consumer;
-
 /**
  * A {@link NodeSelector} that selects and does nothing.
  */
@@ -57,17 +54,13 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    public Set<N> accept(final N node, final Consumer<N> observer) {
-        throw new ShouldNeverHappenError(this.getClass() + ".accept(Node)");
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        context.selected(node);
     }
 
     @Override
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        context.match(node);
-    }
-
-    @Override void match(N node, NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        throw new ShouldNeverHappenError(this.getClass() + ".match(Node, NodeSelectorContext)");
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        throw new ShouldNeverHappenError(this.getClass() + ".select(Node, NodeSelectorContext)");
     }
 
     @Override

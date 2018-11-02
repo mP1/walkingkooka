@@ -25,7 +25,7 @@ import walkingkooka.tree.Node;
  * A {@link NodeSelector} that selects all the preceding siblings of a given {@link Node}.
  */
 final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NonLogicalRelativeNodeSelector<N, NAME, ANAME, AVALUE> {
+        extends NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link PrecedingSiblingNodeSelector} getter
@@ -35,14 +35,7 @@ final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @SuppressWarnings("rawtypes")
-    private final static PrecedingSiblingNodeSelector INSTANCE = new PrecedingSiblingNodeSelector();
-
-    /**
-     * Package private constructor use type safe getter
-     */
-    PrecedingSiblingNodeSelector() {
-        super();
-    }
+    private final static PrecedingSiblingNodeSelector INSTANCE = new PrecedingSiblingNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor
@@ -61,8 +54,8 @@ final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    final void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        this.matchPrecedingSiblings(node, context);
+    final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        this.selectPrecedingSiblings(node, context);
     }
 
     @Override

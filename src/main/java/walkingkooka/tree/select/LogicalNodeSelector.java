@@ -60,8 +60,9 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         throw new UnsupportedOperationException();
     }
 
-    @Override void match(N node, NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        throw new ShouldNeverHappenError(this.getClass().getName() + ".match(Node, NodeSelectorContext)");
+    @Override
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        throw new ShouldNeverHappenError(this.getClass().getName() + ".select(Node, NodeSelectorContext)");
     }
 
     @Override

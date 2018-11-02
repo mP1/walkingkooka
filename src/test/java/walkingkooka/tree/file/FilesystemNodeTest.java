@@ -23,8 +23,10 @@ import org.junit.Before;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.NodeTestCase;
+import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.io.FileInputStream;
@@ -263,8 +265,19 @@ public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, Files
                 .descendant()
                 .named(FilesystemNodeName.with(SUB_FILE))
                 .build();
-        final Set<FilesystemNode> matches = selector.accept(document, selector.nulObserver());
-        assertEquals("should have matched a single file\n" + matches, 1, matches.size());
+        final Set<FilesystemNode> selected = Sets.ordered();
+        selector.accept(document, new FakeNodeSelectorContext<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String>(){
+            @Override
+            public void potential(final FilesystemNode node) {
+
+            }
+
+            @Override
+            public void selected(final FilesystemNode node) {
+                selected.add(node);
+            }
+        });
+        assertEquals("should have matched a single file\n" + selected, 1, selected.size());
     }
 
     private FilesystemNode subFileFileNode() {

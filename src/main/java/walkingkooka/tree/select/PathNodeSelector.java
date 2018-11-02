@@ -28,14 +28,16 @@ import java.util.Optional;
 /**
  * An absolute path for a {@link Node}.
  */
-final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NonLogicalNodeSelector3<N, NAME, ANAME, AVALUE> {
+final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final N node) {
         Objects.requireNonNull(node, "node");
-        return node.isRoot() ? SelfNodeSelector.get() : new PathNodeSelector<>(node);
+        return node.isRoot() ? SelfNodeSelector.get() : new PathNodeSelector<>(node, NodeSelector.terminal());
     }
 
-    private PathNodeSelector(final N node) {
+    private PathNodeSelector(final N node, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+        super(selector);
+
         final List<Integer> path = Lists.array();
         this.path = path;
         walkAncestorPath(node, path);
@@ -50,7 +52,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    void accept0(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         boolean abort = false;
 
         N current = node;
@@ -65,13 +67,13 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
         }
 
         if (!abort) {
-            this.match(current, context);
+            this.select(current, context);
         }
     }
 
     @Override
-    void match(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        context.match(node);
+    void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        context.selected(node);
     }
 
     @Override
@@ -86,7 +88,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof PredicateNodeSelector;
+        return other instanceof ExpressionNodeSelector;
     }
 
     @Override

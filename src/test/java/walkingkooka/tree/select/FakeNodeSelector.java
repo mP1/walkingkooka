@@ -20,9 +20,6 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.Fake;
 
-import java.util.Set;
-import java.util.function.Consumer;
-
 class FakeNodeSelector extends NodeSelector<TestFakeNode, StringName, StringName, Object> implements Fake {
 
     @Override
@@ -30,17 +27,13 @@ class FakeNodeSelector extends NodeSelector<TestFakeNode, StringName, StringName
         throw new UnsupportedOperationException();
     }
 
-    @Override public Set<TestFakeNode> accept(final TestFakeNode node, final Consumer<TestFakeNode> observer) {
+    @Override
+    void accept1(final TestFakeNode node, final NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    void accept0(final TestFakeNode node, final NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    void match(TestFakeNode node, NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context) {
+    void select(TestFakeNode node, NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context) {
         throw new UnsupportedOperationException();
     }
 

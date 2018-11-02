@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,18 +43,17 @@ extends NodeSelectorTestCase<S>{
         final List<String> expected = Lists.array();
         expected.addAll(Lists.of(nodes));
 
-        selector.accept(start, new NodeSelectorContext<TestFakeNode, StringName, StringName, Object>() {
+        selector.accept0(start, new FakeNodeSelectorContext<TestFakeNode, StringName, StringName, Object>() {
 
-            private final Consumer<TestFakeNode> observer = NodeSelectorNulObserverConsumer.get();
-
-            Consumer<TestFakeNode> observer() {
-                return observer;
+            @Override
+            public void potential(final TestFakeNode node) {
+                // nop
             }
 
             int i = 0;
 
             @Override
-            void match(final TestFakeNode node) {
+            public void selected(final TestFakeNode node) {
                 if(i == nodes.length) {
                     Assert.fail("Unexpected matching node: " + node);
                 }
@@ -68,6 +66,6 @@ extends NodeSelectorTestCase<S>{
             }
         });
 
-        assertEquals("Finished processing contains unmatched nodes", Lists.empty(), expected);
+        assertEquals("Finished processing contains unselected nodes", Lists.empty(), expected);
     }
 }
