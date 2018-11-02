@@ -20,31 +20,14 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-
-import java.util.function.Predicate;
+import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
 
 import static org.junit.Assert.assertEquals;
 
 
 final public class ExpressionNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<ExpressionNodeSelector<TestFakeNode, StringName, StringName, Object>> {
-
-    // constants
-
-    private final static Predicate<ExpressionEvaluationContext> PREDICATE = new Predicate<ExpressionEvaluationContext>() {
-
-        @Override
-        public boolean test(final ExpressionEvaluationContext evaluationContext) {
-            final ExpressionNodeSelectorPredicateExpressionEvaluationContext c = Cast.to(evaluationContext);
-            return c.node.name().value().equals("self");
-        }
-
-        @Override
-        public String toString() {
-            return "node()=\"self\"";
-        }
-    };
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPredicateFails() {
@@ -69,13 +52,22 @@ final public class ExpressionNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        assertEquals("*[" + PREDICATE.toString() + "]", this.createSelector().toString());
+        assertEquals("*[" + expression() + "]", this.createSelector().toString());
     }
 
     @Override
     protected ExpressionNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
-        return ExpressionNodeSelector.with(PREDICATE);
+        return ExpressionNodeSelector.with(expression());
     }
+
+    private ExpressionNode expression() {
+        return ExpressionNode.equalsNode(
+                ExpressionNode.function(ExpressionNodeName.with("name"), ExpressionNode.NO_CHILDREN),
+                ExpressionNode.text("self")
+        );
+    }
+
+
 
     @Override
     protected Class<ExpressionNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {

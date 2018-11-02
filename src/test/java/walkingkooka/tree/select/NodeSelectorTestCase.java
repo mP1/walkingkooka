@@ -21,7 +21,8 @@ import org.junit.Before;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.Converters;
+import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
@@ -30,6 +31,7 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -106,16 +108,39 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
                                           final String... nodes) {
         final Set<TestFakeNode> potential = Sets.ordered();
         final Set<TestFakeNode> selected = Sets.ordered();
-        selector.accept(start, NodeSelectorContexts.basic(
+        selector.accept(start, context(
                 (n)->potential.add(n),
-                (n)->selected.add(n),
-                Converters.fake(),
-                DecimalNumberContexts.fake()));
+                (n)->selected.add(n)));
         final List<String> selectedNames = selected.stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
         assertEquals("Selector.accept\n" + start, Lists.of(nodes), selectedNames);
         assertNotEquals("potentials must not be empty", Sets.empty(), potential);
         assertTrue("potentials must include initial node=" + potential, potential.contains(start));
+    }
+
+    final NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context(final Consumer<TestFakeNode> potential,
+                                                                                    final Consumer<TestFakeNode> selected) {
+        return NodeSelectorContexts.basic(potential, selected, this.converter(), DecimalNumberContexts.fake());
+    }
+
+    final Converter converter() {
+        return new Converter() {
+            @Override
+            public boolean canConvert(final Object value, final Class<?> type, final ConverterContext context) {
+                return false;
+            }
+
+            @Override
+            public <T> T convert(final Object value, final Class<T> type, final ConverterContext context) {
+                if(type.isInstance(value)) {
+                    return type.cast(value);
+                }
+                if(value instanceof String && type == Integer.class) {
+                    return type.cast(Integer.parseInt(String.valueOf(value)));
+                }
+                return failConversion(value, type);
+            }
+        };
     }
 }
