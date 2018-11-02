@@ -158,11 +158,104 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
 
     private static final EbnfIdentifierName NOT_EQUALS_IDENTIFIER = EbnfIdentifierName.with("CONDITION_NOT_EQUALS");
 
+    // predicate .....................................................................................................
+
     private ParserToken predicate(final ParserToken token, final ParserContext context) {
-        return parent(token, NodeSelectorParserToken::predicate);
+        return token instanceof SequenceParserToken ?
+                this.predicate0(SequenceParserToken.class.cast(token), context) :
+                this.parent(token, NodeSelectorParserToken::predicate);
+    }
+
+    /**
+     * Handles grouping of AND and OR sub expressions before creating the enclosing {@link NodeSelectorPredicateParserToken}.
+     */
+    private ParserToken predicate0(final SequenceParserToken sequenceParserToken, final ParserContext context) {
+        final List<ParserToken> all = Lists.array();
+        final List<ParserToken> tokens = Lists.array();
+
+        int mode = PREDICATE;
+
+        for(ParserToken token : sequenceParserToken.value()) {
+            final NodeSelectorParserToken selectorParserToken = token.cast();
+
+            if(selectorParserToken.isBracketOpenSymbol()){
+                all.add(token);
+                continue;
+            }
+
+            if(selectorParserToken.isBracketCloseSymbol()){
+                switch(mode) {
+                    case PREDICATE:
+                        all.addAll(tokens);
+                        break;
+                    case AND:
+                        all.add(and(tokens));
+                        break;
+                    case OR:
+                        all.add(or(tokens));
+                        break;
+                    default:
+                        break;
+                }
+                all.add(token);
+                continue;
+            }
+
+            final boolean andSymbol = selectorParserToken.isAndSymbol();
+            final boolean orSymbol = selectorParserToken.isOrSymbol();
+
+            switch(mode) {
+                case PREDICATE:
+                    mode = andSymbol ? AND : orSymbol ? OR : PREDICATE;
+                    break;
+                case AND:
+                    if(andSymbol || orSymbol) {
+                        final NodeSelectorAndParserToken and = and(tokens);
+                        tokens.clear();
+                        tokens.add(and);
+                    }
+                    if(orSymbol) {
+                        mode = OR;
+                    }
+                    break;
+                case OR:
+                    if(andSymbol || orSymbol) {
+                        final NodeSelectorOrParserToken or = or(tokens);
+                        tokens.clear();
+                        tokens.add(or);
+                    }
+                    if(andSymbol) {
+                        mode = AND;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            tokens.add(token);
+        }
+
+        return NodeSelectorParserToken.predicate(all, sequenceParserToken.text());
+    }
+
+    /**
+     * All tokens will be immediate child tokens of the enclosing predicate.
+     * The bracket-open and bracket-close symbols will always belong to the predicate and never appear in the AND or OR.
+     */
+    private final static int PREDICATE = 0;
+    private final static int AND = PREDICATE + 1;
+    private final static int OR = AND + 1;
+
+    private static NodeSelectorAndParserToken and(final List<ParserToken> tokens) {
+        return NodeSelectorParserToken.and(tokens, ParserToken.text(tokens));
+    }
+
+    private static NodeSelectorOrParserToken or(final List<ParserToken> tokens) {
+        return NodeSelectorParserToken.or(tokens, ParserToken.text(tokens));
     }
 
     private static final EbnfIdentifierName PREDICATE_IDENTIFIER = EbnfIdentifierName.with("PREDICATE");
+
+    // parent .....................................................................................................
 
     private ParserToken parent(final ParserToken token, final BiFunction<List<ParserToken>, String, ? extends NodeSelectorParentParserToken> factory) {
         return factory.apply(token instanceof SequenceParserToken ?
