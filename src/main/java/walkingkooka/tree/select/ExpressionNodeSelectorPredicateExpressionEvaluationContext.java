@@ -20,14 +20,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.ConversionException;
-import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.convert.Converters;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.parser.ParserContexts;
-import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.naming.Name;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAttributeName;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -35,7 +28,6 @@ import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.ExpressionReference;
 
-import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
@@ -44,22 +36,32 @@ import java.util.Optional;
 /**
  * A {@link ExpressionEvaluationContext} that is used when evaluating predicates.
  */
-final class ExpressionNodeSelectorPredicateExpressionEvaluationContext implements
-        ExpressionEvaluationContext {
+final class ExpressionNodeSelectorPredicateExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
+        implements ExpressionEvaluationContext {
 
     /**
      * Factory that creates a new {@link ExpressionNodeSelectorPredicateExpressionEvaluationContext}, using the given {@link Node} as the context.
      */
-    static ExpressionNodeSelectorPredicateExpressionEvaluationContext with(final Node<?, ?, ?, ?> node) {
-        return new ExpressionNodeSelectorPredicateExpressionEvaluationContext(node);
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    ExpressionNodeSelectorPredicateExpressionEvaluationContext with(final N node,
+                                                                    final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new ExpressionNodeSelectorPredicateExpressionEvaluationContext(node, context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private ExpressionNodeSelectorPredicateExpressionEvaluationContext(final Node<?, ?, ?, ?> node) {
+    private ExpressionNodeSelectorPredicateExpressionEvaluationContext(final N node,
+                                                                       final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super();
         this.node = node;
+        this.context = context;
     }
 
     @Override
@@ -112,52 +114,10 @@ final class ExpressionNodeSelectorPredicateExpressionEvaluationContext implement
 
     @Override
     public <T> T convert(final Object value, final Class<T> target) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(target, "target");
-
-        return Cast.to(target.isInstance(value) ?
-                target.cast(value) :
-                target == BigDecimal.class ?
-                        this.convertToBigDecimal(value) :
-                        target == Boolean.class ?
-                                this.convertToBoolean(value) :
-                                target == Integer.class ?
-                                        this.convertToInteger(value) :
-                                        target == String.class ?
-                                                this.convertToString(value) :
-                                                this.failConversion(value, target));
+        return this.context.convert(value, target);
     }
 
-    /**
-     * Currently {@link walkingkooka.tree.expression.ExpressionBinaryNode} will convert a pair of {@link Boolean} into
-     * {@link BigDecimal} prior to performing the operation such as equals.
-     */
-    private BigDecimal convertToBigDecimal(final Object value) {
-        final Converter converter = value instanceof Boolean ?
-                Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
-                value instanceof String ?
-                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.DECIMAL32), (c) -> ParserContexts.basic(c)) :
-                        Converters.numberBigDecimal();
-        return converter.convert(value, BigDecimal.class, this.converterContext);
-    }
-
-    private Boolean convertToBoolean(final Object value) {
-        return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext);
-    }
-
-    private Integer convertToInteger(final Object value) {
-        return Converters.string().convert(value, Integer.class, this.converterContext);
-    }
-
-    private String convertToString(final Object value) {
-        return Converters.string().convert(value, String.class, this.converterContext);
-    }
-
-    private <T> T failConversion(final Object value, final Class<T> target) {
-        throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
-    }
-
-    private final ConverterContext converterContext = ConverterContexts.basic(this);
+    private final NodeSelectorContext<N, NAME, ANAME, AVALUE> context;
 
     @Override
     public String currencySymbol() {

@@ -25,16 +25,28 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.ConversionException;
+import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.ParserReporters;
+import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserContexts;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTestCase;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParsers;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -1103,6 +1115,55 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
             public void selected(final TestFakeNode node) {
                 selected.add(node);
             }
+
+            @Override
+            public <T> T convert(final Object value, final Class<T> target) {
+                Objects.requireNonNull(value, "value");
+                Objects.requireNonNull(target, "target");
+
+                return Cast.to(target.isInstance(value) ?
+                        target.cast(value) :
+                        target == BigDecimal.class ?
+                                this.convertToBigDecimal(value) :
+                                target == Boolean.class ?
+                                        this.convertToBoolean(value) :
+                                        target == Integer.class ?
+                                                this.convertToInteger(value) :
+                                                target == String.class ?
+                                                        this.convertToString(value) :
+                                                        this.failConversion(value, target));
+            }
+
+            /**
+             * Currently {@link walkingkooka.tree.expression.ExpressionBinaryNode} will convert a pair of {@link Boolean} into
+             * {@link BigDecimal} prior to performing the operation such as equals.
+             */
+            private BigDecimal convertToBigDecimal(final Object value) {
+                final Converter converter = value instanceof Boolean ?
+                        Converters.booleanConverter(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
+                        value instanceof String ?
+                                Converters.parser(BigDecimal.class, Parsers.bigDecimal(MathContext.DECIMAL32), (c) -> ParserContexts.basic(c)) :
+                                Converters.numberBigDecimal();
+                return converter.convert(value, BigDecimal.class, this.converterContext);
+            }
+
+            private Boolean convertToBoolean(final Object value) {
+                return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext);
+            }
+
+            private Integer convertToInteger(final Object value) {
+                return Converters.string().convert(value, Integer.class, this.converterContext);
+            }
+
+            private String convertToString(final Object value) {
+                return Converters.string().convert(value, String.class, this.converterContext);
+            }
+
+            private <T> T failConversion(final Object value, final Class<T> target) {
+                throw new ConversionException("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
+            }
+
+            private final ConverterContext converterContext = ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
         });
 
         assertEquals(expression + "\n" + root, expected, names(selected));

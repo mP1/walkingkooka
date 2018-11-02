@@ -61,7 +61,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        if (this.predicate.test(ExpressionNodeSelectorPredicateExpressionEvaluationContext.with(node))) {
+        if (this.predicate.test(ExpressionNodeSelectorPredicateExpressionEvaluationContext.with(node, context))) {
             context.selected(node);
         }
     }
