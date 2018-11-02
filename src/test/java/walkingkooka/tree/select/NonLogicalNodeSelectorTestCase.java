@@ -19,8 +19,6 @@ package walkingkooka.tree.select;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.Converters;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
 
 import java.util.List;
@@ -47,10 +45,7 @@ extends NodeSelectorTestCase<S>{
                                             final TestFakeNode start,
                                             final String[] nodes) {
         final Set<TestFakeNode> selected = Sets.ordered();
-        selector.accept(start, NodeSelectorContexts.basic((n)->{},
-                (n)->selected.add(n),
-                Converters.fake(),
-                DecimalNumberContexts.fake()));
+        selector.accept(start, context((n)->{}, (n)->selected.add(n)));
         final List<String> selectedNames = selected
                 .stream()
                 .map(n -> n.name().value())

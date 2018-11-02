@@ -23,7 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -148,6 +148,13 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     /**
+     * {@see ExpressionNodeSelector}
+     */
+    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> expression(final ExpressionNode expression) {
+        return this.append(ExpressionNodeSelector.with(expression));
+    }
+
+    /**
      * {@see FirstChildNodeSelector}
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> firstChild() {
@@ -208,13 +215,6 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
      */
     public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> precedingSibling() {
         return this.append(PrecedingSiblingNodeSelector.get());
-    }
-
-    /**
-     * {@see ExpressionNodeSelector}
-     */
-    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> predicate(final Predicate<ExpressionEvaluationContext> predicate) {
-        return this.append(ExpressionNodeSelector.with(predicate));
     }
 
     /**

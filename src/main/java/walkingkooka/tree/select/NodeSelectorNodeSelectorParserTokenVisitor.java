@@ -43,6 +43,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorPredicateParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorSelfParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorWildcardParserToken;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -94,7 +95,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
 
     @Override
     protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
-        this.predicates.add(ExpressionNodeSelectorPredicate.with(ExpressionNodeSelectorPredicateNodeSelectorParserTokenVisitor.toExpressionNode(token)));
+        this.predicates.add(ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(token));
         return Visiting.SKIP;
     }
 
@@ -220,7 +221,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
             builder.named(this.nameFactory.apply(name.value()));
         }
         this.predicates.stream()
-                .forEach(p -> builder.predicate(p));
+                .forEach(p -> builder.expression(p));
 
         if(null!=axis) {
             builder.append(axis);
@@ -244,9 +245,9 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     private final Function<NodeSelectorNodeName, NAME> nameFactory;
 
     /**
-     * Zero or more predicates for this step.
+     * Zero or more predicates for this step. Note that predicate is the xpath name for this concept.
      */
-    private List<ExpressionNodeSelectorPredicate> predicates;
+    private List<ExpressionNode> predicates;
 
     /**
      * Builds the selector.

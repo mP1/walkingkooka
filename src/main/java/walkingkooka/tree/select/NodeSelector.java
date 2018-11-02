@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorNodeName;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -168,8 +168,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    ExpressionNodeSelector<N, NAME, ANAME, AVALUE> expressionNodePredicate(final Predicate<ExpressionEvaluationContext> predicate) {
-        return ExpressionNodeSelector.with(predicate);
+    ExpressionNodeSelector<N, NAME, ANAME, AVALUE> expression(final ExpressionNode expression) {
+        return ExpressionNodeSelector.with(expression);
     }
 
     /**

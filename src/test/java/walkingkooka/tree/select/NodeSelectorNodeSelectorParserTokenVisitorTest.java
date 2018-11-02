@@ -19,7 +19,6 @@
 package walkingkooka.tree.select;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
@@ -870,8 +869,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
     // indexed...........................................................................................
 
     @Test
-    @Ignore // TODO fix NodeSelectorIndexParserToken
-    public void testIndex() {
+    public void testAbsoluteWildcardIndex() {
         final TestFakeNode leaf1 = node("leaf1");
         final TestFakeNode branch1 = node("branch1", leaf1);
 
@@ -880,8 +878,22 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
 
         final TestFakeNode root = node("root", branch1, branch2);
 
-        this.parseExpressionAndCheck("/[1]", root, branch1);
-        this.parseExpressionAndCheck("/[2]", root, branch2);
+        this.parseExpressionAndCheck("/*[1]", root, branch1);
+        this.parseExpressionAndCheck("/*[2]", root, branch2);
+    }
+
+    @Test
+    public void testRelativeWildcardIndex() {
+        final TestFakeNode branch1 = node("branch1");
+        final TestFakeNode branch2 = node("branch2");
+        final TestFakeNode branch3 = node("branch3");
+
+        final TestFakeNode root = node("root", branch1, branch2, branch3);
+
+        this.parseExpressionAndCheck("*[0]", root);
+        this.parseExpressionAndCheck("*[1]", root, branch1);
+        this.parseExpressionAndCheck("*[3]", root, branch3);
+        this.parseExpressionAndCheck("*[4]", root);
     }
 
     // last-child.......................................................................................
@@ -1152,7 +1164,10 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
             }
 
             private Integer convertToInteger(final Object value) {
-                return Converters.string().convert(value, Integer.class, this.converterContext);
+                if(value instanceof Number) {
+                    return Number.class.cast(value).intValue();
+                }
+                return Integer.parseInt(String.valueOf(value));
             }
 
             private String convertToString(final Object value) {
