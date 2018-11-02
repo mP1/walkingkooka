@@ -100,6 +100,17 @@ final class NodeSelectorParserPrettyNodeSelectorParserTokenVisitor extends NodeS
     }
 
     @Override
+    protected Visiting startVisit(final NodeSelectorFunctionParserToken token) {
+        this.printer.enter(token);
+        return super.startVisit(token);
+    }
+
+    @Override
+    protected void endVisit(final NodeSelectorFunctionParserToken token) {
+        this.printer.exit(token);
+    }
+
+    @Override
     protected Visiting startVisit(final NodeSelectorGreaterThanParserToken token) {
         this.printer.enter(token);
         return super.startVisit(token);
