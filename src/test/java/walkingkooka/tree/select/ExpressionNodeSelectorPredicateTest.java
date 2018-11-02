@@ -37,7 +37,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ExpressionNodePredicateSelectorPredicateTest extends PredicateTestCase<ExpressionNodeSelectorPredicate, ExpressionEvaluationContext> {
+public final class ExpressionNodeSelectorPredicateTest extends PredicateTestCase<ExpressionNodeSelectorPredicate, ExpressionEvaluationContext> {
 
     private final static String ATTRIBUTE_NAME = "text";
 

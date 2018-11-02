@@ -25,7 +25,7 @@ public final class ExpressionNodeSelectorPredicateExpressionEvaluationContextTes
 
     @Override
     protected ExpressionNodeSelectorPredicateExpressionEvaluationContext createContext() {
-        return ExpressionNodeSelectorPredicateExpressionEvaluationContext.with(null);
+        return ExpressionNodeSelectorPredicateExpressionEvaluationContext.with(null, null);
     }
 
     @Override
