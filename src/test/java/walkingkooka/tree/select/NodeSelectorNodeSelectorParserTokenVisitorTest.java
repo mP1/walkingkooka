@@ -1091,6 +1091,60 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
         this.parseExpressionAndCheck("//*[starts-with(name(), \"r\")=false()]", root, branch, leaf);
     }
 
+    // and ........................................................................................................
+
+    @Test
+    public void testAbsoluteNodeNameTrueAndTrue() {
+        final TestFakeNode leaf1 = node("leaf1", "abc");
+        final TestFakeNode leaf2 = node("leaf2", "xyz");
+
+        final TestFakeNode root = node("root", leaf1, leaf2);
+
+        this.parseExpressionAndCheck("//*[true() AND true()]", root, root, leaf1, leaf2);
+    }
+
+    @Test
+    public void testAbsoluteNodeNameFunctionAndFunction() {
+        final TestFakeNode leaf1 = node("leaf1", "abc");
+        final TestFakeNode leaf2 = node("leaf2", "xyz");
+
+        final TestFakeNode root = node("root", leaf1, leaf2);
+
+        this.parseExpressionAndCheck("//*[string-length(@id)=3 AND @id=\"abc\"]", root, leaf1);
+    }
+
+    // or ........................................................................................................
+
+    @Test
+    public void testAbsoluteNodeNameTrueOrTrue() {
+        final TestFakeNode leaf1 = node("leaf1", "abc");
+        final TestFakeNode leaf2 = node("leaf2", "xyz");
+
+        final TestFakeNode root = node("root", leaf1, leaf2);
+
+        this.parseExpressionAndCheck("//*[false() OR true()]", root, root, leaf1, leaf2);
+    }
+
+    @Test
+    public void testAbsoluteNodeNameFunctionOrFunction() {
+        final TestFakeNode leaf1 = node("leaf1", "abc");
+        final TestFakeNode leaf2 = node("leaf2", "xyz");
+
+        final TestFakeNode root = node("root", leaf1, leaf2);
+
+        this.parseExpressionAndCheck("//*[string-length(@id)=4 OR @id=\"abc\"]", root, leaf1);
+    }
+
+    @Test
+    public void testAbsoluteNodeNameFunctionOrFunction2() {
+        final TestFakeNode leaf1 = node("leaf1", "abc");
+        final TestFakeNode leaf2 = node("leaf2", "xyz");
+
+        final TestFakeNode root = node("root", leaf1, leaf2);
+
+        this.parseExpressionAndCheck("//*[string-length(@id)=3 OR @id=\"abc\"]", root, leaf1, leaf2);
+    }
+
     // helpers ..................................................................................................
 
     private TestFakeNode node(final String name, final TestFakeNode... nodes) {
@@ -1141,9 +1195,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
                                         this.convertToBoolean(value) :
                                         target == Integer.class ?
                                                 this.convertToInteger(value) :
-                                                target == String.class ?
-                                                        this.convertToString(value) :
-                                                        this.failConversion(value, target));
+                                                target == Number.class ?
+                                                        this.convertToNumber(value) :
+                                                        target == String.class ?
+                                                                this.convertToString(value) :
+                                                                this.failConversion(value, target));
             }
 
             /**
@@ -1163,6 +1219,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
                 return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext);
             }
 
+            private Number convertToNumber(final Object value) {
+                return Converters.booleanConverter(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
+                        .convert(value, Number.class, ConverterContexts.fake());
+            }
+            
             private Integer convertToInteger(final Object value) {
                 if(value instanceof Number) {
                     return Number.class.cast(value).intValue();
