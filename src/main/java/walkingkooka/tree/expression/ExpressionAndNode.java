@@ -88,6 +88,11 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
     }
 
     @Override
+    boolean applyBoolean0(final boolean left, final boolean right) {
+        return left & right;
+    }
+
+    @Override
     ExpressionNode applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
         return ExpressionNode.longNode(left & right);
     }

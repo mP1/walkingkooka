@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -83,6 +84,45 @@ public final class ExpressionOrNodeTest extends ExpressionLogicalBinaryNodeTestC
     }
 
     // toBoolean.....................................................................................
+
+    @Test
+    public void testEvaluateToBooleanBooleanBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(booleanValue(false), booleanValue(true)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBooleanBooleanTrue2() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(booleanValue(true), booleanValue(true)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBooleanBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(booleanValue(false), booleanValue(false)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongLongTrue() {
+        // left & right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(7), longValue(3)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongLongFalse() {
+        // left & right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(0), longValue(0)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigIntegerBigIntegerTrue() {
+        // left | right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(7), bigInteger(3)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigIntegerBigIntegerFalse() {
+        // left | right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(0), bigInteger(0)), false);
+    }
 
     @Test
     public void testEvaluateToBooleanTrue() {
@@ -206,6 +246,33 @@ public final class ExpressionOrNodeTest extends ExpressionLogicalBinaryNodeTestC
         this.evaluateAndCheckNumberLong(this.createExpressionNode(longValue(6), longValue(3)), 6 | 3);
     }
 
+    // toBoolean.....................................................................................
+
+    @Test
+    public void testEvaluateToValueBooleanBooleanTrue() {
+        this.evaluateAndCheckValue(this.createExpressionNode(booleanValue(false), booleanValue(true)), true);
+    }
+
+    @Test
+    public void testEvaluateToValueBooleanBooleanTrue2() {
+        this.evaluateAndCheckValue(this.createExpressionNode(booleanValue(true), booleanValue(true)), true);
+    }
+
+    @Test
+    public void testEvaluateToValueBooleanBooleanFalse() {
+        this.evaluateAndCheckValue(this.createExpressionNode(booleanValue(false), booleanValue(false)), false);
+    }
+
+    @Test
+    public void testEvaluateToValueLongLong() {
+        this.evaluateAndCheckValue(this.createExpressionNode(longValue(6), longValue(3)), Long.valueOf(6|3));
+    }
+
+    @Test
+    public void testEvaluateToValueBigIntegerBigInteger() {
+        this.evaluateAndCheckValue(this.createExpressionNode(bigInteger(6), bigInteger(3)), BigInteger.valueOf(6|3));
+    }
+    
     @Override
     ExpressionOrNode createExpressionNode(final ExpressionNode left, final ExpressionNode right) {
         return ExpressionOrNode.with(left, right);

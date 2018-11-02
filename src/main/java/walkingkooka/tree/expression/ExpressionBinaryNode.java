@@ -180,6 +180,14 @@ abstract class ExpressionBinaryNode extends ExpressionParentFixedNode {
 
     abstract ExpressionNode applyLong(final long left, final long right, final ExpressionEvaluationContext context);
 
+    final static boolean isByteShortIntegerLong(final Object value) {
+        return value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Long;
+    }
+
+    final static boolean isFloatDouble(final Object value) {
+        return value instanceof Float || value instanceof Double;
+    }
+
     // Object........................................................................................................
 
     final void toString0(final StringBuilder b) {

@@ -94,35 +94,44 @@ abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
     // evaluation .....................................................................................................
 
     @Override
-    public final Number toValue(final ExpressionEvaluationContext context) {
-        return this.toNumber(context);
+    public final Object toValue(final ExpressionEvaluationContext context) {
+        return this.apply(this.left(), this.right(), context)
+                .toValue(context);
     }
 
     @Override
     final ExpressionNode apply(final ExpressionNode left,
                                final ExpressionNode right,
                                final ExpressionEvaluationContext context) {
-        final Number leftNumber = left.toNumber(context);
-        final Number rightNumber = right.toNumber(context);
-
         ExpressionNode result;
 
         try {
             for (; ; ) {
+                final Object leftValue = left.toValue(context);
+                final Object rightValue = right.toValue(context);
+
+                if (leftValue instanceof Boolean) {
+                    result = this.applyBoolean(
+                            context.convert(leftValue, Boolean.class),
+                            context.convert(rightValue, Boolean.class),
+                            context);
+                    break;
+                }
+
                 // both Long
-                final boolean leftLong = leftNumber instanceof Long;
-                final boolean rightLong = rightNumber instanceof Long;
+                final boolean leftLong = isByteShortIntegerLong(leftValue);
+                final boolean rightLong = isByteShortIntegerLong(rightValue);
                 if (leftLong && rightLong) {
                     result = this.applyLong(
-                            context.convert(leftNumber, Long.class),
-                            context.convert(rightNumber, Long.class),
+                            context.convert(leftValue, Long.class),
+                            context.convert(rightValue, Long.class),
                             context);
                     break;
                 }
                 // default is to promote both to BigInteger, doubles and BigDecimal may fail if they have decimals.
                 result = this.applyBigInteger(
-                        context.convert(leftNumber, BigInteger.class),
-                        context.convert(rightNumber, BigInteger.class),
+                        context.convert(leftValue, BigInteger.class),
+                        context.convert(rightValue, BigInteger.class),
                         context);
                 break;
             }
@@ -132,4 +141,10 @@ abstract class ExpressionLogicalBinaryNode extends ExpressionBinaryNode {
 
         return result;
     }
+
+    final ExpressionNode applyBoolean(final boolean left, final boolean right, final ExpressionEvaluationContext context) {
+        return ExpressionNode.booleanNode(this.applyBoolean0(left, right));
+    }
+
+    abstract boolean applyBoolean0(final boolean left, final boolean right);
 }
