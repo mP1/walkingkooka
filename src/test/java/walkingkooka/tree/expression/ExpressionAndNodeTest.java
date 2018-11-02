@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -85,13 +86,47 @@ public final class ExpressionAndNodeTest extends ExpressionLogicalBinaryNodeTest
     // toBoolean.....................................................................................
 
     @Test
-    public void testEvaluateToBooleanTrue() {
+    public void testEvaluateToBooleanBooleanBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(booleanValue(true), booleanValue(true)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBooleanBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpressionNode(booleanValue(true), booleanValue(false)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongLongTrue() {
+        // left & right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(7), longValue(3)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanLongLongFalse() {
+        // left & right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(longValue(8), longValue(3)), false);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigIntegerBigIntegerTrue() {
+        // left & right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(7), bigInteger(3)), true);
+    }
+
+    @Test
+    public void testEvaluateToBooleanBigIntegerBigIntegerFalse() {
+        // left & right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpressionNode(bigInteger(8), bigInteger(3)), false);
+    }
+    
+    @Test
+    public void testEvaluateToBooleanBigDecimalBigDecimalTrue() {
         // left & right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(7), bigDecimal(3)), true);
     }
 
     @Test
-    public void testEvaluateToBooleanFalse() {
+    public void testEvaluateToBooleanBigDecimalBigDecimalFalse() {
         // left & right == truthy number
         this.evaluateAndCheckBoolean(this.createExpressionNode(bigDecimal(8), bigDecimal(3)), false);
     }
@@ -204,6 +239,28 @@ public final class ExpressionAndNodeTest extends ExpressionLogicalBinaryNodeTest
     @Test
     public void testEvaluateToNumber4() {
         this.evaluateAndCheckNumberLong(this.createExpressionNode(longValue(6), longValue(3)), 6 & 3);
+    }
+
+    // toValue...............................................................................................
+
+    @Test
+    public void testEvaluateToValueBooleanBooleanTrue() {
+        this.evaluateAndCheckValue(this.createExpressionNode(booleanValue(true), booleanValue(true)), true);
+    }
+
+    @Test
+    public void testEvaluateToValueBooleanBooleanFalse() {
+        this.evaluateAndCheckValue(this.createExpressionNode(booleanValue(true), booleanValue(false)), false);
+    }
+
+    @Test
+    public void testEvaluateToValueLongLong() {
+        this.evaluateAndCheckValue(this.createExpressionNode(longValue(6), longValue(3)), 6L & 3L);
+    }
+
+    @Test
+    public void testEvaluateToValueBigIntegerBigInteger() {
+        this.evaluateAndCheckValue(this.createExpressionNode(bigInteger(6), bigInteger(3)), BigInteger.valueOf(6&3));
     }
     
     @Override

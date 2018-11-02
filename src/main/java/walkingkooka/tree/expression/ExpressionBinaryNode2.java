@@ -108,14 +108,6 @@ abstract class ExpressionBinaryNode2 extends ExpressionBinaryNode {
         return result;
     }
 
-    private boolean isByteShortIntegerLong(final Object value) {
-        return value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Long;
-    }
-
-    private boolean isFloatDouble(final Object value) {
-        return value instanceof Float || value instanceof Double;
-    }
-
     abstract ExpressionNode applyText(final String left, final String right, final ExpressionEvaluationContext context);
 
     abstract ExpressionNode applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context);
