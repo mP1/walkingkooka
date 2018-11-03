@@ -19,7 +19,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 
@@ -78,13 +78,13 @@ abstract class ExpressionLeafNode<V> extends ExpressionNode implements Value<V> 
      */
     @Override
     public final ExpressionNode setChildren(final List<ExpressionNode> children) {
-        Objects.requireNonNull(children, "chidren");
+        Objects.requireNonNull(children, "children");
         throw new UnsupportedOperationException();
     }
 
     @Override
     final ExpressionNode setChild(final ExpressionNode newChild) {
-        throw new ShouldNeverHappenError(this.getClass().getSimpleName() + ".setChild");
+        return NeverError.unexpectedMethodCall(this, "setChild", newChild);
     }
 
     // is ................................................................................................................

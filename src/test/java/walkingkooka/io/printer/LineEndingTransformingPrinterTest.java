@@ -19,7 +19,7 @@ package walkingkooka.io.printer;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 import walkingkooka.text.LineEnding;
 
 import java.util.function.Function;
@@ -51,7 +51,7 @@ final public class LineEndingTransformingPrinterTest
                     result = LineEnding.CR;
                     break;
                 }
-                throw new ShouldNeverHappenError("Unknown LineEnding=" + ending);
+                throw new NeverError("Unknown LineEnding=" + ending);
             }
             return result;
         }

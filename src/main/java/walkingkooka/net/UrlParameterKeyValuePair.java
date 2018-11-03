@@ -18,7 +18,7 @@
 
 package walkingkooka.net;
 
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -33,8 +33,8 @@ final class UrlParameterKeyValuePair {
         String encoded;
         try {
             encoded = name.value() + Url.QUERY_NAME_VALUE_SEPARATOR.character() + URLEncoder.encode(value, "UTF-8");
-        } catch ( final UnsupportedEncodingException never) {
-            throw new Error(never);
+        } catch ( final UnsupportedEncodingException cause) {
+            throw NeverError.unsupportedEncodingException(cause);
         }
         return new UrlParameterKeyValuePair(encoded, name, value, Url.QUERY_PARAMETER_SEPARATOR.character(), false);
     }
@@ -55,8 +55,8 @@ final class UrlParameterKeyValuePair {
             name = name.substring(0, equalsSign);
             try {
                 value = URLDecoder.decode(encodedWithoutSeparator.substring(equalsSign + 1), "UTF-8");
-            } catch (final UnsupportedEncodingException never) {
-                throw new ShouldNeverHappenError(never.getMessage(), never);
+            } catch (final UnsupportedEncodingException cause) {
+                NeverError.unsupportedEncodingException(cause);
             }
         }
 

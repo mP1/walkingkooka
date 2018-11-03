@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.SkipPropertyNeverReturnsNullCheck;
@@ -89,7 +89,7 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
 
     @Override
     final JsonNode setChild(final JsonNode newChild) {
-        throw new ShouldNeverHappenError(this.getClass().getSimpleName() + ".setChild");
+        throw new NeverError(this.getClass().getSimpleName() + ".setChild");
     }
 
     // HasText......................................................................................................

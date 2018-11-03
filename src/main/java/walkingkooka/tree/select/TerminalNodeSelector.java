@@ -18,7 +18,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
@@ -60,7 +60,7 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     @Override
     void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        throw new ShouldNeverHappenError(this.getClass() + ".select(Node, NodeSelectorContext)");
+        throw new NeverError(this.getClass() + ".select(Node, NodeSelectorContext)");
     }
 
     @Override

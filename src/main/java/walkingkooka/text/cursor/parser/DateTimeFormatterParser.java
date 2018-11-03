@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser;
 
 import walkingkooka.Cast;
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.TextCursor;
@@ -311,7 +311,7 @@ abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserCo
                 match = isFraction(c);
                 break;
             case TEXT_DIGITS:
-                throw new ShouldNeverHappenError("TEXT_DIGITS");
+                NeverError.unhandledCase(pattern, TEXT, DIGITS, FRACTION, WHITESPACE, ZONEID, ZONENAME, LOCALISED_ZONE_OFFSET, ZONE_OFFSET, Z_OR_ZONE_OFFSET);
             case WHITESPACE:
                 match = isWhitespace(c);
                 break;
@@ -421,7 +421,7 @@ abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserCo
                         create = TEXT_DIGITS == pattern || DIGITS == pattern;
                         break;
                     case TEXT_DIGITS:
-                        throw new ShouldNeverHappenError("TEXT_DIGITS");
+                        NeverError.unhandledCase(next, "TEXT_DIGITS");
                     case WHITESPACE:
                         create = false;
                         break;

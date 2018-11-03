@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -115,7 +115,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
                                 this.applyDouble(Double.class.cast(number)) :
                                 number instanceof Long ?
                                         this.applyLong(Long.class.cast(number)) :
-                                            failToNumber();
+                                            throw NeverError.unhandledCase(number);
     }
 
     private BigDecimal applyBigDecimal(final BigDecimal bigDecimal, final ExpressionEvaluationContext context) {
@@ -132,10 +132,6 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     private Long applyLong(final Long longValue) {
         return -longValue;
-    }
-
-    private Number failToNumber() {
-        throw new ShouldNeverHappenError(this.getClass().getName() + ".applyToNumber");
     }
 
     @Override
