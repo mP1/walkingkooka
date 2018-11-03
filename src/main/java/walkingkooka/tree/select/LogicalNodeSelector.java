@@ -18,7 +18,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
@@ -62,7 +62,7 @@ abstract class LogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        throw new ShouldNeverHappenError(this.getClass().getName() + ".select(Node, NodeSelectorContext)");
+        throw new NeverError(this.getClass().getName() + ".select(Node, NodeSelectorContext)");
     }
 
     @Override

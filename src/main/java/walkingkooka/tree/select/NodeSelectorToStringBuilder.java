@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.ShouldNeverHappenError;
+import walkingkooka.NeverError;
 import walkingkooka.build.Builder;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.naming.PathSeparator;
@@ -147,7 +147,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
                 this.predicate = null;
                 break;
             default:
-                throw new ShouldNeverHappenError(this.toString());
+                NeverError.unhandledCase(action, 0, 1, 2, 3, 4, 5, 6, 7);
         }
     }
 

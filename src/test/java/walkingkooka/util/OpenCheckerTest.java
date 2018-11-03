@@ -71,13 +71,13 @@ final public class OpenCheckerTest extends PublicClassTestCase<OpenChecker<Excep
         checker.check();
     }
 
-    // @Test public void testCreateAndCheck2() throws ShouldNeverHappenError
+    // @Test public void testCreateAndCheck2() throws NeverError
     //    {
     //        final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE,
     //                THROWABLE_FACTORY);
     //        Assert.assertFalse(checker.isClosed());
-    //        checker.check(ThrowableFactories.<ShouldNeverHappenError>fake());
-    //        checker.check(ThrowableFactories.<ShouldNeverHappenError>fake());
+    //        checker.check(ThrowableFactories.<NeverError>fake());
+    //        checker.check(ThrowableFactories.<NeverError>fake());
     //    }
 
     @Test
