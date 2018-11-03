@@ -40,7 +40,6 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformer;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A {@link EbnfParserCombinatorSyntaxTreeTransformer} that only transforms terminal and ranges into their corresponding {@link SpreadsheetParserToken} equivalents.
@@ -71,7 +70,6 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
         ParserToken result;
 
         for (; ; ) {
-            final String text = sequence.text();
             final SequenceParserToken cleaned = sequence.flat();
 
             final SpreadsheetParserToken first = cleaned.removeWhitespace()
@@ -111,13 +109,9 @@ final class SpreadsheetEbnfParserCombinatorSyntaxTreeTransformer implements Ebnf
                         final List<ParserToken> binaryOperandTokens = Lists.array();
                         binaryOperandTokens.addAll(prioritized.subList(firstIndex, lastIndex + 1));
 
-                        final String text = binaryOperandTokens.stream()
-                                .map(b -> b.text())
-                                .collect(Collectors.joining());
-
                         final List<ParserToken> replaced = Lists.array();
                         replaced.addAll(prioritized.subList(0, firstIndex));
-                        replaced.add(s.binaryOperand(binaryOperandTokens, text));
+                        replaced.add(s.binaryOperand(binaryOperandTokens, ParserToken.text(binaryOperandTokens)));
                         replaced.addAll(prioritized.subList(lastIndex + 1, prioritized.size()));
 
                         prioritized = replaced;
