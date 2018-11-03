@@ -115,7 +115,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
                                 this.applyDouble(Double.class.cast(number)) :
                                 number instanceof Long ?
                                         this.applyLong(Long.class.cast(number)) :
-                                            throw NeverError.unhandledCase(number);
+                                            failToNumber(number);
     }
 
     private BigDecimal applyBigDecimal(final BigDecimal bigDecimal, final ExpressionEvaluationContext context) {
@@ -132,6 +132,10 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     private Long applyLong(final Long longValue) {
         return -longValue;
+    }
+
+    private Number failToNumber(final Number value) {
+        return NeverError.unhandledCase(value);
     }
 
     @Override

@@ -34,7 +34,7 @@ final class UrlParameterKeyValuePair {
         try {
             encoded = name.value() + Url.QUERY_NAME_VALUE_SEPARATOR.character() + URLEncoder.encode(value, "UTF-8");
         } catch ( final UnsupportedEncodingException cause) {
-            throw NeverError.unsupportedEncodingException(cause);
+            encoded = NeverError.unsupportedEncodingException(cause);
         }
         return new UrlParameterKeyValuePair(encoded, name, value, Url.QUERY_PARAMETER_SEPARATOR.character(), false);
     }
