@@ -34,23 +34,23 @@ public class NeverError extends Error {
     /**
      * Reports an unexpected {@link UnsupportedEncodingException}.
      */
-    public static NeverError unsupportedEncodingException(final UnsupportedEncodingException cause) {
+    public static <T> T unsupportedEncodingException(final UnsupportedEncodingException cause) {
         throw new NeverError(cause.getMessage(), cause);
     }
 
     /**
      * Reports an unexpected method call, including dumping the parameters.
      */
-    public static <T> T unexpectedMethodCall(final Object instance, final String method, final Object...parameters) {
+    public static <T> T unexpectedMethodCall(final Object instance, final String method, final Object... parameters) {
         throw new NeverError(instance.getClass().getName() + "." + method + "(" + Arrays.stream(parameters)
                 .map(p -> CharSequences.quoteIfChars(p))
-                .collect(Collectors.joining(","))+ ")");
+                .collect(Collectors.joining(",")) + ")");
     }
 
     /**
      * Useful to report unexpected enums in a switch.
      */
-    public static <E extends Enum<E>> NeverError unhandledCase(final Object value, final Object... expected) {
+    public static <E extends Enum<E>, T> T unhandledCase(final Object value, final Object... expected) {
         throw new NeverError("Unhandled value: " + CharSequences.quoteIfChars(value) + " only expected: " + Arrays.stream(expected)
                 .map(m -> CharSequences.quoteIfChars(m))
                 .collect(Collectors.joining(",")));
@@ -59,7 +59,7 @@ public class NeverError extends Error {
     /**
      * Useful to report unexpected enums in a switch.
      */
-    public static <E extends Enum<E>> NeverError unhandledEnum(final E value, final E... expected) {
+    public static <E extends Enum<E>, T> T unhandledEnum(final E value, final E... expected) {
         throw new NeverError("Unhandled enum value: " + value + " only expected: " + Arrays.stream(expected)
                 .map(e -> e.name())
                 .collect(Collectors.joining(",")));
