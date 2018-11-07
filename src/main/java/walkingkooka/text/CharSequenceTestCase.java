@@ -19,7 +19,7 @@ package walkingkooka.text;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.TestCase;
+import walkingkooka.test.ClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -27,20 +27,22 @@ import static org.junit.Assert.assertSame;
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
  */
-abstract public class CharSequenceTestCase<C extends CharSequence> extends TestCase {
+abstract public class CharSequenceTestCase<C extends CharSequence> extends ClassTestCase<C> {
 
     protected CharSequenceTestCase() {
         super();
     }
 
-    @Test final public void testLengthAndToStringCompatible() {
+    @Test
+    final public void testLengthAndToStringCompatible() {
         final C sequence = this.createCharSequence();
         assertEquals(sequence + " length is different from that of toString()",
                 sequence.length(),
                 sequence.toString().length());
     }
 
-    @Test final public void testCharAtAndToStringCompatible() {
+    @Test
+    final public void testCharAtAndToStringCompatible() {
         final C sequence = this.createCharSequence();
         final int length = sequence.length();
         final char[] chars = new char[length];
@@ -51,11 +53,13 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends TestC
         assertEquals(new String(chars), sequence.toString());
     }
 
-    @Test final public void testNegativeIndexFails() {
+    @Test
+    final public void testNegativeIndexFails() {
         this.charAtFails(-1);
     }
 
-    @Test final public void testInvalidIndexFails() {
+    @Test
+    final public void testInvalidIndexFails() {
         final C sequence = this.createCharSequence();
         this.charAtFails(sequence, Integer.MAX_VALUE);
     }

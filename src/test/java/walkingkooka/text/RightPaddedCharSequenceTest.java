@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -36,22 +35,14 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
 
     // tests
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testWrapNullCharSequenceFails() {
-        this.wrapFails(null, RightPaddedCharSequenceTest.LENGTH);
+        RightPaddedCharSequence.wrap(null, RightPaddedCharSequenceTest.LENGTH, RightPaddedCharSequenceTest.PADDING);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWrapInvalidLengthFails() {
-        this.wrapFails(RightPaddedCharSequenceTest.SEQUENCE, 4);
-    }
-
-    private void wrapFails(final CharSequence sequence, final int length) {
-        try {
-            RightPaddedCharSequence.wrap(sequence, length, RightPaddedCharSequenceTest.PADDING);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        RightPaddedCharSequence.wrap(RightPaddedCharSequenceTest.SEQUENCE, 4, RightPaddedCharSequenceTest.PADDING);
     }
 
     @Test
@@ -138,5 +129,15 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
         return (RightPaddedCharSequence) RightPaddedCharSequence.wrap(RightPaddedCharSequenceTest.SEQUENCE,
                 RightPaddedCharSequenceTest.LENGTH,
                 RightPaddedCharSequenceTest.PADDING);
+    }
+
+    @Override
+    protected Class<RightPaddedCharSequence> type() {
+        return RightPaddedCharSequence.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }

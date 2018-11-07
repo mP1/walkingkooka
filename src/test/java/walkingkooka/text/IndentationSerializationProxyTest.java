@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 final public class IndentationSerializationProxyTest
-        extends SerializationProxyTestCase<IndentationConstantSerializationProxy> {
+        extends SerializationProxyTestCase<IndentationSerializationProxy> {
 
     @Test
     public void testToString() {
@@ -35,7 +35,7 @@ final public class IndentationSerializationProxyTest
     }
 
     @Override
-    protected Class<IndentationConstantSerializationProxy> type() {
-        return IndentationConstantSerializationProxy.class;
+    protected Class<IndentationSerializationProxy> type() {
+        return IndentationSerializationProxy.class;
     }
 }

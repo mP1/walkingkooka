@@ -138,11 +138,22 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         throw new UnsupportedOperationException();
     }
 
-    @Override protected ReaderConsumingCharSequence createCharSequence() {
+    @Override
+    protected ReaderConsumingCharSequence createCharSequence() {
         return this.createCharSequence("abc");
     }
 
     private ReaderConsumingCharSequence createCharSequence(final String source) {
         return ReaderConsumingCharSequence.with(new StringReader(source), BUFFER_SIZE);
+    }
+
+    @Override
+    protected Class<ReaderConsumingCharSequence> type() {
+        return ReaderConsumingCharSequence.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }

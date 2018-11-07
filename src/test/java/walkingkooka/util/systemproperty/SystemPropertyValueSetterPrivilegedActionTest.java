@@ -15,15 +15,15 @@
  *
  */
 
-package walkingkooka.text;
+package walkingkooka.util.systemproperty;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-final public class RightPaddedCharSequenceClassTest
-        extends PackagePrivateClassTestCase<RightPaddedCharSequence> {
+final public class SystemPropertyValueSetterPrivilegedActionTest
+        extends PackagePrivateClassTestCase<SystemPropertyValueSetterPrivilegedAction> {
 
     @Override
-    protected Class<RightPaddedCharSequence> type() {
-        return RightPaddedCharSequence.class;
+    protected Class<SystemPropertyValueSetterPrivilegedAction> type() {
+        return SystemPropertyValueSetterPrivilegedAction.class;
     }
 }

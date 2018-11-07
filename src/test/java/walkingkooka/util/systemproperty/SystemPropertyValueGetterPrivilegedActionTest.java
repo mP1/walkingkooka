@@ -19,11 +19,11 @@ package walkingkooka.util.systemproperty;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-final public class SystemPropertyValueClearPrivilegedActionClassTest
-        extends PackagePrivateClassTestCase<SystemPropertyValueClearPrivilegedAction> {
+final public class SystemPropertyValueGetterPrivilegedActionTest
+        extends PackagePrivateClassTestCase<SystemPropertyValueGetterPrivilegedAction> {
 
     @Override
-    protected Class<SystemPropertyValueClearPrivilegedAction> type() {
-        return SystemPropertyValueClearPrivilegedAction.class;
+    protected Class<SystemPropertyValueGetterPrivilegedAction> type() {
+        return SystemPropertyValueGetterPrivilegedAction.class;
     }
 }

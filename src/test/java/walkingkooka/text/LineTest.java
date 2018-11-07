@@ -17,33 +17,25 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 final public class LineTest extends CharSequenceTestCase<Line> {
-    @Test
+
+    @Test(expected = NullPointerException.class)
     public void testWithNullTextFails() {
-        this.withFails(null);
+        Line.with(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWithCrTextFails() {
-        this.withFails("abc \r");
+        Line.with("abc \r");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWithNlTextFails() {
-        this.withFails("abc \n");
-    }
-
-    private void withFails(final String text) {
-        try {
-            Line.with(text);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        Line.with("abc \n");
     }
 
     @Test
@@ -69,5 +61,15 @@ final public class LineTest extends CharSequenceTestCase<Line> {
     @Override
     protected Line createCharSequence() {
         return Line.with("abc");
+    }
+
+    @Override
+    protected Class<Line> type() {
+        return Line.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }

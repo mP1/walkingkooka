@@ -44,6 +44,12 @@ import static org.junit.Assert.fail;
 
 public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPredicateTestCase<CharPredicate> {
 
+    @Test
+    @Ignore
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test(expected = NullPointerException.class)
     public void testFromGrammarNullGrammarFails() {
         CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(null, Maps.empty());

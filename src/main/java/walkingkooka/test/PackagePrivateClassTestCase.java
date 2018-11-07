@@ -17,7 +17,6 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.type.PublicClass;
 
@@ -27,6 +26,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 /**
  * Adds some additional tests to verify the visibility of the class and constructors.
  */
@@ -34,6 +36,16 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
 
     protected PackagePrivateClassTestCase() {
         super();
+    }
+
+    @Test
+    public void testTestNaming() {
+        final String type = this.type().getName();
+        final String test = this.getClass().getName();
+        if(!test.endsWith("Test")) {
+            fail("Test name " + test + " incorrect for " + type);
+        }
+        assertEquals("Test name " + test + " incorrect for " + type, test, type + "Test");
     }
 
     /**
@@ -51,7 +63,7 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
                         continue;
                     }
                     if (this.isPublic(method) || this.isProtected(method)) {
-                        Assert.fail("Static methods should be package private="
+                        fail("Static methods should be package private="
                                 + method.toGenericString());
                     }
                 }
@@ -62,7 +74,7 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
                     continue;
                 }
                 if (this.isPublic(method) || this.isProtected(method)) {
-                    Assert.fail(
+                    fail(
                             "Method must be package private/private of it does not override a public/protected method="
                                     + method.toGenericString());
                 }

@@ -92,4 +92,14 @@ final public class LineEndingTest extends CharSequenceTestCase<LineEnding> {
     protected LineEnding createCharSequence() {
         return LineEnding.CR;
     }
+
+    @Override
+    protected Class<LineEnding> type() {
+        return LineEnding.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
+    }
 }

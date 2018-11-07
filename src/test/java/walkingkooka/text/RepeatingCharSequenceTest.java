@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -33,13 +32,9 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
 
     // tests
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidLengthFails() {
-        try {
-            RepeatingCharSequence.with(RepeatingCharSequenceTest.CHAR, -1);
-            Assert.fail();
-        } catch (final IllegalArgumentException expected) {
-        }
+        RepeatingCharSequence.with(RepeatingCharSequenceTest.CHAR, -1);
     }
 
     @Test
@@ -75,5 +70,15 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
     protected RepeatingCharSequence createCharSequence() {
         return (RepeatingCharSequence) RepeatingCharSequence.with(RepeatingCharSequenceTest.CHAR,
                 RepeatingCharSequenceTest.LENGTH);
+    }
+
+    @Override
+    protected Class<RepeatingCharSequence> type() {
+        return RepeatingCharSequence.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }

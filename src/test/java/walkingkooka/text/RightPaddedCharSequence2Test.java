@@ -22,8 +22,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-final public class RightPaddedCharSequence2Test
-        extends CharSequenceTestCase<RightPaddedCharSequence2> {
+final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<RightPaddedCharSequence2> {
 
     // constants
 
@@ -127,5 +126,15 @@ final public class RightPaddedCharSequence2Test
                 RightPaddedCharSequence2Test.SEQUENCE_LENGTH,
                 RightPaddedCharSequence2Test.PADDING_LENGTH,
                 RightPaddedCharSequence2Test.PADDING);
+    }
+
+    @Override
+    protected Class<RightPaddedCharSequence2> type() {
+        return RightPaddedCharSequence2.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }

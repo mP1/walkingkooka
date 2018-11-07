@@ -67,4 +67,14 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
     protected CharacterConstant createCharSequence() {
         return CharacterConstant.with('a');
     }
+
+    @Override
+    protected Class<CharacterConstant> type() {
+        return CharacterConstant.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
+    }
 }
