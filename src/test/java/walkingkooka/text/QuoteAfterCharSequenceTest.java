@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -30,13 +29,9 @@ final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<Quote
 
     // tests
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
-        try {
-            QuoteAfterCharSequence.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        QuoteAfterCharSequence.with(null);
     }
 
     @Test
@@ -106,5 +101,15 @@ final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<Quote
     @Override
     protected QuoteAfterCharSequence createCharSequence() {
         return (QuoteAfterCharSequence) QuoteAfterCharSequence.with(QuoteAfterCharSequenceTest.SEQUENCE);
+    }
+
+    @Override
+    protected Class<QuoteAfterCharSequence> type() {
+        return QuoteAfterCharSequence.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }

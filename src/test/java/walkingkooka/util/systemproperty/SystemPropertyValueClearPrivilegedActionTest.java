@@ -15,14 +15,15 @@
  *
  */
 
-package walkingkooka.xml;
+package walkingkooka.util.systemproperty;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class DomEntityMapTest extends PackagePrivateClassTestCase<DomEntityMap> {
+final public class SystemPropertyValueClearPrivilegedActionTest
+        extends PackagePrivateClassTestCase<SystemPropertyValueClearPrivilegedAction> {
+
     @Override
-    protected Class<DomEntityMap> type() {
-        return DomEntityMap.class;
+    protected Class<SystemPropertyValueClearPrivilegedAction> type() {
+        return SystemPropertyValueClearPrivilegedAction.class;
     }
 }
-

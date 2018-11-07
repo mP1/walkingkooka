@@ -65,4 +65,14 @@ final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharS
     protected EmptyCharSequence createCharSequence() {
         return EmptyCharSequence.INSTANCE;
     }
+
+    @Override
+    protected Class<EmptyCharSequence> type() {
+        return EmptyCharSequence.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
+    }
 }

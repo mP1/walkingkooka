@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -36,22 +35,18 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
 
     // tests
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testWrapNullCharSequenceFails() {
         this.wrapFails(null, LeftPaddedCharSequenceTest.LENGTH);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testWrapInvalidLengthFails() {
         this.wrapFails(LeftPaddedCharSequenceTest.SEQUENCE, 4);
     }
 
     private void wrapFails(final CharSequence sequence, final int length) {
-        try {
-            LeftPaddedCharSequence.wrap(sequence, length, LeftPaddedCharSequenceTest.PADDING);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        LeftPaddedCharSequence.wrap(sequence, length, LeftPaddedCharSequenceTest.PADDING);
     }
 
     @Test
@@ -144,5 +139,15 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
         return (LeftPaddedCharSequence) LeftPaddedCharSequence.wrap(LeftPaddedCharSequenceTest.SEQUENCE,
                 LeftPaddedCharSequenceTest.LENGTH,
                 LeftPaddedCharSequenceTest.PADDING);
+    }
+
+    @Override
+    protected Class<LeftPaddedCharSequence> type() {
+        return LeftPaddedCharSequence.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }

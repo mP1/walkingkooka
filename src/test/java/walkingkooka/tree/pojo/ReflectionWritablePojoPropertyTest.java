@@ -21,9 +21,9 @@ package walkingkooka.tree.pojo;
 
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class ReflectionWritablePojoPropertyTest extends PackagePrivateClassTestCase<ReflectionImmutableWritablePojoProperty> {
+public final class ReflectionWritablePojoPropertyTest extends PackagePrivateClassTestCase<ReflectionWritablePojoProperty> {
     @Override
-    protected Class<ReflectionImmutableWritablePojoProperty> type() {
-        return ReflectionImmutableWritablePojoProperty.class;
+    protected Class<ReflectionWritablePojoProperty> type() {
+        return ReflectionWritablePojoProperty.class;
     }
 }

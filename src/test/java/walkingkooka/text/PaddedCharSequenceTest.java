@@ -15,14 +15,15 @@
  *
  */
 
-package walkingkooka.xml;
+package walkingkooka.text;
 
+import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class DomEntityMapTest extends PackagePrivateClassTestCase<DomEntityMap> {
+final public class PaddedCharSequenceTest extends PackagePrivateClassTestCase<PaddedCharSequence<?>> {
+
     @Override
-    protected Class<DomEntityMap> type() {
-        return DomEntityMap.class;
+    protected Class<PaddedCharSequence<?>> type() {
+        return Cast.to(PaddedCharSequence.class);
     }
 }
-

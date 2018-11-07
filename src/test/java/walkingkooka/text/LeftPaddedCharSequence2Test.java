@@ -130,4 +130,14 @@ final public class LeftPaddedCharSequence2Test extends CharSequenceTestCase<Left
                 LeftPaddedCharSequence2Test.PADDING_LENGTH,
                 LeftPaddedCharSequence2Test.PADDING);
     }
+
+    @Override
+    protected Class<LeftPaddedCharSequence2> type() {
+        return LeftPaddedCharSequence2.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
+    }
 }

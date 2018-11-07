@@ -45,4 +45,15 @@ final public class WhitespaceCharSequenceTest extends CharSequenceTestCase<White
     protected Whitespace createCharSequence() {
         return Whitespace.with(" \t\r\n");
     }
+
+
+    @Override
+    protected Class<Whitespace> type() {
+        return Whitespace.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
+    }
 }

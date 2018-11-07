@@ -17,13 +17,11 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-final public class QuotesAroundCharSequenceTest
-        extends CharSequenceTestCase<QuotesAroundCharSequence> {
+final public class QuotesAroundCharSequenceTest extends CharSequenceTestCase<QuotesAroundCharSequence> {
 
     // constants
 
@@ -31,13 +29,9 @@ final public class QuotesAroundCharSequenceTest
 
     // tests
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
-        try {
-            QuotesAroundCharSequence.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        QuotesAroundCharSequence.with(null);
     }
 
     @Test
@@ -117,5 +111,15 @@ final public class QuotesAroundCharSequenceTest
     @Override
     protected QuotesAroundCharSequence createCharSequence() {
         return (QuotesAroundCharSequence) QuotesAroundCharSequence.with(QuotesAroundCharSequenceTest.SEQUENCE);
+    }
+
+    @Override
+    protected Class<QuotesAroundCharSequence> type() {
+        return QuotesAroundCharSequence.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return false;
     }
 }
