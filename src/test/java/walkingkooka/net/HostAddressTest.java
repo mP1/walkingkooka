@@ -266,6 +266,214 @@ public final class HostAddressTest extends PublicClassTestCase<HostAddress> {
         assertNotNull(address + " should have an Ip6Address", address.isIpAddress().isIp6());
     }
 
+    // parse .........................................................
+
+    @Test
+    public void testParseProbablyIp6Fails() {
+        this.parseFails("a.b:c", HostAddressProbablyIp6Problem.INSTANCE);
+    }
+
+    @Test
+    public void testParseDotAtStartFails() {
+        this.parseFails(".n", HostAddressInvalidCharacterProblem.with(0));
+    }
+
+    @Test
+    public void testParseDotAtEndFails() {
+        this.parseFails("n.", HostAddressIncompleteProblem.INSTANCE);
+    }
+
+    @Test
+    public void testParseDashAtStartFails() {
+        this.parseFails("-n", HostAddressInvalidCharacterProblem.with(0));
+    }
+
+    @Test
+    public void testParseDashAtEndFails() {
+        final String name = "n-";
+        this.parseFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('-')));
+    }
+
+    @Test
+    public void testParseOneLabelInvalidAtStartFails() {
+        this.parseFails("!b", HostAddressInvalidCharacterProblem.with(0));
+    }
+
+    @Test
+    public void testParseOneLabelInvalidAtStarts2Fails() {
+        this.parseFails("!bc", HostAddressInvalidCharacterProblem.with(0));
+    }
+
+    @Test
+    public void testParseOneLabelInvalidFails() {
+        this.parseFails("n!ame", HostAddressInvalidCharacterProblem.with(1));
+    }
+
+    @Test
+    public void testParseOneLabelEndsWithInvalidFails() {
+        this.parseFails("a!", HostAddressInvalidCharacterProblem.with(1));
+    }
+
+    @Test
+    public void testParseOneLabelEndsWithInvalid2Fails() {
+        this.parseFails("ab!", HostAddressInvalidCharacterProblem.with(2));
+    }
+
+    @Test
+    public void testParseDashThenDotFails() {
+        final String address = "exampl-.com";
+        this.parseFails(address, HostAddressInvalidCharacterProblem.with(address.indexOf('-')));
+    }
+
+    @Test
+    public void testParseSecondLabelInvalidAtStartFails() {
+        final String name = "a.!b";
+        this.parseFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('!')));
+    }
+
+    @Test
+    public void testParseSecondLabelInvalidFails() {
+        final String name = "a.b!c.d";
+        this.parseFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('!')));
+    }
+
+    @Test
+    public void testParseSecondLabelEndsWithInvalidFails() {
+        final String name = "a.b!.c";
+        this.parseFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('!')));
+    }
+
+    @Test
+    public void testParseSecondLabelEndsWithDashFails() {
+        final String name = "a.b-.c";
+        this.parseFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('-')));
+    }
+
+    @Test
+    public void testParseLastLabelEndWithInvalidFails() {
+        final String name = "a.b!";
+        this.parseFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('!')));
+    }
+
+    @Test
+    public void testParseLastLabelEndsWithDashFails() {
+        final String name = "a.b-";
+        this.parseFails(name, HostAddressInvalidCharacterProblem.with(name.indexOf('-')));
+    }
+
+    @Test
+    public void testParseIp4PartialFails() {
+        final String name = "1.2";
+        this.parseFails(name, HostAddressProbablyIp4Problem.INSTANCE);
+    }
+
+    @Test
+    public void testParseIp4Fails() {
+        final String name = "1.2.3.4";
+        this.parseFails(name, HostAddressProbablyIp4Problem.INSTANCE);
+    }
+
+    @Test
+    public void testParseIp4WithExtraOctetsFails() {
+        final String name = "1.2.3.4.5.6";
+        this.parseFails(name, HostAddressProbablyIp4Problem.INSTANCE);
+    }
+
+    @Test
+    public void testParseIp6Fails() {
+        final String name = "1:2:3:4:5:6:7:8";
+        this.parseFails(name, HostAddressProbablyIp6Problem.INSTANCE);
+    }
+
+    @Test
+    public void testParseLabelTooLongFails() {
+        final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
+        Arrays.fill(array, 'x');
+        final String name = new String(array);
+        this.parseFails(name, HostAddressInvalidLengthProblem.with(0));
+    }
+
+    @Test
+    public void testParseLabelTooLongFirstFails() {
+        final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
+        Arrays.fill(array, 'x');
+        final String name = new String(array);
+        this.parseFails(name + ".second", HostAddressInvalidLengthProblem.with(0));
+    }
+
+    public void testParseLabelTooLongSecondFails() {
+        final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
+        Arrays.fill(array, 'x');
+        this.parseFails("first." + new String(array) + ".last", HostAddressInvalidLengthProblem.with("first.".length()));
+    }
+
+    @Test
+    public void testParseLabelTooLongLastFails() {
+        final char[] array = new char[HostAddress.MAX_LABEL_LENGTH];
+        Arrays.fill(array, 'x');
+        this.parseFails("first." + new String(array), HostAddressInvalidLengthProblem.with("first.".length()));
+    }
+
+    @Test
+    public void testParseOneLetter() {
+        this.parseAndCheck("A");
+    }
+
+    @Test
+    public void testParseOneLetterWithStartAndEnd() {
+        this.parseAndCheck("!B!", 1, 2);
+    }
+
+    @Test
+    public void testParseOneLabel() {
+        this.parseAndCheck("one");
+    }
+
+    @Test
+    public void testParseOneLabelWithStartAndEnd() {
+        this.parseAndCheck("!one!", 1, 4);
+    }
+
+    @Test
+    public void testParseManyLabels() {
+        this.parseAndCheck("first.second");
+    }
+
+    @Test
+    public void testParseManyLabelsWithStartAndEnd() {
+        final String address = "!first.second!";
+        this.parseAndCheck(address, 1, address.length() - 1);
+    }
+
+    @Test
+    public void testParseManyLabels2() {
+        this.parseAndCheck("first.second.third");
+    }
+
+    @Test
+    public void testParseManyLabels2WithStartAndEnd() {
+        final String address = "!first.second.third!";
+        this.parseAndCheck(address, 1, address.length() - 1);
+    }
+
+    private void parseAndCheck(final String address) {
+        this.parseAndCheck(address, 0, address.length());
+    }
+
+    private void parseAndCheck(final String address, final int start, final int end) {
+        assertNull(HostAddress.tryParseName(address, start, end));
+    }
+
+    private void parseFails(final String address, final HostAddressProblem problem) {
+        this.parseFails(address, 0, address.length(), problem);
+    }
+
+    private void parseFails(final String address, final int start, final int end, final HostAddressProblem problem) {
+        assertEquals("problem", problem, HostAddress.tryParseName(address, start, end));
+    }
+
+    // toString...................................................................................................
+
     public void testToString() {
         final String address = "address";
         assertEquals(address, HostAddress.with(address).toString());
