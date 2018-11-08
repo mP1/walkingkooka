@@ -73,6 +73,14 @@ public final class SearchLocalDateNodeTest extends SearchLeafNodeTestCase<Search
         assertEquals(DIFFERENT_DATE_STRING, this.createSearchNode(LocalDate.parse(DIFFERENT_DATE_STRING)).toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123="+ DIFFERENT_DATE_STRING,
+                this.createSearchNode(LocalDate.parse(DIFFERENT_DATE_STRING))
+                        .setName(SearchNodeName.with("Name123"))
+                        .toString());
+    }
+
     private SearchLocalDateNode createSearchNode(final String value) {
         return this.createSearchNode(LocalDate.parse(value));
     }

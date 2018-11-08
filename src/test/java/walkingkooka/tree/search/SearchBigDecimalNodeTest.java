@@ -64,6 +64,13 @@ public final class SearchBigDecimalNodeTest extends SearchLeafNodeTestCase<Searc
         assertEquals("123", this.createSearchNode("123", BigDecimal.valueOf(123)).toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123=123",
+                this.createSearchNode("123", BigDecimal.valueOf(123)). setName(SearchNodeName.with("Name123")).toString());
+    }
+
+
     @Override
     SearchBigDecimalNode createSearchNode(final String text, final BigDecimal value) {
         return SearchBigDecimalNode.with(text, value);

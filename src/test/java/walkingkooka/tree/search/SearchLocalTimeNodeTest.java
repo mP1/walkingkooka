@@ -72,6 +72,14 @@ public final class SearchLocalTimeNodeTest extends SearchLeafNodeTestCase<Search
         assertEquals(DIFFERENT_TIME_STRING, this.createSearchNode(LocalTime.parse(DIFFERENT_TIME_STRING)).toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123=" + DIFFERENT_TIME_STRING,
+                this.createSearchNode(LocalTime.parse(DIFFERENT_TIME_STRING))
+                        .setName(SearchNodeName.with("Name123"))
+                        .toString());
+    }
+
     @Override
     SearchLocalTimeNode createSearchNode(final String text, final LocalTime value) {
         return SearchLocalTimeNode.with(text, value);

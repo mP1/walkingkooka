@@ -44,6 +44,33 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
         this.publicStaticFactoryCheck(SearchNode.class, "Search", Node.class);
     }
 
+    @Test(expected = NullPointerException.class)
+    public final void testSetNameNullFails() {
+        this.createSearchNode().setName(null);
+    }
+
+    @Test
+    public final void testSetNameSame() {
+        final N node = this.createSearchNode();
+        assertSame(node, node.setName(node.name()));
+    }
+
+    @Test
+    public final void testSetNameDifferent() {
+        final N node = this.createSearchNode();
+        final SearchNodeName name = SearchNodeName.with("different");
+        final N different = node.setName(name).cast();
+        assertNotSame(node, different);
+        assertEquals("name", name, different.name());
+    }
+
+    @Test
+    public final void testSetNameReturnType() throws Exception {
+        final Class<N> type = this.searchNodeType();
+        final Method method = type.getMethod("setName", SearchNodeName.class);
+        assertEquals(method.toGenericString(), type, method.getReturnType());
+    }
+
     @Test
     @Ignore
     public final void testSetSameAttributes() {

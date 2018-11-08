@@ -190,6 +190,11 @@ public final class SearchIgnoredNodeTest extends SearchParentNodeTestCase<Search
         assertEquals("<! \"child\" !>", this.createSearchNode().toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123<! \"child\" !>", this.createSearchNode().setName(SearchNodeName.with("Name123")).toString());
+    }
+
     @Override
     SearchIgnoredNode createSearchNode() {
         return SearchIgnoredNode.with(this.child());

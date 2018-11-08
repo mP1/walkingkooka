@@ -68,6 +68,12 @@ public final class SearchBigIntegerNodeTest extends SearchLeafNodeTestCase<Searc
         assertEquals("234", this.createSearchNode(BigInteger.valueOf(234)).toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123=12345",
+                this.createSearchNode().setName(SearchNodeName.with("Name123")).toString());
+    }
+
     @Override
     SearchBigIntegerNode createSearchNode(final String text, final BigInteger value) {
         return SearchBigIntegerNode.with(text, value);

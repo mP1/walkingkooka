@@ -40,7 +40,7 @@ public final class SearchMetaNode extends SearchParentNode {
     static SearchMetaNode with(final SearchNode child, final Map<SearchNodeAttributeName, String> attributes) {
         Objects.requireNonNull(child, "child");
 
-        return new SearchMetaNode(NO_PARENT_INDEX, Lists.of(child), copy(attributes));
+        return new SearchMetaNode(NO_PARENT_INDEX, NAME, Lists.of(child), copy(attributes));
     }
 
     private static Map<SearchNodeAttributeName, String> copy(final Map<SearchNodeAttributeName, String> attributes) {
@@ -57,15 +57,21 @@ public final class SearchMetaNode extends SearchParentNode {
     }
 
     private SearchMetaNode(final int index,
+                           final SearchNodeName name,
                            final List<SearchNode> children,
                            final Map<SearchNodeAttributeName, String> attributes) {
-        super(index, children);
+        super(index, name, children);
         this.attributes = Maps.readOnly(attributes);
     }
 
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
+    }
+
+    @Override
+    public SearchMetaNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
     }
 
     public SearchNode child() {
@@ -94,8 +100,8 @@ public final class SearchMetaNode extends SearchParentNode {
     }
 
     @Override
-    SearchParentNode wrap0(final int index, final List<SearchNode> children) {
-        return new SearchMetaNode(index, children, this.attributes);
+    SearchParentNode replace0(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        return new SearchMetaNode(index, name, children, this.attributes);
     }
 
     @Override
@@ -124,7 +130,7 @@ public final class SearchMetaNode extends SearchParentNode {
 
         return this.attributes.equals(copy) ?
                this :
-               new SearchMetaNode(this.index, this.children, copy)
+               new SearchMetaNode(this.index, this.name, this.children, copy)
                        .replaceChild(this.parent(), this.index)
                        .cast();
     }
@@ -215,11 +221,11 @@ public final class SearchMetaNode extends SearchParentNode {
     }
 
     @Override
-    final boolean equalsIgnoringParentAndChildren(final SearchNode other) {
-        return this.canBeEqual(other) && this.equalsIgnoringParentAndChildren0(other.cast());
+    final boolean equalsIgnoringParentAndChildren0(final SearchNode other) {
+        return this.canBeEqual(other) && this.equalsIgnoringParentAndChildren1(other.cast());
     }
 
-    private boolean equalsIgnoringParentAndChildren0(final SearchMetaNode other) {
+    private boolean equalsIgnoringParentAndChildren1(final SearchMetaNode other) {
         return this.attributes.equals(other.attributes);
     }
 

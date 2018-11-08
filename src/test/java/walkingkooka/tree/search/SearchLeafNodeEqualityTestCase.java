@@ -27,6 +27,12 @@ public abstract class SearchLeafNodeEqualityTestCase<N extends SearchLeafNode, V
         this.checkNotEquals(this.createSearchNode(this.differentValue()));
     }
 
+    @Test
+    public final void testDifferentValueBoth() {
+        final V differentValue = this.differentValue();
+        this.checkEquals(this.createSearchNode(differentValue), this.createSearchNode(differentValue));
+    }
+
     public final N createObject() {
         return this.createSearchNode(this.value());
     }

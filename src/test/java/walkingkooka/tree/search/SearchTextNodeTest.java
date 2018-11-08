@@ -83,6 +83,14 @@ public final class SearchTextNodeTest extends SearchLeafNodeTestCase<SearchTextN
         assertEquals("\"abc\\t123\"", this.createSearchNode("abc\t123").toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123=\"abc123\"",
+                this.createSearchNode("abc123")
+                        .setName(SearchNodeName.with("Name123"))
+                        .toString());
+    }
+
     @Override
     SearchTextNode createSearchNode(final String text, final String value) {
         return SearchTextNode.with(text, value);
