@@ -30,21 +30,26 @@ public final class SearchTextNode extends SearchLeafNode<String>{
     static SearchTextNode with(final String text, final String value) {
         check(text, value);
 
-        return new SearchTextNode(NO_PARENT_INDEX, text, value);
+        return new SearchTextNode(NO_PARENT_INDEX, NAME, text, value);
     }
 
-    private SearchTextNode(final int index, final String text, final String value) {
-        super(index, text, value);
+    private SearchTextNode(final int index, final SearchNodeName name, final String text, final String value) {
+        super(index, name, text, value);
     }
-    
+
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
     }
 
     @Override
-    SearchTextNode wrap1(final int index, final String text, final String value) {
-        return new SearchTextNode(index, text, value);
+    public SearchTextNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
+    }
+
+    @Override
+    SearchTextNode replace0(final int index, final SearchNodeName name, final String text, final String value) {
+        return new SearchTextNode(index, name, text, value);
     }
 
     @Override
@@ -107,7 +112,7 @@ public final class SearchTextNode extends SearchLeafNode<String>{
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    final void toString1(final StringBuilder b) {
         b.append(CharSequences.quoteAndEscape(this.value()));
     }
 }

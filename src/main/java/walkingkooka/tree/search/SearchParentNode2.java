@@ -28,8 +28,8 @@ import java.util.Map;
  */
 abstract class SearchParentNode2 extends SearchParentNode {
 
-    SearchParentNode2(final int index, final List<SearchNode> children) {
-        super(index, children);
+    SearchParentNode2(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        super(index, name, children);
     }
 
     // attributes........................................................................................
@@ -55,7 +55,7 @@ abstract class SearchParentNode2 extends SearchParentNode {
     }
 
     @Override
-    final boolean equalsIgnoringParentAndChildren(final SearchNode other) {
+    final boolean equalsIgnoringParentAndChildren0(final SearchNode other) {
         return this.canBeEqual(other);
     }
 

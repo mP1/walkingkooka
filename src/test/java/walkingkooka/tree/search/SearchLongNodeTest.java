@@ -67,6 +67,14 @@ public final class SearchLongNodeTest extends SearchLeafNodeTestCase<SearchLongN
         assertEquals("234", this.createSearchNode(234L).toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123=234",
+                this.createSearchNode(234L)
+                        .setName(SearchNodeName.with("Name123"))
+                        .toString());
+    }
+
     private SearchLongNode createSearchNode(final long value) {
         return this.createSearchNode(Long.valueOf(value));
     }

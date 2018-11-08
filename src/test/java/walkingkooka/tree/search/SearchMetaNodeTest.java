@@ -262,6 +262,12 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         assertEquals("( \"child\" {attribute-1=attribute-value-1})", this.createSearchNode().toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123( \"child\" {attribute-1=attribute-value-1})",
+                this.createSearchNode().setName(SearchNodeName.with("Name123")).toString());
+    }
+
     @Override
     SearchMetaNode createSearchNode() {
         return SearchMetaNode.with(this.child(), this.attributes());

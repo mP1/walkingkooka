@@ -67,6 +67,11 @@ public final class SearchDoubleNodeTest extends SearchLeafNodeTestCase<SearchDou
         assertEquals("234.5", this.createSearchNode(234.5).toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123=1234.5", this.createSearchNode().setName(SearchNodeName.with("Name123")).toString());
+    }
+
     private SearchDoubleNode createSearchNode(final double value) {
         return this.createSearchNode(Double.valueOf(value));
     }

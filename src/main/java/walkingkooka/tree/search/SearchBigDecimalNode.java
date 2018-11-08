@@ -30,21 +30,26 @@ public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal>{
     static SearchBigDecimalNode with(final String text, final BigDecimal value) {
         check(text, value);
 
-        return new SearchBigDecimalNode(NO_PARENT_INDEX, text, value);
+        return new SearchBigDecimalNode(NO_PARENT_INDEX, NAME, text, value);
     }
 
-    private SearchBigDecimalNode(final int index, final String text, final BigDecimal value) {
-        super(index, text, value);
+    private SearchBigDecimalNode(final int index, final SearchNodeName name, final String text, final BigDecimal value) {
+        super(index, name, text, value);
     }
-    
+
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
     }
 
     @Override
-    SearchBigDecimalNode wrap1(final int index, final String text, final BigDecimal value) {
-        return new SearchBigDecimalNode(index, text, value);
+    public SearchBigDecimalNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
+    }
+
+    @Override
+    SearchBigDecimalNode replace0(final int index, final SearchNodeName name, final String text, final BigDecimal value) {
+        return new SearchBigDecimalNode(index, name, text, value);
     }
 
     @Override
@@ -107,7 +112,7 @@ public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal>{
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    final void toString1(final StringBuilder b) {
         b.append(this.value());
     }
 }

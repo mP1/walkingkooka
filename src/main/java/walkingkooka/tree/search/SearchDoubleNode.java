@@ -28,21 +28,26 @@ public final class SearchDoubleNode extends SearchLeafNode<Double>{
     static SearchDoubleNode with(final String text, final Double value) {
         check(text, value);
 
-        return new SearchDoubleNode(NO_PARENT_INDEX, text, value);
+        return new SearchDoubleNode(NO_PARENT_INDEX, NAME, text, value);
     }
 
-    private SearchDoubleNode(final int index, final String text, final Double value) {
-        super(index, text, value);
+    private SearchDoubleNode(final int index, final SearchNodeName name, final String text, final Double value) {
+        super(index, name, text, value);
     }
-    
+
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
     }
 
     @Override
-    SearchDoubleNode wrap1(final int index, final String text, final Double value) {
-        return new SearchDoubleNode(index, text, value);
+    public SearchDoubleNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
+    }
+
+    @Override
+    SearchDoubleNode replace0(final int index, final SearchNodeName name, final String text, final Double value) {
+        return new SearchDoubleNode(index, name, text, value);
     }
 
     @Override
@@ -105,7 +110,7 @@ public final class SearchDoubleNode extends SearchLeafNode<Double>{
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    final void toString1(final StringBuilder b) {
         b.append(this.value());
     }
 }

@@ -31,21 +31,26 @@ public final class SearchLocalDateTimeNode extends SearchLeafNode<LocalDateTime>
     static SearchLocalDateTimeNode with(final String text, final LocalDateTime value) {
         check(text, value);
 
-        return new SearchLocalDateTimeNode(NO_PARENT_INDEX, text, value);
+        return new SearchLocalDateTimeNode(NO_PARENT_INDEX, NAME, text, value);
     }
 
-    private SearchLocalDateTimeNode(final int index, final String text, final LocalDateTime value) {
-        super(index, text, value);
+    private SearchLocalDateTimeNode(final int index, final SearchNodeName name, final String text, final LocalDateTime value) {
+        super(index, name, text, value);
     }
-    
+
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
     }
 
     @Override
-    SearchLocalDateTimeNode wrap1(final int index, final String text, final LocalDateTime value) {
-        return new SearchLocalDateTimeNode(index, text, value);
+    public SearchLocalDateTimeNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
+    }
+
+    @Override
+    SearchLocalDateTimeNode replace0(final int index, final SearchNodeName name, final String text, final LocalDateTime value) {
+        return new SearchLocalDateTimeNode(index, name, text, value);
     }
 
     @Override
@@ -108,7 +113,7 @@ public final class SearchLocalDateTimeNode extends SearchLeafNode<LocalDateTime>
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    final void toString1(final StringBuilder b) {
         b.append(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(this.value()));
     }
 }

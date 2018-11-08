@@ -38,8 +38,8 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
         Objects.requireNonNull(value, "value");
     }
 
-    SearchLeafNode(final int index, final String text, final V value) {
-        super(index);
+    SearchLeafNode(final int index, final SearchNodeName name, final String text, final V value) {
+        super(index, name);
         this.text = text;
         this.value = value;
     }
@@ -70,20 +70,17 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     final SearchLeafNode<V> replaceValue(final V value) {
         final int index = this.index();
 
-        return this.wrap1(index, this.text, value)
+        return this.replace0(index, this.name, this.text, value)
                 .replaceChild(this.parent(), index)
                 .cast();
     }
 
-    final SearchLeafNode wrap0(final int index) {
-        return this.wrap1(index, this.text, this.value);
+    @Override
+    final SearchNode replace(final int index, final SearchNodeName name) {
+        return this.replace0(index, name, this.text, this.value);
     }
 
-    abstract SearchLeafNode wrap1(final int index, final String text, final V value);
-
-    @Override final SearchNode wrap(final int index) {
-        return this.wrap0(index);
-    }
+    abstract SearchLeafNode replace0(final int index, final SearchNodeName name, final String text, final V value);
 
     @Override
     SearchNode replaceAll(final SearchNode replace) {
@@ -189,7 +186,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
 
     @Override
     public final int hashCode() {
-        return this.value.hashCode();
+        return Objects.hash(this.name, this.value.hashCode());
     }
 
     @Override
@@ -198,12 +195,19 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     }
 
     @Override
-    boolean equalsIgnoringParentAndChildren(final SearchNode other) {
-        return other instanceof SearchLeafNode && this.equals1(Cast.to(other));
+    boolean equalsIgnoringParentAndChildren0(final SearchNode other) {
+        return other instanceof SearchLeafNode && this.equalsIgnoringParentAndChildren1(Cast.to(other));
     }
 
-    private boolean equals1(final SearchLeafNode<?> other) {
+    private boolean equalsIgnoringParentAndChildren1(final SearchLeafNode<?> other) {
         return this.text.equals(other.text) &&
                this.value.equals(other.value);
     }
+
+    @Override
+    final String toStringNameSuffix() {
+        return "=";
+    }
+
+    abstract void toString1(final StringBuilder b);
 }

@@ -31,21 +31,26 @@ public final class SearchLocalTimeNode extends SearchLeafNode<LocalTime>{
     static SearchLocalTimeNode with(final String text, final LocalTime value) {
         check(text, value);
 
-        return new SearchLocalTimeNode(NO_PARENT_INDEX, text, value);
+        return new SearchLocalTimeNode(NO_PARENT_INDEX, NAME, text, value);
     }
 
-    private SearchLocalTimeNode(final int index, final String text, final LocalTime value) {
-        super(index, text, value);
+    private SearchLocalTimeNode(final int index, final SearchNodeName name, final String text, final LocalTime value) {
+        super(index, name, text, value);
     }
-    
+
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
     }
 
     @Override
-    SearchLocalTimeNode wrap1(final int index, final String text, final LocalTime value) {
-        return new SearchLocalTimeNode(index, text, value);
+    public SearchLocalTimeNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
+    }
+
+    @Override
+    SearchLocalTimeNode replace0(final int index, final SearchNodeName name, final String text, final LocalTime value) {
+        return new SearchLocalTimeNode(index, name, text, value);
     }
 
     @Override
@@ -108,7 +113,7 @@ public final class SearchLocalTimeNode extends SearchLeafNode<LocalTime>{
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    final void toString1(final StringBuilder b) {
         b.append(DateTimeFormatter.ISO_LOCAL_TIME.format(this.value()));
     }
 }

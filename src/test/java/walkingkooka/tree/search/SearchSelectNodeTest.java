@@ -197,6 +197,12 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
         assertEquals("< \"child\" >", this.createSearchNode().toString());
     }
 
+    @Test
+    public void testToStringWithName() {
+        assertEquals("Name123< \"child\" >",
+                this.createSearchNode().setName(SearchNodeName.with("Name123")).toString());
+    }
+
     @Override
     SearchSelectNode createSearchNode() {
         return SearchSelectNode.with(this.child());

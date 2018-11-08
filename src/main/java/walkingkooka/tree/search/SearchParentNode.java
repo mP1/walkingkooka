@@ -32,8 +32,8 @@ abstract class SearchParentNode extends SearchNode {
     /**
      * Package private to limit sub classing.
      */
-    SearchParentNode(final int index, final List<SearchNode> children) {
-        super(index);
+    SearchParentNode(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        super(index, name);
 
         final Optional<SearchNode> p = Optional.of(this);
 
@@ -112,7 +112,7 @@ abstract class SearchParentNode extends SearchNode {
         this.replaceChildrenCheck(children);
 
         final int index = this.index();
-        return this.wrap0(index, children)
+        return this.replace0(index, this.name, children)
                 .replaceChild(this.parent(), index)
                 .cast();
     }
@@ -120,11 +120,11 @@ abstract class SearchParentNode extends SearchNode {
     abstract void replaceChildrenCheck(final List<SearchNode> children);
 
     @Override
-    final SearchNode wrap(final int index) {
-        return this.wrap0(index, this.children());
+    final SearchNode replace(final int index, final SearchNodeName name) {
+        return this.replace0(index, name, this.children());
     }
 
-    abstract SearchParentNode wrap0(final int index, final List<SearchNode> children);
+    abstract SearchParentNode replace0(final int index, final SearchNodeName name, final List<SearchNode> children);
 
     @Override
     public final boolean isBigDecimal() {
@@ -194,8 +194,17 @@ abstract class SearchParentNode extends SearchNode {
         return equals;
     }
 
+    /**
+     * If a non default name is present, just add the name followed by the formatted value
+     * which typically includes something like surrounding braces, brackets etc.
+     */
     @Override
-    final void toString0(final StringBuilder b) {
+    final String toStringNameSuffix() {
+        return "";
+    }
+
+    @Override
+    final void toString1(final StringBuilder b) {
         b.append(this.toStringPrefix());
 
         String separator = "";

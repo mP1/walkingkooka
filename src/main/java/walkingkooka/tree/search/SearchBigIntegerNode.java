@@ -30,21 +30,26 @@ public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger>{
     static SearchBigIntegerNode with(final String text, final BigInteger value) {
         check(text, value);
 
-        return new SearchBigIntegerNode(NO_PARENT_INDEX, text, value);
+        return new SearchBigIntegerNode(NO_PARENT_INDEX, NAME, text, value);
     }
 
-    private SearchBigIntegerNode(final int index, final String text, final BigInteger value) {
-        super(index, text, value);
+    private SearchBigIntegerNode(final int index, final SearchNodeName name, final String text, final BigInteger value) {
+        super(index, name, text, value);
     }
-    
+
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
     }
 
     @Override
-    SearchBigIntegerNode wrap1(final int index, final String text, final BigInteger value) {
-        return new SearchBigIntegerNode(index, text, value);
+    public SearchBigIntegerNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
+    }
+
+    @Override
+    SearchBigIntegerNode replace0(final int index, final SearchNodeName name, final String text, final BigInteger value) {
+        return new SearchBigIntegerNode(index, name, text, value);
     }
 
     @Override
@@ -107,7 +112,7 @@ public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger>{
     }
 
     @Override
-    final void toString0(final StringBuilder b) {
+    final void toString1(final StringBuilder b) {
         b.append(this.value());
     }
 }

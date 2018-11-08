@@ -35,16 +35,21 @@ public final class SearchSequenceNode extends SearchParentNode2 {
     static SearchSequenceNode with(final List<SearchNode> children) {
         Objects.requireNonNull(children, "children");
 
-        return new SearchSequenceNode(NO_PARENT_INDEX, children);
+        return new SearchSequenceNode(NO_PARENT_INDEX, NAME, children);
     }
 
-    private SearchSequenceNode(final int index, final List<SearchNode> children) {
-        super(index, children);
+    private SearchSequenceNode(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        super(index, name, children);
     }
 
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
+    }
+
+    @Override
+    public SearchSequenceNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
     }
 
     @Override
@@ -65,8 +70,8 @@ public final class SearchSequenceNode extends SearchParentNode2 {
     }
 
     @Override
-    SearchParentNode wrap0(final int index, final List<SearchNode> children) {
-        return new SearchSequenceNode(index, children);
+    SearchParentNode replace0(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        return new SearchSequenceNode(index, name, children);
     }
 
     @Override
@@ -192,7 +197,7 @@ public final class SearchSequenceNode extends SearchParentNode2 {
         // only wrap multiple extracted nodes in a SearchSequenceNode.
         return extracted.size() == 1 ?
                 extracted.get(0) :
-                new SearchSequenceNode(NO_PARENT_INDEX, extracted);
+                new SearchSequenceNode(NO_PARENT_INDEX, this.name, extracted);
     }
 
     @Override

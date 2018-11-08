@@ -41,19 +41,24 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
         Objects.requireNonNull(child, "child");
         return child.isIgnored() ?
                 child.cast() :
-                new SearchIgnoredNode(NO_PARENT_INDEX, Lists.of(child));
+                new SearchIgnoredNode(NO_PARENT_INDEX, NAME, Lists.of(child));
     }
 
     /**
      * Private ctor to limit sub classing.
      */
-    private SearchIgnoredNode(final int index, final List<SearchNode> children) {
-        super(index, children);
+    private SearchIgnoredNode(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        super(index, name, children);
     }
 
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
+    }
+
+    @Override
+    public SearchIgnoredNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
     }
 
     public SearchNode child() {
@@ -90,8 +95,8 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
     }
 
     @Override
-    SearchParentNode wrap0(final int index, final List<SearchNode> children) {
-        return new SearchIgnoredNode(index, children);
+    SearchParentNode replace0(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        return new SearchIgnoredNode(index, name, children);
     }
 
     @Override

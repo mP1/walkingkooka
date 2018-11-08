@@ -132,9 +132,11 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     /**
      * Package private ctor to limit sub classing.
      */
-    SearchNode(final int index) {
+    SearchNode(final int index, final SearchNodeName name) {
+        super();
         this.parent = NO_PARENT;
         this.index = index;
+        this.name = name;
     }
 
     // parent ..................................................................................................
@@ -149,7 +151,7 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
      * It is only ever called by a parent node and is used to adopt new children.
      */
     final SearchNode setParent(final Optional<SearchNode> parent, final int index) {
-        final SearchNode copy = this.wrap(index);
+        final SearchNode copy = this.replace(index, this.name);
         copy.parent = parent;
         return copy;
     }
@@ -182,7 +184,41 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
                 this;
     }
 
-    abstract SearchNode wrap(final int index);
+    @Override
+    public final SearchNodeName name() {
+        return this.name;
+    }
+
+    /**
+     * Only used by {@link #toString()} so that non default names are added.
+     */
+    abstract SearchNodeName defaultName();
+
+    /**
+     * Would be setter that that returns an instance of this node, with the given name creating a new instance if
+     * necessary.
+     */
+    abstract public SearchNode setName(final SearchNodeName name);
+
+    /**
+     * Handles the core of implementing the setName functionality.
+     */
+    final SearchNode setName0(final SearchNodeName name) {
+        Objects.requireNonNull(name, "name");
+
+        return this.name.equals(name) ?
+                this :
+                this.replace(this.index, name);
+    }
+
+    final SearchNodeName name;
+
+    // factory .......................................................................................
+
+    /**
+     * Factory that creates a new {@link SearchNode} with only the given properties.
+     */
+    abstract SearchNode replace(final int index, final SearchNodeName name);
 
     // attributes.......................................................................................................
 
@@ -401,9 +437,17 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     abstract boolean equalsDescendants0(final SearchNode other);
 
     /**
+     * Compares all properties except for the parent and children. For all search nodes this includes the name.
+     */
+    final boolean equalsIgnoringParentAndChildren(final SearchNode other) {
+        return this.name.equals(other.name) &&
+               this.equalsIgnoringParentAndChildren0(other);
+    }
+
+    /**
      * Sub classes should do equals but ignore the parent and children properties.
      */
-    abstract boolean equalsIgnoringParentAndChildren(final SearchNode other);
+    abstract boolean equalsIgnoringParentAndChildren0(final SearchNode other);
 
     // Object .......................................................................................................
 
@@ -414,5 +458,15 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
         return b.toString();
     }
 
-    abstract void toString0(final StringBuilder b);
+    final void toString0(final StringBuilder b) {
+        final SearchNodeName name = this.name;
+        if (!name.equals(this.defaultName())) {
+            b.append(name).append(this.toStringNameSuffix());
+        }
+        this.toString1(b);
+    }
+
+    abstract String toStringNameSuffix();
+
+    abstract void toString1(final StringBuilder b);
 }

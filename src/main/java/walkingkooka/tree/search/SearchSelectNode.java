@@ -41,19 +41,24 @@ public final class SearchSelectNode extends SearchParentNode2 {
         Objects.requireNonNull(child, "child");
         return child.isSelect() ?
                child.cast() :
-               new SearchSelectNode(NO_PARENT_INDEX, Lists.of(child));
+               new SearchSelectNode(NO_PARENT_INDEX, NAME, Lists.of(child));
     }
 
     /**
      * Private ctor to limit sub classing.
      */
-    private SearchSelectNode(final int index, final List<SearchNode> children) {
-        super(index, children);
+    private SearchSelectNode(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        super(index, name, children);
     }
 
     @Override
-    public SearchNodeName name() {
+    SearchNodeName defaultName() {
         return NAME;
+    }
+
+    @Override
+    public SearchSelectNode setName(final SearchNodeName name) {
+        return super.setName0(name).cast();
     }
 
     public SearchNode child() {
@@ -90,8 +95,8 @@ public final class SearchSelectNode extends SearchParentNode2 {
     }
 
     @Override
-    SearchParentNode wrap0(final int index, final List<SearchNode> children) {
-        return new SearchSelectNode(index, children);
+    SearchParentNode replace0(final int index, final SearchNodeName name, final List<SearchNode> children) {
+        return new SearchSelectNode(index, name, children);
     }
 
     @Override

@@ -18,7 +18,19 @@
 
 package walkingkooka.tree.search;
 
+import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 public abstract class SearchNodeEqualityTestCase<N extends SearchNode> extends HashCodeEqualsDefinedEqualityTestCase<N> {
+
+    @Test
+    public final void testDifferentName() {
+        this.checkNotEquals(this.createObject().setName(SearchNodeName.with("different")));
+    }
+
+    @Test
+    public final void testDifferentNameBothNotDefault() {
+        final SearchNodeName name = SearchNodeName.with("different");
+        this.checkEquals(this.createObject().setName(name), this.createObject().setName(name));
+    }
 }
