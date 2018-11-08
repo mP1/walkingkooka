@@ -32,6 +32,9 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Whitespace;
+import walkingkooka.tree.search.HasSearchNode;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -54,6 +57,7 @@ import java.util.Optional;
  * changing attributes on an element, returns a new element within an entire document.
  */
 public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName, DomAttributeName, String>,
+        HasSearchNode,
         HasText,
         UsesToStringBuilder {
 
@@ -538,6 +542,22 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
             }
         }
         return index;
+    }
+
+    // toSearchNode...............................................................................................
+
+    @Override
+    public final SearchNode toSearchNode() {
+        return this.toSearchNode0()
+                .setName(this.searchNodeName());
+    }
+
+    abstract SearchNode toSearchNode0();
+
+    abstract SearchNodeName searchNodeName();
+
+    static SearchNode textSearchNode(final String text) {
+        return SearchNode.text(text, text);
     }
 
     // Object.......................................................................................................

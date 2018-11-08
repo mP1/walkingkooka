@@ -21,13 +21,15 @@ import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
+import walkingkooka.tree.search.HasSearchNode;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.Optional;
 
 /**
  * A {@link Value} which is a system id
  */
-final public class DomSystemId implements Value<String>, ShouldBeQuoted, HashCodeEqualsDefined {
+final public class DomSystemId implements Value<String>, HasSearchNode, ShouldBeQuoted, HashCodeEqualsDefined {
 
   /**
    * Constant that may be used when no system id is present.
@@ -57,7 +59,14 @@ final public class DomSystemId implements Value<String>, ShouldBeQuoted, HashCod
 
   private final String value;
 
-  // Object
+  // toSearchNode...............................................................................................
+
+  @Override
+  public SearchNode toSearchNode() {
+    return SearchNode.text(this.value, this.value);
+  }
+
+  // Object..................................................................................................
 
   @Override
   public int hashCode() {

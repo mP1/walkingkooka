@@ -20,7 +20,11 @@ package walkingkooka.xml;
 import org.w3c.dom.Node;
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -86,7 +90,33 @@ final public class DomNotation extends DomLeafNode implements HasDomPublicId, Ha
     return true;
   }
 
-  // Object ...................................................................................................
+  // toSearchNode...............................................................................................
+
+    @Override
+    SearchNode toSearchNode0() {
+        final List<SearchNode> searchNodes = Lists.array();
+
+        final Optional<DomPublicId> publicId = this.publicId;
+        if (publicId.isPresent()) {
+            searchNodes.add(publicId.get().toSearchNode());
+        }
+
+        final Optional<DomSystemId> systemId = this.systemId;
+        if (systemId.isPresent()) {
+            searchNodes.add(systemId.get().toSearchNode());
+        }
+
+        return SearchNode.sequence(searchNodes);
+    }
+
+    @Override
+    SearchNodeName searchNodeName() {
+        return SEARCH_NODE_NAME;
+    }
+
+    private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("Notation");
+
+    // Object...............................................................................................
 
   @Override
   public int hashCode() {

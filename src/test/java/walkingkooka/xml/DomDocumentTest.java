@@ -27,6 +27,7 @@ import org.xml.sax.SAXException;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 
@@ -841,6 +842,11 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     @Override
     String text() {
         return "";
+    }
+
+    @Override
+    SearchNodeName searchNodeName() {
+        return SearchNodeName.with("Document");
     }
 
     @Override

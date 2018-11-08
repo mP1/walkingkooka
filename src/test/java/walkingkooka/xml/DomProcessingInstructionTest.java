@@ -20,17 +20,35 @@ package walkingkooka.xml;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
 import static org.junit.Assert.assertEquals;
 
 public final class DomProcessingInstructionTest extends DomLeafNodeTestCase<DomProcessingInstruction> {
 
-    private final String TARGET = "abc";
-    private final String PROCESSING_INSTRUCTION = "123";
+    private final String TARGET = "target-abc";
+    private final String PROCESSING_INSTRUCTION = "pi-123";
+
+    // toSearchNode.....................................................................................................
+
+    @Test
+    public void testToSearchNode() {
+        final DomProcessingInstruction pi = this.createNode();
+
+        this.toSearchNodeAndCheck(pi,
+                SearchNode.sequence(Lists.of(
+                        SearchNode.text(TARGET, TARGET),
+                        SearchNode.text(PROCESSING_INSTRUCTION, PROCESSING_INSTRUCTION)
+                )).setName(SearchNodeName.with("Processing Instruction")));
+    }
+
+    // toString.....................................................................................................
 
     @Test
     public void testToString() {
-        assertEquals("<?abc 123?>", this.createNode().toString());
+        assertEquals("<?target-abc pi-123?>", this.createNode().toString());
     }
 
     // helpers............................................................................................

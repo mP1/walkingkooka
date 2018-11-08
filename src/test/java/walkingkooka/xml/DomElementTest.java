@@ -24,6 +24,9 @@ import org.w3c.dom.NamedNodeMap;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeAttributeName;
+import walkingkooka.tree.search.SearchNodeName;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Map;
@@ -309,7 +312,34 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
 //        this.checkChildCount("parent", 0, parent);
 //    }
 
-    // toString.........................................................
+
+    // toSearchNode.....................................................................................................
+
+    @Test
+    public final void testToSearchNodeWithChildren() {
+        final DomElement parent = this.createNode();
+        final DomElement child = parent.createElement(DomName.element("child1"));
+        final DomElement parent2 = parent.appendChild(child);
+
+        this.toSearchNodeAndCheck(parent2,
+                SearchNode.sequence(Lists.of(
+                        child.toSearchNode()))
+
+                        .setName(SearchNodeName.with(PARENT.value())));
+    }
+
+    @Test
+    public final void testToSearchNodeWithAttributes() {
+        final DomElement element = this.createNode()
+                .setAttributes(ATTRIBUTES_1);
+
+        this.toSearchNodeAndCheck(element,
+                SearchNode.text("", "")
+                        .setAttributes(Maps.one(SearchNodeAttributeName.with(ATTRIBUTE_NAME1.value()), ATTRIBUTE_VALUE1))
+                        .setName(SearchNodeName.with(PARENT.value())));
+    }
+
+    // toString.....................................................................................................
 
     @Test
     public void testToString() {
@@ -388,8 +418,13 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
         return "";
     }
 
+    @Override
+    SearchNodeName searchNodeName() {
+        return SearchNodeName.with(PARENT.value());
+    }
 
-    @Override protected Class<DomNode> type() {
+    @Override
+    protected Class<DomNode> type() {
         return Cast.to(DomElement.class);
     }
 

@@ -18,6 +18,7 @@
 package walkingkooka.xml;
 
 import walkingkooka.Cast;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
 
@@ -44,7 +45,14 @@ abstract class DomTextNode extends DomLeafNode{
         return this.wrap0(characterData);
     }
 
-    // Object
+    // toSearchNode...............................................................................................
+
+    @Override
+    final SearchNode toSearchNode0() {
+        return textSearchNode(this.text());
+    }
+
+    // Object.................................................................................................
 
     @Override
     public final int hashCode() {

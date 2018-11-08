@@ -29,6 +29,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.NodeTestCase;
+import walkingkooka.tree.search.SearchNode;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -337,6 +338,14 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
                 return writer.toString();
             }
         }
+    }
+
+    final void toSearchNodeAndCheck(final SearchNode searchNode) {
+        this.toSearchNodeAndCheck(this.createNode(), searchNode);
+    }
+
+    final void toSearchNodeAndCheck(final N node, final SearchNode searchNode) {
+        assertEquals("toSearchNode failure from " + node, searchNode, node.toSearchNode());
     }
 
     @Override

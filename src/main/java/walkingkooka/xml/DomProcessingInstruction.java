@@ -20,6 +20,9 @@ package walkingkooka.xml;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
 import java.util.Objects;
 
@@ -78,14 +81,31 @@ final public class DomProcessingInstruction extends DomLeafNode implements Value
   }
 
   /**
-   * Always returns this.
+   * Always returns true.
    */
   @Override
   public boolean isProcessingInstruction() {
     return true;
   }
 
-  // Object ...........................................................................................
+    // toSearchNode...............................................................................................
+
+    @Override
+    SearchNode toSearchNode0() {
+        return SearchNode.sequence(Lists.of(
+                textSearchNode(this.target()),
+                textSearchNode(this.data())
+        ));
+    }
+
+    @Override
+    SearchNodeName searchNodeName() {
+        return SEARCH_NODE_NAME;
+    }
+
+    private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("Processing Instruction");
+
+    // Object ...........................................................................................
 
   @Override
   public int hashCode() {

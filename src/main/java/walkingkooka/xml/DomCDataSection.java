@@ -18,6 +18,7 @@
 package walkingkooka.xml;
 
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.tree.search.SearchNodeName;
 
 /**
  * A {@link DomNode} that holds a CDATA section.
@@ -53,6 +54,13 @@ final public class DomCDataSection extends DomTextNode {
   public boolean isCDataSection() {
     return true;
   }
+
+  @Override
+  final SearchNodeName searchNodeName() {
+    return SEARCH_NODE_NAME;
+  }
+
+  private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("CData");
 
   // Object...........................................................................................
 

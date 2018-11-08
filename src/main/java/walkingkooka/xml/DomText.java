@@ -19,6 +19,7 @@ package walkingkooka.xml;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.tree.search.SearchNodeName;
 
 /**
  * Represents a text node within a xml document.
@@ -59,6 +60,13 @@ public final class DomText extends DomTextNode {
     public boolean isText() {
         return true;
     }
+
+    @Override
+    final SearchNodeName searchNodeName() {
+        return SEARCH_NODE_NAME;
+    }
+
+    private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("Text");
 
     // Object....................................................................................................
 

@@ -17,9 +17,13 @@
 
 package walkingkooka.xml;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
 import java.io.Reader;
 
@@ -27,9 +31,26 @@ import static org.junit.Assert.assertEquals;
 
 public final class DomNotationTest extends DomLeafNodeTestCase<DomNotation> {
 
+    @Test
+    @Ignore
     public void testParentWith() {
         // n/a
     }
+
+    // toSearchNode.....................................................................................................
+
+    @Test
+    public void testToSearchNode() {
+        final DomNotation notation = this.createNode();
+        final String zipViewer = "zip viewer";
+
+        this.toSearchNodeAndCheck(notation,
+                SearchNode.sequence(Lists.of(
+                        SearchNode.text(zipViewer, zipViewer)
+                )).setName(SearchNodeName.with("Notation")));
+    }
+
+    // toString.....................................................................................................
 
     @Test
     public void testToString() {

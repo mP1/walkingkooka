@@ -19,6 +19,8 @@ package walkingkooka.xml;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
 import java.util.List;
 import java.util.Map;
@@ -78,6 +80,18 @@ final public class DomEntityReference extends DomParentNode2 {
   public boolean isEntityReference() {
     return true;
   }
+
+    @Override
+    SearchNode toSearchNode0() {
+        return this.toSearchNode1();
+    }
+
+    @Override
+  SearchNodeName searchNodeName() {
+    return SEARCH_NODE_NAME;
+  }
+
+  private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("EntityReference");
 
   // Object ...............................................................................................
 
