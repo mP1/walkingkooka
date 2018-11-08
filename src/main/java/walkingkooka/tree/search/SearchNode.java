@@ -20,6 +20,7 @@ package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
@@ -130,6 +131,17 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     }
 
     /**
+     * Makes a defensive copy of the provided attributes.
+     */
+    static Map<SearchNodeAttributeName, String> copyAttributes(final Map<SearchNodeAttributeName, String> attributes) {
+        Objects.requireNonNull(attributes, "attributes");
+
+        final Map<SearchNodeAttributeName, String> copy = Maps.ordered();
+        copy.putAll(attributes);
+        return copy;
+    }
+
+    /**
      * Package private ctor to limit sub classing.
      */
     SearchNode(final int index, final SearchNodeName name) {
@@ -221,6 +233,24 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
     abstract SearchNode replace(final int index, final SearchNodeName name);
 
     // attributes.......................................................................................................
+
+    /**
+     * Would be setter that potentially wraps this node in a {@link SearchMetaNode}.
+     */
+    @Override
+    public final SearchNode setAttributes(final Map<SearchNodeAttributeName, String> attributes) {
+        final Map<SearchNodeAttributeName, String> copy = copyAttributes(attributes);
+        return copy.isEmpty() ?
+                this :
+                this.setAttributes0(attributes);
+    }
+
+    /**
+     * Most classes except for {@link SearchMetaNode} create a new {@link SearchMetaNode}.
+     */
+    abstract SearchMetaNode setAttributes0(final Map<SearchNodeAttributeName, String> attributes);
+
+    // replace ...............................................................................................
 
     /**
      * Replaces part of all of the text of this node with another {@link SearchNode}.
@@ -361,11 +391,6 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
      * A factory used during selecting that wraps this {@link SearchNode} in a {@link SearchIgnoredNode}.
      */
     abstract public SearchIgnoredNode ignored();
-
-    /**
-     * Wraps if necessary this node, so it contains the given attributes.
-     */
-    abstract public SearchMetaNode meta(final Map<SearchNodeAttributeName, String> attributes);
 
     abstract void select(final SearchQuery query, final SearchQueryContext context);
 

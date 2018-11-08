@@ -18,7 +18,6 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
@@ -72,9 +71,9 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
     }
 
     @Test
-    @Ignore
-    public final void testSetSameAttributes() {
-        // Ignored
+    public final void testSetAttributesEmpty() {
+        final N node = this.createSearchNode();
+        assertSame(node, node.setAttributes(Maps.empty()));
     }
 
     @Test
@@ -144,16 +143,6 @@ public abstract class SearchNodeTestCase<N extends SearchNode> extends NodeTestC
 
     final SearchNode replaceNode() {
         return text("!REPLACE!");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public final void testMetaNullAttributesFails() {
-        this.createSearchNode().meta(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public final void testMetaEmptyAttributesFails() {
-        this.createSearchNode().meta(Maps.empty());
     }
 
     @Test(expected = NullPointerException.class)

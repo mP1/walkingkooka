@@ -40,13 +40,8 @@ abstract class SearchParentNode2 extends SearchParentNode {
     }
 
     @Override
-    public final SearchNode setAttributes(final Map<SearchNodeAttributeName, String> attributes) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public final SearchMetaNode meta(final Map<SearchNodeAttributeName, String> attributes) {
-        return SearchNode.meta(this, attributes);
+    SearchMetaNode setAttributes0(final Map<SearchNodeAttributeName, String> attributes) {
+        return SearchMetaNode.with0(this, attributes);
     }
 
     @Override

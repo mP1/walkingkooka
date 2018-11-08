@@ -153,8 +153,8 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     }
 
     @Override
-    public final SearchNode setAttributes(final Map<SearchNodeAttributeName, String> attributes) {
-        throw new UnsupportedOperationException();
+    SearchMetaNode setAttributes0(final Map<SearchNodeAttributeName, String> attributes) {
+        return SearchMetaNode.with0(this, attributes);
     }
 
     // Select...........................................................................................
@@ -162,11 +162,6 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
     @Override
     public final SearchIgnoredNode ignored() {
         return SearchNode.ignored(this);
-    }
-
-    @Override
-    public final SearchMetaNode meta(final Map<SearchNodeAttributeName, String> attributes) {
-        return SearchNode.meta(this, attributes);
     }
 
     @Override

@@ -40,27 +40,27 @@ public final class SearchMetaNode extends SearchParentNode {
     static SearchMetaNode with(final SearchNode child, final Map<SearchNodeAttributeName, String> attributes) {
         Objects.requireNonNull(child, "child");
 
-        return new SearchMetaNode(NO_PARENT_INDEX, NAME, Lists.of(child), copy(attributes));
+        return with0(child, copyAttributes(attributes));
     }
 
-    private static Map<SearchNodeAttributeName, String> copy(final Map<SearchNodeAttributeName, String> attributes) {
-        Objects.requireNonNull(attributes, "attributes");
-
-        final Map<SearchNodeAttributeName, String> copy = Maps.ordered();
-        copy.putAll(attributes);
-
-        if(copy.isEmpty()) {
-            throw new IllegalArgumentException("Attributes must not be empty");
-        }
-
-        return copy;
+    /**
+     * Creates a new {@link SearchMetaNode} without taking a defensive copy.
+     */
+    static SearchMetaNode with0(final SearchNode child, final Map<SearchNodeAttributeName, String> attributes) {
+        return new SearchMetaNode(NO_PARENT_INDEX, NAME, Lists.of(child), attributes);
     }
 
+    /**
+     * Private ctor use either factory.
+     */
     private SearchMetaNode(final int index,
                            final SearchNodeName name,
                            final List<SearchNode> children,
                            final Map<SearchNodeAttributeName, String> attributes) {
         super(index, name, children);
+        if(attributes.isEmpty()) {
+            throw new IllegalArgumentException("Attributes must not be empty");
+        }
         this.attributes = Maps.readOnly(attributes);
     }
 
@@ -125,12 +125,10 @@ public final class SearchMetaNode extends SearchParentNode {
      * Would be setter that returns a {@link SearchMetaNode} with the given attributes, or this if attributes also match.
      */
     @Override
-    public final SearchMetaNode setAttributes(final Map<SearchNodeAttributeName, String> attributes) {
-        final Map<SearchNodeAttributeName, String> copy = copy(attributes);
-
-        return this.attributes.equals(copy) ?
+    final SearchMetaNode setAttributes0(final Map<SearchNodeAttributeName, String> attributes) {
+        return this.attributes.equals(attributes) ?
                this :
-               new SearchMetaNode(this.index, this.name, this.children, copy)
+               new SearchMetaNode(this.index, this.name, this.children, attributes)
                        .replaceChild(this.parent(), this.index)
                        .cast();
     }
@@ -183,11 +181,6 @@ public final class SearchMetaNode extends SearchParentNode {
     @Override
     public SearchIgnoredNode ignored() {
         return SearchNode.ignored(this.child());
-    }
-
-    @Override
-    public SearchMetaNode meta(final Map<SearchNodeAttributeName, String> attributes) {
-        return this.setAttributes(attributes);
     }
 
     @Override

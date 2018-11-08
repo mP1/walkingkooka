@@ -113,11 +113,6 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testSetAttributesEmptyFails() {
-        this.createSearchNode().setAttributes(SearchMetaNode.NO_ATTRIBUTES);
-    }
-
     @Test
     public void testSetAttributesSame() {
         final SearchNode node = this.createSearchNode();
@@ -129,7 +124,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         final SearchMetaNode node = this.createSearchNode();
 
         final Map<SearchNodeAttributeName, String> differentAttributes = this.differentAttributes();
-        final SearchMetaNode different = node.setAttributes(differentAttributes);
+        final SearchNode different = node.setAttributes(differentAttributes);
         assertNotSame(node, different);
 
         this.checkAttributes(different, differentAttributes);
@@ -142,7 +137,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         final SearchMetaNode meta = selected.child().cast();
 
         final Map<SearchNodeAttributeName, String> differentAttributes = this.differentAttributes();
-        final SearchMetaNode different = meta.setAttributes(differentAttributes);
+        final SearchNode different = meta.setAttributes(differentAttributes);
         this.checkAttributes(different, differentAttributes);
     }
 
@@ -160,7 +155,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
     @Test
     public void testMetaSameAttributes() {
         final SearchNode node = this.createSearchNode();
-        assertSame(node, node.meta(this.attributes()));
+        assertSame(node, node.setAttributes(this.attributes()));
     }
 
     @Test
@@ -168,7 +163,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         final SearchMetaNode node = this.createSearchNode();
 
         final Map<SearchNodeAttributeName, String> attributes = this.differentAttributes();
-        final SearchMetaNode different = node.meta(attributes);
+        final SearchNode different = node.setAttributes(attributes);
         assertNotSame(different, attributes);
 
         this.checkAttributes(different, attributes);
@@ -190,7 +185,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
     public void testReplaceSelectedNothingReplaced() {
         final SearchNode node = this.text("will-be-replaced")
                 .selected()
-                .meta(this.attributes());
+                .setAttributes(this.attributes());
 
         this.replaceSelectedNothingAndCheck(node);
     }
@@ -199,12 +194,12 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
     public void testReplaceSelected() {
         final SearchNode node = this.text("will-be-replaced")
                 .selected()
-                .meta(this.attributes());
+                .setAttributes(this.attributes());
         final SearchNode replaced = this.text("replaced");
 
         this.replaceSelectedAndCheck(node,
                 (n) -> replaced,
-                replaced.meta(this.attributes()));
+                replaced.setAttributes(this.attributes()));
     }
 
     @Test
@@ -212,7 +207,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         final SearchMetaNode node = this.createSearchNode();
         final SearchQuery query = SearchQueryValue.text(CHILD_TEXT).equalsQuery(CaseSensitivity.SENSITIVE);
         assertEquals("child selected",
-                this.child().selected().meta(this.attributes()),
+                this.child().selected().setAttributes(this.attributes()),
                 query.select(node));
     }
 
@@ -290,7 +285,7 @@ public final class SearchMetaNodeTest extends SearchParentNodeTestCase<SearchMet
         return this.text(CHILD_TEXT);
     }
 
-    private void checkAttributes(final SearchMetaNode node, final Map<SearchNodeAttributeName, String> attributes) {
+    private void checkAttributes(final SearchNode node, final Map<SearchNodeAttributeName, String> attributes) {
         assertEquals("attributes", attributes, node.attributes());
     }
 
