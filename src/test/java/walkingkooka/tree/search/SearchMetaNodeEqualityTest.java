@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 public final class SearchMetaNodeEqualityTest extends SearchParentNodeEqualityTestCase<SearchMetaNode> {
     @Override
     SearchMetaNode createSearchNode(final SearchNode child) {
-        return child.meta(Maps.one(SearchNodeAttributeName.with("magic"), "magic-value"));
+        return child.setAttributes(Maps.one(SearchNodeAttributeName.with("magic"), "magic-value"))
+                .cast();
     }
 }
