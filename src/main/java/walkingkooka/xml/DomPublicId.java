@@ -20,13 +20,15 @@ package walkingkooka.xml;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.search.HasSearchNode;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.Optional;
 
 /**
  * A {@link Value} which is a public id
  */
-final public class DomPublicId implements Value<String>, HashCodeEqualsDefined {
+final public class DomPublicId implements Value<String>, HasSearchNode, HashCodeEqualsDefined {
 
   /**
    * Constant that may be used when no public id is present.
@@ -56,7 +58,14 @@ final public class DomPublicId implements Value<String>, HashCodeEqualsDefined {
 
   private final String value;
 
-  // Object
+  // toSearchNode...............................................................................................
+
+  @Override
+  public SearchNode toSearchNode() {
+    return SearchNode.text(this.value, this.value);
+  }
+
+  // Object..................................................................................................
 
   @Override
   public int hashCode() {

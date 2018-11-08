@@ -18,9 +18,11 @@
 package walkingkooka.xml;
 
 import org.w3c.dom.NodeList;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Base class for both element and document root nodes which are the only nodes that allow children.
@@ -77,4 +79,19 @@ abstract class DomParentNode extends DomNode{
             dest.appendChild(cloneWithoutParentWithChildren(children.item(i)));
         }
     }
+
+    // toSearchNode...............................................................................................
+
+    /**
+     * Creates a {@link SearchNode#sequence(List)} with all the children converted.
+     */
+    final SearchNode toSearchNode1() {
+        return this.children.isEmpty() ?
+                EMPTY_SEARCH_NODE :
+                SearchNode.sequence(this.children.stream()
+                        .map(c -> c.toSearchNode())
+                        .collect(Collectors.toList()));
+    }
+
+    private final static SearchNode EMPTY_SEARCH_NODE = SearchNode.text("", "");
 }

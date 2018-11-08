@@ -20,10 +20,14 @@ package walkingkooka.xml;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
 import static org.junit.Assert.assertEquals;
 
 public final class DomCDataSectionTest extends DomTextNodeTestCase<DomCDataSection>{
+
+    private final static String TEXT = "abc-123";
 
     @Test
     public void testWithEmptyText(){
@@ -39,6 +43,15 @@ public final class DomCDataSectionTest extends DomTextNodeTestCase<DomCDataSecti
     public void testSetTextInvalidFails(){
         this.createNode().setText(DomCDataSection.CLOSE);
     }
+
+    // toSearchNode.....................................................................................................
+
+    @Test
+    public void testToSearchNode() {
+        this.toSearchNodeAndCheck(SearchNode.text(TEXT, TEXT).setName(SearchNodeName.with("CData")));
+    }
+
+    // toString.....................................................................................................
 
     @Test
     public void testToString() {
@@ -57,7 +70,7 @@ public final class DomCDataSectionTest extends DomTextNodeTestCase<DomCDataSecti
 
     @Override
     String text() {
-        return "abc-123";
+        return TEXT;
     }
 
     @Override

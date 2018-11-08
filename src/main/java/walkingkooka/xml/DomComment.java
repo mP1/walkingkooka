@@ -18,6 +18,7 @@
 package walkingkooka.xml;
 
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.tree.search.SearchNodeName;
 
 /**
  * A {@link DomNode} that holds a comment.
@@ -54,6 +55,13 @@ final public class DomComment extends DomTextNode {
   public boolean isComment() {
     return true;
   }
+
+  @Override
+  final SearchNodeName searchNodeName() {
+    return SEARCH_NODE_NAME;
+  }
+
+  private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("Comment");
 
   // Object...........................................................................................
 

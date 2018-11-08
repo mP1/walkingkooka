@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.EntityReference;
 import walkingkooka.Cast;
+import walkingkooka.tree.search.SearchNodeName;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -69,6 +70,11 @@ public final class DomEntityReferenceTest extends DomParentNodeTestCase<DomEntit
     @Override
     String text() {
         return "";
+    }
+
+    @Override
+    SearchNodeName searchNodeName() {
+        return SearchNodeName.with("EntityReference");
     }
 
     @Override

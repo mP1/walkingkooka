@@ -17,12 +17,30 @@
 
 package walkingkooka.xml;
 
+import org.junit.Test;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
+
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 public abstract class DomParentNodeTestCase<N extends DomParentNode> extends DomNodeTestCase<N> {
+
+    // toSearchNode.....................................................................................................
+
+    @Test
+    public final void testToSearchNodeWithoutChildren() {
+        final N domNode = this.createNode();
+        this.checkChildren("children", 0, domNode);
+        this.toSearchNodeAndCheck(domNode, SearchNode.text("", "").setName(this.searchNodeName()));
+    }
+
+    abstract SearchNodeName searchNodeName();
+
+    // toString.....................................................................................................
+
 
     final void checkChildren(final String label, final int count, final DomNode parent) {
         if(null!=parent.node) {

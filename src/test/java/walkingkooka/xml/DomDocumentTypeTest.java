@@ -20,7 +20,10 @@ package walkingkooka.xml;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Optional;
@@ -116,6 +119,18 @@ public final class DomDocumentTypeTest extends DomLeafNodeTestCase<DomDocumentTy
     public void testWithoutEntities() throws Exception{
         final DomDocumentType type = this.documentTypeFromXml();
         this.checkEntities(type, Maps.empty());
+    }
+
+    // toSearchNode.....................................................................................................
+
+    @Test
+    public void testToSearchNode() {
+        final DomDocumentType documentType = this.createNode();
+        this.toSearchNodeAndCheck(documentType,
+                SearchNode.sequence(Lists.of(
+                        documentType.publicId().get().toSearchNode(),
+                        documentType.systemId().get().toSearchNode()
+                )).setName(SearchNodeName.with("DocType")));
     }
 
     // toString.....................................................................................................

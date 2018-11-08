@@ -25,6 +25,8 @@ import walkingkooka.Throwables;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
 import java.util.List;
 import java.util.Map;
@@ -543,6 +545,20 @@ public final class DomDocument extends DomParentNode{
     public Optional<DomNode> nextSibling() {
         return Optional.empty();
     }
+
+    // toSearchNode...............................................................................................
+
+    @Override
+    final SearchNode toSearchNode0() {
+        return this.toSearchNode1();
+    }
+
+    @Override
+    SearchNodeName searchNodeName() {
+        return SEARCH_NODE_NAME;
+    }
+
+    private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("Document");
 
     // Object...............................................................................................
 

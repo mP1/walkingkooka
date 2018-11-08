@@ -20,14 +20,26 @@ package walkingkooka.xml;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
+import walkingkooka.tree.search.SearchNode;
 
 import static org.junit.Assert.assertEquals;
 
 public final class DomTextTest extends DomTextNodeTestCase<DomText>{
 
+    private final static String TEXT = "abc123";
+
+    // toSearchNode.....................................................................................................
+
+    @Test
+    public void testToSearchNode() {
+        this.toSearchNodeAndCheck(SearchNode.text(TEXT, TEXT));
+    }
+
+    // toString.....................................................................................................
+
     @Test
     public void testToString() {
-        assertEquals("abc-123", this.createNode().toString());
+        assertEquals(TEXT, this.createNode().toString());
     }
 
     @Override
@@ -42,7 +54,7 @@ public final class DomTextTest extends DomTextNodeTestCase<DomText>{
 
     @Override
     String text() {
-        return "abc-123";
+        return TEXT;
     }
 
     @Override

@@ -20,10 +20,14 @@ package walkingkooka.xml;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 
 import static org.junit.Assert.assertEquals;
 
 public final class DomCommentTest extends DomTextNodeTestCase<DomComment>{
+
+    private final static String TEXT = "Comment 123 abc";
 
     @Test
     public void testWithEmptyText(){
@@ -39,6 +43,15 @@ public final class DomCommentTest extends DomTextNodeTestCase<DomComment>{
     public void testSetTextInvalidFails(){
         this.createNode().setText("123--456");
     }
+
+    // toSearchNode.....................................................................................................
+
+    @Test
+    public void testToSearchNode() {
+        this.toSearchNodeAndCheck(SearchNode.text(TEXT, TEXT).setName(SearchNodeName.with("Comment")));
+    }
+
+    // toString.....................................................................................................
 
     @Test
     public void testToString() {
@@ -57,7 +70,7 @@ public final class DomCommentTest extends DomTextNodeTestCase<DomComment>{
 
     @Override
     String text() {
-        return "abc-123";
+        return TEXT;
     }
 
     @Override

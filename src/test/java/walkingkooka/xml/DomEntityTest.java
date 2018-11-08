@@ -20,6 +20,7 @@ package walkingkooka.xml;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
+import walkingkooka.tree.search.SearchNodeName;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
@@ -63,6 +64,11 @@ public final class DomEntityTest extends DomParentNodeTestCase<DomEntity> {
     @Override
     String text() {
         return "";
+    }
+
+    @Override
+    SearchNodeName searchNodeName() {
+        return SearchNodeName.with("Entity");
     }
 
     @Override
