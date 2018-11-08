@@ -24,19 +24,19 @@ import walkingkooka.SystemException;
  */
 public class DomException extends SystemException {
 
-  protected DomException() {
-    super();
-  }
+    protected DomException() {
+        super();
+    }
 
-  public DomException(final String message) {
-    super(message);
-  }
+    public DomException(final String message) {
+        super(message);
+    }
 
-  public DomException(final String message, final Throwable cause) {
-    super(message, cause);
-  }
+    public DomException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
 
-  // Serializable
+    // Serializable
 
-  private static final long serialVersionUID = 327169759890631100L;
+    private static final long serialVersionUID = 327169759890631100L;
 }

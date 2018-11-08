@@ -25,58 +25,59 @@ import walkingkooka.tree.search.SearchNodeName;
  */
 final public class DomComment extends DomTextNode {
 
-  public final static String OPEN = "<!--";
-  public final static String CLOSE = "-->";
-  final static String ILLEGAL_CONTENT = "--";
+    public final static String OPEN = "<!--";
+    public final static String CLOSE = "-->";
+    final static String ILLEGAL_CONTENT = "--";
 
-  DomComment(final org.w3c.dom.Node node) {
-    super(node);
-  }
+    DomComment(final org.w3c.dom.Node node) {
+        super(node);
+    }
 
-  @Override
-  public DomComment setText(final String text) {
-    checkCommentText(text);
-    return this.setText0(text).cast();
-  }
+    @Override
+    public DomComment setText(final String text) {
+        checkCommentText(text);
+        return this.setText0(text).cast();
+    }
 
-  // DomNode.......................................................................................................
+    // DomNode.......................................................................................................
 
-  @Override
-  DomNodeKind kind() {
-    return DomNodeKind.COMMENT;
-  }
+    @Override
+    DomNodeKind kind() {
+        return DomNodeKind.COMMENT;
+    }
 
-  @Override
-  DomComment wrap0(final org.w3c.dom.Node node) {
-    return new DomComment(node);
-  }
+    @Override
+    DomComment wrap0(final org.w3c.dom.Node node) {
+        return new DomComment(node);
+    }
 
-  @Override
-  public boolean isComment() {
-    return true;
-  }
+    @Override
+    public boolean isComment() {
+        return true;
+    }
 
-  @Override
-  final SearchNodeName searchNodeName() {
-    return SEARCH_NODE_NAME;
-  }
+    @Override
+    final SearchNodeName searchNodeName() {
+        return SEARCH_NODE_NAME;
+    }
 
-  private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("Comment");
+    private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("Comment");
 
-  // Object...........................................................................................
+    // Object...........................................................................................
 
-  @Override boolean canBeEqual(final Object other) {
-    return other instanceof DomComment;
-  }
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof DomComment;
+    }
 
-  // UsesToStringBuilder...........................................................................................
+    // UsesToStringBuilder...........................................................................................
 
-  /**
-   * Returns the text without escaping as it is not required
-   */
-  @Override
-  void buildDomNodeToString(final ToStringBuilder builder) {
-    builder.surroundValues(DomComment.OPEN, DomComment.CLOSE);
-    builder.value(new Object[] { this.text() });// array required so surroundValues works.
-  }
+    /**
+     * Returns the text without escaping as it is not required
+     */
+    @Override
+    void buildDomNodeToString(final ToStringBuilder builder) {
+        builder.surroundValues(DomComment.OPEN, DomComment.CLOSE);
+        builder.value(new Object[]{this.text()});// array required so surroundValues works.
+    }
 }

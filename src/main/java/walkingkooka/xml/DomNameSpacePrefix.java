@@ -32,98 +32,98 @@ import java.util.Optional;
  */
 final public class DomNameSpacePrefix implements Value<String>, UsesToStringBuilder, HashCodeEqualsDefined {
 
-  /**
-   * The separator character between a prefix and attribute.
-   */
-  public final static CharacterConstant SEPARATOR = CharacterConstant.with(':');
+    /**
+     * The separator character between a prefix and attribute.
+     */
+    public final static CharacterConstant SEPARATOR = CharacterConstant.with(':');
 
-  final static String XMLNS_STRING = "xmlns";
-  final static DomNameSpacePrefix XMLNS = new DomNameSpacePrefix(DomNameSpacePrefix.XMLNS_STRING);
+    final static String XMLNS_STRING = "xmlns";
+    final static DomNameSpacePrefix XMLNS = new DomNameSpacePrefix(DomNameSpacePrefix.XMLNS_STRING);
 
-  static Optional<DomNameSpacePrefix> wrap(final org.w3c.dom.Node node) {
-    final String prefix = node.getPrefix();
-    return null == prefix ? Optional.empty() : Optional.ofNullable(new DomNameSpacePrefix(prefix));
-  }
-
-  static DomNameSpacePrefix with(final String prefix) {
-     return XMLNS_STRING.equals(prefix) ? XMLNS : new DomNameSpacePrefix(prefix);
-  }
-
-  /**
-   * Private constructor use factory.
-   */
-  private DomNameSpacePrefix(final String value) {
-    super();
-    this.value = value;
-  }
-
-  /**
-   * Returns the prefix wrap an empty {@link String} indicating it is absent. Null is an invalid value.
-   */
-  @Override
-  public String value() {
-    return this.value;
-  }
-
-  final String value;
-
-  /**
-   * Factory that creates an attribute name.
-   */
-  public DomAttributeName attributeName(final String name) {
-     return DomNode.attribute(name, Optional.of(this));
-  }
-
-  DomElement createElement(final String namespaceUri,
-                                    final DomName name,
-                                    final org.w3c.dom.Document document) {
-    return new DomElement(document.createElementNS(namespaceUri,
-            this.qualifiedName(name)));
-  }
-
-  void setAttribute(final org.w3c.dom.Element element, final DomAttributeName name, final String value) {
-    if(this == XMLNS){
-      element.setAttributeNS(DomNode.XMLNS_URI,
-              this.qualifiedName(name),
-              value);
-    } else {
-      element.setAttributeNS(element.lookupNamespaceURI(this.value),
-              this.qualifiedName(name),
-              value);
+    static Optional<DomNameSpacePrefix> wrap(final org.w3c.dom.Node node) {
+        final String prefix = node.getPrefix();
+        return null == prefix ? Optional.empty() : Optional.ofNullable(new DomNameSpacePrefix(prefix));
     }
-  }
 
-  private String qualifiedName(final Name name) {
-    return value + SEPARATOR.character() + name.value();
-  }
+    static DomNameSpacePrefix with(final String prefix) {
+        return XMLNS_STRING.equals(prefix) ? XMLNS : new DomNameSpacePrefix(prefix);
+    }
 
-  // Object .............................................................................................
+    /**
+     * Private constructor use factory.
+     */
+    private DomNameSpacePrefix(final String value) {
+        super();
+        this.value = value;
+    }
 
-  @Override
-  public int hashCode() {
-    return this.value.hashCode();
-  }
+    /**
+     * Returns the prefix wrap an empty {@link String} indicating it is absent. Null is an invalid value.
+     */
+    @Override
+    public String value() {
+        return this.value;
+    }
 
-  @Override
-  public boolean equals(final Object other) {
-    return (this == other) || ((other instanceof DomNameSpacePrefix) && this.equals0((DomNameSpacePrefix) other));
-  }
+    final String value;
 
-  private boolean equals0(final DomNameSpacePrefix other) {
-    return this.value.equals(other.value);
-  }
+    /**
+     * Factory that creates an attribute name.
+     */
+    public DomAttributeName attributeName(final String name) {
+        return DomNode.attribute(name, Optional.of(this));
+    }
 
-  @Override
-  public String toString() {
-    return ToStringBuilder.buildFrom(this);
-  }
+    DomElement createElement(final String namespaceUri,
+                             final DomName name,
+                             final org.w3c.dom.Document document) {
+        return new DomElement(document.createElementNS(namespaceUri,
+                this.qualifiedName(name)));
+    }
 
-  @Override
-  public void buildToString(final ToStringBuilder builder) {
-    builder.disable(ToStringBuilderOption.QUOTE);
-    builder.valueSeparator("");
-    builder.separator("");
-    builder.value(this.value);
-    builder.value(DomNameSpacePrefix.SEPARATOR);
-  }
+    void setAttribute(final org.w3c.dom.Element element, final DomAttributeName name, final String value) {
+        if (this == XMLNS) {
+            element.setAttributeNS(DomNode.XMLNS_URI,
+                    this.qualifiedName(name),
+                    value);
+        } else {
+            element.setAttributeNS(element.lookupNamespaceURI(this.value),
+                    this.qualifiedName(name),
+                    value);
+        }
+    }
+
+    private String qualifiedName(final Name name) {
+        return value + SEPARATOR.character() + name.value();
+    }
+
+    // Object .............................................................................................
+
+    @Override
+    public int hashCode() {
+        return this.value.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return (this == other) || ((other instanceof DomNameSpacePrefix) && this.equals0((DomNameSpacePrefix) other));
+    }
+
+    private boolean equals0(final DomNameSpacePrefix other) {
+        return this.value.equals(other.value);
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.buildFrom(this);
+    }
+
+    @Override
+    public void buildToString(final ToStringBuilder builder) {
+        builder.disable(ToStringBuilderOption.QUOTE);
+        builder.valueSeparator("");
+        builder.separator("");
+        builder.value(this.value);
+        builder.value(DomNameSpacePrefix.SEPARATOR);
+    }
 }

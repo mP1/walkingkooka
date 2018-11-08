@@ -72,7 +72,7 @@ public final class DomDocumentTypeTest extends DomLeafNodeTestCase<DomDocumentTy
     // publicId....................................................................................................
 
     @Test
-    public void testPublicId() throws Exception{
+    public void testPublicId() throws Exception {
         final DomDocumentType type = this.documentTypeFromXml();
         this.checkPublicId(type, "-//example/");
         this.checkSystemId(type, "http://www.example.com/test.dtd");
@@ -81,22 +81,22 @@ public final class DomDocumentTypeTest extends DomLeafNodeTestCase<DomDocumentTy
     // systemId ...................................................................................................
 
     @Test
-    public void testSystemId() throws Exception{
+    public void testSystemId() throws Exception {
         final DomDocumentType type = this.documentTypeFromXml();
-        this.checkSystemId(type,"/system.dtd");
+        this.checkSystemId(type, "/system.dtd");
         this.checkPublicId(type, DomNode.NO_PUBLIC_ID);
     }
 
     // notations...................................................................................................
 
     @Test
-    public void testNotations() throws Exception{
+    public void testNotations() throws Exception {
         final DomDocumentType type = this.documentTypeFromXml();
         this.checkNotations(type, Maps.one("zip", "<!NOTATION zip PUBLIC \"zip viewer\">"));
     }
 
     @Test
-    public void testWithoutNotations() throws Exception{
+    public void testWithoutNotations() throws Exception {
         final DomDocumentType type = this.documentTypeFromXml();
         this.checkNotations(type, Maps.empty());
     }
@@ -104,19 +104,19 @@ public final class DomDocumentTypeTest extends DomLeafNodeTestCase<DomDocumentTy
     // entities...................................................................................................
 
     @Test
-    public void testEntitiesPublicId() throws Exception{
+    public void testEntitiesPublicId() throws Exception {
         final DomDocumentType type = this.documentTypeFromXml();
         this.checkEntities(type, Maps.one("file", "<!ENTITY file PUBLIC \"//-/PublicId\" \"http://www.example.com/public\">"));
     }
 
     @Test
-    public void testEntitiesSystemId() throws Exception{
+    public void testEntitiesSystemId() throws Exception {
         final DomDocumentType type = this.documentTypeFromXml();
         this.checkEntities(type, Maps.one("file", "<!ENTITY file SYSTEM \"http://www.example.com/system\">"));
     }
 
     @Test
-    public void testWithoutEntities() throws Exception{
+    public void testWithoutEntities() throws Exception {
         final DomDocumentType type = this.documentTypeFromXml();
         this.checkEntities(type, Maps.empty());
     }

@@ -58,7 +58,7 @@ final public class DomAttributeName implements Name, HasDomPrefix, UsesToStringB
     static DomAttributeName wrap(final org.w3c.dom.Attr attr) {
         final Optional<DomNameSpacePrefix> prefix = DomNameSpacePrefix.wrap(attr);
         return new DomAttributeName(prefix.isPresent() ?
-                attr.getLocalName():
+                attr.getLocalName() :
                 attr.getName(),
                 prefix);
     }
@@ -127,7 +127,7 @@ final public class DomAttributeName implements Name, HasDomPrefix, UsesToStringB
     public void buildToString(final ToStringBuilder builder) {
         builder.disable(ToStringBuilderOption.QUOTE);
         builder.labelSeparator(DomNameSpacePrefix.SEPARATOR.string());
-        if(this.prefix.isPresent()){
+        if (this.prefix.isPresent()) {
             builder.label(this.prefix.get().value());
         }
         builder.value(this.value());

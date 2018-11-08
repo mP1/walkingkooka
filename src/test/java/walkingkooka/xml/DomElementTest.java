@@ -131,7 +131,7 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
         this.checkChildren("parent", 1, parent);
 
         final DomElement parent2 = parent.appendChild(child2);
-        assertFalse(parent==parent2);
+        assertFalse(parent == parent2);
 
         this.checkChildren("parent2", 2, parent2);
         assertEquals("text of 2children", TEXT + TEXT2, parent2.text());
@@ -144,7 +144,7 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
 
         final DomElement parent2 = parent.appendChild(child);
 
-        assertFalse(parent==parent2);
+        assertFalse(parent == parent2);
         this.checkNotAdopted("child", child);
         this.checkChildren("parent", 1, parent2);
 
@@ -152,7 +152,7 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
     }
 
     @Test
-    public void testAppendChildWithChild(){
+    public void testAppendChildWithChild() {
         final DomElement parent = this.createNode();
         final DomElement child = parent.createElement(CHILD);
         final DomText grandChild = parent.createText("grand-child");
@@ -160,7 +160,7 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
 
         final DomNode parent2 = parent.appendChild(child2);
         this.checkChildren("parent", 1, parent2);
-        this.checkChildren("child",1, parent2.children().get(0));
+        this.checkChildren("child", 1, parent2.children().get(0));
 
         assertEquals("grand-child", parent2.text());
     }
@@ -171,7 +171,7 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
         final DomText child1 = parent.createText(TEXT);
         final DomText child2 = parent.createText(TEXT2);
 
-        final DomElement parent2 = parent.setChildren(Lists.of(child1,child2));
+        final DomElement parent2 = parent.setChildren(Lists.of(child1, child2));
         this.checkChildren("parent of 2 children", 2, parent2);
         this.checkChildren("original parent", 0, parent);
     }
@@ -180,7 +180,7 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
     public void testSetSameChildren() {
         final DomElement parent = this.createNode();
         final DomText child = parent.createText(TEXT);
-        final DomElement parent2= parent.appendChild(child);
+        final DomElement parent2 = parent.appendChild(child);
 
         final DomElement parent3 = parent2.setChildren(Lists.of(child));
         assertSame("set of new child would be identical", parent2, parent3);
@@ -190,11 +190,11 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
     public void testSetDifferentChildren() {
         final DomElement parent = this.createNode();
         final DomText child = parent.createText(TEXT);
-        final DomElement parent2= parent.appendChild(child);
+        final DomElement parent2 = parent.appendChild(child);
 
         final DomText child2 = parent.createText(TEXT2);
         final DomElement parent3 = parent2.setChildren(Lists.of(child2));
-        assertTrue(parent2!=parent3);
+        assertTrue(parent2 != parent3);
 
         this.checkChildren("parent after set different child", 1, parent3);
         assertEquals("text after replacing only child", TEXT2, parent3.text());
@@ -205,17 +205,17 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
         final DomElement parent = this.createNode();
         final DomText child = parent.createText(TEXT);
         final DomText child2 = parent.createText(TEXT2);
-        final DomElement parent2= parent.setChildren(Lists.of(child, child2));
+        final DomElement parent2 = parent.setChildren(Lists.of(child, child2));
 
         // replace child2 with child3
         final DomText child3 = parent.createText(TEXT3);
         final DomElement parent3 = parent2.setChildren(Lists.of(parent2.children().get(0), child3));
-        assertTrue(parent2!=parent3);
+        assertTrue(parent2 != parent3);
 
         this.checkNotAdopted("child3", child3);
 
         this.checkChildren("parent after set different child", 2, parent3);
-        assertEquals("text after replacing only child", TEXT +TEXT3, parent3.text());
+        assertEquals("text after replacing only child", TEXT + TEXT3, parent3.text());
     }
 
     @Test
@@ -444,12 +444,12 @@ public final class DomElementTest extends DomParentNodeTestCase<DomElement> {
         final Map<String, Object> rawAttributes = Maps.ordered();
         attributes.entrySet()
                 .stream()
-                .forEach( e -> rawAttributes.put(e.getKey().toString(), e.getValue()));
+                .forEach(e -> rawAttributes.put(e.getKey().toString(), e.getValue()));
 
         final Map<String, Object> actualRawAttributes = Maps.ordered();
         final NamedNodeMap attributeNodes = element.node.getAttributes();
         final int count = attributeNodes.getLength();
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             final org.w3c.dom.Attr attr = Cast.to(attributeNodes.item(i));
             actualRawAttributes.put(attr.getName(), attr.getValue());
         }

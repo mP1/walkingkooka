@@ -46,7 +46,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
 
     @Override
     public Optional<DomPublicId> publicId() {
-        if(null==this.publicId) {
+        if (null == this.publicId) {
             this.publicId = DomPublicId.with(this.entityNode().getPublicId());
         }
         return this.publicId;
@@ -58,7 +58,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
 
     @Override
     public Optional<DomSystemId> systemId() {
-        if(null==this.systemId) {
+        if (null == this.systemId) {
             this.systemId = DomSystemId.with(this.entityNode().getSystemId());
         }
         return this.systemId;
@@ -69,7 +69,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
     // notation ...................................................................................................
 
     public DomName notation() {
-        if(null==this.notation) {
+        if (null == this.notation) {
             this.notation = DomNodeKind.NOTATION.with(this.entityNode().getNotationName());
         }
         return this.notation;
@@ -80,7 +80,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
     // inputEncoding ...................................................................................................
 
     public Optional<String> inputEncoding() {
-        if(null==this.inputEncoding) {
+        if (null == this.inputEncoding) {
             this.inputEncoding = Optional.ofNullable(this.entityNode().getInputEncoding());
         }
         return this.inputEncoding;
@@ -91,7 +91,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
     // xmlEncoding ...................................................................................................
 
     public Optional<String> xmlEncoding() {
-        if(null==this.xmlEncoding) {
+        if (null == this.xmlEncoding) {
             this.xmlEncoding = Optional.ofNullable(this.entityNode().getXmlEncoding());
         }
         return this.xmlEncoding;
@@ -102,7 +102,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
     // xmlVersion ...................................................................................................
 
     public Optional<String> xmlVersion() {
-        if(null==this.xmlVersion) {
+        if (null == this.xmlVersion) {
             this.xmlVersion = Optional.ofNullable(this.entityNode().getXmlVersion());
         }
         return this.xmlVersion;
@@ -132,7 +132,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
     // DomNode........................................................................
 
     @Override
-    DomNodeKind kind(){
+    DomNodeKind kind() {
         return DomNodeKind.ENTITY_REFERENCE;
     }
 
@@ -173,18 +173,19 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
         return other instanceof DomEntity;
     }
 
-    @Override boolean equalsIgnoringParentAndChildren(final DomNode other) {
+    @Override
+    boolean equalsIgnoringParentAndChildren(final DomNode other) {
         return equalsIgnoringParentAndChildren0(other.cast());
     }
 
     private boolean equalsIgnoringParentAndChildren0(final DomEntity other) {
         return this.name().equals(other.name()) && //
-               this.publicId().equals(other.publicId()) && //
-               this.systemId().equals(other.systemId()) && //
-               this.notation().equals(other.notation()) && //
-               this.inputEncoding().equals(other.inputEncoding()) && //
-               this.xmlEncoding().equals(other.xmlEncoding()) && //
-               this.xmlVersion().equals(other.xmlVersion());
+                this.publicId().equals(other.publicId()) && //
+                this.systemId().equals(other.systemId()) && //
+                this.notation().equals(other.notation()) && //
+                this.inputEncoding().equals(other.inputEncoding()) && //
+                this.xmlEncoding().equals(other.xmlEncoding()) && //
+                this.xmlVersion().equals(other.xmlVersion());
     }
 
     // UsesToStringBuilder...........................................................................................
@@ -197,7 +198,7 @@ final public class DomEntity extends DomParentNode2 implements HasDomPublicId, H
         builder.append(' '); // YUCK
         builder.value(this.name().value());
 
-        buildToString(this.publicId(),this.systemId(), builder);
+        buildToString(this.publicId(), this.systemId(), builder);
 
         builder.append(DomEntity.CLOSE);
     }

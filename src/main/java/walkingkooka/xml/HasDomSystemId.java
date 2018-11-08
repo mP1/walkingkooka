@@ -23,8 +23,8 @@ import java.util.Optional;
  * Defines a single getter to retrieve the system id.
  */
 public interface HasDomSystemId {
-  /**
-   * Getter that returns the system id.
-   */
-  Optional<DomSystemId> systemId();
+    /**
+     * Getter that returns the system id.
+     */
+    Optional<DomSystemId> systemId();
 }

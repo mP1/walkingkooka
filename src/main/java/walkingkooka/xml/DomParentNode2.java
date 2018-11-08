@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Base class for both element and document root nodes which are the only nodes that allow children.
  */
-abstract class DomParentNode2 extends DomParentNode{
+abstract class DomParentNode2 extends DomParentNode {
 
     /**
      * Package private to limit sub classing.
@@ -38,18 +38,18 @@ abstract class DomParentNode2 extends DomParentNode{
     DomNode replaceChildren(final List<DomNode> children) {
         final int childCount = children.size();
 
-        final org.w3c.dom.Node replacedNode= this.nodeCloneAll();
+        final org.w3c.dom.Node replacedNode = this.nodeCloneAll();
 
         // remove the cloned nodes.
         final NodeList oldChildren = replacedNode.getChildNodes();
         final int oldChildCount = oldChildren.getLength();
-        for(int i = 0; i < oldChildCount; i++){
+        for (int i = 0; i < oldChildCount; i++) {
             replacedNode.removeChild(oldChildren.item(oldChildCount - 1 - i));
         }
 
         // adopt the clones of nodes of $children.
         final org.w3c.dom.Document document = replacedNode.getOwnerDocument();
-        for(int i = 0; i < childCount; i++){
+        for (int i = 0; i < childCount; i++) {
             final org.w3c.dom.Node child = children.get(i).nodeCloneWithoutParentWithChildren();
             document.adoptNode(child);
             replacedNode.appendChild(child);
@@ -61,7 +61,7 @@ abstract class DomParentNode2 extends DomParentNode{
     @Override
     public final DomDocument document() {
         DomDocument document = this.document;
-        if(null==document){
+        if (null == document) {
             this.document = new DomDocument(this.documentNode());
         }
         return this.document;

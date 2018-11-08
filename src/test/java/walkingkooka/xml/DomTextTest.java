@@ -24,7 +24,7 @@ import walkingkooka.tree.search.SearchNode;
 
 import static org.junit.Assert.assertEquals;
 
-public final class DomTextTest extends DomTextNodeTestCase<DomText>{
+public final class DomTextTest extends DomTextNodeTestCase<DomText> {
 
     private final static String TEXT = "abc123";
 

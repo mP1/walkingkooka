@@ -75,8 +75,7 @@ public abstract class DomTextNodeTestCase<N extends DomTextNode> extends DomLeaf
         this.checkWithParent(node);
     }
 
-    @Override
-    final N createNode(final Document document) {
+    @Override final N createNode(final Document document) {
         return this.createNode(document, this.text());
     }
 
@@ -87,7 +86,7 @@ public abstract class DomTextNodeTestCase<N extends DomTextNode> extends DomLeaf
     abstract N createNode(final Document document, final String text);
 
     final DomDocument domDocument() {
-       return DomNode.createDocument(this.documentBuilder());
+        return DomNode.createDocument(this.documentBuilder());
     }
 
     abstract N createNode(final DomDocument document, final String text);

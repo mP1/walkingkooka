@@ -64,7 +64,7 @@ public final class DomNotationTest extends DomLeafNodeTestCase<DomNotation> {
         try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/createNode.xml")) {
             final DomDocument root = DomNode.fromXml(this.documentBuilder(), reader);
             return new DomNotation(root.documentNode().getDoctype().getNotations().item(0));
-        } catch(final Exception rethrow){
+        } catch (final Exception rethrow) {
             throw new RuntimeException(rethrow);
         }
     }

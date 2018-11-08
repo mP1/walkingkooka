@@ -51,8 +51,8 @@ abstract class DomMap<K, V> extends AbstractMap<K, V> {
      */
     private V get0(final K name) {
         V value = null;
-        for(Entry<K, V> possible : this.entries()){
-            if(possible.getKey().equals(name)){
+        for (Entry<K, V> possible : this.entries()) {
+            if (possible.getKey().equals(name)) {
                 value = possible.getValue();
                 break;
             }
@@ -62,7 +62,7 @@ abstract class DomMap<K, V> extends AbstractMap<K, V> {
 
     @Override
     public final Set<Entry<K, V>> entrySet() {
-        if(null==this.entrySet) {
+        if (null == this.entrySet) {
             this.entrySet = new DomMapEntrySet(this);
         }
         return this.entrySet;
@@ -81,11 +81,11 @@ abstract class DomMap<K, V> extends AbstractMap<K, V> {
      * Factory that lazily creates an array of entries from the items in the {@link NamedNodeMap}
      */
     final Entry[] entries() {
-        if(null==this.entries) {
+        if (null == this.entries) {
             final int count = this.named.getLength();
             final Entry[] entries = new Entry[count];
 
-            for(int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++) {
                 entries[i] = entry(this.named.item(i));
             }
             this.entries = entries;

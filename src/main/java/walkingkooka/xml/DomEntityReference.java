@@ -34,52 +34,52 @@ import java.util.Map;
  */
 final public class DomEntityReference extends DomParentNode2 {
 
-  public final static String OPEN = "<!ENTITY ";
-  public final static String CLOSE = ">";
+    public final static String OPEN = "<!ENTITY ";
+    public final static String CLOSE = ">";
 
-  DomEntityReference(final org.w3c.dom.Node reference) {
-    super(reference);
-  }
+    DomEntityReference(final org.w3c.dom.Node reference) {
+        super(reference);
+    }
 
-  private org.w3c.dom.EntityReference entityReferenceNode() {
-    return Cast.to(this.node);
-  }
+    private org.w3c.dom.EntityReference entityReferenceNode() {
+        return Cast.to(this.node);
+    }
 
-  // children................................................................................................
+    // children................................................................................................
 
-  @Override
-  public DomEntity setChildren(final List<DomNode> children) {
-    throw new UnsupportedOperationException();
-  }
+    @Override
+    public DomEntity setChildren(final List<DomNode> children) {
+        throw new UnsupportedOperationException();
+    }
 
-  // attributes......................................................................................................
+    // attributes......................................................................................................
 
-  @Override
-  public Map<DomAttributeName, String> attributes() {
-    return NO_ATTRIBUTES;
-  }
+    @Override
+    public Map<DomAttributeName, String> attributes() {
+        return NO_ATTRIBUTES;
+    }
 
-  @Override
-  public DomNode setAttributes(final Map<DomAttributeName, String> attributes) {
-    throw new UnsupportedOperationException();
-  }
+    @Override
+    public DomNode setAttributes(final Map<DomAttributeName, String> attributes) {
+        throw new UnsupportedOperationException();
+    }
 
-  // DomNode ...............................................................................................
+    // DomNode ...............................................................................................
 
-  @Override
-  DomNodeKind kind(){
-    return DomNodeKind.ENTITY_REFERENCE;
-  }
+    @Override
+    DomNodeKind kind() {
+        return DomNodeKind.ENTITY_REFERENCE;
+    }
 
-  @Override
-  DomEntityReference wrap0(final org.w3c.dom.Node node) {
-    return new DomEntityReference(node);
-  }
+    @Override
+    DomEntityReference wrap0(final org.w3c.dom.Node node) {
+        return new DomEntityReference(node);
+    }
 
-  @Override
-  public boolean isEntityReference() {
-    return true;
-  }
+    @Override
+    public boolean isEntityReference() {
+        return true;
+    }
 
     @Override
     SearchNode toSearchNode0() {
@@ -87,41 +87,41 @@ final public class DomEntityReference extends DomParentNode2 {
     }
 
     @Override
-  SearchNodeName searchNodeName() {
-    return SEARCH_NODE_NAME;
-  }
+    SearchNodeName searchNodeName() {
+        return SEARCH_NODE_NAME;
+    }
 
-  private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("EntityReference");
+    private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("EntityReference");
 
-  // Object ...............................................................................................
+    // Object ...............................................................................................
 
-  @Override
-  public int hashCode() {
-    return this.name().hashCode();
-  }
+    @Override
+    public int hashCode() {
+        return this.name().hashCode();
+    }
 
-  @Override
-  boolean canBeEqual(final Object other) {
-    return other instanceof DomEntityReference;
-  }
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof DomEntityReference;
+    }
 
-  @Override
-  boolean equalsIgnoringParentAndChildren(final DomNode other) {
-    return this.name().equals(other.name());
-  }
+    @Override
+    boolean equalsIgnoringParentAndChildren(final DomNode other) {
+        return this.name().equals(other.name());
+    }
 
-  // UsesToStringBuilder...........................................................................................
+    // UsesToStringBuilder...........................................................................................
 
-  /**
-   * Returns the XML text.
-   *
-   * <pre>
-   * <!ENTITY entityDefinition \"<!--comment-->text\"">
-   * </pre>
-   */
-  @Override
-  void buildDomNodeToString(final ToStringBuilder builder) {
-    builder.surroundValues("&", ";");
-    builder.value(new Object[]{ this.name().value() });
-  }
+    /**
+     * Returns the XML text.
+     *
+     * <pre>
+     * <!ENTITY entityDefinition \"<!--comment-->text\"">
+     * </pre>
+     */
+    @Override
+    void buildDomNodeToString(final ToStringBuilder builder) {
+        builder.surroundValues("&", ";");
+        builder.value(new Object[]{this.name().value()});
+    }
 }
