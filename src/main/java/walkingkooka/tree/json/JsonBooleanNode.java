@@ -19,6 +19,7 @@
 package walkingkooka.tree.json;
 
 import walkingkooka.io.printer.IndentingPrinter;
+import walkingkooka.tree.search.SearchNode;
 
 /**
  * Represents an immutable json boolean.
@@ -48,6 +49,16 @@ public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
     final JsonBooleanNode wrap0(final JsonNodeName name, final int index, final Boolean value) {
         return new JsonBooleanNode(name, index, value);
     }
+
+    // HasSearchNode...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode() {
+        final String text = this.text();
+        return SearchNode.text(text, text);
+    }
+
+    // isXXX............................................................................................................
 
     @Override
     public boolean isBoolean() {

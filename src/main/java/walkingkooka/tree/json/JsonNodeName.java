@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.search.SearchNodeName;
 
 /**
  * The name of any property of object key.
@@ -78,6 +79,13 @@ public final class JsonNodeName implements Name, Comparable<JsonNodeName>, HashC
     }
 
     private final String name;
+
+    /**
+     * Creates the {@link SearchNodeName} for this node name. Only used by {@link JsonObjectNode#toSearchNode()}.
+     */
+    final SearchNodeName toSearchNodeName() {
+        return SearchNodeName.with(this.name);
+    }
 
     // Object..................................................................................................
 

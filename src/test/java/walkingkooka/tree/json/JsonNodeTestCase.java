@@ -28,6 +28,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
+import walkingkooka.tree.search.SearchNode;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
@@ -117,5 +118,9 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     @Override
     protected final String requiredNamePrefix() {
         return "Json";
+    }
+
+    final void toSearchNodeAndCheck(final N node, final SearchNode searchNode) {
+        assertEquals("toSearchNode failure from " + node, searchNode, node.toSearchNode());
     }
 }

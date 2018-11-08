@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
@@ -138,6 +139,17 @@ public final class JsonObjectNode extends JsonParentNode{
     final JsonObjectNode wrap0(final JsonNodeName name, final int index, final List<JsonNode> children) {
         return new JsonObjectNode(name, index, children);
     }
+
+    // HasSearchNode...............................................................................................
+
+    @Override
+    SearchNode toSearchNode0() {
+        return SearchNode.sequence(this.children.stream()
+                .map(c -> c.toSearchNode().setName(c.name().toSearchNodeName()))
+                .collect(Collectors.toList()));
+    }
+
+    // isXXX......................................................................................................
 
     @Override
     public boolean isArray() {

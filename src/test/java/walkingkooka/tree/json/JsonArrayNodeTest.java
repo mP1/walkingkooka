@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
+import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visiting;
@@ -309,6 +310,26 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
         });
         assertEquals("selected nodes", Sets.of(selected), all);
     }
+
+    // toSearchNode .......................................................................................
+
+    @Test
+    public void testToSearchNode() {
+        final JsonBooleanNode booleanNode = JsonNode.booleanNode(true);
+        final JsonNumberNode number = JsonNode.number(2);
+        final JsonStringNode string = JsonNode.string("third");
+
+        final JsonArrayNode array = JsonNode.array()
+                .appendChild(booleanNode)
+                .appendChild(number)
+                .appendChild(string);
+
+        this.toSearchNodeAndCheck(array, SearchNode.sequence(Lists.of(booleanNode.toSearchNode(),
+                number.toSearchNode(),
+                string.toSearchNode())));
+    }
+
+    // toString .......................................................................................
 
     @Test
     public void testToStringEmpty() {
