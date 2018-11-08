@@ -33,11 +33,11 @@ public final class DomName implements Name, HashCodeEqualsDefined,
 
     private final static Map<String, DomName> constants = Maps.hash();
 
-    final static DomName CDATA_SECTION = registerConstant(DomNodeKind.CDATA,"#cdata-section");
+    final static DomName CDATA_SECTION = registerConstant(DomNodeKind.CDATA, "#cdata-section");
 
-    final static DomName COMMENT = registerConstant(DomNodeKind.COMMENT,"#comment");
+    final static DomName COMMENT = registerConstant(DomNodeKind.COMMENT, "#comment");
 
-    final static DomName DOCUMENT = registerConstant(DomNodeKind.DOCUMENT,"#document");
+    final static DomName DOCUMENT = registerConstant(DomNodeKind.DOCUMENT, "#document");
 
     public static DomName documentType(final String name) {
         return DomNodeKind.DOCUMENT_TYPE.with(name);
@@ -59,7 +59,7 @@ public final class DomName implements Name, HashCodeEqualsDefined,
         return DomNodeKind.NOTATION.with(name);
     }
 
-    final static DomName TEXT = registerConstant(DomNodeKind.COMMENT,"#text");
+    final static DomName TEXT = registerConstant(DomNodeKind.COMMENT, "#text");
 
     private static DomName registerConstant(final DomNodeKind kind, final String value) {
         final DomName name = kind.with(value);
@@ -67,7 +67,7 @@ public final class DomName implements Name, HashCodeEqualsDefined,
         return name;
     }
 
-    DomName(final String name, final DomNodeKind kind){
+    DomName(final String name, final DomNodeKind kind) {
         super();
         this.name = name;
         this.kind = kind;
@@ -94,7 +94,7 @@ public final class DomName implements Name, HashCodeEqualsDefined,
         return this.kind.createElement(namespaceUri, prefix, this, document);
     }
 
-    final DomElement failInvalidTagName(){
+    final DomElement failInvalidTagName() {
         throw new IllegalArgumentException("Invalid tag name " + CharSequences.quote(this.value()));
     }
 

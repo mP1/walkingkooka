@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 public final class DomEntityTest extends DomParentNodeTestCase<DomEntity> {
 
     public void testParentWithout() {
-       // disable, because of how createNode works, our entities always have a parent.
+        // disable, because of how createNode works, our entities always have a parent.
     }
 
     public void testParentWith() {
@@ -51,7 +51,7 @@ public final class DomEntityTest extends DomParentNodeTestCase<DomEntity> {
             final org.w3c.dom.DocumentType documentType = Cast.to(root.node.getChildNodes().item(0));
             final org.w3c.dom.Entity entity = Cast.to(documentType.getEntities().item(0));
             return new DomEntity(entity);
-        } catch(final Exception rethrow){
+        } catch (final Exception rethrow) {
             throw new RuntimeException(rethrow);
         }
     }

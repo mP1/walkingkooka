@@ -119,7 +119,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
         assertEquals("checkCharacterNormalizations", newValue, document.checkCharacterNormalizations());
         assertNotSame(document, document2);
     }
-    
+
     // comments..............................................................................................
 
     @Test
@@ -502,7 +502,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
 
         final DomElement root1 = document1.createElement(DomName.element("child"));
         final DomDocument document2 = document1.appendChild(root1);
-        
+
         assertEquals("documentType", DomNode.NO_DOCUMENT_TYPE, document2.documentType());
         final DomElement root2 = document2.element().get();
         this.checkName(root2, root1.name());
@@ -574,14 +574,14 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     // fromXml..................................................................................
 
     @Test
-    public void testFromXml() throws Exception{
+    public void testFromXml() throws Exception {
         final DomDocument document = this.fromXml();
 
         final DomElement root = document.children().get(0).cast();
         final DomElement abc = root.children().get(1).cast();
         final DomText text = abc.children().get(0).cast();
 
-        this.checkText(text,TEXT);
+        this.checkText(text, TEXT);
         this.checkName(document, DomName.DOCUMENT);
 
         assertEquals("documentUri", Optional.empty(), document.documentUri());
@@ -591,7 +591,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     }
 
     @Test
-    public void testFromXmlNamespace() throws Exception{
+    public void testFromXmlNamespace() throws Exception {
         final DomDocument document = this.fromXml();
 
         final DomElement root = document.children().get(0).cast();
@@ -638,7 +638,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
                 return inputSource;
             }
         });
-        final DomDocument document =DomNode.createDocument(b,
+        final DomDocument document = DomNode.createDocument(b,
                 DomNode.NO_NAMESPACE_URI,
                 DomName.element("date"),
                 DomNode.publicId(publicId),
@@ -688,7 +688,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     public void testElement() throws Exception {
         final DomDocument document = this.createNode();
         final DomElement element = document.createElement(DomName.element("root"))
-                .appendChild( document.createText(TEXT));
+                .appendChild(document.createText(TEXT));
 
         final DomDocument document2 = document.appendChild(element);
         this.writeXmlAndCheck(document2);
@@ -705,7 +705,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
         final DomDocument document = this.createNode();
         final DomDocument document2 = document.appendChild(
                 document.createElement(DomName.element("root"))
-                .appendChild( document.createText(TEXT)));
+                        .appendChild(document.createText(TEXT)));
         assertSame(document2, document2.setElement(document2.element()));
     }
 
@@ -721,18 +721,18 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
 
     @Test
     public void testElementNamespaced() throws Exception {
-       final DomDocument document = this.createNodeNamespaced();
+        final DomDocument document = this.createNodeNamespaced();
 
-       final DomElement element2 = document.createElement("https://example.com/2",
-               DomNameSpacePrefix.with("ns2"),
-               DomName.element("element2"));
+        final DomElement element2 = document.createElement("https://example.com/2",
+                DomNameSpacePrefix.with("ns2"),
+                DomName.element("element2"));
         final DomElement element3 = document.createElement("https://example.com/3",
                 DomNameSpacePrefix.with("ns3"),
                 DomName.element("element3"));
 
-       final DomDocument document2 = document.setElement(Optional.of(element2.appendChild(element3)));
+        final DomDocument document2 = document.setElement(Optional.of(element2.appendChild(element3)));
 
-       this.writeXmlAndCheck(document2);
+        this.writeXmlAndCheck(document2);
     }
 
     private void writeXmlAndCheck(final DomNode node) throws Exception {
@@ -744,7 +744,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     // entities...................................................................................................
 
     @Test
-    public void testInlineEntity() throws Exception{
+    public void testInlineEntity() throws Exception {
         final DomDocument document = this.fromXml(this.documentBuilder(false, false)); //namespace, expandEntities
         final DomElement root = document.element().get();
         final DomEntityReference reference = root.children().get(0).cast();
@@ -778,7 +778,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
                 .named(DomName.element("img"))
                 .build();
         final Set<DomNode> selected = Sets.ordered();
-        selector.accept(document, new FakeNodeSelectorContext<DomNode, DomName, DomAttributeName, String>(){
+        selector.accept(document, new FakeNodeSelectorContext<DomNode, DomName, DomAttributeName, String>() {
             @Override
             public void potential(final DomNode node) {
 
@@ -802,7 +802,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
                 .attributeValueContains(DomNode.attribute("href", DomNode.NO_PREFIX), "19")
                 .build();
         final Set<DomNode> selected = Sets.ordered();
-        selector.accept(document, new FakeNodeSelectorContext<DomNode, DomName, DomAttributeName, String>(){
+        selector.accept(document, new FakeNodeSelectorContext<DomNode, DomName, DomAttributeName, String>() {
             @Override
             public void potential(final DomNode node) {
 
@@ -826,7 +826,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
                 "     <abc>123</abc> \n" +
                 "</root>", this.fromXml().toString());
     }
-    
+
     // factory/helpers..............................................................................................
 
     @Override

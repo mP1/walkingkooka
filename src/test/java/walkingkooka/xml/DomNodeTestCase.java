@@ -106,13 +106,13 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
         final N node = this.createNode();
         assertEquals(node instanceof DomCDataSection, node.isCDataSection());
     }
-    
+
     @Test
     public final void testIsComment() {
         final N node = this.createNode();
         assertEquals(node instanceof DomComment, node.isComment());
     }
-    
+
     @Test
     public final void testIsDocument() {
         final N node = this.createNode();
@@ -142,7 +142,7 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
         final N node = this.createNode();
         assertEquals(node instanceof DomEntityReference, node.isEntityReference());
     }
-    
+
     @Test
     public final void testIsNotation() {
         final N node = this.createNode();
@@ -172,7 +172,7 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
         return this.fromXml(this.documentBuilder());
     }
 
-    final DomDocument fromXml(final DocumentBuilder b) throws Exception{
+    final DomDocument fromXml(final DocumentBuilder b) throws Exception {
         return new DomDocument(documentFromXml(b));
     }
 
@@ -237,7 +237,7 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
     }
 
     final void checkName(final DomNode node, final String name) {
-        if(null != node.node){
+        if (null != node.node) {
             assertEquals("w3c.dom.Node name", name, node.node.getNodeName());
         }
         assertEquals("name from DomNode", name, node.name().value());
@@ -280,10 +280,10 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
 
         final Set<String> actualRawEntitiesNames = Sets.ordered();
         final org.w3c.dom.DocumentType documentType = node.documentTypeNode();
-        if(null!=documentType) {
+        if (null != documentType) {
             final NamedNodeMap entityNodes = documentType.getEntities();
             final int count = entityNodes.getLength();
-            for(int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++) {
                 final org.w3c.dom.Entity entity = Cast.to(entityNodes.item(i));
                 actualRawEntitiesNames.add(entity.getNodeName());
             }
@@ -301,10 +301,10 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
 
         final Set<String> actualRawNotationsNames = Sets.ordered();
         final org.w3c.dom.DocumentType documentType = node.documentTypeNode();
-        if(null!=documentType) {
+        if (null != documentType) {
             final NamedNodeMap notationNodes = documentType.getNotations();
             final int count = notationNodes.getLength();
-            for(int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++) {
                 final org.w3c.dom.Notation notation = Cast.to(notationNodes.item(i));
                 actualRawNotationsNames.add(notation.getNodeName());
             }
@@ -321,16 +321,16 @@ public abstract class DomNodeTestCase<N extends DomNode> extends NodeTestCase<Do
         final Class<?> classs = this.getClass();
         return new StringReader(
                 this.resourceAsText(classs,
-                classs.getSimpleName() + "/" +this.rule.getMethodName() + fileExtension));
+                        classs.getSimpleName() + "/" + this.rule.getMethodName() + fileExtension));
     }
 
     final String resourceAsText(final String fileExtension) throws IOException {
-        try(StringWriter writer = new StringWriter()){
+        try (StringWriter writer = new StringWriter()) {
             final char[] buffer = new char[4096];
-            try(Reader reader = this.resource(fileExtension)){
-                for(;;){
+            try (Reader reader = this.resource(fileExtension)) {
+                for (; ; ) {
                     final int count = reader.read(buffer);
-                    if(-1 == count){
+                    if (-1 == count) {
                         break;
                     }
                     writer.write(buffer, 0, count);

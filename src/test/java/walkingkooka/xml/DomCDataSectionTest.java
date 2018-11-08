@@ -25,22 +25,23 @@ import walkingkooka.tree.search.SearchNodeName;
 
 import static org.junit.Assert.assertEquals;
 
-public final class DomCDataSectionTest extends DomTextNodeTestCase<DomCDataSection>{
+public final class DomCDataSectionTest extends DomTextNodeTestCase<DomCDataSection> {
 
     private final static String TEXT = "abc-123";
 
     @Test
-    public void testWithEmptyText(){
-        this.domDocument().createCDataSection("");;
+    public void testWithEmptyText() {
+        this.domDocument().createCDataSection("");
+        ;
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void testWithInvalidTextFails(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithInvalidTextFails() {
         this.domDocument().createCDataSection(DomCDataSection.CLOSE);
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void testSetTextInvalidFails(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetTextInvalidFails() {
         this.createNode().setText(DomCDataSection.CLOSE);
     }
 
@@ -64,7 +65,7 @@ public final class DomCDataSectionTest extends DomTextNodeTestCase<DomCDataSecti
     }
 
     @Override
-    DomCDataSection createNode(final DomDocument document, final String text){
+    DomCDataSection createNode(final DomDocument document, final String text) {
         return document.createCDataSection(text);
     }
 

@@ -24,8 +24,8 @@ import java.util.Optional;
  */
 public interface HasDomPrefix {
 
-  /**
-   * Getter that returns the prefix
-   */
-  Optional<DomNameSpacePrefix> prefix();
+    /**
+     * Getter that returns the prefix
+     */
+    Optional<DomNameSpacePrefix> prefix();
 }

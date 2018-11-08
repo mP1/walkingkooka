@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Base class for both element and document root nodes which are the only nodes that allow children.
  */
-abstract class DomParentNode extends DomNode{
+abstract class DomParentNode extends DomNode {
 
     /**
      * Package private to limit sub classing.
@@ -60,22 +60,22 @@ abstract class DomParentNode extends DomNode{
     /**
      * Copies the node, ignoring its parent but cloning its children.
      */
-    final org.w3c.dom.Node nodeCloneWithoutParentWithChildren(){
+    final org.w3c.dom.Node nodeCloneWithoutParentWithChildren() {
         final org.w3c.dom.Node copy = this.node.cloneNode(false);
         cloneChildren(this.node, copy);
         return copy;
     }
 
-    private static org.w3c.dom.Node cloneWithoutParentWithChildren(final org.w3c.dom.Node source){
+    private static org.w3c.dom.Node cloneWithoutParentWithChildren(final org.w3c.dom.Node source) {
         final org.w3c.dom.Node copy = source.cloneNode(false);
         cloneChildren(source, copy);
         return copy;
     }
 
-    static void cloneChildren(final org.w3c.dom.Node source, final org.w3c.dom.Node dest){
+    static void cloneChildren(final org.w3c.dom.Node source, final org.w3c.dom.Node dest) {
         final NodeList children = source.getChildNodes();
         final int count = children.getLength();
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             dest.appendChild(cloneWithoutParentWithChildren(children.item(i)));
         }
     }

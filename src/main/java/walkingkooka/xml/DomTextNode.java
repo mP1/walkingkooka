@@ -22,9 +22,9 @@ import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
 
-abstract class DomTextNode extends DomLeafNode{
+abstract class DomTextNode extends DomLeafNode {
 
-    DomTextNode(final org.w3c.dom.Node characterData){
+    DomTextNode(final org.w3c.dom.Node characterData) {
         super(characterData);
     }
 
@@ -47,8 +47,7 @@ abstract class DomTextNode extends DomLeafNode{
 
     // toSearchNode...............................................................................................
 
-    @Override
-    final SearchNode toSearchNode0() {
+    @Override final SearchNode toSearchNode0() {
         return textSearchNode(this.text());
     }
 

@@ -31,59 +31,59 @@ import java.util.Optional;
  */
 final public class DomSystemId implements Value<String>, HasSearchNode, ShouldBeQuoted, HashCodeEqualsDefined {
 
-  /**
-   * Constant that may be used when no system id is present.
-   */
-  public final static Optional<DomSystemId> NO_SYSTEM_ID = Optional.empty();
+    /**
+     * Constant that may be used when no system id is present.
+     */
+    public final static Optional<DomSystemId> NO_SYSTEM_ID = Optional.empty();
 
-  /**
-   * Factory that creates a {@link DomSystemId}
-   */
-  static Optional<DomSystemId> with(final String value) {
-    return null == value ? NO_SYSTEM_ID : Optional.of(new DomSystemId(value));
-  }
+    /**
+     * Factory that creates a {@link DomSystemId}
+     */
+    static Optional<DomSystemId> with(final String value) {
+        return null == value ? NO_SYSTEM_ID : Optional.of(new DomSystemId(value));
+    }
 
-  /**
-   * package private constructor}.
-   */
-  private DomSystemId(final String value) {
-    this.value = value;
-  }
+    /**
+     * package private constructor}.
+     */
+    private DomSystemId(final String value) {
+        this.value = value;
+    }
 
-  // Value
+    // Value
 
-  @Override
-  public String value() {
-    return this.value;
-  }
+    @Override
+    public String value() {
+        return this.value;
+    }
 
-  private final String value;
+    private final String value;
 
-  // toSearchNode...............................................................................................
+    // toSearchNode...............................................................................................
 
-  @Override
-  public SearchNode toSearchNode() {
-    return SearchNode.text(this.value, this.value);
-  }
+    @Override
+    public SearchNode toSearchNode() {
+        return SearchNode.text(this.value, this.value);
+    }
 
-  // Object..................................................................................................
+    // Object..................................................................................................
 
-  @Override
-  public int hashCode() {
-    return this.value.hashCode();
-  }
+    @Override
+    public int hashCode() {
+        return this.value.hashCode();
+    }
 
-  @Override
-  public boolean equals(final Object other) {
-    return (this == other) || ((other instanceof DomSystemId) && this.equals0((DomSystemId) other));
-  }
+    @Override
+    public boolean equals(final Object other) {
+        return (this == other) || ((other instanceof DomSystemId) && this.equals0((DomSystemId) other));
+    }
 
-  private boolean equals0(final DomSystemId other) {
-    return this.value.equals(other.value);
-  }
+    private boolean equals0(final DomSystemId other) {
+        return this.value.equals(other.value);
+    }
 
-  @Override
-  public String toString() {
-    return CharSequences.quote(this.value).toString();
-  }
+    @Override
+    public String toString() {
+        return CharSequences.quote(this.value).toString();
+    }
 }

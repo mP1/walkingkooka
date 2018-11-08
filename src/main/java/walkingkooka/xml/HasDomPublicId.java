@@ -24,8 +24,8 @@ import java.util.Optional;
  */
 public interface HasDomPublicId {
 
-  /**
-   * Getter that returns the public id.
-   */
-  Optional<DomPublicId> publicId();
+    /**
+     * Getter that returns the public id.
+     */
+    Optional<DomPublicId> publicId();
 }

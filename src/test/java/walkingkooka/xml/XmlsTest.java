@@ -64,7 +64,7 @@ final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
         Xmls.decode("before &unknown; after");
     }
 
-    private void decodeAndCheck(final String in, final String expected){
+    private void decodeAndCheck(final String in, final String expected) {
         assertEquals("Decode " + CharSequences.quote(in), expected, Xmls.decode(in));
     }
 
@@ -100,7 +100,7 @@ final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
         this.encodeAndCheck("before & after", "before &amp; after");
     }
 
-    private void encodeAndCheck(final String in, final String expected){
+    private void encodeAndCheck(final String in, final String expected) {
         assertEquals("Decode " + CharSequences.quote(in), expected, Xmls.encode(in));
     }
     // misc

@@ -35,58 +35,58 @@ import java.util.Objects;
  */
 final public class DomProcessingInstruction extends DomLeafNode implements Value<String> {
 
-  private final static String START = "<?";
-  private final static String END = "?>";
+    private final static String START = "<?";
+    private final static String END = "?>";
 
-  DomProcessingInstruction(final org.w3c.dom.Node node) {
-    super(node);
-  }
+    DomProcessingInstruction(final org.w3c.dom.Node node) {
+        super(node);
+    }
 
-  /**
-   * Returns the target.
-   */
-  public String target() {
-    return this.processingInstructionNode().getTarget();
-  }
+    /**
+     * Returns the target.
+     */
+    public String target() {
+        return this.processingInstructionNode().getTarget();
+    }
 
-  /**
-   * Returns the data portion.
-   */
-  public String data() {
-    return this.processingInstructionNode().getData();
-  }
+    /**
+     * Returns the data portion.
+     */
+    public String data() {
+        return this.processingInstructionNode().getData();
+    }
 
-  // Value ......................................................................................
+    // Value ......................................................................................
 
-  @Override
-  public String value() {
-    return this.data();
-  }
+    @Override
+    public String value() {
+        return this.data();
+    }
 
 
-  // DomNode ......................................................................................
+    // DomNode ......................................................................................
 
-  final org.w3c.dom.ProcessingInstruction processingInstructionNode() {
-    return Cast.to(this.node);
-  }
+    final org.w3c.dom.ProcessingInstruction processingInstructionNode() {
+        return Cast.to(this.node);
+    }
 
-  @Override
-  DomProcessingInstruction wrap0(final org.w3c.dom.Node node) {
-    return new DomProcessingInstruction(node);
-  }
+    @Override
+    DomProcessingInstruction wrap0(final org.w3c.dom.Node node) {
+        return new DomProcessingInstruction(node);
+    }
 
-  @Override
-  DomNodeKind kind() {
-    return DomNodeKind.PROCESSING_INSTRUCTION;
-  }
+    @Override
+    DomNodeKind kind() {
+        return DomNodeKind.PROCESSING_INSTRUCTION;
+    }
 
-  /**
-   * Always returns true.
-   */
-  @Override
-  public boolean isProcessingInstruction() {
-    return true;
-  }
+    /**
+     * Always returns true.
+     */
+    @Override
+    public boolean isProcessingInstruction() {
+        return true;
+    }
 
     // toSearchNode...............................................................................................
 
@@ -107,43 +107,43 @@ final public class DomProcessingInstruction extends DomLeafNode implements Value
 
     // Object ...........................................................................................
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.target(), this.data());
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.target(), this.data());
+    }
 
-  @Override
-  boolean canBeEqual(final Object other) {
-    return other instanceof DomProcessingInstruction;
-  }
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof DomProcessingInstruction;
+    }
 
-  @Override
-  final boolean equalsIgnoringParentAndChildren(final DomNode other) {
-    return this.equalsIgnoringParentAndChildren0(other.cast());
-  }
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final DomNode other) {
+        return this.equalsIgnoringParentAndChildren0(other.cast());
+    }
 
-  private boolean equalsIgnoringParentAndChildren0(final DomProcessingInstruction other) {
-    return this.target().equals(other.target()) &&
-            this.data().equals(other.data());
-  }
+    private boolean equalsIgnoringParentAndChildren0(final DomProcessingInstruction other) {
+        return this.target().equals(other.target()) &&
+                this.data().equals(other.data());
+    }
 
-  // UsesToStringBuilder...........................................................................................
+    // UsesToStringBuilder...........................................................................................
 
-  /**
-   * <a>https://en.wikipedia.org/wiki/Processing_Instruction</a>
-   *
-   * <pre>
-   * An XML processing instruction is enclosed within <? and ?>, and contains a target and optionally some content, which is the node value, that cannot contain the sequence ?>.[4]
-   *
-   * <?PITarget PIContent?>
-   * </pre>
-   */
-  @Override
-  void buildDomNodeToString(final ToStringBuilder builder) {
-    builder.append(DomProcessingInstruction.START);
-    builder.append(this.target());
-    builder.append(' ');
-    builder.append(this.data());
-    builder.append(DomProcessingInstruction.END);
-  }
+    /**
+     * <a>https://en.wikipedia.org/wiki/Processing_Instruction</a>
+     *
+     * <pre>
+     * An XML processing instruction is enclosed within <? and ?>, and contains a target and optionally some content, which is the node value, that cannot contain the sequence ?>.[4]
+     *
+     * <?PITarget PIContent?>
+     * </pre>
+     */
+    @Override
+    void buildDomNodeToString(final ToStringBuilder builder) {
+        builder.append(DomProcessingInstruction.START);
+        builder.append(this.target());
+        builder.append(' ');
+        builder.append(this.data());
+        builder.append(DomProcessingInstruction.END);
+    }
 }

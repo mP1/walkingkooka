@@ -36,7 +36,7 @@ import java.util.Optional;
 /**
  * A dom document, that holds nodes such as a doctype, document element and a tree of nodes.
  */
-public final class DomDocument extends DomParentNode{
+public final class DomDocument extends DomParentNode {
 
     DomDocument(final org.w3c.dom.Node node) {
         super(node);
@@ -58,7 +58,7 @@ public final class DomDocument extends DomParentNode{
      * Returns the doc type if one is present.
      */
     public Optional<DomDocumentType> documentType() {
-        if(null == this.documentType) {
+        if (null == this.documentType) {
             this.documentType = this.getChildByNodeType(Node.DOCUMENT_TYPE_NODE);
         }
         return this.documentType;
@@ -72,7 +72,7 @@ public final class DomDocument extends DomParentNode{
      * Returns the root document element if one is present.
      */
     public Optional<DomElement> element() {
-        if(null == this.element) {
+        if (null == this.element) {
             this.element = this.getChildByNodeType(Node.ELEMENT_NODE);
         }
         return this.element;
@@ -80,11 +80,11 @@ public final class DomDocument extends DomParentNode{
 
     Optional<DomElement> element;
 
-    <T extends DomNode> Optional<T> getChildByNodeType(final int nodeType){
+    <T extends DomNode> Optional<T> getChildByNodeType(final int nodeType) {
         return this.children.isEmpty() ? Optional.empty() : this.getChildByNodeType0(nodeType);
     }
 
-    private <T extends DomNode> Optional<T> getChildByNodeType0(final int nodeType){
+    private <T extends DomNode> Optional<T> getChildByNodeType0(final int nodeType) {
         final DomChildList children = Cast.to(this.children);
         return Cast.to(children.getElementByNodeType(nodeType));
     }
@@ -98,9 +98,9 @@ public final class DomDocument extends DomParentNode{
         final Optional<DomElement> previous = this.element();
 
         return previous.isPresent() && element.isPresent() ? this.replaceElement(previous.get(), element.get()) :
-               previous.isPresent() && ! element.isPresent() ? this.removeElement(previous.get()) :
-               element.isPresent() ? this.addElement(element.get()) :// previous no element, adding element
-               this; // previous no element, new no element -> no change
+                previous.isPresent() && !element.isPresent() ? this.removeElement(previous.get()) :
+                        element.isPresent() ? this.addElement(element.get()) :// previous no element, adding element
+                                this; // previous no element, new no element -> no change
 
     }
 
@@ -116,13 +116,13 @@ public final class DomDocument extends DomParentNode{
         return this.appendChild(element);
     }
 
-    
+
     // canonical form .......................................................................................
-    
+
     public boolean canonicalForm() {
         return DomConfigurationProperty.CANONICAL_FORM.booleanValue(this);
     }
-    
+
     public DomDocument setCanonicalForm(final boolean canonicalForm) {
         return DomConfigurationProperty.CANONICAL_FORM.setBooleanValue(this, canonicalForm);
     }
@@ -156,7 +156,7 @@ public final class DomDocument extends DomParentNode{
     public DomDocument setComments(final boolean comments) {
         return DomConfigurationProperty.COMMENTS.setBooleanValue(this, comments);
     }
-    
+
     // datatype normalizations .......................................................................................
 
     public boolean datatypeNormalizations() {
@@ -166,14 +166,14 @@ public final class DomDocument extends DomParentNode{
     public DomDocument setDatatypeNormalizations(final boolean datatypeNormalizations) {
         return DomConfigurationProperty.DATATYPE_NORMALIZATION.setBooleanValue(this, datatypeNormalizations);
     }
-    
+
     // documentUri .....................................................................................................
 
     /**
      * Returns the document uri if known.
      */
     public Optional<String> documentUri() {
-        if(null==this.documentUri){
+        if (null == this.documentUri) {
             this.documentUri = Optional.ofNullable(this.documentNode().getDocumentURI());
         }
         return this.documentUri;
@@ -231,14 +231,14 @@ public final class DomDocument extends DomParentNode{
     public DomDocument setInfoset(final boolean infoset) {
         return DomConfigurationProperty.INFOSET.setBooleanValue(this, infoset);
     }
-    
+
     // inputEncoding ..............................................................................................
-    
+
     /**
      * Returns the input encoding if known.
      */
     public Optional<String> inputEncoding() {
-        if(null==this.inputEncoding){
+        if (null == this.inputEncoding) {
             this.inputEncoding = Optional.ofNullable(this.documentNode().getInputEncoding());
         }
         return this.inputEncoding;
@@ -367,7 +367,7 @@ public final class DomDocument extends DomParentNode{
      * Returns the xml encoding if known.
      */
     public Optional<String> xmlEncoding() {
-        if(null==this.xmlEncoding){
+        if (null == this.xmlEncoding) {
             this.xmlEncoding = Optional.ofNullable(this.documentNode().getXmlEncoding());
         }
         return this.xmlEncoding;
@@ -396,7 +396,7 @@ public final class DomDocument extends DomParentNode{
      * Returns the xml version if known.
      */
     public Optional<String> xmlVersion() {
-        if(null==this.xmlVersion){
+        if (null == this.xmlVersion) {
             this.xmlVersion = Optional.ofNullable(this.documentNode().getXmlVersion());
         }
         return this.xmlVersion;
@@ -451,7 +451,7 @@ public final class DomDocument extends DomParentNode{
             int oldIndex = 0;
             int newIndex = 0;
 
-            while(oldIndex < oldChildCount) {
+            while (oldIndex < oldChildCount) {
                 final org.w3c.dom.Node oldNode = oldChildren.item(oldIndex);
                 oldIndex++;
                 if (newIndex >= newChildCount) {
@@ -466,7 +466,7 @@ public final class DomDocument extends DomParentNode{
                 final org.w3c.dom.Node newNode = newChild.node;
                 newIndex++;
 
-                if(oldNode.isEqualNode(newNode)) {
+                if (oldNode.isEqualNode(newNode)) {
                     continue;
                 }
                 // $oldChild is about to be removed, complain if it is not the document element.
@@ -478,7 +478,7 @@ public final class DomDocument extends DomParentNode{
             }
 
             // append remaining newChildren, impl will complain if they arent elements...
-            while(newIndex < newChildCount){
+            while (newIndex < newChildCount) {
                 final org.w3c.dom.Node newNode = children.get(newIndex).nodeCloneWithoutParentWithChildren();
                 newIndex++;
                 replacedDocument.adoptNode(newNode);
@@ -548,8 +548,7 @@ public final class DomDocument extends DomParentNode{
 
     // toSearchNode...............................................................................................
 
-    @Override
-    final SearchNode toSearchNode0() {
+    @Override final SearchNode toSearchNode0() {
         return this.toSearchNode1();
     }
 
@@ -596,14 +595,14 @@ public final class DomDocument extends DomParentNode{
     /**
      * Creates something like a comma separated string holding all truthy configuration properties.
      */
-    private String configurationPropertiesToString(){
+    private String configurationPropertiesToString() {
         final ToStringBuilder builder = ToStringBuilder.create();
         builder.separator(", ");
 
-        for(DomConfigurationProperty property : DomConfigurationProperty.values()) {
+        for (DomConfigurationProperty property : DomConfigurationProperty.values()) {
             final Object value = property.get(this);
-            if(value instanceof Boolean) {
-                if(Boolean.TRUE.equals(value)){
+            if (value instanceof Boolean) {
+                if (Boolean.TRUE.equals(value)) {
                     builder.value(property.name);
                 }
                 continue;

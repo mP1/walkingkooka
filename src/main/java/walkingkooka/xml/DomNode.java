@@ -52,7 +52,7 @@ import java.util.Optional;
 
 /**
  * Base class for all dom {@link walkingkooka.tree.Node nodes}.
- *
+ * <p>
  * An immutable xml document, where all apparent mutator methods return a new document or node. As an example,
  * changing attributes on an element, returns a new element within an entire document.
  */
@@ -91,14 +91,14 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
 
     static void checkCDataSectionText(final String text) {
         Objects.requireNonNull(text, "text");
-        if(text.contains(DomCDataSection.CLOSE)){
+        if (text.contains(DomCDataSection.CLOSE)) {
             throw new IllegalArgumentException("CDataSection cannot contain " + CharSequences.quote(DomCDataSection.CLOSE) + " is " + CharSequences.quoteAndEscape(text));
         }
     }
 
     static void checkCommentText(final String text) {
         Objects.requireNonNull(text, "text");
-        if(text.contains(DomComment.ILLEGAL_CONTENT)){
+        if (text.contains(DomComment.ILLEGAL_CONTENT)) {
             throw new IllegalArgumentException("Comments cannot contain " + CharSequences.quote(DomComment.ILLEGAL_CONTENT) + " is " + CharSequences.quoteAndEscape(text));
         }
     }
@@ -134,7 +134,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     public static Optional<DomSystemId> systemId(final String value) {
         return DomSystemId.with(value);
     }
-    
+
     /**
      * Reads a xml document into a {@link DomDocument}. The provided {@link DocumentBuilder} should have
      * any validating and namespaces set prior to calling this method.
@@ -180,7 +180,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
         Objects.requireNonNull(systemId, "systemId");
 
         final DOMImplementation impl = builder.getDOMImplementation();
-        final String typeName= type.value();
+        final String typeName = type.value();
         final DocumentType documentType = impl.createDocumentType(typeName,
                 valueOrNull0(publicId),
                 valueOrNull0(systemId));
@@ -204,7 +204,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
         DomNode result;
 
         final int type = node.getNodeType();
-        switch(type) {
+        switch (type) {
             case org.w3c.dom.Node.ELEMENT_NODE:
                 result = new DomElement(node);
                 break;
@@ -245,7 +245,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
      * Package private to limit sub classing.
      */
     DomNode(final org.w3c.dom.Node node) {
-        this.node= node;
+        this.node = node;
     }
 
     /**
@@ -256,7 +256,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     /**
      * Clones this node without its parent or children.
      */
-    final org.w3c.dom.Node nodeCloneWithoutParentWithoutChildren(){
+    final org.w3c.dom.Node nodeCloneWithoutParentWithoutChildren() {
         return this.node.cloneNode(false);
     }
 
@@ -284,7 +284,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     }
 
     private static org.w3c.dom.Node nodeCloneAll2(final org.w3c.dom.Node node, final int index) {
-        if(NO_INDEX == index){
+        if (NO_INDEX == index) {
             return node.cloneNode(true); // eventually stops when document reached.
         } else {
             final org.w3c.dom.Node parent = nodeCloneAll1(node.getParentNode());
@@ -338,7 +338,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
      */
     final org.w3c.dom.Document documentNode() {
         final org.w3c.dom.Document document = this.documentNode0();
-        if(null==document) {
+        if (null == document) {
             throw new DomException("Node without owner document");
         }
         return document;
@@ -476,7 +476,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
 
     @Override
     public final DomName name() {
-        if(null==this.name) {
+        if (null == this.name) {
             this.name = this.kind().name(this);
         }
         return this.name;
@@ -491,8 +491,8 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
      */
     @Override
     public final Optional<DomNode> parent() {
-        if(null == this.parent) {
-            if(null == this.node) {
+        if (null == this.parent) {
+            if (null == this.node) {
                 this.parent = NO_PARENT;
             } else {
                 final org.w3c.dom.Node parent = this.node.getParentNode();
@@ -516,7 +516,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
      */
     @Override
     public final int index() {
-        if(NO_INDEX == this.index) {
+        if (NO_INDEX == this.index) {
             this.index = index0(this.node);
         }
         return this.index;
@@ -531,7 +531,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     private static int index0(org.w3c.dom.Node node) {
         int index = NO_INDEX;
 
-        if(null!=node.getParentNode()) {
+        if (null != node.getParentNode()) {
             index = 0;
             for (; ; ) {
                 node = node.getPreviousSibling();
@@ -578,8 +578,8 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
 
     private boolean equalsAncestors(final DomNode other) {
         boolean result = this.equalsIgnoringParentAndChildren(other);
-        
-        if(result) {
+
+        if (result) {
             final Optional<DomNode> parent = this.parent();
             final Optional<DomNode> otherParent = other.parent();
             final boolean hasParent = parent.isPresent();
@@ -655,12 +655,12 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
      * Generic helper that appends any public id and system id.
      */
     static void buildToString(final Optional<DomPublicId> publicId,
-                             final Optional<DomSystemId> systemId,
-                             final ToStringBuilder builder){
+                              final Optional<DomSystemId> systemId,
+                              final ToStringBuilder builder) {
         builder.enable(ToStringBuilderOption.QUOTE);
         builder.separator(" ");
 
-        if(publicId.isPresent()) {
+        if (publicId.isPresent()) {
             builder.label(PUBLIC);
             builder.value(publicId);
             builder.value(systemId);

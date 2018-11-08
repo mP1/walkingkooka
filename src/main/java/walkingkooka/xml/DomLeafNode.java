@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * Base class for all dom nodes except for {@link DomElement}.
  */
-abstract class DomLeafNode extends DomNode{
+abstract class DomLeafNode extends DomNode {
 
     DomLeafNode(final org.w3c.dom.Node node) {
         super(node);
@@ -74,7 +74,7 @@ abstract class DomLeafNode extends DomNode{
     private final static Optional<DomNode> NO_CHILD = Optional.empty();
 
     @Override
-    public DomNode removeChild(final int child){
+    public DomNode removeChild(final int child) {
         throw new UnsupportedOperationException();
     }
 
@@ -95,7 +95,7 @@ abstract class DomLeafNode extends DomNode{
     @Override
     public final DomDocument document() {
         DomDocument document = this.document;
-        if(null==document){
+        if (null == document) {
             // TODO sometimes a DomDocumentType may have no enclosing document.
             this.document = new DomDocument(this.documentNode());
         }

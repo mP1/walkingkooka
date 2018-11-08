@@ -33,8 +33,7 @@ public abstract class DomLeafNodeTestCase<N extends DomLeafNode> extends DomNode
         this.createNode().removeChild(0);
     }
 
-    @Override
-    final N createNode(final DocumentBuilder builder) {
+    @Override final N createNode(final DocumentBuilder builder) {
         return this.createNode(builder.newDocument());
     }
 }

@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 /**
  * An immutable element.
  */
-public final class DomElement extends DomParentNode2 implements HasDomPrefix{
+public final class DomElement extends DomParentNode2 implements HasDomPrefix {
 
     DomElement(final org.w3c.dom.Node node) {
         super(node);
@@ -50,7 +50,7 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
 
     @Override
     public Optional<DomNameSpacePrefix> prefix() {
-        if(null==this.prefix) {
+        if (null == this.prefix) {
             this.prefix = DomNameSpacePrefix.wrap(this.elementNode());
         }
         return this.prefix;
@@ -75,7 +75,7 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
     // namespaceUri .....................................................................................
 
     public Optional<String> nameSpaceUri() {
-        if(null == this.nameSpaceUri) {
+        if (null == this.nameSpaceUri) {
             this.nameSpaceUri = Optional.ofNullable(this.elementNode().getNamespaceURI());
         }
         return this.nameSpaceUri;
@@ -105,7 +105,7 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
 
     @Override
     public Map<DomAttributeName, String> attributes() {
-        if(null == this.attributes) {
+        if (null == this.attributes) {
             this.attributes = DomAttributeMap.from(this.elementNode().getAttributes());
         }
         return this.attributes;
@@ -125,19 +125,19 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
 
         final NamedNodeMap attributeNodes = element.getAttributes();
         final int count = attributeNodes.getLength();
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             element.removeAttributeNode(Cast.to(attributeNodes.item(i)));
         }
 
-        for(Entry<DomAttributeName, String> nameAndValue : attributes.entrySet()) {
+        for (Entry<DomAttributeName, String> nameAndValue : attributes.entrySet()) {
             final DomAttributeName name = nameAndValue.getKey();
             final Optional<DomNameSpacePrefix> prefix = name.prefix();
             final String value = nameAndValue.getValue();
 
-            if(prefix.isPresent()){
+            if (prefix.isPresent()) {
                 prefix.get().setAttribute(element, name, value);
-            }else{
-                element.setAttribute(name.value() , value);
+            } else {
+                element.setAttribute(name.value(), value);
             }
         }
 
@@ -161,8 +161,7 @@ public final class DomElement extends DomParentNode2 implements HasDomPrefix{
         return true;
     }
 
-    @Override
-    final SearchNode toSearchNode0() {
+    @Override final SearchNode toSearchNode0() {
         return this.toSearchNode1().setAttributes(this.attributes().entrySet()
                 .stream()
                 .collect(Collectors.toMap(

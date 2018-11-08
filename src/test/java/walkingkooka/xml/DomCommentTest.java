@@ -25,22 +25,22 @@ import walkingkooka.tree.search.SearchNodeName;
 
 import static org.junit.Assert.assertEquals;
 
-public final class DomCommentTest extends DomTextNodeTestCase<DomComment>{
+public final class DomCommentTest extends DomTextNodeTestCase<DomComment> {
 
     private final static String TEXT = "Comment 123 abc";
 
     @Test
-    public void testWithEmptyText(){
+    public void testWithEmptyText() {
         this.domDocument().createComment("");
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void testWithInvalidTextFails(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithInvalidTextFails() {
         this.domDocument().createComment("123--456");
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void testSetTextInvalidFails(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetTextInvalidFails() {
         this.createNode().setText("123--456");
     }
 
@@ -64,7 +64,7 @@ public final class DomCommentTest extends DomTextNodeTestCase<DomComment>{
     }
 
     @Override
-    DomComment createNode(final DomDocument document, final String text){
+    DomComment createNode(final DomDocument document, final String text) {
         return document.createComment(text);
     }
 

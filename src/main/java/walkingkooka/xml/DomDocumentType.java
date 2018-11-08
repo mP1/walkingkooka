@@ -34,7 +34,7 @@ import java.util.Optional;
 /**
  * The root node of a document tree.
  */
-public final class DomDocumentType extends DomLeafNode implements HasDomPublicId, HasDomSystemId{
+public final class DomDocumentType extends DomLeafNode implements HasDomPublicId, HasDomSystemId {
 
     DomDocumentType(final org.w3c.dom.Node documentType) {
         super(documentType);
@@ -48,7 +48,7 @@ public final class DomDocumentType extends DomLeafNode implements HasDomPublicId
      * A {@link Map} containing the general entities, both external and internal, declared in the DTD.
      */
     public Map<DomName, DomEntity> entities() {
-        if(null==this.entities) {
+        if (null == this.entities) {
             final DocumentType documentType = this.documentTypeNode();
             this.entities = DomEntityMap.from(null != documentType ? documentType.getEntities() : null);
         }
@@ -62,7 +62,7 @@ public final class DomDocumentType extends DomLeafNode implements HasDomPublicId
      * A {@link Map} view of notations present.
      */
     public Map<DomName, DomNotation> notations() {
-        if(null==this.notations) {
+        if (null == this.notations) {
             final DocumentType documentType = this.documentTypeNode();
             this.notations = DomNotationMap.from(null != documentType ? documentType.getNotations() : null);
         }
@@ -75,7 +75,7 @@ public final class DomDocumentType extends DomLeafNode implements HasDomPublicId
 
     @Override
     public Optional<DomPublicId> publicId() {
-        if(null == this.publicId) {
+        if (null == this.publicId) {
             final DocumentType documentType = this.documentTypeNode();
             this.publicId = null != documentType ? DomPublicId.with(documentType.getPublicId()) : NO_PUBLIC_ID;
         }
@@ -88,7 +88,7 @@ public final class DomDocumentType extends DomLeafNode implements HasDomPublicId
 
     @Override
     public Optional<DomSystemId> systemId() {
-        if(null == this.systemId) {
+        if (null == this.systemId) {
             final DocumentType documentType = this.documentTypeNode();
             this.systemId = null != documentType ? DomSystemId.with(documentType.getSystemId()) : NO_SYSTEM_ID;
         }
@@ -200,7 +200,7 @@ public final class DomDocumentType extends DomLeafNode implements HasDomPublicId
 
         builder.separator(" ");
 
-        buildToString(this.publicId(),this.systemId(), builder);
+        buildToString(this.publicId(), this.systemId(), builder);
 
         // entities...
 //        <!DOCTYPE

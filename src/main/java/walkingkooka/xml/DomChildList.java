@@ -48,12 +48,12 @@ final class DomChildList extends AbstractList<DomNode> {
 
     @Override
     public DomNode get(final int index) {
-        final int count= this.size();
-        if(index < 0 || index >= count ){
+        final int count = this.size();
+        if (index < 0 || index >= count) {
             throw new ArrayIndexOutOfBoundsException("Index " + index + " must be between 0 and " + count);
         }
         DomNode child = this.children[index];
-        if(null==child){
+        if (null == child) {
             child = DomNode.wrap(this.parent.node.getChildNodes().item(index));
             child.parent = Optional.of(this.parent);
             child.index = index;
@@ -67,20 +67,20 @@ final class DomChildList extends AbstractList<DomNode> {
      * It scans all children for the first node of the given node type,
      * using an existing wrapper or creating one as necessary.
      */
-    final Optional<DomNode> getElementByNodeType(final int nodeType){
+    final Optional<DomNode> getElementByNodeType(final int nodeType) {
         Optional<DomNode> result = Optional.empty();
 
         // while
         final NodeList nodeList = this.parent.node.getChildNodes();
-        for(int i = 0; i <this.children.length; i++){
+        for (int i = 0; i < this.children.length; i++) {
             final org.w3c.dom.Node possible = nodeList.item(i);
-            if(nodeType == possible.getNodeType()) {
+            if (nodeType == possible.getNodeType()) {
                 DomNode node = this.children[i];
-                if(null==node){
+                if (null == node) {
                     node = DomNode.wrap(possible);
                     node.parent = Optional.of(this.parent);
                     node.index = i;
-                    this.children[i]=node;
+                    this.children[i] = node;
                 }
                 result = Optional.of(node);
             }
