@@ -20,6 +20,7 @@ package walkingkooka.tree.json;
 
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.Objects;
 
@@ -53,6 +54,16 @@ public final class JsonStringNode extends JsonLeafNode<String>{
     JsonStringNode wrap0(final JsonNodeName name, final int index, final String value) {
         return new JsonStringNode(name, index, value);
     }
+
+    // HasSearchNode...............................................................................................
+
+    @Override
+    public SearchNode toSearchNode() {
+        final String text = this.text();
+        return SearchNode.text(text, this.value());
+    }
+
+    // isXXX......................................................................................................
 
     @Override
     public boolean isBoolean() {

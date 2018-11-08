@@ -31,6 +31,7 @@ import walkingkooka.text.HasText;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.util.Map;
@@ -42,6 +43,7 @@ import java.util.Optional;
  * actually returns a new graph of nodes as would be expected including all parents and the root.
  */
 public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Object>,
+        HasSearchNode,
         HasText,
         HashCodeEqualsDefined {
 
@@ -196,18 +198,14 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
 
     abstract JsonNode wrap(final JsonNodeName name, final int index);
 
-    final JsonNode setIndexAndName(final int index){
-        if(index < 0) {
+    final JsonNode setIndexAndName(final int index) {
+        if (index < 0) {
             throw new IllegalArgumentException("Index " + index + " must be greater than 0");
         }
-        //return this.wrap(JsonNodeName.index(index), NO_PARENT, index);
+
         return this.setName0(JsonNodeName.index(index))
-               .setIndex(index);
+                .setIndex(index);
     }
-
-    // wrap............................................................................................................
-
-    //abstract JsonNode wrap(final JsonNodeName name, final Optional<JsonNode> parent, final int index);
 
     // attributes............................................................................................................
 

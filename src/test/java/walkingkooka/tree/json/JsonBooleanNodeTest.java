@@ -19,12 +19,23 @@
 package walkingkooka.tree.json;
 
 import org.junit.Test;
+import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 public final class JsonBooleanNodeTest extends JsonLeafNodeTestCase<JsonBooleanNode, Boolean>{
+
+    @Test
+    public void testToSearchNodeTrue() {
+        this.toSearchNodeAndCheck(this.createJsonNode(true), SearchNode.text("true", "true"));
+    }
+
+    @Test
+    public void testToSearchNodeFalse() {
+        this.toSearchNodeAndCheck(this.createJsonNode(false), SearchNode.text("false", "false"));
+    }
 
     @Test
     public void testAccept() {

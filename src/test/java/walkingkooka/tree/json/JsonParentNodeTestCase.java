@@ -20,6 +20,7 @@ package walkingkooka.tree.json;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
 
@@ -58,6 +59,11 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode> extends J
     @Ignore
     public void testSetSameAttributes() {
 
+    }
+
+    @Test
+    public final void testToSearchNodeEmpty() {
+        this.toSearchNodeAndCheck(this.createJsonNode(), SearchNode.text("", ""));
     }
 
     final void checkChildren(final N node, final List<JsonNode> children) {

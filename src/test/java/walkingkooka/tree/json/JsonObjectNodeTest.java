@@ -27,6 +27,8 @@ import walkingkooka.io.printer.Printers;
 import walkingkooka.naming.Name;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.SearchNodeName;
 import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.visit.Visiting;
@@ -359,6 +361,23 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .set(key3(), JsonNode.string("third"));
 
         assertEquals("true2.0third", object.text());
+    }
+
+    @Test
+    public void testToSearchNode() {
+        final JsonBooleanNode booleanNode = JsonNode.booleanNode(true);
+        final JsonNumberNode number = JsonNode.number(2);
+        final JsonStringNode string = JsonNode.string("third");
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(key1(), JsonNode.booleanNode(true))
+                .set(key2(), JsonNode.number(2))
+                .set(key3(), JsonNode.string("third"));
+
+        this.toSearchNodeAndCheck(object, SearchNode.sequence(Lists.of(
+                booleanNode.toSearchNode().setName(SearchNodeName.with(KEY1)),
+                number.toSearchNode().setName(SearchNodeName.with(KEY2)),
+                string.toSearchNode().setName(SearchNodeName.with(KEY3)))));
     }
 
     @Test
