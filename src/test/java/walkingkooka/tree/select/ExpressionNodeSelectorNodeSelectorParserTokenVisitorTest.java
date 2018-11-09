@@ -23,7 +23,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTest
 public final class ExpressionNodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<ExpressionNodeSelectorNodeSelectorParserTokenVisitor> {
     @Override
     protected ExpressionNodeSelectorNodeSelectorParserTokenVisitor createParserTokenVisitor() {
-        return new ExpressionNodeSelectorNodeSelectorParserTokenVisitor();
+        return new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(null);
     }
 
     @Override

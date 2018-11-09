@@ -32,6 +32,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -41,15 +42,20 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserContexts;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitorTestCase;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParsers;
+import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<NodeSelectorNodeSelectorParserTokenVisitor<TestFakeNode, StringName, StringName, Object>> {
 
@@ -1174,12 +1180,41 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
         selector.accept(root, new FakeNodeSelectorContext<TestFakeNode, StringName, StringName, Object>(){
             @Override
             public void potential(final TestFakeNode node) {
-
+                this.node = node;
             }
+
+            private TestFakeNode node;
 
             @Override
             public void selected(final TestFakeNode node) {
                 selected.add(node);
+            }
+
+            @Override
+            public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+                assertNotNull("node missing", this.node);
+
+                final List<Object> thisAndParameters = Lists.array();
+                thisAndParameters.add(this.node);
+                thisAndParameters.addAll(parameters);
+
+
+                return NodeSelectorContexts.basicFunctions().apply(name)
+                        .get()
+                        .apply(thisAndParameters, this.expressionFunctionContext());
+            }
+
+            private ExpressionFunctionContext expressionFunctionContext() {
+                return new FakeExpressionFunctionContext() {
+                    @Override
+                    public <T> T convert(Object value, Class<T> target) {
+                        return convert0(value, target);
+                    }
+                };
+            }
+
+            private <T> T convert0(final Object value, final Class<T> target) {
+                return this.convert(value, target);
             }
 
             @Override
@@ -1252,6 +1287,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
     private NodeSelector<TestFakeNode, StringName, StringName, Object> parseExpression(final String expression) {
         return NodeSelectorNodeSelectorParserTokenVisitor.<TestFakeNode, StringName, StringName, Object>with(this.parseOrFail(expression),
                 (s) -> Names.string(s.value()),
+                Predicates.always(),
                 TestFakeNode.class);
     }
 
@@ -1266,7 +1302,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
 
     @Override
     protected NodeSelectorNodeSelectorParserTokenVisitor<TestFakeNode, StringName, StringName, Object> createParserTokenVisitor() {
-        return new NodeSelectorNodeSelectorParserTokenVisitor<TestFakeNode, StringName, StringName, Object>(null);
+        return new NodeSelectorNodeSelectorParserTokenVisitor<TestFakeNode, StringName, StringName, Object>(null, null);
     }
 
     @Override

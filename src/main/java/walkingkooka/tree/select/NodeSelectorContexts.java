@@ -21,9 +21,13 @@ import walkingkooka.convert.Converter;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * A collection of factory methods to create {@link NodeSelectorContext}.
@@ -38,9 +42,17 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
             ANAME extends Name,
             AVALUE> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final Consumer<N> potential,
                                                                       final Consumer<N> selected,
+                                                                      final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
                                                                       final Converter converter,
                                                                       final DecimalNumberContext decimalNumberContext) {
-        return BasicNodeSelectorContext.with(potential, selected, converter, decimalNumberContext);
+        return BasicNodeSelectorContext.with(potential, selected, functions, converter, decimalNumberContext);
+    }
+
+    /**
+     * {@see BasicNodeSelectorContextFunction}
+     */
+    public static Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> basicFunctions() {
+        return BasicNodeSelectorContextFunction.INSTANCE;
     }
 
     /**

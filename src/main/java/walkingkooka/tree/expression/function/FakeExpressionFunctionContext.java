@@ -16,37 +16,32 @@
  *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree.expression.function;
 
-import walkingkooka.naming.Name;
-import walkingkooka.test.Fake;
-import walkingkooka.tree.Node;
+import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
 import java.util.List;
+import java.util.Objects;
 
-public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE>, Fake {
+public class FakeExpressionFunctionContext extends FakeDecimalNumberContext implements ExpressionFunctionContext {
 
-    @Override
-    public void potential(final N node) {
-        throw new UnsupportedOperationException();
+    public FakeExpressionFunctionContext() {
+        super();
     }
 
     @Override
-    public void selected(final N node) {
+    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(parameters, "parameters");
         throw new UnsupportedOperationException();
     }
 
     @Override
     public <T> T convert(final Object value, final Class<T> target) {
-        throw new UnsupportedOperationException();
-    }
+        Objects.requireNonNull(value, "value");
+        Objects.requireNonNull(target, "target");
 
-    @Override
-    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
         throw new UnsupportedOperationException();
     }
 }

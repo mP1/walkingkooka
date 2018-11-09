@@ -25,8 +25,12 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 
+import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestCase<BasicNodeSelectorContext<TestFakeNode, StringName, StringName, Object>,
         TestFakeNode,
@@ -36,22 +40,47 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPotentialFails() {
-        BasicNodeSelectorContext.with(null, this.selected(), this.converter(), this.decimalNumberContext());
+        BasicNodeSelectorContext.with(null,
+                this.selected(),
+                this.functions(),
+                this.converter(),
+                this.decimalNumberContext());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullSelectedFails() {
-        BasicNodeSelectorContext.with(this.potential(), null, this.converter(), this.decimalNumberContext());
+        BasicNodeSelectorContext.with(this.potential(),
+                null,
+                this.functions(),
+                this.converter(),
+                this.decimalNumberContext());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullFunctionsFails() {
+        BasicNodeSelectorContext.with(this.potential(),
+                this.selected(),
+                null,
+                this.converter(),
+                this.decimalNumberContext());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullConverterFails() {
-        BasicNodeSelectorContext.with(this.potential(), this.selected(), null, this.decimalNumberContext());
+        BasicNodeSelectorContext.with(this.potential(),
+                this.selected(),
+                this.functions(),
+                null,
+                this.decimalNumberContext());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullDecimalNumberContextFails() {
-        BasicNodeSelectorContext.with(this.potential(), this.selected(), this.converter(), null);
+        BasicNodeSelectorContext.with(this.potential(),
+                this.selected(),
+                this.functions(),
+                this.converter(),
+                null);
     }
 
     @Override
@@ -61,7 +90,11 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
 
     @Override
     protected BasicNodeSelectorContext<TestFakeNode, StringName, StringName, Object> createContext() {
-        return BasicNodeSelectorContext.with(this.potential(), this.selected(), this.converter(), this.decimalNumberContext());
+        return BasicNodeSelectorContext.with(this.potential(),
+                this.selected(),
+                this.functions(),
+                this.converter(),
+                this.decimalNumberContext());
     }
 
     private Consumer<TestFakeNode> potential() {
@@ -70,6 +103,10 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
 
     private Consumer<TestFakeNode> selected() {
         return (n)->{};
+    }
+
+    private Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {
+        return NodeSelectorContexts.basicFunctions();
     }
 
     private Converter converter() {

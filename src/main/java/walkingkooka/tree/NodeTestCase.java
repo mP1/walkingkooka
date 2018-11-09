@@ -23,12 +23,14 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.tree.select.NodeSelectorContext;
 import walkingkooka.tree.select.NodeSelectorContexts;
 import walkingkooka.tree.visit.VisitableTestCase;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -110,11 +112,9 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
         final Set<N> selected = Sets.ordered();
         selector.accept(node,
-                NodeSelectorContexts.basic(
+                this.nodeSelectorContext(
                         (n)->{},
-                        (n)-> selected.add(n),
-                        Converters.fake(),
-                        DecimalNumberContexts.fake()));
+                        (n)-> selected.add(n)));
         assertEquals("Node's own select should have matched only itself", Sets.of(node), selected);
     }
 
@@ -123,11 +123,19 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
         final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
         selector.accept(node,
-                NodeSelectorContexts.basic(
+                this.nodeSelectorContext(
                         (n) -> { throw new UnsupportedOperationException();},
-                        (n)->{},
-                        Converters.fake(),
-                        DecimalNumberContexts.fake()));
+                        (n)->{}));
+    }
+
+    private NodeSelectorContext<N, NAME, ANAME, AVALUE> nodeSelectorContext(final Consumer<N> potential,
+                                                                            final Consumer<N> selected) {
+        return NodeSelectorContexts.basic(
+                potential,
+                selected,
+                (n) -> {throw new UnsupportedOperationException();},
+                Converters.fake(),
+                DecimalNumberContexts.fake());
     }
 
     @Test

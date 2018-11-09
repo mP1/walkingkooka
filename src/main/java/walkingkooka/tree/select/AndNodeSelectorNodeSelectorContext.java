@@ -20,7 +20,9 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNodeName;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -63,6 +65,11 @@ final class AndNodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AV
     @Override
     public <T> T convert(final Object value, final Class<T> target) {
         return this.context.convert(value, target);
+    }
+
+    @Override
+    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+        return this.context.function(name, parameters);
     }
 
     private final NodeSelectorContext<N, NAME, ANAME, AVALUE> context;

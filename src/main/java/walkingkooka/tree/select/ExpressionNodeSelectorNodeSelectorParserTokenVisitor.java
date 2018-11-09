@@ -46,6 +46,7 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 /**
  * This {@link NodeSelectorParserTokenVisitor} translates a {@link NodeSelectorPredicateParserToken} into a {@link walkingkooka.tree.expression.ExpressionNode} equivalent.
@@ -57,8 +58,9 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor<N extends Node<
     /**
      * Converts the contents of a predicate into a {@link ExpressionNode}.
      */
-    static ExpressionNode toExpressionNode(final NodeSelectorPredicateParserToken token) {
-        final ExpressionNodeSelectorNodeSelectorParserTokenVisitor visitor = new ExpressionNodeSelectorNodeSelectorParserTokenVisitor();
+    static ExpressionNode toExpressionNode(final NodeSelectorPredicateParserToken token,
+                                           final Predicate<ExpressionNodeName> functions) {
+        final ExpressionNodeSelectorNodeSelectorParserTokenVisitor visitor = new ExpressionNodeSelectorNodeSelectorParserTokenVisitor(functions);
         token.accept(visitor);
 
         final List<ExpressionNode> nodes = visitor.children;
@@ -74,8 +76,9 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor<N extends Node<
      * Private ctor use static method.
      */
     // @VisibleForTesting
-    ExpressionNodeSelectorNodeSelectorParserTokenVisitor() {
+    ExpressionNodeSelectorNodeSelectorParserTokenVisitor(final Predicate<ExpressionNodeName> functions) {
         super();
+        this.functions = functions;
     }
 
     @Override
@@ -108,7 +111,10 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor<N extends Node<
 
     @Override
     protected void endVisit(final NodeSelectorFunctionParserToken token) {
-        final ExpressionNodeName functionName = ExpressionNodeSelectorFunction.checkSupported(token.functionName().value());
+        final ExpressionNodeName functionName = ExpressionNodeName.with(token.functionName().value());
+        if(!this.functions.test(functionName)) {
+            throw new NodeSelectorException("Unknown function " + functionName + " in " + token);
+        }
 
         final ExpressionNode function = ExpressionNode.function(
                 functionName,
@@ -116,6 +122,8 @@ final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor<N extends Node<
         this.exit();
         this.add(function, token);
     }
+
+    private final Predicate<ExpressionNodeName> functions;
 
     @Override
     protected Visiting startVisit(final NodeSelectorGreaterThanParserToken token) {

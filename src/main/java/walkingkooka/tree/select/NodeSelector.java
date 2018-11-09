@@ -24,6 +24,7 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorNodeName;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -39,17 +40,22 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * Creates a {@link NodeSelector} from a {@link NodeSelectorParserToken}.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final NodeSelectorExpressionParserToken token,
-                                                                                                                                                           final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                                                                                                                                           final Class<N> nodeType) {
+    public static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final NodeSelectorExpressionParserToken token,
+                                                     final Function<NodeSelectorNodeName, NAME> nameFactory,
+                                                     final Predicate<ExpressionNodeName> functions,
+                                                     final Class<N> nodeType) {
 
-        return NodeSelectorNodeSelectorParserTokenVisitor.with(token, nameFactory, nodeType);
+        return NodeSelectorNodeSelectorParserTokenVisitor.with(token, nameFactory, functions, nodeType);
     }
 
     /**
      * All index or positions in xpath are ONE based not ZERO.
      */
-    final static int INDEX_BIAS = 1;
+    public final static int INDEX_BIAS = 1;
     
     // static factories ......................................................................................
 

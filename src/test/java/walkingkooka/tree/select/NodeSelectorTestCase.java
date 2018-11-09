@@ -27,11 +27,15 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -121,7 +125,15 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
 
     final NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context(final Consumer<TestFakeNode> potential,
                                                                                     final Consumer<TestFakeNode> selected) {
-        return NodeSelectorContexts.basic(potential, selected, this.converter(), DecimalNumberContexts.fake());
+        return NodeSelectorContexts.basic(potential,
+                selected,
+                this.functions(),
+                this.converter(),
+                DecimalNumberContexts.fake());
+    }
+
+    final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {
+        return NodeSelectorContexts.basicFunctions();
     }
 
     final Converter converter() {
