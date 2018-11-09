@@ -18,13 +18,13 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.math.FakeDecimalNumberContext;
+import walkingkooka.test.Fake;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
 import java.util.List;
 import java.util.Objects;
 
-public class FakeExpressionFunctionContext extends FakeDecimalNumberContext implements ExpressionFunctionContext {
+public class FakeExpressionFunctionContext implements ExpressionFunctionContext, Fake {
 
     public FakeExpressionFunctionContext() {
         super();
