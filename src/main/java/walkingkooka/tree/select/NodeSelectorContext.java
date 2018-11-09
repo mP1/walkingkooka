@@ -20,11 +20,12 @@ package walkingkooka.tree.select;
 import walkingkooka.Context;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 /**
  * The {@link Context} that accompanies all match requests. Not it gathers the selected nodes and so cant be reused.
  */
-interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends Context {
+public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends ExpressionFunctionContext {
 
     /**
      * Invoked with each and every visited but not selected {@link Node} during matching.
@@ -36,9 +37,4 @@ interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
      * Invoked with each and every selected {@link Node node}.
      */
     void selected(final N node);
-
-    /**
-     * Handles converting the given value to the target. This is used for type casting within predicate tests.
-     */
-    <T> T convert(final Object value, final Class<T> target);
 }

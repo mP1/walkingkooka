@@ -66,13 +66,10 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
 
     @Override
     public Object function(final ExpressionNodeName name, final List<Object> parameters) {
-        final ExpressionNodeSelectorFunction function = ExpressionNodeSelectorFunction.NAME_TO_FUNCTION.get(name);
-
-        final List<Object> nodeAndParameters = Lists.array();
-        nodeAndParameters.add(this.node);
-        nodeAndParameters.addAll(parameters);
-
-        return function.apply(Lists.readOnly(nodeAndParameters), this);
+        final List<Object> thisAndParameters = Lists.array();
+        thisAndParameters.add(this.node);
+        thisAndParameters.addAll(parameters);
+        return this.context.function(name, Lists.readOnly(parameters));
     }
 
     /**

@@ -44,11 +44,13 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorSelfParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorWildcardParserToken;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * This {@link NodeSelectorParserTokenVisitor} helps convert a {@link NodeSelectorParserToken} into a {@link NodeSelector}.
@@ -59,12 +61,15 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     NodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorParserToken token,
                                               final Function<NodeSelectorNodeName, NAME> nameFactory,
+                                              final Predicate<ExpressionNodeName> functions,
                                               final Class<N> node) {
         Objects.requireNonNull(token, "token");
         Objects.requireNonNull(nameFactory, "nameFactory");
+        Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(node, "name");
 
-        return new NodeSelectorNodeSelectorParserTokenVisitor<N, NAME, ANAME, AVALUE>(nameFactory).acceptAndBuild(token);
+        return new NodeSelectorNodeSelectorParserTokenVisitor<N, NAME, ANAME, AVALUE>(nameFactory, functions)
+                .acceptAndBuild(token);
     }
 
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
@@ -73,11 +78,13 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
      * Private ctor use static factory
      */
     // @VisibleForTesting
-    NodeSelectorNodeSelectorParserTokenVisitor(final Function<NodeSelectorNodeName, NAME> nameFactory) {
+    NodeSelectorNodeSelectorParserTokenVisitor(final Function<NodeSelectorNodeName, NAME> nameFactory,
+                                               final Predicate<ExpressionNodeName> functions) {
         super();
 
         this.builder = NodeSelectorBuilder.relative(SEPARATOR);
         this.nameFactory = nameFactory;
+        this.functions = functions;
         this.reset();
     }
 
@@ -95,9 +102,11 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
 
     @Override
     protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
-        this.predicates.add(ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(token));
+        this.predicates.add(ExpressionNodeSelectorNodeSelectorParserTokenVisitor.toExpressionNode(token, this.functions));
         return Visiting.SKIP;
     }
+
+    private final Predicate<ExpressionNodeName> functions;
 
     @Override
     protected void endVisit(final NodeSelectorPredicateParserToken token) {

@@ -67,8 +67,6 @@ final public class ExpressionNodeSelectorTest extends
         );
     }
 
-
-
     @Override
     protected Class<ExpressionNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
         return Cast.to(ExpressionNodeSelector.class);
