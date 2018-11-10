@@ -19,9 +19,13 @@
 package walkingkooka.tree.search;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
+import walkingkooka.tree.NodeEqualityTestCase;
 
-public abstract class SearchNodeEqualityTestCase<N extends SearchNode> extends HashCodeEqualsDefinedEqualityTestCase<N> {
+public abstract class SearchNodeEqualityTestCase<N extends SearchNode> extends NodeEqualityTestCase<
+        SearchNode,
+        SearchNodeName,
+        SearchNodeAttributeName,
+        String> {
 
     @Test
     public final void testDifferentName() {
