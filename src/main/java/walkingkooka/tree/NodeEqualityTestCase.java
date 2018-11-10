@@ -17,93 +17,12 @@
 
 package walkingkooka.tree;
 
-import org.junit.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-import java.util.Map;
-
-abstract public class NodeEqualityTestCase<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends HashCodeEqualsDefinedEqualityTestCase<N> {
-
-    @Test
-    public void testNoChildren(){
-        final N node1 = this.createNode(0);
-        final N node2 = this.createNode(0);
-        this.checkEquals(node1, node2);
-    }
-
-    @Test
-    public void testExtraChildDifferent(){
-        final N node1 = this.createNode(0);
-        final N node2 = this.createNode(0).appendChild(this.createNode(1));
-        this.checkNotEquals(node1, node2);
-    }
-
-    @Test
-    public void testSameChildren() {
-        final N child = this.createNode(1);
-
-        final N node1 = this.createNode(0).appendChild(child);
-        final N node2 = this.createNode(0).appendChild(child);
-        this.checkEquals(node1, node2);
-    }
-
-    @Test
-    public void testDifferentChildren() {
-        final N node1 = this.createNode(0).appendChild(this.createNode(1));
-        final N node2 = this.createNode(0).appendChild(this.createNode(99));
-        this.checkNotEquals(node1, node2);
-    }
-
-    @Test
-    public void testDifferentChildrenSameGrandChild() {
-        final N node1 = this.createNode(0).appendChild(this.createNode(100).appendChild(this.createNode(200)));
-        final N node2 = this.createNode(0).appendChild(this.createNode(199).appendChild(this.createNode(200)));
-        this.checkNotEquals(node1, node2);
-    }
-
-    @Test
-    public void testDifferentChildren2() {
-        final N node1 = this.createNode(0).appendChild(this.createNode(100)).appendChild(this.createNode(200));
-        final N node2 = this.createNode(0).appendChild(this.createNode(199)).appendChild(this.createNode(200));
-        this.checkNotEquals(node1, node2);
-    }
-
-    @Test
-    public void testDifferentGrandChildren() {
-        final N node1 = this.createNode(0).appendChild(this.createNode(100).appendChild(this.createNode(200)));
-        final N node2 = this.createNode(0).appendChild(this.createNode(100).appendChild(this.createNode(299)));
-        this.checkNotEquals(node1, node2);
-    }
-
-    @Test
-    public void testSameAttributes() {
-        final Map<ANAME, AVALUE> attributes = this.createAttributes(0);
-        final N node1 = this.createNode(0).setAttributes(attributes);
-        final N node2 = this.createNode(0).setAttributes(attributes);
-        this.checkEquals(node1, node2);
-    }
-
-    @Test
-    public void testDifferentAttributes() {
-        final N node1 = this.createNode(0).setAttributes(this.createAttributes(0));
-        final N node2 = this.createNode(0).setAttributes(this.createAttributes(1));
-        this.checkNotEquals(node1, node2);
-    }
-
-    @Test
-    public void testChildWithDifferentAttributes() {
-        final N node1 = this.createNode(0).appendChild(this.createNode(100)).setAttributes(this.createAttributes(0));
-        final N node2 = this.createNode(0).appendChild(this.createNode(100)).setAttributes(this.createAttributes(1));
-        this.checkNotEquals(node1, node2);
-    }
-
-    @Override
-    protected final N createObject() {
-        return this.createNode(0);
-    }
-
-    protected abstract N createNode(int i);
-
-    protected abstract Map<ANAME, AVALUE> createAttributes(int i);
+abstract public class NodeEqualityTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
+        extends HashCodeEqualsDefinedEqualityTestCase<N> {
 }

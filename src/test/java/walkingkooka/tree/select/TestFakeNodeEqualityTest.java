@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -26,15 +27,91 @@ import java.util.Map;
 
 public class TestFakeNodeEqualityTest extends NodeEqualityTestCase<TestFakeNode, StringName, StringName, Object> {
 
-    @Override
-    protected TestFakeNode createNode(int i) {
-        return new TestFakeNode("test-" + i);
+    @Test
+    public void testNoChildren() {
+        final TestFakeNode node1 = this.createNode(0);
+        final TestFakeNode node2 = this.createNode(0);
+        this.checkEquals(node1, node2);
+    }
+
+    @Test
+    public void testExtraChildDifferent() {
+        final TestFakeNode node1 = this.createNode(0);
+        final TestFakeNode node2 = this.createNode(0).appendChild(this.createNode(1));
+        this.checkNotEquals(node1, node2);
+    }
+
+    @Test
+    public void testSameChildren() {
+        final TestFakeNode child = this.createNode(1);
+
+        final TestFakeNode node1 = this.createNode(0).appendChild(child);
+        final TestFakeNode node2 = this.createNode(0).appendChild(child);
+        this.checkEquals(node1, node2);
+    }
+
+    @Test
+    public void testDifferentChildren() {
+        final TestFakeNode node1 = this.createNode(0).appendChild(this.createNode(1));
+        final TestFakeNode node2 = this.createNode(0).appendChild(this.createNode(99));
+        this.checkNotEquals(node1, node2);
+    }
+
+    @Test
+    public void testDifferentChildrenSameGrandChild() {
+        final TestFakeNode node1 = this.createNode(0).appendChild(this.createNode(100).appendChild(this.createNode(200)));
+        final TestFakeNode node2 = this.createNode(0).appendChild(this.createNode(199).appendChild(this.createNode(200)));
+        this.checkNotEquals(node1, node2);
+    }
+
+    @Test
+    public void testDifferentChildren2() {
+        final TestFakeNode node1 = this.createNode(0).appendChild(this.createNode(100)).appendChild(this.createNode(200));
+        final TestFakeNode node2 = this.createNode(0).appendChild(this.createNode(199)).appendChild(this.createNode(200));
+        this.checkNotEquals(node1, node2);
+    }
+
+    @Test
+    public void testDifferentGrandChildren() {
+        final TestFakeNode node1 = this.createNode(0).appendChild(this.createNode(100).appendChild(this.createNode(200)));
+        final TestFakeNode node2 = this.createNode(0).appendChild(this.createNode(100).appendChild(this.createNode(299)));
+        this.checkNotEquals(node1, node2);
+    }
+
+    @Test
+    public void testSameAttributes() {
+        final Map<StringName, Object> attributes = this.createAttributes(0);
+        final TestFakeNode node1 = this.createNode(0).setAttributes(attributes);
+        final TestFakeNode node2 = this.createNode(0).setAttributes(attributes);
+        this.checkEquals(node1, node2);
+    }
+
+    @Test
+    public void testDifferentAttributes() {
+        final TestFakeNode node1 = this.createNode(0).setAttributes(this.createAttributes(0));
+        final TestFakeNode node2 = this.createNode(0).setAttributes(this.createAttributes(1));
+        this.checkNotEquals(node1, node2);
+    }
+
+    @Test
+    public void testChildWithDifferentAttributes() {
+        final TestFakeNode node1 = this.createNode(0).appendChild(this.createNode(100)).setAttributes(this.createAttributes(0));
+        final TestFakeNode node2 = this.createNode(0).appendChild(this.createNode(100)).setAttributes(this.createAttributes(1));
+        this.checkNotEquals(node1, node2);
     }
 
     @Override
-    protected Map<StringName, Object> createAttributes(int i) {
+    protected TestFakeNode createObject() {
+        return this.createNode(0);
+    }
+
+    private TestFakeNode createNode(final int i) {
+        return new TestFakeNode("test-" + i);
+    }
+
+    private Map<StringName, Object> createAttributes(int i) {
         final Map<StringName, Object> attributes = Maps.ordered();
-        for(int j = 0; j < i; j++) {
+        for (int j = 0; j < i; j++) {
             attributes.put(Names.string("attribute-" + i), i);
         }
         return attributes;
