@@ -140,7 +140,7 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
 
     @Override
     public int compareTo(final SpreadsheetLabelName other) {
-        return this.name.compareTo(other.name);
+        return this.name.compareToIgnoreCase(other.name);
     }
 
     // Object
