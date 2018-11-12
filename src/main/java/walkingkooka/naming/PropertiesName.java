@@ -22,7 +22,6 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A simple {@link Name} that accepts a {@link String} composed of any character.
@@ -40,10 +39,7 @@ final public class PropertiesName implements Name, HashCodeEqualsDefined, Serial
      * Factory that creates a {@link PropertiesName}, only the root path has this name.
      */
     static PropertiesName with(final String name) {
-        Objects.requireNonNull(name, "name");
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("Name " + CharSequences.quote(name) + " must not be empty.");
-        }
+        CharSequences.failIfNullOrEmpty(name, "name");
         if (-1 != name.indexOf(PropertiesPath.SEPARATOR.character())) {
             throw new IllegalArgumentException("Name " + CharSequences.quote(name) +
                     " cannot contain " + CharSequences.quoteIfChars(PropertiesPath.SEPARATOR.character()));
