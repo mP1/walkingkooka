@@ -143,27 +143,6 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         propertiesNeverReturnNullCheck(this.createNode());
     }
 
-    @Test
-    public void testEqualsNull(){
-        assertNotEquals(this.createNode(), null);
-    }
-
-    @Test
-    public void testEqualsObject(){
-        assertNotEquals(this.createNode(), new Object());
-    }
-
-    @Test
-    public final void testEqualsSameInstance(){
-        final N node = this.createNode();
-        assertEquals(node, node);
-    }
-
-    @Test
-    public void testEquals() {
-        assertEquals(this.createNode(), this.createNode());
-    }
-
     abstract protected N createNode();
 
     protected final void childrenCheck(final Node<?, ?, ?, ?> node) {
