@@ -18,10 +18,8 @@
 package walkingkooka.text;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-final public class RepeatingCharSequenceEqualityTest
-        extends HashCodeEqualsDefinedEqualityTestCase<RepeatingCharSequence> {
+final public class RepeatingCharSequenceEqualityTest extends CharSequenceEqualityTestCase<RepeatingCharSequence> {
 
     // constants
 

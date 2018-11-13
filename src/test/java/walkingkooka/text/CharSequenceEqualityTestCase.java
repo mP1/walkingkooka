@@ -13,21 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-final public class IndentationEqualityTest extends CharSequenceEqualityTestCase<Indentation> {
+public abstract class CharSequenceEqualityTestCase<C extends CharSequence & HashCodeEqualsDefined> extends
+        HashCodeEqualsDefinedEqualityTestCase<C> {
 
-    @Test
-    public void testDifferent() {
-        this.checkNotEquals(Indentation.with("different"));
-    }
-
-    @Override
-    protected Indentation createObject() {
-        return Indentation.with("  ");
+    CharSequenceEqualityTestCase() {
+        super();
     }
 }
