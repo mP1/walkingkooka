@@ -21,10 +21,9 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 final public class InitialAndPartCharPredicateCharSequencePredicateEqualityTest
-        extends HashCodeEqualsDefinedEqualityTestCase<InitialAndPartCharPredicateCharSequencePredicate> {
+        extends PredicateEqualityTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence> {
 
     @Test
     public void testDifferentInitialCharPredicate() {
