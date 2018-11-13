@@ -19,10 +19,9 @@ package walkingkooka.predicate.character;
 
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-abstract public class LogicalCharPredicateEqualityTestCase<M extends CharPredicate & HashCodeEqualsDefined>
-        extends HashCodeEqualsDefinedEqualityTestCase<M> {
+abstract public class LogicalCharPredicateEqualityTestCase<P extends CharPredicate & HashCodeEqualsDefined>
+        extends CharPredicateEqualityTestCase<P> {
 
     LogicalCharPredicateEqualityTestCase() {
         super();
@@ -37,9 +36,9 @@ abstract public class LogicalCharPredicateEqualityTestCase<M extends CharPredica
     }
 
     @Override
-    protected M createObject() {
+    protected P createObject() {
         return this.createObject(CharPredicates.is('l'), CharPredicates.is('r'));
     }
 
-    abstract M createObject(CharPredicate first, CharPredicate second);
+    abstract P createObject(CharPredicate first, CharPredicate second);
 }
