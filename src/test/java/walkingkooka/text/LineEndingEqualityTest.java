@@ -18,9 +18,8 @@
 package walkingkooka.text;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-final public class LineEndingEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<LineEnding> {
+final public class LineEndingEqualityTest extends CharSequenceEqualityTestCase<LineEnding> {
 
     @Test
     public void testDifferent() {

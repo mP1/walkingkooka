@@ -18,10 +18,9 @@
 package walkingkooka.text;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 abstract public class PaddedCharSequenceEqualityTestCase<P extends PaddedCharSequence<P>>
-        extends HashCodeEqualsDefinedEqualityTestCase<P> {
+        extends CharSequenceEqualityTestCase<P> {
 
     PaddedCharSequenceEqualityTestCase() {
         super();

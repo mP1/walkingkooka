@@ -20,8 +20,7 @@ package walkingkooka.text;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-final public class RightPaddedCharSequence2EqualityTest
-        extends PaddedCharSequenceEqualityTestCase<RightPaddedCharSequence> {
+final public class RightPaddedCharSequence2EqualityTest extends PaddedCharSequenceEqualityTestCase<RightPaddedCharSequence> {
 
     // constants
 

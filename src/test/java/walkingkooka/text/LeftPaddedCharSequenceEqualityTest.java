@@ -17,8 +17,7 @@
 
 package walkingkooka.text;
 
-final public class LeftPaddedCharSequenceEqualityTest
-        extends PaddedCharSequenceEqualityTestCase<LeftPaddedCharSequence> {
+final public class LeftPaddedCharSequenceEqualityTest extends PaddedCharSequenceEqualityTestCase<LeftPaddedCharSequence> {
 
     @Override
     protected LeftPaddedCharSequence createObject(final CharSequence sequence, final int length,

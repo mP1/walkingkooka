@@ -18,10 +18,9 @@
 package walkingkooka.text;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 final public class QuotesAroundCharSequenceEqualityTest
-        extends HashCodeEqualsDefinedEqualityTestCase<QuotesAroundCharSequence> {
+        extends CharSequenceEqualityTestCase<QuotesAroundCharSequence> {
 
     // constants
 
