@@ -17,10 +17,71 @@
 
 package walkingkooka.text;
 
+import org.junit.Test;
 import walkingkooka.test.PackagePrivateStaticHelperTestCase;
 
-final public class CharSequenceEscapingTest
-        extends PackagePrivateStaticHelperTestCase<CharSequenceEscaping> {
+import static org.junit.Assert.assertEquals;
+
+final public class CharSequenceEscapingTest extends PackagePrivateStaticHelperTestCase<CharSequenceEscaping> {
+
+    @Test
+    public void testNoNeeded() {
+        escapeAndCheck("apple", "apple");
+    }
+
+    @Test
+    public void testNewLine() {
+        escapeAndCheck("apple\nbanana", "apple\\nbanana");
+    }
+
+    @Test
+    public void testCarriageReturn() {
+        escapeAndCheck("apple\rbanana", "apple\\rbanana");
+    }
+
+    @Test
+    public void testBackslash() {
+        escapeAndCheck("apple\\banana", "apple\\\\banana");
+    }
+
+    @Test
+    public void testTab() {
+        escapeAndCheck("apple\tbanana", "apple\\tbanana");
+    }
+
+    @Test
+    public void testDoubleQuote() {
+        escapeAndCheck("apple\"", "apple\\\"");
+    }
+
+    @Test
+    public void testSingleQuote() {
+        escapeAndCheck("apple\'", "apple\\\'");
+    }
+
+    @Test
+    public void testNul() {
+        escapeAndCheck("apple\0", "apple\\0");
+    }
+
+    @Test
+    public void testTabNewLineCarriageReturn() {
+        escapeAndCheck("apple\t\n\r\\", "apple\\t\\n\\r\\\\");
+    }
+
+    @Test
+    public void testControlCharacter() {
+        escapeAndCheck("apple\u000F;banana", "apple\\u000F;banana");
+    }
+
+    @Test
+    public void testControlCharacter2() {
+        escapeAndCheck("apple\u001F;banana", "apple\\u001F;banana");
+    }
+
+    private void escapeAndCheck(final CharSequence chars, final String expected) {
+        assertEquals("escape " + CharSequences.quote(chars), expected, CharSequenceEscaping.escape(chars));
+    }
 
     @Override
     protected Class<CharSequenceEscaping> type() {
