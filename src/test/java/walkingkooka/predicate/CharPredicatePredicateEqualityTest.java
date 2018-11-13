@@ -20,10 +20,9 @@ package walkingkooka.predicate;
 import org.junit.Test;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 final public class CharPredicatePredicateEqualityTest
-        extends HashCodeEqualsDefinedEqualityTestCase<CharacterPredicatePredicate> {
+        extends PredicateEqualityTestCase<CharacterPredicatePredicate, Character> {
 
     // constants
     private final static CharPredicate PREDICATE = CharPredicates.always();

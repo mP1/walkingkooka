@@ -21,12 +21,11 @@ package walkingkooka.predicate;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 import java.util.function.Predicate;
 
 final public class CustomToStringPredicateEqualityTest
-        extends HashCodeEqualsDefinedEqualityTestCase<CustomToStringPredicate<String>> {
+        extends PredicateEqualityTestCase<CustomToStringPredicate<String>, String> {
 
     final private static Predicate<String> WRAPPED = Predicates.is("abc");
     final private static String CUSTOM_TOSTRING = "custom-to-string";

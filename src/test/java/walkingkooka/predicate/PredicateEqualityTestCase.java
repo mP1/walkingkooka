@@ -13,26 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.predicate;
 
-import org.junit.Test;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-final public class ObjectEqualityPredicateEqualityTest
-        extends PredicateEqualityTestCase<ObjectEqualityPredicate<String>, String> {
+import java.util.function.Predicate;
 
-    final private static String MAGIC = "magic";
+public abstract class PredicateEqualityTestCase<P extends Predicate<V> & HashCodeEqualsDefined, V> extends
+        HashCodeEqualsDefinedEqualityTestCase<P> {
 
-    @Test
-    public void testDifferentValue() {
-        this.checkNotEquals(ObjectEqualityPredicate.with("different"));
-    }
-
-    // helpers
-
-    @Override
-    protected ObjectEqualityPredicate<String> createObject() {
-        return ObjectEqualityPredicate.with(ObjectEqualityPredicateEqualityTest.MAGIC);
+    PredicateEqualityTestCase() {
+        super();
     }
 }
