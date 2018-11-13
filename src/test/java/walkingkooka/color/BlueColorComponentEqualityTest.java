@@ -19,9 +19,8 @@
 package walkingkooka.color;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-public final class BlueColorComponentEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<BlueColorComponent> {
+public final class BlueColorComponentEqualityTest extends ColorComponentEqualityTestCase<BlueColorComponent> {
 
     private final static byte VALUE = 1;
 
