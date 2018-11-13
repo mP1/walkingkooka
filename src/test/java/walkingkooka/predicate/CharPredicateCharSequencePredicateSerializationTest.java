@@ -31,7 +31,7 @@ final public class CharPredicateCharSequencePredicateSerializationTest
 
     @Override
     protected Class<CharPredicateCharSequencePredicate> type() {
-        return Cast.to(NeverPredicate.class);
+        return Cast.to(CharPredicateCharSequencePredicate.class);
     }
 
     @Override
