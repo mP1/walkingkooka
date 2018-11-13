@@ -18,22 +18,24 @@
 package walkingkooka.predicate;
 
 import org.junit.Test;
+import walkingkooka.Cast;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 final public class CharPredicateCharSequencePredicateEqualityTest
-        extends HashCodeEqualsDefinedEqualityTestCase<ObjectEqualityPredicate<String>> {
+        extends HashCodeEqualsDefinedEqualityTestCase<CharPredicateCharSequencePredicate> {
 
     final private static String MAGIC = "magic";
 
     @Test
-    public void testDifferentValue() {
-        this.checkNotEquals(ObjectEqualityPredicate.with("different"));
+    public void testDifferentPredicate() {
+        this.checkNotEquals(CharPredicateCharSequencePredicate.with(CharPredicates.any("different")));
     }
 
     // helpers
 
     @Override
-    protected ObjectEqualityPredicate<String> createObject() {
-        return ObjectEqualityPredicate.with(CharPredicateCharSequencePredicateEqualityTest.MAGIC);
+    protected CharPredicateCharSequencePredicate createObject() {
+        return Cast.to(CharPredicateCharSequencePredicate.with(CharPredicates.any(MAGIC)));
     }
 }
