@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.predicate.character;
 
-import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-final public class OrCharPredicateEqualityTest extends LogicalCharPredicateEqualityTestCase<OrCharPredicate> {
+public abstract class CharPredicateEqualityTestCase<P extends CharPredicate & HashCodeEqualsDefined> extends HashCodeEqualsDefinedEqualityTestCase<P> {
 
-    @Override
-    OrCharPredicate createObject(final CharPredicate left, final CharPredicate right) {
-        return Cast.to(OrCharPredicate.wrap(left, right));
+    CharPredicateEqualityTestCase() {
+        super();
     }
 }

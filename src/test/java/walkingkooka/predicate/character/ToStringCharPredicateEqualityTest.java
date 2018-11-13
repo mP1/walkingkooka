@@ -19,10 +19,8 @@ package walkingkooka.predicate.character;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-final public class ToStringCharPredicateEqualityTest
-        extends HashCodeEqualsDefinedEqualityTestCase<ToStringCharPredicate> {
+final public class ToStringCharPredicateEqualityTest extends CharPredicateEqualityTestCase<ToStringCharPredicate> {
 
     // constants
 

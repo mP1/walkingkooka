@@ -19,8 +19,7 @@ package walkingkooka.predicate.character;
 
 import walkingkooka.Cast;
 
-final public class AndCharPredicateEqualityTest
-        extends LogicalCharPredicateEqualityTestCase<AndCharPredicate> {
+final public class AndCharPredicateEqualityTest extends LogicalCharPredicateEqualityTestCase<AndCharPredicate> {
 
     @Override
     AndCharPredicate createObject(final CharPredicate left, final CharPredicate right) {
