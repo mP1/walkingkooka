@@ -66,7 +66,7 @@ final public class CookieName implements Name, HashCodeEqualsDefined {
     public boolean equals(final Object other) {
         return this == other ||
                 other instanceof CookieName &&
-                this.equals0(Cast.to(other));
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final CookieName other) {

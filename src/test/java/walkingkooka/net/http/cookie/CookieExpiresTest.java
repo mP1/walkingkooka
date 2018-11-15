@@ -68,7 +68,7 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
         assertEquals(123, this.createCookieExpires().toMaxAgeSeconds(EXPIRES.minusSeconds(123)));
     }
 
-        @Test
+    @Test
     public void testToString() {
         assertEquals("expires=Sun, 31 Dec 2000 12:58:59 GMT", this.createCookieExpires().toString());
     }

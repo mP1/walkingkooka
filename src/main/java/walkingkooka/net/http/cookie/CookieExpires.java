@@ -135,9 +135,9 @@ final public class CookieExpires extends CookieDeletion {
     // An example of the preferred format is
     //
     //     Sun, 06 Nov 1994 08:49:37 GMT    ; IMF-fixdate
-    private final static DateTimeFormatter FORMATTER =  formatter();
+    private final static DateTimeFormatter FORMATTER = formatter();
 
-    private static DateTimeFormatter formatter(){
+    private static DateTimeFormatter formatter() {
         final Map<Long, String> weekday = new HashMap<>();
         weekday.put(1L, "Mon");
         weekday.put(2L, "Tue");

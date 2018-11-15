@@ -20,7 +20,6 @@ package walkingkooka.net.http.cookie;
 
 import walkingkooka.test.HashCodeEqualsDefined;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Optional;
 

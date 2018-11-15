@@ -85,7 +85,7 @@ final public class ServerCookie extends Cookie {
             }
             if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.EXPIRES + Cookie.NAME_VALUE_SEPARATOR)) {
                 //  For other browsers, if both (Expires and Max-Age) are set, Max-Age will have precedence.
-                if(!deletion.isPresent()) {
+                if (!deletion.isPresent()) {
                     deletion = CookieExpires.parseExpires(extractValue(token));
                 }
                 continue;
@@ -513,7 +513,7 @@ final public class ServerCookie extends Cookie {
                 this.comment.equals(other.comment) && //
                 this.deletion.equals(other.deletion) && //
                 this.secure == other.secure && //
-                this.httpOnly==other.httpOnly && //
+                this.httpOnly == other.httpOnly && //
                 this.version == other.version;
     }
 

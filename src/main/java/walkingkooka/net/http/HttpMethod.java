@@ -149,7 +149,7 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
     public boolean equals(final Object other) {
         return this == other ||
                 other instanceof HttpMethod &&
-                this.equals0(Cast.to(other));
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final HttpMethod other) {
