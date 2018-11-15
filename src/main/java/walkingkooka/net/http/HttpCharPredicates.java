@@ -56,7 +56,7 @@ final public class HttpCharPredicates implements PublicStaticHelper {
 
     private final static CharPredicate HTTP_HEADER = CharPredicates.builder()//
             .or(CharPredicates.ascii())//
-            .and(CharPredicates.range((char)33, (char)126))//
+            .and(CharPredicates.range((char) 33, (char) 126))//
             .andNot(CharPredicates.any(":."))
             .toString("http header name")//
             .build();

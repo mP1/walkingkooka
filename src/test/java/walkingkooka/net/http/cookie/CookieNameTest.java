@@ -117,7 +117,7 @@ final public class CookieNameTest extends NameTestCase<CookieName> {
 
     @Test
     public void testIncludesDigits() {
-       this.createNameAndCheck("cookie123");
+        this.createNameAndCheck("cookie123");
     }
 
     @Test

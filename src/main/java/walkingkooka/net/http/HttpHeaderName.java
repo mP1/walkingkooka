@@ -314,7 +314,7 @@ final public class HttpHeaderName implements Name, HashCodeEqualsDefined, Compar
      * Factory that creates a {@link HttpHeaderName}
      */
     public static HttpHeaderName with(final String name) {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name,  "name", HttpCharPredicates.httpHeaderName(),HttpCharPredicates.httpHeaderName());
+        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, "name", HttpCharPredicates.httpHeaderName(), HttpCharPredicates.httpHeaderName());
 
         final HttpHeaderName httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
@@ -354,7 +354,7 @@ final public class HttpHeaderName implements Name, HashCodeEqualsDefined, Compar
     public boolean equals(final Object other) {
         return this == other ||
                 other instanceof HttpHeaderName &&
-                this.equals0(Cast.to(other));
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final HttpHeaderName name) {
