@@ -41,12 +41,12 @@ public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<
 
     @Test
     public void testToString() {
-        assertEquals("not(" + ExpressionTemplateFunction.CONTAINS + ")", this.createBiFunction().toString());
+        assertEquals("not(" + ExpressionFunctions.contains() + ")", this.createBiFunction().toString());
     }
 
     @Override
     protected ExpressionNotFunction createBiFunction() {
-        return ExpressionNotFunction.with(ExpressionTemplateFunction.CONTAINS);
+        return ExpressionNotFunction.with(ExpressionFunctions.contains());
     }
 
     @Override
