@@ -29,40 +29,6 @@ import java.util.List;
  */
 abstract class ExpressionTemplateFunction<T> implements ExpressionFunction<T> {
 
-    final static ExpressionBooleanFunction BOOLEAN = ExpressionBooleanFunction.INSTANCE;
-
-    final static ExpressionConcatFunction CONCAT = ExpressionConcatFunction.INSTANCE;
-
-    final static ExpressionContainsFunction CONTAINS = ExpressionContainsFunction.INSTANCE;
-
-    final static ExpressionEndsWithFunction ENDS_WITH = ExpressionEndsWithFunction.INSTANCE;
-
-    final static ExpressionFalseFunction FALSE = ExpressionFalseFunction.INSTANCE;
-
-    final static ExpressionNodeNameFunction NODE_NAME = ExpressionNodeNameFunction.INSTANCE;
-
-    final static ExpressionNormalizeSpaceFunction NORMALIZE_SPACE = ExpressionNormalizeSpaceFunction.INSTANCE;
-
-    final static ExpressionNumberFunction NUMBER = ExpressionNumberFunction.INSTANCE;
-
-    final static ExpressionNodePositionFunction NODE_POSITION = ExpressionNodePositionFunction.INSTANCE;
-
-    final static ExpressionStartsWithFunction STARTS_WITH = ExpressionStartsWithFunction.INSTANCE;
-
-    final static ExpressionStringLengthFunction STRING_LENGTH = ExpressionStringLengthFunction.INSTANCE;
-
-    final static ExpressionSubstringFunction substring(final int indexBase) {
-        return ExpressionSubstringFunction.with(indexBase);
-    }
-
-    final static ExpressionSubstringAfterFunction SUBSTRING_AFTER = ExpressionSubstringAfterFunction.INSTANCE;
-
-    final static ExpressionSubstringBeforeFunction SUBSTRING_BEFORE = ExpressionSubstringBeforeFunction.INSTANCE;
-
-    final static ExpressionTextFunction TEXT = ExpressionTextFunction.INSTANCE;
-
-    final static ExpressionTrueFunction TRUE = ExpressionTrueFunction.INSTANCE;
-
     /**
      * Package private to limit sub classing.
      */

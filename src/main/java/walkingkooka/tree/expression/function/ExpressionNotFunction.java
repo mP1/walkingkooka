@@ -31,7 +31,7 @@ final class ExpressionNotFunction extends ExpressionTemplateFunction<Boolean> {
     /**
      * Factory
      */
-    static final ExpressionNotFunction with(final ExpressionTemplateFunction<Boolean> function) {
+    static final ExpressionNotFunction with(final ExpressionFunction<? extends Object> function) {
         Objects.requireNonNull(function, "function");
         return new ExpressionNotFunction(function);
     }
@@ -39,7 +39,7 @@ final class ExpressionNotFunction extends ExpressionTemplateFunction<Boolean> {
     /**
      * Private ctor
      */
-    private ExpressionNotFunction(final ExpressionTemplateFunction<Boolean> function) {
+    private ExpressionNotFunction(final ExpressionFunction<? extends Object> function) {
         super();
         this.function = function;
     }
@@ -52,7 +52,7 @@ final class ExpressionNotFunction extends ExpressionTemplateFunction<Boolean> {
         return Boolean.valueOf(!context.convert(this.function.apply(parameters, context), Boolean.class));
     }
 
-    private final ExpressionTemplateFunction<Boolean> function;
+    private final ExpressionFunction<? extends Object> function;
 
 
     @Override
