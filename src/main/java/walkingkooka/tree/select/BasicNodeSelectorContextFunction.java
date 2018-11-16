@@ -43,6 +43,9 @@ final class BasicNodeSelectorContextFunction implements Function<ExpressionNodeN
     private BasicNodeSelectorContextFunction() {
         super();
 
+        // must be init before register calls to avoid NPE.
+        this.nameToFunction = Maps.sorted();
+
         this.register(ExpressionFunctions.booleanExpressionFunction());
         this.register(ExpressionFunctions.concat());
         this.register(ExpressionFunctions.contains());
@@ -70,7 +73,7 @@ final class BasicNodeSelectorContextFunction implements Function<ExpressionNodeN
         return Optional.ofNullable(this.nameToFunction.get(name));
     }
 
-    private final Map<ExpressionNodeName, ExpressionFunction<?>> nameToFunction = Maps.sorted();
+    private final Map<ExpressionNodeName, ExpressionFunction<?>> nameToFunction;
 
     @Override
     public String toString() {
