@@ -42,7 +42,7 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     NodePredicateNodeSelector<N, NAME, ANAME, AVALUE> with(final Predicate<N> predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
-        return new NodePredicateNodeSelector(predicate, NodeSelector.terminal());
+        return new NodePredicateNodeSelector<>(predicate, NodeSelector.terminal());
     }
 
     /**

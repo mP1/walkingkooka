@@ -150,7 +150,7 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
         }.accept(predicate);
         assertEquals("13151721821921A21B21C21D26242", b.toString());
         assertEquals("visited",
-                Lists.of(predicate, predicate,
+                Lists.<Object>of(predicate, predicate,
                         function, function,
                         functionName, functionName, functionName,
                         parenOpen, parenOpen, parenOpen,

@@ -28,8 +28,8 @@ import static org.junit.Assert.assertEquals;
 
 public final class ForwardingConverterTest extends FixedTypeConverterTestCase<ForwardingConverter<Number, BigDecimal>, Number> {
 
-    private final static Class<?> SOURCE_TYPE = Number.class;
-    private final static Class<?> TARGET_TYPE = BigDecimal.class;
+    private final static Class<Number> SOURCE_TYPE = Number.class;
+    private final static Class<BigDecimal> TARGET_TYPE = BigDecimal.class;
 
     @Test(expected = NullPointerException.class)
     public void testWithNullConverterFails() {

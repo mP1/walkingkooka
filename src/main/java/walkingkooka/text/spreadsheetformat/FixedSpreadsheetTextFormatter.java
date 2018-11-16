@@ -18,6 +18,8 @@
 
 package walkingkooka.text.spreadsheetformat;
 
+import walkingkooka.Cast;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -30,19 +32,20 @@ final class FixedSpreadsheetTextFormatter<V> extends SpreadsheetTextFormatterTem
     /**
      * Creates a new {@link FixedSpreadsheetTextFormatter}.
      */
-    static <V> FixedSpreadsheetTextFormatter with(final Class<V> type, final Optional<SpreadsheetFormattedText> formattedText) {
+    static <V> FixedSpreadsheetTextFormatter<V> with(final Class<V> type, final Optional<SpreadsheetFormattedText> formattedText) {
         Objects.requireNonNull(type, "type");
         Objects.requireNonNull(formattedText, "formattedText");
 
         return type == Object.class && SpreadsheetTextFormatter.NO_TEXT.equals(formattedText) ?
-                OBJECT_NO_TEXT :
-                new FixedSpreadsheetTextFormatter(type, formattedText);
+                Cast.to(OBJECT_NO_TEXT) :
+                new FixedSpreadsheetTextFormatter<>(type, formattedText);
     }
 
     /**
      * Singleton.
      */
-    private final static FixedSpreadsheetTextFormatter<Object> OBJECT_NO_TEXT = new FixedSpreadsheetTextFormatter(Object.class, SpreadsheetTextFormatter.NO_TEXT);
+    @SuppressWarnings("rawtypes")
+    private final static FixedSpreadsheetTextFormatter OBJECT_NO_TEXT = new FixedSpreadsheetTextFormatter<>(Object.class, SpreadsheetTextFormatter.NO_TEXT);
 
     /**
      * Private ctor use factory.

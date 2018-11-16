@@ -35,7 +35,7 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AbsoluteNodeSelector<N, NAME, ANAME, AVALUE> with(final PathSeparator separator) {
         Objects.requireNonNull(separator, "separator");
-        return new AbsoluteNodeSelector(separator, NodeSelector.terminal());
+        return new AbsoluteNodeSelector<N, NAME, ANAME, AVALUE>(separator, NodeSelector.terminal());
     }
 
     /**
@@ -54,7 +54,7 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
                 this:
                 selector instanceof DescendantNodeSelector ?
                         selector :
-                new AbsoluteNodeSelector(this.separator, selector);
+                new AbsoluteNodeSelector<N, NAME, ANAME, AVALUE>(this.separator, selector);
     }
 
     @Override

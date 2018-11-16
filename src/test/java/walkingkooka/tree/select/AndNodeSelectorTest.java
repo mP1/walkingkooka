@@ -62,12 +62,14 @@ public final class AndNodeSelectorTest extends
     }
 
     @Override
-    NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(
+    @SafeVarargs
+    final NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(
             final NodeSelector<TestFakeNode, StringName, StringName, Object>...selectors) {
         return AndNodeSelector.with(Lists.of(selectors));
     }
 
-    @Override protected Class<AndNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    @Override
+    protected Class<AndNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
         return Cast.to(AndNodeSelector.class);
     }
 }

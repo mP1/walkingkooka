@@ -123,7 +123,7 @@ public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStr
     }
 
     @Override
-    protected SurroundStringParser createParser() {
+    protected SurroundStringParser<ParserContext> createParser() {
         return SurroundStringParser.with(OPEN, CLOSE);
     }
 

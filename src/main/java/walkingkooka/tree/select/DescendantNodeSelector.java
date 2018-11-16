@@ -52,7 +52,7 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         // no point appending a descending to another...
         return selector instanceof DescendantNodeSelector ?
                 this :
-                new DescendantNodeSelector(selector);
+                new DescendantNodeSelector<N, NAME, ANAME, AVALUE>(selector);
     }
 
 

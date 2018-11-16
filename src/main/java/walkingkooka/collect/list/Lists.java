@@ -75,6 +75,7 @@ final public class Lists implements PublicStaticHelper {
     /**
      * {@see Arrays#asList}
      */
+    @SafeVarargs
     public static <T> List<T> of(final T... items) {
         return Arrays.asList(items);
     }

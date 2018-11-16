@@ -32,11 +32,13 @@ final class DomMapEntrySet<K, V> extends AbstractSet<Entry<K, V>> {
         this.map = map;
     }
 
-    @Override public Iterator<Entry<K, V>> iterator() {
+    @Override
+    public Iterator<Entry<K, V>> iterator() {
         return Iterators.array(this.map.entries());
     }
 
-    @Override public int size() {
+    @Override
+    public int size() {
         return this.map.size();
     }
 

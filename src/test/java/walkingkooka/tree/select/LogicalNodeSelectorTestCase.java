@@ -47,10 +47,12 @@ extends NodeSelectorTestCase<S>{
         assertSame(SELECTOR, this.createSelector0(SELECTOR, SELECTOR));
     }
 
-    @Override S createSelector() {
+    @Override
+    final S createSelector() {
         return this.createSelector(SELECTOR, new FakeNodeSelector());
     }
 
+    @SafeVarargs
     final S createSelector(final NodeSelector<TestFakeNode, StringName, StringName, Object>...selectors) {
         return Cast.to(this.createSelector0(selectors));
     }

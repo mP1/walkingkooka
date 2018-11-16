@@ -63,7 +63,7 @@ abstract class DomMap<K, V> extends AbstractMap<K, V> {
     @Override
     public final Set<Entry<K, V>> entrySet() {
         if (null == this.entrySet) {
-            this.entrySet = new DomMapEntrySet(this);
+            this.entrySet = new DomMapEntrySet<K, V>(this);
         }
         return this.entrySet;
     }
@@ -73,17 +73,17 @@ abstract class DomMap<K, V> extends AbstractMap<K, V> {
         return this.named.getLength();
     }
 
-    private DomMapEntrySet entrySet;
+    private DomMapEntrySet<K, V> entrySet;
 
     private final NamedNodeMap named;
 
     /**
      * Factory that lazily creates an array of entries from the items in the {@link NamedNodeMap}
      */
-    final Entry[] entries() {
+    final Entry<K, V>[] entries() {
         if (null == this.entries) {
             final int count = this.named.getLength();
-            final Entry[] entries = new Entry[count];
+            final Entry<K, V>[] entries = new Entry[count];
 
             for (int i = 0; i < count; i++) {
                 entries[i] = entry(this.named.item(i));
@@ -93,10 +93,10 @@ abstract class DomMap<K, V> extends AbstractMap<K, V> {
         return this.entries;
     }
 
-    private Entry[] entries;
+    private Entry<K, V>[] entries;
 
     /**
      * Given a {@link org.w3c.dom.Node} creates an entry.
      */
-    abstract DomMapEntrySetEntry entry(org.w3c.dom.Node node);
+    abstract DomMapEntrySetEntry<K, V> entry(org.w3c.dom.Node node);
 }

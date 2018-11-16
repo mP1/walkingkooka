@@ -37,7 +37,7 @@ final class ComparableComparisonRelationPredicate<C extends Comparable<C>> imple
         Objects.requireNonNull(relation, "relation");
         Objects.requireNonNull(right, "right");
 
-        return new ComparableComparisonRelationPredicate(relation, right);
+        return new ComparableComparisonRelationPredicate<C>(relation, right);
     }
 
     /**

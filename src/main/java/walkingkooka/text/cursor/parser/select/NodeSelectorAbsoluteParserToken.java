@@ -19,8 +19,6 @@ package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.text.cursor.parser.ParserTokenNodeName;
 
-import java.util.Optional;
-
 /**
  * Holds an absolute path
  */

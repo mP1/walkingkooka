@@ -62,7 +62,7 @@ final class AlternativesParser<C extends ParserContext> implements Parser<Parser
     private static <C extends ParserContext> void tryFlatten(final Parser<ParserToken, C> parser,
                                                              final List<Parser<ParserToken, C>> copy) {
         if(parser instanceof AlternativesParser) {
-            final AlternativesParser alt = parser.cast();
+            final AlternativesParser<C> alt = parser.cast();
             copy.addAll(alt.parsers);
         } else {
             copy.add(parser);

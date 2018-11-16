@@ -202,7 +202,7 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
             }
         }.accept(token);
         assertEquals("12", b.toString());
-        assertEquals("visited tokens", Lists.of(token, token), visited);
+        assertEquals("visited tokens", Lists.<Object>of(token, token), visited);
     }
 
     @Test

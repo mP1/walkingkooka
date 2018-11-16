@@ -88,7 +88,7 @@ public final class EbnfAlternativeParserTokenTest extends EbnfAlternativeConcate
         }.accept(alt);
         assertEquals("1351374213742642", b.toString());
         assertEquals("visited",
-                Lists.of(alt, alt, alt,
+                Lists.<Object>of(alt, alt, alt,
                         identifier1, identifier1, identifier1, identifier1, identifier1,
                         identifier2, identifier2, identifier2, identifier2, identifier2,
                         alt, alt, alt),

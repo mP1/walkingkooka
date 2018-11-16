@@ -21,7 +21,6 @@ package walkingkooka.tree.select;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
-import walkingkooka.naming.Name;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAndParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorAttributeNameParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorEqualsParserToken;
@@ -38,7 +37,6 @@ import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserTokenVisitor;
 import walkingkooka.text.cursor.parser.select.NodeSelectorPredicateParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorQuotedTextParserToken;
-import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -52,8 +50,7 @@ import java.util.function.Predicate;
  * This {@link NodeSelectorParserTokenVisitor} translates a {@link NodeSelectorPredicateParserToken} into a {@link walkingkooka.tree.expression.ExpressionNode} equivalent.
  * A support {@link walkingkooka.tree.expression.ExpressionEvaluationContext} will provide function to definition and attribute to value lookups.
  */
-final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeSelectorParserTokenVisitor {
+final class ExpressionNodeSelectorNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
 
     /**
      * Converts the contents of a predicate into a {@link ExpressionNode}.

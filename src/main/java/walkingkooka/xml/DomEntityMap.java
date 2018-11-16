@@ -44,9 +44,9 @@ final class DomEntityMap extends DomMap<DomName, DomEntity> {
     }
 
     @Override
-    DomMapEntrySetEntry entry(final Node node) {
+    DomMapEntrySetEntry<DomName, DomEntity> entry(final Node node) {
         final DomEntity entity = new DomEntity(node);
 
-        return new DomMapEntrySetEntry(entity.name(), entity);
+        return new DomMapEntrySetEntry<DomName, DomEntity>(entity.name(), entity);
     }
 }

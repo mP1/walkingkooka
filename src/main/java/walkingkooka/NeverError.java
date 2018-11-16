@@ -59,6 +59,7 @@ public class NeverError extends Error {
     /**
      * Useful to report unexpected enums in a switch.
      */
+    @SafeVarargs
     public static <E extends Enum<E>, T> T unhandledEnum(final E value, final E... expected) {
         throw new NeverError("Unhandled enum value: " + value + " only expected: " + Arrays.stream(expected)
                 .map(e -> e.name())

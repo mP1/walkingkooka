@@ -33,11 +33,11 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
     }
 
     public SequenceParserBuilder<C> optional(final Parser<ParserToken, C> parser) {
-        return this.add(new SequenceParserOptionalComponent(parser));
+        return this.add(new SequenceParserOptionalComponent<>(parser));
     }
 
     public SequenceParserBuilder<C> required(final Parser<ParserToken, C> parser) {
-        return this.add(new SequenceParserRequiredComponent(parser));
+        return this.add(new SequenceParserRequiredComponent<>(parser));
     }
 
     @Override
@@ -48,7 +48,7 @@ public final class SequenceParserBuilder<C extends ParserContext> implements Bui
         return new SequenceParser<C>(this.components);
     }
 
-    private SequenceParserBuilder<C> add(final SequenceParserComponent component) {
+    private SequenceParserBuilder<C> add(final SequenceParserComponent<C> component) {
         this.components.add(component);
         return this;
     }

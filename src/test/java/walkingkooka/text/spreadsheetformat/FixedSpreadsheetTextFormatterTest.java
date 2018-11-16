@@ -47,7 +47,8 @@ public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextForm
 
     @Test
     public void testWithObjectNoText() {
-        final FixedSpreadsheetTextFormatter<Object> formatter = FixedSpreadsheetTextFormatter.with(Object.class, SpreadsheetTextFormatter.NO_TEXT);
+        final FixedSpreadsheetTextFormatter<Object> formatter = FixedSpreadsheetTextFormatter.with(Object.class,
+                SpreadsheetTextFormatter.NO_TEXT);
         assertSame(formatter, FixedSpreadsheetTextFormatter.with(Object.class, SpreadsheetTextFormatter.NO_TEXT));
 
         this.formatAndCheck(formatter, "", this.createContext(), SpreadsheetTextFormatter.NO_TEXT);

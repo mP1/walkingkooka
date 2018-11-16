@@ -49,7 +49,7 @@ public abstract class ParserTestCase2<P extends Parser<T, ParserContext>, T exte
     public void testOr() {
         final P parser = this.createParser();
         final P parser2 = this.createParser();
-        assertEquals(Parsers.alternatives(Lists.of(parser.cast(), parser2.cast())), parser.or(parser2));
+        assertEquals(Parsers.alternatives(Lists.<Parser<ParserToken, ParserContext>>of(parser.cast(), parser2.cast())), parser.or(parser2));
     }
 
     @Override

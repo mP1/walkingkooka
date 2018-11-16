@@ -37,6 +37,7 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
     /**
      * Singleton
      */
+    @SuppressWarnings("RawTypes")
     private final static RangeBoundAll INSTANCE = new RangeBoundAll();
 
     /**

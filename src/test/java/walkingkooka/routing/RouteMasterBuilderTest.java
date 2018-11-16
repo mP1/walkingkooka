@@ -44,7 +44,7 @@ public final class RouteMasterBuilderTest extends BuilderTestCase<RouteMasterBui
                 .equalsValue(Names.string("path-0"), "dir-1")
                 .equalsValue(Names.string("path-1"), "file-2.txt");
 
-        final RouteMasterBuilder<String> builder = RouteMasterBuilder.create()
+        final RouteMasterBuilder<String> builder = RouteMasterBuilder.<String>create()
                 .add(route1);
         assertEquals("\"path-0\"=\"dir-1\" & \"path-1\"=\"file-2.txt\" ->one", builder.toString());
     }

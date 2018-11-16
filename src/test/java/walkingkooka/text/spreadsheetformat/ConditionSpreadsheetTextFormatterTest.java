@@ -37,8 +37,8 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ConditionSpreadsheetTextFormatter<Object>,
-        Object,
+public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ConditionSpreadsheetTextFormatter<String>,
+        String,
         SpreadsheetFormatConditionParserToken> {
 
     private final static String TEXT_PATTERN = "!@@";
@@ -46,16 +46,6 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     @Test(expected = NullPointerException.class)
     public void testWithNullWrappedFormatterFails() {
         ConditionSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), null);
-    }
-
-    @Test
-    public void testUnconvertableValueFails() {
-        this.formatFailAndCheck(new Object());
-    }
-
-    @Test
-    public void testConditionFailsFormatterSkipped() {
-        this.formatFailAndCheck(new Object());
     }
 
     // EQ.....................................................................................
@@ -165,17 +155,17 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
         assertEquals(this.pattern() + " " + TEXT_PATTERN, this.createFormatter().toString());
     }
 
-    private ConditionSpreadsheetTextFormatter createFormatter0(final String expression) {
+    private ConditionSpreadsheetTextFormatter<String> createFormatter0(final String expression) {
         return this.createFormatter0(this.parsePatternOrFail(expression));
     }
 
     @Override
-    ConditionSpreadsheetTextFormatter createFormatter0(final SpreadsheetFormatConditionParserToken token) {
+    ConditionSpreadsheetTextFormatter<String> createFormatter0(final SpreadsheetFormatConditionParserToken token) {
         return ConditionSpreadsheetTextFormatter.with(token, this.formatter());
     }
 
     private SpreadsheetTextFormatter<String> formatter() {
-        return new SpreadsheetTextFormatter() {
+        return new SpreadsheetTextFormatter<String>() {
 
             @Override
             public Class<String> type() {
@@ -183,7 +173,7 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
             }
 
             @Override
-            public Optional<SpreadsheetFormattedText> format(final Object value, final SpreadsheetTextFormatContext context) {
+            public Optional<SpreadsheetFormattedText> format(final String value, final SpreadsheetTextFormatContext context) {
                 return Optional.of(SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, formattedText(value)));
             }
 
@@ -248,7 +238,7 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
     }
 
     @Override
-    protected Class<ConditionSpreadsheetTextFormatter<Object>> type() {
+    protected Class<ConditionSpreadsheetTextFormatter<String>> type() {
         return Cast.to(ConditionSpreadsheetTextFormatter.class);
     }
 }

@@ -143,11 +143,13 @@ public class AlternativesParserTest extends ParserTemplateTestCase<AlternativesP
         return this.createParser0(PARSER1, PARSER2);
     }
 
-    private AlternativesParser<ParserContext> createParser0(final Parser<ParserToken, ParserContext>...parsers) {
+    @SafeVarargs
+    private final AlternativesParser<ParserContext> createParser0(final Parser<ParserToken, ParserContext>...parsers) {
         return this.createParser1(parsers).cast();
     }
 
-    private Parser<ParserToken, ParserContext> createParser1(final Parser<ParserToken, ParserContext>...parsers) {
+    @SafeVarargs
+    private final Parser<ParserToken, ParserContext> createParser1(final Parser<ParserToken, ParserContext>...parsers) {
         return AlternativesParser.with(Cast.to(Lists.of(parsers)));
     }
 

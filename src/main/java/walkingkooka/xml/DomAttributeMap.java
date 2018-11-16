@@ -45,8 +45,8 @@ final class DomAttributeMap extends DomMap<DomAttributeName, String> {
     }
 
     @Override
-    DomMapEntrySetEntry entry(final Node node) {
+    DomMapEntrySetEntry<DomAttributeName, String> entry(final Node node) {
         final org.w3c.dom.Attr attr = Cast.to(node);
-        return new DomMapEntrySetEntry(DomAttributeName.wrap(attr), attr.getValue());
+        return new DomMapEntrySetEntry<>(DomAttributeName.wrap(attr), attr.getValue());
     }
 }

@@ -48,7 +48,7 @@ final class ChildrenNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new ChildrenNodeSelector(selector);
+        return new ChildrenNodeSelector<N, NAME, ANAME, AVALUE>(selector);
     }
 
     // NodeSelector

@@ -399,7 +399,7 @@ public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecima
     }
 
     @Override
-    protected BigDecimalParser createParser() {
+    protected BigDecimalParser<ParserContext> createParser() {
         return BigDecimalParser.with(MathContext.DECIMAL64);
     }
 

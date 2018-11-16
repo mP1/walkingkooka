@@ -126,11 +126,13 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
         }
     }
 
-    protected void iterateUsingHasNextAndCheck(final T... expected) {
+    @SafeVarargs
+    protected final void iterateUsingHasNextAndCheck(final T... expected) {
         this.iterateUsingHasNextAndCheck(this.createIterator(), expected);
     }
 
-    protected <U> void iterateUsingHasNextAndCheck(final Iterator<U> iterator, final U... expected) {
+    @SafeVarargs
+    protected final <U> void iterateUsingHasNextAndCheck(final Iterator<U> iterator, final U... expected) {
         Assert.assertNotNull("iterator", iterator);
 
         int i = 0;
@@ -147,11 +149,13 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
         this.checkNextFails(iterator);
     }
 
-    protected void iterateAndCheck(final T... expected) {
+    @SafeVarargs
+    protected final void iterateAndCheck(final T... expected) {
         this.iterateAndCheck(this.createIterator(), expected);
     }
 
-    protected <U> void iterateAndCheck(final Iterator<U> iterator, final U... expected) {
+    @SafeVarargs
+    protected final <U> void iterateAndCheck(final Iterator<U> iterator, final U... expected) {
         Assert.assertNotNull("iterator", iterator);
 
         int i = 0;

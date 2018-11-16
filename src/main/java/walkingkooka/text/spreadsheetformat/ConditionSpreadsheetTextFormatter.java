@@ -39,7 +39,7 @@ final class ConditionSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatte
         check(token);
         Objects.requireNonNull(formatter, "formatter");
 
-        return new ConditionSpreadsheetTextFormatter(token, formatter);
+        return new ConditionSpreadsheetTextFormatter<T>(token, formatter);
     }
 
     /**

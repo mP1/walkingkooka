@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * Base {@link SearchLeafQuery} that operate on values with a {@link SearchQueryTester}
  */
-abstract class SearchValueComparisonLeafQuery extends SearchLeafQuery {
+abstract class SearchValueComparisonLeafQuery extends SearchLeafQuery<SearchQueryValue> {
 
     SearchValueComparisonLeafQuery(final SearchQueryValue value, final SearchQueryTester tester){
         super(value);

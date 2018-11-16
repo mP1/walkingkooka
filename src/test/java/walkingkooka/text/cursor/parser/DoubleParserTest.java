@@ -491,7 +491,7 @@ public final class DoubleParserTest extends ParserTemplateTestCase<DoubleParser<
     }
 
     @Override
-    protected DoubleParser createParser() {
+    protected DoubleParser<ParserContext> createParser() {
         return DoubleParser.instance();
     }
 

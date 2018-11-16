@@ -97,6 +97,6 @@ public class ObjectArrayToStringBuilderTest extends VectorToStringBuilderTestCas
 
     @Override
     String value2ToString(final String separator) {
-        return Lists.of(true, 1, 2, 3, 4, 5.0, 6.0, "ABC").stream().map(e -> String.valueOf(e)).collect(Collectors.joining(separator));
+        return Lists.<Object>of(true, 1, 2, 3, 4, 5.0, 6.0, "ABC").stream().map(e -> String.valueOf(e)).collect(Collectors.joining(separator));
     }
 }

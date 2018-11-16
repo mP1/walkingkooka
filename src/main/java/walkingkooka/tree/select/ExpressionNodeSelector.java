@@ -44,7 +44,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     ExpressionNodeSelector<N, NAME, ANAME, AVALUE> with(final ExpressionNode expressionNode) {
         Objects.requireNonNull(expressionNode, "expressionNode");
 
-        return new ExpressionNodeSelector(expressionNode, NodeSelector.terminal());
+        return new ExpressionNodeSelector<N, NAME, ANAME, AVALUE>(expressionNode, NodeSelector.terminal());
     }
 
     /**
@@ -59,7 +59,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     // NodeSelector
 
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new ExpressionNodeSelector<>(this.expressionNode, selector);
+        return new ExpressionNodeSelector<N, NAME, ANAME, AVALUE>(this.expressionNode, selector);
     }
 
     @Override

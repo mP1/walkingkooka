@@ -20,16 +20,11 @@ package walkingkooka.build.tostring;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.build.BuilderTestCase;
-import walkingkooka.collect.enumeration.Enumerations;
-import walkingkooka.collect.iterable.Iterables;
-import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
-import java.util.Enumeration;
-import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -557,26 +552,6 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     @Override
     protected ToStringBuilder createBuilder() {
         return ToStringBuilder.create();
-    }
-
-    private <T> Iterable<T> iterable(final T... items) {
-        return Iterables.iterator(this.iterator(items));
-    }
-
-    private <T> Iterator<T> iterator(final T... items) {
-        return Iterators.array(items);
-    }
-
-    private <T> Enumeration<T> enumeration(final T... items) {
-        return Enumerations.array(items);
-    }
-
-    private Object[] createUsesToStringBuilder(final Object... results) {
-        final Object[] uses = new Object[results.length];
-        for (int i = 0; i < results.length; i++) {
-            uses[i] = this.createUsesToStringBuilder(results[i]);
-        }
-        return uses;
     }
 
     private UsesToStringBuilder createUsesToStringBuilder(final Object result) {

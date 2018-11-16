@@ -29,7 +29,7 @@ public final class SingleQuotedParserTest extends QuotedParserTestCase<SingleQuo
     }
 
     @Override
-    protected SingleQuotedParser createParser() {
+    protected SingleQuotedParser<ParserContext> createParser() {
         return SingleQuotedParser.instance();
     }
 

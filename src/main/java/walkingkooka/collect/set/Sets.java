@@ -71,6 +71,7 @@ final public class Sets implements PublicStaticHelper {
      * Convenience method that creates a set from an array of elements. This method only exists of a
      * convenience because Lists.of() does not have a {@link Set} equivalent.
      */
+    @SafeVarargs
     public static <E> Set<E> of(final E... elements) {
         Objects.requireNonNull(elements, "elements");
 

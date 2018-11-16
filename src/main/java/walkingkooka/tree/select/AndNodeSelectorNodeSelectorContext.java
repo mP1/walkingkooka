@@ -38,7 +38,7 @@ final class AndNodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AV
             ANAME extends Name,
             AVALUE> AndNodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context,
                                                final Consumer<N> selected) {
-        return new AndNodeSelectorNodeSelectorContext(context, selected);
+        return new AndNodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE>(context, selected);
     }
 
     private AndNodeSelectorNodeSelectorContext(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context,

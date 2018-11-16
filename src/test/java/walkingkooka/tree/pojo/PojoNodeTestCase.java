@@ -84,7 +84,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
     abstract V differentValue();
 
     private void checkValue(final PojoNode node, final V value) {
-        checkValue((V)value, (V)node.value());
+        checkValue((V)value, Cast.to(node.value()));
     }
 
     abstract void checkValue(V expected, V actual);
@@ -105,7 +105,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
         final List<PojoNode> children = node.children();
         assertEquals("children count=" + children, properties.size(), children.size());
         assertEquals("properties of " + node + "=" + children,
-                new TreeSet(properties),
+                new TreeSet<PojoName>(properties),
                 children.stream().map(n -> n.name()).collect(Collectors.toCollection(TreeSet::new)));
         this.childrenCheck(node);
     }

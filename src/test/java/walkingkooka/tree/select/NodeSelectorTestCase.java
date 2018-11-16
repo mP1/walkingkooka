@@ -93,6 +93,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
         this.acceptAndCheck(this.createSelector(), start, nodes);
     }
 
+    @SafeVarargs
     final void acceptAndCheck(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
                                final TestFakeNode start,
                                final TestFakeNode... nodes) {

@@ -32,7 +32,7 @@ final class BooleanConverter<S, T> extends FixedTargetTypeConverter<T> {
         Objects.requireNonNull(trueAnswer, "trueAnswer");
         Objects.requireNonNull(falseAnswer, "falseAnswer");
 
-        return new BooleanConverter(sourceType, falseValue, targetType, trueAnswer, falseAnswer);
+        return new BooleanConverter<>(sourceType, falseValue, targetType, trueAnswer, falseAnswer);
     }
 
     private BooleanConverter(final Class<S> sourceType, final S falseValue, final Class<T> targetType, final T trueAnswer, final T falseAnswer) {

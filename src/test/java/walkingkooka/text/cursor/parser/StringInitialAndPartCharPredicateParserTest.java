@@ -24,7 +24,7 @@ import walkingkooka.predicate.character.CharPredicates;
 
 import static org.junit.Assert.assertEquals;
 
-public class StringInitialAndPartCharPredicateParserTest extends ParserTemplateTestCase<StringInitialAndPartCharPredicateParser<ParserContext>, StringParserToken> {
+public final class StringInitialAndPartCharPredicateParserTest extends ParserTemplateTestCase<StringInitialAndPartCharPredicateParser<ParserContext>, StringParserToken> {
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.digit();
@@ -109,11 +109,11 @@ public class StringInitialAndPartCharPredicateParserTest extends ParserTemplateT
     }
 
     @Override
-    protected StringInitialAndPartCharPredicateParser createParser() {
+    protected StringInitialAndPartCharPredicateParser<ParserContext> createParser() {
         return this.createParser(MIN_LENGTH, MAX_LENGTH);
     }
 
-    private StringInitialAndPartCharPredicateParser createParser(final int min, final int max) {
+    private StringInitialAndPartCharPredicateParser<ParserContext> createParser(final int min, final int max) {
         return StringInitialAndPartCharPredicateParser.with(INITIAL, PART, min, max);
     }
 
