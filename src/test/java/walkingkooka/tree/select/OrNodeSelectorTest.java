@@ -65,8 +65,9 @@ public final class OrNodeSelectorTest extends
                 child, root);
     }
 
+    @SafeVarargs
     @Override
-    NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(
+    final NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(
             final NodeSelector<TestFakeNode, StringName, StringName, Object> ...selectors) {
         return OrNodeSelector.with(Lists.of(selectors));
     }

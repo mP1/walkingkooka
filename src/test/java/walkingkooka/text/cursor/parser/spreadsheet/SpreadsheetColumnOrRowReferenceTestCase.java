@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference> extends PublicClassTestCase<V> {
+public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference<V>> extends PublicClassTestCase<V> {
 
     final static int VALUE = 123;
     final static SpreadsheetReferenceKind REFERENCE_KIND = SpreadsheetReferenceKind.ABSOLUTE;
@@ -189,7 +189,7 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
 
     abstract V create(final int value, final SpreadsheetReferenceKind kind);
 
-    final void checkValue(final SpreadsheetColumnOrRowReference<?> reference, final Integer value) {
+    private void checkValue(final SpreadsheetColumnOrRowReference<?> reference, final Integer value) {
         assertEquals("value", value, reference.value());
     }
 

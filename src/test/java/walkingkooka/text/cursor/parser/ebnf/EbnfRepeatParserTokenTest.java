@@ -86,7 +86,7 @@ public class EbnfRepeatParserTokenTest extends EbnfGroupOptionalRepeatParentPars
         }.accept(repeated);
         assertEquals("13513742642", b.toString());
         assertEquals("visited",
-                Lists.of(repeated, repeated, repeated,
+                Lists.<Object>of(repeated, repeated, repeated,
                         identifier1, identifier1, identifier1, identifier1, identifier1,
                         repeated, repeated, repeated),
                 visited);

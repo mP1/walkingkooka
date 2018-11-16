@@ -17,6 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
+import walkingkooka.Cast;
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.text.cursor.parser.ParserToken;
 
@@ -34,7 +35,7 @@ abstract public class SpreadsheetFormatConditionParserToken<T extends Spreadshee
     SpreadsheetFormatConditionParserToken(final List<ParserToken> value, final String text, final List<ParserToken> valueWithout) {
         super(value, text, valueWithout);
 
-        final List<SpreadsheetFormatParserToken> without = SpreadsheetFormatParentParserToken.class.cast(this.withoutSymbols().get()).value();
+        final List<SpreadsheetFormatParserToken> without = Cast.to(SpreadsheetFormatParentParserToken.class.cast(this.withoutSymbols().get()).value());
         final int count = without.size();
         if (1 != count) {
             throw new IllegalArgumentException("Expected 1 token but got " + count + "=" + without);

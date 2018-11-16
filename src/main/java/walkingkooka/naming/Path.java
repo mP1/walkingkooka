@@ -18,6 +18,7 @@
 package walkingkooka.naming;
 
 
+import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.stack.Stack;
@@ -52,10 +53,10 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
     /**
      * Appends the given {@link Path} to this returning the result.
      */
-    default P append(P path) {
+    default P append(final P path) {
         Objects.requireNonNull(path, "path");
 
-        P result = (P) this;
+        P result = Cast.to(this);
 
         for (N component : this) {
             result = result.append(component);
@@ -70,7 +71,7 @@ public interface Path<P extends Path<P, N>, N extends Name> extends Value<String
     @Override
     default Iterator<N> iterator() {
         final Stack<N> components = Stacks.arrayList();
-        visitParent((P) this, components);
+        visitParent(Cast.to(this), components);
         return Iterators.readOnly(components.iterator());
     }
 

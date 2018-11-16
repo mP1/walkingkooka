@@ -101,11 +101,11 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<Parser
     }
 
     @Override
-    protected StringParser createParser() {
+    protected StringParser<ParserContext> createParser() {
         return StringParser.with(STRING, CASE_SENSITIVITY);
     }
 
-    private StringParser createParserInsensitive() {
+    private StringParser<ParserContext> createParserInsensitive() {
         return StringParser.with(STRING, CaseSensitivity.INSENSITIVE);
     }
 

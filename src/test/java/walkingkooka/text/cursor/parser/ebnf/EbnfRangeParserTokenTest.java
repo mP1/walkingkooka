@@ -187,7 +187,7 @@ public final class EbnfRangeParserTokenTest extends EbnfParentParserTokenTestCas
         }.accept(range);
         assertEquals("135138421374213842642", b.toString());
         assertEquals("visited",
-                Lists.of(range, range, range,
+                Lists.<Object>of(range, range, range,
                         terminal1, terminal1, terminal1, terminal1, terminal1,
                         between, between, between, between, between,
                         terminal2, terminal2, terminal2, terminal2, terminal2,

@@ -45,7 +45,7 @@ final class SequenceParser<C extends ParserContext> extends ParserTemplate<Seque
 
         final List<ParserToken> tokens = Lists.array();
 
-        for(SequenceParserComponent component : this.components) {
+        for(SequenceParserComponent<C> component : this.components) {
             final Optional<ParserToken> token = component.parse(cursor, context);
             if(token.isPresent()) {
                 tokens.add(token.get());

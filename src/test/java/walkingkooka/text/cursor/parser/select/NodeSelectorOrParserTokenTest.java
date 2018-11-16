@@ -94,7 +94,7 @@ public final class NodeSelectorOrParserTokenTest extends NodeSelectorBinaryParse
         }.accept(and);
         assertEquals("1315216217242", b.toString());
         assertEquals("visited",
-                Lists.of(and, and,
+                Lists.<Object>of(and, and,
                         nodeName, nodeName, nodeName,
                         orSymbol, orSymbol, orSymbol,
                         wildcard, wildcard, wildcard,

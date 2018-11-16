@@ -29,6 +29,7 @@ import java.util.Objects;
  */
 final class ArrayIterator<T> implements Iterator<T> {
 
+    @SafeVarargs
     static <T> ArrayIterator<T> with(final T... items) {
         Objects.requireNonNull(items, "items");
 

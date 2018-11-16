@@ -34,12 +34,12 @@ final class ColorSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatterTem
     /**
      * Creates a {@link ColorSpreadsheetTextFormatter}
      */
-    static <T> ColorSpreadsheetTextFormatter with(final SpreadsheetFormatColorParserToken token,
+    static <T> ColorSpreadsheetTextFormatter<T> with(final SpreadsheetFormatColorParserToken token,
                                                   final SpreadsheetTextFormatter<T> formatter) {
         check(token);
         Objects.requireNonNull(formatter, "formatter");
 
-        return new ColorSpreadsheetTextFormatter(token,
+        return new ColorSpreadsheetTextFormatter<T>(token,
                 formatter instanceof ColorSpreadsheetTextFormatter ? unwrap(Cast.to(formatter)) : formatter);
     }
 
@@ -88,12 +88,12 @@ final class ColorSpreadsheetTextFormatter<T> extends SpreadsheetTextFormatterTem
     /**
      * Either the color index (int) or color name (String)
      */
-    final ColorSpreadsheetTextFormatterColorSource source;
+    private final ColorSpreadsheetTextFormatterColorSource source;
 
     /**
      * Either an int or name.
      */
-    final Object sourceValue;
+    private final Object sourceValue;
 
     @Override final String toStringSuffix() {
         return " " + this.formatter;

@@ -42,7 +42,7 @@ public final class Route<T> {
     public static <T> Route<T> with(final T target) {
         Objects.requireNonNull(target, "target");
 
-        return new Route<>(target, Maps.empty());
+        return new Route<T>(target, Maps.empty());
     }
 
     private Route(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
@@ -65,7 +65,7 @@ public final class Route<T> {
         nameToCondition.putAll(this.nameToCondition);
         nameToCondition.put(name, valueTest);
 
-        return new Route(this.target, nameToCondition);
+        return new Route<T>(this.target, nameToCondition);
     }
 
     final Map<Name, Predicate<Object>> nameToCondition;

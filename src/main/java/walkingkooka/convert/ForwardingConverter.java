@@ -30,12 +30,12 @@ final class ForwardingConverter<S, T> extends FixedTargetTypeConverter<T> {
     /**
      * Factory that creates a new {@link ForwardingConverter}
      */
-    static <S, T> ForwardingConverter with(final Converter converter, final Class<S> sourceType, final Class<T> targetType) {
+    static <S, T> ForwardingConverter<S, T> with(final Converter converter, final Class<S> sourceType, final Class<T> targetType) {
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(sourceType, "sourceType");
         Objects.requireNonNull(targetType, "targetType");
 
-        return new ForwardingConverter(converter, sourceType, targetType);
+        return new ForwardingConverter<S, T>(converter, sourceType, targetType);
     }
 
     /**

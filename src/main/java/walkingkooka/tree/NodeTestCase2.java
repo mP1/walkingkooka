@@ -201,7 +201,8 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
         return newParent;
     }
 
-    protected N setChildrenAndCheck(final N parent, final N... children) {
+    @SafeVarargs
+    protected final N setChildrenAndCheck(final N parent, final N... children) {
         final N newParent = parent.setChildren(Arrays.asList(children));
 
         this.checkParentOfChildren(newParent);
@@ -217,7 +218,8 @@ abstract public class NodeTestCase2<N extends Node<N, NAME, ANAME, AVALUE>,
         }
     }
 
-    protected void checkChildCount(final N parent, final N... children) {
+    @SafeVarargs
+    protected final void checkChildCount(final N parent, final N... children) {
         this.checkChildCount(parent, children.length);
     }
 

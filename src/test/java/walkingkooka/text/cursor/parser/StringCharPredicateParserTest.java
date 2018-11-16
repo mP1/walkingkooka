@@ -107,11 +107,11 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
     }
 
     @Override
-    protected StringCharPredicateParser createParser() {
+    protected StringCharPredicateParser<ParserContext> createParser() {
         return this.createParser(MIN_LENGTH, MAX_LENGTH);
     }
 
-    protected StringCharPredicateParser createParser(final int min, final int max) {
+    protected StringCharPredicateParser<ParserContext> createParser(final int min, final int max) {
         return StringCharPredicateParser.with(DIGITS, min, max);
     }
 

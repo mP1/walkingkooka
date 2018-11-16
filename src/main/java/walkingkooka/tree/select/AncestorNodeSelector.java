@@ -51,7 +51,7 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
          // no point appending a ancestor to another...
         return selector instanceof AncestorNodeSelector ?
                 this :
-                new AncestorNodeSelector(selector);
+                new AncestorNodeSelector<N, NAME, ANAME, AVALUE>(selector);
     }
 
     @Override

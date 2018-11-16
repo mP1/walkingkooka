@@ -26,30 +26,36 @@ import java.util.List;
 /**
  * Represents a component that matches a node by its element.
  */
-final class NodeChildElementNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends NodePointer<N, NAME, ANAME, AVALUE>{
+final class NodeChildElementNodePointer<N extends Node<N, NAME, ANAME, AVALUE>,
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> extends NodePointer<N, NAME, ANAME, AVALUE>{
 
     /**
      * Creates a {@link NodeChildElementNodePointer}
      */
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeChildElementNodePointer<N, NAME, ANAME, AVALUE> with(final int index) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodeChildElementNodePointer<N, NAME, ANAME, AVALUE> with(final int index) {
         if(index < 0) {
             throw new IllegalArgumentException("Invalid index " + index + " values should be greater or equal to 0");
         }
 
-        return new NodeChildElementNodePointer<>(index, NO_NEXT);
+        return new NodeChildElementNodePointer<N, NAME, ANAME, AVALUE>(index, absent());
     }
 
     /**
      * Private ctor.
      */
-    NodeChildElementNodePointer(final int index, final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
+    private NodeChildElementNodePointer(final int index, final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
         super(pointer);
         this.index = index;
     }
 
     @Override
     NodePointer<N, NAME, ANAME, AVALUE> append(final NodePointer<N, NAME, ANAME, AVALUE> pointer) {
-        return new NodeChildElementNodePointer<>(this.index, this.appendToNext(pointer));
+        return new NodeChildElementNodePointer<N, NAME, ANAME, AVALUE>(this.index, this.appendToNext(pointer));
     }
 
     @Override

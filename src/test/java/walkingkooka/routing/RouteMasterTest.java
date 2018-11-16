@@ -51,7 +51,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
         final Route<String> route = Route.with(ONE)
                 .equalsValue(PATH_0, file1);
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route)
                 .build();
 
@@ -67,7 +67,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
         final Route<String> route = Route.with(ONE)
                 .equalsValue(PATH_0, this.file1());
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route)
                 .build();
 
@@ -90,7 +90,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
         final Route<String> route2 = Route.with(TWO)
                 .equalsValue(PATH_0, file2);
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .build();
@@ -112,7 +112,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_0, dir)
                 .equalsValue(PATH_1, this.file2());
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .build();
@@ -140,7 +140,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_1, this.file2())
                 .equalsValue(PATH_0, dir);
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .build();
@@ -168,7 +168,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_0, this.dir2())
                 .equalsValue(PATH_1, this.file2());
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .build();
@@ -196,7 +196,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_0, this.dir2())
                 .equalsValue(PATH_1, file1);
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .build();
@@ -226,7 +226,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_1, this.dir3())
                 .equalsValue(PATH_2, this.file3());
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .add(route3)
@@ -271,7 +271,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_1, this.dir5())
                 .equalsValue(PATH_2, this.file3());
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .add(route3)
@@ -319,14 +319,14 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_1, this.dir5())
                 .equalsValue(PATH_2, this.file3());
 
-        this.buildOrderUnimportantCheck(RouteMasterBuilder.create()
+        this.buildOrderUnimportantCheck(RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .add(route3)
                 .add(route4)
                 .build());
 
-        this.buildOrderUnimportantCheck(RouteMasterBuilder.create()
+        this.buildOrderUnimportantCheck(RouteMasterBuilder.<String>create()
                 .add(route4)
                 .add(route3)
                 .add(route2)
@@ -362,7 +362,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_0, this.dir1())
                 .equalsValue(PATH_1, this.file1());
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .build();
         assertEquals("\"path-0\"=dir-1-abc & \"path-1\"=file-1-one.txt ->target-1", master.toString());
@@ -378,7 +378,7 @@ public final class RouteMasterTest extends PublicClassTestCase<RouteMaster> {
                 .equalsValue(PATH_0, this.dir2())
                 .equalsValue(PATH_1, this.file2());
 
-        final RouteMaster<String> master = RouteMasterBuilder.create()
+        final RouteMaster<String> master = RouteMasterBuilder.<String>create()
                 .add(route1)
                 .add(route2)
                 .build();

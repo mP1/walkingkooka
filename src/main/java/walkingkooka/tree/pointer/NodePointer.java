@@ -90,6 +90,13 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     }
 
     /**
+     * Type safe null for use to mark no next. Intended for use only within this package.
+     */
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> absent() {
+        return null;
+    }
+
+    /**
      * Creates a match all.
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodePointer<N, NAME, ANAME, AVALUE> all(final Class<N> nodeType) {
@@ -136,11 +143,6 @@ public abstract class NodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         Objects.requireNonNull(nodeType, "nodeType");
         return RelativeNodePointer.with(ancestor, true);
     }
-
-    /**
-     * Named constant marking a terminal in a pointer.
-     */
-    final static NodePointer NO_NEXT = null;
 
     /**
      * Package private ctor to limit sub classing.

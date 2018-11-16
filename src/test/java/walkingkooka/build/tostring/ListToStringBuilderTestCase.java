@@ -28,7 +28,7 @@ public abstract class ListToStringBuilderTestCase<T> extends VectorToStringBuild
     public final void testValueIncludesDefault(){
         final ToStringBuilder b = this.builder();
         b.label(LABEL);
-        b.value(this.toValue(Lists.of(false, (byte)0, (short)0, 0, 0L, 0.0f, 0.0, "")));
+        b.value(this.toValue(Lists.<Object>of(false, (byte)0, (short)0, 0, 0L, 0.0f, 0.0, "")));
 
         this.buildAndCheck(b, "LABEL=false, 0, 0, 0, 0, 0.0, 0.0, ");
     }

@@ -44,9 +44,9 @@ final class DomNotationMap extends DomMap<DomName, DomNotation> {
     }
 
     @Override
-    DomMapEntrySetEntry entry(final Node node) {
+    DomMapEntrySetEntry<DomName, DomNotation> entry(final Node node) {
         final DomNotation notation = new DomNotation(node);
 
-        return new DomMapEntrySetEntry(notation.name(), notation);
+        return new DomMapEntrySetEntry<DomName, DomNotation>(notation.name(), notation);
     }
 }

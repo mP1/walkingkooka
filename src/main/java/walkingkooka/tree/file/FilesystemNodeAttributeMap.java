@@ -26,7 +26,7 @@ import java.util.Set;
 /**
  * A {@link java.util.Map} that holds the attributes for both files and directories.
  */
-final class FilesystemNodeAttributeMap<N extends FilesystemNode> extends AbstractMap<FilesystemNodeAttributeName, String> {
+final class FilesystemNodeAttributeMap extends AbstractMap<FilesystemNodeAttributeName, String> {
 
     /**
      * Factory only called by the {@link FilesystemNode} ctor.

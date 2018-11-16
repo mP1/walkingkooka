@@ -31,7 +31,7 @@ import java.util.function.Predicate;
 final class RouteMasterPredicate<T> extends RouteMaster<T> {
 
     static <T> RouteMasterPredicate<T> with(final Name name, final Predicate<Object> value, final RouteMaster<T> next) {
-        return new RouteMasterPredicate(name, value, next);
+        return new RouteMasterPredicate<T>(name, value, next);
     }
 
     private RouteMasterPredicate(final Name name, final Predicate<Object> value, final RouteMaster<T> next) {

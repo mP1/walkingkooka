@@ -29,6 +29,7 @@ final public class Iterators implements PublicStaticHelper {
     /**
      * {@see ArrayIterator}
      */
+    @SafeVarargs
     public static <E> Iterator<E> array(final E... array) {
         return ArrayIterator.with(array);
     }

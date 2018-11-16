@@ -54,7 +54,7 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         // no point appending a descending to another...
         return selector instanceof DescendantOrSelfNodeSelector ?
                 this :
-                new DescendantOrSelfNodeSelector(this.separator, selector);
+                new DescendantOrSelfNodeSelector<>(this.separator, selector);
     }
 
     @Override

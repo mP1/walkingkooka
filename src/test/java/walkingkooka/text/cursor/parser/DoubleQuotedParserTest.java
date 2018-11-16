@@ -29,7 +29,7 @@ public final class DoubleQuotedParserTest extends QuotedParserTestCase<DoubleQuo
     }
 
     @Override
-    protected DoubleQuotedParser createParser() {
+    protected DoubleQuotedParser<ParserContext> createParser() {
         return DoubleQuotedParser.instance();
     }
 

@@ -57,7 +57,7 @@ final class NoneNodePointer<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends
         pointer.toString0(b);
         pointer.lastToString(b);
 
-        return new NoneNodePointer(b.toString());
+        return new NoneNodePointer<N, NAME, ANAME, AVALUE>(b.toString());
     }
 
     @Override

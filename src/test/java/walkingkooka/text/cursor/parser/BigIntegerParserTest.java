@@ -150,7 +150,7 @@ public class BigIntegerParserTest extends ParserTemplateTestCase<BigIntegerParse
     }
 
     @Override
-    protected BigIntegerParser createParser() {
+    protected BigIntegerParser<ParserContext> createParser() {
         return BigIntegerParser.with(RADIX);
     }
 

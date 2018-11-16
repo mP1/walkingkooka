@@ -188,6 +188,7 @@ abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends
     /**
      * Concatenates a full path composed by the given names components
      */
+    @SafeVarargs
     final String concat(final N... names) {
         final PathSeparator separator = this.separator();
         final char separatorCharacter = separator.character();

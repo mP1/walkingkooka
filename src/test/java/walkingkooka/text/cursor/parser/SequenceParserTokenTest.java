@@ -186,7 +186,8 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
             }
         }.accept(token);
         assertEquals("1316216242", b.toString());
-        assertEquals("visited tokens", Lists.of(token, token, STRING1, STRING1, STRING1, STRING2, STRING2, STRING2, token, token), visited);
+        assertEquals("visited tokens",
+                Lists.<Object>of(token, token, STRING1, STRING1, STRING1, STRING2, STRING2, STRING2, token, token), visited);
     }
 
     @Test

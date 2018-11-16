@@ -311,7 +311,8 @@ abstract public class ClassTestCase<T> extends TestCase {
         return result;
     }
 
-    protected void checkNaming(final Class<?>... superTypes) {
+    @SafeVarargs
+    protected final void checkNaming(final Class<?>... superTypes) {
         assertNotNull("superTypes is null", superTypes);
 
         final int count = superTypes.length;

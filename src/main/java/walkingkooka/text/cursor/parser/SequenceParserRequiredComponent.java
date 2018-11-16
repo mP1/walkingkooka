@@ -22,7 +22,7 @@ import java.util.Optional;
 
 final class SequenceParserRequiredComponent<C extends ParserContext> extends SequenceParserComponent<C> {
 
-    SequenceParserRequiredComponent(final Parser parser) {
+    SequenceParserRequiredComponent(final Parser<ParserToken, C> parser) {
         super(parser);
     }
 

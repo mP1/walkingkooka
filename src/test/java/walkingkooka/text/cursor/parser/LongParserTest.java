@@ -216,7 +216,7 @@ public class LongParserTest extends ParserTemplateTestCase<LongParser<ParserCont
     }
 
     @Override
-    protected LongParser createParser() {
+    protected LongParser<ParserContext> createParser() {
         return LongParser.with(RADIX);
     }
 

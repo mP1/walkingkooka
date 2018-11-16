@@ -42,7 +42,7 @@ public final class FilesystemNodeCacheAtomTest extends PublicClassTestCase<Files
     private Set<String> names(final Class<? extends Enum> constants) {
         final Set<? extends Enum> all = EnumSet.allOf(constants);
         return all.stream()
-                .map( e -> ((Enum) e).name())
+                .map( e -> e.name())
                 .collect(Collectors.toCollection(TreeSet::new));
     }
 

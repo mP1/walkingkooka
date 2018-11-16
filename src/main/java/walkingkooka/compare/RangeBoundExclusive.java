@@ -32,7 +32,7 @@ final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBound<C> {
      */
     static <C extends Comparable<C>> RangeBoundExclusive<C> with(final C value) {
         Objects.requireNonNull(value, "value");
-        return new RangeBoundExclusive(value);
+        return new RangeBoundExclusive<C>(value);
     }
 
     /**

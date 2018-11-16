@@ -84,12 +84,14 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
         }
     }
 
-    protected void enumerateUsingHasMoreElementAndCheck(final T... expected) {
+    @SafeVarargs
+    protected final void enumerateUsingHasMoreElementAndCheck(final T... expected) {
         this.enumerateUsingHasMoreElementsAndCheck(this.createEnumeration(), expected);
     }
 
-    protected <U> void enumerateUsingHasMoreElementsAndCheck(final Enumeration<U> enumeration,
-                                                             final U... expected) {
+    @SafeVarargs
+    protected final <U> void enumerateUsingHasMoreElementsAndCheck(final Enumeration<U> enumeration,
+                                                                   final U... expected) {
         Assert.assertNotNull("enumeration", enumeration);
 
         int i = 0;
@@ -106,11 +108,13 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
         this.checkNextElementFails(enumeration);
     }
 
-    protected void enumerateAndCheck(final T... expected) {
+    @SafeVarargs
+    protected final void enumerateAndCheck(final T... expected) {
         this.enumerateAndCheck(this.createEnumeration(), expected);
     }
 
-    protected <U> void enumerateAndCheck(final Enumeration<U> enumeration, final U... expected) {
+    @SafeVarargs
+    protected final <U> void enumerateAndCheck(final Enumeration<U> enumeration, final U... expected) {
         Assert.assertNotNull("enumeration", enumeration);
 
         int i = 0;

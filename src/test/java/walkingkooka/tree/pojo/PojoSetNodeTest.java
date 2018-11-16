@@ -235,7 +235,8 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
         return this.children0(firstNode, ELEMENT0);
     }
 
-    private List<PojoNode> children0(final PojoSetNode firstNode, final Object... values) {
+    @SafeVarargs
+    private final List<PojoNode> children0(final PojoSetNode firstNode, final Object... values) {
         final List<PojoNode> children = Lists.array();
         int i = 0;
         for(Object value : values){
@@ -251,7 +252,8 @@ public final class PojoSetNodeTest extends PojoCollectionNodeTestCase<PojoSetNod
         return set;
     }
 
-    private <T> Set<T> set(final T...values) {
+    @SafeVarargs
+    private final <T> Set<T> set(final T...values) {
         final Set<T> set = Sets.ordered();
         set.addAll(Lists.of(values));
         return set;

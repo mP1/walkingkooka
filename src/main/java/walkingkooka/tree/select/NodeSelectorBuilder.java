@@ -80,7 +80,8 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     /**
      * {@see AndNodeSelector}
      */
-    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> and(final NodeSelector<N, NAME, ANAME, AVALUE> ...selectors) {
+    @SafeVarargs
+    public final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> and(final NodeSelector<N, NAME, ANAME, AVALUE> ...selectors) {
         return this.append(AndNodeSelector.with(Lists.of(selectors)));
     }
 
@@ -192,7 +193,8 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     /**
      * {@see OrNodeSelector}
      */
-    public NodeSelectorBuilder<N, NAME, ANAME, AVALUE> or(final NodeSelector<N, NAME, ANAME, AVALUE>...selectors) {
+    @SafeVarargs
+    public final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> or(final NodeSelector<N, NAME, ANAME, AVALUE>...selectors) {
         return this.append(OrNodeSelector.with(Lists.of(selectors)));
     }
 

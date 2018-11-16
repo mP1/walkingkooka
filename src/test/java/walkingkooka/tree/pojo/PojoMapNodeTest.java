@@ -244,6 +244,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         this.childrenValuesCheck(childNode, ENTRY0, ENTRY1);
     }
 
+    @SafeVarargs
     private static Map<Object, Object> map(final Entry<Object, Object>...entries) {
         final Map<Object, Object> map = Maps.ordered();
         for(Entry<Object, Object> entry : entries) {

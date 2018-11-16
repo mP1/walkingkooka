@@ -23,7 +23,7 @@ import java.util.AbstractList;
 /**
  * A read only list view of the tokens belonging to something like {@link SequenceParser}
  */
-final class ParserTokenParentNodeList<T extends ParserToken> extends AbstractList<ParserTokenNode> {
+final class ParserTokenParentNodeList extends AbstractList<ParserTokenNode> {
 
     /**
      * Ctor called by {@link ParserTokenNode#children()}

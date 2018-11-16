@@ -20,7 +20,6 @@ package walkingkooka.text.cursor.parser.ebnf;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.Map;
@@ -29,7 +28,7 @@ import java.util.Set;
 /**
  * Collects all rule identifiers and references.
  */
-final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor<C extends ParserContext> extends EbnfParserTokenVisitor {
+final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor extends EbnfParserTokenVisitor {
 
     EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor() {
         super();
@@ -63,6 +62,7 @@ final class EbnfGrammarParserTokenReferenceCollectorEbnfParserTokenVisitor<C ext
     final Map<EbnfIdentifierName, Set<EbnfRuleParserToken>> ruleIdentifiers = Maps.ordered();
     final Set<EbnfIdentifierName> references = Sets.ordered();
 
+    @Override
     public String toString() {
         return this.references + " " + this.ruleIdentifiers;
     }

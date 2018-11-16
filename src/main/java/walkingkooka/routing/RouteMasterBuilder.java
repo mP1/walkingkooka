@@ -33,15 +33,15 @@ import java.util.function.Predicate;
  */
 public final class RouteMasterBuilder<T> implements Builder<RouteMaster<T>> {
 
-    public static RouteMasterBuilder create() {
-        return new RouteMasterBuilder();
+    public static <T> RouteMasterBuilder<T> create() {
+        return new RouteMasterBuilder<T>();
     }
 
     private RouteMasterBuilder() {
         super();
     }
 
-    public RouteMasterBuilder add(final Route<T> route) {
+    public RouteMasterBuilder<T> add(final Route<T> route) {
         Objects.requireNonNull(route, "route");
 
         final Map<Name, Predicate<Object>> remaining = Maps.ordered();
