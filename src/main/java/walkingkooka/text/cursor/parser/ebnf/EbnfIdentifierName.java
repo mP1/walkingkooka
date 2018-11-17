@@ -23,7 +23,6 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicateBuilder;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 
 /**
  * An identifier.
@@ -61,7 +60,7 @@ final public class EbnfIdentifierName implements Name, Comparable<EbnfIdentifier
      * Factory that creates a {@link EbnfIdentifierName}
      */
     public static EbnfIdentifierName with(final String name) {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, "Identifier", INITIAL, PART);
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "Identifier", INITIAL, PART);
 
         return new EbnfIdentifierName(name);
     }

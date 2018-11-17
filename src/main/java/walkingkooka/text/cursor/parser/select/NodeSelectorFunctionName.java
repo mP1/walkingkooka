@@ -22,7 +22,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionReference;
 
 /**
@@ -40,7 +39,7 @@ final public class NodeSelectorFunctionName implements ExpressionReference, Name
      * Factory that creates a {@link NodeSelectorFunctionName}
      */
     public static NodeSelectorFunctionName with(final String name) {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorFunctionName.class.getSimpleName(), INITIAL, PART);
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorFunctionName.class.getSimpleName(), INITIAL, PART);
 
         final int length = name.length();
         if (length > MAX_LENGTH) {

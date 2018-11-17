@@ -66,20 +66,20 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
 
     @Test
     public void testFailIfNullOrEmptyOrFalsePassInitialOnly() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("A");
+        this.failIfNullOrEmptyOrFalseAndCheck("A");
     }
 
     @Test
     public void testFailIfNullOrEmptyOrFalsePasses2() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("AB");
+        this.failIfNullOrEmptyOrFalseAndCheck("AB");
     }
 
     @Test
     public void testFailIfNullOrEmptyOrFalsePasses3() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("ABCDEFGH");
+        this.failIfNullOrEmptyOrFalseAndCheck("ABCDEFGH");
     }
 
-    private void failIfNullOrEmptyOrInitialAndPartFalseAndCheck(final String text) {
+    private void failIfNullOrEmptyOrFalseAndCheck(final String text) {
         CharPredicates.failIfNullOrEmptyOrFalse(text, "TEXT", CharPredicates.letter());
     }
 
@@ -94,6 +94,85 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
 
     private CharPredicate predicate() {
         return CharPredicates.letter();
+    }
+
+    // 
+
+    // fail ..............................................................
+
+    private final static CharPredicate PREDICATE = CharPredicates.fake();
+
+    @Test(expected = NullPointerException.class)
+    public void testFailIfNullOrEmptyOrInitialAndPartFalseNullCharSequenceFails() {
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(null, "TEXT", PREDICATE, PREDICATE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFailIfNullOrEmptyOrInitialAndPartFalseEmptyCharSequenceFails() {
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("", "TEXT", PREDICATE, PREDICATE);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFailIfNullOrEmptyOrInitialAndPartFalseNullLabelFails() {
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", null, PREDICATE, PREDICATE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFailIfNullOrEmptyOrInitialAndPartFalseEmptyLabelFails() {
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "", PREDICATE, PREDICATE);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFailIfNullOrEmptyOrInitialAndPartFalseNullInitialFails() {
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", null, PREDICATE);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFailIfNullOrEmptyOrInitialAndPartFalseNullPartFails() {
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", PREDICATE, null);
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyOrInitialAndPartFalseInitialTestFails() {
+        this.failIfNullOrEmptyOrInitialAndPartFalseAndFail("98",
+                "TEXT contains invalid char '9' expected letter =\"98\"");
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyOrInitialAndPartFalsePartTestFails() {
+        this.failIfNullOrEmptyOrInitialAndPartFalseAndFail("AB",
+                "TEXT contains invalid char 'B' at position 1 expected digit =\"AB\"");
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyOrInitialAndPartFalsePassInitialOnly() {
+        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("A");
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyOrInitialAndPartFalsePasses2() {
+        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("A1");
+    }
+
+    @Test
+    public void testFailIfNullOrEmptyOrInitialAndPartFalsePasses3() {
+        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("A12345678");
+    }
+
+    private void failIfNullOrEmptyOrInitialAndPartFalseAndCheck(final String text) {
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(text,
+                "TEXT",
+                CharPredicates.letter(),
+                CharPredicates.digit());
+    }
+
+    private void failIfNullOrEmptyOrInitialAndPartFalseAndFail(final String text, final String message) {
+        try {
+            failIfNullOrEmptyOrInitialAndPartFalseAndCheck(text);
+            fail("Expected failure on " + CharSequences.quote(text));
+        } catch (final IllegalArgumentException expected) {
+            assertEquals("exception message different for " + CharSequences.quote(text), message, expected.getMessage());
+        }
     }
 
     @Override

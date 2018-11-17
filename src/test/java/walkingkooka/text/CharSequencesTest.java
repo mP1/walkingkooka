@@ -18,14 +18,11 @@
 package walkingkooka.text;
 
 import org.junit.Test;
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequences> {
 
@@ -187,78 +184,6 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
         assertEquals(CharSequences.quote(chars) + " equals " + CharSequences.quote(endsWith),
                 result,
                 CharSequences.equals(chars, endsWith));
-    }
-
-    // fail ..............................................................
-
-    private final static CharPredicate PREDICATE = CharPredicates.fake();
-
-    @Test(expected = NullPointerException.class)
-    public void testFailIfNullOrEmptyOrInitialAndPartFalseNullCharSequenceFails() {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(null, "TEXT", PREDICATE, PREDICATE);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFailIfNullOrEmptyOrInitialAndPartFalseEmptyCharSequenceFails() {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse("", "TEXT", PREDICATE, PREDICATE);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testFailIfNullOrEmptyOrInitialAndPartFalseNullLabelFails() {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse("ABC", null, PREDICATE, PREDICATE);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFailIfNullOrEmptyOrInitialAndPartFalseEmptyLabelFails() {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "", PREDICATE, PREDICATE);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testFailIfNullOrEmptyOrInitialAndPartFalseNullInitialFails() {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", null, PREDICATE);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testFailIfNullOrEmptyOrInitialAndPartFalseNullPartFails() {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", PREDICATE, null);
-    }
-
-    @Test
-    public void testFailIfNullOrEmptyOrInitialAndPartFalseInitialTestFails() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndFail("98", "TEXT contains invalid initial char '9' expected letter =\"98\"");
-    }
-
-    @Test
-    public void testFailIfNullOrEmptyOrInitialAndPartFalsePartTestFails() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndFail("AB", "TEXT contains invalid char 'B' at position 1 expected digit =\"AB\"");
-    }
-
-    @Test
-    public void testFailIfNullOrEmptyOrInitialAndPartFalsePassInitialOnly() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("A");
-    }
-
-    @Test
-    public void testFailIfNullOrEmptyOrInitialAndPartFalsePasses2() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("A1");
-    }
-
-    @Test
-    public void testFailIfNullOrEmptyOrInitialAndPartFalsePasses3() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("A12345678");
-    }
-
-    private void failIfNullOrEmptyOrInitialAndPartFalseAndCheck(final String text) {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(text, "TEXT", CharPredicates.letter(), CharPredicates.digit());
-    }
-
-    private void failIfNullOrEmptyOrInitialAndPartFalseAndFail(final String text, final String message) {
-        try {
-            failIfNullOrEmptyOrInitialAndPartFalseAndCheck(text);
-            fail("Expected failure on " + CharSequences.quote(text));
-        } catch (final IllegalArgumentException expected) {
-            assertEquals("exception message different for " + CharSequences.quote(text), message, expected.getMessage());
-        }
     }
 
     // indexOf....................................................................
