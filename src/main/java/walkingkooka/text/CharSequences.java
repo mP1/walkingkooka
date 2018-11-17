@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.io.Reader;
@@ -176,29 +175,6 @@ final public class CharSequences implements PublicStaticHelper {
         Objects.requireNonNull(label, label);
         if (chars.length() == 0) {
             throw new IllegalArgumentException(label + " is empty");
-        }
-    }
-
-    /**
-     * Fails if the chars are null or empty or any characters fail the initial or part test.
-     * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
-     */
-    public static void failIfNullOrEmptyOrInitialAndPartFalse(final CharSequence chars, final String label, final CharPredicate initial, final CharPredicate part) {
-        failIfNullOrEmpty(chars, label);
-        Objects.requireNonNull(initial, "initial");
-        Objects.requireNonNull(part, "part");
-
-        final char first = chars.charAt(0);
-        if(!initial.test(first)) {
-            throw new IllegalArgumentException(label + " contains invalid initial char " + quoteIfChars(first) + " expected " + initial + " =" + CharSequences.quoteAndEscape(chars));
-        }
-
-        final int length = chars.length();
-        for(int i = 1; i < length; i++) {
-            final char c = chars.charAt(i);
-            if(!part.test(c)) {
-                throw new IllegalArgumentException(label + " contains invalid char " + quoteIfChars(c) + " at position " + i + " expected " + part + " =" + CharSequences.quoteAndEscape(chars));
-            }
         }
     }
 

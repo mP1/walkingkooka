@@ -24,7 +24,6 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicateBuilder;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -87,7 +86,7 @@ public final class UrlScheme
     public static UrlScheme with(final String name) {
         UrlScheme scheme = UrlScheme.CONSTANTS.get(name);
         if (null == scheme) {
-            CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, "UrlScheme", INITIAL, PART);
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "UrlScheme", INITIAL, PART);
             scheme = new UrlScheme(name);
         }
 

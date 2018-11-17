@@ -22,7 +22,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 
 /**
  * The {@link Name} of a function.
@@ -39,7 +38,7 @@ final public class SpreadsheetFunctionName implements Name, HashCodeEqualsDefine
      * Factory that creates a {@link SpreadsheetFunctionName}
      */
     public static SpreadsheetFunctionName with(final String name) {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, SpreadsheetFunctionName.class.getSimpleName(), INITIAL, PART);
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, SpreadsheetFunctionName.class.getSimpleName(), INITIAL, PART);
 
         final int length = name.length();
         if (length > MAX_LENGTH) {

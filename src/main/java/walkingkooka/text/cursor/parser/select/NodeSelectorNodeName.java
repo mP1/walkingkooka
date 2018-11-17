@@ -22,7 +22,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 
 /**
  * The {@link Name} of a node.
@@ -39,7 +38,7 @@ final public class NodeSelectorNodeName implements Name, HashCodeEqualsDefined {
      * Factory that creates a {@link NodeSelectorNodeName}
      */
     public static NodeSelectorNodeName with(final String name) {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorNodeName.class.getSimpleName(), INITIAL, PART);
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorNodeName.class.getSimpleName(), INITIAL, PART);
 
         final int length = name.length();
         if (length > MAX_LENGTH) {
