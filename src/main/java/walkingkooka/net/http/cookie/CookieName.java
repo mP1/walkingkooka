@@ -21,8 +21,8 @@ package walkingkooka.net.http.cookie;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.net.http.HttpCharPredicates;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
-import walkingkooka.text.CharSequences;
 
 /**
  * The {@link Name} of {@link Cookie}. Note that cookie names must start with an ASCII letter and be composed of only ASCII letters, digits and dash.
@@ -34,10 +34,7 @@ final public class CookieName implements Name, HashCodeEqualsDefined {
      * Factory that creates a {@link CookieName}
      */
     public static CookieName with(final String name) {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name,
-                "name",
-                HttpCharPredicates.cookieName(),
-                HttpCharPredicates.cookieName());
+        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", HttpCharPredicates.cookieName());
         return new CookieName(name);
     }
 

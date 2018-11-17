@@ -18,11 +18,13 @@
 package walkingkooka.predicate.character;
 
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Map;
+import java.util.Objects;
 
 final public class CharPredicates implements PublicStaticHelper {
 
@@ -115,6 +117,26 @@ final public class CharPredicates implements PublicStaticHelper {
      */
     public static CharPredicate fake() {
         return FakeCharPredicate.create();
+    }
+
+    /**
+     * Fails if the chars are null or empty or any characters fail the {@link CharPredicate} test.
+     * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
+     */
+    public static void failIfNullOrEmptyOrFalse(final CharSequence chars,
+                                                final String label,
+                                                final CharPredicate predicate) {
+        CharSequences.failIfNullOrEmpty(chars, label);
+        Objects.requireNonNull(predicate, "predicate");
+
+        final int length = chars.length();
+        for (int i = 0; i < length; i++) {
+            final char c = chars.charAt(i);
+            if (!predicate.test(c)) {
+                throw new IllegalArgumentException(label + " contains invalid char " + CharSequences.quoteIfChars(c) +
+                        " at position " + i + " expected " + predicate + " =" + CharSequences.quoteAndEscape(chars));
+            }
+        }
     }
 
     /**
