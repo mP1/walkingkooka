@@ -21,9 +21,9 @@ package walkingkooka.net.http;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 
@@ -314,7 +314,7 @@ final public class HttpHeaderName implements Name, HashCodeEqualsDefined, Compar
      * Factory that creates a {@link HttpHeaderName}
      */
     public static HttpHeaderName with(final String name) {
-        CharSequences.failIfNullOrEmptyOrInitialAndPartFalse(name, "name", HttpCharPredicates.httpHeaderName(), HttpCharPredicates.httpHeaderName());
+        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", HttpCharPredicates.httpHeaderName());
 
         final HttpHeaderName httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
