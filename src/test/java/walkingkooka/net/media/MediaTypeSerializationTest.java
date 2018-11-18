@@ -36,7 +36,7 @@ final public class MediaTypeSerializationTest extends SerializationTestCase<Medi
     @Test
     public void testTwoParameters() throws Exception {
         final String raw = "a/b;x=1;y=2";
-        final MediaType mimeType = this.cloneUsingSerialization(MediaType.parse(raw));
+        final MediaType mimeType = this.cloneUsingSerialization(MediaType.parseOne(raw));
         assertEquals("primary", "a", mimeType.type());
         assertEquals("sub", "b", mimeType.subType());
         assertEquals("value", "a/b", mimeType.value());
@@ -49,7 +49,7 @@ final public class MediaTypeSerializationTest extends SerializationTestCase<Medi
 
     @Override
     protected MediaType create() {
-        return MediaType.parse("custom/bin;parameter123=value456");
+        return MediaType.parseOne("custom/bin;parameter123=value456");
     }
 
     @Override

@@ -26,6 +26,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -35,6 +36,8 @@ import java.util.stream.Collectors;
 /**
  * A {@link Value} that represents a MIME Type with possible optional parameters.
  * Note parameter order is not important when comparing for equality or calculating the hash code.
+ * Note any suffix that may be present in the sub type is not validated in anyway except for valid characters.
+ * <a href="https://en.wikipedia.org/wiki/Media_type"></a>
  */
 final public class MediaType implements Value<String>, HashCodeEqualsDefined, Serializable {
 
@@ -46,7 +49,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
     /**
      * The separator character that separates the type and secondary portions within a mime type {@link String}.
      */
-    public final static char SEPARATOR = '/';
+    public final static char TYPE_SUBTYPE_SEPARATOR = '/';
 
     /**
      * The separator between parameter name and value.
@@ -57,6 +60,11 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
      * The separator character that separates parameters from the main mime type
      */
     public final static char PARAMETER_SEPARATOR = ';';
+
+    /**
+     * The separator character that separates media types within a header value.
+     */
+    public final static char MEDIATYPE_SEPARATOR = ',';
 
     /**
      * No parameters.
@@ -194,176 +202,36 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
      * Creates and then registers the constant.
      */
     static private MediaType registerConstant(final String type, final String subType) {
-        final String toString = type + SEPARATOR + subType;
+        final String toString = type + TYPE_SUBTYPE_SEPARATOR + subType;
         final MediaType mimeType = new MediaType(type, subType, NO_PARAMETERS, toString);
         CONSTANTS.put(toString, mimeType);
 
         return mimeType;
     }
 
-    // parse ...........................................................................................................
-
     /**
      * Creates a {@link MediaType} breaking up the {@link String text} into type and sub types, ignoring any optional
      * parameters if they are present.
      */
-    public static MediaType parse(final String text) {
+    public static MediaType parseOne(final String text) {
+        checkText(text);
+
+        return MediaTypeParser.one(text);
+    }
+
+
+    /**
+     * Creates a list of {@link MediaType}. If the text contains a single media type the results of this will be
+     * identical to {@link #parseOne(String)} except the result will be in a list.
+     */
+    public static List<MediaType> parseMany(final String text) {
+        checkText(text);
+
+        return MediaTypeParser.many(text);
+    }
+
+    private static void checkText(final String text) {
         Whitespace.failIfNullOrWhitespace(text, "text");
-
-        int mode = MODE_TYPE;
-        int start = 0;
-        String type = null;
-        String subType = null;
-        MediaTypeParameterName parameterName = null;
-        Map<MediaTypeParameterName, String> parameters = Maps.ordered();
-
-        int i = 0;
-        for (char c : text.toCharArray()) {
-            switch (mode) {
-                case MODE_TYPE:
-                    if (isTokenCharacter(c)) {
-                        break;
-                    }
-                    if (SEPARATOR == c) {
-                        type = checkType(token("type", 0, i, text));
-                        start = i + 1;
-                        mode = MODE_SUBTYPE;
-                        break;
-                    }
-                    failInvalidCharacter(c, i, text);
-                    break;
-                case MODE_SUBTYPE:
-                    if (isTokenCharacter(c)) {
-                        break;
-                    }
-                    if (PARAMETER_SEPARATOR == c) {
-                        subType = checkSubType(token("sub type", start, i, text));
-                        mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
-                        break;
-                    }
-                    failInvalidCharacter(c, i, text);
-                    break;
-                case MODE_PARAMETER_SEPARATOR_WHITESPACE:
-                    if (' ' == c) {
-                        break;
-                    }
-                    // end of (optional) leading whitespace must be parameter name.
-                    mode = MODE_PARAMETER_NAME;
-                    start = i;
-                case MODE_PARAMETER_NAME:
-                    if (isTokenCharacter(c)) {
-                        break;
-                    }
-                    if (PARAMETER_NAME_VALUE_SEPARATOR == c) {
-                        parameterName = MediaTypeParameterName.with(token("parameter name", start, i, text));
-                        start = i + 1;
-                        mode = MODE_PARAMETER_VALUE_INITIAL;
-                        break;
-                    }
-                    failInvalidCharacter(c, i, text);
-                    break;
-                case MODE_PARAMETER_VALUE_INITIAL:
-                    if ('"' == c) {
-                        mode = MODE_PARAMETER_QUOTES;
-                        break;
-                    }
-                    // delibrate fall thru must be a normal parameter value token character.
-                case MODE_PARAMETER_VALUE:
-                    if (isTokenCharacter(c)) {
-                        break;
-                    }
-                    if (PARAMETER_SEPARATOR == c) {
-                        parameters.put(parameterName, token("parameter value", start, i, text));
-                        parameterName = null;
-                        start = i + 1;
-                        mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
-                        break;
-                    }
-                    failInvalidCharacter(c, i, text);
-                    break;
-                case MODE_PARAMETER_QUOTES:
-                    if ('\\' == c) {
-                        mode = MODE_PARAMETER_ESCAPE;
-                        break;
-                    }
-                    if ('"' == c) {
-                        parameters.put(parameterName, text.substring(start + 1, i)); // allow empty quoted strings!
-                        parameterName = null;
-                        start = i + 1;
-                        mode = MODE_PARAMETER_SEPARATOR;
-                    }
-                    break;
-                case MODE_PARAMETER_ESCAPE:
-                    // only accept proper escaping...
-                    if ('\\' == c || '"' == c) {
-                        mode = MODE_PARAMETER_QUOTES;
-                        break;
-                    }
-                    failInvalidCharacter(c, i, text);
-                    break;
-                case MODE_PARAMETER_SEPARATOR:
-                    if (PARAMETER_SEPARATOR == c) {
-                        mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
-                        break;
-                    }
-                    failInvalidCharacter(c, i, text);
-                    break;
-                default:
-                    break;
-            }
-
-            i++;
-        }
-
-        switch (mode) {
-            case MODE_TYPE:
-                failEmptyToken("sub type", i, text);
-            case MODE_SUBTYPE:
-                subType = checkSubType(token("sub type", start, i, text));
-                break;
-            case MODE_PARAMETER_NAME:
-                failEmptyToken("parameter value", i, text);
-            case MODE_PARAMETER_VALUE_INITIAL:
-            case MODE_PARAMETER_VALUE:
-                parameters.put(parameterName, token("parameter value", start, i, text));
-                break;
-            case MODE_PARAMETER_QUOTES:
-            case MODE_PARAMETER_ESCAPE:
-                final int last = text.length() - 1;
-                failInvalidCharacter(text.charAt(last), last, text);
-            default:
-                break;
-        }
-
-        return with(type, subType, parameters, text);
-    }
-
-    /**
-     * Reports an invalid character within the unparsed media type.
-     */
-    private static void failInvalidCharacter(final char c, final int i, final String text) {
-        throw new IllegalArgumentException(invalidCharacter(c, i, text));
-    }
-
-    /**
-     * Builds a message to report an invalid or unexpected character.
-     */
-    static String invalidCharacter(final char c, final int i, final String text) {
-        return "Invalid character " + CharSequences.quoteIfChars(c) + " at " + i + " in " + CharSequences.quoteAndEscape(text);
-    }
-
-    private static String token(final String tokenName, final int start, final int end, final String text) {
-        if (start == end) {
-            failEmptyToken(tokenName, end, text);
-        }
-        return text.substring(start, end);
-    }
-
-    /**
-     * Reports an invalid character within the unparsed media type.
-     */
-    private static void failEmptyToken(final String token, final int i, final String text) {
-        throw new IllegalArgumentException("Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text));
     }
 
     /**
@@ -379,23 +247,13 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
      *                    ; to use within parameter values
      * </pre>
      */
-    private static boolean isTokenCharacter(final char c) {
+    static boolean isTokenCharacter(final char c) {
         return c > ' ' && c < 127 && false == isTSpecials(c);
     }
 
-    private static boolean isTSpecials(final char c) {
+    static boolean isTSpecials(final char c) {
         return "()<>@,;:|\"/[]?=".indexOf(c) != -1;
     }
-
-    private final static int MODE_TYPE = 1;
-    private final static int MODE_SUBTYPE = MODE_TYPE + 1;
-    private final static int MODE_PARAMETER_SEPARATOR_WHITESPACE = MODE_SUBTYPE + 1;
-    private final static int MODE_PARAMETER_NAME = MODE_PARAMETER_SEPARATOR_WHITESPACE + 1;
-    private final static int MODE_PARAMETER_VALUE_INITIAL = MODE_PARAMETER_NAME + 1;
-    private final static int MODE_PARAMETER_VALUE = MODE_PARAMETER_VALUE_INITIAL + 1;
-    private final static int MODE_PARAMETER_QUOTES = MODE_PARAMETER_VALUE + 1;
-    private final static int MODE_PARAMETER_ESCAPE = MODE_PARAMETER_QUOTES + 1;
-    private final static int MODE_PARAMETER_SEPARATOR = MODE_PARAMETER_ESCAPE + 1;
 
     /**
      * Creates a {@link MediaType} using the already broken type and sub types. It is not possible to pass parameters with or without values.
@@ -404,7 +262,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
         checkType(type);
         checkSubType(subType);
 
-        return new MediaType(type, subType, NO_PARAMETERS, type + SEPARATOR + subType);
+        return new MediaType(type, subType, NO_PARAMETERS, type + TYPE_SUBTYPE_SEPARATOR + subType);
     }
 
     /**
@@ -415,7 +273,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
                           final String subType,
                           final Map<MediaTypeParameterName, String> parameters,
                           final String toString) {
-        final MediaType result = CONSTANTS.get(type + SEPARATOR + subType);
+        final MediaType result = CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR + subType);
         return null != result ?
                 result :
                 new MediaType(type,
@@ -430,7 +288,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
     private static String toStringMimeType(final String type,
                                            final String subType,
                                            final Map<MediaTypeParameterName, String> parameters) {
-        return type + SEPARATOR + subType + parameters.entrySet()
+        return type + TYPE_SUBTYPE_SEPARATOR + subType + parameters.entrySet()
                 .stream()
                 .map(MediaType::toStringParameter)
                 .collect(Collectors.joining());
@@ -513,7 +371,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
 
     private final transient String type;
 
-    private static String checkType(final String type) {
+    static String checkType(final String type) {
         return check(type, "type");
     }
 
@@ -538,7 +396,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
 
     private final transient String subType;
 
-    private static String checkSubType(final String subType) {
+    static String checkSubType(final String subType) {
         return check(subType, "subType");
     }
 
@@ -557,6 +415,20 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
         }
 
         return value;
+    }
+
+    /**
+     * Reports an invalid character within the unparsed media type.
+     */
+    static void failInvalidCharacter(final char c, final int i, final String text) {
+        throw new IllegalArgumentException(invalidCharacter(c, i, text));
+    }
+
+    /**
+     * Builds a message to report an invalid or unexpected character.
+     */
+    static String invalidCharacter(final char c, final int i, final String text) {
+        return "Invalid character " + CharSequences.quoteIfChars(c) + " at " + i + " in " + CharSequences.quoteAndEscape(text);
     }
 
     // parameters ...............................................................................................
@@ -601,7 +473,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
 
     @Override
     public String value() {
-        return this.type + SEPARATOR + this.subType;
+        return this.type + TYPE_SUBTYPE_SEPARATOR + this.subType;
     }
 
     // qWeight ...................................................................
@@ -688,7 +560,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
      * Only the {@link #toString()} is serialized thus on deserialization we need to parse to reconstruct other fields.
      */
     private Object readResolve() {
-        return parse(this.toString);
+        return MediaTypeParser.one(this.toString);
     }
 
     private final static long serialVersionUID = 1L;
