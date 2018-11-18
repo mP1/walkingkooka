@@ -652,7 +652,7 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
     }
 
     /**
-     * Dumps the complete mime type by invoking {@link #value()}.
+     * If sourced or created by parsing, the original text is returned, if built using setters a toString is constructed.
      */
     @Override
     public String toString() {
