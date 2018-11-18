@@ -193,6 +193,32 @@ final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
         check(different, TYPE, SUBTYPE, parameters);
     }
 
+    // qWeight .......................................................................
+
+    @Test
+    public void testQParameterPresent() {
+        this.qWeightAndCheck(this.mediaType().setParameters(parameters(MediaTypeParameterName.Q.value(), "0.5")), 0.5f);
+    }
+
+    @Test
+    public void testQParameterPresentInvaliFails() {
+        try {
+            this.mediaType().setParameters(parameters(MediaTypeParameterName.Q.value(), "XYZ")).qWeight();
+            fail("Getter should have failed due to invalid q weight");
+        } catch (final IllegalStateException expected) {
+            assertEquals("Invalid q weight parameter XYZ in type/subtype; q=XYZ", expected.getMessage());
+        }
+    }
+
+    @Test
+    public void testQParameterAbsent() {
+        this.qWeightAndCheck(this.mediaType(), MediaType.DEFAULT_WEIGHT);
+    }
+
+    private void qWeightAndCheck(final MediaType type, final float weight) {
+        assertEquals(type + " q weight", weight, type.qWeight(), 0.01f);
+    }
+
     // parse .........................................................................
 
     @Test(expected = NullPointerException.class)
