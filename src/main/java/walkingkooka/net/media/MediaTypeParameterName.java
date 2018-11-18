@@ -39,6 +39,11 @@ final public class MediaTypeParameterName implements Name, Comparable<MediaTypeP
     public final static MediaTypeParameterName CHARSET = MediaTypeParameterName.with("charset");
 
     /**
+     * The q weight parameter.
+     */
+    public final static MediaTypeParameterName Q = MediaTypeParameterName.with("q");
+
+    /**
      * Factory that creates a {@link MediaTypeParameterName}
      */
     public static MediaTypeParameterName with(final String value) {

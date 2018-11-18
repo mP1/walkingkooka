@@ -604,6 +604,27 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
         return this.type + SEPARATOR + this.subType;
     }
 
+    // qWeight ...................................................................
+
+    public final static float DEFAULT_WEIGHT = 1.0f;
+
+    /**
+     * Retrieves the q-weight for this value, defaulting to 1.0 if absent. If the value is not a number a
+     * {@link IllegalStateException} will be thrown.
+     */
+    public float qWeight() {
+        float weight = DEFAULT_WEIGHT;
+        String value = this.parameters().get(MediaTypeParameterName.Q);
+        if (null != value) {
+            try {
+                weight = Float.parseFloat(value);
+            } catch ( final IllegalArgumentException cause) {
+                throw new IllegalStateException("Invalid q weight parameter " + value + " in " + this, cause);
+            }
+        }
+        return weight;
+    }
+
     // misc .......................................................................
 
     /**
