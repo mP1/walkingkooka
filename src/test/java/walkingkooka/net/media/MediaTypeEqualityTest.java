@@ -25,37 +25,43 @@ final public class MediaTypeEqualityTest extends HashCodeEqualsDefinedEqualityTe
 
     @Test
     public void testDifferentMimeType() {
-        this.checkNotEquals(MediaType.parse("major/different"));
+        this.checkNotEquals(MediaType.parseOne("major/different"));
     }
 
     @Test
     public void testDifferentParameter() {
-        this.checkNotEquals(MediaType.parse("major/minor;parameter=value"));
+        this.checkNotEquals(MediaType.parseOne("major/minor;parameter=value"));
     }
 
     @Test
     public void testDifferentParameter2() {
-        checkNotEquals(MediaType.parse("major/minor;parameter=value"),
-                MediaType.parse("major/minor;different=value"));
+        checkNotEquals(MediaType.parseOne("major/minor;parameter=value"),
+                MediaType.parseOne("major/minor;different=value"));
     }
 
     @Test
     public void testDifferentParamterOrderStillEqual() {
-        checkEqualsAndHashCode(MediaType.parse("a/b;x=1;y=2"),
-                MediaType.parse("a/b;y=2;x=1"));
+        checkEqualsAndHashCode(MediaType.parseOne("a/b;x=1;y=2"),
+                MediaType.parseOne("a/b;y=2;x=1"));
     }
 
     @Test
     public void testParsedAndBuild() {
-        checkEquals(this.createObject(), MediaType.parse("major/minor"));
+        checkEquals(this.createObject(), MediaType.parseOne("major/minor"));
     }
 
+    @Test
+    public void testParameterOrderIrrelevant() {
+        checkEquals(MediaType.parseOne("type/subtype;a=1;b=2;c=3"), MediaType.parseOne("type/subtype;c=3;b=2;a=1"));
+    }
+
+    @Test
     public void testDifferentWhitespaceSameParametersStillEqual() {
-        checkEqualsAndHashCode(MediaType.parse("a/b;   x=1"), MediaType.parse("a/b;x=1"));
+        checkEqualsAndHashCode(MediaType.parseOne("a/b;   x=1"), MediaType.parseOne("a/b;x=1"));
     }
 
     @Override
     protected MediaType createObject() {
-        return MediaType.parse("major/minor");
+        return MediaType.parseOne("major/minor");
     }
 }

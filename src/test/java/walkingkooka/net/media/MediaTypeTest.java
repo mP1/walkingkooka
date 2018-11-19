@@ -19,6 +19,7 @@
 package walkingkooka.net.media;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.test.PublicClassTestCase;
 
@@ -193,6 +194,19 @@ final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
         check(different, TYPE, SUBTYPE, parameters);
     }
 
+    private void check(final MediaType mediaType, final String type, final String subtype) {
+        check(mediaType, type, subtype, MediaType.NO_PARAMETERS);
+    }
+
+    private void check(final MediaType mediaType,
+                       final String type,
+                       final String subtype,
+                       final Map<MediaTypeParameterName, String> parameters) {
+        assertEquals("type=" + mediaType, type, mediaType.type());
+        assertEquals("subType=" + mediaType, subtype, mediaType.subType());
+        assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());
+    }
+
     // qWeight .......................................................................
 
     @Test
@@ -222,224 +236,39 @@ final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
     // parse .........................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testParseNullFails() {
-        MediaType.parse(null);
+    public void testParseOneNullFails() {
+        MediaType.parseOne(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseOneEmptyFails() {
+        MediaType.parseOne("");
     }
 
     @Test
-    public void testParseInvalidFails() {
-        this.parseFails("\u0100\u0101", 0);
+    public void testParseOne() {
+        assertEquals(MediaType.with("type1", "subtype1"), MediaType.parseOne("type1/subtype1"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testParseOneOrManyNullFails() {
+        MediaType.parseMany(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseOneOrManyEmptyFails() {
+        MediaType.parseMany("");
     }
 
     @Test
-    public void testParseEmptyTypeFails() {
-        this.parseFails("/subtype", "Missing type at 0 in \"/subtype\"");
+    public void testParseOneOrMany() {
+        assertEquals(Lists.of(
+                MediaType.with("type1", "subtype1"),
+                MediaType.with("type2", "subtype2")),
+                MediaType.parseMany("type1/subtype1,type2/subtype2"));
     }
 
-    @Test
-    public void testParseTypeMissingSubTypeFails() {
-        this.parseFails("type", "Missing sub type at 4 in \"type\"");
-    }
-
-    @Test
-    public void testParseEmptySubTypeFails() {
-        this.parseFails("type/", "Missing sub type at 5 in \"type/\"");
-    }
-
-    @Test
-    public void testParseInvalidTypeCharacterFails() {
-        this.parseFails("prima?ry/subtype", '?');
-    }
-
-    @Test
-    public void testParseTypeWhitespaceFails() {
-        this.parseFails("type /subtype", ' ');
-    }
-
-    @Test
-    public void testParseSubTypeWhitespaceFails() {
-        this.parseFails("type/ subtype", ' ');
-    }
-
-    @Test
-    public void testParseSubTypeMissingFails() {
-        this.parseFails("type/;", "Missing sub type at 5 in \"type/;\"");
-    }
-
-    @Test
-    public void testParseParameterNameInvalidFails() {
-        this.parseFails("type/subtype;parameter;");
-    }
-
-    @Test
-    public void testParseParameterValueInvalidFails() {
-        this.parseFails("type/subtype;parameter=value/");
-    }
-
-    @Test
-    public void testParseParameterValueFails() {
-        this.parseFails("type/subtype;parameter", "Missing parameter value at 22 in \"type/subtype;parameter\"");
-    }
-
-    @Test
-    public void testParseParameterValueFails2() {
-        this.parseFails("type/subtype;parameter=", "Missing parameter value at 23 in \"type/subtype;parameter=\"");
-    }
-
-    @Test
-    public void testParseParameterValueFails3() {
-        this.parseFails("type/subtype;p1=v1;p2", "Missing parameter value at 21 in \"type/subtype;p1=v1;p2\"");
-    }
-
-    @Test
-    public void testParseParameterValueFails4() {
-        this.parseFails("type/subtype;p1=v1;p2=", "Missing parameter value at 22 in \"type/subtype;p1=v1;p2=\"");
-    }
-
-    @Test
-    public void testParseParameterValueUnclosedQuoteFails() {
-        this.parseFails("type/subtype;parameter=\"");
-    }
-
-    @Test
-    public void testParseParameterValueInvalidEscapeFails() {
-        this.parseFails("type/subtype;parameter=\"\\z\"", 'z');
-    }
-
-    @Test
-    public void testParseParameterValueQuotedInvalidFails() {
-        this.parseFails("type/subtype;p=\"v\";[", '[');
-    }
-
-    @Test
-    public void testParseParameterValueQuotedInvalidFails2() {
-        this.parseFails("type/subtype;p=\"v\"[", '[');
-    }
-
-    private void parseFails(final String text) {
-        this.parseFails(text, text.length() - 1);
-    }
-
-    private void parseFails(final String text, final char pos) {
-        this.parseFails(text, text.indexOf(pos));
-    }
-
-    private void parseFails(final String text, final int pos) {
-        parseFails(text, MediaType.invalidCharacter(text.charAt(pos), pos, text));
-    }
-
-    private void parseFails(final String text, final String message) {
-        try {
-            MediaType.parse(text);
-            fail();
-        } catch (final IllegalArgumentException expected) {
-            assertEquals("Incorrect failure message", message, expected.getMessage());
-        }
-    }
-
-    @Test
-    public void testParseTypeSubType() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE, TYPE, SUBTYPE);
-    }
-
-    @Test
-    public void testParseTypeWildcardSubType() {
-        this.parseAndCheck(MediaType.WILDCARD + "/" + SUBTYPE, MediaType.WILDCARD, SUBTYPE);
-    }
-
-    @Test
-    public void testParseTypeSubType2() {
-        this.parseAndCheck("a/b", "a", "b");
-    }
-
-    @Test
-    public void testParseTypeSubTypeWildcard() {
-        this.parseAndCheck("a/*", "a", MediaType.WILDCARD);
-    }
-
-    @Test
-    public void testParseTypeSubTypeParameter() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v", TYPE, SUBTYPE, parameters("p", "v"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeParameter2() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value", TYPE, SUBTYPE, parameters("parameter", "value"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeParameterValueQuoted() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\"", TYPE, SUBTYPE, parameters("parameter", "value"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeParameterValueQuotedOtherwiseInvalidCharacters() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val?ue\"", TYPE, SUBTYPE, parameters("parameter", "val?ue"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeParameterValueQuotedBackslashEscaped() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\\ue\"", TYPE, SUBTYPE, parameters("parameter", "val\\\\ue"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeParameterValueQuotedEscapedDoubleQuote() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\"ue\"", TYPE, SUBTYPE, parameters("parameter", "val\\\"ue"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeParameterValueQuotedParameter2() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p1=\"v1\";p2=v2", TYPE, SUBTYPE, parameters("p1", "v1", "p2", "v2"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeWhitespaceParameter() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + "; p=v", TYPE, SUBTYPE, parameters("p", "v"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeWhitespaceParameter2() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";  p=v", TYPE, SUBTYPE, parameters("p", "v"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeWhitespaceParameter3() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";   p=v", TYPE, SUBTYPE, parameters("p", "v"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeWhitespaceParameter4() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v; p2=v2", TYPE, SUBTYPE, parameters("p", "v", "p2", "v2"));
-    }
-
-    @Test
-    public void testParseTypeSubTypeWhitespaceParameter5() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v;  p2=v2", TYPE, SUBTYPE, parameters("p", "v", "p2", "v2"));
-    }
-
-    private void parseAndCheck(final String text, final String type, final String subtype) {
-        this.check(MediaType.parse(text), type, subtype);
-    }
-
-    private void parseAndCheck(final String text,
-                               final String type,
-                               final String subtype,
-                               final Map<MediaTypeParameterName, String> parameters) {
-        this.check(MediaType.parse(text), type, subtype, parameters);
-    }
-
-    private void check(final MediaType mediaType, final String type, final String subtype) {
-        check(mediaType, type, subtype, MediaType.NO_PARAMETERS);
-    }
-
-    private void check(final MediaType mediaType,
-                       final String type,
-                       final String subtype,
-                       final Map<MediaTypeParameterName, String> parameters) {
-        assertEquals("type=" + mediaType, type, mediaType.type());
-        assertEquals("subType=" + mediaType, subtype, mediaType.subType());
-        assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());
-    }
+    // isCompatible .........................................................................
 
     @Test(expected = NullPointerException.class)
     public void testIsCompatibleNullFails() {
@@ -506,19 +335,19 @@ final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
     @Test
     public void testToStringParse() {
         final String text = "type/subtype";
-        assertEquals(text, MediaType.parse(text).toString());
+        assertEquals(text, MediaType.parseOne(text).toString());
     }
 
     @Test
     public void testToStringParseWithParameters() {
         final String text = "type/subtype;a=b;c=d";
-        assertEquals(text, MediaType.parse(text).toString());
+        assertEquals(text, MediaType.parseOne(text).toString());
     }
 
     @Test
     public void testToStringParseWithParametersWithQuotes() {
         final String text = "type/subtype;a=b;c=\"d\"";
-        assertEquals(text, MediaType.parse(text).toString());
+        assertEquals(text, MediaType.parseOne(text).toString());
     }
 
     @Test
@@ -562,14 +391,6 @@ final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
 
     private Map<MediaTypeParameterName, String> parameters(final String name, final String value) {
         return Maps.one(MediaTypeParameterName.with(name), value);
-    }
-
-    private Map<MediaTypeParameterName, String> parameters(final String name, final String value, final String name2, final String value2) {
-        final Map<MediaTypeParameterName, String> parameters = Maps.ordered();
-        parameters.put(MediaTypeParameterName.with(name), value);
-        parameters.put(MediaTypeParameterName.with(name2), value2);
-
-        return parameters;
     }
 
     @Override
