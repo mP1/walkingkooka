@@ -18,12 +18,12 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.SystemException;
+import walkingkooka.net.NetException;
 
 /**
  * Base exception for all exceptions thrown in this package.
  */
-public class HttpException extends SystemException {
+public class HttpException extends NetException {
 
     private final static long serialVersionUID = 1L;
 
