@@ -18,37 +18,38 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.http.cookie.ClientCookie;
-import walkingkooka.test.Fake;
+import org.junit.Test;
 
-import java.util.List;
-import java.util.Map;
+public final class HttpHeaderValueFloatConverterTest extends
+        HttpHeaderValueConverterTestCase<HttpHeaderValueFloatConverter, Float> {
 
-public class FakeHttpRequest implements HttpRequest, Fake {
-
-    @Override
-    public HttpMethod method() {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testFloat() {
+        this.parseAndCheck("123.5", 123.5f);
     }
 
     @Override
-    public HttpProtocol protocol() {
-        throw new UnsupportedOperationException();
+    HttpHeaderParameterName headerOrParameterName() {
+        return HttpHeaderParameterName.Q;
     }
 
     @Override
-    public RelativeUrl url() {
-        throw new UnsupportedOperationException();
+    HttpHeaderValueFloatConverter converter() {
+        return HttpHeaderValueFloatConverter.INSTANCE;
     }
 
     @Override
-    public Map<HttpHeaderName<?>, String> headers() {
-        throw new UnsupportedOperationException();
+    String invalidHeaderValue() {
+        return "abc";
     }
 
     @Override
-    public List<ClientCookie> cookies() {
-        throw new UnsupportedOperationException();
+    String converterToString() {
+        return Float.class.getSimpleName();
+    }
+
+    @Override
+    protected Class<HttpHeaderValueFloatConverter> type() {
+        return HttpHeaderValueFloatConverter.class;
     }
 }
