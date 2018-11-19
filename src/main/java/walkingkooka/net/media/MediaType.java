@@ -21,6 +21,7 @@ package walkingkooka.net.media;
 import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -39,7 +41,7 @@ import java.util.stream.Collectors;
  * Note any suffix that may be present in the sub type is not validated in anyway except for valid characters.
  * <a href="https://en.wikipedia.org/wiki/Media_type"></a>
  */
-final public class MediaType implements Value<String>, HashCodeEqualsDefined, Serializable {
+final public class MediaType implements Value<String>, HasQFactorWeight, HashCodeEqualsDefined, Serializable {
 
     /**
      * Wildcard
@@ -478,23 +480,22 @@ final public class MediaType implements Value<String>, HashCodeEqualsDefined, Se
 
     // qWeight ...................................................................
 
-    public final static float DEFAULT_WEIGHT = 1.0f;
-
     /**
-     * Retrieves the q-weight for this value, defaulting to 1.0 if absent. If the value is not a number a
-     * {@link IllegalStateException} will be thrown.
+     * Retrieves the q-weight for this value. If the value is not a number a {@link IllegalStateException} will be thrown.
      */
-    public float qWeight() {
-        float weight = DEFAULT_WEIGHT;
-        String value = this.parameters().get(MediaTypeParameterName.Q);
-        if (null != value) {
-            try {
-                weight = Float.parseFloat(value);
-            } catch ( final IllegalArgumentException cause) {
-                throw new IllegalStateException("Invalid q weight parameter " + value + " in " + this, cause);
-            }
+    public Optional<Float> qFactorWeight() {
+        final String value = this.parameters().get(MediaTypeParameterName.Q_FACTOR);
+        return Optional.ofNullable(null == value ?
+                null :
+                qFactorWeightOrFail(value));
+    }
+
+    private Float qFactorWeightOrFail(final String value) {
+        try {
+            return Float.parseFloat(value);
+        } catch ( final IllegalArgumentException cause) {
+            throw new IllegalStateException("Invalid q weight parameter " + value + " in " + this, cause);
         }
-        return weight;
     }
 
     // misc .......................................................................
