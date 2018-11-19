@@ -22,6 +22,9 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.http.HttpCharPredicates;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
@@ -236,26 +239,11 @@ final public class MediaType implements Value<String>, HasQFactorWeight, HashCod
         Whitespace.failIfNullOrWhitespace(text, "text");
     }
 
-    /**
-     * <a href="https://tools.ietf.org/html/rfc2045#page-5"></a>
-     * <pre>
-     * token := 1*<any (US-ASCII) CHAR except SPACE, CTLs,
-     *                  or tspecials>
-     *
-     *      tspecials :=  "(" / ")" / "<" / ">" / "@" /
-     *                    "," / ";" / ":" / "\" / <">
-     *                    "/" / "[" / "]" / "?" / "="
-     *                    ; Must be in quoted-string,
-     *                    ; to use within parameter values
-     * </pre>
-     */
     static boolean isTokenCharacter(final char c) {
-        return c > ' ' && c < 127 && false == isTSpecials(c);
+        return TOKEN.test(c);
     }
 
-    static boolean isTSpecials(final char c) {
-        return "()<>@,;:|\"/[]?=".indexOf(c) != -1;
-    }
+    private final static CharPredicate TOKEN = HttpCharPredicates.rf2045Token();
 
     /**
      * Creates a {@link MediaType} using the already broken type and sub types. It is not possible to pass parameters with or without values.
@@ -406,16 +394,7 @@ final public class MediaType implements Value<String>, HasQFactorWeight, HashCod
      * Checks that the value contains valid token characters.
      */
     static String check(final String value, final String label) {
-        CharSequences.failIfNullOrEmpty(value, label);
-
-        int i = 0;
-        for (char c : value.toCharArray()) {
-            if (!isTokenCharacter(c)) {
-                failInvalidCharacter(c, i, value);
-            }
-            i++;
-        }
-
+        CharPredicates.failIfNullOrEmptyOrFalse(value, label, TOKEN);
         return value;
     }
 
