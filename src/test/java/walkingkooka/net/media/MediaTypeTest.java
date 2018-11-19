@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.test.PublicClassTestCase;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -211,13 +212,13 @@ final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
 
     @Test
     public void testQParameterPresent() {
-        this.qWeightAndCheck(this.mediaType().setParameters(parameters(MediaTypeParameterName.Q.value(), "0.5")), 0.5f);
+        this.qFactorWeightAndCheck(this.mediaType().setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), "0.5")), 0.5f);
     }
 
     @Test
-    public void testQParameterPresentInvaliFails() {
+    public void testQParameterPresentInvalidFails() {
         try {
-            this.mediaType().setParameters(parameters(MediaTypeParameterName.Q.value(), "XYZ")).qWeight();
+            this.mediaType().setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), "XYZ")).qFactorWeight();
             fail("Getter should have failed due to invalid q weight");
         } catch (final IllegalStateException expected) {
             assertEquals("Invalid q weight parameter XYZ in type/subtype; q=XYZ", expected.getMessage());
@@ -226,11 +227,15 @@ final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
 
     @Test
     public void testQParameterAbsent() {
-        this.qWeightAndCheck(this.mediaType(), MediaType.DEFAULT_WEIGHT);
+        this.qFactorWeightAndCheck(this.mediaType(), MediaType.Q_FACTOR_WEIGHT_ABSENT);
     }
 
-    private void qWeightAndCheck(final MediaType type, final float weight) {
-        assertEquals(type + " q weight", weight, type.qWeight(), 0.01f);
+    private void qFactorWeightAndCheck(final MediaType type, final float weight) {
+        qFactorWeightAndCheck(type, Optional.of(weight));
+    }
+
+    private void qFactorWeightAndCheck(final MediaType type, final Optional<Float> weight) {
+        assertEquals(type + " q weight", weight, type.qFactorWeight());
     }
 
     // parse .........................................................................
