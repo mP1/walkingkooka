@@ -62,6 +62,13 @@ final public class HttpCharPredicates implements PublicStaticHelper {
             .build();
 
     /**
+     * {@see Rfc2045TokenCharPredicate}
+     */
+    public static CharPredicate rf2045Token() {
+        return Rfc2045TokenCharPredicate.INSTANCE;
+    }
+
+    /**
      * Stop creation
      */
     private HttpCharPredicates() {
