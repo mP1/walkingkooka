@@ -18,12 +18,15 @@
 
 package walkingkooka.compare;
 
+import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
+
+import java.util.Optional;
 
 /**
  * One of three bounds of a {@link Range}
  */
-abstract class RangeBound<C extends Comparable<C>> implements HashCodeEqualsDefined {
+abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqualsDefined, Value<Optional<C>> {
 
     /**
      * {@see RangeBoundAll}
@@ -52,6 +55,27 @@ abstract class RangeBound<C extends Comparable<C>> implements HashCodeEqualsDefi
     RangeBound() {
         super();
     }
+
+    /**
+     * Only bounds without a value return true.
+     */
+    public abstract boolean isAll();
+
+    /**
+     * Only bounds with an exclusive value return true.
+     */
+    public abstract boolean isExclusive();
+
+    /**
+     * Only bounds with an inclusive value return true.
+     */
+    public abstract boolean isInclusive();
+
+    /**
+     * Inclusive and exclusive will also include a value.
+     */
+    @Override
+    public abstract Optional<C> value();
 
     // Range.predicate...........................................
 

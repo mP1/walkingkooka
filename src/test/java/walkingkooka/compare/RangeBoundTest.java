@@ -19,9 +19,9 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.PublicClassTestCase;
 
-public final class RangeBoundTest extends PackagePrivateClassTestCase<RangeBound<?>> {
+public final class RangeBoundTest extends PublicClassTestCase<RangeBound<?>> {
     @Override
     protected Class<RangeBound<?>> type() {
         return Cast.to(RangeBound.class);

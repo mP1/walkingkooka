@@ -21,6 +21,7 @@ package walkingkooka.compare;
 import walkingkooka.Cast;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a inclusive value within a {@link Range}
@@ -41,6 +42,37 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
     private RangeBoundInclusive(final C value) {
         super();
         this.value = value;
+    }
+
+    /**
+     * Always false
+     */
+    @Override
+    public boolean isAll() {
+        return false;
+    }
+
+    /**
+     * Always false
+     */
+    @Override
+    public boolean isExclusive() {
+        return false;
+    }
+
+    /**
+     * Always false
+     */
+    public boolean isInclusive() {
+        return true;
+    }
+
+    /**
+     * ALways nothing.
+     */
+    @Override
+    public Optional<C> value() {
+        return Optional.of(this.value);
     }
 
     // Range.predicate...........................................

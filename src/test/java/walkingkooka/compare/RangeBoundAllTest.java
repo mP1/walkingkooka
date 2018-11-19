@@ -21,7 +21,14 @@ package walkingkooka.compare;
 import org.junit.Test;
 import walkingkooka.Cast;
 
+import java.util.Optional;
+
 public final class RangeBoundAllTest extends RangeBoundTestCase<RangeBoundAll<Integer>> {
+
+    @Test
+    public void testValue() {
+        this.valueAndCheck(this.createRangeBound(), Optional.empty());
+    }
 
     @Test
     public void testLowerExclusive() {
