@@ -45,6 +45,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     // all ..............................................................................................
 
     @Test
+    public void testAll() {
+        this.check(Range.all(), RangeBound.all(), RangeBound.all());
+    }
+
+    @Test
     public void testAllTest() {
         this.testTrue(LOWER_VALUE);
     }
@@ -87,6 +92,12 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
 
     // lessThan ....................................................................................................
 
+    @Test
+    public void testLessThan() {
+        final int value = 123;
+        this.check(Range.lessThan(value), RangeBound.all(), RangeBound.exclusive(value));
+    }
+
     @Test(expected = NullPointerException.class)
     public void testLessThanNullValueFails() {
         Range.lessThan(null);
@@ -117,6 +128,12 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     }
 
     // lessThanEquals ....................................................................................................
+
+    @Test
+    public void testLessThanEquals() {
+        final int value = 123;
+        this.check(Range.lessThanEquals(value), RangeBound.all(), RangeBound.inclusive(value));
+    }
 
     @Test(expected = NullPointerException.class)
     public void testLessThanEqualsNullValueFails() {
@@ -149,6 +166,12 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
 
     // greaterThan ....................................................................................................
 
+    @Test
+    public void testGreaterThan() {
+        final int value = 123;
+        this.check(Range.greaterThan(value), RangeBound.exclusive(value), RangeBound.all());
+    }
+
     @Test(expected = NullPointerException.class)
     public void testGreaterThanNullValueFails() {
         Range.greaterThan(null);
@@ -179,6 +202,12 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     }
 
     // greaterThanEquals ....................................................................................................
+
+    @Test
+    public void testGreaterThanEquals() {
+        final int value = 123;
+        this.check(Range.greaterThanEquals(value), RangeBound.inclusive(value), RangeBound.all());
+    }
 
     @Test(expected = NullPointerException.class)
     public void testGreaterThanEqualsNullValueFails() {
@@ -608,6 +637,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
 
     private static Range<Integer> all() {
         return Range.all();
+    }
+
+    private void check(final Range<Integer> range, final RangeBound<Integer> lower, final RangeBound<Integer> upper) {
+        assertEquals("lower " + range, lower, range.lowerBound());
+        assertEquals("upper " + range, upper, range.upperBound());
     }
 
     @Override

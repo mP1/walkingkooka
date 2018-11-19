@@ -119,6 +119,24 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
         return new Range<C>(lower, upper);
     }
 
+    /**
+     * Getter that returns the lower bound of the range.
+     */
+    public RangeBound<C> lowerBound() {
+        return this.lower;
+    }
+
+    final RangeBound<C> lower;
+
+    /**
+     * Getter that returns the upper bound of the range.
+     */
+    public RangeBound<C> upperBound() {
+        return this.upper;
+    }
+
+    final RangeBound<C> upper;
+
     // Predicate .............................................................................................
 
     /**
@@ -152,10 +170,6 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
         return this.lower.equals(lower) &&
                 this.upper.equals(upper);
     }
-
-    final RangeBound<C> lower;
-    final RangeBound<C> upper;
-
     @Override
     public String toString() {
         return this.lower.rangeToString(this);

@@ -21,6 +21,7 @@ package walkingkooka.compare;
 import walkingkooka.Cast;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a bound within a range that matches everything.
@@ -45,6 +46,37 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
      */
     private RangeBoundAll() {
         super();
+    }
+
+    /**
+     * Always true
+     */
+    @Override
+    public boolean isAll() {
+        return true;
+    }
+
+    /**
+     * Always false
+     */
+    @Override
+    public boolean isExclusive() {
+        return false;
+    }
+
+    /**
+     * Always false
+     */
+    public boolean isInclusive() {
+        return false;
+    }
+
+    /**
+     * ALways nothing.
+     */
+    @Override
+    public Optional<C> value() {
+        return Optional.empty();
     }
 
     // Predicate ...............................................................................................

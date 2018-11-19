@@ -21,6 +21,8 @@ package walkingkooka.compare;
 import org.junit.Test;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -28,6 +30,25 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends 
 
     RangeBoundTestCase() {
         super();
+    }
+
+    @Test
+    public final void testIsMethods() {
+        final B bound = this.createRangeBound();
+        final String simpleName = bound.getClass().getSimpleName();
+        final String name = simpleName.substring(RangeBound.class.getSimpleName().length(), simpleName.length());
+
+        assertEquals("isAll", "All".equals(name), bound.isAll());
+        assertEquals("isExclusive", "Exclusive".equals(name), bound.isExclusive());
+        assertEquals("isInclusive", "Inclusive".equals(name), bound.isInclusive());
+    }
+
+    final void valueAndCheck(final Optional<Integer> value) {
+        this.valueAndCheck(this.createRangeBound(), value);
+    }
+
+    final void valueAndCheck(final B bound, final Optional<Integer> value) {
+        assertEquals("value of " + bound, value, bound.value());
     }
 
     @Test
