@@ -48,6 +48,11 @@ public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal>{
     }
 
     @Override
+    public SearchBigDecimalNode setValue(final BigDecimal value) {
+        return this.setValue0(value).cast();
+    }
+
+    @Override
     SearchBigDecimalNode replace0(final int index, final SearchNodeName name, final String text, final BigDecimal value) {
         return new SearchBigDecimalNode(index, name, text, value);
     }

@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.search;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -46,6 +47,11 @@ public final class SearchLocalDateTimeNode extends SearchLeafNode<LocalDateTime>
     @Override
     public SearchLocalDateTimeNode setName(final SearchNodeName name) {
         return super.setName0(name).cast();
+    }
+
+    @Override
+    public SearchLocalDateTimeNode setValue(final LocalDateTime value) {
+        return this.setValue0(value).cast();
     }
 
     @Override

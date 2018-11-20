@@ -49,6 +49,11 @@ public final class SearchLocalDateNode extends SearchLeafNode<LocalDate>{
     }
 
     @Override
+    public SearchLocalDateNode setValue(final LocalDate value) {
+        return this.setValue0(value).cast();
+    }
+
+    @Override
     SearchLocalDateNode replace0(final int index, final SearchNodeName name, final String text, final LocalDate value) {
         return new SearchLocalDateNode(index, name, text, value);
     }

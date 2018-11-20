@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.search;
 
+import java.time.LocalTime;
+
 /**
  * A {@link SearchNode} that holds a {@link long} value.
  */
@@ -43,6 +45,11 @@ public final class SearchLongNode extends SearchLeafNode<Long>{
     @Override
     public SearchLongNode setName(final SearchNodeName name) {
         return super.setName0(name).cast();
+    }
+
+    @Override
+    public SearchLongNode setValue(final Long value) {
+        return this.setValue0(value).cast();
     }
 
     @Override

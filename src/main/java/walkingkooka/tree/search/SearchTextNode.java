@@ -48,6 +48,11 @@ public final class SearchTextNode extends SearchLeafNode<String>{
     }
 
     @Override
+    public SearchTextNode setValue(final String value) {
+        return this.setValue0(value).cast();
+    }
+
+    @Override
     SearchTextNode replace0(final int index, final SearchNodeName name, final String text, final String value) {
         return new SearchTextNode(index, name, text, value);
     }
