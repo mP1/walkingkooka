@@ -18,6 +18,7 @@
 
 package walkingkooka.net.media;
 
+import walkingkooka.NeverError;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 
@@ -54,11 +55,11 @@ abstract class MediaTypeParser {
      * Depending on whether a single or many media types separated by commas are desired, sub classes will
      * try this method again or simply fail if a comma is encountered.
      */
-    final MediaType parse() {
+    final MediaType parse(final int initialMode) {
         final String text = this.text;
         final int length = text.length();
 
-        int mode = MODE_TYPE;
+        int mode = initialMode;
         int start = this.position;
         String type = null;
         String subType = null;
@@ -69,6 +70,13 @@ abstract class MediaTypeParser {
             final char c = text.charAt(this.position);
 
             switch (mode) {
+                case MODE_INITIAL_WHITESPACE:
+                    if(' '==c) {
+                        break;
+                    }
+                    // fall thru intentional...
+                    mode = MODE_TYPE;
+                    start = this.position;
                 case MODE_TYPE:
                     if (MediaType.isTokenCharacter(c)) {
                         break;
@@ -101,8 +109,27 @@ abstract class MediaTypeParser {
                         mode = MODE_FINISHED;
                         break;
                     }
+                    if(' '==c) {
+                        subType = token(SUBTYPE, start);
+                        mode = MODE_SUBTYPE_WHITESPACE;
+                        break;
+                    }
                     this.failInvalidCharacter();
-                    break;
+                case MODE_SUBTYPE_WHITESPACE:
+                    if (' ' == c) {
+                        break;
+                    }
+                    if (MediaType.PARAMETER_SEPARATOR == c) {
+                        mode = MODE_PARAMETER_NAME;
+                        start = this.position;
+                        break;
+                    }
+                    if(MediaType.MEDIATYPE_SEPARATOR == c) {
+                        this.mediaTypeSeparator();
+                        mode = MODE_FINISHED;
+                        break;
+                    }
+                    this.failInvalidCharacter();
                 case MODE_PARAMETER_SEPARATOR_WHITESPACE:
                     if (' ' == c) {
                         break;
@@ -149,6 +176,14 @@ abstract class MediaTypeParser {
                         mode = MODE_FINISHED;
                         break;
                     }
+                    if(' '==c) {
+                        parameters.put(parameterName, token(PARAMETER_VALUE, start));
+                        parameterName = null;
+                        start = this.position + 1;
+
+                        mode = MODE_PARAMETER_VALUE_WHITESPACE;
+                        break;
+                    }
                     this.failInvalidCharacter();
                     break;
                 case MODE_PARAMETER_QUOTES:
@@ -160,7 +195,8 @@ abstract class MediaTypeParser {
                         parameters.put(parameterName, text.substring(start + 1, this.position)); // allow empty quoted strings!
                         parameterName = null;
                         start = this.position + 1;
-                        mode = MODE_PARAMETER_SEPARATOR;
+                        mode = MODE_PARAMETER_VALUE_WHITESPACE;
+                        break;
                     }
                     break;
                 case MODE_PARAMETER_ESCAPE:
@@ -171,6 +207,10 @@ abstract class MediaTypeParser {
                     }
                     this.failInvalidCharacter();
                     break;
+                case MODE_PARAMETER_VALUE_WHITESPACE:
+                    if(' '==c){
+                        break;
+                    }
                 case MODE_PARAMETER_SEPARATOR:
                     if (MediaType.PARAMETER_SEPARATOR == c) {
                         mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
@@ -182,9 +222,8 @@ abstract class MediaTypeParser {
                         break;
                     }
                     this.failInvalidCharacter();
-                    break;
                 default:
-                    break;
+                    NeverError.unhandledCase(mode);
             }
 
             this.position++;
@@ -197,6 +236,8 @@ abstract class MediaTypeParser {
 
         // only modes that would be an error state are included in the switch below.
         switch (mode) {
+            case MODE_INITIAL_WHITESPACE:
+                failEmptyToken(TYPE, this.position, text);
             case MODE_TYPE:
                 failEmptyToken(SUBTYPE, this.position, text);
             case MODE_SUBTYPE:
@@ -254,17 +295,20 @@ abstract class MediaTypeParser {
     }
 
     /**
-     * Constants used in the {@link #parse()} state machine.
+     * Constants used in the {@link #parse(int)} state machine.
      */
-    private final static int MODE_TYPE = 1;
+    final static int MODE_INITIAL_WHITESPACE = 1;
+    final static int MODE_TYPE = MODE_INITIAL_WHITESPACE + 1;
     private final static int MODE_SUBTYPE = MODE_TYPE + 1;
-    private final static int MODE_PARAMETER_SEPARATOR_WHITESPACE = MODE_SUBTYPE + 1;
+    private final static int MODE_SUBTYPE_WHITESPACE = MODE_SUBTYPE + 1;
+    private final static int MODE_PARAMETER_SEPARATOR_WHITESPACE = MODE_SUBTYPE_WHITESPACE + 1;
     private final static int MODE_PARAMETER_NAME = MODE_PARAMETER_SEPARATOR_WHITESPACE + 1;
     private final static int MODE_PARAMETER_VALUE_INITIAL = MODE_PARAMETER_NAME + 1;
     private final static int MODE_PARAMETER_VALUE = MODE_PARAMETER_VALUE_INITIAL + 1;
     private final static int MODE_PARAMETER_QUOTES = MODE_PARAMETER_VALUE + 1;
     private final static int MODE_PARAMETER_ESCAPE = MODE_PARAMETER_QUOTES + 1;
-    private final static int MODE_PARAMETER_SEPARATOR = MODE_PARAMETER_ESCAPE + 1;
+    private final static int MODE_PARAMETER_VALUE_WHITESPACE = MODE_PARAMETER_ESCAPE + 1;
+    private final static int MODE_PARAMETER_SEPARATOR = MODE_PARAMETER_VALUE_WHITESPACE + 1;
     private final static int MODE_FINISHED = MODE_PARAMETER_SEPARATOR + 1;
 
     final static String TYPE = "type";

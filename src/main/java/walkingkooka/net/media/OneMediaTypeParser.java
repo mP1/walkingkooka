@@ -21,7 +21,7 @@ package walkingkooka.net.media;
 final class OneMediaTypeParser extends MediaTypeParser {
 
     static MediaType parseOneOrFail(final String text) {
-        return new OneMediaTypeParser(text).parse();
+        return new OneMediaTypeParser(text).parse(MODE_TYPE);
     }
 
     private OneMediaTypeParser(final String text) {

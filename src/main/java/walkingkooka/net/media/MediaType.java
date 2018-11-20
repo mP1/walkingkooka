@@ -399,13 +399,6 @@ final public class MediaType implements Value<String>, HasQFactorWeight, HashCod
     }
 
     /**
-     * Reports an invalid character within the unparsed media type.
-     */
-    static void failInvalidCharacter(final char c, final int i, final String text) {
-        throw new IllegalArgumentException(invalidCharacter(c, i, text));
-    }
-
-    /**
      * Builds a message to report an invalid or unexpected character.
      */
     static String invalidCharacter(final char c, final int i, final String text) {

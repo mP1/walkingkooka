@@ -69,13 +69,18 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
     }
 
     @Test
-    public final void testSubTypeWhitespaceFails() {
-        this.parseFails("type/ subtype", ' ');
+    public final void testTypeSlashWhitespaceFails() {
+        this.parseFails("type/ subtype", "Missing sub type at 5 in \"type/ subtype\"");
     }
 
     @Test
     public final void testSubTypeMissingFails() {
         this.parseFails("type/;", "Missing sub type at 5 in \"type/;\"");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeWhitespaceInvalidFails() {
+        this.parseFails("type/subtype Q", 'Q');
     }
 
     @Test
@@ -89,22 +94,22 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
     }
 
     @Test
-    public final void testParameterValueFails() {
+    public final void testParameterValueMissingFails() {
         this.parseFails("type/subtype;parameter", "Missing parameter value at 22 in \"type/subtype;parameter\"");
     }
 
     @Test
-    public final void testParameterValueFails2() {
+    public final void testParameterValueMissingFails2() {
         this.parseFails("type/subtype;parameter=", "Missing parameter value at 23 in \"type/subtype;parameter=\"");
     }
 
     @Test
-    public final void testParameterValueFails3() {
+    public final void testParameterValueMissingFails3() {
         this.parseFails("type/subtype;p1=v1;p2", "Missing parameter value at 21 in \"type/subtype;p1=v1;p2\"");
     }
 
     @Test
-    public final void testParameterValueFails4() {
+    public final void testParameterValueMissingFails4() {
         this.parseFails("type/subtype;p1=v1;p2=", "Missing parameter value at 22 in \"type/subtype;p1=v1;p2=\"");
     }
 
@@ -185,6 +190,21 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
     }
 
     @Test
+    public final void testTypeSubTypeWhitespace() {
+        this.parseAndCheck("a/b ", "a", "b");
+    }
+
+    @Test
+    public final void testTypeSubTypeWhitespace2() {
+        this.parseAndCheck("a/b  ", "a", "b");
+    }
+
+    @Test
+    public final void testTypeSubTypeWhitespace3() {
+        this.parseAndCheck("abc/def ", "abc", "def");
+    }
+
+    @Test
     public final void testTypeSubTypeParameter() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v", TYPE, SUBTYPE, parameters("p", "v"));
     }
@@ -195,8 +215,28 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
     }
 
     @Test
+    public final void testTypeSubTypeParameterWhitespace() {
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value ", TYPE, SUBTYPE, parameters("parameter", "value"));
+    }
+
+    @Test
+    public final void testTypeSubTypeParameterWhitespace2() {
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value  ", TYPE, SUBTYPE, parameters("parameter", "value"));
+    }
+
+    @Test
     public final void testTypeSubTypeParameterValueQuoted() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\"", TYPE, SUBTYPE, parameters("parameter", "value"));
+    }
+
+    @Test
+    public final void testTypeSubTypeParameterValueQuotedWhitespace() {
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\" ", TYPE, SUBTYPE, parameters("parameter", "value"));
+    }
+
+    @Test
+    public final void testTypeSubTypeParameterValueQuotedWhitespace2() {
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\"  ", TYPE, SUBTYPE, parameters("parameter", "value"));
     }
 
     @Test
