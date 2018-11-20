@@ -147,9 +147,14 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
         HttpHeaderToken.parse("A;b=");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseValueCommaEquals() {
-        HttpHeaderToken.parse("A;b=c,");
+        this.parseFails("A;b=c,", "Missing value at 6 in \"A;b=c,\"");
+    }
+
+    @Test
+    public void testParseValueSemiColonCommaFails() {
+        this.parseFails("A;,", "Missing value at 2 in \"A;,\"");
     }
 
     @Test
@@ -158,8 +163,33 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
-    public void testParseValueWhitespaceFails() {
-        this.parseFails("A ");
+    public void testParseValueWhitespace() {
+        this.parseAndCheck("A ", this.token("A"));
+    }
+
+    @Test
+    public void testParseValueWhitespace2() {
+        this.parseAndCheck("A  ", this.token("A"));
+    }
+
+    @Test
+    public void testParseValueParameterNameInvalidCharFails() {
+        this.parseFails("A;b>=c", '>');
+    }
+
+    @Test
+    public void testParseValueParameterValueInvalidCharFails() {
+        this.parseFails("A;b=c>", '>');
+    }
+
+    @Test
+    public void testParseValueParameterValueWhitespaceCharFails() {
+        this.parseFails("A;b=c Q", 'Q');
+    }
+
+    @Test
+    public void testParseValueParameterValueWhitespaceInvalidCharFails() {
+        this.parseFails("A;b=c >", '>');
     }
 
     @Test
@@ -175,8 +205,32 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
-    public void testParseValueWhitespaceParameter() {
+    public void testParseValueParameterWhitespace() {
+        this.parseAndCheck("A;bcd=123 ",
+                HttpHeaderToken.with("A", this.parameters("bcd", "123")));
+    }
+
+    @Test
+    public void testParseValueParameterWhitespace2() {
+        this.parseAndCheck("A;bcd=123  ",
+                HttpHeaderToken.with("A", this.parameters("bcd", "123")));
+    }
+
+    @Test
+    public void testParseValueSemiColonWhitespaceParameter() {
         this.parseAndCheck("A; b=c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueWhitespaceSemiColonParameter() {
+        this.parseAndCheck("A ;b=c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueWhitespaceSemiColonWhitespaceParameter() {
+        this.parseAndCheck("A ; b=c",
                 this.token("A", "b", "c"));
     }
 
@@ -224,6 +278,14 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
+    public void testParseValueWhitespaceCommaValueWhitespaceCommaValueWhitespace() {
+        this.parseAndCheck("A ,B ,C ",
+                this.token("A"),
+                this.token("B"),
+                this.token("C"));
+    }
+
+    @Test
     public void testParseValueCommaWhitespaceValueCommaWhitespaceValue() {
         this.parseAndCheck("A, B, C",
                 this.token("A"),
@@ -232,11 +294,37 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
+    public void testParseValueParameters() {
+        this.parseAndCheck("V1;p1=v1;p2=v2",
+                this.token("V1", "p1", "v1", "p2", "v2"));
+    }
+
+    @Test
     public void testParseValueParametersCommaValueParametersCommaValueParameters() {
         this.parseAndCheck("V1;p1=v1,V2;p2=v2,V3;p3=v3",
                 this.token("V1", "p1", "v1"),
                 this.token("V2", "p2", "v2"),
                 this.token("V3", "p3", "v3"));
+    }
+
+    @Test
+    public void testParseValueParametersWhitespaceCommaValueParametersWhitespaceCommaValueParametersWhitespace() {
+        this.parseAndCheck("V1;p1=v1 ,V2;p2=v2 ,V3;p3=v3 ",
+                this.token("V1", "p1", "v1"),
+                this.token("V2", "p2", "v2"),
+                this.token("V3", "p3", "v3"));
+    }
+
+    @Test
+    public void testParseValueParameterWhitespaceSemiParameter() {
+        this.parseAndCheck("V1;p1=v1 ;p2=v2",
+                this.token("V1", "p1", "v1", "p2", "v2"));
+    }
+
+    @Test
+    public void testParseValueParameterSemiColonWhitespaceParameter() {
+        this.parseAndCheck("V1;p1=v1; p2=v2",
+                this.token("V1", "p1", "v1", "p2", "v2"));
     }
 
     @Test
@@ -278,7 +366,6 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
             HttpHeaderToken.parse(text);
             fail();
         } catch (final IllegalArgumentException expected) {
-            expected.printStackTrace();
             assertEquals("Incorrect failure message", message, expected.getMessage());
         }
     }
@@ -317,6 +404,15 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
 
     private HttpHeaderToken token(final String value, final String parameterName, final String parameterValue) {
         return HttpHeaderToken.with(value, this.parameters(parameterName, parameterValue));
+    }
+
+    private HttpHeaderToken token(final String value,
+                                  final String parameterName1,
+                                  final String parameterValue1,
+                                  final String parameterName2,
+                                  final String parameterValue2) {
+        return HttpHeaderToken.with(value,
+                this.parameters(parameterName1, parameterValue1, parameterName2, parameterValue2));
     }
 
     private Map<HttpHeaderParameterName<?>, String> parameters() {

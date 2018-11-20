@@ -86,7 +86,9 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
         Map<HttpHeaderParameterName<?>, String> parameters = NO_PARAMETERS;
 
         int i = 0;
-        for (char c : text.toCharArray()) {
+        final int length = text.length();
+        while(i < length) {
+            final char c = text.charAt(i);
 
             switch (mode) {
                 case MODE_VALUE:
@@ -106,7 +108,25 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                         mode = MODE_SEPARATOR;
                         break;
                     }
+                    if(' ' ==c) {
+                        value = token(VALUE, text, start, i);
+                        parameters = Maps.ordered();
+                        mode = MODE_VALUE_WHITESPACE;
+                        break;
+                    }
                     failInvalidCharacter(i, text);
+                case MODE_VALUE_WHITESPACE:
+                    if(' ' ==c) {
+                        break;
+                    }
+                    if(separator==c) {
+                        tokens.add(HttpHeaderToken.with(value, HttpHeaderToken.NO_PARAMETERS));
+                        mode = MODE_SEPARATOR;
+                        start = i;
+                        break;
+                    }
+                    mode = MODE_PARAMETER_SEPARATOR;
+                    start = i;
                 case MODE_PARAMETER_SEPARATOR:
                     if (' ' == c) {
                         break;
@@ -117,11 +137,23 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                         start = i + 1;
                         break;
                     }
-
+                    if (parameterSeparator == c) {
+                        mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
+                        start = i + 1;
+                        break;
+                    }
+                    mode = MODE_PARAMETER_NAME;
+                    start = i;
+                    i--; // try char again as NAME
+                    break;
+                case MODE_PARAMETER_SEPARATOR_WHITESPACE:
+                    if (' ' == c) {
+                        break;
+                    }
                     mode = MODE_PARAMETER_NAME;
                     start = i;
                     parameterName = null;
-                    parameters = Maps.ordered();
+                    // intentional fall thru...
                 case MODE_PARAMETER_NAME:
                     if (isTokenChar(c)) {
                         break;
@@ -145,7 +177,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                     }
                     if (parameterSeparator == c) {
                         parameters.put(parameterName, token(PARAMETER_VALUE, text, start, i));
-                        mode = MODE_PARAMETER_NAME;
+                        mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
                         start = i + 1;
                         break;
                     }
@@ -161,11 +193,12 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                         break;
                     }
                     if (parameterSeparator == c) {
-                        mode = MODE_PARAMETER_NAME;
+                        mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
                         start = i + 1;
                         break;
                     }
                     if (separator == c) {
+                        tokens.add(HttpHeaderToken.with(value, parameters));
                         mode = MODE_VALUE;
                         start = i + 1;
                         break;
@@ -191,8 +224,14 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
             case MODE_VALUE:
                 tokens.add(HttpHeaderToken.with(token(VALUE, text, start, i), HttpHeaderToken.NO_PARAMETERS));
                 break;
+            case MODE_VALUE_WHITESPACE:
+                tokens.add(HttpHeaderToken.with(value, HttpHeaderToken.NO_PARAMETERS));
+                break;
             case MODE_PARAMETER_VALUE:
                 parameters.put(parameterName, token(PARAMETER_VALUE, text, start, i));
+                tokens.add(HttpHeaderToken.with(value, parameters));
+                break;
+            case MODE_PARAMETER_VALUE_WHITESPACE:
                 tokens.add(HttpHeaderToken.with(value, parameters));
                 break;
             case MODE_SEPARATOR:
@@ -206,8 +245,10 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
     }
 
     private final static int MODE_VALUE = 1;
-    private final static int MODE_PARAMETER_SEPARATOR = MODE_VALUE + 1;
-    private final static int MODE_PARAMETER_NAME = MODE_PARAMETER_SEPARATOR + 1;
+    private final static int MODE_VALUE_WHITESPACE = MODE_VALUE + 1;
+    private final static int MODE_PARAMETER_SEPARATOR = MODE_VALUE_WHITESPACE + 1;
+    private final static int MODE_PARAMETER_SEPARATOR_WHITESPACE = MODE_PARAMETER_SEPARATOR + 1;
+    private final static int MODE_PARAMETER_NAME = MODE_PARAMETER_SEPARATOR_WHITESPACE + 1;
     private final static int MODE_PARAMETER_VALUE = MODE_PARAMETER_NAME + 1;
     private final static int MODE_PARAMETER_VALUE_WHITESPACE = MODE_PARAMETER_VALUE + 1;
     private final static int MODE_SEPARATOR = MODE_PARAMETER_VALUE_WHITESPACE + 1;
@@ -251,36 +292,6 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
      */
     private static void failEmptyToken(final String token, final int i, final String text) {
         throw new IllegalArgumentException("Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text));
-    }
-
-
-    ///////////
-
-    /**
-     * Parsers an individual token including its parameters.
-     */
-    private static HttpHeaderToken parseToken(final String text) {
-        final String[] tokens = text.split(",");
-        if (tokens.length == 0) {
-            throw new IllegalArgumentException("Missing value=" + CharSequences.quote(text));
-        }
-
-        final Map<HttpHeaderParameterName<?>, String> parameters = Maps.ordered();
-        for (String token : tokens) {
-            final int equalsSign = token.indexOf(PARAMETER_NAME_VALUE_SEPARATOR.character());
-            if (-1 == equalsSign) {
-                throw new IllegalArgumentException("Parameter value missing " + CharSequences.quoteIfChars(PARAMETER_NAME_VALUE_SEPARATOR) +
-                        " from parameter " + CharSequences.quote(token) +
-                        " in " + CharSequences.quote(text));
-            }
-            if (0 == equalsSign) {
-                throw new IllegalArgumentException("Parameter name missing from parameter " + CharSequences.quote(token) +
-                        " in " + CharSequences.quote(text));
-            }
-            parameters.put(HttpHeaderParameterName.with(token.substring(0, equalsSign)), token.substring(equalsSign + 1));
-        }
-
-        return new HttpHeaderToken(tokens[0], parameters);
     }
 
     /**
