@@ -35,7 +35,7 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
 
     static <V> void check(final String text, final V value) {
         Objects.requireNonNull(text, "text");
-        Objects.requireNonNull(value, "value");
+        checkValue(value);
     }
 
     SearchLeafNode(final int index, final SearchNodeName name, final String text, final V value) {
@@ -61,7 +61,13 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
 
     private final V value;
 
+    /**
+     * Would be value setter, that returns an instance with the given value creating a new instance if necessary.
+     */
+    abstract public SearchLeafNode<V> setValue(final V value);
+
     final SearchLeafNode<V> setValue0(final V value) {
+        checkValue(value);
         return Objects.equals(this.value(), value) ?
                 this :
                 this.replaceValue(value);
@@ -73,6 +79,10 @@ abstract class SearchLeafNode<V> extends SearchNode implements Value<V> {
         return this.replace0(index, this.name, this.text, value)
                 .replaceChild(this.parent(), index)
                 .cast();
+    }
+
+    static void checkValue(final Object value) {
+        Objects.requireNonNull(value, "value");
     }
 
     @Override

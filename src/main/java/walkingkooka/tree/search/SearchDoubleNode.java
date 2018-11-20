@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.search;
 
+import java.math.BigInteger;
+
 /**
  * A {@link SearchNode} that holds a {@link Double} value.
  */
@@ -43,6 +45,11 @@ public final class SearchDoubleNode extends SearchLeafNode<Double>{
     @Override
     public SearchDoubleNode setName(final SearchNodeName name) {
         return super.setName0(name).cast();
+    }
+
+    @Override
+    public SearchDoubleNode setValue(final Double value) {
+        return this.setValue0(value).cast();
     }
 
     @Override

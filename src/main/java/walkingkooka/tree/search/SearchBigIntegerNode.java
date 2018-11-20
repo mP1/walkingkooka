@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.search;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
@@ -45,6 +46,11 @@ public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger>{
     @Override
     public SearchBigIntegerNode setName(final SearchNodeName name) {
         return super.setName0(name).cast();
+    }
+
+    @Override
+    public SearchBigIntegerNode setValue(final BigInteger value) {
+        return this.setValue0(value).cast();
     }
 
     @Override

@@ -37,10 +37,15 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode, V> extend
         this.checkValue(node, this.value());
     }
 
+    @Test(expected = NullPointerException.class)
+    public final void testSetValueNullFails() {
+        this.createSearchNode().setValue(null);
+    }
+
     @Test
     public final void testSetSameValue() {
         final N node = this.createSearchNode();
-        assertSame(node, node.setValue0(node.value()));
+        assertSame(node, node.setValue(node.value()));
     }
 
     @Test
@@ -48,7 +53,7 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode, V> extend
         final N node = this.createSearchNode();
 
         final V differentValue = this.differentValue();
-        final N different = node.setValue0(differentValue).cast();
+        final N different = node.setValue(differentValue).cast();
         assertNotSame(node, different);
         this.checkValue(different, differentValue);
         this.checkWithoutParent(different);
