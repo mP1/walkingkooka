@@ -80,6 +80,14 @@ public final class ManyMediaTypeParserTest extends MediaTypeParserTestCase<ManyM
                 MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
     }
 
+    @Test
+    public void testSortedByQFactor() {
+        this.parseAndCheck2("type1/subtype1; q=0.25, type2/subtype2; q=1.0, type3/subtype3; q=0.5",
+                MediaType.with("type2", "subtype2").setParameters(this.parameters("q", "1.0")),
+                MediaType.with("type3", "subtype3").setParameters(this.parameters("q", "0.5")),
+                MediaType.with("type1", "subtype1").setParameters(this.parameters("q", "0.25")));
+    }
+
     @Override
     final void parseAndCheck(final String text,
                                        final String type,

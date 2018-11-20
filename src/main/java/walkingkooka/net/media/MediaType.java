@@ -227,7 +227,8 @@ final public class MediaType implements Value<String>, HasQFactorWeight, HashCod
 
     /**
      * Creates a list of {@link MediaType}. If the text contains a single media type the results of this will be
-     * identical to {@link #parseOne(String)} except the result will be in a list.
+     * identical to {@link #parseOne(String)} except the result will be in a list, which will also be
+     * sorted by the q factor of each media type.
      */
     public static List<MediaType> parseMany(final String text) {
         checkText(text);

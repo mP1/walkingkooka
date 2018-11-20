@@ -49,7 +49,15 @@ public final class HttpHeaderValueHttpHeaderTokenListConverterTest extends
 
     @Test
     public void testManyTokensSomeWithParameters() {
-        this.parseAndCheck2("ES; q=0.5, EN, FR; q=0.25", this.es(), this.en(), fr());
+        // sorted by q factor
+        this.parseAndCheck2("ES; q=0.5, EN, FR; q=0.25", this.en(), this.es(), fr());
+    }
+
+    @Test
+    public void testMultipleSameQFactor() {
+        // sorted by q factor
+        this.parseAndCheck2("ES; q=0.5, EN, FR; q=0.25, EN_AU, EN_NZ;q=1.0",
+                this.en(), this.en_AU(), this.en_NZ(), this.es(), fr());
     }
 
     private void parseAndCheck2(final String headerValue, final HttpHeaderToken... tokens) {
@@ -62,6 +70,10 @@ public final class HttpHeaderValueHttpHeaderTokenListConverterTest extends
 
     private HttpHeaderToken en_AU() {
         return HttpHeaderToken.with("EN_AU", HttpHeaderToken.NO_PARAMETERS);
+    }
+
+    private HttpHeaderToken en_NZ() {
+        return HttpHeaderToken.with("EN_NZ", Maps.one(HttpHeaderParameterName.Q, "1.0"));
     }
 
     private HttpHeaderToken es() {

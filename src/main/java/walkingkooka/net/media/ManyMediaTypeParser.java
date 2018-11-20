@@ -19,6 +19,7 @@
 package walkingkooka.net.media;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.HasQFactorWeight;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ final class ManyMediaTypeParser extends MediaTypeParser {
             mode = MODE_INITIAL_WHITESPACE;
         } while (parser.position < length);
 
+        result.sort(HasQFactorWeight.qFactorDescendingComparator());
         return result;
     }
 
