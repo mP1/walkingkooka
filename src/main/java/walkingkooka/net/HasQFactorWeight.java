@@ -26,6 +26,13 @@ import java.util.Optional;
 public interface HasQFactorWeight {
 
     /**
+     * {@see QFactorWeightComparator}
+     */
+    static <T extends HasQFactorWeight> QFactorWeightComparator<T> qFactorDescendingComparator() {
+        return QFactorWeightComparator.instance();
+    }
+
+    /**
      * Gets the q factor weight.
      */
     Optional<Float> qFactorWeight();
