@@ -19,6 +19,7 @@
 package walkingkooka.net.media;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -36,6 +37,47 @@ public final class ManyMediaTypeParserTest extends MediaTypeParserTestCase<ManyM
     @Test
     public void testTrailingComma2() {
         this.parseAndCheckOne("type/subtype;parameter123=value456,", TYPE, SUBTYPE, parameters("parameter123", "value456"));
+    }
+
+    @Test
+    public void testTypeSubTypeWhitespace4() {
+        this.parseAndCheck2("type1/subtype1 ",
+                MediaType.with("type1", "subtype1"));
+    }
+
+    @Test
+    public void testTypeSubTypeCommaWhitespaceTypeSubType() {
+        this.parseAndCheck2("type1/subtype1, type2/subtype2",
+                MediaType.with("type1", "subtype1"),
+                MediaType.with("type2", "subtype2"));
+    }
+
+    @Test
+    public void testTypeSubTypeParameterCommaWhitespaceTypeSubType2() {
+        this.parseAndCheck2("type1/subtype1;p1=v1, type2/subtype2",
+                MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
+                MediaType.with("type2", "subtype2"));
+    }
+
+    @Test
+    public void testTypeSubTypeParameterCommaTypeSubTypeParameter() {
+        this.parseAndCheck2("type1/subtype1;p1=v1,type2/subtype2;p2=v2",
+                MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
+                MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
+    }
+
+    @Test
+    public void testTypeSubTypeParameterCommaWhitespaceTypeSubTypeParameter() {
+        this.parseAndCheck2("type1/subtype1;p1=v1, type2/subtype2;p2=v2",
+                MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
+                MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
+    }
+
+    @Test
+    public void testTypeSubTypeWhitespaceParameterCommaWhitespaceTypeSubTypeWhitespaceParameter() {
+        this.parseAndCheck2("type1/subtype1; p1=v1, type2/subtype2; p2=v2",
+                MediaType.with("type1", "subtype1").setParameters(this.parameters("p1", "v1")),
+                MediaType.with("type2", "subtype2").setParameters(this.parameters("p2", "v2")));
     }
 
     @Override
@@ -82,6 +124,12 @@ public final class ManyMediaTypeParserTest extends MediaTypeParserTestCase<ManyM
 
         this.check(result.get(2), "TYPE2", "SUBTYPE2", parameters("x", "y"));
         this.check(result.get(3), type, subtype, parameters);
+    }
+
+    private void parseAndCheck2(final String text, final MediaType...mediaTypes) {
+        assertEquals("Incorrect result parsing " + CharSequences.quote(text),
+                Lists.of(mediaTypes),
+                ManyMediaTypeParser.parseMany(text));
     }
 
     @Override

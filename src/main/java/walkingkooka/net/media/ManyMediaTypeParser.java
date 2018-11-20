@@ -33,8 +33,10 @@ final class ManyMediaTypeParser extends MediaTypeParser {
         final ManyMediaTypeParser parser = new ManyMediaTypeParser(text);
         final int length = text.length();
 
+        int mode = MODE_TYPE;
         do {
-            result.add(parser.parse());
+            result.add(parser.parse(mode));
+            mode = MODE_INITIAL_WHITESPACE;
         } while (parser.position < length);
 
         return result;
