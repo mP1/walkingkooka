@@ -64,14 +64,13 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
     public final static CharacterConstant SEPARATOR = CharacterConstant.with(',');
 
     /**
-     * Parses a header value into tokens.
+     * Parses a header value into tokens, which aill also be sorted using their q factor weights.
      * <pre>
      * Accept-Charset: utf-8, iso-8859-1;q=0.5
      * </pre>
      */
     public static List<HttpHeaderToken> parse(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
-
 
         final char parameterSeparator = PARAMETER_SEPARATOR.character();
         final char parameterNameValueSeparator = PARAMETER_NAME_VALUE_SEPARATOR.character();
@@ -202,6 +201,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                 break;
         }
 
+        tokens.sort(HasQFactorWeight.qFactorDescendingComparator());
         return Lists.readOnly(tokens);
     }
 

@@ -247,6 +247,14 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
                 this.token("V3", "p3", "v3"));
     }
 
+    @Test
+    public void testParseSortedByQFactorWeight() {
+        this.parseAndCheck("V1;q=0.5, V2;q=1.0, V3;q=0.25",
+                this.token("V2", "q", "1.0"),
+                this.token("V1", "q", "0.5"),
+                this.token("V3", "q", "0.25"));
+    }
+
     private void parseAndCheck(final String headerValue, final HttpHeaderToken... tokens) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(headerValue),
                 Lists.of(tokens),
