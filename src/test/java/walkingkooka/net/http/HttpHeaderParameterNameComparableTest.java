@@ -22,30 +22,30 @@ package walkingkooka.net.http;
 import org.junit.Test;
 import walkingkooka.compare.ComparableTestCase;
 
-final public class HttpHeaderNameComparableTest extends ComparableTestCase<HttpHeaderName<?>> {
+final public class HttpHeaderParameterNameComparableTest extends ComparableTestCase<HttpHeaderParameterName<?>> {
 
     @Test
     public void testBefore() {
-        this.compareToAndCheckLess(HttpHeaderName.with("zzz"));
+        this.compareToAndCheckLess(HttpHeaderParameterName.with("zzz"));
     }
 
     @Test
     public void testBeforeCaseUnimportant() {
-        this.compareToAndCheckLess(HttpHeaderName.with("ZZZ"));
+        this.compareToAndCheckLess(HttpHeaderParameterName.with("ZZZ"));
     }
 
     @Test
     public void testAfter() {
-        this.compareToAndCheckMore(HttpHeaderName.with("aaa"));
+        this.compareToAndCheckMore(HttpHeaderParameterName.with("aaa"));
     }
 
     @Test
     public void testAfterCaseUnimportant() {
-        this.compareToAndCheckMore(HttpHeaderName.with("AAA"));
+        this.compareToAndCheckMore(HttpHeaderParameterName.with("AAA"));
     }
 
     @Override
-    protected HttpHeaderName<String> createComparable() {
-        return HttpHeaderName.CACHE_CONTROL;
+    protected HttpHeaderParameterName<?> createComparable() {
+        return HttpHeaderParameterName.with("mmmm");
     }
 }

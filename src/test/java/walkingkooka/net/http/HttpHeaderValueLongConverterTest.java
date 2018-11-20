@@ -18,37 +18,38 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.http.cookie.ClientCookie;
-import walkingkooka.test.Fake;
+import org.junit.Test;
 
-import java.util.List;
-import java.util.Map;
+public final class HttpHeaderValueLongConverterTest extends
+        HttpHeaderValueConverterTestCase<HttpHeaderValueLongConverter, Long> {
 
-public class FakeHttpRequest implements HttpRequest, Fake {
-
-    @Override
-    public HttpMethod method() {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testLong() {
+        this.parseAndCheck("123", 123L);
     }
 
     @Override
-    public HttpProtocol protocol() {
-        throw new UnsupportedOperationException();
+    HttpHeaderName<Long> headerOrParameterName() {
+        return HttpHeaderName.CONTENT_LENGTH;
     }
 
     @Override
-    public RelativeUrl url() {
-        throw new UnsupportedOperationException();
+    HttpHeaderValueLongConverter converter() {
+        return HttpHeaderValueLongConverter.INSTANCE;
     }
 
     @Override
-    public Map<HttpHeaderName<?>, String> headers() {
-        throw new UnsupportedOperationException();
+    String invalidHeaderValue() {
+        return "abc";
     }
 
     @Override
-    public List<ClientCookie> cookies() {
-        throw new UnsupportedOperationException();
+    String converterToString() {
+        return Long.class.getSimpleName();
+    }
+
+    @Override
+    protected Class<HttpHeaderValueLongConverter> type() {
+        return HttpHeaderValueLongConverter.class;
     }
 }

@@ -18,38 +18,32 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.http.cookie.ClientCookie;
-
-import java.util.List;
-import java.util.Map;
+import walkingkooka.naming.Name;
 
 /**
- * Defines a HTTP request.
+ * The most basic and default {@link HttpHeaderValueConverter} that simply echos any value given to it.
  */
-public interface HttpRequest {
-    /**
-     * Returns the protocol which appears on the request line.
-     */
-    HttpProtocol protocol();
+final class HttpHeaderValueStringConverter extends HttpHeaderValueConverter<String> {
 
     /**
-     * Returns the url that appears on the request line.
+     * Singleton
      */
-    RelativeUrl url();
+    final static HttpHeaderValueStringConverter INSTANCE = new HttpHeaderValueStringConverter();
 
     /**
-     * Returns the {@link HttpMethod method} used to make the request.
+     * Private ctor use singleton.
      */
-    HttpMethod method();
+    private HttpHeaderValueStringConverter() {
+        super();
+    }
 
-    /**
-     * Returns a {@link Map} view of all request headers.
-     */
-    Map<HttpHeaderName<?>, String> headers();
+    @Override
+    String parse0(final String value, final Name name) {
+        return value;
+    }
 
-    /**
-     * Returns all cookies that appear in the request.
-     */
-    List<ClientCookie> cookies();
+    @Override
+    public String toString() {
+        return toStringType(String.class);
+    }
 }
