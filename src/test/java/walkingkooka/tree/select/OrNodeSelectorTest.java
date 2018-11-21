@@ -19,9 +19,10 @@ package walkingkooka.tree.select;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+
+import java.util.List;
 
 public final class OrNodeSelectorTest extends
         LogicalNodeSelectorTestCase<OrNodeSelector<TestFakeNode, StringName, StringName, Object>> {
@@ -65,11 +66,10 @@ public final class OrNodeSelectorTest extends
                 child, root);
     }
 
-    @SafeVarargs
     @Override
     final NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(
-            final NodeSelector<TestFakeNode, StringName, StringName, Object> ...selectors) {
-        return OrNodeSelector.with(Lists.of(selectors));
+            final List<NodeSelector<TestFakeNode, StringName, StringName, Object>> selectors) {
+        return OrNodeSelector.with(selectors);
     }
 
     @Override protected Class<OrNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {

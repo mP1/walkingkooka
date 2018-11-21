@@ -46,7 +46,8 @@ public final class HttpHeaderRangeEqualityTest extends HashCodeEqualsDefinedEqua
         return Range.greaterThan(123L);
     }
 
-    private HttpHeaderRange range(final String unit, final Range<Long>... ranges) {
+    @SafeVarargs
+    private final HttpHeaderRange range(final String unit, final Range<Long>... ranges) {
         return HttpHeaderRange.with(unit, Lists.of(ranges));
     }
 }

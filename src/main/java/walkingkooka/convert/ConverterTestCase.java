@@ -19,6 +19,7 @@
 package walkingkooka.convert;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 
@@ -82,12 +83,17 @@ public abstract class ConverterTestCase<C extends Converter> extends PackagePriv
 
     protected void checkEquals(final String message, final Object expected, final Object actual) {
         if(expected instanceof Comparable && expected.getClass().isInstance(actual)) {
-            if(((Comparable) expected).compareTo(actual) != 0) {
-                assertEquals(message, expected, actual);
-            }
+            final Comparable expectedComparable = Cast.to(expected);
+            this.checkEquals0(message, Cast.to(expectedComparable), Cast.to(actual));
         } else {
             assertEquals(message, expected, actual);
         }
+    }
+
+    private <C extends Comparable<C>> void checkEquals0(final String message, final C expected, final C actual) {
+       if(expected.compareTo(actual) != 0) {
+                assertEquals(message, expected, actual);
+            }
     }
 
     protected <T> void convertFails(final Object value, final Class<?> type) {

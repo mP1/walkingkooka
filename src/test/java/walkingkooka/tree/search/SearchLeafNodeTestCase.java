@@ -27,7 +27,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode, V> extends SearchNodeTestCase<N> {
+public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> extends SearchNodeTestCase<N> {
 
     @Test
     public final void testCreate() {

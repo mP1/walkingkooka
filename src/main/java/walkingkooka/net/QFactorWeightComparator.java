@@ -18,6 +18,8 @@
 
 package walkingkooka.net;
 
+import walkingkooka.Cast;
+
 import java.util.Comparator;
 
 /**
@@ -29,7 +31,7 @@ final class QFactorWeightComparator<T extends HasQFactorWeight> implements Compa
      * Type safe singleton getter
      */
     static <T extends HasQFactorWeight> QFactorWeightComparator<T> instance() {
-        return INSTANCE;
+        return Cast.to(INSTANCE);
     }
 
     @SuppressWarnings("rawtypes")

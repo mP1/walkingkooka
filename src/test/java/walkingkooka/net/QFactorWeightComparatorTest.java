@@ -83,7 +83,7 @@ public final class QFactorWeightComparatorTest extends ComparatorTestCase<QFacto
     }
 
     @Override
-    protected QFactorWeightComparator createComparator() {
+    protected QFactorWeightComparator<MediaType> createComparator() {
         return QFactorWeightComparator.instance();
     }
 
