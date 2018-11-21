@@ -32,28 +32,28 @@ import java.util.function.Predicate;
  *
  * @param <T>
  */
-final class RouterChoices<T> extends Router<T> {
+final class RouterBuilderRouterChoices<T> extends RouterBuilderRouter<T> {
 
-    static <T> RouterChoices<T> with(final List<Router<T>> choices) {
-        return new RouterChoices<>(choices);
+    static <T> RouterBuilderRouterChoices<T> with(final List<RouterBuilderRouter<T>> choices) {
+        return new RouterBuilderRouterChoices<>(choices);
     }
 
-    private RouterChoices(final List<Router<T>> choices) {
+    private RouterBuilderRouterChoices(final List<RouterBuilderRouter<T>> choices) {
         this.choices = choices;
     }
 
     @Override
-    Router<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
-        // take a copy of the existing choices, add the new and create a new RouterChoices
-        List<Router<T>> copy = Lists.array();
+    RouterBuilderRouter<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+        // take a copy of the existing choices, add the new and create a new RouterBuilderRouterChoices
+        List<RouterBuilderRouter<T>> copy = Lists.array();
         copy.addAll(this.choices);
         copy.add(this.expand(target, nameToCondition));
 
-        return new RouterChoices<>(copy);
+        return new RouterBuilderRouterChoices<>(copy);
     }
 
     @Override
-    Router<T> build() {
+    RouterBuilderRouter<T> build() {
         return this;
     }
 
@@ -63,7 +63,7 @@ final class RouterChoices<T> extends Router<T> {
 
         Optional<T> result = Optional.empty();
 
-        for (Router<T> step : this.choices) {
+        for (RouterBuilderRouter<T> step : this.choices) {
             result = step.route(parameters);
             if (result.isPresent()) {
                 break;
@@ -73,12 +73,12 @@ final class RouterChoices<T> extends Router<T> {
         return result;
     }
 
-    private final List<Router<T>> choices;
+    private final List<RouterBuilderRouter<T>> choices;
 
     @Override
     void toString0(final boolean separatorRequired, final StringBuilder b) {
         String choiceSeparator = "";
-        for (Router<T> choice : this.choices) {
+        for (RouterBuilderRouter<T> choice : this.choices) {
             b.append(choiceSeparator);
 
             b.append('(');

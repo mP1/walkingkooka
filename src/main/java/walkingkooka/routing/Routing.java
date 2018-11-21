@@ -31,7 +31,7 @@ import java.util.function.Predicate;
  * In a web environment these parameters will include HTTP artifacts such as the scheme,
  * request method, http headers, url and the individual path components. A {@link Map}
  * will contain the well known names of these components and the value. The dispatcher
- * will populate a Map and Routes will also use the same names and the {@link Router}
+ * will populate a Map and Routes will also use the same names and the {@link RouterBuilderRouter}
  * will return the target.
  */
 public final class Routing<T> {
