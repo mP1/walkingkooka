@@ -31,33 +31,39 @@ import java.util.function.Predicate;
  * In a web environment these parameters will include HTTP artifacts such as the scheme,
  * request method, http headers, url and the individual path components. A {@link Map}
  * will contain the well known names of these components and the value. The dispatcher
- * will populate a Map and Routes will also use the same names and the {@link RouteMaster}
+ * will populate a Map and Routes will also use the same names and the {@link Router}
  * will return the target.
  */
-public final class Route<T> {
+public final class Routing<T> {
 
     /**
-     * Creates a {@link Route} with initially no conditions attached to it.
+     * Creates a {@link Routing} with initially no conditions attached to it.
      */
-    public static <T> Route<T> with(final T target) {
+    public static <T> Routing<T> with(final T target) {
         Objects.requireNonNull(target, "target");
 
-        return new Route<T>(target, Maps.empty());
+        return new Routing<T>(target, Maps.empty());
     }
 
-    private Route(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    private Routing(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
         this.target = target;
         this.nameToCondition = nameToCondition;
     }
 
-    public Route<T> equalsValue(final Name name, final Object value) {
+    /**
+     * Follows the route if the equality condition is true.
+     */
+    public Routing<T> andValueEquals(final Name name, final Object value) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(value, "value");
 
-        return this.predicate(name, Predicates.is(value));
+        return this.andPredicateTrue(name, Predicates.is(value));
     }
 
-    public Route<T> predicate(final Name name, final Predicate<Object> valueTest) {
+    /**
+     * Routing continues if the predicate is true.
+     */
+    public Routing<T> andPredicateTrue(final Name name, final Predicate<Object> valueTest) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(valueTest, "valueTest");
 
@@ -65,7 +71,7 @@ public final class Route<T> {
         nameToCondition.putAll(this.nameToCondition);
         nameToCondition.put(name, valueTest);
 
-        return new Route<T>(this.target, nameToCondition);
+        return new Routing<T>(this.target, nameToCondition);
     }
 
     final Map<Name, Predicate<Object>> nameToCondition;

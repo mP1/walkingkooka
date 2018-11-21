@@ -25,25 +25,25 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * A component in the chain that always returns the target assuming ALL elements of the {@link Route} have been satisfied.
+ * A component in the chain that always returns the target assuming ALL elements of the {@link Routing} have been satisfied.
  */
-final class RouteMasterTerminal<T> extends RouteMaster<T> {
+final class RouterTerminal<T> extends Router<T> {
 
-    static <T> RouteMasterTerminal<T> with(final T target) {
-        return new RouteMasterTerminal<>(target);
+    static <T> RouterTerminal<T> with(final T target) {
+        return new RouterTerminal<>(target);
     }
 
-    private RouteMasterTerminal(final T target) {
+    private RouterTerminal(final T target) {
         this.target = Optional.of(target);
     }
 
     @Override
-    RouteMaster<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    Router<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    RouteMaster<T> build() {
+    Router<T> build() {
         return this;
     }
 
@@ -56,7 +56,7 @@ final class RouteMasterTerminal<T> extends RouteMaster<T> {
 
     @Override
     void toString0(final boolean separatorRequired, final StringBuilder b) {
-        if(separatorRequired) {
+        if (separatorRequired) {
             b.append(' ');
         }
         b.append("->")
