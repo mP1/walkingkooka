@@ -20,7 +20,6 @@ package walkingkooka.routing;
 
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
-import walkingkooka.naming.Name;
 
 import java.util.Map;
 import java.util.Optional;
@@ -29,32 +28,32 @@ import java.util.function.Predicate;
 /**
  * A placeholder for a route with no conditions.
  */
-final class RouterBuilderRouterNull<T> extends RouterBuilderRouter<T> {
+final class RouterBuilderRouterNull<K, T> extends RouterBuilderRouter<K, T> {
 
-    static <T> RouterBuilderRouterNull<T> get() {
+    static <K, T> RouterBuilderRouterNull<K, T> get() {
         return Cast.to(INSTANCE);
     }
 
-    private final static RouterBuilderRouterNull<?> INSTANCE = new RouterBuilderRouterNull();
+    private final static RouterBuilderRouterNull INSTANCE = new RouterBuilderRouterNull();
 
     private RouterBuilderRouterNull() {
         super();
     }
 
     @Override
-    RouterBuilderRouter<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
-        return nameToCondition.isEmpty() ?
+    RouterBuilderRouter<K, T> add(final T target, final Map<K, Predicate<Object>> keyToCondition) {
+        return keyToCondition.isEmpty() ?
                 RouterBuilderRouterTerminal.with(target) :
-                this.expand(target, nameToCondition);
+                this.expand(target, keyToCondition);
     }
 
     @Override
-    RouterBuilderRouter<T> build() {
+    RouterBuilderRouter<K, T> build() {
         throw new BuilderException("Builder requires at least 1 Routing");
     }
 
     @Override
-    Optional<T> route0(final Map<Name, Object> parameters) {
+    Optional<T> route0(final Map<K, Object> parameters) {
         return Optional.empty();
     }
 

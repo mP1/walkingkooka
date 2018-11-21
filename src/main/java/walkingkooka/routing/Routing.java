@@ -19,7 +19,6 @@
 package walkingkooka.routing;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 
 import java.util.Map;
@@ -34,47 +33,48 @@ import java.util.function.Predicate;
  * will populate a Map and Routes will also use the same names and the {@link RouterBuilderRouter}
  * will return the target.
  */
-public final class Routing<T> {
+public final class Routing<K, T> {
 
     /**
      * Creates a {@link Routing} with initially no conditions attached to it.
      */
-    public static <T> Routing<T> with(final T target) {
+    public static <K, T> Routing<K, T> with(final Class<K> type, final T target) {
+        Objects.requireNonNull(type, "type");
         Objects.requireNonNull(target, "target");
 
-        return new Routing<T>(target, Maps.empty());
+        return new Routing<K, T>(target, Maps.empty());
     }
 
-    private Routing(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    private Routing(final T target, final Map<K, Predicate<Object>> keyToCondition) {
         this.target = target;
-        this.nameToCondition = nameToCondition;
+        this.keyToCondition = keyToCondition;
     }
 
     /**
      * Follows the route if the equality condition is true.
      */
-    public Routing<T> andValueEquals(final Name name, final Object value) {
-        Objects.requireNonNull(name, "name");
+    public Routing<K, T> andValueEquals(final K key, final Object value) {
+        Objects.requireNonNull(key, "key");
         Objects.requireNonNull(value, "value");
 
-        return this.andPredicateTrue(name, Predicates.is(value));
+        return this.andPredicateTrue(key, Predicates.is(value));
     }
 
     /**
      * Routing continues if the predicate is true.
      */
-    public Routing<T> andPredicateTrue(final Name name, final Predicate<Object> valueTest) {
-        Objects.requireNonNull(name, "name");
+    public Routing<K, T> andPredicateTrue(final K key, final Predicate<Object> valueTest) {
+        Objects.requireNonNull(key, "key");
         Objects.requireNonNull(valueTest, "valueTest");
 
-        final Map<Name, Predicate<Object>> nameToCondition = Maps.ordered();
-        nameToCondition.putAll(this.nameToCondition);
-        nameToCondition.put(name, valueTest);
+        final Map<K, Predicate<Object>> keyToCondition = Maps.ordered();
+        keyToCondition.putAll(this.keyToCondition);
+        keyToCondition.put(key, valueTest);
 
-        return new Routing<T>(this.target, nameToCondition);
+        return new Routing<K, T>(this.target, keyToCondition);
     }
 
-    final Map<Name, Predicate<Object>> nameToCondition;
+    final Map<K, Predicate<Object>> keyToCondition;
 
     final T target;
 

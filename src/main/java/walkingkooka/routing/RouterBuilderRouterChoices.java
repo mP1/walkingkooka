@@ -19,7 +19,6 @@
 package walkingkooka.routing;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.Name;
 
 import java.util.List;
 import java.util.Map;
@@ -30,40 +29,40 @@ import java.util.function.Predicate;
 /**
  * A container for a fork, where several routes have some common parameters but diverge with different values.
  *
- * @param <T>
+ * @param <K, T>
  */
-final class RouterBuilderRouterChoices<T> extends RouterBuilderRouter<T> {
+final class RouterBuilderRouterChoices<K, T> extends RouterBuilderRouter<K, T> {
 
-    static <T> RouterBuilderRouterChoices<T> with(final List<RouterBuilderRouter<T>> choices) {
+    static <K, T> RouterBuilderRouterChoices<K, T> with(final List<RouterBuilderRouter<K, T>> choices) {
         return new RouterBuilderRouterChoices<>(choices);
     }
 
-    private RouterBuilderRouterChoices(final List<RouterBuilderRouter<T>> choices) {
+    private RouterBuilderRouterChoices(final List<RouterBuilderRouter<K, T>> choices) {
         this.choices = choices;
     }
 
     @Override
-    RouterBuilderRouter<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    RouterBuilderRouter<K, T> add(final T target, final Map<K, Predicate<Object>> keyToCondition) {
         // take a copy of the existing choices, add the new and create a new RouterBuilderRouterChoices
-        List<RouterBuilderRouter<T>> copy = Lists.array();
+        List<RouterBuilderRouter<K, T>> copy = Lists.array();
         copy.addAll(this.choices);
-        copy.add(this.expand(target, nameToCondition));
+        copy.add(this.expand(target, keyToCondition));
 
         return new RouterBuilderRouterChoices<>(copy);
     }
 
     @Override
-    RouterBuilderRouter<T> build() {
+    RouterBuilderRouter<K, T> build() {
         return this;
     }
 
     @Override
-    Optional<T> route0(final Map<Name, Object> parameters) {
+    Optional<T> route0(final Map<K, Object> parameters) {
         Objects.requireNonNull(parameters, "parameters");
 
         Optional<T> result = Optional.empty();
 
-        for (RouterBuilderRouter<T> step : this.choices) {
+        for (RouterBuilderRouter<K, T> step : this.choices) {
             result = step.route(parameters);
             if (result.isPresent()) {
                 break;
@@ -73,12 +72,12 @@ final class RouterBuilderRouterChoices<T> extends RouterBuilderRouter<T> {
         return result;
     }
 
-    private final List<RouterBuilderRouter<T>> choices;
+    private final List<RouterBuilderRouter<K, T>> choices;
 
     @Override
     void toString0(final boolean separatorRequired, final StringBuilder b) {
         String choiceSeparator = "";
-        for (RouterBuilderRouter<T> choice : this.choices) {
+        for (RouterBuilderRouter<K, T> choice : this.choices) {
             b.append(choiceSeparator);
 
             b.append('(');
