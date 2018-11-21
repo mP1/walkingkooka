@@ -42,7 +42,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
      * The ALL singleton instance.
      */
     @SuppressWarnings("rawtypes")
-    private final static Range<?> ALL = new Range(RangeBound.all(), RangeBound.all());
+    private final static Range ALL = new Range(RangeBound.all(), RangeBound.all());
 
     /**
      * A {@link Range} that holds a single value.

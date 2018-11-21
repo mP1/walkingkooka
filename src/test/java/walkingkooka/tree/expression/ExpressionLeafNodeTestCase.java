@@ -27,7 +27,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode, V> extends ExpressionNodeTestCase<N> {
+public abstract class ExpressionLeafNodeTestCase<N extends ExpressionLeafNode<V>, V> extends ExpressionNodeTestCase<N> {
 
     @Test
     public final void testCreate() {

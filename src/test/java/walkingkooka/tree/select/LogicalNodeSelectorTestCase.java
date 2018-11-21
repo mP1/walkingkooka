@@ -19,7 +19,10 @@ package walkingkooka.tree.select;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
+
+import java.util.List;
 
 import static org.junit.Assert.assertSame;
 
@@ -57,8 +60,14 @@ extends NodeSelectorTestCase<S>{
         return Cast.to(this.createSelector0(selectors));
     }
 
-    abstract NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(final NodeSelector<TestFakeNode, StringName, StringName, Object>...selectors);
+    @SafeVarargs
+    final NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(final NodeSelector<TestFakeNode, StringName, StringName, Object>...selectors) {
+        return this.createSelector0(Lists.of(selectors));
+    }
 
+    abstract NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(final List<NodeSelector<TestFakeNode, StringName, StringName, Object>> selectors);
+
+    @SafeVarargs
     final void acceptAndCheck0(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
                                final TestFakeNode start,
                                final String... nodes) {
