@@ -21,18 +21,25 @@ package walkingkooka.routing;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Names;
+import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public final class RoutingTest extends PublicClassTestCase<Routing<String>> {
+public final class RoutingTest extends PublicClassTestCase<Routing<StringName, String>> {
 
+    private final static Class<StringName> TYPE = StringName.class;
     private final static String TARGET = "Target";
 
     @Test(expected = NullPointerException.class)
+    public void testWithNullNameFails() {
+        Routing.with(null, TARGET);
+    }
+
+    @Test(expected = NullPointerException.class)
     public void testWithNullTargetFails() {
-        Routing.with(null);
+        Routing.with(TYPE, null);
     }
 
     @Test(expected = NullPointerException.class)
@@ -60,12 +67,12 @@ public final class RoutingTest extends PublicClassTestCase<Routing<String>> {
         assertEquals(TARGET, this.createRoute().toString());
     }
 
-    private Routing<String> createRoute() {
-        return Routing.with(TARGET);
+    private Routing<StringName, String> createRoute() {
+        return Routing.with(TYPE, TARGET);
     }
 
     @Override
-    protected Class<Routing<String>> type() {
+    protected Class<Routing<StringName, String>> type() {
         return Cast.to(Routing.class);
     }
 }

@@ -18,8 +18,6 @@
 
 package walkingkooka.routing;
 
-import walkingkooka.naming.Name;
-
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -27,9 +25,9 @@ import java.util.function.Predicate;
 /**
  * A component in the chain that always returns the target assuming ALL elements of the {@link Routing} have been satisfied.
  */
-final class RouterBuilderRouterTerminal<T> extends RouterBuilderRouter<T> {
+final class RouterBuilderRouterTerminal<K, T> extends RouterBuilderRouter<K, T> {
 
-    static <T> RouterBuilderRouterTerminal<T> with(final T target) {
+    static <K, T> RouterBuilderRouterTerminal<K, T> with(final T target) {
         return new RouterBuilderRouterTerminal<>(target);
     }
 
@@ -38,17 +36,17 @@ final class RouterBuilderRouterTerminal<T> extends RouterBuilderRouter<T> {
     }
 
     @Override
-    RouterBuilderRouter<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    RouterBuilderRouter<K, T> add(final T target, final Map<K, Predicate<Object>> keyToCondition) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    RouterBuilderRouter<T> build() {
+    RouterBuilderRouter<K, T> build() {
         return this;
     }
 
     @Override
-    Optional<T> route0(final Map<Name, Object> parameters) {
+    Optional<T> route0(final Map<K, Object> parameters) {
         return this.target;
     }
 

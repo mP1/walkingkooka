@@ -19,7 +19,6 @@
 package walkingkooka.routing;
 
 import org.junit.Test;
-import walkingkooka.naming.Name;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
 import java.util.Map;
@@ -27,7 +26,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class RouterTestCase<R extends Router<T>, T> extends PackagePrivateClassTestCase<R> {
+public abstract class RouterTestCase<R extends Router<K, T>, K, T> extends PackagePrivateClassTestCase<R> {
 
     @Test(expected = NullPointerException.class)
     public void testNullParametersFails() {
@@ -36,13 +35,13 @@ public abstract class RouterTestCase<R extends Router<T>, T> extends PackagePriv
 
     protected abstract R createRouter();
 
-    protected void routeAndCheck(final Router<T> routers, final Map<Name, Object> parameters, final T target) {
+    protected void routeAndCheck(final Router<K, T> routers, final Map<K, Object> parameters, final T target) {
         assertEquals("Routing of parameters=" + parameters + " failed",
                 Optional.of(target),
                 routers.route(parameters));
     }
 
-    protected void routeFails(final Router<T> routers, final Map<Name, Object> parameters) {
+    protected void routeFails(final Router<K, T> routers, final Map<K, Object> parameters) {
         assertEquals("Routing of parameters=" + parameters + " should have failed",
                 Optional.empty(),
                 routers.route(parameters));

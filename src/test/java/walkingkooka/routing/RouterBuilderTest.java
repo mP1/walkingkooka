@@ -23,10 +23,11 @@ import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.naming.Names;
+import walkingkooka.naming.StringName;
 
 import static org.junit.Assert.assertEquals;
 
-public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<Void>, Router<Void>> {
+public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<StringName, String>, Router<StringName, String>> {
 
     @Test(expected = NullPointerException.class)
     public void testAddNullRouteFails() {
@@ -40,27 +41,27 @@ public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<Void>
 
     @Test
     public void testToString() {
-        final Routing<String> routing1 = Routing.with("one")
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, "one")
                 .andValueEquals(Names.string("path-0"), "dir-1")
                 .andValueEquals(Names.string("path-1"), "file-2.txt");
 
-        final RouterBuilder<String> builder = RouterBuilder.<String>create()
+        final RouterBuilder<StringName, String> builder = RouterBuilder.<StringName, String>create()
                 .add(routing1);
         assertEquals("\"path-0\"=\"dir-1\" & \"path-1\"=\"file-2.txt\" ->one", builder.toString());
     }
 
     @Override
-    protected RouterBuilder<Void> createBuilder() {
+    protected RouterBuilder<StringName, String> createBuilder() {
         return RouterBuilder.create();
     }
 
     @Override
-    protected Class<RouterBuilder<Void>> type() {
+    protected Class<RouterBuilder<StringName, String>> type() {
         return Cast.to(RouterBuilder.class);
     }
 
     @Override
-    protected Class<Router<Void>> builderProductType() {
+    protected Class<Router<StringName, String>> builderProductType() {
         return Cast.to(Router.class);
     }
 }

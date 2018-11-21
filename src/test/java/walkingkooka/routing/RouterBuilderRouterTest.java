@@ -21,16 +21,14 @@ package walkingkooka.routing;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.Name;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
-import walkingkooka.net.UrlPathName;
 
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderRouter<String>, String> {
+public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderRouter<StringName, String>, StringName, String> {
 
     private final static StringName PATH_0 = Names.string("path-0");
     private final static StringName PATH_1 = Names.string("path-1");
@@ -45,16 +43,16 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testOneRouteOneParameter() {
-        final UrlPathName file1 = this.file1();
+        final StringName file1 = this.file1();
 
-        final Routing<String> route = Routing.with(ONE)
+        final Routing<StringName, String> route = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, file1);
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(route)
                 .build();
 
-        final Map<Name, Object> parameters = Maps.ordered();
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, file1);
         parameters.put(Names.string("different"), "different-value");
 
@@ -63,14 +61,14 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testOneRouteOneParameterMismatch() {
-        final Routing<String> route = Routing.with(ONE)
+        final Routing<StringName, String> route = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, this.file1());
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(route)
                 .build();
 
-        final Map<Name, Object> parameters = Maps.ordered();
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, this.file2());
         parameters.put(PATH_1, this.differentFile());
 
@@ -79,17 +77,17 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testTwoDifferentRoutesNothingShared() {
-        final UrlPathName file1 = this.file1();
+        final StringName file1 = this.file1();
 
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, file1);
 
-        final UrlPathName file2 = this.file2();
+        final StringName file2 = this.file2();
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, file2);
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .build();
@@ -100,23 +98,23 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testTwoDifferentRoutesShareOneCondition() {
-        final UrlPathName file1 = this.file1();
-        final UrlPathName dir = this.dir1();
+        final StringName file1 = this.file1();
+        final StringName dir = this.dir1();
 
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, dir)
                 .andValueEquals(PATH_1, file1);
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, dir)
                 .andValueEquals(PATH_1, this.file2());
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .build();
 
-        final Map<Name, Object> parameters = Maps.ordered();
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, dir);
         parameters.put(PATH_1, file1);
 
@@ -128,23 +126,23 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testTwoDifferentRoutesShareOneCondition2() {
-        final UrlPathName file1 = this.file1();
-        final UrlPathName dir = this.dir1();
+        final StringName file1 = this.file1();
+        final StringName dir = this.dir1();
 
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, dir)
                 .andValueEquals(PATH_1, file1);
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_1, this.file2())
                 .andValueEquals(PATH_0, dir);
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .build();
 
-        final Map<Name, Object> parameters = Maps.ordered();
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, dir);
         parameters.put(PATH_1, file1);
 
@@ -156,23 +154,23 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testDifferentTopLevel() {
-        final UrlPathName file1 = this.file1();
-        final UrlPathName dir = this.dir1();
+        final StringName file1 = this.file1();
+        final StringName dir = this.dir1();
 
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, dir)
                 .andValueEquals(PATH_1, file1);
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, this.file2());
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .build();
 
-        final Map<Name, Object> parameters = Maps.ordered();
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, dir);
         parameters.put(PATH_1, file1);
 
@@ -184,23 +182,23 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testDifferentTopLevel2() {
-        final UrlPathName file1 = this.file1();
-        final UrlPathName dir = this.dir1();
+        final StringName file1 = this.file1();
+        final StringName dir = this.dir1();
 
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, dir)
                 .andValueEquals(PATH_1, file1);
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, file1);
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .build();
 
-        final Map<Name, Object> parameters = Maps.ordered();
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, dir);
         parameters.put(PATH_1, file1);
 
@@ -212,26 +210,26 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
     //THREE=/dir1/-dir-2/file-3
     @Test
     public void testMultipleRoutes() {
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.file1());
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, this.file2());
 
-        final Routing<String> routing3 = Routing.with(THREE)
+        final Routing<StringName, String> routing3 = Routing.with(StringName.class, THREE)
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.dir3())
                 .andValueEquals(PATH_2, this.file3());
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .add(routing3)
                 .build();
 
-        final Map<Name, Object> parameters = Maps.ordered();
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, this.dir1());
         parameters.put(PATH_1, this.file1());
 
@@ -252,32 +250,32 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
     //THREE=/dir-1/dir-2/file-3
     @Test
     public void testMultipleRoutes2() {
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.file1());
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, this.file2());
 
-        final Routing<String> routing3 = Routing.with(THREE)
+        final Routing<StringName, String> routing3 = Routing.with(StringName.class, THREE)
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.dir3())
                 .andValueEquals(PATH_2, this.file3());
 
-        final Routing<String> routing4 = Routing.with(FOUR)
+        final Routing<StringName, String> routing4 = Routing.with(StringName.class, FOUR)
                 .andValueEquals(PATH_0, this.dir4())
                 .andValueEquals(PATH_1, this.dir5())
                 .andValueEquals(PATH_2, this.file3());
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .add(routing3)
                 .add(routing4)
                 .build();
 
-        final Map<Name, Object> parameters = Maps.ordered();
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, this.dir1());
         parameters.put(PATH_1, this.file1());
 
@@ -300,32 +298,32 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testBuildOrderUnimportant() {
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.file1());
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, this.file2());
 
-        final Routing<String> routing3 = Routing.with(THREE)
+        final Routing<StringName, String> routing3 = Routing.with(StringName.class, THREE)
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.dir3())
                 .andValueEquals(PATH_2, this.file3());
 
-        final Routing<String> routing4 = Routing.with(FOUR)
+        final Routing<StringName, String> routing4 = Routing.with(StringName.class, FOUR)
                 .andValueEquals(PATH_0, this.dir4())
                 .andValueEquals(PATH_1, this.dir5())
                 .andValueEquals(PATH_2, this.file3());
 
-        this.buildOrderUnimportantCheck(RouterBuilder.<String>create()
+        this.buildOrderUnimportantCheck(RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .add(routing3)
                 .add(routing4)
                 .build());
 
-        this.buildOrderUnimportantCheck(RouterBuilder.<String>create()
+        this.buildOrderUnimportantCheck(RouterBuilder.<StringName, String>create()
                 .add(routing4)
                 .add(routing3)
                 .add(routing2)
@@ -333,8 +331,8 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .build());
     }
 
-    private void buildOrderUnimportantCheck(final Router<String> routers) {
-        final Map<Name, Object> parameters = Maps.ordered();
+    private void buildOrderUnimportantCheck(final Router<StringName, String> routers) {
+        final Map<StringName, Object> parameters = Maps.ordered();
         parameters.put(PATH_0, this.dir1());
         parameters.put(PATH_1, this.file1());
 
@@ -357,76 +355,77 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
 
     @Test
     public void testToString() {
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.file1());
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .build();
-        assertEquals("\"path-0\"=dir-1-abc & \"path-1\"=file-1-one.txt ->target-1", routers.toString());
+        assertEquals("\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1", routers.toString());
     }
 
     @Test
     public void testToString2() {
-        final Routing<String> routing1 = Routing.with(ONE)
+        final Routing<StringName, String> routing1 = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.file1());
 
-        final Routing<String> routing2 = Routing.with(TWO)
+        final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, this.file2());
 
-        final Router<String> routers = RouterBuilder.<String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
                 .add(routing1)
                 .add(routing2)
                 .build();
-        assertEquals("(\"path-0\"=dir-1-abc & \"path-1\"=file-1-one.txt ->target-1) | (\"path-0\"=dir-2-def & \"path-1\"=file-2-two.txt ->target-2)", routers.toString());
+        assertEquals("(\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1) | (\"path-0\"=\"dir-2-def\" & \"path-1\"=\"file-2-two.txt\" ->target-2)",
+                routers.toString());
     }
 
-    private UrlPathName dir1() {
-        return UrlPathName.with("dir-1-abc");
+    private StringName dir1() {
+        return Names.string("dir-1-abc");
     }
 
-    private UrlPathName dir2() {
-        return UrlPathName.with("dir-2-def");
+    private StringName dir2() {
+        return Names.string("dir-2-def");
     }
 
-    private UrlPathName dir3() {
-        return UrlPathName.with("dir-3-ghi");
+    private StringName dir3() {
+        return Names.string("dir-3-ghi");
     }
 
-    private UrlPathName dir4() {
-        return UrlPathName.with("dir-4-jkl");
+    private StringName dir4() {
+        return Names.string("dir-4-jkl");
     }
 
-    private UrlPathName dir5() {
-        return UrlPathName.with("dir-5-mno");
+    private StringName dir5() {
+        return Names.string("dir-5-mno");
     }
 
-    private UrlPathName file1() {
-        return UrlPathName.with("file-1-one.txt");
+    private StringName file1() {
+        return Names.string("file-1-one.txt");
     }
 
-    private UrlPathName file2() {
-        return UrlPathName.with("file-2-two.txt");
+    private StringName file2() {
+        return Names.string("file-2-two.txt");
     }
 
-    private UrlPathName file3() {
-        return UrlPathName.with("file-3-three.txt");
+    private StringName file3() {
+        return Names.string("file-3-three.txt");
     }
 
-    private UrlPathName differentFile() {
-        return UrlPathName.with("different-file.txt");
+    private StringName differentFile() {
+        return Names.string("different-file.txt");
     }
 
     @Override
-    protected RouterBuilderRouter<String> createRouter() {
+    protected RouterBuilderRouter<StringName, String> createRouter() {
         return RouterBuilderRouterNull.get();
     }
 
     @Override
-    protected Class<RouterBuilderRouter<String>> type() {
+    protected Class<RouterBuilderRouter<StringName, String>> type() {
         return Cast.to(RouterBuilderRouter.class);
     }
 }

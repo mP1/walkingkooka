@@ -21,7 +21,6 @@ package walkingkooka.routing;
 import walkingkooka.build.Builder;
 import walkingkooka.build.BuilderException;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.Name;
 
 import java.util.Map;
 import java.util.Objects;
@@ -31,32 +30,32 @@ import java.util.function.Predicate;
  * A {@link Builder} that requires one or more {@link Routing routes} and returns a {@link RouterBuilderRouter}.
  * The {@link RouterBuilderRouter} may then be used to match a single Routing given parameters which satisfy ALL conditions of the route.
  */
-public final class RouterBuilder<T> implements Builder<Router<T>> {
+public final class RouterBuilder<K, T> implements Builder<Router<K, T>> {
 
-    public static <T> RouterBuilder<T> create() {
-        return new RouterBuilder<T>();
+    public static <K, T> RouterBuilder<K, T> create() {
+        return new RouterBuilder<K, T>();
     }
 
     private RouterBuilder() {
         super();
     }
 
-    public RouterBuilder<T> add(final Routing<T> route) {
+    public RouterBuilder<K, T> add(final Routing<K, T> route) {
         Objects.requireNonNull(route, "route");
 
-        final Map<Name, Predicate<Object>> remaining = Maps.ordered();
-        remaining.putAll(route.nameToCondition);
+        final Map<K, Predicate<Object>> remaining = Maps.ordered();
+        remaining.putAll(route.keyToCondition);
 
         this.root = this.root.add(route.target, remaining);
         return this;
     }
 
     @Override
-    public Router<T> build() throws BuilderException {
+    public Router<K, T> build() throws BuilderException {
         return this.root.build();
     }
 
-    private RouterBuilderRouter<T> root = RouterBuilderRouterNull.get();
+    private RouterBuilderRouter<K, T> root = RouterBuilderRouterNull.get();
 
     @Override
     public String toString() {

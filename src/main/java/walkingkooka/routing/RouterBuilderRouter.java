@@ -18,8 +18,6 @@
 
 package walkingkooka.routing;
 
-import walkingkooka.naming.Name;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -30,7 +28,7 @@ import java.util.function.Predicate;
 /**
  * The base class for all types or router created by {@link RouterBuilderRouter}.
  */
-abstract class RouterBuilderRouter<T> implements Router<T>{
+abstract class RouterBuilderRouter<K, T> implements Router<K, T> {
 
     /**
      * Package private to limit sub classing.
@@ -42,50 +40,49 @@ abstract class RouterBuilderRouter<T> implements Router<T>{
     /**
      * Used by {@link RouterBuilder} to add a new route. This is not intended to be public.
      */
-    abstract RouterBuilderRouter<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition);
+    abstract RouterBuilderRouter<K, T> add(final T target, final Map<K, Predicate<Object>> keyToCondition);
 
     /**
      * Accepts a route and creates individual {@link RouterBuilderRouter} steps for each of its outstanding parameter to condition.
      */
-    final RouterBuilderRouter<T> expand(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
-        return nameToCondition.isEmpty() ?
+    final RouterBuilderRouter<K, T> expand(final T target, final Map<K, Predicate<Object>> keyToCondition) {
+        return keyToCondition.isEmpty() ?
                 RouterBuilderRouterTerminal.with(target) :
-                this.expand0(target, nameToCondition);
+                this.expand0(target, keyToCondition);
     }
 
-    private RouterBuilderRouter<T> expand0(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
-        final Iterator<Entry<Name, Predicate<Object>>> i = nameToCondition.entrySet().iterator();
-        final Entry<Name, Predicate<Object>> first = i.next();
+    private RouterBuilderRouter<K, T> expand0(final T target, final Map<K, Predicate<Object>> keyToCondition) {
+        final Iterator<Entry<K, Predicate<Object>>> i = keyToCondition.entrySet().iterator();
+        final Entry<K, Predicate<Object>> first = i.next();
         i.remove();
 
         return RouterBuilderRouterPredicate.with(first.getKey(),
                 first.getValue(),
-                this.expand(target, nameToCondition));
+                this.expand(target, keyToCondition));
     }
 
     /**
      * Called by {@link RouterBuilder} during its build, allowing {@link RouterBuilderRouterNull#build()} to complain.
      */
-    abstract RouterBuilderRouter<T> build();
+    abstract RouterBuilderRouter<K, T> build();
 
     /**
      * Accepts a map of parameters which are used to test each route until one is matched otherwise {@link Optional#empty()}
      * is returned.
      */
     @Override
-    public final Optional<T> route(final Map<Name, Object> parameters) throws RouteException {
+    public final Optional<T> route(final Map<K, Object> parameters) throws RouteException {
         Objects.requireNonNull(parameters, "parameters");
         return this.route0(parameters);
     }
 
-    abstract Optional<T> route0(final Map<Name, Object> parameters) throws RouteException;
+    abstract Optional<T> route0(final Map<K, Object> parameters) throws RouteException;
 
     final Optional<T> noRoute() {
         return Optional.empty();
     }
 
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         final StringBuilder b = new StringBuilder();
         this.toString0(false, b);
         return b.toString();

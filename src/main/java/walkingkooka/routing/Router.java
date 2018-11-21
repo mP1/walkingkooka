@@ -18,8 +18,6 @@
 
 package walkingkooka.routing;
 
-import walkingkooka.naming.Name;
-
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,10 +25,10 @@ import java.util.Optional;
  * Represents a container of routes, ready to accept parameters with a goal of returning the matching target processing
  * the rules for each route.
  */
-public interface Router<T> {
+public interface Router<K, T> {
 
     /**
      * Accepts some parameters and attempt to locate the matching {@link Routing} returning its target.
      */
-    Optional<T> route(final Map<Name, Object> parameters) throws RouteException;
+    Optional<T> route(final Map<K, Object> parameters) throws RouteException;
 }

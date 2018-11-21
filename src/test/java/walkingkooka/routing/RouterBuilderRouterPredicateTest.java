@@ -21,9 +21,9 @@ package walkingkooka.routing;
 import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class RouterBuilderRouterPredicateTest extends PackagePrivateClassTestCase<RouterBuilderRouterPredicate<Void>> {
+public final class RouterBuilderRouterPredicateTest extends PackagePrivateClassTestCase<RouterBuilderRouterPredicate<Void, Void>> {
     @Override
-    protected Class<RouterBuilderRouterPredicate<Void>> type() {
+    protected Class<RouterBuilderRouterPredicate<Void, Void>> type() {
         return Cast.to(RouterBuilderRouterPredicate.class);
     }
 }
