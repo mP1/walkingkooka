@@ -29,28 +29,28 @@ import java.util.function.Predicate;
 /**
  * A placeholder for a route with no conditions.
  */
-final class RouteMasterNull<T> extends RouteMaster<T> {
+final class RouterNull<T> extends Router<T> {
 
-    static <T> RouteMasterNull<T> get() {
+    static <T> RouterNull<T> get() {
         return Cast.to(INSTANCE);
     }
 
-    private final static RouteMasterNull<?> INSTANCE = new RouteMasterNull();
+    private final static RouterNull<?> INSTANCE = new RouterNull();
 
-    private RouteMasterNull() {
+    private RouterNull() {
         super();
     }
 
     @Override
-    RouteMaster<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    Router<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
         return nameToCondition.isEmpty() ?
-                RouteMasterTerminal.with(target) :
+                RouterTerminal.with(target) :
                 this.expand(target, nameToCondition);
     }
 
     @Override
-    RouteMaster<T> build() {
-        throw new BuilderException("Builder requires at least 1 Route");
+    Router<T> build() {
+        throw new BuilderException("Builder requires at least 1 Routing");
     }
 
     @Override

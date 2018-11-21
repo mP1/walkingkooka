@@ -30,42 +30,42 @@ import java.util.function.Predicate;
  * Represents a container of routes, ready to accept parameters with a goal of returning the matching target processing
  * the rules for each route.
  */
-abstract public class RouteMaster<T> {
+abstract public class Router<T> {
 
     /**
      * Package private to limit sub classing.
      */
-    RouteMaster() {
+    Router() {
     }
 
     /**
-     * Used by {@link RouteMasterBuilder} to add a new route. This is not intended to be public.
+     * Used by {@link RouterBuilder} to add a new route. This is not intended to be public.
      */
-    abstract RouteMaster<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition);
+    abstract Router<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition);
 
     /**
-     * Accepts a route and creates individual {@link RouteMaster} steps for each of its outstanding parameter to condition.
+     * Accepts a route and creates individual {@link Router} steps for each of its outstanding parameter to condition.
      */
-    final RouteMaster<T> expand(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    final Router<T> expand(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
         return nameToCondition.isEmpty() ?
-                RouteMasterTerminal.with(target) :
+                RouterTerminal.with(target) :
                 this.expand0(target, nameToCondition);
     }
 
-    private RouteMaster<T> expand0(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    private Router<T> expand0(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
         final Iterator<Entry<Name, Predicate<Object>>> i = nameToCondition.entrySet().iterator();
         final Entry<Name, Predicate<Object>> first = i.next();
         i.remove();
 
-        return RouteMasterPredicate.with(first.getKey(),
+        return RouterPredicate.with(first.getKey(),
                 first.getValue(),
                 this.expand(target, nameToCondition));
     }
 
     /**
-     * Called by {@link RouteMasterBuilder} during its build, allowing {@link RouteMasterNull#build()} to complain.
+     * Called by {@link RouterBuilder} during its build, allowing {@link RouterNull#build()} to complain.
      */
-    abstract RouteMaster<T> build();
+    abstract Router<T> build();
 
     /**
      * Accepts a map of parameters which are used to test each route until one is matched otherwise {@link Optional#empty()}
@@ -81,8 +81,7 @@ abstract public class RouteMaster<T> {
         return Optional.empty();
     }
 
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         final StringBuilder b = new StringBuilder();
         this.toString0(false, b);
         return b.toString();

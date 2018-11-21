@@ -29,30 +29,31 @@ import java.util.function.Predicate;
 
 /**
  * A container for a fork, where several routes have some common parameters but diverge with different values.
+ *
  * @param <T>
  */
-final class RouteMasterChoices<T> extends RouteMaster<T> {
+final class RouterChoices<T> extends Router<T> {
 
-    static <T> RouteMasterChoices<T> with(final List<RouteMaster<T>> choices) {
-        return new RouteMasterChoices<>(choices);
+    static <T> RouterChoices<T> with(final List<Router<T>> choices) {
+        return new RouterChoices<>(choices);
     }
 
-    private RouteMasterChoices(final List<RouteMaster<T>> choices) {
+    private RouterChoices(final List<Router<T>> choices) {
         this.choices = choices;
     }
 
     @Override
-    RouteMaster<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
-        // take a copy of the existing choices, add the new and create a new RouteMasterChoices
-        List<RouteMaster<T>> copy = Lists.array();
+    Router<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+        // take a copy of the existing choices, add the new and create a new RouterChoices
+        List<Router<T>> copy = Lists.array();
         copy.addAll(this.choices);
         copy.add(this.expand(target, nameToCondition));
 
-        return new RouteMasterChoices<>(copy);
+        return new RouterChoices<>(copy);
     }
 
     @Override
-    RouteMaster<T> build() {
+    Router<T> build() {
         return this;
     }
 
@@ -62,7 +63,7 @@ final class RouteMasterChoices<T> extends RouteMaster<T> {
 
         Optional<T> result = Optional.empty();
 
-        for (RouteMaster<T> step : this.choices) {
+        for (Router<T> step : this.choices) {
             result = step.route(parameters);
             if (result.isPresent()) {
                 break;
@@ -72,12 +73,12 @@ final class RouteMasterChoices<T> extends RouteMaster<T> {
         return result;
     }
 
-    private final List<RouteMaster<T>> choices;
+    private final List<Router<T>> choices;
 
     @Override
     void toString0(final boolean separatorRequired, final StringBuilder b) {
         String choiceSeparator = "";
-        for(RouteMaster<T> choice : this.choices) {
+        for (Router<T> choice : this.choices) {
             b.append(choiceSeparator);
 
             b.append('(');

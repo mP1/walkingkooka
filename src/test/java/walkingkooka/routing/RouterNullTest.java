@@ -21,10 +21,9 @@ package walkingkooka.routing;
 import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class RouteMasterTerminalTest extends PackagePrivateClassTestCase<RouteMasterTerminal<Void>> {
-
+public final class RouterNullTest extends PackagePrivateClassTestCase<RouterNull<Void>> {
     @Override
-    protected Class<RouteMasterTerminal<Void>> type() {
-        return Cast.to(RouteMasterTerminal.class);
+    protected Class<RouterNull<Void>> type() {
+        return Cast.to(RouterNull.class);
     }
 }

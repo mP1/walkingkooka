@@ -28,20 +28,20 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * A {@link Builder} that requires one or more {@link Route routes} and returns a {@link RouteMaster}.
- * The {@link RouteMaster} may then be used to match a single Route given parameters which satisfy ALL conditions of the route.
+ * A {@link Builder} that requires one or more {@link Routing routes} and returns a {@link Router}.
+ * The {@link Router} may then be used to match a single Routing given parameters which satisfy ALL conditions of the route.
  */
-public final class RouteMasterBuilder<T> implements Builder<RouteMaster<T>> {
+public final class RouterBuilder<T> implements Builder<Router<T>> {
 
-    public static <T> RouteMasterBuilder<T> create() {
-        return new RouteMasterBuilder<T>();
+    public static <T> RouterBuilder<T> create() {
+        return new RouterBuilder<T>();
     }
 
-    private RouteMasterBuilder() {
+    private RouterBuilder() {
         super();
     }
 
-    public RouteMasterBuilder<T> add(final Route<T> route) {
+    public RouterBuilder<T> add(final Routing<T> route) {
         Objects.requireNonNull(route, "route");
 
         final Map<Name, Predicate<Object>> remaining = Maps.ordered();
@@ -52,11 +52,11 @@ public final class RouteMasterBuilder<T> implements Builder<RouteMaster<T>> {
     }
 
     @Override
-    public RouteMaster<T> build() throws BuilderException {
+    public Router<T> build() throws BuilderException {
         return this.root.build();
     }
 
-    private RouteMaster<T> root = RouteMasterNull.get();
+    private Router<T> root = RouterNull.get();
 
     @Override
     public String toString() {

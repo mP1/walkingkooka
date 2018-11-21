@@ -26,46 +26,46 @@ import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public final class RouteTest extends PublicClassTestCase<Route<String>> {
+public final class RoutingTest extends PublicClassTestCase<Routing<String>> {
 
     private final static String TARGET = "Target";
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTargetFails() {
-        Route.with(null);
+        Routing.with(null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testEqualsValueNullNameFails() {
-        this.createRoute().equalsValue(null, "value");
+    public void testAndValueEqualsNullNameFails() {
+        this.createRoute().andValueEquals(null, "value");
     }
 
     @Test(expected = NullPointerException.class)
-    public void testEqualsValueNullValueFails() {
-        this.createRoute().equalsValue(Names.string("name"), null);
+    public void testANdValueEqualsNullValueFails() {
+        this.createRoute().andValueEquals(Names.string("name"), null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testPredicateNullNameFails() {
-        this.createRoute().predicate(null, Predicates.fake());
+    public void testAndPredicateTrueNullNameFails() {
+        this.createRoute().andPredicateTrue(null, Predicates.fake());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testPredicateNullPredicateFails() {
-        this.createRoute().equalsValue(Names.string("name"), null);
+    public void testAndPredicateTrueNullPredicateFails() {
+        this.createRoute().andValueEquals(Names.string("name"), null);
     }
 
     @Test
     public void testToString() {
         assertEquals(TARGET, this.createRoute().toString());
     }
-    
-    private Route<String> createRoute() {
-        return Route.with(TARGET);
+
+    private Routing<String> createRoute() {
+        return Routing.with(TARGET);
     }
 
     @Override
-    protected Class<Route<String>> type() {
-        return Cast.to(Route.class);
+    protected Class<Routing<String>> type() {
+        return Cast.to(Routing.class);
     }
 }
