@@ -28,8 +28,14 @@ import java.util.Map;
  * Defines a HTTP request.
  */
 public interface HttpRequest {
+
     /**
-     * Returns the protocol which appears on the request line.
+     * The transport used to make the request.
+     */
+    HttpRequestTransport transport();
+
+    /**
+     * Returns the HTTP protocol which appears on the request line.
      */
     HttpProtocol protocol();
 
