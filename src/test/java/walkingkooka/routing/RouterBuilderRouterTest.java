@@ -19,19 +19,18 @@
 package walkingkooka.routing;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.test.PublicClassTestCase;
 
 import java.util.Map;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class RouterTest extends PublicClassTestCase<Router> {
+public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderRouter<String>, String> {
 
     private final static StringName PATH_0 = Names.string("path-0");
     private final static StringName PATH_1 = Names.string("path-1");
@@ -385,14 +384,6 @@ public final class RouterTest extends PublicClassTestCase<Router> {
         assertEquals("(\"path-0\"=dir-1-abc & \"path-1\"=file-1-one.txt ->target-1) | (\"path-0\"=dir-2-def & \"path-1\"=file-2-two.txt ->target-2)", routers.toString());
     }
 
-    private void routeAndCheck(final Router<String> routers, final Map<Name, Object> parameters, final String target) {
-        assertEquals("Routing of parameters=" + parameters + " failed", Optional.of(target), routers.route(parameters));
-    }
-
-    private void routeFails(final Router<String> routers, final Map<Name, Object> parameters) {
-        assertEquals("Routing of parameters=" + parameters + " should have failed", Optional.empty(), routers.route(parameters));
-    }
-
     private UrlPathName dir1() {
         return UrlPathName.with("dir-1-abc");
     }
@@ -430,7 +421,12 @@ public final class RouterTest extends PublicClassTestCase<Router> {
     }
 
     @Override
-    protected Class<Router> type() {
-        return Router.class;
+    protected RouterBuilderRouter<String> createRouter() {
+        return RouterBuilderRouterNull.get();
+    }
+
+    @Override
+    protected Class<RouterBuilderRouter<String>> type() {
+        return Cast.to(RouterBuilderRouter.class);
     }
 }

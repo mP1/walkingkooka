@@ -28,8 +28,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * A {@link Builder} that requires one or more {@link Routing routes} and returns a {@link Router}.
- * The {@link Router} may then be used to match a single Routing given parameters which satisfy ALL conditions of the route.
+ * A {@link Builder} that requires one or more {@link Routing routes} and returns a {@link RouterBuilderRouter}.
+ * The {@link RouterBuilderRouter} may then be used to match a single Routing given parameters which satisfy ALL conditions of the route.
  */
 public final class RouterBuilder<T> implements Builder<Router<T>> {
 
@@ -56,7 +56,7 @@ public final class RouterBuilder<T> implements Builder<Router<T>> {
         return this.root.build();
     }
 
-    private Router<T> root = RouterNull.get();
+    private RouterBuilderRouter<T> root = RouterBuilderRouterNull.get();
 
     @Override
     public String toString() {

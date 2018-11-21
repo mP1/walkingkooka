@@ -28,20 +28,20 @@ import java.util.function.Predicate;
 /**
  * A node in the route graph that involves a test condition.
  */
-final class RouterPredicate<T> extends Router<T> {
+final class RouterBuilderRouterPredicate<T> extends RouterBuilderRouter<T> {
 
-    static <T> RouterPredicate<T> with(final Name name, final Predicate<Object> value, final Router<T> next) {
-        return new RouterPredicate<T>(name, value, next);
+    static <T> RouterBuilderRouterPredicate<T> with(final Name name, final Predicate<Object> value, final RouterBuilderRouter<T> next) {
+        return new RouterBuilderRouterPredicate<T>(name, value, next);
     }
 
-    private RouterPredicate(final Name name, final Predicate<Object> value, final Router<T> next) {
+    private RouterBuilderRouterPredicate(final Name name, final Predicate<Object> value, final RouterBuilderRouter<T> next) {
         this.name = name;
         this.value = value;
         this.next = next;
     }
 
     @Override
-    Router<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    RouterBuilderRouter<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
         // if the condition is the same, try adding to the next.
         final Predicate<Object> possible = nameToCondition.get(this.name);
         return this.value.equals(possible) ?
@@ -49,17 +49,17 @@ final class RouterPredicate<T> extends Router<T> {
                 this.addChoice(target, nameToCondition);
     }
 
-    private Router<T> addNext(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+    private RouterBuilderRouter<T> addNext(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
         nameToCondition.remove(this.name);
         return this.next.add(target, nameToCondition);
     }
 
-    private Router<T> addChoice(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
-        return RouterChoices.with(Lists.of(this, this.expand(target, nameToCondition)));
+    private RouterBuilderRouter<T> addChoice(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+        return RouterBuilderRouterChoices.with(Lists.of(this, this.expand(target, nameToCondition)));
     }
 
     @Override
-    Router<T> build() {
+    RouterBuilderRouter<T> build() {
         return this;
     }
 
@@ -77,7 +77,7 @@ final class RouterPredicate<T> extends Router<T> {
     /**
      * The next step to try. The step may the only route target itself or more conditional tests.
      */
-    private final Router<T> next;
+    private final RouterBuilderRouter<T> next;
 
     @Override
     void toString0(final boolean separatorRequired, final StringBuilder b) {

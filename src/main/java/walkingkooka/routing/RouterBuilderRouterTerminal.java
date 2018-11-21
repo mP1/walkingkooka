@@ -18,8 +18,6 @@
 
 package walkingkooka.routing;
 
-import walkingkooka.Cast;
-import walkingkooka.build.BuilderException;
 import walkingkooka.naming.Name;
 
 import java.util.Map;
@@ -27,39 +25,41 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * A placeholder for a route with no conditions.
+ * A component in the chain that always returns the target assuming ALL elements of the {@link Routing} have been satisfied.
  */
-final class RouterNull<T> extends Router<T> {
+final class RouterBuilderRouterTerminal<T> extends RouterBuilderRouter<T> {
 
-    static <T> RouterNull<T> get() {
-        return Cast.to(INSTANCE);
+    static <T> RouterBuilderRouterTerminal<T> with(final T target) {
+        return new RouterBuilderRouterTerminal<>(target);
     }
 
-    private final static RouterNull<?> INSTANCE = new RouterNull();
-
-    private RouterNull() {
-        super();
-    }
-
-    @Override
-    Router<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
-        return nameToCondition.isEmpty() ?
-                RouterTerminal.with(target) :
-                this.expand(target, nameToCondition);
+    private RouterBuilderRouterTerminal(final T target) {
+        this.target = Optional.of(target);
     }
 
     @Override
-    Router<T> build() {
-        throw new BuilderException("Builder requires at least 1 Routing");
+    RouterBuilderRouter<T> add(final T target, final Map<Name, Predicate<Object>> nameToCondition) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    RouterBuilderRouter<T> build() {
+        return this;
     }
 
     @Override
     Optional<T> route0(final Map<Name, Object> parameters) {
-        return Optional.empty();
+        return this.target;
     }
+
+    private final Optional<T> target;
 
     @Override
     void toString0(final boolean separatorRequired, final StringBuilder b) {
-        // nop
+        if (separatorRequired) {
+            b.append(' ');
+        }
+        b.append("->")
+                .append(this.target.get());
     }
 }
