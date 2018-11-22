@@ -38,6 +38,6 @@ public abstract class EntryTestCase<M extends Entry<K, V>, K, V> extends Package
     }
 
     protected void getValueAndCheck(final Entry<K, V> entry, final V value) {
-        assertEquals("Value from " + entry, value, entry.getKey());
+        assertEquals("Value from " + entry, value, entry.getValue());
     }
 }
