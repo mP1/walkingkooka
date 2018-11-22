@@ -68,6 +68,7 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePriv
         final Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
 
         while (iterator.hasNext()) {
+            iterator.next();
             size++;
         }
 
@@ -106,7 +107,9 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePriv
     }
 
     protected void getAndCheck(final Map<K, V> map, final K key, final V value) {
-        assertEquals("get " + CharSequences.quoteIfChars(key) + " from " + map, value, map.get(key));
+        assertEquals("get " + CharSequences.quoteIfChars(key) + " from " + map,
+                value,
+                map.get(key));
         this.containsKeyAndCheck(map, key);
         this.containsValueAndCheck(map, value);
     }
