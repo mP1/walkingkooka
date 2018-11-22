@@ -18,6 +18,8 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.http.cookie.ClientCookie;
 
@@ -28,6 +30,16 @@ import java.util.Map;
  * Defines a HTTP request.
  */
 public interface HttpRequest {
+
+    /**
+     * An empty {@link Map} with no headers.
+     */
+    Map<HttpHeaderName<?>, String> NO_HEADERS = Maps.empty();
+
+    /**
+     * An empty {@link List} with no cookies.
+     */
+    List<ClientCookie> NO_COOKIES = Lists.empty();
 
     /**
      * The transport used to make the request.
