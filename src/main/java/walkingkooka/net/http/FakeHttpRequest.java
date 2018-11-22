@@ -38,7 +38,7 @@ public class FakeHttpRequest implements HttpRequest, Fake {
     }
 
     @Override
-    public HttpProtocol protocol() {
+    public HttpProtocolVersion protocolVersion() {
         throw new UnsupportedOperationException();
     }
 

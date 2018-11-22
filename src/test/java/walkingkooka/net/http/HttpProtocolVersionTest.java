@@ -25,50 +25,50 @@ import walkingkooka.test.PublicClassTestCase;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class HttpProtocolTest extends PublicClassTestCase<HttpProtocol> {
+final public class HttpProtocolVersionTest extends PublicClassTestCase<HttpProtocolVersion> {
 
     @Test
     public void testOneZero() {
-        assertEquals("HTTP/1.0", HttpProtocol.VERSION_1_0.value());
+        assertEquals("HTTP/1.0", HttpProtocolVersion.VERSION_1_0.value());
     }
 
     @Test
     public void testOneOne() {
-        assertEquals("HTTP/1.1", HttpProtocol.VERSION_1_1.value());
+        assertEquals("HTTP/1.1", HttpProtocolVersion.VERSION_1_1.value());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFromNullHeaderFails() {
-        HttpProtocol.fromHeader(null);
+    public void testFromNullVersionFails() {
+        HttpProtocolVersion.with(null);
     }
 
     @Test
     public void testFromOneZero() {
-        assertSame(HttpProtocol.VERSION_1_0, HttpProtocol.fromHeader("HTTP/1.0"));
+        assertSame(HttpProtocolVersion.VERSION_1_0, HttpProtocolVersion.with("HTTP/1.0"));
     }
 
     @Test
     public void testFromOneOne() {
-        assertSame(HttpProtocol.VERSION_1_1, HttpProtocol.fromHeader("HTTP/1.1"));
+        assertSame(HttpProtocolVersion.VERSION_1_1, HttpProtocolVersion.with("HTTP/1.1"));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testFromUnknownFails() {
-        HttpProtocol.fromHeader("unknown/???");
+        HttpProtocolVersion.with("unknown/???");
     }
 
     @Test
     public void testToStringVersion0() {
-        assertEquals("HTTP/1.0", HttpProtocol.VERSION_1_0.toString());
+        assertEquals("HTTP/1.0", HttpProtocolVersion.VERSION_1_0.toString());
     }
 
     @Test
     public void testToStringVersion1() {
-        assertEquals("HTTP/1.1", HttpProtocol.VERSION_1_1.toString());
+        assertEquals("HTTP/1.1", HttpProtocolVersion.VERSION_1_1.toString());
     }
 
     @Override
-    protected Class<HttpProtocol> type() {
-        return HttpProtocol.class;
+    protected Class<HttpProtocolVersion> type() {
+        return HttpProtocolVersion.class;
     }
 }

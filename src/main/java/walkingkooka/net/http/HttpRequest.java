@@ -49,7 +49,7 @@ public interface HttpRequest {
     /**
      * Returns the HTTP protocol which appears on the request line.
      */
-    HttpProtocol protocol();
+    HttpProtocolVersion protocolVersion();
 
     /**
      * Returns the url that appears on the request line.

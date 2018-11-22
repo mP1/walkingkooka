@@ -23,9 +23,9 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 /**
- * An enumeration that represents the Http version
+ * An enumeration that represents the Http protocol version
  */
-public enum HttpProtocol implements Value<String> {
+public enum HttpProtocolVersion implements Value<String> {
 
     /**
      * Version 1.0
@@ -38,28 +38,29 @@ public enum HttpProtocol implements Value<String> {
     VERSION_1_1("HTTP/1.1");
 
     /**
-     * Lookups and returns the {@link HttpProtocol} for the given header. If the header is unknown an {@link IllegalArgumentException} will be thrown.
+     * Lookups and returns the {@link HttpProtocolVersion} for the given version. If the version is unknown an
+     * {@link IllegalArgumentException} will be thrown.
      */
-    static public HttpProtocol fromHeader(final String header) {
-        Whitespace.failIfNullOrWhitespace(header, "header");
+    static public HttpProtocolVersion with(final String version) {
+        Whitespace.failIfNullOrWhitespace(version, "version");
 
-        HttpProtocol protocol = null;
-        for (final HttpProtocol possible : HttpProtocol.values()) {
-            if (possible.value().equals(header)) {
-                protocol = possible;
+        HttpProtocolVersion httpProtocolVersion = null;
+        for (final HttpProtocolVersion possible : HttpProtocolVersion.values()) {
+            if (possible.value().equals(version)) {
+                httpProtocolVersion = possible;
                 break;
             }
         }
-        if (null == protocol) {
-            throw new IllegalArgumentException("Unknown protocol=" + CharSequences.quote(header));
+        if (null == httpProtocolVersion) {
+            throw new IllegalArgumentException("Unknown protocol=" + CharSequences.quote(version));
         }
-        return protocol;
+        return httpProtocolVersion;
     }
 
     /**
      * Private constructor
      */
-    private HttpProtocol(final String value) {
+    private HttpProtocolVersion(final String value) {
         this.value = value;
     }
 
