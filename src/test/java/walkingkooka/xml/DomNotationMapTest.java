@@ -13,13 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.xml;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import org.junit.Test;
+import org.w3c.dom.NamedNodeMap;
+import walkingkooka.Cast;
 
-public final class DomNotationMapTest extends PackagePrivateClassTestCase<DomNotationMap> {
+import java.io.Reader;
+
+public final class DomNotationMapTest extends DomMapTestCase<DomNotationMap, DomName, DomNotation> {
+
+    @Test
+    public void testSize() {
+        this.sizeAndCheck(this.createMap(), 1);
+    }
+
+    @Override
+    protected DomNotationMap createMap() {
+        return Cast.to(DomNotationMap.from(this.notations()));
+    }
+
+    private NamedNodeMap notations() {
+        try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/createMap.xml")) {
+            final DomDocument root = DomNode.fromXml(this.documentBuilder(false, false), reader);
+            return root.documentNode().getDoctype().getNotations();
+        } catch (final Exception rethrow) {
+            throw new RuntimeException(rethrow);
+        }
+    }
+
     @Override
     protected Class<DomNotationMap> type() {
         return DomNotationMap.class;
