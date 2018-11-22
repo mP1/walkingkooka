@@ -55,18 +55,18 @@ public abstract class CollectionTestCase<C extends Collection<E>, E> extends Pac
 
     protected abstract C createCollection();
 
-    protected void containsAndCheck(final C collection, final E element) {
+    protected void containsAndCheck(final Collection<E> collection, final E element) {
         assertTrue(collection + " should contain " + CharSequences.quoteIfChars(element),
                 collection.contains(element));
         assertTrue(collection + " should contain Collection of " + CharSequences.quoteIfChars(element),
                 collection.containsAll(Lists.of(element)));
     }
 
-    protected void isEmptyAndCheck(final Collection collection, final boolean empty) {
+    protected void isEmptyAndCheck(final Collection<?> collection, final boolean empty) {
         assertEquals("isEmpty of " + collection, empty, collection.isEmpty());
     }
 
-    protected void sizeAndCheck(final Collection collection, final int size) {
+    protected void sizeAndCheck(final Collection<?> collection, final int size) {
         assertEquals("size of " + collection, size, collection.size());
         this.isEmptyAndCheck(collection, 0 == size);
     }
