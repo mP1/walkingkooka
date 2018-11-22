@@ -17,12 +17,47 @@
 
 package walkingkooka.xml;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import walkingkooka.Cast;
+import walkingkooka.collect.set.SetTestCase;
 
-public final class DomMapEntrySetTest extends PackagePrivateClassTestCase<DomMapEntrySet> {
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.Map.Entry;
+
+public final class DomMapEntrySetTest extends SetTestCase<DomMapEntrySet<DomAttributeName, String>,
+        Entry<DomAttributeName, String>> {
+
     @Override
-    protected Class<DomMapEntrySet> type() {
-        return DomMapEntrySet.class;
+    protected DomMapEntrySet<DomAttributeName, String> createSet() {
+        final Element element = this.createElement();
+        element.setAttribute("A1", "B2");
+        element.setAttribute("C3", "D4");
+
+        return Cast.to(DomDocument.wrap(element).attributes().entrySet());
+    }
+
+    private Element createElement() {
+        final Document document = this.documentBuider().newDocument();
+        return document.createElement("root");
+    }
+
+    private DocumentBuilder documentBuider() {
+        try {
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(false);
+            factory.setValidating(false);
+            factory.setExpandEntityReferences(false);
+            return factory.newDocumentBuilder();
+        } catch (final Exception cause) {
+            throw new RuntimeException(cause);
+        }
+    }
+
+    @Override
+    protected Class<DomMapEntrySet<DomAttributeName, String>> type() {
+        return Cast.to(DomMapEntrySet.class);
     }
 }
 

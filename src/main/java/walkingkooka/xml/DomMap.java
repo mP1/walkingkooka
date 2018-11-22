@@ -63,7 +63,7 @@ abstract class DomMap<K, V> extends AbstractMap<K, V> {
     @Override
     public final Set<Entry<K, V>> entrySet() {
         if (null == this.entrySet) {
-            this.entrySet = new DomMapEntrySet<K, V>(this);
+            this.entrySet = DomMapEntrySet.with(this);
         }
         return this.entrySet;
     }

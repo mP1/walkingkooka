@@ -17,9 +17,46 @@
 
 package walkingkooka.xml;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import walkingkooka.Cast;
+import walkingkooka.collect.list.ListTestCase;
 
-public final class DomChildListTest extends PackagePrivateClassTestCase<DomChildList> {
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+public final class DomChildListTest extends ListTestCase<DomChildList, DomNode> {
+
+    private final static String A1 = "A1";
+    private final static String B2 = "B2";
+    private final static String C3 = "C3";
+
+    @Override
+    protected DomChildList createList() {
+        return this.createList(A1, B2, C3);
+    }
+
+    private DomChildList createList(final String... elements) {
+        final Document document = this.documentBuider().newDocument();
+        final Element root = document.createElement("root");
+        for (String child : elements) {
+            root.appendChild(document.createElement(child));
+        }
+        return Cast.to(DomDocument.wrap(root).children());
+    }
+
+    private DocumentBuilder documentBuider() {
+        try {
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(false);
+            factory.setValidating(false);
+            factory.setExpandEntityReferences(false);
+            return factory.newDocumentBuilder();
+        } catch (final Exception cause) {
+            throw new RuntimeException(cause);
+        }
+    }
+
     @Override
     protected Class<DomChildList> type() {
         return DomChildList.class;

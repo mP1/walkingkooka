@@ -35,7 +35,7 @@ abstract class PojoArrayNode extends PojoArrayOrCollectionNode {
     @Override
     final List<Object> valueAsList() {
         if(null == this.valueAsList){
-            this.valueAsList = new PojoArrayNodeChildrenValueList(this);
+            this.valueAsList = PojoArrayNodeChildrenValueList.with(this);
         }
         return this.valueAsList;
     }

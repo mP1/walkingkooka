@@ -18,9 +18,50 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.collect.set.SetTestCase;
 
-public final class FilesystemNodeAttributeMapEntrySetTest extends PackagePrivateClassTestCase<FilesystemNodeAttributeMapEntrySet> {
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map.Entry;
+
+public final class FilesystemNodeAttributeMapEntrySetTest extends SetTestCase<FilesystemNodeAttributeMapEntrySet, Entry<FilesystemNodeAttributeName, String>> {
+
+    @Override
+    protected FilesystemNodeAttributeMapEntrySet createSet() {
+        return FilesystemNodeAttributeMapEntrySet.with(this.createNode());
+    }
+
+    protected FilesystemNode createNode() {
+        final Path home = Paths.get(".");
+        return FilesystemNode.directory(home, new FilesystemNodeContext() {
+
+            @Override
+            public Path rootPath() {
+                return home;
+            }
+
+            @Override
+            public FilesystemNode directory(final Path path) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public FilesystemNode file(final Path path) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public boolean mustLoad(final FilesystemNode node, final FilesystemNodeCacheAtom atom) {
+                return true;
+            }
+
+            @Override
+            public String text(final Path path) {
+                throw new UnsupportedOperationException();
+            }
+        });
+    }
+
     @Override
     protected Class<FilesystemNodeAttributeMapEntrySet> type() {
         return FilesystemNodeAttributeMapEntrySet.class;

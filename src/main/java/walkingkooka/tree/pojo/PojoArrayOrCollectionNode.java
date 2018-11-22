@@ -35,7 +35,7 @@ abstract class PojoArrayOrCollectionNode extends PojoNode2 {
 
     @Override
     final PojoArrayOrCollectionNodeChildrenList createChildrenList() {
-        return new PojoArrayOrCollectionNodeChildrenList<>(this);
+        return PojoArrayOrCollectionNodeChildrenList.with(this);
     }
 
     /**

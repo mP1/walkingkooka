@@ -28,7 +28,13 @@ final class ParserTokenParentNodeList extends AbstractList<ParserTokenNode> {
     /**
      * Ctor called by {@link ParserTokenNode#children()}
      */
-    ParserTokenParentNodeList(final ParserTokenParentNode parent) {
+    static ParserTokenParentNodeList with(final ParserTokenParentNode parent) {
+        return new ParserTokenParentNodeList(parent);
+    }
+
+    private ParserTokenParentNodeList(final ParserTokenParentNode parent) {
+        super();
+
         this.parent = parent;
         this.nodes = new ParserTokenNode[parent.valueAsList().size()];
     }

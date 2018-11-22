@@ -183,7 +183,7 @@ public final class UrlQueryString
         final UrlParameterName name = pair.name;
         UrlParameterValueList values = parameters.get(name);
         if(null==values){
-            values = new UrlParameterValueList();
+            values = UrlParameterValueList.empty();
             parameters.put(name, values);
         }
         values.addParameterValue(pair.value);
@@ -202,7 +202,7 @@ public final class UrlQueryString
     }
 
     private UrlQueryString addParameter0(final UrlParameterName name, final String value) {
-        final UrlParameterValueList values = new UrlParameterValueList();
+        final UrlParameterValueList values = UrlParameterValueList.empty();
         values.addParameterValue(value);
 
         return new UrlQueryString(encode(name, value),

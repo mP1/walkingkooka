@@ -24,7 +24,11 @@ import java.util.List;
  */
 final class PojoObjectNodeChildrenList extends PojoNodeFixedChildrenList<PojoObjectNode> {
 
-    PojoObjectNodeChildrenList(final PojoObjectNode parent) {
+    static PojoObjectNodeChildrenList with(final PojoObjectNode parent) {
+        return new PojoObjectNodeChildrenList(parent);
+    }
+
+    private PojoObjectNodeChildrenList(final PojoObjectNode parent) {
         super(parent);
     }
 

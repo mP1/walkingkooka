@@ -27,12 +27,12 @@ import java.util.Map.Entry;
 public final class PojoMapNodeMapListTest extends PojoNodeListTestCase<PojoMapNodeMapList, Object> {
 
     @Override
-    List<Object> listOfComponents() {
+    List<Object> components() {
         return list("k1", "v1", "k2", "v2");
     }
 
     @Override
-    List<Object> listOfDifferentComponents() {
+    List<Object> differentComponents() {
         return list("different1-k", "different1-v", "different2-k", "different2-v");
     }
 
@@ -45,7 +45,7 @@ public final class PojoMapNodeMapListTest extends PojoNodeListTestCase<PojoMapNo
     }
 
     @Override
-    List<Object> list(final List<Object> components) {
+    List<Object> createList(final List<Object> components) {
         final Map<Object, Object> map = Maps.ordered();
         for(Object value : components){
             final Entry<Object, Object> entry = Cast.to(value);
