@@ -20,9 +20,9 @@ package walkingkooka.net.http;
 
 import walkingkooka.test.PublicClassTestCase;
 
-public final class HttpRequestTransportTest extends PublicClassTestCase<HttpRequestTransport> {
+public final class HttpTransportTest extends PublicClassTestCase<HttpTransport> {
     @Override
-    protected Class<HttpRequestTransport> type() {
-        return HttpRequestTransport.class;
+    protected Class<HttpTransport> type() {
+        return HttpTransport.class;
     }
 }

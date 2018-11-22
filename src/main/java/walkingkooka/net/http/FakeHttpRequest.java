@@ -28,7 +28,7 @@ import java.util.Map;
 public class FakeHttpRequest implements HttpRequest, Fake {
 
     @Override
-    public HttpRequestTransport transport() {
+    public HttpTransport transport() {
         throw new UnsupportedOperationException();
     }
 

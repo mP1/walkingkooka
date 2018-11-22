@@ -44,7 +44,7 @@ public interface HttpRequest {
     /**
      * The transport used to make the request.
      */
-    HttpRequestTransport transport();
+    HttpTransport transport();
 
     /**
      * Returns the HTTP protocol which appears on the request line.

@@ -21,7 +21,7 @@ package walkingkooka.net.http;
 /**
  * Whether a request is secured/unsecured.
  */
-public enum HttpRequestTransport {
+public enum HttpTransport {
 
     /**
      * Unsecured aka HTTP
