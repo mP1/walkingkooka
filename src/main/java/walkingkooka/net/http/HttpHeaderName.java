@@ -634,8 +634,20 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
 
         final String value = request.headers().get(this);
         return null != value ?
-                Optional.of(this.headerValueConverter.parse(value, this)) :
+                Optional.of(this.headerValue0(value)) :
                 Optional.empty();
+    }
+
+    /**
+     * Unconditionally converts the {@link String value} to the appropriate type for this header.
+     */
+    public T headerValue(final String value) {
+        Objects.requireNonNull(value, "value");
+        return this.headerValue0(value);
+    }
+
+    private T headerValue0(final String value) {
+        return this.headerValueConverter.parse(value, this);
     }
 
     private final HttpHeaderValueConverter<T> headerValueConverter;

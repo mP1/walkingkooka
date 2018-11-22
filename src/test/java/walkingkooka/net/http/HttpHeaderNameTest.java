@@ -66,12 +66,12 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
 
     @Test(expected = NullPointerException.class)
     public void testHeaderValueNullRequestFails() {
-        HttpHeaderName.ALLOW.headerValue(null);
+        HttpHeaderName.ALLOW.headerValue((HttpRequest)null);
     }
 
     @Test
-    public void testHeaderValueAccept() {
-        this.headerValueAndCheck(HttpHeaderName.ACCEPT,
+    public void testHeaderValueAcceptRequest() {
+        this.headerValueRequestAndCheck(HttpHeaderName.ACCEPT,
                 "text/html, application/xhtml+xml",
                 Optional.of(Lists.of(
                         MediaType.with("text", "html"),
@@ -79,30 +79,59 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
     }
 
     @Test
-    public void testHeaderValueContentLength() {
-        this.headerValueAndCheck(HttpHeaderName.CONTENT_LENGTH,
+    public void testHeaderValueContentLengthRequest() {
+        this.headerValueRequestAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 "123",
                 Optional.of(123L));
     }
 
     @Test
-    public void testHeaderValueContentLengthAbsent() {
-        this.headerValueAndCheck(HttpHeaderName.CONTENT_LENGTH,
+    public void testHeaderValueContentLengthAbsentRequest() {
+        this.headerValueRequestAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 null,
                 Optional.empty());
     }
 
-    private <T> void headerValueAndCheck(final HttpHeaderName<T> headerName,
-                                         final String headerValue,
-                                         final Optional<T> value) {
+    private <T> void headerValueRequestAndCheck(final HttpHeaderName<T> headerName,
+                                                final String headerValue,
+                                                final Optional<T> value) {
         assertEquals(headerName + "=" + headerValue,
                 value,
-                headerName.headerValue(new FakeHttpRequest(){
+                headerName.headerValue(new FakeHttpRequest() {
                     @Override
                     public Map<HttpHeaderName<?>, String> headers() {
                         return Maps.one(headerName, headerValue);
                     }
                 }));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testHeaderValueNullStringFails() {
+        HttpHeaderName.ALLOW.headerValue((String) null);
+    }
+
+    @Test
+    public void testHeaderValueAcceptString() {
+        this.headerValueStringAndCheck(HttpHeaderName.ACCEPT,
+                "text/html, application/xhtml+xml",
+                Lists.of(
+                        MediaType.with("text", "html"),
+                        MediaType.with("application", "xhtml+xml")));
+    }
+
+    @Test
+    public void testHeaderValueContentLengthString() {
+        this.headerValueStringAndCheck(HttpHeaderName.CONTENT_LENGTH,
+                "123",
+                123L);
+    }
+
+    private <T> void headerValueStringAndCheck(final HttpHeaderName<T> headerName,
+                                               final String headerValue,
+                                               final T value) {
+        assertEquals(headerName + "=" + headerValue,
+                value,
+                headerName.headerValue(headerValue));
     }
 
     @Test
