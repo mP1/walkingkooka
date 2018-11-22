@@ -25,11 +25,15 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A custom {@link List} that appears read only outside this package, but is mutable during the parsing process.
+ * A custom immutable {@link List} that appears read only outside this package, but is mutable during the parsing process.
  */
 final class UrlParameterValueList extends AbstractList<String> {
 
-    UrlParameterValueList() {
+    static UrlParameterValueList empty() {
+        return new UrlParameterValueList();
+    }
+
+    private UrlParameterValueList() {
     }
 
     void addParameterValue(final String value) {

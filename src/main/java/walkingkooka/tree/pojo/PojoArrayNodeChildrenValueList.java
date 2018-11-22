@@ -22,7 +22,11 @@ package walkingkooka.tree.pojo;
  */
 final class PojoArrayNodeChildrenValueList extends PojoNodeList<PojoArrayNode, Object> {
 
-    PojoArrayNodeChildrenValueList(final PojoArrayNode parent) {
+    static PojoArrayNodeChildrenValueList with(final PojoArrayNode parent) {
+        return new PojoArrayNodeChildrenValueList(parent);
+    }
+
+    private PojoArrayNodeChildrenValueList(final PojoArrayNode parent) {
         super(parent);
     }
 

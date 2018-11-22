@@ -24,26 +24,21 @@ import java.util.List;
 public final class PojoObjectNodeChildrenValueListTest extends PojoNodeListTestCase<PojoObjectNodeChildrenValueList, Object> {
 
     @Override
-    protected Class<PojoObjectNodeChildrenValueList> type() {
-        return PojoObjectNodeChildrenValueList.class;
+    List<Object> createList(final List<Object> components) {
+        return PojoNode.wrap(PojoName.property("root"),
+                new TestBean((String)components.get(0), (String)components.get(1)),
+                new ReflectionPojoNodeContext())
+                .childrenValues();
     }
 
     @Override
-    List<Object> listOfComponents() {
+    List<Object> components() {
         return Lists.of("abc123", "def234");
     }
 
     @Override
-    List<Object> listOfDifferentComponents() {
+    List<Object> differentComponents() {
         return Lists.of("different123", "different234");
-    }
-
-    @Override
-    List<Object> list(final List<Object> components) {
-        return PojoNode.wrap(PojoName.property("root"),
-                new TestBean((String)components.get(0), (String)components.get(1)),
-                new ReflectionPojoNodeContext())
-        .childrenValues();
     }
 
     static class TestBean {
@@ -61,5 +56,10 @@ public final class PojoObjectNodeChildrenValueListTest extends PojoNodeListTestC
         public String getY() {
             return this.y;
         }
+    }
+
+    @Override
+    protected Class<PojoObjectNodeChildrenValueList> type() {
+        return PojoObjectNodeChildrenValueList.class;
     }
 }

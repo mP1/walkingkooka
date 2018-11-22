@@ -27,7 +27,11 @@ import java.util.List;
  */
 final class PojoArrayOrCollectionNodeChildrenList<P extends PojoArrayOrCollectionNode> extends PojoNodeChildrenList<P> {
 
-    PojoArrayOrCollectionNodeChildrenList(final P parent) {
+    static <P extends PojoArrayOrCollectionNode> PojoArrayOrCollectionNodeChildrenList<P> with(final P parent) {
+        return new PojoArrayOrCollectionNodeChildrenList<P>(parent);
+    }
+
+    private PojoArrayOrCollectionNodeChildrenList(final P parent) {
         super(parent);
         this.nodes = new ArrayList<>();
     }

@@ -39,7 +39,7 @@ final class PojoObjectNode extends PojoNode2 {
 
     @Override
     PojoObjectNodeChildrenList createChildrenList() {
-        return new PojoObjectNodeChildrenList(this);
+        return PojoObjectNodeChildrenList.with(this);
     }
 
     /**
@@ -113,7 +113,7 @@ final class PojoObjectNode extends PojoNode2 {
     @Override
     public List<Object> childrenValues(){
         if(null==this.childrenValueList){
-            this.childrenValueList = new PojoObjectNodeChildrenValueList(this);
+            this.childrenValueList = PojoObjectNodeChildrenValueList.with(this);
         }
         return this.childrenValueList;
     }

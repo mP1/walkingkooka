@@ -18,13 +18,13 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.ListTestCase;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PackagePrivateClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public final class ParserTokenParentNodeListTest extends PackagePrivateClassTestCase<ParserTokenParentNodeList> {
+public final class ParserTokenParentNodeListTest extends ListTestCase<ParserTokenParentNodeList, ParserTokenNode> {
 
     private final static StringParserToken STRING1 = string("a1");
     private final static StringParserToken STRING2 = string("b2");
@@ -67,7 +67,8 @@ public final class ParserTokenParentNodeListTest extends PackagePrivateClassTest
         assertNotEquals(this.createList(), sequence("xyz", STRING3, STRING4).children());
     }
 
-    private ParserTokenParentNodeList createList() {
+    @Override
+    protected ParserTokenParentNodeList createList() {
         return Cast.to(sequence("a1b2", STRING1, STRING2).children());
     }
 

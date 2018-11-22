@@ -17,7 +17,8 @@
 package walkingkooka.tree.pojo;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.Cast;
+import walkingkooka.collect.list.ListTestCase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,28 +26,37 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public abstract class PojoNodeListTestCase<L extends List<E>, E> extends PackagePrivateClassTestCase<L> {
+public abstract class PojoNodeListTestCase<L extends List<E>, E> extends ListTestCase<L, E> {
+
+    PojoNodeListTestCase() {
+        super();
+    }
 
     @Test
     public final void testEqualListOfComponents() {
-        final List<E> components = this.listOfComponents();
-        assertEquals(this.list(components), components);
+        final List<E> components = this.components();
+        assertEquals(this.createList(components), components);
     }
 
     @Test
     public final void testEqualListOfComponents2() {
-        final List<E> components = this.listOfComponents();
-        assertEquals(this.list(components), new ArrayList<>(components));
+        final List<E> components = this.components();
+        assertEquals(this.createList(components), new ArrayList<>(components));
     }
 
     @Test
     public final void testEqualsDifferentListOfComponents() {
-        assertNotEquals(this.list(this.listOfComponents()), this.listOfDifferentComponents());
+        assertNotEquals(this.createList(this.components()), this.differentComponents());
     }
 
-    abstract List<E> listOfComponents();
+    @Override
+    protected final L createList() {
+        return Cast.to(this.createList(this.components()));
+    }
 
-    abstract List<E> listOfDifferentComponents();
+    abstract List<E> createList(final List<E> components);
 
-    abstract List<E> list(final List<E> components);
+    abstract List<E> components();
+
+    abstract List<E> differentComponents();
 }

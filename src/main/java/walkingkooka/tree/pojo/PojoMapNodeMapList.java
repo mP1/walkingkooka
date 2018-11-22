@@ -28,7 +28,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * A read only {@link List} view of a {@link Set}
+ * A read only {@link List} view of a {@link Map}
  */
 final class PojoMapNodeMapList extends AbstractList<Object> {
 

@@ -26,20 +26,20 @@ import java.util.Set;
 public final class PojoSetNodeSetListTest extends PojoNodeListTestCase<PojoSetNodeSetList, Object> {
 
     @Override
-    List<Object> listOfComponents() {
+    List<Object> components() {
         return Lists.of("a1", "b2", "c3");
     }
 
     @Override
-    List<Object> listOfDifferentComponents() {
+    List<Object> differentComponents() {
         return Lists.of("different1", "different2", "different3");
     }
 
     @Override
-    List<Object> list(final List<Object> components) {
+    List<Object> createList(final List<Object> components) {
         final Set<Object> set = Sets.ordered();
         set.addAll(components);
-        return new PojoSetNodeSetList(set);
+        return PojoSetNodeSetList.with(set);
     }
 
     @Override

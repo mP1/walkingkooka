@@ -40,7 +40,7 @@ final class ParserTokenParentNode extends ParserTokenNode{
     @Override
     public List<ParserTokenNode> children() {
         if(null == this.children) {
-            this.children = new ParserTokenParentNodeList(this);
+            this.children = ParserTokenParentNodeList.with(this);
         }
         return this.children;
     }

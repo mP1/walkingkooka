@@ -28,7 +28,11 @@ import java.util.Map.Entry;
  */
 final class DomMapEntrySet<K, V> extends AbstractSet<Entry<K, V>> {
 
-    DomMapEntrySet(final DomMap<K, V> map) {
+    static <K, V> DomMapEntrySet<K, V> with(final DomMap<K, V> map) {
+        return new DomMapEntrySet<K, V>(map);
+    }
+
+    private DomMapEntrySet(final DomMap<K, V> map) {
         this.map = map;
     }
 

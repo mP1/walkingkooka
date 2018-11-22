@@ -28,17 +28,17 @@ public final class PojoObjectNodeChildrenListTest extends PojoNodeListTestCase<P
     }
 
     @Override
-    List<PojoNode> listOfComponents() {
+    List<PojoNode> components() {
         return list0("abc123", "def234");
     }
 
     @Override
-    List<PojoNode> listOfDifferentComponents() {
+    List<PojoNode> differentComponents() {
         return list0("different123", "different234");
     }
 
     @Override
-    List<PojoNode> list(final List<PojoNode> components) {
+    List<PojoNode> createList(final List<PojoNode> components) {
         return list0((String)components.get(0).value(),
                 (String)components.get(1).value());
     }

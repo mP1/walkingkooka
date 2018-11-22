@@ -45,7 +45,7 @@ final class PojoSetNode extends PojoCollectionNode {
     @Override
     List<Object> valueAsList() {
         if(null==this.list){
-            this.list = new PojoSetNodeSetList(this.valueAsSet());
+            this.list = PojoSetNodeSetList.with(this.valueAsSet());
         }
         return this.list;
     }

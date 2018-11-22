@@ -30,7 +30,11 @@ import java.util.Set;
  */
 final class PojoSetNodeSetList extends AbstractList<Object> {
 
-    PojoSetNodeSetList(final Set<Object> set) {
+    static PojoSetNodeSetList with(final Set<Object> set) {
+        return new PojoSetNodeSetList(set);
+    }
+
+    private PojoSetNodeSetList(final Set<Object> set) {
         this.set = set;
         this.list = Lists.array();
     }

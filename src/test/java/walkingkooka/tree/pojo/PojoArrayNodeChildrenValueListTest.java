@@ -28,17 +28,17 @@ public final class PojoArrayNodeChildrenValueListTest extends PojoNodeListTestCa
     }
 
     @Override
-    List<Object> listOfComponents() {
+    List<Object> components() {
         return Lists.of(true, true, false);
     }
 
     @Override
-    List<Object> listOfDifferentComponents() {
+    List<Object> differentComponents() {
         return Lists.of(false, false, true);
     }
 
     @Override
-    List<Object> list(final List<Object> components) {
+    List<Object> createList(final List<Object> components) {
         return PojoNode.wrap(PojoName.property("root"),
                 new boolean[]{(Boolean)components.get(0), (Boolean)components.get(1), (Boolean)components.get(2)},
                 new ReflectionPojoNodeContext())
