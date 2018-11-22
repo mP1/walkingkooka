@@ -17,9 +17,93 @@
 
 package walkingkooka.xml;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import org.junit.Test;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import walkingkooka.Cast;
 
-public final class DomAttributeMapTest extends PackagePrivateClassTestCase<DomAttributeMap> {
+import java.util.Optional;
+
+public final class DomAttributeMapTest extends DomMapTestCase<DomAttributeMap, DomAttributeName, String> {
+
+    private final static String ATTRIBUTE1 = "A1";
+    private final static String VALUE1 = "V1";
+    private final static String ATTRIBUTE2 = "A2";
+    private final static String VALUE2 = "V2";
+
+    private final static String NAMESPACEURI = "http://www.example.com";
+    private final static String PREFIX = "P";
+
+    @Test
+    public void testKeyAndValue() {
+        this.getAndCheck(DomAttributeName.with(ATTRIBUTE1, DomAttributeName.NO_PREFIX),
+                VALUE1);
+    }
+
+    @Test
+    public void testKeyAndValue2() {
+        this.getAndCheck(DomAttributeName.with(ATTRIBUTE1, DomAttributeName.NO_PREFIX),
+                VALUE1);
+    }
+
+    @Test
+    public void testKeyAndValueWithNameSpaces() {
+        this.getAndCheck(this.createMapWithNamespaces(),
+                DomAttributeName.with(ATTRIBUTE1, prefixWithNamespace()),
+                VALUE1);
+    }
+
+    @Test
+    public void testKeyAndValueWithNameSpaces2() {
+        this.getAndCheck(this.createMapWithNamespaces(),
+                DomAttributeName.with(ATTRIBUTE2, prefixWithNamespace()),
+                VALUE2);
+    }
+
+    @Test
+    public void testSize() {
+        this.sizeAndCheck(this.createMap(), 2);
+    }
+
+    @Override
+    protected DomAttributeMap createMap() {
+        final Element element = this.document(false)
+                .createElement("element");
+        element.setAttribute(ATTRIBUTE1, VALUE1);
+        element.setAttribute(ATTRIBUTE2, VALUE2);
+        return Cast.to(DomAttributeMap.from(element.getAttributes()));
+    }
+
+    private DomAttributeMap createMapWithNamespaces() {
+        final Document document = this.document(true);
+
+        final Element element = document.createElementNS("xmlns:n=" + NAMESPACEURI, "element");
+        final Element child = document.createElementNS("xmlns:o=http://example2.com", "element2");
+        element.appendChild(child);
+
+        child.setAttributeNode(this.createAttr(document, ATTRIBUTE1, VALUE1));
+        child.setAttributeNode(this.createAttr(document, ATTRIBUTE2, VALUE2));
+
+        return Cast.to(DomAttributeMap.from(child.getAttributes()));
+    }
+
+    private Attr createAttr(final Document document, final String name, final String value) {
+        final Attr attr = document.createAttributeNS(NAMESPACEURI, name);
+        attr.setPrefix(PREFIX);
+        attr.setValue(value);
+        return attr;
+    }
+
+    private Document document(final boolean namespaces) {
+        return this.documentBuilder(namespaces, false)
+                .newDocument();
+    }
+
+    private Optional<DomNameSpacePrefix> prefixWithNamespace() {
+        return Optional.of(DomNameSpacePrefix.with(PREFIX));
+    }
+
     @Override
     protected Class<DomAttributeMap> type() {
         return DomAttributeMap.class;
