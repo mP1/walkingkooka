@@ -56,4 +56,9 @@ public class FakeHttpRequest implements HttpRequest, Fake {
     public List<ClientCookie> cookies() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Map<HttpRequestParameterName, List<String>> parameters() {
+        throw new UnsupportedOperationException();
+    }
 }

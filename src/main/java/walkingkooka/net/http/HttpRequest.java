@@ -70,4 +70,9 @@ public interface HttpRequest {
      * Returns all cookies that appear in the request.
      */
     List<ClientCookie> cookies();
+
+    /**
+     * Returns a {@link Map} of parameters which may be taken from the query string or post data etc, depending on the method.
+     */
+    Map<HttpRequestParameterName, List<String>> parameters();
 }
