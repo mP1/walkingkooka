@@ -42,6 +42,11 @@ public interface HttpRequest {
     List<ClientCookie> NO_COOKIES = Lists.empty();
 
     /**
+     * An empty {@link Map} with no parameters.
+     */
+    Map<HttpRequestParameterName, List<String>> NO_PARAMETERS = Maps.empty();
+
+    /**
      * The transport used to make the request.
      */
     HttpTransport transport();
