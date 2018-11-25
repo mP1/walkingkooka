@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePrivateClassTestCase<M> {
@@ -93,6 +94,15 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePriv
                 map.containsKey(key));
     }
 
+    protected void containsKeyAndCheckAbsent(final K key) {
+        this.containsKeyAndCheckAbsent(this.createMap(), key);
+    }
+
+    protected void containsKeyAndCheckAbsent(final Map<K, V> map, final K key) {
+        assertFalse(map + " should contain key " + CharSequences.quoteIfChars(key),
+                map.containsKey(key));
+    }
+
     protected void containsValueAndCheck(final V value) {
         this.containsValueAndCheck(this.createMap(), value);
     }
@@ -112,6 +122,17 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePriv
                 map.get(key));
         this.containsKeyAndCheck(map, key);
         this.containsValueAndCheck(map, value);
+    }
+
+    protected void getAndCheckAbsent(final K key) {
+        this.getAndCheckAbsent(this.createMap(), key);
+    }
+
+    protected void getAndCheckAbsent(final Map<K, V> map, final K key) {
+        assertEquals("get " + CharSequences.quoteIfChars(key) + " from " + map,
+                null,
+                map.get(key));
+        this.containsKeyAndCheckAbsent(map, key);
     }
 
     protected void isEmptyAndCheck(final Map<K, V> map, final boolean empty) {
