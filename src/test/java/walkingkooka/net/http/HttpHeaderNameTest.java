@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
@@ -57,6 +58,16 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
     @Test
     public void testValid() {
         this.createNameAndCheck("Custom");
+    }
+
+    @Test
+    public void testStringHeaderValueNotString() {
+        assertNotSame(HttpHeaderName.ACCEPT, HttpHeaderName.ACCEPT.stringHeaderValues());
+    }
+
+    @Test
+    public void testStringHeaderValueInitiallyString() {
+        assertSame(HttpHeaderName.CONNECTION, HttpHeaderName.CONNECTION.stringHeaderValues());
     }
 
     @Test

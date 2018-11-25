@@ -43,6 +43,11 @@ final class HttpHeaderValueStringConverter extends HttpHeaderValueConverter<Stri
     }
 
     @Override
+    boolean isString() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return toStringType(String.class);
     }

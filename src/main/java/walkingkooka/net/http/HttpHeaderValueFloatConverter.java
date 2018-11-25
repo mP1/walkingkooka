@@ -43,6 +43,11 @@ final class HttpHeaderValueFloatConverter extends HttpHeaderValueConverter<Float
     }
 
     @Override
+    boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return toStringType(Float.class);
     }

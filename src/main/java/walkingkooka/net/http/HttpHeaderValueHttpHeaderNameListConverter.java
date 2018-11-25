@@ -50,6 +50,11 @@ final class HttpHeaderValueHttpHeaderNameListConverter extends HttpHeaderValueCo
     }
 
     @Override
+    boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return toStringListOf(HttpHeaderName.class);
     }

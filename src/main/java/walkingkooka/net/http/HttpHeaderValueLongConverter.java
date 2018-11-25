@@ -43,6 +43,11 @@ final class HttpHeaderValueLongConverter extends HttpHeaderValueConverter<Long> 
     }
 
     @Override
+    boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return toStringType(Long.class);
     }
