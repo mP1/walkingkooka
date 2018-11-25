@@ -119,6 +119,11 @@ final class HttpHeaderValueLocalDateTimeConverter extends HttpHeaderValueConvert
     }
 
     @Override
+    boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return toStringType(LocalDateTime.class);
     }

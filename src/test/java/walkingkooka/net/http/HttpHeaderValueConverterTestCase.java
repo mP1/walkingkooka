@@ -23,12 +23,23 @@ import walkingkooka.naming.Name;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 
+import java.lang.reflect.Method;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public abstract class HttpHeaderValueConverterTestCase<C extends HttpHeaderValueConverter<T>, T> extends PackagePrivateClassTestCase<C> {
 
+    private final static String PREFIX = "HttpHeaderValue";
+    private final static String SUFFIX = "Converter";
+
     HttpHeaderValueConverterTestCase() {
         super();
+    }
+
+    @Test
+    public final void testNaming() {
+        this.checkNamingStartAndEnd(PREFIX, SUFFIX);
     }
 
     @Test(expected = HttpHeaderValueException.class)
@@ -37,6 +48,25 @@ public abstract class HttpHeaderValueConverterTestCase<C extends HttpHeaderValue
     }
 
     abstract String invalidHeaderValue();
+
+    @Test
+    public final void testIsXXX() throws Exception {
+        final C converter = this.converter();
+        final Class<?> type = converter.getClass();
+        final String className = type.getSimpleName();
+
+        if(!className.startsWith(PREFIX)) {
+            fail("ClassName " + CharSequences.quote(className) + " doesnt start with " + CharSequences.quote(PREFIX));
+        }
+
+        if(!className.endsWith(SUFFIX)) {
+            fail("ClassName " + CharSequences.quote(className) + " doesnt end with " + CharSequences.quote(SUFFIX));
+        }
+
+        final String valueType = className.substring(PREFIX.length(), className.length() - SUFFIX.length());
+        final Method getter = type.getDeclaredMethod("isString");
+        assertEquals(converter + ".isString returned incorrect value", "String".equals(valueType), getter.invoke(converter));
+    }
 
     @Test
     public final void testToString() {

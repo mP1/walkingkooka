@@ -45,6 +45,11 @@ final class HttpHeaderValueAbsoluteUrlConverter extends HttpHeaderValueConverter
     }
 
     @Override
+    boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return toStringType(AbsoluteUrl.class);
     }

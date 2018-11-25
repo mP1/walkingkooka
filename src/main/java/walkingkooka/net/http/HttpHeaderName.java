@@ -627,6 +627,16 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
     private final String name;
 
     /**
+     * Returns a {@link HttpHeaderName} that always and does not attempt to convert values to {@link String}.
+     * If the header already returns {@link String string values} this will return this.
+     */
+    public HttpHeaderName<String> stringHeaderValues() {
+        return this.headerValueConverter.isString() ?
+               Cast.to(this) :
+               new HttpHeaderName<String>(this.name, HttpHeaderValueConverter.string());
+    }
+
+    /**
      * A type safe getter that converts any present header values to the header name type.
      */
     public Optional<T> headerValue(final HttpRequest request) {

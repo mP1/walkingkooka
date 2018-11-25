@@ -45,6 +45,11 @@ final class HttpHeaderValueHttpHeaderTokenListConverter extends HttpHeaderValueC
     }
 
     @Override
+    boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return toStringListOf(HttpHeaderToken.class);
     }

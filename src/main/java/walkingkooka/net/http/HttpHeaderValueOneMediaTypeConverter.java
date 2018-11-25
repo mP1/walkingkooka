@@ -44,6 +44,11 @@ final class HttpHeaderValueOneMediaTypeConverter extends HttpHeaderValueConverte
     }
 
     @Override
+    boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return toStringType(MediaType.class);
     }

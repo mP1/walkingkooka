@@ -53,6 +53,11 @@ final class HttpHeaderValueEmailAddressConverter extends HttpHeaderValueConverte
     }
 
     @Override
+    boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return toStringType(EmailAddress.class);
     }

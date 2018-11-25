@@ -168,6 +168,11 @@ abstract class HttpHeaderValueConverter<T> {
      */
     abstract T parse0(final String value, final Name name) throws HttpHeaderValueException, RuntimeException;
 
+    /**
+     * Only {@link HttpHeaderValueStringConverter} returns true.
+     */
+    abstract boolean isString();
+
     @Override
     abstract public String toString();
 
