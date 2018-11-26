@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A {@link HttpHeaderValueConverter} that converts a {@link String} into one {@link ClientCookie}.
  */
-final class HttpHeaderValueClientCookieListConverter extends HttpHeaderValueConverter<List<ClientCookie>> {
+final class HttpHeaderValueClientCookieListConverter extends HttpHeaderValueConverter2<List<ClientCookie>> {
 
     /**
      * Singleton

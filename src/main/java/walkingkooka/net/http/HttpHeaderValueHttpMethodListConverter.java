@@ -49,6 +49,13 @@ final class HttpHeaderValueHttpMethodListConverter extends HttpHeaderValueConver
     }
 
     @Override
+    String format0(final List<HttpMethod> value, final Name name) {
+        return value.stream()
+                .map(m -> m.value())
+                .collect(Collectors.joining(", "));
+    }
+
+    @Override
     boolean isString() {
         return false;
     }

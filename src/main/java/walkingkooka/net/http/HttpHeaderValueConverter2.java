@@ -19,41 +19,23 @@
 package walkingkooka.net.http;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 
 /**
- * A {@link HttpHeaderValueConverter} that parses a header value into a {@link Long}
+ * Base class for all {@link walkingkooka.net.http.HttpHeaderValueConverter} that only supports reading and not writing
+ * header values
  */
-final class HttpHeaderValueLongConverter extends HttpHeaderValueConverter<Long> {
+abstract class HttpHeaderValueConverter2<T> extends HttpHeaderValueConverter<T> {
 
     /**
-     * Singleton
+     * Package private to limit sub classing.
      */
-    final static HttpHeaderValueLongConverter INSTANCE = new HttpHeaderValueLongConverter();
-
-    /**
-     * Private ctor use singleton.
-     */
-    private HttpHeaderValueLongConverter() {
+    HttpHeaderValueConverter2() {
         super();
     }
 
     @Override
-    Long parse0(final String value, final Name name) {
-        return Long.parseLong(value.trim());
-    }
-
-    @Override
-    String format0(final Long value, final Name name) {
-        return Long.toString(value);
-    }
-
-    @Override
-    boolean isString() {
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return toStringType(Long.class);
+    String format0(final T value, final Name name) {
+        throw new UnsupportedOperationException(name + "=" + CharSequences.quoteIfChars(value));
     }
 }

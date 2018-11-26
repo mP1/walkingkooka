@@ -147,6 +147,8 @@ abstract class HttpHeaderValueConverter<T> {
         super();
     }
 
+    // parse ....................................................................................................
+
     /**
      * The entry point that accepts a value and tries to parse it.
      */
@@ -167,6 +169,28 @@ abstract class HttpHeaderValueConverter<T> {
      * Sub classes parse the {@link String} value.
      */
     abstract T parse0(final String value, final Name name) throws HttpHeaderValueException, RuntimeException;
+
+    // format ....................................................................................................
+
+    /**
+     * Accepts a typed value and formats it into a http response header string.
+     */
+    final String format(final T value, final Name name) {
+        try {
+            return this.format0(value, name);
+        } catch (final HttpHeaderValueException cause) {
+            throw cause;
+        } catch (final RuntimeException cause) {
+            throw new HttpHeaderValueException("Failed to convert " + CharSequences.quote(name.value()) +
+                    " value " + CharSequences.quoteIfChars(value) +
+                    ", message: " + cause.getMessage(),
+                    cause);
+        }
+    }
+
+    abstract String format0(final T value, final Name name);
+
+    // isXXX ....................................................................................................
 
     /**
      * Only {@link HttpHeaderValueStringConverter} returns true.

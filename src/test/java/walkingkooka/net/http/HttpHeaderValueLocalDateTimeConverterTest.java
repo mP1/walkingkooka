@@ -25,11 +25,19 @@ import java.time.LocalDateTime;
 public final class HttpHeaderValueLocalDateTimeConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueLocalDateTimeConverter, LocalDateTime> {
 
+    private final static String TEXT = "Wed, 21 Oct 2015 07:28:00 GMT";
+    private final static LocalDateTime VALUE = LocalDateTime.of(2015, 10, 21, 7, 28, 0);
+
     @Test
-    public void testDate() {
-        this.parseAndCheck("Wed, 21 Oct 2015 07:28:00 GMT",
-                LocalDateTime.of(2015, 10, 21, 7, 28, 0));
+    public void testDateRequest() {
+        this.parseAndCheck(TEXT, VALUE);
     }
+
+    @Test
+    public void testLastModifiedResponse() {
+        this.formatAndCheck(VALUE, TEXT);
+    }
+
 
     @Override
     HttpHeaderName headerOrParameterName() {

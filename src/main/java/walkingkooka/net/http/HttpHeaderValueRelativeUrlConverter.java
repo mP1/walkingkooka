@@ -25,7 +25,7 @@ import walkingkooka.net.RelativeUrl;
  * A {@link HttpHeaderValueConverter} that parses a header value into a {@link RelativeUrl}.
  * This is useful for headers such as {@link HttpHeaderName#CONTENT_LOCATION}.
  */
-final class HttpHeaderValueRelativeUrlConverter extends HttpHeaderValueConverter<RelativeUrl> {
+final class HttpHeaderValueRelativeUrlConverter extends HttpHeaderValueConverter2<RelativeUrl> {
 
     /**
      * Singleton

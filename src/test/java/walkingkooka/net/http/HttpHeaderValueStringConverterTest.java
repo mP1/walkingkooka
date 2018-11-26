@@ -24,6 +24,8 @@ import org.junit.Test;
 public final class HttpHeaderValueStringConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueStringConverter, String> {
 
+    private final static String TEXT = "abc123";
+
     @Test
     @Ignore
     public void testInvalidHeaderValueFails() {
@@ -31,9 +33,13 @@ public final class HttpHeaderValueStringConverterTest extends
     }
 
     @Test
-    public void testString() {
-        final String string = "abc123";
-        this.parseAndCheck(string, string);
+    public void testRequestValue() {
+        this.parseAndCheck(TEXT, TEXT);
+    }
+
+    @Test
+    public void testResponseValue() {
+        this.formatAndCheck(TEXT, TEXT);
     }
 
     @Override

@@ -55,6 +55,11 @@ final class HttpHeaderValueRangeConverter extends HttpHeaderValueConverter<HttpH
     }
 
     @Override
+    String format0(final HttpHeaderRange value, final Name name) {
+        return value.toString();
+    }
+
+    @Override
     boolean isString() {
         return false;
     }

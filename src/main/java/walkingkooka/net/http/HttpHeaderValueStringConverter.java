@@ -43,6 +43,11 @@ final class HttpHeaderValueStringConverter extends HttpHeaderValueConverter<Stri
     }
 
     @Override
+    String format0(final String value, final Name name) {
+        return value;
+    }
+
+    @Override
     boolean isString() {
         return true;
     }

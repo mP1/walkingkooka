@@ -25,12 +25,22 @@ import walkingkooka.compare.Range;
 public final class HttpHeaderValueRangeConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueRangeConverter, HttpHeaderRange> {
 
+    private final static String TEXT = "bytes=123-456, 789-";
+
     @Test
     public void testRange() {
-        this.parseAndCheck("bytes=123-456, 789-",
-                HttpHeaderRange.with("bytes",
-                        Lists.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L)),
-                                Range.greaterThanEquals(789L))));
+        this.parseAndCheck(TEXT, this.range());
+    }
+
+    @Test
+    public void testContentRangeResponse() {
+        this.formatAndCheck(this.range(), TEXT);
+    }
+
+    private HttpHeaderRange range() {
+        return HttpHeaderRange.with("bytes",
+                Lists.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L)),
+                        Range.greaterThanEquals(789L)));
     }
 
     @Override

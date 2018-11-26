@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A {@link HttpHeaderValueConverter} that expects comma separated {@link HttpHeaderToken tokens}.
  */
-final class HttpHeaderValueHttpHeaderTokenListConverter extends HttpHeaderValueConverter<List<HttpHeaderToken>> {
+final class HttpHeaderValueHttpHeaderTokenListConverter extends HttpHeaderValueConverter2<List<HttpHeaderToken>> {
 
     /**
      * Singleton
