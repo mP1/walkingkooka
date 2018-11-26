@@ -18,8 +18,6 @@
 
 package walkingkooka.net.http;
 
-import java.util.Map;
-
 /**
  * Defines a HTTP response.
  */
@@ -31,7 +29,12 @@ public interface HttpResponse {
     void setStatus(final HttpStatus status);
 
     /**
-     * Returns a {@link Map} view of all request headers.
+     * Adds a new header and its value.
      */
-    <T> void addHeader(final HttpHeaderName name, final T value);
+    <T> void addHeader(final HttpHeaderName<T> name, final T value);
+
+    /**
+     * Sets the body of the response.
+     */
+    void setBody(final byte[] body);
 }
