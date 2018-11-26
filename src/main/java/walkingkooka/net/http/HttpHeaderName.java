@@ -660,6 +660,25 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
         return this.headerValueConverter.parse(value, this);
     }
 
+    /**
+     * Sets the value upon the {@link HttpResponse}
+     */
+    public void addHeaderValue(final T value, final HttpResponse response) {
+        Objects.requireNonNull(value, "value");
+        Objects.requireNonNull(response, "response");
+
+        response.addHeader(this, value);
+    }
+
+    /**
+     * Formats the given typed value into header value text.
+     */
+    public String headerValueFormat(final T value) {
+        Objects.requireNonNull(value, "value");
+
+        return this.headerValueConverter.format(value, this);
+    }
+
     private final HttpHeaderValueConverter<T> headerValueConverter;
 
     // Comparable

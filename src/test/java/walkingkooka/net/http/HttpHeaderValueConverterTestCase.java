@@ -89,5 +89,17 @@ public abstract class HttpHeaderValueConverterTestCase<C extends HttpHeaderValue
         assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.parse(value, name));
     }
 
+    final void formatAndCheck(final T value, final String expected) {
+        this.formatAndCheck(value, this.headerOrParameterName(), expected);
+    }
+
+    final void formatAndCheck(final T value, final Name name, final String expected) {
+        this.formatAndCheck(this.converter(), value, name, expected);
+    }
+
+    final void formatAndCheck(final C converter, final T value, final Name name, final String expected) {
+        assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.format(value, name));
+    }
+
     abstract C converter();
 }

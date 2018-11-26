@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A {@link HttpHeaderValueConverter} that converts a {@link String} into many {@link MediaType}.
  */
-final class HttpHeaderValueManyMediaTypeConverter extends HttpHeaderValueConverter<List<MediaType>> {
+final class HttpHeaderValueManyMediaTypeConverter extends HttpHeaderValueConverter2<List<MediaType>> {
 
     /**
      * Singleton

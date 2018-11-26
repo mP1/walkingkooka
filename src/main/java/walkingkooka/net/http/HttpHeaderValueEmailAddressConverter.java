@@ -29,7 +29,7 @@ import java.util.Optional;
  * A {@link HttpHeaderValueConverter} that parses a header value into a {@link EmailAddress}.
  * This is useful for headers such as {@link HttpHeaderName#FROM}.
  */
-final class HttpHeaderValueEmailAddressConverter extends HttpHeaderValueConverter<EmailAddress> {
+final class HttpHeaderValueEmailAddressConverter extends HttpHeaderValueConverter2<EmailAddress> {
 
     /**
      * Singleton

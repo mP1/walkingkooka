@@ -24,10 +24,16 @@ import walkingkooka.net.AbsoluteUrl;
 public final class HttpHeaderValueAbsoluteUrlConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueAbsoluteUrlConverter, AbsoluteUrl> {
 
+    private final static String URL = "http://example.com";
+
     @Test
-    public void testReferer() {
-        final String url = "http://example.com";
-        this.parseAndCheck(url, AbsoluteUrl.parse(url));
+    public void testRefererParse() {
+        this.parseAndCheck(URL, AbsoluteUrl.parse(URL));
+    }
+
+    @Test
+    public void testContentLocationFormat() {
+        this.formatAndCheck(AbsoluteUrl.parse(URL), URL);
     }
 
     @Override

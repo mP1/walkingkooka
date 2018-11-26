@@ -26,11 +26,21 @@ import walkingkooka.net.media.MediaTypeParameterName;
 public final class HttpHeaderValueOneMediaTypeConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueOneMediaTypeConverter, MediaType> {
 
+    private final static String TEXT = "type1/subType1; p1=v1";
+
     @Test
-    public void testContentType() {
-        this.parseAndCheck("type1/subType1; p1=v1",
-                MediaType.with("type1", "subType1")
-                        .setParameters(Maps.one(MediaTypeParameterName.with("p1"), "v1")));
+    public void testContentTypeRequest() {
+        this.parseAndCheck(TEXT, this.mediaType());
+    }
+
+    @Test
+    public void testContentTypeResponse() {
+        this.formatAndCheck(this.mediaType(), TEXT);
+    }
+
+    private MediaType mediaType() {
+        return MediaType.with("type1", "subType1")
+                .setParameters(Maps.one(MediaTypeParameterName.with("p1"), "v1"));
     }
 
     @Override

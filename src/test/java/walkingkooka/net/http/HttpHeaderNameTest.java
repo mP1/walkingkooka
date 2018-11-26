@@ -25,6 +25,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.net.media.MediaType;
+import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 import java.util.Optional;
@@ -74,6 +75,8 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
     public void testConstantNameReturnsConstant() {
         assertSame(HttpHeaderName.ACCEPT, HttpHeaderName.with(HttpHeaderName.ACCEPT.value()));
     }
+
+    // HeaderValue.........................................................................
 
     @Test(expected = NullPointerException.class)
     public void testHeaderValueNullRequestFails() {
@@ -144,6 +147,61 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
                 value,
                 headerName.headerValue(headerValue));
     }
+
+    // addHeaderValue.........................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testAddHeaderValueNullValueFails() {
+        HttpHeaderName.CONNECTION.addHeaderValue(null, HttpResponses.fake());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAddHeaderValueNullResponseFails() {
+        HttpHeaderName.CONNECTION.addHeaderValue("*", null);
+    }
+
+    @Test
+    public void testAddHeaderValue() {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+
+        final Long value = 123L;
+        HttpHeaderName.CONTENT_LENGTH.addHeaderValue(value,
+                new FakeHttpResponse() {
+                    @Override
+                    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
+                        headers.put(name, value);
+                    }
+                });
+        assertEquals("set headers", Maps.one(HttpHeaderName.CONTENT_LENGTH, value), headers);
+    }
+
+    // headerValueFormat.........................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testHeaderValueFormatNullFails() {
+        HttpHeaderName.CONNECTION.headerValueFormat(null);
+    }
+
+    @Test
+    public void testHeaderValueFormatString() {
+        final String text = "Close";
+        this.headerValueFormatAndCheck(HttpHeaderName.CONNECTION, text, text);
+    }
+
+    @Test
+    public void testHeaderValueFormatLong() {
+        this.headerValueFormatAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L, "123");
+    }
+
+    private <T> void headerValueFormatAndCheck(final HttpHeaderName<T> header,
+                                               final T value,
+                                               final String formatted) {
+        assertEquals(header + ".headerValueFormat " + CharSequences.quoteIfChars(value),
+                formatted,
+                header.headerValueFormat(value));
+    }
+
+    // toString.................................................................................
 
     @Test
     public void testToString() {

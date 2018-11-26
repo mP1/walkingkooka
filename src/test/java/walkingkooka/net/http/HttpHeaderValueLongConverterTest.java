@@ -23,9 +23,17 @@ import org.junit.Test;
 public final class HttpHeaderValueLongConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueLongConverter, Long> {
 
+    private final static String TEXT = "123";
+    private final static Long VALUE = 123L;
+
     @Test
-    public void testLong() {
-        this.parseAndCheck("123", 123L);
+    public void testContentLengthRequest() {
+        this.parseAndCheck(TEXT, VALUE);
+    }
+
+    @Test
+    public void testContentLengthResponse() {
+        this.formatAndCheck(VALUE, TEXT);
     }
 
     @Override

@@ -27,22 +27,36 @@ public final class HttpHeaderValueHttpMethodListConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueHttpMethodListConverter, List<HttpMethod>> {
 
     @Test
-    public void testGet() {
+    public void testGetRequest() {
         this.parseAndCheck2("GET", HttpMethod.GET);
     }
 
     @Test
-    public void testGetPost() {
+    public void testGetPostRequest() {
         this.parseAndCheck2("GET,POST", HttpMethod.GET, HttpMethod.POST);
     }
 
     @Test
-    public void testGetWhitespacePost() {
+    public void testGetWhitespacePostRequest() {
         this.parseAndCheck2("GET,  POST", HttpMethod.GET, HttpMethod.POST);
     }
 
     private void parseAndCheck2(final String headerValue, final HttpMethod... methods) {
         this.parseAndCheck(headerValue, Lists.of(methods));
+    }
+
+    @Test
+    public void testGetResponse() {
+        this.formatAndCheck2("GET", HttpMethod.GET);
+    }
+
+    @Test
+    public void testGetPostResponse() {
+        this.formatAndCheck2("GET, POST", HttpMethod.GET, HttpMethod.POST);
+    }
+
+    private void formatAndCheck2(final String headerValue, final HttpMethod... methods) {
+        this.formatAndCheck(Lists.of(methods), headerValue);
     }
 
     @Override

@@ -62,6 +62,11 @@ final class HttpHeaderValueLocalDateTimeConverter extends HttpHeaderValueConvert
         return LocalDateTime.parse(value, FORMATTER);
     }
 
+    @Override
+    String format0(final LocalDateTime value, final Name name) {
+        return FORMATTER.format(value);
+    }
+
     // https://tools.ietf.org/html/rfc7231#section-7.1.1.2
     // https://tools.ietf.org/html/rfc7231#section-7.1.1.1
     // An example of the preferred format is
