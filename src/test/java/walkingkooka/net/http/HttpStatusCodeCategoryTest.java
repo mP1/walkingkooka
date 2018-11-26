@@ -18,20 +18,11 @@
 
 package walkingkooka.net.http;
 
-import java.util.Map;
+import walkingkooka.test.EnumTestCase;
 
-/**
- * Defines a HTTP response.
- */
-public interface HttpResponse {
-
-    /**
-     * Sets the response status
-     */
-    void setStatus(final HttpStatus status);
-
-    /**
-     * Returns a {@link Map} view of all request headers.
-     */
-    <T> void addHeader(final HttpHeaderName name, final T value);
+public final class HttpStatusCodeCategoryTest extends EnumTestCase<HttpStatusCodeCategory> {
+    @Override
+    protected Class<HttpStatusCodeCategory> type() {
+        return HttpStatusCodeCategory.class;
+    }
 }

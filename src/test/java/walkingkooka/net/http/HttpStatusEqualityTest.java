@@ -24,17 +24,17 @@ import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 final public class HttpStatusEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<HttpStatus> {
 
-    private final static int CODE = 200;
-    private final static String MESSAGE = "message";
+    private final static HttpStatusCode CODE = HttpStatusCode.OK;
+    private final static String MESSAGE = "OK";
 
     @Test
     public void testDifferentCode() {
-        this.checkNotEquals(HttpStatus.with(CODE + 1, MESSAGE));
+        this.checkNotEquals(HttpStatus.with(HttpStatusCode.BAD_GATEWAY, MESSAGE));
     }
 
     @Test
     public void testDifferentMessage() {
-        this.checkEqualsAndHashCode(HttpStatus.with(CODE, "different"));
+        this.checkNotEquals(HttpStatus.with(CODE, "different"));
     }
 
     @Override
