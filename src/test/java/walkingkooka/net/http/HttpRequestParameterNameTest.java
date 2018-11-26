@@ -22,6 +22,8 @@ package walkingkooka.net.http;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequestParameterName> {
 
     @Test(expected = IllegalArgumentException.class)
@@ -32,6 +34,12 @@ final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequest
     @Test
     public void testValid() {
         this.createNameAndCheck("Abc123");
+    }
+
+    @Test
+    public void testToString() {
+        final String name = "ABC123";
+        assertEquals(name, HttpRequestParameterName.with(name).toString());
     }
 
     @Override
