@@ -120,6 +120,20 @@ final public class CharPredicates implements PublicStaticHelper {
     }
 
     /**
+     * Fails if the chars are null or any characters fail the {@link CharPredicate} test.
+     * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
+     */
+    public static void failIfNullOrFalse(final CharSequence chars,
+                                         final String label,
+                                         final CharPredicate predicate) {
+        Objects.requireNonNull(chars, label);
+        CharSequences.failIfNullOrEmpty(label, "label");
+        Objects.requireNonNull(predicate, "predicate");
+
+        checkCharacters(chars, label, predicate);
+    }
+
+    /**
      * Fails if the chars are null or empty or any characters fail the {@link CharPredicate} test.
      * It is assumed the {@link CharPredicate} have a meaningful toString as it is included in any exception messages.
      */
@@ -127,8 +141,18 @@ final public class CharPredicates implements PublicStaticHelper {
                                                 final String label,
                                                 final CharPredicate predicate) {
         CharSequences.failIfNullOrEmpty(chars, label);
+        CharSequences.failIfNullOrEmpty(label, "label");
         Objects.requireNonNull(predicate, "predicate");
 
+        checkCharacters(chars, label, predicate);
+    }
+
+    /**
+     * Checks that all characters pass the {@link CharPredicate} test.
+     */
+    private static void checkCharacters(final CharSequence chars,
+                                        final String label,
+                                        final CharPredicate predicate) {
         final int length = chars.length();
         for (int i = 0; i < length; i++) {
             final char c = chars.charAt(i);
@@ -137,7 +161,6 @@ final public class CharPredicates implements PublicStaticHelper {
             }
         }
     }
-
 
     /**
      * Fails if the chars are null or empty or any characters fail the initial or part test.
@@ -148,6 +171,7 @@ final public class CharPredicates implements PublicStaticHelper {
                                                               final CharPredicate initial,
                                                               final CharPredicate part) {
         CharSequences.failIfNullOrEmpty(chars, label);
+        CharSequences.failIfNullOrEmpty(label, "label");
         Objects.requireNonNull(initial, "initial");
         Objects.requireNonNull(part, "part");
 

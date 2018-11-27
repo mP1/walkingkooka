@@ -29,6 +29,73 @@ import static org.junit.Assert.fail;
 
 public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPredicates> {
 
+    // failIfNullOrFalse .............................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testFailIfNullOrFalseNullCharSequenceFails() {
+        CharPredicates.failIfNullOrFalse(null, "TEXT", predicate());
+    }
+
+    @Test
+    public void testFailIfNullOrFalseEmptyCharSequence() {
+        CharPredicates.failIfNullOrFalse("", "TEXT", predicate());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFailIfNullOrFalseNullLabelFails() {
+        CharPredicates.failIfNullOrFalse("ABC", null, predicate());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFailIfNullOrFalseEmptyLabelFails() {
+        CharPredicates.failIfNullOrFalse("ABC", "", predicate());
+    }
+
+    @Test
+    public void testFailIfNullOrFalseTestFails() {
+        this.failIfNullOrFalseAndFail("98", "TEXT contains invalid char '9' at position 0 expected letter =\"98\"");
+    }
+
+    @Test
+    public void testFailIfNullOrFalseTestFails2() {
+        this.failIfNullOrFalseAndFail("A1", "TEXT contains invalid char '1' at position 1 expected letter =\"A1\"");
+    }
+
+    @Test
+    public void testFailIfNullOrFalseEmpty() {
+        this.failIfNullOrFalseAndCheck("");
+    }
+
+    @Test
+    public void testFailIfNullOrFalsePass() {
+        this.failIfNullOrFalseAndCheck("A");
+    }
+
+    @Test
+    public void testFailIfNullOrFalsePass2() {
+        this.failIfNullOrFalseAndCheck("AB");
+    }
+
+    @Test
+    public void testFailIfNullOrFalsePass3() {
+        this.failIfNullOrFalseAndCheck("ABCDEFGH");
+    }
+
+    private void failIfNullOrFalseAndCheck(final String text) {
+        CharPredicates.failIfNullOrFalse(text, "TEXT", CharPredicates.letter());
+    }
+
+    private void failIfNullOrFalseAndFail(final String text, final String message) {
+        try {
+            CharPredicates.failIfNullOrFalse(text, "TEXT", predicate());
+            fail("Expected failure on " + CharSequences.quote(text));
+        } catch (final IllegalArgumentException expected) {
+            assertEquals("exception message different for " + CharSequences.quote(text), message, expected.getMessage());
+        }
+    }
+
+    // failIfNullOrEmptyOrFalse ............................................................
+
     @Test(expected = NullPointerException.class)
     public void testFailIfNullOrEmptyOrFalseNullCharSequenceFails() {
         CharPredicates.failIfNullOrEmptyOrFalse(null, "TEXT", predicate());
