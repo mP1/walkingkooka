@@ -64,6 +64,20 @@ abstract class HttpHeaderValueConverter<T> {
     }
 
     /**
+     * {@see HttpHeaderValueHttpETagConverter}
+     */
+    static HttpHeaderValueConverter<HttpETag> httpETag() {
+        return HttpHeaderValueHttpETagConverter.INSTANCE;
+    }
+
+    /**
+     * {@see HttpHeaderValueHttpETagListConverter}
+     */
+    static HttpHeaderValueConverter<List<HttpETag>> httpETagList() {
+        return HttpHeaderValueHttpETagListConverter.INSTANCE;
+    }
+
+    /**
      * {@see HttpHeaderValueHttpHeaderNameListConverter}
      */
     static HttpHeaderValueConverter<List<HttpHeaderName<?>>> httpHeaderNameList() {

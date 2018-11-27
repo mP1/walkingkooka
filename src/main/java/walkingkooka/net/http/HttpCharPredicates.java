@@ -43,11 +43,30 @@ final public class HttpCharPredicates implements PublicStaticHelper {
             .toString("cookie name")//
             .build();
 
+
+    /**
+     * A {@link CharPredicate} that match the content within an ETAG quoted string.<br>
+     * <a href="https://tools.ietf.org/html/rfc7232#section-2.3></a>
+     */
+    public static CharPredicate etagQuotedCharacter() {
+        return E_TAG_QUOTED_CHARACTER;
+    }
+
+    /**
+     *  etagc      = %x21 / %x23-7E / obs-text
+     *             ; VCHAR except double quotes, plus obs-text
+     */
+    private final static CharPredicate E_TAG_QUOTED_CHARACTER = CharPredicates.builder()//
+            .or(CharPredicates.is('\u0021'))//
+            .or(CharPredicates.range('\u0023', '\u007e'))
+            .toString("e tag quoted value")//
+            .build();
+
     /**
      * A {@link CharPredicate} that match any character in a header name
      * <a href="https://www.ietf.org/rfc/rfc822.txt">RFC822</a>
      * <pre>
-     * The field-name must be composed of printable ASCII characters (i.e., characters that have values between 33. and 126., decimal, except colon).
+     * The field-name must be composed of printable ASCII characters (position.e., characters that have values between 33. and 126., decimal, except colon).
      * </pre>
      */
     public static CharPredicate httpHeaderName() {
