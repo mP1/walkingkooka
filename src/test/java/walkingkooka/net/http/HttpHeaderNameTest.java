@@ -62,6 +62,30 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
     }
 
     @Test
+    public void testScopeRequest() {
+        this.checkScope(HttpHeaderName.ACCEPT, HttpHeaderScope.REQUEST);
+    }
+
+    @Test
+    public void testScopeResponse() {
+        this.checkScope(HttpHeaderName.SERVER, HttpHeaderScope.RESPONSE);
+    }
+
+    @Test
+    public void testScopeRequestResponse() {
+        this.checkScope(HttpHeaderName.CONTENT_LENGTH, HttpHeaderScope.REQUEST_RESPONSE);
+    }
+
+    @Test
+    public void testScopeRequestUnknown() {
+        this.checkScope(HttpHeaderName.with("xyz"), HttpHeaderScope.UNKNOWN);
+    }
+
+    private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope scope) {
+        assertSame("scope", scope, header.scope());
+    }
+
+    @Test
     public void testStringHeaderValueNotString() {
         assertNotSame(HttpHeaderName.ACCEPT, HttpHeaderName.ACCEPT.stringHeaderValues());
     }
@@ -83,8 +107,13 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
         HttpHeaderName.ALLOW.headerValue((HttpRequest)null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testHeaderValueScopeResponseFails() {
+        HttpHeaderName.SERVER.headerValue(HttpRequests.fake());
+    }
+
     @Test
-    public void testHeaderValueAcceptRequest() {
+    public void testHeaderValueScopeRequestAcceptRequest() {
         this.headerValueRequestAndCheck(HttpHeaderName.ACCEPT,
                 "text/html, application/xhtml+xml",
                 Optional.of(Lists.of(
@@ -93,17 +122,24 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
     }
 
     @Test
-    public void testHeaderValueContentLengthRequest() {
+    public void testHeaderValueScopeRequestContentLengthRequest() {
         this.headerValueRequestAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 "123",
                 Optional.of(123L));
     }
 
     @Test
-    public void testHeaderValueContentLengthAbsentRequest() {
+    public void testHeaderValueScopeRequestResponseContentLengthAbsentRequest() {
         this.headerValueRequestAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 null,
                 Optional.empty());
+    }
+
+    @Test
+    public void testHeaderValueScopeRequestUnknown() {
+        this.headerValueRequestAndCheck(HttpHeaderName.with("xyz").stringHeaderValues(),
+                "xyz",
+                Optional.of("xyz"));
     }
 
     private <T> void headerValueRequestAndCheck(final HttpHeaderName<T> headerName,
@@ -134,7 +170,7 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
     }
 
     @Test
-    public void testHeaderValueContentLengthString() {
+    public void testHeaderValueScopeContentLengthString() {
         this.headerValueStringAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 "123",
                 123L);
@@ -160,19 +196,37 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
         HttpHeaderName.CONNECTION.addHeaderValue("*", null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddHeaderScopeRequestFails() {
+        HttpHeaderName.USER_AGENT.addHeaderValue("xyz", HttpResponses.fake());
+    }
+
     @Test
-    public void testAddHeaderValue() {
+    public void testAddHeaderValueScopeResponse() {
+        this.addHeaderValueAndCheck(HttpHeaderName.SERVER, "Server xyz");
+    }
+
+    @Test
+    public void testAddHeaderValueScopeRequestResponse() {
+        this.addHeaderValueAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
+    }
+
+    @Test
+    public void testAddHeaderValueScopeUnknown() {
+        this.addHeaderValueAndCheck(HttpHeaderName.with("xyz").stringHeaderValues(), "abc");
+    }
+
+    private <T> void addHeaderValueAndCheck(final HttpHeaderName<T> header, final T value) {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
 
-        final Long value = 123L;
-        HttpHeaderName.CONTENT_LENGTH.addHeaderValue(value,
+        header.addHeaderValue(value,
                 new FakeHttpResponse() {
                     @Override
                     public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
                         headers.put(name, value);
                     }
                 });
-        assertEquals("set headers", Maps.one(HttpHeaderName.CONTENT_LENGTH, value), headers);
+        assertEquals("set headers", Maps.one(header, value), headers);
     }
 
     // headerValueFormat.........................................................................
