@@ -73,6 +73,20 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
     }
 
     /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link HttpETag} header values.
+     */
+    private static HttpHeaderName<HttpETag> registerHttpETagConstant(final String header) {
+        return registerConstant(header, HttpHeaderValueConverter.httpETag());
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles lists of {@link HttpETag} header values.
+     */
+    private static HttpHeaderName<List<HttpETag>> registerHttpETagListConstant(final String header) {
+        return registerConstant(header, HttpHeaderValueConverter.httpETagList());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles list of {@link HttpHeaderName} header values.
      */
     private static HttpHeaderName<List<HttpHeaderName<?>>> registerHttpHeaderNameListConstant(final String header) {
@@ -307,7 +321,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * If-Match: *
      * </pre>
      */
-    public final static HttpHeaderName<String> IF_MATCH = registerStringConstant("If-Match");
+    public final static HttpHeaderName<List<HttpETag>> IF_MATCH = registerHttpETagListConstant("If-Match");
 
     /**
      * A {@link HttpHeaderName} holding <code>If-Modified-Since</code>
@@ -325,7 +339,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * If-None-Match: *
      * </pre>
      */
-    public final static HttpHeaderName<String> IF_NONE_MATCHED = registerStringConstant("If-None-Match");
+    public final static HttpHeaderName<List<HttpETag>> IF_NONE_MATCHED = registerHttpETagListConstant("If-None-Match");
 
     /**
      * A {@link HttpHeaderName} holding <code>If-Range</code>
@@ -510,7 +524,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * ETag: W/"0815"
      * </pre>
      */
-    public final static HttpHeaderName<String> E_TAG = registerStringConstant("ETag");
+    public final static HttpHeaderName<HttpETag> E_TAG = registerHttpETagConstant("ETag");
 
     /**
      * A {@link HttpHeaderName} holding <code>EXPIRES</code>

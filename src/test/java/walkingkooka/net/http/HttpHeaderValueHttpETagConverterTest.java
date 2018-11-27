@@ -1,0 +1,60 @@
+/*
+ * Copyright 2018 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ */
+
+package walkingkooka.net.http;
+
+import org.junit.Test;
+
+public final class HttpHeaderValueHttpETagConverterTest extends
+        HttpHeaderValueConverterTestCase<HttpHeaderValueHttpETagConverter, HttpETag> {
+
+    @Test
+    public void testRequest() {
+        this.parseAndCheck("W/\"123\"", HttpETag.with("123", HttpETag.WEAK));
+    }
+
+    @Test
+    public void testResponse() {
+        this.formatAndCheck(HttpETag.with("123", HttpETag.WEAK), "W/\"123\"");
+    }
+
+    @Override
+    HttpHeaderName<HttpETag> headerOrParameterName() {
+        return HttpHeaderName.E_TAG;
+    }
+
+    @Override
+    HttpHeaderValueHttpETagConverter converter() {
+        return HttpHeaderValueHttpETagConverter.INSTANCE;
+    }
+
+    @Override
+    String invalidHeaderValue() {
+        return "I/";
+    }
+
+    @Override
+    String converterToString() {
+        return HttpETag.class.getSimpleName();
+    }
+
+    @Override
+    protected Class<HttpHeaderValueHttpETagConverter> type() {
+        return HttpHeaderValueHttpETagConverter.class;
+    }
+}
