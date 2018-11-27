@@ -323,6 +323,27 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     @Test
+    public void testQuoteAndEscapeEmpty() {
+        final String string = "";
+        quoteAndEscapeAndCheck(string, '"' + string + '"');
+    }
+
+    @Test
+    public void testQuoteAndEscapeSingleChar() {
+        quoteAndEscapeAndCheck("a", "\"a\"");
+    }
+
+    @Test
+    public void testQuoteAndEscapeDoubleQuoteChar() {
+        quoteAndEscapeAndCheck("\"", "\"\\\"\"");
+    }
+
+    @Test
+    public void testQuoteAndEscapeSingleQuoteChar() {
+        quoteAndEscapeAndCheck("'", "\"\\'\"");
+    }
+
+    @Test
     public void testQuoteAndEscapeUnneeded() {
         final String string = "apple";
         quoteAndEscapeAndCheck(string, '"' + string + '"');
@@ -373,6 +394,11 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     @Test
     public void testQuoteIfCharsNull() {
         quoteIfCharsAndCheck(null, "" + null);
+    }
+
+    @Test
+    public void testQuoteIfCharsEmptyCharSequence() {
+        quoteIfCharsAndCheck("", "\"\"");
     }
 
     @Test

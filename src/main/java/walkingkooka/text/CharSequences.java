@@ -254,11 +254,14 @@ final public class CharSequences implements PublicStaticHelper {
      * Helper that combines {@link #escape} and adds double quotes if required and escapes.
      */
     private static CharSequence quoteAndEscape2(final CharSequence chars) {
-        final boolean quoted = startsWith(chars, "\"") && endsWith(chars, "\"");
+        final int length = chars.length();
+        final boolean quoted = length > 1 &&
+                startsWith(chars, "\"") &&
+                endsWith(chars, "\"");
 
         return new StringBuilder()
                 .append('"')
-                .append(CharSequences.escape(quoted ? chars.subSequence(1, chars.length() -1) : chars))
+                .append(escape(quoted ? chars.subSequence(1, length -1) : chars))
                 .append('"')
                 .toString();
     }
