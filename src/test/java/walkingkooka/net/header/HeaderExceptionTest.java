@@ -16,14 +16,15 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.net.http.HttpException;
+import walkingkooka.test.PublicThrowableTestCase;
 
-public final class HttpHeaderValueConverterTest extends PackagePrivateClassTestCase<HttpHeaderValueConverter<?>> {
+final public class HeaderExceptionTest extends PublicThrowableTestCase<HttpException> {
+
     @Override
-    protected Class<HttpHeaderValueConverter<?>> type() {
-        return Cast.to(HttpHeaderValueConverter.class);
+    protected Class<HttpException> type() {
+        return HttpException.class;
     }
 }

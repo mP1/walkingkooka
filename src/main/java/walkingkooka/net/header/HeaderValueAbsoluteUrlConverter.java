@@ -16,41 +16,47 @@
  *
  */
 
-package walkingkooka.net.http;
-
+package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.http.HttpHeaderName;
 
 /**
- * A {@link HttpHeaderValueConverter} that parses a header value into a {@link HttpETag}.
- * This is useful for headers such as {@link HttpHeaderName#E_TAG}.
+ * A {@link HeaderValueConverter2} that parses a header value into a {@link AbsoluteUrl}.
+ * This is useful for headers such as {@link HttpHeaderName#REFERER}.
  */
-final class HttpHeaderValueHttpETagConverter extends HttpHeaderValueConverter<HttpETag> {
+final class HeaderValueAbsoluteUrlConverter extends HeaderValueConverter2<AbsoluteUrl> {
 
     /**
      * Singleton
      */
-    final static HttpHeaderValueHttpETagConverter INSTANCE = new HttpHeaderValueHttpETagConverter();
+    final static HeaderValueAbsoluteUrlConverter INSTANCE = new HeaderValueAbsoluteUrlConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpHeaderValueHttpETagConverter() {
+    private HeaderValueAbsoluteUrlConverter() {
         super();
     }
 
     @Override
-    HttpETag parse0(final String value, final Name name) {
-        return HttpETag.parseOne(value);
+    AbsoluteUrl parse0(final String value, final Name name) {
+        return AbsoluteUrl.parse(value);
     }
 
     @Override
-    String format0(final HttpETag value, final Name name) {
-        return value.toString();
+    String format0(final AbsoluteUrl value, final Name name) {
+        return value.value();
+    }
+
+    @Override
+    public boolean isString() {
+        return false;
     }
 
     @Override
     public String toString() {
-        return toStringType(HttpETag.class);
+        return toStringType(AbsoluteUrl.class);
     }
 }

@@ -16,45 +16,43 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.http.HttpHeaderName;
 
-public final class HttpHeaderValueHttpETagConverterTest extends
-        HttpHeaderValueConverterTestCase<HttpHeaderValueHttpETagConverter, HttpETag> {
-
-    @Test
-    public void testRequest() {
-        this.parseAndCheck("W/\"123\"", HttpETag.with("123", HttpETagValidator.WEAK));
-    }
+public final class HeaderValueEmailAddressConverterTest extends
+        HeaderValueConverterTestCase<HeaderValueEmailAddressConverter, EmailAddress> {
 
     @Test
-    public void testResponse() {
-        this.formatAndCheck(HttpETag.with("123", HttpETagValidator.WEAK), "W/\"123\"");
+    public void testFrom() {
+        final String url = "user@example.com";
+        this.parseAndFormatAndCheck(url, EmailAddress.with(url));
     }
 
     @Override
-    protected HttpHeaderValueHttpETagConverter converter() {
-        return HttpHeaderValueHttpETagConverter.INSTANCE;
+    protected HeaderValueEmailAddressConverter converter() {
+        return HeaderValueEmailAddressConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<HttpETag> name() {
-        return HttpHeaderName.E_TAG;
+    protected HttpHeaderName<EmailAddress> name() {
+        return HttpHeaderName.FROM;
     }
 
     @Override
     protected String invalidHeaderValue() {
-        return "I/";
+        return "/relative/url/must/fail";
     }
 
     @Override
     protected String converterToString() {
-        return HttpETag.class.getSimpleName();
+        return EmailAddress.class.getSimpleName();
     }
 
     @Override
-    protected Class<HttpHeaderValueHttpETagConverter> type() {
-        return HttpHeaderValueHttpETagConverter.class;
+    protected Class<HeaderValueEmailAddressConverter> type() {
+        return HeaderValueEmailAddressConverter.class;
     }
 }

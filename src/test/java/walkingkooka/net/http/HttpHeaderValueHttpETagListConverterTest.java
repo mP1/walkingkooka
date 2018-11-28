@@ -27,39 +27,34 @@ public final class HttpHeaderValueHttpETagListConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueHttpETagListConverter, List<HttpETag>> {
 
     @Test
-    public void testRequest() {
-        this.parseAndCheck("W/\"123\"", Lists.of(HttpETag.with("123", HttpETagValidator.WEAK)));
+    public void testETagOne() {
+        this.parseAndFormatAndCheck("W/\"123\"",
+                Lists.of(HttpETag.with("123", HttpETagValidator.WEAK)));
     }
 
     @Test
-    public void testResponse() {
-        this.formatAndCheck(Lists.of(HttpETag.with("123", HttpETagValidator.WEAK)),
-                "W/\"123\"");
-    }
-
-    @Test
-    public void testResponse2() {
+    public void testETagSeveral() {
         this.formatAndCheck(Lists.of(HttpETag.with("123", HttpETagValidator.WEAK),
                 HttpETag.with("456", HttpETagValidator.WEAK)), "W/\"123\", W/\"456\"");
     }
 
     @Override
-    HttpHeaderName<List<HttpETag>> headerOrParameterName() {
-        return HttpHeaderName.IF_MATCH;
-    }
-
-    @Override
-    HttpHeaderValueHttpETagListConverter converter() {
+    protected HttpHeaderValueHttpETagListConverter converter() {
         return HttpHeaderValueHttpETagListConverter.INSTANCE;
     }
 
     @Override
-    String invalidHeaderValue() {
+    protected HttpHeaderName<List<HttpETag>> name() {
+        return HttpHeaderName.IF_MATCH;
+    }
+
+    @Override
+    protected String invalidHeaderValue() {
         return "I/";
     }
 
     @Override
-    String converterToString() {
+    protected String converterToString() {
         return "List<HttpETag>";
     }
 

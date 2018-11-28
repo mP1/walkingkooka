@@ -16,45 +16,50 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import walkingkooka.net.http.HttpHeaderName;
 
-public final class HttpHeaderValueHttpETagConverterTest extends
-        HttpHeaderValueConverterTestCase<HttpHeaderValueHttpETagConverter, HttpETag> {
+public final class HeaderValueStringConverterTest extends
+        HeaderValueConverterTestCase<HeaderValueStringConverter, String> {
+
+    private final static String TEXT = "abc123";
 
     @Test
-    public void testRequest() {
-        this.parseAndCheck("W/\"123\"", HttpETag.with("123", HttpETagValidator.WEAK));
+    @Ignore
+    public void testInvalidHeaderValueFails() {
+        throw new UnsupportedOperationException();
     }
 
     @Test
-    public void testResponse() {
-        this.formatAndCheck(HttpETag.with("123", HttpETagValidator.WEAK), "W/\"123\"");
+    public void testValue() {
+        this.parseAndFormatAndCheck(TEXT, TEXT);
     }
 
     @Override
-    protected HttpHeaderValueHttpETagConverter converter() {
-        return HttpHeaderValueHttpETagConverter.INSTANCE;
+    protected HeaderValueStringConverter converter() {
+        return HeaderValueStringConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<HttpETag> name() {
-        return HttpHeaderName.E_TAG;
+    protected HttpHeaderName<String> name() {
+        return HttpHeaderName.CACHE_CONTROL;
     }
 
     @Override
     protected String invalidHeaderValue() {
-        return "I/";
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected String converterToString() {
-        return HttpETag.class.getSimpleName();
+        return String.class.getSimpleName();
     }
 
     @Override
-    protected Class<HttpHeaderValueHttpETagConverter> type() {
-        return HttpHeaderValueHttpETagConverter.class;
+    protected Class<HeaderValueStringConverter> type() {
+        return HeaderValueStringConverter.class;
     }
 }

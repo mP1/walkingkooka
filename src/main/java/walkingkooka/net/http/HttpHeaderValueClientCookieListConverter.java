@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A {@link HttpHeaderValueConverter} that converts a {@link String} into one {@link ClientCookie}.
  */
-final class HttpHeaderValueClientCookieListConverter extends HttpHeaderValueConverter2<List<ClientCookie>> {
+final class HttpHeaderValueClientCookieListConverter extends HttpHeaderValueConverter<List<ClientCookie>> {
 
     /**
      * Singleton
@@ -47,8 +47,8 @@ final class HttpHeaderValueClientCookieListConverter extends HttpHeaderValueConv
     }
 
     @Override
-    boolean isString() {
-        return false;
+    String format0(final List<ClientCookie> cookies, final Name name) {
+        return ClientCookie.formatHeader(cookies);
     }
 
     @Override

@@ -16,41 +16,46 @@
  *
  */
 
-package walkingkooka.net.http;
-
+package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
+import java.util.List;
+
 /**
- * A {@link HttpHeaderValueConverter} that parses a header value into a {@link HttpETag}.
- * This is useful for headers such as {@link HttpHeaderName#E_TAG}.
+ * A {@link HeaderValueConverter2} that expects comma separated {@link HeaderToken tokens}.
  */
-final class HttpHeaderValueHttpETagConverter extends HttpHeaderValueConverter<HttpETag> {
+final class HeaderValueHeaderTokenListConverter extends ReadOnlyHeaderValueConverter<List<HeaderToken>> {
 
     /**
      * Singleton
      */
-    final static HttpHeaderValueHttpETagConverter INSTANCE = new HttpHeaderValueHttpETagConverter();
+    final static HeaderValueHeaderTokenListConverter INSTANCE = new HeaderValueHeaderTokenListConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpHeaderValueHttpETagConverter() {
+    private HeaderValueHeaderTokenListConverter() {
         super();
     }
 
     @Override
-    HttpETag parse0(final String value, final Name name) {
-        return HttpETag.parseOne(value);
+    List<HeaderToken> parse0(final String value, final Name name) {
+        return HeaderToken.parse(value);
     }
 
     @Override
-    String format0(final HttpETag value, final Name name) {
-        return value.toString();
+    String format0(final List<HeaderToken> values, final Name name) {
+        return HeaderToken.format(values);
+    }
+
+    @Override
+    public boolean isString() {
+        return false;
     }
 
     @Override
     public String toString() {
-        return toStringType(HttpETag.class);
+        return toStringListOf(HeaderToken.class);
     }
 }

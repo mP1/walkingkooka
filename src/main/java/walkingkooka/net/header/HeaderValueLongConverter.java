@@ -16,41 +16,44 @@
  *
  */
 
-package walkingkooka.net.http;
-
+package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HttpHeaderValueConverter} that parses a header value into a {@link HttpETag}.
- * This is useful for headers such as {@link HttpHeaderName#E_TAG}.
+ * A {@link HeaderValueConverter2} that parses a header value into a {@link Long}
  */
-final class HttpHeaderValueHttpETagConverter extends HttpHeaderValueConverter<HttpETag> {
+final class HeaderValueLongConverter extends HeaderValueConverter2<Long> {
 
     /**
      * Singleton
      */
-    final static HttpHeaderValueHttpETagConverter INSTANCE = new HttpHeaderValueHttpETagConverter();
+    final static HeaderValueLongConverter INSTANCE = new HeaderValueLongConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpHeaderValueHttpETagConverter() {
+    private HeaderValueLongConverter() {
         super();
     }
 
     @Override
-    HttpETag parse0(final String value, final Name name) {
-        return HttpETag.parseOne(value);
+    Long parse0(final String value, final Name name) {
+        return Long.parseLong(value.trim());
     }
 
     @Override
-    String format0(final HttpETag value, final Name name) {
-        return value.toString();
+    String format0(final Long value, final Name name) {
+        return Long.toString(value);
+    }
+
+    @Override
+    public boolean isString() {
+        return false;
     }
 
     @Override
     public String toString() {
-        return toStringType(HttpETag.class);
+        return toStringType(Long.class);
     }
 }

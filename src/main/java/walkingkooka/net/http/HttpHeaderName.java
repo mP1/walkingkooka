@@ -26,6 +26,9 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.HeaderToken;
+import walkingkooka.net.header.HeaderValueConverter;
+import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.cookie.ClientCookie;
 import walkingkooka.predicate.character.CharPredicate;
@@ -57,7 +60,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<AbsoluteUrl> registerAbsoluteUrlConstant(final String header,
                                                                            final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.absoluteUrl());
+        return registerConstant(header, scope, HeaderValueConverters.absoluteUrl());
     }
 
     /**
@@ -73,7 +76,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<EmailAddress> registerEmailAddressConstant(final String header,
                                                                              final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.emailAddress());
+        return registerConstant(header, scope, HeaderValueConverters.emailAddress());
     }
 
     /**
@@ -105,7 +108,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String header,
                                                                                final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.localDateTime());
+        return registerConstant(header, scope, HeaderValueConverters.localDateTime());
     }
 
     /**
@@ -113,7 +116,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<Long> registerLongConstant(final String header,
                                                              final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.longConverter());
+        return registerConstant(header, scope, HeaderValueConverters.longConverter());
     }
 
     /**
@@ -129,7 +132,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<MediaType> registerOneMediaTypeConstant(final String header,
                                                                           final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.oneMediaType());
+        return registerConstant(header, scope, HeaderValueConverters.oneMediaType());
     }
 
     /**
@@ -137,7 +140,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<List<MediaType>> registerManyMediaTypeConstant(final String header,
                                                                                  final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.manyMediaType());
+        return registerConstant(header, scope, HeaderValueConverters.manyMediaType());
     }
 
     /**
@@ -153,7 +156,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<RelativeUrl> registerRelativeUrlConstant(final String header,
                                                                            final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.relativeUrl());
+        return registerConstant(header, scope, HeaderValueConverters.relativeUrl());
     }
 
     /**
@@ -161,22 +164,22 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<String> registerStringConstant(final String header,
                                                                  final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.string());
+        return registerConstant(header, scope, HeaderValueConverters.string());
     }
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles list of {@link String} header values.
      */
-    private static HttpHeaderName<List<HttpHeaderToken>> registerTokenListConstant(final String header,
-                                                                                   final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.tokenList());
+    private static HttpHeaderName<List<HeaderToken>> registerTokenListConstant(final String header,
+                                                                               final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HeaderValueConverters.tokenList());
     }
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link Url} header values.
      */
     private static HttpHeaderName<Url> registerUrlConstant(final String header, final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.url());
+        return registerConstant(header, scope, HeaderValueConverters.url());
     }
 
     /**
@@ -184,7 +187,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static <T> HttpHeaderName<T> registerConstant(final String header,
                                                           final HttpHeaderScope scope,
-                                                          final HttpHeaderValueConverter<T> headerValue) {
+                                                          final HeaderValueConverter<T> headerValue) {
         final HttpHeaderName<T> httpHeader = new HttpHeaderName<T>(header, scope, headerValue);
         HttpHeaderName.CONSTANTS.put(header, httpHeader);
         return httpHeader;
@@ -209,7 +212,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Accept-Charset: utf-8, iso-8859-1;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpHeaderToken>> ACCEPT_CHARSET = registerTokenListConstant("Accept-Charset",
+    public final static HttpHeaderName<List<HeaderToken>> ACCEPT_CHARSET = registerTokenListConstant("Accept-Charset",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -226,7 +229,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpHeaderToken>> ACCEPT_ENCODING = registerTokenListConstant("Accept-Encoding",
+    public final static HttpHeaderName<List<HeaderToken>> ACCEPT_ENCODING = registerTokenListConstant("Accept-Encoding",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -240,7 +243,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpHeaderToken>> ACCEPT_LANGUAGE = registerTokenListConstant("Accept-Language",
+    public final static HttpHeaderName<List<HeaderToken>> ACCEPT_LANGUAGE = registerTokenListConstant("Accept-Language",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -445,7 +448,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * TE: trailers, deflate;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpHeaderToken>> TE = registerTokenListConstant("TE",
+    public final static HttpHeaderName<List<HeaderToken>> TE = registerTokenListConstant("TE",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -543,7 +546,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Content-Language: de-DE, en-CA
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpHeaderToken>> CONTENT_LANGUAGE = registerTokenListConstant("Content-Language",
+    public final static HttpHeaderName<List<HeaderToken>> CONTENT_LANGUAGE = registerTokenListConstant("Content-Language",
             HttpHeaderScope.RESPONSE);
 
     /**
@@ -670,7 +673,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Transfer-Encoding: gzip, chunked
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpHeaderToken>> TRANSFER_ENCODING = registerTokenListConstant("Transfer-Encoding",
+    public final static HttpHeaderName<List<HeaderToken>> TRANSFER_ENCODING = registerTokenListConstant("Transfer-Encoding",
             HttpHeaderScope.RESPONSE);
 
     /**
@@ -683,7 +686,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
         final HttpHeaderName httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<String>(name, HttpHeaderScope.UNKNOWN, HttpHeaderValueConverter.string());
+                new HttpHeaderName<String>(name, HttpHeaderScope.UNKNOWN, HeaderValueConverters.string());
     }
 
     /**
@@ -705,10 +708,10 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private HttpHeaderName(final String name,
                            final HttpHeaderScope scope,
-                           final HttpHeaderValueConverter<T> headerValueConverter) {
+                           final HeaderValueConverter<T> valueConverter) {
         this.name = name;
         this.scope = scope;
-        this.headerValueConverter = headerValueConverter;
+        this.valueConverter = valueConverter;
     }
 
     @Override
@@ -732,9 +735,9 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * If the header already returns {@link String string values} this will return this.
      */
     public HttpHeaderName<String> stringHeaderValues() {
-        return this.headerValueConverter.isString() ?
+        return this.valueConverter.isString() ?
                Cast.to(this) :
-               new HttpHeaderName<String>(this.name, this.scope, HttpHeaderValueConverter.string());
+               new HttpHeaderName<String>(this.name, this.scope, HeaderValueConverters.string());
     }
 
     /**
@@ -759,7 +762,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
     }
 
     private T headerValue0(final String value) {
-        return this.headerValueConverter.parse(value, this);
+        return this.valueConverter.parse(value, this);
     }
 
     /**
@@ -779,10 +782,10 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
     public String headerValueFormat(final T value) {
         Objects.requireNonNull(value, "value");
 
-        return this.headerValueConverter.format(value, this);
+        return this.valueConverter.format(value, this);
     }
 
-    private final HttpHeaderValueConverter<T> headerValueConverter;
+    private final HeaderValueConverter<T> valueConverter;
 
     // Comparable
 

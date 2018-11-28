@@ -16,14 +16,24 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+/**
+ * The exception thrown if parsing or converting a header value from {@linK String} to its type fails.
+ */
+public class HeaderValueException extends HeaderException {
 
-public final class HttpHeaderValueConverterTest extends PackagePrivateClassTestCase<HttpHeaderValueConverter<?>> {
-    @Override
-    protected Class<HttpHeaderValueConverter<?>> type() {
-        return Cast.to(HttpHeaderValueConverter.class);
+    private final static long serialVersionUID = 1L;
+
+    protected HeaderValueException() {
+        super();
+    }
+
+    public HeaderValueException(final String message) {
+        super(message);
+    }
+
+    public HeaderValueException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

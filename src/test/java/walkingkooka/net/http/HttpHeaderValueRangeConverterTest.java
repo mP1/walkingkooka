@@ -28,12 +28,12 @@ public final class HttpHeaderValueRangeConverterTest extends
     private final static String TEXT = "bytes=123-456, 789-";
 
     @Test
-    public void testRange() {
+    public void testRangeHeader() {
         this.parseAndCheck(TEXT, this.range());
     }
 
     @Test
-    public void testContentRangeResponse() {
+    public void testContentRangeFormat() {
         this.formatAndCheck(this.range(), TEXT);
     }
 
@@ -44,22 +44,22 @@ public final class HttpHeaderValueRangeConverterTest extends
     }
 
     @Override
-    HttpHeaderName<HttpHeaderRange> headerOrParameterName() {
-        return HttpHeaderName.RANGE;
-    }
-
-    @Override
-    HttpHeaderValueRangeConverter converter() {
+    protected HttpHeaderValueRangeConverter converter() {
         return HttpHeaderValueRangeConverter.INSTANCE;
     }
 
     @Override
-    String invalidHeaderValue() {
+    protected HttpHeaderName<HttpHeaderRange> name() {
+        return HttpHeaderName.RANGE;
+    }
+
+    @Override
+    protected String invalidHeaderValue() {
         return "http://example.com";
     }
 
     @Override
-    String converterToString() {
+    protected String converterToString() {
         return HttpHeaderRange.class.getSimpleName();
     }
 

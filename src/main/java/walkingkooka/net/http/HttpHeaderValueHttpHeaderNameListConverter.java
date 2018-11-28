@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link HttpHeaderValueConverter} that expects comma separated {@link HttpHeaderName methods}.
  */
-final class HttpHeaderValueHttpHeaderNameListConverter extends HttpHeaderValueConverter2<List<HttpHeaderName<?>>> {
+final class HttpHeaderValueHttpHeaderNameListConverter extends HttpHeaderValueConverter<List<HttpHeaderName<?>>> {
 
     /**
      * Singleton
@@ -50,8 +50,10 @@ final class HttpHeaderValueHttpHeaderNameListConverter extends HttpHeaderValueCo
     }
 
     @Override
-    boolean isString() {
-        return false;
+    String format0(final List<HttpHeaderName<?>> names, final Name name) {
+        return names.stream()
+                .map(n -> n.value())
+                .collect(Collectors.joining(", "));
     }
 
     @Override
