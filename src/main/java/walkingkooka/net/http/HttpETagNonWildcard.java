@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Holds a ETAG with a value.
@@ -32,20 +31,20 @@ final class HttpETagNonWildcard extends HttpETag {
     /**
      * Factory that creates a new {@link HttpETagNonWildcard}
      */
-    static HttpETagNonWildcard with0(final String value, final Optional<HttpETagWeak> weak) {
+    static HttpETagNonWildcard with0(final String value, final HttpETagValidator validator) {
         checkValue(value);
-        checkWeak(weak);
+        checkValidator(validator);
 
-        return new HttpETagNonWildcard(value, weak);
+        return new HttpETagNonWildcard(value, validator);
     }
 
     /**
      * Private ctor use factory
      */
-    private HttpETagNonWildcard(final String value, final Optional<HttpETagWeak> weak) {
+    private HttpETagNonWildcard(final String value, final HttpETagValidator validator) {
         super();
         this.value = value;
-        this.weak = weak;
+        this.validator = validator;
     }
 
     // value.........................................................................................
@@ -57,21 +56,21 @@ final class HttpETagNonWildcard extends HttpETag {
 
     private final String value;
 
-    // weak.........................................................................................
+    // validator.........................................................................................
 
     /**
-     * The optional weak attribute
+     * The optional validator attribute
      */
     @Override
-    public Optional<HttpETagWeak> weak() {
-        return this.weak;
+    public HttpETagValidator validator() {
+        return this.validator;
     }
 
-    private final Optional<HttpETagWeak> weak;
+    private final HttpETagValidator validator;
 
     @Override
-    void checkWeak0(final Optional<HttpETagWeak> weak) {
-        checkWeak(weak);
+    void checkValidator0(final HttpETagValidator validator) {
+        checkValidator(validator);
     }
 
     // isXXX........................................................................................................
@@ -85,7 +84,7 @@ final class HttpETagNonWildcard extends HttpETag {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.value, this.weak);
+        return Objects.hash(this.value, this.validator);
     }
 
     @Override
@@ -97,14 +96,13 @@ final class HttpETagNonWildcard extends HttpETag {
 
     private boolean equals0(final HttpETagNonWildcard other) {
         return this.value.equals(other.value) &&
-                this.weak.equals(other.weak);
+                this.validator.equals(other.validator);
     }
 
-    /**
-     * Dumps the ETAG as a header value.
-     */
+    // toString........................................................................................................
+
     @Override
-    public String toString() {
-        return (this.weak.isPresent() ? "W/" : "") + CharSequences.quote(this.value);
+    public final String toString() {
+        return this.validator().prefix + CharSequences.quote(this.value());
     }
 }

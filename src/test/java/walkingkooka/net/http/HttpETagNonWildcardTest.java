@@ -20,8 +20,6 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-import java.util.Optional;
-
 public final class HttpETagNonWildcardTest extends HttpETagTestCase<HttpETagNonWildcard> {
 
     private final static String VALUE = "0123456789ABCDEF";
@@ -33,20 +31,20 @@ public final class HttpETagNonWildcardTest extends HttpETagTestCase<HttpETagNonW
 
     @Test
     public void testWithEmpty() {
-        this.check(HttpETag.with("", HttpETag.NO_WEAK), "", HttpETag.NO_WEAK);
+        this.check(HttpETag.with("", HttpETagValidator.STRONG), "", HttpETagValidator.STRONG);
     }
 
     @Test
-    public void testSetWeakDifferent() {
+    public void testSetValidatorDifferent() {
         final HttpETag etag = this.createETag();
-        final Optional<HttpETagWeak> weak = HttpETag.WEAK;
-        this.check(etag.setWeak(weak), this.value(), weak);
+        final HttpETagValidator validator = HttpETagValidator.WEAK;
+        this.check(etag.setValidator(validator), this.value(), validator);
         this.check(etag);
     }
 
     @Override
     HttpETagNonWildcard createETag() {
-        return HttpETagNonWildcard.with0(VALUE, HttpETag.NO_WEAK);
+        return HttpETagNonWildcard.with0(VALUE, HttpETagValidator.STRONG);
     }
 
     @Override
@@ -55,8 +53,8 @@ public final class HttpETagNonWildcardTest extends HttpETagTestCase<HttpETagNonW
     }
 
     @Override
-    Optional<HttpETagWeak> weak() {
-        return HttpETag.NO_WEAK;
+    HttpETagValidator validator() {
+        return HttpETagValidator.STRONG;
     }
 
     @Override

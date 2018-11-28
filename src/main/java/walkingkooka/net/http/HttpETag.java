@@ -26,24 +26,13 @@ import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Holds a ETAG.
+ * <a href="https://en.wikipedia.org/wiki/HTTP_ETag"></a>
  */
 public abstract class HttpETag implements HashCodeEqualsDefined, Value<String> {
-
-    /**
-     * A constant holding no WEAK attribute.
-     */
-    public final static Optional<HttpETagWeak> NO_WEAK = Optional.empty();
-
-
-    /**
-     * A constant holding an {@link Optional} with a {@link HttpETagWeak}.
-     */
-    public final static Optional<HttpETagWeak> WEAK = Optional.of(HttpETagWeak.WEAK);
 
     /**
      * The separator between multiple tags.
@@ -60,11 +49,11 @@ public abstract class HttpETag implements HashCodeEqualsDefined, Value<String> {
     /**
      * Factory that creates a new {@link HttpETag}
      */
-    public static HttpETag with(final String value, final Optional<HttpETagWeak> weak) {
+    public static HttpETag with(final String value, final HttpETagValidator validator) {
         checkValue(value);
-        checkWeak(weak);
+        checkValidator(validator);
 
-        return HttpETagNonWildcard.with0(value, weak);
+        return HttpETagNonWildcard.with0(value, validator);
     }
 
     /**
@@ -95,7 +84,7 @@ public abstract class HttpETag implements HashCodeEqualsDefined, Value<String> {
     private final static String TOSTRING_SEPARATOR = SEPARATOR.string().concat(" ");
 
     /**
-     * Protected to limit sub classing.
+     * Package private to limit sub classing.
      */
     HttpETag() {
         super();
@@ -116,7 +105,7 @@ public abstract class HttpETag implements HashCodeEqualsDefined, Value<String> {
 
         return this.value().equals(value) ?
                 this :
-                this.replace(value, this.weak());
+                this.replace(value, this.validator());
     }
 
     static void checkValue(final String value) {
@@ -133,32 +122,32 @@ public abstract class HttpETag implements HashCodeEqualsDefined, Value<String> {
     /**
      * The optional weak attribute
      */
-    public abstract Optional<HttpETagWeak> weak();
+    public abstract HttpETagValidator validator();
 
     /**
-     * Would be setter that returns a {@link HttpETag} with the given {@link Optional weak}.
+     * Would be setter that returns a {@link HttpETag} with the given {@link HttpETagValidator}.
      */
-    public final HttpETag setWeak(final Optional<HttpETagWeak> weak) {
-        checkWeak0(weak);
+    public final HttpETag setValidator(final HttpETagValidator validator) {
+        checkValidator0(validator);
 
-        return this.weak().equals(weak) ?
+        return this.validator().equals(validator) ?
                 this :
-                this.replace(this.value(), weak);
+                this.replace(this.value(), validator);
     }
 
     /**
-     * Abstract because wildcard will also complain if a weak indicator is present, which is an invalid combination.
+     * Abstract because wildcard will also complain if a validator indicator is present, which is an invalid combination.
      */
-    abstract void checkWeak0(final Optional<HttpETagWeak> weak);
+    abstract void checkValidator0(final HttpETagValidator validator);
 
-    static void checkWeak(final Optional<HttpETagWeak> weak) {
-        Objects.requireNonNull(weak, "weak");
+    static void checkValidator(final HttpETagValidator validator) {
+        Objects.requireNonNull(validator, "validator");
     }
 
     // replace ........................................................................................................
 
-    private HttpETag replace(final String value, final Optional<HttpETagWeak> weak) {
-        return with(value, weak);
+    private HttpETag replace(final String value, final HttpETagValidator validator) {
+        return with(value, validator);
     }
 
     // isXXX........................................................................................................
