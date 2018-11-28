@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.net.media;
+package walkingkooka.net.header;
 
 import walkingkooka.NeverError;
 import walkingkooka.collect.map.Maps;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Base class that contains the core of the parsing of media type logic. Two sub classes exist that handle commas
+ * Base class that contains the core of the parsing of header type logic. Two sub classes exist that handle commas
  * differently.
  */
 abstract class MediaTypeParser {
@@ -54,7 +54,7 @@ abstract class MediaTypeParser {
     /**
      * Creates a {@link MediaType} breaking up the {@link String text} into type and sub types, ignoring any optional
      * parameters if they are present.
-     * Depending on whether a single or many media types separated by commas are desired, sub classes will
+     * Depending on whether a single or many header types separated by commas are desired, sub classes will
      * try this method again or simply fail if a comma is encountered.
      */
     final MediaType parse(final int initialMode) {
@@ -230,7 +230,7 @@ abstract class MediaTypeParser {
 
             this.position++;
 
-            // the end of a media type was found, stop trying extra characters...
+            // the end of a header type was found, stop trying extra characters...
             if(MODE_FINISHED == mode) {
                 break;
             }
@@ -272,7 +272,7 @@ abstract class MediaTypeParser {
     abstract void mediaTypeSeparator();
 
     /**
-     * Reports an invalid character within the unparsed media type.
+     * Reports an invalid character within the unparsed header type.
      */
     final void failInvalidCharacter() {
         final String text = this.text;
@@ -294,7 +294,7 @@ abstract class MediaTypeParser {
     }
 
     /**
-     * Reports an invalid character within the unparsed media type.
+     * Reports an invalid character within the unparsed header type.
      */
     private static void failEmptyToken(final String token, final int i, final String text) {
         throw new IllegalArgumentException("Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text));

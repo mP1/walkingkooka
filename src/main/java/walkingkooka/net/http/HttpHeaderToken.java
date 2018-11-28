@@ -311,7 +311,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
     }
 
     /**
-     * Reports an invalid character within the unparsed media type.
+     * Reports an invalid character within the unparsed header type.
      */
     private static void failEmptyToken(final String token, final int i, final String text) {
         throw new IllegalArgumentException("Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text));

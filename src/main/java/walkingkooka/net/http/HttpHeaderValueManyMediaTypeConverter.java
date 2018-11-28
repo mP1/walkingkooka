@@ -19,7 +19,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.media.MediaType;
+import walkingkooka.net.header.MediaType;
 
 import java.util.List;
 

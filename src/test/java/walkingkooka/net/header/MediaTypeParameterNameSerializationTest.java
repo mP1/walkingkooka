@@ -16,23 +16,25 @@
  *
  */
 
-package walkingkooka.net.media;
+package walkingkooka.net.header;
 
-import walkingkooka.SystemException;
 
-public class MediaException extends SystemException {
+import walkingkooka.test.SerializationTestCase;
 
-    private final static long serialVersionUID = 1L;
+final public class MediaTypeParameterNameSerializationTest extends SerializationTestCase<MediaTypeParameterName> {
 
-    protected MediaException() {
-        super();
+    @Override
+    protected Class<MediaTypeParameterName> type() {
+        return MediaTypeParameterName.class;
     }
 
-    public MediaException(final String message) {
-        super(message);
+    @Override
+    protected MediaTypeParameterName create() {
+        return MediaTypeParameterName.with("parameter");
     }
 
-    public MediaException(final String message, final Throwable cause) {
-        super(message, cause);
+    @Override
+    protected boolean isSingleton() {
+        return false;
     }
 }

@@ -22,7 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparatorTestCase;
-import walkingkooka.net.media.MediaType;
+import walkingkooka.net.header.MediaType;
 
 import java.util.List;
 

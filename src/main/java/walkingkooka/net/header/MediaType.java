@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.net.media;
+package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
@@ -66,7 +66,7 @@ final public class MediaType implements Value<String>, HasQFactorWeight, HashCod
     public final static char PARAMETER_SEPARATOR = ';';
 
     /**
-     * The separator character that separates media types within a header value.
+     * The separator character that separates header types within a header value.
      */
     public final static char MEDIATYPE_SEPARATOR = ',';
 
@@ -225,9 +225,9 @@ final public class MediaType implements Value<String>, HasQFactorWeight, HashCod
 
 
     /**
-     * Creates a list of {@link MediaType}. If the text contains a single media type the results of this will be
+     * Creates a list of {@link MediaType}. If the text contains a single header type the results of this will be
      * identical to {@link #parseOne(String)} except the result will be in a list, which will also be
-     * sorted by the q factor of each media type.
+     * sorted by the q factor of each header type.
      */
     public static List<MediaType> parseMany(final String text) {
         checkText(text);

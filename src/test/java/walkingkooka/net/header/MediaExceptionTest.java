@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.net.media;
+package walkingkooka.net.header;
 
 import walkingkooka.net.NetException;
 import walkingkooka.test.PublicThrowableTestCase;
