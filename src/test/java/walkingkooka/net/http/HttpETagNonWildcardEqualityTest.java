@@ -27,16 +27,16 @@ public final class HttpETagNonWildcardEqualityTest extends HashCodeEqualsDefined
 
     @Test
     public void testDifferentValue() {
-        this.checkNotEquals(HttpETagNonWildcard.with0("different", HttpETag.NO_WEAK));
+        this.checkNotEquals(HttpETagNonWildcard.with0("different", HttpETagValidator.STRONG));
     }
 
     @Test
     public void testDifferentWeak() {
-        this.checkNotEquals(HttpETagNonWildcard.with0(VALUE, HttpETag.NO_WEAK));
+        this.checkNotEquals(HttpETagNonWildcard.with0(VALUE, HttpETagValidator.STRONG));
     }
 
     @Override
     protected HttpETagNonWildcard createObject() {
-        return HttpETagNonWildcard.with0(VALUE, HttpETag.WEAK);
+        return HttpETagNonWildcard.with0(VALUE, HttpETagValidator.WEAK);
     }
 }

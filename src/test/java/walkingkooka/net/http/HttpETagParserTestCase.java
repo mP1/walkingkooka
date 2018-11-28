@@ -22,8 +22,6 @@ import org.junit.Test;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -126,25 +124,25 @@ public abstract class HttpETagParserTestCase<P extends HttpETagParser>
 
     @Test
     public final void testWeakValue() {
-        this.parseAndCheck("W/\"a\"", "a", HttpETag.WEAK);
+        this.parseAndCheck("W/\"a\"", "a", HttpETagValidator.WEAK);
     }
 
     @Test
     public final void testWeakValue2() {
-        this.parseAndCheck("W/\"0\"", "0", HttpETag.WEAK);
+        this.parseAndCheck("W/\"0\"", "0", HttpETagValidator.WEAK);
     }
 
     @Test
     public final void testWeakValue3() {
-        this.parseAndCheck("W/\"0123456789ABCDEF\"", "0123456789ABCDEF", HttpETag.WEAK);
+        this.parseAndCheck("W/\"0123456789ABCDEF\"", "0123456789ABCDEF", HttpETagValidator.WEAK);
     }
 
     final void parseAndCheck(final String text, final String value) {
-        this.parseAndCheck(text, value, HttpETag.NO_WEAK);
+        this.parseAndCheck(text, value, HttpETagValidator.STRONG);
     }
 
-    final void parseAndCheck(final String text, final String value, final Optional<HttpETagWeak> weakness) {
-       this.parseAndCheck(text, HttpETag.with(value, weakness));
+    final void parseAndCheck(final String text, final String value, final HttpETagValidator validator) {
+       this.parseAndCheck(text, HttpETag.with(value, validator));
     }
 
     final void parseAndCheck(final String text, final HttpETag tag) {

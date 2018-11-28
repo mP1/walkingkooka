@@ -21,8 +21,6 @@ package walkingkooka.net.http;
 import org.junit.Test;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
@@ -59,21 +57,21 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends PackagePrivat
     public final void testSetValueDifferent() {
         final HttpETag etag = this.createETag();
         final String value = "different";
-        this.check(etag.setValue(value), value, weak());
+        this.check(etag.setValue(value), value, validator());
         this.check(etag);
     }
 
-    // setWeak ...........................................................................................
+    // setValidator ...........................................................................................
 
     @Test(expected = NullPointerException.class)
-    public final void testSetWeakNullFails() {
-        this.createETag().setWeak(null);
+    public final void testSetValidatorNullFails() {
+        this.createETag().setValidator(null);
     }
 
     @Test
-    public final void testSetWeakSame() {
+    public final void testSetValidatorSame() {
         final HttpETag etag = this.createETag();
-        assertSame(etag, etag.setWeak(this.weak()));
+        assertSame(etag, etag.setValidator(this.validator()));
     }
 
     // isWildcard ...........................................................................................
@@ -90,15 +88,15 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends PackagePrivat
     abstract E createETag();
 
     final void check(final HttpETag etag) {
-        check(etag, value(), this.weak());
+        check(etag, value(), this.validator());
     }
 
-    final void check(final HttpETag etag, final String value, final Optional<HttpETagWeak> weak) {
+    final void check(final HttpETag etag, final String value, final HttpETagValidator validator) {
         assertEquals("value", value, etag.value());
-        assertEquals("weak", weak, etag.weak());
+        assertEquals("validator", validator, etag.validator());
     }
 
     abstract String value();
 
-    abstract Optional<HttpETagWeak> weak();
+    abstract HttpETagValidator validator();
 }

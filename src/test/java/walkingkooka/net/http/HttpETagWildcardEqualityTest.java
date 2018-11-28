@@ -24,7 +24,7 @@ public final class HttpETagWildcardEqualityTest extends HttpETagEqualityTestCase
 
     @Test
     public void testNonWildcard() {
-        this.checkNotEquals(HttpETag.with("0123456789", HttpETag.NO_WEAK));
+        this.checkNotEquals(HttpETag.with("0123456789", HttpETagValidator.STRONG));
     }
 
     @Override

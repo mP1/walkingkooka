@@ -25,12 +25,12 @@ public final class HttpHeaderValueHttpETagConverterTest extends
 
     @Test
     public void testRequest() {
-        this.parseAndCheck("W/\"123\"", HttpETag.with("123", HttpETag.WEAK));
+        this.parseAndCheck("W/\"123\"", HttpETag.with("123", HttpETagValidator.WEAK));
     }
 
     @Test
     public void testResponse() {
-        this.formatAndCheck(HttpETag.with("123", HttpETag.WEAK), "W/\"123\"");
+        this.formatAndCheck(HttpETag.with("123", HttpETagValidator.WEAK), "W/\"123\"");
     }
 
     @Override

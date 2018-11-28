@@ -18,8 +18,6 @@
 
 package walkingkooka.net.http;
 
-import java.util.Optional;
-
 /**
  * Holds a Wildcard ETAG.
  */
@@ -54,18 +52,16 @@ final class HttpETagWildcard extends HttpETag {
     // weak.........................................................................................
 
     /**
-     * The optional weak attribute
+     * Always returns {@link HttpETagValidator#STRONG}
      */
-    public Optional<HttpETagWeak> weak() {
-        return NO_WEAK;
+    public HttpETagValidator validator() {
+        return HttpETagValidator.STRONG;
     }
 
     @Override
-    void checkWeak0(final Optional<HttpETagWeak> weak) {
-        checkWeak(weak);
-        if (weak.isPresent()) {
-            throw new IllegalArgumentException("Wildcard cannot have weak");
-        }
+    void checkValidator0(final HttpETagValidator validator) {
+        checkValidator(validator);
+        validator.wildcardValidatorCheck();
     }
 
     // isXXX........................................................................................................
@@ -75,13 +71,10 @@ final class HttpETagWildcard extends HttpETag {
         return true;
     }
 
-    // Object.......................................................................................................
+    // toString........................................................................................................
 
-    /**
-     * THe string form of a wildcard etags is "*" without quotes.
-     */
     @Override
-    public String toString() {
+    public final String toString() {
         return this.value();
     }
 }

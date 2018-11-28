@@ -49,29 +49,29 @@ public final class HttpETagManyParserTest extends HttpETagParserTestCase<HttpETa
     @Test
     public void testSeveral() {
         this.parseAndCheck2("\"A\",\"B\"",
-                HttpETag.with("A", HttpETag.NO_WEAK),
-                HttpETag.with("B", HttpETag.NO_WEAK));
+                HttpETag.with("A", HttpETagValidator.STRONG),
+                HttpETag.with("B", HttpETagValidator.STRONG));
     }
 
     @Test
     public void testSeveral2() {
         this.parseAndCheck2("\"A\", \"B\"",
-                HttpETag.with("A", HttpETag.NO_WEAK),
-                HttpETag.with("B", HttpETag.NO_WEAK));
+                HttpETag.with("A", HttpETagValidator.STRONG),
+                HttpETag.with("B", HttpETagValidator.STRONG));
     }
 
     @Test
     public void testSeveralWeak() {
         this.parseAndCheck2("W/\"A\", W/\"B\"",
-                HttpETag.with("A", HttpETag.WEAK),
-                HttpETag.with("B", HttpETag.WEAK));
+                HttpETag.with("A", HttpETagValidator.WEAK),
+                HttpETag.with("B", HttpETagValidator.WEAK));
     }
 
     @Test
     public void testSeveralWeak2() {
         this.parseAndCheck2("\"A\", W/\"B\"",
-                HttpETag.with("A", HttpETag.NO_WEAK),
-                HttpETag.with("B", HttpETag.WEAK));
+                HttpETag.with("A", HttpETagValidator.STRONG),
+                HttpETag.with("B", HttpETagValidator.WEAK));
     }
 
     final void parseAndCheck2(final String text, final HttpETag... tags) {

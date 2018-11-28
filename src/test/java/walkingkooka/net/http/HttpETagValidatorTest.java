@@ -18,9 +18,12 @@
 
 package walkingkooka.net.http;
 
-/**
- * An attribute that marks a {@link HttpETag} is weak.
- */
-public enum HttpETagWeak {
-    WEAK;
+import walkingkooka.test.EnumTestCase;
+
+public final class HttpETagValidatorTest extends EnumTestCase<HttpETagValidator> {
+
+    @Override
+    protected Class<HttpETagValidator> type() {
+        return HttpETagValidator.class;
+    }
 }

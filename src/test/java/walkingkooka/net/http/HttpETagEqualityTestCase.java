@@ -29,6 +29,6 @@ public abstract class HttpETagEqualityTestCase<E extends HttpETag> extends HashC
 
     @Test
     public final void testDifferentValue() {
-        this.checkNotEquals(HttpETag.with("different", HttpETag.NO_WEAK));
+        this.checkNotEquals(HttpETag.with("different", HttpETagValidator.STRONG));
     }
 }

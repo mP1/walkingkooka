@@ -22,8 +22,6 @@ import walkingkooka.NeverError;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.text.CharSequences;
 
-import java.util.Optional;
-
 /**
  * Base parser for both tag parsers.
  */
@@ -60,7 +58,7 @@ abstract class HttpETagParser {
         final char wildcard = HttpETag.WILDCARD_VALUE.character();
 
         String value = null;
-        Optional<HttpETagWeak> weak = HttpETag.NO_WEAK;
+        HttpETagValidator validator = HttpETagValidator.STRONG;
 
         final int length = this.text.length();
         int mode = startMode;
@@ -100,7 +98,7 @@ abstract class HttpETagParser {
                 case MODE_WEAK:
                     if ('/' == c) {
                         mode = MODE_QUOTE_BEGIN;
-                        weak = HttpETag.WEAK;
+                        validator = HttpETagValidator.WEAK;
                         break;
                     }
                     failInvalidCharacter();
@@ -156,7 +154,7 @@ abstract class HttpETagParser {
 
         return null == value ?
                 HttpETag.wildcard() :
-                HttpETag.with(value, weak);
+                HttpETag.with(value, validator);
     }
 
     private final static char DOUBLE_QUOTE = '"';

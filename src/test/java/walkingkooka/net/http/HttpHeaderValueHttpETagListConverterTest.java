@@ -28,19 +28,19 @@ public final class HttpHeaderValueHttpETagListConverterTest extends
 
     @Test
     public void testRequest() {
-        this.parseAndCheck("W/\"123\"", Lists.of(HttpETag.with("123", HttpETag.WEAK)));
+        this.parseAndCheck("W/\"123\"", Lists.of(HttpETag.with("123", HttpETagValidator.WEAK)));
     }
 
     @Test
     public void testResponse() {
-        this.formatAndCheck(Lists.of(HttpETag.with("123", HttpETag.WEAK)),
+        this.formatAndCheck(Lists.of(HttpETag.with("123", HttpETagValidator.WEAK)),
                 "W/\"123\"");
     }
 
     @Test
     public void testResponse2() {
-        this.formatAndCheck(Lists.of(HttpETag.with("123", HttpETag.WEAK),
-                HttpETag.with("456", HttpETag.WEAK)), "W/\"123\", W/\"456\"");
+        this.formatAndCheck(Lists.of(HttpETag.with("123", HttpETagValidator.WEAK),
+                HttpETag.with("456", HttpETagValidator.WEAK)), "W/\"123\", W/\"456\"");
     }
 
     @Override
