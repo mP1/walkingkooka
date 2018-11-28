@@ -92,7 +92,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
 
             switch (mode) {
                 case MODE_VALUE:
-                    if (isTokenChar(c)) {
+                    if (TOKEN.test(c)) {
                         break;
                     }
                     if (parameterSeparator == c) {
@@ -108,7 +108,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                         mode = MODE_SEPARATOR;
                         break;
                     }
-                    if(' ' ==c) {
+                    if(WHITESPACE.test(c)) {
                         value = token(VALUE, text, start, i);
                         parameters = Maps.ordered();
                         mode = MODE_VALUE_WHITESPACE;
@@ -116,7 +116,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                     }
                     failInvalidCharacter(i, text);
                 case MODE_VALUE_WHITESPACE:
-                    if(' ' ==c) {
+                    if(WHITESPACE.test(c)) {
                         break;
                     }
                     if(separator==c) {
@@ -128,7 +128,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                     mode = MODE_PARAMETER_SEPARATOR;
                     start = i;
                 case MODE_PARAMETER_SEPARATOR:
-                    if (' ' == c) {
+                    if (WHITESPACE.test(c)) {
                         break;
                     }
                     if (separator == c) {
@@ -147,7 +147,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                     i--; // try char again as NAME
                     break;
                 case MODE_PARAMETER_SEPARATOR_WHITESPACE:
-                    if (' ' == c) {
+                    if (WHITESPACE.test(c)) {
                         break;
                     }
                     mode = MODE_PARAMETER_NAME;
@@ -155,21 +155,41 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                     parameterName = null;
                     // intentional fall thru...
                 case MODE_PARAMETER_NAME:
-                    if (isTokenChar(c)) {
+                    if (TOKEN.test(c)) {
+                        break;
+                    }
+                    if (WHITESPACE.test(c)) {
+                        parameterName = HttpHeaderParameterName.with(token(PARAMETER_NAME, text, start, i));
+                        mode = MODE_PARAMETER_NAME_WHITESPACE;
                         break;
                     }
                     if (parameterNameValueSeparator == c) {
                         parameterName = HttpHeaderParameterName.with(token(PARAMETER_NAME, text, start, i));
-                        mode = MODE_PARAMETER_VALUE;
-                        start = i + 1;
+                        mode = MODE_PARAMETER_EQUALS_WHITESPACE;
                         break;
                     }
                     failInvalidCharacter(i, text);
-                case MODE_PARAMETER_VALUE:
-                    if (isTokenChar(c)) {
+                case MODE_PARAMETER_NAME_WHITESPACE:
+                    if (WHITESPACE.test(c)) {
                         break;
                     }
-                    if (' ' == c) {
+                    if (parameterNameValueSeparator == c) {
+                        mode = MODE_PARAMETER_EQUALS_WHITESPACE;
+                        break;
+                    }
+                    failInvalidCharacter(i, text);
+                case MODE_PARAMETER_EQUALS_WHITESPACE:
+                    if (WHITESPACE.test(c)) {
+                        break;
+                    }
+                    mode = MODE_PARAMETER_VALUE;
+                    start = i;
+                    // fall thru intentional
+                case MODE_PARAMETER_VALUE:
+                    if (TOKEN.test(c)) {
+                        break;
+                    }
+                    if (WHITESPACE.test(c)) {
                         parameters.put(parameterName, token(PARAMETER_VALUE, text, start, i));
                         mode = MODE_PARAMETER_VALUE_WHITESPACE;
                         start = i + 1;
@@ -189,7 +209,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                     }
                     failInvalidCharacter(i, text);
                 case MODE_PARAMETER_VALUE_WHITESPACE:
-                    if (' ' == c) {
+                    if (WHITESPACE.test(c)) {
                         break;
                     }
                     if (parameterSeparator == c) {
@@ -205,7 +225,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
                     }
                     failInvalidCharacter(i, text);
                 case MODE_SEPARATOR:
-                    if (' ' == c) {
+                    if (WHITESPACE.test(c)) {
                         break;
                     }
                     ;
@@ -227,6 +247,9 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
             case MODE_VALUE_WHITESPACE:
                 tokens.add(HttpHeaderToken.with(value, HttpHeaderToken.NO_PARAMETERS));
                 break;
+            case MODE_PARAMETER_NAME_WHITESPACE:
+            case MODE_PARAMETER_EQUALS_WHITESPACE:
+                failEmptyToken(PARAMETER_VALUE, i-1, text);
             case MODE_PARAMETER_VALUE:
                 parameters.put(parameterName, token(PARAMETER_VALUE, text, start, i));
                 tokens.add(HttpHeaderToken.with(value, parameters));
@@ -249,15 +272,14 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
     private final static int MODE_PARAMETER_SEPARATOR = MODE_VALUE_WHITESPACE + 1;
     private final static int MODE_PARAMETER_SEPARATOR_WHITESPACE = MODE_PARAMETER_SEPARATOR + 1;
     private final static int MODE_PARAMETER_NAME = MODE_PARAMETER_SEPARATOR_WHITESPACE + 1;
-    private final static int MODE_PARAMETER_VALUE = MODE_PARAMETER_NAME + 1;
+    private final static int MODE_PARAMETER_NAME_WHITESPACE = MODE_PARAMETER_NAME + 1;
+    private final static int MODE_PARAMETER_EQUALS_WHITESPACE = MODE_PARAMETER_NAME_WHITESPACE + 1;
+    private final static int MODE_PARAMETER_VALUE = MODE_PARAMETER_EQUALS_WHITESPACE + 1;
     private final static int MODE_PARAMETER_VALUE_WHITESPACE = MODE_PARAMETER_VALUE + 1;
     private final static int MODE_SEPARATOR = MODE_PARAMETER_VALUE_WHITESPACE + 1;
-
-    private static boolean isTokenChar(final char c) {
-        return TOKEN.test(c);
-    }
-
+    
     private final static CharPredicate TOKEN = HttpCharPredicates.rf2045Token();
+    private final static CharPredicate WHITESPACE = HttpCharPredicates.whitespace();
 
     /**
      * Reports an invalid character within the unparsed text.

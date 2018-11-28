@@ -143,17 +143,42 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testParseValueTrailingEquals() {
+    public void testParseValueEqualsFails() {
         HttpHeaderToken.parse("A;b=");
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseValueSpaceEqualsFails() {
+        HttpHeaderToken.parse("A;b =");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseValueTabEqualsFails() {
+        HttpHeaderToken.parse("A;b =");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseValueSpaceTabSpaceTabEqualsFails() {
+        HttpHeaderToken.parse("A;b \t \t=");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseValueEqualsSpaceFails() {
+        HttpHeaderToken.parse("A;b= ");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseValueEqualsTabFails() {
+        HttpHeaderToken.parse("A;b=\t");
+    }
+
     @Test
-    public void testParseValueCommaEquals() {
+    public void testParseValueSeparatorEquals() {
         this.parseFails("A;b=c,", "Missing value at 6 in \"A;b=c,\"");
     }
 
     @Test
-    public void testParseValueSemiColonCommaFails() {
+    public void testParseValueSemiColonSeparatorFails() {
         this.parseFails("A;,", "Missing value at 2 in \"A;,\"");
     }
 
@@ -163,13 +188,18 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
-    public void testParseValueWhitespace() {
+    public void testParseValueSpace() {
         this.parseAndCheck("A ", this.token("A"));
     }
 
     @Test
-    public void testParseValueWhitespace2() {
-        this.parseAndCheck("A  ", this.token("A"));
+    public void testParseValueTab() {
+        this.parseAndCheck("A\t", this.token("A"));
+    }
+
+    @Test
+    public void testParseValueSpaceTabSpaceTab() {
+        this.parseAndCheck("A \t \t", this.token("A"));
     }
 
     @Test
@@ -178,99 +208,189 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
+    public void testParseValueParameterNameSpaceInvalidCharFails() {
+        this.parseFails("A;b >=c", '>');
+    }
+
+    @Test
+    public void testParseValueParameterNameTabInvalidCharFails() {
+        this.parseFails("A;b\t>=c", '>');
+    }
+
+    @Test
+    public void testParseValueParameterNameEqualsInvalidCharFails() {
+        this.parseFails("A;b=\0c", '\0');
+    }
+
+    @Test
+    public void testParseValueParameterNameEqualsParameterValue() {
+        this.parseAndCheck("A;b=c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueParameterNameSpaceEqualsParameterValue() {
+        this.parseAndCheck("A;b =c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueParameterNameTabEqualsParameterValue() {
+        this.parseAndCheck("A;b\t=c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueParameterNameSpaceTabSpaceTabEqualsParameterValue() {
+        this.parseAndCheck("A;b \t \t=c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueParameterNameEqualsSpaceParameterValue() {
+        this.parseAndCheck("A;b= c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueParameterNameEqualsTabParameterValue() {
+        this.parseAndCheck("A;b=\tc",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueParameterNameEqualsSpaceTabSpaceTabParameterValue() {
+        this.parseAndCheck("A;b= \t \tc",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
     public void testParseValueParameterValueInvalidCharFails() {
         this.parseFails("A;b=c>", '>');
     }
 
     @Test
-    public void testParseValueParameterValueWhitespaceCharFails() {
+    public void testParseValueParameterValueSpaceInvalidCharFails() {
         this.parseFails("A;b=c Q", 'Q');
     }
 
     @Test
-    public void testParseValueParameterValueWhitespaceInvalidCharFails() {
+    public void testParseValueParameterValueSpaceInvalidCharFails2() {
         this.parseFails("A;b=c >", '>');
     }
 
     @Test
-    public void testParseValueParameter() {
-        this.parseAndCheck("A;b=c",
-                HttpHeaderToken.with("A", this.parameters("b", "c")));
-    }
-
-    @Test
-    public void testParseValueParameter2() {
-        this.parseAndCheck("A;bcd=123",
-                HttpHeaderToken.with("A", this.parameters("bcd", "123")));
-    }
-
-    @Test
-    public void testParseValueParameterWhitespace() {
+    public void testParseValueParameterSpace() {
         this.parseAndCheck("A;bcd=123 ",
                 HttpHeaderToken.with("A", this.parameters("bcd", "123")));
     }
 
     @Test
-    public void testParseValueParameterWhitespace2() {
-        this.parseAndCheck("A;bcd=123  ",
+    public void testParseValueParameterTab() {
+        this.parseAndCheck("A;bcd=123\t",
                 HttpHeaderToken.with("A", this.parameters("bcd", "123")));
     }
 
     @Test
-    public void testParseValueSemiColonWhitespaceParameter() {
+    public void testParseValueParameterSpaceTabSpaceTab() {
+        this.parseAndCheck("A;bcd=123 \t \t",
+                HttpHeaderToken.with("A", this.parameters("bcd", "123")));
+    }
+
+    @Test
+    public void testParseValueSemiColonSpaceParameter() {
         this.parseAndCheck("A; b=c",
                 this.token("A", "b", "c"));
     }
 
     @Test
-    public void testParseValueWhitespaceSemiColonParameter() {
+    public void testParseValueSemiColonTabParameter() {
+        this.parseAndCheck("A;\tb=c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueSpaceSemiColonParameter() {
         this.parseAndCheck("A ;b=c",
                 this.token("A", "b", "c"));
     }
 
     @Test
-    public void testParseValueWhitespaceSemiColonWhitespaceParameter() {
+    public void testParseValueSpaceSemiColonSpaceParameter() {
         this.parseAndCheck("A ; b=c",
                 this.token("A", "b", "c"));
     }
 
     @Test
-    public void testParseValueParameterCommaValue() {
+    public void testParseValueTabSemiColonTabParameter() {
+        this.parseAndCheck("A\t;\tb=c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueSpaceTabSpaceTabSemiColonSpaceTabParameter() {
+        this.parseAndCheck("A \t \t; \t \tb=c",
+                this.token("A", "b", "c"));
+    }
+
+    @Test
+    public void testParseValueParameterSeparatorValue() {
         this.parseAndCheck("A;b=c,D",
                 this.token("A", "b", "c"),
                 this.token("D"));
     }
 
     @Test
-    public void testParseValueParameterCommaWhitespaceValue() {
+    public void testParseValueParameterSeparatorSpaceValue() {
         this.parseAndCheck("A;b=c, D",
                 this.token("A", "b", "c"),
                 this.token("D"));
     }
 
     @Test
-    public void testParseValueParameterCommaValueWhitespaceValue() {
+    public void testParseValueParameterSeparatorTabValue() {
+        this.parseAndCheck("A;b=c,\tD",
+                this.token("A", "b", "c"),
+                this.token("D"));
+    }
+
+    @Test
+    public void testParseValueParameterSeparatorSpaceTabSpaceTabValue() {
+        this.parseAndCheck("A;b=c, \t \tD",
+                this.token("A", "b", "c"),
+                this.token("D"));
+    }
+
+    @Test
+    public void testParseValueParameterSeparatorValueSpaceValue() {
         this.parseAndCheck("A;b=c, D;e=f",
                 this.token("A", "b", "c"),
                 this.token("D", "e", "f"));
     }
 
     @Test
-    public void testParseValueCommaValue() {
+    public void testParseValueParameterSeparatorValueTabValue() {
+        this.parseAndCheck("A;b=c,\tD;e=f",
+                this.token("A", "b", "c"),
+                this.token("D", "e", "f"));
+    }
+
+    @Test
+    public void testParseValueSeparatorValue() {
         this.parseAndCheck("A,B",
                 this.token("A"),
                 this.token("B"));
     }
 
     @Test
-    public void testParseValueCommaValue2() {
+    public void testParseValueSeparatorValue2() {
         this.parseAndCheck("ABC,DEF",
                 this.token("ABC"),
                 this.token("DEF"));
     }
 
     @Test
-    public void testParseValueCommaValueCommaValue() {
+    public void testParseValueSeparatorValueSeparatorValue() {
         this.parseAndCheck("A,B,C",
                 this.token("A"),
                 this.token("B"),
@@ -278,7 +398,7 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
-    public void testParseValueWhitespaceCommaValueWhitespaceCommaValueWhitespace() {
+    public void testParseValueSpaceSeparatorValueSpaceSeparatorValueSpace() {
         this.parseAndCheck("A ,B ,C ",
                 this.token("A"),
                 this.token("B"),
@@ -286,8 +406,40 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
-    public void testParseValueCommaWhitespaceValueCommaWhitespaceValue() {
+    public void testParseValueTabSeparatorValueTabSeparatorValueTab() {
+        this.parseAndCheck("A\t,B\t,C\t",
+                this.token("A"),
+                this.token("B"),
+                this.token("C"));
+    }
+
+    @Test
+    public void testParseValueSpaceTabSpaceTabSeparatorValueSpaceTabSeparatorValueSpaceTab() {
+        this.parseAndCheck("A \t \t,B \t \t,C \t \t",
+                this.token("A"),
+                this.token("B"),
+                this.token("C"));
+    }
+
+    @Test
+    public void testParseValueSeparatorSpaceValueSeparatorSpaceValue() {
         this.parseAndCheck("A, B, C",
+                this.token("A"),
+                this.token("B"),
+                this.token("C"));
+    }
+
+    @Test
+    public void testParseValueSeparatorTabValueSeparatorTabValue() {
+        this.parseAndCheck("A,\tB,\tC",
+                this.token("A"),
+                this.token("B"),
+                this.token("C"));
+    }
+
+    @Test
+    public void testParseValueSeparatorSpaceTabSpaceTabValueSeparatorSpaceTabValue() {
+        this.parseAndCheck("A, \t \tB, \t \tC",
                 this.token("A"),
                 this.token("B"),
                 this.token("C"));
@@ -300,7 +452,7 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
-    public void testParseValueParametersCommaValueParametersCommaValueParameters() {
+    public void testParseValueParametersSeparatorValueParametersSeparatorValueParameters() {
         this.parseAndCheck("V1;p1=v1,V2;p2=v2,V3;p3=v3",
                 this.token("V1", "p1", "v1"),
                 this.token("V2", "p2", "v2"),
@@ -308,7 +460,7 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
-    public void testParseValueParametersWhitespaceCommaValueParametersWhitespaceCommaValueParametersWhitespace() {
+    public void testParseValueParametersWhitespaceSeparatorValueParametersWhitespaceSeparatorValueParametersWhitespace() {
         this.parseAndCheck("V1;p1=v1 ,V2;p2=v2 ,V3;p3=v3 ",
                 this.token("V1", "p1", "v1"),
                 this.token("V2", "p2", "v2"),
@@ -328,7 +480,7 @@ public final class HttpHeaderTokenTest extends PublicClassTestCase<HttpHeaderTok
     }
 
     @Test
-    public void testParseValueParametersCommaWhitespaceValueParametersCommaWhitespaceValueParameters() {
+    public void testParseValueParametersSeparatorWhitespaceValueParametersSeparatorWhitespaceValueParameters() {
         this.parseAndCheck("V1;p1=v1, V2;p2=v2, V3;p3=v3",
                 this.token("V1", "p1", "v1"),
                 this.token("V2", "p2", "v2"),
