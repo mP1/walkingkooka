@@ -19,7 +19,6 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Value;
-import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
@@ -109,13 +108,8 @@ public abstract class HttpETag implements HashCodeEqualsDefined, Value<String> {
     }
 
     static void checkValue(final String value) {
-        CharPredicates.failIfNullOrFalse(value, "value", ETAG_VALUE);
+        CharPredicates.failIfNullOrFalse(value, "value", HttpETagParser.ETAG_VALUE);
     }
-
-    /**
-     * A {@link CharPredicate} used to validate etag tokens.
-     */
-    private final static CharPredicate ETAG_VALUE = HttpCharPredicates.etagQuotedCharacter();
 
     // weak...........................................................................................................
 

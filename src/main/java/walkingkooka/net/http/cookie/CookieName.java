@@ -20,7 +20,7 @@ package walkingkooka.net.http.cookie;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpCharPredicates;
+import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
 
@@ -31,10 +31,20 @@ import walkingkooka.test.HashCodeEqualsDefined;
 final public class CookieName implements Name, HashCodeEqualsDefined {
 
     /**
+     * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
+     * It also must not contain a separator character like the following: ( ) < > @ , ; : \ " /  [ ] ? = { }.
+     */
+    private final static CharPredicate PREDICATE = CharPredicates.builder()//
+            .or(CharPredicates.ascii())//
+            .andNot(CharPredicates.any("()<>@,;:\\\"/[]?={})"))
+            .toString("cookie name")//
+            .build();
+
+    /**
      * Factory that creates a {@link CookieName}
      */
     public static CookieName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", HttpCharPredicates.cookieName());
+        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", PREDICATE);
         return new CookieName(name);
     }
 

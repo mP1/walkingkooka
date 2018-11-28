@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
-import walkingkooka.net.http.HttpCharPredicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
@@ -244,7 +243,7 @@ final public class MediaType implements Value<String>, HasQFactorWeight, HashCod
         return TOKEN.test(c);
     }
 
-    private final static CharPredicate TOKEN = HttpCharPredicates.rf2045Token();
+    private final static CharPredicate TOKEN = CharPredicates.rfc2045Token();
 
     /**
      * Creates a {@link MediaType} using the already broken type and sub types. It is not possible to pass parameters with or without values.

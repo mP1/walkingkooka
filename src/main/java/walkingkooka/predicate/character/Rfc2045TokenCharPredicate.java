@@ -16,9 +16,7 @@
  *
  */
 
-package walkingkooka.net.http;
-
-import walkingkooka.predicate.character.CharPredicate;
+package walkingkooka.predicate.character;
 
 /**
  * A {@link CharPredicate} that only matches characters that are valid http tokens as specified by RFC2045.
