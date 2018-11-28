@@ -20,6 +20,8 @@ package walkingkooka.net.media;
 
 import walkingkooka.NeverError;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -71,7 +73,7 @@ abstract class MediaTypeParser {
 
             switch (mode) {
                 case MODE_INITIAL_WHITESPACE:
-                    if(' '==c) {
+                    if(WHITESPACE.test(c)) {
                         break;
                     }
                     // fall thru intentional...
@@ -109,14 +111,14 @@ abstract class MediaTypeParser {
                         mode = MODE_FINISHED;
                         break;
                     }
-                    if(' '==c) {
+                    if(WHITESPACE.test(c)) {
                         subType = token(SUBTYPE, start);
                         mode = MODE_SUBTYPE_WHITESPACE;
                         break;
                     }
                     this.failInvalidCharacter();
                 case MODE_SUBTYPE_WHITESPACE:
-                    if (' ' == c) {
+                    if (WHITESPACE.test(c)) {
                         break;
                     }
                     if (MediaType.PARAMETER_SEPARATOR == c) {
@@ -131,7 +133,7 @@ abstract class MediaTypeParser {
                     }
                     this.failInvalidCharacter();
                 case MODE_PARAMETER_SEPARATOR_WHITESPACE:
-                    if (' ' == c) {
+                    if (WHITESPACE.test(c)) {
                         break;
                     }
                     // end of (optional) leading whitespace must be parameter name.
@@ -150,7 +152,7 @@ abstract class MediaTypeParser {
                     this.failInvalidCharacter();
                     break;
                 case MODE_PARAMETER_VALUE_INITIAL:
-                    if ('"' == c) {
+                    if (DOUBLE_QUOTE == c) {
                         mode = MODE_PARAMETER_QUOTES;
                         break;
                     }
@@ -176,7 +178,7 @@ abstract class MediaTypeParser {
                         mode = MODE_FINISHED;
                         break;
                     }
-                    if(' '==c) {
+                    if(WHITESPACE.test(c)) {
                         parameters.put(parameterName, token(PARAMETER_VALUE, start));
                         parameterName = null;
                         start = this.position + 1;
@@ -187,11 +189,11 @@ abstract class MediaTypeParser {
                     this.failInvalidCharacter();
                     break;
                 case MODE_PARAMETER_QUOTES:
-                    if ('\\' == c) {
+                    if (BACKSLASH == c) {
                         mode = MODE_PARAMETER_ESCAPE;
                         break;
                     }
-                    if ('"' == c) {
+                    if (DOUBLE_QUOTE == c) {
                         parameters.put(parameterName, text.substring(start + 1, this.position)); // allow empty quoted strings!
                         parameterName = null;
                         start = this.position + 1;
@@ -201,14 +203,14 @@ abstract class MediaTypeParser {
                     break;
                 case MODE_PARAMETER_ESCAPE:
                     // only accept proper escaping...
-                    if ('\\' == c || '"' == c) {
+                    if (BACKSLASH == c || DOUBLE_QUOTE == c) {
                         mode = MODE_PARAMETER_QUOTES;
                         break;
                     }
                     this.failInvalidCharacter();
                     break;
                 case MODE_PARAMETER_VALUE_WHITESPACE:
-                    if(' '==c){
+                    if(WHITESPACE.test(c)){
                         break;
                     }
                 case MODE_PARAMETER_SEPARATOR:
@@ -259,6 +261,10 @@ abstract class MediaTypeParser {
 
         return MediaType.with(type, subType, parameters, text);
     }
+
+    private final static char BACKSLASH = '\\';
+    private final static char DOUBLE_QUOTE = '"';
+    private final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020");
 
     /**
      * Called when a comma is encountered when a type was expected.
