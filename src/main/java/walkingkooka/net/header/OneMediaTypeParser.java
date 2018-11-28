@@ -16,14 +16,23 @@
  *
  */
 
-package walkingkooka.net.media;
+package walkingkooka.net.header;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+final class OneMediaTypeParser extends MediaTypeParser {
 
-public final class MediaTypeParserTest extends PackagePrivateClassTestCase<MediaTypeParser> {
+    static MediaType parseOneOrFail(final String text) {
+        return new OneMediaTypeParser(text).parse(MODE_TYPE);
+    }
 
+    private OneMediaTypeParser(final String text) {
+        super(text);
+    }
+
+    /**
+     * If a comma is encountered when parsing a single mime type it is invalid.
+     */
     @Override
-    protected Class<MediaTypeParser> type() {
-        return MediaTypeParser.class;
+    void mediaTypeSeparator() {
+        this.failInvalidCharacter();
     }
 }

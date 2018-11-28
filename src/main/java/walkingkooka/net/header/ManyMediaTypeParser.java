@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.net.media;
+package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.HasQFactorWeight;

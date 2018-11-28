@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.net.media;
+package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;

@@ -24,7 +24,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTestCase;
-import walkingkooka.net.media.MediaType;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CharSequences;
 
 import java.util.Map;

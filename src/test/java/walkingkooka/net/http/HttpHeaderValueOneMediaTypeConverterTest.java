@@ -20,8 +20,8 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.media.MediaType;
-import walkingkooka.net.media.MediaTypeParameterName;
+import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeParameterName;
 
 public final class HttpHeaderValueOneMediaTypeConverterTest extends
         HttpHeaderValueConverterTestCase<HttpHeaderValueOneMediaTypeConverter, MediaType> {

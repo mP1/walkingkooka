@@ -23,8 +23,8 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.cookie.ClientCookie;
-import walkingkooka.net.media.MediaType;
 import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
