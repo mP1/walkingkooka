@@ -25,6 +25,7 @@ import walkingkooka.text.Whitespace;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A {@link Cookie} that is sent by clients to servers and holds the name and value.
@@ -73,6 +74,19 @@ final public class ClientCookie extends Cookie {
         }
         return Lists.readOnly(cookies);
     }
+
+    /**
+     * Formats a list of cookies into their header string form. Basically the inverse of {@link #parseHeader(String)}.
+     */
+    public static String formatHeader(final List<ClientCookie> cookies) {
+        Objects.requireNonNull(cookies, "cookies");
+
+        return cookies.stream()
+                .map(c -> c.toHeaderValue())
+                .collect(Collectors.joining(FORMAT_SEPARATOR));
+    }
+
+    private final static String FORMAT_SEPARATOR = " ";
 
     /**
      * Factory that creates a {@link ClientCookie}

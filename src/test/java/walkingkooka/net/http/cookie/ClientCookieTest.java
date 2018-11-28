@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpHeaderName;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -164,6 +166,31 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     @Test
     public void testToHeaderValue() {
         assertEquals("cookie123=value456;", this.createCookie().toHeaderValue());
+    }
+
+    // format ................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testFormatNullFails() {
+        ClientCookie.formatHeader(null);
+    }
+
+    @Test
+    public void testFormatOne() {
+        this.formatAndCheck("cookie123=value456;", this.createCookie());
+    }
+
+    @Test
+    public void testFormatTwo() {
+        this.formatAndCheck("cookie123=value456; cookie789=xyz;",
+                this.createCookie(),
+                ClientCookie.parseHeader("cookie789=xyz;").get(0));
+    }
+
+    private void formatAndCheck(final String toString, final ClientCookie...cookies) {
+        assertEquals("format " + Arrays.toString(cookies),
+                toString,
+                ClientCookie.formatHeader(Lists.of(cookies)));
     }
 
     // toString.................................................................
