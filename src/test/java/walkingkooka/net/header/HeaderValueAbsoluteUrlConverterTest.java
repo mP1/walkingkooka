@@ -16,45 +16,44 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.http.HttpHeaderName;
 
-public final class HttpHeaderValueHttpETagConverterTest extends
-        HttpHeaderValueConverterTestCase<HttpHeaderValueHttpETagConverter, HttpETag> {
+public final class HeaderValueAbsoluteUrlConverterTest extends
+        HeaderValueConverterTestCase<HeaderValueAbsoluteUrlConverter, AbsoluteUrl> {
+
+    private final static String URL = "http://example.com";
 
     @Test
-    public void testRequest() {
-        this.parseAndCheck("W/\"123\"", HttpETag.with("123", HttpETagValidator.WEAK));
-    }
-
-    @Test
-    public void testResponse() {
-        this.formatAndCheck(HttpETag.with("123", HttpETagValidator.WEAK), "W/\"123\"");
+    public void testReferer() {
+        this.parseAndFormatAndCheck(URL, AbsoluteUrl.parse(URL));
     }
 
     @Override
-    protected HttpHeaderValueHttpETagConverter converter() {
-        return HttpHeaderValueHttpETagConverter.INSTANCE;
+    protected HeaderValueAbsoluteUrlConverter converter() {
+        return HeaderValueAbsoluteUrlConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<HttpETag> name() {
-        return HttpHeaderName.E_TAG;
+    protected HttpHeaderName<AbsoluteUrl> name() {
+        return HttpHeaderName.REFERER;
     }
 
     @Override
     protected String invalidHeaderValue() {
-        return "I/";
+        return "/relative/url/must/fail";
     }
 
     @Override
     protected String converterToString() {
-        return HttpETag.class.getSimpleName();
+        return AbsoluteUrl.class.getSimpleName();
     }
 
     @Override
-    protected Class<HttpHeaderValueHttpETagConverter> type() {
-        return HttpHeaderValueHttpETagConverter.class;
+    protected Class<HeaderValueAbsoluteUrlConverter> type() {
+        return HeaderValueAbsoluteUrlConverter.class;
     }
 }

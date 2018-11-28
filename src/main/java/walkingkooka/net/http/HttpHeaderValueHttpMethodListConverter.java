@@ -56,11 +56,6 @@ final class HttpHeaderValueHttpMethodListConverter extends HttpHeaderValueConver
     }
 
     @Override
-    boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringListOf(HttpMethod.class);
     }

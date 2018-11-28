@@ -28,27 +28,33 @@ public final class HttpHeaderValueClientCookieListConverterTest extends
 
     @Test
     public void testClientCookie() {
-        final String header = "cookie123=value456";
-        this.parseAndCheck(header, ClientCookie.parseHeader(header));
+        final String header = "cookie123=value456;";
+        this.parseAndFormatAndCheck(header, ClientCookie.parseHeader(header));
+    }
+
+    @Test
+    public void testClientCookie2() {
+        final String header = "cookie1=value1; cookie2=value2;";
+        this.parseAndFormatAndCheck(header, ClientCookie.parseHeader(header));
     }
 
     @Override
-    HttpHeaderName<List<ClientCookie>> headerOrParameterName() {
-        return HttpHeaderName.COOKIE;
-    }
-
-    @Override
-    HttpHeaderValueClientCookieListConverter converter() {
+    protected HttpHeaderValueClientCookieListConverter converter() {
         return HttpHeaderValueClientCookieListConverter.INSTANCE;
     }
 
     @Override
-    String invalidHeaderValue() {
+    protected HttpHeaderName<List<ClientCookie>> name() {
+        return HttpHeaderName.COOKIE;
+    }
+
+    @Override
+    protected String invalidHeaderValue() {
         return "";
     }
 
     @Override
-    String converterToString() {
+    protected String converterToString() {
         return "List<ClientCookie>";
     }
 

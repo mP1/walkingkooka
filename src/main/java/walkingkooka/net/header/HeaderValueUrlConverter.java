@@ -16,41 +16,47 @@
  *
  */
 
-package walkingkooka.net.http;
-
+package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.net.Url;
+import walkingkooka.net.http.HttpHeaderName;
 
 /**
- * A {@link HttpHeaderValueConverter} that parses a header value into a {@link HttpETag}.
- * This is useful for headers such as {@link HttpHeaderName#E_TAG}.
+ * A {@link HeaderValueConverter2} that parses a header value into a {@link Url}.
+ * This is useful for headers such as {@link HttpHeaderName#LOCATION}.
  */
-final class HttpHeaderValueHttpETagConverter extends HttpHeaderValueConverter<HttpETag> {
+final class HeaderValueUrlConverter extends ReadOnlyHeaderValueConverter<Url> {
 
     /**
      * Singleton
      */
-    final static HttpHeaderValueHttpETagConverter INSTANCE = new HttpHeaderValueHttpETagConverter();
+    final static HeaderValueUrlConverter INSTANCE = new HeaderValueUrlConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpHeaderValueHttpETagConverter() {
+    private HeaderValueUrlConverter() {
         super();
     }
 
     @Override
-    HttpETag parse0(final String value, final Name name) {
-        return HttpETag.parseOne(value);
+    Url parse0(final String value, final Name name) {
+        return Url.parse(value);
     }
 
     @Override
-    String format0(final HttpETag value, final Name name) {
+    String format0(final Url value, final Name name) {
         return value.toString();
     }
 
     @Override
+    public boolean isString() {
+        return false;
+    }
+
+    @Override
     public String toString() {
-        return toStringType(HttpETag.class);
+        return toStringType(Url.class);
     }
 }

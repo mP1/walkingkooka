@@ -18,88 +18,17 @@
 
 package walkingkooka.net.http;
 
-import org.junit.Test;
-import walkingkooka.naming.Name;
-import walkingkooka.test.PackagePrivateClassTestCase;
-import walkingkooka.text.CharSequences;
+import walkingkooka.net.header.HeaderValueConverterTestCase;
 
-import java.lang.reflect.Method;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-public abstract class HttpHeaderValueConverterTestCase<C extends HttpHeaderValueConverter<T>, T> extends PackagePrivateClassTestCase<C> {
-
-    private final static String PREFIX = "HttpHeaderValue";
-    private final static String SUFFIX = "Converter";
+public abstract class HttpHeaderValueConverterTestCase<C extends HttpHeaderValueConverter<T>, T> extends
+        HeaderValueConverterTestCase<C, T> {
 
     HttpHeaderValueConverterTestCase() {
         super();
     }
 
-    @Test
-    public final void testNaming() {
-        this.checkNamingStartAndEnd(PREFIX, SUFFIX);
+    @Override
+    protected final String requiredPrefix() {
+        return "HttpHeaderValue";
     }
-
-    @Test(expected = HttpHeaderValueException.class)
-    public void testInvalidHeaderValueFails() {
-        this.converter().parse(this.invalidHeaderValue(), this.headerOrParameterName());
-    }
-
-    abstract String invalidHeaderValue();
-
-    @Test
-    public final void testIsXXX() throws Exception {
-        final C converter = this.converter();
-        final Class<?> type = converter.getClass();
-        final String className = type.getSimpleName();
-
-        if(!className.startsWith(PREFIX)) {
-            fail("ClassName " + CharSequences.quote(className) + " doesnt start with " + CharSequences.quote(PREFIX));
-        }
-
-        if(!className.endsWith(SUFFIX)) {
-            fail("ClassName " + CharSequences.quote(className) + " doesnt end with " + CharSequences.quote(SUFFIX));
-        }
-
-        final String valueType = className.substring(PREFIX.length(), className.length() - SUFFIX.length());
-        final Method getter = type.getDeclaredMethod("isString");
-        assertEquals(converter + ".isString returned incorrect value", "String".equals(valueType), getter.invoke(converter));
-    }
-
-    @Test
-    public final void testToString() {
-        assertEquals(this.converterToString(), this.converter().toString());
-    }
-
-    abstract String converterToString();
-
-    final void parseAndCheck(final String value, final T expected) {
-        this.parseAndCheck(value, this.headerOrParameterName(), expected);
-    }
-
-    abstract Name headerOrParameterName();
-
-    final void parseAndCheck(final String value, final Name name, final T expected) {
-        this.parseAndCheck(this.converter(), value, name, expected);
-    }
-
-    final void parseAndCheck(final C converter, final String value, final Name name, final T expected) {
-        assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.parse(value, name));
-    }
-
-    final void formatAndCheck(final T value, final String expected) {
-        this.formatAndCheck(value, this.headerOrParameterName(), expected);
-    }
-
-    final void formatAndCheck(final T value, final Name name, final String expected) {
-        this.formatAndCheck(this.converter(), value, name, expected);
-    }
-
-    final void formatAndCheck(final C converter, final T value, final Name name, final String expected) {
-        assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.format(value, name));
-    }
-
-    abstract C converter();
 }

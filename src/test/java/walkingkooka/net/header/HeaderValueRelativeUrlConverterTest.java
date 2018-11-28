@@ -16,45 +16,43 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.http.HttpHeaderName;
 
-public final class HttpHeaderValueHttpETagConverterTest extends
-        HttpHeaderValueConverterTestCase<HttpHeaderValueHttpETagConverter, HttpETag> {
-
-    @Test
-    public void testRequest() {
-        this.parseAndCheck("W/\"123\"", HttpETag.with("123", HttpETagValidator.WEAK));
-    }
+public final class HeaderValueRelativeUrlConverterTest extends
+        HeaderValueConverterTestCase<HeaderValueRelativeUrlConverter, RelativeUrl> {
 
     @Test
-    public void testResponse() {
-        this.formatAndCheck(HttpETag.with("123", HttpETagValidator.WEAK), "W/\"123\"");
+    public void testContentLocation() {
+        final String url = "/relative/url/file.html";
+        this.parseAndFormatAndCheck(url, RelativeUrl.parse(url));
     }
 
     @Override
-    protected HttpHeaderValueHttpETagConverter converter() {
-        return HttpHeaderValueHttpETagConverter.INSTANCE;
+    protected HeaderValueRelativeUrlConverter converter() {
+        return HeaderValueRelativeUrlConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<HttpETag> name() {
-        return HttpHeaderName.E_TAG;
+    protected HttpHeaderName<RelativeUrl> name() {
+        return HttpHeaderName.CONTENT_LOCATION;
     }
 
     @Override
     protected String invalidHeaderValue() {
-        return "I/";
+        return "http://example.com";
     }
 
     @Override
     protected String converterToString() {
-        return HttpETag.class.getSimpleName();
+        return RelativeUrl.class.getSimpleName();
     }
 
     @Override
-    protected Class<HttpHeaderValueHttpETagConverter> type() {
-        return HttpHeaderValueHttpETagConverter.class;
+    protected Class<HeaderValueRelativeUrlConverter> type() {
+        return HeaderValueRelativeUrlConverter.class;
     }
 }

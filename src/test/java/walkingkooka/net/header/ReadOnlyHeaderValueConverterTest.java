@@ -16,14 +16,14 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class HttpHeaderValueConverterTest extends PackagePrivateClassTestCase<HttpHeaderValueConverter<?>> {
+public final class ReadOnlyHeaderValueConverterTest extends PackagePrivateClassTestCase<ReadOnlyHeaderValueConverter<Void>> {
     @Override
-    protected Class<HttpHeaderValueConverter<?>> type() {
-        return Cast.to(HttpHeaderValueConverter.class);
+    protected Class<ReadOnlyHeaderValueConverter<Void>> type() {
+        return Cast.to(ReadOnlyHeaderValueConverter.class);
     }
 }

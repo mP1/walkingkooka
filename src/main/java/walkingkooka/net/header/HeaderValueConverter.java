@@ -16,14 +16,27 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.naming.Name;
 
-public final class HttpHeaderValueConverterTest extends PackagePrivateClassTestCase<HttpHeaderValueConverter<?>> {
-    @Override
-    protected Class<HttpHeaderValueConverter<?>> type() {
-        return Cast.to(HttpHeaderValueConverter.class);
-    }
+/**
+ * A converter that converts between a {@link String text} and a type.
+ */
+public interface HeaderValueConverter<T> {
+
+    /**
+     * Parses the given text into a typed value.
+     */
+    T parse(final String value, final Name name);
+
+    /**
+     * Formats the value into its header or text equivalent.
+     */
+    String format(final T value, final Name name);
+
+    /**
+     * Only if the type parameter is string should this return true.
+     */
+    boolean isString();
 }

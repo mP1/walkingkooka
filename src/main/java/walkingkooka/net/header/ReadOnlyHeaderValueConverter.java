@@ -16,14 +16,23 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 
-public final class HttpHeaderValueConverterTest extends PackagePrivateClassTestCase<HttpHeaderValueConverter<?>> {
-    @Override
-    protected Class<HttpHeaderValueConverter<?>> type() {
-        return Cast.to(HttpHeaderValueConverter.class);
+/**
+ * Base class for all {@link HeaderValueConverter2} that only supports reading and not writing
+ * header values
+ */
+abstract class ReadOnlyHeaderValueConverter<T> extends HeaderValueConverter2<T> {
+
+    /**
+     * Package private to limit sub classing.
+     */
+    ReadOnlyHeaderValueConverter() {
+        super();
     }
+
+
 }

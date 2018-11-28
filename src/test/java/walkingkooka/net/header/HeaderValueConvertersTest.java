@@ -16,14 +16,20 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.PublicStaticHelperTestCase;
 
-public final class HttpHeaderValueConverterTest extends PackagePrivateClassTestCase<HttpHeaderValueConverter<?>> {
+import java.lang.reflect.Method;
+
+public final class HeaderValueConvertersTest extends PublicStaticHelperTestCase<HeaderValueConverters> {
     @Override
-    protected Class<HttpHeaderValueConverter<?>> type() {
-        return Cast.to(HttpHeaderValueConverter.class);
+    protected Class<HeaderValueConverters> type() {
+        return HeaderValueConverters.class;
+    }
+
+    @Override
+    protected boolean canHavePublicTypes(Method method) {
+        return false;
     }
 }

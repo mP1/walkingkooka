@@ -16,41 +16,46 @@
  *
  */
 
-package walkingkooka.net.http;
-
+package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
+import java.util.List;
+
 /**
- * A {@link HttpHeaderValueConverter} that parses a header value into a {@link HttpETag}.
- * This is useful for headers such as {@link HttpHeaderName#E_TAG}.
+ * A {@link HeaderValueConverter2} that converts a {@link String} into many {@link MediaType}.
  */
-final class HttpHeaderValueHttpETagConverter extends HttpHeaderValueConverter<HttpETag> {
+final class HeaderValueManyMediaTypeConverter extends ReadOnlyHeaderValueConverter<List<MediaType>> {
 
     /**
      * Singleton
      */
-    final static HttpHeaderValueHttpETagConverter INSTANCE = new HttpHeaderValueHttpETagConverter();
+    final static HeaderValueManyMediaTypeConverter INSTANCE = new HeaderValueManyMediaTypeConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpHeaderValueHttpETagConverter() {
+    private HeaderValueManyMediaTypeConverter() {
         super();
     }
 
     @Override
-    HttpETag parse0(final String value, final Name name) {
-        return HttpETag.parseOne(value);
+    List<MediaType> parse0(final String value, final Name name) {
+        return MediaType.parseMany(value);
     }
 
     @Override
-    String format0(final HttpETag value, final Name name) {
-        return value.toString();
+    String format0(final List<MediaType> values, final Name name) {
+        return MediaType.format(values);
+    }
+
+    @Override
+    public boolean isString() {
+        return false;
     }
 
     @Override
     public String toString() {
-        return toStringType(HttpETag.class);
+        return toStringListOf(MediaType.class);
     }
 }

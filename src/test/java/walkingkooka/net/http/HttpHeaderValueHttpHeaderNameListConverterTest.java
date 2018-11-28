@@ -32,7 +32,7 @@ public final class HttpHeaderValueHttpHeaderNameListConverterTest extends
     }
 
     @Test
-    public void testHeaderHeader() {
+    public void testHeader2() {
         this.parseAndCheck2("Accept,Content-Length", HttpHeaderName.ACCEPT, HttpHeaderName.CONTENT_LENGTH);
     }
 
@@ -45,23 +45,41 @@ public final class HttpHeaderValueHttpHeaderNameListConverterTest extends
         this.parseAndCheck(value, Lists.of(headers));
     }
 
-    @Override
-    HttpHeaderName<List<HttpHeaderName<?>>> headerOrParameterName() {
-        return HttpHeaderName.TRAILER;
+    @Test
+    public void testFormat() {
+        this.formatAndCheck2("Accept",
+                HttpHeaderName.ACCEPT);
+    }
+
+    @Test
+    public void testFormat2() {
+        this.formatAndCheck2("Accept, Content-Length",
+                HttpHeaderName.ACCEPT,
+                HttpHeaderName.CONTENT_LENGTH);
+    }
+
+    private void formatAndCheck2(final String value,
+                                 final HttpHeaderName<?>...headers) {
+        this.formatAndCheck(Lists.of(headers), value);
     }
 
     @Override
-    HttpHeaderValueHttpHeaderNameListConverter converter() {
+    protected HttpHeaderValueHttpHeaderNameListConverter converter() {
         return HttpHeaderValueHttpHeaderNameListConverter.INSTANCE;
     }
 
     @Override
-    String invalidHeaderValue() {
+    protected HttpHeaderName<List<HttpHeaderName<?>>> name() {
+        return HttpHeaderName.TRAILER;
+    }
+
+    @Override
+    protected String invalidHeaderValue() {
         return "   ";
     }
 
     @Override
-    String converterToString() {
+    protected String converterToString() {
         return "List<HttpHeaderName>";
     }
 

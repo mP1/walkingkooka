@@ -16,68 +16,22 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.header.HeaderValueConverter;
-import walkingkooka.net.header.HeaderValueConverters;
-import walkingkooka.net.header.HeaderValueException;
-import walkingkooka.net.http.cookie.ClientCookie;
+import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpRequest;
 import walkingkooka.text.CharSequences;
-
-import java.util.List;
 
 /**
  * Base class and contract to assist {@link HttpHeaderName#headerValue(HttpRequest)}
  */
-abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
-
-    /**
-     * {@see HttpHeaderValueClientCookieListConverter}
-     */
-    static HttpHeaderValueConverter<List<ClientCookie>> clientCookieList() {
-        return HttpHeaderValueClientCookieListConverter.INSTANCE;
-    }
-
-    /**
-     * {@see HttpHeaderValueHttpETagConverter}
-     */
-    static HttpHeaderValueConverter<HttpETag> httpETag() {
-        return HttpHeaderValueHttpETagConverter.INSTANCE;
-    }
-
-    /**
-     * {@see HttpHeaderValueHttpETagListConverter}
-     */
-    static HttpHeaderValueConverter<List<HttpETag>> httpETagList() {
-        return HttpHeaderValueHttpETagListConverter.INSTANCE;
-    }
-
-    /**
-     * {@see HttpHeaderValueHttpHeaderNameListConverter}
-     */
-    static HttpHeaderValueConverter<List<HttpHeaderName<?>>> httpHeaderNameList() {
-        return HttpHeaderValueHttpHeaderNameListConverter.INSTANCE;
-    }
-
-    /**
-     * {@see HttpHeaderValueHttpMethodListConverter}
-     */
-    static HttpHeaderValueConverter<List<HttpMethod>> methodList() {
-        return HttpHeaderValueHttpMethodListConverter.INSTANCE;
-    }
-
-    /**
-     * {@see HttpHeaderValueRangeConverter}
-     */
-    static HttpHeaderValueConverter<HttpHeaderRange> range() {
-        return HttpHeaderValueRangeConverter.INSTANCE;
-    }
+abstract class HeaderValueConverter2<T> implements HeaderValueConverter<T> {
 
     /**
      * Package private to limit sub classing.
      */
-    HttpHeaderValueConverter() {
+    HeaderValueConverter2() {
         super();
     }
 
@@ -124,15 +78,7 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
 
     abstract String format0(final T value, final Name name);
 
-    // isXXX ....................................................................................................
-
-    /**
-     * Only {@link HeaderValueConverters#string()} returns true.
-     */
-    @Override
-    public final boolean isString() {
-        return false;
-    }
+    // Object ..........................................................................................
 
     @Override
     abstract public String toString();
