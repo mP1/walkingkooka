@@ -35,41 +35,74 @@ public final class HttpETagManyParserTest extends HttpETagParserTestCase<HttpETa
     }
 
     @Test
-    public final void testSeparatorWhitespaceFails() {
+    public final void testSeparatorSpaceFails() {
         final String text = "\"ABC\", ";
         this.parseFails(text, HttpETagParser.missingETagValue(text));
     }
 
     @Test
-    public final void testWeakSeparatorWhitespaceFails() {
+    public final void testSeparatorTabFails() {
+        final String text = "\"ABC\",\t";
+        this.parseFails(text, HttpETagParser.missingETagValue(text));
+    }
+
+    @Test
+    public final void testWeakSeparatorSpaceFails() {
         final String text = "W/\"ABC\", ";
         this.parseFails(text, HttpETagParser.missingETagValue(text));
     }
 
     @Test
-    public void testSeveral() {
+    public final void testWeakSeparatorTabFails() {
+        final String text = "W/\"ABC\",\t";
+        this.parseFails(text, HttpETagParser.missingETagValue(text));
+    }
+
+    @Test
+    public void testETagSeparatorETag() {
         this.parseAndCheck2("\"A\",\"B\"",
                 HttpETag.with("A", HttpETagValidator.STRONG),
                 HttpETag.with("B", HttpETagValidator.STRONG));
     }
 
     @Test
-    public void testSeveral2() {
+    public void testETagSeparatorSpaceETag() {
         this.parseAndCheck2("\"A\", \"B\"",
                 HttpETag.with("A", HttpETagValidator.STRONG),
                 HttpETag.with("B", HttpETagValidator.STRONG));
     }
 
     @Test
-    public void testSeveralWeak() {
-        this.parseAndCheck2("W/\"A\", W/\"B\"",
+    public void testETagSeparatorTabETag() {
+        this.parseAndCheck2("\"A\",\t\"B\"",
+                HttpETag.with("A", HttpETagValidator.STRONG),
+                HttpETag.with("B", HttpETagValidator.STRONG));
+    }
+
+    @Test
+    public void testETagSeparatorSpaceSpaceETag() {
+        this.parseAndCheck2("\"A\",  \"B\"",
+                HttpETag.with("A", HttpETagValidator.STRONG),
+                HttpETag.with("B", HttpETagValidator.STRONG));
+    }
+
+    @Test
+    public void testWeakETagSeparatorWeakETag() {
+        this.parseAndCheck2("W/\"A\",W/\"B\"",
                 HttpETag.with("A", HttpETagValidator.WEAK),
                 HttpETag.with("B", HttpETagValidator.WEAK));
     }
 
     @Test
-    public void testSeveralWeak2() {
+    public void testWeakETagSeparatorSpaceWeakETag() {
         this.parseAndCheck2("\"A\", W/\"B\"",
+                HttpETag.with("A", HttpETagValidator.STRONG),
+                HttpETag.with("B", HttpETagValidator.WEAK));
+    }
+
+    @Test
+    public void testWeakETagSeparatorTabWeakETag() {
+        this.parseAndCheck2("\"A\",\tW/\"B\"",
                 HttpETag.with("A", HttpETagValidator.STRONG),
                 HttpETag.with("B", HttpETagValidator.WEAK));
     }
