@@ -277,9 +277,10 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
     private final static int MODE_PARAMETER_VALUE = MODE_PARAMETER_EQUALS_WHITESPACE + 1;
     private final static int MODE_PARAMETER_VALUE_WHITESPACE = MODE_PARAMETER_VALUE + 1;
     private final static int MODE_SEPARATOR = MODE_PARAMETER_VALUE_WHITESPACE + 1;
-    
-    private final static CharPredicate TOKEN = HttpCharPredicates.rf2045Token();
-    private final static CharPredicate WHITESPACE = HttpCharPredicates.whitespace();
+
+    private final static CharPredicate TOKEN = CharPredicates.rfc2045Token();
+    private final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020")
+            .setToString("SP|HTAB");
 
     /**
      * Reports an invalid character within the unparsed text.
@@ -320,7 +321,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
      * Factory that creates a new {@link HttpHeaderToken}
      */
     public static HttpHeaderToken with(final String value, final Map<HttpHeaderParameterName<?>, String> parameters) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "token value", HttpCharPredicates.rf2045Token());
+        CharPredicates.failIfNullOrEmptyOrFalse(value, "token value", CharPredicates.rfc2045Token());
 
         return new HttpHeaderToken(value, checkParameters(parameters));
     }
@@ -352,7 +353,7 @@ public final class HttpHeaderToken implements HashCodeEqualsDefined, Value<Strin
     private final String value;
 
     private static void checkValue(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "value", HttpCharPredicates.rf2045Token());
+        CharPredicates.failIfNullOrEmptyOrFalse(value, "value", CharPredicates.rfc2045Token());
     }
 
     // parameters.........................................................................................

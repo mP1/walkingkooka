@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 
 import walkingkooka.NeverError;
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 /**
@@ -157,8 +158,6 @@ abstract class HttpETagParser {
                 HttpETag.with(value, validator);
     }
 
-    private final static char DOUBLE_QUOTE = '"';
-
     final static int MODE_SEPARATOR = 1;
     private final static int MODE_WHITESPACE = MODE_SEPARATOR + 1;
     final static int MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN = MODE_WHITESPACE + 1;
@@ -167,15 +166,32 @@ abstract class HttpETagParser {
     private final static int MODE_VALUE = MODE_QUOTE_BEGIN + 1;
     private final static int MODE_FINISHED = MODE_VALUE + 1;
 
-    /**
-     * Matches any whitespace characters.
-     */
-    private final static CharPredicate WHITESPACE = HttpCharPredicates.whitespace();
+
+    private final static char DOUBLE_QUOTE = '"';
 
     /**
-     * A {@link CharPredicate} used to validate etag tokens.
+     * A {@link CharPredicate} that match the content within an ETAG quoted string.<br>
+     * <a href="https://tools.ietf.org/html/rfc7232#section-2.3></a>
+     * <pre>
+     *  etagc      = %x21 / %x23-7E / obs-text
+     *             ; VCHAR except double quotes, plus obs-text
+     * </pre>
      */
-    private final static CharPredicate ETAG_VALUE = HttpCharPredicates.etagQuotedCharacter();
+    final static CharPredicate ETAG_VALUE = CharPredicates.builder()//
+                    .or(CharPredicates.is('\u0021'))//
+                    .or(CharPredicates.range('\u0023', '\u007e'))
+                    .toString("e tag quoted value character")//
+                    .build();
+
+    /**
+     * Matches any whitespace characters.<br>
+     * <a href="https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_form"></a>
+     * <pre>
+     * HS | SP
+     * </pre>
+     */
+    private final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020")
+            .setToString("SP|HTAB");
 
     /**
      * Reports an invalid character within the unparsed text.

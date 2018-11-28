@@ -72,7 +72,7 @@ final public class HttpHeaderParameterName<T> implements Name, HashCodeEqualsDef
      * it will return {@link String}.
      */
     public static HttpHeaderParameterName<?> with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", HttpCharPredicates.rf2045Token());
+        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
 
         final HttpHeaderParameterName httpHeaderValueParameterName = CONSTANTS.get(name);
         return null != httpHeaderValueParameterName ?

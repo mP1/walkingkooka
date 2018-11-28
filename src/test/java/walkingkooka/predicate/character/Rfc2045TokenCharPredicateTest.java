@@ -16,10 +16,9 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.predicate.character;
 
 import org.junit.Test;
-import walkingkooka.predicate.character.CharPredicateTestCase;
 
 import static org.junit.Assert.assertEquals;
 

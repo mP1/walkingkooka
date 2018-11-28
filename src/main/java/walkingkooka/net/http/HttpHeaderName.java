@@ -28,6 +28,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.cookie.ClientCookie;
 import walkingkooka.net.media.MediaType;
+import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
@@ -677,13 +678,27 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * {@link #headerValue(HttpRequest)} will return {@link String}.
      */
     public static HttpHeaderName<?> with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", HttpCharPredicates.httpHeaderName());
+        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", PREDICATE);
 
         final HttpHeaderName httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
                 new HttpHeaderName<String>(name, HttpHeaderScope.UNKNOWN, HttpHeaderValueConverter.string());
     }
+
+    /**
+     * A {@link CharPredicate} that match any character in a header name
+     * <a href="https://www.ietf.org/rfc/rfc822.txt">RFC822</a>
+     * <pre>
+     * The field-name must be composed of printable ASCII characters (position.e., characters that have values between 33. and 126., decimal, except colon).
+     * </pre>
+     */
+    private final static CharPredicate PREDICATE = CharPredicates.builder()//
+            .or(CharPredicates.ascii())//
+            .and(CharPredicates.range((char) 33, (char) 126))//
+            .andNot(CharPredicates.any(":."))
+            .toString("http header name")//
+            .build();
 
     /**
      * Private constructor use factory.
