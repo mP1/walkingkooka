@@ -75,7 +75,7 @@ abstract class HttpETagParser {
                     }
                     failInvalidCharacter();
                 case MODE_WHITESPACE:
-                    if (' ' == c) {
+                    if (WHITESPACE.test(c)) {
                         break;
                     }
                     // fall thru intentional...
@@ -166,6 +166,11 @@ abstract class HttpETagParser {
     private final static int MODE_QUOTE_BEGIN = MODE_WEAK + 1;
     private final static int MODE_VALUE = MODE_QUOTE_BEGIN + 1;
     private final static int MODE_FINISHED = MODE_VALUE + 1;
+
+    /**
+     * Matches any whitespace characters.
+     */
+    private final static CharPredicate WHITESPACE = HttpCharPredicates.whitespace();
 
     /**
      * A {@link CharPredicate} used to validate etag tokens.
