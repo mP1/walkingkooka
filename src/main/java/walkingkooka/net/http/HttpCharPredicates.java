@@ -88,6 +88,23 @@ final public class HttpCharPredicates implements PublicStaticHelper {
     }
 
     /**
+     * Matches any whitespace character within a header.<br>
+     * <a href="https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_form"></a>
+     */
+    public static CharPredicate whitespace() {
+        return WHITESPACE;
+    }
+
+    /**
+     * HS | SP
+     */
+    private final static CharPredicate WHITESPACE = CharPredicates.builder()//
+            .or(CharPredicates.is('\u0009'))
+            .or(CharPredicates.is('\u0020'))//
+            .toString("SP|HTAB")//
+            .build();
+
+    /**
      * Stop creation
      */
     private HttpCharPredicates() {
