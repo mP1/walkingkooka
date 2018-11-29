@@ -31,7 +31,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-public final class HeaderTokenTest extends PublicClassTestCase<HeaderToken> {
+public final class HeaderTokenTest extends HeaderValueTestCase<HeaderToken> {
 
     private final static String VALUE = "abc";
     private final static String PARAMETER_VALUE = "v1";

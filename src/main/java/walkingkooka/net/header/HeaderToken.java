@@ -42,7 +42,11 @@ import java.util.stream.Collectors;
 /**
  * Holds a simple header value, and any accompanying parameters.
  */
-public final class HeaderToken implements HashCodeEqualsDefined, Value<String>, HasQFactorWeight, UsesToStringBuilder {
+public final class HeaderToken implements HeaderValue,
+        HashCodeEqualsDefined,
+        Value<String>,
+        HasQFactorWeight,
+        UsesToStringBuilder {
 
     /**
      * A constants with no parameters.
@@ -407,7 +411,14 @@ public final class HeaderToken implements HashCodeEqualsDefined, Value<String>, 
         return HeaderParameterName.Q.parameterValue(this.parameters);
     }
 
-    // Object
+    // HeaderValue .............................................................................................
+
+    @Override
+    public String headerValue() {
+        return this.toString();
+    }
+
+    // Object .............................................................................................
 
     @Override
     public int hashCode() {

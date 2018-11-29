@@ -21,7 +21,7 @@ package walkingkooka.net.http;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.net.header.HeaderValueTestCase;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HttpHeaderRangeTest extends PublicClassTestCase<HttpHeaderRange> {
+public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRange> {
 
     private final static String UNIT = "bytes";
 
@@ -213,7 +213,9 @@ public final class HttpHeaderRangeTest extends PublicClassTestCase<HttpHeaderRan
 
     @SafeVarargs
     private final void toStringAndCheck(final String toString, final String unit, final Range<Long>... ranges) {
-        assertEquals(toString, this.range(unit, ranges).toString());
+        final HttpHeaderRange range = this.range(unit, ranges);
+        assertEquals(toString, range.toString());
+        assertEquals(toString, range.headerValue());
     }
 
     private HttpHeaderRange range() {

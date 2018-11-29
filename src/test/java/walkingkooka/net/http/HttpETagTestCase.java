@@ -19,12 +19,12 @@
 package walkingkooka.net.http;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.net.header.HeaderValueTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class HttpETagTestCase<E extends HttpETag> extends PackagePrivateClassTestCase<E> {
+public abstract class HttpETagTestCase<E extends HttpETag> extends HeaderValueTestCase<E> {
 
     HttpETagTestCase() {
         super();
@@ -99,4 +99,9 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends PackagePrivat
     abstract String value();
 
     abstract HttpETagValidator validator();
+
+    @Override
+    protected final boolean typeMustBePublic() {
+        return false;
+    }
 }
