@@ -27,11 +27,11 @@ import java.util.List;
  * A {@link MediaTypeParser} that parses a header value containing one or more {@link MediaType} separated by commas
  * as appears in some header values.
  */
-final class ManyMediaTypeParser extends MediaTypeParser {
+final class MediaTypeListParser extends MediaTypeParser {
 
-    static List<MediaType> parseMany(final String text) {
+    static List<MediaType> parseList(final String text) {
         final List<MediaType> result = Lists.array();
-        final ManyMediaTypeParser parser = new ManyMediaTypeParser(text);
+        final MediaTypeListParser parser = new MediaTypeListParser(text);
         final int length = text.length();
 
         int mode = MODE_TYPE;
@@ -44,7 +44,7 @@ final class ManyMediaTypeParser extends MediaTypeParser {
         return result;
     }
 
-    private ManyMediaTypeParser(final String text) {
+    private MediaTypeListParser(final String text) {
         super(text);
     }
 

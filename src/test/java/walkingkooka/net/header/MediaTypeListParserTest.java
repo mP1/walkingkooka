@@ -27,7 +27,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ManyMediaTypeParserTest extends MediaTypeParserTestCase<ManyMediaTypeParser> {
+public final class MediaTypeListParserTest extends MediaTypeParserTestCase<MediaTypeListParser> {
 
     @Test
     public void testTrailingComma() {
@@ -102,7 +102,7 @@ public final class ManyMediaTypeParserTest extends MediaTypeParserTestCase<ManyM
                                   final String type,
                                   final String subtype,
                                   final Map<MediaTypeParameterName, String> parameters) {
-        final List<MediaType> result = ManyMediaTypeParser.parseMany(text);
+        final List<MediaType> result = MediaTypeListParser.parseList(text);
         assertEquals("parse " + CharSequences.quote(text) + " got " + result, 1, result.size());
         this.check(result.get(0), type, subtype, parameters);
     }
@@ -112,7 +112,7 @@ public final class ManyMediaTypeParserTest extends MediaTypeParserTestCase<ManyM
                                        final String subtype,
                                        final Map<MediaTypeParameterName, String> parameters) {
         final String parsed = text + MediaType.MEDIATYPE_SEPARATOR + text;
-        final List<MediaType> result = ManyMediaTypeParser.parseMany(parsed);
+        final List<MediaType> result = MediaTypeListParser.parseList(parsed);
         assertEquals("parse " + CharSequences.quote(parsed) + " got " + result, 2, result.size());
         this.check(result.get(0), type, subtype, parameters);
         this.check(result.get(1), type, subtype, parameters);
@@ -123,7 +123,7 @@ public final class ManyMediaTypeParserTest extends MediaTypeParserTestCase<ManyM
                                       final String subtype,
                                       final Map<MediaTypeParameterName, String> parameters) {
         final String parsed = "TYPE1/SUBTYPE1," + text + ",TYPE2/SUBTYPE2;x=y," + text;
-        final List<MediaType> result = ManyMediaTypeParser.parseMany(parsed);
+        final List<MediaType> result = MediaTypeListParser.parseList(parsed);
 
         assertEquals("parse " + CharSequences.quote(parsed) + " got " + result, 4, result.size());
 
@@ -137,11 +137,11 @@ public final class ManyMediaTypeParserTest extends MediaTypeParserTestCase<ManyM
     private void parseAndCheck2(final String text, final MediaType...mediaTypes) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(text),
                 Lists.of(mediaTypes),
-                ManyMediaTypeParser.parseMany(text));
+                MediaTypeListParser.parseList(text));
     }
 
     @Override
-    protected Class<ManyMediaTypeParser> type() {
-        return ManyMediaTypeParser.class;
+    protected Class<MediaTypeListParser> type() {
+        return MediaTypeListParser.class;
     }
 }

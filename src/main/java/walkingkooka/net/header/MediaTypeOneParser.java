@@ -18,13 +18,13 @@
 
 package walkingkooka.net.header;
 
-final class OneMediaTypeParser extends MediaTypeParser {
+final class MediaTypeOneParser extends MediaTypeParser {
 
-    static MediaType parseOneOrFail(final String text) {
-        return new OneMediaTypeParser(text).parse(MODE_TYPE);
+    static MediaType parseOrFail(final String text) {
+        return new MediaTypeOneParser(text).parse(MODE_TYPE);
     }
 
-    private OneMediaTypeParser(final String text) {
+    private MediaTypeOneParser(final String text) {
         super(text);
     }
 

@@ -41,7 +41,7 @@ final class MediaTypeListHeaderValueConverter extends HeaderValueConverter2<List
 
     @Override
     List<MediaType> parse0(final String value, final Name name) {
-        return MediaType.parseMany(value);
+        return MediaType.parseList(value);
     }
 
     @Override
