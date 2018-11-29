@@ -101,7 +101,7 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (parameterSeparator == c) {
-                        value = token(VALUE, text, start, i);
+                        value = value(text, start, i);
                         parameterName = null;
                         parameters = Maps.ordered();
                         mode = MODE_PARAMETER_SEPARATOR;
@@ -109,12 +109,12 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (separator == c) {
-                        tokens.add(HeaderToken.with(token(VALUE, text, start, i), HeaderToken.NO_PARAMETERS));
+                        tokens.add(new HeaderToken(value(text, start, i), NO_PARAMETERS));
                         mode = MODE_SEPARATOR;
                         break;
                     }
                     if(WHITESPACE.test(c)) {
-                        value = token(VALUE, text, start, i);
+                        value = value(text, start, i);
                         parameters = Maps.ordered();
                         mode = MODE_VALUE_WHITESPACE;
                         break;
@@ -125,7 +125,7 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if(separator==c) {
-                        tokens.add(HeaderToken.with(value, HeaderToken.NO_PARAMETERS));
+                        tokens.add(new HeaderToken(value, NO_PARAMETERS));
                         mode = MODE_SEPARATOR;
                         start = i;
                         break;
@@ -137,7 +137,7 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (separator == c) {
-                        tokens.add(HeaderToken.with(token(VALUE, text, start, i), HeaderToken.NO_PARAMETERS));
+                        tokens.add(new HeaderToken(value(text, start, i), NO_PARAMETERS));
                         mode = MODE_VALUE;
                         start = i + 1;
                         break;
@@ -164,12 +164,12 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (WHITESPACE.test(c)) {
-                        parameterName = HeaderParameterName.with(token(PARAMETER_NAME, text, start, i));
+                        parameterName = parameterName(text, start, i);
                         mode = MODE_PARAMETER_NAME_WHITESPACE;
                         break;
                     }
                     if (parameterNameValueSeparator == c) {
-                        parameterName = HeaderParameterName.with(token(PARAMETER_NAME, text, start, i));
+                        parameterName = parameterName(text, start, i);
                         mode = MODE_PARAMETER_EQUALS_WHITESPACE;
                         break;
                     }
@@ -195,20 +195,20 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (WHITESPACE.test(c)) {
-                        parameters.put(parameterName, token(PARAMETER_VALUE, text, start, i));
+                        parameters.put(parameterName, parameterValue(text, start, i));
                         mode = MODE_PARAMETER_VALUE_WHITESPACE;
                         start = i + 1;
                         break;
                     }
                     if (parameterSeparator == c) {
-                        parameters.put(parameterName, token(PARAMETER_VALUE, text, start, i));
+                        parameters.put(parameterName, parameterValue(text, start, i));
                         mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
                         start = i + 1;
                         break;
                     }
                     if (separator == c) {
-                        parameters.put(parameterName, token(PARAMETER_VALUE, text, start, i));
-                        tokens.add(HeaderToken.with(value, parameters));
+                        parameters.put(parameterName, parameterValue(text, start, i));
+                        tokens.add(new HeaderToken(value, parameters));
                         mode = MODE_SEPARATOR;
                         break;
                     }
@@ -223,7 +223,7 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (separator == c) {
-                        tokens.add(HeaderToken.with(value, parameters));
+                        tokens.add(new HeaderToken(value, parameters));
                         mode = MODE_VALUE;
                         start = i + 1;
                         break;
@@ -247,20 +247,20 @@ public final class HeaderToken implements HeaderValue,
 
         switch (mode) {
             case MODE_VALUE:
-                tokens.add(HeaderToken.with(token(VALUE, text, start, i), HeaderToken.NO_PARAMETERS));
+                tokens.add(new HeaderToken(value(text, start, i), NO_PARAMETERS));
                 break;
             case MODE_VALUE_WHITESPACE:
-                tokens.add(HeaderToken.with(value, HeaderToken.NO_PARAMETERS));
+                tokens.add(new HeaderToken(value, NO_PARAMETERS));
                 break;
             case MODE_PARAMETER_NAME_WHITESPACE:
             case MODE_PARAMETER_EQUALS_WHITESPACE:
                 failEmptyToken(PARAMETER_VALUE, i-1, text);
             case MODE_PARAMETER_VALUE:
-                parameters.put(parameterName, token(PARAMETER_VALUE, text, start, i));
-                tokens.add(HeaderToken.with(value, parameters));
+                parameters.put(parameterName, parameterValue(text, start, i));
+                tokens.add(new HeaderToken(value, parameters));
                 break;
             case MODE_PARAMETER_VALUE_WHITESPACE:
-                tokens.add(HeaderToken.with(value, parameters));
+                tokens.add(new HeaderToken(value, parameters));
                 break;
             case MODE_SEPARATOR:
                 failEmptyToken(VALUE, i, text);
@@ -287,6 +287,10 @@ public final class HeaderToken implements HeaderValue,
     private final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020")
             .setToString("SP|HTAB");
 
+    private final static String VALUE = "value";
+    private final static String PARAMETER_NAME = "parameter name";
+    private final static String PARAMETER_VALUE = "parameter value";
+
     /**
      * Reports an invalid character within the unparsed text.
      */
@@ -301,9 +305,26 @@ public final class HeaderToken implements HeaderValue,
         return "Invalid character " + CharSequences.quoteIfChars(text.charAt(i)) + " at " + i + " in " + CharSequences.quoteAndEscape(text);
     }
 
-    private final static String VALUE = "value";
-    private final static String PARAMETER_NAME = "parameter name";
-    private final static String PARAMETER_VALUE = "parameter value";
+    /**
+     * Creates a parameter name from the token
+     */
+    private static String value(final String text, final int start, final int end) {
+        return token(VALUE, text, start, end);
+    }
+
+    /**
+     * Creates a parameter name from the token
+     */
+    private static HeaderParameterName<?> parameterName(final String text, final int start, final int end) {
+        return HeaderParameterName.with(token(PARAMETER_NAME, text, start, end));
+    }
+
+    /**
+     * Extracts the parameter value.
+     */
+    private static String parameterValue(final String text, final int start, final int end) {
+        return token(PARAMETER_VALUE, text, start, end);
+    }
 
     /**
      * Extracts the token failing if it is empty.
