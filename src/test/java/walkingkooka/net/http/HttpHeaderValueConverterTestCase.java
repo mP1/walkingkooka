@@ -26,9 +26,4 @@ public abstract class HttpHeaderValueConverterTestCase<C extends HttpHeaderValue
     HttpHeaderValueConverterTestCase() {
         super();
     }
-
-    @Override
-    protected final String requiredPrefix() {
-        return "HttpHeaderValue";
-    }
 }
