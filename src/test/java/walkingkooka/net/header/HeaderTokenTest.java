@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.PublicClassTestCase;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
@@ -143,34 +142,40 @@ public final class HeaderTokenTest extends HeaderValueTestCase<HeaderToken> {
         this.parseFails("ABC<");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseValueEqualsFails() {
-        HeaderToken.parse("A;b=");
+        this.parseFails("A;b=",
+                "Missing parameter value at 3 in \"A;b=\"");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseValueSpaceEqualsFails() {
-        HeaderToken.parse("A;b =");
+        this.parseFails("A;b =",
+                "Missing parameter value at 4 in \"A;b =\"");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseValueTabEqualsFails() {
-        HeaderToken.parse("A;b =");
+        this.parseFails("A;b =",
+                "Missing parameter value at 4 in \"A;b =\"");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseValueSpaceTabSpaceTabEqualsFails() {
-        HeaderToken.parse("A;b \t \t=");
+        this.parseFails("A;b \t \t=",
+                "Missing parameter value at 7 in \"A;b \\t \\t=\"");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseValueEqualsSpaceFails() {
-        HeaderToken.parse("A;b= ");
+        this.parseFails("A;b= ",
+                "Missing parameter value at 4 in \"A;b= \"");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseValueEqualsTabFails() {
-        HeaderToken.parse("A;b=\t");
+        this.parseFails("A;b=\t",
+                "Missing parameter value at 4 in \"A;b=\\t\"");
     }
 
     @Test
@@ -518,7 +523,7 @@ public final class HeaderTokenTest extends HeaderValueTestCase<HeaderToken> {
         try {
             HeaderToken.parse(text);
             fail();
-        } catch (final IllegalArgumentException expected) {
+        } catch (final HeaderValueException expected) {
             assertEquals("Incorrect failure message", message, expected.getMessage());
         }
     }

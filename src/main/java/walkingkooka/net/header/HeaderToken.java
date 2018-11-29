@@ -295,7 +295,7 @@ public final class HeaderToken implements HeaderValue,
      * Reports an invalid character within the unparsed text.
      */
     private static void failInvalidCharacter(final int i, final String text) {
-        throw new IllegalArgumentException(invalidCharacter(i, text));
+        throw new HeaderValueException(invalidCharacter(i, text));
     }
 
     /**
@@ -340,7 +340,7 @@ public final class HeaderToken implements HeaderValue,
      * Reports an invalid character within the unparsed header type.
      */
     private static void failEmptyToken(final String token, final int i, final String text) {
-        throw new IllegalArgumentException("Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text));
+        throw new HeaderValueException("Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text));
     }
 
     /**

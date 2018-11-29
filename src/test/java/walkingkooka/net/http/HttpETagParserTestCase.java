@@ -19,6 +19,7 @@
 package walkingkooka.net.http;
 
 import org.junit.Test;
+import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 
@@ -39,9 +40,9 @@ public abstract class HttpETagParserTestCase<P extends HttpETagParser>
         this.parseOne(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public final void testEmpty() {
-        this.parseFails("", "Text is empty");
+        this.parseOne("");
     }
 
     @Test
@@ -167,7 +168,7 @@ public abstract class HttpETagParserTestCase<P extends HttpETagParser>
         try {
             this.parseOne(text);
             fail();
-        } catch (final IllegalArgumentException expected) {
+        } catch (final HeaderValueException expected) {
             assertEquals("Incorrect failure message for " + CharSequences.quoteIfChars(text),
                     message,
                     expected.getMessage());

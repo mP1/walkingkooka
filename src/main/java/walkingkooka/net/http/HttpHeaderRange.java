@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
 import walkingkooka.net.header.HeaderValue;
+import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
@@ -55,7 +56,7 @@ public final class HttpHeaderRange implements HeaderValue,
 
         final int equalsAfterUnit = header.indexOf('=');
         if (-1 == equalsAfterUnit) {
-            throw new IllegalArgumentException("Missing unit and '=' from header value " + CharSequences.quote(header));
+            throw new HeaderValueException("Missing unit and '=' from header value " + CharSequences.quote(header));
         }
 
         final List<Range<Long>> ranges = Arrays.stream(header.substring(equalsAfterUnit + 1).split(SEPARATOR.string()))
@@ -69,7 +70,7 @@ public final class HttpHeaderRange implements HeaderValue,
     private static Range<Long> range(final String value) {
         final int dash = value.indexOf(BETWEEN.character());
         if (-1 == dash) {
-            throw new IllegalArgumentException("Missing " +
+            throw new HeaderValueException("Missing " +
                     CharSequences.quoteIfChars(BETWEEN.character()) +
                     " from header value " +
                     CharSequences.quote(value));

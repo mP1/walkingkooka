@@ -174,7 +174,7 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
         try {
             MediaType.parse(text);
             fail();
-        } catch (final IllegalArgumentException expected) {
+        } catch (final HeaderValueException expected) {
             assertEquals("Incorrect failure message", message, expected.getMessage());
         }
     }

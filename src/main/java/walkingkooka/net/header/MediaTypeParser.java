@@ -275,7 +275,7 @@ abstract class MediaTypeParser {
         final String text = this.text;
         final int pos = this.position;
 
-        throw new IllegalArgumentException(MediaType.invalidCharacter(text.charAt(pos), pos, text));
+        throw new HeaderValueException(MediaType.invalidCharacter(text.charAt(pos), pos, text));
     }
 
     /**
@@ -322,7 +322,7 @@ abstract class MediaTypeParser {
      * Reports an invalid character within the unparsed header type.
      */
     private static void failEmptyToken(final String token, final int i, final String text) {
-        throw new IllegalArgumentException("Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text));
+        throw new HeaderValueException("Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text));
     }
 
     /**
