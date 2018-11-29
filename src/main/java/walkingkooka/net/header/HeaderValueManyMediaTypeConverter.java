@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A {@link HeaderValueConverter2} that converts a {@link String} into many {@link MediaType}.
  */
-final class HeaderValueManyMediaTypeConverter extends ReadOnlyHeaderValueConverter<List<MediaType>> {
+final class HeaderValueManyMediaTypeConverter extends HeaderValueConverter2<List<MediaType>> {
 
     /**
      * Singleton

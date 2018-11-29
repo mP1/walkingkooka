@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter2} that parses a header value into a {@link Float}
  */
-final class HeaderValueFloatConverter extends ReadOnlyHeaderValueConverter<Float> {
+final class HeaderValueFloatConverter extends HeaderValueConverter2<Float> {
 
     /**
      * Singleton
