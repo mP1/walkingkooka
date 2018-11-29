@@ -59,6 +59,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see HttpHeaderValueHeaderTokenListConverter}
+     */
+    public static HeaderValueConverter<List<HeaderToken>> headerTokenList() {
+        return HeaderTokenListHeaderValueConverter.INSTANCE;
+    }
+    
+    /**
      * {@see LocalDateTimeHeaderValueConverter}
      */
     public static HeaderValueConverter<LocalDateTime> localDateTime() {
@@ -73,9 +80,16 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see MediaTypeHeaderValueConverter}
+     */
+    public static HeaderValueConverter<MediaType> mediaType() {
+        return MediaTypeHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see MediaTypeListHeaderValueConverter}
      */
-    public static HeaderValueConverter<List<MediaType>> manyMediaType() {
+    public static HeaderValueConverter<List<MediaType>> mediaTypeList() {
         return MediaTypeListHeaderValueConverter.INSTANCE;
     }
 
@@ -84,13 +98,6 @@ public final class HeaderValueConverters implements PublicStaticHelper {
      */
     public static HeaderValueConverter<OffsetDateTime> offsetDateTime() {
         return OffsetDateTimeHeaderValueConverter.INSTANCE;
-    }
-
-    /**
-     * {@see MediaTypeHeaderValueConverter}
-     */
-    public static HeaderValueConverter<MediaType> oneMediaType() {
-        return MediaTypeHeaderValueConverter.INSTANCE;
     }
 
     /**
@@ -105,13 +112,6 @@ public final class HeaderValueConverters implements PublicStaticHelper {
      */
     public static HeaderValueConverter<String> string() {
         return StringHeaderValueConverter.INSTANCE;
-    }
-
-    /**
-     * {@see HttpHeaderValueHeaderTokenListConverter}
-     */
-    public static HeaderValueConverter<List<HeaderToken>> tokenList() {
-        return HeaderTokenListHeaderValueConverter.INSTANCE;
     }
 
     /**

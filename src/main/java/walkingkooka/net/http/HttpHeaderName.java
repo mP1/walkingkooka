@@ -132,7 +132,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<MediaType> registerOneMediaTypeConstant(final String header,
                                                                           final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HeaderValueConverters.oneMediaType());
+        return registerConstant(header, scope, HeaderValueConverters.mediaType());
     }
 
     /**
@@ -140,7 +140,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<List<MediaType>> registerManyMediaTypeConstant(final String header,
                                                                                  final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HeaderValueConverters.manyMediaType());
+        return registerConstant(header, scope, HeaderValueConverters.mediaTypeList());
     }
 
     /**
@@ -172,7 +172,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      */
     private static HttpHeaderName<List<HeaderToken>> registerTokenListConstant(final String header,
                                                                                final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HeaderValueConverters.tokenList());
+        return registerConstant(header, scope, HeaderValueConverters.headerTokenList());
     }
 
     /**
