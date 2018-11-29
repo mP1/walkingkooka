@@ -19,6 +19,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.NeverError;
+import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
@@ -138,15 +139,15 @@ abstract class HttpETagParser {
 
         switch (mode) {
             case MODE_WHITESPACE:
-                throw new IllegalArgumentException(missingETagValue(text));
+                throw new HeaderValueException(missingETagValue(text));
             case MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN:
-                throw new IllegalArgumentException(missingETagValue(text));
+                throw new HeaderValueException(missingETagValue(text));
             case MODE_WEAK:
-                throw new IllegalArgumentException(incompleteWeakIndicator(text));
+                throw new HeaderValueException(incompleteWeakIndicator(text));
             case MODE_QUOTE_BEGIN:
-                throw new IllegalArgumentException(missingETagValue(text));
+                throw new HeaderValueException(missingETagValue(text));
             case MODE_VALUE:
-                throw new IllegalArgumentException(missingClosingQuote(text));
+                throw new HeaderValueException(missingClosingQuote(text));
             case MODE_FINISHED:
                 break;
             default:
@@ -197,7 +198,7 @@ abstract class HttpETagParser {
      * Reports an invalid character within the unparsed text.
      */
     final void failInvalidCharacter() {
-        throw new IllegalArgumentException(invalidCharacter(this.position, this.text));
+        throw new HeaderValueException(invalidCharacter(this.position, this.text));
     }
 
     /**
