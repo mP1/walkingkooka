@@ -43,7 +43,11 @@ import java.util.stream.Collectors;
  * Note any suffix that may be present in the sub type is not validated in anyway except for valid characters.
  * <a href="https://en.wikipedia.org/wiki/Media_type"></a>
  */
-final public class MediaType implements Value<String>, HasQFactorWeight, HashCodeEqualsDefined, Serializable {
+final public class MediaType implements HeaderValue,
+        Value<String>,
+        HasQFactorWeight,
+        HashCodeEqualsDefined,
+        Serializable {
 
     /**
      * Wildcard
@@ -509,6 +513,13 @@ final public class MediaType implements Value<String>, HasQFactorWeight, HashCod
         }
 
         return compatible;
+    }
+
+    // HeaderValue................................................................................................................
+
+    @Override
+    public String headerValue() {
+        return this.toString();
     }
 
     // Object................................................................................................................

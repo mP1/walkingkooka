@@ -19,6 +19,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Value;
+import walkingkooka.net.header.HeaderValue;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
@@ -31,7 +32,9 @@ import java.util.stream.Collectors;
  * Holds a ETAG.
  * <a href="https://en.wikipedia.org/wiki/HTTP_ETag"></a>
  */
-public abstract class HttpETag implements HashCodeEqualsDefined, Value<String> {
+public abstract class HttpETag implements HeaderValue,
+        HashCodeEqualsDefined,
+        Value<String> {
 
     /**
      * The separator between multiple tags.
@@ -150,6 +153,15 @@ public abstract class HttpETag implements HashCodeEqualsDefined, Value<String> {
      * Returns true if this etag is a wildcard.
      */
     public abstract boolean isWildcard();
+
+    // HeaderValue........................................................................................................
+
+    /**
+     * Returns the text or header value form.
+     */
+    public final String headerValue() {
+        return this.toString();
+    }
 }
 
 

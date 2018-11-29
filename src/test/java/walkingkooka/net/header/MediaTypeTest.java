@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.PublicClassTestCase;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -31,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
+final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
 
     // constants
 
@@ -358,31 +357,36 @@ final public class MediaTypeTest extends PublicClassTestCase<MediaType> {
 
     @Test
     public void testToString() {
-        final MediaType mediaType = MediaType.with(TYPE, SUBTYPE);
-        assertEquals(TYPE + "/" + SUBTYPE, mediaType.toString());
+        this.toStringAndCheck(MediaType.with(TYPE, SUBTYPE),
+                TYPE + "/" + SUBTYPE);
     }
 
     @Test
     public void testToStringWithParameters() {
-        assertEquals(TYPE + "/" + SUBTYPE + ";parameter123=value456", mediaType().toString());
+        this.toStringAndCheck(mediaType(), TYPE + "/" + SUBTYPE + ";parameter123=value456");
     }
 
     @Test
     public void testToStringWithParametersRequireQuotesWhitespace() {
-        final MediaType mediaType = MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b c"));
-        assertEquals("type/subtype; a=\"b c\"", mediaType.toString());
+        this.toStringAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b c")),
+                "type/subtype; a=\"b c\"");
     }
 
     @Test
     public void testToStringWithParametersRequireQuotesBackslash() {
-        final MediaType mediaType = MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\\c"));
-        assertEquals("type/subtype; a=\"b\\\\c\"", mediaType.toString());
+        this.toStringAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\\c")),
+                "type/subtype; a=\"b\\\\c\"");
     }
 
     @Test
     public void testToStringWithParametersRequireQuotesDoubleQuoteChar() {
-        final MediaType mediaType = MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\"c"));
-        assertEquals("type/subtype; a=\"b\\\"c\"", mediaType.toString());
+        this.toStringAndCheck( MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\"c")),
+                "type/subtype; a=\"b\\\"c\"");
+    }
+
+    private void toStringAndCheck(final MediaType type, final String toString) {
+        assertEquals("toString", toString, type.toString());
+        assertEquals("headerValue", toString, type.headerValue());
     }
 
     // format........................................................................................................

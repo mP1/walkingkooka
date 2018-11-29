@@ -23,6 +23,7 @@ import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
+import walkingkooka.net.header.HeaderValue;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
@@ -36,7 +37,9 @@ import java.util.stream.Collectors;
  * Represents the value of a Range header. Note the unit is not validate except that it must not be empty.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range"></a>
  */
-public final class HttpHeaderRange implements Value<List<Range<Long>>>, HashCodeEqualsDefined {
+public final class HttpHeaderRange implements HeaderValue,
+        Value<List<Range<Long>>>,
+        HashCodeEqualsDefined {
 
     public final static CharacterConstant ASSIGNMENT = CharacterConstant.with('=');
 
@@ -148,6 +151,13 @@ public final class HttpHeaderRange implements Value<List<Range<Long>>>, HashCode
 
     private HttpHeaderRange replace(final String unit, final List<Range<Long>> ranges) {
         return new HttpHeaderRange(unit, ranges);
+    }
+
+    // Object.............................................................................
+
+    @Override
+    public String headerValue() {
+        return this.toString();
     }
 
     // Object.............................................................................
