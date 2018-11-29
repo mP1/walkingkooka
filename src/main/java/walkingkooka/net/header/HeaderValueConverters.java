@@ -25,6 +25,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public final class HeaderValueConverters implements PublicStaticHelper {
@@ -34,6 +35,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
      */
     public static HeaderValueConverter<AbsoluteUrl> absoluteUrl() {
         return AbsoluteUrlHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see ContentDispositionFilenameHeaderValueConverter}
+     */
+    public static HeaderValueConverter<ContentDispositionFilename> contentDispositionFilename() {
+        return ContentDispositionFilenameHeaderValueConverter.INSTANCE;
     }
 
     /**
@@ -69,6 +77,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
      */
     public static HeaderValueConverter<List<MediaType>> manyMediaType() {
         return MediaTypeListHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see OffsetDateTimeHeaderValueConverter}
+     */
+    public static HeaderValueConverter<OffsetDateTime> offsetDateTime() {
+        return OffsetDateTimeHeaderValueConverter.INSTANCE;
     }
 
     /**
