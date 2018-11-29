@@ -24,20 +24,17 @@ import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends PackagePrivateClassTestCase<C> {
 
-    private final static String SUFFIX = "Converter";
+    private final static String SUFFIX = HeaderValueConverter.class.getSimpleName();
 
     @Test
     public final void testNaming() {
         this.checkNamingStartAndEnd(this.requiredPrefix(), SUFFIX);
     }
 
-    protected String requiredPrefix() {
-        return "HeaderValue";
-    }
+    abstract protected String requiredPrefix();
 
     @Test(expected = HeaderValueException.class)
     public void testInvalidHeaderValueFails() {
@@ -47,22 +44,11 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     abstract protected String invalidHeaderValue();
 
     @Test
-    public final void testIsString() throws Exception {
+    public final void testIsString() {
         final C converter = this.converter();
-        final Class<?> type = converter.getClass();
-        final String className = type.getSimpleName();
-
-        final String prefix = this.requiredPrefix();
-        if (!className.startsWith(prefix)) {
-            fail("ClassName " + CharSequences.quote(className) + " doesnt start with " + CharSequences.quote(prefix));
-        }
-
-        if (!className.endsWith(SUFFIX)) {
-            fail("ClassName " + CharSequences.quote(className) + " doesnt end with " + CharSequences.quote(SUFFIX));
-        }
 
         assertEquals(converter + ".isString returned incorrect value",
-                "String".equals(className.substring(prefix.length(), className.length() - SUFFIX.length())),
+                "String".equals(this.requiredPrefix()),
                 converter.isString());
     }
 

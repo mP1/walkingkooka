@@ -33,45 +33,45 @@ import java.util.List;
 abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
 
     /**
-     * {@see HttpHeaderValueClientCookieListConverter}
+     * {@see ClientCookieListHttpHeaderValueConverter}
      */
     static HttpHeaderValueConverter<List<ClientCookie>> clientCookieList() {
-        return HttpHeaderValueClientCookieListConverter.INSTANCE;
+        return ClientCookieListHttpHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HttpHeaderValueHttpETagConverter}
+     * {@see HttpETagHeaderValueConverter}
      */
     static HttpHeaderValueConverter<HttpETag> httpETag() {
-        return HttpHeaderValueHttpETagConverter.INSTANCE;
+        return HttpETagHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HttpHeaderValueHttpETagListConverter}
+     * {@see HttpETagListHttpHeaderValueConverter}
      */
     static HttpHeaderValueConverter<List<HttpETag>> httpETagList() {
-        return HttpHeaderValueHttpETagListConverter.INSTANCE;
+        return HttpETagListHttpHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HttpHeaderValueHttpHeaderNameListConverter}
+     * {@see HttpHeaderNameListHttpHeaderValueConverter}
      */
     static HttpHeaderValueConverter<List<HttpHeaderName<?>>> httpHeaderNameList() {
-        return HttpHeaderValueHttpHeaderNameListConverter.INSTANCE;
+        return HttpHeaderNameListHttpHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HttpHeaderValueHttpMethodListConverter}
+     * {@see HttpMethodListHttpHeaderValueConverter}
      */
     static HttpHeaderValueConverter<List<HttpMethod>> methodList() {
-        return HttpHeaderValueHttpMethodListConverter.INSTANCE;
+        return HttpMethodListHttpHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HttpHeaderValueRangeConverter}
+     * {@see HttpHeaderRangeHttpHeaderValueConverter}
      */
     static HttpHeaderValueConverter<HttpHeaderRange> range() {
-        return HttpHeaderValueRangeConverter.INSTANCE;
+        return HttpHeaderRangeHttpHeaderValueConverter.INSTANCE;
     }
 
     /**

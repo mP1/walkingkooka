@@ -30,80 +30,80 @@ import java.util.List;
 public final class HeaderValueConverters implements PublicStaticHelper {
 
     /**
-     * {@see HeaderValueAbsoluteUrlConverter}
+     * {@see AbsoluteUrlHeaderValueConverter}
      */
     public static HeaderValueConverter<AbsoluteUrl> absoluteUrl() {
-        return HeaderValueAbsoluteUrlConverter.INSTANCE;
+        return AbsoluteUrlHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueEmailAddressConverter}
+     * {@see EmailAddressHeaderValueConverter}
      */
     public static HeaderValueConverter<EmailAddress> emailAddress() {
-        return HeaderValueEmailAddressConverter.INSTANCE;
+        return EmailAddressHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueFloatConverter}
+     * {@see FloatHeaderValueConverter}
      */
     public static HeaderValueConverter<Float> floatConverter() {
-        return HeaderValueFloatConverter.INSTANCE;
+        return FloatHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueLocalDateTimeConverter}
+     * {@see LocalDateTimeHeaderValueConverter}
      */
     public static HeaderValueConverter<LocalDateTime> localDateTime() {
-        return HeaderValueLocalDateTimeConverter.INSTANCE;
+        return LocalDateTimeHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueLongConverter}
+     * {@see LongHeaderValueConverter}
      */
     public static HeaderValueConverter<Long> longConverter() {
-        return HeaderValueLongConverter.INSTANCE;
+        return LongHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueManyMediaTypeConverter}
+     * {@see MediaTypeListHeaderValueConverter}
      */
     public static HeaderValueConverter<List<MediaType>> manyMediaType() {
-        return HeaderValueManyMediaTypeConverter.INSTANCE;
+        return MediaTypeListHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueOneMediaTypeConverter}
+     * {@see MediaTypeHeaderValueConverter}
      */
     public static HeaderValueConverter<MediaType> oneMediaType() {
-        return HeaderValueOneMediaTypeConverter.INSTANCE;
+        return MediaTypeHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueRelativeUrlConverter}
+     * {@see RelativeUrlHeaderValueConverter}
      */
     public static HeaderValueConverter<RelativeUrl> relativeUrl() {
-        return HeaderValueRelativeUrlConverter.INSTANCE;
+        return RelativeUrlHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueStringConverter}
+     * {@see StringHeaderValueConverter}
      */
     public static HeaderValueConverter<String> string() {
-        return HeaderValueStringConverter.INSTANCE;
+        return StringHeaderValueConverter.INSTANCE;
     }
 
     /**
      * {@see HttpHeaderValueHeaderTokenListConverter}
      */
     public static HeaderValueConverter<List<HeaderToken>> tokenList() {
-        return HeaderValueHeaderTokenListConverter.INSTANCE;
+        return HeaderTokenListHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HeaderValueUrlConverter}
+     * {@see UrlHeaderValueConverter}
      */
     public static HeaderValueConverter<Url> url() {
-        return HeaderValueUrlConverter.INSTANCE;
+        return UrlHeaderValueConverter.INSTANCE;
     }
 
     /**
