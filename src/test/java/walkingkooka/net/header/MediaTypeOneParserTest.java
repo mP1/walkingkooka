@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import java.util.Map;
 
-public final class OneMediaTypeParserTest extends MediaTypeParserTestCase<OneMediaTypeParser> {
+public final class MediaTypeOneParserTest extends MediaTypeParserTestCase<MediaTypeOneParser> {
 
     @Test
     public void testTrailingCommaFails() {
@@ -39,11 +39,11 @@ public final class OneMediaTypeParserTest extends MediaTypeParserTestCase<OneMed
                                        final String type,
                                        final String subtype,
                                        final Map<MediaTypeParameterName, String> parameters) {
-        this.check(MediaType.parseOne(text), type, subtype, parameters);
+        this.check(MediaType.parse(text), type, subtype, parameters);
     }
 
     @Override
-    protected Class<OneMediaTypeParser> type() {
-        return OneMediaTypeParser.class;
+    protected Class<MediaTypeOneParser> type() {
+        return MediaTypeOneParser.class;
     }
 }

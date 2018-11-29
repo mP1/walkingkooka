@@ -172,7 +172,7 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
 
     final void parseFails(final String text, final String message) {
         try {
-            MediaType.parseOne(text);
+            MediaType.parse(text);
             fail();
         } catch (final IllegalArgumentException expected) {
             assertEquals("Incorrect failure message", message, expected.getMessage());
@@ -337,7 +337,7 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
     }
 
     private void parseAndCheck(final String text, final String type, final String subtype) {
-        this.check(MediaType.parseOne(text), type, subtype);
+        this.check(MediaType.parse(text), type, subtype);
     }
 
     abstract void parseAndCheck(final String text,

@@ -32,24 +32,24 @@ public final class QFactorWeightComparatorTest extends ComparatorTestCase<QFacto
 
     @Test
     public void testLeftHigherQFactor() {
-        this.compareAndCheckLess(MediaType.parseOne("a/b;q=1.0"), MediaType.parseOne("c/d;q=0.5"));
+        this.compareAndCheckLess(MediaType.parse("a/b;q=1.0"), MediaType.parse("c/d;q=0.5"));
     }
 
     @Test
     public void testLeftDefaultedHigherQFactor() {
-        this.compareAndCheckLess(MediaType.parseOne("a/b"), MediaType.parseOne("c/d;q=0.5"));
+        this.compareAndCheckLess(MediaType.parse("a/b"), MediaType.parse("c/d;q=0.5"));
     }
 
     @Test
     public void testSecondDefaultedAndHigherQFactor() {
-        this.compareAndCheckMore(MediaType.parseOne("a/b;q=0.5"), MediaType.parseOne("c/d"));
+        this.compareAndCheckMore(MediaType.parse("a/b;q=0.5"), MediaType.parse("c/d"));
     }
 
     @Test
     public void testListSortedDescending() {
-        final MediaType one = MediaType.parseOne("a/b;q=1.0");
-        final MediaType half = MediaType.parseOne("c/d;q=0.5");
-        final MediaType quarter = MediaType.parseOne("e/f;q=0.25");
+        final MediaType one = MediaType.parse("a/b;q=1.0");
+        final MediaType half = MediaType.parse("c/d;q=0.5");
+        final MediaType quarter = MediaType.parse("e/f;q=0.25");
 
         final List<MediaType> list = Lists.array();
         list.add(quarter);
@@ -63,9 +63,9 @@ public final class QFactorWeightComparatorTest extends ComparatorTestCase<QFacto
 
     @Test
     public void testListSortedDescending2() {
-        final MediaType one = MediaType.parseOne("a/b");
-        final MediaType half = MediaType.parseOne("c/d;q=0.5");
-        final MediaType quarter = MediaType.parseOne("e/f;q=0.25");
+        final MediaType one = MediaType.parse("a/b");
+        final MediaType half = MediaType.parse("c/d;q=0.5");
+        final MediaType quarter = MediaType.parse("e/f;q=0.25");
 
         final List<MediaType> list = Lists.array();
         list.add(quarter);

@@ -221,7 +221,7 @@ final public class MediaType implements HeaderValue,
      * Creates a {@link MediaType} breaking up the {@link String text} into type and sub types, ignoring any optional
      * parameters if they are present.
      */
-    public static MediaType parseOne(final String text) {
+    public static MediaType parse(final String text) {
         checkText(text);
 
         return MediaTypeParser.one(text);
@@ -230,10 +230,10 @@ final public class MediaType implements HeaderValue,
 
     /**
      * Creates a list of {@link MediaType}. If the text contains a single header type the results of this will be
-     * identical to {@link #parseOne(String)} except the result will be in a list, which will also be
+     * identical to {@link #parse(String)} except the result will be in a list, which will also be
      * sorted by the q factor of each header type.
      */
-    public static List<MediaType> parseMany(final String text) {
+    public static List<MediaType> parseList(final String text) {
         checkText(text);
 
         return MediaTypeParser.many(text);
@@ -329,7 +329,7 @@ final public class MediaType implements HeaderValue,
 
     /**
      * Formats or converts a list of media types back to a String. Basically
-     * an inverse of {@link #parseMany(String)}.
+     * an inverse of {@link #parseList(String)}.
      */
     public static String format(final List<MediaType> mediaTypes) {
         Objects.requireNonNull(mediaTypes, "mediaTypes");

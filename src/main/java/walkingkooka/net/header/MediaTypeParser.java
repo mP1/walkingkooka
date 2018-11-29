@@ -34,11 +34,11 @@ import java.util.Map;
 abstract class MediaTypeParser {
 
     static MediaType one(final String text) {
-        return OneMediaTypeParser.parseOneOrFail(text);
+        return MediaTypeOneParser.parseOrFail(text);
     }
 
     static List<MediaType> many(final String text) {
-        return ManyMediaTypeParser.parseMany(text);
+        return MediaTypeListParser.parseList(text);
     }
 
     /**

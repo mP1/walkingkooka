@@ -241,36 +241,36 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     // parse .........................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testParseOneNullFails() {
-        MediaType.parseOne(null);
+    public void testParseNullFails() {
+        MediaType.parse(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testParseOneEmptyFails() {
-        MediaType.parseOne("");
+    public void testParseEmptyFails() {
+        MediaType.parse("");
     }
 
     @Test
-    public void testParseOne() {
-        assertEquals(MediaType.with("type1", "subtype1"), MediaType.parseOne("type1/subtype1"));
+    public void testParse() {
+        assertEquals(MediaType.with("type1", "subtype1"), MediaType.parse("type1/subtype1"));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testParseOneOrManyNullFails() {
-        MediaType.parseMany(null);
+    public void testParseListyNullFails() {
+        MediaType.parseList(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testParseOneOrManyEmptyFails() {
-        MediaType.parseMany("");
+    public void testParseListEmptyFails() {
+        MediaType.parseList("");
     }
 
     @Test
-    public void testParseOneOrMany() {
+    public void testParseList() {
         assertEquals(Lists.of(
                 MediaType.with("type1", "subtype1"),
                 MediaType.with("type2", "subtype2")),
-                MediaType.parseMany("type1/subtype1,type2/subtype2"));
+                MediaType.parseList("type1/subtype1,type2/subtype2"));
     }
 
     // isCompatible .........................................................................
@@ -340,19 +340,19 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     @Test
     public void testToStringParse() {
         final String text = "type/subtype";
-        assertEquals(text, MediaType.parseOne(text).toString());
+        assertEquals(text, MediaType.parse(text).toString());
     }
 
     @Test
     public void testToStringParseWithParameters() {
         final String text = "type/subtype;a=b;c=d";
-        assertEquals(text, MediaType.parseOne(text).toString());
+        assertEquals(text, MediaType.parse(text).toString());
     }
 
     @Test
     public void testToStringParseWithParametersWithQuotes() {
         final String text = "type/subtype;a=b;c=\"d\"";
-        assertEquals(text, MediaType.parseOne(text).toString());
+        assertEquals(text, MediaType.parse(text).toString());
     }
 
     @Test
