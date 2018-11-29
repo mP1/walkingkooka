@@ -84,7 +84,7 @@ abstract class MediaTypeParser {
                         break;
                     }
                     if (MediaType.TYPE_SUBTYPE_SEPARATOR == c) {
-                        type = token(TYPE, start);
+                        type = this.type(start);
                         start = this.position + 1;
                         mode = MODE_SUBTYPE;
                         break;
@@ -101,18 +101,18 @@ abstract class MediaTypeParser {
                         break;
                     }
                     if (MediaType.PARAMETER_SEPARATOR == c) {
-                        subType = token(SUBTYPE, start);
+                        subType = this.subType(start);
                         mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
                         break;
                     }
                     if(MediaType.MEDIATYPE_SEPARATOR == c) {
                         this.mediaTypeSeparator();
-                        subType = token(SUBTYPE, start);
+                        subType = this.subType(start);
                         mode = MODE_FINISHED;
                         break;
                     }
                     if(WHITESPACE.test(c)) {
-                        subType = token(SUBTYPE, start);
+                        subType = this.subType(start);
                         mode = MODE_SUBTYPE_WHITESPACE;
                         break;
                     }
@@ -144,7 +144,7 @@ abstract class MediaTypeParser {
                         break;
                     }
                     if (MediaType.PARAMETER_NAME_VALUE_SEPARATOR == c) {
-                        parameterName = MediaTypeParameterName.with(token(PARAMETER_NAME, start));
+                        parameterName = this.parameterName(start);
                         start = this.position + 1;
                         mode = MODE_PARAMETER_VALUE_INITIAL;
                         break;
@@ -162,8 +162,7 @@ abstract class MediaTypeParser {
                         break;
                     }
                     if (MediaType.PARAMETER_SEPARATOR == c) {
-                        parameters.put(parameterName, token(PARAMETER_VALUE, start));
-                        parameterName = null;
+                        parameters.put(parameterName, this.parameterValue(start));
                         start = this.position + 1;
                         mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
                         break;
@@ -171,7 +170,7 @@ abstract class MediaTypeParser {
                     if(MediaType.MEDIATYPE_SEPARATOR == c) {
                         this.mediaTypeSeparator();
 
-                        parameters.put(parameterName, token(PARAMETER_VALUE, start));
+                        parameters.put(parameterName, this.parameterValue(start));
                         parameterName = null;
                         start = this.position + 1;
 
@@ -179,8 +178,7 @@ abstract class MediaTypeParser {
                         break;
                     }
                     if(WHITESPACE.test(c)) {
-                        parameters.put(parameterName, token(PARAMETER_VALUE, start));
-                        parameterName = null;
+                        parameters.put(parameterName, this.parameterValue(start));
                         start = this.position + 1;
 
                         mode = MODE_PARAMETER_VALUE_WHITESPACE;
@@ -195,7 +193,6 @@ abstract class MediaTypeParser {
                     }
                     if (DOUBLE_QUOTE == c) {
                         parameters.put(parameterName, text.substring(start + 1, this.position)); // allow empty quoted strings!
-                        parameterName = null;
                         start = this.position + 1;
                         mode = MODE_PARAMETER_VALUE_WHITESPACE;
                         break;
@@ -239,17 +236,17 @@ abstract class MediaTypeParser {
         // only modes that would be an error state are included in the switch below.
         switch (mode) {
             case MODE_INITIAL_WHITESPACE:
-                failEmptyToken(TYPE, this.position, text);
+                this.type(this.position);
             case MODE_TYPE:
-                failEmptyToken(SUBTYPE, this.position, text);
+                this.subType(this.position);
             case MODE_SUBTYPE:
-                subType = token(SUBTYPE, start);
+                subType = this.subType(start);
                 break;
             case MODE_PARAMETER_NAME:
-                failEmptyToken(PARAMETER_VALUE, this.position, text);
+                this.parameterValue(this.position);
             case MODE_PARAMETER_VALUE_INITIAL:
             case MODE_PARAMETER_VALUE:
-                parameters.put(parameterName, token(PARAMETER_VALUE, start));
+                parameters.put(parameterName, this.parameterValue(start));
                 break;
             case MODE_PARAMETER_QUOTES:
             case MODE_PARAMETER_ESCAPE:
@@ -281,6 +278,34 @@ abstract class MediaTypeParser {
         throw new IllegalArgumentException(MediaType.invalidCharacter(text.charAt(pos), pos, text));
     }
 
+    /**
+     * Returns the type from the current token.
+     */
+    private String type(final int start) {
+        return token(TYPE, start);
+    }
+
+    /**
+     * Returns the sub type from the current token.
+     */
+    private String subType(final int start) {
+        return token(SUBTYPE, start);
+    }
+
+    /**
+     * Creates a parameter name from the current token.
+     */
+    private MediaTypeParameterName parameterName(final int start) {
+        return MediaTypeParameterName.with(token(PARAMETER_NAME, start));
+    }
+
+    /**
+     * Returns the parameter value from the current token.
+     */
+    private String parameterValue(final int start) {
+        return token(PARAMETER_VALUE, start);
+    }
+    
     /**
      * Extracts the token failing if it is empty.
      */
