@@ -253,7 +253,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
         return NodeSelectorParserToken.quotedText(token.value(), token.text());
     }
 
-    private static final EbnfIdentifierName PARAMETER_SEPARATOR_IDENTIFIER = EbnfIdentifierName.with("SEPARATOR");
+    private static final EbnfIdentifierName PARAMETER_SEPARATOR_IDENTIFIER = EbnfIdentifierName.with("PARAMETER_SEPARATOR");
     private static final Parser<ParserToken, ParserContext> PARAMETER_SEPARATOR_PARSER = literal(',',
             NodeSelectorParserToken::parameterSeparatorSymbol,
             NodeSelectorParameterSeparatorSymbolParserToken.class);
