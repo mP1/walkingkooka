@@ -94,15 +94,15 @@ public final class HeaderValueTokenListHeaderValueConverterTest extends
     }
 
     private HeaderValueToken en_NZ() {
-        return HeaderValueToken.with("EN_NZ", Maps.one(HeaderParameterName.Q, 1.0f));
+        return HeaderValueToken.with("EN_NZ", Maps.one(HeaderValueTokenParameterName.Q, 1.0f));
     }
 
     private HeaderValueToken es() {
-        return HeaderValueToken.with("ES", Maps.one(HeaderParameterName.Q, 0.5f));
+        return HeaderValueToken.with("ES", Maps.one(HeaderValueTokenParameterName.Q, 0.5f));
     }
 
     private HeaderValueToken fr() {
-        return HeaderValueToken.with("FR", Maps.one(HeaderParameterName.Q, 0.25f));
+        return HeaderValueToken.with("FR", Maps.one(HeaderValueTokenParameterName.Q, 0.25f));
     }
 
     @Override

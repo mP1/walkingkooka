@@ -53,7 +53,7 @@ public final class HeaderValueToken implements HeaderValue,
     /**
      * A constants with no parameters.
      */
-    public final static Map<HeaderParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
+    public final static Map<HeaderValueTokenParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
      * The separator between parameter name and value.
@@ -89,8 +89,8 @@ public final class HeaderValueToken implements HeaderValue,
         int start = 0;
 
         String value = null;
-        HeaderParameterName<?> parameterName = null;
-        Map<HeaderParameterName<?>, Object> parameters = NO_PARAMETERS;
+        HeaderValueTokenParameterName<?> parameterName = null;
+        Map<HeaderValueTokenParameterName<?>, Object> parameters = NO_PARAMETERS;
 
         int i = 0;
         final int length = text.length();
@@ -317,8 +317,8 @@ public final class HeaderValueToken implements HeaderValue,
     /**
      * Creates a parameter name from the token
      */
-    private static HeaderParameterName<?> parameterName(final String text, final int start, final int end) {
-        return HeaderParameterName.with(token(PARAMETER_NAME, text, start, end));
+    private static HeaderValueTokenParameterName<?> parameterName(final String text, final int start, final int end) {
+        return HeaderValueTokenParameterName.with(token(PARAMETER_NAME, text, start, end));
     }
 
     /**
@@ -327,8 +327,8 @@ public final class HeaderValueToken implements HeaderValue,
     private static void addParameterValue(final String text,
                                           final int start,
                                           final int end,
-                                          final HeaderParameterName<?> name,
-                                          final Map<HeaderParameterName<?>, Object> parameters) {
+                                          final HeaderValueTokenParameterName<?> name,
+                                          final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
         parameters.put(name,
                 name.parameterValue(
                         token(PARAMETER_VALUE, text, start, end)));
@@ -365,7 +365,7 @@ public final class HeaderValueToken implements HeaderValue,
     /**
      * Factory that creates a new {@link HeaderValueToken}
      */
-    public static HeaderValueToken with(final String value, final Map<HeaderParameterName<?>, Object> parameters) {
+    public static HeaderValueToken with(final String value, final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
         CharPredicates.failIfNullOrEmptyOrFalse(value, "token value", CharPredicates.rfc2045Token());
 
         return new HeaderValueToken(value, checkParameters(parameters));
@@ -374,7 +374,7 @@ public final class HeaderValueToken implements HeaderValue,
     /**
      * Private ctor use factory
      */
-    private HeaderValueToken(final String value, final Map<HeaderParameterName<?>, Object> parameters) {
+    private HeaderValueToken(final String value, final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
         super();
         this.value = value;
         this.parameters = parameters;
@@ -408,23 +408,23 @@ public final class HeaderValueToken implements HeaderValue,
      *
      * @return
      */
-    public Map<HeaderParameterName<?>, Object> parameters() {
+    public Map<HeaderValueTokenParameterName<?>, Object> parameters() {
         return this.parameters;
     }
 
-    public HeaderValueToken setParameters(final Map<HeaderParameterName<?>, Object> parameters) {
-        final Map<HeaderParameterName<?>, Object> copy = checkParameters(parameters);
+    public HeaderValueToken setParameters(final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
+        final Map<HeaderValueTokenParameterName<?>, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
                 this :
                 this.replace(this.value, copy);
     }
 
-    private final Map<HeaderParameterName<?>, Object> parameters;
+    private final Map<HeaderValueTokenParameterName<?>, Object> parameters;
 
-    private static Map<HeaderParameterName<?>, Object> checkParameters(final Map<HeaderParameterName<?>, Object> parameters) {
-        final Map<HeaderParameterName<?>, Object> copy = Maps.ordered();
-        for(Entry<HeaderParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
-            final HeaderParameterName<?> name = nameAndValue.getKey();
+    private static Map<HeaderValueTokenParameterName<?>, Object> checkParameters(final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
+        final Map<HeaderValueTokenParameterName<?>, Object> copy = Maps.ordered();
+        for(Entry<HeaderValueTokenParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
+            final HeaderValueTokenParameterName<?> name = nameAndValue.getKey();
             final Object value = nameAndValue.getValue();
             name.checkValue(value);
             copy.put(name, value);
@@ -434,7 +434,7 @@ public final class HeaderValueToken implements HeaderValue,
 
     // replace ...........................................................................................................
 
-    private HeaderValueToken replace(final String value, final Map<HeaderParameterName<?>, Object> parameters) {
+    private HeaderValueToken replace(final String value, final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
         return new HeaderValueToken(value, parameters);
     }
 
@@ -442,7 +442,7 @@ public final class HeaderValueToken implements HeaderValue,
 
     @Override
     public Optional<Float> qFactorWeight() {
-        return Optional.ofNullable(Float.class.cast(this.parameters.get(HeaderParameterName.Q)));
+        return Optional.ofNullable(Float.class.cast(this.parameters.get(HeaderValueTokenParameterName.Q)));
     }
 
     // HeaderValue .............................................................................................

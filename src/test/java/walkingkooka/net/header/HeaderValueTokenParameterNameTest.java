@@ -28,26 +28,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class HeaderParameterNameTest extends NameTestCase<HeaderParameterName<?>> {
+final public class HeaderValueTokenParameterNameTest extends NameTestCase<HeaderValueTokenParameterName<?>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
-        HeaderParameterName.with("parameter\u0001;");
+        HeaderValueTokenParameterName.with("parameter\u0001;");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testSpaceFails() {
-        HeaderParameterName.with("parameter ");
+        HeaderValueTokenParameterName.with("parameter ");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testTabFails() {
-        HeaderParameterName.with("parameter\t");
+        HeaderValueTokenParameterName.with("parameter\t");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNonAsciiFails() {
-        HeaderParameterName.with("parameter\u0100;");
+        HeaderValueTokenParameterName.with("parameter\u0100;");
     }
 
     @Test
@@ -57,38 +57,38 @@ final public class HeaderParameterNameTest extends NameTestCase<HeaderParameterN
 
     @Test
     public void testConstantNameReturnsConstant() {
-        assertSame(HeaderParameterName.Q, HeaderParameterName.with(HeaderParameterName.Q.value()));
+        assertSame(HeaderValueTokenParameterName.Q, HeaderValueTokenParameterName.with(HeaderValueTokenParameterName.Q.value()));
     }
 
     @Test
     public void testConstantNameCaseInsensitiveReturnsConstant() {
-        final String differentCase = HeaderParameterName.Q.value().toLowerCase();
-        assertNotEquals(differentCase, HeaderParameterName.Q.value());
-        assertSame(HeaderParameterName.Q, HeaderParameterName.with(differentCase));
+        final String differentCase = HeaderValueTokenParameterName.Q.value().toLowerCase();
+        assertNotEquals(differentCase, HeaderValueTokenParameterName.Q.value());
+        assertSame(HeaderValueTokenParameterName.Q, HeaderValueTokenParameterName.with(differentCase));
     }
 
     // parameterValue...........................................................................................
 
     @Test(expected = NullPointerException.class)
     public void testParameterValueNullFails() {
-        HeaderParameterName.Q.parameterValue(null);
+        HeaderValueTokenParameterName.Q.parameterValue(null);
     }
 
     @Test
     public void testParameterValueFloat() {
-        this.parameterValueAndCheck(HeaderParameterName.Q,
+        this.parameterValueAndCheck(HeaderValueTokenParameterName.Q,
                 "0.75",
                 0.75f);
     }
 
     @Test
     public void testParameterValueString() {
-        this.parameterValueAndCheck(Cast.to(HeaderParameterName.with("xyz")),
+        this.parameterValueAndCheck(Cast.to(HeaderValueTokenParameterName.with("xyz")),
                 "abc",
                 "abc");
     }
 
-    private <T> void parameterValueAndCheck(final HeaderParameterName<T> name,
+    private <T> void parameterValueAndCheck(final HeaderValueTokenParameterName<T> name,
                                             final String headerValue,
                                             final T value) {
         assertEquals(name + "=" + CharSequences.quoteIfNecessary(headerValue),
@@ -101,16 +101,16 @@ final public class HeaderParameterNameTest extends NameTestCase<HeaderParameterN
     @Test
     public void testToString() {
         final String name = "parameter123";
-        assertEquals(name, HeaderParameterName.with(name).toString());
+        assertEquals(name, HeaderValueTokenParameterName.with(name).toString());
     }
 
     @Override
-    protected HeaderParameterName createName(final String name) {
-        return HeaderParameterName.with(name);
+    protected HeaderValueTokenParameterName createName(final String name) {
+        return HeaderValueTokenParameterName.with(name);
     }
 
     @Override
-    protected Class<HeaderParameterName<?>> type() {
-        return Cast.to(HeaderParameterName.class);
+    protected Class<HeaderValueTokenParameterName<?>> type() {
+        return Cast.to(HeaderValueTokenParameterName.class);
     }
 }
