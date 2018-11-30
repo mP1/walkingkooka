@@ -25,12 +25,12 @@ import walkingkooka.net.http.HttpHeaderName;
 
 import java.util.List;
 
-public final class HeaderTokenListHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<HeaderTokenListHeaderValueConverter, List<HeaderToken>> {
+public final class HeaderValueTokenListHeaderValueConverterTest extends
+        HeaderValueConverterTestCase<HeaderValueTokenListHeaderValueConverter, List<HeaderValueToken>> {
 
     @Override
     protected String requiredPrefix() {
-        return HeaderToken.class.getSimpleName();
+        return HeaderValueToken.class.getSimpleName();
     }
 
     @Test
@@ -81,37 +81,37 @@ public final class HeaderTokenListHeaderValueConverterTest extends
         this.formatAndCheck(Lists.of(this.en(), this.en_AU()), "EN, EN_AU");
     }
 
-    private void parseAndCheck2(final String headerValue, final HeaderToken... tokens) {
+    private void parseAndCheck2(final String headerValue, final HeaderValueToken... tokens) {
         this.parseAndCheck(headerValue, Lists.of(tokens));
     }
 
-    private HeaderToken en() {
-        return HeaderToken.with("EN", HeaderToken.NO_PARAMETERS);
+    private HeaderValueToken en() {
+        return HeaderValueToken.with("EN", HeaderValueToken.NO_PARAMETERS);
     }
 
-    private HeaderToken en_AU() {
-        return HeaderToken.with("EN_AU", HeaderToken.NO_PARAMETERS);
+    private HeaderValueToken en_AU() {
+        return HeaderValueToken.with("EN_AU", HeaderValueToken.NO_PARAMETERS);
     }
 
-    private HeaderToken en_NZ() {
-        return HeaderToken.with("EN_NZ", Maps.one(HeaderParameterName.Q, "1.0"));
+    private HeaderValueToken en_NZ() {
+        return HeaderValueToken.with("EN_NZ", Maps.one(HeaderParameterName.Q, "1.0"));
     }
 
-    private HeaderToken es() {
-        return HeaderToken.with("ES", Maps.one(HeaderParameterName.Q, "0.5"));
+    private HeaderValueToken es() {
+        return HeaderValueToken.with("ES", Maps.one(HeaderParameterName.Q, "0.5"));
     }
 
-    private HeaderToken fr() {
-        return HeaderToken.with("FR", Maps.one(HeaderParameterName.Q, "0.25"));
-    }
-
-    @Override
-    protected HeaderTokenListHeaderValueConverter converter() {
-        return HeaderTokenListHeaderValueConverter.INSTANCE;
+    private HeaderValueToken fr() {
+        return HeaderValueToken.with("FR", Maps.one(HeaderParameterName.Q, "0.25"));
     }
 
     @Override
-    protected HttpHeaderName<List<HeaderToken>> name() {
+    protected HeaderValueTokenListHeaderValueConverter converter() {
+        return HeaderValueTokenListHeaderValueConverter.INSTANCE;
+    }
+
+    @Override
+    protected HttpHeaderName<List<HeaderValueToken>> name() {
         return HttpHeaderName.CONTENT_LANGUAGE;
     }
 
@@ -121,17 +121,17 @@ public final class HeaderTokenListHeaderValueConverterTest extends
     }
 
     @Override
-    protected List<HeaderToken> value() {
+    protected List<HeaderValueToken> value() {
         return Lists.of(this.en(), this.en_AU());
     }
 
     @Override
     protected String converterToString() {
-        return "List<HeaderToken>";
+        return "List<HeaderValueToken>";
     }
 
     @Override
-    protected Class<HeaderTokenListHeaderValueConverter> type() {
-        return HeaderTokenListHeaderValueConverter.class;
+    protected Class<HeaderValueTokenListHeaderValueConverter> type() {
+        return HeaderValueTokenListHeaderValueConverter.class;
     }
 }

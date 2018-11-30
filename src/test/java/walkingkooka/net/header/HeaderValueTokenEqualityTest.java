@@ -24,7 +24,7 @@ import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 import java.util.Map;
 
-public final class HeaderTokenEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<HeaderToken> {
+public final class HeaderValueTokenEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<HeaderValueToken> {
 
     private final static String VALUE = "abc";
     private final static String PARAMETER_VALUE = "v1";
@@ -41,12 +41,12 @@ public final class HeaderTokenEqualityTest extends HashCodeEqualsDefinedEquality
 
     @Test
     public void testDifferentParameters2() {
-        this.checkNotEquals(this.createObject().setParameters(HeaderToken.NO_PARAMETERS));
+        this.checkNotEquals(this.createObject().setParameters(HeaderValueToken.NO_PARAMETERS));
     }
 
     @Override
-    protected HeaderToken createObject() {
-        return HeaderToken.with(VALUE, parameters());
+    protected HeaderValueToken createObject() {
+        return HeaderValueToken.with(VALUE, parameters());
     }
 
     private Map<HeaderParameterName<?>, String> parameters() {
