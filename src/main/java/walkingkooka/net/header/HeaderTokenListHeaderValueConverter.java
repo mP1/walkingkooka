@@ -45,6 +45,11 @@ final class HeaderTokenListHeaderValueConverter extends HeaderValueConverter2<Li
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkListOfType(value, HeaderToken.class);
+    }
+
+    @Override
     String format0(final List<HeaderToken> values, final Name name) {
         return HeaderToken.format(values);
     }

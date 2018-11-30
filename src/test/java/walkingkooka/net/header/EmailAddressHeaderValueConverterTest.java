@@ -52,6 +52,11 @@ public final class EmailAddressHeaderValueConverterTest extends
     }
 
     @Override
+    protected EmailAddress value() {
+        return EmailAddress.with("user@example.com");
+    }
+
+    @Override
     protected String converterToString() {
         return EmailAddress.class.getSimpleName();
     }

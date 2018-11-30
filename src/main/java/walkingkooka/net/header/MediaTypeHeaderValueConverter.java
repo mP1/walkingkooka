@@ -43,6 +43,11 @@ final class MediaTypeHeaderValueConverter extends HeaderValueConverter2<MediaTyp
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, MediaType.class);
+    }
+
+    @Override
     String format0(final MediaType value, final Name name) {
         return value.toString();
     }

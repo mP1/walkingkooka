@@ -23,6 +23,8 @@ import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpRequest;
 import walkingkooka.text.CharSequences;
 
+import java.util.Objects;
+
 /**
  * Base class and contract to assist {@link HttpHeaderName#headerValue(HttpRequest)}
  */
@@ -57,6 +59,15 @@ abstract class HeaderValueConverter2<T> implements HeaderValueConverter<T> {
      * Sub classes parse the {@link String} value.
      */
     abstract T parse0(final String value, final Name name) throws HeaderValueException, RuntimeException;
+
+    // checkValue...........................................................
+
+    public final void check(final Object value) {
+        Objects.requireNonNull(value, "value");
+        this.check0(value);
+    }
+
+    abstract void check0(final Object value);
 
     // format ....................................................................................................
 

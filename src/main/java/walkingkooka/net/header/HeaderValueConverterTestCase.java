@@ -43,6 +43,21 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
 
     abstract protected String invalidHeaderValue();
 
+    @Test(expected = NullPointerException.class)
+    public void testCheckNullFails() {
+        this.check(null);
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testCheckWrongTypeFails() {
+        this.check(this);
+    }
+
+    @Test
+    public void testCheck() {
+        this.check(this.value());
+    }
+
     @Test
     public final void testIsString() {
         final C converter = this.converter();
@@ -80,6 +95,10 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
         assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.parse(value, name));
     }
 
+    protected final void check(final Object value) {
+        this.converter().check(value);
+    }
+
     protected final void formatAndCheck(final T value, final String expected) {
         this.formatAndCheck(value, this.name(), expected);
     }
@@ -91,4 +110,6 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     protected final void formatAndCheck(final C converter, final T value, final Name name, final String expected) {
         assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.format(value, name));
     }
+
+    protected abstract T value();
 }

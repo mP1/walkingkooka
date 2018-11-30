@@ -45,6 +45,11 @@ final class MediaTypeListHeaderValueConverter extends HeaderValueConverter2<List
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkListOfType(value, MediaType.class);
+    }
+
+    @Override
     String format0(final List<MediaType> values, final Name name) {
         return MediaType.format(values);
     }

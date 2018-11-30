@@ -55,6 +55,11 @@ final class HttpHeaderRangeHttpHeaderValueConverter extends HttpHeaderValueConve
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, HttpHeaderRange.class);
+    }
+
+    @Override
     String format0(final HttpHeaderRange value, final Name name) {
         return value.toString();
     }

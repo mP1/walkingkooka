@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.HttpHeaderName;
 
 import java.util.List;
@@ -67,6 +66,16 @@ public final class HeaderTokenListHeaderValueConverterTest extends
                 this.en(), this.en_AU(), this.en_NZ(), this.es(), fr());
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesNullFails() {
+        this.check(Lists.of(en(), null));
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesWrongTypeFails() {
+        this.check(Lists.of(en(), "WRONG!"));
+    }
+
     @Test
     public void testFormat() {
         this.formatAndCheck(Lists.of(this.en(), this.en_AU()), "EN, EN_AU");
@@ -109,6 +118,11 @@ public final class HeaderTokenListHeaderValueConverterTest extends
     @Override
     protected String invalidHeaderValue() {
         return "/////";
+    }
+
+    @Override
+    protected List<HeaderToken> value() {
+        return Lists.of(this.en(), this.en_AU());
     }
 
     @Override

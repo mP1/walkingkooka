@@ -59,6 +59,11 @@ public final class StringHeaderValueConverterTest extends
     }
 
     @Override
+    protected String value() {
+        return TEXT;
+    }
+
+    @Override
     protected String converterToString() {
         return String.class.getSimpleName();
     }

@@ -46,6 +46,11 @@ final class UrlHeaderValueConverter extends HeaderValueConverter2<Url> {
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, Url.class);
+    }
+
+    @Override
     String format0(final Url value, final Name name) {
         return value.toString();
     }

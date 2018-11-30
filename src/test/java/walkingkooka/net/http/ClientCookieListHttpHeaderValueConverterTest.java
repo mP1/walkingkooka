@@ -19,7 +19,11 @@
 package walkingkooka.net.http;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.http.cookie.ClientCookie;
+import walkingkooka.net.http.cookie.Cookie;
+import walkingkooka.net.http.cookie.CookieName;
 
 import java.util.List;
 
@@ -43,6 +47,20 @@ public final class ClientCookieListHttpHeaderValueConverterTest extends
         this.parseAndFormatAndCheck(header, ClientCookie.parseHeader(header));
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesNullFails() {
+        this.check(Lists.of(this.cookie(), null));
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesWrongTypeFails() {
+        this.check(Lists.of(this.cookie(), "WRONG!"));
+    }
+
+    private ClientCookie cookie() {
+        return Cookie.client(CookieName.with("cookie"), "456");
+    }
+
     @Override
     protected ClientCookieListHttpHeaderValueConverter converter() {
         return ClientCookieListHttpHeaderValueConverter.INSTANCE;
@@ -56,6 +74,11 @@ public final class ClientCookieListHttpHeaderValueConverterTest extends
     @Override
     protected String invalidHeaderValue() {
         return "";
+    }
+
+    @Override
+    protected List<ClientCookie> value() {
+        return ClientCookie.parseHeader("cookie1=value1; cookie2=value2;");
     }
 
     @Override

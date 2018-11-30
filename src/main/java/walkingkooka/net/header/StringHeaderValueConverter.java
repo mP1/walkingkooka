@@ -43,6 +43,11 @@ final class StringHeaderValueConverter extends HeaderValueConverter2<String> {
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, String.class);
+    }
+
+    @Override
     String format0(final String value, final Name name) {
         return value;
     }

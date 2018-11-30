@@ -51,6 +51,11 @@ public final class ContentDispositionFilenameHeaderValueConverterTest extends
     }
 
     @Override
+    protected ContentDispositionFilename value() {
+        return ContentDispositionFilename.with("readme.txt");
+    }
+
+    @Override
     protected String converterToString() {
         return ContentDispositionFilename.class.getSimpleName();
     }

@@ -53,6 +53,11 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
     }
 
     @Override
+    protected AbsoluteUrl value() {
+        return AbsoluteUrl.parse(URL);
+    }
+
+    @Override
     protected String converterToString() {
         return AbsoluteUrl.class.getSimpleName();
     }
@@ -61,4 +66,6 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
     protected Class<AbsoluteUrlHeaderValueConverter> type() {
         return AbsoluteUrlHeaderValueConverter.class;
     }
+
+
 }

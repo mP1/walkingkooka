@@ -79,6 +79,18 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
     }
 
     @Override
+    protected OffsetDateTime value() {
+        return OffsetDateTime.of(2000,
+                12,
+                31,
+                6,
+                28,
+                29,
+                0,
+                ZoneOffset.ofHours(+10));
+    }
+
+    @Override
     protected String converterToString() {
         return OffsetDateTime.class.getSimpleName();
     }

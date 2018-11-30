@@ -41,6 +41,16 @@ public final class MediaTypeListHeaderValueConverterTest extends
                 Lists.of(this.mediaType1(), this.mediaType2()));
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesNullFails() {
+        this.check(Lists.of(this.mediaType1(), null));
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesWrongTypeFails() {
+        this.check(Lists.of(this.mediaType1(), "WRONG!"));
+    }
+
     private MediaType mediaType1() {
         return MediaType.with("type1", "subType1").setParameters(Maps.one(MediaTypeParameterName.with("p1"), "v1"));
     }
@@ -62,6 +72,11 @@ public final class MediaTypeListHeaderValueConverterTest extends
     @Override
     protected String invalidHeaderValue() {
         return "invalid!!!";
+    }
+
+    @Override
+    protected List<MediaType> value() {
+        return MediaType.parseList("type1/sub1;p1=v1,type2/sub2;p2=v2");
     }
 
     @Override

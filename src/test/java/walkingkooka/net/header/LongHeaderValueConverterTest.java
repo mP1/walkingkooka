@@ -53,6 +53,11 @@ public final class LongHeaderValueConverterTest extends
     }
 
     @Override
+    protected Long value() {
+        return VALUE;
+    }
+
+    @Override
     protected String converterToString() {
         return Long.class.getSimpleName();
     }

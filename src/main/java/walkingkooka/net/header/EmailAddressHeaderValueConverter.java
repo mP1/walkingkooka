@@ -54,6 +54,11 @@ final class EmailAddressHeaderValueConverter extends HeaderValueConverter2<Email
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, EmailAddress.class);
+    }
+
+    @Override
     String format0(final EmailAddress value, final Name name) {
         return value.toString();
     }

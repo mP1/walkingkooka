@@ -195,6 +195,13 @@ final public class ContentDispositionParameterName<T> implements Name,
         return this.valueConverter.parse(text, this);
     }
 
+    /**
+     * Validates the value.
+     */
+    public void checkValue(final Object value) {
+
+    }
+
     private final HeaderValueConverter<T> valueConverter;
 
     // Comparable......................................................................................................

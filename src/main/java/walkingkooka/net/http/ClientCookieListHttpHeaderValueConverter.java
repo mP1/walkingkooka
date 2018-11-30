@@ -47,6 +47,11 @@ final class ClientCookieListHttpHeaderValueConverter extends HttpHeaderValueConv
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkListOfType(value, ClientCookie.class);
+    }
+
+    @Override
     String format0(final List<ClientCookie> cookies, final Name name) {
         return ClientCookie.formatHeader(cookies);
     }

@@ -54,6 +54,11 @@ public final class HttpETagHeaderValueConverterTest extends
     }
 
     @Override
+    protected HttpETag value() {
+        return HttpETag.with("01234567890", HttpETagValidator.WEAK);
+    }
+
+    @Override
     protected String converterToString() {
         return HttpETag.class.getSimpleName();
     }

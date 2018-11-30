@@ -19,6 +19,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.naming.Name;
+import walkingkooka.net.http.cookie.ClientCookie;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,6 +47,11 @@ final class HttpMethodListHttpHeaderValueConverter extends HttpHeaderValueConver
         return Arrays.stream(value.split(","))
                 .map(m -> HttpMethod.with(m.trim()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    void check0(final Object value) {
+        this.checkListOfType(value, HttpMethod.class);
     }
 
     @Override
