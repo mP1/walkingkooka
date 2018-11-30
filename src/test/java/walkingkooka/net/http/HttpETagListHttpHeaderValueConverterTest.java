@@ -75,7 +75,7 @@ public final class HttpETagListHttpHeaderValueConverterTest extends
 
     @Override
     protected List<HttpETag> value() {
-        return HttpETag.parseMany("\"1\",\"2\"");
+        return HttpETag.parseList("\"1\",\"2\"");
     }
 
     @Override
