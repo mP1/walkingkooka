@@ -31,6 +31,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
@@ -505,9 +506,17 @@ public final class ContentDisposition implements HeaderValue, HashCodeEqualsDefi
 
     private final Map<ContentDispositionParameterName<?>, Object> parameters;
 
+    /**
+     * Makes a copy of the parameters and also checks the value.
+     */
     private static Map<ContentDispositionParameterName<?>, Object> checkParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
         final Map<ContentDispositionParameterName<?>, Object> copy = Maps.ordered();
-        copy.putAll(parameters);
+        for(Entry<ContentDispositionParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
+            final ContentDispositionParameterName name = nameAndValue.getKey();
+            final Object value = nameAndValue.getValue();
+            name.checkValue(value);
+            copy.put(name, value);
+        }
         return copy;
     }
 

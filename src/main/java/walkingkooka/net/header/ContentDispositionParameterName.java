@@ -199,7 +199,7 @@ final public class ContentDispositionParameterName<T> implements Name,
      * Validates the value.
      */
     public void checkValue(final Object value) {
-
+        this.valueConverter.check(value);
     }
 
     private final HeaderValueConverter<T> valueConverter;
