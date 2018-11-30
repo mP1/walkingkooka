@@ -63,6 +63,11 @@ final class LocalDateTimeHeaderValueConverter extends HeaderValueConverter2<Loca
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, LocalDateTime.class);
+    }
+
+    @Override
     String format0(final LocalDateTime value, final Name name) {
         return FORMATTER.format(value);
     }

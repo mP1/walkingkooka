@@ -43,9 +43,14 @@ public final class FloatHeaderValueConverterTest extends
         return HeaderParameterName.Q;
     }
 
-    protected @Override
-    String invalidHeaderValue() {
+    @Override
+    protected String invalidHeaderValue() {
         return "abc";
+    }
+
+    @Override
+    protected Float value() {
+        return 123.5f;
     }
 
     @Override

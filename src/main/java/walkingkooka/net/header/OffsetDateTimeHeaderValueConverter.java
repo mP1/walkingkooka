@@ -64,6 +64,11 @@ final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter2<Off
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, OffsetDateTime.class);
+    }
+
+    @Override
     String format0(final OffsetDateTime value, final Name name) {
         return FORMATTER.format(value);
     }

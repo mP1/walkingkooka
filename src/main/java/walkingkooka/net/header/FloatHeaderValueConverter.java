@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.net.email.EmailAddress;
 
 /**
  * A {@link HeaderValueConverter2} that parses a header value into a {@link Float}
@@ -40,6 +41,11 @@ final class FloatHeaderValueConverter extends HeaderValueConverter2<Float> {
     @Override
     Float parse0(final String value, final Name name) {
         return Float.parseFloat(value.trim());
+    }
+
+    @Override
+    void check0(final Object value) {
+        this.checkType(value, Float.class);
     }
 
     @Override

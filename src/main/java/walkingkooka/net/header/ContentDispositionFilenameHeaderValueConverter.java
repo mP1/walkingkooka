@@ -44,6 +44,11 @@ final class ContentDispositionFilenameHeaderValueConverter extends HeaderValueCo
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, ContentDispositionFilename.class);
+    }
+
+    @Override
     String format0(final ContentDispositionFilename value, final Name name) {
         return value.toString();
     }

@@ -20,7 +20,7 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.http.cookie.ClientCookie;
+import walkingkooka.net.header.HeaderValueException;
 
 import java.util.List;
 
@@ -51,6 +51,20 @@ public final class HttpMethodListHttpHeaderValueConverterTest extends
         this.parseAndCheck(headerValue, Lists.of(methods));
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesNullFails() {
+        this.check(Lists.of(this.method(), null));
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesWrongTypeFails() {
+        this.check(Lists.of(this.method(), "WRONG!"));
+    }
+
+    private HttpMethod method() {
+        return HttpMethod.GET;
+    }
+
     @Test
     public void testGetResponse() {
         this.formatAndCheck2("GET", HttpMethod.GET);
@@ -78,6 +92,11 @@ public final class HttpMethodListHttpHeaderValueConverterTest extends
     @Override
     protected String invalidHeaderValue() {
         return "/relative/url/must/fail";
+    }
+
+    @Override
+    protected List<HttpMethod> value() {
+        return Lists.of(HttpMethod.GET, HttpMethod.POST);
     }
 
     @Override

@@ -43,6 +43,11 @@ final class LongHeaderValueConverter extends HeaderValueConverter2<Long> {
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, Long.class);
+    }
+
+    @Override
     String format0(final Long value, final Name name) {
         return Long.toString(value);
     }

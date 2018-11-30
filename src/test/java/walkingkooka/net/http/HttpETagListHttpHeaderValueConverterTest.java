@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.HeaderValueException;
 
 import java.util.List;
 
@@ -43,6 +44,20 @@ public final class HttpETagListHttpHeaderValueConverterTest extends
                 HttpETag.with("456", HttpETagValidator.WEAK)), "W/\"123\", W/\"456\"");
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesNullFails() {
+        this.check(Lists.of(this.etag(), null));
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesWrongTypeFails() {
+        this.check(Lists.of(this.etag(), "WRONG!"));
+    }
+
+    private HttpETag etag() {
+        return HttpETag.with("value", HttpETagValidator.WEAK);
+    }
+
     @Override
     protected HttpETagListHttpHeaderValueConverter converter() {
         return HttpETagListHttpHeaderValueConverter.INSTANCE;
@@ -56,6 +71,11 @@ public final class HttpETagListHttpHeaderValueConverterTest extends
     @Override
     protected String invalidHeaderValue() {
         return "I/";
+    }
+
+    @Override
+    protected List<HttpETag> value() {
+        return HttpETag.parseMany("\"1\",\"2\"");
     }
 
     @Override

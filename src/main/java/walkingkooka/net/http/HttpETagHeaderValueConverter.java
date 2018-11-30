@@ -45,6 +45,11 @@ final class HttpETagHeaderValueConverter extends HttpHeaderValueConverter<HttpET
     }
 
     @Override
+    void check0(final Object value) {
+        this.checkType(value, HttpETag.class);
+    }
+
+    @Override
     String format0(final HttpETag value, final Name name) {
         return value.toString();
     }

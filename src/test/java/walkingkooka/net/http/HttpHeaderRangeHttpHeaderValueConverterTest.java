@@ -64,6 +64,11 @@ public final class HttpHeaderRangeHttpHeaderValueConverterTest extends
     }
 
     @Override
+    protected HttpHeaderRange value() {
+        return HttpHeaderRange.parse(TEXT);
+    }
+
+    @Override
     protected String converterToString() {
         return HttpHeaderRange.class.getSimpleName();
     }

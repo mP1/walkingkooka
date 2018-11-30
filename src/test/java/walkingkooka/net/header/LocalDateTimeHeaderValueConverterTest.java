@@ -60,6 +60,11 @@ public final class LocalDateTimeHeaderValueConverterTest extends
     }
 
     @Override
+    protected LocalDateTime value() {
+        return VALUE;
+    }
+
+    @Override
     protected String converterToString() {
         return LocalDateTime.class.getSimpleName();
     }

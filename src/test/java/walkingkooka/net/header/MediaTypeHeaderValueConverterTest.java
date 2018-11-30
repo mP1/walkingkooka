@@ -53,6 +53,11 @@ public final class MediaTypeHeaderValueConverterTest extends
     }
 
     @Override
+    protected MediaType value() {
+        return MediaType.parse("type1/sub1;p1=v1");
+    }
+
+    @Override
     protected String converterToString() {
         return MediaType.class.getSimpleName();
     }

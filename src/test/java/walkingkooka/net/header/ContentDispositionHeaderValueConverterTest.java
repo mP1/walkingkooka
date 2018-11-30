@@ -33,8 +33,7 @@ public final class ContentDispositionHeaderValueConverterTest extends
     @Test
     public void testHeader() {
         this.parseAndFormatAndCheck("attachment; filename=readme.txt",
-                ContentDisposition.with(ContentDispositionType.ATTACHMENT,
-                        Maps.one(ContentDispositionParameterName.FILENAME, ContentDispositionFilename.with("readme.txt"))));
+                this.value());
     }
 
     @Override
@@ -50,6 +49,12 @@ public final class ContentDispositionHeaderValueConverterTest extends
     @Override
     protected String invalidHeaderValue() {
         return "\0";
+    }
+
+    @Override
+    protected ContentDisposition value() {
+        return ContentDisposition.with(ContentDispositionType.ATTACHMENT,
+                Maps.one(ContentDispositionParameterName.FILENAME, ContentDispositionFilename.with("readme.txt")));
     }
 
     @Override

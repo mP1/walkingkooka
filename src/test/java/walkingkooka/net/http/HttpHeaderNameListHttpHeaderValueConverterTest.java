@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.header.HeaderValueException;
 
 import java.util.List;
 
@@ -48,6 +49,20 @@ public final class HttpHeaderNameListHttpHeaderValueConverterTest extends
 
     private void parseAndCheck2(final String value, final HttpHeaderName<?>... headers) {
         this.parseAndCheck(value, Lists.of(headers));
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesNullFails() {
+        this.check(Lists.of(this.header(), null));
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testCheckIncludesWrongTypeFails() {
+        this.check(Lists.of(this.header(), "WRONG!"));
+    }
+
+    private HttpHeaderName header() {
+        return HttpHeaderName.ACCEPT;
     }
 
     @Test
@@ -81,6 +96,11 @@ public final class HttpHeaderNameListHttpHeaderValueConverterTest extends
     @Override
     protected String invalidHeaderValue() {
         return "   ";
+    }
+
+    @Override
+    protected List<HttpHeaderName<?>> value() {
+        return Lists.of(HttpHeaderName.ACCEPT, HttpHeaderName.ACCEPT_LANGUAGE);
     }
 
     @Override
