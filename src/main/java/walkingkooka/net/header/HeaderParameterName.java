@@ -44,7 +44,7 @@ final public class HeaderParameterName<T> implements Name, HashCodeEqualsDefined
     /**
      * A read only cache of already prepared {@link HeaderParameterName names}. These constants are incomplete.
      */
-    final static Map<String, HeaderParameterName> CONSTANTS = Maps.sorted();
+    final static Map<String, HeaderParameterName> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
      * Creates and adds a new {@link HeaderParameterName} to the cache being built that handles float header values.

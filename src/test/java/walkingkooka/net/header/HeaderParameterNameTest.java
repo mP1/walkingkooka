@@ -28,6 +28,7 @@ import walkingkooka.text.CharSequences;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
 final public class HeaderParameterNameTest extends NameTestCase<HeaderParameterName<?>> {
@@ -60,6 +61,13 @@ final public class HeaderParameterNameTest extends NameTestCase<HeaderParameterN
     @Test
     public void testConstantNameReturnsConstant() {
         assertSame(HeaderParameterName.Q, HeaderParameterName.with(HeaderParameterName.Q.value()));
+    }
+
+    @Test
+    public void testConstantNameCaseInsensitiveReturnsConstant() {
+        final String differentCase = HeaderParameterName.Q.value().toLowerCase();
+        assertNotEquals(differentCase, HeaderParameterName.Q.value());
+        assertSame(HeaderParameterName.Q, HeaderParameterName.with(differentCase));
     }
 
     @Test(expected = NullPointerException.class)
