@@ -38,6 +38,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see ContentDispositionHeaderValueConverter}
+     */
+    public static HeaderValueConverter<ContentDisposition> contentDisposition() {
+        return ContentDispositionHeaderValueConverter.INSTANCE;
+    }
+    
+    /**
      * {@see ContentDispositionFilenameHeaderValueConverter}
      */
     public static HeaderValueConverter<ContentDispositionFilename> contentDispositionFilename() {

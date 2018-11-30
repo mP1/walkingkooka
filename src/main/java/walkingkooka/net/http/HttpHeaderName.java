@@ -26,6 +26,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.HeaderToken;
 import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
@@ -518,8 +519,9 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
      * </pre>
      */
-    public final static HttpHeaderName<String> CONTENT_DISPOSITION = registerStringConstant("Content-Disposition",
-            HttpHeaderScope.RESPONSE);
+    public final static HttpHeaderName<ContentDisposition> CONTENT_DISPOSITION = registerConstant("Content-Disposition",
+            HttpHeaderScope.REQUEST_RESPONSE,
+            HeaderValueConverters.contentDisposition());
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Encoding</code>
