@@ -47,6 +47,11 @@ public final class ContentDispositionTest extends HeaderValueTestCase<ContentDis
         ContentDisposition.with(TYPE, null);
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testWithInvalidParameterValueFails() {
+        ContentDisposition.with(TYPE, Maps.one(ContentDispositionParameterName.FILENAME, "invalid!"));
+    }
+
     @Test
     public void testWith() {
         final ContentDisposition token = this.contentDisposition();
