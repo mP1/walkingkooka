@@ -32,7 +32,7 @@ import java.util.Optional;
 /**
  * The {@link Name} of header parameter value.
  */
-final public class HeaderParameterName<T> implements Name, HashCodeEqualsDefined, Comparable<HeaderParameterName<?>> {
+final public class HeaderValueTokenParameterName<T> implements Name, HashCodeEqualsDefined, Comparable<HeaderValueTokenParameterName<?>> {
 
     /**
      * Constant returned when a parameter value is absent.
@@ -42,48 +42,48 @@ final public class HeaderParameterName<T> implements Name, HashCodeEqualsDefined
     // constants
 
     /**
-     * A read only cache of already prepared {@link HeaderParameterName names}. These constants are incomplete.
+     * A read only cache of already prepared {@link HeaderValueTokenParameterName names}. These constants are incomplete.
      */
-    final static Map<String, HeaderParameterName> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+    final static Map<String, HeaderValueTokenParameterName> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
-     * Creates and adds a new {@link HeaderParameterName} to the cache being built that handles float header values.
+     * Creates and adds a new {@link HeaderValueTokenParameterName} to the cache being built that handles float header values.
      */
-    private static HeaderParameterName<Float> registerFloatConstant(final String header) {
+    private static HeaderValueTokenParameterName<Float> registerFloatConstant(final String header) {
         return registerConstant(header, HeaderValueConverters.floatConverter());
     }
 
     /**
-     * Creates and adds a new {@link HeaderParameterName} to the cache being built.
+     * Creates and adds a new {@link HeaderValueTokenParameterName} to the cache being built.
      */
-    private static <T> HeaderParameterName<T> registerConstant(final String name, final HeaderValueConverter<T> headerValue) {
-        final HeaderParameterName<T> httpHeader = new HeaderParameterName<T>(name, headerValue);
-        HeaderParameterName.CONSTANTS.put(name, httpHeader);
+    private static <T> HeaderValueTokenParameterName<T> registerConstant(final String name, final HeaderValueConverter<T> headerValue) {
+        final HeaderValueTokenParameterName<T> httpHeader = new HeaderValueTokenParameterName<T>(name, headerValue);
+        HeaderValueTokenParameterName.CONSTANTS.put(name, httpHeader);
         return httpHeader;
     }
 
     /**
-     * A {@link HeaderParameterName} holding <code>Q</code>
+     * A {@link HeaderValueTokenParameterName} holding <code>Q</code>
      */
-    public final static HeaderParameterName<Float> Q = HeaderParameterName.registerFloatConstant("Q");
+    public final static HeaderValueTokenParameterName<Float> Q = HeaderValueTokenParameterName.registerFloatConstant("Q");
 
     /**
-     * Factory that creates a {@link HeaderParameterName}. If the parameter is not a constant it will
+     * Factory that creates a {@link HeaderValueTokenParameterName}. If the parameter is not a constant it will
      * assume all values are a {@link String}.
      */
-    public static HeaderParameterName<?> with(final String name) {
+    public static HeaderValueTokenParameterName<?> with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
 
-        final HeaderParameterName httpHeaderValueParameterName = CONSTANTS.get(name);
+        final HeaderValueTokenParameterName httpHeaderValueParameterName = CONSTANTS.get(name);
         return null != httpHeaderValueParameterName ?
                 httpHeaderValueParameterName :
-                new HeaderParameterName<String>(name, HeaderValueConverters.string());
+                new HeaderValueTokenParameterName<String>(name, HeaderValueConverters.string());
     }
 
     /**
      * Private constructor use factory.
      */
-    private HeaderParameterName(final String name, final HeaderValueConverter<T> valueConverter) {
+    private HeaderValueTokenParameterName(final String name, final HeaderValueConverter<T> valueConverter) {
         this.name = name;
         this.valueConverter = valueConverter;
     }
@@ -116,7 +116,7 @@ final public class HeaderParameterName<T> implements Name, HashCodeEqualsDefined
     // Comparable
 
     @Override
-    public int compareTo(final HeaderParameterName<?> other) {
+    public int compareTo(final HeaderValueTokenParameterName<?> other) {
         return this.name.compareToIgnoreCase(other.name);
     }
 
@@ -130,11 +130,11 @@ final public class HeaderParameterName<T> implements Name, HashCodeEqualsDefined
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HeaderParameterName &&
+                other instanceof HeaderValueTokenParameterName &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HeaderParameterName name) {
+    private boolean equals0(final HeaderValueTokenParameterName name) {
         return this.name.equalsIgnoreCase(name.name);
     }
 
