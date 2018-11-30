@@ -19,12 +19,11 @@
 package walkingkooka.net.http;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.header.HeaderToken;
 
 import java.util.List;
 
 /**
- * A {@link HttpHeaderValueConverter} that expects comma separated {@link HeaderToken tokens}.
+ * A {@link HttpHeaderValueConverter} that expects comma separated {@link HttpETag tags}.
  */
 final class HttpETagListHttpHeaderValueConverter extends HttpHeaderValueConverter<List<HttpETag>> {
 
