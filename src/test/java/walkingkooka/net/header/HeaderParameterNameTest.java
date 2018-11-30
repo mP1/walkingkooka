@@ -21,11 +21,8 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.text.CharSequences;
-
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -70,6 +67,8 @@ final public class HeaderParameterNameTest extends NameTestCase<HeaderParameterN
         assertSame(HeaderParameterName.Q, HeaderParameterName.with(differentCase));
     }
 
+    // parameterValue...........................................................................................
+
     @Test(expected = NullPointerException.class)
     public void testParameterValueNullFails() {
         HeaderParameterName.Q.parameterValue(null);
@@ -79,30 +78,25 @@ final public class HeaderParameterNameTest extends NameTestCase<HeaderParameterN
     public void testParameterValueFloat() {
         this.parameterValueAndCheck(HeaderParameterName.Q,
                 "0.75",
-                Optional.of(0.75f));
+                0.75f);
     }
 
     @Test
     public void testParameterValueString() {
         this.parameterValueAndCheck(Cast.to(HeaderParameterName.with("xyz")),
                 "abc",
-                Optional.of("abc"));
-    }
-
-    @Test
-    public void testParameterValueAbsent() {
-        this.parameterValueAndCheck(Cast.to(HeaderParameterName.with("parameter-absent")),
-                null,
-                HeaderParameterName.VALUE_ABSENT);
+                "abc");
     }
 
     private <T> void parameterValueAndCheck(final HeaderParameterName<T> name,
                                             final String headerValue,
-                                            final Optional<T> value) {
+                                            final T value) {
         assertEquals(name + "=" + CharSequences.quoteIfNecessary(headerValue),
                 value,
-                name.parameterValue(Maps.one(name, headerValue)));
+                name.parameterValue(headerValue));
     }
+
+    // toString.................................................................................................
 
     @Test
     public void testToString() {

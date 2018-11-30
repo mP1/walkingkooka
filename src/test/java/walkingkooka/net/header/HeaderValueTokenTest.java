@@ -57,6 +57,12 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
         HeaderValueToken.with(VALUE, null);
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testWithInvalidParametersValueFails() {
+        HeaderValueToken.with(VALUE,
+                this.parameters("Q", "INVALID!"));
+    }
+
     @Test
     public void testWith() {
         final HeaderValueToken token = this.token();
@@ -101,6 +107,11 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
         this.token().setParameters(null);
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testSetParametersInvalidParameterValueFails() {
+        this.token().setParameters(this.parameters("Q", "INVALID!"));
+    }
+
     @Test
     public void testSetParametersSame() {
         final HeaderValueToken token = this.token();
@@ -110,7 +121,7 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
     @Test
     public void testSetParametersDifferent() {
         final HeaderValueToken token = this.token();
-        final Map<HeaderParameterName<?>, String> parameters = this.parameters("different", "2");
+        final Map<HeaderParameterName<?>, Object> parameters = this.parameters("different", "2");
         this.check(token.setParameters(parameters), VALUE, parameters);
         this.check(token);
     }
@@ -496,9 +507,15 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
     @Test
     public void testParseSortedByQFactorWeight() {
         this.parseAndCheck("V1;q=0.5, V2;q=1.0, V3;q=0.25",
-                this.token("V2", "q", "1.0"),
-                this.token("V1", "q", "0.5"),
-                this.token("V3", "q", "0.25"));
+                this.token("V2", "q", 1.0f),
+                this.token("V1", "q", 0.5f),
+                this.token("V3", "q", 0.25f));
+    }
+
+    @Test
+    public void testParseInvalidParameterValueFails() {
+        this.parseFails("V;q=XYZ",
+                "Failed to convert \"Q\" value \"XYZ\", message: For input string: \"XYZ\"");
     }
 
     private void parseAndCheck(final String headerValue, final HeaderValueToken... tokens) {
@@ -591,46 +608,50 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
         return HeaderValueToken.with(value, HeaderValueToken.NO_PARAMETERS);
     }
 
-    private HeaderValueToken token(final String value, final String parameterName, final String parameterValue) {
+    private HeaderValueToken token(final String value,
+                                   final String parameterName,
+                                   final Object parameterValue) {
         return HeaderValueToken.with(value, this.parameters(parameterName, parameterValue));
     }
 
     private HeaderValueToken token(final String value,
                                    final String parameterName1,
-                                   final String parameterValue1,
+                                   final Object parameterValue1,
                                    final String parameterName2,
-                                   final String parameterValue2) {
+                                   final Object parameterValue2) {
         return HeaderValueToken.with(value,
                 this.parameters(parameterName1, parameterValue1, parameterName2, parameterValue2));
     }
 
-    private Map<HeaderParameterName<?>, String> parameters() {
+    private Map<HeaderParameterName<?>, Object> parameters() {
         return this.parameters("p1", PARAMETER_VALUE);
     }
 
-    private Map<HeaderParameterName<?>, String> parameters(final String name, final String value) {
+    private Map<HeaderParameterName<?>, Object> parameters(final String name,
+                                                           final Object value) {
         return this.parameters(HeaderParameterName.with(name), value);
     }
 
-    private Map<HeaderParameterName<?>, String> parameters(final HeaderParameterName<?> name, final String value) {
+    private Map<HeaderParameterName<?>, Object> parameters(final HeaderParameterName<?> name,
+                                                           final Object value) {
         return Maps.one(name, value);
     }
 
-    private Map<HeaderParameterName<?>, String> parameters(final String name1,
-                                                           final String value1,
+    private Map<HeaderParameterName<?>, Object> parameters(final String name1,
+                                                           final Object value1,
                                                            final String name2,
-                                                           final String value2) {
+                                                           final Object value2) {
         return this.parameters(HeaderParameterName.with(name1),
                 value1,
                 HeaderParameterName.with(name2),
                 value2);
     }
 
-    private Map<HeaderParameterName<?>, String> parameters(final HeaderParameterName<?> name1,
-                                                           final String value1,
+    private Map<HeaderParameterName<?>, Object> parameters(final HeaderParameterName<?> name1,
+                                                           final Object value1,
                                                            final HeaderParameterName<?> name2,
-                                                           final String value2) {
-        final Map<HeaderParameterName<?>, String> parameters = Maps.ordered();
+                                                           final Object value2) {
+        final Map<HeaderParameterName<?>, Object> parameters = Maps.ordered();
         parameters.put(name1, value1);
         parameters.put(name2, value2);
         return parameters;
@@ -640,7 +661,9 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
         this.check(token, VALUE, token.parameters());
     }
 
-    private void check(final HeaderValueToken token, final String value, final Map<HeaderParameterName<?>, String> parameters) {
+    private void check(final HeaderValueToken token,
+                       final String value,
+                       final Map<HeaderParameterName<?>, Object> parameters) {
         assertEquals("value", value, token.value());
         assertEquals("parameters", parameters, token.parameters());
     }

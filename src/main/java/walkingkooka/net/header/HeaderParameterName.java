@@ -68,8 +68,8 @@ final public class HeaderParameterName<T> implements Name, HashCodeEqualsDefined
     public final static HeaderParameterName<Float> Q = HeaderParameterName.registerFloatConstant("Q");
 
     /**
-     * Factory that creates a {@link HeaderParameterName}. If the {@link #parameterValue} is not a constant
-     * it will return {@link String}.
+     * Factory that creates a {@link HeaderParameterName}. If the parameter is not a constant it will
+     * assume all values are a {@link String}.
      */
     public static HeaderParameterName<?> with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
@@ -95,17 +95,20 @@ final public class HeaderParameterName<T> implements Name, HashCodeEqualsDefined
 
     private final String name;
 
+    /**
+     * Accepts text and converts it into its value.
+     */
+    public T parameterValue(final String text) {
+        Objects.requireNonNull(text, "text");
+
+        return this.valueConverter.parse(text, this);
+    }
 
     /**
-     * Type safe getter that retrieves a parameter value.
+     * Validates the value.
      */
-    public Optional<T> parameterValue(final Map<HeaderParameterName<?>, String> parameters) {
-        Objects.requireNonNull(parameters, "parameters");
-
-        final String value = parameters.get(this);
-        return null != value ?
-                Optional.of(this.valueConverter.parse(value, this)) :
-                Optional.empty();
+    public void checkValue(final Object value) {
+        this.valueConverter.check(value);
     }
 
     private final HeaderValueConverter<T> valueConverter;
