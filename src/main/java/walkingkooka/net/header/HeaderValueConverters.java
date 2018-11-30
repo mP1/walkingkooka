@@ -66,10 +66,10 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see HttpHeaderValueHeaderTokenListConverter}
+     * {@see HeaderValueTokenListHeaderValueConverter}
      */
-    public static HeaderValueConverter<List<HeaderToken>> headerTokenList() {
-        return HeaderTokenListHeaderValueConverter.INSTANCE;
+    public static HeaderValueConverter<List<HeaderValueToken>> headerValueTokenList() {
+        return HeaderValueTokenListHeaderValueConverter.INSTANCE;
     }
     
     /**

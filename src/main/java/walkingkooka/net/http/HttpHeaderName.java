@@ -27,7 +27,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ContentDisposition;
-import walkingkooka.net.header.HeaderToken;
+import walkingkooka.net.header.HeaderValueToken;
 import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.MediaType;
@@ -171,9 +171,9 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles list of {@link String} header values.
      */
-    private static HttpHeaderName<List<HeaderToken>> registerTokenListConstant(final String header,
-                                                                               final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HeaderValueConverters.headerTokenList());
+    private static HttpHeaderName<List<HeaderValueToken>> registerTokenListConstant(final String header,
+                                                                                    final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HeaderValueConverters.headerValueTokenList());
     }
 
     /**
@@ -213,7 +213,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Accept-Charset: utf-8, iso-8859-1;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderToken>> ACCEPT_CHARSET = registerTokenListConstant("Accept-Charset",
+    public final static HttpHeaderName<List<HeaderValueToken>> ACCEPT_CHARSET = registerTokenListConstant("Accept-Charset",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -230,7 +230,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderToken>> ACCEPT_ENCODING = registerTokenListConstant("Accept-Encoding",
+    public final static HttpHeaderName<List<HeaderValueToken>> ACCEPT_ENCODING = registerTokenListConstant("Accept-Encoding",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -244,7 +244,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderToken>> ACCEPT_LANGUAGE = registerTokenListConstant("Accept-Language",
+    public final static HttpHeaderName<List<HeaderValueToken>> ACCEPT_LANGUAGE = registerTokenListConstant("Accept-Language",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -449,7 +449,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * TE: trailers, deflate;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderToken>> TE = registerTokenListConstant("TE",
+    public final static HttpHeaderName<List<HeaderValueToken>> TE = registerTokenListConstant("TE",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -548,7 +548,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Content-Language: de-DE, en-CA
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderToken>> CONTENT_LANGUAGE = registerTokenListConstant("Content-Language",
+    public final static HttpHeaderName<List<HeaderValueToken>> CONTENT_LANGUAGE = registerTokenListConstant("Content-Language",
             HttpHeaderScope.RESPONSE);
 
     /**
@@ -675,7 +675,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
      * Transfer-Encoding: gzip, chunked
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderToken>> TRANSFER_ENCODING = registerTokenListConstant("Transfer-Encoding",
+    public final static HttpHeaderName<List<HeaderValueToken>> TRANSFER_ENCODING = registerTokenListConstant("Transfer-Encoding",
             HttpHeaderScope.RESPONSE);
 
     /**

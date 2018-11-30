@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 /**
  * Holds a simple header value, and any accompanying parameters.
  */
-public final class HeaderToken implements HeaderValue,
+public final class HeaderValueToken implements HeaderValue,
         HashCodeEqualsDefined,
         Value<String>,
         HasQFactorWeight,
@@ -74,14 +74,14 @@ public final class HeaderToken implements HeaderValue,
      * Accept-Charset: utf-8, iso-8859-1;q=0.5
      * </pre>
      */
-    public static List<HeaderToken> parse(final String text) {
+    public static List<HeaderValueToken> parse(final String text) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
         final char parameterSeparator = PARAMETER_SEPARATOR.character();
         final char parameterNameValueSeparator = PARAMETER_NAME_VALUE_SEPARATOR.character();
         final char separator = SEPARATOR.character();
 
-        final List<HeaderToken> tokens = Lists.array();
+        final List<HeaderValueToken> tokens = Lists.array();
 
         int mode = MODE_VALUE;
         int start = 0;
@@ -109,7 +109,7 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (separator == c) {
-                        tokens.add(new HeaderToken(value(text, start, i), NO_PARAMETERS));
+                        tokens.add(new HeaderValueToken(value(text, start, i), NO_PARAMETERS));
                         mode = MODE_SEPARATOR;
                         break;
                     }
@@ -125,7 +125,7 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if(separator==c) {
-                        tokens.add(new HeaderToken(value, NO_PARAMETERS));
+                        tokens.add(new HeaderValueToken(value, NO_PARAMETERS));
                         mode = MODE_SEPARATOR;
                         start = i;
                         break;
@@ -137,7 +137,7 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (separator == c) {
-                        tokens.add(new HeaderToken(value(text, start, i), NO_PARAMETERS));
+                        tokens.add(new HeaderValueToken(value(text, start, i), NO_PARAMETERS));
                         mode = MODE_VALUE;
                         start = i + 1;
                         break;
@@ -208,7 +208,7 @@ public final class HeaderToken implements HeaderValue,
                     }
                     if (separator == c) {
                         parameters.put(parameterName, parameterValue(text, start, i));
-                        tokens.add(new HeaderToken(value, parameters));
+                        tokens.add(new HeaderValueToken(value, parameters));
                         mode = MODE_SEPARATOR;
                         break;
                     }
@@ -223,7 +223,7 @@ public final class HeaderToken implements HeaderValue,
                         break;
                     }
                     if (separator == c) {
-                        tokens.add(new HeaderToken(value, parameters));
+                        tokens.add(new HeaderValueToken(value, parameters));
                         mode = MODE_VALUE;
                         start = i + 1;
                         break;
@@ -247,20 +247,20 @@ public final class HeaderToken implements HeaderValue,
 
         switch (mode) {
             case MODE_VALUE:
-                tokens.add(new HeaderToken(value(text, start, i), NO_PARAMETERS));
+                tokens.add(new HeaderValueToken(value(text, start, i), NO_PARAMETERS));
                 break;
             case MODE_VALUE_WHITESPACE:
-                tokens.add(new HeaderToken(value, NO_PARAMETERS));
+                tokens.add(new HeaderValueToken(value, NO_PARAMETERS));
                 break;
             case MODE_PARAMETER_NAME_WHITESPACE:
             case MODE_PARAMETER_EQUALS_WHITESPACE:
                 failEmptyToken(PARAMETER_VALUE, i-1, text);
             case MODE_PARAMETER_VALUE:
                 parameters.put(parameterName, parameterValue(text, start, i));
-                tokens.add(new HeaderToken(value, parameters));
+                tokens.add(new HeaderValueToken(value, parameters));
                 break;
             case MODE_PARAMETER_VALUE_WHITESPACE:
-                tokens.add(new HeaderToken(value, parameters));
+                tokens.add(new HeaderValueToken(value, parameters));
                 break;
             case MODE_SEPARATOR:
                 failEmptyToken(VALUE, i, text);
@@ -346,7 +346,7 @@ public final class HeaderToken implements HeaderValue,
     /**
      * Formats a list of tokens, basically the inverse of {@link #parse(String)}
      */
-    public static String format(final List<HeaderToken> tokens) {
+    public static String format(final List<HeaderValueToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
         return tokens.stream()
@@ -355,18 +355,18 @@ public final class HeaderToken implements HeaderValue,
     }
 
     /**
-     * Factory that creates a new {@link HeaderToken}
+     * Factory that creates a new {@link HeaderValueToken}
      */
-    public static HeaderToken with(final String value, final Map<HeaderParameterName<?>, String> parameters) {
+    public static HeaderValueToken with(final String value, final Map<HeaderParameterName<?>, String> parameters) {
         CharPredicates.failIfNullOrEmptyOrFalse(value, "token value", CharPredicates.rfc2045Token());
 
-        return new HeaderToken(value, checkParameters(parameters));
+        return new HeaderValueToken(value, checkParameters(parameters));
     }
 
     /**
      * Private ctor use factory
      */
-    private HeaderToken(final String value, final Map<HeaderParameterName<?>, String> parameters) {
+    private HeaderValueToken(final String value, final Map<HeaderParameterName<?>, String> parameters) {
         super();
         this.value = value;
         this.parameters = parameters;
@@ -379,7 +379,7 @@ public final class HeaderToken implements HeaderValue,
         return this.value;
     }
 
-    public HeaderToken setValue(final String value) {
+    public HeaderValueToken setValue(final String value) {
         checkValue(value);
 
         return this.value.equals(value) ?
@@ -404,7 +404,7 @@ public final class HeaderToken implements HeaderValue,
         return this.parameters;
     }
 
-    public HeaderToken setParameters(final Map<HeaderParameterName<?>, String> parameters) {
+    public HeaderValueToken setParameters(final Map<HeaderParameterName<?>, String> parameters) {
         final Map<HeaderParameterName<?>, String> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
                 this :
@@ -421,8 +421,8 @@ public final class HeaderToken implements HeaderValue,
 
     // replace ...........................................................................................................
 
-    private HeaderToken replace(final String value, final Map<HeaderParameterName<?>, String> parameters) {
-        return new HeaderToken(value, parameters);
+    private HeaderValueToken replace(final String value, final Map<HeaderParameterName<?>, String> parameters) {
+        return new HeaderValueToken(value, parameters);
     }
 
     // HasQFactorWeight................................................................................................
@@ -449,11 +449,11 @@ public final class HeaderToken implements HeaderValue,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HeaderToken &&
+                other instanceof HeaderValueToken &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HeaderToken other) {
+    private boolean equals0(final HeaderValueToken other) {
         return this.value.equals(other.value) &&
                 this.parameters.equals(other.parameters);
     }
