@@ -232,7 +232,7 @@ public final class ContentDisposition implements HeaderValue, HashCodeEqualsDefi
             case MODE_TYPE_WHITESPACE:
             case MODE_PARAMETER_SEPARATOR:
             case MODE_PARAMETER_SEPARATOR_WHITESPACE:
-                content = new ContentDisposition(type, ContentDisposition.NO_PARAMETERS);
+                content = new ContentDisposition(type, parameters);
                 break;
             case MODE_PARAMETER_NAME:
             case MODE_PARAMETER_NAME_WHITESPACE:

@@ -291,6 +291,13 @@ public final class ContentDispositionTest extends HeaderValueTestCase<ContentDis
     }
 
     @Test
+    public void testParseTypeParameterSeparator() {
+        this.parseAndCheck("A;bcd=123;",
+                "A",
+                "bcd", "123");
+    }
+
+    @Test
     public void testParseTypeParameterTab() {
         this.parseAndCheck("A;bcd=123\t",
                 "A",
@@ -347,7 +354,7 @@ public final class ContentDispositionTest extends HeaderValueTestCase<ContentDis
     }
 
     @Test
-    public void testParseTypeParameterSeparatorValue() {
+    public void testParseTypeParameterSeparatorParameterNameFails() {
         final String text = "A;b=c;D";
         this.parseFails(text,
                 ContentDisposition.emptyToken(ContentDisposition.PARAMETER_VALUE,
