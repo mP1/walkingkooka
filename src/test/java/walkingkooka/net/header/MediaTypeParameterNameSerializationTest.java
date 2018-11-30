@@ -19,9 +19,15 @@
 package walkingkooka.net.header;
 
 
+import org.junit.Test;
 import walkingkooka.test.SerializationTestCase;
 
 final public class MediaTypeParameterNameSerializationTest extends SerializationTestCase<MediaTypeParameterName> {
+
+    @Test
+    public void testSingletons() throws Exception {
+        this.constantsAreSingletons();
+    }
 
     @Override
     protected Class<MediaTypeParameterName> type() {
