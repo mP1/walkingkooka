@@ -35,12 +35,14 @@ import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Holds a simple header value, and any accompanying parameters.
+ * Holds a simple header value, and any accompanying parameters. Parameter values will be of the type
+ * compatible with each parameter name.
  */
 public final class HeaderValueToken implements HeaderValue,
         HashCodeEqualsDefined,
@@ -51,7 +53,7 @@ public final class HeaderValueToken implements HeaderValue,
     /**
      * A constants with no parameters.
      */
-    public final static Map<HeaderParameterName<?>, String> NO_PARAMETERS = Maps.empty();
+    public final static Map<HeaderParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
      * The separator between parameter name and value.
@@ -88,7 +90,7 @@ public final class HeaderValueToken implements HeaderValue,
 
         String value = null;
         HeaderParameterName<?> parameterName = null;
-        Map<HeaderParameterName<?>, String> parameters = NO_PARAMETERS;
+        Map<HeaderParameterName<?>, Object> parameters = NO_PARAMETERS;
 
         int i = 0;
         final int length = text.length();
@@ -195,19 +197,19 @@ public final class HeaderValueToken implements HeaderValue,
                         break;
                     }
                     if (WHITESPACE.test(c)) {
-                        parameters.put(parameterName, parameterValue(text, start, i));
+                        addParameterValue(text, start, i, parameterName, parameters);
                         mode = MODE_PARAMETER_VALUE_WHITESPACE;
                         start = i + 1;
                         break;
                     }
                     if (parameterSeparator == c) {
-                        parameters.put(parameterName, parameterValue(text, start, i));
+                        addParameterValue(text, start, i, parameterName, parameters);
                         mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
                         start = i + 1;
                         break;
                     }
                     if (separator == c) {
-                        parameters.put(parameterName, parameterValue(text, start, i));
+                        addParameterValue(text, start, i, parameterName, parameters);
                         tokens.add(new HeaderValueToken(value, parameters));
                         mode = MODE_SEPARATOR;
                         break;
@@ -256,7 +258,7 @@ public final class HeaderValueToken implements HeaderValue,
             case MODE_PARAMETER_EQUALS_WHITESPACE:
                 failEmptyToken(PARAMETER_VALUE, i-1, text);
             case MODE_PARAMETER_VALUE:
-                parameters.put(parameterName, parameterValue(text, start, i));
+                addParameterValue(text, start, i, parameterName, parameters);
                 tokens.add(new HeaderValueToken(value, parameters));
                 break;
             case MODE_PARAMETER_VALUE_WHITESPACE:
@@ -320,10 +322,16 @@ public final class HeaderValueToken implements HeaderValue,
     }
 
     /**
-     * Extracts the parameter value.
+     * Extracts the parameter value, converts it, and then adds it to the parameters.
      */
-    private static String parameterValue(final String text, final int start, final int end) {
-        return token(PARAMETER_VALUE, text, start, end);
+    private static void addParameterValue(final String text,
+                                          final int start,
+                                          final int end,
+                                          final HeaderParameterName<?> name,
+                                          final Map<HeaderParameterName<?>, Object> parameters) {
+        parameters.put(name,
+                name.parameterValue(
+                        token(PARAMETER_VALUE, text, start, end)));
     }
 
     /**
@@ -357,7 +365,7 @@ public final class HeaderValueToken implements HeaderValue,
     /**
      * Factory that creates a new {@link HeaderValueToken}
      */
-    public static HeaderValueToken with(final String value, final Map<HeaderParameterName<?>, String> parameters) {
+    public static HeaderValueToken with(final String value, final Map<HeaderParameterName<?>, Object> parameters) {
         CharPredicates.failIfNullOrEmptyOrFalse(value, "token value", CharPredicates.rfc2045Token());
 
         return new HeaderValueToken(value, checkParameters(parameters));
@@ -366,7 +374,7 @@ public final class HeaderValueToken implements HeaderValue,
     /**
      * Private ctor use factory
      */
-    private HeaderValueToken(final String value, final Map<HeaderParameterName<?>, String> parameters) {
+    private HeaderValueToken(final String value, final Map<HeaderParameterName<?>, Object> parameters) {
         super();
         this.value = value;
         this.parameters = parameters;
@@ -400,28 +408,33 @@ public final class HeaderValueToken implements HeaderValue,
      *
      * @return
      */
-    public Map<HeaderParameterName<?>, String> parameters() {
+    public Map<HeaderParameterName<?>, Object> parameters() {
         return this.parameters;
     }
 
-    public HeaderValueToken setParameters(final Map<HeaderParameterName<?>, String> parameters) {
-        final Map<HeaderParameterName<?>, String> copy = checkParameters(parameters);
+    public HeaderValueToken setParameters(final Map<HeaderParameterName<?>, Object> parameters) {
+        final Map<HeaderParameterName<?>, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
                 this :
                 this.replace(this.value, copy);
     }
 
-    private final Map<HeaderParameterName<?>, String> parameters;
+    private final Map<HeaderParameterName<?>, Object> parameters;
 
-    private static Map<HeaderParameterName<?>, String> checkParameters(final Map<HeaderParameterName<?>, String> parameters) {
-        final Map<HeaderParameterName<?>, String> copy = Maps.ordered();
-        copy.putAll(parameters);
+    private static Map<HeaderParameterName<?>, Object> checkParameters(final Map<HeaderParameterName<?>, Object> parameters) {
+        final Map<HeaderParameterName<?>, Object> copy = Maps.ordered();
+        for(Entry<HeaderParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
+            final HeaderParameterName<?> name = nameAndValue.getKey();
+            final Object value = nameAndValue.getValue();
+            name.checkValue(value);
+            copy.put(name, value);
+        }
         return copy;
     }
 
     // replace ...........................................................................................................
 
-    private HeaderValueToken replace(final String value, final Map<HeaderParameterName<?>, String> parameters) {
+    private HeaderValueToken replace(final String value, final Map<HeaderParameterName<?>, Object> parameters) {
         return new HeaderValueToken(value, parameters);
     }
 
@@ -429,7 +442,7 @@ public final class HeaderValueToken implements HeaderValue,
 
     @Override
     public Optional<Float> qFactorWeight() {
-        return HeaderParameterName.Q.parameterValue(this.parameters);
+        return Optional.ofNullable(Float.class.cast(this.parameters.get(HeaderParameterName.Q)));
     }
 
     // HeaderValue .............................................................................................

@@ -49,15 +49,15 @@ public final class HeaderValueTokenEqualityTest extends HashCodeEqualsDefinedEqu
         return HeaderValueToken.with(VALUE, parameters());
     }
 
-    private Map<HeaderParameterName<?>, String> parameters() {
+    private Map<HeaderParameterName<?>, Object> parameters() {
         return this.parameters("p1", PARAMETER_VALUE);
     }
 
-    private Map<HeaderParameterName<?>, String> parameters(final String name, final String value) {
+    private Map<HeaderParameterName<?>, Object> parameters(final String name, final Object value) {
         return this.parameters(HeaderParameterName.with(name), value);
     }
 
-    private Map<HeaderParameterName<?>, String> parameters(final HeaderParameterName<?> name, final String value) {
+    private Map<HeaderParameterName<?>, Object> parameters(final HeaderParameterName<?> name, final Object value) {
         return Maps.one(name, value);
     }
 }
