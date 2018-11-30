@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 final public class MediaTypeParameterNameTest extends NameTestCase<MediaTypeParameterName> {
 
@@ -43,6 +45,19 @@ final public class MediaTypeParameterNameTest extends NameTestCase<MediaTypePara
     @Test
     public void testWith() {
         this.createNameAndCheck("abc123");
+    }
+
+    @Test
+    public void testConstantNameReturnsConstant() {
+        assertSame(MediaTypeParameterName.Q_FACTOR,
+                MediaTypeParameterName.with(MediaTypeParameterName.Q_FACTOR.value()));
+    }
+
+    @Test
+    public void testConstantNameCaseInsensitiveReturnsConstant() {
+        final String differentCase = MediaTypeParameterName.Q_FACTOR.value().toUpperCase();
+        assertNotEquals(differentCase, MediaTypeParameterName.Q_FACTOR.value());
+        assertSame(MediaTypeParameterName.Q_FACTOR, MediaTypeParameterName.with(differentCase));
     }
 
     @Test

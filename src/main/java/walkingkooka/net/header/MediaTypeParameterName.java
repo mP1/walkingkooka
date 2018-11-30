@@ -19,10 +19,12 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.Serializable;
+import java.util.Map;
 
 
 /**
@@ -33,15 +35,31 @@ final public class MediaTypeParameterName implements Name, Comparable<MediaTypeP
 
     private final static long serialVersionUID = 1L;
 
+    // constants
+
+    /**
+     * A read only cache of already prepared {@link MediaTypeParameterName names}. These constants are incomplete.
+     */
+    final static Map<String, MediaTypeParameterName> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+
+    /**
+     * Creates and adds a new {@link MediaTypeParameterName} to the cache being built.
+     */
+    private static MediaTypeParameterName registerConstant(final String name) {
+        final MediaTypeParameterName parameterName = new MediaTypeParameterName(name);
+        MediaTypeParameterName.CONSTANTS.put(name, parameterName);
+        return parameterName;
+    }
+
     /**
      * Holds the charset parameter name.
      */
-    public final static MediaTypeParameterName CHARSET = MediaTypeParameterName.with("charset");
+    public final static MediaTypeParameterName CHARSET = registerConstant("charset");
 
     /**
      * The q factor weight parameter.
      */
-    public final static MediaTypeParameterName Q_FACTOR = MediaTypeParameterName.with("q");
+    public final static MediaTypeParameterName Q_FACTOR = registerConstant("q");
 
     /**
      * Factory that creates a {@link MediaTypeParameterName}
@@ -49,7 +67,10 @@ final public class MediaTypeParameterName implements Name, Comparable<MediaTypeP
     public static MediaTypeParameterName with(final String value) {
         MediaType.check(value, "value");
 
-        return new MediaTypeParameterName(value);
+        final MediaTypeParameterName parameterName = CONSTANTS.get(value);
+        return null != parameterName ?
+                parameterName :
+                new MediaTypeParameterName(value);
     }
 
     /**
@@ -97,5 +118,14 @@ final public class MediaTypeParameterName implements Name, Comparable<MediaTypeP
     @Override
     public String toString() {
         return this.value;
+    }
+
+    // Serializable .................................................................................................
+
+    private Object readResolve() {
+        final MediaTypeParameterName parameterName = CONSTANTS.get(value);
+        return null != parameterName ?
+                parameterName :
+                this;
     }
 }
