@@ -26,7 +26,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public final class HttpETagManyParserTest extends HttpETagParserTestCase<HttpETagManyParser> {
+public final class HttpETagListParserTest extends HttpETagParserTestCase<HttpETagListParser> {
 
     @Test
     public final void testSeparatorFails() {
@@ -110,18 +110,18 @@ public final class HttpETagManyParserTest extends HttpETagParserTestCase<HttpETa
     final void parseAndCheck2(final String text, final HttpETag... tags) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(text),
                 Lists.of(tags),
-                HttpETagManyParser.parseMany(text));
+                HttpETagListParser.parseList(text));
     }
 
     @Override
     HttpETag parseOne(final String text) {
-        final List<HttpETag> tags = HttpETagManyParser.parseMany(text);
+        final List<HttpETag> tags = HttpETagListParser.parseList(text);
         assertEquals("expected one tag =" + CharSequences.quote(text) + "=" + tags, 1, tags.size());
         return tags.get(0);
     }
 
     @Override
-    protected Class<HttpETagManyParser> type() {
-        return HttpETagManyParser.class;
+    protected Class<HttpETagListParser> type() {
+        return HttpETagListParser.class;
     }
 }

@@ -42,7 +42,7 @@ final class HttpETagListHttpHeaderValueConverter extends HttpHeaderValueConverte
 
     @Override
     List<HttpETag> parse0(final String value, final Name name) {
-        return HttpETag.parseMany(value);
+        return HttpETag.parseList(value);
     }
 
     @Override
