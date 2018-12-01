@@ -24,7 +24,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
@@ -46,7 +45,6 @@ import java.util.stream.Collectors;
 final public class MediaType implements HeaderValue,
         Value<String>,
         HasQFactorWeight,
-        HashCodeEqualsDefined,
         Serializable {
 
     /**

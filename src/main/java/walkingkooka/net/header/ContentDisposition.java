@@ -26,7 +26,6 @@ import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
@@ -38,7 +37,7 @@ import java.util.Objects;
  * Represents a content disposition header and its component values.<br>
  * <a href="https://en.wikipedia.org/wiki/MIME#Content-Disposition"></a>
  */
-public final class ContentDisposition implements HeaderValue, HashCodeEqualsDefined, UsesToStringBuilder {
+public final class ContentDisposition implements HeaderValue, UsesToStringBuilder {
 
     /**
      * A constants with no parameters.

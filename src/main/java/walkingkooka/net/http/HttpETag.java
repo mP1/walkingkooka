@@ -21,7 +21,6 @@ package walkingkooka.net.http;
 import walkingkooka.Value;
 import walkingkooka.net.header.HeaderValue;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
@@ -33,7 +32,6 @@ import java.util.stream.Collectors;
  * <a href="https://en.wikipedia.org/wiki/HTTP_ETag"></a>
  */
 public abstract class HttpETag implements HeaderValue,
-        HashCodeEqualsDefined,
         Value<String> {
 
     /**

@@ -25,7 +25,6 @@ import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
 import walkingkooka.net.header.HeaderValue;
 import walkingkooka.net.header.HeaderValueException;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
@@ -39,8 +38,7 @@ import java.util.stream.Collectors;
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range"></a>
  */
 public final class HttpHeaderRange implements HeaderValue,
-        Value<List<Range<Long>>>,
-        HashCodeEqualsDefined {
+        Value<List<Range<Long>>> {
 
     public final static CharacterConstant ASSIGNMENT = CharacterConstant.with('=');
 

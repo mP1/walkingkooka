@@ -29,7 +29,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
@@ -45,7 +44,6 @@ import java.util.stream.Collectors;
  * compatible with each parameter name.
  */
 public final class HeaderValueToken implements HeaderValue,
-        HashCodeEqualsDefined,
         Value<String>,
         HasQFactorWeight,
         UsesToStringBuilder {
