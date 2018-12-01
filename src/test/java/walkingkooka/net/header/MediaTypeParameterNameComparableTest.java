@@ -37,7 +37,7 @@ final public class MediaTypeParameterNameComparableTest extends ComparableTestCa
 
     @Test
     public void testDifferentCase() {
-        this.checkNotEquals(MediaTypeParameterName.with("PARAMETER"));
+        this.checkEquals(MediaTypeParameterName.with("PARAMETER"));
     }
 
 
