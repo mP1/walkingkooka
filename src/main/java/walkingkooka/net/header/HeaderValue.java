@@ -18,10 +18,12 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.test.HashCodeEqualsDefined;
+
 /**
  * Contract implemented by header value types.
  */
-public interface HeaderValue {
+public interface HeaderValue extends HashCodeEqualsDefined {
 
     /**
      * Converts this value to its text form.
