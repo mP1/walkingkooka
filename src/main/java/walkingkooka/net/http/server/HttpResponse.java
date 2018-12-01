@@ -18,13 +18,14 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 
 /**
  * Defines a HTTP response.
  */
-public interface HttpResponse {
+public interface HttpResponse extends HasHeaders {
 
     /**
      * Sets the response status

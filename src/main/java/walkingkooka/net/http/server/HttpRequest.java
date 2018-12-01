@@ -21,6 +21,7 @@ package walkingkooka.net.http.server;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -33,7 +34,7 @@ import java.util.Map;
 /**
  * Defines a HTTP request.
  */
-public interface HttpRequest {
+public interface HttpRequest extends HasHeaders {
 
     /**
      * An empty {@link Map} with no headers.
@@ -69,11 +70,6 @@ public interface HttpRequest {
      * Returns the {@link HttpMethod method} used to make the request.
      */
     HttpMethod method();
-
-    /**
-     * Returns a {@link Map} view of all request headers.
-     */
-    Map<HttpHeaderName<?>, String> headers();
 
     /**
      * Returns all cookies that appear in the request.
