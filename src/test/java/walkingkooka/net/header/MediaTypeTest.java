@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
@@ -36,6 +37,8 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
 
     private final static String TYPE = "type";
     private final static String SUBTYPE = "subtype";
+    private final static String PARAMETER_NAME = "parameter123";
+    private final static String PARAMETER_VALUE = "value456";
 
     // tests
 
@@ -94,6 +97,20 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
         check(MediaType.with(MediaType.WILDCARD, MediaType.WILDCARD), MediaType.WILDCARD, MediaType.WILDCARD);
     }
 
+    // constants .........................................................................
+
+    @Test
+    public void testWithExistingConstant() {
+        final MediaType constant = MediaType.APPLICATION_JAVASCRIPT;
+        assertSame(constant, MediaType.with(constant.type().toUpperCase(), constant.subType().toUpperCase()));
+    }
+
+    @Test
+    public void testWithExistingConstant2() {
+        final MediaType constant = MediaType.APPLICATION_JAVASCRIPT;
+        assertSame(constant, MediaType.with(constant.type().toLowerCase(), constant.subType().toLowerCase()));
+    }
+
     // setType .........................................................................
 
     @Test(expected = NullPointerException.class)
@@ -120,6 +137,13 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     public void testSetTypeSame() {
         final MediaType mediaType = this.mediaType();
         assertSame(mediaType, mediaType.setType(TYPE));
+    }
+
+    @Test
+    public void testSetTypeSameDifferentCase() {
+        final MediaType mediaType = this.mediaType();
+        assertNotEquals(TYPE, TYPE.toUpperCase());
+        assertSame(mediaType, mediaType.setType(TYPE.toUpperCase()));
     }
 
     @Test
@@ -159,6 +183,13 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     }
 
     @Test
+    public void testSetSubTypeSameDifferentCase() {
+        final MediaType mediaType = this.mediaType();
+        assertNotEquals(SUBTYPE, SUBTYPE.toUpperCase());
+        assertSame(mediaType, mediaType.setSubType(SUBTYPE.toUpperCase()));
+    }
+
+    @Test
     public void testSetSubTypeDifferent() {
         final MediaType mediaType = this.mediaType();
         final String subtype = "different";
@@ -177,6 +208,15 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     public void testSetParametersSame() {
         final MediaType mediaType = this.mediaType();
         assertSame(mediaType, mediaType.setParameters(parameters()));
+    }
+
+    @Test
+    public void testSetParametersSameDifferentCase() {
+        final MediaType mediaType = this.mediaType();
+
+        final String parameter = PARAMETER_NAME.toUpperCase();
+        assertNotEquals(parameter, PARAMETER_NAME);
+        assertSame(mediaType, mediaType.setParameters(this.parameters(parameter, PARAMETER_VALUE)));
     }
 
     @Test
@@ -253,7 +293,7 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testParseListyNullFails() {
+    public void testParseListNullFails() {
         MediaType.parseList(null);
     }
 
@@ -281,6 +321,12 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     public void testIsCompatibleWithSelf() {
         final MediaType mediaType = MediaType.with("type", "subtype");
         this.isCompatibleCheckTrue(mediaType, mediaType);
+    }
+
+    @Test
+    public void testIsCompatibleWithSelfDifferentCase() {
+        this.isCompatibleCheckTrue(MediaType.with("type", "subtype"),
+                MediaType.with("TYPE", "SUBTYPE"));
     }
 
     @Test
@@ -419,7 +465,7 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     }
 
     private Map<MediaTypeParameterName<?>, Object> parameters() {
-        return this.parameters("parameter123", "value456");
+        return this.parameters(PARAMETER_NAME, PARAMETER_VALUE);
     }
 
     private Map<MediaTypeParameterName<?>, Object> parameters(final String name, final Object value) {

@@ -20,7 +20,9 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.compare.Comparables;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -119,14 +121,14 @@ final public class MediaTypeParameterName<T> implements HeaderName<T>,
 
     @Override
     public int compareTo(final MediaTypeParameterName name) {
-        return this.value.compareTo(name.value());
+        return this.value.compareToIgnoreCase(name.value());
     }
 
     // Object
 
     @Override
     public int hashCode() {
-        return this.value.hashCode();
+        return CaseSensitivity.INSENSITIVE.hash(this.value);
     }
 
     @Override
@@ -137,7 +139,7 @@ final public class MediaTypeParameterName<T> implements HeaderName<T>,
     }
 
     private boolean equals0(final MediaTypeParameterName other) {
-        return this.value.equals(other.value);
+        return this.compareTo(other) == Comparables.EQUAL;
     }
 
     /**

@@ -24,6 +24,28 @@ import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 final public class MediaTypeEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<MediaType> {
 
     @Test
+    public void testTypeDifferentCase() {
+        this.checkEquals(MediaType.parse("MAJOR/minor"));
+    }
+
+    @Test
+    public void testSubTypeDifferentCase() {
+        this.checkEquals(MediaType.parse("major/MINOR"));
+    }
+
+    @Test
+    public void testParameterNameDifferentCase() {
+        this.checkEquals(MediaType.parse("type/subType; parameter123=value456"),
+                MediaType.parse("type/subType; PARAMETER123=value456"));
+    }
+
+    @Test
+    public void testParameterValueDifferentCase() {
+        this.checkNotEquals(MediaType.parse("type/subType; parameter123=value456"),
+                MediaType.parse("type/subType; parameter123=VALUE456"));
+    }
+
+    @Test
     public void testDifferentMimeType() {
         this.checkNotEquals(MediaType.parse("major/different"));
     }
@@ -40,7 +62,7 @@ final public class MediaTypeEqualityTest extends HashCodeEqualsDefinedEqualityTe
     }
 
     @Test
-    public void testDifferentParamterOrderStillEqual() {
+    public void testDifferentParameterOrderStillEqual() {
         checkEqualsAndHashCode(MediaType.parse("a/b;x=1;y=2"),
                 MediaType.parse("a/b;y=2;x=1"));
     }

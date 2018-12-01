@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
@@ -40,7 +41,16 @@ import java.util.stream.Collectors;
  * A {@link Value} that represents a MIME Type with possible optional parameters.
  * Note parameter order is not important when comparing for equality or calculating the hash code.
  * Note any suffix that may be present in the sub type is not validated in anyway except for valid characters.
- * <a href="https://en.wikipedia.org/wiki/Media_type"></a>
+ * <a href="https://en.wikipedia.org/wiki/Media_type"></a>.
+ * <br>
+ * The type and sub types are case insensitive.
+ * <a href="http://www.w3.org/Protocols/rfc1341/4_Content-Type.html"></a>
+ * <pre>
+ * The type, subtype, and parameter names are not case sensitive. For example, TEXT, Text, and TeXt are all equivalent.
+ * Parameter values are normally case sensitive, but certain parameters are interpreted to be case- insensitive,
+ * depending on the intended use. (For example, multipart boundaries are case-sensitive, but the "access- type" for
+ * message/External-body is not case-sensitive.)
+ * </pre>
  */
 final public class MediaType implements HeaderValue,
         Value<String>,
@@ -82,7 +92,7 @@ final public class MediaType implements HeaderValue,
     /**
      * Holds all constants.
      */
-    private final static Map<String, MediaType> CONSTANTS = Maps.sorted();
+    private final static Map<String, MediaType> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType text types}.
@@ -254,7 +264,11 @@ final public class MediaType implements HeaderValue,
         checkType(type);
         checkSubType(subType);
 
-        return new MediaType(type, subType, NO_PARAMETERS, type + TYPE_SUBTYPE_SEPARATOR + subType);
+        final String toString = type + TYPE_SUBTYPE_SEPARATOR + subType;
+        final MediaType mediaType = CONSTANTS.get(toString);
+        return null != mediaType ?
+                mediaType :
+                new MediaType(type, subType, NO_PARAMETERS, toString);
     }
 
     /**
@@ -343,7 +357,7 @@ final public class MediaType implements HeaderValue,
      */
     public MediaType setType(final String type) {
         checkType(type);
-        return this.type.equals(type) ?
+        return this.type.equalsIgnoreCase(type) ?
                 this :
                 this.replace(type, this.subType, this.parameters);
     }
@@ -368,7 +382,7 @@ final public class MediaType implements HeaderValue,
      */
     public MediaType setSubType(final String subType) {
         checkSubType(subType);
-        return this.subType.equals(subType) ?
+        return this.subType.equalsIgnoreCase(subType) ?
                 this :
                 this.replace(this.type, subType, this.parameters);
     }
@@ -421,7 +435,7 @@ final public class MediaType implements HeaderValue,
     private static Map<MediaTypeParameterName<?>, Object> checkParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
         Objects.requireNonNull(parameters, "parameters");
 
-        final Map<MediaTypeParameterName<?>, Object> copy = Maps.ordered();
+        final Map<MediaTypeParameterName<?>, Object> copy = Maps.sorted();
         for(Entry<MediaTypeParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
             final MediaTypeParameterName name = nameAndValue.getKey();
             final Object value = nameAndValue.getValue();
@@ -469,13 +483,13 @@ final public class MediaType implements HeaderValue,
         boolean compatible = true;
 
         if (this != mimeType) {
-            final String primary = this.type();
-            if (false == WILDCARD.equals(primary)) {
-                compatible = primary.equals(mimeType.type);
+            final String type = this.type();
+            if (false == WILDCARD.equals(type)) {
+                compatible = type.equalsIgnoreCase(mimeType.type);
                 if (compatible) {
                     final String subType = this.subType;
                     if (false == WILDCARD.equals(subType)) {
-                        compatible = subType.equals(mimeType.subType);
+                        compatible = subType.equalsIgnoreCase(mimeType.subType);
                     }
                 }
             }
@@ -495,7 +509,9 @@ final public class MediaType implements HeaderValue,
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.type, this.subType, this.parameters);
+        return Objects.hash(CaseSensitivity.INSENSITIVE.hash(this.type),
+                CaseSensitivity.INSENSITIVE.hash(this.subType),
+                this.parameters);
     }
 
     @Override
@@ -506,8 +522,8 @@ final public class MediaType implements HeaderValue,
     }
 
     private boolean equals0(final MediaType other) {
-        return this.type.equals(other.type) && //
-                this.subType.equals(other.subType) && //
+        return this.type.equalsIgnoreCase(other.type) && //
+                this.subType.equalsIgnoreCase(other.subType) && //
                 this.parameters.equals(other.parameters);
     }
 
