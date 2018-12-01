@@ -21,8 +21,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.naming.NameTestCase;
-import walkingkooka.text.CharSequences;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -30,7 +28,8 @@ import java.time.ZoneOffset;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ContentDispositionParameterNameTest extends NameTestCase<ContentDispositionParameterName<?>> {
+final public class ContentDispositionParameterNameTest extends HeaderNameTestCase<ContentDispositionParameterName<Object>,
+        Object> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
@@ -62,33 +61,20 @@ final public class ContentDispositionParameterNameTest extends NameTestCase<Cont
         assertSame(ContentDispositionParameterName.CREATION_DATE, ContentDispositionParameterName.with(ContentDispositionParameterName.CREATION_DATE.value()));
     }
 
-    // parameterValue...........................................................................................
-
-    @Test(expected = NullPointerException.class)
-    public void testParameterValueNullFails() {
-        ContentDispositionParameterName.CREATION_DATE.parameterValue(null);
-    }
+    // toValue...........................................................................................
 
     @Test
-    public void testParameterValueOffsetDateTime() {
-        this.parameterValueAndCheck(ContentDispositionParameterName.CREATION_DATE,
+    public void testToValueOffsetDateTime() {
+        this.toValueAndCheck(ContentDispositionParameterName.CREATION_DATE,
                 "Wed, 12 Feb 1997 16:29:51 -0500",
                 OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
     }
 
     @Test
-    public void testParameterValueString() {
-        this.parameterValueAndCheck(Cast.to(ContentDispositionParameterName.with("xyz")),
+    public void testToValueString() {
+        this.toValueAndCheck(Cast.to(ContentDispositionParameterName.with("xyz")),
                 "abc",
                 "abc");
-    }
-
-    private <T> void parameterValueAndCheck(final ContentDispositionParameterName<T> name,
-                                            final String headerValue,
-                                            final T value) {
-        assertEquals(name + "=" + CharSequences.quoteIfNecessary(headerValue),
-                value,
-                name.parameterValue(headerValue));
     }
 
     // toString...........................................................................................
@@ -100,12 +86,17 @@ final public class ContentDispositionParameterNameTest extends NameTestCase<Cont
     }
 
     @Override
-    protected ContentDispositionParameterName createName(final String name) {
-        return ContentDispositionParameterName.with(name);
+    protected ContentDispositionParameterName<Object> createName(final String name) {
+        return Cast.to(ContentDispositionParameterName.with(name));
     }
 
     @Override
-    protected Class<ContentDispositionParameterName<?>> type() {
+    protected String nameText() {
+        return "parameter123";
+    }
+
+    @Override
+    protected Class<ContentDispositionParameterName<Object>> type() {
         return Cast.to(ContentDispositionParameterName.class);
     }
 }

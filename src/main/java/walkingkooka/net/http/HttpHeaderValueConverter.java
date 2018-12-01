@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Base class and contract to assist {@link HttpHeaderName#headerValue(HttpRequest)}
+ * Base class and contract to assist {@link HttpHeaderName#toValue(HttpRequest)}
  */
 abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
 

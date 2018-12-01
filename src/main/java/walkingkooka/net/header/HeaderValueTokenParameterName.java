@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
@@ -32,7 +31,8 @@ import java.util.Optional;
 /**
  * The {@link Name} of header parameter value.
  */
-final public class HeaderValueTokenParameterName<T> implements Name, HashCodeEqualsDefined, Comparable<HeaderValueTokenParameterName<?>> {
+final public class HeaderValueTokenParameterName<T> implements HeaderName<T>,
+        Comparable<HeaderValueTokenParameterName<?>> {
 
     /**
      * Constant returned when a parameter value is absent.
@@ -98,7 +98,8 @@ final public class HeaderValueTokenParameterName<T> implements Name, HashCodeEqu
     /**
      * Accepts text and converts it into its value.
      */
-    public T parameterValue(final String text) {
+    @Override
+    public T toValue(final String text) {
         Objects.requireNonNull(text, "text");
 
         return this.valueConverter.parse(text, this);
@@ -107,6 +108,7 @@ final public class HeaderValueTokenParameterName<T> implements Name, HashCodeEqu
     /**
      * Validates the value.
      */
+    @Override
     public void checkValue(final Object value) {
         this.valueConverter.check(value);
     }

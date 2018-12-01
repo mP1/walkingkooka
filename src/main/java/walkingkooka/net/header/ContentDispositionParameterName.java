@@ -23,7 +23,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 
 import java.time.OffsetDateTime;
@@ -69,8 +68,7 @@ import java.util.Optional;
  *                       ; numeric timezones (+HHMM or -HHMM) MUST be used
  * </pre>
  */
-final public class ContentDispositionParameterName<T> implements Name,
-        HashCodeEqualsDefined,
+final public class ContentDispositionParameterName<T> implements HeaderName<T>,
         Comparable<ContentDispositionParameterName<?>> {
 
     /**
@@ -139,7 +137,7 @@ final public class ContentDispositionParameterName<T> implements Name,
     // factory ......................................................................................................
 
     /**
-     * Factory that creates a {@link ContentDispositionParameterName}. If the {@link #parameterValue} is not a constant
+     * Factory that creates a {@link ContentDispositionParameterName}. If the {@link #toValue} is not a constant
      * it will return a parameter name with value of type {@link String}.
      */
     public static ContentDispositionParameterName<?> with(final String name) {
@@ -189,7 +187,8 @@ final public class ContentDispositionParameterName<T> implements Name,
     /**
      * Accepts text and converts it into its value.
      */
-    public T parameterValue(final String text) {
+    @Override
+    public T toValue(final String text) {
         Objects.requireNonNull(text, "text");
 
         return this.valueConverter.parse(text, this);
@@ -198,6 +197,7 @@ final public class ContentDispositionParameterName<T> implements Name,
     /**
      * Validates the value.
      */
+    @Override
     public void checkValue(final Object value) {
         this.valueConverter.check(value);
     }

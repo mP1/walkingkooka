@@ -330,7 +330,7 @@ public final class HeaderValueToken implements HeaderValue,
                                           final HeaderValueTokenParameterName<?> name,
                                           final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
         parameters.put(name,
-                name.parameterValue(
+                name.toValue(
                         token(PARAMETER_VALUE, text, start, end)));
     }
 

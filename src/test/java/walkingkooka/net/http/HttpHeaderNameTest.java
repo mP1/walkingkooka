@@ -23,7 +23,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.net.header.HeaderNameTestCase;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CharSequences;
 
@@ -34,7 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
+final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<Object>, Object> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
@@ -100,11 +100,11 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
         assertSame(HttpHeaderName.ACCEPT, HttpHeaderName.with(HttpHeaderName.ACCEPT.value()));
     }
 
-    // HeaderValue.........................................................................
+    // headerValue.........................................................................
 
     @Test(expected = NullPointerException.class)
     public void testHeaderValueNullRequestFails() {
-        HttpHeaderName.ALLOW.headerValue((HttpRequest)null);
+        HttpHeaderName.ALLOW.headerValue(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -155,14 +155,11 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
                 }));
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testHeaderValueNullStringFails() {
-        HttpHeaderName.ALLOW.headerValue((String) null);
-    }
+    // toValue ...............................................................................................
 
     @Test
-    public void testHeaderValueAcceptString() {
-        this.headerValueStringAndCheck(HttpHeaderName.ACCEPT,
+    public void testToValueAcceptString() {
+        this.toValueAndCheck(HttpHeaderName.ACCEPT,
                 "text/html, application/xhtml+xml",
                 Lists.of(
                         MediaType.with("text", "html"),
@@ -170,18 +167,10 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
     }
 
     @Test
-    public void testHeaderValueScopeContentLengthString() {
-        this.headerValueStringAndCheck(HttpHeaderName.CONTENT_LENGTH,
+    public void testToValueScopeContentLengthString() {
+        this.toValueAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 "123",
                 123L);
-    }
-
-    private <T> void headerValueStringAndCheck(final HttpHeaderName<T> headerName,
-                                               final String headerValue,
-                                               final T value) {
-        assertEquals(headerName + "=" + headerValue,
-                value,
-                headerName.headerValue(headerValue));
     }
 
     // addHeaderValue.........................................................................
@@ -264,12 +253,17 @@ final public class HttpHeaderNameTest extends NameTestCase<HttpHeaderName<?>> {
     }
 
     @Override
-    protected HttpHeaderName createName(final String name) {
-        return HttpHeaderName.with(name);
+    protected HttpHeaderName<Object> createName(final String name) {
+        return Cast.to(HttpHeaderName.with(name));
     }
 
     @Override
-    protected Class<HttpHeaderName<?>> type() {
+    protected String nameText() {
+        return "X-Custom";
+    }
+
+    @Override
+    protected Class<HttpHeaderName<Object>> type() {
         return Cast.to(HttpHeaderName.class);
     }
 }
