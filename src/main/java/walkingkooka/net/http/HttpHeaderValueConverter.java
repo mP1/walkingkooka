@@ -23,6 +23,7 @@ import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.http.cookie.ClientCookie;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;

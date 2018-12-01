@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
 
 import org.junit.Test;

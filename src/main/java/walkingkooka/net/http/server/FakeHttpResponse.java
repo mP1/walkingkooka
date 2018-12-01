@@ -16,49 +16,31 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
-import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.http.cookie.ClientCookie;
+import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpStatus;
 import walkingkooka.test.Fake;
 
-import java.util.List;
-import java.util.Map;
-
-public class FakeHttpRequest implements HttpRequest, Fake {
+public class FakeHttpResponse implements HttpResponse, Fake {
 
     @Override
-    public HttpTransport transport() {
+    public void setStatus(final HttpStatus status) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public HttpMethod method() {
+    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public HttpProtocolVersion protocolVersion() {
+    public void setBody(final byte[] body) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public RelativeUrl url() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Map<HttpHeaderName<?>, String> headers() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<ClientCookie> cookies() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Map<HttpRequestParameterName, List<String>> parameters() {
+    public void setBodyText(final String body) {
         throw new UnsupportedOperationException();
     }
 }

@@ -16,20 +16,33 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
-import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
+import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpStatus;
 
-final public class HttpRequestParameterNameEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<HttpRequestParameterName> {
+/**
+ * Defines a HTTP response.
+ */
+public interface HttpResponse {
 
-    @Test
-    public void testDifferent() {
-        this.checkNotEquals(HttpRequestParameterName.with("different"));
-    }
+    /**
+     * Sets the response status
+     */
+    void setStatus(final HttpStatus status);
 
-    @Override
-    protected HttpRequestParameterName createObject() {
-        return HttpRequestParameterName.with("parameter1");
-    }
+    /**
+     * Adds a new header and its value.
+     */
+    <T> void addHeader(final HttpHeaderName<T> name, final T value);
+
+    /**
+     * Sets the body of the response.
+     */
+    void setBody(final byte[] body);
+
+    /**
+     * Sets text that will be encoded and set upon the body.
+     */
+    void setBodyText(final String text);
 }

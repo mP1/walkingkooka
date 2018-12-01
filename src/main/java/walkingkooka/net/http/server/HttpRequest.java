@@ -16,11 +16,15 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
+import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.cookie.ClientCookie;
 
 import java.util.List;

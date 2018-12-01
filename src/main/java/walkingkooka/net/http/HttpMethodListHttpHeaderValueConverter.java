@@ -19,7 +19,6 @@
 package walkingkooka.net.http;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.cookie.ClientCookie;
 
 import java.util.Arrays;
 import java.util.List;

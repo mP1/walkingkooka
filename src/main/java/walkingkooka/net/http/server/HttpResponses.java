@@ -16,9 +16,23 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.type.PublicStaticHelper;
 
-public abstract class HttpRequestTestCase<R extends HttpRequest> extends PackagePrivateClassTestCase<R> {
+public final class HttpResponses implements PublicStaticHelper {
+
+    /**
+     * {@see FakeHttpResponse}
+     */
+    public static HttpResponse fake() {
+        return new FakeHttpResponse();
+    }
+
+    /**
+     * Stop creation
+     */
+    private HttpResponses() {
+        throw new UnsupportedOperationException();
+    }
 }

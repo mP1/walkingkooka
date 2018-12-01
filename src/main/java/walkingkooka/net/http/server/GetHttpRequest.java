@@ -16,20 +16,22 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import java.util.List;
 
-import java.lang.reflect.Method;
+/**
+ * A {@link HttpRequest} made with the GET method.
+ */
+public interface GetHttpRequest extends HttpRequest {
 
-public final class HttpRequestsTest extends PublicStaticHelperTestCase<HttpRequests> {
-    @Override
-    protected Class<HttpRequests> type() {
-        return HttpRequests.class;
-    }
+    /**
+     * Returns the first value of the requested parameter.
+     */
+    String parameter(final HttpRequestParameterName parameterName);
 
-    @Override
-    protected boolean canHavePublicTypes(final Method method) {
-        return false;
-    }
+    /**
+     * Returns all values for the requested parameter name.
+     */
+    List<String> parameterValues(final HttpRequestParameterName parameterName);
 }

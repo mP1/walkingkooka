@@ -16,9 +16,10 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
 import org.junit.Test;
+import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
 public abstract class HttpResponseTestCase<R extends HttpResponse> extends PackagePrivateClassTestCase<R> {

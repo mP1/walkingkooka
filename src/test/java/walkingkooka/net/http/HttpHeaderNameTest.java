@@ -25,6 +25,10 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderNameTestCase;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.FakeHttpResponse;
+import walkingkooka.net.http.server.HttpRequests;
+import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.text.CharSequences;
 
 import java.util.Map;
