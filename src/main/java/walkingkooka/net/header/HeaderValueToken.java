@@ -69,6 +69,11 @@ public final class HeaderValueToken implements HeaderValue,
     public final static CharacterConstant SEPARATOR = CharacterConstant.with(',');
 
     /**
+     * Constant holding the wildcard value (without any parameters).
+     */
+    public final static String WILDCARD = "*";
+
+    /**
      * Parses a header value into tokens, which aill also be sorted using their q factor weights.
      * <pre>
      * Accept-Charset: utf-8, iso-8859-1;q=0.5
@@ -399,12 +404,17 @@ public final class HeaderValueToken implements HeaderValue,
         CharPredicates.failIfNullOrEmptyOrFalse(value, "value", CharPredicates.rfc2045Token());
     }
 
+    /**
+     * Only returns true if the value is WILDCARD.
+     */
+    public boolean isWildcard() {
+        return WILDCARD.equals(this.value());
+    }
+
     // parameters.........................................................................................
 
     /**
      * A map view of all parameters to their text or string value.
-     *
-     * @return
      */
     public Map<HeaderValueTokenParameterName<?>, Object> parameters() {
         return this.parameters;

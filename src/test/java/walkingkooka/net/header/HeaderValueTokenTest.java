@@ -666,6 +666,7 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
                        final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
         assertEquals("value", value, token.value());
         assertEquals("parameters", parameters, token.parameters());
+        assertEquals("is wildcard", value.equals(HeaderValueToken.WILDCARD), token.isWildcard());
     }
 
     @Override
