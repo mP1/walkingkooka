@@ -21,37 +21,35 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.naming.NameTestCase;
-import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class HeaderValueTokenParameterNameTest extends NameTestCase<HeaderValueTokenParameterName<?>> {
+final public class HeaderValueTokenParameterNameTest extends HeaderNameTestCase<HeaderValueTokenParameterName<Object>, Object> {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testControlCharacterFails() {
+    public void testWithControlCharacterFails() {
         HeaderValueTokenParameterName.with("parameter\u0001;");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testSpaceFails() {
+    public void testWithSpaceFails() {
         HeaderValueTokenParameterName.with("parameter ");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testTabFails() {
+    public void testWithTabFails() {
         HeaderValueTokenParameterName.with("parameter\t");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNonAsciiFails() {
+    public void testWithNonAsciiFails() {
         HeaderValueTokenParameterName.with("parameter\u0100;");
     }
 
     @Test
-    public void testValid() {
+    public void testWith() {
         this.createNameAndCheck("Custom");
     }
 
@@ -69,31 +67,18 @@ final public class HeaderValueTokenParameterNameTest extends NameTestCase<Header
 
     // parameterValue...........................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testParameterValueNullFails() {
-        HeaderValueTokenParameterName.Q.parameterValue(null);
-    }
-
     @Test
     public void testParameterValueFloat() {
-        this.parameterValueAndCheck(HeaderValueTokenParameterName.Q,
+        this.toValueAndCheck(HeaderValueTokenParameterName.Q,
                 "0.75",
                 0.75f);
     }
 
     @Test
     public void testParameterValueString() {
-        this.parameterValueAndCheck(Cast.to(HeaderValueTokenParameterName.with("xyz")),
+        this.toValueAndCheck(Cast.to(HeaderValueTokenParameterName.with("xyz")),
                 "abc",
                 "abc");
-    }
-
-    private <T> void parameterValueAndCheck(final HeaderValueTokenParameterName<T> name,
-                                            final String headerValue,
-                                            final T value) {
-        assertEquals(name + "=" + CharSequences.quoteIfNecessary(headerValue),
-                value,
-                name.parameterValue(headerValue));
     }
 
     // toString.................................................................................................
@@ -105,12 +90,17 @@ final public class HeaderValueTokenParameterNameTest extends NameTestCase<Header
     }
 
     @Override
-    protected HeaderValueTokenParameterName createName(final String name) {
-        return HeaderValueTokenParameterName.with(name);
+    protected HeaderValueTokenParameterName<Object> createName(final String name) {
+        return Cast.to(HeaderValueTokenParameterName.with(name));
     }
 
     @Override
-    protected Class<HeaderValueTokenParameterName<?>> type() {
+    protected String nameText() {
+        return "Custom";
+    }
+
+    @Override
+    protected Class<HeaderValueTokenParameterName<Object>> type() {
         return Cast.to(HeaderValueTokenParameterName.class);
     }
 }

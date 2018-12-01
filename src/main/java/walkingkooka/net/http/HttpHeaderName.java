@@ -27,14 +27,14 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ContentDisposition;
-import walkingkooka.net.header.HeaderValueToken;
+import walkingkooka.net.header.HeaderName;
 import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
+import walkingkooka.net.header.HeaderValueToken;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.cookie.ClientCookie;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 
 import java.time.LocalDateTime;
@@ -46,7 +46,8 @@ import java.util.Optional;
 /**
  * The {@link Name} of request or response header
  */
-final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Comparable<HttpHeaderName<?>> {
+final public class HttpHeaderName<T> implements HeaderName<T>,
+        Comparable<HttpHeaderName<?>> {
 
     // constants
 
@@ -679,8 +680,7 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
             HttpHeaderScope.RESPONSE);
 
     /**
-     * Factory that creates a {@link HttpHeaderName}. If the {@link #headerValue(HttpRequest)} is not a constant the
-     * {@link #headerValue(HttpRequest)} will return {@link String}.
+     * Factory that creates a {@link HttpHeaderName}.
      */
     public static HttpHeaderName<?> with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", PREDICATE);
@@ -733,6 +733,14 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
     private final HttpHeaderScope scope;
 
     /**
+     * Validates the value.
+     */
+    @Override
+    public void checkValue(final Object value) {
+        this.valueConverter.check(value);
+    }
+
+    /**
      * Returns a {@link HttpHeaderName} that always and does not attempt to convert values to {@link String}.
      * If the header already returns {@link String string values} this will return this.
      */
@@ -751,19 +759,20 @@ final public class HttpHeaderName<T> implements Name, HashCodeEqualsDefined, Com
         this.scope.requestHeader(this);
         final String value = request.headers().get(this);
         return null != value ?
-                Optional.of(this.headerValue0(value)) :
+                Optional.of(this.toValue0(value)) :
                 Optional.empty();
     }
 
     /**
      * Unconditionally converts the {@link String value} to the appropriate type for this header.
      */
-    public T headerValue(final String value) {
+    @Override
+    public T toValue(final String value) {
         Objects.requireNonNull(value, "value");
-        return this.headerValue0(value);
+        return this.toValue0(value);
     }
 
-    private T headerValue0(final String value) {
+    private T toValue0(final String value) {
         return this.valueConverter.parse(value, this);
     }
 

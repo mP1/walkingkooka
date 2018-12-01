@@ -410,7 +410,7 @@ public final class ContentDisposition implements HeaderValue, HashCodeEqualsDefi
             final int end,
             final ContentDispositionParameterName<?> parameterName,
             final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        parameters.put(parameterName, parameterName.parameterValue(parameterValue(text, start, end)));
+        parameters.put(parameterName, parameterName.toValue(parameterValue(text, start, end)));
     }
 
     /**
