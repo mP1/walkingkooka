@@ -43,5 +43,10 @@ public abstract class HttpResponseTestCase<R extends HttpResponse> extends Packa
         this.createResponse().setBody(null);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testSetBodyTextNullFails() {
+        this.createResponse().setBodyText(null);
+    }
+
     protected abstract R createResponse();
 }

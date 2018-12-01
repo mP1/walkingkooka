@@ -37,4 +37,9 @@ public interface HttpResponse {
      * Sets the body of the response.
      */
     void setBody(final byte[] body);
+
+    /**
+     * Sets text that will be encoded and set upon the body.
+     */
+    void setBodyText(final String text);
 }
