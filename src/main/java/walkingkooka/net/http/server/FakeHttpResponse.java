@@ -22,10 +22,17 @@ import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.test.Fake;
 
+import java.util.Map;
+
 public class FakeHttpResponse implements HttpResponse, Fake {
 
     @Override
     public void setStatus(final HttpStatus status) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Map<HttpHeaderName<?>, Object> headers() {
         throw new UnsupportedOperationException();
     }
 

@@ -33,7 +33,6 @@ import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueToken;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.cookie.ClientCookie;
-import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -753,16 +752,12 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
-     * A type safe getter that converts any present header values to the header name type.
+     * A type safe getter that retrieves this header from the headers.
      */
-    public Optional<T> headerValue(final HttpRequest request) {
-        Objects.requireNonNull(request, "request");
+    public Optional<T> headerValue(final HasHeaders headers) {
+        Objects.requireNonNull(headers, "headers");
 
-        this.scope.requestHeader(this);
-        final String value = request.headers().get(this);
-        return null != value ?
-                Optional.of(this.toValue0(value)) :
-                Optional.empty();
+        return Optional.ofNullable(Cast.to(headers.headers().get(this)));
     }
 
     /**
@@ -771,10 +766,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     @Override
     public T toValue(final String value) {
         Objects.requireNonNull(value, "value");
-        return this.toValue0(value);
-    }
 
-    private T toValue0(final String value) {
         return this.valueConverter.parse(value, this);
     }
 
