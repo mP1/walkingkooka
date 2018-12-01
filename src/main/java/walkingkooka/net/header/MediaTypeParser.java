@@ -66,7 +66,7 @@ abstract class MediaTypeParser {
         String type = null;
         String subType = null;
         MediaTypeParameterName parameterName = null;
-        Map<MediaTypeParameterName, String> parameters = Maps.ordered();
+        Map<MediaTypeParameterName<?>, Object> parameters = Maps.ordered();
 
         while (this.position < length) {
             final char c = text.charAt(this.position);
@@ -162,23 +162,21 @@ abstract class MediaTypeParser {
                         break;
                     }
                     if (MediaType.PARAMETER_SEPARATOR == c) {
-                        parameters.put(parameterName, this.parameterValue(start));
+                        this.addParameterValue(start, parameterName, parameters);
                         start = this.position + 1;
                         mode = MODE_PARAMETER_SEPARATOR_WHITESPACE;
                         break;
                     }
                     if(MediaType.MEDIATYPE_SEPARATOR == c) {
                         this.mediaTypeSeparator();
-
-                        parameters.put(parameterName, this.parameterValue(start));
-                        parameterName = null;
+                        this.addParameterValue(start, parameterName, parameters);
                         start = this.position + 1;
 
                         mode = MODE_FINISHED;
                         break;
                     }
                     if(WHITESPACE.test(c)) {
-                        parameters.put(parameterName, this.parameterValue(start));
+                        this.addParameterValue(start, parameterName, parameters);
                         start = this.position + 1;
 
                         mode = MODE_PARAMETER_VALUE_WHITESPACE;
@@ -192,7 +190,7 @@ abstract class MediaTypeParser {
                         break;
                     }
                     if (DOUBLE_QUOTE == c) {
-                        parameters.put(parameterName, text.substring(start + 1, this.position)); // allow empty quoted strings!
+                        this.addParameterValue(start+1, parameterName, parameters);// allow empty quoted strings!
                         start = this.position + 1;
                         mode = MODE_PARAMETER_VALUE_WHITESPACE;
                         break;
@@ -246,7 +244,7 @@ abstract class MediaTypeParser {
                 this.parameterValue(this.position);
             case MODE_PARAMETER_VALUE_INITIAL:
             case MODE_PARAMETER_VALUE:
-                parameters.put(parameterName, this.parameterValue(start));
+                this.addParameterValue(start, parameterName, parameters);
                 break;
             case MODE_PARAMETER_QUOTES:
             case MODE_PARAMETER_ESCAPE:
@@ -299,6 +297,16 @@ abstract class MediaTypeParser {
         return MediaTypeParameterName.with(token(PARAMETER_NAME, start));
     }
 
+    /**
+     * Extracts, converts and adds the given parameter pair to other parameters.
+     */
+    private void addParameterValue(
+            final int start,
+            final MediaTypeParameterName<?> parameterName,
+            final Map<MediaTypeParameterName<?>, Object> parameters) {
+        parameters.put(parameterName, parameterName.toValue(this.parameterValue(start)));
+    }
+    
     /**
      * Returns the parameter value from the current token.
      */

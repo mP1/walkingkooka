@@ -20,9 +20,10 @@ package walkingkooka.net.header;
 
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.compare.ComparableTestCase;
 
-final public class MediaTypeParameterNameComparableTest extends ComparableTestCase<MediaTypeParameterName> {
+final public class MediaTypeParameterNameComparableTest extends ComparableTestCase<MediaTypeParameterName<?>> {
 
     @Test
     public void testAfter() {
@@ -41,7 +42,7 @@ final public class MediaTypeParameterNameComparableTest extends ComparableTestCa
 
 
     @Override
-    protected MediaTypeParameterName createComparable() {
-        return MediaTypeParameterName.with("parameter");
+    protected MediaTypeParameterName<Object> createComparable() {
+        return Cast.to(MediaTypeParameterName.with("parameter"));
     }
 }

@@ -75,7 +75,7 @@ final public class MediaType implements HeaderValue,
     /**
      * No parameters.
      */
-    public final static Map<MediaTypeParameterName, String> NO_PARAMETERS = Maps.empty();
+    public final static Map<MediaTypeParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     // MediaType constants.................................................................................................
 
@@ -263,7 +263,7 @@ final public class MediaType implements HeaderValue,
     // @VisibleForTesting
     static MediaType with(final String type,
                           final String subType,
-                          final Map<MediaTypeParameterName, String> parameters,
+                          final Map<MediaTypeParameterName<?>, Object> parameters,
                           final String toString) {
         final MediaType result = CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR + subType);
         return null != result ?
@@ -279,50 +279,23 @@ final public class MediaType implements HeaderValue,
      */
     private static String toStringMimeType(final String type,
                                            final String subType,
-                                           final Map<MediaTypeParameterName, String> parameters) {
-        return type + TYPE_SUBTYPE_SEPARATOR + subType + parameters.entrySet()
-                .stream()
-                .map(MediaType::toStringParameter)
-                .collect(Collectors.joining());
+                                           final Map<MediaTypeParameterName<?>, Object> parameters) {
+        return type +
+                TYPE_SUBTYPE_SEPARATOR +
+                subType +
+                parameters.entrySet()
+                        .stream()
+                        .map(MediaType::toStringParameter)
+                        .collect(Collectors.joining());
     }
 
-    private static String toStringParameter(final Entry<MediaTypeParameterName, String> nameAndValue) {
-        return PARAMETER_SEPARATOR + " " + nameAndValue.getKey().value() + PARAMETER_NAME_VALUE_SEPARATOR + toStringParameterValue(nameAndValue.getValue());
-    }
-
-    /**
-     * <a href="https://tools.ietf.org/html/rfc1341"></a>
-     * <pre>
-     * tspecials :=  "(" / ")" / "<" / ">" / "@"  ; Must be in
-     *                        /  "," / ";" / ":" / "\" / <">  ; quoted-string,
-     *                        /  "/" / "[" / "]" / "?" / "."  ; to use within
-     *                        /  "="                        ; parameter values
-     * </pre>
-     * Backslashes and double quote characters are escaped.
-     */
-    private static String toStringParameterValue(final String value) {
-        StringBuilder b = new StringBuilder();
-        b.append('"');
-        boolean quoteRequired = false;
-
-        for (char c : value.toCharArray()) {
-            if ('\\' == c || '"' == c) {
-                b.append('\\');
-                b.append(c);
-                quoteRequired = true;
-                continue;
-            }
-            if (!isTokenCharacter(c)) {
-                b.append(c);
-                quoteRequired = true;
-                continue;
-            }
-            b.append(c);
-        }
-
-        return quoteRequired ?
-                b.append('"').toString() :
-                value;
+    private static String toStringParameter(final Entry<MediaTypeParameterName<?>, Object> nameAndValue) {
+        final MediaTypeParameterName<?> name = nameAndValue.getKey();
+        return PARAMETER_SEPARATOR +
+                " " +
+                name.value() +
+                PARAMETER_NAME_VALUE_SEPARATOR +
+                name.valueConverter.format(Cast.to(nameAndValue.getValue()), name);
     }
 
     /**
@@ -346,7 +319,7 @@ final public class MediaType implements HeaderValue,
      */
     private MediaType(final String type,
                       final String subType,
-                      final Map<MediaTypeParameterName, String> parameters,
+                      final Map<MediaTypeParameterName<?>, Object> parameters,
                       final String toString) {
         super();
 
@@ -426,12 +399,12 @@ final public class MediaType implements HeaderValue,
     /**
      * Retrieves the parameters.
      */
-    public Map<MediaTypeParameterName, String> parameters() {
+    public Map<MediaTypeParameterName<?>, Object> parameters() {
         return this.parameters;
     }
 
-    public MediaType setParameters(final Map<MediaTypeParameterName, String> parameters) {
-        final Map<MediaTypeParameterName, String> copy = checkParameters(parameters);
+    public MediaType setParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
+        final Map<MediaTypeParameterName<?>, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
                 this :
                 this.replace(this.type, this.subType, copy);
@@ -440,19 +413,27 @@ final public class MediaType implements HeaderValue,
     /**
      * Package private for testing.
      */
-    private transient final Map<MediaTypeParameterName, String> parameters;
+    private transient final Map<MediaTypeParameterName<?>, Object> parameters;
 
-    private static Map<MediaTypeParameterName, String> checkParameters(final Map<MediaTypeParameterName, String> parameters) {
+    /**
+     * While checking the parameters (name and value) makes a defensive copy.
+     */
+    private static Map<MediaTypeParameterName<?>, Object> checkParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
         Objects.requireNonNull(parameters, "parameters");
 
-        final Map<MediaTypeParameterName, String> copy = Maps.ordered();
-        copy.putAll(parameters);
-        return Maps.readOnly(copy);
+        final Map<MediaTypeParameterName<?>, Object> copy = Maps.ordered();
+        for(Entry<MediaTypeParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
+            final MediaTypeParameterName name = nameAndValue.getKey();
+            final Object value = nameAndValue.getValue();
+            name.checkValue(value);
+            copy.put(name, value);
+        }
+        return copy;
     }
 
     // replace .......................................................................
 
-    private MediaType replace(final String type, final String subType, final Map<MediaTypeParameterName, String> parameters) {
+    private MediaType replace(final String type, final String subType, final Map<MediaTypeParameterName<?>, Object> parameters) {
         return new MediaType(type,
                 subType,
                 parameters,
@@ -472,18 +453,8 @@ final public class MediaType implements HeaderValue,
      * Retrieves the q-weight for this value. If the value is not a number a {@link IllegalStateException} will be thrown.
      */
     public Optional<Float> qFactorWeight() {
-        final String value = this.parameters().get(MediaTypeParameterName.Q_FACTOR);
-        return Optional.ofNullable(null == value ?
-                null :
-                qFactorWeightOrFail(value));
-    }
-
-    private Float qFactorWeightOrFail(final String value) {
-        try {
-            return Float.parseFloat(value);
-        } catch ( final IllegalArgumentException cause) {
-            throw new IllegalStateException("Invalid q weight parameter " + value + " in " + this, cause);
-        }
+        return Optional.ofNullable(Float.class.cast(this.parameters()
+                .get(MediaTypeParameterName.Q_FACTOR)));
     }
 
     // misc .......................................................................

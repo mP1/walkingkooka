@@ -182,7 +182,7 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     @Test
     public void testSetParametersDifferent() {
         final MediaType mediaType = this.mediaType();
-        final Map<MediaTypeParameterName, String> parameters = MediaType.NO_PARAMETERS;
+        final Map<MediaTypeParameterName<?>, Object> parameters = MediaType.NO_PARAMETERS;
         final MediaType different = mediaType.setParameters(parameters);
         check(different, TYPE, SUBTYPE, parameters);
     }
@@ -190,7 +190,7 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     @Test
     public void testSetParametersDifferent2() {
         final MediaType mediaType = this.mediaType();
-        final Map<MediaTypeParameterName, String> parameters = Maps.one(MediaTypeParameterName.with("different"), "value789");
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.one(MediaTypeParameterName.with("different"), "value789");
         final MediaType different = mediaType.setParameters(parameters);
         check(different, TYPE, SUBTYPE, parameters);
     }
@@ -202,7 +202,7 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     private void check(final MediaType mediaType,
                        final String type,
                        final String subtype,
-                       final Map<MediaTypeParameterName, String> parameters) {
+                       final Map<MediaTypeParameterName<?>, Object> parameters) {
         assertEquals("type=" + mediaType, type, mediaType.type());
         assertEquals("subType=" + mediaType, subtype, mediaType.subType());
         assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());
@@ -212,17 +212,14 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
 
     @Test
     public void testQParameterPresent() {
-        this.qFactorWeightAndCheck(this.mediaType().setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), "0.5")), 0.5f);
+        this.qFactorWeightAndCheck(this.mediaType()
+                .setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), 0.5f)),
+                0.5f);
     }
 
-    @Test
+    @Test(expected = HeaderValueException.class)
     public void testQParameterPresentInvalidFails() {
-        try {
-            this.mediaType().setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), "XYZ")).qFactorWeight();
-            fail("Getter should have failed due to invalid q weight");
-        } catch (final IllegalStateException expected) {
-            assertEquals("Invalid q weight parameter XYZ in type/subtype; q=XYZ", expected.getMessage());
-        }
+        this.mediaType().setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), "XYZ")).qFactorWeight();
     }
 
     @Test
@@ -421,11 +418,11 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
         return MediaType.with(TYPE, SUBTYPE, parameters(), "type/subtype;parameter123=value456");
     }
 
-    private Map<MediaTypeParameterName, String> parameters() {
+    private Map<MediaTypeParameterName<?>, Object> parameters() {
         return this.parameters("parameter123", "value456");
     }
 
-    private Map<MediaTypeParameterName, String> parameters(final String name, final String value) {
+    private Map<MediaTypeParameterName<?>, Object> parameters(final String name, final Object value) {
         return Maps.one(MediaTypeParameterName.with(name), value);
     }
 

@@ -31,12 +31,18 @@ public final class MediaTypeListParserTest extends MediaTypeParserTestCase<Media
 
     @Test
     public void testTrailingComma() {
-        this.parseAndCheckOne("type/subtype,", TYPE, SUBTYPE, MediaType.NO_PARAMETERS);
+        this.parseAndCheckOne("type/subtype,",
+                TYPE,
+                SUBTYPE,
+                MediaType.NO_PARAMETERS);
     }
 
     @Test
     public void testTrailingComma2() {
-        this.parseAndCheckOne("type/subtype;parameter123=value456,", TYPE, SUBTYPE, parameters("parameter123", "value456"));
+        this.parseAndCheckOne("type/subtype;parameter123=value456,",
+                TYPE,
+                SUBTYPE,
+                parameters("parameter123", "value456"));
     }
 
     @Test
@@ -83,16 +89,16 @@ public final class MediaTypeListParserTest extends MediaTypeParserTestCase<Media
     @Test
     public void testSortedByQFactor() {
         this.parseAndCheck2("type1/subtype1; q=0.25, type2/subtype2; q=1.0, type3/subtype3; q=0.5",
-                MediaType.with("type2", "subtype2").setParameters(this.parameters("q", "1.0")),
-                MediaType.with("type3", "subtype3").setParameters(this.parameters("q", "0.5")),
-                MediaType.with("type1", "subtype1").setParameters(this.parameters("q", "0.25")));
+                MediaType.with("type2", "subtype2").setParameters(this.parameters("q", 1.0f)),
+                MediaType.with("type3", "subtype3").setParameters(this.parameters("q", 0.5f)),
+                MediaType.with("type1", "subtype1").setParameters(this.parameters("q", 0.25f)));
     }
 
     @Override
     final void parseAndCheck(final String text,
                                        final String type,
                                        final String subtype,
-                                       final Map<MediaTypeParameterName, String> parameters) {
+                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
         parseAndCheckOne(text, type, subtype, parameters);
         parseAndCheckRepeated(text, type, subtype, parameters);
         parseAndCheckSeveral(text, type, subtype, parameters);
@@ -101,7 +107,7 @@ public final class MediaTypeListParserTest extends MediaTypeParserTestCase<Media
     private void parseAndCheckOne(final String text,
                                   final String type,
                                   final String subtype,
-                                  final Map<MediaTypeParameterName, String> parameters) {
+                                  final Map<MediaTypeParameterName<?>, Object> parameters) {
         final List<MediaType> result = MediaTypeListParser.parseList(text);
         assertEquals("parse " + CharSequences.quote(text) + " got " + result, 1, result.size());
         this.check(result.get(0), type, subtype, parameters);
@@ -110,7 +116,7 @@ public final class MediaTypeListParserTest extends MediaTypeParserTestCase<Media
     private void parseAndCheckRepeated(final String text,
                                        final String type,
                                        final String subtype,
-                                       final Map<MediaTypeParameterName, String> parameters) {
+                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
         final String parsed = text + MediaType.MEDIATYPE_SEPARATOR + text;
         final List<MediaType> result = MediaTypeListParser.parseList(parsed);
         assertEquals("parse " + CharSequences.quote(parsed) + " got " + result, 2, result.size());
@@ -121,7 +127,7 @@ public final class MediaTypeListParserTest extends MediaTypeParserTestCase<Media
     private void parseAndCheckSeveral(final String text,
                                       final String type,
                                       final String subtype,
-                                      final Map<MediaTypeParameterName, String> parameters) {
+                                      final Map<MediaTypeParameterName<?>, Object> parameters) {
         final String parsed = "TYPE1/SUBTYPE1," + text + ",TYPE2/SUBTYPE2;x=y," + text;
         final List<MediaType> result = MediaTypeListParser.parseList(parsed);
 

@@ -19,26 +19,26 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.Cast;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class MediaTypeParameterNameTest extends NameTestCase<MediaTypeParameterName> {
+final public class MediaTypeParameterNameTest extends HeaderNameTestCase<MediaTypeParameterName<Object>, Object> {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIncludesWhitespaceFails() {
+    public void testWithIncludesWhitespaceFails() {
         MediaTypeParameterName.with("paramet er");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIncludesEqualSignFails() {
+    public void testWithIncludesEqualSignFails() {
         MediaTypeParameterName.with("parameter=value");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIncludesSemiColonFails() {
+    public void testWithIncludesSemiColonFails() {
         MediaTypeParameterName.with("parameter=value;header2");
     }
 
@@ -67,12 +67,17 @@ final public class MediaTypeParameterNameTest extends NameTestCase<MediaTypePara
     }
 
     @Override
-    protected MediaTypeParameterName createName(final String name) {
-        return MediaTypeParameterName.with(name);
+    protected MediaTypeParameterName<Object> createName(final String name) {
+        return Cast.to(MediaTypeParameterName.with(name));
     }
 
     @Override
-    protected Class<MediaTypeParameterName> type() {
-        return MediaTypeParameterName.class;
+    protected String nameText() {
+        return "abc123";
+    }
+
+    @Override
+    protected Class<MediaTypeParameterName<Object>> type() {
+        return Cast.to(MediaTypeParameterName.class);
     }
 }
