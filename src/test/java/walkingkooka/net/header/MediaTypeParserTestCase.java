@@ -286,12 +286,12 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
 
     @Test
     public final void testTypeSubTypeQuotedParameterValueBackslashEscaped() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\\ue\"", TYPE, SUBTYPE, parameters("parameter", "val\\\\ue"));
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\\ue\"", TYPE, SUBTYPE, parameters("parameter", "val\\ue"));
     }
 
     @Test
     public final void testTypeSubTypeQuotedParameterValueEscapedDoubleQuote() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\"ue\"", TYPE, SUBTYPE, parameters("parameter", "val\\\"ue"));
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\"ue\"", TYPE, SUBTYPE, parameters("parameter", "val\"ue"));
     }
 
     @Test
@@ -324,12 +324,15 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v; \t \tp2=v2", TYPE, SUBTYPE, parameters("p", "v", "p2", "v2"));
     }
 
-    final Map<MediaTypeParameterName, String> parameters(final String name, final String value) {
+    final Map<MediaTypeParameterName<?>, Object> parameters(final String name, final Object value) {
         return Maps.one(MediaTypeParameterName.with(name), value);
     }
 
-    final Map<MediaTypeParameterName, String> parameters(final String name, final String value, final String name2, final String value2) {
-        final Map<MediaTypeParameterName, String> parameters = Maps.ordered();
+    final Map<MediaTypeParameterName<?>, Object> parameters(final String name,
+                                                            final Object value,
+                                                            final String name2,
+                                                            final Object value2) {
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.ordered();
         parameters.put(MediaTypeParameterName.with(name), value);
         parameters.put(MediaTypeParameterName.with(name2), value2);
 
@@ -343,7 +346,7 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
     abstract void parseAndCheck(final String text,
                                 final String type,
                                 final String subtype,
-                                final Map<MediaTypeParameterName, String> parameters);
+                                final Map<MediaTypeParameterName<?>, Object> parameters);
 
     final void check(final MediaType mediaType, final String type, final String subtype) {
         check(mediaType, type, subtype, MediaType.NO_PARAMETERS);
@@ -352,7 +355,7 @@ public abstract class MediaTypeParserTestCase<P extends MediaTypeParser> extends
     final void check(final MediaType mediaType,
                      final String type,
                      final String subtype,
-                     final Map<MediaTypeParameterName, String> parameters) {
+                     final Map<MediaTypeParameterName<?>, Object> parameters) {
         assertEquals("type=" + mediaType, type, mediaType.type());
         assertEquals("subType=" + mediaType, subtype, mediaType.subType());
         assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());

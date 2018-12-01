@@ -101,6 +101,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see MediaTypeStringHeaderValueConverter}
+     */
+    public static HeaderValueConverter<String> mediaTypeString() {
+        return MediaTypeStringHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see OffsetDateTimeHeaderValueConverter}
      */
     public static HeaderValueConverter<OffsetDateTime> offsetDateTime() {

@@ -36,9 +36,9 @@ public final class MediaTypeOneParserTest extends MediaTypeParserTestCase<MediaT
 
     @Override
     final void parseAndCheck(final String text,
-                                       final String type,
-                                       final String subtype,
-                                       final Map<MediaTypeParameterName, String> parameters) {
+                             final String type,
+                             final String subtype,
+                             final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.check(MediaType.parse(text), type, subtype, parameters);
     }
 
