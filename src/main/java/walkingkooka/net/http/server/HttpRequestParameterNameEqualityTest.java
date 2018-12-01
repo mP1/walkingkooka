@@ -16,29 +16,20 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
-import walkingkooka.test.Fake;
+import org.junit.Test;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-public class FakeHttpResponse implements HttpResponse, Fake {
+final public class HttpRequestParameterNameEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<HttpRequestParameterName> {
 
-    @Override
-    public void setStatus(final HttpStatus status) {
-        throw new UnsupportedOperationException();
+    @Test
+    public void testDifferent() {
+        this.checkNotEquals(HttpRequestParameterName.with("different"));
     }
 
     @Override
-    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setBody(final byte[] body) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setBodyText(final String body) {
-        throw new UnsupportedOperationException();
+    protected HttpRequestParameterName createObject() {
+        return HttpRequestParameterName.with("parameter1");
     }
 }

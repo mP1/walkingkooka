@@ -16,23 +16,20 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.test.PublicStaticHelperTestCase;
 
-public final class HttpResponses implements PublicStaticHelper {
+import java.lang.reflect.Method;
 
-    /**
-     * {@see FakeHttpResponse}
-     */
-    public static HttpResponse fake() {
-        return new FakeHttpResponse();
+public final class HttpResponsesTest extends PublicStaticHelperTestCase<HttpResponses> {
+    @Override
+    protected Class<HttpResponses> type() {
+        return HttpResponses.class;
     }
 
-    /**
-     * Stop creation
-     */
-    private HttpResponses() {
-        throw new UnsupportedOperationException();
+    @Override
+    protected boolean canHavePublicTypes(final Method method) {
+        return false;
     }
 }

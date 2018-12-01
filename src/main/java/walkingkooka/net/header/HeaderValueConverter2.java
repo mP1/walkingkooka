@@ -19,14 +19,12 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.net.http.HttpRequest;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 
 /**
- * Base class and contract to assist {@link HttpHeaderName#toValue(HttpRequest)}
+ * Base class templating some boilerplate.
  */
 abstract class HeaderValueConverter2<T> implements HeaderValueConverter<T> {
 

@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.email.EmailAddress;
 
 /**
  * A {@link HeaderValueConverter2} that parses a header value into a {@link Float}

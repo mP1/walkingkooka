@@ -33,6 +33,8 @@ import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueToken;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.cookie.ClientCookie;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;

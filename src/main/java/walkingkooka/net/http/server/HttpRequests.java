@@ -16,30 +16,23 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
-/**
- * Defines a HTTP response.
- */
-public interface HttpResponse {
+import walkingkooka.type.PublicStaticHelper;
 
-    /**
-     * Sets the response status
-     */
-    void setStatus(final HttpStatus status);
+public final class HttpRequests implements PublicStaticHelper {
 
     /**
-     * Adds a new header and its value.
+     * {@see FakeHttpRequest}
      */
-    <T> void addHeader(final HttpHeaderName<T> name, final T value);
+    public static HttpRequest fake() {
+        return new FakeHttpRequest();
+    }
 
     /**
-     * Sets the body of the response.
+     * Stop creation
      */
-    void setBody(final byte[] body);
-
-    /**
-     * Sets text that will be encoded and set upon the body.
-     */
-    void setBodyText(final String text);
+    private HttpRequests() {
+        throw new UnsupportedOperationException();
+    }
 }

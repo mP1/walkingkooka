@@ -16,20 +16,9 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
-import walkingkooka.test.PublicStaticHelperTestCase;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-import java.lang.reflect.Method;
-
-public final class HttpResponsesTest extends PublicStaticHelperTestCase<HttpResponses> {
-    @Override
-    protected Class<HttpResponses> type() {
-        return HttpResponses.class;
-    }
-
-    @Override
-    protected boolean canHavePublicTypes(final Method method) {
-        return false;
-    }
+public abstract class HttpRequestTestCase<R extends HttpRequest> extends PackagePrivateClassTestCase<R> {
 }

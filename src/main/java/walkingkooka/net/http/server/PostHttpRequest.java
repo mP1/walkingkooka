@@ -16,14 +16,14 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.http.server;
 
 import java.util.List;
 
 /**
- * A {@link HttpRequest} made with the GET method.
+ * A {@link HttpRequest} made with the POST method.
  */
-public interface GetHttpRequest extends HttpRequest {
+public interface PostHttpRequest extends HttpRequest {
 
     /**
      * Returns the first value of the requested parameter.
@@ -34,4 +34,9 @@ public interface GetHttpRequest extends HttpRequest {
      * Returns all values for the requested parameter name.
      */
     List<String> parameterValues(final HttpRequestParameterName parameterName);
+
+    /**
+     * Returns the body text as a {@link String}.
+     */
+    String bodyText();
 }
