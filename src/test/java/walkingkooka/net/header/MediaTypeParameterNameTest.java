@@ -20,6 +20,9 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
+
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -58,6 +61,42 @@ final public class MediaTypeParameterNameTest extends HeaderNameTestCase<MediaTy
         final String differentCase = MediaTypeParameterName.Q_FACTOR.value().toUpperCase();
         assertNotEquals(differentCase, MediaTypeParameterName.Q_FACTOR.value());
         assertSame(MediaTypeParameterName.Q_FACTOR, MediaTypeParameterName.with(differentCase));
+    }
+
+    // parameter value......................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testParameterValueNullMediaTypeFails() {
+        MediaTypeParameterName.Q_FACTOR.parameterValue(null);
+    }
+
+    @Test
+    public void testParameterValueAbsent() {
+        this.parameterValueAndCheck(MediaTypeParameterName.Q_FACTOR,
+                this.mediaType(),
+                Optional.empty());
+    }
+
+    @Test
+    public void testParameterValuePresent() {
+        final MediaTypeParameterName<Float> parameter = MediaTypeParameterName.Q_FACTOR;
+        final Float value = 0.75f;
+
+        this.parameterValueAndCheck(parameter,
+                this.mediaType().setParameters(Maps.one(parameter, value)),
+                Optional.of(value));
+    }
+
+    private MediaType mediaType() {
+        return MediaType.with("type", "subType");
+    }
+
+    private <T> void parameterValueAndCheck(final MediaTypeParameterName<T> name,
+                                            final MediaType mediaType,
+                                            final Optional<T> value) {
+        assertEquals("wrong parameter value " + name + " in " + mediaType,
+                value,
+                name.parameterValue(mediaType));
     }
 
     @Test
