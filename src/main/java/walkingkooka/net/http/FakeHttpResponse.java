@@ -36,4 +36,9 @@ public class FakeHttpResponse implements HttpResponse, Fake {
     public void setBody(final byte[] body) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void setBodyText(final String body) {
+        throw new UnsupportedOperationException();
+    }
 }
