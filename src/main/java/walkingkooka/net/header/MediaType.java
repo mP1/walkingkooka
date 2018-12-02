@@ -22,10 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
-import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
 import java.io.Serializable;
@@ -232,7 +230,7 @@ final public class MediaType implements Value<String>,
     public static MediaType parse(final String text) {
         checkText(text);
 
-        return MediaTypeParser.one(text);
+        return MediaTypeHeaderParserOne.parseMediaType(text);
     }
 
 
@@ -244,18 +242,12 @@ final public class MediaType implements Value<String>,
     public static List<MediaType> parseList(final String text) {
         checkText(text);
 
-        return MediaTypeParser.many(text);
+        return MediaTypeHeaderParserList.parseMediaTypeList(text);
     }
 
     private static void checkText(final String text) {
         Whitespace.failIfNullOrWhitespace(text, "text");
     }
-
-    static boolean isTokenCharacter(final char c) {
-        return TOKEN.test(c);
-    }
-
-    private final static CharPredicate TOKEN = CharPredicates.rfc2045Token();
 
     /**
      * Creates a {@link MediaType} using the already broken type and sub types. It is not possible to pass parameters with or without values.
@@ -272,9 +264,9 @@ final public class MediaType implements Value<String>,
     }
 
     /**
-     * Factory method called by various setters that tries to match constants before creating an actual new instance.
+     * Factory method called by various setters and parsers, that tries to match constants before creating an actual new
+     * instance.
      */
-    // @VisibleForTesting
     static MediaType with(final String type,
                           final String subType,
                           final Map<MediaTypeParameterName<?>, Object> parameters,
@@ -397,15 +389,8 @@ final public class MediaType implements Value<String>,
      * Checks that the value contains valid token characters.
      */
     static String check(final String value, final String label) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, label, TOKEN);
+        CharPredicates.failIfNullOrEmptyOrFalse(value, label, MediaTypeHeaderParser.RFC2045TOKEN);
         return value;
-    }
-
-    /**
-     * Builds a message to report an invalid or unexpected character.
-     */
-    static String invalidCharacter(final char c, final int i, final String text) {
-        return "Invalid character " + CharSequences.quoteIfChars(c) + " at " + i + " in " + CharSequences.quoteAndEscape(text);
     }
 
     // parameters ...............................................................................................
@@ -545,7 +530,7 @@ final public class MediaType implements Value<String>,
      * Only the {@link #toString()} is serialized thus on deserialization we need to parse to reconstruct other fields.
      */
     private Object readResolve() {
-        return MediaTypeParser.one(this.toString);
+        return MediaTypeHeaderParserOne.parseMediaType(this.toString);
     }
 
     private final static long serialVersionUID = 1L;

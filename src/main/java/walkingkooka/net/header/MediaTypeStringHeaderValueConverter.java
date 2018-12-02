@@ -61,7 +61,7 @@ final class MediaTypeStringHeaderValueConverter extends HeaderValueConverter2<St
         }
 
         if (escaped) {
-            throw new HeaderValueException(MediaType.invalidCharacter('\\', value.length() - 1, value));
+            throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(value.length() - 1, value));
         }
         return raw.toString();
     }
