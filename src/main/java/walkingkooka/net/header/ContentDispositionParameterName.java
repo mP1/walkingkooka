@@ -88,9 +88,48 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      */
     private static ContentDispositionParameterName<OffsetDateTime> registerOffsetDateTimeConstant(final String header) {
         return registerConstant(header,
-                ContentDisposition.DATE,
+                DATE,
                 HeaderValueConverters.offsetDateTime());
     }
+
+    /**
+     * <a href="https://tools.ietf.org/html/rfc822"></a>
+     * <pre>
+     * date-time   =  [ day "," ] date time        ; dd mm yy
+     *                                                  ;  hh:mm:ss zzz
+     *
+     *      day         =  "Mon"  / "Tue" /  "Wed"  / "Thu"
+     *                  /  "Fri"  / "Sat" /  "Sun"
+     *
+     *      date        =  1*2DIGIT month 2DIGIT        ; day month year
+     *                                                  ;  e.g. 20 Jun 82
+     *
+     *      month       =  "Jan"  /  "Feb" /  "Mar"  /  "Apr"
+     *                  /  "May"  /  "Jun" /  "Jul"  /  "Aug"
+     *                  /  "Sep"  /  "Oct" /  "Nov"  /  "Dec"
+     *
+     *      time        =  hour zone                    ; ANSI and Military
+     *
+     *      hour        =  2DIGIT ":" 2DIGIT [":" 2DIGIT]
+     *                                                  ; 00:00:00 - 23:59:59
+     *
+     *      zone        =  "UT"  / "GMT"                ; Universal Time
+     *                                                  ; North American : UT
+     *                  /  "EST" / "EDT"                ;  Eastern:  - 5/ - 4
+     *                  /  "CST" / "CDT"                ;  Central:  - 6/ - 5
+     *                  /  "MST" / "MDT"                ;  Mountain: - 7/ - 6
+     *                  /  "PST" / "PDT"                ;  Pacific:  - 8/ - 7
+     *                  /  1ALPHA                       ; Military: Z = UT;
+     *                                                  ;  A:-1; (J not used)
+     *                                                  ;  M:-12; N:+1; Y:+12
+     *                  / ( ("+" / "-") 4DIGIT )        ; Local differential
+     *                                                  ;  hours+min. (HHMM)
+     * </pre>
+     */
+    private final static CharPredicate DATE = CharPredicates.builder()
+            .any("MonTuesWedThuFriSatSun,JanFebMarAprMayJunJulAugSepOctNovDec 0123456789:+-")
+            .build()
+            .setToString("RFC822 Date");
 
     /**
      * Creates and adds a new {@link ContentDispositionParameterName} to the cache being built.
@@ -114,7 +153,7 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      * A {@link ContentDispositionParameterName} holding <code>filename</code>
      */
     public final static ContentDispositionParameterName<ContentDispositionFilename> FILENAME = registerConstant("filename",
-            ContentDisposition.TOKEN,
+            ContentDispositionHeaderParser.RFC2045TOKEN,
             ContentDispositionFilenameHeaderValueConverter.INSTANCE);
 
     /**
@@ -131,7 +170,7 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      * A {@link ContentDispositionParameterName} holding <code>size</code>
      */
     public final static ContentDispositionParameterName<Long> SIZE = registerConstant("size",
-            ContentDisposition.DIGIT,
+            CharPredicates.digit(),
             HeaderValueConverters.longConverter());
 
     // factory ......................................................................................................
@@ -147,7 +186,7 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
         return null != headerValueParameterName ?
                 headerValueParameterName :
                 new ContentDispositionParameterName<String>(name,
-                        ContentDisposition.TOKEN,
+                        ContentDispositionHeaderParser.RFC2045TOKEN,
                         HeaderValueConverters.string());
     }
 
@@ -173,16 +212,9 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
     private final String name;
 
     /**
-     * Used during {@link ContentDisposition#parse(String)} to verify parameter value characters.
-     */
-    boolean testValueCharacter(final char c) {
-        return this.valueCharPredicate.test(c);
-    }
-
-    /**
      * Used during parsing to validate characters belonging to a parameter value.
      */
-    private final CharPredicate valueCharPredicate;
+    final CharPredicate valueCharPredicate;
 
     /**
      * Accepts text and converts it into its value.

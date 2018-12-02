@@ -22,6 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Comparables;
 import walkingkooka.naming.Name;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
 import java.io.Serializable;
@@ -50,8 +52,10 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
      * Creates and adds a new {@link MediaTypeParameterName} to the cache being built.
      */
     private static <T> MediaTypeParameterName<T> registerConstant(final String name,
+                                                                  final CharPredicate charPredicate,
                                                                   final HeaderValueConverter<T> valueConverter) {
         final MediaTypeParameterName<T> parameterName = new MediaTypeParameterName<T>(name,
+                charPredicate,
                 valueConverter);
         MediaTypeParameterName.CONSTANTS.put(name, parameterName);
         return parameterName;
@@ -61,12 +65,19 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
      * Holds the charset parameter name.
      */
     public final static MediaTypeParameterName<String> CHARSET = registerConstant("charset",
+            MediaTypeHeaderParser.RFC2045TOKEN,
             HeaderValueConverters.string());
+
+
+    private final static CharPredicate DIGITS = CharPredicates.digit()
+            .or(CharPredicates.any("+-."))
+            .setToString("Q factor");
 
     /**
      * The q factor weight parameter.
      */
     public final static MediaTypeParameterName<Float> Q_FACTOR = registerConstant("q",
+            DIGITS,
             HeaderValueConverters.floatConverter());
 
     /**
@@ -78,15 +89,17 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
         final MediaTypeParameterName<?> parameterName = CONSTANTS.get(value);
         return null != parameterName ?
                 parameterName :
-                new MediaTypeParameterName<String>(value, HeaderValueConverters.mediaTypeString());
+                new MediaTypeParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeString());
     }
 
     /**
      * Private ctor use factory.
      */
     private MediaTypeParameterName(final String value,
+                                   final CharPredicate valueCharPredicate,
                                    final HeaderValueConverter<T> valueConverter) {
         this.value = value;
+        this.valueCharPredicate = valueCharPredicate;
         this.valueConverter = valueConverter;
     }
 
@@ -96,6 +109,9 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
     }
 
     private final String value;
+
+
+    final transient CharPredicate valueCharPredicate;
 
     /**
      * Accepts text and converts it into its value.

@@ -18,12 +18,12 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.Cast;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class MediaTypeParserTest extends PackagePrivateClassTestCase<MediaTypeParser> {
-
+public final class HeaderParserTest extends PackagePrivateClassTestCase<HeaderParser<?>> {
     @Override
-    protected Class<MediaTypeParser> type() {
-        return MediaTypeParser.class;
+    protected Class<HeaderParser<?>> type() {
+        return Cast.to(HeaderParser.class);
     }
 }
