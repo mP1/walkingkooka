@@ -27,14 +27,13 @@ import walkingkooka.text.CaseSensitivity;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 
 /**
  * The {@link Name} of an optional parameter accompanying a {@link MediaType}. Note the name may not contain the whitespace, equals sign, semi colons
  * or commas.
  */
-final public class MediaTypeParameterName<T> implements HeaderName<T>,
+final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
         Comparable<MediaTypeParameterName<?>>,
         Serializable {
 
@@ -97,15 +96,6 @@ final public class MediaTypeParameterName<T> implements HeaderName<T>,
     }
 
     private final String value;
-
-    /**
-     * A type safe getter that fetches a parameter value wrapped in an {@link Optional}.
-     */
-    public Optional<T> parameterValue(final MediaType mediaType) {
-        Objects.requireNonNull(mediaType, "mediaType");
-
-        return Optional.ofNullable(Cast.to(mediaType.parameters().get(this)));
-    }
 
     /**
      * Accepts text and converts it into its value.

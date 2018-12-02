@@ -31,7 +31,7 @@ import java.util.Optional;
 /**
  * The {@link Name} of header parameter value.
  */
-final public class HeaderValueTokenParameterName<T> implements HeaderName<T>,
+final public class HeaderValueTokenParameterName<T> implements HeaderParameterName<T>,
         Comparable<HeaderValueTokenParameterName<?>> {
 
     /**

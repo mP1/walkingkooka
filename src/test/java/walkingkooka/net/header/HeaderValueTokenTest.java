@@ -30,7 +30,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueToken> {
+public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCase<HeaderValueToken,
+        HeaderValueTokenParameterName<?>> {
 
     private final static String VALUE = "abc";
     private final static String PARAMETER_VALUE = "v1";
@@ -102,20 +103,9 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
 
     // setParameters ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testSetParametersNullFails() {
-        this.token().setParameters(null);
-    }
-
     @Test(expected = HeaderValueException.class)
     public void testSetParametersInvalidParameterValueFails() {
         this.token().setParameters(this.parameters("Q", "INVALID!"));
-    }
-
-    @Test
-    public void testSetParametersSame() {
-        final HeaderValueToken token = this.token();
-        assertSame(token, token.setParameters(this.parameters()));
     }
 
     @Test
@@ -599,6 +589,11 @@ public final class HeaderValueTokenTest extends HeaderValueTestCase<HeaderValueT
     }
 
     // helpers ...........................................................................................
+
+    @Override
+    protected HeaderValueToken createHeaderValueWithParameters() {
+        return this.token();
+    }
 
     private HeaderValueToken token() {
         return HeaderValueToken.with(VALUE, this.parameters());

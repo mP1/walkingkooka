@@ -31,7 +31,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
+final public class MediaTypeTest extends HeaderValueWithParametersTestCase<MediaType, MediaTypeParameterName<?>> {
 
     // constants
 
@@ -198,17 +198,6 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     }
 
     // setParameters ..........................................................................................
-
-    @Test(expected = NullPointerException.class)
-    public void testSetParametersNullFails() {
-        this.mediaType().setParameters(null);
-    }
-
-    @Test
-    public void testSetParametersSame() {
-        final MediaType mediaType = this.mediaType();
-        assertSame(mediaType, mediaType.setParameters(parameters()));
-    }
 
     @Test
     public void testSetParametersSameDifferentCase() {
@@ -459,6 +448,11 @@ final public class MediaTypeTest extends HeaderValueTestCase<MediaType> {
     }
 
     // helpers........................................................................................................
+
+    @Override
+    protected MediaType createHeaderValueWithParameters() {
+        return this.mediaType();
+    }
 
     private MediaType mediaType() {
         return MediaType.with(TYPE, SUBTYPE, parameters(), "type/subtype;parameter123=value456");

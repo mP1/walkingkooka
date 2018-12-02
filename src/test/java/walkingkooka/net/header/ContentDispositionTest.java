@@ -30,7 +30,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-public final class ContentDispositionTest extends HeaderValueTestCase<ContentDisposition> {
+public final class ContentDispositionTest extends HeaderValueWithParametersTestCase<ContentDisposition,
+        ContentDispositionParameterName<?>> {
 
     private final static ContentDispositionType TYPE = ContentDispositionType.ATTACHMENT;
     private final static String PARAMETER_VALUE = "v1";
@@ -54,7 +55,7 @@ public final class ContentDispositionTest extends HeaderValueTestCase<ContentDis
 
     @Test
     public void testWith() {
-        final ContentDisposition token = this.contentDisposition();
+        final ContentDisposition token = this.createHeaderValueWithParameters();
         this.check(token);
     }
 
@@ -62,42 +63,31 @@ public final class ContentDispositionTest extends HeaderValueTestCase<ContentDis
 
     @Test(expected = NullPointerException.class)
     public void testSetTypeNullFails() {
-        this.contentDisposition().setType(null);
+        this.createHeaderValueWithParameters().setType(null);
     }
 
     @Test
     public void testSetTypeSame() {
-        final ContentDisposition token = this.contentDisposition();
-        assertSame(token, token.setType(TYPE));
+        final ContentDisposition disposition = this.createHeaderValueWithParameters();
+        assertSame(disposition, disposition.setType(TYPE));
     }
 
     @Test
     public void testSetTypeDifferent() {
-        final ContentDisposition token = this.contentDisposition();
+        final ContentDisposition disposition = this.createHeaderValueWithParameters();
         final ContentDispositionType type = ContentDispositionType.INLINE;
-        this.check(token.setType(type), type, this.parameters());
-        this.check(token);
+        this.check(disposition.setType(type), type, this.parameters());
+        this.check(disposition);
     }
 
     // setParameters ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testSetParametersNullFails() {
-        this.contentDisposition().setParameters(null);
-    }
-
-    @Test
-    public void testSetParametersSame() {
-        final ContentDisposition token = this.contentDisposition();
-        assertSame(token, token.setParameters(this.parameters()));
-    }
-
     @Test
     public void testSetParametersDifferent() {
-        final ContentDisposition token = this.contentDisposition();
+        final ContentDisposition disposition = this.createHeaderValueWithParameters();
         final Map<ContentDispositionParameterName<?>, Object> parameters = this.parameters("different", "2");
-        this.check(token.setParameters(parameters), TYPE, parameters);
-        this.check(token);
+        this.check(disposition.setParameters(parameters), TYPE, parameters);
+        this.check(disposition);
     }
 
     // parse ...................................................................................................
@@ -557,7 +547,7 @@ public final class ContentDispositionTest extends HeaderValueTestCase<ContentDis
 
     @Test
     public void testToStringWithParameters() {
-        this.toStringAndCheck(this.contentDisposition(),
+        this.toStringAndCheck(this.createHeaderValueWithParameters(),
                 "attachment; p1=v1");
     }
 
@@ -574,7 +564,8 @@ public final class ContentDispositionTest extends HeaderValueTestCase<ContentDis
 
     // helpers ...........................................................................................
 
-    private ContentDisposition contentDisposition() {
+    @Override
+    protected ContentDisposition createHeaderValueWithParameters() {
         return ContentDisposition.with(TYPE, this.parameters());
     }
 

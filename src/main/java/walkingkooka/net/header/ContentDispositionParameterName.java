@@ -68,7 +68,7 @@ import java.util.Optional;
  *                       ; numeric timezones (+HHMM or -HHMM) MUST be used
  * </pre>
  */
-final public class ContentDispositionParameterName<T> implements HeaderName<T>,
+final public class ContentDispositionParameterName<T> implements HeaderParameterName<T>,
         Comparable<ContentDispositionParameterName<?>> {
 
     /**

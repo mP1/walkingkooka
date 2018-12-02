@@ -28,8 +28,7 @@ import java.time.ZoneOffset;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ContentDispositionParameterNameTest extends HeaderNameTestCase<ContentDispositionParameterName<Object>,
-        Object> {
+final public class ContentDispositionParameterNameTest extends HeaderParameterNameTestCase<ContentDispositionParameterName<?>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
@@ -59,6 +58,28 @@ final public class ContentDispositionParameterNameTest extends HeaderNameTestCas
     @Test
     public void testConstantNameReturnsConstant() {
         assertSame(ContentDispositionParameterName.CREATION_DATE, ContentDispositionParameterName.with(ContentDispositionParameterName.CREATION_DATE.value()));
+    }
+
+    // parameter value......................................................................................
+
+    @Test
+    public void testParameterValueAbsent() {
+        this.parameterValueAndCheckAbsent(ContentDispositionParameterName.CREATION_DATE,
+                this.contentDisposition());
+    }
+
+    @Test
+    public void testParameterValuePresent() {
+        final ContentDispositionParameterName<ContentDispositionFilename> parameter = ContentDispositionParameterName.FILENAME;
+        final ContentDispositionFilename filename = ContentDispositionFilename.with("readme.txt");
+
+        this.parameterValueAndCheckPresent(parameter,
+                this.contentDisposition(),
+                filename);
+    }
+
+    private ContentDisposition contentDisposition() {
+        return ContentDisposition.parse("attachment; filename=readme.txt");
     }
 
     // toValue...........................................................................................
@@ -96,7 +117,7 @@ final public class ContentDispositionParameterNameTest extends HeaderNameTestCas
     }
 
     @Override
-    protected Class<ContentDispositionParameterName<Object>> type() {
+    protected Class<ContentDispositionParameterName<?>> type() {
         return Cast.to(ContentDispositionParameterName.class);
     }
 }

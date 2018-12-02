@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
  * Holds a simple header value, and any accompanying parameters. Parameter values will be of the type
  * compatible with each parameter name.
  */
-public final class HeaderValueToken implements HeaderValue,
+public final class HeaderValueToken implements HeaderValueWithParameters<HeaderValueTokenParameterName<?>>,
         Value<String>,
         HasQFactorWeight,
         UsesToStringBuilder {
@@ -416,10 +416,12 @@ public final class HeaderValueToken implements HeaderValue,
     /**
      * A map view of all parameters to their text or string value.
      */
+    @Override
     public Map<HeaderValueTokenParameterName<?>, Object> parameters() {
         return this.parameters;
     }
 
+    @Override
     public HeaderValueToken setParameters(final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
         final Map<HeaderValueTokenParameterName<?>, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
