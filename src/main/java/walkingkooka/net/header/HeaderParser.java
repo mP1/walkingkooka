@@ -34,6 +34,7 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
         CharSequences.failIfNullOrEmpty(text, label);
     }
 
+    final static char WILDCARD = '*';
     final static char EQUALS_SIGN = '=';
     final static char SEPARATOR = ',';
     final static char PARAMETER_SEPARATOR = ';';
@@ -44,7 +45,6 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
 
     HeaderParser(final String text) {
         super();
-
         this.text = text;
         this.position = 0;
         this.mode = HeaderParserMode.VALUE;

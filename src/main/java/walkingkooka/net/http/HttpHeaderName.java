@@ -26,6 +26,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.HeaderName;
 import walkingkooka.net.header.HeaderValueConverter;
@@ -64,6 +65,14 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     private static HttpHeaderName<AbsoluteUrl> registerAbsoluteUrlConstant(final String header,
                                                                            final HttpHeaderScope scope) {
         return registerConstant(header, scope, HeaderValueConverters.absoluteUrl());
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link List<CharsetHeaderValue>} header values.
+     */
+    private static HttpHeaderName<List<CharsetHeaderValue>> registerCharsetHeaderValueListConstant(final String header,
+                                                                                                   final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HeaderValueConverters.charsetHeaderValueList());
     }
 
     /**
@@ -215,7 +224,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Accept-Charset: utf-8, iso-8859-1;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderValueToken>> ACCEPT_CHARSET = registerTokenListConstant("Accept-Charset",
+    public final static HttpHeaderName<List<CharsetHeaderValue>> ACCEPT_CHARSET = registerCharsetHeaderValueListConstant("Accept-Charset",
             HttpHeaderScope.REQUEST);
 
     /**

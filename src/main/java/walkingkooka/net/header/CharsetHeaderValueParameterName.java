@@ -35,8 +35,8 @@ import java.util.Objects;
  * The {@link Name} of an optional parameter accompanying a {@link MediaType}. Note the name may not contain the whitespace, equals sign, semi colons
  * or commas.
  */
-final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
-        Comparable<MediaTypeParameterName<?>>,
+final public class CharsetHeaderValueParameterName<T> implements HeaderParameterName<T>,
+        Comparable<CharsetHeaderValueParameterName<?>>,
         Serializable {
 
     private final static long serialVersionUID = 1L;
@@ -44,30 +44,22 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
     // constants
 
     /**
-     * A read only cache of already prepared {@link MediaTypeParameterName names}. These constants are incomplete.
+     * A read only cache of already prepared {@link CharsetHeaderValueParameterName names}. These constants are incomplete.
      */
-    final static Map<String, MediaTypeParameterName> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+    final static Map<String, CharsetHeaderValueParameterName> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
-     * Creates and adds a new {@link MediaTypeParameterName} to the cache being built.
+     * Creates and adds a new {@link CharsetHeaderValueParameterName} to the cache being built.
      */
-    private static <T> MediaTypeParameterName<T> registerConstant(final String name,
-                                                                  final CharPredicate charPredicate,
-                                                                  final HeaderValueConverter<T> valueConverter) {
-        final MediaTypeParameterName<T> parameterName = new MediaTypeParameterName<T>(name,
+    private static <T> CharsetHeaderValueParameterName<T> registerConstant(final String name,
+                                                                           final CharPredicate charPredicate,
+                                                                           final HeaderValueConverter<T> valueConverter) {
+        final CharsetHeaderValueParameterName<T> parameterName = new CharsetHeaderValueParameterName<T>(name,
                 charPredicate,
                 valueConverter);
-        MediaTypeParameterName.CONSTANTS.put(name, parameterName);
+        CharsetHeaderValueParameterName.CONSTANTS.put(name, parameterName);
         return parameterName;
     }
-
-    /**
-     * Holds the charset parameter name.
-     */
-    public final static MediaTypeParameterName<CharsetName> CHARSET = registerConstant("charset",
-            CharsetName.PART_CHAR_PREDICATE, // part includes initial.
-            HeaderValueConverters.charsetName());
-
 
     private final static CharPredicate DIGITS = CharPredicates.digit()
             .or(CharPredicates.any("+-."))
@@ -76,28 +68,28 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
     /**
      * The q factor weight parameter.
      */
-    public final static MediaTypeParameterName<Float> Q_FACTOR = registerConstant("q",
+    public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = registerConstant("q",
             DIGITS,
             HeaderValueConverters.floatConverter());
 
     /**
-     * Factory that creates a {@link MediaTypeParameterName}
+     * Factory that creates a {@link CharsetHeaderValueParameterName}
      */
-    public static MediaTypeParameterName<?> with(final String value) {
+    public static CharsetHeaderValueParameterName<?> with(final String value) {
         MediaType.check(value, "value");
 
-        final MediaTypeParameterName<?> parameterName = CONSTANTS.get(value);
+        final CharsetHeaderValueParameterName<?> parameterName = CONSTANTS.get(value);
         return null != parameterName ?
                 parameterName :
-                new MediaTypeParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeString());
+                new CharsetHeaderValueParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeString());
     }
 
     /**
      * Private ctor use factory.
      */
-    private MediaTypeParameterName(final String value,
-                                   final CharPredicate valueCharPredicate,
-                                   final HeaderValueConverter<T> valueConverter) {
+    private CharsetHeaderValueParameterName(final String value,
+                                            final CharPredicate valueCharPredicate,
+                                            final HeaderValueConverter<T> valueConverter) {
         this.value = value;
         this.valueCharPredicate = valueCharPredicate;
         this.valueConverter = valueConverter;
@@ -136,7 +128,7 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
     // Comparable
 
     @Override
-    public int compareTo(final MediaTypeParameterName name) {
+    public int compareTo(final CharsetHeaderValueParameterName name) {
         return this.value.compareToIgnoreCase(name.value());
     }
 
@@ -150,11 +142,11 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof MediaTypeParameterName &&
+                other instanceof CharsetHeaderValueParameterName &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final MediaTypeParameterName other) {
+    private boolean equals0(final CharsetHeaderValueParameterName other) {
         return this.compareTo(other) == Comparables.EQUAL;
     }
 
