@@ -22,13 +22,11 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class MediaTypeParameterNameTest extends HeaderNameTestCase<MediaTypeParameterName<Object>, Object> {
+final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCase<MediaTypeParameterName<?>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithIncludesWhitespaceFails() {
@@ -65,16 +63,10 @@ final public class MediaTypeParameterNameTest extends HeaderNameTestCase<MediaTy
 
     // parameter value......................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testParameterValueNullMediaTypeFails() {
-        MediaTypeParameterName.Q_FACTOR.parameterValue(null);
-    }
-
     @Test
     public void testParameterValueAbsent() {
-        this.parameterValueAndCheck(MediaTypeParameterName.Q_FACTOR,
-                this.mediaType(),
-                Optional.empty());
+        this.parameterValueAndCheckAbsent(MediaTypeParameterName.Q_FACTOR,
+                this.mediaType());
     }
 
     @Test
@@ -82,22 +74,16 @@ final public class MediaTypeParameterNameTest extends HeaderNameTestCase<MediaTy
         final MediaTypeParameterName<Float> parameter = MediaTypeParameterName.Q_FACTOR;
         final Float value = 0.75f;
 
-        this.parameterValueAndCheck(parameter,
+        this.parameterValueAndCheckPresent(parameter,
                 this.mediaType().setParameters(Maps.one(parameter, value)),
-                Optional.of(value));
+                value);
     }
 
     private MediaType mediaType() {
         return MediaType.with("type", "subType");
     }
 
-    private <T> void parameterValueAndCheck(final MediaTypeParameterName<T> name,
-                                            final MediaType mediaType,
-                                            final Optional<T> value) {
-        assertEquals("wrong parameter value " + name + " in " + mediaType,
-                value,
-                name.parameterValue(mediaType));
-    }
+    // toString...........................................................................
 
     @Test
     public void testToString() {
@@ -116,7 +102,7 @@ final public class MediaTypeParameterNameTest extends HeaderNameTestCase<MediaTy
     }
 
     @Override
-    protected Class<MediaTypeParameterName<Object>> type() {
+    protected Class<MediaTypeParameterName<?>> type() {
         return Cast.to(MediaTypeParameterName.class);
     }
 }

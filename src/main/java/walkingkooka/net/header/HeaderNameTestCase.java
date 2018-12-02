@@ -24,7 +24,7 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class HeaderNameTestCase<N extends HeaderName<V>, V> extends NameTestCase<N> {
+public abstract class HeaderNameTestCase<N extends HeaderName<?>> extends NameTestCase<N> {
 
     // parameterValue...........................................................................................
 

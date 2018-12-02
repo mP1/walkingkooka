@@ -52,8 +52,8 @@ import java.util.stream.Collectors;
  * message/External-body is not case-sensitive.)
  * </pre>
  */
-final public class MediaType implements HeaderValue,
-        Value<String>,
+final public class MediaType implements Value<String>,
+        HeaderValueWithParameters<MediaTypeParameterName<?>>,
         HasQFactorWeight,
         Serializable {
 
@@ -413,10 +413,12 @@ final public class MediaType implements HeaderValue,
     /**
      * Retrieves the parameters.
      */
+    @Override
     public Map<MediaTypeParameterName<?>, Object> parameters() {
         return this.parameters;
     }
 
+    @Override
     public MediaType setParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
         final Map<MediaTypeParameterName<?>, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?

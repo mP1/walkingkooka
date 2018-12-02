@@ -37,7 +37,8 @@ import java.util.Objects;
  * Represents a content disposition header and its component values.<br>
  * <a href="https://en.wikipedia.org/wiki/MIME#Content-Disposition"></a>
  */
-public final class ContentDisposition implements HeaderValue, UsesToStringBuilder {
+public final class ContentDisposition implements HeaderValueWithParameters<ContentDispositionParameterName<?>>,
+        UsesToStringBuilder {
 
     /**
      * A constants with no parameters.
@@ -492,10 +493,12 @@ public final class ContentDisposition implements HeaderValue, UsesToStringBuilde
     /**
      * A map view of all parameters to their text or string value.
      */
+    @Override
     public Map<ContentDispositionParameterName<?>, Object> parameters() {
         return this.parameters;
     }
 
+    @Override
     public ContentDisposition setParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
         final Map<ContentDispositionParameterName<?>, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?

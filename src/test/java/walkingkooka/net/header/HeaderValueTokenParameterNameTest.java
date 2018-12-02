@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class HeaderValueTokenParameterNameTest extends HeaderNameTestCase<HeaderValueTokenParameterName<Object>, Object> {
+final public class HeaderValueTokenParameterNameTest extends HeaderParameterNameTestCase<HeaderValueTokenParameterName<?>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithControlCharacterFails() {
@@ -65,17 +65,17 @@ final public class HeaderValueTokenParameterNameTest extends HeaderNameTestCase<
         assertSame(HeaderValueTokenParameterName.Q, HeaderValueTokenParameterName.with(differentCase));
     }
 
-    // parameterValue...........................................................................................
+    // toValue...........................................................................................
 
     @Test
-    public void testParameterValueFloat() {
+    public void testToValueFloat() {
         this.toValueAndCheck(HeaderValueTokenParameterName.Q,
                 "0.75",
                 0.75f);
     }
 
     @Test
-    public void testParameterValueString() {
+    public void testToValueString() {
         this.toValueAndCheck(Cast.to(HeaderValueTokenParameterName.with("xyz")),
                 "abc",
                 "abc");
@@ -100,7 +100,7 @@ final public class HeaderValueTokenParameterNameTest extends HeaderNameTestCase<
     }
 
     @Override
-    protected Class<HeaderValueTokenParameterName<Object>> type() {
+    protected Class<HeaderValueTokenParameterName<?>> type() {
         return Cast.to(HeaderValueTokenParameterName.class);
     }
 }
