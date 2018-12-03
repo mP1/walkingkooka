@@ -52,7 +52,7 @@ final class CharsetHeaderValueListHeaderValueConverter extends HeaderValueConver
 
     @Override
     String format0(final List<CharsetHeaderValue> value, final Name name) {
-        return CharsetHeaderValue.format(value);
+        return CharsetHeaderValue.toHeaderTextList(value);
     }
 
     @Override
