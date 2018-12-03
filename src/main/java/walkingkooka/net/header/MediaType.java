@@ -290,7 +290,7 @@ final public class MediaType implements Value<String>,
      * Formats or converts a list of media types back to a String. Basically
      * an inverse of {@link #parseList(String)}.
      */
-    public static String format(final List<MediaType> mediaTypes) {
+    public static String toHeaderTextList(final List<MediaType> mediaTypes) {
         Objects.requireNonNull(mediaTypes, "mediaTypes");
 
         return mediaTypes.stream()

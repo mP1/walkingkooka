@@ -436,30 +436,30 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         assertEquals("toHeaderText", toString, type.toHeaderText());
     }
 
-    // format........................................................................................................
+    // toHeaderTextList...............................................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testFormatNullFails() {
-        MediaType.format(null);
+    public void testToHeaderTextListNullFails() {
+        MediaType.toHeaderTextList(null);
     }
 
     @Test
-    public void testFormatOne() {
-        this.formatAndCheck("type1/subtype1",
+    public void testToHeaderTextListOne() {
+        this.toHeaderTextListAndCheck("type1/subtype1",
                 MediaType.with("type1", "subtype1"));
     }
 
     @Test
-    public void testFormatMany() {
-        this.formatAndCheck("type1/subtype1, type2/subtype2",
+    public void testToHeaderTextListMany() {
+        this.toHeaderTextListAndCheck("type1/subtype1, type2/subtype2",
                 MediaType.with("type1", "subtype1"),
                 MediaType.with("type2", "subtype2"));
     }
 
-    private void formatAndCheck(final String toString, final MediaType...mediaTypes) {
+    private void toHeaderTextListAndCheck(final String toString, final MediaType... mediaTypes) {
         assertEquals("Format " + Arrays.toString(mediaTypes) + " failed",
                 toString,
-                MediaType.format(Lists.of(mediaTypes)));
+                MediaType.toHeaderTextList(Lists.of(mediaTypes)));
     }
 
     // helpers........................................................................................................
