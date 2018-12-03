@@ -72,10 +72,10 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
     /**
      * Factory that creates a new {@link HeaderValueToken}
      */
-    public static HeaderValueToken with(final String value, final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "token value", CharPredicates.rfc2045Token());
+    public static HeaderValueToken with(final String value) {
+        checkValue(value);
 
-        return new HeaderValueToken(value, checkParameters(parameters));
+        return new HeaderValueToken(value, NO_PARAMETERS);
     }
 
     /**
@@ -148,7 +148,8 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
 
     // replace ...........................................................................................................
 
-    private HeaderValueToken replace(final String value, final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
+    private HeaderValueToken replace(final String value,
+                                     final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
         return new HeaderValueToken(value, parameters);
     }
 
