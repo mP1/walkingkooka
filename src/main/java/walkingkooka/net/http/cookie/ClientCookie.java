@@ -78,7 +78,7 @@ final public class ClientCookie extends Cookie {
     /**
      * Formats a list of cookies into their header string form. Basically the inverse of {@link #parseHeader(String)}.
      */
-    public static String formatHeader(final List<ClientCookie> cookies) {
+    public static String toHeaderTextList(final List<ClientCookie> cookies) {
         Objects.requireNonNull(cookies, "cookies");
 
         return cookies.stream()

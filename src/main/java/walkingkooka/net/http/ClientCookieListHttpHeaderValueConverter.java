@@ -53,7 +53,7 @@ final class ClientCookieListHttpHeaderValueConverter extends HttpHeaderValueConv
 
     @Override
     String format0(final List<ClientCookie> cookies, final Name name) {
-        return ClientCookie.formatHeader(cookies);
+        return ClientCookie.toHeaderTextList(cookies);
     }
 
     @Override
