@@ -22,8 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
+import walkingkooka.net.header.HeaderValue;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
@@ -35,7 +35,7 @@ import java.util.Optional;
  * Holds a cookie including all its properties. Note that values are verified to contain correct characters but no attempt is made to encode values
  * with incorrect values.
  */
-abstract public class Cookie implements HashCodeEqualsDefined, UsesToStringBuilder {
+abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
 
     /**
      * Attribute or client cookie separator
@@ -307,11 +307,6 @@ abstract public class Cookie implements HashCodeEqualsDefined, UsesToStringBuild
      * The name of the {@link HttpHeaderName} used to encode this cookie.
      */
     abstract HttpHeaderName header();
-
-    /**
-     * Returns this cookie in header value form.
-     */
-    abstract String toHeaderValue();
 
     /**
      * Creates a new {@link javax.servlet.http.Cookie}

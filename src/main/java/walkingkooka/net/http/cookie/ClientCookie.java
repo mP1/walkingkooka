@@ -82,7 +82,7 @@ final public class ClientCookie extends Cookie {
         Objects.requireNonNull(cookies, "cookies");
 
         return cookies.stream()
-                .map(c -> c.toHeaderValue())
+                .map(c -> c.toHeaderText())
                 .collect(Collectors.joining(FORMAT_SEPARATOR));
     }
 
@@ -148,7 +148,7 @@ final public class ClientCookie extends Cookie {
      * Returns this cookie in header value form.
      */
     @Override
-    public String toHeaderValue() {
+    public String toHeaderText() {
         return this.toString();
     }
 

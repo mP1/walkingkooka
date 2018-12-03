@@ -799,7 +799,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     // toHeaderValue ....................................................................................
 
     @Test
-    public void testToHeaderValue() {
+    public void testToHeaderText() {
         assertEquals("cookie123=value456;", //
                 ServerCookie.with(NAME,
                         VALUE,
@@ -810,7 +810,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
                         CookieSecure.ABSENT,
                         CookieHttpOnly.ABSENT,
                         VERSION)
-                        .toHeaderValue());
+                        .toHeaderText());
     }
 
     // toString.....................................................................................
