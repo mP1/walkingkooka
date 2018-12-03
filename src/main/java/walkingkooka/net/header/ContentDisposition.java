@@ -70,11 +70,10 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
     /**
      * Factory that creates a new {@link ContentDisposition}
      */
-    public static ContentDisposition with(final ContentDispositionType type,
-                                          final Map<ContentDispositionParameterName<?>, Object> parameters) {
+    public static ContentDisposition with(final ContentDispositionType type) {
         checkType(type);
 
-        return new ContentDisposition(type, checkParameters(parameters));
+        return new ContentDisposition(type, NO_PARAMETERS);
     }
 
     /**

@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.HttpHeaderName;
 
@@ -53,8 +52,7 @@ public final class ContentDispositionHeaderValueConverterTest extends
 
     @Override
     protected ContentDisposition value() {
-        return ContentDisposition.with(ContentDispositionType.ATTACHMENT,
-                Maps.one(ContentDispositionParameterName.FILENAME, ContentDispositionFilename.with("readme.txt")));
+        return ContentDispositionType.ATTACHMENT.setFilename(ContentDispositionFilename.with("readme.txt"));
     }
 
     @Override

@@ -26,6 +26,7 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * The {@link Name} of content disposition type.<br>
@@ -124,6 +125,23 @@ final public class ContentDispositionType implements Name, HashCodeEqualsDefined
     }
 
     private final String name;
+
+    /**
+     * Factory that creates a {@link ContentDisposition} with this type and filename.
+     */
+    public ContentDisposition setFilename(final ContentDispositionFilename filename) {
+        Objects.requireNonNull(filename, "filename");
+
+        return this.setParameters(Maps.one(ContentDispositionParameterName.FILENAME, filename));
+    }
+
+    /**
+     * Factory that creates a {@link ContentDisposition} with this type and filename.
+     */
+    public ContentDisposition setParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
+        return ContentDisposition.with(this)
+                .setParameters(parameters);
+    }
 
     // Object.....................................................................................................
 

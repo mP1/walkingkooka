@@ -21,7 +21,10 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.test.PublicClassTestCase;
+
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -63,6 +66,40 @@ final public class ContentDispositionTypeTest extends PublicClassTestCase<Conten
     @Test
     public void testConstantNameReturnsConstantCaseIgnored() {
         assertSame(ContentDispositionType.INLINE, ContentDispositionType.with(ContentDispositionType.INLINE.value().toUpperCase()));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetFilenameNullFails() {
+        ContentDispositionType.ATTACHMENT.setFilename(null);
+    }
+
+    @Test
+    public void testSetFilename() {
+        final ContentDispositionFilename filename = ContentDispositionFilename.with("readme.txt");
+        final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
+
+        final ContentDisposition disposition = type.setFilename(filename);
+        assertEquals("type", type, disposition.type());
+        assertEquals("parameters",
+                Maps.one(ContentDispositionParameterName.FILENAME, filename),
+                disposition.parameters());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetParametersNullFails() {
+        ContentDispositionType.ATTACHMENT.setParameters(null);
+    }
+
+    @Test
+    public void testSetParameters() {
+        final ContentDispositionFilename filename = ContentDispositionFilename.with("readme.txt");
+        final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
+        final Map<ContentDispositionParameterName<?>, Object> parameters = Maps.one(ContentDispositionParameterName.FILENAME, filename);
+        final ContentDisposition disposition = type.setParameters(parameters);
+        assertEquals("type", type, disposition.type());
+        assertEquals("parameters",
+                parameters,
+                disposition.parameters());
     }
 
     @Test
