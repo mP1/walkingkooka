@@ -102,7 +102,7 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
      * Formats or converts a list of media types back to a String. Basically
      * an inverse of {@link #parse(String)}.
      */
-    public static String format(final List<CharsetHeaderValue> charsetHeaderValues) {
+    public static String toHeaderTextList(final List<CharsetHeaderValue> charsetHeaderValues) {
         Objects.requireNonNull(charsetHeaderValues, "charsetHeaderValues");
 
         return charsetHeaderValues.stream()
