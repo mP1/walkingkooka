@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
-import walkingkooka.text.Whitespace;
 
 import java.util.List;
 import java.util.Map;
@@ -85,13 +84,7 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
      * Creates a {@link List} of {@link CharsetHeaderValue}.
      */
     public static List<CharsetHeaderValue> parse(final String text) {
-        checkText(text);
-
         return CharsetHeaderValueListHeaderParser.parseCharsetHeaderValueList(text);
-    }
-
-    private static void checkText(final String text) {
-        Whitespace.failIfNullOrWhitespace(text, "text");
     }
 
     /**
@@ -217,8 +210,7 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
 
     private CharsetHeaderValue replace(final CharsetName charsetName,
                                        final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        return new CharsetHeaderValue(charsetName,
-                parameters);
+        return CharsetHeaderValue.withParameters(charsetName, parameters);
     }
 
     // qWeight ...................................................................
