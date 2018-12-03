@@ -36,17 +36,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test(expected = NullPointerException.class)
     public void testWithNullValueFails() {
-        ContentDisposition.with(null, ContentDisposition.NO_PARAMETERS);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullParametersFails() {
-        ContentDisposition.with(TYPE, null);
-    }
-
-    @Test(expected = HeaderValueException.class)
-    public void testWithInvalidParameterValueFails() {
-        ContentDisposition.with(TYPE, Maps.one(ContentDispositionParameterName.FILENAME, "invalid!"));
+        ContentDisposition.with(null);
     }
 
     @Test
@@ -90,7 +80,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testToStringNoParameters() {
-        this.toStringAndCheck(ContentDisposition.with(TYPE, ContentDisposition.NO_PARAMETERS),
+        this.toStringAndCheck(ContentDisposition.with(TYPE),
                 "attachment");
     }
 
@@ -102,7 +92,8 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testToStringWithSeveralParameters() {
-        this.toStringAndCheck(ContentDisposition.with(TYPE, this.parameters("p1", "v1", "p2", "v2")),
+        this.toStringAndCheck(ContentDisposition.with(TYPE)
+                        .setParameters(this.parameters("p1", "v1", "p2", "v2")),
                 "attachment; p1=v1; p2=v2");
     }
 
@@ -115,7 +106,8 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Override
     protected ContentDisposition createHeaderValueWithParameters() {
-        return ContentDisposition.with(TYPE, this.parameters());
+        return ContentDisposition.with(TYPE)
+                .setParameters(this.parameters());
     }
 
     private Map<ContentDispositionParameterName<?>, Object> parameters() {

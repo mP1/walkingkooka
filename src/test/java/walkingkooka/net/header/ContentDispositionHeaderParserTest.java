@@ -457,9 +457,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
                                final String type,
                                final Map<ContentDispositionParameterName<?>, Object> parameters) {
         this.parseAndCheck(headerValue,
-                ContentDisposition.with(
-                        ContentDispositionType.with(type),
-                        parameters));
+                ContentDispositionType.with(type).setParameters(parameters));
     }
 
     @Override
