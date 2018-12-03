@@ -68,7 +68,7 @@ public abstract class HttpETag implements HeaderValue,
     /**
      * Builds a header value representation of a list of tags.
      */
-    public static String toString(final List<HttpETag> tags) {
+    public static String toHeaderTextList(final List<HttpETag> tags) {
         Objects.requireNonNull(tags, "tags");
 
         return tags.stream()

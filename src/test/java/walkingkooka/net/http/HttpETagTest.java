@@ -60,56 +60,56 @@ public final class HttpETagTest extends PublicClassTestCase<HttpETag> {
         assertEquals("W/\"abc123\"", HttpETag.with("abc123", WEAK).toString());
     }
 
-    // toString(List)....................................................................................
+    // toHeaderTextList.......................................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testToStringListNullFails() {
-        HttpETag.toString(null);
+    public void testToHeaderTextListListNullFails() {
+        HttpETag.toHeaderTextList(null);
     }
 
     @Test
-    public void testToStringListOfOne() {
-        this.toStringAndCheck("\"abc123\"",
+    public void testToHeaderTextListListOfOne() {
+        this.toHeaderTextListAndCheck("\"abc123\"",
                 HttpETag.with("abc123", HttpETagValidator.STRONG));
     }
 
     @Test
-    public void testToStringListOfOne2() {
-        this.toStringAndCheck("W/\"abc123\"",
+    public void testToHeaderTextListListOfOne2() {
+        this.toHeaderTextListAndCheck("W/\"abc123\"",
                 HttpETag.with("abc123", HttpETagValidator.WEAK));
     }
 
     @Test
-    public void testToStringListOfOneWildcard() {
-        this.toStringAndCheck("*",
+    public void testToHeaderTextListListOfOneWildcard() {
+        this.toHeaderTextListAndCheck("*",
                 HttpETag.wildcard());
     }
 
     @Test
-    public void testToStringListOfMany() {
-        this.toStringAndCheck("\"1\", \"2\"",
+    public void testToHeaderTextListListOfMany() {
+        this.toHeaderTextListAndCheck("\"1\", \"2\"",
                 HttpETag.with("1", HttpETagValidator.STRONG),
                 HttpETag.with("2", HttpETagValidator.STRONG));
     }
 
     @Test
-    public void testToStringListOfMany2() {
-        this.toStringAndCheck("\"11\", \"22\"",
+    public void testToHeaderTextListListOfMany2() {
+        this.toHeaderTextListAndCheck("\"11\", \"22\"",
                 HttpETag.with("11", HttpETagValidator.STRONG),
                 HttpETag.with("22", HttpETagValidator.STRONG));
     }
 
     @Test
-    public void testToStringListOfMany3() {
-        this.toStringAndCheck("W/\"11\", \"22\"",
+    public void testToHeaderTextListListOfMany3() {
+        this.toHeaderTextListAndCheck("W/\"11\", \"22\"",
                 HttpETag.with("11", HttpETagValidator.WEAK),
                 HttpETag.with("22", HttpETagValidator.STRONG));
     }
 
-    private void toStringAndCheck(final String toString, final HttpETag... tags) {
+    private void toHeaderTextListAndCheck(final String toString, final HttpETag... tags) {
         assertEquals("HttpETag.toString(List) failed =" + CharSequences.quote(toString),
                 toString,
-                HttpETag.toString(Lists.of(tags)));
+                HttpETag.toHeaderTextList(Lists.of(tags)));
     }
 
     @Override
