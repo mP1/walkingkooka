@@ -208,30 +208,30 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
         assertEquals("set headers", Maps.one(header, value), headers);
     }
 
-    // headerValueFormat.........................................................................
+    // headerText.........................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testHeaderValueFormatNullFails() {
-        HttpHeaderName.CONNECTION.headerValueFormat(null);
+    public void testHeaderTextNullFails() {
+        HttpHeaderName.CONNECTION.headerText(null);
     }
 
     @Test
-    public void testHeaderValueFormatString() {
+    public void testHeaderTextString() {
         final String text = "Close";
-        this.headerValueFormatAndCheck(HttpHeaderName.CONNECTION, text, text);
+        this.headerTextAndCheck(HttpHeaderName.CONNECTION, text, text);
     }
 
     @Test
-    public void testHeaderValueFormatLong() {
-        this.headerValueFormatAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L, "123");
+    public void testHeaderTextLong() {
+        this.headerTextAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L, "123");
     }
 
-    private <T> void headerValueFormatAndCheck(final HttpHeaderName<T> header,
+    private <T> void headerTextAndCheck(final HttpHeaderName<T> header,
                                                final T value,
                                                final String formatted) {
-        assertEquals(header + ".headerValueFormat " + CharSequences.quoteIfChars(value),
+        assertEquals(header + ".headerText " + CharSequences.quoteIfChars(value),
                 formatted,
-                header.headerValueFormat(value));
+                header.headerText(value));
     }
 
     // toString.................................................................................
