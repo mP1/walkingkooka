@@ -76,9 +76,9 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
 
     protected abstract C converter();
 
-    protected final void parseAndFormatAndCheck(final String text, final T value) {
+    protected final void parseAndToTextAndCheck(final String text, final T value) {
         this.parseAndCheck(text, value);
-        this.formatAndCheck(value, text);
+        this.toTextAndCheck(value, text);
     }
 
     protected final void parseAndCheck(final String value, final T expected) {
@@ -99,16 +99,16 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
         this.converter().check(value);
     }
 
-    protected final void formatAndCheck(final T value, final String expected) {
-        this.formatAndCheck(value, this.name(), expected);
+    protected final void toTextAndCheck(final T value, final String expected) {
+        this.toTextAndCheck(value, this.name(), expected);
     }
 
-    protected final void formatAndCheck(final T value, final Name name, final String expected) {
-        this.formatAndCheck(this.converter(), value, name, expected);
+    protected final void toTextAndCheck(final T value, final Name name, final String expected) {
+        this.toTextAndCheck(this.converter(), value, name, expected);
     }
 
-    protected final void formatAndCheck(final C converter, final T value, final Name name, final String expected) {
-        assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.format(value, name));
+    protected final void toTextAndCheck(final C converter, final T value, final Name name, final String expected) {
+        assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.toText(value, name));
     }
 
     protected abstract T value();

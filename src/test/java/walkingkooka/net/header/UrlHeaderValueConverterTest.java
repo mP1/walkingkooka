@@ -42,13 +42,13 @@ public final class UrlHeaderValueConverterTest extends
     @Test
     public void testLocationAbsoluteUrl() {
         final String url = "http://example.com";
-        this.parseAndFormatAndCheck(url, AbsoluteUrl.parse(url));
+        this.parseAndToTextAndCheck(url, AbsoluteUrl.parse(url));
     }
 
     @Test
     public void testLocationRelativeUrl() {
         final String url = "/relative/url/file.html";
-        this.parseAndFormatAndCheck(url, RelativeUrl.parse(url));
+        this.parseAndToTextAndCheck(url, RelativeUrl.parse(url));
     }
 
     @Override

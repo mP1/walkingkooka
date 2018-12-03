@@ -48,7 +48,7 @@ final class StringHeaderValueConverter extends HeaderValueConverter2<String> {
     }
 
     @Override
-    String format0(final String value, final Name name) {
+    String toText0(final String value, final Name name) {
         return value;
     }
 

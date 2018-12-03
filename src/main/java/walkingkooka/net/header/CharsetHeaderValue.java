@@ -250,7 +250,7 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
         return TO_STRING_PARAMETER_SEPARATOR +
                 name.value() +
                 PARAMETER_NAME_VALUE_SEPARATOR.character() +
-                name.valueConverter.format(Cast.to(nameAndValue.getValue()), name);
+                name.valueConverter.toText(Cast.to(nameAndValue.getValue()), name);
     }
 
     private final static String TO_STRING_PARAMETER_SEPARATOR = PARAMETER_SEPARATOR + " ";

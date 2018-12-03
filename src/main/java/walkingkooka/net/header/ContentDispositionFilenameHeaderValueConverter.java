@@ -49,7 +49,7 @@ final class ContentDispositionFilenameHeaderValueConverter extends HeaderValueCo
     }
 
     @Override
-    String format0(final ContentDispositionFilename value, final Name name) {
+    String toText0(final ContentDispositionFilename value, final Name name) {
         return value.toString();
     }
 

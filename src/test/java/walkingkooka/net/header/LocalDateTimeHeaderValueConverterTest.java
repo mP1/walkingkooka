@@ -41,7 +41,7 @@ public final class LocalDateTimeHeaderValueConverterTest extends
 
     @Test
     public void testLastModified() {
-        this.formatAndCheck(VALUE, TEXT);
+        this.toTextAndCheck(VALUE, TEXT);
     }
 
     @Override

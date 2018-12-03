@@ -38,7 +38,7 @@ public final class CharsetHeaderValueListHeaderValueConverterTest extends
     @Test
     public void testContentType() {
         final String charset = "utf-8";
-        this.parseAndFormatAndCheck(charset,
+        this.parseAndToTextAndCheck(charset,
                 Lists.of(CharsetHeaderValue.with(CharsetName.with(charset))));
     }
 
@@ -49,7 +49,7 @@ public final class CharsetHeaderValueListHeaderValueConverterTest extends
         assertEquals("charsetName must have no charset",
                 CharsetName.NO_CHARSET,
                 charsetName.charset());
-        this.parseAndFormatAndCheck(charset,
+        this.parseAndToTextAndCheck(charset,
                 Lists.of(CharsetHeaderValue.with(CharsetName.with(charset))));
     }
 

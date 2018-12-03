@@ -69,7 +69,7 @@ final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter2<Off
     }
 
     @Override
-    String format0(final OffsetDateTime value, final Name name) {
+    String toText0(final OffsetDateTime value, final Name name) {
         return FORMATTER.format(value);
     }
 

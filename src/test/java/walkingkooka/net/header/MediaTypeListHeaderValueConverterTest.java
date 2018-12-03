@@ -37,7 +37,7 @@ public final class MediaTypeListHeaderValueConverterTest extends
 
     @Test
     public void testContentType() {
-        this.parseAndFormatAndCheck(TEXT,
+        this.parseAndToTextAndCheck(TEXT,
                 Lists.of(this.mediaType1(), this.mediaType2()));
     }
 

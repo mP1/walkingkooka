@@ -33,13 +33,13 @@ public final class HttpHeaderRangeHttpHeaderValueConverterTest extends
     }
 
     @Test
-    public void testRangeHeader() {
+    public void testParseRangeHeader() {
         this.parseAndCheck(TEXT, this.range());
     }
 
     @Test
-    public void testContentRangeFormat() {
-        this.formatAndCheck(this.range(), TEXT);
+    public void testToTextContentRange() {
+        this.toTextAndCheck(this.range(), TEXT);
     }
 
     private HttpHeaderRange range() {

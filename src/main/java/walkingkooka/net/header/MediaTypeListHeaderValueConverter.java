@@ -50,7 +50,7 @@ final class MediaTypeListHeaderValueConverter extends HeaderValueConverter2<List
     }
 
     @Override
-    String format0(final List<MediaType> values, final Name name) {
+    String toText0(final List<MediaType> values, final Name name) {
         return MediaType.toHeaderTextList(values);
     }
 

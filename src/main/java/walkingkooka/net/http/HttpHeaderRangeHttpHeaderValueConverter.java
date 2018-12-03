@@ -60,7 +60,7 @@ final class HttpHeaderRangeHttpHeaderValueConverter extends HttpHeaderValueConve
     }
 
     @Override
-    String format0(final HttpHeaderRange value, final Name name) {
+    String toText0(final HttpHeaderRange value, final Name name) {
         return value.toString();
     }
 

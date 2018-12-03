@@ -32,7 +32,7 @@ public final class MediaTypeHeaderValueConverterTest extends
 
     @Test
     public void testContentType() {
-        this.parseAndFormatAndCheck("type1/subType1; p1=v1",
+        this.parseAndToTextAndCheck("type1/subType1; p1=v1",
                 MediaType.with("type1", "subType1")
                 .setParameters(Maps.one(MediaTypeParameterName.with("p1"), "v1")));
     }

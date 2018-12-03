@@ -33,17 +33,17 @@ public final class HttpHeaderNameListHttpHeaderValueConverterTest extends
     }
 
     @Test
-    public void testHeader() {
+    public void testParse() {
         this.parseAndCheck2("Accept", HttpHeaderName.ACCEPT);
     }
 
     @Test
-    public void testHeader2() {
+    public void testParse2() {
         this.parseAndCheck2("Accept,Content-Length", HttpHeaderName.ACCEPT, HttpHeaderName.CONTENT_LENGTH);
     }
 
     @Test
-    public void testHeaderWhitespaceHeader() {
+    public void testParseTokenWhitespaceToken() {
         this.parseAndCheck2("Accept, Content-Length", HttpHeaderName.ACCEPT, HttpHeaderName.CONTENT_LENGTH);
     }
 
@@ -80,7 +80,7 @@ public final class HttpHeaderNameListHttpHeaderValueConverterTest extends
 
     private void formatAndCheck2(final String value,
                                  final HttpHeaderName<?>...headers) {
-        this.formatAndCheck(Lists.of(headers), value);
+        this.toTextAndCheck(Lists.of(headers), value);
     }
 
     @Override

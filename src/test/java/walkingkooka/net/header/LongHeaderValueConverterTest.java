@@ -34,7 +34,7 @@ public final class LongHeaderValueConverterTest extends
 
     @Test
     public void testContentLength() {
-        this.parseAndFormatAndCheck(TEXT, VALUE);
+        this.parseAndToTextAndCheck(TEXT, VALUE);
     }
 
     @Override

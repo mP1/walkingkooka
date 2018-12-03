@@ -51,7 +51,7 @@ final class RelativeUrlHeaderValueConverter extends HeaderValueConverter2<Relati
     }
 
     @Override
-    String format0(final RelativeUrl value, final Name name) {
+    String toText0(final RelativeUrl value, final Name name) {
         return value.toString();
     }
 

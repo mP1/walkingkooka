@@ -33,7 +33,7 @@ public final class EmailAddressHeaderValueConverterTest extends
     @Test
     public void testFrom() {
         final String url = "user@example.com";
-        this.parseAndFormatAndCheck(url, EmailAddress.with(url));
+        this.parseAndToTextAndCheck(url, EmailAddress.with(url));
     }
 
     @Override

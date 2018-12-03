@@ -32,7 +32,7 @@ public final class ContentDispositionFilenameHeaderValueConverterTest extends
     @Test
     public void testFilename() {
         final String filename = "readme.txt";
-        this.parseAndFormatAndCheck(filename, ContentDispositionFilename.with(filename));
+        this.parseAndToTextAndCheck(filename, ContentDispositionFilename.with(filename));
     }
 
     @Override

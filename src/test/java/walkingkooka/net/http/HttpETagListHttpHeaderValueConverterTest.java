@@ -33,14 +33,14 @@ public final class HttpETagListHttpHeaderValueConverterTest extends
     }
 
     @Test
-    public void testETagOne() {
-        this.parseAndFormatAndCheck("W/\"123\"",
+    public void testParseETagOne() {
+        this.parseAndToTextAndCheck("W/\"123\"",
                 Lists.of(HttpETag.with("123", HttpETagValidator.WEAK)));
     }
 
     @Test
-    public void testETagSeveral() {
-        this.formatAndCheck(Lists.of(HttpETag.with("123", HttpETagValidator.WEAK),
+    public void testParseETagSeveral() {
+        this.toTextAndCheck(Lists.of(HttpETag.with("123", HttpETagValidator.WEAK),
                 HttpETag.with("456", HttpETagValidator.WEAK)), "W/\"123\", W/\"456\"");
     }
 

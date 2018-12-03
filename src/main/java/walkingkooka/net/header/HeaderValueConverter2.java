@@ -72,20 +72,20 @@ abstract class HeaderValueConverter2<T> implements HeaderValueConverter<T> {
     /**
      * Accepts a typed value and formats it into a http response header string.
      */
-    public final String format(final T value, final Name name) {
+    public final String toText(final T value, final Name name) {
         try {
-            return this.format0(value, name);
+            return this.toText0(value, name);
         } catch (final HeaderValueException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
             throw new HeaderValueException("Failed to convert " + CharSequences.quote(name.value()) +
                     " value " + CharSequences.quoteIfChars(value) +
-                    ", message: " + cause.getMessage(),
+                    " to text, message: " + cause.getMessage(),
                     cause);
         }
     }
 
-    abstract String format0(final T value, final Name name);
+    abstract String toText0(final T value, final Name name);
 
     // Object ..........................................................................................
 

@@ -283,7 +283,7 @@ final public class MediaType implements Value<String>,
                 " " +
                 name.value() +
                 PARAMETER_NAME_VALUE_SEPARATOR.character() +
-                name.valueConverter.format(Cast.to(nameAndValue.getValue()), name);
+                name.valueConverter.toText(Cast.to(nameAndValue.getValue()), name);
     }
 
     /**

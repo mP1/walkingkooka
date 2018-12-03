@@ -38,13 +38,13 @@ public final class ClientCookieListHttpHeaderValueConverterTest extends
     @Test
     public void testClientCookie() {
         final String header = "cookie123=value456;";
-        this.parseAndFormatAndCheck(header, ClientCookie.parseHeader(header));
+        this.parseAndToTextAndCheck(header, ClientCookie.parseHeader(header));
     }
 
     @Test
     public void testClientCookie2() {
         final String header = "cookie1=value1; cookie2=value2;";
-        this.parseAndFormatAndCheck(header, ClientCookie.parseHeader(header));
+        this.parseAndToTextAndCheck(header, ClientCookie.parseHeader(header));
     }
 
     @Test(expected = HeaderValueException.class)
