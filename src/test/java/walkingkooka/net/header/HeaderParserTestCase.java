@@ -50,10 +50,10 @@ public abstract class HeaderParserTestCase<P extends HeaderParser<N>,
 
     abstract P createHeaderParser(final String text);
 
-    final void parseAndCheck(final String headerValue, final ContentDisposition disposition) {
-        assertEquals("Incorrect result parsing " + CharSequences.quote(headerValue),
-                disposition,
-                this.parse(headerValue));
+    final void parseAndCheck(final String text, final V value) {
+        assertEquals("Incorrect result parsing " + CharSequences.quote(text),
+                value,
+                this.parse(text));
     }
 
     final void parseFails(final String text) {
