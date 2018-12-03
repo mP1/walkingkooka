@@ -24,6 +24,8 @@ package walkingkooka.net.header;
 final class MediaTypeHeaderParserOne extends MediaTypeHeaderParser{
 
     static MediaType parseMediaType(final String text) {
+        checkText(text);
+
         final MediaTypeHeaderParserOne parser = new MediaTypeHeaderParserOne(text);
         parser.parse();
         return parser.mediaType;

@@ -29,6 +29,8 @@ import java.util.List;
 final class MediaTypeHeaderParserList extends MediaTypeHeaderParser{
 
     static List<MediaType> parseMediaTypeList(final String text) {
+        checkText(text);
+
         final MediaTypeHeaderParserList parser = new MediaTypeHeaderParserList(text);
         parser.parse();
         parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());

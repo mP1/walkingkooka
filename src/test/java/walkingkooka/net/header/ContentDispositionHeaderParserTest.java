@@ -31,16 +31,6 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
 
     // parse ...................................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testNullFails() {
-        ContentDisposition.parse(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testEmptyFails() {
-        ContentDisposition.parse("");
-    }
-
     @Test
     public void testType() {
         this.parseAndCheck("A", "A");
