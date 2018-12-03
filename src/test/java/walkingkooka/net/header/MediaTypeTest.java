@@ -237,6 +237,14 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());
     }
 
+    @Test
+    public void testSetParametersConstant() {
+        final MediaType constant = MediaType.TEXT_PLAIN;
+        final MediaType withParameters = constant.setParameters(this.parameters());
+        assertNotEquals(constant, withParameters);
+        assertSame(constant, withParameters.setParameters(MediaType.NO_PARAMETERS));
+    }
+
     // qWeight .......................................................................
 
     @Test
@@ -455,7 +463,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     private MediaType mediaType() {
-        return MediaType.with(TYPE, SUBTYPE, parameters(), "type/subtype;parameter123=value456");
+        return MediaType.withParameters(TYPE, SUBTYPE, parameters(), "type/subtype;parameter123=value456");
     }
 
     private Map<MediaTypeParameterName<?>, Object> parameters() {

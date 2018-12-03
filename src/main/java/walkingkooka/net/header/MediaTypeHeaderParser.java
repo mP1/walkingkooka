@@ -127,7 +127,7 @@ abstract class MediaTypeHeaderParser extends HeaderParser<MediaTypeParameterName
 
     @Override
     final void tokenEnd() {
-        this.mediaType = MediaType.with(this.type,
+        this.mediaType = MediaType.withParameters(this.type,
                 this.subType,
                 this.parameters,
                 this.text.substring(this.start, this.position));
