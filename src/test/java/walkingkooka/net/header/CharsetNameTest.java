@@ -111,6 +111,14 @@ public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
     }
 
     @Test
+    public void testSetParameters() {
+        final CharsetHeaderValue headerValue = CharsetName.UTF_8
+                .setParameters(CharsetHeaderValue.NO_PARAMETERS);
+        assertEquals("charset", CharsetName.UTF_8, headerValue.value());
+        assertEquals("parameters", CharsetHeaderValue.NO_PARAMETERS, headerValue.parameters());
+    }
+
+    @Test
     public void testToString() {
         final String charsetName = "utf-8";
         assertEquals(charsetName, CharsetName.with(charsetName).toString());
