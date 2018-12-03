@@ -31,6 +31,7 @@ import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.HeaderName;
 import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
+import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HeaderValueToken;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.cookie.ClientCookie;
@@ -757,6 +758,17 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
         Objects.requireNonNull(headers, "headers");
 
         return Optional.ofNullable(Cast.to(headers.headers().get(this)));
+    }
+
+    /**
+     * Retrieves the value or throws a {@link HeaderValueException} if absent.
+     */
+    public T headerValueOrFail(final HasHeaders headers) {
+        final Optional<T> value = this.headerValue(headers);
+        if (!value.isPresent()) {
+            throw new HeaderValueException("Required value is absent for " + this);
+        }
+        return value.get();
     }
 
     /**
