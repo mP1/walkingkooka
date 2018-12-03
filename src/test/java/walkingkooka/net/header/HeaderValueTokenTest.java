@@ -129,37 +129,37 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
         assertEquals("toHeaderText", toString, token.toHeaderText());
     }
 
-    // format ...........................................................................................
+    // toHeaderTextList ...........................................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testFormatNullFails() {
-        HeaderValueToken.format(null);
+    public void testToHeaderTextListNullFails() {
+        HeaderValueToken.toHeaderTextList(null);
     }
 
     @Test
-    public void testFormatOne() {
-        this.formatAndCheck("A",
+    public void testToHeaderTextListOne() {
+        this.toHeaderTextListAndCheck("A",
                 HeaderValueToken.with("A"));
     }
 
     @Test
-    public void testFormatOneWithParameters() {
-        this.formatAndCheck("A; p1=v1",
+    public void testToHeaderTextListOneWithParameters() {
+        this.toHeaderTextListAndCheck("A; p1=v1",
                 HeaderValueToken.with("A")
                         .setParameters(this.parameters()));
     }
 
     @Test
-    public void testFormatMany() {
-        this.formatAndCheck("A, B",
+    public void testToHeaderTextListMany() {
+        this.toHeaderTextListAndCheck("A, B",
                 HeaderValueToken.with("A"),
                 HeaderValueToken.with("B"));
     }
 
-    private void formatAndCheck(final String toString, final HeaderValueToken...tokens) {
-        assertEquals("Format of " + Arrays.toString(tokens),
+    private void toHeaderTextListAndCheck(final String toString, final HeaderValueToken... tokens) {
+        assertEquals("toheaderTextList of " + Arrays.toString(tokens),
                 toString,
-                HeaderValueToken.format(Lists.of(tokens)));
+                HeaderValueToken.toHeaderTextList(Lists.of(tokens)));
     }
 
     // helpers ...........................................................................................

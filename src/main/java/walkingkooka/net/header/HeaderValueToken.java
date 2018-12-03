@@ -61,7 +61,7 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
     /**
      * Formats a list of tokens, basically the inverse of {@link #parse(String)}
      */
-    public static String format(final List<HeaderValueToken> tokens) {
+    public static String toHeaderTextList(final List<HeaderValueToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
         return tokens.stream()
