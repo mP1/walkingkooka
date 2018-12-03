@@ -202,6 +202,13 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
         return WILDCARD == this;
     }
 
+    /**
+     * Factory that creates a {@link CharsetHeaderValue} combining this charset and the given parameters.
+     */
+    public CharsetHeaderValue setParameters(final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
+        return CharsetHeaderValue.with(this).setParameters(parameters);
+    }
+
     // HeaderValue ....................................................................................................
 
     @Override
