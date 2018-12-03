@@ -168,29 +168,30 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
         assertEquals("cookie123=value456;", this.createCookie().toHeaderText());
     }
 
-    // format ................................................................
+    // toHeaderTextList ................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testFormatNullFails() {
-        ClientCookie.formatHeader(null);
+    public void testToHeaderTextListNullFails() {
+        ClientCookie.toHeaderTextList(null);
     }
 
     @Test
-    public void testFormatOne() {
-        this.formatAndCheck("cookie123=value456;", this.createCookie());
+    public void testToHeaderTextListOne() {
+        this.toHeaderTextListAndCheck("cookie123=value456;", this.createCookie());
     }
 
     @Test
-    public void testFormatTwo() {
-        this.formatAndCheck("cookie123=value456; cookie789=xyz;",
+    public void testToHeaderTextListTwo() {
+        this.toHeaderTextListAndCheck("cookie123=value456; cookie789=xyz;",
                 this.createCookie(),
                 ClientCookie.parseHeader("cookie789=xyz;").get(0));
     }
 
-    private void formatAndCheck(final String toString, final ClientCookie...cookies) {
+    private void toHeaderTextListAndCheck(final String toString,
+                                          final ClientCookie... cookies) {
         assertEquals("format " + Arrays.toString(cookies),
                 toString,
-                ClientCookie.formatHeader(Lists.of(cookies)));
+                ClientCookie.toHeaderTextList(Lists.of(cookies)));
     }
 
     // toString.................................................................
