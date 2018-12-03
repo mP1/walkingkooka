@@ -26,7 +26,6 @@ import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
 import java.util.Map;
@@ -48,26 +47,6 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
      * A constants with no parameters.
      */
     public final static Map<HeaderValueTokenParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
-
-    /**
-     * The separator between parameter name and value.
-     */
-    public final static CharacterConstant PARAMETER_NAME_VALUE_SEPARATOR = CharacterConstant.with('=');
-
-    /**
-     * The separator character that separates multiple parameters.
-     */
-    public final static CharacterConstant PARAMETER_SEPARATOR = CharacterConstant.with(';');
-
-    /**
-     * The separator character that separates values within a header value.
-     */
-    public final static CharacterConstant SEPARATOR = CharacterConstant.with(',');
-
-    /**
-     * Constant holding the wildcard value (without any parameters).
-     */
-    public final static String WILDCARD = "*";
 
     /**
      * Parses a header value into tokens, which aill also be sorted using their q factor weights.

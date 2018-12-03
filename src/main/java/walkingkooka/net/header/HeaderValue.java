@@ -19,11 +19,22 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharacterConstant;
 
 /**
  * Contract implemented by header value types.
  */
 public interface HeaderValue extends HashCodeEqualsDefined {
+
+    /**
+     * The separator character that separates multiple header values.
+     */
+    CharacterConstant SEPARATOR = CharacterConstant.with(',');
+
+    /**
+     * A special name that identifies a wildcard selection.
+     */
+    CharacterConstant WILDCARD = CharacterConstant.with('*');
 
     /**
      * Converts this value to its text form.

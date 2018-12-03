@@ -18,9 +18,11 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.NeverError;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.CharacterConstant;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -34,12 +36,26 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
         CharSequences.failIfNullOrEmpty(text, label);
     }
 
-    final static char WILDCARD = '*';
-    final static char EQUALS_SIGN = '=';
     final static char SEPARATOR = ',';
     final static char PARAMETER_SEPARATOR = ';';
+    final static char PARAMETER_NAME_VALUE_SEPARATOR = '=';
     final static String PARAMETER_NAME = "parameter name";
     final static String PARAMETER_VALUE = "parameter value";
+
+    static {
+        check(SEPARATOR, HeaderValueWithParameters.SEPARATOR, "SEPARATOR");
+        check(PARAMETER_SEPARATOR, HeaderValueWithParameters.PARAMETER_SEPARATOR, "PARAMETER_SEPARATOR");
+        check(PARAMETER_NAME_VALUE_SEPARATOR, HeaderValueWithParameters.PARAMETER_NAME_VALUE_SEPARATOR, "PARAMETER_NAME_VALUE_SEPARATOR");
+    }
+
+    /**
+     * Verifies that a static final char value matches a {@link CharacterConstant} defined in {@link HeaderValue}.
+     */
+    private static void check(final char c, final CharacterConstant constant, final String name) {
+        if(constant.character() != c) {
+            throw new NeverError(name + "=" + CharSequences.quoteIfChars(c) + " should be " + constant);
+        }
+    }
 
     final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
 
@@ -79,7 +95,7 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
 
     /**
      * Uses the given predicate to parse the {@link HeaderParameterName}. The only valid trailing character is {@link #WHITESPACE} or
-     * {@link #EQUALS_SIGN} others will be reported as an invalid character.
+     * {@link #PARAMETER_NAME_VALUE_SEPARATOR} others will be reported as an invalid character.
      */
     final void parseParameterName(final CharPredicate predicate, final Function<String, N> factory) {
         final String parameterName = this.tokenText(predicate);
@@ -87,7 +103,7 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
         if(this.hasMoreCharacters()) {
             for(;;) {
                 final char c = this.character();
-                if(c == EQUALS_SIGN) {
+                if(c == PARAMETER_NAME_VALUE_SEPARATOR) {
                     break;
                 }
                 if(WHITESPACE.test(c)) {

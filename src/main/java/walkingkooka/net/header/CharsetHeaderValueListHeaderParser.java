@@ -59,14 +59,14 @@ final class CharsetHeaderValueListHeaderParser extends HeaderParser<CharsetHeade
         }
 
         final char c = this.character();
-        return WILDCARD == c ?
+        return HeaderValue.WILDCARD.character() == c ?
                 charsetNameWildcard() :
                 charsetNameNotWildcard();
     }
 
     private CharsetName charsetNameWildcard() {
         this.position++;
-        return CharsetName.WILDCARD;
+        return CharsetName.WILDCARD_CHARSET;
     }
 
     private CharsetName charsetNameNotWildcard() {

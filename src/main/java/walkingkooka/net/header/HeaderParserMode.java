@@ -115,7 +115,7 @@ enum HeaderParserMode {
         @Override
         void accept(final HeaderParser parser) {
             switch(parser.character()){
-                case HeaderParser.EQUALS_SIGN:
+                case HeaderParser.PARAMETER_NAME_VALUE_SEPARATOR:
                     parser.position++;
                     parser.mode = PARAMETER_EQUALS_WHITESPACE;
                     break;

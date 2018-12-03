@@ -56,29 +56,9 @@ final public class MediaType implements Value<String>,
         Serializable {
 
     /**
-     * Wildcard
-     */
-    public final static String WILDCARD = "*";
-
-    /**
      * The separator character that separates the type and secondary portions within a mime type {@link String}.
      */
     public final static char TYPE_SUBTYPE_SEPARATOR = '/';
-
-    /**
-     * The separator between parameter name and value.
-     */
-    public final static char PARAMETER_NAME_VALUE_SEPARATOR = '=';
-
-    /**
-     * The separator character that separates parameters from the main mime type
-     */
-    public final static char PARAMETER_SEPARATOR = ';';
-
-    /**
-     * The separator character that separates header types within a header value.
-     */
-    public final static char MEDIATYPE_SEPARATOR = ',';
 
     /**
      * No parameters.
@@ -95,7 +75,7 @@ final public class MediaType implements Value<String>,
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType text types}.
      */
-    public final static MediaType WILDCARD_WILDCARD = registerConstant(WILDCARD, WILDCARD);
+    public final static MediaType WILDCARD_MEDIA_TYPE = registerConstant(WILDCARD.string(), WILDCARD.string());
 
     /**
      * Holds a {@link MediaType} for binary.
@@ -105,7 +85,7 @@ final public class MediaType implements Value<String>,
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType text types}.
      */
-    public final static MediaType ANY_TEXT = registerConstant("text", WILDCARD);
+    public final static MediaType ANY_TEXT = registerConstant("text", WILDCARD.string());
 
     /**
      * Holds a {@link MediaType} for plain text.
@@ -135,7 +115,7 @@ final public class MediaType implements Value<String>,
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType image types}.
      */
-    public final static MediaType ANY_IMAGE = registerConstant("image", WILDCARD);
+    public final static MediaType ANY_IMAGE = registerConstant("image", WILDCARD.string());
 
     /**
      * Holds a {@link MediaType} that contains <code>image/bmp</code>
@@ -299,10 +279,10 @@ final public class MediaType implements Value<String>,
 
     private static String toStringParameter(final Entry<MediaTypeParameterName<?>, Object> nameAndValue) {
         final MediaTypeParameterName<?> name = nameAndValue.getKey();
-        return PARAMETER_SEPARATOR +
+        return PARAMETER_SEPARATOR.character() +
                 " " +
                 name.value() +
-                PARAMETER_NAME_VALUE_SEPARATOR +
+                PARAMETER_NAME_VALUE_SEPARATOR.character() +
                 name.valueConverter.format(Cast.to(nameAndValue.getValue()), name);
     }
 
@@ -318,7 +298,7 @@ final public class MediaType implements Value<String>,
                 .collect(Collectors.joining(TOSTRING_MEDIATYPE_SEPARATOR));
     }
 
-    private final static String TOSTRING_MEDIATYPE_SEPARATOR = MEDIATYPE_SEPARATOR + " ";
+    private final static String TOSTRING_MEDIATYPE_SEPARATOR = SEPARATOR.character() + " ";
 
     // ctor ...................................................................................................
 
@@ -464,7 +444,7 @@ final public class MediaType implements Value<String>,
 
     /**
      * Tests if the given {@link MediaType} is compatible and understand wildcards that may appear in the type or sub type components. The
-     * {@link MediaType#WILDCARD_WILDCARD} will of course be compatible with any other {@link MediaType}.
+     * {@link MediaType#WILDCARD_MEDIA_TYPE} will of course be compatible with any other {@link MediaType}.
      */
     public boolean isCompatible(final MediaType mimeType) {
         Objects.requireNonNull(mimeType, "mimeType");

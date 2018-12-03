@@ -186,7 +186,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testTypeWildcardSubType() {
         this.parseAndCheck(MediaType.WILDCARD + "/" + SUBTYPE,
-                MediaType.WILDCARD,
+                MediaType.WILDCARD.string(),
                 SUBTYPE);
     }
 
@@ -208,7 +208,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     public final void testTypeSubTypeWildcard() {
         this.parseAndCheck("a/*",
                 "a",
-                MediaType.WILDCARD);
+                MediaType.WILDCARD.string());
     }
 
     @Test

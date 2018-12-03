@@ -89,12 +89,17 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testWithTypeAndWildcardSubType() {
-        check(MediaType.with(TYPE, MediaType.WILDCARD), TYPE, MediaType.WILDCARD);
+        check(MediaType.with(TYPE, MediaType.WILDCARD.string()),
+                TYPE,
+                MediaType.WILDCARD.string());
     }
 
     @Test
     public void testWithWildcardTypeAndWildcardSubType() {
-        check(MediaType.with(MediaType.WILDCARD, MediaType.WILDCARD), MediaType.WILDCARD, MediaType.WILDCARD);
+        final String wildcard = MediaType.WILDCARD.string();
+        check(MediaType.with(wildcard, wildcard),
+                wildcard,
+                wildcard);
     }
 
     // constants .........................................................................
@@ -311,7 +316,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test(expected = NullPointerException.class)
     public void testIsCompatibleNullFails() {
-        MediaType.WILDCARD_WILDCARD.isCompatible(null);
+        MediaType.WILDCARD_MEDIA_TYPE.isCompatible(null);
     }
 
     @Test
@@ -328,23 +333,25 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testIsCompatibleAnyAlwaysMatches() {
-        this.isCompatibleCheckTrue(MediaType.WILDCARD_WILDCARD, MediaType.with("custom", "custom2"));
+        this.isCompatibleCheckTrue(MediaType.WILDCARD_MEDIA_TYPE, MediaType.with("custom", "custom2"));
     }
 
     @Test
     public void testIsCompatibleAnyAndAnyMatches() {
-        this.isCompatibleCheckTrue(MediaType.WILDCARD_WILDCARD, MediaType.WILDCARD_WILDCARD);
+        this.isCompatibleCheckTrue(MediaType.WILDCARD_MEDIA_TYPE, MediaType.WILDCARD_MEDIA_TYPE);
     }
 
     @Test
     public void testIsCompatibleSameTypeWildcardSubType() {
         final String type = "custom";
-        this.isCompatibleCheckTrue(MediaType.with(type, MediaType.WILDCARD), MediaType.with(type, SUBTYPE));
+        this.isCompatibleCheckTrue(MediaType.with(type, MediaType.WILDCARD.string()),
+                MediaType.with(type, SUBTYPE));
     }
 
     @Test
     public void testIsCompatibleDifferentTypeWildcardSubType() {
-        this.isCompatibleCheckFalse(MediaType.with("custom", MediaType.WILDCARD), MediaType.with("different", SUBTYPE));
+        this.isCompatibleCheckFalse(MediaType.with("custom", MediaType.WILDCARD.string()),
+                MediaType.with("different", SUBTYPE));
     }
 
     @Test

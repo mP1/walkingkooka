@@ -44,8 +44,6 @@ public final class HttpHeaderRange implements HeaderValue,
 
     public final static CharacterConstant BETWEEN = CharacterConstant.with('-');
 
-    public final static CharacterConstant SEPARATOR = CharacterConstant.with(',');
-
     /**
      * Parsers a header value.
      */

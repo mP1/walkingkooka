@@ -35,11 +35,6 @@ public abstract class HttpETag implements HeaderValue,
         Value<String> {
 
     /**
-     * The separator between multiple tags.
-     */
-    final static CharacterConstant SEPARATOR = CharacterConstant.with(',');
-
-    /**
      * Returns a wildcard {@link HttpETag}
      */
     public static HttpETag wildcard() {
