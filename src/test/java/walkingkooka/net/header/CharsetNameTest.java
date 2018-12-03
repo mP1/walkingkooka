@@ -76,7 +76,7 @@ public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
 
     @Test
     public void testWildcard() {
-        this.check(CharsetName.WILDCARD,
+        this.check(CharsetName.WILDCARD_CHARSET,
                 "*",
                 CharsetName.NO_CHARSET,
                 true);

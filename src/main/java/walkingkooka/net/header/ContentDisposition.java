@@ -23,7 +23,6 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.text.CharacterConstant;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -40,16 +39,6 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
      * A constants with no parameters.
      */
     public final static Map<ContentDispositionParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
-
-    /**
-     * The separator between parameter name and value.
-     */
-    public final static CharacterConstant PARAMETER_NAME_VALUE_SEPARATOR = CharacterConstant.with('=');
-
-    /**
-     * The separator character that separates multiple parameters.
-     */
-    public final static CharacterConstant SEPARATOR = CharacterConstant.with(';');
 
     /**
      * Parses a header value into tokens, which aill also be sorted using their q factor weights.
@@ -198,5 +187,5 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
     /**
      * Separator between parameters used by {@link #toString()}.
      */
-    private final static String TO_STRING_PARAMETER_SEPARATOR = SEPARATOR.string().concat(" ");
+    private final static String TO_STRING_PARAMETER_SEPARATOR = PARAMETER_SEPARATOR.string().concat(" ");
 }

@@ -39,21 +39,6 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
         HasQFactorWeight {
 
     /**
-     * The separator between parameter name and value.
-     */
-    private final static char PARAMETER_NAME_VALUE_SEPARATOR = '=';
-
-    /**
-     * The separator character that separates parameters belonging to a charset.
-     */
-    private final static char PARAMETER_SEPARATOR = ';';
-
-    /**
-     * The separator character that separates different charsets.
-     */
-    private final static char SEPARATOR = ',';
-
-    /**
      * No parameters.
      */
     public final static Map<CharsetHeaderValueParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
@@ -68,7 +53,7 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
     /**
      * Holds a {@link CharsetHeaderValue} that matches all {@link CharsetHeaderValue text types}.
      */
-    public final static CharsetHeaderValue WILDCARD = registerConstant(CharsetName.WILDCARD);
+    public final static CharsetHeaderValue WILDCARD_VALUE = registerConstant(CharsetName.WILDCARD_CHARSET);
 
     /**
      * Creates and then registers the constant.
@@ -264,7 +249,7 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
         final CharsetHeaderValueParameterName<?> name = nameAndValue.getKey();
         return TO_STRING_PARAMETER_SEPARATOR +
                 name.value() +
-                PARAMETER_NAME_VALUE_SEPARATOR +
+                PARAMETER_NAME_VALUE_SEPARATOR.character() +
                 name.valueConverter.format(Cast.to(nameAndValue.getValue()), name);
     }
 

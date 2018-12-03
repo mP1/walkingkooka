@@ -118,7 +118,7 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
                                        final String type,
                                        final String subtype,
                                        final Map<MediaTypeParameterName<?>, Object> parameters) {
-        final String parsed = text + MediaType.MEDIATYPE_SEPARATOR + text;
+        final String parsed = text + MediaType.SEPARATOR + text;
         final List<MediaType> result = MediaTypeHeaderParserList.parseMediaTypeList(parsed);
         assertEquals("parse " + CharSequences.quote(parsed) + " got " + result, 2, result.size());
         this.check(result.get(0), type, subtype, parameters);

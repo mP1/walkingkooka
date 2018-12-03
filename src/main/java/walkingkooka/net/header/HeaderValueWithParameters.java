@@ -18,12 +18,24 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.text.CharacterConstant;
+
 import java.util.Map;
 
 /**
  * Defines a method to retrieve the parameters from a header.
  */
 public interface HeaderValueWithParameters<N extends HeaderParameterName<?>> extends HeaderValue{
+
+    /**
+     * The separator between parameter name and value.
+     */
+    CharacterConstant PARAMETER_NAME_VALUE_SEPARATOR = CharacterConstant.with('=');
+
+    /**
+     * The separator character that separates parameters belonging to a header value.
+     */
+    CharacterConstant PARAMETER_SEPARATOR = CharacterConstant.with(';');
 
     /**
      * A read only map view of all parameters.

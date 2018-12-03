@@ -56,14 +56,9 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
     public final static Optional<Charset> NO_CHARSET = Optional.empty();
 
     /**
-     * A special name that identifies a wildcard selection.
-     */
-    private final static String WILDCARD_VALUE = "*";
-
-    /**
      * The {@link CharsetName} holding a wildcard.
      */
-    public final static CharsetName WILDCARD = new CharsetName(WILDCARD_VALUE, NO_CHARSET);
+    public final static CharsetName WILDCARD_CHARSET = new CharsetName(WILDCARD.string(), NO_CHARSET);
 
     /**
      * Holds all constants.
@@ -81,7 +76,7 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
             constants.put(name, new CharsetName(name, Optional.of(charset)));
         }
 
-        constants.put(WILDCARD_VALUE, WILDCARD);
+        constants.put(WILDCARD.string(), WILDCARD_CHARSET);
 
         return constants;
     }
@@ -199,7 +194,7 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
      * Returns true if the name is a wildcard selection.
      */
     public boolean isWildcard() {
-        return WILDCARD == this;
+        return WILDCARD_CHARSET == this;
     }
 
     /**
