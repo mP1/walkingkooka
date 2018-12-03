@@ -59,7 +59,7 @@ final class EmailAddressHeaderValueConverter extends HeaderValueConverter2<Email
     }
 
     @Override
-    String format0(final EmailAddress value, final Name name) {
+    String toText0(final EmailAddress value, final Name name) {
         return value.toString();
     }
 

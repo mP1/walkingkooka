@@ -82,7 +82,7 @@ final class MediaTypeStringHeaderValueConverter extends HeaderValueConverter2<St
      * Backslashes and double quote characters are escaped.
      */
     @Override
-    String format0(final String value, final Name name) {
+    String toText0(final String value, final Name name) {
         StringBuilder b = new StringBuilder();
         boolean quoteRequired = false;
 

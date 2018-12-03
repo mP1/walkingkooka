@@ -51,7 +51,7 @@ final class UrlHeaderValueConverter extends HeaderValueConverter2<Url> {
     }
 
     @Override
-    String format0(final Url value, final Name name) {
+    String toText0(final Url value, final Name name) {
         return value.toString();
     }
 

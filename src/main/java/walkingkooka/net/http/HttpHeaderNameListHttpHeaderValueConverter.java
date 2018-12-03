@@ -55,7 +55,7 @@ final class HttpHeaderNameListHttpHeaderValueConverter extends HttpHeaderValueCo
     }
 
     @Override
-    String format0(final List<HttpHeaderName<?>> names, final Name name) {
+    String toText0(final List<HttpHeaderName<?>> names, final Name name) {
         return names.stream()
                 .map(n -> n.value())
                 .collect(Collectors.joining(", "));

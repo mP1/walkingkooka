@@ -77,8 +77,8 @@ public final class HeaderValueTokenListHeaderValueConverterTest extends
     }
 
     @Test
-    public void testFormat() {
-        this.formatAndCheck(Lists.of(this.en(), this.en_AU()), "EN, EN_AU");
+    public void testToText() {
+        this.toTextAndCheck(Lists.of(this.en(), this.en_AU()), "EN, EN_AU");
     }
 
     private void parseAndCheck2(final String headerValue, final HeaderValueToken... tokens) {

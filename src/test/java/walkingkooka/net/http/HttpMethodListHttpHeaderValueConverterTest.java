@@ -33,17 +33,17 @@ public final class HttpMethodListHttpHeaderValueConverterTest extends
     }
 
     @Test
-    public void testGetRequest() {
+    public void testParseGet() {
         this.parseAndCheck2("GET", HttpMethod.GET);
     }
 
     @Test
-    public void testGetPostRequest() {
+    public void testParseGetPost() {
         this.parseAndCheck2("GET,POST", HttpMethod.GET, HttpMethod.POST);
     }
 
     @Test
-    public void testGetWhitespacePostRequest() {
+    public void testParseGetWhitespacePost() {
         this.parseAndCheck2("GET,  POST", HttpMethod.GET, HttpMethod.POST);
     }
 
@@ -76,7 +76,7 @@ public final class HttpMethodListHttpHeaderValueConverterTest extends
     }
 
     private void formatAndCheck2(final String headerValue, final HttpMethod... methods) {
-        this.formatAndCheck(Lists.of(methods), headerValue);
+        this.toTextAndCheck(Lists.of(methods), headerValue);
     }
 
     @Override

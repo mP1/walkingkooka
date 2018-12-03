@@ -49,7 +49,7 @@ final class CharsetNameHeaderValueConverter extends HeaderValueConverter2<Charse
     }
 
     @Override
-    String format0(final CharsetName value, final Name name) {
+    String toText0(final CharsetName value, final Name name) {
         return value.toHeaderText();
     }
 

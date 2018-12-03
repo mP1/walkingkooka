@@ -33,7 +33,7 @@ public final class RelativeUrlHeaderValueConverterTest extends
     @Test
     public void testContentLocation() {
         final String url = "/relative/url/file.html";
-        this.parseAndFormatAndCheck(url, RelativeUrl.parse(url));
+        this.parseAndToTextAndCheck(url, RelativeUrl.parse(url));
     }
 
     @Override

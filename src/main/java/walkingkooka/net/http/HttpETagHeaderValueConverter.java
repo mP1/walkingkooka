@@ -50,7 +50,7 @@ final class HttpETagHeaderValueConverter extends HttpHeaderValueConverter<HttpET
     }
 
     @Override
-    String format0(final HttpETag value, final Name name) {
+    String toText0(final HttpETag value, final Name name) {
         return value.toString();
     }
 

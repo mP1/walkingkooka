@@ -30,7 +30,7 @@ public final class FloatHeaderValueConverterTest extends
 
     @Test
     public void testFloat() {
-        this.parseAndFormatAndCheck("123.5", 123.5f);
+        this.parseAndToTextAndCheck("123.5", 123.5f);
     }
 
     protected @Override

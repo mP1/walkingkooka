@@ -48,7 +48,7 @@ final class MediaTypeHeaderValueConverter extends HeaderValueConverter2<MediaTyp
     }
 
     @Override
-    String format0(final MediaType value, final Name name) {
+    String toText0(final MediaType value, final Name name) {
         return value.toString();
     }
 

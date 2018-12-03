@@ -34,7 +34,7 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
 
     @Test
     public void testReferer() {
-        this.parseAndFormatAndCheck(URL, AbsoluteUrl.parse(URL));
+        this.parseAndToTextAndCheck(URL, AbsoluteUrl.parse(URL));
     }
 
     @Override

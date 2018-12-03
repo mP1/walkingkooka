@@ -40,12 +40,12 @@ public final class MediaTypeStringHeaderValueConverterTest extends
 
     @Test
     public void testValue() {
-        this.parseAndFormatAndCheck(TEXT, TEXT);
+        this.parseAndToTextAndCheck(TEXT, TEXT);
     }
 
     @Test
     public void testQuotesAdded() {
-        this.formatAndCheck("abc def", "\"abc def\"");
+        this.toTextAndCheck("abc def", "\"abc def\"");
     }
 
     @Test
@@ -55,7 +55,7 @@ public final class MediaTypeStringHeaderValueConverterTest extends
 
     @Test
     public void testIncludesBackslash2() {
-        this.formatAndCheck("abc\\def", "\"abc\\\\def\"");
+        this.toTextAndCheck("abc\\def", "\"abc\\\\def\"");
     }
 
     @Test
@@ -65,7 +65,7 @@ public final class MediaTypeStringHeaderValueConverterTest extends
 
     @Test
     public void testIncludesDoubleQuote2() {
-        this.formatAndCheck("abc\"def", "\"abc\\\"def\"");
+        this.toTextAndCheck("abc\"def", "\"abc\\\"def\"");
     }
 
     @Override

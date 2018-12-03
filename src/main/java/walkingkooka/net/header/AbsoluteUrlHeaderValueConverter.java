@@ -51,7 +51,7 @@ final class AbsoluteUrlHeaderValueConverter extends HeaderValueConverter2<Absolu
     }
     
     @Override
-    String format0(final AbsoluteUrl value, final Name name) {
+    String toText0(final AbsoluteUrl value, final Name name) {
         return value.value();
     }
 

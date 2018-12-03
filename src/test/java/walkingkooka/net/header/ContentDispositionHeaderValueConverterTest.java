@@ -31,7 +31,7 @@ public final class ContentDispositionHeaderValueConverterTest extends
 
     @Test
     public void testHeader() {
-        this.parseAndFormatAndCheck("attachment; filename=readme.txt",
+        this.parseAndToTextAndCheck("attachment; filename=readme.txt",
                 this.value());
     }
 

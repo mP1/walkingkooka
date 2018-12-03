@@ -39,7 +39,7 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
 
     @Test
     public void testContentDispositionCreationDateNegativeOffset() {
-        this.parseAndFormatAndCheck("Wed, 21 Oct 2015 07:28:00 -0500",
+        this.parseAndToTextAndCheck("Wed, 21 Oct 2015 07:28:00 -0500",
                 OffsetDateTime.of(2015,
                         10,
                         21,
@@ -52,7 +52,7 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
 
     @Test
     public void testContentDispositionCreationDatePositiveOffset() {
-        this.parseAndFormatAndCheck("Wed, 21 Oct 2015 07:28:00 +0500",
+        this.parseAndToTextAndCheck("Wed, 21 Oct 2015 07:28:00 +0500",
                 OffsetDateTime.of(2015,
                         10,
                         21,

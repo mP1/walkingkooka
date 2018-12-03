@@ -40,7 +40,7 @@ public final class StringHeaderValueConverterTest extends
 
     @Test
     public void testValue() {
-        this.parseAndFormatAndCheck(TEXT, TEXT);
+        this.parseAndToTextAndCheck(TEXT, TEXT);
     }
 
     @Override
