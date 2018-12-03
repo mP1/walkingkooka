@@ -439,7 +439,7 @@ final public class CharsetHeaderTest extends HeaderValueWithParametersTestCase<M
 
     @Test(expected = NullPointerException.class)
     public void testFormatNullFails() {
-        MediaType.format(null);
+        MediaType.toHeaderTextList(null);
     }
 
     @Test
@@ -458,7 +458,7 @@ final public class CharsetHeaderTest extends HeaderValueWithParametersTestCase<M
     private void formatAndCheck(final String toString, final MediaType... mediaTypes) {
         assertEquals("Format " + Arrays.toString(mediaTypes) + " failed",
                 toString,
-                MediaType.format(Lists.of(mediaTypes)));
+                MediaType.toHeaderTextList(Lists.of(mediaTypes)));
     }
 
     // helpers........................................................................................................
