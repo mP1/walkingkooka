@@ -25,7 +25,14 @@ import walkingkooka.text.CharSequences;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * A parser that translates tokens into abstract event methods.
+ */
 abstract class HeaderParser<N extends HeaderParameterName<?>> {
+
+    static void checkText(final String text, final String label) {
+        CharSequences.failIfNullOrEmpty(text, label);
+    }
 
     final static char EQUALS_SIGN = '=';
     final static char SEPARATOR = ',';
@@ -37,6 +44,7 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
 
     HeaderParser(final String text) {
         super();
+
         this.text = text;
         this.position = 0;
         this.mode = HeaderParserMode.VALUE;

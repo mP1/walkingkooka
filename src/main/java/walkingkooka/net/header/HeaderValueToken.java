@@ -26,7 +26,6 @@ import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
@@ -77,7 +76,6 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
      * </pre>
      */
     public static List<HeaderValueToken> parse(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
         return HeaderValueTokenHeaderParser.parseHeaderValueTokenList(text);
     }
 

@@ -34,16 +34,6 @@ public final class HeaderValueTokenHeaderParserTest extends HeaderParserTestCase
 
     // parse ...................................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testNullFails() {
-        HeaderValueToken.parse(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testEmptyFails() {
-        HeaderValueToken.parse("");
-    }
-
     @Test
     public void testValue() {
         this.parseAndCheck("A", this.token("A"));

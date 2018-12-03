@@ -29,6 +29,8 @@ import java.util.List;
 final class HeaderValueTokenHeaderParser extends HeaderParser<HeaderValueTokenParameterName<?>> {
 
     static List<HeaderValueToken> parseHeaderValueTokenList(final String text) {
+        checkText(text, "header");
+
         final HeaderValueTokenHeaderParser parser = new HeaderValueTokenHeaderParser(text);
         parser.parse();
         parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());

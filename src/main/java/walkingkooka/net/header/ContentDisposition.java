@@ -23,7 +23,6 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.Map;
@@ -65,7 +64,6 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
      * </pre>
      */
     public static ContentDisposition parse(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
         return ContentDispositionHeaderParser.parse(text);
     }
 

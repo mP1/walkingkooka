@@ -33,6 +33,16 @@ public abstract class HeaderParserTestCase<P extends HeaderParser<N>,
         super();
     }
 
+    @Test(expected = NullPointerException.class)
+    public final void testParseNullFails() {
+        this.parse(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void testParseEmptyFails() {
+        this.parse("");
+    }
+
     @Test
     public final void testToString() {
         assertEquals("0 in \"123\"", this.createHeaderParser("123").toString());
