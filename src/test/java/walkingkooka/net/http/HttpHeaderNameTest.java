@@ -24,6 +24,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderNameTestCase;
+import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.FakeHttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
@@ -123,15 +124,43 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     }
 
     private <T> void headerValueAndCheck(final HttpHeaderName<T> headerName,
-                                                final T headerValue) {
+                                         final T headerValue) {
         assertEquals(headerName + "=" + headerValue,
                 Optional.ofNullable(headerValue),
-                headerName.headerValue(new HasHeaders() {
-                    @Override
-                    public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.one(headerName, headerValue);
-                    }
-                }));
+                headerName.headerValue(this.hasHeaders(headerName, headerValue)));
+    }
+
+    // headerValueOrFail..............................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testHeaderValueOrFailNullFails() {
+        HttpHeaderName.ALLOW.headerValueOrFail(null);
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testHeaderValueOrFailAbsent() {
+        HttpHeaderName.ALLOW.headerValueOrFail(this.hasHeaders(HttpHeaderName.CONTENT_LENGTH, 123L));
+    }
+
+    @Test
+    public void testHeaderValueOrFail() {
+        this.headerValueOrFailAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
+    }
+
+    private <T> void headerValueOrFailAndCheck(final HttpHeaderName<T> headerName,
+                                               final T headerValue) {
+        assertEquals(headerName + "=" + headerValue,
+                headerValue,
+                headerName.headerValueOrFail(this.hasHeaders(headerName, headerValue)));
+    }
+
+    private <T> HasHeaders hasHeaders(final HttpHeaderName<T> name, final T value) {
+        return new HasHeaders() {
+            @Override
+            public Map<HttpHeaderName<?>, Object> headers() {
+                return Maps.one(name, value);
+            }
+        };
     }
 
     // toValue ...............................................................................................
