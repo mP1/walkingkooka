@@ -211,7 +211,7 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
     // HeaderValue................................................................................................................
 
     @Override
-    public String headerValue() {
+    public String toHeaderText() {
         return this.toString();
     }
 

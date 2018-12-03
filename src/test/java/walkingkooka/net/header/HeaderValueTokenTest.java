@@ -126,7 +126,7 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     private void toStringAndCheck(final HeaderValueToken token, final String toString) {
         assertEquals("toString", toString, token.toString());
-        assertEquals("headerValue", toString, token.headerValue());
+        assertEquals("toHeaderText", toString, token.toHeaderText());
     }
 
     // format ...........................................................................................

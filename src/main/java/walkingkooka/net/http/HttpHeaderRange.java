@@ -153,7 +153,7 @@ public final class HttpHeaderRange implements HeaderValue,
     // Object.............................................................................
 
     @Override
-    public String headerValue() {
+    public String toHeaderText() {
         return this.toString();
     }
 

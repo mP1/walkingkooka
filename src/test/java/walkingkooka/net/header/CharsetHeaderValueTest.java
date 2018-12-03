@@ -106,7 +106,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     private void toStringAndCheck(final CharsetHeaderValue token, final String toString) {
         assertEquals("toString", toString, token.toString());
-        assertEquals("headerValue", toString, token.headerValue());
+        assertEquals("toHeaderText", toString, token.toHeaderText());
     }
 
     // format ...........................................................................................

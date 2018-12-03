@@ -142,7 +142,7 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
     // HeaderValue.................................................................
 
     @Override
-    public String headerValue() {
+    public String toHeaderText() {
         return this.toString();
     }
 

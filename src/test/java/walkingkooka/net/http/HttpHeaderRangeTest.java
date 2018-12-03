@@ -214,8 +214,8 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     @SafeVarargs
     private final void toStringAndCheck(final String toString, final String unit, final Range<Long>... ranges) {
         final HttpHeaderRange range = this.range(unit, ranges);
-        assertEquals(toString, range.toString());
-        assertEquals(toString, range.headerValue());
+        assertEquals("toString", toString, range.toString());
+        assertEquals("toHeaderText", toString, range.toHeaderText());
     }
 
     private HttpHeaderRange range() {

@@ -207,7 +207,7 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
     // HeaderValue ....................................................................................................
 
     @Override
-    public String headerValue() {
+    public String toHeaderText() {
         return this.value();
     }
 
