@@ -152,7 +152,7 @@ public abstract class HttpETag implements HeaderValue,
     /**
      * Returns the text or header value form.
      */
-    public final String headerValue() {
+    public final String toHeaderText() {
         return this.toString();
     }
 }

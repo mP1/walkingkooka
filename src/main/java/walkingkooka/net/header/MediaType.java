@@ -470,7 +470,7 @@ final public class MediaType implements Value<String>,
     // HeaderValue................................................................................................................
 
     @Override
-    public String headerValue() {
+    public String toHeaderText() {
         return this.toString();
     }
 

@@ -39,5 +39,5 @@ public interface HeaderValue extends HashCodeEqualsDefined {
     /**
      * Converts this value to its text form.
      */
-    String headerValue();
+    String toHeaderText();
 }

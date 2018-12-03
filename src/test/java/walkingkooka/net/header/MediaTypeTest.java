@@ -433,7 +433,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     private void toStringAndCheck(final MediaType type, final String toString) {
         assertEquals("toString", toString, type.toString());
-        assertEquals("headerValue", toString, type.headerValue());
+        assertEquals("toHeaderText", toString, type.toHeaderText());
     }
 
     // format........................................................................................................

@@ -163,7 +163,7 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
     // HeaderValue .............................................................................................
 
     @Override
-    public String headerValue() {
+    public String toHeaderText() {
         return this.toString();
     }
 

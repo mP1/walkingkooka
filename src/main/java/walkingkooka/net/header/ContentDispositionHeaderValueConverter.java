@@ -50,7 +50,7 @@ final class ContentDispositionHeaderValueConverter extends HeaderValueConverter2
 
     @Override
     String format0(final ContentDisposition value, final Name name) {
-        return value.headerValue();
+        return value.toHeaderText();
     }
 
     @Override

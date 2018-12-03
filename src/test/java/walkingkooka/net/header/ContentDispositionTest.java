@@ -99,7 +99,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     private void toStringAndCheck(final ContentDisposition token, final String toString) {
         assertEquals("toString", toString, token.toString());
-        assertEquals("headerValue", toString, token.headerValue());
+        assertEquals("toHeaderText", toString, token.toHeaderText());
     }
 
     // helpers ...........................................................................................
