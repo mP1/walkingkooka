@@ -793,7 +793,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     /**
      * Formats the given typed value into header value text.
      */
-    public String headerValueFormat(final T value) {
+    public String headerText(final T value) {
         Objects.requireNonNull(value, "value");
 
         return this.valueConverter.toText(value, this);
