@@ -751,16 +751,6 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
-     * Returns a {@link HttpHeaderName} that always and does not attempt to convert values to {@link String}.
-     * If the header already returns {@link String string values} this will return this.
-     */
-    public HttpHeaderName<String> stringHeaderValues() {
-        return this.valueConverter.isString() ?
-               Cast.to(this) :
-               new HttpHeaderName<String>(this.name, this.scope, HeaderValueConverters.string());
-    }
-
-    /**
      * A type safe getter that retrieves this header from the headers.
      */
     public Optional<T> headerValue(final HasHeaders headers) {

@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<?>> {
@@ -88,16 +87,6 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     }
 
     @Test
-    public void testStringHeaderValueNotString() {
-        assertNotSame(HttpHeaderName.ACCEPT, HttpHeaderName.ACCEPT.stringHeaderValues());
-    }
-
-    @Test
-    public void testStringHeaderValueInitiallyString() {
-        assertSame(HttpHeaderName.CONNECTION, HttpHeaderName.CONNECTION.stringHeaderValues());
-    }
-
-    @Test
     public void testConstantNameReturnsConstant() {
         assertSame(HttpHeaderName.ACCEPT, HttpHeaderName.with(HttpHeaderName.ACCEPT.value()));
     }
@@ -129,7 +118,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
 
     @Test
     public void testHeaderValueScopeUnknown() {
-        this.headerValueAndCheck(HttpHeaderName.with("xyz").stringHeaderValues(),
+        this.headerValueAndCheck(Cast.to(HttpHeaderName.with("xyz")),
                 "xyz");
     }
 
@@ -192,7 +181,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
 
     @Test
     public void testAddHeaderValueScopeUnknown() {
-        this.addHeaderValueAndCheck(HttpHeaderName.with("xyz").stringHeaderValues(), "abc");
+        this.addHeaderValueAndCheck(Cast.to(HttpHeaderName.with("xyz")), "abc");
     }
 
     private <T> void addHeaderValueAndCheck(final HttpHeaderName<T> header, final T value) {
