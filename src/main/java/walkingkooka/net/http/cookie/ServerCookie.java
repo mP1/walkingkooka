@@ -418,7 +418,7 @@ final public class ServerCookie extends Cookie {
      * Returns this cookie in header value form.
      */
     @Override
-    public String toHeaderValue() {
+    public String toHeaderText() {
         return this.toString();
     }
 

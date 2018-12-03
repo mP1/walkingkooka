@@ -164,8 +164,8 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     // toHeaderValue ....................................................................................
 
     @Test
-    public void testToHeaderValue() {
-        assertEquals("cookie123=value456;", this.createCookie().toHeaderValue());
+    public void testToHeaderText() {
+        assertEquals("cookie123=value456;", this.createCookie().toHeaderText());
     }
 
     // format ................................................................

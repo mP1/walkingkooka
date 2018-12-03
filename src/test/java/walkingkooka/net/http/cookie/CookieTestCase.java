@@ -19,12 +19,12 @@
 package walkingkooka.net.http.cookie;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.net.header.HeaderValueTestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-abstract public class CookieTestCase<C extends Cookie> extends PublicClassTestCase<C> {
+abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCase<C> {
 
     CookieTestCase() {
         super();
