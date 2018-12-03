@@ -267,11 +267,13 @@ final public class MediaType implements Value<String>,
      * Factory method called by various setters and parsers, that tries to match constants before creating an actual new
      * instance.
      */
-    static MediaType with(final String type,
-                          final String subType,
-                          final Map<MediaTypeParameterName<?>, Object> parameters,
-                          final String toString) {
-        final MediaType result = CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR + subType);
+    static MediaType withParameters(final String type,
+                                    final String subType,
+                                    final Map<MediaTypeParameterName<?>, Object> parameters,
+                                    final String toString) {
+        final MediaType result = parameters.isEmpty() ?
+                CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR + subType) :
+                null;
         return null != result ?
                 result :
                 new MediaType(type,
@@ -435,7 +437,7 @@ final public class MediaType implements Value<String>,
     // replace .......................................................................
 
     private MediaType replace(final String type, final String subType, final Map<MediaTypeParameterName<?>, Object> parameters) {
-        return new MediaType(type,
+        return withParameters(type,
                 subType,
                 parameters,
                 toStringMimeType(type, subType, parameters));
