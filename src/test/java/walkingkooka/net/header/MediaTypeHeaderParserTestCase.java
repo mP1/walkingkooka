@@ -397,6 +397,14 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
                 parameters("p", "v", "p2", "v2"));
     }
 
+    @Test
+    public void testParameterCharset() {
+        this.parseAndCheck("type/subtype;charset=utf-8",
+                TYPE,
+                SUBTYPE,
+                parameters("charset", CharsetName.UTF_8));
+    }
+
     final Map<MediaTypeParameterName<?>, Object> parameters(final String name, final Object value) {
         return Maps.one(MediaTypeParameterName.with(name), value);
     }

@@ -38,6 +38,20 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see CharsetHeaderValueListHeaderValueConverter}
+     */
+    public static HeaderValueConverter<List<CharsetHeaderValue>> charsetHeaderValueList() {
+        return CharsetHeaderValueListHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see CharsetNameHeaderValueConverter}
+     */
+    public static HeaderValueConverter<CharsetName> charsetName() {
+        return CharsetNameHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see ContentDispositionHeaderValueConverter}
      */
     public static HeaderValueConverter<ContentDisposition> contentDisposition() {

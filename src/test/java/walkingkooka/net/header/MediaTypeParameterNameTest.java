@@ -79,6 +79,16 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
                 value);
     }
 
+    @Test
+    public void testParameterValueCharsetNamePresent() {
+        final MediaTypeParameterName<CharsetName> parameter = MediaTypeParameterName.CHARSET;
+        final CharsetName charsetName = CharsetName.UTF_8;
+
+        this.parameterValueAndCheckPresent(parameter,
+                this.mediaType().setParameters(Maps.one(parameter, charsetName)),
+                charsetName);
+    }
+
     private MediaType mediaType() {
         return MediaType.with("type", "subType");
     }
