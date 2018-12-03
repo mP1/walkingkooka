@@ -47,7 +47,7 @@ final class HeaderValueTokenHeaderParser extends HeaderParser<HeaderValueTokenPa
     }
 
     private HeaderValueToken createHeaderValueToken(final String value) {
-        return HeaderValueToken.with(value, HeaderValueToken.NO_PARAMETERS);
+        return HeaderValueToken.with(value);
     }
 
     @Override final void parameterName() {

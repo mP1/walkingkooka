@@ -207,22 +207,19 @@ public final class HeaderValueTokenHeaderParserTest extends HeaderParserTestCase
     @Test
     public void testValueParameterSpace() {
         this.parseAndCheck("A;bcd=123 ",
-                HeaderValueToken.with("A",
-                        this.parameters("bcd", "123")));
+                this.token("A", "bcd", "123"));
     }
 
     @Test
     public void testValueParameterTab() {
         this.parseAndCheck("A;bcd=123\t",
-                HeaderValueToken.with("A",
-                        this.parameters("bcd", "123")));
+                this.token("A","bcd", "123"));
     }
 
     @Test
     public void testValueParameterSpaceTabSpaceTab() {
         this.parseAndCheck("A;bcd=123 \t \t",
-                HeaderValueToken.with("A",
-                        this.parameters("bcd", "123")));
+                this.token("A","bcd", "123"));
     }
 
     @Test
@@ -436,13 +433,14 @@ public final class HeaderValueTokenHeaderParserTest extends HeaderParserTestCase
     }
 
     private HeaderValueToken token(final String value) {
-        return HeaderValueToken.with(value, HeaderValueToken.NO_PARAMETERS);
+        return HeaderValueToken.with(value);
     }
 
     private HeaderValueToken token(final String value,
                                    final String parameterName,
                                    final Object parameterValue) {
-        return HeaderValueToken.with(value, this.parameters(parameterName, parameterValue));
+        return HeaderValueToken.with(value)
+                .setParameters(this.parameters(parameterName, parameterValue));
     }
 
     private HeaderValueToken token(final String value,
@@ -450,8 +448,8 @@ public final class HeaderValueTokenHeaderParserTest extends HeaderParserTestCase
                                    final Object parameterValue1,
                                    final String parameterName2,
                                    final Object parameterValue2) {
-        return HeaderValueToken.with(value,
-                this.parameters(parameterName1, parameterValue1, parameterName2, parameterValue2));
+        return HeaderValueToken.with(value)
+                .setParameters(this.parameters(parameterName1, parameterValue1, parameterName2, parameterValue2));
     }
 
     private Map<HeaderValueTokenParameterName<?>, Object> parameters(final String name,

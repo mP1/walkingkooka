@@ -46,7 +46,8 @@ public final class HeaderValueTokenEqualityTest extends HashCodeEqualsDefinedEqu
 
     @Override
     protected HeaderValueToken createObject() {
-        return HeaderValueToken.with(VALUE, parameters());
+        return HeaderValueToken.with(VALUE)
+                .setParameters(parameters());
     }
 
     private Map<HeaderValueTokenParameterName<?>, Object> parameters() {

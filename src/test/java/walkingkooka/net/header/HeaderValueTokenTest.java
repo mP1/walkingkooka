@@ -38,28 +38,17 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test(expected = NullPointerException.class)
     public void testWithNullValueFails() {
-        HeaderValueToken.with(null, HeaderValueToken.NO_PARAMETERS);
+        HeaderValueToken.with(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyValueFails() {
-        HeaderValueToken.with("", HeaderValueToken.NO_PARAMETERS);
+        HeaderValueToken.with("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidCharactersValueFails() {
-        HeaderValueToken.with("<", HeaderValueToken.NO_PARAMETERS);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullParametersFails() {
-        HeaderValueToken.with(VALUE, null);
-    }
-
-    @Test(expected = HeaderValueException.class)
-    public void testWithInvalidParametersValueFails() {
-        HeaderValueToken.with(VALUE,
-                this.parameters("Q", "INVALID!"));
+        HeaderValueToken.with("<");
     }
 
     @Test
@@ -118,17 +107,21 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test
     public void testToStringNoParameters() {
-        this.toStringAndCheck(HeaderValueToken.with(VALUE, HeaderValueToken.NO_PARAMETERS), "abc");
+        this.toStringAndCheck(HeaderValueToken.with(VALUE),
+                "abc");
     }
 
     @Test
     public void testToStringWithParameters() {
-        this.toStringAndCheck(this.token(), "abc; p1=v1");
+        this.toStringAndCheck(this.token(),
+                "abc; p1=v1");
     }
 
     @Test
     public void testToStringWithSeveralParameters() {
-        this.toStringAndCheck(HeaderValueToken.with(VALUE, this.parameters("p1", "v1", "p2", "v2")), "abc; p1=v1; p2=v2");
+        this.toStringAndCheck(HeaderValueToken.with(VALUE)
+                .setParameters(this.parameters("p1", "v1", "p2", "v2")),
+                "abc; p1=v1; p2=v2");
     }
 
     private void toStringAndCheck(final HeaderValueToken token, final String toString) {
@@ -146,20 +139,21 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
     @Test
     public void testFormatOne() {
         this.formatAndCheck("A",
-                HeaderValueToken.with("A", HeaderValueToken.NO_PARAMETERS));
+                HeaderValueToken.with("A"));
     }
 
     @Test
     public void testFormatOneWithParameters() {
         this.formatAndCheck("A; p1=v1",
-                HeaderValueToken.with("A", this.parameters()));
+                HeaderValueToken.with("A")
+                        .setParameters(this.parameters()));
     }
 
     @Test
     public void testFormatMany() {
         this.formatAndCheck("A, B",
-                HeaderValueToken.with("A", HeaderValueToken.NO_PARAMETERS),
-                HeaderValueToken.with("B", HeaderValueToken.NO_PARAMETERS));
+                HeaderValueToken.with("A"),
+                HeaderValueToken.with("B"));
     }
 
     private void formatAndCheck(final String toString, final HeaderValueToken...tokens) {
@@ -176,7 +170,8 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
     }
 
     private HeaderValueToken token() {
-        return HeaderValueToken.with(VALUE, this.parameters());
+        return HeaderValueToken.with(VALUE)
+                .setParameters(this.parameters());
     }
 
     private Map<HeaderValueTokenParameterName<?>, Object> parameters() {
