@@ -80,6 +80,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see HeaderValueTokenHeaderValueConverter}
+     */
+    public static HeaderValueConverter<HeaderValueToken> headerValueToken() {
+        return HeaderValueTokenHeaderValueConverter.INSTANCE;
+    }
+    
+    /**
      * {@see HeaderValueTokenListHeaderValueConverter}
      */
     public static HeaderValueConverter<List<HeaderValueToken>> headerValueTokenList() {

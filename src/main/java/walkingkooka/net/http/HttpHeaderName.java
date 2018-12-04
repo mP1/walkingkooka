@@ -93,6 +93,22 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values of type {@link HeaderValueToken}.
+     */
+    private static HttpHeaderName<HeaderValueToken> registerHeaderValueTokenConstant(final String header,
+                                                                                     final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HeaderValueConverters.headerValueToken());
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values that include a list of {@link HeaderValueToken}.
+     */
+    private static HttpHeaderName<List<HeaderValueToken>> registerHeaderValueTokenListConstant(final String header,
+                                                                                               final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HeaderValueConverters.headerValueTokenList());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link HttpETag} header values.
      */
     private static HttpHeaderName<HttpETag> registerHttpETagConstant(final String header,
@@ -181,14 +197,6 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles list of {@link String} header values.
-     */
-    private static HttpHeaderName<List<HeaderValueToken>> registerTokenListConstant(final String header,
-                                                                                    final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HeaderValueConverters.headerValueTokenList());
-    }
-
-    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link Url} header values.
      */
     private static HttpHeaderName<Url> registerUrlConstant(final String header, final HttpHeaderScope scope) {
@@ -242,7 +250,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderValueToken>> ACCEPT_ENCODING = registerTokenListConstant("Accept-Encoding",
+    public final static HttpHeaderName<List<HeaderValueToken>> ACCEPT_ENCODING = registerHeaderValueTokenListConstant("Accept-Encoding",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -256,7 +264,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderValueToken>> ACCEPT_LANGUAGE = registerTokenListConstant("Accept-Language",
+    public final static HttpHeaderName<List<HeaderValueToken>> ACCEPT_LANGUAGE = registerHeaderValueTokenListConstant("Accept-Language",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -461,7 +469,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * TE: trailers, deflate;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderValueToken>> TE = registerTokenListConstant("TE",
+    public final static HttpHeaderName<List<HeaderValueToken>> TE = registerHeaderValueTokenListConstant("TE",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -549,7 +557,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Content-Encoding: deflate, gzip
      * </pre>
      */
-    public final static HttpHeaderName<String> CONTENT_ENCODING = registerStringConstant("Content-Encoding",
+    public final static HttpHeaderName<HeaderValueToken> CONTENT_ENCODING = registerHeaderValueTokenConstant("Content-Encoding",
             HttpHeaderScope.RESPONSE);
 
     /**
@@ -560,7 +568,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Content-Language: de-DE, en-CA
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderValueToken>> CONTENT_LANGUAGE = registerTokenListConstant("Content-Language",
+    public final static HttpHeaderName<List<HeaderValueToken>> CONTENT_LANGUAGE = registerHeaderValueTokenListConstant("Content-Language",
             HttpHeaderScope.RESPONSE);
 
     /**
@@ -687,7 +695,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Transfer-Encoding: gzip, chunked
      * </pre>
      */
-    public final static HttpHeaderName<List<HeaderValueToken>> TRANSFER_ENCODING = registerTokenListConstant("Transfer-Encoding",
+    public final static HttpHeaderName<List<HeaderValueToken>> TRANSFER_ENCODING = registerHeaderValueTokenListConstant("Transfer-Encoding",
             HttpHeaderScope.RESPONSE);
 
     /**
