@@ -40,6 +40,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Contains various tests toassert the visibility and final-ness of all methods, fields. Note this
@@ -53,6 +54,17 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     // tests
+
+    @Test
+    // not final if some tests want to @Ignore.
+    public void testTestNaming() {
+        final String type = this.type().getName();
+        final String test = this.getClass().getName();
+        if(!test.endsWith("Test")) {
+            fail("Test name " + test + " incorrect for " + type);
+        }
+        assertEquals("Test name " + test + " incorrect for " + type, test, type + "Test");
+    }
 
     @Test
     public void testClassVisibility() {

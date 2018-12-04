@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
@@ -36,16 +35,6 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
 
     protected PackagePrivateClassTestCase() {
         super();
-    }
-
-    @Test
-    public void testTestNaming() {
-        final String type = this.type().getName();
-        final String test = this.getClass().getName();
-        if(!test.endsWith("Test")) {
-            fail("Test name " + test + " incorrect for " + type);
-        }
-        assertEquals("Test name " + test + " incorrect for " + type, test, type + "Test");
     }
 
     /**
