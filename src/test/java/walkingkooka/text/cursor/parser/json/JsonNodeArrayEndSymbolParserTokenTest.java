@@ -24,7 +24,7 @@ import walkingkooka.tree.visit.Visiting;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class JsonNodeArrayEndSymbolParserTokenTest extends JsonNodeSymbolParserTokenTestCase<JsonNodeArrayBeginSymbolParserToken, String> {
+public final class JsonNodeArrayEndSymbolParserTokenTest extends JsonNodeSymbolParserTokenTestCase<JsonNodeArrayEndSymbolParserToken, String> {
 
     @Test
     public void testAccept() {
@@ -59,7 +59,7 @@ public final class JsonNodeArrayEndSymbolParserTokenTest extends JsonNodeSymbolP
             }
 
             @Override
-            protected void visit(final JsonNodeArrayBeginSymbolParserToken t) {
+            protected void visit(final JsonNodeArrayEndSymbolParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -78,17 +78,17 @@ public final class JsonNodeArrayEndSymbolParserTokenTest extends JsonNodeSymbolP
     }
 
     @Override
-    protected JsonNodeArrayBeginSymbolParserToken createToken(final String value, final String text) {
-        return JsonNodeArrayBeginSymbolParserToken.with(value, text);
+    protected JsonNodeArrayEndSymbolParserToken createToken(final String value, final String text) {
+        return JsonNodeArrayEndSymbolParserToken.with(value, text);
     }
 
     @Override
-    protected JsonNodeArrayBeginSymbolParserToken createDifferentToken() {
-        return JsonNodeArrayBeginSymbolParserToken.with(this.text(), "different");
+    protected JsonNodeArrayEndSymbolParserToken createDifferentToken() {
+        return JsonNodeArrayEndSymbolParserToken.with(this.text(), "different");
     }
 
     @Override
-    protected Class<JsonNodeArrayBeginSymbolParserToken> type() {
-        return JsonNodeArrayBeginSymbolParserToken.class;
+    protected Class<JsonNodeArrayEndSymbolParserToken> type() {
+        return JsonNodeArrayEndSymbolParserToken.class;
     }
 }
