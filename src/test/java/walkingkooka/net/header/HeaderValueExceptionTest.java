@@ -18,13 +18,12 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.net.http.HttpException;
 import walkingkooka.test.PublicThrowableTestCase;
 
-final public class HeaderValueExceptionTest extends PublicThrowableTestCase<HttpException> {
+final public class HeaderValueExceptionTest extends PublicThrowableTestCase<HeaderValueException> {
 
     @Override
-    protected Class<HttpException> type() {
-        return HttpException.class;
+    protected Class<HeaderValueException> type() {
+        return HeaderValueException.class;
     }
 }
