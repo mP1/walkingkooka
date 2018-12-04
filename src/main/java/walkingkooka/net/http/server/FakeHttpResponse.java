@@ -23,11 +23,13 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.test.Fake;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class FakeHttpResponse implements HttpResponse, Fake {
 
     @Override
     public void setStatus(final HttpStatus status) {
+        Objects.requireNonNull(status, "status");
         throw new UnsupportedOperationException();
     }
 
@@ -38,16 +40,20 @@ public class FakeHttpResponse implements HttpResponse, Fake {
 
     @Override
     public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(value, "value");
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void setBody(final byte[] body) {
+        Objects.requireNonNull(body, "body");
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void setBodyText(final String body) {
+        Objects.requireNonNull(body, "body");
         throw new UnsupportedOperationException();
     }
 }
