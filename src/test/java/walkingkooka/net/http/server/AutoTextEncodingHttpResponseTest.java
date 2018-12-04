@@ -25,8 +25,6 @@ import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.NotAcceptableHeaderValueException;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.net.http.HttpStatus;
-import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.Latch;
 
 import java.nio.charset.Charset;
@@ -37,20 +35,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class AutoTextEncodingHttpResponseTest extends WrapperHttpResponseTestCase<AutoTextEncodingHttpResponse> {
-
-    @Test
-    public void testSetStatus() {
-        final Latch set = Latch.create();
-        final HttpStatus status = HttpStatusCode.OK.status();
-        this.createResponse(new FakeHttpResponse() {
-            @Test
-            public void setStatus(final HttpStatus s) {
-                assertSame(status, s);
-                set.set("Status set to " + s);
-            }
-        }).setStatus(status);
-        assertTrue("wrapped response setStatus not called", set.value());
-    }
 
     @Test
     public void testAddHeader() {
@@ -94,22 +78,6 @@ public final class AutoTextEncodingHttpResponseTest extends WrapperHttpResponseT
                 this.request("utf16, utf8"),
                 HttpHeaderName.CONTENT_TYPE,
                 this.mediaType("utf8"));
-    }
-
-    private <T> void addHeaderAndCheck(final HttpRequest request,
-                                       final HttpHeaderName<T> header,
-                                       final T value) {
-        final Latch set = Latch.create();
-        this.createResponse(request,
-                new FakeHttpResponse() {
-
-                    public <T> void addHeader(final HttpHeaderName<T> n, final T v) {
-                        assertSame("header", header, n);
-                        assertSame("value", value, v);
-                        set.set("header " + n + "=" + v + " added.");
-                    }
-                }).addHeader(header, value);
-        assertTrue("wrapped response addHeader not called", set.value());
     }
 
     @Test
@@ -178,10 +146,6 @@ public final class AutoTextEncodingHttpResponseTest extends WrapperHttpResponseT
         assertTrue("wrapped response setBody() not called with encoded text", set.value());
     }
 
-    private AutoTextEncodingHttpResponse createResponse(final HttpResponse response) {
-        return this.createResponse(HttpRequests.fake(), response);
-    }
-
     private AutoTextEncodingHttpResponse createResponse(final String acceptCharset, final HttpResponse response) {
         return AutoTextEncodingHttpResponse.with(
                 this.request(acceptCharset),
@@ -191,6 +155,11 @@ public final class AutoTextEncodingHttpResponseTest extends WrapperHttpResponseT
     @Override
     AutoTextEncodingHttpResponse createResponse(final HttpRequest request, final HttpResponse response) {
         return AutoTextEncodingHttpResponse.with(request, response);
+    }
+
+    @Override
+    HttpRequest request() {
+        return HttpRequests.fake();
     }
 
     private HttpRequest request(final String acceptCharset) {
