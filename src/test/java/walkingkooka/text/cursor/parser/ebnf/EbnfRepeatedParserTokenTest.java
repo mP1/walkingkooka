@@ -26,7 +26,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public class EbnfRepeatParserTokenTest extends EbnfGroupOptionalRepeatParentParserTokenTestCase<EbnfRepeatedParserToken> {
+public class EbnfRepeatedParserTokenTest extends EbnfGroupOptionalRepeatParentParserTokenTestCase<EbnfRepeatedParserToken> {
 
     @Test
     public void testAccept() {
