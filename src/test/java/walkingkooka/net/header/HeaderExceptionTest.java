@@ -21,10 +21,10 @@ package walkingkooka.net.header;
 import walkingkooka.net.http.HttpException;
 import walkingkooka.test.PublicThrowableTestCase;
 
-final public class HeaderExceptionTest extends PublicThrowableTestCase<HttpException> {
+final public class HeaderExceptionTest extends PublicThrowableTestCase<HeaderException> {
 
     @Override
-    protected Class<HttpException> type() {
-        return HttpException.class;
+    protected Class<HeaderException> type() {
+        return HeaderException.class;
     }
 }
