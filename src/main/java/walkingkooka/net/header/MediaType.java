@@ -26,7 +26,6 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Whitespace;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -52,8 +51,7 @@ import java.util.stream.Collectors;
  */
 final public class MediaType implements Value<String>,
         HeaderValueWithParameters<MediaTypeParameterName<?>>,
-        HasQFactorWeight,
-        Serializable {
+        HasQFactorWeight {
 
     /**
      * The separator character that separates the type and secondary portions within a mime type {@link String}.
@@ -336,7 +334,7 @@ final public class MediaType implements Value<String>,
                 this.replace(type, this.subType, this.parameters);
     }
 
-    private final transient String type;
+    private final String type;
 
     static String checkType(final String type) {
         return check(type, "type");
@@ -361,7 +359,7 @@ final public class MediaType implements Value<String>,
                 this.replace(this.type, subType, this.parameters);
     }
 
-    private final transient String subType;
+    private final String subType;
 
     static String checkSubType(final String subType) {
         return check(subType, "subType");
@@ -505,15 +503,4 @@ final public class MediaType implements Value<String>,
     }
 
     private final String toString;
-
-    // Serializable............................................................................
-
-    /**
-     * Only the {@link #toString()} is serialized thus on deserialization we need to parse to reconstruct other fields.
-     */
-    private Object readResolve() {
-        return MediaTypeHeaderParserOne.parseMediaType(this.toString);
-    }
-
-    private final static long serialVersionUID = 1L;
 }

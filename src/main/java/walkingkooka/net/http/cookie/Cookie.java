@@ -356,8 +356,4 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
     }
 
     abstract void appendAttributes(final ToStringBuilder builder);
-
-    // Serializable
-
-    private static final long serialVersionUID = 1L;
 }

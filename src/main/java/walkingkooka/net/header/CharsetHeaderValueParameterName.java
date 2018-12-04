@@ -26,7 +26,6 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
@@ -36,10 +35,7 @@ import java.util.Objects;
  * or commas.
  */
 final public class CharsetHeaderValueParameterName<T> implements HeaderParameterName<T>,
-        Comparable<CharsetHeaderValueParameterName<?>>,
-        Serializable {
-
-    private final static long serialVersionUID = 1L;
+        Comparable<CharsetHeaderValueParameterName<?>> {
 
     // constants
 
@@ -156,11 +152,5 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
     @Override
     public String toString() {
         return this.value;
-    }
-
-    // Serializable .................................................................................................
-
-    private Object readResolve() {
-        return with(this.value);
     }
 }

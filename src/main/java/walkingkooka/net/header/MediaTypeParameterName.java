@@ -26,7 +26,6 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
@@ -36,10 +35,7 @@ import java.util.Objects;
  * or commas.
  */
 final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
-        Comparable<MediaTypeParameterName<?>>,
-        Serializable {
-
-    private final static long serialVersionUID = 1L;
+        Comparable<MediaTypeParameterName<?>>{
 
     // constants
 
@@ -164,11 +160,5 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
     @Override
     public String toString() {
         return this.value;
-    }
-
-    // Serializable .................................................................................................
-
-    private Object readResolve() {
-        return with(this.value);
     }
 }
