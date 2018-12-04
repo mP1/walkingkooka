@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.HttpHeaderName;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +38,7 @@ public final class CharsetHeaderValueListHeaderValueConverterTest extends
 
     @Test
     public void testContentType() {
-        final String charset = "utf-8";
+        final String charset = Charset.forName("utf8").name();
         this.parseAndToTextAndCheck(charset,
                 Lists.of(CharsetHeaderValue.with(CharsetName.with(charset))));
     }

@@ -88,20 +88,20 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     @Test
     public void testToStringNoParameters() {
         this.toStringAndCheck(CharsetHeaderValue.with(VALUE),
-                "utf-8");
+                VALUE.toHeaderText());
     }
 
     @Test
     public void testToStringWithParameters() {
         this.toStringAndCheck(this.charsetHeaderValue(),
-                "utf-8; p1=v1");
+                VALUE + "; p1=v1");
     }
 
     @Test
     public void testToStringWithSeveralParameters() {
         this.toStringAndCheck(CharsetHeaderValue.with(VALUE)
                         .setParameters(this.parameters("p1", "v1", "p2", "v2")),
-                "utf-8; p1=v1; p2=v2");
+                VALUE + "; p1=v1; p2=v2");
     }
 
     private void toStringAndCheck(final CharsetHeaderValue token, final String toString) {
@@ -118,26 +118,27 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     @Test
     public void testToHeaderTextListOne() {
-        this.toHeaderTextListAndCheck("a",
-                CharsetHeaderValue.with(CharsetName.with("A")));
+        final String text = "a";
+        this.toHeaderTextListAndCheck(text,
+                CharsetHeaderValue.with(CharsetName.with(text)));
     }
 
     @Test
     public void testToHeaderTextListOneWithParameters() {
         this.toHeaderTextListAndCheck("a; p1=v1",
-                CharsetHeaderValue.with(CharsetName.with("A"))
+                CharsetHeaderValue.with(CharsetName.with("a"))
                         .setParameters(this.parameters()));
     }
 
     @Test
     public void testToHeaderTextListSeveral() {
         this.toHeaderTextListAndCheck("a, b",
-                CharsetHeaderValue.with(CharsetName.with("A")),
-                CharsetHeaderValue.with(CharsetName.with("B")));
+                CharsetHeaderValue.with(CharsetName.with("a")),
+                CharsetHeaderValue.with(CharsetName.with("b")));
     }
 
     private void toHeaderTextListAndCheck(final String toString, final CharsetHeaderValue... tokens) {
-        assertEquals("Format of " + Arrays.toString(tokens),
+        assertEquals("header text of " + Arrays.toString(tokens),
                 toString,
                 CharsetHeaderValue.toHeaderTextList(Lists.of(tokens)));
     }

@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.HttpHeaderName;
 
+import java.nio.charset.Charset;
+
 import static org.junit.Assert.assertEquals;
 
 public final class CharsetNameHeaderValueConverterTest extends
@@ -32,8 +34,8 @@ public final class CharsetNameHeaderValueConverterTest extends
     }
 
     @Test
-    public void testContentType() {
-        final String charset = "utf-8";
+    public void testContent() {
+        final String charset = Charset.forName("utf-8").name();
         this.parseAndToTextAndCheck(charset,
                 CharsetName.with(charset));
     }

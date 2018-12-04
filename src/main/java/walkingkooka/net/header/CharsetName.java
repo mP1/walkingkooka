@@ -29,6 +29,7 @@ import walkingkooka.text.CharSequences;
 
 import java.nio.charset.Charset;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -48,7 +49,7 @@ import java.util.Optional;
  *    to the procedures defined in [RFC2978].
  * </pre>
  */
-public final class CharsetName implements Name, HeaderValue, Value<String>, Comparable<CharsetName> {
+public abstract class CharsetName implements Name, HeaderValue, Value<String>, Comparable<CharsetName> {
 
     /**
      * Constant when there is no charset.
@@ -58,7 +59,7 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
     /**
      * The {@link CharsetName} holding a wildcard.
      */
-    public final static CharsetName WILDCARD_CHARSET = new CharsetName(WILDCARD.string(), NO_CHARSET);
+    public final static CharsetName WILDCARD_CHARSET = CharsetNameWildcard.INSTANCE;
 
     /**
      * Holds all constants.
@@ -71,12 +72,12 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
     private static Map<String, CharsetName> registerConstants() {
         final Map<String, CharsetName> constants = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
-        for(Charset charset : Charset.availableCharsets().values()) {
+        for (Charset charset : Charset.availableCharsets().values()) {
             final String name = charset.name();
-            constants.put(name, new CharsetName(name, Optional.of(charset)));
+            constants.put(name, CharsetNameSupportedCharset.with(name, charset));
 
-            for(String alias : charset.aliases()) {
-                constants.put(alias, new CharsetName(alias, Optional.of(charset)));
+            for (String alias : charset.aliases()) {
+                constants.put(alias, CharsetNameSupportedCharset.with(alias, charset));
             }
         }
 
@@ -87,7 +88,7 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
 
     private static CharsetName constantOrFail(final String name) {
         final CharsetName charsetName = CONSTANTS.get(name);
-        if(null==charsetName) {
+        if (null == charsetName) {
             throw new NeverError("Standard charset " + CharSequences.quoteAndEscape(name) + " missing");
         }
         return charsetName;
@@ -164,73 +165,85 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
         final CharsetName mediaType = CONSTANTS.get(value);
         return null != mediaType ?
                 mediaType :
-                new CharsetName(value, NO_CHARSET);
+                CharsetNameUnsupportedCharset.unsupportedCharset(value);
     }
 
     /**
-     * Private constructor use factory.
+     * Package private to limit sub classing, use a constant or factory.
      */
-    private CharsetName(final String value, final Optional<Charset> charset) {
+    CharsetName() {
         super();
-        this.value = value.toLowerCase();
-        this.charset = charset;
     }
 
     /**
      * Will be empty if the charset is not supported by this JVM.
      */
-    public Optional<Charset> charset() {
-        return this.charset;
-    }
-
-    private final Optional<Charset> charset;
-
-    // Value ..........................................................................................................
-
-    @Override
-    public String value() {
-        return this.value;
-    }
-
-    private final String value;
+    public abstract Optional<Charset> charset();
 
     /**
-     * Returns true if the name is a wildcard selection.
+     * Returns true if this charset name is a wildcard.
      */
-    public boolean isWildcard() {
-        return WILDCARD_CHARSET == this;
+    public abstract boolean isWildcard();
+
+    /**
+     * Tests if this {@link CharsetName} is a match for the given, including wildcard matches.
+     * Typically all values of {@link walkingkooka.net.http.HttpHeaderName#ACCEPT_CHARSET} are called until a match
+     * against a content-type {@link CharsetName}.
+     */
+    public final boolean matches(final CharsetName contentType) {
+        Objects.requireNonNull(contentType, "contentType");
+
+        return contentType.matches0(this);
     }
+
+    /**
+     * Sub classes must include the following statement which will result in a double dispatch.
+     * <pre>
+     * possible.matches1(this)
+     * </pre>
+     */
+    abstract boolean matches0(final CharsetName possible);
+
+    abstract boolean matches1(final CharsetNameSupportedCharset contentType);
+
+    abstract boolean matches1(final CharsetNameUnsupportedCharset contentType);
+
+    final boolean matches1(final CharsetNameWildcard contentType) {
+        return NeverError.unhandledCase(contentType);
+    }
+
+    // setParameters.......................................................................................
 
     /**
      * Factory that creates a {@link CharsetHeaderValue} combining this charset and the given parameters.
      */
-    public CharsetHeaderValue setParameters(final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
+    public final CharsetHeaderValue setParameters(final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
         return CharsetHeaderValue.with(this).setParameters(parameters);
     }
 
     // HeaderValue ....................................................................................................
 
     @Override
-    public String toHeaderText() {
+    public final String toHeaderText() {
         return this.value();
     }
 
     // Comparable...........................................................................................................
 
     @Override
-    public int compareTo(final CharsetName other) {
-        return this.value.compareToIgnoreCase(other.value);
+    public final int compareTo(final CharsetName other) {
+        return this.value().compareToIgnoreCase(other.value());
     }
 
     // Object...........................................................................................................
 
     @Override
-    public int hashCode() {
-        return this.value.hashCode();
+    public final int hashCode() {
+        return this.value().hashCode();
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return this == other ||
                 other instanceof CharsetName &&
                         this.equals0(Cast.to(other));
@@ -242,6 +255,6 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
 
     @Override
     public String toString() {
-        return this.value;
+        return this.value();
     }
 }
