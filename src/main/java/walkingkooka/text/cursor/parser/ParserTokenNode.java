@@ -61,8 +61,8 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     static ParserTokenNode with(final ParserToken token, final Optional<ParserTokenNode> parent, final int index) {
         return token instanceof SequenceParserToken ?
-                new ParserTokenParentNode(Cast.to(token), parent, index) :
-                new ParserTokenLeafNode(token, parent, index);
+                ParserTokenParentNode.with(Cast.to(token), parent, index) :
+                ParserTokenLeafNode.with(token, parent, index);
     }
 
     ParserTokenNode(final ParserToken token, final Optional<ParserTokenNode> parent, final int index) {

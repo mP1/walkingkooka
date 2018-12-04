@@ -17,11 +17,15 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.tree.NodeTestCase;
 
 import static org.junit.Assert.assertSame;
 
-public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends NodeTestCase<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> {
+public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends NodeTestCase<ParserTokenNode,
+        ParserTokenNodeName,
+        ParserTokenNodeAttributeName,
+        String> {
 
     @Test(expected = NullPointerException.class)
     public void testSetAttributeNullFails() {
@@ -34,7 +38,7 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends
         assertSame(node, node.setAttributes(node.attributes()));
     }
 
-    final protected ParserTokenNode createNode() {
+    final protected N createNode() {
         return this.createParserTokenNode();
     }
 
@@ -48,4 +52,16 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends
     protected final String requiredNamePrefix() {
         return ParserToken.class.getSimpleName();
     }
+
+    @Override
+    final protected boolean typeMustBePublic() {
+        return false;
+    }
+
+    @Override
+    protected final Class<ParserTokenNode> type() {
+        return Cast.to(this.parserTokenNodeType());
+    }
+
+    abstract Class<N> parserTokenNodeType();
 }

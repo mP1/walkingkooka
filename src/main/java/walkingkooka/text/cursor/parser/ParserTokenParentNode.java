@@ -30,7 +30,11 @@ import java.util.stream.Collectors;
  */
 final class ParserTokenParentNode extends ParserTokenNode{
 
-    ParserTokenParentNode(final ParentParserToken token, final Optional<ParserTokenNode> parent, final int index) {
+    static ParserTokenParentNode with(final ParentParserToken token, final Optional<ParserTokenNode> parent, final int index) {
+        return new ParserTokenParentNode(token, parent, index);
+    }
+
+    private ParserTokenParentNode(final ParentParserToken token, final Optional<ParserTokenNode> parent, final int index) {
         super(token, parent, index);
         this.childrenParent = Optional.of(this);
     }
