@@ -107,6 +107,11 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
     }
 
     @Override
+    protected boolean typeMustBePublic() {
+        return true;
+    }
+
+    @Override
     protected Class<AlphaColor> type() {
         return AlphaColor.class;
     }

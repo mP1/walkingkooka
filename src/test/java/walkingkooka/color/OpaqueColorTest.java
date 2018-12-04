@@ -24,26 +24,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 
-public final class OpaqueColorTest extends ColorTestCase<Color> {
+public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullRedFails() {
-        Color.with(null, GREEN, BLUE);
+        OpaqueColor.createOpaqueColor(null, GREEN, BLUE);
     }
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullGreenFails() {
-        Color.with(RED, null, BLUE);
+        OpaqueColor.createOpaqueColor(RED, null, BLUE);
     }
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullBlueFails() {
-        Color.with(RED, GREEN, null);
+        OpaqueColor.createOpaqueColor(RED, GREEN, null);
     }
     
     @Test
     public void testWith() {
-        final Color color = Color.with(RED, GREEN, BLUE);
+        final OpaqueColor color = OpaqueColor.createOpaqueColor(RED, GREEN, BLUE);
         assertSame("red", RED, color.red());
         assertSame("green", GREEN, color.green());
         assertSame("blue", BLUE, color.blue());
@@ -74,7 +74,8 @@ public final class OpaqueColorTest extends ColorTestCase<Color> {
 
     @Test
     public void testRgbAndArgbAndValue() {
-        final Color color = Color.with(RedColorComponent.with((byte) 0x80), GreenColorComponent.with((byte) 0x81),
+        final Color color = OpaqueColor.createOpaqueColor(RedColorComponent.with((byte) 0x80),
+                GreenColorComponent.with((byte) 0x81),
                 BlueColorComponent.with((byte) 0x82));
         assertEquals("rgb", 0x808182, color.rgb());
         assertEquals("argb", 0xFF808182, color.argb());
@@ -83,7 +84,7 @@ public final class OpaqueColorTest extends ColorTestCase<Color> {
 
     @Override
     public void testHasAlpha() {
-        final Color color = Color.with(RED, GREEN, BLUE);
+        final OpaqueColor color = OpaqueColor.createOpaqueColor(RED, GREEN, BLUE);
         assertFalse(color + " has no alpha", color.hasAlpha());
     }
 
@@ -101,12 +102,19 @@ public final class OpaqueColorTest extends ColorTestCase<Color> {
     }
 
     @Override
-    Color createObject(final RedColorComponent red, final GreenColorComponent green, final BlueColorComponent blue) {
-        return Color.with(red, green, blue);
+    OpaqueColor createObject(final RedColorComponent red,
+                             final GreenColorComponent green,
+                             final BlueColorComponent blue) {
+        return OpaqueColor.createOpaqueColor(red, green, blue);
     }
 
     @Override
-    protected Class<Color> type() {
-        return Color.class;
+    protected boolean typeMustBePublic() {
+        return false;
+    }
+
+    @Override
+    protected Class<OpaqueColor> type() {
+        return OpaqueColor.class;
     }
 }

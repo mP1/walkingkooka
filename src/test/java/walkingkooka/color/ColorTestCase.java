@@ -20,13 +20,13 @@ package walkingkooka.color;
 
 import org.junit.Test;
 import walkingkooka.Equality;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-abstract public class ColorTestCase<C extends Color> extends PublicClassTestCase<C> {
+abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C> {
 
     ColorTestCase() {
         super();
