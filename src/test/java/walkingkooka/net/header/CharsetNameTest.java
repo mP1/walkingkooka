@@ -25,6 +25,7 @@ import java.nio.charset.Charset;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
@@ -60,8 +61,14 @@ public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
     }
 
     @Test
-    public void testWithUtf8() {
+    public void testWithUtfDash8() {
         final String text = "utf-8";
+        this.check(CharsetName.with(text), text, text, false);
+    }
+
+    @Test
+    public void testWithUtf8() {
+        final String text = "utf8";
         this.check(CharsetName.with(text), text, text, false);
     }
 
@@ -111,12 +118,35 @@ public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
     }
 
     @Test
+    public void testConstantUtf8() {
+        this.constantAndCheck("UTF8");
+    }
+
+    @Test
+    public void testConstantUtfDash8() {
+        this.constantAndCheck("UTF-8");
+    }
+
+    @Test
+    public void testConstantUtfDash8Aliases() {
+        final Charset charset = Charset.forName("UTF-8");
+        charset.aliases().stream()
+                .forEach(this::constantAndCheck);
+    }
+
+    private void constantAndCheck(final String name) {
+        assertSame(CharsetName.with(name), CharsetName.with(name));
+    }
+
+    @Test
     public void testSetParameters() {
         final CharsetHeaderValue headerValue = CharsetName.UTF_8
                 .setParameters(CharsetHeaderValue.NO_PARAMETERS);
         assertEquals("charset", CharsetName.UTF_8, headerValue.value());
         assertEquals("parameters", CharsetHeaderValue.NO_PARAMETERS, headerValue.parameters());
     }
+
+    // toString.............................................................................
 
     @Test
     public void testToString() {
