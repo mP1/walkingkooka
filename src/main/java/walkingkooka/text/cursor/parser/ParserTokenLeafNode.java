@@ -28,7 +28,11 @@ import java.util.Optional;
  */
 final class ParserTokenLeafNode extends ParserTokenNode {
 
-    ParserTokenLeafNode(final ParserToken token, final Optional<ParserTokenNode> parent, final int index) {
+    static ParserTokenLeafNode with(final ParserToken token, final Optional<ParserTokenNode> parent, final int index) {
+        return new ParserTokenLeafNode(token, parent, index);
+    }
+
+    private ParserTokenLeafNode(final ParserToken token, final Optional<ParserTokenNode> parent, final int index) {
         super(token, parent, index);
     }
 

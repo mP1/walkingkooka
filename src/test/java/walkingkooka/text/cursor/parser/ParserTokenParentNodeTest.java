@@ -36,7 +36,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTokenParentNode> {
+public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTokenParentNode> {
 
     private final static String TEXT = "a1b2";
 
@@ -216,12 +216,7 @@ public class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTok
     }
 
     @Override
-    final protected boolean typeMustBePublic() {
-        return false;
-    }
-
-    @Override
-    protected Class<ParserTokenNode> type() {
-        return Cast.to(ParserTokenParentNode.class);
+    Class<ParserTokenParentNode> parserTokenNodeType() {
+        return ParserTokenParentNode.class;
     }
 }

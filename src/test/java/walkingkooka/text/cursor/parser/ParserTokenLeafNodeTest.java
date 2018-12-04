@@ -74,7 +74,7 @@ public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<Parse
     }
 
     @Override
-    protected Class<ParserTokenNode> type() {
-        return ParserTokenNode.class;
+    Class<ParserTokenLeafNode> parserTokenNodeType() {
+        return ParserTokenLeafNode.class;
     }
 }
