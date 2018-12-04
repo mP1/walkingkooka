@@ -224,7 +224,7 @@ final public class MediaType implements Value<String>,
     }
 
     private static void checkText(final String text) {
-        Whitespace.failIfNullOrWhitespace(text, "text");
+        Whitespace.failIfNullOrEmptyOrWhitespace(text, "text");
     }
 
     /**

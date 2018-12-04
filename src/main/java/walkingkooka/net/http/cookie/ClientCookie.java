@@ -59,7 +59,7 @@ final public class ClientCookie extends Cookie {
      * </pre>
      */
     public static List<ClientCookie> parseHeader(final String header) {
-        Whitespace.failIfNullOrWhitespace(header, "header");
+        Whitespace.failIfNullOrEmptyOrWhitespace(header, "header");
 
         final char separator = Cookie.NAME_VALUE_SEPARATOR.character();
         final List<ClientCookie> cookies = Lists.array();

@@ -386,7 +386,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     }
 
     static String checkTextNullOrWhitespace(final String text) {
-        Whitespace.failIfNullOrWhitespace(text, "text");
+        Whitespace.failIfNullOrEmptyOrWhitespace(text, "text");
         return text;
     }
 

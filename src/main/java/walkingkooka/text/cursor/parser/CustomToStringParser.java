@@ -31,7 +31,7 @@ final class CustomToStringParser<T extends ParserToken, C extends ParserContext>
 
     static <T extends ParserToken, C extends ParserContext> Parser<T, C> wrap(final Parser<T, C> parser, final String toString) {
         Objects.requireNonNull(parser, "parser");
-        Whitespace.failIfNullOrWhitespace(toString, "toString");
+        Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
 
         Parser<T, C> result;
 

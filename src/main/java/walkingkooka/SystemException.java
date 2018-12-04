@@ -45,7 +45,7 @@ public class SystemException extends RuntimeException implements Serializable {
     }
 
     private static String checkMessage(final String message) {
-        Whitespace.failIfNullOrWhitespace(message, "message");
+        Whitespace.failIfNullOrEmptyOrWhitespace(message, "message");
         return message;
     }
 

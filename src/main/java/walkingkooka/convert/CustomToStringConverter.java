@@ -30,7 +30,7 @@ final class CustomToStringConverter implements Converter, HashCodeEqualsDefined 
 
     static  Converter wrap(final Converter converter, final String toString) {
         Objects.requireNonNull(converter, "converter");
-        Whitespace.failIfNullOrWhitespace(toString, "toString");
+        Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
 
         Converter result;
 

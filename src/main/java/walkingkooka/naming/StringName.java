@@ -41,7 +41,7 @@ final public class StringName implements Name, ShouldBeQuoted, HashCodeEqualsDef
      * Factory that creates a {@link StringName}, only the root path has this name.
      */
     static StringName with(final String name) {
-        Whitespace.failIfNullOrWhitespace(name, "name");
+        Whitespace.failIfNullOrEmptyOrWhitespace(name, "name");
         if (-1 != name.indexOf(StringPath.SEPARATOR.character())) {
             throw new IllegalArgumentException("Name " + CharSequences.quote(name) +
                     " cannot contain " + CharSequences.quoteIfChars(StringPath.SEPARATOR.character()));

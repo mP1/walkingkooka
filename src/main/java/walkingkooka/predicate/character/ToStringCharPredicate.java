@@ -35,7 +35,7 @@ final class ToStringCharPredicate implements CharPredicate, HashCodeEqualsDefine
      */
     static CharPredicate wrap(final CharPredicate predicate, final String toString) {
         Objects.requireNonNull(predicate, "predicate");
-        Whitespace.failIfNullOrWhitespace(toString, "toString");
+        Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
 
         return predicate.toString().equals(toString) ?
                predicate :

@@ -37,7 +37,7 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
      * Creates a {@link HostAddress} after verifying address and components, values etc.
      */
     public static HostAddress with(final String address) {
-        Whitespace.failIfNullOrWhitespace(address, "address");
+        Whitespace.failIfNullOrEmptyOrWhitespace(address, "address");
         
         return HostAddress.with(address, 0, false, false);
     }
@@ -46,7 +46,7 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
      * Processes an address within an email.
      */
     public static HostAddress withEmail(final String address, final int offset) {
-        Whitespace.failIfNullOrWhitespace(address, "address");
+        Whitespace.failIfNullOrEmptyOrWhitespace(address, "address");
         
         return HostAddress.with(address, offset, true, true);
     }

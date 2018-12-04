@@ -31,7 +31,7 @@ final class LabelledVariable<T> implements Variable<T> {
      * lost.
      */
     static <T> LabelledVariable<T> wrap(final String name, final Variable<T> variable) {
-        Whitespace.failIfNullOrWhitespace(name, "name");
+        Whitespace.failIfNullOrEmptyOrWhitespace(name, "name");
         Objects.requireNonNull(variable, "variable");
 
         return new LabelledVariable<T>(name,

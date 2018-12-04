@@ -31,7 +31,7 @@ final class CustomToStringPredicate<T> implements Predicate<T>, HashCodeEqualsDe
 
     static <T> Predicate<T> wrap(final Predicate<T> predicate, final String toString) {
         Objects.requireNonNull(predicate, "predicate");
-        Whitespace.failIfNullOrWhitespace(toString, "toString");
+        Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
 
         Predicate<T> result;
 

@@ -61,7 +61,7 @@ abstract class DateTimeFormatterParser<T extends ParserToken, C extends ParserCo
      */
     DateTimeFormatterParser(final DateTimeFormatter formatter, final String pattern) {
         Objects.requireNonNull(formatter, "formatter");
-        Whitespace.failIfNullOrWhitespace(pattern, "pattern");
+        Whitespace.failIfNullOrEmptyOrWhitespace(pattern, "pattern");
 
         this.formatter = formatter;
         this.pattern = pattern;

@@ -132,7 +132,7 @@ final public class CharPredicateBuilder
      * Sets a {@link #toString} for the final {@link CharPredicate}.
      */
     public CharPredicateBuilder toString(final String toString) {
-        Whitespace.failIfNullOrWhitespace(toString, "toString");
+        Whitespace.failIfNullOrEmptyOrWhitespace(toString, "toString");
 
         this.toString = toString;
         return this;

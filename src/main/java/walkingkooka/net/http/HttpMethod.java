@@ -98,7 +98,7 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
      * Factory that creates a {@link HttpMethod} with the {@link String method name}.
      */
     public static HttpMethod with(final String method) {
-        Whitespace.failIfNullOrWhitespace(method, "method");
+        Whitespace.failIfNullOrEmptyOrWhitespace(method, "method");
 
         final String key = method.toUpperCase();
         HttpMethod httpMethod = HttpMethod.CACHE.get(key);

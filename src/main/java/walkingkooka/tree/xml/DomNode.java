@@ -319,7 +319,7 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     public final DomElement createElement(final String namespaceUri,
                                           final DomNameSpacePrefix prefix,
                                           final DomName tagName) {
-        Whitespace.failIfNullOrWhitespace(namespaceUri, "namespaceUri");
+        Whitespace.failIfNullOrEmptyOrWhitespace(namespaceUri, "namespaceUri");
         Objects.requireNonNull(prefix, "prefix");
 
         return tagName.createElement(this.documentNode(), namespaceUri, prefix);

@@ -45,7 +45,7 @@ public final class SearchNodeAttributeName implements Name, Comparable<SearchNod
     final static Predicate<CharSequence> PREDICATE = Predicates.initialAndPart(INITIAL, PART);
 
     public static SearchNodeAttributeName with(final String name) {
-        Whitespace.failIfNullOrWhitespace(name, "attributeName");
+        Whitespace.failIfNullOrEmptyOrWhitespace(name, "attributeName");
         Predicates.failIfNullOrFalse(name, PREDICATE, "Name contains an invalid character=%s");
 
         if(-1 != CharSequences.indexOf(name, "..")) {

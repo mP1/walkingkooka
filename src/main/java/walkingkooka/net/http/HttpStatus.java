@@ -91,7 +91,7 @@ public final class HttpStatus implements HashCodeEqualsDefined, Value<HttpStatus
     private final String message;
 
     private static void checkMessage(final String message) {
-        Whitespace.failIfNullOrWhitespace(message, "message");
+        Whitespace.failIfNullOrEmptyOrWhitespace(message, "message");
     }
 
     // replace........................................................................

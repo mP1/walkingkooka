@@ -17,30 +17,21 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class WhitespaceTest extends PublicClassTestCase<Whitespace> {
+final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> {
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testNullFails() {
-        this.withFails(null);
+        Whitespace.with(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testIncludesNonWhitespaceCharacterFails() {
-        this.withFails(" !");
-    }
-
-    private void withFails(final String content) {
-        try {
-            Whitespace.with(content);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        Whitespace.with(" !");
     }
 
     @Test
@@ -54,9 +45,69 @@ final public class WhitespaceTest extends PublicClassTestCase<Whitespace> {
         final Whitespace whitespace = Whitespace.with(content);
         assertSame("toString", content, whitespace.toString());
     }
+    @Test
+    public void testCharAt() {
+        this.checkCharAt(" \t\r\n");
+    }
+
+    @Test
+    public void testSubSequence() {
+        assertEquals(Whitespace.with("\t"), Whitespace.with(" \t\r ").subSequence(1, 2));
+    }
+
+    @Override
+    @Test
+    public void testEmptySubSequence() {
+        final Whitespace whitespace = this.createCharSequence();
+        assertSame(Whitespace.EMPTY, whitespace.subSequence(2, 2));
+    }
+
+    // has.........................................
+
+    @Test
+    public void testHasNoWhitespace() {
+        hasAndCheck("abc", false);
+    }
+
+    @Test
+    public void testHasNull() {
+        hasAndCheck(null, false);
+    }
+
+    @Test
+    public void testHasEmpty() {
+        hasAndCheck("", false);
+    }
+
+    @Test
+    public void testHasWith() {
+        hasAndCheck("with white space", true);
+    }
+
+    @Test
+    public void testHasWithout() {
+        hasAndCheck("without", false);
+    }
+
+    private void hasAndCheck(final String text, final boolean has) {
+        assertEquals(CharSequences.quoteAndEscape(text) + " has whitespace",
+                has,
+                Whitespace.has(text));
+    }
+
+    @Override
+    protected Whitespace createCharSequence() {
+        return Whitespace.with(" \t\r\n");
+    }
+
 
     @Override
     protected Class<Whitespace> type() {
         return Whitespace.class;
+    }
+
+    @Override
+    protected boolean typeMustBePublic() {
+        return true;
     }
 }
