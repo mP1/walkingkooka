@@ -19,7 +19,13 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTestCase;
+import walkingkooka.compare.Comparators;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public final class CharsetNameComparableTest extends ComparableTestCase<CharsetName> {
 
@@ -38,6 +44,21 @@ public final class CharsetNameComparableTest extends ComparableTestCase<CharsetN
     @Test
     public void testLess() {
         this.compareToAndCheckLess(CharsetName.with("utf-8"));
+    }
+
+    @Test
+    public void testSort() {
+        final CharsetName wildcard = CharsetName.WILDCARD_CHARSET;
+        final CharsetName utf8 = CharsetName.UTF_8;
+        final CharsetName unsupported = CharsetName.with("unsupported");
+
+        final List<CharsetName> sorted = Lists.array();
+        sorted.add(unsupported);
+        sorted.add(utf8);
+        sorted.add(wildcard);
+        sorted.sort(Comparators.naturalOrdering());
+
+        assertEquals(Lists.of(wildcard, unsupported, utf8), sorted);
     }
 
     @Override

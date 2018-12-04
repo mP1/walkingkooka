@@ -123,6 +123,11 @@ public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
     }
 
     @Test
+    public void testConstantUtf8b() {
+        this.constantAndCheck("utf8", "UTF8");
+    }
+
+    @Test
     public void testConstantUtfDash8() {
         this.constantAndCheck("UTF-8");
     }
@@ -135,7 +140,11 @@ public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
     }
 
     private void constantAndCheck(final String name) {
-        assertSame(CharsetName.with(name), CharsetName.with(name));
+        constantAndCheck(name, name);
+    }
+
+    private void constantAndCheck(final String name1, final String name2) {
+        assertSame(CharsetName.with(name1), CharsetName.with(name2));
     }
 
     @Test
@@ -144,14 +153,6 @@ public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
                 .setParameters(CharsetHeaderValue.NO_PARAMETERS);
         assertEquals("charset", CharsetName.UTF_8, headerValue.value());
         assertEquals("parameters", CharsetHeaderValue.NO_PARAMETERS, headerValue.parameters());
-    }
-
-    // toString.............................................................................
-
-    @Test
-    public void testToString() {
-        final String charsetName = "utf-8";
-        assertEquals(charsetName, CharsetName.with(charsetName).toString());
     }
 
     @Override
