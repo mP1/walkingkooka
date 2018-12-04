@@ -25,7 +25,7 @@ import walkingkooka.text.Whitespace;
  */
 public interface Builder<T> extends BuilderLike {
     static void checkLabel(final String label) {
-        Whitespace.failIfNullOrWhitespace(label, "label");
+        Whitespace.failIfNullOrEmptyOrWhitespace(label, "label");
     }
 
     /**

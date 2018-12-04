@@ -143,7 +143,7 @@ public abstract class JsonNodeParserToken implements ParserToken {
     }
 
     static String checkText(final String text) {
-        Whitespace.failIfNullOrWhitespace(text, "text");
+        Whitespace.failIfNullOrEmptyOrWhitespace(text, "text");
         return text;
     }
 

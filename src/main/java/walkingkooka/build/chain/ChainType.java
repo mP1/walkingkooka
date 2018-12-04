@@ -60,7 +60,7 @@ final public class ChainType implements HashCodeEqualsDefined, Serializable {
      * Creates a {@link ChainType} which should not be null or empty.
      */
     public static ChainType with(final String type) {
-        Whitespace.failIfNullOrWhitespace(type, "type");
+        Whitespace.failIfNullOrEmptyOrWhitespace(type, "type");
 
         final ChainType chainType = ChainType.CONSTANTS.get(type);
         return null != chainType ? chainType : new ChainType(type);

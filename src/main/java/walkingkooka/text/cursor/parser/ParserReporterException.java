@@ -30,7 +30,7 @@ public class ParserReporterException extends ParserException {
     private final static long serialVersionUID = 1L;
 
     public ParserReporterException(final String message, final TextCursorLineInfo lineInfo) {
-        super(Whitespace.failIfNullOrWhitespace(message, "message"));
+        super(Whitespace.failIfNullOrEmptyOrWhitespace(message, "message"));
         Objects.requireNonNull(lineInfo, "lineInfo");
         this.lineInfo = lineInfo;
     }

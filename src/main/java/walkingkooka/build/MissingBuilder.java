@@ -147,7 +147,7 @@ final public class MissingBuilder implements Builder<String> {
      * Throws a {@link BuilderException} if any missing properties are recorded.
      */
     public void failIfMissing(final String before) throws BuilderException {
-        Whitespace.failIfNullOrWhitespace(before, "before");
+        Whitespace.failIfNullOrEmptyOrWhitespace(before, "before");
 
         if (this.missing > 0) {
             final StringBuilder message = new StringBuilder();

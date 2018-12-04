@@ -386,7 +386,7 @@ public abstract class SpreadsheetParserToken implements ParserToken, HasExpressi
     abstract void checkText(final String text);
 
     static void checkTextNullOrWhitespace(final String text) {
-        Whitespace.failIfNullOrWhitespace(text, "text");
+        Whitespace.failIfNullOrEmptyOrWhitespace(text, "text");
     }
 
 

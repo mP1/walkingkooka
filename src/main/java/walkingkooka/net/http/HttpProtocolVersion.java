@@ -42,7 +42,7 @@ public enum HttpProtocolVersion implements Value<String> {
      * {@link IllegalArgumentException} will be thrown.
      */
     static public HttpProtocolVersion with(final String version) {
-        Whitespace.failIfNullOrWhitespace(version, "version");
+        Whitespace.failIfNullOrEmptyOrWhitespace(version, "version");
 
         HttpProtocolVersion httpProtocolVersion = null;
         for (final HttpProtocolVersion possible : HttpProtocolVersion.values()) {

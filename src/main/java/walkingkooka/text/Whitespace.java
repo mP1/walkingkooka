@@ -26,8 +26,12 @@ import java.util.Objects;
  * A {@link CharSequence} that contains only contain whitespace.
  */
 final public class Whitespace implements CharSequence, HashCodeEqualsDefined, Serializable {
-    public static <C extends CharSequence> C failIfNullOrWhitespace(final C chars,
-                                                                    final String label) {
+
+    /**
+     * Fails if the given {@link CharSequences} is null, empty or only whitespace.
+     */
+    public static <C extends CharSequence> C failIfNullOrEmptyOrWhitespace(final C chars,
+                                                                           final String label) {
         Objects.requireNonNull(chars, label);
         if (onlyWhitespace(chars)) {
             throw new IllegalArgumentException(
@@ -37,12 +41,22 @@ final public class Whitespace implements CharSequence, HashCodeEqualsDefined, Se
     }
 
     /**
-     * Tests if the given {@link CharSequence} is null or only filled with whitespace. This method
-     * is identical to {@link #only(CharSequence)} but returns true rather than {@link
-     * IllegalArgumentException} if the {@link CharSequence} is null.
+     * Internal helper that checks if the given {@link CharSequence} is only filled with whitespace
+     * without a null check.
      */
-    public static boolean isNullOrOnly(final CharSequence chars) {
-        return (chars == null) || Whitespace.onlyWhitespace(chars);
+    @SuppressWarnings("deprecation")
+    private static boolean onlyWhitespace(final CharSequence chars) {
+        boolean onlyWhitespace = true;
+
+        final int length = chars.length();
+        for (int i = 0; i < length; i++) {
+            if (false == Character.isSpace(chars.charAt(i))) {
+                onlyWhitespace = false;
+                break;
+            }
+        }
+
+        return onlyWhitespace;
     }
 
     /**
@@ -64,35 +78,6 @@ final public class Whitespace implements CharSequence, HashCodeEqualsDefined, Se
             }
         }
         return found;
-    }
-
-    /**
-     * Tests if the given chars is filled with only whitespace. Note that empty chars also return
-     * true.
-     */
-    public static boolean only(final CharSequence chars) {
-        Objects.requireNonNull(chars, "chars");
-
-        return Whitespace.onlyWhitespace(chars);
-    }
-
-    /**
-     * Internal helper that checks if the given {@link CharSequence} is only filled with whitespace
-     * without a null check.
-     */
-    @SuppressWarnings("deprecation")
-    private static boolean onlyWhitespace(final CharSequence chars) {
-        boolean onlyWhitespace = true;
-
-        final int length = chars.length();
-        for (int i = 0; i < length; i++) {
-            if (false == Character.isSpace(chars.charAt(i))) {
-                onlyWhitespace = false;
-                break;
-            }
-        }
-
-        return onlyWhitespace;
     }
 
     /**
