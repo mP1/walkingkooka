@@ -74,6 +74,10 @@ public final class CharsetName implements Name, HeaderValue, Value<String>, Comp
         for(Charset charset : Charset.availableCharsets().values()) {
             final String name = charset.name();
             constants.put(name, new CharsetName(name, Optional.of(charset)));
+
+            for(String alias : charset.aliases()) {
+                constants.put(alias, new CharsetName(alias, Optional.of(charset)));
+            }
         }
 
         constants.put(WILDCARD.string(), WILDCARD_CHARSET);
