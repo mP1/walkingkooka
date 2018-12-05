@@ -19,11 +19,15 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.Latch;
 
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -60,17 +64,37 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     final <T> void addHeaderAndCheck(final HttpRequest request,
                                      final HttpHeaderName<T> header,
                                      final T value) {
-        final Latch set = Latch.create();
-        this.createResponse(request,
+        this.addHeaderAndCheck(request,
+                header,
+                value,
+                null,
+                null);
+    }
+
+    final <T, U> void addHeaderAndCheck(final HttpRequest request,
+                                        final HttpHeaderName<T> header,
+                                        final T value,
+                                        final HttpHeaderName<U> header2,
+                                        final U value2) {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        final Map<HttpHeaderName<?>, Object> expectedHeaders = Maps.ordered();
+
+        final R response = this.createResponse(request,
                 new FakeHttpResponse() {
 
                     public <T> void addHeader(final HttpHeaderName<T> n, final T v) {
-                        assertSame("header", header, n);
-                        assertSame("value", value, v);
-                        set.set("header " + n + "=" + v + " added.");
+                        headers.put(n, v);
                     }
-                }).addHeader(header, value);
-        assertTrue("wrapped response addHeader not called", set.value());
+                });
+        response.addHeader(header, value);
+        expectedHeaders.put(header, value);
+
+        if (null != header2 && null != value2) {
+            response.addHeader(header2, value2);
+            expectedHeaders.put(header2, value2);
+        }
+
+        assertEquals("headers", expectedHeaders, headers);
     }
 
     // helpers..................................................................................................
