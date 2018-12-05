@@ -37,6 +37,11 @@ public interface HeaderValue extends HashCodeEqualsDefined {
     CharacterConstant WILDCARD = CharacterConstant.with('*');
 
     /**
+     * The separator between parameter name and value.
+     */
+    CharacterConstant PARAMETER_NAME_VALUE_SEPARATOR = CharacterConstant.with('=');
+
+    /**
      * Converts this value to its text form.
      */
     String toHeaderText();

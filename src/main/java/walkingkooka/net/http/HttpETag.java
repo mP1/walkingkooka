@@ -55,14 +55,14 @@ public abstract class HttpETag implements HeaderValue,
      * Parsers a header value holding a single tag.
      */
     public static HttpETag parseOne(final String text) {
-        return HttpETagOneParser.parseOne(text);
+        return HttpETagOneHttpHeaderParser.parseOne(text);
     }
 
     /**
      * Parsers a header value which may hold one or more tags.
      */
     public static List<HttpETag> parseList(final String text) {
-        return HttpETagListParser.parseList(text);
+        return HttpETagListHttpHeaderParser.parseList(text);
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class HttpETag implements HeaderValue,
     }
 
     static void checkValue(final String value) {
-        CharPredicates.failIfNullOrFalse(value, "value", HttpETagParser.ETAG_VALUE);
+        CharPredicates.failIfNullOrFalse(value, "value", HttpETagHttpHeaderParser.ETAG_VALUE);
     }
 
     // weak...........................................................................................................

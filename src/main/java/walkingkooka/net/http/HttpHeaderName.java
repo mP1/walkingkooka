@@ -68,6 +68,18 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
         return registerConstant(header, scope, HeaderValueConverters.absoluteUrl());
     }
 
+
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link List<CharsetHeaderValue>} header values.
+     */
+    private static HttpHeaderName<List<CacheControlDirective<?>>> registerCacheControlDirectiveListConstant(final String header,
+                                                                                                            final HttpHeaderScope scope) {
+        return registerConstant(header,
+                scope,
+                HttpHeaderValueConverter.cacheControlDirectiveList());
+    }
+
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link List<CharsetHeaderValue>} header values.
      */
@@ -290,8 +302,8 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Cache-Control: s-maxage=<seconds>
      * </pre>
      */
-    public final static HttpHeaderName<String> CACHE_CONTROL = registerStringConstant("Cache-Control",
-            HttpHeaderScope.REQUEST);
+    public final static HttpHeaderName<List<CacheControlDirective<?>>> CACHE_CONTROL = registerCacheControlDirectiveListConstant("Cache-Control",
+            HttpHeaderScope.REQUEST_RESPONSE);
 
     /**
      * A {@link HttpHeaderName} holding <code>Connection</code>

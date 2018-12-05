@@ -20,35 +20,35 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-public final class HttpETagOneParserTest extends HttpETagParserTestCase<HttpETagOneParser> {
+public final class HttpETagOneHttpHeaderParserTest extends HttpETagHttpHeaderParserTestCase<HttpETagOneHttpHeaderParser> {
 
     @Test
     public final void testSeparatorFails() {
-        this.parseFails("\"ABC\",", ',');
+        this.parseInvalidCharacterFails("\"ABC\",", ',');
     }
 
     @Test
     public final void testSeparatorWhitespaceFails() {
-        this.parseFails("\"ABC\", ", ',');
+        this.parseInvalidCharacterFails("\"ABC\", ", ',');
     }
 
     @Test
     public final void testWeakSeparatorWhitespaceFails() {
-        this.parseFails("W/\"ABC\", ", ',');
+        this.parseInvalidCharacterFails("W/\"ABC\", ", ',');
     }
 
     @Test
     public void testManyTags() {
-        this.parseFails("\"A\",\"B\"", ',');
+        this.parseInvalidCharacterFails("\"A\",\"B\"", ',');
     }
 
     @Override
-    HttpETag parseOne(final String text) {
-        return HttpETagOneParser.parseOne(text);
+    HttpETag parse(final String text) {
+        return HttpETagOneHttpHeaderParser.parseOne(text);
     }
 
     @Override
-    protected Class<HttpETagOneParser> type() {
-        return HttpETagOneParser.class;
+    protected Class<HttpETagOneHttpHeaderParser> type() {
+        return HttpETagOneHttpHeaderParser.class;
     }
 }

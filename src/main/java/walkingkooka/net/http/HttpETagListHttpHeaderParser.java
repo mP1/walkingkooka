@@ -25,11 +25,11 @@ import java.util.List;
 /**
  * A parser that handles comma separated etags.
  */
-final class HttpETagListParser extends HttpETagParser {
+final class HttpETagListHttpHeaderParser extends HttpETagHttpHeaderParser {
 
     static List<HttpETag> parseList(final String text) {
         final List<HttpETag> result = Lists.array();
-        final HttpETagListParser parser = new HttpETagListParser(text);
+        final HttpETagListHttpHeaderParser parser = new HttpETagListHttpHeaderParser(text);
         final int length = text.length();
 
         int mode = MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN;
@@ -41,7 +41,7 @@ final class HttpETagListParser extends HttpETagParser {
         return result;
     }
 
-    private HttpETagListParser(final String text) {
+    private HttpETagListHttpHeaderParser(final String text) {
         super(text);
     }
 

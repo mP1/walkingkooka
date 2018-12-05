@@ -21,11 +21,11 @@ package walkingkooka.net.http;
 /**
  * A parser that only parses text with a single etag.
  */
-final class HttpETagOneParser extends HttpETagParser {
+final class HttpETagOneHttpHeaderParser extends HttpETagHttpHeaderParser {
 
     static HttpETag parseOne(final String text) {
-        final HttpETagOneParser parser = new HttpETagOneParser(text);
-        final HttpETag tag = parser.parse(HttpETagOneParser.MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN);
+        final HttpETagOneHttpHeaderParser parser = new HttpETagOneHttpHeaderParser(text);
+        final HttpETag tag = parser.parse(HttpETagOneHttpHeaderParser.MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN);
 
         final int position = parser.position;
         if (position != text.length()) {
@@ -34,7 +34,7 @@ final class HttpETagOneParser extends HttpETagParser {
         return tag;
     }
 
-    private HttpETagOneParser(final String text) {
+    private HttpETagOneHttpHeaderParser(final String text) {
         super(text);
     }
 
