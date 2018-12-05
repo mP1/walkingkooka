@@ -69,7 +69,6 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
     final void parse() {
         final int length = this.text.length();
         while(this.position < length) {
-            final char c = this.character();
             this.mode.accept(this);
         }
         this.mode.endOfText(this);
@@ -85,10 +84,6 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
         final String value = this.tokenText(predicate);
 
         this.failNotIfWhitespaceOrParameterSeparatorOrSeparator();
-
-        if(value.isEmpty()) {
-            this.failEmptyToken(tokenName);
-        }
 
         return factory.apply(value);
     }
@@ -128,10 +123,6 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
         final String parameterValue = this.tokenText(predicate);
 
         this.failNotIfWhitespaceOrParameterSeparatorOrSeparator();
-
-        if(parameterValue.isEmpty()) {
-            this.failEmptyToken(PARAMETER_VALUE);
-        }
 
         this.addParameter(parameterValue);
     }
