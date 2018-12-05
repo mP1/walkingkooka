@@ -123,8 +123,8 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
      * Validates the value.
      */
     @Override
-    public void checkValue(final Object value) {
-        this.valueConverter.check(value);
+    public T checkValue(final Object value) {
+        return this.valueConverter.check(value);
     }
 
     final transient HeaderValueConverter<T> valueConverter;

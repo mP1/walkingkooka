@@ -23,6 +23,7 @@ import walkingkooka.naming.NameTestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class HeaderNameTestCase<N extends HeaderName<?>> extends NameTestCase<N> {
 
@@ -59,7 +60,9 @@ public abstract class HeaderNameTestCase<N extends HeaderName<?>> extends NameTe
 
     protected void checkValue(final HeaderName<?> name,
                               final Object value) {
-        name.checkValue(value);
+        assertSame(name + " didnt return correct value=" + CharSequences.quoteIfChars(value),
+                value,
+                name.checkValue(value));
     }
 
     protected final N createName() {

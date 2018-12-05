@@ -38,7 +38,7 @@ public interface HeaderValueConverter<T> {
      * Checks if the value is correct throwing a {@link HeaderValueException} if it fails, except for
      * {@link NullPointerException} should be thrown for null.
      */
-    void check(final Object value);
+    T check(final Object value);
 
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.

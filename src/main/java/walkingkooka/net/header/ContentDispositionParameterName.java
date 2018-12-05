@@ -227,11 +227,11 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
     }
 
     /**
-     * Validates the value.
+     * Validates the value and casts it to its type.
      */
     @Override
-    public void checkValue(final Object value) {
-        this.valueConverter.check(value);
+    public T checkValue(final Object value) {
+        return this.valueConverter.check(value);
     }
 
     private final HeaderValueConverter<T> valueConverter;

@@ -33,7 +33,7 @@ public interface HeaderName<T> extends Name, HashCodeEqualsDefined {
     T toValue(final String text);
 
     /**
-     * Validates the value.
+     * Validates the value and returns it as its type.
      */
-    void checkValue(final Object value);
+    T checkValue(final Object value);
 }
