@@ -20,38 +20,36 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
- * A {@link HeaderValueConverter2} that expects comma separated {@link HeaderValueToken tokens}.
+ * A {@link HeaderValueConverter2} that expects a header value with a single {@link HeaderValueToken token}.
  */
-final class HeaderValueTokenListHeaderValueConverter extends HeaderValueConverter2<List<HeaderValueToken>> {
+final class HeaderValueTokenHeaderValueConverter extends HeaderValueConverter2<HeaderValueToken> {
 
     /**
      * Singleton
      */
-    final static HeaderValueTokenListHeaderValueConverter INSTANCE = new HeaderValueTokenListHeaderValueConverter();
+    final static HeaderValueTokenHeaderValueConverter INSTANCE = new HeaderValueTokenHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HeaderValueTokenListHeaderValueConverter() {
+    private HeaderValueTokenHeaderValueConverter() {
         super();
     }
 
     @Override
-    List<HeaderValueToken> parse0(final String value, final Name name) {
-        return HeaderValueToken.parseList(value);
+    HeaderValueToken parse0(final String value, final Name name) {
+        return HeaderValueToken.parse(value);
     }
 
     @Override
     void check0(final Object value) {
-        this.checkListOfType(value, HeaderValueToken.class);
+        this.checkType(value, HeaderValueToken.class);
     }
 
     @Override
-    String toText0(final List<HeaderValueToken> values, final Name name) {
-        return HeaderValueToken.toHeaderTextList(values);
+    String toText0(final HeaderValueToken value, final Name name) {
+        return value.toHeaderText();
     }
 
     @Override
@@ -61,6 +59,6 @@ final class HeaderValueTokenListHeaderValueConverter extends HeaderValueConverte
 
     @Override
     public String toString() {
-        return toStringListOf(HeaderValueToken.class);
+        return HeaderValueToken.class.getSimpleName();
     }
 }

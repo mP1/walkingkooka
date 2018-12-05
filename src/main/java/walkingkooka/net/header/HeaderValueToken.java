@@ -49,17 +49,27 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
     public final static Map<HeaderValueTokenParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
-     * Parses a header value into tokens, which aill also be sorted using their q factor weights.
+     * Parses a header value expecting a single token.
      * <pre>
-     * Accept-Charset: utf-8, iso-8859-1;q=0.5
+     * Content-Encoding: gzip;
      * </pre>
      */
-    public static List<HeaderValueToken> parse(final String text) {
-        return HeaderValueTokenHeaderParser.parseHeaderValueTokenList(text);
+    public static HeaderValueToken parse(final String text) {
+        return HeaderValueTokenOneHeaderParser.parseHeaderValueToken(text);
     }
 
     /**
-     * Formats a list of tokens, basically the inverse of {@link #parse(String)}
+     * Parses a header value into tokens, which all also be sorted using their q factor weights.
+     * <pre>
+     * Accept-Encoding: br;q=1.0, gzip;q=0.8, *;q=0.1
+     * </pre>
+     */
+    public static List<HeaderValueToken> parseList(final String text) {
+        return HeaderValueTokenListHeaderParser.parseHeaderValueTokenList(text);
+    }
+
+    /**
+     * Formats a list of tokens, basically the inverse of {@link #parseList(String)}
      */
     public static String toHeaderTextList(final List<HeaderValueToken> tokens) {
         Objects.requireNonNull(tokens, "tokens");

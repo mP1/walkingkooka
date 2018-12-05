@@ -58,6 +58,7 @@ enum HeaderParserMode {
                     parser.mode = PARAMETER_SEPARATOR_WHITESPACE;
                     break;
                 case HeaderParser.SEPARATOR:
+                    parser.separator();
                     parser.position++;
                     parser.tokenEnd();
                     parser.mode = SEPARATOR_WHITESPACE;

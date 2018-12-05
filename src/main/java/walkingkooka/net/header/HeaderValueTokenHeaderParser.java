@@ -18,31 +18,17 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.collect.list.Lists;
-import walkingkooka.net.HasQFactorWeight;
-
-import java.util.List;
-
 /**
- * A parser that creates a list of {@link HeaderValueToken}.
+ * Base class for all header value token parsers.
  */
-final class HeaderValueTokenHeaderParser extends HeaderParser<HeaderValueTokenParameterName<?>> {
+abstract class HeaderValueTokenHeaderParser extends HeaderParser<HeaderValueTokenParameterName<?>> {
 
-    static List<HeaderValueToken> parseHeaderValueTokenList(final String text) {
-        checkText(text, "header");
-
-        final HeaderValueTokenHeaderParser parser = new HeaderValueTokenHeaderParser(text);
-        parser.parse();
-        parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());
-        return Lists.readOnly(parser.list);
-    }
-
-    // @VisibleForTesting
     HeaderValueTokenHeaderParser(final String text) {
         super(text);
     }
 
-    @Override final void value() {
+    @Override
+    final void value() {
         this.token = this.parseValue(RFC2045TOKEN, "value", this::createHeaderValueToken);
     }
 
@@ -50,29 +36,28 @@ final class HeaderValueTokenHeaderParser extends HeaderParser<HeaderValueTokenPa
         return HeaderValueToken.with(value);
     }
 
-    @Override final void parameterName() {
+    @Override
+    final void parameterName() {
         this.parseParameterName(RFC2045TOKEN, HeaderValueTokenParameterName::with);
     }
 
     @Override
-    void parameterValue() {
+    final void parameterValue() {
         this.parseParameterValue(RFC2045TOKEN);
     }
 
-    @Override final void missingParameterValue() {
+    @Override
+    final void missingParameterValue() {
         this.failEmptyParameterValue();
     }
 
-    @Override final void tokenEnd() {
-        this.list.add(this.token.setParameters(this.parameters));
+    @Override
+    final void tokenEnd() {
+        this.token = this.token.setParameters(this.parameters);
+        this.headerValueTokenEnd();
     }
 
-    @Override
-    void separator() {
-        // multiple tokens allowed.
-    }
+    abstract void headerValueTokenEnd();
 
     HeaderValueToken token;
-
-    private final List<HeaderValueToken> list = Lists.array();
 }
