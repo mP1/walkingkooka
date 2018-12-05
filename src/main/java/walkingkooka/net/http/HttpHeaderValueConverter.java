@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
@@ -108,9 +109,10 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
 
     // checkValue...........................................................
 
-    public final void check(final Object value) {
+    public final T check(final Object value) {
         Objects.requireNonNull(value, "value");
         this.check0(value);
+        return Cast.to(value);
     }
 
     abstract void check0(final Object value);

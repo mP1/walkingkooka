@@ -755,8 +755,8 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Validates the value.
      */
     @Override
-    public void checkValue(final Object value) {
-        this.valueConverter.check(value);
+    public T checkValue(final Object value) {
+        return this.valueConverter.check(value);
     }
 
     /**

@@ -405,9 +405,8 @@ final public class MediaType implements Value<String>,
         final Map<MediaTypeParameterName<?>, Object> copy = Maps.sorted();
         for(Entry<MediaTypeParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
             final MediaTypeParameterName name = nameAndValue.getKey();
-            final Object value = nameAndValue.getValue();
-            name.checkValue(value);
-            copy.put(name, value);
+            copy.put(name,
+                    name.checkValue(nameAndValue.getValue()));
         }
         return copy;
     }

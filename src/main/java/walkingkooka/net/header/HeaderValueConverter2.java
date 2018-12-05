@@ -18,6 +18,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 
@@ -60,9 +61,10 @@ abstract class HeaderValueConverter2<T> implements HeaderValueConverter<T> {
 
     // checkValue...........................................................
 
-    public final void check(final Object value) {
+    public final T check(final Object value) {
         Objects.requireNonNull(value, "value");
         this.check0(value);
+        return Cast.to(value);
     }
 
     abstract void check0(final Object value);

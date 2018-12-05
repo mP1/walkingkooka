@@ -149,9 +149,8 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
         final Map<HeaderValueTokenParameterName<?>, Object> copy = Maps.ordered();
         for (Entry<HeaderValueTokenParameterName<?>, Object> nameAndValue : parameters.entrySet()) {
             final HeaderValueTokenParameterName<?> name = nameAndValue.getKey();
-            final Object value = nameAndValue.getValue();
-            name.checkValue(value);
-            copy.put(name, value);
+            copy.put(name,
+                    name.checkValue(nameAndValue.getValue()));
         }
         return copy;
     }

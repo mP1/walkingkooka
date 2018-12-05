@@ -126,9 +126,8 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
         final Map<ContentDispositionParameterName<?>, Object> copy = Maps.ordered();
         for(Entry<ContentDispositionParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
             final ContentDispositionParameterName name = nameAndValue.getKey();
-            final Object value = nameAndValue.getValue();
-            name.checkValue(value);
-            copy.put(name, value);
+            copy.put(name,
+                    name.checkValue(nameAndValue.getValue()));
         }
         return copy;
     }

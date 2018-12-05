@@ -184,9 +184,8 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
         final Map<CharsetHeaderValueParameterName<?>, Object> copy = Maps.sorted();
         for (Entry<CharsetHeaderValueParameterName<?>, Object> nameAndValue : parameters.entrySet()) {
             final CharsetHeaderValueParameterName name = nameAndValue.getKey();
-            final Object value = nameAndValue.getValue();
-            name.checkValue(value);
-            copy.put(name, value);
+            copy.put(name,
+                    name.checkValue(nameAndValue.getValue()));
         }
         return copy;
     }

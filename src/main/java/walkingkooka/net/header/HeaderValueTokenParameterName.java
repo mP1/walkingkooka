@@ -106,11 +106,11 @@ final public class HeaderValueTokenParameterName<T> implements HeaderParameterNa
     }
 
     /**
-     * Validates the value.
+     * Validates the value and casts it to its correct type.
      */
     @Override
-    public void checkValue(final Object value) {
-        this.valueConverter.check(value);
+    public T checkValue(final Object value) {
+        return this.valueConverter.check(value);
     }
 
     private final HeaderValueConverter<T> valueConverter;
