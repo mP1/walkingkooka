@@ -23,6 +23,14 @@ import walkingkooka.type.PublicStaticHelper;
 public final class HttpResponses implements PublicStaticHelper {
 
     /**
+     * {@see AutoContentLengthHttpResponse}
+     */
+    public static HttpResponse contentLength(final HttpRequest request,
+                                             final HttpResponse response) {
+        return AutoContentLengthHttpResponse.with(request, response);
+    }
+
+    /**
      * {@see AutoGzipEncodingHttpResponse}
      */
     public static HttpResponse autoGzipEncoding(final HttpRequest request,
