@@ -24,8 +24,16 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 public abstract class HeaderNameTestCase<N extends HeaderName<?>> extends NameTestCase<N> {
+
+    @Test
+    public void testImplementsComparable() {
+        final Class<N> type = this.type();
+        assertTrue(type.getName() + " must implement Comparable",
+                Comparable.class.isAssignableFrom(type));
+    }
 
     // parameterValue...........................................................................................
 
