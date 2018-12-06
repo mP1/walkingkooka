@@ -22,8 +22,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.net.http.HttpHeaderName;
 
-public final class MediaTypeStringHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<MediaTypeStringHeaderValueConverter, String> {
+public final class MediaTypeAutoQuotingStringHeaderValueConverterTest extends
+        HeaderValueConverterTestCase<MediaTypeAutoQuotingStringHeaderValueConverter, String> {
 
     private final static String TEXT = "abc123";
 
@@ -69,8 +69,8 @@ public final class MediaTypeStringHeaderValueConverterTest extends
     }
 
     @Override
-    protected MediaTypeStringHeaderValueConverter converter() {
-        return MediaTypeStringHeaderValueConverter.INSTANCE;
+    protected MediaTypeAutoQuotingStringHeaderValueConverter converter() {
+        return MediaTypeAutoQuotingStringHeaderValueConverter.INSTANCE;
     }
 
     @Override
@@ -94,7 +94,7 @@ public final class MediaTypeStringHeaderValueConverterTest extends
     }
 
     @Override
-    protected Class<MediaTypeStringHeaderValueConverter> type() {
-        return MediaTypeStringHeaderValueConverter.class;
+    protected Class<MediaTypeAutoQuotingStringHeaderValueConverter> type() {
+        return MediaTypeAutoQuotingStringHeaderValueConverter.class;
     }
 }

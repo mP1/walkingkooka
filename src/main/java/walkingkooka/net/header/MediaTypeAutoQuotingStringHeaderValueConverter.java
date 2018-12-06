@@ -27,17 +27,17 @@ import walkingkooka.predicate.character.CharPredicates;
  * It assumes any {@link String} to be parsed have had any double quotes removed, and adds them
  * when necessary
  */
-final class MediaTypeStringHeaderValueConverter extends HeaderValueConverter2<String> {
+final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueConverter2<String> {
 
     /**
      * Singleton
      */
-    final static MediaTypeStringHeaderValueConverter INSTANCE = new MediaTypeStringHeaderValueConverter();
+    final static MediaTypeAutoQuotingStringHeaderValueConverter INSTANCE = new MediaTypeAutoQuotingStringHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private MediaTypeStringHeaderValueConverter() {
+    private MediaTypeAutoQuotingStringHeaderValueConverter() {
         super();
     }
 
