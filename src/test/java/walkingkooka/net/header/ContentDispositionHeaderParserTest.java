@@ -366,7 +366,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
         this.parseAndCheck("attachment; filename=readme.txt",
                 "attachment",
                 "filename",
-                ContentDispositionFilename.with("readme.txt"));
+                ContentDispositionFileName.with("readme.txt"));
     }
 
     @Test
@@ -374,7 +374,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
         this.parseAndCheck("attachment; filename=\"readme.txt\"",
                 "attachment",
                 "filename",
-                ContentDispositionFilename.with("readme.txt"));
+                ContentDispositionFileName.with("readme.txt"));
     }
 
     // parse modification-date............................................................................................

@@ -27,11 +27,6 @@ import static org.junit.Assert.assertEquals;
 final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabelName> {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateEmptyStringFails() {
-        SpreadsheetLabelName.with("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
         SpreadsheetLabelName.with("xyz" + PropertiesPath.SEPARATOR.string());
     }

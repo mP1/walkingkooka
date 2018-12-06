@@ -22,34 +22,34 @@ package walkingkooka.net.header;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFilename}.
+ * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileName}.
  */
-final class ContentDispositionFilenameHeaderValueConverter extends HeaderValueConverter2<ContentDispositionFilename> {
+final class ContentDispositionFileNameHeaderValueConverter extends HeaderValueConverter2<ContentDispositionFileName> {
 
     /**
      * Singleton
      */
-    final static ContentDispositionFilenameHeaderValueConverter INSTANCE = new ContentDispositionFilenameHeaderValueConverter();
+    final static ContentDispositionFileNameHeaderValueConverter INSTANCE = new ContentDispositionFileNameHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private ContentDispositionFilenameHeaderValueConverter() {
+    private ContentDispositionFileNameHeaderValueConverter() {
         super();
     }
 
     @Override
-    ContentDispositionFilename parse0(final String value, final Name name) {
-        return ContentDispositionFilename.with(value);
+    ContentDispositionFileName parse0(final String value, final Name name) {
+        return ContentDispositionFileName.with(value);
     }
 
     @Override
     void check0(final Object value) {
-        this.checkType(value, ContentDispositionFilename.class);
+        this.checkType(value, ContentDispositionFileName.class);
     }
 
     @Override
-    String toText0(final ContentDispositionFilename value, final Name name) {
+    String toText0(final ContentDispositionFileName value, final Name name) {
         return value.toString();
     }
 
@@ -60,6 +60,6 @@ final class ContentDispositionFilenameHeaderValueConverter extends HeaderValueCo
 
     @Override
     public String toString() {
-        return ContentDispositionFilename.class.getSimpleName();
+        return ContentDispositionFileName.class.getSimpleName();
     }
 }

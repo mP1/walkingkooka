@@ -22,17 +22,12 @@ import org.junit.Test;
 final public class StringNameTest extends NameTestCase<StringName> {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateEmptyStringFails() {
-        StringName.with("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateContainsSeparatorFails() {
+    public void testContainsSeparatorFails() {
         StringName.with("name-" + StringPath.SEPARATOR.string());
     }
 
     @Test
-    public void testCreate() {
+    public void testWith() {
         this.createNameAndCheck("abc-123");
     }
 

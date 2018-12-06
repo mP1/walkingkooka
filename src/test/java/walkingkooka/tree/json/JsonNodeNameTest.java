@@ -25,16 +25,6 @@ import static org.junit.Assert.assertEquals;
 
 public final class JsonNodeNameTest extends NameTestCase<JsonNodeName> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullFails() {
-        this.createName(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithEmptyFails() {
-        this.createName("");
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testWithNegativeIndexFails() {
         JsonNodeName.index(-1);
@@ -60,7 +50,8 @@ public final class JsonNodeNameTest extends NameTestCase<JsonNodeName> {
         return JsonNodeName.with(name);
     }
 
-    @Override protected Class<JsonNodeName> type() {
+    @Override
+    protected Class<JsonNodeName> type() {
         return JsonNodeName.class;
     }
 }

@@ -28,11 +28,6 @@ import static org.junit.Assert.assertEquals;
 final public class SpreadsheetFunctionNameTest extends NameTestCase<SpreadsheetFunctionName> {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateEmptyStringFails() {
-        SpreadsheetFunctionName.with("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidInitialFails() {
         SpreadsheetFunctionName.with("1abc");
     }

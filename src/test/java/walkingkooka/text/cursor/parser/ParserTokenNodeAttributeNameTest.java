@@ -25,7 +25,13 @@ public final class ParserTokenNodeAttributeNameTest extends NameTestCase<ParserT
     @Test
     @Ignore
     public void testNullFails() {
-        // ignore
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    public void testEmptyFails() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

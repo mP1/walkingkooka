@@ -41,6 +41,11 @@ abstract public class NameTestCase<N extends Name> extends PublicClassTestCase<N
         this.createName(null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testEmptyFails() {
+        this.createName("");
+    }
+
     @Test
     public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());

@@ -152,9 +152,9 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
     /**
      * A {@link ContentDispositionParameterName} holding <code>filename</code>
      */
-    public final static ContentDispositionParameterName<ContentDispositionFilename> FILENAME = registerConstant("filename",
+    public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = registerConstant("filename",
             ContentDispositionHeaderParser.RFC2045TOKEN,
-            ContentDispositionFilenameHeaderValueConverter.INSTANCE);
+            ContentDispositionFileNameHeaderValueConverter.INSTANCE);
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>modification-date</code>

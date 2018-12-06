@@ -25,16 +25,6 @@ import static org.junit.Assert.assertEquals;
 
 public final class FilesystemNodeNameTest extends NameTestCase<FilesystemNodeName> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullFails() {
-        this.createName(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithEmptyFails() {
-        this.createName("");
-    }
-
     @Test
     public void testWith() {
         this.createNameAndCheck("abc");
@@ -50,7 +40,8 @@ public final class FilesystemNodeNameTest extends NameTestCase<FilesystemNodeNam
         return FilesystemNodeName.with(name);
     }
 
-    @Override protected Class<FilesystemNodeName> type() {
+    @Override
+    protected Class<FilesystemNodeName> type() {
         return FilesystemNodeName.class;
     }
 }

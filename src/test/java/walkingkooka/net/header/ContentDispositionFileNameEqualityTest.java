@@ -21,22 +21,22 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-public final class ContentDispositionFilenameEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<ContentDispositionFilename> {
+public final class ContentDispositionFileNameEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<ContentDispositionFileName> {
 
     private final static String FILENAME = "filename123";
 
     @Test
     public void testDifferentCase() {
-        this.checkNotEquals(ContentDispositionFilename.with(FILENAME.toUpperCase()));
+        this.checkNotEquals(ContentDispositionFileName.with(FILENAME.toUpperCase()));
     }
 
     @Test
     public void testDifferent() {
-        this.checkNotEquals(ContentDispositionFilename.with("different"));
+        this.checkNotEquals(ContentDispositionFileName.with("different"));
     }
 
     @Override
-    protected ContentDispositionFilename createObject() {
-        return ContentDispositionFilename.with(FILENAME);
+    protected ContentDispositionFileName createObject() {
+        return ContentDispositionFileName.with(FILENAME);
     }
 }

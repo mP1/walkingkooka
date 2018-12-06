@@ -16,23 +16,22 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 
 /**
  * Represents an attribute belonging to a {@link ParserTokenNode}
  */
-public final class ParserTokenNodeAttributeName implements Name {
+public enum ParserTokenNodeAttributeName implements Name {
 
     /**
      * Attribute used to retrieve the text property from a {@link ParserToken} wrapped in a node.
      */
-    public final static ParserTokenNodeAttributeName TEXT = new ParserTokenNodeAttributeName("text");
+    TEXT("text");
 
     /**
-     * Package private ctor to limit creation.
+     * Use constant.
      */
-    private ParserTokenNodeAttributeName(final String value) {
+    ParserTokenNodeAttributeName(final String value) {
         this.value = value;
     }
 
@@ -42,20 +41,6 @@ public final class ParserTokenNodeAttributeName implements Name {
     }
 
     private final String value;
-
-    @Override
-    public int hashCode() {
-        return this.value().hashCode();
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other || other instanceof ParserTokenNodeAttributeName && this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final ParserTokenNodeAttributeName other) {
-        return this.value().equals(other.value());
-    }
 
     @Override
     public String toString() {

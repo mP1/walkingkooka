@@ -25,21 +25,21 @@ import walkingkooka.predicate.character.CharPredicates;
 /**
  * The value of the filename parameter within a content disposition.
  */
-final public class ContentDispositionFilename implements Name {
+final public class ContentDispositionFileName implements Name {
 
     /**
-     * Factory that creates a {@link ContentDispositionFilename}.
+     * Factory that creates a {@link ContentDispositionFileName}.
      */
-    public static ContentDispositionFilename with(final String name) {
+    public static ContentDispositionFileName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
 
-        return new ContentDispositionFilename(name);
+        return new ContentDispositionFileName(name);
     }
 
     /**
      * Private constructor use factory.
      */
-    private ContentDispositionFilename(final String name) {
+    private ContentDispositionFileName(final String name) {
         super();
         this.name = name;
     }
@@ -63,11 +63,11 @@ final public class ContentDispositionFilename implements Name {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ContentDispositionFilename &&
+                other instanceof ContentDispositionFileName &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final ContentDispositionFilename name) {
+    private boolean equals0(final ContentDispositionFileName name) {
         return this.name.equals(name.name);
     }
 

@@ -34,16 +34,6 @@ public final class ParserTokenNodeNameTest extends NameTestCase<ParserTokenNodeN
         assertEquals("name.value", "String", name.value());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullFails() {
-        ParserTokenNodeName.with(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithEmptyFails() {
-        ParserTokenNodeName.with("");
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidInitialFails() {
         ParserTokenNodeName.with("1");
