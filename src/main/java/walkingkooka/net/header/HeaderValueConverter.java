@@ -43,25 +43,27 @@ public interface HeaderValueConverter<T> {
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.
      */
-    default void checkType(final Object value, final Class<?> type) {
+    default <U> U checkType(final Object value, final Class<U> type) {
         if (!type.isInstance(value)) {
             throw new HeaderValueException("Value " + CharSequences.quoteIfChars(value) + " is not a " + type.getName());
         }
+        return type.cast(value);
     }
 
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.
      */
-    default void checkListOfType(final Object value, final Class<?> type) {
+    default <U> List<U> checkListOfType(final Object value, final Class<U> type) {
         this.checkType(value, List.class);
 
-        final List<T> list = Cast.to(value);
+        final List<U> list = Cast.to(value);
         for (Object element : list) {
             if (!type.isInstance(element)) {
                 throw new HeaderValueException("List " + CharSequences.quoteIfChars(value) +
                         " includes an element that is not a " + type.getName());
             }
         }
+        return Cast.to(list);
     }
 
     /**

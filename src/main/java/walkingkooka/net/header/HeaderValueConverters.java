@@ -143,6 +143,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see Rfc2045StringHeaderValueConverter}
+     */
+    public static HeaderValueConverter<String> rfc2045String() {
+        return Rfc2045StringHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see StringHeaderValueConverter}
      */
     public static HeaderValueConverter<String> string() {
