@@ -20,17 +20,16 @@ package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-
-import java.util.Objects;
+import walkingkooka.text.CharSequences;
 
 /**
- * The attributeName of an expression node.
+ * The name of a search node.
  */
 public final class SearchNodeName implements Name,
         Comparable<SearchNodeName> {
 
     public static SearchNodeName with(final String name) {
-        Objects.requireNonNull(name, "attributeName");
+        CharSequences.failIfNullOrEmpty(name, "attributeName");
         return new SearchNodeName(name);
     }
 

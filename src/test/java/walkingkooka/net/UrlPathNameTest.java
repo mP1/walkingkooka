@@ -18,6 +18,7 @@
 
 package walkingkooka.net;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.text.CharSequences;
@@ -30,7 +31,13 @@ import static org.junit.Assert.assertSame;
 public final class UrlPathNameTest extends NameTestCase<UrlPathName> {
 
     @Test
-    public void testEmptyString() {
+    @Ignore
+    public void testEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testEmpty() {
         assertSame(UrlPathName.ROOT, UrlPathName.with(""));
     }
 

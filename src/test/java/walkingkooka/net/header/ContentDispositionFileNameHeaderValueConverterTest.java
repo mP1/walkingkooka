@@ -22,22 +22,22 @@ import org.junit.Test;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.HttpHeaderName;
 
-public final class ContentDispositionFilenameHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<ContentDispositionFilenameHeaderValueConverter, ContentDispositionFilename> {
+public final class ContentDispositionFileNameHeaderValueConverterTest extends
+        HeaderValueConverterTestCase<ContentDispositionFileNameHeaderValueConverter, ContentDispositionFileName> {
     @Override
     protected String requiredPrefix() {
-        return ContentDispositionFilename.class.getSimpleName();
+        return ContentDispositionFileName.class.getSimpleName();
     }
 
     @Test
     public void testFilename() {
         final String filename = "readme.txt";
-        this.parseAndToTextAndCheck(filename, ContentDispositionFilename.with(filename));
+        this.parseAndToTextAndCheck(filename, ContentDispositionFileName.with(filename));
     }
 
     @Override
-    protected ContentDispositionFilenameHeaderValueConverter converter() {
-        return ContentDispositionFilenameHeaderValueConverter.INSTANCE;
+    protected ContentDispositionFileNameHeaderValueConverter converter() {
+        return ContentDispositionFileNameHeaderValueConverter.INSTANCE;
     }
 
     @Override
@@ -51,17 +51,17 @@ public final class ContentDispositionFilenameHeaderValueConverterTest extends
     }
 
     @Override
-    protected ContentDispositionFilename value() {
-        return ContentDispositionFilename.with("readme.txt");
+    protected ContentDispositionFileName value() {
+        return ContentDispositionFileName.with("readme.txt");
     }
 
     @Override
     protected String converterToString() {
-        return ContentDispositionFilename.class.getSimpleName();
+        return ContentDispositionFileName.class.getSimpleName();
     }
 
     @Override
-    protected Class<ContentDispositionFilenameHeaderValueConverter> type() {
-        return ContentDispositionFilenameHeaderValueConverter.class;
+    protected Class<ContentDispositionFileNameHeaderValueConverter> type() {
+        return ContentDispositionFileNameHeaderValueConverter.class;
     }
 }

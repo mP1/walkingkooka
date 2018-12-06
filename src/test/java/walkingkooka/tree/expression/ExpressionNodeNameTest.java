@@ -40,7 +40,8 @@ public final class ExpressionNodeNameTest extends NameTestCase<ExpressionNodeNam
         return ExpressionNodeName.with(name);
     }
 
-    @Override protected Class<ExpressionNodeName> type() {
+    @Override
+    protected Class<ExpressionNodeName> type() {
         return ExpressionNodeName.class;
     }
 }

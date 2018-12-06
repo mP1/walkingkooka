@@ -22,11 +22,6 @@ import org.junit.Test;
 final public class PropertiesNameTest extends NameTestCase<PropertiesName> {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateEmptyStringFails() {
-        PropertiesName.with("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
         PropertiesName.with("xyz" + PropertiesPath.SEPARATOR.string());
     }

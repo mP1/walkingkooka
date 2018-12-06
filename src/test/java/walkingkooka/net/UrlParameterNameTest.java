@@ -18,10 +18,17 @@
 
 package walkingkooka.net;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
 public final class UrlParameterNameTest extends NameTestCase<UrlParameterName> {
+
+    @Test
+    @Ignore
+    public void testEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
 
     @Test
     public void testWith() {

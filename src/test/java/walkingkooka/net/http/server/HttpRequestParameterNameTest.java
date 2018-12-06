@@ -26,13 +26,8 @@ import static org.junit.Assert.assertEquals;
 
 final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequestParameterName> {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithEmptyFails() {
-        HttpRequestParameterName.with("");
-    }
-
     @Test
-    public void testValid() {
+    public void testWith() {
         this.createNameAndCheck("Abc123");
     }
 

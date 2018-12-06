@@ -19,6 +19,7 @@
 package walkingkooka.tree.xml;
 
 import walkingkooka.Cast;
+import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 
@@ -324,7 +325,7 @@ enum DomNodeKind {
     };
 
     final DomName with(final String name) {
-        Objects.requireNonNull(name, "name");
+        CharSequences.failIfNullOrEmpty(name, "name");
         check(name);
         return new DomName(name, this);
     }

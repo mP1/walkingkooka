@@ -19,9 +19,9 @@
 package walkingkooka.net;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * The {@link Name} of a query string parameter.
@@ -35,7 +35,7 @@ public final class UrlParameterName implements Name,
      * Factory that creates a {@link UrlParameterName}
      */
     public static UrlParameterName with(final String name) {
-        Objects.requireNonNull(name, "name");
+        CharSequences.failIfNullOrEmpty(name, "name");
 
         return new UrlParameterName(name);
     }

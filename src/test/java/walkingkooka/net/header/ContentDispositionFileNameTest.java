@@ -19,42 +19,40 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.naming.NameTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ContentDispositionFilenameTest extends PublicClassTestCase<ContentDispositionFilename> {
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullFails() {
-        ContentDispositionFilename.with(null);
-    }
+public final class ContentDispositionFileNameTest extends NameTestCase<ContentDispositionFileName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyFails() {
-        ContentDispositionFilename.with("");
+        ContentDispositionFileName.with("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidCharFails() {
-        ContentDispositionFilename.with("\0");
+        ContentDispositionFileName.with("\0");
     }
 
     @Test
     public void testWith() {
-        final String text = "filename123";
-        final ContentDispositionFilename filename = ContentDispositionFilename.with(text);
-        assertEquals("value", text, filename.value());
+        this.createNameAndCheck("filename123");
     }
 
     @Test
     public void testToString() {
         final String filename = "filename123";
-        assertEquals(filename, ContentDispositionFilename.with(filename).toString());
+        assertEquals(filename, ContentDispositionFileName.with(filename).toString());
     }
 
     @Override
-    protected Class<ContentDispositionFilename> type() {
-        return ContentDispositionFilename.class;
+    protected ContentDispositionFileName createName(final String name) {
+        return ContentDispositionFileName.with(name);
+    }
+
+    @Override
+    protected Class<ContentDispositionFileName> type() {
+        return ContentDispositionFileName.class;
     }
 }

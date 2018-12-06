@@ -28,11 +28,6 @@ import static org.junit.Assert.assertEquals;
 final public class NodeSelectorAttributeNameTest extends NameTestCase<NodeSelectorAttributeName> {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWithEmptyStringFails() {
-        NodeSelectorAttributeName.with("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidInitialFails() {
         NodeSelectorAttributeName.with("1abc");
     }

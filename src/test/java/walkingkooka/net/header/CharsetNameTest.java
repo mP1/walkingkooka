@@ -19,7 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.naming.NameTestCase;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -28,12 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullFails() {
-        CharsetName.with(null);
-    }
+public final class CharsetNameTest extends NameTestCase<CharsetName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyFails() {
@@ -153,6 +148,11 @@ public final class CharsetNameTest extends PublicClassTestCase<CharsetName> {
                 .setParameters(CharsetHeaderValue.NO_PARAMETERS);
         assertEquals("charset", CharsetName.UTF_8, headerValue.value());
         assertEquals("parameters", CharsetHeaderValue.NO_PARAMETERS, headerValue.parameters());
+    }
+
+    @Override
+    protected CharsetName createName(final String name) {
+        return CharsetName.with(name);
     }
 
     @Override

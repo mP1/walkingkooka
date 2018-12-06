@@ -22,6 +22,7 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -50,8 +51,7 @@ final public class DomAttributeName implements Name,
      */
     public static DomAttributeName with(final String name,
                                         final Optional<DomNameSpacePrefix> prefix) {
-        //Predicates.failIfNullOrFalse(name, DomPredicates.attributeName(), "attribute name \"%s\"");
-        Objects.requireNonNull(name, "name");
+        CharSequences.failIfNullOrEmpty(name, "name");
         Objects.requireNonNull(prefix, "prefix");
 
         return name.equals(XMLNS_STRING) ? XMLNS : new DomAttributeName(name, prefix);

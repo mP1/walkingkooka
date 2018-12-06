@@ -16,33 +16,19 @@
  *
  */
 
-package walkingkooka.tree.file;
+package walkingkooka.tree.xml;
 
-import org.junit.Ignore;
-import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
-public final class FilesystemNodeAttributeNameTest extends NameTestCase<FilesystemNodeAttributeName> {
+public final class DomNameTest extends NameTestCase<DomName> {
 
-    @Test
-    @Ignore
-    public void testNullFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    @Ignore
-    public void testEmptyFails() {
-        throw new UnsupportedOperationException();
+    @Override
+    protected DomName createName(final String name) {
+        return DomName.element(name);
     }
 
     @Override
-    protected FilesystemNodeAttributeName createName(final String name) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected Class<FilesystemNodeAttributeName> type() {
-        return FilesystemNodeAttributeName.class;
+    protected Class<DomName> type() {
+        return DomName.class;
     }
 }

@@ -27,11 +27,6 @@ import static org.junit.Assert.assertEquals;
 final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierName> {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateEmptyStringFails() {
-        EbnfIdentifierName.with("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
         EbnfIdentifierName.with("xyz" + PropertiesPath.SEPARATOR.string());
     }

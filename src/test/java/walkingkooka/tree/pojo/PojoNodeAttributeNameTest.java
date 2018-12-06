@@ -16,9 +16,14 @@
  */
 package walkingkooka.tree.pojo;
 
-import walkingkooka.test.EnumTestCase;
+import walkingkooka.naming.NameTestCase;
 
-public final class PojoNodeAttributeNameTest extends EnumTestCase<PojoNodeAttributeName> {
+public final class PojoNodeAttributeNameTest extends NameTestCase<PojoNodeAttributeName> {
+    @Override
+    protected PojoNodeAttributeName createName(final String name) {
+        return PojoNodeAttributeName.valueOf(name);
+    }
+
     @Override
     protected Class<PojoNodeAttributeName> type() {
         return PojoNodeAttributeName.class;

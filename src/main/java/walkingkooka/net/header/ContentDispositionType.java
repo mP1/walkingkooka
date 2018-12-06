@@ -128,7 +128,7 @@ final public class ContentDispositionType implements Name {
     /**
      * Factory that creates a {@link ContentDisposition} with this type and filename.
      */
-    public ContentDisposition setFilename(final ContentDispositionFilename filename) {
+    public ContentDisposition setFilename(final ContentDispositionFileName filename) {
         Objects.requireNonNull(filename, "filename");
 
         return this.setParameters(Maps.one(ContentDispositionParameterName.FILENAME, filename));
