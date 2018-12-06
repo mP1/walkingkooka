@@ -77,7 +77,7 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
         final CharsetHeaderValueParameterName<?> parameterName = CONSTANTS.get(value);
         return null != parameterName ?
                 parameterName :
-                new CharsetHeaderValueParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeString());
+                new CharsetHeaderValueParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeAutoQuotingString());
     }
 
     /**

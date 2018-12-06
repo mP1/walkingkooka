@@ -85,7 +85,7 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
         final MediaTypeParameterName<?> parameterName = CONSTANTS.get(value);
         return null != parameterName ?
                 parameterName :
-                new MediaTypeParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeString());
+                new MediaTypeParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeAutoQuotingString());
     }
 
     /**
