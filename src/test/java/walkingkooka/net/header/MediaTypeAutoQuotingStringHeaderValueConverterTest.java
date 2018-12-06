@@ -29,7 +29,7 @@ public final class MediaTypeAutoQuotingStringHeaderValueConverterTest extends
 
     @Override
     protected String requiredPrefix() {
-        return MediaType.class.getSimpleName() + String.class.getSimpleName();
+        return MediaType.class.getSimpleName() + "AutoQuoting" + String.class.getSimpleName();
     }
 
     @Test
