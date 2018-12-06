@@ -19,7 +19,6 @@
 package walkingkooka.net;
 
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
@@ -29,7 +28,9 @@ import java.util.Objects;
  * A {@link Name} is a component within a {@link UrlPath}. It is assumed that the {@link String value} is decoded and thus may include invalid
  * characters that would otherwise need encoding such as <code>?</code>.
  */
-public final class UrlPathName implements Serializable, Name, Comparable<UrlPathName>, HashCodeEqualsDefined {
+public final class UrlPathName implements Name,
+        Comparable<UrlPathName>,
+        Serializable {
 
     /**
      * The maximum length of a {@link UrlPathName}.

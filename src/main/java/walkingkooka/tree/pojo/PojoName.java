@@ -26,7 +26,8 @@ import java.util.function.Predicate;
 /**
  * Holds the name of a node within the tree. The name will be either a field/property name or an index.
  */
-public final class PojoName implements Name, Comparable<PojoName> {
+public final class PojoName implements Name,
+        Comparable<PojoName> {
 
     private final static int INDEX_CACHE_SIZE = 128;
 

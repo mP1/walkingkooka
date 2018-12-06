@@ -20,14 +20,14 @@ package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 
 /**
  * The attributeName of an expression node.
  */
-public final class SearchNodeName implements Name, Comparable<SearchNodeName>, HashCodeEqualsDefined {
+public final class SearchNodeName implements Name,
+        Comparable<SearchNodeName> {
 
     public static SearchNodeName with(final String name) {
         Objects.requireNonNull(name, "attributeName");

@@ -22,12 +22,12 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicateBuilder;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * An identifier.
  */
-final public class EbnfIdentifierName implements Name, Comparable<EbnfIdentifierName>, HashCodeEqualsDefined {
+final public class EbnfIdentifierName implements Name,
+        Comparable<EbnfIdentifierName> {
 
     /**
      * <pre>

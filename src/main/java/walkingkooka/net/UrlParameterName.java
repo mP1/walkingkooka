@@ -19,7 +19,6 @@
 package walkingkooka.net;
 
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -27,7 +26,8 @@ import java.util.Objects;
 /**
  * The {@link Name} of a query string parameter.
  */
-public final class UrlParameterName implements Name, HashCodeEqualsDefined, Serializable {
+public final class UrlParameterName implements Name,
+        Serializable {
 
     private final static long serialVersionUID = 1L;
 

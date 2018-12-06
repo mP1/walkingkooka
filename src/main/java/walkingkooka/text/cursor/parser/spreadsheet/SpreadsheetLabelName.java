@@ -35,7 +35,8 @@ import java.util.function.Predicate;
  * For example, the name AB11 is invalid because AB11 is a valid cell reference. Names are not case sensitive.
  * </pre>
  */
-final public class SpreadsheetLabelName extends SpreadsheetExpressionReference implements Name, Comparable<SpreadsheetLabelName> {
+final public class SpreadsheetLabelName extends SpreadsheetExpressionReference implements Name,
+        Comparable<SpreadsheetLabelName> {
 
     private final static CharPredicate LETTER = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 

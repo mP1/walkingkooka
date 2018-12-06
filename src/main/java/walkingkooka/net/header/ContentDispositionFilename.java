@@ -21,12 +21,11 @@ package walkingkooka.net.header;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * The value of the filename parameter within a content disposition.
  */
-final public class ContentDispositionFilename implements Name, HashCodeEqualsDefined {
+final public class ContentDispositionFilename implements Name {
 
     /**
      * Factory that creates a {@link ContentDispositionFilename}.

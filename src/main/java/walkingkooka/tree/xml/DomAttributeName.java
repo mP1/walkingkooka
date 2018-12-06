@@ -22,7 +22,6 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -30,7 +29,9 @@ import java.util.Optional;
 /**
  * The {@link Name} of an {@link DomElement} attribute.
  */
-final public class DomAttributeName implements Name, HasDomPrefix, UsesToStringBuilder, HashCodeEqualsDefined {
+final public class DomAttributeName implements Name,
+        HasDomPrefix,
+        UsesToStringBuilder {
 
     /**
      * Contains a {@link String} which is invalid and fails if passed to the factory

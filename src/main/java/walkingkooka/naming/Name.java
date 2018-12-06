@@ -18,9 +18,10 @@
 package walkingkooka.naming;
 
 import walkingkooka.Value;
+import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * Interface implemented by names. Names are immutable and should also implement {@link Comparable}.
  */
-public interface Name extends Value<String> {
+public interface Name extends Value<String>, HashCodeEqualsDefined {
 }

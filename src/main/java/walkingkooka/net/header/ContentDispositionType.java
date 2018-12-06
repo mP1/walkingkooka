@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
@@ -66,7 +65,7 @@ import java.util.Objects;
  *                       ; numeric timezones (+HHMM or -HHMM) MUST be used
  * </pre>
  */
-final public class ContentDispositionType implements Name, HashCodeEqualsDefined {
+final public class ContentDispositionType implements Name {
 
     /**
      * A read only cache of already prepared {@link ContentDispositionType names}. These constants are incomplete.
