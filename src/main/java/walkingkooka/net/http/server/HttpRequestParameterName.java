@@ -20,13 +20,12 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 /**
  * The {@link Name} of a parameter within a {@link HttpRequest}.
  */
-final public class HttpRequestParameterName implements Name, HashCodeEqualsDefined {
+final public class HttpRequestParameterName implements Name {
 
     /**
      * Factory that creates a {@link HttpRequestParameterName}

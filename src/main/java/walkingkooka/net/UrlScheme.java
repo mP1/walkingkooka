@@ -23,7 +23,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicateBuilder;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -33,7 +32,9 @@ import java.util.Objects;
  * A {@link Name} that holds a URI/URL scheme and when testing for equality case is insignificant.
  */
 public final class UrlScheme
-        implements Name, Comparable<UrlScheme>, HashCodeEqualsDefined, Serializable {
+        implements Name,
+        Comparable<UrlScheme>,
+        Serializable {
 
     // constants
 

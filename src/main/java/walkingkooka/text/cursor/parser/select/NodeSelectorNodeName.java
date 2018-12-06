@@ -21,12 +21,11 @@ package walkingkooka.text.cursor.parser.select;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * The {@link Name} of a node.
  */
-final public class NodeSelectorNodeName implements Name, HashCodeEqualsDefined {
+final public class NodeSelectorNodeName implements Name {
 
     final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 

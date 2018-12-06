@@ -20,7 +20,6 @@ package walkingkooka.tree.xml;
 
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
@@ -29,7 +28,7 @@ import java.util.Map;
 /**
  * A dom name, which comes in different flavours for the various dom node types.
  */
-public final class DomName implements Name, HashCodeEqualsDefined,
+public final class DomName implements Name,
         Serializable {
 
     private final static Map<String, DomName> constants = Maps.hash();

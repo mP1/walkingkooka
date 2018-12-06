@@ -21,12 +21,11 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * The {@link Name} of a function.
  */
-final public class SpreadsheetFunctionName implements Name, HashCodeEqualsDefined {
+final public class SpreadsheetFunctionName implements Name {
 
     final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 

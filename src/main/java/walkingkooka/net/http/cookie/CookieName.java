@@ -22,13 +22,12 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * The {@link Name} of {@link Cookie}. Note that cookie names must start with an ASCII letter and be composed of only ASCII letters, digits and dash.
  * Though more characters are valid, in the interests of capability and simplicity this limited sub set is enforced.
  */
-final public class CookieName implements Name, HashCodeEqualsDefined {
+final public class CookieName implements Name {
 
     /**
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.

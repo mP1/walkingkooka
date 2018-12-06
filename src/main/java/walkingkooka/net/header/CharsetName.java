@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
-import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
@@ -49,7 +48,9 @@ import java.util.Optional;
  *    to the procedures defined in [RFC2978].
  * </pre>
  */
-public abstract class CharsetName implements Name, HeaderValue, Value<String>, Comparable<CharsetName> {
+public abstract class CharsetName implements Name,
+        HeaderValue,
+        Comparable<CharsetName> {
 
     /**
      * Constant when there is no charset.

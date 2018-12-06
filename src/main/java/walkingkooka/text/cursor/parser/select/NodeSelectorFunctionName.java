@@ -21,13 +21,13 @@ package walkingkooka.text.cursor.parser.select;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.expression.ExpressionReference;
 
 /**
  * The {@link Name} of a function.
  */
-final public class NodeSelectorFunctionName implements ExpressionReference, Name, HashCodeEqualsDefined {
+final public class NodeSelectorFunctionName implements ExpressionReference,
+        Name {
 
     final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 

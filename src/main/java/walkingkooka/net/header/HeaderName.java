@@ -19,13 +19,12 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * A header name including support methods to convert text to values and back. This interface applies to both
  * header and parameter names.
  */
-public interface HeaderName<T> extends Name, HashCodeEqualsDefined {
+public interface HeaderName<T> extends Name {
 
     /**
      * Converts the header text to the value.

@@ -23,7 +23,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
@@ -32,7 +31,8 @@ import java.util.function.Predicate;
 /**
  * The attributeName of an attribute for a node.
  */
-public final class SearchNodeAttributeName implements Name, Comparable<SearchNodeAttributeName>, HashCodeEqualsDefined {
+public final class SearchNodeAttributeName implements Name,
+        Comparable<SearchNodeAttributeName> {
 
     private final static CharPredicate LETTER = CharPredicates.letter();
 

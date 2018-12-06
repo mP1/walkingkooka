@@ -19,14 +19,14 @@
 package walkingkooka.tree.file;
 
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 /**
  * A file or directory name. Note case-sensitivity matches the same rules of the underlying filesystem.
  * A directory has the following attributes: CREATED, GROUP, HIDDEN, LAST_ACCESSED, LAST_MODIFIED, OWNER, TYPE
  * A file has the following attributes: CREATED, GROUP, HIDDEN, LAST_ACCESSED, LAST_MODIFIED, OWNER, SIZE, TEXT, TYPE
  */
-public enum FilesystemNodeAttributeName implements Name, Comparable<FilesystemNodeAttributeName>, HashCodeEqualsDefined {
+public enum FilesystemNodeAttributeName implements Name,
+        Comparable<FilesystemNodeAttributeName> {
 
     /**
      * An ISO_FORMATTED timestamp of the creation, taken from {@link java.nio.file.attribute.BasicFileAttributes}

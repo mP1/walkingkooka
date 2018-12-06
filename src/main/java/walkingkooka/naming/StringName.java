@@ -18,7 +18,6 @@
 package walkingkooka.naming;
 
 
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.text.Whitespace;
@@ -28,7 +27,9 @@ import java.io.Serializable;
 /**
  * A simple {@link Name} that accepts a {@link String} composed of any character.
  */
-final public class StringName implements Name, ShouldBeQuoted, HashCodeEqualsDefined, Serializable {
+final public class StringName implements Name,
+        ShouldBeQuoted,
+        Serializable {
 
     private final static long serialVersionUID = 1L;
 

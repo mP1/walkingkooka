@@ -20,14 +20,14 @@ package walkingkooka.tree.json;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNodeName;
 
 /**
  * The name of any property of object key.
  */
-public final class JsonNodeName implements Name, Comparable<JsonNodeName>, HashCodeEqualsDefined {
+public final class JsonNodeName implements Name,
+        Comparable<JsonNodeName> {
 
     private final static int INDEX_CACHE_SIZE = 128;
 

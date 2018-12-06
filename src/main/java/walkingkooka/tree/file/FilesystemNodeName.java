@@ -20,7 +20,6 @@ package walkingkooka.tree.file;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -29,7 +28,8 @@ import java.io.File;
 /**
  * A file or directory name. Note case-sensitivity matches the same rules of the underlying filesystem.
  */
-public final class FilesystemNodeName implements Name, Comparable<FilesystemNodeName>, HashCodeEqualsDefined {
+public final class FilesystemNodeName implements Name,
+        Comparable<FilesystemNodeName> {
 
     static CaseSensitivity fileSystemCaseSensitivity(){
         final String name = "lowercase";
