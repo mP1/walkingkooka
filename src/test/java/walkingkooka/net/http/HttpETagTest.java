@@ -20,12 +20,12 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.net.header.HeaderValueTestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 
-public final class HttpETagTest extends PublicClassTestCase<HttpETag> {
+public final class HttpETagTest extends HeaderValueTestCase<HttpETag> {
 
     private final static String VALUE = "123";
     private final static HttpETagValidator WEAK = HttpETagValidator.WEAK;

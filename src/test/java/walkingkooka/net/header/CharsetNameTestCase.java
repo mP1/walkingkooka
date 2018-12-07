@@ -19,11 +19,10 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class CharsetNameTestCase<N extends CharsetName> extends PackagePrivateClassTestCase<N> {
+public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderValueTestCase<N> {
 
     CharsetNameTestCase() {
         super();
@@ -74,4 +73,9 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends Package
     abstract String headerText();
 
     abstract String charsetNameToString();
+
+    @Override
+    protected final boolean typeMustBePublic() {
+        return false;
+    }
 }
