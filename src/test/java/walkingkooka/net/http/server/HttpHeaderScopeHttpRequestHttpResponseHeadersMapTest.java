@@ -23,12 +23,13 @@ import walkingkooka.collect.map.MapTestCase;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public final class HttpHeaderScopeHttpRequestHeadersMapTest extends MapTestCase<HttpHeaderScopeHttpRequestHeadersMap,
+public final class HttpHeaderScopeHttpRequestHttpResponseHeadersMapTest extends MapTestCase<HttpHeaderScopeHttpRequestHttpResponseHeadersMap,
         HttpHeaderName<?>,
         Object> {
 
@@ -102,12 +103,12 @@ public final class HttpHeaderScopeHttpRequestHeadersMapTest extends MapTestCase<
     }
 
     @Override
-    protected HttpHeaderScopeHttpRequestHeadersMap createMap() {
-        return HttpHeaderScopeHttpRequestHeadersMap.with(HEADERS);
+    protected HttpHeaderScopeHttpRequestHttpResponseHeadersMap createMap() {
+        return HttpHeaderScopeHttpRequestHttpResponseHeadersMap.with(HEADERS, HttpHeaderScope.REQUEST);
     }
 
     @Override
-    protected Class<HttpHeaderScopeHttpRequestHeadersMap> type() {
-        return HttpHeaderScopeHttpRequestHeadersMap.class;
+    protected Class<HttpHeaderScopeHttpRequestHttpResponseHeadersMap> type() {
+        return HttpHeaderScopeHttpRequestHttpResponseHeadersMap.class;
     }
 }

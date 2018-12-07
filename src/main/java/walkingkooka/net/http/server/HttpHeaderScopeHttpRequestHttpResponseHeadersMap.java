@@ -30,15 +30,18 @@ import java.util.Set;
 /**
  * A {@link Map} that checks the header (or key) passed to {@link #containsKey(Object)} and {@link #get(Object)}.
  */
-final class HttpHeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
+final class HttpHeaderScopeHttpRequestHttpResponseHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
 
-    static HttpHeaderScopeHttpRequestHeadersMap with(final Map<HttpHeaderName<?>, Object> map) {
-        return new HttpHeaderScopeHttpRequestHeadersMap(map);
+    static HttpHeaderScopeHttpRequestHttpResponseHeadersMap with(final Map<HttpHeaderName<?>, Object> map,
+                                                                 final HttpHeaderScope scope) {
+        return new HttpHeaderScopeHttpRequestHttpResponseHeadersMap(map, scope);
     }
 
-    private HttpHeaderScopeHttpRequestHeadersMap(final Map<HttpHeaderName<?>, Object> map) {
+    private HttpHeaderScopeHttpRequestHttpResponseHeadersMap(final Map<HttpHeaderName<?>, Object> map,
+                                                             final HttpHeaderScope scope) {
         super();
         this.map = map;
+        this.scope = scope;
     }
 
     @Override
@@ -76,9 +79,11 @@ final class HttpHeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderN
 
     private HttpHeaderName<?> checkHeader(final Object key) {
         final HttpHeaderName<?> header = Cast.to(key);
-        HttpHeaderScope.REQUEST.check(header);
+        this.scope.check(header);
         return header;
     }
+
+    private final HttpHeaderScope scope;
 
     private final Map<HttpHeaderName<?>, Object> map;
 
