@@ -20,10 +20,10 @@ package walkingkooka.net.header;
 
 import walkingkooka.test.PublicThrowableTestCase;
 
-final public class NotAcceptableHeaderValueExceptionTest extends PublicThrowableTestCase<NotAcceptableHeaderValueException> {
+final public class NotAcceptableHeaderExceptionTest extends PublicThrowableTestCase<NotAcceptableHeaderException> {
 
     @Override
-    protected Class<NotAcceptableHeaderValueException> type() {
-        return NotAcceptableHeaderValueException.class;
+    protected Class<NotAcceptableHeaderException> type() {
+        return NotAcceptableHeaderException.class;
     }
 }

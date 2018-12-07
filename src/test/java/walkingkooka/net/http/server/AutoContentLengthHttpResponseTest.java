@@ -21,7 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderValueToken;
-import walkingkooka.net.header.NotAcceptableHeaderValueException;
+import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.test.Latch;
 
@@ -63,7 +63,7 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpResponse
                 bytes);
     }
 
-    @Test(expected = NotAcceptableHeaderValueException.class)
+    @Test(expected = NotAcceptableHeaderException.class)
     public void testSetBodyContentLengthIncorrectFail() {
         this.setBodyAndCheck(999L,
                 new byte[]{1, 2, 3});

@@ -35,19 +35,19 @@ package walkingkooka.net.header;
  * content type may have its own default
  * </pre>
  */
-public class NotAcceptableHeaderValueException extends HeaderValueException {
+public class NotAcceptableHeaderException extends HeaderValueException {
 
     private final static long serialVersionUID = 1L;
 
-    protected NotAcceptableHeaderValueException() {
+    protected NotAcceptableHeaderException() {
         super();
     }
 
-    public NotAcceptableHeaderValueException(final String message) {
+    public NotAcceptableHeaderException(final String message) {
         super(message);
     }
 
-    public NotAcceptableHeaderValueException(final String message, final Throwable cause) {
+    public NotAcceptableHeaderException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

@@ -24,7 +24,7 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
-import walkingkooka.net.header.NotAcceptableHeaderValueException;
+import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 
@@ -82,7 +82,7 @@ final class AutoTextEncodingHttpResponse extends WrapperHttpResponse {
             return MediaTypeParameterName.CHARSET
                     .parameterValueOrFail(contentType);
         } catch (final HeaderValueException cause) {
-            throw new NotAcceptableHeaderValueException(cause.getMessage(), cause);
+            throw new NotAcceptableHeaderException(cause.getMessage(), cause);
         }
     }
 
@@ -109,7 +109,7 @@ final class AutoTextEncodingHttpResponse extends WrapperHttpResponse {
         if(!acceptCharset
                 .stream()
                 .anyMatch(h -> this.checkContentTypeCharset(h, contentTypeCharset))) {
-            throw new NotAcceptableHeaderValueException("Content type " + contentTypeCharset +
+            throw new NotAcceptableHeaderException("Content type " + contentTypeCharset +
                     " not in accept-charset=" + CharsetHeaderValue.toHeaderTextList(acceptCharset));
         }
     }
