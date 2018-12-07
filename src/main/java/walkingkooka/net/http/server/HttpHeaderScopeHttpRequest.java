@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -42,7 +43,8 @@ final class HttpHeaderScopeHttpRequest implements HttpRequest {
     private HttpHeaderScopeHttpRequest(final HttpRequest request) {
         super();
         this.request = request;
-        this.headers = HttpHeaderScopeHttpRequestHeadersMap.with(request.headers());
+        this.headers = HttpHeaderScopeHttpRequestHttpResponseHeadersMap.with(request.headers(),
+                HttpHeaderScope.REQUEST);
     }
 
     @Override
@@ -70,7 +72,7 @@ final class HttpHeaderScopeHttpRequest implements HttpRequest {
         return this.headers;
     }
 
-    private final HttpHeaderScopeHttpRequestHeadersMap headers;
+    private final HttpHeaderScopeHttpRequestHttpResponseHeadersMap headers;
 
     @Override
     public List<ClientCookie> cookies() {
