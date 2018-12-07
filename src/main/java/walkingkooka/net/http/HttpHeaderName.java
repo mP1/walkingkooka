@@ -50,7 +50,8 @@ import java.util.Optional;
  * The {@link Name} of request or response header
  */
 final public class HttpHeaderName<T> implements HeaderName<T>,
-        Comparable<HttpHeaderName<?>> {
+        Comparable<HttpHeaderName<?>>,
+        HasHeaderScope {
 
     // constants
 
