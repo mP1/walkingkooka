@@ -118,7 +118,7 @@ public final class HttpETagTest extends HeaderValueTestCase<HttpETag> {
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

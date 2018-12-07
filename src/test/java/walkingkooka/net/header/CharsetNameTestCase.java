@@ -81,7 +81,7 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
     abstract String charsetNameToString();
 
     @Override
-    protected final HttpHeaderScope scope() {
+    protected final HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

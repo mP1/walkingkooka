@@ -21,10 +21,10 @@ package walkingkooka.net.http;
 /**
  * Includes a method which returns a {@link walkingkooka.net.header.HeaderValue}
  */
-public interface HasHeaderScope {
+public interface HasHttpHeaderScope {
 
     /**
      * Returns the {@link HttpHeaderScope}.
      */
-    HttpHeaderScope scope();
+    HttpHeaderScope httpHeaderScope();
 }

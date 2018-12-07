@@ -222,7 +222,7 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

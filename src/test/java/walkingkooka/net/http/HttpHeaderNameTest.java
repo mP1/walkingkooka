@@ -84,7 +84,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     }
 
     private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope scope) {
-        assertSame("scope", scope, header.scope());
+        assertSame("scope", scope, header.httpHeaderScope());
     }
 
     @Test

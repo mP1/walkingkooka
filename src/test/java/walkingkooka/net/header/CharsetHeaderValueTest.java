@@ -201,7 +201,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

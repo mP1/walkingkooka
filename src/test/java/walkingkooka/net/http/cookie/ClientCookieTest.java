@@ -222,7 +222,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST;
     }
 

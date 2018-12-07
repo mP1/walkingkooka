@@ -156,7 +156,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
