@@ -18,6 +18,12 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.NotAcceptableHeaderException;
+
+import java.util.List;
+import java.util.Objects;
+
 /**
  * Meta data about a header.<br>
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers"></a>
@@ -28,13 +34,8 @@ public enum HttpHeaderScope {
      */
     REQUEST {
         @Override
-        void requestHeader(final HttpHeaderName<?> name) {
-            // nop
-        }
-
-        @Override
-        void responseHeader(final HttpHeaderName<?> name) {
-            throw new IllegalArgumentException("Cannot add header to response using request header " + name);
+        boolean isNotAcceptable(final HttpHeaderScope other) {
+            return other == RESPONSE;
         }
     },
 
@@ -43,13 +44,8 @@ public enum HttpHeaderScope {
      */
     RESPONSE {
         @Override
-        void requestHeader(final HttpHeaderName<?> name) {
-            throw new IllegalArgumentException("Cannot get header value using request header " + name);
-        }
-
-        @Override
-        void responseHeader(final HttpHeaderName<?> name) {
-            // nop
+        boolean isNotAcceptable(final HttpHeaderScope other) {
+            return other == REQUEST;
         }
     },
 
@@ -58,13 +54,8 @@ public enum HttpHeaderScope {
      */
     REQUEST_RESPONSE {
         @Override
-        void requestHeader(final HttpHeaderName<?> name) {
-            // nop
-        }
-
-        @Override
-        void responseHeader(final HttpHeaderName<?> name) {
-            // nop
+        boolean isNotAcceptable(final HttpHeaderScope other) {
+            return false;
         }
     },
 
@@ -74,17 +65,60 @@ public enum HttpHeaderScope {
      */
     UNKNOWN {
         @Override
-        void requestHeader(final HttpHeaderName<?> name) {
-            // nop
-        }
-
-        @Override
-        void responseHeader(final HttpHeaderName<?> name) {
-            // nop
+        boolean isNotAcceptable(final HttpHeaderScope other) {
+            return false;
         }
     };
 
-    abstract void requestHeader(final HttpHeaderName<?> name);
+    /**
+     * Checks that the header's scope is for requests, if not a {@link HeaderValueException} will be thrown.
+     */
+    public final void check(final HttpHeaderName<?> name) {
+        Objects.requireNonNull(name, "name");
+        
+        if (this.isNotAcceptable(name.httpHeaderScope())) {
+            throw new NotAcceptableHeaderException("Invalid header " + name);
+        }
+    }
 
-    abstract void responseHeader(final HttpHeaderName<?> name);
+    /**
+     * Checks that the header and values if they implement {@link HttpHeaderScope} are all response scope.
+     */
+    public final <T> void check(final HttpHeaderName<T> name, final T value) {
+        this.check(name);
+
+        Objects.requireNonNull(value, "value");
+
+        if (value instanceof HasHttpHeaderScope) {
+            if (this.isNotAcceptable(HasHttpHeaderScope.class.cast(value))) {
+                this.failInvalidHeader(name, value);
+            }
+        }
+        if (value instanceof List) {
+            final List<?> list = List.class.cast(value);
+            if (list.stream()
+                    .anyMatch(this::isNotAcceptable)) {
+                this.failInvalidHeader(name, value);
+            }
+        }
+    }
+
+    private boolean isNotAcceptable(final Object has) {
+        return has instanceof HasHttpHeaderScope &&
+                this.isNotAcceptable0(HasHttpHeaderScope.class.cast(has));
+    }
+
+    private boolean isNotAcceptable0(final HasHttpHeaderScope has) {
+        return this.isNotAcceptable(has.httpHeaderScope());
+    }
+
+    abstract boolean isNotAcceptable(final HttpHeaderScope other);
+
+    final <T> void failInvalidHeader(final HttpHeaderName<T> name, final T value) {
+        throw new NotAcceptableHeaderException(invalidHeader(name, value));
+    }
+
+    static <T> String invalidHeader(final HttpHeaderName<T> name, final T value) {
+        return "Invalid header " + name + "=" + name.headerText(value);
+    }
 }
