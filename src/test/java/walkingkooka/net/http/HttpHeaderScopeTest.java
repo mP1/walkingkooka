@@ -57,6 +57,9 @@ public final class HttpHeaderScopeTest extends EnumTestCase<HttpHeaderScope> {
 
     private void checkRequest(final HttpHeaderName<?> header, final HttpHeaderScope scope) {
         HttpHeaderScope.REQUEST.check(scope(header, scope));
+
+        HttpHeaderScope.UNKNOWN.check(header);
+        HttpHeaderScope.REQUEST_RESPONSE.check(header);
     }
 
     // checkResponse .....................................................
@@ -130,6 +133,9 @@ public final class HttpHeaderScopeTest extends EnumTestCase<HttpHeaderScope> {
 
     private <T> void checkResponse(final HttpHeaderName<T> header, final T value) {
         HttpHeaderScope.RESPONSE.check(header, value);
+
+        HttpHeaderScope.UNKNOWN.check(header, value);
+        HttpHeaderScope.REQUEST_RESPONSE.check(header, value);
     }
 
     private <T extends HasHttpHeaderScope> T scope(final T has, final HttpHeaderScope scope) {
