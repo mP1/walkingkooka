@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.header.NotAcceptableHeaderValueException;
+import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 
@@ -77,7 +77,7 @@ final class AutoContentLengthHttpResponse extends WrapperHttpResponse {
         if (maybeResponseContentLength.isPresent()) {
             final long responseContentLength = maybeResponseContentLength.get();
             if (responseContentLength != contentLength) {
-                throw new NotAcceptableHeaderValueException("Body length=" + responseContentLength +
+                throw new NotAcceptableHeaderException("Body length=" + responseContentLength +
                         " doesnt match " +
                         HttpHeaderName.CONTENT_LENGTH + "=" + responseContentLength);
             }

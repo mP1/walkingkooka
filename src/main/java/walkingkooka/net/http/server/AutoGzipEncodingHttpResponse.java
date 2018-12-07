@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.net.header.HeaderValueToken;
-import walkingkooka.net.header.NotAcceptableHeaderValueException;
+import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 
@@ -71,7 +71,7 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpResponse {
         if (HttpHeaderName.CONTENT_ENCODING.equals(name)) {
             final HeaderValueToken token = Cast.to(value);
             if (token.isWildcard()) {
-                throw new NotAcceptableHeaderValueException(HttpHeaderName.CONTENT_ENCODING + "=" + value);
+                throw new NotAcceptableHeaderException(HttpHeaderName.CONTENT_ENCODING + "=" + value);
             }
         }
         this.response.addHeader(name, value);

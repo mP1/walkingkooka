@@ -23,7 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.header.NotAcceptableHeaderValueException;
+import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.test.Latch;
 
@@ -43,13 +43,13 @@ public final class AutoTextEncodingHttpResponseTest extends WrapperHttpResponseT
                 HttpHeaderName.CONTENT_LENGTH, 123L);
     }
 
-    @Test(expected = NotAcceptableHeaderValueException.class)
+    @Test(expected = NotAcceptableHeaderException.class)
     public void testAddHeaderContentTypeMissingCharsetFails() {
         this.createResponse()
                 .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.ANY_TEXT);
     }
 
-    @Test(expected = NotAcceptableHeaderValueException.class)
+    @Test(expected = NotAcceptableHeaderException.class)
     public void testAddHeaderContentTypeAcceptCharsetUnmatchedFails() {
         final Charset utf8 = Charset.forName("utf8");
 
