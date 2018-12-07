@@ -21,4 +21,6 @@ package walkingkooka.net.http.server;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
 public abstract class HttpRequestTestCase<R extends HttpRequest> extends PackagePrivateClassTestCase<R> {
+
+    protected abstract R createRequest();
 }

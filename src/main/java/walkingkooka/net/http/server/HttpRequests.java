@@ -30,6 +30,13 @@ public final class HttpRequests implements PublicStaticHelper {
     }
 
     /**
+     * {@see HttpHeaderScopeHttpRequest}
+     */
+    public static HttpRequest httpHeaderScope(final HttpRequest request) {
+        return HttpHeaderScopeHttpRequest.with(request);
+    }
+
+    /**
      * Stop creation
      */
     private HttpRequests() {
