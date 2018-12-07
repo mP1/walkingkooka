@@ -51,7 +51,7 @@ import java.util.Optional;
  */
 final public class HttpHeaderName<T> implements HeaderName<T>,
         Comparable<HttpHeaderName<?>>,
-        HasHeaderScope {
+        HasHttpHeaderScope {
 
     // constants
 
@@ -758,7 +758,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     /**
      * Returns the valid scope for this header name.
      */
-    public HttpHeaderScope scope() {
+    public HttpHeaderScope httpHeaderScope() {
         return this.scope;
     }
 

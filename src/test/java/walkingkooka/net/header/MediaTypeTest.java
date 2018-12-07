@@ -483,7 +483,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

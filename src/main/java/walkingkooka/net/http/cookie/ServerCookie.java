@@ -465,10 +465,10 @@ final public class ServerCookie extends Cookie {
         return ClientCookie.from(this);
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHttpHeaderScope ....................................................................................................
 
     @Override
-    public HttpHeaderScope scope() {
+    public HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.RESPONSE;
     }
 

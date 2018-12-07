@@ -106,7 +106,7 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends HeaderValueTe
     abstract HttpETagValidator validator();
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

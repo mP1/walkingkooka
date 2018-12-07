@@ -159,7 +159,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     private void checkScope(final CacheControlDirective<?> directive, final HttpHeaderScope scope) {
         assertSame("Incorrect HeaderScope returned by " + directive,
                 scope,
-                directive.scope());
+                directive.httpHeaderScope());
     }
 
     // parse..........................................................................
@@ -219,7 +219,7 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

@@ -230,10 +230,10 @@ public abstract class CharsetName implements Name,
         return this.value();
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHttpHeaderScope ....................................................................................................
 
     @Override
-    public final HttpHeaderScope scope() {
+    public final HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

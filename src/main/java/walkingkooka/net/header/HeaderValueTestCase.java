@@ -28,18 +28,18 @@ import static org.junit.Assert.assertNotEquals;
 public abstract class HeaderValueTestCase<V extends HeaderValue> extends PublicClassTestCase<V> {
 
     @Test
-    public final void testScopeValid() {
+    public final void testHttpHeaderScopeValid() {
         final V value = this.createHeaderValue();
-        assertNotEquals(value + " scope", HttpHeaderScope.UNKNOWN, value.scope());
+        assertNotEquals(value + " scope", HttpHeaderScope.UNKNOWN, value.httpHeaderScope());
     }
 
     @Test
-    public final void testScope() {
+    public final void testHttpHeaderScope() {
         final V value = this.createHeaderValue();
-        assertEquals(value + " scope", this.scope(), value.scope());
+        assertEquals(value + " scope", this.httpHeaderScope(), value.httpHeaderScope());
     }
 
     abstract protected V createHeaderValue();
 
-    abstract protected HttpHeaderScope scope();
+    abstract protected HttpHeaderScope httpHeaderScope();
 }

@@ -153,10 +153,10 @@ final public class ClientCookie extends Cookie {
         return this.toString();
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHttpHeaderScope ....................................................................................................
 
     @Override
-    public HttpHeaderScope scope() {
+    public HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST;
     }
 

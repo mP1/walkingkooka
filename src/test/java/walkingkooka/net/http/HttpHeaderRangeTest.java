@@ -253,7 +253,7 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 

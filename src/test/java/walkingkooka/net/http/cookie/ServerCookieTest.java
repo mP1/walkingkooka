@@ -1112,7 +1112,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     @Override
-    protected HttpHeaderScope scope() {
+    protected HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.RESPONSE;
     }
 

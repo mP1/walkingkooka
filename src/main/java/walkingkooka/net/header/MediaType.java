@@ -472,10 +472,10 @@ final public class MediaType implements Value<String>,
         return this.toString();
     }
 
-    // HasHeaderScope ....................................................................................................
+    // HasHttpHeaderScope ....................................................................................................
 
     @Override
-    public HttpHeaderScope scope() {
+    public HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
