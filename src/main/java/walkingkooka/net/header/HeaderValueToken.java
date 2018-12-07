@@ -25,6 +25,7 @@ import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicates;
 
 import java.util.List;
@@ -174,6 +175,13 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
     @Override
     public String toHeaderText() {
         return this.toString();
+    }
+
+    // HasHeaderScope ....................................................................................................
+
+    @Override
+    public HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
     // Object .............................................................................................

@@ -18,7 +18,28 @@
 
 package walkingkooka.net.header;
 
+import org.junit.Test;
+import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.test.PublicClassTestCase;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 public abstract class HeaderValueTestCase<V extends HeaderValue> extends PublicClassTestCase<V> {
+
+    @Test
+    public final void testScopeValid() {
+        final V value = this.createHeaderValue();
+        assertNotEquals(value + " scope", HttpHeaderScope.UNKNOWN, value.scope());
+    }
+
+    @Test
+    public final void testScope() {
+        final V value = this.createHeaderValue();
+        assertEquals(value + " scope", this.scope(), value.scope());
+    }
+
+    abstract protected V createHeaderValue();
+
+    abstract protected HttpHeaderScope scope();
 }

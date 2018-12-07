@@ -209,6 +209,7 @@ public final class CacheControlDirective<T> implements HeaderValue {
     /**
      * Returns the scope of the directive
      */
+    @Override
     public HttpHeaderScope scope() {
         return this.name.scope;
     }

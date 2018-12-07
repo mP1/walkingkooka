@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
+import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
@@ -227,6 +228,13 @@ public abstract class CharsetName implements Name,
     @Override
     public final String toHeaderText() {
         return this.value();
+    }
+
+    // HasHeaderScope ....................................................................................................
+
+    @Override
+    public final HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
     // Comparable...........................................................................................................

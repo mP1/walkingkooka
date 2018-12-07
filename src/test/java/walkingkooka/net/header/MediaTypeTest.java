@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -479,6 +480,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     private Map<MediaTypeParameterName<?>, Object> parameters(final String name, final Object value) {
         return Maps.one(MediaTypeParameterName.with(name), value);
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
     @Override
