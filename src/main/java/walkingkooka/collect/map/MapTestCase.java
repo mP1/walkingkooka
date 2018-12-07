@@ -94,11 +94,11 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePriv
                 map.containsKey(key));
     }
 
-    protected void containsKeyAndCheckAbsent(final K key) {
+    protected void containsKeyAndCheckAbsent(final Object key) {
         this.containsKeyAndCheckAbsent(this.createMap(), key);
     }
 
-    protected void containsKeyAndCheckAbsent(final Map<K, V> map, final K key) {
+    protected void containsKeyAndCheckAbsent(final Map<K, V> map, final Object key) {
         assertFalse(map + " should contain key " + CharSequences.quoteIfChars(key),
                 map.containsKey(key));
     }
@@ -124,11 +124,11 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePriv
         this.containsValueAndCheck(map, value);
     }
 
-    protected void getAndCheckAbsent(final K key) {
+    protected void getAndCheckAbsent(final Object key) {
         this.getAndCheckAbsent(this.createMap(), key);
     }
 
-    protected void getAndCheckAbsent(final Map<K, V> map, final K key) {
+    protected void getAndCheckAbsent(final Map<K, V> map, final Object key) {
         assertEquals("get " + CharSequences.quoteIfChars(key) + " from " + map,
                 null,
                 map.get(key));
