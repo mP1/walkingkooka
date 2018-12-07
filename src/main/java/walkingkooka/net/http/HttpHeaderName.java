@@ -809,7 +809,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(response, "response");
 
-        this.scope.responseHeader(this);
+        HttpHeaderScope.RESPONSE.check(this, value);
         response.addHeader(this, value);
     }
 

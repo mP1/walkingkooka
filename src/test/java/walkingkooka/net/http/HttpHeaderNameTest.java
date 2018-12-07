@@ -26,6 +26,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderNameTestCase;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.server.FakeHttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.text.CharSequences;
@@ -193,7 +194,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
         HttpHeaderName.CONNECTION.addHeaderValue("*", null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NotAcceptableHeaderException.class)
     public void testAddHeaderScopeFails() {
         HttpHeaderName.USER_AGENT.addHeaderValue("xyz", HttpResponses.fake());
     }
