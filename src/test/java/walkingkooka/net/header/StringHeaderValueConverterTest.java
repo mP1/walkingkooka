@@ -50,7 +50,7 @@ public final class StringHeaderValueConverterTest extends
 
     @Override
     protected HttpHeaderName<String> name() {
-        return HttpHeaderName.CACHE_CONTROL;
+        return HttpHeaderName.SERVER;
     }
 
     @Override

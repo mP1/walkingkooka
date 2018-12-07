@@ -19,7 +19,6 @@
 package walkingkooka.net.http;
 
 import walkingkooka.NeverError;
-import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
@@ -27,15 +26,13 @@ import walkingkooka.text.CharSequences;
 /**
  * Base parser for both tag parsers.
  */
-abstract class HttpETagParser {
+abstract class HttpETagHttpHeaderParser extends HttpHeaderParser{
 
     /**
      * Package private to limit sub classing.
      */
-    HttpETagParser(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "Text");
-        this.text = text;
-        this.position = 0;
+    HttpETagHttpHeaderParser(final String text) {
+        super(text);
     }
 
     /**
@@ -139,15 +136,15 @@ abstract class HttpETagParser {
 
         switch (mode) {
             case MODE_WHITESPACE:
-                throw new HeaderValueException(missingETagValue(text));
+                this.fail(missingETagValue(text));
             case MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN:
-                throw new HeaderValueException(missingETagValue(text));
+                this.fail(missingETagValue(text));
             case MODE_WEAK:
-                throw new HeaderValueException(incompleteWeakIndicator(text));
+                this.fail(incompleteWeakIndicator(text));
             case MODE_QUOTE_BEGIN:
-                throw new HeaderValueException(missingETagValue(text));
+                this.fail(missingETagValue(text));
             case MODE_VALUE:
-                throw new HeaderValueException(missingClosingQuote(text));
+                this.fail(missingClosingQuote(text));
             case MODE_FINISHED:
                 break;
             default:
@@ -185,43 +182,10 @@ abstract class HttpETagParser {
                     .build();
 
     /**
-     * Matches any whitespace characters.<br>
-     * <a href="https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_form"></a>
-     * <pre>
-     * HS | SP
-     * </pre>
-     */
-    private final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020")
-            .setToString("SP|HTAB");
-
-    /**
-     * Reports an invalid character within the unparsed text.
-     */
-    final void failInvalidCharacter() {
-        throw new HeaderValueException(invalidCharacter(this.position, this.text));
-    }
-
-    /**
-     * Builds a message to report an invalid or unexpected character.
-     */
-    static String invalidCharacter(final int position, final String text) {
-        return "Invalid character " + CharSequences.quoteIfChars(text.charAt(position)) +
-                " at " + position +
-                " in " + CharSequences.quoteAndEscape(text);
-    }
-
-    /**
      * Reports a missing etag value.
      */
     static String missingETagValue(final String text) {
         return "Missing etag " + CharSequences.quote(text);
-    }
-
-    /**
-     * Reports a missing closing quote.
-     */
-    static String missingClosingQuote(final String text) {
-        return "Missing closing '\"' " + CharSequences.quote(text);
     }
 
     /**
@@ -235,12 +199,4 @@ abstract class HttpETagParser {
      * Called whenever a separator is encountered.
      */
     abstract void separator();
-
-    final String text;
-    int position;
-
-    @Override
-    public final String toString() {
-        return this.position + " " + CharSequences.quote(this.text);
-    }
 }

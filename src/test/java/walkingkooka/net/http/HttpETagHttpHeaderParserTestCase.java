@@ -19,88 +19,72 @@
 package walkingkooka.net.http;
 
 import org.junit.Test;
-import walkingkooka.net.header.HeaderValueException;
-import walkingkooka.test.PackagePrivateClassTestCase;
-import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+public abstract class HttpETagHttpHeaderParserTestCase<P extends HttpETagHttpHeaderParser>
+        extends HttpHeaderParserTestCase<P, HttpETag> {
 
-public abstract class HttpETagParserTestCase<P extends HttpETagParser>
-        extends PackagePrivateClassTestCase<P> {
-
-    HttpETagParserTestCase() {
+    HttpETagHttpHeaderParserTestCase() {
         super();
     }
 
     // parse ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public final void testNullFails() {
-        this.parseOne(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public final void testEmpty() {
-        this.parseOne("");
-    }
-
-    @Test
-    public final void testInvalidInitialFails() {
-        this.parseFails("w");
-    }
-
     @Test
     public final void testInvalidInitialFails2() {
-        this.parseFails("0");
+        this.parseInvalidCharacterFails("w");
+    }
+
+    @Test
+    public final void testInvalidInitialFails3() {
+        this.parseInvalidCharacterFails("0");
     }
 
     @Test
     public final void testInvalidQuotedCharacterFails() {
-        this.parseFails("\"abc\0\"", '\0');
+        this.parseInvalidCharacterFails("\"abc\0\"", '\0');
     }
 
     @Test
     public final void testInvalidQuotedCharacterFails2() {
-        this.parseFails("W/\"abc\0\"", '\0');
+        this.parseInvalidCharacterFails("W/\"abc\0\"", '\0');
     }
 
     @Test
     public final void testWFails() {
-        this.parseFails("W", HttpETagParser.incompleteWeakIndicator("W"));
+        this.parseFails("W", HttpETagHttpHeaderParser.incompleteWeakIndicator("W"));
     }
 
     @Test
     public final void testWeaknessWithoutQuotedValueFails() {
-        this.parseFails("W/", HttpETagParser.missingETagValue("W/"));
+        this.parseFails("W/", HttpETagHttpHeaderParser.missingETagValue("W/"));
     }
 
     @Test
     public final void testWeakInvalidFails() {
-        this.parseFails("WA");
+        this.parseInvalidCharacterFails("WA");
     }
 
     @Test
     public final void testWeakInvalidFails2() {
-        this.parseFails("W0");
+        this.parseInvalidCharacterFails("W0");
     }
 
     @Test
     public final void testBeginQuoteFails() {
         final String text = "\"";
-        this.parseFails(text, HttpETagParser.missingClosingQuote(text));
+        this.parseFails(text, HttpETagHttpHeaderParser.missingClosingQuote(text));
     }
 
     @Test
     public final void testBeginQuoteFails2() {
         final String text = "\"A";
-        this.parseFails(text, HttpETagParser.missingClosingQuote(text));
+        this.parseFails(text, HttpETagHttpHeaderParser.missingClosingQuote(text));
     }
 
     @Test
     public final void testBeginQuoteFails3() {
         final String text = "\"'";
-        this.parseFails(text, HttpETagParser.missingClosingQuote(text));
+        this.parseFails(text, HttpETagHttpHeaderParser.missingClosingQuote(text));
     }
 
     @Test
@@ -143,37 +127,6 @@ public abstract class HttpETagParserTestCase<P extends HttpETagParser>
     }
 
     final void parseAndCheck(final String text, final String value, final HttpETagValidator validator) {
-       this.parseAndCheck(text, HttpETag.with(value, validator));
+        this.parseAndCheck(text, HttpETag.with(value, validator));
     }
-
-    final void parseAndCheck(final String text, final HttpETag tag) {
-        assertEquals("Incorrect result parsing " + CharSequences.quote(text),
-                tag,
-                this.parseOne(text));
-    }
-
-    final void parseFails(final String text) {
-        this.parseFails(text, text.length() - 1);
-    }
-
-    final void parseFails(final String text, final char pos) {
-        this.parseFails(text, text.indexOf(pos));
-    }
-
-    final void parseFails(final String text, final int pos) {
-        parseFails(text, HttpETagParser.invalidCharacter(pos, text));
-    }
-
-    final void parseFails(final String text, final String message) {
-        try {
-            this.parseOne(text);
-            fail();
-        } catch (final HeaderValueException expected) {
-            assertEquals("Incorrect failure message for " + CharSequences.quoteIfChars(text),
-                    message,
-                    expected.getMessage());
-        }
-    }
-
-    abstract HttpETag parseOne(final String text);
 }

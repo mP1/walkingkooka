@@ -24,16 +24,23 @@ import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.http.cookie.ClientCookie;
-import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Base class and contract to assist {@link HttpHeaderName#toValue(HttpRequest)}
+ * Base class and contract to assist {@link HttpHeaderName#toValue(String)} and other header
+ * text to/from values.
  */
 abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
+
+    /**
+     * {@see CacheControlDirectiveListHeaderValueConverter}
+     */
+    static HttpHeaderValueConverter<List<CacheControlDirective<?>>> cacheControlDirectiveList() {
+        return CacheControlDirectiveListHeaderValueConverter.INSTANCE;
+    }
 
     /**
      * {@see ClientCookieListHttpHeaderValueConverter}
