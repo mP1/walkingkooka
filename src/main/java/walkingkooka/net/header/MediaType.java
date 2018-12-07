@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Whitespace;
@@ -469,6 +470,13 @@ final public class MediaType implements Value<String>,
     @Override
     public String toHeaderText() {
         return this.toString();
+    }
+
+    // HasHeaderScope ....................................................................................................
+
+    @Override
+    public HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
     // Object................................................................................................................

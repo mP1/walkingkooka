@@ -39,4 +39,9 @@ public abstract class HeaderValueWithParametersTestCase<V extends HeaderValueWit
     }
 
     abstract protected V createHeaderValueWithParameters();
+
+    @Override
+    protected final V createHeaderValue() {
+        return this.createHeaderValueWithParameters();
+    }
 }

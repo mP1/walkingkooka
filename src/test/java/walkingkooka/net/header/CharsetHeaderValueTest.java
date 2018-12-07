@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -197,6 +198,11 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
                        final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
         assertEquals("value", value, charsetHeaderValue.value());
         assertEquals("parameters", parameters, charsetHeaderValue.parameters());
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
     @Override

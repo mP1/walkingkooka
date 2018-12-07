@@ -21,6 +21,7 @@ package walkingkooka.net.http.cookie;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.text.Whitespace;
 
 import java.util.List;
@@ -150,6 +151,13 @@ final public class ClientCookie extends Cookie {
     @Override
     public String toHeaderText() {
         return this.toString();
+    }
+
+    // HasHeaderScope ....................................................................................................
+
+    @Override
+    public HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST;
     }
 
     /**

@@ -85,6 +85,11 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends HeaderValueTe
 
     // helper ...........................................................................................................
 
+    @Override
+    protected final E createHeaderValue() {
+        return this.createETag();
+    }
+
     abstract E createETag();
 
     final void check(final HttpETag etag) {
@@ -99,6 +104,11 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends HeaderValueTe
     abstract String value();
 
     abstract HttpETagValidator validator();
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
 
     @Override
     protected final boolean typeMustBePublic() {

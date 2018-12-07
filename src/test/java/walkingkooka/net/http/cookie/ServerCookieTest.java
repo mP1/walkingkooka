@@ -20,6 +20,7 @@ package walkingkooka.net.http.cookie;
 
 import org.junit.Test;
 import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -1103,6 +1104,16 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     final void checkVersion(final javax.servlet.http.Cookie cookie, final CookieVersion version) {
         assertEquals("version", version.value(), cookie.getVersion());
+    }
+
+    @Override
+    protected ServerCookie createHeaderValue() {
+        return this.createCookie();
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.RESPONSE;
     }
 
     @Override

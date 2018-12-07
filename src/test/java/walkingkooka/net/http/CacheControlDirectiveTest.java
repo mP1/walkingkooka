@@ -214,6 +214,16 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     @Override
+    protected CacheControlDirective<Long> createHeaderValue() {
+        return CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L));
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
+
+    @Override
     protected Class<CacheControlDirective<Long>> type() {
         return Cast.to(CacheControlDirective.class);
     }

@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import static org.junit.Assert.assertEquals;
 
@@ -68,11 +69,21 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
         assertEquals(this.charsetNameToString(), this.createCharsetName().toString());
     }
 
+    @Override
+    final protected N createHeaderValue() {
+        return this.createCharsetName();
+    }
+
     abstract N createCharsetName();
 
     abstract String headerText();
 
     abstract String charsetNameToString();
+
+    @Override
+    protected final HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
 
     @Override
     protected final boolean typeMustBePublic() {

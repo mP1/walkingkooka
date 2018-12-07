@@ -155,6 +155,13 @@ public abstract class HttpETag implements HeaderValue,
     public final String toHeaderText() {
         return this.toString();
     }
+
+    // HasHeaderScope ....................................................................................................
+
+    @Override
+    public final HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
 }
 
 

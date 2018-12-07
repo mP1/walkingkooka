@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.Map;
 
@@ -152,6 +153,11 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
                        final Map<ContentDispositionParameterName<?>, Object> parameters) {
         assertEquals("type", type, token.type());
         assertEquals("parameters", parameters, token.parameters());
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
     @Override

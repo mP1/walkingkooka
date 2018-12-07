@@ -248,6 +248,16 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @Override
+    protected HttpHeaderRange createHeaderValue() {
+        return this.range();
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
+
+    @Override
     protected Class<HttpHeaderRange> type() {
         return HttpHeaderRange.class;
     }

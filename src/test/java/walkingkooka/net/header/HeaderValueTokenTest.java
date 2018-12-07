@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -218,6 +219,11 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
         assertEquals("value", value, token.value());
         assertEquals("parameters", parameters, token.parameters());
         assertEquals("is wildcard", value.equals(HeaderValueToken.WILDCARD), token.isWildcard());
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
     }
 
     @Override

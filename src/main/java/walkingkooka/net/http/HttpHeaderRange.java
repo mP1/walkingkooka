@@ -157,6 +157,13 @@ public final class HttpHeaderRange implements HeaderValue,
         return this.toString();
     }
 
+    // HasHeaderScope ....................................................................................................
+
+    @Override
+    public HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
+
     // Object.............................................................................
 
     @Override

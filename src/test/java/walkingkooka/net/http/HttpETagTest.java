@@ -113,6 +113,16 @@ public final class HttpETagTest extends HeaderValueTestCase<HttpETag> {
     }
 
     @Override
+    protected HttpETag createHeaderValue() {
+        return HttpETag.with("A", HttpETagValidator.WEAK);
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
+
+    @Override
     protected Class<HttpETag> type() {
         return HttpETag.class;
     }

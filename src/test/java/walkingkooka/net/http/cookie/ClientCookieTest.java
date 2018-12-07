@@ -21,6 +21,7 @@ package walkingkooka.net.http.cookie;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.Arrays;
 
@@ -213,6 +214,16 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     @Override
     ClientCookie createCookie(final CookieName name, final String value) {
         return ClientCookie.with(name, value);
+    }
+
+    @Override
+    protected ClientCookie createHeaderValue() {
+        return this.createCookie();
+    }
+
+    @Override
+    protected HttpHeaderScope scope() {
+        return HttpHeaderScope.REQUEST;
     }
 
     @Override
