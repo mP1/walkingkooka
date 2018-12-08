@@ -775,16 +775,16 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     /**
      * A type safe getter that retrieves this header from the headers.
      */
-    public Optional<T> headerValue(final HasHeaders headers) {
+    public Optional<T> headerValue(final Map<HttpHeaderName<?>, Object> headers) {
         Objects.requireNonNull(headers, "headers");
 
-        return Optional.ofNullable(Cast.to(headers.headers().get(this)));
+        return Optional.ofNullable(Cast.to(headers.get(this)));
     }
 
     /**
      * Retrieves the value or throws a {@link HeaderValueException} if absent.
      */
-    public T headerValueOrFail(final HasHeaders headers) {
+    public T headerValueOrFail(Map<HttpHeaderName<?>, Object> headers) {
         final Optional<T> value = this.headerValue(headers);
         if (!value.isPresent()) {
             throw new HeaderValueException("Required value is absent for " + this);

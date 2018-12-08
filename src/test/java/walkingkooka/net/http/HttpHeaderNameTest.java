@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<?>> {
@@ -128,7 +129,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
                                          final T headerValue) {
         assertEquals(headerName + "=" + headerValue,
                 Optional.ofNullable(headerValue),
-                headerName.headerValue(this.hasHeaders(headerName, headerValue)));
+                headerName.headerValue(this.headers(headerName, headerValue)));
     }
 
     // headerValueOrFail..............................................................................
@@ -140,7 +141,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
 
     @Test(expected = HeaderValueException.class)
     public void testHeaderValueOrFailAbsent() {
-        HttpHeaderName.ALLOW.headerValueOrFail(this.hasHeaders(HttpHeaderName.CONTENT_LENGTH, 123L));
+        HttpHeaderName.ALLOW.headerValueOrFail(this.headers(HttpHeaderName.CONTENT_LENGTH, 123L));
     }
 
     @Test
@@ -152,16 +153,12 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
                                                final T headerValue) {
         assertEquals(headerName + "=" + headerValue,
                 headerValue,
-                headerName.headerValueOrFail(this.hasHeaders(headerName, headerValue)));
+                headerName.headerValueOrFail(this.headers(headerName, headerValue)));
     }
 
-    private <T> HasHeaders hasHeaders(final HttpHeaderName<T> name, final T value) {
-        return new HasHeaders() {
-            @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.one(name, value);
-            }
-        };
+    private <T> Map<HttpHeaderName<?>, Object> headers(final HttpHeaderName<T> name, final T value) {
+        assertNotNull("header name", name);
+        return Maps.one(name, value);
     }
 
     // toValue ...............................................................................................

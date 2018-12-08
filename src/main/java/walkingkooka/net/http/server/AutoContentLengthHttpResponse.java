@@ -73,7 +73,7 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
         Objects.requireNonNull(body, "body");
 
         final long contentLength = body.length;
-        final Optional<Long> maybeResponseContentLength = HttpHeaderName.CONTENT_LENGTH.headerValue(this.response);
+        final Optional<Long> maybeResponseContentLength = HttpHeaderName.CONTENT_LENGTH.headerValue(this.response.headers());
         if (maybeResponseContentLength.isPresent()) {
             final long responseContentLength = maybeResponseContentLength.get();
             if (responseContentLength != contentLength) {

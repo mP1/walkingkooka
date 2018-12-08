@@ -87,7 +87,7 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
         byte[] possiblyCompressed = body;
         if (this.isAcceptEncodingGzipSupported()) {
             final Optional<HeaderValueToken> contentEncoding = HttpHeaderName.CONTENT_ENCODING
-                    .headerValue(this);
+                    .headerValue(this.headers());
             if (contentEncoding.isPresent()) {
                 if (this.isGzipSupported(contentEncoding.get())) {
                     possiblyCompressed = this.gzip(body);
@@ -103,7 +103,7 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
 
     private boolean isAcceptEncodingGzipSupported() {
         return HttpHeaderName.ACCEPT_ENCODING
-                .headerValueOrFail(this.request)
+                .headerValueOrFail(this.request.headers())
                 .stream()
                 .anyMatch(this::isGzipSupported);
     }
