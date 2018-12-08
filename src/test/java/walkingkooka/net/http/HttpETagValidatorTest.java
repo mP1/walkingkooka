@@ -18,9 +18,22 @@
 
 package walkingkooka.net.http;
 
+import org.junit.Test;
 import walkingkooka.test.EnumTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 public final class HttpETagValidatorTest extends EnumTestCase<HttpETagValidator> {
+
+    @Test
+    public void testSetValue() {
+        final HttpETagValidator validator = HttpETagValidator.WEAK;
+        final String value = "1234567890ABCDEF";
+
+        final HttpETag tag = validator.setValue(value);
+        assertEquals("value", value, tag.value());
+        assertEquals("validator", validator, tag.validator());
+    }
 
     @Override
     protected Class<HttpETagValidator> type() {
