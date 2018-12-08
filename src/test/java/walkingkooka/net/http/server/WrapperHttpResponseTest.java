@@ -18,24 +18,11 @@
 
 package walkingkooka.net.http.server;
 
-import java.util.Objects;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-/**
- * Base class for any response, that requires a request and wraps a response.
- */
-abstract class WrapperHttpRequestHttpResponse extends WrapperHttpResponse{
-
-    static void check(final HttpRequest request,
-                      final HttpResponse response) {
-        Objects.requireNonNull(request, "request");
-        check(response);
+public final class WrapperHttpResponseTest extends PackagePrivateClassTestCase<WrapperHttpResponse> {
+    @Override
+    protected Class<WrapperHttpResponse> type() {
+        return WrapperHttpResponse.class;
     }
-
-    WrapperHttpRequestHttpResponse(final HttpRequest request,
-                                   final HttpResponse response) {
-        super(response);
-        this.request = request;
-    }
-
-    final HttpRequest request;
 }

@@ -21,21 +21,23 @@ package walkingkooka.net.http.server;
 import java.util.Objects;
 
 /**
- * Base class for any response, that requires a request and wraps a response.
+ * Base class for any response, that wraps another {@link HttpResponse}.
  */
-abstract class WrapperHttpRequestHttpResponse extends WrapperHttpResponse{
+abstract class WrapperHttpResponse implements HttpResponse{
 
-    static void check(final HttpRequest request,
-                      final HttpResponse response) {
-        Objects.requireNonNull(request, "request");
-        check(response);
+    static void check(final HttpResponse response) {
+        Objects.requireNonNull(response, "response");
     }
 
-    WrapperHttpRequestHttpResponse(final HttpRequest request,
-                                   final HttpResponse response) {
-        super(response);
-        this.request = request;
+    WrapperHttpResponse(final HttpResponse response) {
+        super();
+        this.response = response;
     }
 
-    final HttpRequest request;
+    final HttpResponse response;
+
+    @Override
+    public final String toString() {
+        return this.response.toString();
+    }
 }

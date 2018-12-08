@@ -33,17 +33,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-public final class HttpHeaderScopeHttpResponseTest extends HttpResponseTestCase<HttpHeaderScopeHttpResponse> {
+public final class HttpHeaderScopeHttpResponseTest extends WrapperHttpResponseTestCase<HttpHeaderScopeHttpResponse> {
 
     private final static HttpHeaderName<String> HEADER = HttpHeaderName.SERVER;
     private final static String VALUE = "Server 123";
     private final static String TOSTRING = HttpHeaderScopeHttpResponseTest.class.getSimpleName() + ".toString";
 
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullResponseFails() {
-        HttpHeaderScopeHttpResponse.with(null);
-    }
 
     @Test
     public void testSetStatus() {
@@ -178,8 +173,13 @@ public final class HttpHeaderScopeHttpResponseTest extends HttpResponseTestCase<
     }
 
     @Override
-    protected HttpHeaderScopeHttpResponse createResponse() {
-        return HttpHeaderScopeHttpResponse.with(new FakeHttpResponse() {
+    protected HttpHeaderScopeHttpResponse createResponse(final HttpResponse response) {
+        return HttpHeaderScopeHttpResponse.with(response);
+    }
+
+    @Override
+    HttpResponse wrappedHttpResponse() {
+        return new FakeHttpResponse() {
             @Override
             public Map<HttpHeaderName<?>, Object> headers() {
                 return Maps.fake();
@@ -188,7 +188,7 @@ public final class HttpHeaderScopeHttpResponseTest extends HttpResponseTestCase<
             public String toString() {
                 return TOSTRING;
             }
-        });
+        };
     }
 
     @Override
