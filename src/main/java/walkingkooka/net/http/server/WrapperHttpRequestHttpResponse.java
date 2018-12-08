@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * Base class for any response, that requires a request and wraps a response.
  */
-abstract class WrapperHttpResponse implements HttpResponse{
+abstract class WrapperHttpRequestHttpResponse implements HttpResponse{
 
     static void check(final HttpRequest request,
                       final HttpResponse response) {
@@ -31,8 +31,8 @@ abstract class WrapperHttpResponse implements HttpResponse{
         Objects.requireNonNull(response, "response");
     }
 
-    WrapperHttpResponse(final HttpRequest request,
-                        final HttpResponse response) {
+    WrapperHttpRequestHttpResponse(final HttpRequest request,
+                                   final HttpResponse response) {
         super();
         this.request = request;
         this.response = response;

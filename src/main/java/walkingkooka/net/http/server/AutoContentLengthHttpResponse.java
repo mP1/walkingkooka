@@ -30,7 +30,7 @@ import java.util.Optional;
  * Wraps a {@link HttpResponse} sets if the content-length in {@link #setBody(byte[])} if necessary or verifies
  * if the existing content-length matches.
  */
-final class AutoContentLengthHttpResponse extends WrapperHttpResponse {
+final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse {
 
     /**
      * Factory that creates a new {@link AutoContentLengthHttpResponse}
