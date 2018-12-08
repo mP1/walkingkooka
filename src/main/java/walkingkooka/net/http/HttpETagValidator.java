@@ -51,4 +51,11 @@ public enum HttpETagValidator {
      * Prefix used by {@link HttpETagNonWildcard#toString()}.
      */
     String prefix;
+
+    /**
+     * Factory that creates a {@link HttpETag} with this validator and the given {@link String value}.
+     */
+    public final HttpETag setValue(final String value) {
+        return HttpETag.with(value, this);
+    }
 }
