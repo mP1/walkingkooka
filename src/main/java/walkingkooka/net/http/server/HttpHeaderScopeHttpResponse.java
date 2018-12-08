@@ -23,22 +23,20 @@ import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.net.http.HttpStatus;
 
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * A {@link HttpResponse} that checks the scope correctness of any header names when adding new headers, or reading
  * existing headers.
  */
-final class HttpHeaderScopeHttpResponse implements HttpResponse {
+final class HttpHeaderScopeHttpResponse extends WrapperHttpResponse {
 
     static HttpHeaderScopeHttpResponse with(final HttpResponse response) {
-        Objects.requireNonNull(response, "response");
+        check(response);
         return new HttpHeaderScopeHttpResponse(response);
     }
     
     private HttpHeaderScopeHttpResponse(final HttpResponse response) {
-        super();
-        this.response = response;
+        super(response);
         this.headers = HttpHeaderScopeHttpRequestHttpResponseHeadersMap.with(response.headers(), HttpHeaderScope.RESPONSE);
     }
 
@@ -68,12 +66,5 @@ final class HttpHeaderScopeHttpResponse implements HttpResponse {
     @Override
     public void setBodyText(final String text) {
         this.response.setBodyText(text);
-    }
-
-    private final HttpResponse response;
-
-    @Override
-    public String toString() {
-        return this.response.toString();
     }
 }

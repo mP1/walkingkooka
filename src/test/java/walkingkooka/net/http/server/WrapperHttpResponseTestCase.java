@@ -21,48 +21,62 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpStatus;
+import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.test.Latch;
 
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
-public abstract class WrapperHttpRequestHttpResponseTestCase<R extends WrapperHttpRequestHttpResponse>
-        extends WrapperHttpResponseTestCase<R> {
+public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse> extends HttpResponseTestCase<R> {
 
-    WrapperHttpRequestHttpResponseTestCase() {
+    WrapperHttpResponseTestCase() {
         super();
     }
 
     @Test(expected = NullPointerException.class)
-    public final void testWithNullRequestFails() {
-        this.createResponse(null, HttpResponses.fake());
+    public final void testWithNullResponseFails() {
+        this.createResponse(null);
     }
 
-    final <T> void addHeaderAndCheck(final HttpRequest request,
-                                     final HttpHeaderName<T> header,
+    @Test
+    public void testSetStatus() {
+        final Latch set = Latch.create();
+        final HttpStatus status = HttpStatusCode.OK.status();
+        this.createResponse(new FakeHttpResponse() {
+            @Test
+            public void setStatus(final HttpStatus s) {
+                assertSame(status, s);
+                set.set("Status set to " + s);
+            }
+        }).setStatus(status);
+        assertTrue("wrapped response setStatus not called", set.value());
+    }
+
+    final <T> void addHeaderAndCheck(final HttpHeaderName<T> header,
                                      final T value) {
-        this.addHeaderAndCheck(request,
-                header,
+        this.addHeaderAndCheck(header,
                 value,
                 null,
                 null);
     }
 
-    final <T, U> void addHeaderAndCheck(final HttpRequest request,
-                                        final HttpHeaderName<T> header,
+    final <T, U> void addHeaderAndCheck(final HttpHeaderName<T> header,
                                         final T value,
                                         final HttpHeaderName<U> header2,
                                         final U value2) {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         final Map<HttpHeaderName<?>, Object> expectedHeaders = Maps.ordered();
 
-        final R response = this.createResponse(request,
-                new FakeHttpResponse() {
+        final R response = this.createResponse(new FakeHttpResponse() {
 
-                    public <T> void addHeader(final HttpHeaderName<T> n, final T v) {
-                        headers.put(n, v);
-                    }
-                });
+            public <T> void addHeader(final HttpHeaderName<T> n, final T v) {
+                headers.put(n, v);
+            }
+        });
         response.addHeader(header, value);
         expectedHeaders.put(header, value);
 
@@ -76,12 +90,14 @@ public abstract class WrapperHttpRequestHttpResponseTestCase<R extends WrapperHt
 
     // helpers..................................................................................................
 
-    final R createResponse(final HttpResponse response) {
-        return this.createResponse(this.request(), response);
+    @Override
+    protected final R createResponse() {
+        return this.createResponse(this.wrappedHttpResponse());
     }
 
-    abstract R createResponse(final HttpRequest request,
-                              final HttpResponse response);
+    abstract R createResponse(final HttpResponse response);
 
-    abstract HttpRequest request();
+    HttpResponse wrappedHttpResponse() {
+        return HttpResponses.fake();
+    }
 }
