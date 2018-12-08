@@ -18,22 +18,11 @@
 
 package walkingkooka.net.http.server;
 
-/**
- * Base class for any response, that requires a request and wraps a response.
- */
-abstract class WrapperHttpRequestHttpResponse extends WrapperHttpResponse{
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-    static void check(final HttpRequest request,
-                      final HttpResponse response) {
-        check(request);
-        check(response);
+public final class BufferingHttpResponseTest extends PackagePrivateClassTestCase<BufferingHttpResponse> {
+    @Override
+    protected Class<BufferingHttpResponse> type() {
+        return BufferingHttpResponse.class;
     }
-
-    WrapperHttpRequestHttpResponse(final HttpRequest request,
-                                   final HttpResponse response) {
-        super(response);
-        this.request = request;
-    }
-
-    final HttpRequest request;
 }

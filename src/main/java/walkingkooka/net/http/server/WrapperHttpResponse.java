@@ -25,6 +25,10 @@ import java.util.Objects;
  */
 abstract class WrapperHttpResponse implements HttpResponse{
 
+    static void check(final HttpRequest request) {
+        Objects.requireNonNull(request, "request");
+    }
+    
     static void check(final HttpResponse response) {
         Objects.requireNonNull(response, "response");
     }
