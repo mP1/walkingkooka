@@ -31,8 +31,10 @@ import walkingkooka.net.http.server.FakeHttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.text.CharSequences;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -66,6 +68,12 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     }
 
     @Test
+    public void testCustomHeaderIsContent() {
+        final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
+        assertEquals(header + ".isContent", false, header.isContent());
+    }
+
+    @Test
     public void testScopeRequest() {
         this.checkScope(HttpHeaderName.ACCEPT, HttpHeaderScope.REQUEST);
     }
@@ -92,6 +100,18 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     @Test
     public void testConstantNameReturnsConstant() {
         assertSame(HttpHeaderName.ACCEPT, HttpHeaderName.with(HttpHeaderName.ACCEPT.value()));
+    }
+
+    @Test
+    public void testContentTypeConstants() {
+        final List<HttpHeaderName<?>> headers = HttpHeaderName.CONSTANTS.values()
+                .stream()
+                .filter(h -> h.value().startsWith("content-"))
+                .filter(h -> false == h.isContent())
+                .collect(Collectors.toList());
+        assertEquals("Several HttpHeaderName.isContent() returns false when it should return true",
+                Lists.empty(),
+                headers);
     }
 
     // headerValue.........................................................................

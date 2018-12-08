@@ -56,10 +56,10 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     // constants
 
     /**
-     * A read only cache of already prepared {@link HttpHeaderName names}. The selected constants are taken from <a href="http
-     * ://en.wikipedia.org/wiki/List_of_HTTP_headers"></a>.
+     * A read only cache of already prepared {@link HttpHeaderName names}. The selected constants are taken from<br>
+     * <a href="http://en.wikipedia.org/wiki/List_of_HTTP_headers"></a>.
      */
-    final static Map<String, HttpHeaderName> CONSTANTS = Maps.sorted();
+    final static Map<String, HttpHeaderName<?>> CONSTANTS = Maps.sorted();
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link AbsoluteUrl} header values.
@@ -217,12 +217,20 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * All content headers share this prefix.
+     */
+    private final static String CONTENT_HEADER_PREFIX = "content-";
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built.
      */
     private static <T> HttpHeaderName<T> registerConstant(final String header,
                                                           final HttpHeaderScope scope,
                                                           final HeaderValueConverter<T> headerValue) {
-        final HttpHeaderName<T> httpHeader = new HttpHeaderName<T>(header, scope, headerValue);
+        final HttpHeaderName<T> httpHeader = new HttpHeaderName<T>(header,
+                scope,
+                headerValue,
+                CaseSensitivity.INSENSITIVE.startsWith(header, CONTENT_HEADER_PREFIX));
         HttpHeaderName.CONSTANTS.put(header, httpHeader);
         return httpHeader;
     }
@@ -717,10 +725,10 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     public static HttpHeaderName<?> with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", PREDICATE);
 
-        final HttpHeaderName httpHeaderName = CONSTANTS.get(name);
+        final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<String>(name, HttpHeaderScope.UNKNOWN, HeaderValueConverters.string());
+                new HttpHeaderName<String>(name, HttpHeaderScope.UNKNOWN, HeaderValueConverters.string(), NOT_CONTENT);
     }
 
     /**
@@ -742,11 +750,24 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private HttpHeaderName(final String name,
                            final HttpHeaderScope scope,
-                           final HeaderValueConverter<T> valueConverter) {
+                           final HeaderValueConverter<T> valueConverter,
+                           final boolean content) {
         this.name = name;
         this.scope = scope;
         this.valueConverter = valueConverter;
+        this.content = content;
     }
+
+    private final static boolean NOT_CONTENT = false;
+
+    /**
+     * Only returns true if this is a content header. Content headers, are those that begin with "content-".
+     */
+    public boolean isContent() {
+        return this.content;
+    }
+
+    private final boolean content;
 
     @Override
     public String value() {
