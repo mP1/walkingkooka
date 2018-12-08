@@ -36,7 +36,7 @@ import java.util.Objects;
  * Wraps a {@link HttpResponse} ensuring the content type charset is one of the requested types if {@link HttpHeaderName#ACCEPT_CHARSET}
  * was present.
  */
-final class AutoTextEncodingHttpResponse extends WrapperHttpResponse {
+final class AutoTextEncodingHttpResponse extends WrapperHttpRequestHttpResponse {
 
     /**
      * Factory that creates a new {@link AutoTextEncodingHttpResponse}

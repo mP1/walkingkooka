@@ -34,7 +34,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-public final class AutoTextEncodingHttpResponseTest extends WrapperHttpResponseTestCase<AutoTextEncodingHttpResponse> {
+public final class AutoTextEncodingHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<AutoTextEncodingHttpResponse> {
 
     @Test
     public void testAddHeader() {

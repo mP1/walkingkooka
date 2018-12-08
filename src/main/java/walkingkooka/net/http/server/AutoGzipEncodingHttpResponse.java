@@ -36,7 +36,7 @@ import java.util.zip.GZIPOutputStream;
  * Compression will only happen if the request accept-encoding includes gzip. It is also possible to disable
  * compression if the content-encoding is not set to gzip.
  */
-final class AutoGzipEncodingHttpResponse extends WrapperHttpResponse {
+final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse {
 
     /**
      * Factory that creates a new {@link AutoGzipEncodingHttpResponse}
