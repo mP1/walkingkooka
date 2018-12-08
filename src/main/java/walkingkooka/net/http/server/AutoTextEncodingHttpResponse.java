@@ -105,7 +105,7 @@ final class AutoTextEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
      */
     private void checkAcceptCharset(final CharsetName contentTypeCharset) {
         final List<CharsetHeaderValue> acceptCharset = HttpHeaderName.ACCEPT_CHARSET
-                .headerValueOrFail(this.request);
+                .headerValueOrFail(this.request.headers());
         if(!acceptCharset
                 .stream()
                 .anyMatch(h -> this.checkContentTypeCharset(h, contentTypeCharset))) {
@@ -131,7 +131,7 @@ final class AutoTextEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
     public void setBodyText(final String text) {
         Objects.requireNonNull(text, "text");
 
-        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerValueOrFail(this);
+        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerValueOrFail(this.headers());
         this.setBody(text.getBytes(MediaTypeParameterName.CHARSET.parameterValueOrFail(contentType)
                 .charset()
                 .get()));
