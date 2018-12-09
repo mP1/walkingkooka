@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
@@ -118,7 +119,7 @@ final class TestHttpResponse implements HttpResponse {
     private boolean equals0(final TestHttpResponse other) {
         return Objects.equals(this.status, other.status) &&
                 Objects.equals(this.headers, other.headers) &&
-                Objects.equals(this.body, other.body) &&
+                Arrays.equals(this.body, other.body) &&
                 Objects.equals(this.bodyText, other.bodyText);
     }
 

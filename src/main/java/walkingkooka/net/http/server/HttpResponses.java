@@ -81,6 +81,14 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
+     * {@see RangeAwareHttpResponse}
+     */
+    static HttpResponse with(final HttpRequest request,
+                             final HttpResponse response) {
+        return RangeAwareHttpResponse.with(request, response);
+    }
+
+    /**
      * Stop creation
      */
     private HttpResponses() {
