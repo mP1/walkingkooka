@@ -92,6 +92,23 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
         return true;
     }
 
+    // isOverlappingEquals ...............................................................................................
+
+    @Override
+    final boolean isOverlappingEquals(final RangeBound<C> other) {
+        return true;
+    }
+
+    @Override
+    boolean isOverlappingEquals0(final RangeBoundExclusive<C> other) {
+        return true;
+    }
+
+    @Override
+    boolean isOverlappingEquals0(final RangeBoundInclusive<C> other) {
+        return true;
+    }
+
     // Range.intersection...............................................................................................
 
     @Override
