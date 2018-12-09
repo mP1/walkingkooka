@@ -66,9 +66,9 @@ public final class HttpResponses implements PublicStaticHelper {
     /**
      * {@see IfNoneMatchAwareHttpResponse}
      */
-    public static HttpResponse with(final HttpRequest request,
-                                    final HttpResponse response,
-                                    final Function<byte[], HttpETag> computer) {
+    public static HttpResponse ifNoneMatchAware(final HttpRequest request,
+                                                final HttpResponse response,
+                                                final Function<byte[], HttpETag> computer) {
         return IfNoneMatchAwareHttpResponse.with(request, response, computer);
     }
 
