@@ -21,6 +21,7 @@ package walkingkooka.net.http;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
+import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HeaderValueTestCase;
 import walkingkooka.text.CharSequences;
 
@@ -50,9 +51,24 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
         HttpHeaderRange.with(UNIT, null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = HeaderValueException.class)
     public void testWithEmptyRangesFails() {
         HttpHeaderRange.with(UNIT, Lists.empty());
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testWithOverlappingRangesFails() {
+        HttpHeaderRange.with(UNIT, this.rangesWithOverlap());
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testWithOverlappingRangesFails2() {
+        HttpHeaderRange.with(UNIT, this.rangesWithOverlap2());
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testWithOverlappingRangesFails3() {
+        HttpHeaderRange.with(UNIT, this.rangesWithOverlap3());
     }
 
     public void testWith() {
@@ -93,9 +109,24 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
         this.range().setValue(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = HeaderValueException.class)
     public void testSetValueEmptyFails() {
         this.range().setValue(Lists.empty());
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testSetValueWithOverlapFails() {
+        this.range().setValue(this.rangesWithOverlap());
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testSetValueWithOverlapFails2() {
+        this.range().setValue(this.rangesWithOverlap2());
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testSetValueWithOverlapFails3() {
+        this.range().setValue(this.rangesWithOverlap3());
     }
 
     @Test
@@ -118,6 +149,21 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     // parse ...........................................................
+
+    @Test(expected = HeaderValueException.class)
+    public void testParseWithOverlapFails() {
+        HttpHeaderRange.parse("100-150,200-250,225-300");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testParseWithOverlapFails2() {
+        HttpHeaderRange.parse("100-150,200-250,225-");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testParseWithOverlapFails3() {
+        HttpHeaderRange.parse("-150,200-250,125-175");
+    }
 
     @Test
     public void testParseOpenRange() {
@@ -245,6 +291,31 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     private Range<Long> rangeLte1000() {
         return Range.lessThanEquals(1000L);
+    }
+
+    private List<Range<Long>> rangesWithOverlap() {
+        return Lists.of(
+                between(100, 200),
+                between(200, 300),
+                between(275, 350));
+    }
+
+    private List<Range<Long>> rangesWithOverlap2() {
+        return Lists.of(
+                between(100, 200),
+                between(200, 300),
+                Range.greaterThanEquals(275L));
+    }
+
+    private List<Range<Long>> rangesWithOverlap3() {
+        return Lists.of(
+                Range.lessThanEquals(100L),
+                between(200, 300),
+                between(75, 150));
+    }
+
+    private Range<Long> between(final long lower, final long upper) {
+        return Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper));
     }
 
     @Override
