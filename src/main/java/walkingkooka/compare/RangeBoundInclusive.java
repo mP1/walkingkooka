@@ -20,7 +20,6 @@ package walkingkooka.compare;
 
 import walkingkooka.Cast;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -32,7 +31,7 @@ final class RangeBoundInclusive<C extends Comparable<C>> extends RangeBound<C> {
      * Creates a {@link RangeBoundInclusive}.
      */
     static <C extends Comparable<C>> RangeBoundInclusive<C> with(final C value) {
-        Objects.requireNonNull(value, "value");
+        checkValue(value);
         return new RangeBoundInclusive<C>(value);
     }
 

@@ -21,6 +21,7 @@ package walkingkooka.compare;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -47,6 +48,13 @@ abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqu
      */
     static <C extends Comparable<C>> RangeBoundInclusive<C> inclusive(final C value) {
         return RangeBoundInclusive.with(value);
+    }
+
+    /**
+     * Checks that a value parameter is not null.
+     */
+    static <C> void checkValue(final C value) {
+        Objects.requireNonNull(value, "value");
     }
 
     /**

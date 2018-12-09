@@ -20,7 +20,6 @@ package walkingkooka.compare;
 
 import walkingkooka.Cast;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -83,12 +82,13 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
 
     @Override
     boolean lowerTest(final C value) {
-        Objects.requireNonNull(value, "value");
+        checkValue(value);
         return true;
     }
 
     @Override
     boolean upperTest(final C value) {
+        checkValue(value);
         return true;
     }
 
