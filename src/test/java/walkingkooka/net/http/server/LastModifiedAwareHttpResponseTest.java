@@ -20,22 +20,18 @@ package walkingkooka.net.http.server;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpETag;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
@@ -320,106 +316,6 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
         if (null != bodyText) {
             response.setBodyText(bodyText);
             wrapped.check(request, expectedStatus.status(), expectedHeaders, expectedBodyText);
-        }
-    }
-
-    /**
-     * A response that records all parameters set up on it for later verification.
-     */
-    static private class TestHttpResponse extends FakeHttpResponse {
-
-        TestHttpResponse() {
-            super();
-            this.headers = Maps.ordered();
-        }
-
-        TestHttpResponse(final HttpStatus status,
-                         final Map<HttpHeaderName<?>, Object> headers,
-                         final byte[] body,
-                         final String bodyText) {
-            super();
-            this.status = status;
-            this.headers = headers;
-            this.body = body;
-            this.bodyText = bodyText;
-        }
-
-        @Override
-        public void setStatus(final HttpStatus status) {
-            this.status = status;
-        }
-
-        HttpStatus status;
-
-        @Override
-        public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-            this.headers.put(name, value);
-        }
-
-        final Map<HttpHeaderName<?>, Object> headers;
-
-        @Override
-        public void setBody(final byte[] body) {
-            this.body = body;
-        }
-
-        byte[] body;
-
-        @Override
-        public void setBodyText(final String bodyText) {
-            this.bodyText = bodyText;
-        }
-
-        String bodyText;
-
-        void check(final HttpRequest request,
-                   final HttpStatus status,
-                   final Map<HttpHeaderName<?>, Object> headers,
-                   final byte[] body) {
-            this.check(request, status, headers, body, null);
-        }
-
-        void check(final HttpRequest request,
-                   final HttpStatus status,
-                   final Map<HttpHeaderName<?>, Object> headers,
-                   final String bodyText) {
-            this.check(request, status, headers, null, bodyText);
-        }
-
-        void check(final HttpRequest request,
-                   final HttpStatus status,
-                   final Map<HttpHeaderName<?>, Object> headers,
-                   final byte[] body,
-                   final String bodyText) {
-            assertEquals(request.toString(),
-                    new TestHttpResponse(status, headers, body, bodyText),
-                    this);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(this.status, this.headers, this.body, this.bodyText);
-        }
-
-        public boolean equals(final Object other) {
-            return this == other || other instanceof TestHttpResponse && this.equals0(Cast.to(other));
-        }
-
-        private boolean equals0(final TestHttpResponse other) {
-            return Objects.equals(this.status, other.status) &&
-                    Objects.equals(this.headers, other.headers) &&
-                    Objects.equals(this.body, other.body) &&
-                    Objects.equals(this.bodyText, other.bodyText);
-        }
-
-        @Override
-        public String toString() {
-            return ToStringBuilder.create()
-                    .value(this.status)
-                    .value(this.headers)
-                    .value(this.body)
-                    .value(this.bodyText)
-                    .build();
         }
     }
 
