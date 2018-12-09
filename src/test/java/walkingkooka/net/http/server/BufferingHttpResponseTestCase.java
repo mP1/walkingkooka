@@ -18,22 +18,25 @@
 
 package walkingkooka.net.http.server;
 
-/**
- * Base class for any response, that requires a request and wraps a response.
- */
-abstract class WrapperHttpRequestHttpResponse extends WrapperHttpResponse{
+import org.junit.Test;
+import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpStatusCode;
 
-    static void check(final HttpRequest request,
-                      final HttpResponse response) {
-        check(request);
-        check(response);
+public abstract class BufferingHttpResponseTestCase<R extends BufferingHttpResponse> extends WrapperHttpResponseTestCase<R> {
+
+    BufferingHttpResponseTestCase() {
+        super();
     }
 
-    WrapperHttpRequestHttpResponse(final HttpRequest request,
-                                   final HttpResponse response) {
-        super(response);
-        this.request = request;
+    @Test
+    public void testSetStatus() {
+        this.createResponse(HttpResponses.fake())
+                .setStatus(HttpStatusCode.OK.status());
     }
 
-    final HttpRequest request;
+    @Test
+    public void testAddHeader() {
+        this.createResponse(HttpResponses.fake())
+        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L);
+    }
 }
