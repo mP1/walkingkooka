@@ -79,7 +79,7 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
             this.response.setBody(body);
         } else {
             this.comitted = true;
-            this.setBody(this.status, this.headers, body);
+            this.setBody(this.statusOrFail(), this.headers, body);
         }
     }
 
@@ -91,8 +91,16 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
             this.response.setBodyText(bodyText);
         } else {
             this.comitted = true;
-            this.setBodyText(this.status, this.headers, bodyText);
+            this.setBodyText(this.statusOrFail(), this.headers, bodyText);
         }
+    }
+
+    private HttpStatus statusOrFail() {
+        final HttpStatus status = this.status;
+        if(null==status) {
+            throw new IllegalStateException("Status missing");
+        }
+        return status;
     }
 
     private HttpStatus status;
