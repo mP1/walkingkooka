@@ -132,15 +132,32 @@ public final class HttpHeaderRange implements HeaderValue,
 
     private final List<Range<Long>> ranges;
 
+    /**
+     * The list of ranges must not be empty, contain nulls or overlapping ranges. If any of these tests fail a
+     * {@link HeaderValueException} will be thrown.
+     */
     private static List<Range<Long>> checkValue(final List<Range<Long>> ranges) {
         Objects.requireNonNull(ranges, "ranges");
 
         final List<Range<Long>> copy = Lists.array();
         copy.addAll(ranges);
 
-        if (ranges.isEmpty()) {
-            throw new IllegalArgumentException("Missing range");
+        final int count = ranges.size();
+        if (0 == count) {
+            throw new HeaderValueException("Missing range");
         }
+        final int last = count - 1;
+        for (int i = 0; i < last; i++) {
+            final Range<Long> range = copy.get(i);
+
+            for (int j = i + 1; j < count; j++) {
+                final Range<Long> other = copy.get(j);
+                if (range.isOverlapping(other)) {
+                    throw new HeaderValueException("Range overlap bewteen " + range + " and " + other);
+                }
+            }
+        }
+
         return ranges;
     }
 
