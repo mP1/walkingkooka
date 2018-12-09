@@ -72,6 +72,10 @@ public final class HttpHeaderRange implements HeaderValue,
                     CharSequences.quote(value));
         }
 
+        if(0 == dash) {
+            throw new HeaderValueException("Header range missing start " + CharSequences.quote(value));
+        }
+
         final Range<Long> from = Range.greaterThanEquals(Long.parseLong(value.substring(0, dash).trim()));
         final String to = value.substring(dash + 1);
         return to.isEmpty() ?

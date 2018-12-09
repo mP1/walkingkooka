@@ -165,6 +165,16 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
         HttpHeaderRange.parse("-150,200-250,125-175");
     }
 
+    @Test(expected = HeaderValueException.class)
+    public void testParseRangeMissingStartFails() {
+        HttpHeaderRange.parse("-99");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testParseRangeMissingStartFails2() {
+        HttpHeaderRange.parse("98-99,-50");
+    }
+
     @Test
     public void testParseOpenRange() {
         this.parseAndCheck("bytes=123-",
