@@ -243,14 +243,17 @@ public enum HttpStatusCode {
         this.code = code;
         this.message = message;
         this.category = HttpStatusCodeCategory.category(code);
+        this.status = HttpStatus.with(this, this.message);
     }
 
     /**
      * Returns a {@link HttpStatus} with this code and a default message.
      */
     public HttpStatus status() {
-        return HttpStatus.with(this, this.message);
+        return this.status;
     }
+
+    private final HttpStatus status;
 
     /**
      * The numeric value of this code.
