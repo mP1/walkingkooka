@@ -53,6 +53,7 @@ public final class HttpStatusCodeTest extends EnumTestCase<HttpStatusCode> {
     public void testStatus() {
         for (HttpStatusCode code : HttpStatusCode.values()) {
             final HttpStatus status = code.status();
+            assertSame("status not cached", status, code.status());
             assertSame("code", code, status.value());
             assertNotEquals("message", "", status.message());
         }
