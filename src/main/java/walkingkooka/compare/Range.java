@@ -80,6 +80,13 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
     }
 
     /**
+     * Checks that the other range is not null.
+     */
+    private static void checkOther(final Range<?> other) {
+        Objects.requireNonNull(other, "other");
+    }
+
+    /**
      * Private ctor use factory
      */
     private Range(final RangeBound<C> lower, final RangeBound<C> upper) {
@@ -93,7 +100,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
      * Returns a {@link Range} that matches true to both {@link Range ranges}.
      */
     public Range<C> and(final Range<C> other) {
-        Objects.requireNonNull(other, "other");
+        checkOther(other);
 
         final RangeBound<C> lower = this.lower.max(other.lower);
         final RangeBound<C> upper = this.upper.min(other.upper);
@@ -146,6 +153,21 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
     public boolean test(final C c) {
         return this.lower.lowerTest(c) &&
                 this.upper.upperTest(c);
+    }
+
+    // Overlaps.......................................................................................................
+
+    /**
+     * Returns true only if any part including a single point overlap.
+     */
+    public boolean isOverlapping(final Range<C> other) {
+        checkOther(other);
+
+        final RangeBound<C> maxOfLower = this.lower.max(other.lower);
+        final RangeBound<C> minOfUpper = this.upper.min(other.upper);
+
+        return maxOfLower.min(minOfUpper).isOverlappingEquals(maxOfLower) ||
+                maxOfLower.isOverlappingEquals(minOfUpper);
     }
 
     // Object..........................................................................................................

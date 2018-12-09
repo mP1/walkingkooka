@@ -612,6 +612,126 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
         this.testFalse(range, "NUT");
     }
 
+    // isOverlapping.............................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testIsOverlappingNullFails(){
+        Range.all().isOverlapping(null);
+    }
+
+    @Test
+    public void testIsOverlapWithout() {
+        this.isOverlapAndCheck(
+                Range.greaterThan(5),
+                Range.lessThan(3),
+                false);
+    }
+
+    @Test
+    public void testIsOverlapWithout2() {
+        this.isOverlapAndCheck(
+                Range.greaterThan(5),
+                Range.lessThan(4),
+                false);
+    }
+
+    @Test
+    public void testIsOverlapWithout3() {
+        this.isOverlapAndCheck(
+                Range.lessThan(55),
+                Range.greaterThan(55),
+                false);
+    }
+
+    @Test
+    public void testIsOverlapWithout4() {
+        this.isOverlapAndCheck(
+                Range.greaterThanEquals(5),
+                Range.lessThanEquals(4),
+                false);
+    }
+
+    @Test
+    public void testIsOverlapWithout5() {
+        this.isOverlapAndCheck(
+                Range.greaterThanEquals(66).and(Range.lessThan(99)),
+                Range.lessThan(44),
+                false);
+    }
+
+    @Test
+    public void testIsOverlapWithout6() {
+        this.isOverlapAndCheck(
+                Range.greaterThanEquals(55).and(Range.lessThan(99)),
+                Range.lessThan(54),
+                false);
+    }
+
+    @Test
+    public void testIsOverlapWithout7() {
+        this.isOverlapAndCheck(
+                Range.greaterThanEquals(55).and(Range.lessThan(99)),
+                Range.greaterThanEquals(44).and(Range.lessThan(54)),
+                false);
+    }
+
+    @Test
+    public void testIsOverlapWithout8() {
+        this.isOverlapAndCheck(
+                Range.singleton(44),
+                Range.singleton(55),
+                false);
+    }
+
+    @Test
+    public void testIsOverlap() {
+        this.isOverlapAndCheck(
+                Range.greaterThanEquals(55).and(Range.lessThan(99)),
+                Range.greaterThanEquals(44).and(Range.lessThan(56)),
+                true); // at 55
+    }
+
+    @Test
+    public void testIsOverlap1() {
+        this.isOverlapAndCheck(
+                Range.greaterThanEquals(55),
+                Range.greaterThanEquals(44).and(Range.lessThanEquals(55)),
+                true); // at 55
+    }
+
+    @Test
+    public void testIsOverlap2() {
+        this.isOverlapAndCheck(
+                Range.greaterThanEquals(55).and(Range.lessThan(99)),
+                Range.greaterThanEquals(44),
+                true); // at >=55
+    }
+
+    @Test
+    public void testIsOverlap3() {
+        this.isOverlapAndCheck(
+                Range.all(),
+                Range.greaterThanEquals(44),
+                true); // at >=55
+    }
+
+    @Test
+    public void testIsOverlap4() {
+        this.isOverlapAndCheck(
+                Range.singleton(55),
+                Range.singleton(55),
+                true); // at 55
+    }
+
+    private void isOverlapAndCheck(final Range<Integer> first, final Range<Integer> other, final boolean expected) {
+        this.isOverlapAndCheck0(first, other, expected);
+        this.isOverlapAndCheck0(other, first, expected);
+    }
+
+    private void isOverlapAndCheck0(final Range<Integer> first, final Range<Integer> other, final boolean expected) {
+        assertEquals(first + " " + other, expected, first.isOverlapping(other));
+    }
+
     // misc ...................................................................................................
 
     @Test
