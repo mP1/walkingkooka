@@ -34,6 +34,7 @@ public final class HttpStatus implements HashCodeEqualsDefined, Value<HttpStatus
      * Factory that creates a {@link HttpStatus}
      */
     static HttpStatus with(final HttpStatusCode value, final String message) {
+        checkMessage(message);
         return new HttpStatus(value, message);
     }
 

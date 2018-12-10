@@ -247,6 +247,15 @@ public enum HttpStatusCode {
     }
 
     /**
+     * Creates a new {@link HttpStatus} with this code and the given message.
+     */
+    public HttpStatus setMessage(final String message) {
+        return this.message.equals(message) ?
+                this.status() :
+                HttpStatus.with(this, message);
+    }
+
+    /**
      * Returns a {@link HttpStatus} with this code and a default message.
      */
     public HttpStatus status() {
