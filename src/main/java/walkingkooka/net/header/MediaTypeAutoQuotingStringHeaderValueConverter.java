@@ -23,9 +23,8 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
 /**
- * A {@link HeaderValueConverter} that if necessary adds quotes and escape/encodes such characters.
- * It assumes any {@link String} to be parsed have had any double quotes removed, and adds them
- * when necessary
+ * A {@link HeaderValueConverter} that handles quoted and unquoted text values during parsing and auto adds quotes when
+ * producing the header value text.
  */
 final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueConverter2<String> {
 
@@ -43,27 +42,69 @@ final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueCo
 
     @Override
     String parse0(final String value, final Name name) {
+        return value.charAt(0) == DOUBLE_QUOTE ?
+                this.parseQuoted(value, name) :
+                this.parseUnquoted(value, name);
+    }
+
+    /**
+     * Verifies the contents and ending double quote of the given characters.
+     */
+    private String parseQuoted(final String text, final Name name) {
+        final int last = text.length() -1;
+
         final StringBuilder raw = new StringBuilder();
+        this.parseRange(text, 1, last, raw, name);
+
+        final char c = text.charAt(last);
+        if(DOUBLE_QUOTE != c) {
+            throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(last, text));
+        }
+
+        return raw.toString();
+    }
+
+    /**
+     * Verifies the content of an unquoted text.
+     */
+    private String parseUnquoted(final String text, final Name name) {
+        final StringBuilder raw = new StringBuilder();
+        this.parseRange(text, 0, text.length(), raw, name);
+        return raw.toString();
+    }
+
+    /**
+     * Parses the range of characters verifying all are correct and honours escaping.
+     */
+    private void parseRange(final String text,
+                            final int start,
+                            final int last,
+                            final StringBuilder raw,
+                            final Name name) {
         boolean escaped = false;
 
-        for (char c : value.toCharArray()) {
+        int i = start;
+        while (i < last) {
+            final char c = text.charAt(i);
+            i++;
+
             if (escaped) {
                 raw.append(c);
                 escaped = false;
-            } else {
-                if (BACKSLASH == c) {
-                    escaped = true;
-                    continue;
-                }
-                // TODO possibly non ascii characters are still invalid.
-                raw.append(c);
+                continue;
             }
+            if (BACKSLASH == c) {
+                escaped = true;
+                continue;
+            }
+            // TODO possibly non ascii characters are still invalid.
+            raw.append(c);
+
         }
 
         if (escaped) {
-            throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(value.length() - 1, value));
+            throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(text.length() - 1, text));
         }
-        return raw.toString();
     }
 
     @Override
