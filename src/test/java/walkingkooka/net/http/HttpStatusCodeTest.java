@@ -24,6 +24,7 @@ import walkingkooka.test.EnumTestCase;
 
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -88,6 +89,39 @@ public final class HttpStatusCodeTest extends EnumTestCase<HttpStatusCode> {
 
     private void categoryAndCheck(final HttpStatusCode code, final HttpStatusCodeCategory category) {
         assertSame("category for status code: " + code, category, code.category());
+    }
+
+    // setMessage..............................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSetMessageNullFails() {
+        HttpStatusCode.OK.setMessage(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetMessageEmptyFails() {
+        HttpStatusCode.OK.setMessage("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetMessageWhitespaceFails() {
+        HttpStatusCode.OK.setMessage("  ");
+    }
+
+    @Test
+    public void testSetMessageDefault() {
+        assertSame("set message with default should return constant",
+                HttpStatusCode.OK.status(),
+                HttpStatusCode.OK.setMessage(HttpStatusCode.OK.message));
+    }
+
+    @Test
+    public void testSetMessage() {
+        final String message = "Message something something2";
+        final HttpStatusCode code = HttpStatusCode.MOVED_TEMPORARILY;
+        final HttpStatus status = code.setMessage(message);
+        assertEquals("code", code, status.value());
+        assertEquals("message", message, status.message());
     }
 
     @Override
