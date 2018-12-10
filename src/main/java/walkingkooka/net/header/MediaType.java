@@ -74,7 +74,7 @@ final public class MediaType implements Value<String>,
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType text types}.
      */
-    public final static MediaType WILDCARD_MEDIA_TYPE = registerConstant(WILDCARD.string(), WILDCARD.string());
+    public final static MediaType ALL = registerConstant(WILDCARD.string(), WILDCARD.string());
 
     /**
      * Holds a {@link MediaType} for binary.
@@ -442,7 +442,7 @@ final public class MediaType implements Value<String>,
 
     /**
      * Tests if the given {@link MediaType} is compatible and understand wildcards that may appear in the type or sub type components. The
-     * {@link MediaType#WILDCARD_MEDIA_TYPE} will of course be compatible with any other {@link MediaType}.
+     * {@link MediaType#ALL} will of course be compatible with any other {@link MediaType}.
      */
     public boolean isCompatible(final MediaType mimeType) {
         Objects.requireNonNull(mimeType, "mimeType");

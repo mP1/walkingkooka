@@ -317,7 +317,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test(expected = NullPointerException.class)
     public void testIsCompatibleNullFails() {
-        MediaType.WILDCARD_MEDIA_TYPE.isCompatible(null);
+        MediaType.ALL.isCompatible(null);
     }
 
     @Test
@@ -334,12 +334,12 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testIsCompatibleAnyAlwaysMatches() {
-        this.isCompatibleCheckTrue(MediaType.WILDCARD_MEDIA_TYPE, MediaType.with("custom", "custom2"));
+        this.isCompatibleCheckTrue(MediaType.ALL, MediaType.with("custom", "custom2"));
     }
 
     @Test
     public void testIsCompatibleAnyAndAnyMatches() {
-        this.isCompatibleCheckTrue(MediaType.WILDCARD_MEDIA_TYPE, MediaType.WILDCARD_MEDIA_TYPE);
+        this.isCompatibleCheckTrue(MediaType.ALL, MediaType.ALL);
     }
 
     @Test
