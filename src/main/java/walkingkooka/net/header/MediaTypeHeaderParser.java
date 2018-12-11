@@ -83,7 +83,7 @@ abstract class MediaTypeHeaderParser extends HeaderParser<MediaTypeParameterName
     }
 
     private void quotedParameterValue() {
-        final int start = this.position;
+        final int start = this.position -1;
         boolean escaping = false;
 
         Exit:
@@ -113,7 +113,7 @@ abstract class MediaTypeHeaderParser extends HeaderParser<MediaTypeParameterName
                     escaping = true;
                     break;
                 case DOUBLE_QUOTE:
-                    this.addParameter(this.text.substring(start, this.position-1));
+                    this.addParameter(this.text.substring(start, this.position)); // include the open/closing quotes
                     break Exit;
                 default:
                     break;
