@@ -61,7 +61,7 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
 
     @Test
     public final void testHeaderText() {
-        assertEquals(this.charsetNameToString(), this.createCharsetName().toHeaderText());
+        this.toHeaderTextAndCheck(this.charsetNameToString());
     }
 
     @Test

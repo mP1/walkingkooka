@@ -166,7 +166,7 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Test
     public void testToHeaderText() {
-        assertEquals("cookie123=value456;", this.createCookie().toHeaderText());
+        this.toHeaderTextAndCheck("cookie123=value456;");
     }
 
     // toHeaderTextList ................................................................

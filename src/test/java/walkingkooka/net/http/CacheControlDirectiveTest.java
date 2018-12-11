@@ -179,6 +179,19 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
                         CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))));
     }
 
+    // toHeaderText ...............................................................
+
+    @Test
+    public void testToHeaderTextMaxAge() {
+        this.toHeaderTextAndCheck(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
+                "max-age=123");
+    }
+
+    @Test
+    public void testToHeaderTextNoCache() {
+        this.toHeaderTextAndCheck(CacheControlDirective.NO_CACHE, "no-cache");
+    }
+
     // toHeaderTextList..........................................................................
 
     @Test(expected = NullPointerException.class)

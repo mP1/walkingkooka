@@ -397,6 +397,49 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         }
     }
 
+    // toHeaderText........................................................................................................
+
+    @Test
+    public void testToHeaderTextParse() {
+        final String text = "type/subtype";
+        assertEquals(text, MediaType.parse(text).toHeaderText());
+    }
+
+    @Test
+    public void testToHeaderTextParseWithParameters() {
+        final String text = "type/subtype;a=b;c=d";
+        assertEquals(text, MediaType.parse(text).toHeaderText());
+    }
+
+    @Test
+    public void testToHeaderTextParseWithParametersWithQuotes() {
+        final String text = "type/subtype;a=b;c=\"d\"";
+        assertEquals(text, MediaType.parse(text).toHeaderText());
+    }
+
+    @Test
+    public void testToHeaderText() {
+        this.toHeaderTextAndCheck(MediaType.with(TYPE, SUBTYPE),
+                TYPE + "/" + SUBTYPE);
+    }
+
+    @Test
+    public void testToHeaderTextWithParameters() {
+        this.toHeaderTextAndCheck(mediaType(), TYPE + "/" + SUBTYPE + ";parameter123=value456");
+    }
+
+    @Test
+    public void testToHeaderTextWithParametersRequireQuotesWhitespace() {
+        this.toHeaderTextAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b c")),
+                "type/subtype; a=\"b c\"");
+    }
+
+    @Test
+    public void testToHeaderTextWithParametersRequireQuotesBackslash() {
+        this.toHeaderTextAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\\c")),
+                "type/subtype; a=\"b\\\\c\"");
+    }
+
     // toString........................................................................................................
 
     @Test
@@ -448,7 +491,6 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     private void toStringAndCheck(final MediaType type, final String toString) {
         assertEquals("toString", toString, type.toString());
-        assertEquals("toHeaderText", toString, type.toHeaderText());
     }
 
     // toHeaderTextList...............................................................................................

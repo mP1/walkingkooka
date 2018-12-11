@@ -84,6 +84,27 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
         this.check(token);
     }
 
+    // toHeaderText ...........................................................................................
+
+    @Test
+    public void testToHeaderTextNoParameters() {
+        this.toHeaderTextAndCheck(CharsetHeaderValue.with(VALUE),
+                VALUE.toHeaderText());
+    }
+
+    @Test
+    public void testToHeaderTextWithParameters() {
+        this.toHeaderTextAndCheck(this.charsetHeaderValue(),
+                VALUE + "; p1=v1");
+    }
+
+    @Test
+    public void testToHeaderTextWithSeveralParameters() {
+        this.toHeaderTextAndCheck(CharsetHeaderValue.with(VALUE)
+                        .setParameters(this.parameters("p1", "v1", "p2", "v2")),
+                VALUE + "; p1=v1; p2=v2");
+    }
+
     // toString ...........................................................................................
 
     @Test
@@ -107,7 +128,6 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     private void toStringAndCheck(final CharsetHeaderValue token, final String toString) {
         assertEquals("toString", toString, token.toString());
-        assertEquals("toHeaderText", toString, token.toHeaderText());
     }
 
     // toHeaderTextList ...........................................................................................

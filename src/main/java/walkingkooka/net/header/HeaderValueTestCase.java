@@ -39,7 +39,15 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends PublicC
         assertEquals(value + " scope", this.httpHeaderScope(), value.httpHeaderScope());
     }
 
+    abstract protected HttpHeaderScope httpHeaderScope();
+
     abstract protected V createHeaderValue();
 
-    abstract protected HttpHeaderScope httpHeaderScope();
+    protected void toHeaderTextAndCheck(final String expected) {
+        this.toHeaderTextAndCheck(this.createHeaderValue(), expected);
+    }
+
+    protected void toHeaderTextAndCheck(final HeaderValue headerValue, final String expected) {
+        assertEquals("headerText of " + headerValue, expected, headerValue.toHeaderText());
+    }
 }

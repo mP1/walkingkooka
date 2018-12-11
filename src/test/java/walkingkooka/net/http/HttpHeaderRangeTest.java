@@ -228,6 +228,52 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
                 HttpHeaderRange.parse(headerValue));
     }
 
+    // toHeaderText.......................................................
+
+    @Test
+    public void testToHeaderTextOpenRange() {
+        toHeaderTextAndCheck("bytes=123-",
+                UNIT,
+                this.rangeGte123());
+    }
+
+    @Test
+    public void testToHeaderTextClosedRange() {
+        toHeaderTextAndCheck("bytes=123-456",
+                UNIT,
+                this.rangeGte123().and(this.rangeLte456()));
+    }
+
+    @Test
+    public void testToHeaderTextClosedRange2() {
+        toHeaderTextAndCheck("kb=123-456",
+                "kb",
+                this.rangeGte123().and(this.rangeLte456()));
+    }
+
+    @Test
+    public void testToHeaderTextClosedRangeOpenRange() {
+        toHeaderTextAndCheck("bytes=123-456, 789-",
+                UNIT,
+                this.rangeGte123().and(this.rangeLte456()),
+                this.rangeGte789());
+    }
+
+    @Test
+    public void testToHeaderTextClosedRangeClosedRange() {
+        toHeaderTextAndCheck("bytes=123-456, 789-1000",
+                UNIT,
+                this.rangeGte123().and(this.rangeLte456()),
+                this.rangeGte789().and(this.rangeLte1000()));
+    }
+
+    @SafeVarargs
+    private final void toHeaderTextAndCheck(final String headerText,
+                                            final String unit,
+                                            final Range<Long>... ranges) {
+        this.toHeaderTextAndCheck(this.range(unit, ranges), headerText);
+    }
+
     // toString.......................................................
 
     @Test
@@ -268,10 +314,11 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @SafeVarargs
-    private final void toStringAndCheck(final String toString, final String unit, final Range<Long>... ranges) {
+    private final void toStringAndCheck(final String toString,
+                                        final String unit,
+                                        final Range<Long>... ranges) {
         final HttpHeaderRange range = this.range(unit, ranges);
         assertEquals("toString", toString, range.toString());
-        assertEquals("toHeaderText", toString, range.toHeaderText());
     }
 
     private HttpHeaderRange range() {
