@@ -122,10 +122,10 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see MediaTypeAutoQuotingStringHeaderValueConverter}
+     * {@see MediaTypeParameterAutoQuotingStringHeaderValueConverter}
      */
     public static HeaderValueConverter<String> mediaTypeAutoQuotingString() {
-        return MediaTypeAutoQuotingStringHeaderValueConverter.INSTANCE;
+        return MediaTypeParameterAutoQuotingStringHeaderValueConverter.INSTANCE;
     }
 
     /**

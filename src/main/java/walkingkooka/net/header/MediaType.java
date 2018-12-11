@@ -23,6 +23,7 @@ import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.net.http.HttpHeaderScope;
+import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Whitespace;
@@ -370,9 +371,11 @@ final public class MediaType implements Value<String>,
      * Checks that the value contains valid token characters.
      */
     static String check(final String value, final String label) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, label, MediaTypeHeaderParser.RFC2045TOKEN);
+        CharPredicates.failIfNullOrEmptyOrFalse(value, label, RFC2045TOKEN);
         return value;
     }
+
+    private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
 
     // parameters ...............................................................................................
 

@@ -23,20 +23,24 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
 /**
- * A {@link HeaderValueConverter} that handles quoted and unquoted text values during parsing and auto adds quotes when
- * producing the header value text.
+ * A {@link HeaderValueConverter} that if necessary adds quotes and escape/encodes such characters.
+ * It assumes any {@link String} to be parsed have had any double quotes removed, and adds them
+ * when necessary.
+ * <br>
+ * <a href="https://mimesniff.spec.whatwg.org/#parsing-a-mime-type">mime type</a>
+ * <a href="https://fetch.spec.whatwg.org/#collect-an-http-quoted-string">Quoted string</a>
  */
-final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueConverter2<String> {
+final class MediaTypeParameterAutoQuotingStringHeaderValueConverter extends HeaderValueConverter2<String> {
 
     /**
      * Singleton
      */
-    final static MediaTypeAutoQuotingStringHeaderValueConverter INSTANCE = new MediaTypeAutoQuotingStringHeaderValueConverter();
+    final static MediaTypeParameterAutoQuotingStringHeaderValueConverter INSTANCE = new MediaTypeParameterAutoQuotingStringHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private MediaTypeAutoQuotingStringHeaderValueConverter() {
+    private MediaTypeParameterAutoQuotingStringHeaderValueConverter() {
         super();
     }
 
@@ -54,36 +58,9 @@ final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueCo
         final int last = text.length() -1;
 
         final StringBuilder raw = new StringBuilder();
-        this.parseRange(text, 1, last, raw, name);
-
-        final char c = text.charAt(last);
-        if(DOUBLE_QUOTE != c) {
-            throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(last, text));
-        }
-
-        return raw.toString();
-    }
-
-    /**
-     * Verifies the content of an unquoted text.
-     */
-    private String parseUnquoted(final String text, final Name name) {
-        final StringBuilder raw = new StringBuilder();
-        this.parseRange(text, 0, text.length(), raw, name);
-        return raw.toString();
-    }
-
-    /**
-     * Parses the range of characters verifying all are correct and honours escaping.
-     */
-    private void parseRange(final String text,
-                            final int start,
-                            final int last,
-                            final StringBuilder raw,
-                            final Name name) {
         boolean escaped = false;
 
-        int i = start;
+        int i = 1;
         while (i < last) {
             final char c = text.charAt(i);
             i++;
@@ -97,14 +74,44 @@ final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueCo
                 escaped = true;
                 continue;
             }
-            // TODO possibly non ascii characters are still invalid.
-            raw.append(c);
-
+            if(TOKEN.test(c) || SPECIAL.test(c)) {
+                raw.append(c);
+                continue;
+            }
+            failInvalidCharacter(i, text);
         }
 
         if (escaped) {
-            throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(text.length() - 1, text));
+            failInvalidCharacter(text.length() - 1, text);
         }
+
+        final char c = text.charAt(last);
+        if(DOUBLE_QUOTE != c) {
+            throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(last, text));
+        }
+
+        return raw.toString();
+    }
+
+    /**
+     * Verifies the content of an unquoted text.
+     */
+    private String parseUnquoted(final String text, final Name name) {
+        int i = 0;
+        for(char c : text.toCharArray()) {
+            if(!TOKEN.test(c)) {
+                failInvalidCharacter(i, text);
+            }
+            i++;
+        }
+        return text;
+    }
+
+    /**
+     * Reports an invalid character was encountered.
+     */
+    private void failInvalidCharacter(final int pos, final String text) {
+        throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(pos, text));
     }
 
     @Override
@@ -125,24 +132,24 @@ final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueCo
     @Override
     String toText0(final String value, final Name name) {
         StringBuilder b = new StringBuilder();
-        boolean quoteRequired = false;
+        boolean quotesRequired = false;
 
         for (char c : value.toCharArray()) {
             if (BACKSLASH == c || DOUBLE_QUOTE == c) {
                 b.append(BACKSLASH);
                 b.append(c);
-                quoteRequired = true;
+                quotesRequired = true;
                 continue;
             }
             if (!isTokenCharacter(c)) {
                 b.append(c);
-                quoteRequired = true;
+                quotesRequired = true;
                 continue;
             }
             b.append(c);
         }
 
-        return quoteRequired ?
+        return quotesRequired ?
                 b.insert(0, DOUBLE_QUOTE).append(DOUBLE_QUOTE).toString() :
                 value;
     }
@@ -152,6 +159,7 @@ final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueCo
     }
 
     private final static CharPredicate TOKEN = CharPredicates.rfc2045Token();
+    private final static CharPredicate SPECIAL = CharPredicates.rfc2045TokenSpecial();
 
     private final static char BACKSLASH = '\\';
     private final static char DOUBLE_QUOTE = '"';
@@ -163,6 +171,6 @@ final class MediaTypeAutoQuotingStringHeaderValueConverter extends HeaderValueCo
 
     @Override
     public String toString() {
-        return MediaType.class.getSimpleName() + " " + String.class.getSimpleName();
+        return MediaType.class.getSimpleName() + "Parameter" + String.class.getSimpleName();
     }
 }

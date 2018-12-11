@@ -76,6 +76,10 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
 
     protected abstract C converter();
 
+    protected final T parse(final String value) {
+        return this.converter().parse(value, this.name());
+    }
+
     protected final void parseAndToTextAndCheck(final String text, final T value) {
         this.parseAndCheck(text, value);
         this.toTextAndCheck(value, text);

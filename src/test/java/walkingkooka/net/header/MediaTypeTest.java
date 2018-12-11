@@ -295,6 +295,20 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         assertEquals(MediaType.with("type1", "subtype1"), MediaType.parse("type1/subtype1"));
     }
 
+    @Test
+    public void testParseWithUnquotedParameter() {
+        assertEquals(MediaType.with("type1", "subtype1")
+                        .setParameters(Maps.one(MediaTypeParameterName.with("abc"), "def")),
+                MediaType.parse("type1/subtype1;abc=def"));
+    }
+
+    @Test
+    public void testParseWithQuotedParameter() {
+        assertEquals(MediaType.with("type1", "subtype1")
+                        .setParameters(Maps.one(MediaTypeParameterName.with("abc"), "d,\\ef")),
+                MediaType.parse("type1/subtype1;abc=\"d,\\\\ef\""));
+    }
+
     @Test(expected = NullPointerException.class)
     public void testParseListNullFails() {
         MediaType.parseList(null);
