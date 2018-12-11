@@ -51,7 +51,7 @@ final public class ServerCookie extends Cookie {
     static ServerCookie parseHeader(final String header) {
         Objects.requireNonNull(header, "header");
 
-        final String[] tokens = header.split(Cookie.SEPARATOR);
+        final String[] tokens = header.split(PARAMETER_SEPARATOR.string());
         final int length = tokens.length;
         if (length < 1) {
             throw new IllegalArgumentException(
@@ -60,7 +60,7 @@ final public class ServerCookie extends Cookie {
 
         // first two tokens must be name and value.
         final String nameAndValue = tokens[0];
-        final int nameEnd = nameAndValue.indexOf(Cookie.NAME_VALUE_SEPARATOR.character());
+        final int nameEnd = nameAndValue.indexOf(PARAMETER_NAME_VALUE_SEPARATOR.character());
 
         final CookieName name = CookieName.with(nameAndValue.substring(0, -1 == nameEnd ? nameAndValue.length() : nameEnd).trim());
         final String value = extractValue(nameAndValue);
@@ -76,22 +76,22 @@ final public class ServerCookie extends Cookie {
         for (int i = 1; i < length; i++) {
             final String token = tokens[i].trim();
 
-            if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.DOMAIN + Cookie.NAME_VALUE_SEPARATOR)) {
+            if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.DOMAIN + NAME_VALUE_SEPARATOR)) {
                 domain = Optional.ofNullable(extractValueOrNull(token));
                 continue;
             }
-            if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.PATH + Cookie.NAME_VALUE_SEPARATOR)) {
+            if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.PATH + NAME_VALUE_SEPARATOR)) {
                 path = Optional.ofNullable(extractValueOrNull(token));
                 continue;
             }
-            if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.EXPIRES + Cookie.NAME_VALUE_SEPARATOR)) {
+            if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.EXPIRES + NAME_VALUE_SEPARATOR)) {
                 //  For other browsers, if both (Expires and Max-Age) are set, Max-Age will have precedence.
                 if (!deletion.isPresent()) {
                     deletion = CookieExpires.parseExpires(extractValue(token));
                 }
                 continue;
             }
-            if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.MAX_AGE + Cookie.NAME_VALUE_SEPARATOR)) {
+            if (CaseSensitivity.INSENSITIVE.startsWith(token, Cookie.MAX_AGE + NAME_VALUE_SEPARATOR)) {
                 deletion = CookieDeletion.maxAge(Integer.parseInt(extractValue(token)));
                 continue;
             }
@@ -107,6 +107,8 @@ final public class ServerCookie extends Cookie {
 
         return new ServerCookie(name, value, domain, path, comment, deletion, secure, httpOnly, version);
     }
+
+    private final static char NAME_VALUE_SEPARATOR = '=';
 
     /**
      * Converts a {@link javax.servlet.http.Cookie} into a {@link ServerCookie}.

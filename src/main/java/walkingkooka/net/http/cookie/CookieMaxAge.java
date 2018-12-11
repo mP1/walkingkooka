@@ -89,6 +89,6 @@ final public class CookieMaxAge extends CookieDeletion {
 
     @Override
     public String toString() {
-        return Cookie.MAX_AGE + Cookie.NAME_VALUE_SEPARATOR + this.seconds;
+        return Cookie.MAX_AGE + Cookie.PARAMETER_NAME_VALUE_SEPARATOR + this.seconds;
     }
 }

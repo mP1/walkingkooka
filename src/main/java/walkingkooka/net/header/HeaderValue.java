@@ -43,6 +43,11 @@ public interface HeaderValue extends HashCodeEqualsDefined, HasHttpHeaderScope {
     CharacterConstant PARAMETER_NAME_VALUE_SEPARATOR = CharacterConstant.with('=');
 
     /**
+     * The separator character that separates parameters belonging to a header value.
+     */
+    CharacterConstant PARAMETER_SEPARATOR = CharacterConstant.with(';');
+
+    /**
      * Converts this value to its text form.
      */
     String toHeaderText();

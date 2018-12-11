@@ -40,8 +40,6 @@ import java.util.stream.Collectors;
 public final class HttpHeaderRange implements HeaderValue,
         Value<List<Range<Long>>> {
 
-    public final static CharacterConstant ASSIGNMENT = CharacterConstant.with('=');
-
     public final static CharacterConstant BETWEEN = CharacterConstant.with('-');
 
     /**
@@ -206,7 +204,7 @@ public final class HttpHeaderRange implements HeaderValue,
 
     @Override
     public String toString() {
-        return this.unit + ASSIGNMENT.character() + this.ranges.stream()
+        return this.unit + PARAMETER_NAME_VALUE_SEPARATOR.character() + this.ranges.stream()
                 .map(this::toStringRange)
                 .collect(Collectors.joining(SEPARATOR + " "));
     }

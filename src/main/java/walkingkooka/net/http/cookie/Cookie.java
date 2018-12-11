@@ -26,7 +26,6 @@ import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.net.header.HeaderValue;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
 import java.util.Objects;
@@ -37,16 +36,6 @@ import java.util.Optional;
  * with incorrect values.
  */
 abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
-
-    /**
-     * Attribute or client cookie separator
-     */
-    public final static String SEPARATOR = ";";
-
-    /**
-     * The name/value pair separator
-     */
-    public final static CharacterConstant NAME_VALUE_SEPARATOR = CharacterConstant.with('=');
 
     /**
      * The <code>domain</code> attribute
@@ -77,7 +66,7 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
      * The <code>httpOnly</code> attribute
      */
     public final static String HTTP_ONLY = "httpOnly";
-
+    
     /**
      * {@see ClientCookie#parseHeader(String)}.
      */
@@ -124,7 +113,7 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
      * Extracts the value portion of a token.
      */
     private static String extractValue0(final String source, final String absent) {
-        final int equals = source.indexOf(Cookie.NAME_VALUE_SEPARATOR.character());
+        final int equals = source.indexOf(PARAMETER_NAME_VALUE_SEPARATOR.character());
         return -1 == equals ? absent : source.substring(equals + 1);
     }
 
@@ -337,7 +326,7 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
 
     @Override
     public final void buildToString(final ToStringBuilder builder) {
-        builder.separator(Cookie.SEPARATOR);
+        builder.separator(PARAMETER_SEPARATOR.string());
         builder.disable(ToStringBuilderOption.QUOTE);
         builder.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
 
@@ -345,7 +334,7 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
         builder.value(CharSequences.quoteIfNecessary(this.value));
 
         this.appendAttributes(builder);
-        builder.append(Cookie.SEPARATOR);
+        builder.append(PARAMETER_SEPARATOR);
     }
 
     abstract void appendAttributes(final ToStringBuilder builder);
