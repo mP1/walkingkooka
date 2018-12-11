@@ -18,6 +18,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -78,16 +79,16 @@ final class MediaTypeParameterAutoQuotingStringHeaderValueConverter extends Head
                 raw.append(c);
                 continue;
             }
-            failInvalidCharacter(i, text);
+            throw new InvalidCharacterException(text, i);
         }
 
         if (escaped) {
-            failInvalidCharacter(text.length() - 1, text);
+            throw new InvalidCharacterException(text, text.length() - 1);
         }
 
         final char c = text.charAt(last);
         if(DOUBLE_QUOTE != c) {
-            throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(last, text));
+            throw new InvalidCharacterException(text, last);
         }
 
         return raw.toString();
@@ -100,18 +101,11 @@ final class MediaTypeParameterAutoQuotingStringHeaderValueConverter extends Head
         int i = 0;
         for(char c : text.toCharArray()) {
             if(!TOKEN.test(c)) {
-                failInvalidCharacter(i, text);
+                throw new InvalidCharacterException(text, i);
             }
             i++;
         }
         return text;
-    }
-
-    /**
-     * Reports an invalid character was encountered.
-     */
-    private void failInvalidCharacter(final int pos, final String text) {
-        throw new HeaderValueException(MediaTypeHeaderParser.invalidCharacter(pos, text));
     }
 
     @Override

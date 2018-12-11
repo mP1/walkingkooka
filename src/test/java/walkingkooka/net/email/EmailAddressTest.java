@@ -22,6 +22,7 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.PublicClassTestCase;
 import walkingkooka.text.CharSequences;
@@ -102,7 +103,7 @@ final public class EmailAddressTest extends PublicClassTestCase<EmailAddress> {
     private void invalidUserNameCharacter(final String email, final char c) {
         final int at = email.indexOf(c);
         assertNotEquals("invalid character '" + c + "' does not appear in email=" + email, -1, at);
-        this.fails(email, EmailAddress.invalidCharacter(email, at));
+        this.fails(email, new InvalidCharacterException(email, at).getMessage());
     }
 
     @Test
@@ -132,7 +133,7 @@ final public class EmailAddressTest extends PublicClassTestCase<EmailAddress> {
     @Test
     public void testDoubleDotFails() {
         final String email = "use..r@serve";
-        this.fails(email, EmailAddress.invalidCharacter(email, email.indexOf("..") + 1));
+        this.fails(email, new InvalidCharacterException(email, email.indexOf("..") + 1).getMessage());
     }
 
     @Test

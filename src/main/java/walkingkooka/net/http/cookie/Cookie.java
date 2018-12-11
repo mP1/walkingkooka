@@ -19,6 +19,7 @@
 package walkingkooka.net.http.cookie;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
@@ -173,7 +174,7 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
             final char first = value.charAt(0);
             if ('"' == first) {
                 if (length == 1) {
-                    throw new IllegalArgumentException(invalidCharacter(first, 0, value));
+                    throw new InvalidCharacterException(value, 0);
                 }
 
                 // check characters within quotes
@@ -183,7 +184,7 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
                 // verify closing double quote present
                 final char last = value.charAt(secondLast);
                 if ('"' != last) {
-                    throw new IllegalArgumentException(invalidCharacter(last, secondLast, value));
+                    throw new InvalidCharacterException(value, secondLast);
                 }
 
                 start = 1;
@@ -213,16 +214,8 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
             if (c >= 0x5d && c <= 0x7e) {
                 continue;
             }
-            throw new IllegalArgumentException(invalidCharacter(c, i, value));
+            throw new InvalidCharacterException(value, i);
         }
-    }
-
-    /**
-     * Fires a message
-     */
-    private static String invalidCharacter(final char c, final int at, final String value) {
-        return "Invalid character " + CharSequences.quoteAndEscape(c) + " at " + at + "="
-                + CharSequences.quoteAndEscape(value);
     }
 
     /**

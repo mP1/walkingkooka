@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.PackagePrivateClassTestCase;
 import walkingkooka.text.CharSequences;
 
@@ -65,7 +66,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser<N>,
     }
 
     final void parseFails(final String text, final int pos) {
-        parseFails(text, HeaderParser.invalidCharacter(pos, text));
+        parseFails(text, new InvalidCharacterException(text, pos).getMessage());
     }
 
     final void parseFails(final String text, final String message) {
