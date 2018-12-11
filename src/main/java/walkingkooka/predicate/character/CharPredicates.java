@@ -17,6 +17,7 @@
 
 package walkingkooka.predicate.character;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
@@ -130,7 +131,7 @@ final public class CharPredicates implements PublicStaticHelper {
         CharSequences.failIfNullOrEmpty(label, "label");
         Objects.requireNonNull(predicate, "predicate");
 
-        checkCharacters(chars, label, predicate);
+        checkCharacters(chars, predicate);
     }
 
     /**
@@ -144,20 +145,19 @@ final public class CharPredicates implements PublicStaticHelper {
         CharSequences.failIfNullOrEmpty(label, "label");
         Objects.requireNonNull(predicate, "predicate");
 
-        checkCharacters(chars, label, predicate);
+        checkCharacters(chars, predicate);
     }
 
     /**
      * Checks that all characters pass the {@link CharPredicate} test.
      */
     private static void checkCharacters(final CharSequence chars,
-                                        final String label,
                                         final CharPredicate predicate) {
         final int length = chars.length();
         for (int i = 0; i < length; i++) {
             final char c = chars.charAt(i);
             if (!predicate.test(c)) {
-                failInvalidCharacter(label, chars, c, " at position " + i + " expected " + predicate);
+                throw new InvalidCharacterException(chars.toString(), i);
             }
         }
     }
@@ -177,25 +177,16 @@ final public class CharPredicates implements PublicStaticHelper {
 
         final char first = chars.charAt(0);
         if (!initial.test(first)) {
-            failInvalidCharacter(label, chars, first, " expected " + initial);
+            throw new InvalidCharacterException(chars.toString(), 0);
         }
 
         final int length = chars.length();
         for (int i = 1; i < length; i++) {
             final char c = chars.charAt(i);
             if (!part.test(c)) {
-                failInvalidCharacter(label, chars, c, " at position " + i + " expected " + part);
+                throw new InvalidCharacterException(chars.toString(), i);
             }
         }
-    }
-
-    private static void failInvalidCharacter(final String label,
-                                             final CharSequence chars,
-                                             final char c,
-                                             final String middleText) {
-        throw new IllegalArgumentException(label + " contains invalid char " +
-                CharSequences.quoteIfChars(c) + middleText + " =" +
-                CharSequences.quoteAndEscape(chars));
     }
 
     /**

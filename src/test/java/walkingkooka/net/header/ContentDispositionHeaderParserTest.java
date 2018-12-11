@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
 import java.time.OffsetDateTime;
@@ -329,7 +330,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
 
     @Test
     public void testTypeParameterSeparatorQuoteInvalidCharacterFails() {
-        this.parseFails("V1;p1=\"/", "Invalid character '/' at 7 in \"V1;p1=\\\"/\"");
+        this.parseFails("V1;p1=\"/", new InvalidCharacterException("V1;p1=\"/", 7).getMessage());
     }
 
     // parse creation-date............................................................................................

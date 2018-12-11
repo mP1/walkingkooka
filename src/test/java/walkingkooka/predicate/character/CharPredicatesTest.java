@@ -19,13 +19,10 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.PublicStaticHelperTestCase;
-import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPredicates> {
 
@@ -51,47 +48,38 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
         CharPredicates.failIfNullOrFalse("ABC", "", predicate());
     }
 
-    @Test
+    @Test(expected = InvalidCharacterException.class)
     public void testFailIfNullOrFalseTestFails() {
-        this.failIfNullOrFalseAndFail("98", "TEXT contains invalid char '9' at position 0 expected letter =\"98\"");
+        this.failIfNullOrFalse("98");
     }
 
-    @Test
+    @Test(expected = InvalidCharacterException.class)
     public void testFailIfNullOrFalseTestFails2() {
-        this.failIfNullOrFalseAndFail("A1", "TEXT contains invalid char '1' at position 1 expected letter =\"A1\"");
+        this.failIfNullOrFalse("A1");
     }
 
     @Test
-    public void testFailIfNullOrFalseEmpty() {
-        this.failIfNullOrFalseAndCheck("");
+    public void testFailIfNullOrFalseEmptyFail() {
+        this.failIfNullOrFalse("");
     }
 
     @Test
     public void testFailIfNullOrFalsePass() {
-        this.failIfNullOrFalseAndCheck("A");
+        this.failIfNullOrFalse("A");
     }
 
     @Test
     public void testFailIfNullOrFalsePass2() {
-        this.failIfNullOrFalseAndCheck("AB");
+        this.failIfNullOrFalse("AB");
     }
 
     @Test
     public void testFailIfNullOrFalsePass3() {
-        this.failIfNullOrFalseAndCheck("ABCDEFGH");
+        this.failIfNullOrFalse("ABCDEFGH");
     }
 
-    private void failIfNullOrFalseAndCheck(final String text) {
+    private void failIfNullOrFalse(final String text) {
         CharPredicates.failIfNullOrFalse(text, "TEXT", CharPredicates.letter());
-    }
-
-    private void failIfNullOrFalseAndFail(final String text, final String message) {
-        try {
-            CharPredicates.failIfNullOrFalse(text, "TEXT", predicate());
-            fail("Expected failure on " + CharSequences.quote(text));
-        } catch (final IllegalArgumentException expected) {
-            assertEquals("exception message different for " + CharSequences.quote(text), message, expected.getMessage());
-        }
     }
 
     // failIfNullOrEmptyOrFalse ............................................................
@@ -121,42 +109,33 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
         CharPredicates.failIfNullOrEmptyOrFalse("ABC", "TEXT", null);
     }
 
-    @Test
+    @Test(expected = InvalidCharacterException.class)
     public void testFailIfNullOrEmptyOrFalseTestFails() {
-        this.failIfNullOrEmptyOrFalseAndFail("98", "TEXT contains invalid char '9' at position 0 expected letter =\"98\"");
+        this.failIfNullOrEmptyOrFalse("98");
     }
 
-    @Test
+    @Test(expected = InvalidCharacterException.class)
     public void testFailIfNullOrEmptyOrFalseTestFails2() {
-        this.failIfNullOrEmptyOrFalseAndFail("A1", "TEXT contains invalid char '1' at position 1 expected letter =\"A1\"");
+        this.failIfNullOrEmptyOrFalse("A1");
     }
 
     @Test
     public void testFailIfNullOrEmptyOrFalsePassInitialOnly() {
-        this.failIfNullOrEmptyOrFalseAndCheck("A");
+        this.failIfNullOrEmptyOrFalse("A");
     }
 
     @Test
     public void testFailIfNullOrEmptyOrFalsePasses2() {
-        this.failIfNullOrEmptyOrFalseAndCheck("AB");
+        this.failIfNullOrEmptyOrFalse("AB");
     }
 
     @Test
     public void testFailIfNullOrEmptyOrFalsePasses3() {
-        this.failIfNullOrEmptyOrFalseAndCheck("ABCDEFGH");
+        this.failIfNullOrEmptyOrFalse("ABCDEFGH");
     }
 
-    private void failIfNullOrEmptyOrFalseAndCheck(final String text) {
+    private void failIfNullOrEmptyOrFalse(final String text) {
         CharPredicates.failIfNullOrEmptyOrFalse(text, "TEXT", CharPredicates.letter());
-    }
-
-    private void failIfNullOrEmptyOrFalseAndFail(final String text, final String message) {
-        try {
-            CharPredicates.failIfNullOrEmptyOrFalse(text, "TEXT", predicate());
-            fail("Expected failure on " + CharSequences.quote(text));
-        } catch (final IllegalArgumentException expected) {
-            assertEquals("exception message different for " + CharSequences.quote(text), message, expected.getMessage());
-        }
     }
 
     private CharPredicate predicate() {
@@ -199,16 +178,14 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse("ABC", "TEXT", PREDICATE, null);
     }
 
-    @Test
+    @Test(expected = InvalidCharacterException.class)
     public void testFailIfNullOrEmptyOrInitialAndPartFalseInitialTestFails() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndFail("98",
-                "TEXT contains invalid char '9' expected letter =\"98\"");
+        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("98");
     }
 
-    @Test
+    @Test(expected = InvalidCharacterException.class)
     public void testFailIfNullOrEmptyOrInitialAndPartFalsePartTestFails() {
-        this.failIfNullOrEmptyOrInitialAndPartFalseAndFail("AB",
-                "TEXT contains invalid char 'B' at position 1 expected digit =\"AB\"");
+        this.failIfNullOrEmptyOrInitialAndPartFalseAndCheck("AB");
     }
 
     @Test
@@ -231,15 +208,6 @@ public final class CharPredicatesTest extends PublicStaticHelperTestCase<CharPre
                 "TEXT",
                 CharPredicates.letter(),
                 CharPredicates.digit());
-    }
-
-    private void failIfNullOrEmptyOrInitialAndPartFalseAndFail(final String text, final String message) {
-        try {
-            failIfNullOrEmptyOrInitialAndPartFalseAndCheck(text);
-            fail("Expected failure on " + CharSequences.quote(text));
-        } catch (final IllegalArgumentException expected) {
-            assertEquals("exception message different for " + CharSequences.quote(text), message, expected.getMessage());
-        }
     }
 
     @Override

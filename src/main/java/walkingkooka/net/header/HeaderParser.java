@@ -18,6 +18,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.NeverError;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -69,11 +70,15 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
     }
 
     final void parse() {
-        final int length = this.text.length();
-        while(this.position < length) {
-            this.mode.accept(this);
+        try {
+            final int length = this.text.length();
+            while (this.position < length) {
+                this.mode.accept(this);
+            }
+            this.mode.endOfText(this);
+        } catch (final InvalidCharacterException cause) {
+            throw new HeaderValueException(cause.getMessage(), cause);
         }
-        this.mode.endOfText(this);
     }
 
     /**
@@ -83,11 +88,16 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
     final <V> V parseValue(final CharPredicate predicate,
                            final String tokenName,
                            final Function<String, V> factory) {
+        final int start = this.position;
         final String value = this.tokenText(predicate);
 
         this.failNotIfWhitespaceOrParameterSeparatorOrSeparator();
 
-        return factory.apply(value);
+        try {
+            return factory.apply(value);
+        } catch (final InvalidCharacterException cause) {
+            throw cause.setTextAndPosition(this.text, start + cause.position());
+        }
     }
 
     /**
@@ -97,6 +107,7 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
     final void parseParameterName(final CharPredicate predicate, final Function<String, N> factory) {
         final String parameterName = this.tokenText(predicate);
 
+        final int start = this.position;
         if(this.hasMoreCharacters()) {
             for(;;) {
                 final char c = this.character();
@@ -114,7 +125,11 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
             this.failEmptyToken(PARAMETER_NAME);
         }
 
-        this.parameterName = factory.apply(parameterName);
+        try {
+            this.parameterName = factory.apply(parameterName);
+        } catch (final InvalidCharacterException cause) {
+            throw cause.setTextAndPosition(this.text, start + cause.position());
+        }
     }
 
     /**
@@ -262,14 +277,7 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
      * Reports an invalid character within the unparsed text.
      */
     final void failInvalidCharacter() {
-        fail(invalidCharacter(this.position, this.text));
-    }
-
-    /**
-     * Builds a message to report an invalid or unexpected character.
-     */
-    static String invalidCharacter(final int position, final String text) {
-        return "Invalid character " + CharSequences.quoteIfChars(text.charAt(position)) + " at " + position + " in " + CharSequences.quoteAndEscape(text);
+        throw new InvalidCharacterException(this.text, this.position);
     }
 
     final void failEmptyParameterValue() {

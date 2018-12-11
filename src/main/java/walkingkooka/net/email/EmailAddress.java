@@ -85,13 +85,6 @@ final public class EmailAddress implements Value<String>, HashCodeEqualsDefined,
     }
 
     /**
-     * Message when an email contains an invalid character
-     */
-    static String invalidCharacter(final String address, final int at) {
-        return "Invalid character '" + address.charAt(at) + "' at " + at + "=" + CharSequences.quote(address);
-    }
-
-    /**
      * Unconditionally creates a new {@link EmailAddress}
      */
     static EmailAddress with0(final String address, final String user, final HostAddress host) {

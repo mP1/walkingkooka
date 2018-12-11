@@ -18,6 +18,8 @@
 
 package walkingkooka.net.email;
 
+import walkingkooka.InvalidCharacterException;
+
 /**
  * The {@link EmailAddressParser} which throws an {@link IllegalArgumentException} on any failed tests.
  */
@@ -53,7 +55,7 @@ final class EmailAddressParserWith extends EmailAddressParser {
 
     @Override
     void invalidCharacter(final String address, final int at) {
-        this.fail(EmailAddress.invalidCharacter(address, at));
+        throw new InvalidCharacterException(address, at);
     }
 
     @Override
