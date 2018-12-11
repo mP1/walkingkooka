@@ -277,6 +277,13 @@ final public class CharPredicates implements PublicStaticHelper {
     }
 
     /**
+     * {@see Rfc2045TokenSpecialCharPredicate}
+     */
+    public static CharPredicate rfc2045TokenSpecial() {
+        return Rfc2045TokenSpecialCharPredicate.INSTANCE;
+    }
+
+    /**
      * {@see ToStringCharPredicate}.
      */
     public static CharPredicate toString(final CharPredicate predicate, final String toString) {

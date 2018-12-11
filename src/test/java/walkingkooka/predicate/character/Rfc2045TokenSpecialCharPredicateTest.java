@@ -36,86 +36,11 @@ import static org.junit.Assert.assertEquals;
  *                    ; to use within parameter values
  * </pre>
  */
-public final class Rfc2045TokenCharPredicateTest extends CharPredicateTestCase<Rfc2045TokenCharPredicate> {
+public final class Rfc2045TokenSpecialCharPredicateTest extends CharPredicateTestCase<Rfc2045TokenSpecialCharPredicate> {
 
     @Test
     public void testNulCharFails() {
         this.testFalse('\0');
-    }
-
-    @Test
-    public void testParenOpenFails() {
-        this.testFalse('(');
-    }
-
-    @Test
-    public void testParenCloseFails() {
-        this.testFalse(')');
-    }
-
-    @Test
-    public void testLessThanFails() {
-        this.testFalse('<');
-    }
-
-    @Test
-    public void testGreaterThanFails() {
-        this.testFalse('>');
-    }
-
-    @Test
-    public void testAtSignFails() {
-        this.testFalse('@');
-    }
-
-    @Test
-    public void testCommaFails() {
-        this.testFalse(',');
-    }
-
-    @Test
-    public void testSemiColonFails() {
-        this.testFalse(';');
-    }
-
-    @Test
-    public void testColonFails() {
-        this.testFalse(':');
-    }
-
-    @Test
-    public void testBackslashFails() {
-        this.testFalse('\\');
-    }
-
-    @Test
-    public void testDoubleQuoteFails() {
-        this.testFalse('"');
-    }
-
-    @Test
-    public void testForwardSlashFails() {
-        this.testFalse('/');
-    }
-
-    @Test
-    public void testBracketOpenFails() {
-        this.testFalse('[');
-    }
-
-    @Test
-    public void testBracketCloseFails() {
-        this.testFalse(']');
-    }
-
-    @Test
-    public void testQuestionMarkFails() {
-        this.testFalse('?');
-    }
-
-    @Test
-    public void testEqualsSignFails() {
-        this.testFalse('=');
     }
 
     @Test
@@ -124,51 +49,126 @@ public final class Rfc2045TokenCharPredicateTest extends CharPredicateTestCase<R
     }
 
     @Test
-    public void testLowercase() {
+    public void testParenOpen() {
+        this.testTrue('(');
+    }
+
+    @Test
+    public void testParenClose() {
+        this.testTrue(')');
+    }
+
+    @Test
+    public void testLessThan() {
+        this.testTrue('<');
+    }
+
+    @Test
+    public void testGreaterThan() {
+        this.testTrue('>');
+    }
+
+    @Test
+    public void testAtSign() {
+        this.testTrue('@');
+    }
+
+    @Test
+    public void testComma() {
+        this.testTrue(',');
+    }
+
+    @Test
+    public void testSemiColon() {
+        this.testTrue(';');
+    }
+
+    @Test
+    public void testColon() {
+        this.testTrue(':');
+    }
+
+    @Test
+    public void testBackslash() {
+        this.testTrue('\\');
+    }
+
+    @Test
+    public void testDoubleQuote() {
+        this.testTrue('"');
+    }
+
+    @Test
+    public void testForwardSlash() {
+        this.testTrue('/');
+    }
+
+    @Test
+    public void testBracketOpen() {
+        this.testTrue('[');
+    }
+
+    @Test
+    public void testBracketClose() {
+        this.testTrue(']');
+    }
+
+    @Test
+    public void testQuestionMark() {
+        this.testTrue('?');
+    }
+
+    @Test
+    public void testEqualsSign() {
+        this.testTrue('=');
+    }
+
+    @Test
+    public void testLowercaseFails() {
         for(char c : "abcdefghijklmnopqrstuvwxyz".toCharArray()) {
-            this.testTrue(c);
+            this.testFalse(c);
         }
     }
 
     @Test
-    public void testUppercase() {
+    public void testUppercaseFails() {
         for(char c : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
-            this.testTrue(c);
+            this.testFalse(c);
         }
     }
 
     @Test
-    public void testDigits() {
+    public void testDigitsFails() {
         for(char c : "0123456789".toCharArray()) {
-            this.testTrue(c);
+            this.testFalse(c);
         }
     }
 
     @Test
-    public void testRfc2045SpecialCharPredicateFails() {
+    public void testRfc2045TokenCharPredicateFails() {
+        final CharPredicate special = Rfc2045TokenSpecialCharPredicate.INSTANCE;
         final CharPredicate rfc2045 = CharPredicates.rfc2045Token();
-        final CharPredicate special = CharPredicates.rfc2045TokenSpecial();
 
         for(int i= 0; i < Character.MAX_VALUE; i++) {
             final char c = (char)i;
-            if(rfc2045.test(c)) {
-                this.testFalse(special, c);
+            if(special.test(c)) {
+                this.testFalse(rfc2045, c);
             }
         }
     }
 
     @Test
     public void testToString() {
-        assertEquals("RFC2045Token", this.createCharacterPredicate().toString());
+        assertEquals("RFC2045TokenSpecial", this.createCharacterPredicate().toString());
     }
 
     @Override
-    protected Rfc2045TokenCharPredicate createCharacterPredicate() {
-        return Rfc2045TokenCharPredicate.INSTANCE;
+    protected Rfc2045TokenSpecialCharPredicate createCharacterPredicate() {
+        return Rfc2045TokenSpecialCharPredicate.INSTANCE;
     }
 
     @Override
-    protected Class<Rfc2045TokenCharPredicate> type() {
-        return Rfc2045TokenCharPredicate.class;
+    protected Class<Rfc2045TokenSpecialCharPredicate> type() {
+        return Rfc2045TokenSpecialCharPredicate.class;
     }
 }

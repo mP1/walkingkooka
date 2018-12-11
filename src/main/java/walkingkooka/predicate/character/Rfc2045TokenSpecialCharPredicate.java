@@ -19,20 +19,20 @@
 package walkingkooka.predicate.character;
 
 /**
- * A {@link CharPredicate} that only matches characters that are valid http tokens as specified by RFC2045.
+ * A {@link CharPredicate} that only the tspecial characters defined at.
  * <a href="https://tools.ietf.org/html/rfc2045#page-5"></a>
  */
-final class Rfc2045TokenCharPredicate implements CharPredicate {
+final class Rfc2045TokenSpecialCharPredicate implements CharPredicate {
 
     /**
      * Singleton.
      */
-    final static Rfc2045TokenCharPredicate INSTANCE = new Rfc2045TokenCharPredicate();
+    final static Rfc2045TokenSpecialCharPredicate INSTANCE = new Rfc2045TokenSpecialCharPredicate();
 
     /**
      * Private ctor use singleton
      */
-    private Rfc2045TokenCharPredicate() {
+    private Rfc2045TokenSpecialCharPredicate() {
         super();
     }
 
@@ -50,12 +50,16 @@ final class Rfc2045TokenCharPredicate implements CharPredicate {
      * </pre>
      */
     @Override
-    public boolean test(char c) {
-        return c > ' ' && c < 127 && false == Rfc2045TokenSpecialCharPredicate.specialTest(c);
+    public boolean test(final char c) {
+        return specialTest(c);
+    }
+
+    static boolean specialTest(final char c) {
+        return "()<>@,;:\\\"/[]?=".indexOf(c) != -1;
     }
 
     @Override
     public String toString() {
-        return "RFC2045Token";
+        return "RFC2045TokenSpecial";
     }
 }
