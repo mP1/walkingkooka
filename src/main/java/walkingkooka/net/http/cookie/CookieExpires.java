@@ -127,7 +127,7 @@ final public class CookieExpires extends CookieDeletion {
 
     @Override
     public String toString() {
-        return Cookie.EXPIRES + Cookie.NAME_VALUE_SEPARATOR + FORMATTER.format(this.dateTime);
+        return Cookie.EXPIRES + Cookie.PARAMETER_NAME_VALUE_SEPARATOR.character() + FORMATTER.format(this.dateTime);
     }
 
     // https://tools.ietf.org/html/rfc7231#section-7.1.1.2

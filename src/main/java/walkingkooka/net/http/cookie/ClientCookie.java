@@ -62,13 +62,13 @@ final public class ClientCookie extends Cookie {
     public static List<ClientCookie> parseHeader(final String header) {
         Whitespace.failIfNullOrEmptyOrWhitespace(header, "header");
 
-        final char separator = Cookie.NAME_VALUE_SEPARATOR.character();
+        final char nameValueSeparator = PARAMETER_NAME_VALUE_SEPARATOR.character();
         final List<ClientCookie> cookies = Lists.array();
-        final String[] tokens = header.split(Cookie.SEPARATOR);
+        final String[] tokens = header.split(PARAMETER_SEPARATOR.string());
 
         for (int i = 0; i < tokens.length; i++) {
             final String token = tokens[i];
-            final int nameEnd = token.indexOf(separator);
+            final int nameEnd = token.indexOf(nameValueSeparator);
             cookies.add(Cookie.client(//
                     CookieName.with(token.substring(0, -1 == nameEnd ? token.length() : nameEnd).trim()), // name
                     Cookie.extractValue(token))); // value

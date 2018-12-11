@@ -199,12 +199,12 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
 
     @Test
     public void testToString() {
-        assertEquals(NAME + "=" + VALUE + Cookie.SEPARATOR, ClientCookie.with(NAME, VALUE).toString());
+        assertEquals("cookie123=value456;", ClientCookie.with(NAME, VALUE).toString());
     }
 
     @Test
     public void testToStringWithoutValue() {
-        assertEquals(NAME + "=" + Cookie.SEPARATOR, ClientCookie.with(NAME, "").toString());
+        assertEquals("cookie123=;", ClientCookie.with(NAME, "").toString());
     }
 
     private ClientCookie createCookie(final String name, final String value) {
