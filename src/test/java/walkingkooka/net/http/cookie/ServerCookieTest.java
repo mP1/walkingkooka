@@ -801,17 +801,16 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
 
     @Test
     public void testToHeaderText() {
-        assertEquals("cookie123=value456;", //
-                ServerCookie.with(NAME,
-                        VALUE,
-                        ServerCookie.NO_DOMAIN,
-                        ServerCookie.NO_PATH,
-                        ServerCookie.NO_COMMENT,
-                        ServerCookie.NO_DELETION,
-                        CookieSecure.ABSENT,
-                        CookieHttpOnly.ABSENT,
-                        VERSION)
-                        .toHeaderText());
+        this.toHeaderTextAndCheck(ServerCookie.with(NAME,
+                VALUE,
+                ServerCookie.NO_DOMAIN,
+                ServerCookie.NO_PATH,
+                ServerCookie.NO_COMMENT,
+                ServerCookie.NO_DELETION,
+                CookieSecure.ABSENT,
+                CookieHttpOnly.ABSENT,
+                VERSION),
+                "cookie123=value456;");
     }
 
     // toString.....................................................................................

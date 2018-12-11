@@ -104,6 +104,27 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
         this.check(token);
     }
 
+    // toHeaderText ...........................................................................................
+
+    @Test
+    public void testToHeaderTextNoParameters() {
+        this.toHeaderTextAndCheck(HeaderValueToken.with(VALUE),
+                "abc");
+    }
+
+    @Test
+    public void testToHeaderTextWithParameters() {
+        this.toHeaderTextAndCheck(this.token(),
+                "abc; p1=v1");
+    }
+
+    @Test
+    public void testToHeaderTextWithSeveralParameters() {
+        this.toHeaderTextAndCheck(HeaderValueToken.with(VALUE)
+                        .setParameters(this.parameters("p1", "v1", "p2", "v2")),
+                "abc; p1=v1; p2=v2");
+    }
+
     // toString ...........................................................................................
 
     @Test
@@ -127,7 +148,6 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     private void toStringAndCheck(final HeaderValueToken token, final String toString) {
         assertEquals("toString", toString, token.toString());
-        assertEquals("toHeaderText", toString, token.toHeaderText());
     }
 
     // toHeaderTextList ...........................................................................................

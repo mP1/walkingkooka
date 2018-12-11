@@ -48,6 +48,20 @@ public final class HttpETagTest extends HeaderValueTestCase<HttpETag> {
         HttpETag.with(VALUE, null);
     }
 
+    // toHeaderText...................................................................
+
+    @Test
+    public void testToHeaderTextString() {
+        this.toHeaderTextAndCheck(HttpETag.with("abc123", HttpETagValidator.STRONG),
+                "\"abc123\"");
+    }
+
+    @Test
+    public void testToHeaderTextWeak() {
+        this.toHeaderTextAndCheck(HttpETag.with("abc123", HttpETagValidator.WEAK),
+                "W/\"abc123\"");
+    }
+
     // toString ...........................................................................................
 
     @Test

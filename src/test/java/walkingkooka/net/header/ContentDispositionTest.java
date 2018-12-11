@@ -77,6 +77,27 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
         this.check(disposition);
     }
 
+    // toHeaderText ...........................................................................................
+
+    @Test
+    public void testToHeaderTextNoParameters() {
+        this.toHeaderTextAndCheck(ContentDisposition.with(TYPE),
+                "attachment");
+    }
+
+    @Test
+    public void testToHeaderTextWithParameters() {
+        this.toHeaderTextAndCheck(this.createHeaderValueWithParameters(),
+                "attachment; p1=v1");
+    }
+
+    @Test
+    public void testToHeaderTextWithSeveralParameters() {
+        this.toHeaderTextAndCheck(ContentDisposition.with(TYPE)
+                        .setParameters(this.parameters("p1", "v1", "p2", "v2")),
+                "attachment; p1=v1; p2=v2");
+    }
+
     // toString ...........................................................................................
 
     @Test
@@ -100,7 +121,6 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     private void toStringAndCheck(final ContentDisposition token, final String toString) {
         assertEquals("toString", toString, token.toString());
-        assertEquals("toHeaderText", toString, token.toHeaderText());
     }
 
     // helpers ...........................................................................................
