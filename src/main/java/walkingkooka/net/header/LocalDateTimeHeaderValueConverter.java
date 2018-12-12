@@ -129,11 +129,6 @@ final class LocalDateTimeHeaderValueConverter extends HeaderValueConverter2<Loca
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(LocalDateTime.class);
     }

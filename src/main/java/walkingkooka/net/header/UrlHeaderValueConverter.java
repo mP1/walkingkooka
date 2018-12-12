@@ -56,11 +56,6 @@ final class UrlHeaderValueConverter extends HeaderValueConverter2<Url> {
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(Url.class);
     }

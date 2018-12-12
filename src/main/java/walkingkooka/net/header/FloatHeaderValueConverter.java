@@ -53,11 +53,6 @@ final class FloatHeaderValueConverter extends HeaderValueConverter2<Float> {
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(Float.class);
     }

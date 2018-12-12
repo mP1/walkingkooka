@@ -131,11 +131,6 @@ final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter2<Off
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(OffsetDateTime.class);
     }

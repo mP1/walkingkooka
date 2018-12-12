@@ -83,11 +83,6 @@ final class MediaTypeParameterAutoQuotingStringHeaderValueConverter extends Quot
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return MediaType.class.getSimpleName() + "Parameter" + String.class.getSimpleName();
     }

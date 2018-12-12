@@ -54,11 +54,6 @@ final class CharsetNameHeaderValueConverter extends HeaderValueConverter2<Charse
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return CharsetName.class.getSimpleName();
     }

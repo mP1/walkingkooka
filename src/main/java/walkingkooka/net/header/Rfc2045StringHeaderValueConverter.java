@@ -69,11 +69,6 @@ final class Rfc2045StringHeaderValueConverter extends HeaderValueConverter2<Stri
     private final static CharPredicate PREDICATE = CharPredicates.rfc2045Token();
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(String.class);
     }

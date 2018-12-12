@@ -56,11 +56,6 @@ final class CharsetHeaderValueListHeaderValueConverter extends HeaderValueConver
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return this.toStringListOf(CharsetHeaderValue.class);
     }

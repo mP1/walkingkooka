@@ -70,9 +70,4 @@ public interface HeaderValueConverter<T> {
      * Formats the value into its header or text equivalent.
      */
     String toText(final T value, final Name name);
-
-    /**
-     * Only if the type parameter is string should this return true.
-     */
-    boolean isString();
 }

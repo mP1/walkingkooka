@@ -59,15 +59,6 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     }
 
     @Test
-    public final void testIsString() {
-        final C converter = this.converter();
-
-        assertEquals(converter + ".isString returned incorrect value",
-                "String".equals(this.requiredPrefix()),
-                converter.isString());
-    }
-
-    @Test
     public final void testToString() {
         assertEquals(this.converterToString(), this.converter().toString());
     }

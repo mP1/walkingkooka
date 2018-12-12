@@ -79,11 +79,6 @@ final class MediaTypeBoundaryHeaderValueConverter extends QuotedHeaderValueConve
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return MediaTypeBoundary.class.getSimpleName();
     }

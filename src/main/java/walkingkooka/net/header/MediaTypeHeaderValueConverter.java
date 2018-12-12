@@ -53,11 +53,6 @@ final class MediaTypeHeaderValueConverter extends HeaderValueConverter2<MediaTyp
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(MediaType.class);
     }

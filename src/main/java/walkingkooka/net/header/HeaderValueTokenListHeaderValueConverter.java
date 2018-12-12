@@ -55,11 +55,6 @@ final class HeaderValueTokenListHeaderValueConverter extends HeaderValueConverte
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringListOf(HeaderValueToken.class);
     }
