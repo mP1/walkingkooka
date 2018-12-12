@@ -30,7 +30,7 @@ import walkingkooka.predicate.character.CharPredicates;
  * <a href="https://mimesniff.spec.whatwg.org/#parsing-a-mime-type">mime type</a>
  * <a href="https://fetch.spec.whatwg.org/#collect-an-http-quoted-string">Quoted string</a>
  */
-final class MediaTypeParameterAutoQuotingStringHeaderValueConverter extends AutoQuotingHeaderValueConverter<String> {
+final class MediaTypeParameterAutoQuotingStringHeaderValueConverter extends QuotedHeaderValueConverter<String> {
 
     /**
      * Singleton
