@@ -187,8 +187,10 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
                 headerValueParameterName :
                 new ContentDispositionParameterName<String>(name,
                         ContentDispositionHeaderParser.RFC2045TOKEN,
-                        HeaderValueConverters.string());
+                        RFC2045);
     }
+
+    private final static HeaderValueConverter RFC2045 = HeaderValueConverters.string(CharPredicates.rfc2045Token());
 
     /**
      * Private constructor use factory.

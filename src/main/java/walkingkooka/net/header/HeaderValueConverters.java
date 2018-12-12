@@ -22,6 +22,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.time.LocalDateTime;
@@ -122,10 +123,10 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see MediaTypeParameterAutoQuotingStringHeaderValueConverter}
+     * {@see MediaTypeParameterHeaderValueConverter}
      */
     public static HeaderValueConverter<String> mediaTypeAutoQuotingString() {
-        return MediaTypeParameterAutoQuotingStringHeaderValueConverter.INSTANCE;
+        return MediaTypeParameterHeaderValueConverter.INSTANCE;
     }
 
     /**
@@ -143,17 +144,11 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see Rfc2045StringHeaderValueConverter}
-     */
-    public static HeaderValueConverter<String> rfc2045String() {
-        return Rfc2045StringHeaderValueConverter.INSTANCE;
-    }
-
-    /**
      * {@see StringHeaderValueConverter}
      */
-    public static HeaderValueConverter<String> string() {
-        return StringHeaderValueConverter.INSTANCE;
+    public static HeaderValueConverter<String> string(final CharPredicate predicate,
+                                                      final StringHeaderValueConverterFeature...features) {
+        return StringHeaderValueConverter.with(predicate, features);
     }
 
     /**

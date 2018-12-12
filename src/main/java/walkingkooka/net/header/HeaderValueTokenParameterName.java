@@ -77,8 +77,10 @@ final public class HeaderValueTokenParameterName<T> implements HeaderParameterNa
         final HeaderValueTokenParameterName httpHeaderValueParameterName = CONSTANTS.get(name);
         return null != httpHeaderValueParameterName ?
                 httpHeaderValueParameterName :
-                new HeaderValueTokenParameterName<String>(name, HeaderValueConverters.string());
+                new HeaderValueTokenParameterName<String>(name, RFC2045);
     }
+
+    private final static HeaderValueConverter RFC2045 = HeaderValueConverters.string(CharPredicates.rfc2045Token());
 
     /**
      * Private constructor use factory.

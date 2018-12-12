@@ -53,7 +53,7 @@ public final class CacheControlDirectiveExtensionHeaderValueConverterTest extend
 
     @Test
     public void testToTextText() {
-        this.toTextAndCheck("abc123", "abc123");
+        this.toTextAndCheck("abc123", "\"abc123\"");
     }
 
     @Test(expected = HeaderValueException.class)

@@ -202,11 +202,17 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * A {@link HeaderValueConverter} that accepts any printable ascii characters.
+     */
+    private final static HeaderValueConverter<String> ASCII_PRINTABLE_STRING_HEADER_VALUE_CONVERTER =
+            HeaderValueConverters.string(CharPredicates.asciiPrintable());
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link String} header values.
      */
     private static HttpHeaderName<String> registerStringConstant(final String header,
                                                                  final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HeaderValueConverters.string());
+        return registerConstant(header, scope, ASCII_PRINTABLE_STRING_HEADER_VALUE_CONVERTER);
     }
 
     /**
@@ -728,7 +734,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<String>(name, HttpHeaderScope.UNKNOWN, HeaderValueConverters.string(), NOT_CONTENT);
+                new HttpHeaderName<String>(name, HttpHeaderScope.UNKNOWN, ASCII_PRINTABLE_STRING_HEADER_VALUE_CONVERTER, NOT_CONTENT);
     }
 
     /**

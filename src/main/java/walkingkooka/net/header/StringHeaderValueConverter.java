@@ -18,42 +18,43 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.naming.Name;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.predicate.character.CharPredicate;
+
+import java.util.Objects;
+import java.util.Set;
 
 /**
- * The most basic and default {@link HeaderValueConverter2} that simply echos any value given to it.
+ * A {@link HeaderValueConverter} that handles string values.
  */
-final class StringHeaderValueConverter extends HeaderValueConverter2<String> {
+abstract class StringHeaderValueConverter extends HeaderValueConverter2<String> {
 
     /**
-     * Singleton
+     * Factory that creates a new {@link StringHeaderValueConverter}.
      */
-    final static StringHeaderValueConverter INSTANCE = new StringHeaderValueConverter();
+    final static StringHeaderValueConverter with(final CharPredicate predicate,
+                                                 final StringHeaderValueConverterFeature...features) {
+        Objects.requireNonNull(predicate, "predicate");
+        Objects.requireNonNull(features, "features");
+
+        final Set<StringHeaderValueConverterFeature> featuresSet = Sets.of(features);
+        return featuresSet.contains(StringHeaderValueConverterFeature.DOUBLE_QUOTES) ?
+                QuotedStringHeaderValueConverter.quoted(predicate, featuresSet.contains(StringHeaderValueConverterFeature.BACKSLASH_ESCAPING)) :
+                UnquotedStringHeaderValueConverter.unquoted(predicate);
+    }
 
     /**
-     * Private ctor use singleton.
+     * Package private to limit sub classing.
      */
-    private StringHeaderValueConverter() {
+    StringHeaderValueConverter(final CharPredicate predicate) {
         super();
+        this.predicate = predicate;
     }
 
-    @Override
-    String parse0(final String value, final Name name) {
-        return value;
-    }
+    final CharPredicate predicate;
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, String.class);
-    }
-
-    @Override
-    String toText0(final String value, final Name name) {
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return toStringType(String.class);
+    public final String toString() {
+        return this.predicate.toString();
     }
 }

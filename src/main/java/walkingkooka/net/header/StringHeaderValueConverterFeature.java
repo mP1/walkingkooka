@@ -18,12 +18,18 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+/**
+ * A collection of features supported by {@link StringHeaderValueConverter}.
+ */
+public enum StringHeaderValueConverterFeature {
 
-public final class QuotedHeaderValueConverterTest extends PackagePrivateClassTestCase<QuotedHeaderValueConverter<Void>> {
-    @Override
-    protected Class<QuotedHeaderValueConverter<Void>> type() {
-        return Cast.to(QuotedHeaderValueConverter.class);
-    }
+    /**
+     * The string text must be surrounded by double quotes.
+     */
+    DOUBLE_QUOTES,
+
+    /**
+     * The string text supports backslash escaping.
+     */
+    BACKSLASH_ESCAPING;
 }
