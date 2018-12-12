@@ -22,6 +22,8 @@ import walkingkooka.naming.Name;
 import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.StringHeaderValueConverterFeature;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 /**
@@ -48,13 +50,21 @@ final class CacheControlDirectiveExtensionHeaderValueConverter extends HttpHeade
     @Override
     Object parse0(final String text, final Name name) throws HeaderValueException, RuntimeException {
         Object value;
-        try {
-            value = LONG.parse(text, name);
-        } catch (final HeaderValueException cause) {
-            value = STRING.parse(text, name);
+
+        if(text.charAt(0) == DOUBLE_QUOTE) {
+            value = QUOTED.parse(text, name);
+        } else {
+            try {
+                value = LONG.parse(text, name);
+            } catch (final HeaderValueException cause) {
+                value = UNQUOTED.parse(text, name);
+            }
         }
+
         return value;
     }
+
+    private final static char DOUBLE_QUOTE = '"';
 
     /**
      * Try checking as a {@link Long} and then {@link String}
@@ -64,30 +74,38 @@ final class CacheControlDirectiveExtensionHeaderValueConverter extends HttpHeade
         try {
             LONG.check(value);
         } catch (final HeaderValueException cause) {
-            STRING.check(value);
+            try {
+                QUOTED.check(value);
+            } catch (final HeaderValueException cause2) {
+                UNQUOTED.check(value);
+            }
         }
     }
 
     @Override
     String toText0(final Object value, final Name name) {
-        String text;
-
-        for (; ; ) {
-            if (value instanceof Long) {
-                text = LONG.toText(Long.class.cast(value), name);
-                break;
-            }
-            if (value instanceof String) {
-                text = STRING.toText(String.class.cast(value), name);
-                break;
-            }
-            throw new HeaderValueException(name + "  value is not a long or string " + CharSequences.quoteIfChars(value));
-        }
-
-        return text;
+        return value instanceof Long ?
+                this.toTextLong(Long.class.cast(value), name) :
+                value instanceof String ?
+                        this.toTextString(String.class.cast(value), name) :
+                    this.failInvalidValue(value, name);
     }
 
-    private final static HeaderValueConverter<String> STRING = HeaderValueConverters.rfc2045String();
+    private String toTextLong(final Long value, final Name name) {
+        return LONG.toText(Long.class.cast(value), name);
+    }
+
+    private String toTextString(final String value, final Name name) {
+        return QUOTED.toText(String.class.cast(value), name);
+    }
+
+    private String failInvalidValue(final Object value, final Name name) {
+        throw new HeaderValueException(name + "  value is not a long or string " + CharSequences.quoteIfChars(value));
+    }
+
+    private final static HeaderValueConverter<String> UNQUOTED = HeaderValueConverters.string(CharPredicates.rfc2045Token());
+    private final static HeaderValueConverter<String> QUOTED = HeaderValueConverters.string(CharPredicates.rfc2045Token(),
+            StringHeaderValueConverterFeature.DOUBLE_QUOTES);
     private final static HeaderValueConverter<Long> LONG = HeaderValueConverters.longConverter();
 
     @Override

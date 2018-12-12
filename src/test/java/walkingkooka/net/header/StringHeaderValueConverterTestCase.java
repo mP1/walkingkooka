@@ -18,27 +18,34 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class StringHeaderValueConverterTest extends
-        PackagePrivateClassTestCase<StringHeaderValueConverter> {
+public abstract class StringHeaderValueConverterTestCase<C extends StringHeaderValueConverter> extends HeaderValueConverterTestCase<C, String>{
 
-    private final static String TEXT = "abc123";
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullPredicateFails() {
-        StringHeaderValueConverter.with(null);
+    StringHeaderValueConverterTestCase() {
+        super();
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullFeaturesFails() {
-        StringHeaderValueConverter.with(CharPredicates.fake(), (StringHeaderValueConverterFeature[]) null);
+    final static String TEXT = "abc123";
+
+    @Override
+    protected final HttpHeaderName<String> name() {
+        return HttpHeaderName.SERVER;
     }
 
     @Override
-    protected Class<StringHeaderValueConverter> type() {
-        return StringHeaderValueConverter.class;
+    protected String value() {
+        return TEXT;
+    }
+
+    @Override
+    protected final String converterToString() {
+        return this.charPredicate().toString();
+    }
+
+    final CharPredicate charPredicate() {
+        return CharPredicates.letter();
     }
 }

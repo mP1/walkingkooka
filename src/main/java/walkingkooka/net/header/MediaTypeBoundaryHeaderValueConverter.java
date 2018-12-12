@@ -26,7 +26,7 @@ import walkingkooka.naming.Name;
  * Content-type: multipart/mixed; boundary="abcdefGHIJK"
  * </pre>
  */
-final class MediaTypeBoundaryHeaderValueConverter extends QuotedHeaderValueConverter<MediaTypeBoundary> {
+final class MediaTypeBoundaryHeaderValueConverter extends HeaderValueConverter2<MediaTypeBoundary> {
 
     /**
      * Singleton
@@ -41,29 +41,17 @@ final class MediaTypeBoundaryHeaderValueConverter extends QuotedHeaderValueConve
     }
 
     @Override
-    boolean allowBackslashEscaping() {
-        return false;
+    MediaTypeBoundary parse0(final String text, final Name name) {
+        final HeaderValueConverter<String> converter = text.charAt(0) == DOUBLEQUOTE ?
+                QUOTED :
+                UNQUOTED;
+        return MediaTypeBoundary.with0(converter.parse(text, name), text);
     }
 
-    @Override
-    boolean isCharacterWithinQuotes(final char c) {
-        return MediaTypeBoundary.PREDICATE.test(c);
-    }
-
-    @Override
-    MediaTypeBoundary createQuotedValue(final String raw, final String text) {
-        return MediaTypeBoundary.with0(raw, text);
-    }
-
-    @Override
-    boolean isCharacterWithoutQuotes(final char c) {
-        return MediaTypeBoundary.PREDICATE.test(c);
-    }
-
-    @Override
-    MediaTypeBoundary createUnquotedValue(final String raw) {
-        return MediaTypeBoundary.with0(raw, raw);
-    }
+    private final static char DOUBLEQUOTE = '"';
+    private final static HeaderValueConverter<String> UNQUOTED = HeaderValueConverters.string(MediaTypeBoundary.PREDICATE);
+    private final static HeaderValueConverter<String> QUOTED = HeaderValueConverters.string(MediaTypeBoundary.PREDICATE,
+            StringHeaderValueConverterFeature.DOUBLE_QUOTES);
 
     @Override
     void check0(final Object value) {

@@ -22,14 +22,14 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.net.http.HttpHeaderName;
 
-public final class MediaTypeParameterAutoQuotingStringHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<MediaTypeParameterAutoQuotingStringHeaderValueConverter, String> {
+public final class MediaTypeParameterHeaderValueConverterTest extends
+        HeaderValueConverterTestCase<MediaTypeParameterHeaderValueConverter, String> {
 
     private final static String TEXT = "abc123";
 
     @Override
     protected String requiredPrefix() {
-        return MediaType.class.getSimpleName() + "ParameterAutoQuoting" + String.class.getSimpleName();
+        return MediaType.class.getSimpleName() + "Parameter";
     }
 
     @Test
@@ -144,8 +144,8 @@ public final class MediaTypeParameterAutoQuotingStringHeaderValueConverterTest e
     }
 
     @Override
-    protected MediaTypeParameterAutoQuotingStringHeaderValueConverter converter() {
-        return MediaTypeParameterAutoQuotingStringHeaderValueConverter.INSTANCE;
+    protected MediaTypeParameterHeaderValueConverter converter() {
+        return MediaTypeParameterHeaderValueConverter.INSTANCE;
     }
 
     @Override
@@ -165,11 +165,11 @@ public final class MediaTypeParameterAutoQuotingStringHeaderValueConverterTest e
 
     @Override
     protected String converterToString() {
-        return "MediaTypeParameterString";
+        return "MediaTypeParameter";
     }
 
     @Override
-    protected Class<MediaTypeParameterAutoQuotingStringHeaderValueConverter> type() {
-        return MediaTypeParameterAutoQuotingStringHeaderValueConverter.class;
+    protected Class<MediaTypeParameterHeaderValueConverter> type() {
+        return MediaTypeParameterHeaderValueConverter.class;
     }
 }
