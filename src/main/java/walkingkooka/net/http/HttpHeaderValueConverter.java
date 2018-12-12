@@ -21,7 +21,6 @@ package walkingkooka.net.http;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.net.header.HeaderValueConverter;
-import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.http.cookie.ClientCookie;
 import walkingkooka.text.CharSequences;
@@ -143,16 +142,6 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
     }
 
     abstract String toText0(final T value, final Name name);
-
-    // isXXX ....................................................................................................
-
-    /**
-     * Only {@link HeaderValueConverters#string()} returns true.
-     */
-    @Override
-    public final boolean isString() {
-        return false;
-    }
 
     @Override
     abstract public String toString();

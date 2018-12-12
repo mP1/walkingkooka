@@ -54,11 +54,6 @@ final class ContentDispositionFileNameHeaderValueConverter extends HeaderValueCo
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return ContentDispositionFileName.class.getSimpleName();
     }

@@ -55,11 +55,6 @@ final class MediaTypeListHeaderValueConverter extends HeaderValueConverter2<List
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringListOf(MediaType.class);
     }

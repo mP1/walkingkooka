@@ -54,11 +54,6 @@ final class ContentDispositionHeaderValueConverter extends HeaderValueConverter2
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return ContentDisposition.class.getSimpleName();
     }

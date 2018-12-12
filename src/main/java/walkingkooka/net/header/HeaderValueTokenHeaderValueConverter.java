@@ -53,11 +53,6 @@ final class HeaderValueTokenHeaderValueConverter extends HeaderValueConverter2<H
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return HeaderValueToken.class.getSimpleName();
     }

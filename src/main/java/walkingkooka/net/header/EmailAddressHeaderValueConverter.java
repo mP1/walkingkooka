@@ -64,11 +64,6 @@ final class EmailAddressHeaderValueConverter extends HeaderValueConverter2<Email
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(EmailAddress.class);
     }

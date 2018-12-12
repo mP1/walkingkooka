@@ -56,11 +56,6 @@ final class AbsoluteUrlHeaderValueConverter extends HeaderValueConverter2<Absolu
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(AbsoluteUrl.class);
     }

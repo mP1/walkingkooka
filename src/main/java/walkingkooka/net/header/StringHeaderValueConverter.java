@@ -53,11 +53,6 @@ final class StringHeaderValueConverter extends HeaderValueConverter2<String> {
     }
 
     @Override
-    public boolean isString() {
-        return true;
-    }
-
-    @Override
     public String toString() {
         return toStringType(String.class);
     }

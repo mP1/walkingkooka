@@ -53,11 +53,6 @@ final class LongHeaderValueConverter extends HeaderValueConverter2<Long> {
     }
 
     @Override
-    public boolean isString() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toStringType(Long.class);
     }
