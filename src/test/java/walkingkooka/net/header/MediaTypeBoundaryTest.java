@@ -103,13 +103,14 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     @Test
-    public void testToHeaderText2() {
-        this.toHeaderTextAndCheck(MediaTypeBoundary.with("(a:bc)"), "(a:bc)");
+    public void testToHeaderTextQuoted() {
+        this.toHeaderTextAndCheck(MediaTypeBoundary.with0("abc", "\"abc\""), "\"abc\"");
     }
 
     @Test
-    public void testToHeaderTextQuoted() {
-        this.toHeaderTextAndCheck(MediaTypeBoundary.with0("abc", "\"abc\""), "\"abc\"");
+    public void testToHeaderTextQuotesRequired() {
+        this.toHeaderTextAndCheck(MediaTypeBoundary.with("gc0pJq0M:08jU534c0p"),
+                "\"gc0pJq0M:08jU534c0p\"");
     }
 
     // multipartBoundaryText........................................................................................................
