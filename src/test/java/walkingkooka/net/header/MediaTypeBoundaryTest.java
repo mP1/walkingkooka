@@ -99,18 +99,41 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Test
     public void testToHeaderText() {
-        assertEquals("abc", MediaTypeBoundary.with("abc").toHeaderText());
+        this.toHeaderTextAndCheck(MediaTypeBoundary.with("abc"), "abc");
     }
 
     @Test
     public void testToHeaderText2() {
-        assertEquals("(a:bc)", MediaTypeBoundary.with("(a:bc)").toHeaderText());
+        this.toHeaderTextAndCheck(MediaTypeBoundary.with("(a:bc)"), "(a:bc)");
     }
 
     @Test
     public void testToHeaderTextQuoted() {
-        this.parseAndCheck("\"abc\"",
-                MediaTypeBoundary.with0("abc", "\"abc\""));
+        this.toHeaderTextAndCheck(MediaTypeBoundary.with0("abc", "\"abc\""), "\"abc\"");
+    }
+
+    // multipartBoundaryText........................................................................................................
+
+    @Test
+    public void testMultipartBoundaryDelimiter() {
+        this.multipartBoundaryDelimiterAndCheck(MediaTypeBoundary.with("abc"),
+                "--abc");
+    }
+
+    @Test
+    public void testMultipartBoundaryDelimiter2() {
+        this.multipartBoundaryDelimiterAndCheck(MediaTypeBoundary.with("--abc"),
+                "----abc");
+    }
+
+    @Test
+    public void testMultipartBoundaryDelimiterQuoted() {
+        this.multipartBoundaryDelimiterAndCheck(MediaTypeBoundary.with0("abc", "\"abc\""),
+                "--abc");
+    }
+
+    private void multipartBoundaryDelimiterAndCheck(final MediaTypeBoundary boundary, final String delimiter) {
+        assertEquals(boundary.toString(), delimiter, boundary.multipartBoundaryDelimiter());
     }
 
     // toString........................................................................................................
