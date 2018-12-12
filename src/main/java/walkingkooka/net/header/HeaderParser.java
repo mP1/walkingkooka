@@ -238,7 +238,7 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
      * Adds a new parameter to the parameters map.
      */
     final void addParameter(final String valueText) {
-        this.parameters.put(this.parameterName, this.parameterName.toValue(valueText));
+            this.parameters.put(this.parameterName, this.parameterName.toValue(valueText));
     }
 
     final void failNotIfWhitespaceOrParameterSeparatorOrSeparator() {

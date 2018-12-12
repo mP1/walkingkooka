@@ -398,6 +398,14 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
+    public void testParameterBoundary() {
+        this.parseAndCheck("type/subtype;boundary=\"abc-123\"",
+                TYPE,
+                SUBTYPE,
+                parameters("boundary", MediaTypeBoundary.parse("\"abc-123\"")));
+    }
+
+    @Test
     public void testParameterCharset() {
         this.parseAndCheck("type/subtype;charset=utf-8",
                 TYPE,

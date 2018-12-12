@@ -58,6 +58,13 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
     }
 
     /**
+     * Holds the boundary parameter name.
+     */
+    public final static MediaTypeParameterName<MediaTypeBoundary> BOUNDARY = registerConstant("boundary",
+            MediaTypeBoundary.PREDICATE, // part includes initial.
+            MediaTypeBoundaryHeaderValueConverter.INSTANCE);
+
+    /**
      * Holds the charset parameter name.
      */
     public final static MediaTypeParameterName<CharsetName> CHARSET = registerConstant("charset",

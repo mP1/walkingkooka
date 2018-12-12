@@ -309,6 +309,13 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 MediaType.parse("type1/subtype1;abc=\"d,\\\\ef\""));
     }
 
+    @Test
+    public void testParseWithBoundary() {
+        assertEquals(MediaType.with("type1", "subtype1")
+                        .setParameters(Maps.one(MediaTypeParameterName.BOUNDARY, MediaTypeBoundary.with("def"))),
+                MediaType.parse("type1/subtype1;boundary=def"));
+    }
+
     @Test(expected = NullPointerException.class)
     public void testParseListNullFails() {
         MediaType.parseList(null);
