@@ -65,4 +65,9 @@ public class FakeHttpRequest implements HttpRequest, Fake {
     public Map<HttpRequestParameterName, List<String>> parameters() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public List<String> parameterValues(final HttpRequestParameterName parameterName) {
+        throw new UnsupportedOperationException();
+    }
 }
