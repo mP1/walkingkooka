@@ -32,6 +32,21 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
     // parse ...................................................................................................
 
     @Test
+    public void testCharsetSeparatorFails() {
+        this.parseFails("utf-8,", ',');
+    }
+
+    @Test
+    public void testCharsetSeparatorSpaceFails() {
+        this.parseFails("utf-8, ", "Missing charset at 7 in \"utf-8, \"");
+    }
+
+    @Test
+    public void testCharsetSeparatorTabFails() {
+        this.parseFails("utf-8,\t", "Missing charset at 7 in \"utf-8,\\t\"");
+    }
+
+    @Test
     public void testCharsetInvalidInitialCharacterFails() {
         this.parseFails("!utf-8", '!');
     }
@@ -149,9 +164,8 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
     }
 
     @Test
-    public void testCharsetSubTypeSeparator() {
-        this.parseAndCheck("UTF-8,",
-                this.charsetHeaderValue("utf-8"));
+    public void testCharsetSubTypeSeparatorFails() {
+        this.parseFails("UTF-8,");
     }
 
     @Test

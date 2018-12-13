@@ -23,6 +23,18 @@ import walkingkooka.collect.map.Maps;
 
 enum HeaderParserMode {
 
+    WHITESPACE {
+        @Override
+        void accept(final HeaderParser parser) {
+            parser.consumeWhitespace(VALUE);
+        }
+
+        @Override
+        void endOfText(final HeaderParser parser) {
+            parser.failInvalidCharacter();
+        }
+    },
+
     VALUE {
         @Override
         void accept(final HeaderParser parser) {
@@ -33,7 +45,7 @@ enum HeaderParserMode {
 
         @Override
         void endOfText(final HeaderParser parser) {
-            parser.tokenEnd();
+            parser.failMissingValue();
         }
     },
 
@@ -61,7 +73,7 @@ enum HeaderParserMode {
                     parser.separator();
                     parser.position++;
                     parser.tokenEnd();
-                    parser.mode = SEPARATOR_WHITESPACE;
+                    parser.mode = WHITESPACE;
                     break;
                 default:
                     parser.failInvalidCharacter();
@@ -180,18 +192,6 @@ enum HeaderParserMode {
         @Override
         void endOfText(final HeaderParser parser) {
             parser.tokenEnd();
-        }
-    },
-
-    SEPARATOR_WHITESPACE {
-        @Override
-        void accept(final HeaderParser parser) {
-            parser.consumeWhitespace(VALUE);
-        }
-
-        @Override
-        void endOfText(final HeaderParser parser) {
-            // nop
         }
     };
 

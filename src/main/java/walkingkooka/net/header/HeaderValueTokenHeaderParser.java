@@ -29,8 +29,15 @@ abstract class HeaderValueTokenHeaderParser extends HeaderParser<HeaderValueToke
 
     @Override
     final void value() {
-        this.token = this.parseValue(RFC2045TOKEN, "value", this::createHeaderValueToken);
+        this.token = this.parseValue(RFC2045TOKEN, VALUE, this::createHeaderValueToken);
     }
+
+    @Override
+    void failMissingValue() {
+        this.failEmptyToken(VALUE);
+    }
+
+    private final static String VALUE = "value";
 
     private HeaderValueToken createHeaderValueToken(final String value) {
         return HeaderValueToken.with(value);

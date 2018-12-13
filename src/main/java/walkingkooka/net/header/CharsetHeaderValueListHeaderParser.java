@@ -53,6 +53,11 @@ final class CharsetHeaderValueListHeaderParser extends HeaderParser<CharsetHeade
         this.token = CharsetHeaderValue.with(this.charsetName());
     }
 
+    @Override
+    void failMissingValue() {
+        this.failEmptyToken("charset");
+    }
+
     private CharsetName charsetName() {
         if (!this.hasMoreCharacters()) {
             failEmptyToken(CHARSET);

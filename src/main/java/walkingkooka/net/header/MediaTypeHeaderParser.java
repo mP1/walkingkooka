@@ -61,6 +61,11 @@ abstract class MediaTypeHeaderParser extends HeaderParser<MediaTypeParameterName
         }
     }
 
+    @Override
+    void failMissingValue() {
+        this.failEmptyToken(TYPE);
+    }
+
     private final static char SLASH = '/';
     private final static String TYPE = "type";
     private final static String SUBTYPE = "sub type";

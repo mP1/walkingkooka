@@ -38,6 +38,21 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
     }
 
     @Test
+    public void testTypeSeparatorFails() {
+        this.parseFails("A,", ',');
+    }
+
+    @Test
+    public void testTypeSeparatorSpaceFails() {
+        this.parseFails("A, ", ',');
+    }
+
+    @Test
+    public void testTypeSeparatorTabFails() {
+        this.parseFails("A,\t", ',');
+    }
+
+    @Test
     public void testTypeInvalidCharacterFails() {
         this.parseFails("A<");
     }

@@ -66,7 +66,7 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
         super();
         this.text = text;
         this.position = 0;
-        this.mode = HeaderParserMode.VALUE;
+        this.mode = HeaderParserMode.WHITESPACE;
     }
 
     final void parse() {
@@ -200,6 +200,12 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
     abstract void value();
 
     /**
+     * Called when a value is missing. Typically called when the text end is reached, just after a separator with/without
+     * whitespace.
+     */
+    abstract void failMissingValue();
+
+    /**
      * Sub classes must consume the parameter name.
      */
     abstract void parameterName();
@@ -264,8 +270,15 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
      * Consumes any optional whitespace and then updates the current mode to next.
      */
     final void consumeWhitespace(final HeaderParserMode next) {
-        this.consume(WHITESPACE);
+        this.consumeWhitespace();
         this.mode = next;
+    }
+
+    /**
+     * Consumes any optional whitespace.
+     */
+    final void consumeWhitespace() {
+        this.consume(WHITESPACE);
     }
 
     private final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020")
@@ -277,7 +290,11 @@ abstract class HeaderParser<N extends HeaderParameterName<?>> {
      * Reports an invalid character within the unparsed text.
      */
     final void failInvalidCharacter() {
-        throw new InvalidCharacterException(this.text, this.position);
+        final String text = this.text;
+        final int position = this.position;
+
+        throw new InvalidCharacterException(text,
+                Math.min(position, text.length() -1));
     }
 
     final void failEmptyParameterValue() {

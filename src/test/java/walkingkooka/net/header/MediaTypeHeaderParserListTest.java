@@ -31,19 +31,33 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
         List<MediaType>> {
 
     @Test
-    public void testTrailingComma() {
-        this.parseAndCheckOne("type/subtype,",
-                TYPE,
-                SUBTYPE,
-                MediaType.NO_PARAMETERS);
+    public void testTypeSlashSubTypeTrailingSeparatorFails() {
+        this.parseFails("type/subtype,", ',');
     }
 
     @Test
-    public void testTrailingComma2() {
-        this.parseAndCheckOne("type/subtype;parameter123=value456,",
-                TYPE,
-                SUBTYPE,
-                parameters("parameter123", "value456"));
+    public void testTypeSlashSubTypeTrailingSeparatorSpaceFails() {
+        this.parseFails("type/subtype, ", "Missing type at 14 in \"type/subtype, \"");
+    }
+
+    @Test
+    public void testTypeSlashSubTypeTrailingSeparatorTabFails() {
+        this.parseFails("type/subtype,\t", "Missing type at 14 in \"type/subtype,\\t\"");
+    }
+
+    @Test
+    public void testTypeSlashSubParametersTrailingSeparatorFails() {
+        this.parseFails("type/subtype;parameter123=value456,", ',');
+    }
+
+    @Test
+    public void testTypeSlashSubParametersTrailingSeparatorSpaceFails() {
+        this.parseFails("type/subtype;parameter123=value456, ", "Missing type at 36 in \"type/subtype;parameter123=value456, \"");
+    }
+
+    @Test
+    public void testTypeSlashSubParametersTrailingSeparatorTabFails() {
+        this.parseFails("type/subtype;parameter123=value456,\t", "Missing type at 36 in \"type/subtype;parameter123=value456,\\t\"");
     }
 
     @Test
