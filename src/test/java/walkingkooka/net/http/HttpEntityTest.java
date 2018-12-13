@@ -19,6 +19,7 @@
 package walkingkooka.net.http;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.test.PublicClassTestCase;
@@ -31,9 +32,14 @@ import static org.junit.Assert.assertSame;
 
 public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
 
-    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HttpHeaderName.CONTENT_LENGTH, 123L);
-    private final static Map<HttpHeaderName<?>, Object> INVALID_HEADERS = Maps.one(HttpHeaderName.CONTENT_LENGTH, "invalid");
+    private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
+    private final static Long HEADER_VALUE = 123L;
+
+    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HEADER, HEADER_VALUE);
+    private final static Map<HttpHeaderName<?>, Object> INVALID_HEADERS = Maps.one(HttpHeaderName.SERVER, 999L);
     private final static byte[] BODY = new byte[123];
+
+    private final static HttpHeaderName<?> DIFFERENT_HEADER = HttpHeaderName.SERVER;
 
     // with ....................................................................................................
 
@@ -60,7 +66,7 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
     // setHeaders ....................................................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testSetHeaderNullFails() {
+    public void testSetHeadersNullFails() {
         this.create().setHeaders(null);
     }
 
@@ -81,6 +87,81 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
         final Map<HttpHeaderName<?>, Object> headers = Maps.one(HttpHeaderName.CONTENT_LENGTH, 456L);
         final HttpEntity different = entity.setHeaders(headers);
         this.check(different, headers, BODY);
+    }
+
+    // addHeader ....................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testAddHeaderNullNameFails() {
+        this.create().addHeader(null, "*value*");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAddHeaderNullValueFails() {
+        this.create().addHeader(HttpHeaderName.SERVER, null);
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testAddHeaderInvalidValueFails() {
+        this.create().addHeader(Cast.to(HttpHeaderName.CONTENT_LENGTH), "*invalid*");
+    }
+
+    @Test
+    public void testAddHeaderExisting() {
+        final HttpEntity entity = this.create();
+        assertSame(entity, entity.addHeader(HEADER, HEADER_VALUE));
+    }
+
+    @Test
+    public void testAddHeaderReplaceValue() {
+        final HttpEntity entity = this.create();
+
+        final Long headerValue = 456L;
+
+        this.check(entity.addHeader(HEADER, headerValue),
+                Maps.one(HEADER, headerValue),
+                BODY);
+    }
+
+    @Test
+    public void testAddHeader() {
+        final HttpEntity entity = this.create();
+
+        final HttpHeaderName<String> header = HttpHeaderName.SERVER;
+        final String headerValue = "*Server*";
+
+        final HttpEntity different = entity.addHeader(header, headerValue);
+
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.putAll(HEADERS);
+        headers.put(header, headerValue);
+
+        this.check(different, headers, BODY);
+    }
+
+    // removeHeader ....................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testRemoveHeaderNullFails() {
+        this.create().removeHeader(null);
+    }
+
+    @Test
+    public void testRemoveHeaderSame() {
+        final HttpEntity entity = this.create();
+        assertSame(entity, entity.removeHeader(DIFFERENT_HEADER));
+    }
+
+    @Test
+    public void testRemoveHeader() {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.putAll(HEADERS);
+        headers.put(DIFFERENT_HEADER, "Server123");
+
+        final HttpEntity entity = HttpEntity.with(headers, BODY);
+        this.check(entity.removeHeader(DIFFERENT_HEADER),
+                HEADERS,
+                BODY);
     }
 
     // setBody ....................................................................................................

@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A http entity containing headers and body.
@@ -62,8 +63,50 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
         return this.headers.equals(copy) ?
                 this :
-                this.replace(headers, this.body);
+                this.replace(headers);
 
+    }
+
+    /**
+     * Adds the given header from this entity returning a new instance if the header and value are new.
+     */
+    public <T> HttpEntity addHeader(final HttpHeaderName<T> header, final T value) {
+        check(header);
+        Objects.requireNonNull(value, "value");
+
+        return value.equals(this.headers.get(header)) ?
+                this :
+                this.addHeaderAndReplace(header, value);
+    }
+
+    private <T> HttpEntity addHeaderAndReplace(final HttpHeaderName<T> header, final T value) {
+        final Map<HttpHeaderName<?>, Object> copy = Maps.ordered();
+        copy.putAll(this.headers);
+        copy.put(header, header.checkValue(value));
+        return this.replace(copy);
+    }
+
+    /**
+     * Removes the given header from this entity returning a new instance if it existed.
+     */
+    public HttpEntity removeHeader(final HttpHeaderName<?> header) {
+        check(header);
+
+        return this.headers.containsKey(header) ?
+                this.removeHeaderAndReplace(header) :
+                this;
+    }
+
+    private HttpEntity removeHeaderAndReplace(final HttpHeaderName<?> header) {
+        return this.replace(this.headers()
+                .entrySet()
+                .stream()
+                .filter(h -> !h.getKey().equals(header))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+    }
+
+    private static <T> void check(final HttpHeaderName<T> header) {
+        Objects.requireNonNull(header, "header");
     }
 
     private Map<HttpHeaderName<?>, Object> headers;
@@ -104,6 +147,10 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
     }
 
     // replace....................................................................................................
+
+    private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers) {
+        return this.replace(headers, this.body);
+    }
 
     private HttpEntity replace(final Map<HttpHeaderName<?>, Object> headers, final byte[] body) {
         return new HttpEntity(headers, body);
