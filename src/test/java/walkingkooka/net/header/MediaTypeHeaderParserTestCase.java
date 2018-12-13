@@ -45,57 +45,32 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testEmptyTypeFails() {
+    public final void testSlashSubtypeFails() {
         this.parseFails("/subtype",
                 "Missing type at 0 in \"/subtype\"");
     }
 
     @Test
-    public final void testTypeMissingSubTypeFails() {
+    public final void testTypeFails() {
         this.parseFails("type",
-                "Missing sub type at 4 in \"type\"");
+                "Missing type at 4 in \"type\"");
     }
 
     @Test
-    public final void testEmptySubTypeFails() {
+    public final void testTypeSlashFails() {
         this.parseFails("type/",
                 "Missing sub type at 5 in \"type/\"");
     }
 
     @Test
-    public final void testInvalidTypeCharacterFails() {
+    public final void testTypeInvalidCharacterFails() {
         this.parseFails("prima?ry/subtype",
                 '?');
     }
 
     @Test
-    public final void testTypeSpaceSubTypeFails() {
-        this.parseFails("type /subtype",
-                ' ');
-    }
-
-    @Test
-    public final void testTypeTabSubTypeFails() {
-        this.parseFails("type\t/subtype",
-                '\t');
-    }
-
-    @Test
-    public final void testTypeSlashSpaceSubTypeFails() {
-        this.parseFails("type/ subtype",
-                "Missing sub type at 5 in \"type/ subtype\"");
-    }
-
-    @Test
-    public final void testTypeSlashTabSubTypeFails() {
-        this.parseFails("type/\tsubtype",
-                "Missing sub type at 5 in \"type/\\tsubtype\"");
-    }
-
-    @Test
-    public final void testSubTypeMissingFails() {
-        this.parseFails("type/;",
-                "Missing sub type at 5 in \"type/;\"");
+    public final void testTypeSlashSubTypeMissingFails() {
+        this.parseFails("type/;");
     }
 
     @Test
@@ -167,94 +142,142 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public void testCommaFails() {
+    public void testSeparatorFails() {
         this.parseFails(",");
     }
 
     @Test
-    public void testCommaFails2() {
+    public void testSeparatorTypeSlashSubtypeFails() {
         this.parseFails(",type/subtype", ',');
     }
 
     @Test
-    public final void testTypeSubType() {
+    public final void testTypeSpaceSlashSubFails() {
+        this.parseFails("a /b", ' ');
+    }
+
+    @Test
+    public final void testTypeTabSlashSubFails() {
+        this.parseFails("a\t/b", '\t');
+    }
+
+    @Test
+    public final void testTypeSlashSpaceSubFails() {
+        this.parseFails("a/ b", ' ');
+    }
+
+    @Test
+    public final void testTypeSlashTabSubFails() {
+        this.parseFails("a/\tb", '\t');
+    }
+
+    @Test
+    public final void testTypeSlashSubType() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE,
                 TYPE,
                 SUBTYPE);
     }
 
     @Test
-    public final void testTypeWildcardSubType() {
-        this.parseAndCheck(MediaType.WILDCARD + "/" + SUBTYPE,
+    public final void testTypeWildcardSlashSubType() {
+        this.parseAndCheck("*/*",
                 MediaType.WILDCARD.string(),
-                SUBTYPE);
+                MediaType.WILDCARD.string());
     }
 
     @Test
-    public final void testTypeSubType2() {
+    public final void testTypeSlashSubType2() {
         this.parseAndCheck("a/b",
                 "a",
                 "b");
     }
 
     @Test
-    public final void testTypeSubTypeWithSuffix() {
-        this.parseAndCheck("a/b+suffix",
+    public final void testSpaceTypeSlashSub() {
+        this.parseAndCheck(" a/b",
                 "a",
-                "b+suffix");
+                "b");
     }
 
     @Test
-    public final void testTypeSubTypeWildcard() {
+    public final void testTabTypeSlashSub() {
+        this.parseAndCheck("\ta/b",
+                "a",
+                "b");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeWildcard() {
         this.parseAndCheck("a/*",
                 "a",
                 MediaType.WILDCARD.string());
     }
 
     @Test
-    public final void testTypeSubTypeSpace() {
+    public final void testTypeSlashSubTypeSpace() {
         this.parseAndCheck("a/b ",
                 "a",
                 "b");
     }
 
     @Test
-    public final void testTypeSubTypeTab() {
+    public final void testTypeSlashSubTypeTab() {
         this.parseAndCheck("a/b\t",
                 "a",
                 "b");
     }
 
     @Test
-    public final void testTypeSubTypeSpaceSpace() {
+    public final void testTypeSlashSubTypeSpaceSpace() {
         this.parseAndCheck("a/b  ",
                 "a",
                 "b");
     }
 
     @Test
-    public final void testTypeSubTypeSpaceTab() {
+    public final void testTypeSlashSubTypeSpaceTab() {
         this.parseAndCheck("a/b \t",
                 "a",
                 "b");
     }
 
     @Test
-    public final void testTypeSubTypeTabTab() {
+    public final void testTypeSlashSubTypeTabTab() {
         this.parseAndCheck("a/b\t\t",
                 "a",
                 "b");
     }
 
     @Test
-    public final void testTypeSubTypeWhitespaceTabSpace() {
+    public final void testTypeSlashSubTypeWhitespaceTabSpace() {
         this.parseAndCheck("abc/def\t ",
                 "abc",
                 "def");
     }
 
     @Test
-    public final void testTypeSubTypeParameter() {
+    public final void testTypeSlashSubTypePlusSuffix() {
+        this.parseAndCheck("abc/def+suffix",
+                "abc",
+                "def+suffix");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypePrefixSuffix() {
+        this.parseAndCheck("a/b+suffix",
+                "a",
+                "b+suffix");
+    }
+
+    @Test
+    public final void testTypeSlashVendorDotSubType() {
+        this.parseAndCheck("a/vnd.b",
+                "a",
+                "vnd.b");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeParameter() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v",
                 TYPE,
                 SUBTYPE,
@@ -262,7 +285,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeParameter2() {
+    public final void testTypeSlashSubTypeParameter2() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value",
                 TYPE,
                 SUBTYPE,
@@ -270,7 +293,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeParameterSpace() {
+    public final void testTypeSlashSubTypeParameterSpace() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value ",
                 TYPE,
                 SUBTYPE,
@@ -278,7 +301,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeParameterTab() {
+    public final void testTypeSlashSubTypeParameterTab() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value\t",
                 TYPE,
                 SUBTYPE,
@@ -286,7 +309,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeParameterSpaceSpace() {
+    public final void testTypeSlashSubTypeParameterSpaceSpace() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value  ",
                 TYPE,
                 SUBTYPE,
@@ -294,7 +317,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeQuotedParameterValue() {
+    public final void testTypeSlashSubTypeQuotedParameterValue() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\"",
                 TYPE,
                 SUBTYPE,
@@ -302,7 +325,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeQuotedParameterValueSpace() {
+    public final void testTypeSlashSubTypeQuotedParameterValueSpace() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\" ",
                 TYPE,
                 SUBTYPE,
@@ -310,7 +333,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeQuotedParameterValueTab() {
+    public final void testTypeSlashSubTypeQuotedParameterValueTab() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\" ",
                 TYPE,
                 SUBTYPE,
@@ -318,7 +341,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeQuotedParameterValueSpaceTabSpaceTab() {
+    public final void testTypeSlashSubTypeQuotedParameterValueSpaceTabSpaceTab() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\" \t \t",
                 TYPE,
                 SUBTYPE,
@@ -326,7 +349,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeQuotedParameterValueOtherwiseInvalidCharacters() {
+    public final void testTypeSlashSubTypeQuotedParameterValueOtherwiseInvalidCharacters() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val?ue\"",
                 TYPE,
                 SUBTYPE,
@@ -334,7 +357,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeQuotedParameterValueBackslashEscaped() {
+    public final void testTypeSlashSubTypeQuotedParameterValueBackslashEscaped() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\\ue\"",
                 TYPE,
                 SUBTYPE,
@@ -342,7 +365,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeQuotedParameterValueEscapedDoubleQuote() {
+    public final void testTypeSlashSubTypeQuotedParameterValueEscapedDoubleQuote() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"val\\\"ue\"",
                 TYPE,
                 SUBTYPE,
@@ -350,7 +373,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeQuotedParameterValueParameter2() {
+    public final void testTypeSlashSubTypeQuotedParameterValueParameter2() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p1=\"v1\";p2=v2",
                 TYPE,
                 SUBTYPE,
@@ -358,7 +381,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeSpaceParameter() {
+    public final void testTypeSlashSubTypeSpaceParameter() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + "; p=v",
                 TYPE,
                 SUBTYPE,
@@ -366,7 +389,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeTabParameter() {
+    public final void testTypeSlashSubTypeTabParameter() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";\tp=v",
                 TYPE,
                 SUBTYPE,
@@ -374,7 +397,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeSpaceTabSpaceTabParameter2() {
+    public final void testTypeSlashSubTypeSpaceTabSpaceTabParameter2() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + "; \t \tp=v",
                 TYPE,
                 SUBTYPE,
@@ -382,7 +405,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeParameterParameter() {
+    public final void testTypeSlashSubTypeParameterParameter() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v;p2=v2",
                 TYPE,
                 SUBTYPE,
@@ -390,7 +413,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSubTypeSpaceTabSpaceTabParameter() {
+    public final void testTypeSlashSubTypeSpaceTabSpaceTabParameter() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v; \t \tp2=v2",
                 TYPE,
                 SUBTYPE,

@@ -38,15 +38,18 @@ abstract class MediaTypeHeaderParser extends HeaderParser<MediaTypeParameterName
     final void value() {
         this.start = this.position;
 
+        // assumes leading whitespace skipped.
+
         // type
         this.type = this.tokenText(RFC2045TOKEN);
         if(!this.hasMoreCharacters()) {
-            fail("Missing sub type at " + this.position + " in " + CharSequences.quoteAndEscape(this.text));
+            failEmptyToken(TYPE);
         }
 
         if(this.character()!=SLASH){
             this.failInvalidCharacter();
         }
+
         if(this.type.isEmpty()) {
            this.failEmptyToken(TYPE);
         }
@@ -55,10 +58,14 @@ abstract class MediaTypeHeaderParser extends HeaderParser<MediaTypeParameterName
 
         // sub type
         this.subType = this.tokenText(RFC2045TOKEN);
-        this.failNotIfWhitespaceOrParameterSeparatorOrSeparator();
         if(this.subType.isEmpty()) {
-            this.failEmptyToken(SUBTYPE);
+            if(!this.hasMoreCharacters()) {
+                this.failEmptyToken(SUBTYPE);
+            }
+            this.failInvalidCharacter();
         }
+
+        this.failNotIfWhitespaceOrParameterSeparatorOrSeparator();
     }
 
     @Override
