@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
 import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicate;
@@ -60,16 +61,6 @@ public final class MediaTypeBoundary implements Value<String>,
     }
 
     /**
-     * A {@link CharPredicate} that matches all valid characters.
-     */
-    final static CharPredicate PREDICATE = CharPredicates.builder()
-            .range('0', '9')
-            .range('A', 'Z')
-            .range('a', 'z')
-            .any("'()+_,-./:=? ")
-            .build();
-
-    /**
      * The max length of a boundary.
      */
     final static int MAX_LENGTH = 70;
@@ -78,12 +69,56 @@ public final class MediaTypeBoundary implements Value<String>,
      * Factory that creates a {@link MediaTypeBoundary} after verifying the individual characters.
      */
     public static MediaTypeBoundary with(final String value) {
-        CharPredicates.failIfNullOrEmptyOrFalse(value, "value", PREDICATE);
+        CharSequences.failIfNullOrEmpty(value, "value");
 
         final String trimmed = value.trim();
-        return new MediaTypeBoundary(trimmed, trimmed);
+
+        boolean requiresDoubleQuotes = false;
+
+        final StringBuilder quoted = new StringBuilder();
+        quoted.append(DOUBLE_QUOTE);
+
+        int i = 0;
+        for(char c : trimmed.toCharArray()) {
+            if(!QUOTED_CHARACTER_PREDICATE.test(c)){
+                throw new InvalidCharacterException(value, i);
+            }
+
+            requiresDoubleQuotes = requiresDoubleQuotes | !UNQUOTED_CHARACTER_PREDICATE.test(c);
+            quoted.append(c);
+            i++;
+        }
+        quoted.append(DOUBLE_QUOTE);
+
+        return new MediaTypeBoundary(trimmed, requiresDoubleQuotes ?
+                quoted.toString() :
+                trimmed);
     }
 
+    private final static char DOUBLE_QUOTE = '"';
+
+    /**
+     * Only these characters may appear in an unquoted boundary string.
+     */
+    final static CharPredicate UNQUOTED_CHARACTER_PREDICATE = CharPredicates.rfc2045Token();
+
+    /**
+     * <pre>
+     *      bcharsnospace := DIGIT / ALPHA / "'" / "(" / ")" /
+     *                       "+" / "_" / "," / "-" / "." /
+     *                       "/" / ":" / "=" / "?"
+     * </pre>
+     */
+    private final static CharPredicate BOUNDARY_SPECIALS = CharPredicates.any("'()+_,-./:=?");
+
+    /**
+     * Matches all valid characters for a media type(mime type) boundary.
+     */
+    final static CharPredicate QUOTED_CHARACTER_PREDICATE = UNQUOTED_CHARACTER_PREDICATE.or(BOUNDARY_SPECIALS);
+
+    /**
+     * Factory creates a new {@link MediaTypeBoundary}
+     */
     static MediaTypeBoundary with0(final String text, final String headerText) {
         return new MediaTypeBoundary(text, headerText);
     }

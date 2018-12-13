@@ -49,8 +49,8 @@ final class MediaTypeBoundaryHeaderValueConverter extends HeaderValueConverter2<
     }
 
     private final static char DOUBLEQUOTE = '"';
-    private final static HeaderValueConverter<String> UNQUOTED = HeaderValueConverters.string(MediaTypeBoundary.PREDICATE);
-    private final static HeaderValueConverter<String> QUOTED = HeaderValueConverters.string(MediaTypeBoundary.PREDICATE,
+    private final static HeaderValueConverter<String> UNQUOTED = HeaderValueConverters.string(MediaTypeBoundary.UNQUOTED_CHARACTER_PREDICATE);
+    private final static HeaderValueConverter<String> QUOTED = HeaderValueConverters.string(MediaTypeBoundary.QUOTED_CHARACTER_PREDICATE,
             StringHeaderValueConverterFeature.DOUBLE_QUOTES);
 
     @Override

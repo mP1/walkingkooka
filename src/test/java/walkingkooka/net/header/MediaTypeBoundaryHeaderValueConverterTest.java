@@ -49,9 +49,10 @@ public final class MediaTypeBoundaryHeaderValueConverterTest extends
     }
 
     @Test
-    public void testRoundtrip2() {
+    public void testRoundtripRequiresQuotes() {
         final String text = "abcdef1234567890'()+_,-./:=?";
-        this.parseAndToTextAndCheck(text, MediaTypeBoundary.with(text));
+        this.parseAndToTextAndCheck('"' + text + '"',
+                MediaTypeBoundary.with(text));
     }
 
     @Override
