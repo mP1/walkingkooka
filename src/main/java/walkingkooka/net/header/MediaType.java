@@ -26,6 +26,7 @@ import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.Whitespace;
 
 import java.util.List;
@@ -58,7 +59,7 @@ final public class MediaType implements Value<String>,
     /**
      * The separator character that separates the type and secondary portions within a mime type {@link String}.
      */
-    public final static char TYPE_SUBTYPE_SEPARATOR = '/';
+    public final static CharacterConstant TYPE_SUBTYPE_SEPARATOR = CharacterConstant.with('/');
 
     /**
      * No parameters.
@@ -75,131 +76,128 @@ final public class MediaType implements Value<String>,
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType text types}.
      */
-    public final static MediaType ALL = registerConstant(WILDCARD.string(), WILDCARD.string());
+    public final static MediaType ALL = registerConstant("*/*");
 
     /**
      * Holds a {@link MediaType} for binary.
      */
-    public final static MediaType BINARY = registerConstant("application", "octet-stream");
+    public final static MediaType BINARY = registerConstant("application/octet-stream");
 
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType text types}.
      */
-    public final static MediaType ANY_TEXT = registerConstant("text", WILDCARD.string());
+    public final static MediaType ANY_TEXT = registerConstant("text/*");
 
     /**
      * Holds a {@link MediaType} for plain text.
      */
-    public final static MediaType TEXT_PLAIN = registerConstant("text", "plain");
+    public final static MediaType TEXT_PLAIN = registerConstant("text/plain");
 
     /**
      * Holds a {@link MediaType} for text/richtext
      */
-    public final static MediaType TEXT_RICHTEXT = registerConstant("text", "richtext");
+    public final static MediaType TEXT_RICHTEXT = registerConstant("text/richtext");
 
     /**
      * Holds a {@link MediaType} for HTML text/html
      */
-    public final static MediaType TEXT_HTML = registerConstant("text", "html");
+    public final static MediaType TEXT_HTML = registerConstant("text/html");
 
     /**
      * Holds a {@link MediaType} for XML text/xml
      */
-    public final static MediaType TEXT_XML = registerConstant("text", "xml");
+    public final static MediaType TEXT_XML = registerConstant("text/xml");
 
     /**
      * Holds a {@link MediaType} for MIME MULTIPART FORM DATA that contains <code>multipart/form-data</code>.
      */
-    public final static MediaType MIME_MULTIPART_FORM_DATA = registerConstant("multipart", "form-data");
+    public final static MediaType MIME_MULTIPART_FORM_DATA = registerConstant("multipart/form-data");
 
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType image types}.
      */
-    public final static MediaType ANY_IMAGE = registerConstant("image", WILDCARD.string());
+    public final static MediaType ANY_IMAGE = registerConstant("image/*");
 
     /**
      * Holds a {@link MediaType} that contains <code>image/bmp</code>
      */
-    public final static MediaType IMAGE_BMP = registerConstant("image", "bmp");
+    public final static MediaType IMAGE_BMP = registerConstant("image/bmp");
 
     /**
      * Holds a {@link MediaType} that contains <code>image/gif</code>
      */
-    public final static MediaType IMAGE_GIF = registerConstant("image", "gif");
+    public final static MediaType IMAGE_GIF = registerConstant("image/gif");
 
     /**
      * Holds a {@link MediaType} that contains <code>image/jpeg</code>
      */
-    public final static MediaType IMAGE_JPEG = registerConstant("image", "jpeg");
+    public final static MediaType IMAGE_JPEG = registerConstant("image/jpeg");
 
     /**
      * Holds a {@link MediaType} that contains <code>image/vnd.microsoft.icon</code>
      */
-    public final static MediaType IMAGE_MICROSOFT_ICON = registerConstant("image", "vnd.microsoft.icon");
+    public final static MediaType IMAGE_MICROSOFT_ICON = registerConstant("image/vnd.microsoft.icon");
     /**
      * Holds a {@link MediaType} that contains <code>image/png</code>
      */
-    public final static MediaType IMAGE_PNG = registerConstant("image", "png");
+    public final static MediaType IMAGE_PNG = registerConstant("image/png");
 
     /**
      * Holds a {@link MediaType} that contains <code>image/text</code>
      */
-    public final static MediaType IMAGE_TEXT = registerConstant("image", "text");
+    public final static MediaType IMAGE_TEXT = registerConstant("image/text");
 
     /**
      * Holds a {@link MediaType} that contains <code>image/x-bmp</code>
      */
-    public final static MediaType IMAGE_XBMP = registerConstant("image", "x-bmp");
+    public final static MediaType IMAGE_XBMP = registerConstant("image/x-bmp");
+
     /**
      * Holds a {@link MediaType} that contains PDF <code>application/pdf</code>
      */
-    public final static MediaType APPLICATION_PDF = registerConstant("application", "pdf");
+    public final static MediaType APPLICATION_PDF = registerConstant("application/pdf");
 
     /**
      * Holds a {@link MediaType} that contains ZIP <code>application/zip</code>
      */
-    public final static MediaType APPLICATION_ZIP = registerConstant("application", "zip");
+    public final static MediaType APPLICATION_ZIP = registerConstant("application/zip");
 
     /**
      * Holds a {@link MediaType} that contains EXCEL <code>application/ms-excel</code>
      */
-    public final static MediaType APPLICATION_MICROSOFT_EXCEL = registerConstant("application", "ms-excel");
+    public final static MediaType APPLICATION_MICROSOFT_EXCEL = registerConstant("application/ms-excel");
 
     /**
      * Holds a {@link MediaType} that contains EXCEL <code>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</code>
      */
-    public final static MediaType APPLICATION_MICROSOFT_EXCEL_XML = registerConstant(
-            "application",
-            "vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    public final static MediaType APPLICATION_MICROSOFT_EXCEL_XML = registerConstant("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
     /**
      * Holds a {@link MediaType} that contains POWERPOINT <code>application/ms-powerpoint</code>
      */
-    public final static MediaType APPLICATION_MICROSOFT_POWERPOINT = registerConstant("application", "ms-powerpoint");
+    public final static MediaType APPLICATION_MICROSOFT_POWERPOINT = registerConstant("application/ms-powerpoint");
 
     /**
      * Holds a {@link MediaType} that contains WORD <code>application/ms-word</code>
      */
-    public final static MediaType APPLICATION_MICROSOFT_WORD = registerConstant("application", "ms-word");
+    public final static MediaType APPLICATION_MICROSOFT_WORD = registerConstant("application/ms-word");
 
     /**
      * Holds a {@link MediaType} that contains OUTLOOK <code>application/vnd.ms-outlook</code>
      */
-    public final static MediaType APPLICATION_MICROSOFT_OUTLOOK = registerConstant("application", "vnd.ms-outlook");
+    public final static MediaType APPLICATION_MICROSOFT_OUTLOOK = registerConstant("application/vnd.ms-outlook");
 
     /**
      * Holds a {@link MediaType} that contains JAVASCRIPT <code>application/javascript</code>
      */
-    public final static MediaType APPLICATION_JAVASCRIPT = registerConstant("application", "javascript");
+    public final static MediaType APPLICATION_JAVASCRIPT = registerConstant("application/javascript");
 
     /**
      * Creates and then registers the constant.
      */
-    static private MediaType registerConstant(final String type, final String subType) {
-        final String toString = type + TYPE_SUBTYPE_SEPARATOR + subType;
-        final MediaType mimeType = new MediaType(type, subType, NO_PARAMETERS, toString);
-        CONSTANTS.put(toString, mimeType);
-
+    static private MediaType registerConstant(final String text) { ;
+        final MediaType mimeType = parse(text);
+        CONSTANTS.put(text, mimeType);
         return mimeType;
     }
 
@@ -236,7 +234,7 @@ final public class MediaType implements Value<String>,
         checkType(type);
         checkSubType(subType);
 
-        final String toString = type + TYPE_SUBTYPE_SEPARATOR + subType;
+        final String toString = type + TYPE_SUBTYPE_SEPARATOR.character() + subType;
         final MediaType mediaType = CONSTANTS.get(toString);
         return null != mediaType ?
                 mediaType :
@@ -252,7 +250,7 @@ final public class MediaType implements Value<String>,
                                     final Map<MediaTypeParameterName<?>, Object> parameters,
                                     final String toString) {
         final MediaType result = parameters.isEmpty() ?
-                CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR + subType) :
+                CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR.character() + subType) :
                 null;
         return null != result ?
                 result :
@@ -269,7 +267,7 @@ final public class MediaType implements Value<String>,
                                            final String subType,
                                            final Map<MediaTypeParameterName<?>, Object> parameters) {
         return type +
-                TYPE_SUBTYPE_SEPARATOR +
+                TYPE_SUBTYPE_SEPARATOR.character() +
                 subType +
                 parameters.entrySet()
                         .stream()
@@ -428,7 +426,7 @@ final public class MediaType implements Value<String>,
 
     @Override
     public String value() {
-        return this.type + TYPE_SUBTYPE_SEPARATOR + this.subType;
+        return this.type + TYPE_SUBTYPE_SEPARATOR.character() + this.subType;
     }
 
     // qWeight ...................................................................
