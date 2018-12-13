@@ -133,7 +133,6 @@ abstract class MediaTypeHeaderParser extends HeaderParser<MediaTypeParameterName
         }
     }
 
-    private final static char BACKSLASH = '\\';
     private final static char DOUBLE_QUOTE = '"';
 
     @Override
