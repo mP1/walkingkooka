@@ -80,4 +80,9 @@ public interface HttpRequest extends HasHeaders {
      * Returns a {@link Map} of parameters which may be taken from the query string or post data etc, depending on the method.
      */
     Map<HttpRequestParameterName, List<String>> parameters();
+
+    /**
+     * Returns all values for the requested parameter name.
+     */
+    List<String> parameterValues(final HttpRequestParameterName parameterName);
 }

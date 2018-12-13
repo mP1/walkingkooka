@@ -183,6 +183,11 @@ public final class HttpHeaderScopeHttpRequestTest extends HttpRequestTestCase<Ht
             }
 
             @Override
+            public List<String> parameterValues(final HttpRequestParameterName parameterName) {
+                return PARAMETERS.get(parameterName);
+            }
+
+            @Override
             public String toString() {
                 return TOSTRING;
             }

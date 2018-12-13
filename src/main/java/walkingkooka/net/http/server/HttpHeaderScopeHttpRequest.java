@@ -84,6 +84,11 @@ final class HttpHeaderScopeHttpRequest implements HttpRequest {
         return this.request.parameters();
     }
 
+    @Override
+    public List<String> parameterValues(final HttpRequestParameterName parameterName) {
+        return this.request.parameterValues(parameterName);
+    }
+
     private HttpRequest request;
 
     @Override
