@@ -94,6 +94,11 @@ final class ContentDispositionHeaderParser extends HeaderParser<ContentDispositi
         this.disposition = ContentDisposition.with(this.parseValue(RFC2045TOKEN, TYPE, ContentDispositionType::with));
     }
 
+    @Override
+    void failMissingValue() {
+        this.failEmptyToken(TYPE);
+    }
+
     private final static String TYPE = "type";
 
     @Override
