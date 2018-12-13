@@ -20,9 +20,15 @@ package walkingkooka.net.http;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.header.CharsetHeaderValue;
+import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeParameterName;
+import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -32,6 +38,35 @@ import java.util.stream.Collectors;
  * A http entity containing headers and body.
  */
 public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
+
+    /**
+     * Creates an {@link HttpEntity} after encoding the text as bytes using a negotiated charset.
+     * The returned entity will only have 2 headers set: content-type and content-length set.
+     */
+    static HttpEntity text(final MediaType contentType,
+                           final List<CharsetHeaderValue> acceptCharset,
+                           final String text) {
+        Objects.requireNonNull(contentType, "contentType");
+        Objects.requireNonNull(acceptCharset, "acceptCharset");
+        Objects.requireNonNull(text, "text");
+
+        final CharsetName contentTypeCharset = MediaTypeParameterName.CHARSET.parameterValueOrFail(contentType);
+        if (!acceptCharset
+                .stream()
+                .anyMatch(v -> v.value().matches(contentTypeCharset))) {
+            throw new NotAcceptableHeaderException("Content type " + contentTypeCharset +
+                    " not in accept-charset=" + CharsetHeaderValue.toHeaderTextList(acceptCharset));
+        }
+
+        final byte[] body = text.getBytes(contentTypeCharset.charset().get());
+
+        // content type, content-length
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
+        headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length));
+
+        return new HttpEntity(headers, body);
+    }
 
     /**
      * Creates a new {@link HttpEntity}
