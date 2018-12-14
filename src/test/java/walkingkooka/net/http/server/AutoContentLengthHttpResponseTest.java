@@ -19,101 +19,59 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.header.HeaderValueToken;
 import walkingkooka.net.header.NotAcceptableHeaderException;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.test.Latch;
 
+import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<AutoContentLengthHttpResponse> {
 
     @Test
-    public void testAddHeaderContentLength() {
-        this.addHeaderAndCheck(HttpRequests.fake(),
-                HttpHeaderName.CONTENT_LENGTH,
-                123L);
-    }
-
-    @Test
-    public void testAddHeaderContentLengthTwice() {
-        this.addHeaderAndCheck(HttpRequests.fake(),
-                HttpHeaderName.CONTENT_LENGTH,
-                123L,
-                HttpHeaderName.CONTENT_LENGTH,
-                345L);
-    }
-
-    @Test
-    public void testSetBodyContentLengthAbsent() {
-        this.setBodyAndCheck(null,
+    public void testAddEntityContentLengthAbsent() {
+        this.addEntityAndCheck(null,
                 new byte[]{1, 2, 3});
     }
 
     @Test
-    public void testSetBodyContentLengthSetBefore() {
+    public void testAddEntityContentLengthSetBefore() {
         final byte[] bytes = new byte[]{1, 2, 3};
-        this.setBodyAndCheck(Long.valueOf(bytes.length),
+        this.addEntityAndCheck(Long.valueOf(bytes.length),
                 bytes);
     }
 
     @Test(expected = NotAcceptableHeaderException.class)
-    public void testSetBodyContentLengthIncorrectFail() {
-        this.setBodyAndCheck(999L,
+    public void testAddEntityContentLengthIncorrectFail() {
+        this.addEntityAndCheck(999L,
                 new byte[]{1, 2, 3});
     }
 
-    private void setBodyAndCheck(final Long contentLength,
-                                 final byte[] bytes) {
-        final Latch set = Latch.create();
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+    private void addEntityAndCheck(final Long contentLength,
+                                   final byte[] body) {
+        final List<HttpEntity> added = Lists.array();
+
         final HttpResponse response = this.createResponse(
                 new FakeHttpResponse() {
 
-                    @Override
-                    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-                        headers.put(name, name.checkValue(value));
-                    }
-
-                    public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.readOnly(headers);
-                    }
-
                     @Test
-                    public void setBody(final byte[] b) {
-                        assertArrayEquals("bytes", bytes, b);
-                        set.set("setBody");
+                    public void addEntity(final HttpEntity e) {
+                        added.add(e);
                     }
                 });
-        if (null != contentLength) {
-            response.addHeader(HttpHeaderName.CONTENT_LENGTH,
-                    contentLength);
-        }
-        response.setBody(bytes);
-        assertTrue("wrapped response setBody(bytes) not called", set.value());
-        assertEquals("headers",
-                Maps.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(bytes.length)),
-                response.headers());
-    }
 
-    @Test
-    public void testSetBodyText() {
-        final Latch set = Latch.create();
-        final String text = "anc123";
-        this.createResponse(new FakeHttpResponse() {
-            @Test
-            public void setBodyText(final String t) {
-                assertSame("text", text, t);
-                set.set("setBodyText");
-            }
-        }).setBodyText(text);
-        assertTrue("wrapped response setBodyText(text) not called", set.value());
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        if (null != contentLength) {
+            headers.put(HttpHeaderName.CONTENT_LENGTH, contentLength);
+        }
+        response.addEntity(HttpEntity.with(headers, body));
+        assertEquals("added entity",
+                Lists.of(HttpEntity.with(Maps.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length)), body)),
+               added);
     }
 
     @Override
@@ -122,15 +80,11 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
     }
 
     @Override
-    HttpRequest request() {
-        return this.request(Maps.ordered());
+    HttpRequest createRequest() {
+        return this.createRequest(Maps.ordered());
     }
 
-    private HttpRequest request(final String acceptEncoding) {
-        return this.request(Maps.one(HttpHeaderName.ACCEPT_ENCODING, HeaderValueToken.parseList(acceptEncoding)));
-    }
-
-    private HttpRequest request(final Map<HttpHeaderName<?>, Object> headers) {
+    private HttpRequest createRequest(final Map<HttpHeaderName<?>, Object> headers) {
         return new FakeHttpRequest() {
             @Override
             public Map<HttpHeaderName<?>, Object> headers() {

@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.header.NotAcceptableHeaderException;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 
@@ -27,7 +28,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Wraps a {@link HttpResponse} sets if the content-length in {@link #setBody(byte[])} if necessary or verifies
+ * Wraps a {@link HttpResponse} sets if the content-length in {@link #addEntity(HttpEntity)} if necessary or verifies
  * if the existing content-length matches.
  */
 final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse {
@@ -55,25 +56,20 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
         this.response.setStatus(status);
     }
 
-    @Override
-    public Map<HttpHeaderName<?>, Object> headers() {
-        return this.response.headers();
-    }
-
-    @Override
-    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-        this.response.addHeader(name, value);
-    }
-
     /**
-     * If the content-length request header is set verify the body length and complain if they are different.
+     * If the content-length request header is set verify the body length and complain if they are different, or
+     * add a content-length if necessary.
      */
     @Override
-    public void setBody(final byte[] body) {
-        Objects.requireNonNull(body, "body");
+    public void addEntity(final HttpEntity entity) {
+        Objects.requireNonNull(entity, "entity");
+
+        HttpEntity add = entity;
+        final Map<HttpHeaderName<?>, Object> headers = entity.headers();
+        final byte[] body = entity.body();
 
         final long contentLength = body.length;
-        final Optional<Long> maybeResponseContentLength = HttpHeaderName.CONTENT_LENGTH.headerValue(this.response.headers());
+        final Optional<Long> maybeResponseContentLength = HttpHeaderName.CONTENT_LENGTH.headerValue(headers);
         if (maybeResponseContentLength.isPresent()) {
             final long responseContentLength = maybeResponseContentLength.get();
             if (responseContentLength != contentLength) {
@@ -82,13 +78,8 @@ final class AutoContentLengthHttpResponse extends WrapperHttpRequestHttpResponse
                         HttpHeaderName.CONTENT_LENGTH + "=" + responseContentLength);
             }
         } else {
-            this.addHeader(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(contentLength));
+            add = add.addHeader(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(contentLength));
         }
-        this.response.setBody(body);
-    }
-
-    @Override
-    public void setBodyText(final String text) {
-        this.response.setBodyText(text);
+        this.response.addEntity(add);
     }
 }

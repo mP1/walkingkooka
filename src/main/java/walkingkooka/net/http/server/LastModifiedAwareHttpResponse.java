@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
@@ -71,50 +72,31 @@ final class LastModifiedAwareHttpResponse extends BufferingHttpResponse {
         this.lastModified = lastModified;
     }
 
-    @Override
-    void setBody(final HttpStatus status,
-                 final Map<HttpHeaderName<?>, Object> headers,
-                 final byte[] body) {
-        if (false == this.tryContentNotModified(status, headers)) {
-            this.response.setStatus(status);
-            this.copyHeaders(headers);
-            this.response.setBody(body);
-        }
-    }
-
-    @Override
-    void setBodyText(final HttpStatus status,
-                     final Map<HttpHeaderName<?>, Object> headers,
-                     final String bodyText) {
-        if (false == this.tryContentNotModified(status, headers)) {
-            this.response.setStatus(status);
-            this.copyHeaders(headers);
-            this.response.setBodyText(bodyText);
-        }
-    }
-
     /**
      * If the response status code is a successful, and the last modified in the response is less than or equal to
      * the request last modified, then a {@linkl HttpStatusCode#NO_CONTENT} is sent instead and TRUE returned.
      */
-    private boolean tryContentNotModified(final HttpStatus status,
-                                          final Map<HttpHeaderName<?>, Object> headers) {
-        boolean notModified = false;
+    @Override
+    void addEntity(final HttpStatus status,
+                   final HttpEntity entity) {
+        HttpStatus finalStatus = status;
+        HttpEntity addEntity = entity;
+
+        //boolean notModified = false;
 
         if (status.value().category() == HttpStatusCodeCategory.SUCCESSFUL) {
-            final Optional<LocalDateTime> maybeLastModified = HttpHeaderName.LAST_MODIFIED.headerValue(headers);
+            final Optional<LocalDateTime> maybeLastModified = HttpHeaderName.LAST_MODIFIED.headerValue(entity.headers());
             if (maybeLastModified.isPresent()) {
                 final LocalDateTime lastModified = maybeLastModified.get();
                 if (lastModified.compareTo(this.lastModified) <= 0) {
-                    this.response.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-                    this.copyHeaders(headers, this.ignoreContentHeaders());
-
-                    notModified = true;
+                    finalStatus = HttpStatusCode.NOT_MODIFIED.status();
+                    addEntity = this.removeContentHeaders(entity);
                 }
             }
         }
 
-        return notModified;
+        this.response.setStatus(finalStatus);
+        this.response.addEntity(addEntity);
     }
 
     /**

@@ -18,14 +18,13 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.http.HasHeaders;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
 /**
  * Defines a HTTP response.
  */
-public interface HttpResponse extends HasHeaders {
+public interface HttpResponse {
 
     /**
      * Sets the response status
@@ -33,17 +32,7 @@ public interface HttpResponse extends HasHeaders {
     void setStatus(final HttpStatus status);
 
     /**
-     * Adds a new header and its value.
+     * Adds an entity to the response.
      */
-    <T> void addHeader(final HttpHeaderName<T> name, final T value);
-
-    /**
-     * Sets the body of the response.
-     */
-    void setBody(final byte[] body);
-
-    /**
-     * Sets text that will be encoded and set upon the body.
-     */
-    void setBodyText(final String text);
+    void addEntity(final HttpEntity entity);
 }

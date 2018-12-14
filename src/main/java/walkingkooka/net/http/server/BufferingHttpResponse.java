@@ -18,19 +18,15 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.Cast;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
-import walkingkooka.predicate.Predicates;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
- * An abstract {@link WrapperHttpResponse} that buffers any status or headers, until {@link #setBody(byte[])} or {@link #setBodyText(String)},
- * and then calls matching abstract methods for each to control copying to the wrapped response.
+ * An abstract {@link WrapperHttpResponse} that buffers any status until an entity is added.
  */
 abstract class BufferingHttpResponse extends WrapperHttpResponse {
 
@@ -45,7 +41,7 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
     public final void setStatus(final HttpStatus status) {
         Objects.requireNonNull(status, "status");
 
-        if(this.comitted) {
+        if(this.committed) {
             this.response.setStatus(status);
         } else {
             this.status = status;
@@ -53,45 +49,14 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
     }
 
     @Override
-    public final <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-        Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(value, "value");
+    public final void addEntity(final HttpEntity entity) {
+        Objects.requireNonNull(entity, "entity");
 
-        if(this.comitted) {
-            this.response.addHeader(name, value);
+        if(this.committed) {
+            this.response.addEntity(entity);
         } else {
-            this.headers.put(name, value);
-        }
-    }
-
-    @Override
-    public final Map<HttpHeaderName<?>, Object> headers() {
-        return this.comitted ?
-                this.response.headers() :
-                this.readOnlyHeaders;
-    }
-
-    @Override
-    public final void setBody(final byte[] body) {
-        Objects.requireNonNull(body, "body");
-
-        if(this.comitted) {
-            this.response.setBody(body);
-        } else {
-            this.comitted = true;
-            this.setBody(this.statusOrFail(), this.headers, body);
-        }
-    }
-
-    @Override
-    public final void setBodyText(final String bodyText) {
-        Objects.requireNonNull(bodyText, "bodyText");
-
-        if(this.comitted) {
-            this.response.setBodyText(bodyText);
-        } else {
-            this.comitted = true;
-            this.setBodyText(this.statusOrFail(), this.headers, bodyText);
+            this.committed = true;
+            this.addEntity(this.statusOrFail(), entity);
         }
     }
 
@@ -104,43 +69,27 @@ abstract class BufferingHttpResponse extends WrapperHttpResponse {
     }
 
     private HttpStatus status;
-    private final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-    private final Map<HttpHeaderName<?>, Object> readOnlyHeaders = Maps.readOnly(this.headers);
 
     /**
-     * When false all headers and status code is buffered and not set upon the wrapped {@link HttpResponse}.
+     * When false the status is buffered and not set upon the wrapped {@link HttpResponse}.
      */
-    boolean comitted = false;
-
-    abstract void setBody(HttpStatus status,
-                          final Map<HttpHeaderName<?>, Object> headers,
-                          final byte[] body);
-
-    abstract void setBodyText(HttpStatus status,
-                              final Map<HttpHeaderName<?>, Object> headers,
-                              final String bodyText);
+    boolean committed = false;
 
     /**
-     * Copies all headers to the response.
+     * Called when a buffered entity and status is added.
      */
-    final void copyHeaders(final Map<HttpHeaderName<?>, Object> headers){
-        this.copyHeaders(headers, Predicates.always());
-    }
+    abstract void addEntity(final HttpStatus status,
+                            final HttpEntity entity);
 
     /**
-     * Copy all headers that are matched by the filter.
+     * Removes any content headers in the given entity.
      */
-    final void copyHeaders(final Map<HttpHeaderName<?>, Object> headers, final Predicate<HttpHeaderName<?>> filter){
-        headers.entrySet()
+    final HttpEntity removeContentHeaders(final HttpEntity entity) {
+        return entity.setHeaders(
+                entity.headers()
+                .entrySet()
                 .stream()
-                .filter(headerAndValue -> filter.test(headerAndValue.getKey()))
-                .forEach(headerAndValue -> this.response.addHeader(Cast.to(headerAndValue.getKey()), headerAndValue.getValue()));
-    }
-
-    /**
-     * A {@link Predicate} that matches all headers except for content headers.
-     */
-    final Predicate<HttpHeaderName<?>> ignoreContentHeaders() {
-        return (h) -> !h.isContent();
+                .filter(hav -> !hav.getKey().isContent())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
     }
 }

@@ -18,11 +18,14 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Cast;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.net.http.HttpStatus;
 
-import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 
 /**
  * A {@link HttpResponse} that checks the scope correctness of any header names when adding new headers, or reading
@@ -37,7 +40,6 @@ final class HttpHeaderScopeHttpResponse extends WrapperHttpResponse {
     
     private HttpHeaderScopeHttpResponse(final HttpResponse response) {
         super(response);
-        this.headers = HttpHeaderScopeHttpRequestHttpResponseHeadersMap.with(response.headers(), HttpHeaderScope.RESPONSE);
     }
 
     @Override
@@ -46,25 +48,18 @@ final class HttpHeaderScopeHttpResponse extends WrapperHttpResponse {
     }
 
     @Override
-    public Map<HttpHeaderName<?>, Object> headers() {
-        return this.headers;
+    public void addEntity(final HttpEntity entity) {
+        Objects.requireNonNull(entity, "entity");
+
+        entity.headers()
+                .entrySet()
+                .stream()
+                .forEach(this::checkHeader);
+
+        this.response.addEntity(entity);
     }
 
-    private final HttpHeaderScopeHttpRequestHttpResponseHeadersMap headers;
-
-    @Override
-    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-        HttpHeaderScope.RESPONSE.check(name, value);
-        this.response.addHeader(name, value);
-    }
-
-    @Override
-    public void setBody(final byte[] body) {
-        this.response.setBody(body);
-    }
-
-    @Override
-    public void setBodyText(final String text) {
-        this.response.setBodyText(text);
+    private void checkHeader(final Entry<HttpHeaderName<?>, Object> entry) {
+        HttpHeaderScope.RESPONSE.check(Cast.to(entry.getKey()), entry.getValue());
     }
 }

@@ -19,7 +19,6 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatusCode;
 
 public abstract class BufferingHttpResponseTestCase<R extends BufferingHttpResponse> extends WrapperHttpResponseTestCase<R> {
@@ -32,11 +31,5 @@ public abstract class BufferingHttpResponseTestCase<R extends BufferingHttpRespo
     public void testSetStatus() {
         this.createResponse(HttpResponses.fake())
                 .setStatus(HttpStatusCode.OK.status());
-    }
-
-    @Test
-    public void testAddHeader() {
-        this.createResponse(HttpResponses.fake())
-        .addHeader(HttpHeaderName.CONTENT_LENGTH, 123L);
     }
 }

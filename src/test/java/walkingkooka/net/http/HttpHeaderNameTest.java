@@ -26,9 +26,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderNameTestCase;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.header.NotAcceptableHeaderException;
-import walkingkooka.net.http.server.FakeHttpResponse;
-import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -197,51 +194,6 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
         this.toValueAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 "123",
                 123L);
-    }
-
-    // addHeaderValue.........................................................................
-
-    @Test(expected = NullPointerException.class)
-    public void testAddHeaderValueNullValueFails() {
-        HttpHeaderName.CONNECTION.addHeaderValue(null, HttpResponses.fake());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testAddHeaderValueNullResponseFails() {
-        HttpHeaderName.CONNECTION.addHeaderValue("*", null);
-    }
-
-    @Test(expected = NotAcceptableHeaderException.class)
-    public void testAddHeaderScopeFails() {
-        HttpHeaderName.USER_AGENT.addHeaderValue("xyz", HttpResponses.fake());
-    }
-
-    @Test
-    public void testAddHeaderValueScopeResponse() {
-        this.addHeaderValueAndCheck(HttpHeaderName.SERVER, "Server xyz");
-    }
-
-    @Test
-    public void testAddHeaderValueScopeRequest() {
-        this.addHeaderValueAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
-    }
-
-    @Test
-    public void testAddHeaderValueScopeUnknown() {
-        this.addHeaderValueAndCheck(Cast.to(HttpHeaderName.with("xyz")), "abc");
-    }
-
-    private <T> void addHeaderValueAndCheck(final HttpHeaderName<T> header, final T value) {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-
-        header.addHeaderValue(value,
-                new FakeHttpResponse() {
-                    @Override
-                    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-                        headers.put(name, value);
-                    }
-                });
-        assertEquals("set headers", Maps.one(header, value), headers);
     }
 
     // headerText.........................................................................

@@ -24,19 +24,17 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpETag;
 import walkingkooka.net.http.HttpETagValidator;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
 
 public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpResponseTestCase<IfNoneMatchAwareHttpResponse> {
 
@@ -44,7 +42,6 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     private final static Function<byte[], HttpETag> COMPUTER = (b) -> HttpETagValidator.STRONG.setValue("X" + b.length);
 
     private final static byte[] BODY = new byte[]{1, 2, 3, 4};
-    private final static byte[] NO_BODY = null;
 
     private final static String SERVER = "Server 123";
     private final static HttpETag E_TAG_ABSENT = null;
@@ -91,25 +88,6 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
                         response));
     }
 
-    // response setBodyText fails.........................................................................
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void testSetBodyTextFails() {
-        final IfNoneMatchAwareHttpResponse  response = this.createResponse(new FakeHttpResponse(){
-            @Override
-            public void setStatus(final HttpStatus status) {
-
-            }
-
-            @Override
-            public void setBodyText(final String body) {
-                fail("setBodyText should not have been called.");
-            }
-        });
-        response.setStatus(HttpStatusCode.OK.status());
-        response.setBodyText("body text");
-    }
-
     // server response body status code.........................................................................
 
     @Test
@@ -133,7 +111,7 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     }
 
     private void statusBodyAndCheck(final HttpStatusCode status) {
-        this.makeResponseAndCheck(status,
+        this.setStatusAddEntityAndCheck(status,
                 this.headersWithContentHeaders(E_TAG_ABSENT),
                 BODY);
     }
@@ -142,14 +120,14 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
 
     @Test
     public void testStatusOkIfNoneMatchFail() {
-        this.responseOkAndCheck(E_TAG_ABSENT,
+        this.setStatusOkAndAddEntityAndCheck(E_TAG_ABSENT,
                 this.etag(9),
                 new byte[9]);
     }
 
     @Test
     public void testStatusOkComputedETagFailMatchesWeak() {
-        this.responseOkAndCheck(E_TAG_ABSENT,
+        this.setStatusOkAndAddEntityAndCheck(E_TAG_ABSENT,
                 this.etag(1),
                 new byte[1]);
     }
@@ -157,15 +135,15 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     @Test
     public void testStatusOkETagIfNoneMatchFail() {
         final HttpETag etag = this.etag(9);
-        this.responseOkAndCheck(etag,
+        this.setStatusOkAndAddEntityAndCheck(etag,
                 etag,
                 new byte[9]);
     }
 
-    private void responseOkAndCheck(final HttpETag etag,
-                                               final HttpETag expectedETag,
-                                               final byte[] body) {
-        this.makeResponseAndCheck(HttpStatusCode.OK,
+    private void setStatusOkAndAddEntityAndCheck(final HttpETag etag,
+                                                 final HttpETag expectedETag,
+                                                 final byte[] body) {
+        this.setStatusAddEntityAndCheck(HttpStatusCode.OK,
                 this.headersWithContentHeaders(etag),
                 body,
                 HttpStatusCode.OK,
@@ -178,34 +156,34 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
     @Test
     public void testStatusOkEtagPrecomputedIfNoneMatchMatched() {
         final HttpETag etag = this.etag(2);
-        this.responseOkAndNotModifiedCheck(etag,
+        this.setStatusOkAndNotModifiedCheck(etag,
                 etag,
                 new byte[2]);
     }
 
     @Test
     public void testStatusOkEtagIfNoneMatchMatched() {
-        this.responseOkAndNotModifiedCheck(E_TAG_ABSENT,
+        this.setStatusOkAndNotModifiedCheck(E_TAG_ABSENT,
                 this.etag(2),
                 new byte[2]);
     }
 
     @Test
     public void testStatusOkEtagIfNoneMatchMatched2() {
-        this.responseOkAndNotModifiedCheck(E_TAG_ABSENT,
+        this.setStatusOkAndNotModifiedCheck(E_TAG_ABSENT,
                 this.etag(3),
                 new byte[3]);
     }
 
-    private void responseOkAndNotModifiedCheck(final HttpETag etag,
-                                                           final HttpETag expectedETag,
-                                                           final byte[] body) {
-        this.makeResponseAndCheck(HttpStatusCode.OK,
+    private void setStatusOkAndNotModifiedCheck(final HttpETag etag,
+                                                final HttpETag expectedETag,
+                                                final byte[] body) {
+        this.setStatusAddEntityAndCheck(HttpStatusCode.OK,
                 this.headersWithContentHeaders(etag),
                 body,
                 HttpStatusCode.NOT_MODIFIED,
                 this.headers(expectedETag),
-                NO_BODY);
+                body);
     }
 
     // helpers.........................................................................................
@@ -226,31 +204,24 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
         return headers;
     }
 
-    private void makeResponseAndCheck(final HttpStatusCode status,
-                                      final Map<HttpHeaderName<?>, Object> headers,
-                                      final byte[] body) {
-        this.makeResponseAndCheck(status, headers, body, status, headers, body);
+    private void setStatusAddEntityAndCheck(final HttpStatusCode status,
+                                            final Map<HttpHeaderName<?>, Object> headers,
+                                            final byte[] body) {
+        this.setStatusAddEntityAndCheck(status, headers, body, status, headers, body);
     }
 
-    private void makeResponseAndCheck(final HttpStatusCode status,
-                                      final Map<HttpHeaderName<?>, Object> headers,
-                                      final byte[] body,
-                                      final HttpStatusCode expectedStatus,
-                                      final Map<HttpHeaderName<?>, Object> expectedHeaders,
-                                      final byte[] expectedBody) {
-        final TestHttpResponse wrapped = new TestHttpResponse();
-        final HttpRequest request = this.request(HttpMethod.GET, this.ifNoneMatch());
-        final HttpResponse response = IfNoneMatchAwareHttpResponse.with(request, wrapped, COMPUTER);
-        assertEquals("not wrapped", IfNoneMatchAwareHttpResponse.class, response.getClass());
-
-        response.setStatus(status.status());
-        headers.entrySet()
-                .stream()
-                .forEach(headerAndValue -> response.addHeader(Cast.to(headerAndValue.getKey()), headerAndValue.getValue()));
-
-        response.setBody(body);
-        wrapped.check(request, expectedStatus.status(), expectedHeaders, expectedBody);
-
+    private void setStatusAddEntityAndCheck(final HttpStatusCode status,
+                                            final Map<HttpHeaderName<?>, Object> headers,
+                                            final byte[] body,
+                                            final HttpStatusCode expectedStatus,
+                                            final Map<HttpHeaderName<?>, Object> expectedHeaders,
+                                            final byte[] expectedBody) {
+        this.setStatusAddEntityAndCheck(
+                this.createRequest(),
+                status.status(),
+                HttpEntity.with(headers, body),
+                expectedStatus.status(),
+                HttpEntity.with(expectedHeaders, expectedBody));
     }
 
     @Override
@@ -264,27 +235,32 @@ public final class IfNoneMatchAwareHttpResponseTest extends BufferingHttpRespons
                                                          final List<HttpETag> ifNoneMatch,
                                                          final HttpResponse response) {
         return Cast.to(this.createResponse(
-                request(method, ifNoneMatch),
+                createRequest(method, ifNoneMatch),
                 response));
     }
 
-    private IfNoneMatchAwareHttpResponse createResponse(final HttpRequest request,
-                                                         final HttpResponse response) {
+    @Override
+    IfNoneMatchAwareHttpResponse createResponse(final HttpRequest request,
+                                                final HttpResponse response) {
         return Cast.to(IfNoneMatchAwareHttpResponse.with(request, response, COMPUTER));
     }
 
-
-    private static HttpResponse createResponseWithoutCast(final HttpMethod method,
+    private HttpResponse createResponseWithoutCast(final HttpMethod method,
                                                           final List<HttpETag> ifNoneMatch,
                                                           final HttpResponse response) {
         return IfNoneMatchAwareHttpResponse.with(
-                request(method, ifNoneMatch),
+                createRequest(method, ifNoneMatch),
                 response,
                 COMPUTER);
     }
 
-    private static HttpRequest request(final HttpMethod method,
-                                       final List<HttpETag> ifNoneMatch) {
+    @Override
+    HttpRequest createRequest() {
+        return createRequest(HttpMethod.GET, this.ifNoneMatch());
+    }
+
+    private HttpRequest createRequest(final HttpMethod method,
+                                      final List<HttpETag> ifNoneMatch) {
         assertNotNull("method", method);
 
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();

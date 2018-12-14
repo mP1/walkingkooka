@@ -30,15 +30,15 @@ import java.util.Set;
 /**
  * A {@link Map} that checks the header (or key) passed to {@link #containsKey(Object)} and {@link #get(Object)}.
  */
-final class HttpHeaderScopeHttpRequestHttpResponseHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
+final class HttpHeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
 
-    static HttpHeaderScopeHttpRequestHttpResponseHeadersMap with(final Map<HttpHeaderName<?>, Object> map,
-                                                                 final HttpHeaderScope scope) {
-        return new HttpHeaderScopeHttpRequestHttpResponseHeadersMap(map, scope);
+    static HttpHeaderScopeHttpRequestHeadersMap with(final Map<HttpHeaderName<?>, Object> map,
+                                                     final HttpHeaderScope scope) {
+        return new HttpHeaderScopeHttpRequestHeadersMap(map, scope);
     }
 
-    private HttpHeaderScopeHttpRequestHttpResponseHeadersMap(final Map<HttpHeaderName<?>, Object> map,
-                                                             final HttpHeaderScope scope) {
+    private HttpHeaderScopeHttpRequestHeadersMap(final Map<HttpHeaderName<?>, Object> map,
+                                                 final HttpHeaderScope scope) {
         super();
         this.map = map;
         this.scope = scope;
