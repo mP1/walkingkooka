@@ -42,14 +42,6 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see AutoTextEncodingHttpResponse}
-     */
-    public static HttpResponse autoTextEncoding(final HttpRequest request,
-                                                final HttpResponse response) {
-        return AutoTextEncodingHttpResponse.with(request, response);
-    }
-
-    /**
      * {@see FakeHttpResponse}
      */
     public static HttpResponse fake() {
