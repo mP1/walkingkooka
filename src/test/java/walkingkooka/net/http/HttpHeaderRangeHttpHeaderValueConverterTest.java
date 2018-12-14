@@ -43,7 +43,7 @@ public final class HttpHeaderRangeHttpHeaderValueConverterTest extends
     }
 
     private HttpHeaderRange range() {
-        return HttpHeaderRange.with("bytes",
+        return HttpHeaderRange.with(HttpRangeUnit.BYTES,
                 Lists.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L)),
                         Range.greaterThanEquals(789L)));
     }
