@@ -20,12 +20,11 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
@@ -34,20 +33,16 @@ import static org.junit.Assert.assertEquals;
  * A response that records all parameters set up on it for later verification.
  */
 final class TestHttpResponse implements HttpResponse {
+
     TestHttpResponse() {
         super();
-        this.headers = Maps.ordered();
     }
 
     TestHttpResponse(final HttpStatus status,
-                     final Map<HttpHeaderName<?>, Object> headers,
-                     final byte[] body,
-                     final String bodyText) {
+                     final List<HttpEntity> entities) {
         super();
         this.status = status;
-        this.headers = headers;
-        this.body = body;
-        this.bodyText = bodyText;
+        this.entities.addAll(entities);
     }
 
     @Override
@@ -58,58 +53,26 @@ final class TestHttpResponse implements HttpResponse {
     HttpStatus status;
 
     @Override
-    public Map<HttpHeaderName<?>, Object> headers() {
-        return Maps.readOnly(this.headers);
+    public void addEntity(final HttpEntity entity) {
+        Objects.requireNonNull(entity, "entity");
+        this.entities.add(entity);
     }
 
-    @Override
-    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-        this.headers.put(name, value);
-    }
-
-    final Map<HttpHeaderName<?>, Object> headers;
-
-    @Override
-    public void setBody(final byte[] body) {
-        this.body = body;
-    }
-
-    byte[] body;
-
-    @Override
-    public void setBodyText(final String bodyText) {
-        this.bodyText = bodyText;
-    }
+    private final List<HttpEntity> entities = Lists.array();
 
     String bodyText;
 
     void check(final HttpRequest request,
                final HttpStatus status,
-               final Map<HttpHeaderName<?>, Object> headers,
-               final byte[] body) {
-        this.check(request, status, headers, body, null);
-    }
-
-    void check(final HttpRequest request,
-               final HttpStatus status,
-               final Map<HttpHeaderName<?>, Object> headers,
-               final String bodyText) {
-        this.check(request, status, headers, null, bodyText);
-    }
-
-    void check(final HttpRequest request,
-               final HttpStatus status,
-               final Map<HttpHeaderName<?>, Object> headers,
-               final byte[] body,
-               final String bodyText) {
+               final HttpEntity...entities) {
         assertEquals(request.toString(),
-                new TestHttpResponse(status, headers, body, bodyText),
+                new TestHttpResponse(status, Lists.of(entities)),
                 this);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.status, this.headers, this.body, this.bodyText);
+        return Objects.hash(this.status, this.entities);
     }
 
     public boolean equals(final Object other) {
@@ -118,18 +81,14 @@ final class TestHttpResponse implements HttpResponse {
 
     private boolean equals0(final TestHttpResponse other) {
         return Objects.equals(this.status, other.status) &&
-                Objects.equals(this.headers, other.headers) &&
-                Arrays.equals(this.body, other.body) &&
-                Objects.equals(this.bodyText, other.bodyText);
+                Objects.equals(this.entities, other.entities);
     }
 
     @Override
     public String toString() {
         return ToStringBuilder.create()
                 .value(this.status)
-                .value(this.headers)
-                .value(this.body)
-                .value(this.bodyText)
+                .value(this.entities)
                 .build();
     }
 }

@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.net.http.HttpETag;
 import walkingkooka.net.http.HttpETagValidator;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
@@ -85,39 +86,35 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
     }
 
     @Override
-    void setBody(final HttpStatus status,
-                 final Map<HttpHeaderName<?>, Object> headers,
-                 final byte[] body) {
-        boolean copyAll = true;
+    void addEntity(final HttpStatus status,
+                   final HttpEntity entity) {
+        HttpStatus finalStatus = status;
+        HttpEntity addEntity = entity;
 
-        HttpETag etag = null;
         if (status.value().category() == HttpStatusCodeCategory.SUCCESSFUL) {
-            etag = contentETag(body);
+            final byte[] body = entity.body();
+            HttpETag etag = contentETag(body, entity.headers());
+
             // if-modified-since should be evaluated first and if successful the status would not be 2xx.
             if (this.isNotModified(etag)) {
-                this.response.setStatus(HttpStatusCode.NOT_MODIFIED.status());
-                this.copyHeaders(headers, this.ignoreContentHeaders());
-                this.response.addHeader(HttpHeaderName.E_TAG, etag);
+                finalStatus = HttpStatusCode.NOT_MODIFIED.status();
+                addEntity = this.removeContentHeaders(entity)
+                        .addHeader(HttpHeaderName.E_TAG, etag);
 
-                copyAll = false;
+            } else {
+                addEntity = entity.addHeader(HttpHeaderName.E_TAG, etag);
             }
         }
 
-        if (copyAll) {
-            this.response.setStatus(status);
-            this.copyHeaders(headers);
-            if (null != etag) {
-                this.addHeader(HttpHeaderName.E_TAG, etag);
-            }
-            this.response.setBody(body);
-        }
+        this.response.setStatus(finalStatus);
+        this.response.addEntity(addEntity);
     }
 
     /**
      * Lazily computes an e-tag if a header value is not already set.
      */
-    private HttpETag contentETag(final byte[] body) {
-        final Optional<HttpETag> contentETag = HttpHeaderName.E_TAG.headerValue(this.headers());
+    private HttpETag contentETag(final byte[] body, final Map<HttpHeaderName<?>, Object> headers) {
+        final Optional<HttpETag> contentETag = HttpHeaderName.E_TAG.headerValue(headers);
         return contentETag.isPresent() ?
                 contentETag.get() :
                 this.computer.apply(body);
@@ -138,14 +135,4 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
     private final List<HttpETag> ifNoneMatch;
 
     private final Function<byte[], HttpETag> computer;
-
-    /**
-     * Always throws a {@link UnsupportedOperationException}, assumes that all text should have been converted to bytes.
-     */
-    @Override
-    void setBodyText(final HttpStatus status,
-                     final Map<HttpHeaderName<?>, Object> headers,
-                     final String bodyText) {
-        throw new UnsupportedOperationException();
-    }
 }

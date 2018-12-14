@@ -19,19 +19,17 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.net.header.NotAcceptableHeaderException;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
-import walkingkooka.net.http.cookie.Cookie;
 import walkingkooka.test.Latch;
 
-import java.util.Map;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 public final class HttpHeaderScopeHttpResponseTest extends WrapperHttpResponseTestCase<HttpHeaderScopeHttpResponse> {
 
@@ -53,142 +51,37 @@ public final class HttpHeaderScopeHttpResponseTest extends WrapperHttpResponseTe
                 assertSame("status", status, s);
             }
 
-            @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.fake();
-            }
-
         }).setStatus(status);
 
         assertEquals("status not set", true, set.value());
     }
 
-    @Test(expected = NotAcceptableHeaderException.class)
-    public void testAddHeaderRequestScopeFails() {
-        this.createResponse()
-                .addHeader(HttpHeaderName.COOKIE, Cookie.parseClientHeader("cookie123=456"));
-    }
-
     @Test
-    public void testAddHeaderResponseHeader() {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+    public void testAddEntity() {
+        final List<HttpEntity> added = Lists.array();
+        final HttpEntity entity = HttpEntity.with(HttpEntity.NO_HEADERS, new byte[123]);
 
         HttpHeaderScopeHttpResponse.with(new FakeHttpResponse() {
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.fake();
+            public void addEntity(final HttpEntity e) {
+                added.add(e);
             }
 
-            @Override
-            public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-                headers.put(name, value);
-            }
-        }).addHeader(HEADER, VALUE);
+        }).addEntity(entity);
 
-        assertEquals("header after addHeader", Maps.one(HEADER, VALUE), headers);
-    }
-
-    @Test(expected = NotAcceptableHeaderException.class)
-    public void testHeaderContainsKeyRequestHeaderScopeFails() {
-        this.createResponse().headers().containsKey(HttpHeaderName.COOKIE);
-    }
-
-    @Test
-    public void testHeaderContainsResponseHeader() {
-        assertTrue(VALUE,
-                HttpHeaderScopeHttpResponse.with(new FakeHttpResponse() {
-                    @Override
-                    public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.one(HEADER, VALUE);
-                    }
-                }).headers().containsKey(HEADER));
-    }
-
-    @Test(expected = NotAcceptableHeaderException.class)
-    public void testHeaderGetRequestHeaderScopeFails() {
-        this.createResponse().headers().get(HttpHeaderName.COOKIE);
-    }
-
-    @Test
-    public void testHeaderGetResponseHeader() {
-        assertSame(VALUE,
-                HttpHeaderScopeHttpResponse.with(new FakeHttpResponse() {
-                    @Override
-                    public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.one(HEADER, VALUE);
-                    }
-                }).headers().get(HEADER));
-    }
-
-    @Test
-    public void testSetBody() {
-        final Latch set = Latch.create();
-        final byte[] body = new byte[123];
-
-        HttpHeaderScopeHttpResponse.with(new FakeHttpResponse() {
-
-            @Override
-            public void setBody(final byte[] b) {
-                set.set("Body already set to " + body);
-                assertSame("body", body, b);
-            }
-
-            @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.fake();
-            }
-
-        }).setBody(body);
-
-        assertEquals("body not set", true, set.value());
-    }
-
-    @Test
-    public void testSetBodyText() {
-        final Latch set = Latch.create();
-        final String text = "body text 123";
-
-        HttpHeaderScopeHttpResponse.with(new FakeHttpResponse() {
-
-            @Override
-            public void setBodyText(final String t) {
-                set.set("Body already set to " + text);
-                assertSame("text", text, t);
-            }
-
-            @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.fake();
-            }
-
-        }).setBodyText(text);
-
-        assertEquals("text not set", true, set.value());
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals(TOSTRING, this.createResponse().toString());
+        assertEquals("added entities", Lists.of(entity), added);
     }
 
     @Override
-    protected HttpHeaderScopeHttpResponse createResponse(final HttpResponse response) {
+    HttpHeaderScopeHttpResponse createResponse(final HttpRequest request,
+                                               final HttpResponse response) {
         return HttpHeaderScopeHttpResponse.with(response);
     }
 
     @Override
-    HttpResponse wrappedHttpResponse() {
-        return new FakeHttpResponse() {
-            @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.fake();
-            }
-
-            public String toString() {
-                return TOSTRING;
-            }
-        };
+    HttpRequest createRequest() {
+        return HttpRequests.fake();
     }
 
     @Override

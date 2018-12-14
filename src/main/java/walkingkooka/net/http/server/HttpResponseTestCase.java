@@ -19,7 +19,6 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
 public abstract class HttpResponseTestCase<R extends HttpResponse> extends PackagePrivateClassTestCase<R> {
@@ -30,23 +29,8 @@ public abstract class HttpResponseTestCase<R extends HttpResponse> extends Packa
     }
 
     @Test(expected = NullPointerException.class)
-    public void testAddHeaderNullNameFails() {
-        this.createResponse().addHeader(null, "header-value");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testAddHeaderNullValueFails() {
-        this.createResponse().addHeader(HttpHeaderName.CONTENT_LENGTH, null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testSetBodyNullFails() {
-        this.createResponse().setBody(null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testSetBodyTextNullFails() {
-        this.createResponse().setBodyText(null);
+    public void testAddEntityNullFails() {
+        this.createResponse().addEntity(null);
     }
 
     protected abstract R createResponse();

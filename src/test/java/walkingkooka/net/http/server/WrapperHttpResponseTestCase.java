@@ -19,13 +19,10 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.Latch;
-
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -56,36 +53,16 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         assertTrue("wrapped response setStatus not called", set.value());
     }
 
-    final <T> void addHeaderAndCheck(final HttpHeaderName<T> header,
-                                     final T value) {
-        this.addHeaderAndCheck(header,
-                value,
-                null,
-                null);
-    }
+    @Test
+    public final void testToString() {
+        final String toString = "Wrapped Http Response";
+        assertEquals(toString, this.createResponse(new FakeHttpResponse() {
 
-    final <T, U> void addHeaderAndCheck(final HttpHeaderName<T> header,
-                                        final T value,
-                                        final HttpHeaderName<U> header2,
-                                        final U value2) {
-        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        final Map<HttpHeaderName<?>, Object> expectedHeaders = Maps.ordered();
-
-        final R response = this.createResponse(new FakeHttpResponse() {
-
-            public <T> void addHeader(final HttpHeaderName<T> n, final T v) {
-                headers.put(n, v);
+            @Override
+            public String toString() {
+                return toString;
             }
-        });
-        response.addHeader(header, value);
-        expectedHeaders.put(header, value);
-
-        if (null != header2 && null != value2) {
-            response.addHeader(header2, value2);
-            expectedHeaders.put(header2, value2);
-        }
-
-        assertEquals("headers", expectedHeaders, headers);
+        }).toString());
     }
 
     // helpers..................................................................................................
@@ -95,9 +72,40 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
         return this.createResponse(this.wrappedHttpResponse());
     }
 
-    abstract R createResponse(final HttpResponse response);
-
     HttpResponse wrappedHttpResponse() {
         return HttpResponses.fake();
+    }
+
+    R createResponse(final HttpResponse response) {
+        return this.createResponse(this.createRequest(), response);
+    }
+
+    abstract HttpRequest createRequest();
+
+    abstract R createResponse(final HttpRequest request, final HttpResponse response);
+
+    final void setStatusAddEntityAndCheck(final HttpStatus status,
+                                          final HttpEntity entity,
+                                          final HttpStatus expectedStatus,
+                                          final HttpEntity... expectedEntities) {
+        this.setStatusAddEntityAndCheck(HttpRequests.fake(),
+                status,
+                entity,
+                expectedStatus,
+                expectedEntities);
+    }
+
+    final void setStatusAddEntityAndCheck(final HttpRequest request,
+                                          final HttpStatus status,
+                                          final HttpEntity entity,
+                                          final HttpStatus expectedStatus,
+                                          final HttpEntity... expectedEntities) {
+        final TestHttpResponse wrapped = new TestHttpResponse();
+
+        final R response = this.createResponse(request, wrapped);
+        response.setStatus(status);
+        response.addEntity(entity);
+
+        wrapped.check(request, expectedStatus, expectedEntities);
     }
 }

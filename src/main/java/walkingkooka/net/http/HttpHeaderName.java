@@ -36,7 +36,6 @@ import walkingkooka.net.header.HeaderValueToken;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.cookie.ClientCookie;
 import walkingkooka.net.http.cookie.ServerCookie;
-import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
@@ -836,17 +835,6 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
         Objects.requireNonNull(value, "value");
 
         return this.valueConverter.parse(value, this);
-    }
-
-    /**
-     * Sets the value upon the {@link HttpResponse}
-     */
-    public void addHeaderValue(final T value, final HttpResponse response) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(response, "response");
-
-        HttpHeaderScope.RESPONSE.check(this, value);
-        response.addHeader(this, value);
     }
 
     /**

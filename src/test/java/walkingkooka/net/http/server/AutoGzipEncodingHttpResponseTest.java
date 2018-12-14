@@ -22,166 +22,128 @@ import org.junit.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HeaderValueToken;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.test.Latch;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<AutoGzipEncodingHttpResponse> {
 
     private final static String GZIP = "gzip";
 
-    @Test
-    public void testAddHeaderContentEncoding() {
-        this.addHeaderAndCheck(HttpRequests.fake(),
-                HttpHeaderName.CONTENT_ENCODING,
-                HeaderValueToken.parse("br"));
-    }
-
-    @Test
-    public void testAddHeaderContentEncodingGzip() {
-        this.addHeaderAndCheck(HttpRequests.fake(),
-                HttpHeaderName.CONTENT_ENCODING,
-                HeaderValueToken.parse(GZIP));
-    }
-
     @Test(expected = HeaderValueException.class)
-    public void testSetBodyRequestMissingAcceptEncodingFails() {
-        this.createResponse().setBody(new byte[0]);
+    public void testAddEntityRequestMissingAcceptEncodingFails() {
+        this.createResponse().addEntity(HttpEntity.with(HttpEntity.NO_HEADERS, new byte[0]));
     }
 
     @Test
-    public void testSetBodyRequestAcceptEncodingNotGzip() {
-        final byte[] bytes = new byte[]{1, 2, 3};
-        this.setBodyRequestWithAcceptEncodingAndCheck("X",
-                bytes,
+    public void testAddEntityRequestAcceptEncodingNotGzip() {
+        final byte[] body = new byte[]{1, 2, 3};
+        this.addEntityRequestWithAcceptEncodingAndCheck("X",
+                body,
                 Maps.empty(),
-                bytes);
+                body);
     }
 
     @Test
-    public void testSetBodyAcceptEncodingNotGzip() {
-        final byte[] bytes = new byte[]{1, 2, 3};
-        this.setBodyRequestWithAcceptEncodingAndCheck("X",
-                bytes,
+    public void testAddEntityAcceptEncodingNotGzip() {
+        final byte[] body = new byte[]{1, 2, 3};
+        this.addEntityRequestWithAcceptEncodingAndCheck("X",
+                body,
                 Maps.empty(),
-                bytes);
+                body);
     }
 
     @Test
-    public void testSetBodyRequestAcceptEncodingWildcard() {
-        final byte[] bytes = new byte[]{1, 2, 3};
-        this.setBodyRequestWithAcceptEncodingAndCheck("*",
-                bytes,
+    public void testAddEntityRequestAcceptEncodingWildcard() {
+        final byte[] body = new byte[]{1, 2, 3};
+        this.addEntityRequestWithAcceptEncodingAndCheck("*",
+                body,
                 this.headersContentEncoding(GZIP),
-                this.gzip(bytes));
+                this.gzip(body));
     }
 
     @Test
-    public void testSetBodyRequestAcceptEncodingGzip() {
-        final byte[] bytes = new byte[]{1, 2, 3};
-        this.setBodyRequestWithAcceptEncodingAndCheck("*",
-                bytes,
+    public void testAddEntityRequestAcceptEncodingGzip() {
+        final byte[] body = new byte[]{1, 2, 3};
+        this.addEntityRequestWithAcceptEncodingAndCheck("*",
+                body,
                 this.headersContentEncoding(GZIP),
-                this.gzip(bytes));
+                this.gzip(body));
     }
 
     @Test
-    public void testSetBodyRequestAcceptEncodingGzipResponseContentEncodingNotGzip() {
-        final byte[] bytes = new byte[]{1, 2, 3};
-        this.setBodyRequestWithAcceptEncodingAndCheck("*",
-                bytes,
+    public void testAddEntityRequestAcceptEncodingGzipResponseContentEncodingNotGzip() {
+        final byte[] body = new byte[]{1, 2, 3};
+        this.addEntityRequestWithAcceptEncodingAndCheck("*",
+                body,
                 "X",
                 this.headersContentEncoding("X"),
-                bytes);
+                body);
     }
 
     @Test
-    public void testSetBodyRequestAcceptEncodingGzipResponseContentEncodingGzip() {
-        final byte[] bytes = new byte[]{1, 2, 3, 4};
-        this.setBodyRequestWithAcceptEncodingAndCheck("*",
-                bytes,
+    public void testAddEntityRequestAcceptEncodingGzipResponseContentEncodingGzip() {
+        final byte[] body = new byte[]{1, 2, 3, 4};
+        this.addEntityRequestWithAcceptEncodingAndCheck("*",
+                body,
                 GZIP,
                 this.headersContentEncoding(GZIP),
-                this.gzip(bytes));
+                this.gzip(body));
     }
 
     private Map<HttpHeaderName<?>, Object> headersContentEncoding(final String headerValue) {
         return Maps.one(HttpHeaderName.CONTENT_ENCODING, HeaderValueToken.parse(headerValue));
     }
 
-    private byte[] gzip(final byte[] bytes) {
-        return AutoGzipEncodingHttpResponse.gzip(bytes);
+    private byte[] gzip(final byte[] body) {
+        return AutoGzipEncodingHttpResponse.gzip(body);
     }
 
-    private void setBodyRequestWithAcceptEncodingAndCheck(final String acceptCharset,
-                                                          final byte[] bytes,
+    private void addEntityRequestWithAcceptEncodingAndCheck(final String acceptCharset,
+                                                          final byte[] body,
                                                           final Map<HttpHeaderName<?>, Object> expectedHeaders,
-                                                          final byte[] expectedBytes) {
-        this.setBodyRequestWithAcceptEncodingAndCheck(acceptCharset,
-                bytes,
+                                                          final byte[] expectedBody) {
+        this.addEntityRequestWithAcceptEncodingAndCheck(acceptCharset,
+                body,
                 null,
                 expectedHeaders,
-                expectedBytes);
+                expectedBody);
     }
 
-    private void setBodyRequestWithAcceptEncodingAndCheck(final String acceptCharset,
-                                                          final byte[] bytes,
+    private void addEntityRequestWithAcceptEncodingAndCheck(final String acceptCharset,
+                                                          final byte[] body,
                                                           final String contentEncoding,
                                                           final Map<HttpHeaderName<?>, Object> expectedHeaders,
-                                                          final byte[] expectedBytes) {
+                                                          final byte[] expectedBody) {
         final Latch set = Latch.create();
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
         final HttpResponse response = this.createResponse(
                 acceptCharset,
                 new FakeHttpResponse() {
-
-                    @Override
-                    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-                        headers.put(name, name.checkValue(value));
-                    }
-
-                    public Map<HttpHeaderName<?>, Object> headers() {
-                        return Maps.readOnly(headers);
-                    }
-
+                    
                     @Test
-                    public void setBody(final byte[] b) {
-                        assertArrayEquals("bytes", expectedBytes, b);
-                        set.set("setBody");
+                    public void addEntity(final HttpEntity e) {
+                        assertEquals("entity",
+                                HttpEntity.with(expectedHeaders, expectedBody),
+                                e);
+                        set.set("addEntity");
                     }
                 });
         if (null != contentEncoding) {
-            response.addHeader(HttpHeaderName.CONTENT_ENCODING,
-                    HeaderValueToken.parse(contentEncoding));
+            headers.put(HttpHeaderName.CONTENT_ENCODING, HeaderValueToken.parse(contentEncoding));
         }
-        response.setBody(bytes);
-        assertTrue("wrapped response setBody(bytes) not called", set.value());
-        assertEquals("headers", expectedHeaders, response.headers());
-    }
-
-    @Test
-    public void testSetBodyText() {
-        final Latch set = Latch.create();
-        final String text = "anc123";
-        this.createResponse(new FakeHttpResponse() {
-            @Test
-            public void setBodyText(final String t) {
-                assertSame("text", text, t);
-                set.set("setBodyText");
-            }
-        }).setBodyText(text);
-        assertTrue("wrapped response setBodyText(text) not called", set.value());
+        response.addEntity(HttpEntity.with(headers, body));
+        assertTrue("wrapped response addEntity(body) not called", set.value());
     }
 
     private AutoGzipEncodingHttpResponse createResponse(final String acceptCharset, final HttpResponse response) {
         return AutoGzipEncodingHttpResponse.with(
-                this.request(acceptCharset),
+                this.createRequest(acceptCharset),
                 response);
     }
 
@@ -191,15 +153,15 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     @Override
-    HttpRequest request() {
-        return this.request(Maps.ordered());
+    HttpRequest createRequest() {
+        return this.createRequest(Maps.ordered());
     }
 
-    private HttpRequest request(final String acceptEncoding) {
-        return this.request(Maps.one(HttpHeaderName.ACCEPT_ENCODING, HeaderValueToken.parseList(acceptEncoding)));
+    private HttpRequest createRequest(final String acceptEncoding) {
+        return this.createRequest(Maps.one(HttpHeaderName.ACCEPT_ENCODING, HeaderValueToken.parseList(acceptEncoding)));
     }
 
-    private HttpRequest request(final Map<HttpHeaderName<?>, Object> headers) {
+    private HttpRequest createRequest(final Map<HttpHeaderName<?>, Object> headers) {
         return new FakeHttpRequest() {
             @Override
             public Map<HttpHeaderName<?>, Object> headers() {

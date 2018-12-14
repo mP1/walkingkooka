@@ -29,7 +29,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public final class HttpHeaderScopeHttpRequestHttpResponseHeadersMapTest extends MapTestCase<HttpHeaderScopeHttpRequestHttpResponseHeadersMap,
+public final class HttpHeaderScopeHttpRequestHeadersMapTest extends MapTestCase<HttpHeaderScopeHttpRequestHeadersMap,
         HttpHeaderName<?>,
         Object> {
 
@@ -103,12 +103,12 @@ public final class HttpHeaderScopeHttpRequestHttpResponseHeadersMapTest extends 
     }
 
     @Override
-    protected HttpHeaderScopeHttpRequestHttpResponseHeadersMap createMap() {
-        return HttpHeaderScopeHttpRequestHttpResponseHeadersMap.with(HEADERS, HttpHeaderScope.REQUEST);
+    protected HttpHeaderScopeHttpRequestHeadersMap createMap() {
+        return HttpHeaderScopeHttpRequestHeadersMap.with(HEADERS, HttpHeaderScope.REQUEST);
     }
 
     @Override
-    protected Class<HttpHeaderScopeHttpRequestHttpResponseHeadersMap> type() {
-        return HttpHeaderScopeHttpRequestHttpResponseHeadersMap.class;
+    protected Class<HttpHeaderScopeHttpRequestHeadersMap> type() {
+        return HttpHeaderScopeHttpRequestHeadersMap.class;
     }
 }

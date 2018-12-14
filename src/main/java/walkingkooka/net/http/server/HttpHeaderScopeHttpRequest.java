@@ -43,8 +43,7 @@ final class HttpHeaderScopeHttpRequest implements HttpRequest {
     private HttpHeaderScopeHttpRequest(final HttpRequest request) {
         super();
         this.request = request;
-        this.headers = HttpHeaderScopeHttpRequestHttpResponseHeadersMap.with(request.headers(),
-                HttpHeaderScope.REQUEST);
+        this.headers = HttpHeaderScopeHttpRequestHeadersMap.with(request.headers(), HttpHeaderScope.REQUEST);
     }
 
     @Override
@@ -72,7 +71,7 @@ final class HttpHeaderScopeHttpRequest implements HttpRequest {
         return this.headers;
     }
 
-    private final HttpHeaderScopeHttpRequestHttpResponseHeadersMap headers;
+    private final HttpHeaderScopeHttpRequestHeadersMap headers;
 
     @Override
     public List<ClientCookie> cookies() {

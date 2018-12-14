@@ -18,15 +18,13 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.Cast;
 import walkingkooka.net.header.HeaderValueToken;
-import walkingkooka.net.header.NotAcceptableHeaderException;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
@@ -61,44 +59,30 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
         this.response.setStatus(status);
     }
 
-    @Override
-    public Map<HttpHeaderName<?>, Object> headers() {
-        return this.response.headers();
-    }
-
-    @Override
-    public <T> void addHeader(final HttpHeaderName<T> name, final T value) {
-        if (HttpHeaderName.CONTENT_ENCODING.equals(name)) {
-            final HeaderValueToken token = Cast.to(value);
-            if (token.isWildcard()) {
-                throw new NotAcceptableHeaderException(HttpHeaderName.CONTENT_ENCODING + "=" + value);
-            }
-        }
-        this.response.addHeader(name, value);
-    }
-
     /**
      * If the content-encoding request header includes gzip then the bytes will be compressed.
      */
     @Override
-    public void setBody(final byte[] body) {
-        Objects.requireNonNull(body, "body");
+    public void addEntity(final HttpEntity entity) {
+        Objects.requireNonNull(entity, "entity");
 
-        byte[] possiblyCompressed = body;
+        HttpEntity add = entity;
+
+        //byte[] possiblyCompressed = body;
         if (this.isAcceptEncodingGzipSupported()) {
             final Optional<HeaderValueToken> contentEncoding = HttpHeaderName.CONTENT_ENCODING
-                    .headerValue(this.headers());
+                    .headerValue(add.headers());
             if (contentEncoding.isPresent()) {
                 if (this.isGzipSupported(contentEncoding.get())) {
-                    possiblyCompressed = this.gzip(body);
+                    add = add.setBody(gzip(add.body()));
                 }
             } else {
-                this.addHeader(HttpHeaderName.CONTENT_ENCODING, GZIP);
-                possiblyCompressed = this.gzip(body);
+                add = add.addHeader(HttpHeaderName.CONTENT_ENCODING, GZIP);
+                add = add.setBody(gzip(add.body()));
             }
 
         }
-        this.response.setBody(possiblyCompressed);
+        this.response.addEntity(add);
     }
 
     private boolean isAcceptEncodingGzipSupported() {
@@ -126,11 +110,6 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
         } catch (final IOException cause) {
             throw new HttpServerException("Failed to gzip compress bytes, " + cause, cause);
         }
-    }
-
-    @Override
-    public void setBodyText(final String text) {
-        this.response.setBodyText(text);
     }
 
     private final static HeaderValueToken GZIP = HeaderValueToken.with("gzip");
