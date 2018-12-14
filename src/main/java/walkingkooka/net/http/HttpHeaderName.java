@@ -154,6 +154,14 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link HttpRangeUnit} header values.
+     */
+    private static HttpHeaderName<HttpRangeUnit> registerHttpRangeUnitConstant(final String header,
+                                                                               final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HttpHeaderValueConverter.httpRangeUnit());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link LocalDateTime} header values.
      */
     private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String header,
@@ -549,7 +557,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Accept-Ranges: none
      * </pre>
      */
-    public final static HttpHeaderName<String> ACCEPT_RANGES = registerStringConstant("Accept-Ranges",
+    public final static HttpHeaderName<HttpRangeUnit> ACCEPT_RANGES = registerHttpRangeUnitConstant("Accept-Ranges",
             HttpHeaderScope.RESPONSE);
 
     /**
