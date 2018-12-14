@@ -31,15 +31,15 @@ public enum HttpRangeUnit implements HeaderValue {
 
     NONE("none") {
         @Override
-        void httpHeaderRangeCheck() {
+        HttpRangeUnit httpHeaderRangeCheck() {
             throw new IllegalArgumentException("Invalid range unit=" + this);
         }
     },
 
     BYTES("bytes") {
         @Override
-        void httpHeaderRangeCheck() {
-            // acceptable.
+        HttpRangeUnit httpHeaderRangeCheck() {
+            return this;
         }
     };
 
@@ -47,7 +47,7 @@ public enum HttpRangeUnit implements HeaderValue {
         this.headerText = headerText;
     }
 
-    abstract void httpHeaderRangeCheck();
+    abstract HttpRangeUnit httpHeaderRangeCheck();
 
     @Override
     public String toHeaderText() {
