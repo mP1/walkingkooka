@@ -50,6 +50,13 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
     }
 
     /**
+     * {@see ContentRangeHttpHeaderValueConverter}
+     */
+    static HttpHeaderValueConverter<ContentRange> contentRange() {
+        return ContentRangeHttpHeaderValueConverter.INSTANCE;
+    }
+    
+    /**
      * {@see HttpETagHeaderValueConverter}
      */
     static HttpHeaderValueConverter<HttpETag> httpETag() {

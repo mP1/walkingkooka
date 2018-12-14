@@ -98,6 +98,14 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link ContentRange} header values.
+     */
+    private static HttpHeaderName<ContentRange> registerContentRangeConstant(final String header,
+                                                                             final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HttpHeaderValueConverter.contentRange());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link EmailAddress} header values.
      */
     private static HttpHeaderName<EmailAddress> registerEmailAddressConstant(final String header,
@@ -626,7 +634,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Content-Range: <unit> * /<size>
      * </pre>
      */
-    public final static HttpHeaderName<String> CONTENT_RANGE = registerStringConstant("Content-Range",
+    public final static HttpHeaderName<ContentRange> CONTENT_RANGE = registerContentRangeConstant("Content-Range",
             HttpHeaderScope.RESPONSE);
 
     /**
