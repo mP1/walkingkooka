@@ -19,11 +19,14 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.InvalidCharacterException;
+import walkingkooka.net.http.HttpHeaderScope;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ContentDispositionFileNameTest extends NameTestCase<ContentDispositionFileName> {
+public final class ContentDispositionFileNameTest extends HeaderValueTestCase<ContentDispositionFileName> {
+
+    private final static String FILENAME = "filename123";
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyFails() {
@@ -35,20 +38,44 @@ public final class ContentDispositionFileNameTest extends NameTestCase<ContentDi
         ContentDispositionFileName.with("\0");
     }
 
+    @Test(expected = InvalidCharacterException.class)
+    public void testWithForwardSlashFails() {
+        ContentDispositionFileName.with("/path/to/file");
+    }
+
+    @Test(expected = InvalidCharacterException.class)
+    public void testWithBackSlashFails() {
+        ContentDispositionFileName.with("\\path\\to\\file");
+    }
+
     @Test
     public void testWith() {
-        this.createNameAndCheck("filename123");
+        final String value = "filename123";
+        this.checkValue(ContentDispositionFileName.with(value), value);
+    }
+
+    @Test
+    public void testToHeaderText() {
+        this.toHeaderTextAndCheck(FILENAME);
+    }
+
+    private void checkValue(final ContentDispositionFileName filename, final String value) {
+        assertEquals("value", value, filename.value());
     }
 
     @Test
     public void testToString() {
-        final String filename = "filename123";
-        assertEquals(filename, ContentDispositionFileName.with(filename).toString());
+        assertEquals(FILENAME, ContentDispositionFileName.with(FILENAME).toString());
     }
 
     @Override
-    protected ContentDispositionFileName createName(final String name) {
-        return ContentDispositionFileName.with(name);
+    protected HttpHeaderScope httpHeaderScope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
+
+    @Override
+    protected ContentDispositionFileName createHeaderValue() {
+        return ContentDispositionFileName.with(FILENAME);
     }
 
     @Override

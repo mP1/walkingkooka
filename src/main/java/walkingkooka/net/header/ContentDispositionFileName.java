@@ -20,12 +20,13 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicates;
 
 /**
  * The value of the filename parameter within a content disposition.
  */
-final public class ContentDispositionFileName implements Name {
+final public class ContentDispositionFileName implements Name, HeaderValue {
 
     /**
      * Factory that creates a {@link ContentDispositionFileName}.
@@ -52,6 +53,18 @@ final public class ContentDispositionFileName implements Name {
     }
 
     private final String name;
+
+    // HeaderValue .................................................................................
+
+    @Override
+    public String toHeaderText() {
+        return this.value();
+    }
+
+    @Override
+    public HttpHeaderScope httpHeaderScope() {
+        return HttpHeaderScope.REQUEST_RESPONSE;
+    }
 
     // Object .................................................................................
 
