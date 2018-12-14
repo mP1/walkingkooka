@@ -78,6 +78,13 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
     }
 
     /**
+     * {@see HttpRangeUnitHttpHeaderValueConverter}
+     */
+    static HttpHeaderValueConverter<HttpRangeUnit> httpRangeUnit() {
+        return HttpRangeUnitHttpHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see HttpMethodListHttpHeaderValueConverter}
      */
     static HttpHeaderValueConverter<List<HttpMethod>> methodList() {
