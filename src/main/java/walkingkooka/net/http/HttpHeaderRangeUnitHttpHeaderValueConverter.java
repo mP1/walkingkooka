@@ -21,7 +21,7 @@ package walkingkooka.net.http;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HttpHeaderValueConverter} that parses a header value into a {@link HttpRangeUnit>}.
+ * A {@link HttpHeaderValueConverter} that parses a header value into a {@link HttpHeaderRangeUnit >}.
  * This is useful for headers such as {@link HttpHeaderName#ACCEPT_RANGES}.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Ranges"></a>
  * <pre>
@@ -29,37 +29,37 @@ import walkingkooka.naming.Name;
  * Accept-Ranges: none
  * </pre>
  */
-final class HttpRangeUnitHttpHeaderValueConverter extends HttpHeaderValueConverter<HttpRangeUnit> {
+final class HttpHeaderRangeUnitHttpHeaderValueConverter extends HttpHeaderValueConverter<HttpHeaderRangeUnit> {
 
     /**
      * Singleton
      */
-    final static HttpRangeUnitHttpHeaderValueConverter INSTANCE = new HttpRangeUnitHttpHeaderValueConverter();
+    final static HttpHeaderRangeUnitHttpHeaderValueConverter INSTANCE = new HttpHeaderRangeUnitHttpHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpRangeUnitHttpHeaderValueConverter() {
+    private HttpHeaderRangeUnitHttpHeaderValueConverter() {
         super();
     }
 
     @Override
-    HttpRangeUnit parse0(final String value, final Name name) {
-        return HttpRangeUnit.fromHeaderText(value);
+    HttpHeaderRangeUnit parse0(final String value, final Name name) {
+        return HttpHeaderRangeUnit.parse(value);
     }
 
     @Override
     void check0(final Object value) {
-        this.checkType(value, HttpRangeUnit.class);
+        this.checkType(value, HttpHeaderRangeUnit.class);
     }
 
     @Override
-    String toText0(final HttpRangeUnit value, final Name name) {
+    String toText0(final HttpHeaderRangeUnit value, final Name name) {
         return value.toHeaderText();
     }
 
     @Override
     public String toString() {
-        return this.toStringType(HttpRangeUnit.class);
+        return this.toStringType(HttpHeaderRangeUnit.class);
     }
 }

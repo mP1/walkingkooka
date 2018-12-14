@@ -23,41 +23,41 @@ import walkingkooka.net.header.HeaderValueTestCase;
 
 import static org.junit.Assert.assertSame;
 
-public final class HttpRangeUnitTest extends HeaderValueTestCase<HttpRangeUnit> {
+public final class HttpHeaderRangeUnitTest extends HeaderValueTestCase<HttpHeaderRangeUnit> {
 
     @Test(expected = NullPointerException.class)
-    public void testFromHeaderTextNullFails() {
-        HttpRangeUnit.fromHeaderText(null);
+    public void testParseNullFails() {
+        HttpHeaderRangeUnit.parse(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFromHeaderTextEmptyFails() {
-        HttpRangeUnit.fromHeaderText("");
+    public void testParseEmptyFails() {
+        HttpHeaderRangeUnit.parse("");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFromHeaderTextUnkownFails() {
-        HttpRangeUnit.fromHeaderText("unknown");
+    public void testParseUnknownFails() {
+        HttpHeaderRangeUnit.parse("unknown");
     }
 
     @Test
-    public void testFromHeaderTextBytes() {
-        assertSame(HttpRangeUnit.BYTES, HttpRangeUnit.fromHeaderText("bytes"));
+    public void testParseBytes() {
+        assertSame(HttpHeaderRangeUnit.BYTES, HttpHeaderRangeUnit.parse("bytes"));
     }
 
     @Test
-    public void testFromHeaderTextBytesCaseUnimportant() {
-        assertSame(HttpRangeUnit.BYTES, HttpRangeUnit.fromHeaderText("BYtes"));
+    public void testParseBytesCaseUnimportant() {
+        assertSame(HttpHeaderRangeUnit.BYTES, HttpHeaderRangeUnit.parse("BYtes"));
     }
 
     @Test
-    public void testFromHeaderTextNone() {
-        assertSame(HttpRangeUnit.NONE, HttpRangeUnit.fromHeaderText("none"));
+    public void testParseNone() {
+        assertSame(HttpHeaderRangeUnit.NONE, HttpHeaderRangeUnit.parse("none"));
     }
 
     @Override
-    protected HttpRangeUnit createHeaderValue() {
-        return HttpRangeUnit.BYTES;
+    protected HttpHeaderRangeUnit createHeaderValue() {
+        return HttpHeaderRangeUnit.BYTES;
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class HttpRangeUnitTest extends HeaderValueTestCase<HttpRangeUnit> 
     }
 
     @Override
-    protected Class<HttpRangeUnit> type() {
-        return HttpRangeUnit.class;
+    protected Class<HttpHeaderRangeUnit> type() {
+        return HttpHeaderRangeUnit.class;
     }
 }

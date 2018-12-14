@@ -20,14 +20,14 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-public final class HttpRangeUnitHttpHeaderValueConverterTest extends
-        HttpHeaderValueConverterTestCase<HttpRangeUnitHttpHeaderValueConverter, HttpRangeUnit> {
+public final class HttpHeaderRangeUnitHttpHeaderValueConverterTest extends
+        HttpHeaderValueConverterTestCase<HttpHeaderRangeUnitHttpHeaderValueConverter, HttpHeaderRangeUnit> {
 
     private final static String TEXT = "bytes";
 
     @Override
     protected String requiredPrefix() {
-        return HttpRangeUnit.class.getSimpleName();
+        return HttpHeaderRangeUnit.class.getSimpleName();
     }
 
     @Test
@@ -40,17 +40,17 @@ public final class HttpRangeUnitHttpHeaderValueConverterTest extends
         this.toTextAndCheck(this.range(), TEXT);
     }
 
-    private HttpRangeUnit range() {
-        return HttpRangeUnit.BYTES;
+    private HttpHeaderRangeUnit range() {
+        return HttpHeaderRangeUnit.BYTES;
     }
 
     @Override
-    protected HttpRangeUnitHttpHeaderValueConverter converter() {
-        return HttpRangeUnitHttpHeaderValueConverter.INSTANCE;
+    protected HttpHeaderRangeUnitHttpHeaderValueConverter converter() {
+        return HttpHeaderRangeUnitHttpHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<HttpRangeUnit> name() {
+    protected HttpHeaderName<HttpHeaderRangeUnit> name() {
         return HttpHeaderName.ACCEPT_RANGES;
     }
 
@@ -60,17 +60,17 @@ public final class HttpRangeUnitHttpHeaderValueConverterTest extends
     }
 
     @Override
-    protected HttpRangeUnit value() {
-        return HttpRangeUnit.fromHeaderText(TEXT);
+    protected HttpHeaderRangeUnit value() {
+        return HttpHeaderRangeUnit.parse(TEXT);
     }
 
     @Override
     protected String converterToString() {
-        return HttpRangeUnit.class.getSimpleName();
+        return HttpHeaderRangeUnit.class.getSimpleName();
     }
 
     @Override
-    protected Class<HttpRangeUnitHttpHeaderValueConverter> type() {
-        return HttpRangeUnitHttpHeaderValueConverter.class;
+    protected Class<HttpHeaderRangeUnitHttpHeaderValueConverter> type() {
+        return HttpHeaderRangeUnitHttpHeaderValueConverter.class;
     }
 }

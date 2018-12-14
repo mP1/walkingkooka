@@ -79,7 +79,7 @@ public final class HttpHeaderRange implements HeaderValue,
                 .collect(Collectors.toList());
 
         try {
-            final HttpRangeUnit unit = HttpRangeUnit.fromHeaderText(header.substring(0, equalsAfterUnit));
+            final HttpHeaderRangeUnit unit = HttpHeaderRangeUnit.parse(header.substring(0, equalsAfterUnit));
             unit.httpHeaderRangeCheck();
             checkValue(ranges);
 
@@ -112,7 +112,7 @@ public final class HttpHeaderRange implements HeaderValue,
     /**
      * Factory that creates a new {@link HttpHeaderRange}
      */
-    public static HttpHeaderRange with(final HttpRangeUnit unit, final List<Range<Long>> ranges) {
+    public static HttpHeaderRange with(final HttpHeaderRangeUnit unit, final List<Range<Long>> ranges) {
         checkUnit(unit);
 
         return new HttpHeaderRange(unit, copyAndCheckValue(ranges));
@@ -121,7 +121,7 @@ public final class HttpHeaderRange implements HeaderValue,
     /**
      * Private ctor use factory.
      */
-    private HttpHeaderRange(final HttpRangeUnit unit, final List<Range<Long>> ranges) {
+    private HttpHeaderRange(final HttpHeaderRangeUnit unit, final List<Range<Long>> ranges) {
         super();
         this.unit = unit;
         this.ranges = ranges;
@@ -129,20 +129,20 @@ public final class HttpHeaderRange implements HeaderValue,
 
     // unit ........................................................................................
 
-    public HttpRangeUnit unit() {
+    public HttpHeaderRangeUnit unit() {
         return this.unit;
     }
 
-    public HttpHeaderRange setUnit(final HttpRangeUnit unit) {
+    public HttpHeaderRange setUnit(final HttpHeaderRangeUnit unit) {
         checkUnit(unit);
         return this.unit.equals(unit) ?
                 this :
                 this.replace(unit, this.ranges);
     }
 
-    private final HttpRangeUnit unit;
+    private final HttpHeaderRangeUnit unit;
 
-    private static void checkUnit(final HttpRangeUnit unit) {
+    private static void checkUnit(final HttpHeaderRangeUnit unit) {
         Objects.requireNonNull(unit, "unit");
 
         unit.httpHeaderRangeCheck();
@@ -213,7 +213,7 @@ public final class HttpHeaderRange implements HeaderValue,
 
     // replace.............................................................................
 
-    private HttpHeaderRange replace(final HttpRangeUnit unit, final List<Range<Long>> ranges) {
+    private HttpHeaderRange replace(final HttpHeaderRangeUnit unit, final List<Range<Long>> ranges) {
         return new HttpHeaderRange(unit, ranges);
     }
 
