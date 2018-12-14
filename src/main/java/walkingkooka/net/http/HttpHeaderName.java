@@ -154,11 +154,11 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link HttpRangeUnit} header values.
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link HttpHeaderRangeUnit} header values.
      */
-    private static HttpHeaderName<HttpRangeUnit> registerHttpRangeUnitConstant(final String header,
-                                                                               final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.httpRangeUnit());
+    private static HttpHeaderName<HttpHeaderRangeUnit> registerHttpHeaderRangeUnitConstant(final String header,
+                                                                                           final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HttpHeaderValueConverter.httpHeaderRangeUnit());
     }
 
     /**
@@ -557,7 +557,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Accept-Ranges: none
      * </pre>
      */
-    public final static HttpHeaderName<HttpRangeUnit> ACCEPT_RANGES = registerHttpRangeUnitConstant("Accept-Ranges",
+    public final static HttpHeaderName<HttpHeaderRangeUnit> ACCEPT_RANGES = registerHttpHeaderRangeUnitConstant("Accept-Ranges",
             HttpHeaderScope.RESPONSE);
 
     /**

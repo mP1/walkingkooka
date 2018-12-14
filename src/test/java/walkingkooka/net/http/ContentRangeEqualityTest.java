@@ -26,7 +26,7 @@ import java.util.Optional;
 
 public final class ContentRangeEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<ContentRange> {
 
-    private final static HttpRangeUnit UNIT = HttpRangeUnit.BYTES;
+    private final static HttpHeaderRangeUnit UNIT = HttpHeaderRangeUnit.BYTES;
     private final static Optional<Long> SIZE = Optional.of(123L);
 
     @Test
@@ -70,7 +70,7 @@ public final class ContentRangeEqualityTest extends HashCodeEqualsDefinedEqualit
         return Optional.of(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)));
     }
 
-    private final ContentRange range(final HttpRangeUnit unit,
+    private final ContentRange range(final HttpHeaderRangeUnit unit,
                                      final Optional<Range<Long>> range,
                                      final Optional<Long> size) {
         return ContentRange.with(unit, range, size);
