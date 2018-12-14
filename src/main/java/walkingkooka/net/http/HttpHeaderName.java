@@ -35,6 +35,7 @@ import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HeaderValueToken;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.cookie.ClientCookie;
+import walkingkooka.net.http.cookie.ServerCookie;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -199,6 +200,14 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     private static HttpHeaderName<RelativeUrl> registerRelativeUrlConstant(final String header,
                                                                            final HttpHeaderScope scope) {
         return registerConstant(header, scope, HeaderValueConverters.relativeUrl());
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link ServerCookie} header values.
+     */
+    private static HttpHeaderName<ServerCookie> registerServerCookieConstant(final String header,
+                                                                             final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HttpHeaderValueConverter.serverCookie());
     }
 
     /**
@@ -697,7 +706,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly
      * </pre>
      */
-    public final static HttpHeaderName<String> SET_COOKIE = registerStringConstant("Set-Cookie",
+    public final static HttpHeaderName<ServerCookie> SET_COOKIE = registerServerCookieConstant("Set-Cookie",
             HttpHeaderScope.RESPONSE);
 
     /**

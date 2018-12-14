@@ -23,6 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.http.cookie.ClientCookie;
+import walkingkooka.net.http.cookie.ServerCookie;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -81,6 +82,13 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
      */
     static HttpHeaderValueConverter<HttpHeaderRange> range() {
         return HttpHeaderRangeHttpHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see ServerCookieHttpHeaderValueConverter}
+     */
+    static HttpHeaderValueConverter<ServerCookie> serverCookie() {
+        return ServerCookieHttpHeaderValueConverter.INSTANCE;
     }
 
     /**
