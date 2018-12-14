@@ -32,18 +32,13 @@ import static org.junit.Assert.assertSame;
 
 public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRange> {
 
-    private final static String UNIT = "bytes";
+    private final static HttpRangeUnit UNIT = HttpRangeUnit.BYTES;
 
     // with.......................................................
 
     @Test(expected = NullPointerException.class)
     public void testWithNullUnitFails() {
         HttpHeaderRange.with(null, ranges());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithEmptyUnitFails() {
-        HttpHeaderRange.with("", ranges());
     }
 
     @Test(expected = NullPointerException.class)
@@ -84,22 +79,14 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testSetUnitEmptyFails() {
-        this.range().setUnit("");
+    public void testSetUnitNoneFails() {
+        this.range().setUnit(HttpRangeUnit.NONE);
     }
 
     @Test
     public void testSetUnitSame() {
         final HttpHeaderRange range = this.range();
         assertSame(range, range.setUnit(UNIT));
-    }
-
-    @Test
-    public void testSetUnitDifferent() {
-        final HttpHeaderRange range = this.range();
-        final String unit = "different";
-        final HttpHeaderRange different = range.setUnit(unit);
-        this.check(different, unit, this.ranges());
     }
 
     // setValue.......................................................
@@ -143,7 +130,9 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
         this.check(different, UNIT, value);
     }
 
-    private void check(final HttpHeaderRange range, final String unit, final List<Range<Long>> values) {
+    private void check(final HttpHeaderRange range,
+                       final HttpRangeUnit unit,
+                       final List<Range<Long>> values) {
         assertEquals("unit", unit, range.unit());
         assertEquals("value", values, range.value());
     }
@@ -151,28 +140,38 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     // parse ...........................................................
 
     @Test(expected = HeaderValueException.class)
+    public void testParseWithInvalidUnitFails() {
+        HttpHeaderRange.parse("invalid=0-100");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testParseWithNoneUnitFails() {
+        HttpHeaderRange.parse("none=0-100");
+    }
+
+    @Test(expected = HeaderValueException.class)
     public void testParseWithOverlapFails() {
-        HttpHeaderRange.parse("100-150,200-250,225-300");
+        HttpHeaderRange.parse("bytes=100-150,200-250,225-300");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseWithOverlapFails2() {
-        HttpHeaderRange.parse("100-150,200-250,225-");
+        HttpHeaderRange.parse("bytes=100-150,200-250,225-");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseWithOverlapFails3() {
-        HttpHeaderRange.parse("-150,200-250,125-175");
+        HttpHeaderRange.parse("bytes=-150,200-250,125-175");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseRangeMissingStartFails() {
-        HttpHeaderRange.parse("-99");
+        HttpHeaderRange.parse("bytes=-99");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseRangeMissingStartFails2() {
-        HttpHeaderRange.parse("98-99,-50");
+        HttpHeaderRange.parse("bytes=98-99,-50");
     }
 
     @Test
@@ -222,7 +221,9 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @SafeVarargs
-    private final void parseAndCheck(final String headerValue, final String unit, final Range<Long>... values) {
+    private final void parseAndCheck(final String headerValue,
+                                     final HttpRangeUnit unit,
+                                     final Range<Long>... values) {
         assertEquals("Incorrect result when  parsing " + CharSequences.quote(headerValue),
                 HttpHeaderRange.with(unit, Lists.of(values)),
                 HttpHeaderRange.parse(headerValue));
@@ -245,13 +246,6 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @Test
-    public void testToHeaderTextClosedRange2() {
-        toHeaderTextAndCheck("kb=123-456",
-                "kb",
-                this.rangeGte123().and(this.rangeLte456()));
-    }
-
-    @Test
     public void testToHeaderTextClosedRangeOpenRange() {
         toHeaderTextAndCheck("bytes=123-456, 789-",
                 UNIT,
@@ -269,7 +263,7 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     @SafeVarargs
     private final void toHeaderTextAndCheck(final String headerText,
-                                            final String unit,
+                                            final HttpRangeUnit unit,
                                             final Range<Long>... ranges) {
         this.toHeaderTextAndCheck(this.range(unit, ranges), headerText);
     }
@@ -291,13 +285,6 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @Test
-    public void testToStringClosedRange2() {
-        toStringAndCheck("kb=123-456",
-                "kb",
-                this.rangeGte123().and(this.rangeLte456()));
-    }
-
-    @Test
     public void testToStringClosedRangeOpenRange() {
         toStringAndCheck("bytes=123-456, 789-",
                 UNIT,
@@ -315,7 +302,7 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     @SafeVarargs
     private final void toStringAndCheck(final String toString,
-                                        final String unit,
+                                        final HttpRangeUnit unit,
                                         final Range<Long>... ranges) {
         final HttpHeaderRange range = this.range(unit, ranges);
         assertEquals("toString", toString, range.toString());
@@ -326,7 +313,8 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @SafeVarargs
-    private final HttpHeaderRange range(final String unit, final Range<Long>... ranges) {
+    private final HttpHeaderRange range(final HttpRangeUnit unit,
+                                        final Range<Long>... ranges) {
         return HttpHeaderRange.with(unit, Lists.of(ranges));
     }
 

@@ -36,6 +36,27 @@ import java.util.stream.Collectors;
 /**
  * Represents the value of a Range header. Note the unit is not validate except that it must not be empty.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range"></a>
+ * <pre>
+ * The Range HTTP request header indicates the part of a document that the server should return.
+ * Several parts can be requested with one Range header at once, and the server may send back these ranges in a multipart
+ * document. If the server sends back ranges, it uses the 206 Partial Content for the response. If the ranges are invalid,
+ * the server returns the 416 Range Not Satisfiable error. The server can also ignore the Range header and return the whole
+ * document with a 200 status code.
+ * ...
+ * Range: <unit>=<range-start>-
+ * Range: <unit>=<range-start>-<range-end>
+ * Range: <unit>=<range-start>-<range-end>, <range-start>-<range-end>
+ * Range: <unit>=<range-start>-<range-end>, <range-start>-<range-end>, <range-start>-<range-end>
+ * ...
+ * <unit>
+ * The unit in which ranges are specified. This is usually bytes.
+ * <range-start>
+ * An integer in the given unit indicating the beginning of the request range.
+ * <range-end>
+ * An integer in the given unit indicating the end of the requested range. This value is optional and, if omitted, the end of the document is taken as the end of the range.
+ * ...
+ * Range: bytes=200-1000, 2000-6576, 19000-
+ * </pre>
  */
 public final class HttpHeaderRange implements HeaderValue,
         Value<List<Range<Long>>> {
@@ -57,8 +78,15 @@ public final class HttpHeaderRange implements HeaderValue,
                 .map(HttpHeaderRange::range)
                 .collect(Collectors.toList());
 
-        return new HttpHeaderRange(header.substring(0, equalsAfterUnit),
-                ranges);
+        try {
+            final HttpRangeUnit unit = HttpRangeUnit.fromHeaderText(header.substring(0, equalsAfterUnit));
+            unit.httpHeaderRangeCheck();
+            checkValue(ranges);
+
+            return new HttpHeaderRange(unit, ranges);
+        } catch (final IllegalArgumentException cause) {
+            throw new HeaderValueException(cause.getMessage(), cause);
+        }
     }
 
     private static Range<Long> range(final String value) {
@@ -84,16 +112,16 @@ public final class HttpHeaderRange implements HeaderValue,
     /**
      * Factory that creates a new {@link HttpHeaderRange}
      */
-    public static HttpHeaderRange with(final String unit, final List<Range<Long>> ranges) {
+    public static HttpHeaderRange with(final HttpRangeUnit unit, final List<Range<Long>> ranges) {
         checkUnit(unit);
 
-        return new HttpHeaderRange(unit, checkValue(ranges));
+        return new HttpHeaderRange(unit, copyAndCheckValue(ranges));
     }
 
     /**
      * Private ctor use factory.
      */
-    private HttpHeaderRange(final String unit, final List<Range<Long>> ranges) {
+    private HttpHeaderRange(final HttpRangeUnit unit, final List<Range<Long>> ranges) {
         super();
         this.unit = unit;
         this.ranges = ranges;
@@ -101,21 +129,23 @@ public final class HttpHeaderRange implements HeaderValue,
 
     // unit ........................................................................................
 
-    public String unit() {
+    public HttpRangeUnit unit() {
         return this.unit;
     }
 
-    public HttpHeaderRange setUnit(final String unit) {
+    public HttpHeaderRange setUnit(final HttpRangeUnit unit) {
         checkUnit(unit);
         return this.unit.equals(unit) ?
                 this :
                 this.replace(unit, this.ranges);
     }
 
-    private final String unit;
+    private final HttpRangeUnit unit;
 
-    private static void checkUnit(final String unit) {
-        CharSequences.failIfNullOrEmpty(unit, "unit");
+    private static void checkUnit(final HttpRangeUnit unit) {
+        Objects.requireNonNull(unit, "unit");
+
+        unit.httpHeaderRangeCheck();
     }
 
     // value ........................................................................................
@@ -126,7 +156,7 @@ public final class HttpHeaderRange implements HeaderValue,
     }
 
     public HttpHeaderRange setValue(final List<Range<Long>> value) {
-        final List<Range<Long>> copy = checkValue(value);
+        final List<Range<Long>> copy = copyAndCheckValue(value);
         return this.ranges.equals(copy) ?
                 this :
                 this.replace(this.unit, copy);
@@ -138,7 +168,7 @@ public final class HttpHeaderRange implements HeaderValue,
      * The list of ranges must not be empty, contain nulls or overlapping ranges. If any of these tests fail a
      * {@link HeaderValueException} will be thrown.
      */
-    private static List<Range<Long>> checkValue(final List<Range<Long>> ranges) {
+    private static List<Range<Long>> copyAndCheckValue(final List<Range<Long>> ranges) {
         Objects.requireNonNull(ranges, "ranges");
 
         final List<Range<Long>> copy = Lists.array();
@@ -163,9 +193,27 @@ public final class HttpHeaderRange implements HeaderValue,
         return ranges;
     }
 
+    private static void checkValue(final List<Range<Long>> ranges) {
+        final int count = ranges.size();
+        if (0 == count) {
+            throw new HeaderValueException("Missing range");
+        }
+        final int last = count - 1;
+        for (int i = 0; i < last; i++) {
+            final Range<Long> range = ranges.get(i);
+
+            for (int j = i + 1; j < count; j++) {
+                final Range<Long> other = ranges.get(j);
+                if (range.isOverlapping(other)) {
+                    throw new HeaderValueException("Range overlap bewteen " + range + " and " + other);
+                }
+            }
+        }
+    }
+
     // replace.............................................................................
 
-    private HttpHeaderRange replace(final String unit, final List<Range<Long>> ranges) {
+    private HttpHeaderRange replace(final HttpRangeUnit unit, final List<Range<Long>> ranges) {
         return new HttpHeaderRange(unit, ranges);
     }
 
@@ -204,7 +252,7 @@ public final class HttpHeaderRange implements HeaderValue,
 
     @Override
     public String toString() {
-        return this.unit + PARAMETER_NAME_VALUE_SEPARATOR.character() + this.ranges.stream()
+        return this.unit.toHeaderText() + PARAMETER_NAME_VALUE_SEPARATOR.character() + this.ranges.stream()
                 .map(this::toStringRange)
                 .collect(Collectors.joining(SEPARATOR + " "));
     }
