@@ -24,10 +24,12 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderNameTestCase;
+import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CharSequences;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -190,10 +192,26 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     }
 
     @Test
-    public void testToValueScopeContentLengthString() {
+    public void testToValueContentLengthString() {
         this.toValueAndCheck(HttpHeaderName.CONTENT_LENGTH,
                 "123",
                 123L);
+    }
+
+    @Test
+    public void testToValueIfRangeETag() {
+        this.toValueAndCheck(HttpHeaderName.IF_RANGE,
+                "W/\"etag-1234567890\"",
+                IfRange.with(HttpETagValidator.WEAK.setValue("etag-1234567890")));
+    }
+
+    @Test
+    public void testToValueIfRangeLastModified() {
+        final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
+
+        this.toValueAndCheck(HttpHeaderName.IF_RANGE,
+                HeaderValueConverters.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
+                IfRange.with(lastModified));
     }
 
     // headerText.........................................................................
