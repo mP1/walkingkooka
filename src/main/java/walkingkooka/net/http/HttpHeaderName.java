@@ -162,6 +162,14 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link IfRange} header values.
+     */
+    private static HttpHeaderName<IfRange<?>> registerIfRangeConstant(final String header,
+                                                                    final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HttpHeaderValueConverter.ifRange());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link LocalDateTime} header values.
      */
     private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String header,
@@ -457,7 +465,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * If-Range: Wed, 21 Oct 2015 07:28:00 GMT
      * </pre>
      */
-    public final static HttpHeaderName<String> IF_RANGE = registerStringConstant("If-Range",
+    public final static HttpHeaderName<IfRange<?>> IF_RANGE = registerIfRangeConstant("If-Range",
             HttpHeaderScope.REQUEST);
 
     /**

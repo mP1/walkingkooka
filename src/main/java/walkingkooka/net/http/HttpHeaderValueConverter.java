@@ -85,6 +85,13 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
     }
 
     /**
+     * {@see IfRangeHeaderValueConverter}
+     */
+    static HttpHeaderValueConverter<IfRange<?>> ifRange() {
+        return IfRangeHttpHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see HttpMethodListHttpHeaderValueConverter}
      */
     static HttpHeaderValueConverter<List<HttpMethod>> methodList() {
