@@ -138,6 +138,13 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
 
     private final String value;
 
+    /**
+     * Tests if the method is a GET or HEAD a commonly performed test.
+     */
+    public boolean isGetOrHead() {
+        return this == GET || this == HEAD;
+    }
+
     // Object
 
     @Override

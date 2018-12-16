@@ -131,6 +131,28 @@ final public class HttpMethodTest extends PublicClassTestCase<HttpMethod> {
     @Test
     public void testConstantsAllUnique() throws Exception {
         final Set<HttpMethod> methods = Sets.hash();
+        this.constants().stream()
+                .forEach(c -> {
+                    if (false == methods.add(c)) {
+                        Assert.fail("Duplicate header constant=" + c);
+                    }
+                });
+    }
+
+    @Test
+    public void testIsGetOrHead() throws Exception {
+        this.constants().stream()
+                .forEach(this::isGetOrHeadCheck);
+    }
+
+    private void isGetOrHeadCheck(final HttpMethod constant) {
+        assertEquals(constant + ".isGetOrHead test",
+                HttpMethod.GET == constant || HttpMethod.HEAD == constant,
+                constant.isGetOrHead());
+    }
+
+    private Set<HttpMethod> constants() throws Exception {
+        final Set<HttpMethod> methods = Sets.hash();
         for (final Field constant : HttpMethod.class.getDeclaredFields()) {
             if (false == constant.getType().equals(HttpMethod.class)) {
                 continue;
@@ -138,11 +160,9 @@ final public class HttpMethodTest extends PublicClassTestCase<HttpMethod> {
             assertTrue(constant + " is NOT public", MemberVisibility.PUBLIC.is(constant));
             assertTrue(constant + " is NOT static", FieldAttributes.STATIC.is(constant));
 
-            final HttpMethod value = (HttpMethod) constant.get(null);
-            if (false == methods.add(value)) {
-                Assert.fail("Duplicate header constant=" + value);
-            }
+            methods.add((HttpMethod) constant.get(null));
         }
+        return methods;
     }
 
     @Test
