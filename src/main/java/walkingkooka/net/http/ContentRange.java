@@ -179,7 +179,7 @@ public final class ContentRange implements HeaderValue {
         int mode = MODE_UNIT;
         int i = 0;
 
-        HttpHeaderRangeUnit unit = null;
+        RangeHeaderValueUnit unit = null;
         long lower = 0;
         long upper = 0;
         Range<Long> range = null;
@@ -196,7 +196,7 @@ public final class ContentRange implements HeaderValue {
                         if (i == 0) {
                             throw new HeaderValueException("Unit missing from " + CharSequences.quote(text));
                         }
-                        unit = HttpHeaderRangeUnit.parse(text.substring(0, i));
+                        unit = RangeHeaderValueUnit.parse(text.substring(0, i));
                         mode = MODE_RANGE_START_INITIAL;
                         break;
                     }
@@ -316,7 +316,7 @@ public final class ContentRange implements HeaderValue {
     /**
      * Factory that creates a new {@link ContentRange} with the provided name and parameter.
      */
-    public static ContentRange with(final HttpHeaderRangeUnit unit,
+    public static ContentRange with(final RangeHeaderValueUnit unit,
                                     final Optional<Range<Long>> range,
                                     final Optional<Long> size) {
         checkUnit(unit);
@@ -329,7 +329,7 @@ public final class ContentRange implements HeaderValue {
     /**
      * Private use factory.
      */
-    private ContentRange(final HttpHeaderRangeUnit unit,
+    private ContentRange(final RangeHeaderValueUnit unit,
                          final Optional<Range<Long>> range,
                          final Optional<Long> size) {
         super();
@@ -343,7 +343,7 @@ public final class ContentRange implements HeaderValue {
     /**
      * Returns the unit.
      */
-    public final HttpHeaderRangeUnit unit() {
+    public final RangeHeaderValueUnit unit() {
         return this.unit;
     }
 
@@ -351,17 +351,17 @@ public final class ContentRange implements HeaderValue {
      * Would be setter that returns a {@link ContentRange} with the given unit value
      * creating a new instance if necessary.
      */
-    public final ContentRange setUnit(final HttpHeaderRangeUnit unit) {
+    public final ContentRange setUnit(final RangeHeaderValueUnit unit) {
         checkUnit(unit);
 
         return this.unit().equals(unit) ?
                 this :
-                this.replace(unit.httpHeaderRangeCheck(), this.range, this.size);
+                this.replace(unit.rangeCheck(), this.range, this.size);
     }
 
-    private final HttpHeaderRangeUnit unit;
+    private final RangeHeaderValueUnit unit;
 
-    private static void checkUnit(final HttpHeaderRangeUnit unit) {
+    private static void checkUnit(final RangeHeaderValueUnit unit) {
         Objects.requireNonNull(unit, "unit");
     }
 
@@ -454,7 +454,7 @@ public final class ContentRange implements HeaderValue {
     /**
      * Factory that creates a new {@link ContentRange}
      */
-    private ContentRange replace(final HttpHeaderRangeUnit unit,
+    private ContentRange replace(final RangeHeaderValueUnit unit,
                                  final Optional<Range<Long>> range,
                                  final Optional<Long> size) {
         return new ContentRange(unit, range, size);

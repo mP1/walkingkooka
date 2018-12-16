@@ -21,7 +21,7 @@ package walkingkooka.net.http;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HttpHeaderValueConverter} that parses a header value into a {@link HttpHeaderRangeUnit >}.
+ * A {@link HttpHeaderValueConverter} that parses a header value into a {@link RangeHeaderValueUnit >}.
  * This is useful for headers such as {@link HttpHeaderName#ACCEPT_RANGES}.
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Ranges"></a>
  * <pre>
@@ -29,37 +29,37 @@ import walkingkooka.naming.Name;
  * Accept-Ranges: none
  * </pre>
  */
-final class HttpHeaderRangeUnitHttpHeaderValueConverter extends HttpHeaderValueConverter<HttpHeaderRangeUnit> {
+final class RangeHeaderValueUnitHttpHeaderValueConverter extends HttpHeaderValueConverter<RangeHeaderValueUnit> {
 
     /**
      * Singleton
      */
-    final static HttpHeaderRangeUnitHttpHeaderValueConverter INSTANCE = new HttpHeaderRangeUnitHttpHeaderValueConverter();
+    final static RangeHeaderValueUnitHttpHeaderValueConverter INSTANCE = new RangeHeaderValueUnitHttpHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpHeaderRangeUnitHttpHeaderValueConverter() {
+    private RangeHeaderValueUnitHttpHeaderValueConverter() {
         super();
     }
 
     @Override
-    HttpHeaderRangeUnit parse0(final String value, final Name name) {
-        return HttpHeaderRangeUnit.parse(value);
+    RangeHeaderValueUnit parse0(final String value, final Name name) {
+        return RangeHeaderValueUnit.parse(value);
     }
 
     @Override
     void check0(final Object value) {
-        this.checkType(value, HttpHeaderRangeUnit.class);
+        this.checkType(value, RangeHeaderValueUnit.class);
     }
 
     @Override
-    String toText0(final HttpHeaderRangeUnit value, final Name name) {
+    String toText0(final RangeHeaderValueUnit value, final Name name) {
         return value.toHeaderText();
     }
 
     @Override
     public String toString() {
-        return this.toStringType(HttpHeaderRangeUnit.class);
+        return this.toStringType(RangeHeaderValueUnit.class);
     }
 }

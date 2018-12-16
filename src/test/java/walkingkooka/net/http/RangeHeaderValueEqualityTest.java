@@ -23,9 +23,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-public final class HttpHeaderRangeEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<HttpHeaderRange> {
+public final class RangeHeaderValueEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<RangeHeaderValue> {
 
-    private final static HttpHeaderRangeUnit UNIT = HttpHeaderRangeUnit.BYTES;
+    private final static RangeHeaderValueUnit UNIT = RangeHeaderValueUnit.BYTES;
 
     @Test
     public void testDifferentRanges() {
@@ -33,7 +33,7 @@ public final class HttpHeaderRangeEqualityTest extends HashCodeEqualsDefinedEqua
     }
 
     @Override
-    protected HttpHeaderRange createObject() {
+    protected RangeHeaderValue createObject() {
         return this.range(UNIT, this.range());
     }
 
@@ -42,7 +42,7 @@ public final class HttpHeaderRangeEqualityTest extends HashCodeEqualsDefinedEqua
     }
 
     @SafeVarargs
-    private final HttpHeaderRange range(final HttpHeaderRangeUnit unit, final Range<Long>... ranges) {
-        return HttpHeaderRange.with(unit, Lists.of(ranges));
+    private final RangeHeaderValue range(final RangeHeaderValueUnit unit, final Range<Long>... ranges) {
+        return RangeHeaderValue.with(unit, Lists.of(ranges));
     }
 }

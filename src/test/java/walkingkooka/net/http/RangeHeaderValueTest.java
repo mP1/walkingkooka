@@ -30,44 +30,44 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRange> {
+public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderValue> {
 
-    private final static HttpHeaderRangeUnit UNIT = HttpHeaderRangeUnit.BYTES;
+    private final static RangeHeaderValueUnit UNIT = RangeHeaderValueUnit.BYTES;
 
     // with.......................................................
 
     @Test(expected = NullPointerException.class)
     public void testWithNullUnitFails() {
-        HttpHeaderRange.with(null, ranges());
+        RangeHeaderValue.with(null, ranges());
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullRangesFails() {
-        HttpHeaderRange.with(UNIT, null);
+        RangeHeaderValue.with(UNIT, null);
     }
 
     @Test(expected = HeaderValueException.class)
     public void testWithEmptyRangesFails() {
-        HttpHeaderRange.with(UNIT, Lists.empty());
+        RangeHeaderValue.with(UNIT, Lists.empty());
     }
 
     @Test(expected = HeaderValueException.class)
     public void testWithOverlappingRangesFails() {
-        HttpHeaderRange.with(UNIT, this.rangesWithOverlap());
+        RangeHeaderValue.with(UNIT, this.rangesWithOverlap());
     }
 
     @Test(expected = HeaderValueException.class)
     public void testWithOverlappingRangesFails2() {
-        HttpHeaderRange.with(UNIT, this.rangesWithOverlap2());
+        RangeHeaderValue.with(UNIT, this.rangesWithOverlap2());
     }
 
     @Test(expected = HeaderValueException.class)
     public void testWithOverlappingRangesFails3() {
-        HttpHeaderRange.with(UNIT, this.rangesWithOverlap3());
+        RangeHeaderValue.with(UNIT, this.rangesWithOverlap3());
     }
 
     public void testWith() {
-        final HttpHeaderRange range = this.range();
+        final RangeHeaderValue range = this.range();
         this.check(range, UNIT, this.ranges());
     }
 
@@ -80,12 +80,12 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     @Test(expected = IllegalArgumentException.class)
     public void testSetUnitNoneFails() {
-        this.range().setUnit(HttpHeaderRangeUnit.NONE);
+        this.range().setUnit(RangeHeaderValueUnit.NONE);
     }
 
     @Test
     public void testSetUnitSame() {
-        final HttpHeaderRange range = this.range();
+        final RangeHeaderValue range = this.range();
         assertSame(range, range.setUnit(UNIT));
     }
 
@@ -118,20 +118,20 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     @Test
     public void testSetValueSame() {
-        final HttpHeaderRange range = this.range();
+        final RangeHeaderValue range = this.range();
         assertSame(range, range.setValue(this.ranges()));
     }
 
     @Test
     public void testSetValueDifferent() {
-        final HttpHeaderRange range = this.range();
+        final RangeHeaderValue range = this.range();
         final List<Range<Long>> value = Lists.of(rangeLte1000());
-        final HttpHeaderRange different = range.setValue(value);
+        final RangeHeaderValue different = range.setValue(value);
         this.check(different, UNIT, value);
     }
 
-    private void check(final HttpHeaderRange range,
-                       final HttpHeaderRangeUnit unit,
+    private void check(final RangeHeaderValue range,
+                       final RangeHeaderValueUnit unit,
                        final List<Range<Long>> values) {
         assertEquals("unit", unit, range.unit());
         assertEquals("value", values, range.value());
@@ -141,37 +141,37 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     @Test(expected = HeaderValueException.class)
     public void testParseWithInvalidUnitFails() {
-        HttpHeaderRange.parse("invalid=0-100");
+        RangeHeaderValue.parse("invalid=0-100");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseWithNoneUnitFails() {
-        HttpHeaderRange.parse("none=0-100");
+        RangeHeaderValue.parse("none=0-100");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseWithOverlapFails() {
-        HttpHeaderRange.parse("bytes=100-150,200-250,225-300");
+        RangeHeaderValue.parse("bytes=100-150,200-250,225-300");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseWithOverlapFails2() {
-        HttpHeaderRange.parse("bytes=100-150,200-250,225-");
+        RangeHeaderValue.parse("bytes=100-150,200-250,225-");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseWithOverlapFails3() {
-        HttpHeaderRange.parse("bytes=-150,200-250,125-175");
+        RangeHeaderValue.parse("bytes=-150,200-250,125-175");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseRangeMissingStartFails() {
-        HttpHeaderRange.parse("bytes=-99");
+        RangeHeaderValue.parse("bytes=-99");
     }
 
     @Test(expected = HeaderValueException.class)
     public void testParseRangeMissingStartFails2() {
-        HttpHeaderRange.parse("bytes=98-99,-50");
+        RangeHeaderValue.parse("bytes=98-99,-50");
     }
 
     @Test
@@ -222,11 +222,11 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     @SafeVarargs
     private final void parseAndCheck(final String headerValue,
-                                     final HttpHeaderRangeUnit unit,
+                                     final RangeHeaderValueUnit unit,
                                      final Range<Long>... values) {
         assertEquals("Incorrect result when  parsing " + CharSequences.quote(headerValue),
-                HttpHeaderRange.with(unit, Lists.of(values)),
-                HttpHeaderRange.parse(headerValue));
+                RangeHeaderValue.with(unit, Lists.of(values)),
+                RangeHeaderValue.parse(headerValue));
     }
 
     // toHeaderText.......................................................
@@ -263,7 +263,7 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     @SafeVarargs
     private final void toHeaderTextAndCheck(final String headerText,
-                                            final HttpHeaderRangeUnit unit,
+                                            final RangeHeaderValueUnit unit,
                                             final Range<Long>... ranges) {
         this.toHeaderTextAndCheck(this.range(unit, ranges), headerText);
     }
@@ -302,20 +302,20 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
 
     @SafeVarargs
     private final void toStringAndCheck(final String toString,
-                                        final HttpHeaderRangeUnit unit,
+                                        final RangeHeaderValueUnit unit,
                                         final Range<Long>... ranges) {
-        final HttpHeaderRange range = this.range(unit, ranges);
+        final RangeHeaderValue range = this.range(unit, ranges);
         assertEquals("toString", toString, range.toString());
     }
 
-    private HttpHeaderRange range() {
+    private RangeHeaderValue range() {
         return this.range(UNIT, this.rangeGte123());
     }
 
     @SafeVarargs
-    private final HttpHeaderRange range(final HttpHeaderRangeUnit unit,
-                                        final Range<Long>... ranges) {
-        return HttpHeaderRange.with(unit, Lists.of(ranges));
+    private final RangeHeaderValue range(final RangeHeaderValueUnit unit,
+                                         final Range<Long>... ranges) {
+        return RangeHeaderValue.with(unit, Lists.of(ranges));
     }
 
     private List<Range<Long>> ranges() {
@@ -364,7 +364,7 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @Override
-    protected HttpHeaderRange createHeaderValue() {
+    protected RangeHeaderValue createHeaderValue() {
         return this.range();
     }
 
@@ -374,7 +374,7 @@ public final class HttpHeaderRangeTest extends HeaderValueTestCase<HttpHeaderRan
     }
 
     @Override
-    protected Class<HttpHeaderRange> type() {
-        return HttpHeaderRange.class;
+    protected Class<RangeHeaderValue> type() {
+        return RangeHeaderValue.class;
     }
 }

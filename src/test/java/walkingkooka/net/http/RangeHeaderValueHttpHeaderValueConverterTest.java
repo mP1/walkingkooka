@@ -19,15 +19,17 @@
 package walkingkooka.net.http;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.compare.Range;
 
-public final class HttpHeaderRangeUnitHttpHeaderValueConverterTest extends
-        HttpHeaderValueConverterTestCase<HttpHeaderRangeUnitHttpHeaderValueConverter, HttpHeaderRangeUnit> {
+public final class RangeHeaderValueHttpHeaderValueConverterTest extends
+        HttpHeaderValueConverterTestCase<RangeHeaderValueHttpHeaderValueConverter, RangeHeaderValue> {
 
-    private final static String TEXT = "bytes";
+    private final static String TEXT = "bytes=123-456, 789-";
 
     @Override
     protected String requiredPrefix() {
-        return HttpHeaderRangeUnit.class.getSimpleName();
+        return RangeHeaderValue.class.getSimpleName();
     }
 
     @Test
@@ -40,18 +42,20 @@ public final class HttpHeaderRangeUnitHttpHeaderValueConverterTest extends
         this.toTextAndCheck(this.range(), TEXT);
     }
 
-    private HttpHeaderRangeUnit range() {
-        return HttpHeaderRangeUnit.BYTES;
+    private RangeHeaderValue range() {
+        return RangeHeaderValue.with(RangeHeaderValueUnit.BYTES,
+                Lists.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L)),
+                        Range.greaterThanEquals(789L)));
     }
 
     @Override
-    protected HttpHeaderRangeUnitHttpHeaderValueConverter converter() {
-        return HttpHeaderRangeUnitHttpHeaderValueConverter.INSTANCE;
+    protected RangeHeaderValueHttpHeaderValueConverter converter() {
+        return RangeHeaderValueHttpHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<HttpHeaderRangeUnit> name() {
-        return HttpHeaderName.ACCEPT_RANGES;
+    protected HttpHeaderName<RangeHeaderValue> name() {
+        return HttpHeaderName.RANGE;
     }
 
     @Override
@@ -60,17 +64,17 @@ public final class HttpHeaderRangeUnitHttpHeaderValueConverterTest extends
     }
 
     @Override
-    protected HttpHeaderRangeUnit value() {
-        return HttpHeaderRangeUnit.parse(TEXT);
+    protected RangeHeaderValue value() {
+        return RangeHeaderValue.parse(TEXT);
     }
 
     @Override
     protected String converterToString() {
-        return HttpHeaderRangeUnit.class.getSimpleName();
+        return RangeHeaderValue.class.getSimpleName();
     }
 
     @Override
-    protected Class<HttpHeaderRangeUnitHttpHeaderValueConverter> type() {
-        return HttpHeaderRangeUnitHttpHeaderValueConverter.class;
+    protected Class<RangeHeaderValueHttpHeaderValueConverter> type() {
+        return RangeHeaderValueHttpHeaderValueConverter.class;
     }
 }

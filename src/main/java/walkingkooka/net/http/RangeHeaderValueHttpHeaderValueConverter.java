@@ -35,37 +35,37 @@ import java.util.List;
  * Range: bytes=200-1000, 2000-6576, 19000-
  * </pre>
  */
-final class HttpHeaderRangeHttpHeaderValueConverter extends HttpHeaderValueConverter<HttpHeaderRange> {
+final class RangeHeaderValueHttpHeaderValueConverter extends HttpHeaderValueConverter<RangeHeaderValue> {
 
     /**
      * Singleton
      */
-    final static HttpHeaderRangeHttpHeaderValueConverter INSTANCE = new HttpHeaderRangeHttpHeaderValueConverter();
+    final static RangeHeaderValueHttpHeaderValueConverter INSTANCE = new RangeHeaderValueHttpHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpHeaderRangeHttpHeaderValueConverter() {
+    private RangeHeaderValueHttpHeaderValueConverter() {
         super();
     }
 
     @Override
-    HttpHeaderRange parse0(final String value, final Name name) {
-        return HttpHeaderRange.parse(value);
+    RangeHeaderValue parse0(final String value, final Name name) {
+        return RangeHeaderValue.parse(value);
     }
 
     @Override
     void check0(final Object value) {
-        this.checkType(value, HttpHeaderRange.class);
+        this.checkType(value, RangeHeaderValue.class);
     }
 
     @Override
-    String toText0(final HttpHeaderRange value, final Name name) {
+    String toText0(final RangeHeaderValue value, final Name name) {
         return value.toString();
     }
 
     @Override
     public String toString() {
-        return this.toStringType(HttpHeaderRange.class);
+        return this.toStringType(RangeHeaderValue.class);
     }
 }
