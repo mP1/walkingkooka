@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.http.HttpETag;
+import walkingkooka.net.http.ETag;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.function.Function;
@@ -60,7 +60,7 @@ public final class HttpResponses implements PublicStaticHelper {
      */
     public static HttpResponse ifNoneMatchAware(final HttpRequest request,
                                                 final HttpResponse response,
-                                                final Function<byte[], HttpETag> computer) {
+                                                final Function<byte[], ETag> computer) {
         return IfNoneMatchAwareHttpResponse.with(request, response, computer);
     }
 

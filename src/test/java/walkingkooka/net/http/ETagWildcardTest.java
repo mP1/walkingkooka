@@ -20,26 +20,26 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-public final class HttpETagWildcardTest extends HttpETagTestCase<HttpETagWildcard> {
+public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSetValidatorWeakFails() {
-        HttpETagWildcard.instance().setValidator(HttpETagValidator.WEAK);
+        ETagWildcard.instance().setValidator(ETagValidator.WEAK);
     }
 
     @Override
-    HttpETagWildcard createETag() {
-        return HttpETagWildcard.instance();
+    ETagWildcard createETag() {
+        return ETagWildcard.instance();
     }
 
     @Override
     String value() {
-        return HttpETag.WILDCARD_VALUE.string();
+        return ETag.WILDCARD_VALUE.string();
     }
 
     @Override
-    HttpETagValidator validator() {
-        return HttpETagValidator.STRONG;
+    ETagValidator validator() {
+        return ETagValidator.STRONG;
     }
 
     @Override
@@ -48,7 +48,7 @@ public final class HttpETagWildcardTest extends HttpETagTestCase<HttpETagWildcar
     }
 
     @Override
-    protected Class<HttpETagWildcard> type() {
-        return HttpETagWildcard.class;
+    protected Class<ETagWildcard> type() {
+        return ETagWildcard.class;
     }
 }

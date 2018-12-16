@@ -21,24 +21,24 @@ package walkingkooka.net.http;
 /**
  * Holds a Wildcard ETAG.
  */
-final class HttpETagWildcard extends HttpETag {
+final class ETagWildcard extends ETag {
 
     /**
      * Instance getter.
      */
-    static HttpETagWildcard instance() {
+    static ETagWildcard instance() {
         return INSTANCE;
     }
 
     /**
      * Singleton
      */
-    private final static HttpETagWildcard INSTANCE = new HttpETagWildcard();
+    private final static ETagWildcard INSTANCE = new ETagWildcard();
 
     /**
      * Private ctor use factory
      */
-    private HttpETagWildcard() {
+    private ETagWildcard() {
         super();
     }
 
@@ -52,14 +52,14 @@ final class HttpETagWildcard extends HttpETag {
     // weak.........................................................................................
 
     /**
-     * Always returns {@link HttpETagValidator#STRONG}
+     * Always returns {@link ETagValidator#STRONG}
      */
-    public HttpETagValidator validator() {
-        return HttpETagValidator.STRONG;
+    public ETagValidator validator() {
+        return ETagValidator.STRONG;
     }
 
     @Override
-    void checkValidator0(final HttpETagValidator validator) {
+    void checkValidator0(final ETagValidator validator) {
         checkValidator(validator);
         validator.wildcardValidatorCheck();
     }

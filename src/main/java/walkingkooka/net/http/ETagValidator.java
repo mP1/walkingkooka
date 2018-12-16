@@ -19,10 +19,10 @@
 package walkingkooka.net.http;
 
 /**
- * The validator component of a {@link HttpETag}.<br>
+ * The validator component of a {@link ETag}.<br>
  * <a href="https://en.wikipedia.org/wiki/HTTP_ETag"></a>
  */
-public enum HttpETagValidator {
+public enum ETagValidator {
 
     WEAK("W/") {
         @Override
@@ -38,24 +38,24 @@ public enum HttpETagValidator {
         }
     };
 
-    HttpETagValidator(final String prefix) {
+    ETagValidator(final String prefix) {
         this.prefix = prefix;
     }
 
     /**
-     * Check upon a validator performed by wildcard etag during {@link HttpETag#setValidator(HttpETagValidator)}.
+     * Check upon a validator performed by wildcard etag during {@link ETag#setValidator(ETagValidator)}.
      */
     abstract void wildcardValidatorCheck();
 
     /**
-     * Prefix used by {@link HttpETagNonWildcard#toString()}.
+     * Prefix used by {@link ETagNonWildcard#toString()}.
      */
     String prefix;
 
     /**
-     * Factory that creates a {@link HttpETag} with this validator and the given {@link String value}.
+     * Factory that creates a {@link ETag} with this validator and the given {@link String value}.
      */
-    public final HttpETag setValue(final String value) {
-        return HttpETag.with(value, this);
+    public final ETag setValue(final String value) {
+        return ETag.with(value, this);
     }
 }

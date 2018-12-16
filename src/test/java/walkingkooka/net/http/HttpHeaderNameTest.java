@@ -202,7 +202,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     public void testToValueIfRangeETag() {
         this.toValueAndCheck(HttpHeaderName.IF_RANGE,
                 "W/\"etag-1234567890\"",
-                IfRange.with(HttpETagValidator.WEAK.setValue("etag-1234567890")));
+                IfRange.with(ETagValidator.WEAK.setValue("etag-1234567890")));
     }
 
     @Test

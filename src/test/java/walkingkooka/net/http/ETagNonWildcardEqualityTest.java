@@ -18,28 +18,25 @@
 
 package walkingkooka.net.http;
 
-/**
- * A parser that only parses text with a single etag.
- */
-final class HttpETagOneHttpHeaderParser extends HttpETagHttpHeaderParser {
+import org.junit.Test;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-    static HttpETag parseOne(final String text) {
-        final HttpETagOneHttpHeaderParser parser = new HttpETagOneHttpHeaderParser(text);
-        final HttpETag tag = parser.parse(HttpETagOneHttpHeaderParser.MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN);
+public final class ETagNonWildcardEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<ETagNonWildcard> {
 
-        final int position = parser.position;
-        if (position != text.length()) {
-            parser.failInvalidCharacter();
-        }
-        return tag;
+    private final static String VALUE = "0123456789ABCDEF";
+
+    @Test
+    public void testDifferentValue() {
+        this.checkNotEquals(ETagNonWildcard.with0("different", ETagValidator.STRONG));
     }
 
-    private HttpETagOneHttpHeaderParser(final String text) {
-        super(text);
+    @Test
+    public void testDifferentWeak() {
+        this.checkNotEquals(ETagNonWildcard.with0(VALUE, ETagValidator.STRONG));
     }
 
     @Override
-    void separator() {
-        this.failInvalidCharacter();
+    protected ETagNonWildcard createObject() {
+        return ETagNonWildcard.with0(VALUE, ETagValidator.WEAK);
     }
 }

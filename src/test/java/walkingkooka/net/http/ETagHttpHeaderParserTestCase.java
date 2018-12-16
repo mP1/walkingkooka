@@ -20,10 +20,10 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-public abstract class HttpETagHttpHeaderParserTestCase<P extends HttpETagHttpHeaderParser>
-        extends HttpHeaderParserTestCase<P, HttpETag> {
+public abstract class ETagHttpHeaderParserTestCase<P extends ETagHttpHeaderParser>
+        extends HttpHeaderParserTestCase<P, ETag> {
 
-    HttpETagHttpHeaderParserTestCase() {
+    ETagHttpHeaderParserTestCase() {
         super();
     }
 
@@ -51,12 +51,12 @@ public abstract class HttpETagHttpHeaderParserTestCase<P extends HttpETagHttpHea
 
     @Test
     public final void testWFails() {
-        this.parseFails("W", HttpETagHttpHeaderParser.incompleteWeakIndicator("W"));
+        this.parseFails("W", ETagHttpHeaderParser.incompleteWeakIndicator("W"));
     }
 
     @Test
     public final void testWeaknessWithoutQuotedValueFails() {
-        this.parseFails("W/", HttpETagHttpHeaderParser.missingETagValue("W/"));
+        this.parseFails("W/", ETagHttpHeaderParser.missingETagValue("W/"));
     }
 
     @Test
@@ -72,24 +72,24 @@ public abstract class HttpETagHttpHeaderParserTestCase<P extends HttpETagHttpHea
     @Test
     public final void testBeginQuoteFails() {
         final String text = "\"";
-        this.parseFails(text, HttpETagHttpHeaderParser.missingClosingQuote(text));
+        this.parseFails(text, ETagHttpHeaderParser.missingClosingQuote(text));
     }
 
     @Test
     public final void testBeginQuoteFails2() {
         final String text = "\"A";
-        this.parseFails(text, HttpETagHttpHeaderParser.missingClosingQuote(text));
+        this.parseFails(text, ETagHttpHeaderParser.missingClosingQuote(text));
     }
 
     @Test
     public final void testBeginQuoteFails3() {
         final String text = "\"'";
-        this.parseFails(text, HttpETagHttpHeaderParser.missingClosingQuote(text));
+        this.parseFails(text, ETagHttpHeaderParser.missingClosingQuote(text));
     }
 
     @Test
     public final void testWildcard() {
-        this.parseAndCheck("*", HttpETag.wildcard());
+        this.parseAndCheck("*", ETag.wildcard());
     }
 
     @Test
@@ -109,24 +109,24 @@ public abstract class HttpETagHttpHeaderParserTestCase<P extends HttpETagHttpHea
 
     @Test
     public final void testWeakValue() {
-        this.parseAndCheck("W/\"a\"", "a", HttpETagValidator.WEAK);
+        this.parseAndCheck("W/\"a\"", "a", ETagValidator.WEAK);
     }
 
     @Test
     public final void testWeakValue2() {
-        this.parseAndCheck("W/\"0\"", "0", HttpETagValidator.WEAK);
+        this.parseAndCheck("W/\"0\"", "0", ETagValidator.WEAK);
     }
 
     @Test
     public final void testWeakValue3() {
-        this.parseAndCheck("W/\"0123456789ABCDEF\"", "0123456789ABCDEF", HttpETagValidator.WEAK);
+        this.parseAndCheck("W/\"0123456789ABCDEF\"", "0123456789ABCDEF", ETagValidator.WEAK);
     }
 
     final void parseAndCheck(final String text, final String value) {
-        this.parseAndCheck(text, value, HttpETagValidator.STRONG);
+        this.parseAndCheck(text, value, ETagValidator.STRONG);
     }
 
-    final void parseAndCheck(final String text, final String value, final HttpETagValidator validator) {
-        this.parseAndCheck(text, HttpETag.with(value, validator));
+    final void parseAndCheck(final String text, final String value, final ETagValidator validator) {
+        this.parseAndCheck(text, ETag.with(value, validator));
     }
 }

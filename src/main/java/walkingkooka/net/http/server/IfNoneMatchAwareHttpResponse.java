@@ -18,8 +18,8 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.http.HttpETag;
-import walkingkooka.net.http.HttpETagValidator;
+import walkingkooka.net.http.ETag;
+import walkingkooka.net.http.ETagValidator;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
@@ -47,7 +47,7 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
      */
     static HttpResponse with(final HttpRequest request,
                              final HttpResponse response,
-                             final Function<byte[], HttpETag> computer) {
+                             final Function<byte[], ETag> computer) {
         check(request);
         check(response);
         Objects.requireNonNull(computer, "computer");
@@ -59,11 +59,11 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
             final Map<HttpHeaderName<?>, Object> requestHeaders = request.headers();
 
             // if-none-matched must be absent
-            final Optional<List<HttpETag>> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.headerValue(requestHeaders);
+            final Optional<List<ETag>> maybeIfNoneMatch = HttpHeaderName.IF_NONE_MATCHED.headerValue(requestHeaders);
             if (maybeIfNoneMatch.isPresent()) {
-                final List<HttpETag> ifNoneMatch = maybeIfNoneMatch.get()
+                final List<ETag> ifNoneMatch = maybeIfNoneMatch.get()
                         .stream()
-                        .filter(e -> e.validator() == HttpETagValidator.STRONG)
+                        .filter(e -> e.validator() == ETagValidator.STRONG)
                         .collect(Collectors.toList());
                 if (!ifNoneMatch.isEmpty()) {
                     result = new IfNoneMatchAwareHttpResponse(response, ifNoneMatch, computer);
@@ -78,8 +78,8 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
      * Private ctor use factory
      */
     private IfNoneMatchAwareHttpResponse(final HttpResponse response,
-                                         final List<HttpETag> ifNoneMatch,
-                                         final Function<byte[], HttpETag> computer) {
+                                         final List<ETag> ifNoneMatch,
+                                         final Function<byte[], ETag> computer) {
         super(response);
         this.ifNoneMatch = ifNoneMatch;
         this.computer = computer;
@@ -93,7 +93,7 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
 
         if (status.value().category() == HttpStatusCodeCategory.SUCCESSFUL) {
             final byte[] body = entity.body();
-            HttpETag etag = contentETag(body, entity.headers());
+            ETag etag = contentETag(body, entity.headers());
 
             // if-modified-since should be evaluated first and if successful the status would not be 2xx.
             if (this.isNotModified(etag)) {
@@ -113,8 +113,8 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
     /**
      * Lazily computes an e-tag if a header value is not already set.
      */
-    private HttpETag contentETag(final byte[] body, final Map<HttpHeaderName<?>, Object> headers) {
-        final Optional<HttpETag> contentETag = HttpHeaderName.E_TAG.headerValue(headers);
+    private ETag contentETag(final byte[] body, final Map<HttpHeaderName<?>, Object> headers) {
+        final Optional<ETag> contentETag = HttpHeaderName.E_TAG.headerValue(headers);
         return contentETag.isPresent() ?
                 contentETag.get() :
                 this.computer.apply(body);
@@ -123,8 +123,8 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
     /**
      * Returns true if the body / content e-tag matches one of the request if-none-match etags.
      */
-    private boolean isNotModified(final HttpETag contentETag) {
-        return contentETag.validator() == HttpETagValidator.STRONG &&
+    private boolean isNotModified(final ETag contentETag) {
+        return contentETag.validator() == ETagValidator.STRONG &&
                 this.ifNoneMatch.stream()
                         .anyMatch(e -> e.equals(contentETag));
     }
@@ -132,7 +132,7 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
     /**
      * The STRONG request e-tags.
      */
-    private final List<HttpETag> ifNoneMatch;
+    private final List<ETag> ifNoneMatch;
 
-    private final Function<byte[], HttpETag> computer;
+    private final Function<byte[], ETag> computer;
 }

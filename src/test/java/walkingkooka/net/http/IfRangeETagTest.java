@@ -20,26 +20,26 @@ package walkingkooka.net.http;
 
 import java.time.LocalDateTime;
 
-public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, HttpETag, LocalDateTime> {
+public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, LocalDateTime> {
 
     @Override
-    IfRangeETag createHeaderValue(final HttpETag value) {
+    IfRangeETag createHeaderValue(final ETag value) {
         return IfRangeETag.etag(value);
     }
 
     @Override
-    HttpETag value() {
+    ETag value() {
         return this.etag();
     }
 
     @Override
     String headerText() {
-        return HttpHeaderValueConverter.httpETag().toText(this.value(), HttpHeaderName.E_TAG);
+        return HttpHeaderValueConverter.eTag().toText(this.value(), HttpHeaderName.E_TAG);
     }
 
     @Override
-    HttpETag differentValue() {
-        return HttpETagValidator.STRONG.setValue("different");
+    ETag differentValue() {
+        return ETagValidator.STRONG.setValue("different");
     }
 
     @Override

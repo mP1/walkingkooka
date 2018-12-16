@@ -46,7 +46,7 @@ final class IfRangeHttpHeaderValueConverter extends HttpHeaderValueConverter<IfR
     IfRange<?> parse0(final String text, final Name name) {
         IfRange<?> parsed;
         try {
-            parsed = IfRangeETag.with(HttpETag.parseOne(text));
+            parsed = IfRangeETag.with(ETag.parseOne(text));
         } catch (final HeaderValueException mustBeLastModified) {
             parsed = IfRangeLastModified.with(DATE_TIME.parse(text, HttpHeaderName.IF_RANGE));
         }

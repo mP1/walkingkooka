@@ -23,13 +23,13 @@ import walkingkooka.net.header.HeaderValueConverter;
 /**
  * An if range holding an etag.
  */
-final class IfRangeETag extends IfRange<HttpETag> {
+final class IfRangeETag extends IfRange<ETag> {
 
-    static IfRangeETag etag(final HttpETag value) {
+    static IfRangeETag etag(final ETag value) {
         return new IfRangeETag(value);
     }
 
-    private IfRangeETag(final HttpETag value) {
+    private IfRangeETag(final ETag value) {
         super(value);
     }
 
@@ -44,7 +44,7 @@ final class IfRangeETag extends IfRange<HttpETag> {
     }
 
     @Override
-    HeaderValueConverter<HttpETag> converter() {
+    HeaderValueConverter<ETag> converter() {
         return ETAG;
     }
 

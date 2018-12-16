@@ -24,9 +24,9 @@ import walkingkooka.net.header.HeaderValueTestCase;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class HttpETagTestCase<E extends HttpETag> extends HeaderValueTestCase<E> {
+public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E> {
 
-    HttpETagTestCase() {
+    ETagTestCase() {
         super();
     }
 
@@ -49,13 +49,13 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends HeaderValueTe
 
     @Test
     public final void testSetValueSame() {
-        final HttpETag etag = this.createETag();
+        final ETag etag = this.createETag();
         assertSame(etag, etag.setValue(this.value()));
     }
 
     @Test
     public final void testSetValueDifferent() {
-        final HttpETag etag = this.createETag();
+        final ETag etag = this.createETag();
         final String value = "different";
         this.check(etag.setValue(value), value, validator());
         this.check(etag);
@@ -70,7 +70,7 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends HeaderValueTe
 
     @Test
     public final void testSetValidatorSame() {
-        final HttpETag etag = this.createETag();
+        final ETag etag = this.createETag();
         assertSame(etag, etag.setValidator(this.validator()));
     }
 
@@ -92,18 +92,18 @@ public abstract class HttpETagTestCase<E extends HttpETag> extends HeaderValueTe
 
     abstract E createETag();
 
-    final void check(final HttpETag etag) {
+    final void check(final ETag etag) {
         check(etag, value(), this.validator());
     }
 
-    final void check(final HttpETag etag, final String value, final HttpETagValidator validator) {
+    final void check(final ETag etag, final String value, final ETagValidator validator) {
         assertEquals("value", value, etag.value());
         assertEquals("validator", validator, etag.validator());
     }
 
     abstract String value();
 
-    abstract HttpETagValidator validator();
+    abstract ETagValidator validator();
 
     @Override
     protected HttpHeaderScope httpHeaderScope() {

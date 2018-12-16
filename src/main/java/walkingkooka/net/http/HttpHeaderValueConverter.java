@@ -57,17 +57,17 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
     }
     
     /**
-     * {@see HttpETagHeaderValueConverter}
+     * {@see ETagHeaderValueConverter}
      */
-    static HttpHeaderValueConverter<HttpETag> httpETag() {
-        return HttpETagHeaderValueConverter.INSTANCE;
+    static HttpHeaderValueConverter<ETag> eTag() {
+        return ETagHeaderValueConverter.INSTANCE;
     }
 
     /**
-     * {@see HttpETagListHttpHeaderValueConverter}
+     * {@see ETagListHttpHeaderValueConverter}
      */
-    static HttpHeaderValueConverter<List<HttpETag>> httpETagList() {
-        return HttpETagListHttpHeaderValueConverter.INSTANCE;
+    static HttpHeaderValueConverter<List<ETag>> eTagList() {
+        return ETagListHttpHeaderValueConverter.INSTANCE;
     }
 
     /**

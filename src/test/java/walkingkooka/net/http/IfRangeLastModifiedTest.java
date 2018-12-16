@@ -22,7 +22,7 @@ import walkingkooka.net.header.HeaderValueConverters;
 
 import java.time.LocalDateTime;
 
-public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastModified, LocalDateTime, HttpETag> {
+public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastModified, LocalDateTime, ETag> {
 
     @Override
     IfRangeLastModified createHeaderValue(final LocalDateTime value) {
@@ -45,7 +45,7 @@ public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastMo
     }
 
     @Override
-    HttpETag otherValue() {
+    ETag otherValue() {
         return this.etag();
     }
 

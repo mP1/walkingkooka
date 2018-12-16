@@ -18,44 +18,44 @@
 
 package walkingkooka.net.http;
 
+
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
- * A {@link HttpHeaderValueConverter} that expects comma separated {@link HttpETag tags}.
+ * A {@link HttpHeaderValueConverter} that parses a header value into a {@link ETag}.
+ * This is useful for headers such as {@link HttpHeaderName#E_TAG}.
  */
-final class HttpETagListHttpHeaderValueConverter extends HttpHeaderValueConverter<List<HttpETag>> {
+final class ETagHeaderValueConverter extends HttpHeaderValueConverter<ETag> {
 
     /**
      * Singleton
      */
-    final static HttpETagListHttpHeaderValueConverter INSTANCE = new HttpETagListHttpHeaderValueConverter();
+    final static ETagHeaderValueConverter INSTANCE = new ETagHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private HttpETagListHttpHeaderValueConverter() {
+    private ETagHeaderValueConverter() {
         super();
     }
 
     @Override
-    List<HttpETag> parse0(final String value, final Name name) {
-        return HttpETag.parseList(value);
+    ETag parse0(final String value, final Name name) {
+        return ETag.parseOne(value);
     }
 
     @Override
     void check0(final Object value) {
-        this.checkListOfType(value, HttpETag.class);
+        this.checkType(value, ETag.class);
     }
 
     @Override
-    String toText0(final List<HttpETag> value, final Name name) {
-        return HttpETag.toHeaderTextList(value);
+    String toText0(final ETag value, final Name name) {
+        return value.toString();
     }
 
     @Override
     public String toString() {
-        return toStringListOf(HttpETag.class);
+        return toStringType(ETag.class);
     }
 }

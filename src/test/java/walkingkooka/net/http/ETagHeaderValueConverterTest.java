@@ -20,31 +20,31 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-public final class HttpETagHeaderValueConverterTest extends
-        HttpHeaderValueConverterTestCase<HttpETagHeaderValueConverter, HttpETag> {
+public final class ETagHeaderValueConverterTest extends
+        HttpHeaderValueConverterTestCase<ETagHeaderValueConverter, ETag> {
 
     @Override
     protected String requiredPrefix() {
-        return HttpETag.class.getSimpleName();
+        return ETag.class.getSimpleName();
     }
 
     @Test
     public void testParse() {
-        this.parseAndCheck("W/\"123\"", HttpETag.with("123", HttpETagValidator.WEAK));
+        this.parseAndCheck("W/\"123\"", ETag.with("123", ETagValidator.WEAK));
     }
 
     @Test
     public void testToText() {
-        this.toTextAndCheck(HttpETag.with("123", HttpETagValidator.WEAK), "W/\"123\"");
+        this.toTextAndCheck(ETag.with("123", ETagValidator.WEAK), "W/\"123\"");
     }
 
     @Override
-    protected HttpETagHeaderValueConverter converter() {
-        return HttpETagHeaderValueConverter.INSTANCE;
+    protected ETagHeaderValueConverter converter() {
+        return ETagHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<HttpETag> name() {
+    protected HttpHeaderName<ETag> name() {
         return HttpHeaderName.E_TAG;
     }
 
@@ -54,17 +54,17 @@ public final class HttpETagHeaderValueConverterTest extends
     }
 
     @Override
-    protected HttpETag value() {
-        return HttpETag.with("01234567890", HttpETagValidator.WEAK);
+    protected ETag value() {
+        return ETag.with("01234567890", ETagValidator.WEAK);
     }
 
     @Override
     protected String converterToString() {
-        return HttpETag.class.getSimpleName();
+        return ETag.class.getSimpleName();
     }
 
     @Override
-    protected Class<HttpETagHeaderValueConverter> type() {
-        return HttpETagHeaderValueConverter.class;
+    protected Class<ETagHeaderValueConverter> type() {
+        return ETagHeaderValueConverter.class;
     }
 }

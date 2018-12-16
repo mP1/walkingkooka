@@ -23,7 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpETag;
+import walkingkooka.net.http.ETag;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
@@ -38,7 +38,7 @@ import static org.junit.Assert.assertSame;
 
 public final class LastModifiedAwareHttpResponseTest extends BufferingHttpResponseTestCase<LastModifiedAwareHttpResponse> {
 
-    private final static List<HttpETag> IF_NONE_MATCH_ABSENT = null;
+    private final static List<ETag> IF_NONE_MATCH_ABSENT = null;
 
     private final static LocalDateTime LAST_MODIFIED = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
     private final static LocalDateTime LAST_MODIFIED_ABSENT = null;
@@ -98,12 +98,12 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
                 LAST_MODIFIED_ABSENT);
     }
 
-    private List<HttpETag> etag() {
-        return Lists.of(HttpETag.wildcard());
+    private List<ETag> etag() {
+        return Lists.of(ETag.wildcard());
     }
 
     private void withAndNotWrappedCheck(final HttpMethod method,
-                                        final List<HttpETag> ifNoneMatch,
+                                        final List<ETag> ifNoneMatch,
                                         final LocalDateTime lastModified) {
         final HttpResponse response = HttpResponses.fake();
         assertSame("method=" + method + " should have resulted in the response not being wrapped",
@@ -260,7 +260,7 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
 
 
     private HttpResponse createResponseWithoutCast(final HttpMethod method,
-                                                          final List<HttpETag> ifNoneMatch,
+                                                          final List<ETag> ifNoneMatch,
                                                           final LocalDateTime lastModified,
                                                           final HttpResponse response) {
         return LastModifiedAwareHttpResponse.with(
@@ -276,7 +276,7 @@ public final class LastModifiedAwareHttpResponseTest extends BufferingHttpRespon
     }
 
     private HttpRequest createRequest(final HttpMethod method,
-                                      final List<HttpETag> ifNoneMatch,
+                                      final List<ETag> ifNoneMatch,
                                       final LocalDateTime lastModified) {
         assertNotNull("method", method);
 

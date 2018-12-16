@@ -20,15 +20,15 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-public final class HttpETagWildcardEqualityTest extends HttpETagEqualityTestCase<HttpETagWildcard> {
+public final class ETagWildcardEqualityTest extends ETagEqualityTestCase<ETagWildcard> {
 
     @Test
     public void testNonWildcard() {
-        this.checkNotEquals(HttpETag.with("0123456789", HttpETagValidator.STRONG));
+        this.checkNotEquals(ETag.with("0123456789", ETagValidator.STRONG));
     }
 
     @Override
-    protected HttpETagWildcard createObject() {
-        return HttpETagWildcard.instance();
+    protected ETagWildcard createObject() {
+        return ETagWildcard.instance();
     }
 }
