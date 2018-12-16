@@ -22,7 +22,6 @@ import walkingkooka.net.http.ETag;
 import walkingkooka.net.http.ETagValidator;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpStatusCodeCategory;
@@ -54,8 +53,7 @@ final class IfNoneMatchAwareHttpResponse extends BufferingHttpResponse {
 
         HttpResponse result = response;
 
-        final HttpMethod method = request.method();
-        if (HttpMethod.GET == method || HttpMethod.HEAD == method) {
+        if (request.method().isGetOrHead()) {
             final Map<HttpHeaderName<?>, Object> requestHeaders = request.headers();
 
             // if-none-matched must be absent
