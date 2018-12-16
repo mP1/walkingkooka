@@ -26,22 +26,22 @@ import java.util.Objects;
 /**
  * Holds a ETAG with a value.
  */
-final class HttpETagNonWildcard extends HttpETag {
+final class ETagNonWildcard extends ETag {
 
     /**
-     * Factory that creates a new {@link HttpETagNonWildcard}
+     * Factory that creates a new {@link ETagNonWildcard}
      */
-    static HttpETagNonWildcard with0(final String value, final HttpETagValidator validator) {
+    static ETagNonWildcard with0(final String value, final ETagValidator validator) {
         checkValue(value);
         checkValidator(validator);
 
-        return new HttpETagNonWildcard(value, validator);
+        return new ETagNonWildcard(value, validator);
     }
 
     /**
      * Private ctor use factory
      */
-    private HttpETagNonWildcard(final String value, final HttpETagValidator validator) {
+    private ETagNonWildcard(final String value, final ETagValidator validator) {
         super();
         this.value = value;
         this.validator = validator;
@@ -62,14 +62,14 @@ final class HttpETagNonWildcard extends HttpETag {
      * The optional validator attribute
      */
     @Override
-    public HttpETagValidator validator() {
+    public ETagValidator validator() {
         return this.validator;
     }
 
-    private final HttpETagValidator validator;
+    private final ETagValidator validator;
 
     @Override
-    void checkValidator0(final HttpETagValidator validator) {
+    void checkValidator0(final ETagValidator validator) {
         checkValidator(validator);
     }
 
@@ -90,11 +90,11 @@ final class HttpETagNonWildcard extends HttpETag {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpETagNonWildcard &&
+                other instanceof ETagNonWildcard &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HttpETagNonWildcard other) {
+    private boolean equals0(final ETagNonWildcard other) {
         return this.value.equals(other.value) &&
                 this.validator.equals(other.validator);
     }

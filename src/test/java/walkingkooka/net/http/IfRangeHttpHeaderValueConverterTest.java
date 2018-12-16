@@ -56,8 +56,8 @@ public final class IfRangeHttpHeaderValueConverterTest extends
         return IfRange.with(this.etag());
     }
 
-    private HttpETag etag() {
-        return HttpETag.with("abc123", HttpETagValidator.WEAK);
+    private ETag etag() {
+        return ETag.with("abc123", ETagValidator.WEAK);
     }
 
     private LocalDateTime lastModified() {

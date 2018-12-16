@@ -51,8 +51,8 @@ public abstract class IfRangeEqualityTestCase<R extends IfRange<T>, T> extends H
 
     abstract Object otherValue();
 
-    final HttpETag etag() {
-        return HttpETag.with("abc123", HttpETagValidator.WEAK);
+    final ETag etag() {
+        return ETag.with("abc123", ETagValidator.WEAK);
     }
 
     final LocalDateTime lastModified() {

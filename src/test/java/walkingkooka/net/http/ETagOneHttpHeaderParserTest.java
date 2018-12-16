@@ -20,7 +20,7 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-public final class HttpETagOneHttpHeaderParserTest extends HttpETagHttpHeaderParserTestCase<HttpETagOneHttpHeaderParser> {
+public final class ETagOneHttpHeaderParserTest extends ETagHttpHeaderParserTestCase<ETagOneHttpHeaderParser> {
 
     @Test
     public final void testSeparatorFails() {
@@ -43,12 +43,12 @@ public final class HttpETagOneHttpHeaderParserTest extends HttpETagHttpHeaderPar
     }
 
     @Override
-    HttpETag parse(final String text) {
-        return HttpETagOneHttpHeaderParser.parseOne(text);
+    ETag parse(final String text) {
+        return ETagOneHttpHeaderParser.parseOne(text);
     }
 
     @Override
-    protected Class<HttpETagOneHttpHeaderParser> type() {
-        return HttpETagOneHttpHeaderParser.class;
+    protected Class<ETagOneHttpHeaderParser> type() {
+        return ETagOneHttpHeaderParser.class;
     }
 }

@@ -31,44 +31,44 @@ import java.util.stream.Collectors;
  * Holds a ETAG.
  * <a href="https://en.wikipedia.org/wiki/HTTP_ETag"></a>
  */
-public abstract class HttpETag implements HeaderValue,
+public abstract class ETag implements HeaderValue,
         Value<String> {
 
     /**
-     * Returns a wildcard {@link HttpETag}
+     * Returns a wildcard {@link ETag}
      */
-    public static HttpETag wildcard() {
-        return HttpETagWildcard.instance();
+    public static ETag wildcard() {
+        return ETagWildcard.instance();
     }
 
     /**
-     * Factory that creates a new {@link HttpETag}
+     * Factory that creates a new {@link ETag}
      */
-    public static HttpETag with(final String value, final HttpETagValidator validator) {
+    public static ETag with(final String value, final ETagValidator validator) {
         checkValue(value);
         checkValidator(validator);
 
-        return HttpETagNonWildcard.with0(value, validator);
+        return ETagNonWildcard.with0(value, validator);
     }
 
     /**
      * Parsers a header value holding a single tag.
      */
-    public static HttpETag parseOne(final String text) {
-        return HttpETagOneHttpHeaderParser.parseOne(text);
+    public static ETag parseOne(final String text) {
+        return ETagOneHttpHeaderParser.parseOne(text);
     }
 
     /**
      * Parsers a header value which may hold one or more tags.
      */
-    public static List<HttpETag> parseList(final String text) {
-        return HttpETagListHttpHeaderParser.parseList(text);
+    public static List<ETag> parseList(final String text) {
+        return ETagListHttpHeaderParser.parseList(text);
     }
 
     /**
      * Builds a header value representation of a list of tags.
      */
-    public static String toHeaderTextList(final List<HttpETag> tags) {
+    public static String toHeaderTextList(final List<ETag> tags) {
         Objects.requireNonNull(tags, "tags");
 
         return tags.stream()
@@ -81,7 +81,7 @@ public abstract class HttpETag implements HeaderValue,
     /**
      * Package private to limit sub classing.
      */
-    HttpETag() {
+    ETag() {
         super();
     }
 
@@ -93,9 +93,9 @@ public abstract class HttpETag implements HeaderValue,
     public final static CharacterConstant WILDCARD_VALUE = CharacterConstant.with('*');
 
     /**
-     * Would be setter that returns a {@link HttpETag} with the given value creating a new instance as necessary.
+     * Would be setter that returns a {@link ETag} with the given value creating a new instance as necessary.
      */
-    public final HttpETag setValue(final String value) {
+    public final ETag setValue(final String value) {
         checkValue(value);
 
         return this.value().equals(value) ?
@@ -104,7 +104,7 @@ public abstract class HttpETag implements HeaderValue,
     }
 
     static void checkValue(final String value) {
-        CharPredicates.failIfNullOrFalse(value, "value", HttpETagHttpHeaderParser.ETAG_VALUE);
+        CharPredicates.failIfNullOrFalse(value, "value", ETagHttpHeaderParser.ETAG_VALUE);
     }
 
     // weak...........................................................................................................
@@ -112,12 +112,12 @@ public abstract class HttpETag implements HeaderValue,
     /**
      * The optional weak attribute
      */
-    public abstract HttpETagValidator validator();
+    public abstract ETagValidator validator();
 
     /**
-     * Would be setter that returns a {@link HttpETag} with the given {@link HttpETagValidator}.
+     * Would be setter that returns a {@link ETag} with the given {@link ETagValidator}.
      */
-    public final HttpETag setValidator(final HttpETagValidator validator) {
+    public final ETag setValidator(final ETagValidator validator) {
         checkValidator0(validator);
 
         return this.validator().equals(validator) ?
@@ -128,15 +128,15 @@ public abstract class HttpETag implements HeaderValue,
     /**
      * Abstract because wildcard will also complain if a validator indicator is present, which is an invalid combination.
      */
-    abstract void checkValidator0(final HttpETagValidator validator);
+    abstract void checkValidator0(final ETagValidator validator);
 
-    static void checkValidator(final HttpETagValidator validator) {
+    static void checkValidator(final ETagValidator validator) {
         Objects.requireNonNull(validator, "validator");
     }
 
     // replace ........................................................................................................
 
-    private HttpETag replace(final String value, final HttpETagValidator validator) {
+    private ETag replace(final String value, final ETagValidator validator) {
         return with(value, validator);
     }
 

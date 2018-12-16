@@ -114,6 +114,22 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link ETag} header values.
+     */
+    private static HttpHeaderName<ETag> registerETagConstant(final String header,
+                                                             final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HttpHeaderValueConverter.eTag());
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles lists of {@link ETag} header values.
+     */
+    private static HttpHeaderName<List<ETag>> registerETagListConstant(final String header,
+                                                                       final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HttpHeaderValueConverter.eTagList());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values of type {@link HeaderValueToken}.
      */
     private static HttpHeaderName<HeaderValueToken> registerHeaderValueTokenConstant(final String header,
@@ -127,22 +143,6 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     private static HttpHeaderName<List<HeaderValueToken>> registerHeaderValueTokenListConstant(final String header,
                                                                                                final HttpHeaderScope scope) {
         return registerConstant(header, scope, HeaderValueConverters.headerValueTokenList());
-    }
-
-    /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link HttpETag} header values.
-     */
-    private static HttpHeaderName<HttpETag> registerHttpETagConstant(final String header,
-                                                                     final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.httpETag());
-    }
-
-    /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles lists of {@link HttpETag} header values.
-     */
-    private static HttpHeaderName<List<HttpETag>> registerHttpETagListConstant(final String header,
-                                                                               final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.httpETagList());
     }
 
     /**
@@ -436,7 +436,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * If-Match: *
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpETag>> IF_MATCH = registerHttpETagListConstant("If-Match",
+    public final static HttpHeaderName<List<ETag>> IF_MATCH = registerETagListConstant("If-Match",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -456,7 +456,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * If-None-Match: *
      * </pre>
      */
-    public final static HttpHeaderName<List<HttpETag>> IF_NONE_MATCHED = registerHttpETagListConstant("If-None-Match",
+    public final static HttpHeaderName<List<ETag>> IF_NONE_MATCHED = registerETagListConstant("If-None-Match",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -660,7 +660,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * ETag: W/"0815"
      * </pre>
      */
-    public final static HttpHeaderName<HttpETag> E_TAG = registerHttpETagConstant("ETag",
+    public final static HttpHeaderName<ETag> E_TAG = registerETagConstant("ETag",
             HttpHeaderScope.RESPONSE);
 
     /**

@@ -19,24 +19,16 @@
 package walkingkooka.net.http;
 
 import org.junit.Test;
-import walkingkooka.test.EnumTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-import static org.junit.Assert.assertEquals;
+public abstract class ETagEqualityTestCase<E extends ETag> extends HashCodeEqualsDefinedEqualityTestCase<E> {
 
-public final class HttpETagValidatorTest extends EnumTestCase<HttpETagValidator> {
-
-    @Test
-    public void testSetValue() {
-        final HttpETagValidator validator = HttpETagValidator.WEAK;
-        final String value = "1234567890ABCDEF";
-
-        final HttpETag tag = validator.setValue(value);
-        assertEquals("value", value, tag.value());
-        assertEquals("validator", validator, tag.validator());
+    ETagEqualityTestCase() {
+        super();
     }
 
-    @Override
-    protected Class<HttpETagValidator> type() {
-        return HttpETagValidator.class;
+    @Test
+    public final void testDifferentValue() {
+        this.checkNotEquals(ETag.with("different", ETagValidator.STRONG));
     }
 }

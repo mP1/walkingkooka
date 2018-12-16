@@ -137,8 +137,8 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     abstract String headerText();
 
-    final HttpETag etag() {
-        return HttpETag.with("abc123", HttpETagValidator.WEAK);
+    final ETag etag() {
+        return ETag.with("abc123", ETagValidator.WEAK);
     }
 
     final LocalDateTime lastModified() {

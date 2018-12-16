@@ -26,12 +26,12 @@ import walkingkooka.text.CharSequences;
 /**
  * Base parser for both tag parsers.
  */
-abstract class HttpETagHttpHeaderParser extends HttpHeaderParser{
+abstract class ETagHttpHeaderParser extends HttpHeaderParser{
 
     /**
      * Package private to limit sub classing.
      */
-    HttpETagHttpHeaderParser(final String text) {
+    ETagHttpHeaderParser(final String text) {
         super(text);
     }
 
@@ -53,11 +53,11 @@ abstract class HttpETagHttpHeaderParser extends HttpHeaderParser{
      *            ; VCHAR except double quotes, plus obs-text
      * </pre>
      */
-    final HttpETag parse(final int startMode) {
-        final char wildcard = HttpETag.WILDCARD_VALUE.character();
+    final ETag parse(final int startMode) {
+        final char wildcard = ETag.WILDCARD_VALUE.character();
 
         String value = null;
-        HttpETagValidator validator = HttpETagValidator.STRONG;
+        ETagValidator validator = ETagValidator.STRONG;
 
         final int length = this.text.length();
         int mode = startMode;
@@ -68,7 +68,7 @@ abstract class HttpETagHttpHeaderParser extends HttpHeaderParser{
 
             switch (mode) {
                 case MODE_SEPARATOR:
-                    if (HttpETag.SEPARATOR.character() == c) {
+                    if (ETag.SEPARATOR.character() == c) {
                         mode = MODE_WHITESPACE;
                         break;
                     }
@@ -97,7 +97,7 @@ abstract class HttpETagHttpHeaderParser extends HttpHeaderParser{
                 case MODE_WEAK:
                     if ('/' == c) {
                         mode = MODE_QUOTE_BEGIN;
-                        validator = HttpETagValidator.WEAK;
+                        validator = ETagValidator.WEAK;
                         break;
                     }
                     failInvalidCharacter();
@@ -152,8 +152,8 @@ abstract class HttpETagHttpHeaderParser extends HttpHeaderParser{
         }
 
         return null == value ?
-                HttpETag.wildcard() :
-                HttpETag.with(value, validator);
+                ETag.wildcard() :
+                ETag.with(value, validator);
     }
 
     final static int MODE_SEPARATOR = 1;

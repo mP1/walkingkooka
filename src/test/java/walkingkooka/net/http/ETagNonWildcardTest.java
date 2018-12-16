@@ -20,7 +20,7 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 
-public final class HttpETagNonWildcardTest extends HttpETagTestCase<HttpETagNonWildcard> {
+public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
 
     private final static String VALUE = "0123456789ABCDEF";
 
@@ -31,20 +31,20 @@ public final class HttpETagNonWildcardTest extends HttpETagTestCase<HttpETagNonW
 
     @Test
     public void testWithEmpty() {
-        this.check(HttpETag.with("", HttpETagValidator.STRONG), "", HttpETagValidator.STRONG);
+        this.check(ETag.with("", ETagValidator.STRONG), "", ETagValidator.STRONG);
     }
 
     @Test
     public void testSetValidatorDifferent() {
-        final HttpETag etag = this.createETag();
-        final HttpETagValidator validator = HttpETagValidator.WEAK;
+        final ETag etag = this.createETag();
+        final ETagValidator validator = ETagValidator.WEAK;
         this.check(etag.setValidator(validator), this.value(), validator);
         this.check(etag);
     }
 
     @Override
-    HttpETagNonWildcard createETag() {
-        return HttpETagNonWildcard.with0(VALUE, HttpETagValidator.STRONG);
+    ETagNonWildcard createETag() {
+        return ETagNonWildcard.with0(VALUE, ETagValidator.STRONG);
     }
 
     @Override
@@ -53,8 +53,8 @@ public final class HttpETagNonWildcardTest extends HttpETagTestCase<HttpETagNonW
     }
 
     @Override
-    HttpETagValidator validator() {
-        return HttpETagValidator.STRONG;
+    ETagValidator validator() {
+        return ETagValidator.STRONG;
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class HttpETagNonWildcardTest extends HttpETagTestCase<HttpETagNonW
     }
 
     @Override
-    protected Class<HttpETagNonWildcard> type() {
-        return HttpETagNonWildcard.class;
+    protected Class<ETagNonWildcard> type() {
+        return ETagNonWildcard.class;
     }
 }

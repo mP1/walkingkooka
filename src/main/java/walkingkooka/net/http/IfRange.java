@@ -82,7 +82,7 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
         return IfRangeHttpHeaderValueConverter.INSTANCE.parse(text, HEADER_NAME);
     }
 
-    final static HeaderValueConverter<HttpETag> ETAG = HttpHeaderValueConverter.httpETag();
+    final static HeaderValueConverter<ETag> ETAG = HttpHeaderValueConverter.eTag();
     final static HeaderValueConverter<LocalDateTime> DATE_TIME = HeaderValueConverters.localDateTime();
 
     /**
@@ -91,8 +91,8 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
     public static <T> IfRange<T> with(final T value) {
         check(value);
 
-        return Cast.to(value instanceof HttpETag ?
-                IfRangeETag.etag(HttpETag.class.cast(value)) :
+        return Cast.to(value instanceof ETag ?
+                IfRangeETag.etag(ETag.class.cast(value)) :
                 IfRangeLastModified.lastModified(LocalDateTime.class.cast(value)));
     }
 
@@ -129,7 +129,7 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
     private static void check(final Object value) {
         Objects.requireNonNull(value, "value");
 
-        if (false == value instanceof HttpETag && false == value instanceof LocalDateTime) {
+        if (false == value instanceof ETag && false == value instanceof LocalDateTime) {
             throw new IllegalArgumentException("Expected etag or datetime but got " + CharSequences.quoteIfChars(value));
         }
     }

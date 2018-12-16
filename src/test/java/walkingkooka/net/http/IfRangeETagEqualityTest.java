@@ -18,15 +18,15 @@
 
 package walkingkooka.net.http;
 
-public final class IfRangeETagEqualityTest extends IfRangeEqualityTestCase<IfRangeETag, HttpETag> {
+public final class IfRangeETagEqualityTest extends IfRangeEqualityTestCase<IfRangeETag, ETag> {
     @Override
-    HttpETag value() {
+    ETag value() {
         return this.etag();
     }
 
     @Override
-    HttpETag differentValue() {
-        return HttpETag.wildcard();
+    ETag differentValue() {
+        return ETag.wildcard();
     }
 
     @Override

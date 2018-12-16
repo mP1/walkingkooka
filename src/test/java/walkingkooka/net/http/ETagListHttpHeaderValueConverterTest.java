@@ -24,24 +24,24 @@ import walkingkooka.net.header.HeaderValueException;
 
 import java.util.List;
 
-public final class HttpETagListHttpHeaderValueConverterTest extends
-        HttpHeaderValueConverterTestCase<HttpETagListHttpHeaderValueConverter, List<HttpETag>> {
+public final class ETagListHttpHeaderValueConverterTest extends
+        HttpHeaderValueConverterTestCase<ETagListHttpHeaderValueConverter, List<ETag>> {
 
     @Override
     protected String requiredPrefix() {
-        return HttpETag.class.getSimpleName();
+        return ETag.class.getSimpleName();
     }
 
     @Test
     public void testParseETagOne() {
         this.parseAndToTextAndCheck("W/\"123\"",
-                Lists.of(HttpETag.with("123", HttpETagValidator.WEAK)));
+                Lists.of(ETag.with("123", ETagValidator.WEAK)));
     }
 
     @Test
     public void testParseETagSeveral() {
-        this.toTextAndCheck(Lists.of(HttpETag.with("123", HttpETagValidator.WEAK),
-                HttpETag.with("456", HttpETagValidator.WEAK)), "W/\"123\", W/\"456\"");
+        this.toTextAndCheck(Lists.of(ETag.with("123", ETagValidator.WEAK),
+                ETag.with("456", ETagValidator.WEAK)), "W/\"123\", W/\"456\"");
     }
 
     @Test(expected = HeaderValueException.class)
@@ -54,17 +54,17 @@ public final class HttpETagListHttpHeaderValueConverterTest extends
         this.check(Lists.of(this.etag(), "WRONG!"));
     }
 
-    private HttpETag etag() {
-        return HttpETag.with("value", HttpETagValidator.WEAK);
+    private ETag etag() {
+        return ETag.with("value", ETagValidator.WEAK);
     }
 
     @Override
-    protected HttpETagListHttpHeaderValueConverter converter() {
-        return HttpETagListHttpHeaderValueConverter.INSTANCE;
+    protected ETagListHttpHeaderValueConverter converter() {
+        return ETagListHttpHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<HttpETag>> name() {
+    protected HttpHeaderName<List<ETag>> name() {
         return HttpHeaderName.IF_MATCH;
     }
 
@@ -74,17 +74,17 @@ public final class HttpETagListHttpHeaderValueConverterTest extends
     }
 
     @Override
-    protected List<HttpETag> value() {
-        return HttpETag.parseList("\"1\",\"2\"");
+    protected List<ETag> value() {
+        return ETag.parseList("\"1\",\"2\"");
     }
 
     @Override
     protected String converterToString() {
-        return "List<HttpETag>";
+        return "List<ETag>";
     }
 
     @Override
-    protected Class<HttpETagListHttpHeaderValueConverter> type() {
-        return HttpETagListHttpHeaderValueConverter.class;
+    protected Class<ETagListHttpHeaderValueConverter> type() {
+        return ETagListHttpHeaderValueConverter.class;
     }
 }
