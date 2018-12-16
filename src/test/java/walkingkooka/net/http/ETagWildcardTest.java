@@ -27,6 +27,18 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
         ETagWildcard.instance().setValidator(ETagValidator.WEAK);
     }
 
+    // isMatch ...........................................................................................
+
+    @Test
+    public void testIsMatchStrongValue() {
+        this.isMatchAndCheck(ETagValidator.STRONG.setValue("abc"), true);
+    }
+
+    @Test
+    public void testIsMatchWeakValue() {
+        this.isMatchAndCheck(ETagValidator.WEAK.setValue("abc"), true);
+    }
+
     @Override
     ETagWildcard createETag() {
         return ETagWildcard.instance();

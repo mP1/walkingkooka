@@ -85,6 +85,17 @@ public abstract class ETag implements HeaderValue,
         super();
     }
 
+    /**
+     * Only returns true if etag is matched by the given etag. If this is a wildcard it matches any other etag.
+     * If the argument is a wildcard a false is always returned even if this is a wildcard.
+     */
+    public final boolean isMatch(final ETag etag) {
+        Objects.requireNonNull(etag, "etag");
+        return !etag.isWildcard() && this.isMatch0(etag);
+    }
+
+    abstract boolean isMatch0(final ETag etag);
+
     // value.....................................................................................................
 
     /**

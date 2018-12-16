@@ -42,6 +42,14 @@ final class ETagWildcard extends ETag {
         super();
     }
 
+    /**
+     * Matches any other etag except for another wildcard.
+     */
+    @Override
+    boolean isMatch0(final ETag etag) {
+        return true;
+    }
+
     // value.........................................................................................
 
     @Override

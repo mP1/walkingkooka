@@ -83,6 +83,23 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     abstract boolean isWildcard();
 
+    // isMatch ...........................................................................................
+
+    @Test
+    public final void testIsMatchWildcard() {
+        this.isMatchAndCheck(ETag.wildcard(), false);
+    }
+
+    final void isMatchAndCheck(final ETag other, final boolean result) {
+        this.isMatchAndCheck(this.createETag(), other, result);
+    }
+
+    final void isMatchAndCheck(final ETag etag, final ETag other, final boolean result) {
+        assertEquals(etag + " is match " + other,
+                result,
+                etag.isMatch(other));
+    }
+
     // helper ...........................................................................................................
 
     @Override
