@@ -19,6 +19,9 @@
 package walkingkooka.net.http;
 
 import walkingkooka.net.header.HeaderValueConverter;
+import walkingkooka.net.header.HeaderValueException;
+
+import java.time.LocalDateTime;
 
 /**
  * An if range holding an etag.
@@ -41,6 +44,16 @@ final class IfRangeETag extends IfRange<ETag> {
     @Override
     public boolean isLastModified() {
         return false;
+    }
+
+    @Override
+    public IfRange<ETag> etag() {
+        return this;
+    }
+
+    @Override
+    public IfRange<LocalDateTime> lastModified() {
+        throw new HeaderValueException(this.toHeaderText());
     }
 
     @Override

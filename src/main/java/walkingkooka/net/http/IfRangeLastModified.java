@@ -19,6 +19,7 @@
 package walkingkooka.net.http;
 
 import walkingkooka.net.header.HeaderValueConverter;
+import walkingkooka.net.header.HeaderValueException;
 
 import java.time.LocalDateTime;
 
@@ -36,13 +37,23 @@ final class IfRangeLastModified extends IfRange<LocalDateTime> {
     }
 
     @Override
+    public boolean isETag() {
+        return false;
+    }
+
+    @Override
     public boolean isLastModified() {
         return true;
     }
 
     @Override
-    public boolean isETag() {
-        return false;
+    public IfRange<ETag> etag() {
+        throw new HeaderValueException(this.toHeaderText());
+    }
+
+    @Override
+    public IfRange<LocalDateTime> lastModified() {
+        return this;
     }
 
     @Override

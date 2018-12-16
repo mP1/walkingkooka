@@ -18,9 +18,25 @@
 
 package walkingkooka.net.http;
 
+import org.junit.Test;
+import walkingkooka.net.header.HeaderValueException;
+
 import java.time.LocalDateTime;
 
+import static org.junit.Assert.assertSame;
+
 public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, LocalDateTime> {
+
+    @Test
+    public void testETag() {
+        final IfRangeETag ifRange = this.createHeaderValue();
+        assertSame(ifRange, ifRange.etag());
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testLastModified() {
+        this.createHeaderValue().lastModified();
+    }
 
     @Override
     IfRangeETag createHeaderValue(final ETag value) {

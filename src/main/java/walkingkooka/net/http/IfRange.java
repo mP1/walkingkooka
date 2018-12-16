@@ -139,15 +139,25 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
     }
 
     /**
+     * Returns true if the value is an etag.
+     */
+    abstract public boolean isETag();
+
+    /**
      * Returns true if the value is a last modified.
      */
     abstract public boolean isLastModified();
 
     /**
-     * Returns true if the value is an etag.
+     * Casts this {@link IfRange} if it has a etag or fail.
      */
-    abstract public boolean isETag();
-    
+    abstract public IfRange<ETag> etag();
+
+    /**
+     * Casts this {@link IfRange} if it has a last modified or fail.
+     */
+    abstract public IfRange<LocalDateTime> lastModified();
+
     @Override
     public final HttpHeaderScope httpHeaderScope() {
         return HttpHeaderScope.REQUEST;
