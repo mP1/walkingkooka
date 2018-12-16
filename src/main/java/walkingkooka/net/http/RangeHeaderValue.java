@@ -58,7 +58,7 @@ import java.util.stream.Collectors;
  * Range: bytes=200-1000, 2000-6576, 19000-
  * </pre>
  */
-public final class HttpHeaderRange implements HeaderValue,
+public final class RangeHeaderValue implements HeaderValue,
         Value<List<Range<Long>>> {
 
     public final static CharacterConstant BETWEEN = CharacterConstant.with('-');
@@ -66,7 +66,7 @@ public final class HttpHeaderRange implements HeaderValue,
     /**
      * Parsers a header value.
      */
-    public static HttpHeaderRange parse(final String header) {
+    public static RangeHeaderValue parse(final String header) {
         CharSequences.failIfNullOrEmpty(header, "header");
 
         final int equalsAfterUnit = header.indexOf('=');
@@ -75,15 +75,15 @@ public final class HttpHeaderRange implements HeaderValue,
         }
 
         final List<Range<Long>> ranges = Arrays.stream(header.substring(equalsAfterUnit + 1).split(SEPARATOR.string()))
-                .map(HttpHeaderRange::range)
+                .map(RangeHeaderValue::range)
                 .collect(Collectors.toList());
 
         try {
-            final HttpHeaderRangeUnit unit = HttpHeaderRangeUnit.parse(header.substring(0, equalsAfterUnit));
-            unit.httpHeaderRangeCheck();
+            final RangeHeaderValueUnit unit = RangeHeaderValueUnit.parse(header.substring(0, equalsAfterUnit));
+            unit.rangeCheck();
             checkValue(ranges);
 
-            return new HttpHeaderRange(unit, ranges);
+            return new RangeHeaderValue(unit, ranges);
         } catch (final IllegalArgumentException cause) {
             throw new HeaderValueException(cause.getMessage(), cause);
         }
@@ -110,18 +110,18 @@ public final class HttpHeaderRange implements HeaderValue,
     }
 
     /**
-     * Factory that creates a new {@link HttpHeaderRange}
+     * Factory that creates a new {@link RangeHeaderValue}
      */
-    public static HttpHeaderRange with(final HttpHeaderRangeUnit unit, final List<Range<Long>> ranges) {
+    public static RangeHeaderValue with(final RangeHeaderValueUnit unit, final List<Range<Long>> ranges) {
         checkUnit(unit);
 
-        return new HttpHeaderRange(unit, copyAndCheckValue(ranges));
+        return new RangeHeaderValue(unit, copyAndCheckValue(ranges));
     }
 
     /**
      * Private ctor use factory.
      */
-    private HttpHeaderRange(final HttpHeaderRangeUnit unit, final List<Range<Long>> ranges) {
+    private RangeHeaderValue(final RangeHeaderValueUnit unit, final List<Range<Long>> ranges) {
         super();
         this.unit = unit;
         this.ranges = ranges;
@@ -129,23 +129,23 @@ public final class HttpHeaderRange implements HeaderValue,
 
     // unit ........................................................................................
 
-    public HttpHeaderRangeUnit unit() {
+    public RangeHeaderValueUnit unit() {
         return this.unit;
     }
 
-    public HttpHeaderRange setUnit(final HttpHeaderRangeUnit unit) {
+    public RangeHeaderValue setUnit(final RangeHeaderValueUnit unit) {
         checkUnit(unit);
         return this.unit.equals(unit) ?
                 this :
                 this.replace(unit, this.ranges);
     }
 
-    private final HttpHeaderRangeUnit unit;
+    private final RangeHeaderValueUnit unit;
 
-    private static void checkUnit(final HttpHeaderRangeUnit unit) {
+    private static void checkUnit(final RangeHeaderValueUnit unit) {
         Objects.requireNonNull(unit, "unit");
 
-        unit.httpHeaderRangeCheck();
+        unit.rangeCheck();
     }
 
     // value ........................................................................................
@@ -155,7 +155,7 @@ public final class HttpHeaderRange implements HeaderValue,
         return this.ranges;
     }
 
-    public HttpHeaderRange setValue(final List<Range<Long>> value) {
+    public RangeHeaderValue setValue(final List<Range<Long>> value) {
         final List<Range<Long>> copy = copyAndCheckValue(value);
         return this.ranges.equals(copy) ?
                 this :
@@ -213,8 +213,8 @@ public final class HttpHeaderRange implements HeaderValue,
 
     // replace.............................................................................
 
-    private HttpHeaderRange replace(final HttpHeaderRangeUnit unit, final List<Range<Long>> ranges) {
-        return new HttpHeaderRange(unit, ranges);
+    private RangeHeaderValue replace(final RangeHeaderValueUnit unit, final List<Range<Long>> ranges) {
+        return new RangeHeaderValue(unit, ranges);
     }
 
     // Object.............................................................................
@@ -241,11 +241,11 @@ public final class HttpHeaderRange implements HeaderValue,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HttpHeaderRange &&
+                other instanceof RangeHeaderValue &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HttpHeaderRange other) {
+    private boolean equals0(final RangeHeaderValue other) {
         return this.unit.equals(other.unit) &
                 this.ranges.equals(other.ranges);
     }

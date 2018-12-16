@@ -49,7 +49,7 @@ public final class ContentRangeHttpHeaderValueConverterTest extends
     }
 
     private ContentRange contentRange() {
-        return ContentRange.with(HttpHeaderRangeUnit.BYTES,
+        return ContentRange.with(RangeHeaderValueUnit.BYTES,
                 Optional.of(Range.greaterThanEquals(123L).and(Range.lessThanEquals(456L))),
                 Optional.of(789L));
     }

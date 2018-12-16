@@ -78,13 +78,6 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
     }
 
     /**
-     * {@see HttpHeaderRangeUnitHttpHeaderValueConverter}
-     */
-    static HttpHeaderValueConverter<HttpHeaderRangeUnit> httpHeaderRangeUnit() {
-        return HttpHeaderRangeUnitHttpHeaderValueConverter.INSTANCE;
-    }
-
-    /**
      * {@see IfRangeHeaderValueConverter}
      */
     static HttpHeaderValueConverter<IfRange<?>> ifRange() {
@@ -99,10 +92,17 @@ abstract class HttpHeaderValueConverter<T> implements HeaderValueConverter<T> {
     }
 
     /**
-     * {@see HttpHeaderRangeHttpHeaderValueConverter}
+     * {@see RangeHeaderValueHttpHeaderValueConverter}
      */
-    static HttpHeaderValueConverter<HttpHeaderRange> range() {
-        return HttpHeaderRangeHttpHeaderValueConverter.INSTANCE;
+    static HttpHeaderValueConverter<RangeHeaderValue> range() {
+        return RangeHeaderValueHttpHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see RangeHeaderValueUnitHttpHeaderValueConverter}
+     */
+    static HttpHeaderValueConverter<RangeHeaderValueUnit> rangeUnit() {
+        return RangeHeaderValueUnitHttpHeaderValueConverter.INSTANCE;
     }
 
     /**

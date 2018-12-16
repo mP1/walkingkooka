@@ -154,14 +154,6 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link HttpHeaderRangeUnit} header values.
-     */
-    private static HttpHeaderName<HttpHeaderRangeUnit> registerHttpHeaderRangeUnitConstant(final String header,
-                                                                                           final HttpHeaderScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.httpHeaderRangeUnit());
-    }
-
-    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link IfRange} header values.
      */
     private static HttpHeaderName<IfRange<?>> registerIfRangeConstant(final String header,
@@ -212,9 +204,17 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link Range} header values.
      */
-    private static HttpHeaderName<HttpHeaderRange> registerRangeConstant(final String header,
-                                                                         final HttpHeaderScope scope) {
+    private static HttpHeaderName<RangeHeaderValue> registerRangeConstant(final String header,
+                                                                          final HttpHeaderScope scope) {
         return registerConstant(header, scope, HttpHeaderValueConverter.range());
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link RangeHeaderValueUnit} header values.
+     */
+    private static HttpHeaderName<RangeHeaderValueUnit> registerRangeUnitConstant(final String header,
+                                                                                  final HttpHeaderScope scope) {
+        return registerConstant(header, scope, HttpHeaderValueConverter.rangeUnit());
     }
 
     /**
@@ -504,7 +504,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Range: <unit>=<range-start>-<range-end>, <range-start>-<range-end>, <range-start>-<range-end>
      * </pre>
      */
-    public final static HttpHeaderName<HttpHeaderRange> RANGE = registerRangeConstant("Range",
+    public final static HttpHeaderName<RangeHeaderValue> RANGE = registerRangeConstant("Range",
             HttpHeaderScope.REQUEST);
 
     /**
@@ -565,7 +565,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Accept-Ranges: none
      * </pre>
      */
-    public final static HttpHeaderName<HttpHeaderRangeUnit> ACCEPT_RANGES = registerHttpHeaderRangeUnitConstant("Accept-Ranges",
+    public final static HttpHeaderName<RangeHeaderValueUnit> ACCEPT_RANGES = registerRangeUnitConstant("Accept-Ranges",
             HttpHeaderScope.RESPONSE);
 
     /**

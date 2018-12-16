@@ -33,7 +33,7 @@ import static org.junit.Assert.fail;
 
 public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
-    private final static HttpHeaderRangeUnit UNIT = HttpHeaderRangeUnit.BYTES;
+    private final static RangeHeaderValueUnit UNIT = RangeHeaderValueUnit.BYTES;
     private final static Optional<Long> SIZE = Optional.of(789L);
 
     // with.
@@ -107,7 +107,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSetUnitNoneFails() {
-        this.contentRange().setUnit(HttpHeaderRangeUnit.NONE);
+        this.contentRange().setUnit(RangeHeaderValueUnit.NONE);
     }
 
     @Test
@@ -205,7 +205,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
     }
 
     private void check(final ContentRange contentRange,
-                       final HttpHeaderRangeUnit unit,
+                       final RangeHeaderValueUnit unit,
                        final Optional<Range<Long>> range,
                        final Optional<Long> size) {
         assertEquals("unit", unit, contentRange.unit());
@@ -333,7 +333,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
     }
 
     private void parseAndCheck(final String headerValue,
-                               final HttpHeaderRangeUnit unit,
+                               final RangeHeaderValueUnit unit,
                                final Optional<Range<Long>> range,
                                final Optional<Long> size) {
         assertEquals("Incorrect result when parsing " + CharSequences.quote(headerValue),
@@ -377,7 +377,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
     }
 
     private final void toHeaderTextAndCheck(final String headerText,
-                                            final HttpHeaderRangeUnit unit,
+                                            final RangeHeaderValueUnit unit,
                                             final Optional<Range<Long>> range,
                                             final Optional<Long> size) {
         this.toHeaderTextAndCheck(
@@ -412,7 +412,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
     }
 
     private final void toStringAndCheck(final String toString,
-                                        final HttpHeaderRangeUnit unit,
+                                        final RangeHeaderValueUnit unit,
                                         final Optional<Range<Long>> range,
                                         final Optional<Long> size) {
         assertEquals("toString",

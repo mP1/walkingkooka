@@ -27,27 +27,27 @@ import java.util.Optional;
 /**
  * The range unit used in headers such as content-range.
  */
-public enum HttpHeaderRangeUnit implements HeaderValue {
+public enum RangeHeaderValueUnit implements HeaderValue {
 
     NONE("none") {
         @Override
-        HttpHeaderRangeUnit httpHeaderRangeCheck() {
+        RangeHeaderValueUnit rangeCheck() {
             throw new IllegalArgumentException("Invalid range unit=" + this);
         }
     },
 
     BYTES("bytes") {
         @Override
-        HttpHeaderRangeUnit httpHeaderRangeCheck() {
+        RangeHeaderValueUnit rangeCheck() {
             return this;
         }
     };
 
-    HttpHeaderRangeUnit(final String headerText) {
+    RangeHeaderValueUnit(final String headerText) {
         this.headerText = headerText;
     }
 
-    abstract HttpHeaderRangeUnit httpHeaderRangeCheck();
+    abstract RangeHeaderValueUnit rangeCheck();
 
     @Override
     public String toHeaderText() {
@@ -62,10 +62,10 @@ public enum HttpHeaderRangeUnit implements HeaderValue {
     }
 
     /**
-     * Finds a matching {@link HttpHeaderRangeUnit} for the given text or throw an {@link IllegalArgumentException}.
+     * Finds a matching {@link RangeHeaderValueUnit} for the given text or throw an {@link IllegalArgumentException}.
      */
-    public static HttpHeaderRangeUnit parse(final String text) {
-        final Optional<HttpHeaderRangeUnit> found = Arrays.stream(values())
+    public static RangeHeaderValueUnit parse(final String text) {
+        final Optional<RangeHeaderValueUnit> found = Arrays.stream(values())
                 .filter(u -> u.headerText.equalsIgnoreCase(text))
                 .findFirst();
         if(!found.isPresent()){

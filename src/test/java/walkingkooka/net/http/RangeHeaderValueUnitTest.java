@@ -23,41 +23,41 @@ import walkingkooka.net.header.HeaderValueTestCase;
 
 import static org.junit.Assert.assertSame;
 
-public final class HttpHeaderRangeUnitTest extends HeaderValueTestCase<HttpHeaderRangeUnit> {
+public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHeaderValueUnit> {
 
     @Test(expected = NullPointerException.class)
     public void testParseNullFails() {
-        HttpHeaderRangeUnit.parse(null);
+        RangeHeaderValueUnit.parse(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testParseEmptyFails() {
-        HttpHeaderRangeUnit.parse("");
+        RangeHeaderValueUnit.parse("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testParseUnknownFails() {
-        HttpHeaderRangeUnit.parse("unknown");
+        RangeHeaderValueUnit.parse("unknown");
     }
 
     @Test
     public void testParseBytes() {
-        assertSame(HttpHeaderRangeUnit.BYTES, HttpHeaderRangeUnit.parse("bytes"));
+        assertSame(RangeHeaderValueUnit.BYTES, RangeHeaderValueUnit.parse("bytes"));
     }
 
     @Test
     public void testParseBytesCaseUnimportant() {
-        assertSame(HttpHeaderRangeUnit.BYTES, HttpHeaderRangeUnit.parse("BYtes"));
+        assertSame(RangeHeaderValueUnit.BYTES, RangeHeaderValueUnit.parse("BYtes"));
     }
 
     @Test
     public void testParseNone() {
-        assertSame(HttpHeaderRangeUnit.NONE, HttpHeaderRangeUnit.parse("none"));
+        assertSame(RangeHeaderValueUnit.NONE, RangeHeaderValueUnit.parse("none"));
     }
 
     @Override
-    protected HttpHeaderRangeUnit createHeaderValue() {
-        return HttpHeaderRangeUnit.BYTES;
+    protected RangeHeaderValueUnit createHeaderValue() {
+        return RangeHeaderValueUnit.BYTES;
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class HttpHeaderRangeUnitTest extends HeaderValueTestCase<HttpHeade
     }
 
     @Override
-    protected Class<HttpHeaderRangeUnit> type() {
-        return HttpHeaderRangeUnit.class;
+    protected Class<RangeHeaderValueUnit> type() {
+        return RangeHeaderValueUnit.class;
     }
 }
