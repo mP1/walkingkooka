@@ -242,6 +242,47 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         assertEquals("valueLength", length, builder.valueLength);
     }
 
+    @Test
+    public void testValueLength() {
+        final ToStringBuilder builder = ToStringBuilder.create();
+        builder.disable(ToStringBuilderOption.QUOTE);
+        builder.valueSeparator("");
+        builder.separator("");
+
+        builder.valueLength(3);
+        builder.value("abcdef");
+        builder.value("mnopq");
+        builder.value(123456);
+        assertEquals("abcmno123", builder.build());
+    }
+
+    @Test
+    public void testValueLengthBytes() {
+        final ToStringBuilder builder = ToStringBuilder.create();
+        builder.disable(ToStringBuilderOption.QUOTE);
+        builder.enable(ToStringBuilderOption.HEX_BYTES);
+        builder.valueSeparator("");
+        builder.separator("");
+
+        builder.valueLength(4);
+        builder.value(new byte[]{'A','B', 'C', 'D', 'E'});
+        assertEquals("4142", builder.build());
+    }
+
+    @Test
+    public void testValueLengthShorter() {
+        final ToStringBuilder builder = ToStringBuilder.create();
+        builder.disable(ToStringBuilderOption.QUOTE);
+        builder.valueSeparator("");
+        builder.separator("");
+
+        builder.valueLength(3);
+        builder.value("x");
+        builder.value(1);
+        builder.value(2L);
+        assertEquals("x12", builder.build());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidGlobalLengthFails() {
         ToStringBuilder.create().globalLength(0);

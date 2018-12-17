@@ -1565,7 +1565,7 @@ final public class ToStringBuilder implements Builder<String> {
 
         // value
         final int valueLength = this.valueLength;
-        if ((beforeLength + length) > valueLength) {
+        if ((length - beforeLength) > valueLength) {
             length = beforeLength + valueLength;
             buffer.setLength(length);
         }
