@@ -21,6 +21,7 @@ package walkingkooka.net.http;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.compare.Range;
 import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HeaderValueException;
@@ -39,11 +40,11 @@ import static org.junit.Assert.assertSame;
 public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
-    private final static Long HEADER_VALUE = 123L;
+    private final static Long HEADER_VALUE = 26L;
 
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HEADER, HEADER_VALUE);
     private final static Map<HttpHeaderName<?>, Object> INVALID_HEADERS = Maps.one(HttpHeaderName.SERVER, 999L);
-    private final static byte[] BODY = new byte[123];
+    private final static byte[] BODY = "abcdefghijklmnopqrstuvwxyz".getBytes(Charset.forName("utf8"));
 
     private final static HttpHeaderName<?> DIFFERENT_HEADER = HttpHeaderName.SERVER;
 
@@ -195,7 +196,7 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
 
     @Test
     public void testToString() {
-        assertEquals(HEADERS + " 123", this.create().toString());
+        assertEquals(HEADERS + " 26", this.create().toString());
     }
 
     // factory text............................................................................................
@@ -273,6 +274,85 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
 
     private String text() {
         return "abc123";
+    }
+
+    // extractRange................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testExtractRangeNullFails() {
+        this.create().extractRange(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExtractRangeNegativeLowerBoundsFails() {
+        this.create().extractRange(Range.greaterThanEquals(-1L));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExtractRangeExclusiveLowerBoundsFails() {
+        this.create().extractRange(Range.greaterThan(0L));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExtractRangeExclusiveUpperBoundsFails() {
+        this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(1L)));
+    }
+
+    @Test
+    public void testExtractSame() {
+        final HttpEntity entity = this.create();
+        assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.lessThanEquals(0L + BODY.length))));
+    }
+
+    @Test
+    public void testExtractSameUpperWildcard() {
+        final HttpEntity entity = this.create();
+        assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.all())));
+    }
+
+    @Test
+    public void testExtractSameWildcard() {
+        final HttpEntity entity = this.create();
+        assertSame(entity, entity.extractRange(Range.all()));
+    }
+
+    @Test
+    public void testExtract() {
+        this.extractAndCheck(0,
+                1,
+                new byte[]{'a'});
+    }
+
+    @Test
+    public void testExtract2() {
+        this.extractAndCheck(1,
+                3,
+                new byte[]{'b', 'c'});
+    }
+
+    @Test
+    public void testExtract3() {
+        this.extractAndCheck(22,
+                26,
+                new byte[]{'w', 'x', 'y', 'z'});
+    }
+
+    @Test
+    public void testExtract4() {
+        this.extractAndCheck(Range.greaterThanEquals(22L),
+                new byte[]{'w', 'x', 'y', 'z'});
+    }
+
+    private void extractAndCheck(final long lower, final long upper, final byte[] expected) {
+        this.extractAndCheck(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)),
+                expected);
+    }
+
+    private void extractAndCheck(final Range<Long> range, final byte[] expected) {
+        final HttpEntity entity = this.create();
+        assertEquals(entity + " extractRange " + range + " failed",
+                HttpEntity.with(HEADERS, expected),
+                entity.extractRange(range));
     }
 
     // helpers................................................................................................

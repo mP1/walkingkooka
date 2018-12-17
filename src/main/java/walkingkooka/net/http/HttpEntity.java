@@ -20,6 +20,8 @@ package walkingkooka.net.http;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.compare.Range;
+import walkingkooka.compare.RangeBound;
 import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
@@ -184,6 +186,42 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
     private static byte[] checkBody(final byte[] body) {
         Objects.requireNonNull(body, "body");
         return body.clone();
+    }
+
+    // extractRange ...................................................................................
+
+    /**
+     * Extracts the desired range returning an entity with the selected bytes creating a new instance if necessary.
+     */
+    public HttpEntity extractRange(final Range<Long> range) {
+        Objects.requireNonNull(range, "range");
+
+        final RangeBound<Long> lowerBound = range.lowerBound();
+        checkNotExclusive(lowerBound, range);
+        final int from = lowerBound.isAll() ? 0 : lowerBound.value().get().intValue();
+        if (from < 0) {
+            throw new IllegalArgumentException("Range " + range + " lower bounds <= 0");
+        }
+
+        final RangeBound<Long> upperBound = range.upperBound();
+        checkNotExclusive(upperBound, range);
+        final int to = upperBound.isAll() ? this.body.length : upperBound.value().get().intValue();
+
+        return 0 == from && to == this.body.length ?
+                this :
+                this.extractRange0(from, to - from);
+    }
+
+    private static void checkNotExclusive(final RangeBound<Long> bound, final Range<Long> range) {
+        if (bound.isExclusive()) {
+            throw new IllegalArgumentException("Range " + range + " includes exclusive bound " + bound);
+        }
+    }
+
+    private HttpEntity extractRange0(final int lowerBounds, final int size) {
+        final byte[] rangeBytes = new byte[size];
+        System.arraycopy(this.body, lowerBounds, rangeBytes, 0, size);
+        return new HttpEntity(this.headers, rangeBytes);
     }
 
     // replace....................................................................................................
