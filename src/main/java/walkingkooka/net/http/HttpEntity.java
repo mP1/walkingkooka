@@ -19,6 +19,8 @@
 package walkingkooka.net.http;
 
 import walkingkooka.Cast;
+import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
@@ -69,6 +71,11 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
         return new HttpEntity(headers, body);
     }
+
+    /**
+     * A constant with no body.
+     */
+    public final static byte[] NO_BODY = new byte[0];
 
     /**
      * A constant with no headers.
@@ -253,8 +260,28 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
                 Arrays.equals(this.body, other.body);
     }
 
+    /**
+     * The {@link String} produced looks almost like a http entity, each header will appear on a single, a colon separates
+     * the header name and value, and a blank line between headers and body, with the body bytes appearing in hex form.
+     */
     @Override
     public String toString() {
-        return this.headers() + " " + this.body.length;
+        final ToStringBuilder b = ToStringBuilder.create();
+        b.disable(ToStringBuilderOption.QUOTE);
+        b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
+
+        // headers
+        b.valueSeparator("\r\n");
+        b.labelSeparator(": ");
+        b.value(this.headers());
+        b.append("\r\n\r\n");
+
+        // body
+        b.valueSeparator("");
+        b.enable(ToStringBuilderOption.HEX_BYTES);
+        b.valueLength(80);
+        b.value(this.body);
+
+        return b.build();
     }
 }
