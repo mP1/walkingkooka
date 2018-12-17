@@ -246,6 +246,18 @@ final public class MediaType implements Value<String>,
     }
 
     /**
+     * Factory method used to create a {@link MediaType} with parameters, currently a media type with charset constant.
+     */
+    static MediaType withParameters(final String type,
+                                    final String subType,
+                                    final Map<MediaTypeParameterName<?>, Object> parameters) {
+        return new MediaType(type,
+                        subType,
+                        parameters,
+                        toStringMimeType(type, subType, parameters));
+    }
+
+    /**
      * Factory method called by various setters and parsers, that tries to match constants before creating an actual new
      * instance.
      */
@@ -424,6 +436,29 @@ final public class MediaType implements Value<String>,
                 subType,
                 parameters,
                 toStringMimeType(type, subType, parameters));
+    }
+
+    // setCharset .................................................................................................
+
+    /**
+     * Returns a {@link MediaType} with the given charset creating a new instance if necessary.
+     */
+    public MediaType setCharset(final CharsetName charset) {
+        Objects.requireNonNull(charset, "charset");
+
+        return charset.equals(this.parameters.get(MediaTypeParameterName.CHARSET)) ?
+                this :
+                this.setCharset0(charset);
+    }
+
+    private MediaType setCharset0(final CharsetName charset) {
+        Objects.requireNonNull(charset, "charset");
+
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.ordered();
+        parameters.putAll(this.parameters);
+        parameters.put(MediaTypeParameterName.CHARSET, charset);
+
+        return this.replace(this.type, this.subType, parameters);
     }
 
     // value ...................................................................
