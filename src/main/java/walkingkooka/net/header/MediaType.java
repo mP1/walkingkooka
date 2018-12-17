@@ -109,9 +109,14 @@ final public class MediaType implements Value<String>,
     public final static MediaType TEXT_XML = registerConstant("text/xml");
 
     /**
-     * Holds a {@link MediaType} for MIME MULTIPART FORM DATA that contains <code>multipart/form-data</code>.
+     * Holds a {@link MediaType} for MULTIPART BYTE RANGES that contains <code>multipart/byteranges</code>.
      */
-    public final static MediaType MIME_MULTIPART_FORM_DATA = registerConstant("multipart/form-data");
+    public final static MediaType MULTIPART_BYTE_RANGES = registerConstant("multipart/byteranges");
+
+    /**
+     * Holds a {@link MediaType} for MULTIPART FORM DATA that contains <code>multipart/form-data</code>.
+     */
+    public final static MediaType MULTIPART_FORM_DATA = registerConstant("multipart/form-data");
 
     /**
      * Holds a {@link MediaType} that matches all {@link MediaType image types}.
@@ -210,7 +215,6 @@ final public class MediaType implements Value<String>,
 
         return MediaTypeHeaderParserOne.parseMediaType(text);
     }
-
 
     /**
      * Creates a list of {@link MediaType}. If the text contains a single header type the results of this will be
