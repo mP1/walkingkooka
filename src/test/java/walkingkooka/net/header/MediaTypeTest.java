@@ -29,6 +29,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
@@ -249,6 +250,101 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
         final MediaType withParameters = constant.setParameters(this.parameters());
         assertNotEquals(constant, withParameters);
         assertSame(constant, withParameters.setParameters(MediaType.NO_PARAMETERS));
+    }
+
+    // setCharset .......................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSetCharsetNullFails() {
+        MediaType.TEXT_PLAIN.setCharset(null);
+    }
+
+    @Test
+    public void testSetCharset() {
+        final CharsetName utf8 = CharsetName.UTF_8;
+        this.check(MediaType.TEXT_PLAIN.setCharset(utf8),
+                "text",
+                "plain",
+                Maps.one(MediaTypeParameterName.CHARSET, utf8));
+    }
+
+    @Test
+    public void testSetCharsetSame() {
+        final CharsetName utf8 = CharsetName.UTF_8;
+        final MediaType textPlainWithCharset = MediaType.TEXT_PLAIN.setCharset(utf8);
+        assertSame(textPlainWithCharset, textPlainWithCharset.setCharset(utf8));
+    }
+
+    @Test
+    public void testSetCharsetDifferent() {
+        final CharsetName utf8 = CharsetName.UTF_8;
+        final MediaType with8 = MediaType.TEXT_PLAIN.setCharset(utf8);
+
+        final CharsetName utf16 = CharsetName.UTF_16;
+        final MediaType with16 = with8.setCharset(utf16);
+        assertNotSame(with8, with16);
+
+        this.check(with16,
+                "text",
+                "plain",
+                Maps.one(MediaTypeParameterName.CHARSET, utf16));
+        this.check(with8,
+                "text",
+                "plain",
+                Maps.one(MediaTypeParameterName.CHARSET, utf8));
+    }
+
+    @Test
+    public void testSetCharsetDifferent2() {
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.ordered();
+        parameters.put(MediaTypeParameterName.CHARSET, CharsetName.UTF_8);
+        parameters.put(MediaTypeParameterName.Q_FACTOR, 0.5f);
+
+        final MediaType with8 = MediaType.TEXT_PLAIN.setParameters(parameters);
+
+        final CharsetName utf16 = CharsetName.UTF_16;
+        final MediaType with16 = with8.setCharset(utf16);
+
+        assertNotSame(with8, with16);
+
+        final Map<MediaTypeParameterName<?>, Object> parameters2 = Maps.ordered();
+        parameters2.put(MediaTypeParameterName.CHARSET, utf16);
+        parameters2.put(MediaTypeParameterName.Q_FACTOR, 0.5f);
+
+        this.check(with16,
+                "text",
+                "plain",
+                parameters2);
+
+        this.check(with8,
+                "text",
+                "plain",
+                parameters);
+    }
+
+    @Test
+    public void testSetCharset2() {
+        final Map<MediaTypeParameterName<?>, Object> parameters = Maps.one(MediaTypeParameterName.Q_FACTOR, 0.5f);
+        final MediaType without = MediaType.TEXT_PLAIN.setParameters(parameters);
+
+        final CharsetName charset = CharsetName.UTF_16;
+        final MediaType with16 = without.setCharset(charset);
+
+        assertNotSame(without, with16);
+
+        final Map<MediaTypeParameterName<?>, Object> parameters2 = Maps.ordered();
+        parameters2.put(MediaTypeParameterName.CHARSET, charset);
+        parameters2.put(MediaTypeParameterName.Q_FACTOR, 0.5f);
+
+        this.check(with16,
+                "text",
+                "plain",
+                parameters2);
+
+        this.check(without,
+                "text",
+                "plain",
+                parameters);
     }
 
     // qWeight .......................................................................

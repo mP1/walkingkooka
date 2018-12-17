@@ -25,7 +25,6 @@ import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.PublicClassTestCase;
 
@@ -265,8 +264,7 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
     }
 
     private MediaType contentType(final CharsetName charsetName) {
-        return MediaType.TEXT_PLAIN
-                .setParameters(Maps.one(MediaTypeParameterName.CHARSET, charsetName));
+        return MediaType.TEXT_PLAIN.setCharset(charsetName);
     }
 
     private List<CharsetHeaderValue> acceptCharset() {
