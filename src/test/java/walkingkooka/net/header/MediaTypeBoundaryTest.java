@@ -24,7 +24,7 @@ import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
-import java.util.Random;
+import java.util.function.Supplier;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -147,8 +147,13 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     // generate ....................................................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testGenerate() {
-        MediaTypeBoundary.generate(null);
+    public void testGenerateNullBodyFails() {
+        MediaTypeBoundary.generate(null, ()-> Byte.MAX_VALUE);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testGenerateNullBoundaryCharacterFails() {
+        MediaTypeBoundary.generate(new byte[0],null);
     }
 
     @Test
@@ -178,20 +183,20 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     private void generateAndCheck(final byte[] body, final String randomSource, final String boundary) {
-        final Random random = new Random() {
-
-            static final long serialVersionUID = 1L;
+        final Supplier<Byte> boundaryCharcters = new Supplier<Byte>() {
 
             @Override
-            public int nextInt(final int bound) {
-                return new String(MediaTypeBoundary.BOUNDARY_CHARACTERS)
+            public Byte get() {
+                return (byte) new String(MediaTypeBoundary.BOUNDARY_CHARACTERS)
                         .indexOf(randomSource.charAt(i++));
             }
 
             int i = 0;
         };
 
-        final MediaTypeBoundary mediaTypeBoundary = MediaTypeBoundary.generate0(body, random, boundary.length());
+        final MediaTypeBoundary mediaTypeBoundary = MediaTypeBoundary.generate0(body,
+                boundaryCharcters,
+                boundary.length());
 
         assertEquals("Incorrected boundary generated for " + ToStringBuilder.create().value(body).build(),
                 MediaTypeBoundary.with(boundary),

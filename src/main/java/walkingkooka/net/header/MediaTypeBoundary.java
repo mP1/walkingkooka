@@ -27,7 +27,7 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
-import java.util.Random;
+import java.util.function.Supplier;
 
 
 /**
@@ -65,22 +65,27 @@ public final class MediaTypeBoundary implements Value<String>,
      * The characters used in the generated boundary.
      */
     // @VisibleForTesting
-    final static byte[] BOUNDARY_CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".getBytes(CharsetName.UTF_8.charset().get());
+    final static byte[] BOUNDARY_CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_".getBytes(CharsetName.UTF_8.charset().get());
 
     /**
      * Generates a unique boundary for the given bytes. The ascii byte form of this boundary is guaranteed to not
      * appear in the given bytes.
      */
-    public static MediaTypeBoundary generate(final byte[] body) {
+    public static MediaTypeBoundary generate(final byte[] body,
+                                             final Supplier<Byte> boundaryCharacters) {
         Objects.requireNonNull(body, "body");
+        Objects.requireNonNull(boundaryCharacters, "boundaryCharacters");
 
-        return generate0(body.clone(), new Random(), BOUNDARY_LENGTH);
+        return generate0(body.clone(),
+                boundaryCharacters,
+                BOUNDARY_LENGTH);
     }
 
     // @VisibleForTesting
     static MediaTypeBoundary generate0(final byte[] body,
-                                       final Random random,
+                                       final Supplier<Byte> boundaryCharacters,
                                        final int boundaryLength) {
+
         final int bodyLength = body.length;
         final byte[] boundary = new byte[boundaryLength + PREFIX_LENGTH];
         boundary[0] = '-';
@@ -91,7 +96,7 @@ public final class MediaTypeBoundary implements Value<String>,
         Outer:
         for (; ; ) {
             for (int i = 0; i < boundaryLength; i++) {
-                boundary[PREFIX_LENGTH + i] = BOUNDARY_CHARACTERS[random.nextInt(BOUNDARY_CHARACTERS.length)];
+                boundary[PREFIX_LENGTH + i] = BOUNDARY_CHARACTERS[boundaryCharacters.get() & BOUNDARY_CHARACTERS.length - 1];
             }
 
             Inner:
