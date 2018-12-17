@@ -82,20 +82,23 @@ public final class MediaTypeBoundary implements Value<String>,
                                        final Random random,
                                        final int boundaryLength) {
         final int bodyLength = body.length;
-        final byte[] boundary = new byte[boundaryLength];
+        final int prefixLength =  PREFIX.length();
+        final byte[] boundary = new byte[boundaryLength + prefixLength];
+        boundary[0] = '-';
+        boundary[1] = '-';
 
         final int last = bodyLength - boundaryLength + 1;
 
         Outer:
         for (; ; ) {
             for (int i = 0; i < boundaryLength; i++) {
-                boundary[i] = BOUNDARY_CHARACTERS[random.nextInt(BOUNDARY_CHARACTERS.length)];
+                boundary[prefixLength + i] = BOUNDARY_CHARACTERS[random.nextInt(BOUNDARY_CHARACTERS.length)];
             }
 
             Inner:
             for (int bodyIndex = 0; bodyIndex < last; bodyIndex++) {
                 for (int boundaryIndex = 0; boundaryIndex < boundaryLength; boundaryIndex++) {
-                    if (body[bodyIndex + boundaryIndex] != boundary[boundaryIndex]) {
+                    if (body[bodyIndex + boundaryIndex] != boundary[prefixLength + boundaryIndex]) {
                         continue Inner;
                     }
                 }
@@ -190,7 +193,7 @@ public final class MediaTypeBoundary implements Value<String>,
      */
     private MediaTypeBoundary(final String value,
                               final String headerText,
-                              final byte[] encoded) {
+                              final byte[] multipartBoundaryDelimiter) {
         super();
 
         final int length = value.length();
@@ -199,7 +202,7 @@ public final class MediaTypeBoundary implements Value<String>,
         }
         this.value = value;
         this.headerText = headerText;
-        this.encoded = encoded;
+        this.multipartBoundaryDelimiter = multipartBoundaryDelimiter;
     }
 
     @Override
@@ -234,15 +237,25 @@ public final class MediaTypeBoundary implements Value<String>,
      * </pre>
      */
     public String multipartBoundaryDelimiter() {
-        return PREFIX + this.value;
+        return PREFIX.concat(this.value);
     }
 
     private final static String PREFIX = "--";
 
     /**
+     * Returns the delimiter in byte form ready for insertion into a multipart entity.
+     */
+    public byte[] multipartBoundaryDelimiterBytes() {
+        if(null == this.multipartBoundaryDelimiter) {
+            this.multipartBoundaryDelimiter = this.multipartBoundaryDelimiter().getBytes(CharsetName.UTF_8.charset().get());
+        }
+        return this.multipartBoundaryDelimiter.clone();
+    }
+
+    /**
      * The value encoded as ascii.
      */
-    byte[] encoded;
+    byte[] multipartBoundaryDelimiter;
 
     private final static byte[] ENCODED_ABSENT = null;
 
