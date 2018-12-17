@@ -196,7 +196,21 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
 
     @Test
     public void testToString() {
-        assertEquals(HEADERS + " 26", this.create().toString());
+        assertEquals("Content-Length: 26\r\n\r\n4142",
+                HttpEntity.with(HEADERS, new byte[]{'A', 'B'})
+                        .toString());
+    }
+
+    @Test
+    public void testToStringMultipleHeaders() {
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONTENT_LENGTH, 257L);
+        headers.put(HttpHeaderName.CONTENT_TYPE, MediaType.TEXT_PLAIN);
+        headers.put(HttpHeaderName.SERVER, "Server 123");
+
+        assertEquals("Content-Length: 257\r\nContent-Type: text/plain\r\nServer: Server 123\r\n\r\n4142",
+                HttpEntity.with(headers, new byte[]{'A', 'B'})
+                        .toString());
     }
 
     // factory text............................................................................................
