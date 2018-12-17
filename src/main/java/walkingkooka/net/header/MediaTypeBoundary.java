@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -263,6 +264,13 @@ public final class MediaTypeBoundary implements Value<String>,
     byte[] multipartBoundaryDelimiter;
 
     private final static byte[] ENCODED_ABSENT = null;
+
+    /**
+     * Creates a {@link MediaType#MULTIPART_BYTE_RANGES} with this boundary parameter.
+     */
+    public MediaType multipartByteRanges() {
+        return MediaType.MULTIPART_BYTE_RANGES.setParameters(Maps.one(MediaTypeParameterName.BOUNDARY, this));
+    }
 
     // Comparable....................................................................................................
 

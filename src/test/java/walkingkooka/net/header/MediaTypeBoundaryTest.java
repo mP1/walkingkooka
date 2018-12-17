@@ -206,6 +206,15 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
                 mediaTypeBoundary.multipartBoundaryDelimiterBytes());
     }
 
+    // multipartByteRanges........................................................................................................
+
+    @Test
+    public void testMultipartByteRanges() {
+        final MediaTypeBoundary boundary = MediaTypeBoundary.with("abc");
+        final MediaType mediaType = boundary.multipartByteRanges();
+        assertEquals("multipart/byteranges; boundary=abc", mediaType.toString());
+    }
+
     // toString........................................................................................................
 
     @Test
