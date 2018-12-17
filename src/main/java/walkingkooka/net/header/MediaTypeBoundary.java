@@ -26,6 +26,9 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
+import java.util.Objects;
+import java.util.Random;
+
 
 /**
  * The multipart boundary.<br>
@@ -52,6 +55,64 @@ import walkingkooka.text.CharSequences;
 public final class MediaTypeBoundary implements Value<String>,
         HeaderValue,
         Comparable<MediaTypeBoundary> {
+
+    /**
+     * The length of generated boundary's.
+     */
+    private final static int BOUNDARY_LENGTH = 40;
+
+    /**
+     * The characters used in the generated boundary.
+     */
+    // @VisibleForTesting
+    final static byte[] BOUNDARY_CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".getBytes(CharsetName.UTF_8.charset().get());
+
+    /**
+     * Generates a unique boundary for the given bytes. The ascii byte form of this boundary is guaranteed to not
+     * appear in the given bytes.
+     */
+    public static MediaTypeBoundary generate(final byte[] body) {
+        Objects.requireNonNull(body, "body");
+
+        return generate0(body.clone(), new Random(), BOUNDARY_LENGTH);
+    }
+
+    // @VisibleForTesting
+    static MediaTypeBoundary generate0(final byte[] body,
+                                       final Random random,
+                                       final int boundaryLength) {
+        final int bodyLength = body.length;
+        final byte[] boundary = new byte[boundaryLength];
+
+        final int last = bodyLength - boundaryLength + 1;
+
+        Outer:
+        for (; ; ) {
+            for (int i = 0; i < boundaryLength; i++) {
+                boundary[i] = BOUNDARY_CHARACTERS[random.nextInt(BOUNDARY_CHARACTERS.length)];
+            }
+
+            Inner:
+            for (int bodyIndex = 0; bodyIndex < last; bodyIndex++) {
+                for (int boundaryIndex = 0; boundaryIndex < boundaryLength; boundaryIndex++) {
+                    if (body[bodyIndex + boundaryIndex] != boundary[boundaryIndex]) {
+                        continue Inner;
+                    }
+                }
+                continue Outer;
+            }
+
+            break;
+        }
+
+        final char[] chars = new char[boundaryLength];
+        for (int i = 0; i < boundaryLength; i++) {
+            chars[i] = (char) boundary[i];
+        }
+        final String text = new String(chars);
+
+        return new MediaTypeBoundary(text, text, boundary);
+    }
 
     /**
      * Parses the text into a {@link MediaTypeBoundary}.
@@ -92,7 +153,8 @@ public final class MediaTypeBoundary implements Value<String>,
 
         return new MediaTypeBoundary(trimmed, requiresDoubleQuotes ?
                 quoted.toString() :
-                trimmed);
+                trimmed,
+                ENCODED_ABSENT);
     }
 
     private final static char DOUBLE_QUOTE = '"';
@@ -120,13 +182,15 @@ public final class MediaTypeBoundary implements Value<String>,
      * Factory creates a new {@link MediaTypeBoundary}
      */
     static MediaTypeBoundary with0(final String text, final String headerText) {
-        return new MediaTypeBoundary(text, headerText);
+        return new MediaTypeBoundary(text, headerText, ENCODED_ABSENT);
     }
 
     /**
      * Private ctor.
      */
-    private MediaTypeBoundary(final String value, final String headerText) {
+    private MediaTypeBoundary(final String value,
+                              final String headerText,
+                              final byte[] encoded) {
         super();
 
         final int length = value.length();
@@ -135,6 +199,7 @@ public final class MediaTypeBoundary implements Value<String>,
         }
         this.value = value;
         this.headerText = headerText;
+        this.encoded = encoded;
     }
 
     @Override
@@ -173,6 +238,13 @@ public final class MediaTypeBoundary implements Value<String>,
     }
 
     private final static String PREFIX = "--";
+
+    /**
+     * The value encoded as ascii.
+     */
+    byte[] encoded;
+
+    private final static byte[] ENCODED_ABSENT = null;
 
     // Comparable....................................................................................................
 

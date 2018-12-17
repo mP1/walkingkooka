@@ -19,10 +19,12 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -135,6 +137,57 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     private void multipartBoundaryDelimiterAndCheck(final MediaTypeBoundary boundary, final String delimiter) {
         assertEquals(boundary.toString(), delimiter, boundary.multipartBoundaryDelimiter());
+    }
+
+    // generate ....................................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testGenerate() {
+        MediaTypeBoundary.generate(null);
+    }
+
+    @Test
+    public void testGenerateNoClash() {
+        this.generateAndCheck(new byte[20], "ABCDEF", "ABCDEF");
+    }
+
+    @Test
+    public void testGenerateRetry() {
+        this.generateAndCheck("ABCD", "ABCDEF", "DEF");
+    }
+
+    @Test
+    public void testGenerateRetry2() {
+        this.generateAndCheck("1ABC23", "ABCDEF", "DEF");
+    }
+
+    @Test
+    public void testGenerateRetry3() {
+        this.generateAndCheck("1ABC2DEF", "ABCDEFGHI", "GHI");
+    }
+
+    private void generateAndCheck(final String body, final String randomSource, final String boundary) {
+        this.generateAndCheck(body.getBytes(CharsetName.UTF_8.charset().get()),
+                randomSource,
+                boundary);
+    }
+
+    private void generateAndCheck(final byte[] body, final String randomSource, final String boundary) {
+        final Random random = new Random() {
+
+            static final long serialVersionUID = 1L;
+
+            @Override
+            public int nextInt(final int bound) {
+                return new String(MediaTypeBoundary.BOUNDARY_CHARACTERS)
+                        .indexOf(randomSource.charAt(i++));
+            }
+
+            int i = 0;
+        };
+        assertEquals("Incorrected boundary generated for " + ToStringBuilder.create().value(body).build(),
+                MediaTypeBoundary.with(boundary),
+                MediaTypeBoundary.generate0(body, random, boundary.length()));
     }
 
     // toString........................................................................................................
