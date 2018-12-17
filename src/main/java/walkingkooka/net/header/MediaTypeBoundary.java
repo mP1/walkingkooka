@@ -82,8 +82,7 @@ public final class MediaTypeBoundary implements Value<String>,
                                        final Random random,
                                        final int boundaryLength) {
         final int bodyLength = body.length;
-        final int prefixLength =  PREFIX.length();
-        final byte[] boundary = new byte[boundaryLength + prefixLength];
+        final byte[] boundary = new byte[boundaryLength + PREFIX_LENGTH];
         boundary[0] = '-';
         boundary[1] = '-';
 
@@ -92,13 +91,13 @@ public final class MediaTypeBoundary implements Value<String>,
         Outer:
         for (; ; ) {
             for (int i = 0; i < boundaryLength; i++) {
-                boundary[prefixLength + i] = BOUNDARY_CHARACTERS[random.nextInt(BOUNDARY_CHARACTERS.length)];
+                boundary[PREFIX_LENGTH + i] = BOUNDARY_CHARACTERS[random.nextInt(BOUNDARY_CHARACTERS.length)];
             }
 
             Inner:
             for (int bodyIndex = 0; bodyIndex < last; bodyIndex++) {
                 for (int boundaryIndex = 0; boundaryIndex < boundaryLength; boundaryIndex++) {
-                    if (body[bodyIndex + boundaryIndex] != boundary[prefixLength + boundaryIndex]) {
+                    if (body[bodyIndex + boundaryIndex] != boundary[PREFIX_LENGTH + boundaryIndex]) {
                         continue Inner;
                     }
                 }
@@ -110,7 +109,7 @@ public final class MediaTypeBoundary implements Value<String>,
 
         final char[] chars = new char[boundaryLength];
         for (int i = 0; i < boundaryLength; i++) {
-            chars[i] = (char) boundary[i];
+            chars[i] = (char) boundary[PREFIX_LENGTH + i];
         }
         final String text = new String(chars);
 
@@ -241,6 +240,7 @@ public final class MediaTypeBoundary implements Value<String>,
     }
 
     private final static String PREFIX = "--";
+    private final static int PREFIX_LENGTH = 2;
 
     /**
      * Returns the delimiter in byte form ready for insertion into a multipart entity.
