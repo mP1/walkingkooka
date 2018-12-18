@@ -315,7 +315,7 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
     @Test
     public void testExtractSame() {
         final HttpEntity entity = this.create();
-        assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.lessThanEquals(0L + BODY.length))));
+        assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.lessThanEquals(0L + BODY.length -1))));
     }
 
     @Test
@@ -333,21 +333,21 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
     @Test
     public void testExtract() {
         this.extractAndCheck(0,
-                1,
+                0,
                 new byte[]{'a'});
     }
 
     @Test
     public void testExtract2() {
         this.extractAndCheck(1,
-                3,
+                2,
                 new byte[]{'b', 'c'});
     }
 
     @Test
     public void testExtract3() {
         this.extractAndCheck(22,
-                26,
+                25,
                 new byte[]{'w', 'x', 'y', 'z'});
     }
 
