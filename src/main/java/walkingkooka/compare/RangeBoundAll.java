@@ -95,17 +95,17 @@ final class RangeBoundAll<C extends Comparable<C>> extends RangeBound<C> {
     // isOverlappingEquals ...............................................................................................
 
     @Override
-    final boolean isOverlappingEquals(final RangeBound<C> other) {
+    boolean lessThanOrEqual(final RangeBound<C> other) {
         return true;
     }
 
     @Override
-    boolean isOverlappingEquals0(final RangeBoundExclusive<C> other) {
+    boolean lessThanOrEqual0(final RangeBoundExclusive<C> other) {
         return true;
     }
 
     @Override
-    boolean isOverlappingEquals0(final RangeBoundInclusive<C> other) {
+    boolean lessThanOrEqual0(final RangeBoundInclusive<C> other) {
         return true;
     }
 

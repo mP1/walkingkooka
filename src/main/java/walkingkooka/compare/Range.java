@@ -108,13 +108,27 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
                 this :
                 other.equals1(lower, upper) ?
                         other :
-                        this.replace(lower, upper);
+                        lower.equals(upper) ?
+                                this.replace(lower, other) :
+                                this.replace0(lower, upper);
     }
 
     /**
      * Creates a new {@link Range} after verifying the lower is less than the  upper bounds.
      */
-    private Range<C> replace(final RangeBound<C> lower, final RangeBound<C> upper) {
+    private Range<C> replace(final RangeBound<C> lower, final Range<C> other) {
+        if (lower.isExclusive()) {
+            throw new IllegalArgumentException("Invalid range bounds " + this + " < " + other);
+        }
+
+        return new Range<C>(lower, lower);
+    }
+
+    private Range<C> replace0(final RangeBound<C> lower, final RangeBound<C> upper) {
+        if (lower.equals(upper) && lower.isExclusive()) {
+            throw new IllegalArgumentException("Invalid range bounds " + upper + " < " + lower);
+        }
+
         if (lower.min(upper) != lower) {
             throw new IllegalArgumentException("Invalid range bounds " + upper + " < " + lower);
         }
@@ -125,6 +139,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
 
         return new Range<C>(lower, upper);
     }
+
 
     /**
      * Getter that returns the lower bound of the range.
@@ -155,19 +170,16 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
                 this.upper.upperTest(c);
     }
 
-    // Overlaps.......................................................................................................
+    // isOverlapping.......................................................................................................
 
     /**
-     * Returns true only if any part including a single point overlap.
+     * Returns true if the two ranges overlap.
      */
     public boolean isOverlapping(final Range<C> other) {
         checkOther(other);
 
-        final RangeBound<C> maxOfLower = this.lower.max(other.lower);
-        final RangeBound<C> minOfUpper = this.upper.min(other.upper);
-
-        return maxOfLower.min(minOfUpper).isOverlappingEquals(maxOfLower) ||
-                maxOfLower.isOverlappingEquals(minOfUpper);
+        return this.lower.max(other.lower)
+                .lessThanOrEqual(this.upper.min(other.upper));
     }
 
     // Object..........................................................................................................

@@ -89,18 +89,18 @@ final class RangeBoundExclusive<C extends Comparable<C>> extends RangeBound<C> {
     // isOverlappingEquals ...............................................................................................
 
     @Override
-    final boolean isOverlappingEquals(final RangeBound<C> other) {
-        return other.isOverlappingEquals0(this);
+    boolean lessThanOrEqual(final RangeBound<C> other) {
+        return other.lessThanOrEqual0(this);
     }
 
     @Override
-    boolean isOverlappingEquals0(final RangeBoundExclusive<C> other) {
-        return false;
+    boolean lessThanOrEqual0(final RangeBoundExclusive<C> other) {
+        return other.value.compareTo(this.value) < 0;
     }
 
     @Override
-    boolean isOverlappingEquals0(final RangeBoundInclusive<C> other) {
-        return false;
+    boolean lessThanOrEqual0(final RangeBoundInclusive<C> other) {
+        return other.value.compareTo(this.value) < 0;
     }
 
     // Range.intersection.......................................................
