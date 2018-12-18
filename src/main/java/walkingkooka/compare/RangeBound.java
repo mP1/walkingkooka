@@ -99,16 +99,19 @@ abstract public class RangeBound<C extends Comparable<C>> implements HashCodeEqu
 
     // Range.isOverlapping equals...........................................
 
-    abstract boolean isOverlappingEquals(final RangeBound<C> other);
+    abstract boolean lessThanOrEqual(final RangeBound<C> other);
 
-    final boolean isOverlappingEquals0(final RangeBoundAll<C> other) {
-        return true;
+    /**
+     * wildcard is always never less than or equal to anything else.
+     */
+    final boolean lessThanOrEqual0(final RangeBoundAll<C> other) {
+        return false;
     }
 
-    abstract boolean isOverlappingEquals0(final RangeBoundExclusive<C> other);
+    abstract boolean lessThanOrEqual0(final RangeBoundExclusive<C> other);
 
-    abstract boolean isOverlappingEquals0(final RangeBoundInclusive<C> other);
-    
+    abstract boolean lessThanOrEqual0(final RangeBoundInclusive<C> other);
+
     // Range.and...........................................
 
     abstract RangeBound<C> min(final RangeBound<C> other);
