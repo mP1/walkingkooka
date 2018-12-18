@@ -22,6 +22,7 @@ import walkingkooka.net.http.ETag;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class HttpResponses implements PublicStaticHelper {
 
@@ -70,6 +71,16 @@ public final class HttpResponses implements PublicStaticHelper {
     public static HttpResponse lastModifiedAware(final HttpRequest request,
                                                  final HttpResponse response) {
         return LastModifiedAwareHttpResponse.with(request, response);
+    }
+
+    /**
+     * {@see RangeAwareHttpResponse}
+     */
+    public static HttpResponse rangeAware(final HttpRequest request,
+                                          final HttpResponse response,
+                                          final Supplier<Byte> boundaryCharacters) {
+        return RangeAwareHttpResponse.with(request, response,
+                boundaryCharacters);
     }
 
     /**
