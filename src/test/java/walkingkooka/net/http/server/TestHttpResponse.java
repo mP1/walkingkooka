@@ -87,6 +87,8 @@ final class TestHttpResponse implements HttpResponse {
     @Override
     public String toString() {
         return ToStringBuilder.create()
+                .valueSeparator("\n")
+                .separator("\n")
                 .value(this.status)
                 .value(this.entities)
                 .build();

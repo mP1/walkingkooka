@@ -85,14 +85,28 @@ public abstract class WrapperHttpResponseTestCase<R extends WrapperHttpResponse>
     abstract R createResponse(final HttpRequest request, final HttpResponse response);
 
     final void setStatusAddEntityAndCheck(final HttpStatus status,
+                                          final HttpEntity entity) {
+        this.setStatusAddEntityAndCheck(status,
+                entity,
+                status,
+                entity);
+    }
+
+    final void setStatusAddEntityAndCheck(final HttpStatus status,
                                           final HttpEntity entity,
                                           final HttpStatus expectedStatus,
                                           final HttpEntity... expectedEntities) {
-        this.setStatusAddEntityAndCheck(HttpRequests.fake(),
+        this.setStatusAddEntityAndCheck(this.createRequest(),
                 status,
                 entity,
                 expectedStatus,
                 expectedEntities);
+    }
+
+    final void setStatusAddEntityAndCheck(final HttpRequest request,
+                                          final HttpStatus status,
+                                          final HttpEntity entity) {
+        this.setStatusAddEntityAndCheck(request, status, entity, status, entity);
     }
 
     final void setStatusAddEntityAndCheck(final HttpRequest request,
