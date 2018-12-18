@@ -212,7 +212,9 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
         final RangeBound<Long> upperBound = range.upperBound();
         checkNotExclusive(upperBound, range);
-        final int to = upperBound.isAll() ? this.body.length : upperBound.value().get().intValue();
+        final int to = upperBound.isAll() ?
+                this.body.length :
+                1 + upperBound.value().get().intValue();
 
         return 0 == from && to == this.body.length ?
                 this :
