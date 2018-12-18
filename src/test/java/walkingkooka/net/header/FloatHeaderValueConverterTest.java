@@ -39,8 +39,8 @@ public final class FloatHeaderValueConverterTest extends
     }
 
     @Override
-    protected HeaderValueTokenParameterName name() {
-        return HeaderValueTokenParameterName.Q;
+    protected TokenHeaderValueParameterName name() {
+        return TokenHeaderValueParameterName.Q;
     }
 
     @Override

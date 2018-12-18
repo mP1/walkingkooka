@@ -20,8 +20,8 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
-public final class HeaderValueTokenOneHeaderParserTest extends HeaderValueTokenHeaderParserTestCase<HeaderValueTokenOneHeaderParser,
-        HeaderValueToken> {
+public final class TokenHeaderValueOneHeaderParserTestHeaderValue extends TokenHeaderValueHeaderParserTestCaseHeaderValue<TokenHeaderValueOneHeaderParser,
+        TokenHeaderValue> {
 
     @Test
     public void testValueSeparatorFails() {
@@ -44,22 +44,22 @@ public final class HeaderValueTokenOneHeaderParserTest extends HeaderValueTokenH
     }
 
     @Override
-    HeaderValueTokenOneHeaderParser createHeaderParser(final String text) {
-        return new HeaderValueTokenOneHeaderParser(text);
+    TokenHeaderValueOneHeaderParser createHeaderParser(final String text) {
+        return new TokenHeaderValueOneHeaderParser(text);
     }
 
     @Override
-    HeaderValueToken parse(final String text) {
-        return HeaderValueTokenOneHeaderParser.parseHeaderValueToken(text);
+    TokenHeaderValue parse(final String text) {
+        return TokenHeaderValueOneHeaderParser.parseTokenHeaderValue(text);
     }
 
     @Override
-    void parseAndCheck2(final String headerValue, final HeaderValueToken token) {
+    void parseAndCheck2(final String headerValue, final TokenHeaderValue token) {
         this.parseAndCheck3(headerValue, token);
     }
 
     @Override
-    protected Class<HeaderValueTokenOneHeaderParser> type() {
-        return HeaderValueTokenOneHeaderParser.class;
+    protected Class<TokenHeaderValueOneHeaderParser> type() {
+        return TokenHeaderValueOneHeaderParser.class;
     }
 }

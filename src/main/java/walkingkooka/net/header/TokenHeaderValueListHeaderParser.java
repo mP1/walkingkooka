@@ -18,31 +18,38 @@
 
 package walkingkooka.net.header;
 
-/**
- * A parser that parses a single {@link HeaderValueToken}.
- */
-final class HeaderValueTokenOneHeaderParser extends HeaderValueTokenHeaderParser {
+import walkingkooka.collect.list.Lists;
+import walkingkooka.net.HasQFactorWeight;
 
-    static HeaderValueToken parseHeaderValueToken(final String text) {
+import java.util.List;
+
+/**
+ * A parser that creates a list of {@link TokenHeaderValue}.
+ */
+final class TokenHeaderValueListHeaderParser extends TokenHeaderValueHeaderParser {
+
+    static List<TokenHeaderValue> parseTokenHeaderValueList(final String text) {
         checkText(text, "header");
 
-        final HeaderValueTokenOneHeaderParser parser = new HeaderValueTokenOneHeaderParser(text);
+        final TokenHeaderValueListHeaderParser parser = new TokenHeaderValueListHeaderParser(text);
         parser.parse();
-        return parser.token;
+        parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());
+        return Lists.readOnly(parser.list);
     }
 
     // @VisibleForTesting
-    HeaderValueTokenOneHeaderParser(final String text) {
+    TokenHeaderValueListHeaderParser(final String text) {
         super(text);
     }
 
-    @Override
-    void headerValueTokenEnd() {
-        // nop
+    @Override final void tokenHeaderValueEnd() {
+        this.list.add(this.token);
     }
 
     @Override
     void separator() {
-        this.failInvalidCharacter();
+        // multiple tokens allowed.
     }
+
+    private final List<TokenHeaderValue> list = Lists.array();
 }

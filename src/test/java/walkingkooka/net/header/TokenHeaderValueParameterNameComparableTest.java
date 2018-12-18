@@ -22,30 +22,30 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.compare.ComparableTestCase;
 
-final public class HeaderValueTokenParameterNameComparableTest extends ComparableTestCase<HeaderValueTokenParameterName<?>> {
+final public class TokenHeaderValueParameterNameComparableTest extends ComparableTestCase<TokenHeaderValueParameterName<?>> {
 
     @Test
     public void testBefore() {
-        this.compareToAndCheckLess(HeaderValueTokenParameterName.with("zzz"));
+        this.compareToAndCheckLess(TokenHeaderValueParameterName.with("zzz"));
     }
 
     @Test
     public void testBeforeCaseUnimportant() {
-        this.compareToAndCheckLess(HeaderValueTokenParameterName.with("ZZZ"));
+        this.compareToAndCheckLess(TokenHeaderValueParameterName.with("ZZZ"));
     }
 
     @Test
     public void testAfter() {
-        this.compareToAndCheckMore(HeaderValueTokenParameterName.with("aaa"));
+        this.compareToAndCheckMore(TokenHeaderValueParameterName.with("aaa"));
     }
 
     @Test
     public void testAfterCaseUnimportant() {
-        this.compareToAndCheckMore(HeaderValueTokenParameterName.with("AAA"));
+        this.compareToAndCheckMore(TokenHeaderValueParameterName.with("AAA"));
     }
 
     @Override
-    protected HeaderValueTokenParameterName<?> createComparable() {
-        return HeaderValueTokenParameterName.with("mmmm");
+    protected TokenHeaderValueParameterName<?> createComparable() {
+        return TokenHeaderValueParameterName.with("mmmm");
     }
 }

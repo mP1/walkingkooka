@@ -24,7 +24,7 @@ import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 import java.util.Map;
 
-public final class HeaderValueTokenEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<HeaderValueToken> {
+public final class TokenHeaderValueEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<TokenHeaderValue> {
 
     private final static String VALUE = "abc";
     private final static String PARAMETER_VALUE = "v1";
@@ -41,24 +41,24 @@ public final class HeaderValueTokenEqualityTest extends HashCodeEqualsDefinedEqu
 
     @Test
     public void testDifferentParameters2() {
-        this.checkNotEquals(this.createObject().setParameters(HeaderValueToken.NO_PARAMETERS));
+        this.checkNotEquals(this.createObject().setParameters(TokenHeaderValue.NO_PARAMETERS));
     }
 
     @Override
-    protected HeaderValueToken createObject() {
-        return HeaderValueToken.with(VALUE)
+    protected TokenHeaderValue createObject() {
+        return TokenHeaderValue.with(VALUE)
                 .setParameters(parameters());
     }
 
-    private Map<HeaderValueTokenParameterName<?>, Object> parameters() {
+    private Map<TokenHeaderValueParameterName<?>, Object> parameters() {
         return this.parameters("p1", PARAMETER_VALUE);
     }
 
-    private Map<HeaderValueTokenParameterName<?>, Object> parameters(final String name, final Object value) {
-        return this.parameters(HeaderValueTokenParameterName.with(name), value);
+    private Map<TokenHeaderValueParameterName<?>, Object> parameters(final String name, final Object value) {
+        return this.parameters(TokenHeaderValueParameterName.with(name), value);
     }
 
-    private Map<HeaderValueTokenParameterName<?>, Object> parameters(final HeaderValueTokenParameterName<?> name, final Object value) {
+    private Map<TokenHeaderValueParameterName<?>, Object> parameters(final TokenHeaderValueParameterName<?> name, final Object value) {
         return Maps.one(name, value);
     }
 }

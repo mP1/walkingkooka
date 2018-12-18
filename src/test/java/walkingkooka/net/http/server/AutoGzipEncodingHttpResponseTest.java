@@ -21,7 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HeaderValueException;
-import walkingkooka.net.header.HeaderValueToken;
+import walkingkooka.net.header.TokenHeaderValue;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.test.Latch;
@@ -97,7 +97,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     private Map<HttpHeaderName<?>, Object> headersContentEncoding(final String headerValue) {
-        return Maps.one(HttpHeaderName.CONTENT_ENCODING, HeaderValueToken.parse(headerValue));
+        return Maps.one(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse(headerValue));
     }
 
     private byte[] gzip(final byte[] body) {
@@ -135,7 +135,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
                     }
                 });
         if (null != contentEncoding) {
-            headers.put(HttpHeaderName.CONTENT_ENCODING, HeaderValueToken.parse(contentEncoding));
+            headers.put(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse(contentEncoding));
         }
         response.addEntity(HttpEntity.with(headers, body));
         assertTrue("wrapped response addEntity(body) not called", set.value());
@@ -158,7 +158,7 @@ public final class AutoGzipEncodingHttpResponseTest extends WrapperHttpRequestHt
     }
 
     private HttpRequest createRequest(final String acceptEncoding) {
-        return this.createRequest(Maps.one(HttpHeaderName.ACCEPT_ENCODING, HeaderValueToken.parseList(acceptEncoding)));
+        return this.createRequest(Maps.one(HttpHeaderName.ACCEPT_ENCODING, TokenHeaderValue.parseList(acceptEncoding)));
     }
 
     private HttpRequest createRequest(final Map<HttpHeaderName<?>, Object> headers) {

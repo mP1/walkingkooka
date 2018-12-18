@@ -26,12 +26,12 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class HeaderValueTokenHeaderParserTestCase<P extends HeaderValueTokenHeaderParser, V> extends
+public abstract class TokenHeaderValueHeaderParserTestCaseHeaderValue<P extends TokenHeaderValueHeaderParser, V> extends
         HeaderParserTestCase<P,
-                HeaderValueTokenParameterName<?>,
+                TokenHeaderValueParameterName<?>,
                 V> {
 
-    HeaderValueTokenHeaderParserTestCase() {
+    TokenHeaderValueHeaderParserTestCaseHeaderValue() {
         super();
     }
 
@@ -266,7 +266,7 @@ public abstract class HeaderValueTokenHeaderParserTestCase<P extends HeaderValue
                 "Failed to convert \"Q\" value \"XYZ\", message: For input string: \"XYZ\"");
     }
 
-    abstract void parseAndCheck2(final String headerValue, final HeaderValueToken token);
+    abstract void parseAndCheck2(final String headerValue, final TokenHeaderValue token);
 
     final void parseAndCheck3(final String headerValue, final V expected) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(headerValue),
@@ -274,51 +274,51 @@ public abstract class HeaderValueTokenHeaderParserTestCase<P extends HeaderValue
                 this.parse(headerValue));
     }
 
-    final HeaderValueToken token(final String value) {
-        return HeaderValueToken.with(value);
+    final TokenHeaderValue token(final String value) {
+        return TokenHeaderValue.with(value);
     }
 
-    final HeaderValueToken token(final String value,
+    final TokenHeaderValue token(final String value,
                                  final String parameterName,
                                  final Object parameterValue) {
-        return HeaderValueToken.with(value)
+        return TokenHeaderValue.with(value)
                 .setParameters(this.parameters(parameterName, parameterValue));
     }
 
-    final HeaderValueToken token(final String value,
+    final TokenHeaderValue token(final String value,
                                  final String parameterName1,
                                  final Object parameterValue1,
                                  final String parameterName2,
                                  final Object parameterValue2) {
-        return HeaderValueToken.with(value)
+        return TokenHeaderValue.with(value)
                 .setParameters(this.parameters(parameterName1, parameterValue1, parameterName2, parameterValue2));
     }
 
-    final Map<HeaderValueTokenParameterName<?>, Object> parameters(final String name,
+    final Map<TokenHeaderValueParameterName<?>, Object> parameters(final String name,
                                                                    final Object value) {
-        return this.parameters(HeaderValueTokenParameterName.with(name), value);
+        return this.parameters(TokenHeaderValueParameterName.with(name), value);
     }
 
-    final Map<HeaderValueTokenParameterName<?>, Object> parameters(final HeaderValueTokenParameterName<?> name,
+    final Map<TokenHeaderValueParameterName<?>, Object> parameters(final TokenHeaderValueParameterName<?> name,
                                                                    final Object value) {
         return Maps.one(name, value);
     }
 
-    final Map<HeaderValueTokenParameterName<?>, Object> parameters(final String name1,
+    final Map<TokenHeaderValueParameterName<?>, Object> parameters(final String name1,
                                                                    final Object value1,
                                                                    final String name2,
                                                                    final Object value2) {
-        return this.parameters(HeaderValueTokenParameterName.with(name1),
+        return this.parameters(TokenHeaderValueParameterName.with(name1),
                 value1,
-                HeaderValueTokenParameterName.with(name2),
+                TokenHeaderValueParameterName.with(name2),
                 value2);
     }
 
-    final Map<HeaderValueTokenParameterName<?>, Object> parameters(final HeaderValueTokenParameterName<?> name1,
+    final Map<TokenHeaderValueParameterName<?>, Object> parameters(final TokenHeaderValueParameterName<?> name1,
                                                                    final Object value1,
-                                                                   final HeaderValueTokenParameterName<?> name2,
+                                                                   final TokenHeaderValueParameterName<?> name2,
                                                                    final Object value2) {
-        final Map<HeaderValueTokenParameterName<?>, Object> parameters = Maps.ordered();
+        final Map<TokenHeaderValueParameterName<?>, Object> parameters = Maps.ordered();
         parameters.put(name1, value1);
         parameters.put(name2, value2);
         return parameters;
