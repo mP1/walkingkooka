@@ -212,11 +212,17 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
 
         final RangeBound<Long> upperBound = range.upperBound();
         checkNotExclusive(upperBound, range);
-        final int to = upperBound.isAll() ?
-                this.body.length :
-                1 + upperBound.value().get().intValue();
 
-        return 0 == from && to == this.body.length ?
+        final int bodyLength = this.body.length;
+        final int to = upperBound.isAll() ?
+                bodyLength :
+                1 + upperBound.value().get().intValue(); //adjust $to to point to one + actual desired last byte.
+
+        if(to > bodyLength) {
+            throw new IllegalArgumentException("Part of range " + range + " is outside body 0.." + (bodyLength-1));
+        }
+
+        return 0 == from && to == bodyLength ?
                 this :
                 this.extractRange0(from, to - from);
     }

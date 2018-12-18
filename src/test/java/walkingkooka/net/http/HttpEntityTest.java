@@ -293,76 +293,81 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
     // extractRange................................................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testExtractRangeNullFails() {
+    public void testExtractRangeRangeNullFails() {
         this.create().extractRange(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testExtractRangeNegativeLowerBoundsFails() {
+    public void testExtractRangeRangeNegativeLowerBoundsFails() {
         this.create().extractRange(Range.greaterThanEquals(-1L));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testExtractRangeExclusiveLowerBoundsFails() {
+    public void testExtractRangeRangeExclusiveLowerBoundsFails() {
         this.create().extractRange(Range.greaterThan(0L));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testExtractRangeExclusiveUpperBoundsFails() {
+    public void testExtractRangeRangeExclusiveUpperBoundsFails() {
         this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(1L)));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testExtractRangeUpperBoundsFails() {
+        this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(0L + BODY.length)));
+    }
+
     @Test
-    public void testExtractSame() {
+    public void testExtractRangeSame() {
         final HttpEntity entity = this.create();
         assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.lessThanEquals(0L + BODY.length -1))));
     }
 
     @Test
-    public void testExtractSameUpperWildcard() {
+    public void testExtractRangeSameUpperWildcard() {
         final HttpEntity entity = this.create();
         assertSame(entity, entity.extractRange(Range.greaterThanEquals(0L).and(Range.all())));
     }
 
     @Test
-    public void testExtractSameWildcard() {
+    public void testExtractRangeSameWildcard() {
         final HttpEntity entity = this.create();
         assertSame(entity, entity.extractRange(Range.all()));
     }
 
     @Test
-    public void testExtract() {
-        this.extractAndCheck(0,
+    public void testExtractRange() {
+        this.extractRangeAndCheck(0,
                 0,
                 new byte[]{'a'});
     }
 
     @Test
-    public void testExtract2() {
-        this.extractAndCheck(1,
+    public void testExtractRange2() {
+        this.extractRangeAndCheck(1,
                 2,
                 new byte[]{'b', 'c'});
     }
 
     @Test
-    public void testExtract3() {
-        this.extractAndCheck(22,
+    public void testExtractRange3() {
+        this.extractRangeAndCheck(22,
                 25,
                 new byte[]{'w', 'x', 'y', 'z'});
     }
 
     @Test
-    public void testExtract4() {
-        this.extractAndCheck(Range.greaterThanEquals(22L),
+    public void testExtractRange4() {
+        this.extractRangeAndCheck(Range.greaterThanEquals(22L),
                 new byte[]{'w', 'x', 'y', 'z'});
     }
 
-    private void extractAndCheck(final long lower, final long upper, final byte[] expected) {
-        this.extractAndCheck(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)),
+    private void extractRangeAndCheck(final long lower, final long upper, final byte[] expected) {
+        this.extractRangeAndCheck(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)),
                 expected);
     }
 
-    private void extractAndCheck(final Range<Long> range, final byte[] expected) {
+    private void extractRangeAndCheck(final Range<Long> range, final byte[] expected) {
         final HttpEntity entity = this.create();
         assertEquals(entity + " extractRange " + range + " failed",
                 HttpEntity.with(HEADERS, expected),
