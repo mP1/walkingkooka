@@ -19,8 +19,10 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.http.ETag;
+import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.type.PublicStaticHelper;
 
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -40,6 +42,14 @@ public final class HttpResponses implements PublicStaticHelper {
     public static HttpResponse autoGzipEncoding(final HttpRequest request,
                                                 final HttpResponse response) {
         return AutoGzipEncodingHttpResponse.with(request, response);
+    }
+
+    /**
+     * {@see DefaultHeadersHttpResponse}
+     */
+    public static HttpResponse defaultHeaders(final Map<HttpHeaderName<?>, Object> headers,
+                                              final HttpResponse response) {
+        return DefaultHeadersHttpResponse.with(headers, response);
     }
 
     /**
