@@ -25,45 +25,45 @@ enum HeaderParserMode {
 
     WHITESPACE {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.consumeWhitespace(VALUE);
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.failInvalidCharacter();
         }
     },
 
     VALUE {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.value();
             parser.mode = VALUE_WHITESPACE;
             parser.parameters = Maps.sorted();;
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.failMissingValue();
         }
     },
 
     VALUE_WHITESPACE {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.consumeWhitespace(PARAMETER_SEPARATOR_OR_SEPARATOR);
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.tokenEnd();
         }
     },
 
     PARAMETER_SEPARATOR_OR_SEPARATOR {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             switch(parser.character()){
                 case HeaderParser.PARAMETER_SEPARATOR:
                     parser.position++;
@@ -81,44 +81,44 @@ enum HeaderParserMode {
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.tokenEnd();
         }
     },
 
     PARAMETER_SEPARATOR_WHITESPACE {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.consumeWhitespace(PARAMETER_NAME);
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.tokenEnd();
         }
     },
 
     PARAMETER_NAME {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.parameterName();
             parser.mode = PARAMETER_NAME_WHITESPACE;
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.tokenEnd();
         }
     },
 
     PARAMETER_NAME_WHITESPACE {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.consumeWhitespace(PARAMETER_EQUALS);
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.position--;
             parser.missingParameterValue();
         }
@@ -126,7 +126,7 @@ enum HeaderParserMode {
 
     PARAMETER_EQUALS {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             switch(parser.character()){
                 case HeaderParser.PARAMETER_NAME_VALUE_SEPARATOR:
                     parser.position++;
@@ -138,7 +138,7 @@ enum HeaderParserMode {
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.position--;
             parser.missingParameterValue();
         }
@@ -146,12 +146,12 @@ enum HeaderParserMode {
 
     PARAMETER_EQUALS_WHITESPACE {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.consumeWhitespace(PARAMETER_VALUE);
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.position--;
             parser.missingParameterValue();
         }
@@ -159,13 +159,13 @@ enum HeaderParserMode {
 
     PARAMETER_VALUE {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.parameterValue();
             parser.mode = PARAMETER_VALUE_WHITESPACE;
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.position--;
             parser.missingParameterValue();
         }
@@ -173,31 +173,31 @@ enum HeaderParserMode {
 
     PARAMETER_VALUE_WHITESPACE {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.consumeWhitespace(PARAMETER_SEPARATOR_OR_SEPARATOR);
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.tokenEnd();
         }
     },
 
     SEPARATOR {
         @Override
-        void accept(final HeaderParser parser) {
+        void accept(final HeaderParser<?> parser) {
             parser.separator();
         }
 
         @Override
-        void endOfText(final HeaderParser parser) {
+        void endOfText(final HeaderParser<?> parser) {
             parser.tokenEnd();
         }
     };
 
-    abstract void accept(final HeaderParser parser);
+    abstract void accept(final HeaderParser<?> parser);
 
-    abstract void endOfText(final HeaderParser parser);
+    abstract void endOfText(final HeaderParser<?> parser);
 
     final void never() {
         NeverError.unhandledCase(this);

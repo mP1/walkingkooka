@@ -182,7 +182,7 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
     public static ContentDispositionParameterName<?> with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
 
-        final ContentDispositionParameterName headerValueParameterName = CONSTANTS.get(name);
+        final ContentDispositionParameterName<?> headerValueParameterName = CONSTANTS.get(name);
         return null != headerValueParameterName ?
                 headerValueParameterName :
                 new ContentDispositionParameterName<String>(name,
@@ -190,7 +190,7 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
                         RFC2045);
     }
 
-    private final static HeaderValueConverter RFC2045 = HeaderValueConverters.string(CharPredicates.rfc2045Token());
+    private final static HeaderValueConverter<String> RFC2045 = HeaderValueConverters.string(CharPredicates.rfc2045Token());
 
     /**
      * Private constructor use factory.

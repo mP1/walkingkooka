@@ -80,7 +80,7 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
                 new TokenHeaderValueParameterName<String>(name, RFC2045);
     }
 
-    private final static HeaderValueConverter RFC2045 = HeaderValueConverters.string(CharPredicates.rfc2045Token());
+    private final static HeaderValueConverter<String> RFC2045 = HeaderValueConverters.string(CharPredicates.rfc2045Token());
 
     /**
      * Private constructor use factory.

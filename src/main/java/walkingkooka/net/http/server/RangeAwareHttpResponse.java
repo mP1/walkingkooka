@@ -199,7 +199,7 @@ final class RangeAwareHttpResponse extends BufferingHttpResponse {
         }
     }
 
-    private Range replaceUpperBoundsIfWildcard(final Range<Long> range, final long contentLength) {
+    private Range<Long> replaceUpperBoundsIfWildcard(final Range<Long> range, final long contentLength) {
         return range.upperBound().isAll() ?
                 Range.greaterThanEquals(range.lowerBound().value().get()).and(Range.lessThanEquals(contentLength -1)) :
                 range;
