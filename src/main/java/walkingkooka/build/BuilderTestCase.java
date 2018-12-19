@@ -19,6 +19,7 @@ package walkingkooka.build;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.MemberVisibility;
@@ -45,7 +46,8 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
 
     @Test
     public final void testNaming() {
-        this.checkNaming(Builder.class);
+        final Class<?> type = Cast.to(Builder.class);
+        this.checkNaming(type);
     }
 
     protected void buildAndCheck(final Builder<T> builder, final T product) {

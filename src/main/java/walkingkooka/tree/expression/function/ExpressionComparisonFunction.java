@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
@@ -55,7 +56,7 @@ final class ExpressionComparisonFunction extends ExpressionTemplateFunction<Bool
         final Comparable first = this.comparable(parameters, 0, context);
         final Comparable second = this.parameter(parameters, 1, first.getClass(), context);
 
-        return this.relation.predicate(second).test(first);
+        return this.relation.predicate(second).test(Cast.to(first));
     }
 
     private final ComparisonRelation relation;
