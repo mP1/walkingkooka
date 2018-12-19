@@ -16,30 +16,26 @@
  *
  */
 
-package walkingkooka.net.http.server;
+package walkingkooka.net.http;
 
-import walkingkooka.type.PublicStaticHelper;
+/**
+ * Enum that knows the scopes available to a {@link CacheControlDirectiveName}.
+ */
+enum CacheControlDirectiveNameScope {
 
-public final class HttpRequests implements PublicStaticHelper {
+    REQUEST,
 
-    /**
-     * {@see FakeHttpRequest}
-     */
-    public static HttpRequest fake() {
-        return new FakeHttpRequest();
+    RESPONSE,
+
+    REQUEST_RESPONSE,
+
+    UNKNOWN;
+
+    final boolean isRequest() {
+        return RESPONSE != this;
     }
 
-    /**
-     * {@see HeaderScopeHttpRequest}
-     */
-    public static HttpRequest headerScope(final HttpRequest request) {
-        return HeaderScopeHttpRequest.with(request);
-    }
-
-    /**
-     * Stop creation
-     */
-    private HttpRequests() {
-        throw new UnsupportedOperationException();
+    final boolean isResponse() {
+        return REQUEST != this;
     }
 }

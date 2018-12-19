@@ -438,8 +438,18 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
     }
 
     @Override
-    protected HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.RESPONSE;
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return false;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return true;
     }
 
     @Override

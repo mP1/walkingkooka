@@ -18,14 +18,13 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.net.http.HasHttpHeaderScope;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 
 /**
  * Contract implemented by header value types.
  */
-public interface HeaderValue extends HashCodeEqualsDefined, HasHttpHeaderScope {
+public interface HeaderValue extends HashCodeEqualsDefined, HasHeaderScope {
 
     /**
      * The separator character that separates multiple header values.

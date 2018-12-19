@@ -37,7 +37,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class HttpHeaderScopeHttpRequestTest extends HttpRequestTestCase<HttpHeaderScopeHttpRequest> {
+public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<HeaderScopeHttpRequest> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.POST;
@@ -48,7 +48,7 @@ public final class HttpHeaderScopeHttpRequestTest extends HttpRequestTestCase<Ht
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HEADER, HEADER_VALUE);
     private final static List<ClientCookie> COOKIES = Cookie.parseClientHeader("cookie123=value456");
     private final static Map<HttpRequestParameterName, List<String>> PARAMETERS = Maps.fake();
-    private final static String TOSTRING = HttpHeaderScopeHttpRequestTest.class.getSimpleName() + ".toString";
+    private final static String TOSTRING = HeaderScopeHttpRequestTest.class.getSimpleName() + ".toString";
 
     @Test
     public void testTransport() {
@@ -94,7 +94,7 @@ public final class HttpHeaderScopeHttpRequestTest extends HttpRequestTestCase<Ht
                 false);
     }
 
-    private void containsKeyAndCheck(final HttpHeaderScopeHttpRequest request,
+    private void containsKeyAndCheck(final HeaderScopeHttpRequest request,
                                      final Object key,
                                      final boolean containsKey) {
         assertEquals("request containsKey " + key + " returned wrong value",
@@ -121,7 +121,7 @@ public final class HttpHeaderScopeHttpRequestTest extends HttpRequestTestCase<Ht
                 null);
     }
 
-    private void getAndCheck(final HttpHeaderScopeHttpRequest request,
+    private void getAndCheck(final HeaderScopeHttpRequest request,
                              final Object key,
                              final Object value) {
         assertEquals("request get " + key + " returned wrong value",
@@ -145,8 +145,8 @@ public final class HttpHeaderScopeHttpRequestTest extends HttpRequestTestCase<Ht
     }
 
     @Override
-    protected HttpHeaderScopeHttpRequest createRequest() {
-        return HttpHeaderScopeHttpRequest.with(new HttpRequest() {
+    protected HeaderScopeHttpRequest createRequest() {
+        return HeaderScopeHttpRequest.with(new HttpRequest() {
             @Override
             public HttpTransport transport() {
                 return TRANSPORT;
@@ -195,7 +195,7 @@ public final class HttpHeaderScopeHttpRequestTest extends HttpRequestTestCase<Ht
     }
 
     @Override
-    protected Class<HttpHeaderScopeHttpRequest> type() {
-        return HttpHeaderScopeHttpRequest.class;
+    protected Class<HeaderScopeHttpRequest> type() {
+        return HeaderScopeHttpRequest.class;
     }
 }

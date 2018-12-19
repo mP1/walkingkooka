@@ -297,6 +297,13 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
         return new javax.servlet.http.Cookie(this.name.value(), this.value);
     }
 
+    // HasHeaderScope ....................................................................................................
+
+    @Override
+    public final boolean isMultipart() {
+        return false;
+    }
+
     // Object .............................................................................
 
     @Override

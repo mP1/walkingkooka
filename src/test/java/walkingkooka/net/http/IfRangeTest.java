@@ -76,8 +76,18 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> {
     }
 
     @Override
-    protected HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST;
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return false;
     }
 
     @Override

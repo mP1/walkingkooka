@@ -460,13 +460,27 @@ public final class ContentRange implements HeaderValue {
         return new ContentRange(unit, range, size);
     }
 
+    // HasHeaderScope....................................................................
+
+    @Override
+    public boolean isMultipart() {
+        return true;
+    }
+
+    @Override
+    public boolean isRequest() {
+        return false;
+    }
+
     /**
      * Content-Range is a http response header.
      */
     @Override
-    public HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.RESPONSE;
+    public boolean isResponse() {
+        return true;
     }
+
+    // HeaderValue........................................................................................
 
     /**
      * <pre>

@@ -23,7 +23,6 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -146,11 +145,21 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
         return this.toString();
     }
 
-    // HasHttpHeaderScope ....................................................................................................
+    // HasHeaderScope ....................................................................................................
 
     @Override
-    public HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    public boolean isMultipart() {
+        return true;
+    }
+
+    @Override
+    public boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    public boolean isResponse() {
+        return true;
     }
 
     // Object .............................................................................................

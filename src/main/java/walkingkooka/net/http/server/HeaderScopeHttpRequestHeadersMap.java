@@ -19,8 +19,8 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
+import walkingkooka.net.header.HttpHeaderScope;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.AbstractMap;
 import java.util.Collection;
@@ -30,15 +30,15 @@ import java.util.Set;
 /**
  * A {@link Map} that checks the header (or key) passed to {@link #containsKey(Object)} and {@link #get(Object)}.
  */
-final class HttpHeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
+final class HeaderScopeHttpRequestHeadersMap extends AbstractMap<HttpHeaderName<?>, Object> {
 
-    static HttpHeaderScopeHttpRequestHeadersMap with(final Map<HttpHeaderName<?>, Object> map,
-                                                     final HttpHeaderScope scope) {
-        return new HttpHeaderScopeHttpRequestHeadersMap(map, scope);
+    static HeaderScopeHttpRequestHeadersMap with(final Map<HttpHeaderName<?>, Object> map,
+                                                 final HttpHeaderScope scope) {
+        return new HeaderScopeHttpRequestHeadersMap(map, scope);
     }
 
-    private HttpHeaderScopeHttpRequestHeadersMap(final Map<HttpHeaderName<?>, Object> map,
-                                                 final HttpHeaderScope scope) {
+    private HeaderScopeHttpRequestHeadersMap(final Map<HttpHeaderName<?>, Object> map,
+                                             final HttpHeaderScope scope) {
         super();
         this.map = map;
         this.scope = scope;

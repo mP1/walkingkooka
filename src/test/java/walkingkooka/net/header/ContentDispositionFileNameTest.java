@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.net.http.HttpHeaderScope;
 
 import static org.junit.Assert.assertEquals;
 
@@ -69,13 +68,23 @@ public final class ContentDispositionFileNameTest extends HeaderValueTestCase<Co
     }
 
     @Override
-    protected HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    protected ContentDispositionFileName createHeaderValue() {
+        return ContentDispositionFileName.with(FILENAME);
     }
 
     @Override
-    protected ContentDispositionFileName createHeaderValue() {
-        return ContentDispositionFileName.with(FILENAME);
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return true;
     }
 
     @Override

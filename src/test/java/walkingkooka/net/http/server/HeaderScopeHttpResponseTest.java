@@ -31,11 +31,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HttpHeaderScopeHttpResponseTest extends WrapperHttpResponseTestCase<HttpHeaderScopeHttpResponse> {
+public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCase<HeaderScopeHttpResponse> {
 
     private final static HttpHeaderName<String> HEADER = HttpHeaderName.SERVER;
     private final static String VALUE = "Server 123";
-    private final static String TOSTRING = HttpHeaderScopeHttpResponseTest.class.getSimpleName() + ".toString";
+    private final static String TOSTRING = HeaderScopeHttpResponseTest.class.getSimpleName() + ".toString";
 
 
     @Test
@@ -43,7 +43,7 @@ public final class HttpHeaderScopeHttpResponseTest extends WrapperHttpResponseTe
         final Latch set = Latch.create();
         final HttpStatus status = HttpStatusCode.BAD_REQUEST.status();
 
-        HttpHeaderScopeHttpResponse.with(new FakeHttpResponse() {
+        HeaderScopeHttpResponse.with(new FakeHttpResponse() {
 
             @Override
             public void setStatus(final HttpStatus s) {
@@ -61,7 +61,7 @@ public final class HttpHeaderScopeHttpResponseTest extends WrapperHttpResponseTe
         final List<HttpEntity> added = Lists.array();
         final HttpEntity entity = HttpEntity.with(HttpEntity.NO_HEADERS, new byte[123]);
 
-        HttpHeaderScopeHttpResponse.with(new FakeHttpResponse() {
+        HeaderScopeHttpResponse.with(new FakeHttpResponse() {
 
             @Override
             public void addEntity(final HttpEntity e) {
@@ -74,9 +74,9 @@ public final class HttpHeaderScopeHttpResponseTest extends WrapperHttpResponseTe
     }
 
     @Override
-    HttpHeaderScopeHttpResponse createResponse(final HttpRequest request,
-                                               final HttpResponse response) {
-        return HttpHeaderScopeHttpResponse.with(response);
+    HeaderScopeHttpResponse createResponse(final HttpRequest request,
+                                           final HttpResponse response) {
+        return HeaderScopeHttpResponse.with(response);
     }
 
     @Override
@@ -85,7 +85,7 @@ public final class HttpHeaderScopeHttpResponseTest extends WrapperHttpResponseTe
     }
 
     @Override
-    protected Class<HttpHeaderScopeHttpResponse> type() {
-        return HttpHeaderScopeHttpResponse.class;
+    protected Class<HeaderScopeHttpResponse> type() {
+        return HeaderScopeHttpResponse.class;
     }
 }

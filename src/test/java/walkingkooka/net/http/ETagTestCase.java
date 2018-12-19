@@ -123,8 +123,18 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
     abstract ETagValidator validator();
 
     @Override
-    protected HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return true;
     }
 
     @Override

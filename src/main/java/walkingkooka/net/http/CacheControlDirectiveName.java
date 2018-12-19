@@ -39,7 +39,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
      * Registers one of the parameterless directive names.
      */
     private static CacheControlDirectiveName<Void> registerWithoutParameter(final String name,
-                                                                            final HttpHeaderScope scope) {
+                                                                            final CacheControlDirectiveNameScope scope) {
         return register(name,
                 CacheControlDirectiveNameParameter.ABSENT,
                 null,
@@ -50,7 +50,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
      * Registers a directive name with a required seconds parameter.
      */
     private static CacheControlDirectiveName<Long> registerWithRequiredSecondsParameter(final String name,
-                                                                                        final HttpHeaderScope scope) {
+                                                                                        final CacheControlDirectiveNameScope scope) {
         return register(name,
                 CacheControlDirectiveNameParameter.REQUIRED,
                 HeaderValueConverters.longConverter(),
@@ -63,7 +63,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     private static <T> CacheControlDirectiveName<T> register(final String name,
                                                              final CacheControlDirectiveNameParameter required,
                                                              final HeaderValueConverter<T> value,
-                                                             final HttpHeaderScope scope) {
+                                                             final CacheControlDirectiveNameScope scope) {
         final CacheControlDirectiveName<T> constant = new CacheControlDirectiveName<T>(name, required, value, scope);
         CONSTANTS.put(name, constant);
         return constant;
@@ -78,7 +78,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
      * max-age
      */
     public final static CacheControlDirectiveName<Long> MAX_AGE = registerWithRequiredSecondsParameter("max-age",
-            HttpHeaderScope.REQUEST_RESPONSE);
+            CacheControlDirectiveNameScope.REQUEST_RESPONSE);
 
     /**
      * max-stale
@@ -86,67 +86,67 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     public final static CacheControlDirectiveName<Long> MAX_STALE = register("max-stale",
             CacheControlDirectiveNameParameter.OPTIONAL,
             HeaderValueConverters.longConverter(),
-            HttpHeaderScope.REQUEST);
+            CacheControlDirectiveNameScope.REQUEST);
 
     /**
      * min-fresh
      */
     public final static CacheControlDirectiveName<Long> MIN_FRESH = registerWithRequiredSecondsParameter("min-fresh",
-            HttpHeaderScope.REQUEST);
+            CacheControlDirectiveNameScope.REQUEST);
 
     /**
      * must-revalidate
      */
     public final static CacheControlDirectiveName<Void> MUST_REVALIDATE = registerWithoutParameter("must-revalidate",
-            HttpHeaderScope.RESPONSE);
+            CacheControlDirectiveNameScope.RESPONSE);
 
     /**
      * no-cache
      */
     public final static CacheControlDirectiveName<Void> NO_CACHE = registerWithoutParameter("no-cache",
-            HttpHeaderScope.REQUEST_RESPONSE);
+            CacheControlDirectiveNameScope.REQUEST_RESPONSE);
 
     /**
      * no-store
      */
     public final static CacheControlDirectiveName<Void> NO_STORE = registerWithoutParameter("no-store",
-            HttpHeaderScope.REQUEST_RESPONSE);
+            CacheControlDirectiveNameScope.REQUEST_RESPONSE);
 
     /**
      * no-transform
      */
     public final static CacheControlDirectiveName<Void> NO_TRANSFORM = registerWithoutParameter("no-transform",
-            HttpHeaderScope.REQUEST_RESPONSE);
+            CacheControlDirectiveNameScope.REQUEST_RESPONSE);
 
     /**
      * only-if-cached
      */
     public final static CacheControlDirectiveName<Void> ONLY_IF_CACHED = registerWithoutParameter("only-if-cached",
-            HttpHeaderScope.REQUEST);
+            CacheControlDirectiveNameScope.REQUEST);
 
     /**
      * private
      */
     public final static CacheControlDirectiveName<Void> PRIVATE = registerWithoutParameter("private",
-            HttpHeaderScope.RESPONSE);
+            CacheControlDirectiveNameScope.RESPONSE);
 
     /**
      * proxy-revalidate
      */
     public final static CacheControlDirectiveName<Void> PROXY_REVALIDATE = registerWithoutParameter("proxy-revalidate",
-            HttpHeaderScope.RESPONSE);
+            CacheControlDirectiveNameScope.RESPONSE);
 
     /**
      * public
      */
     public final static CacheControlDirectiveName<Void> PUBLIC = registerWithoutParameter("public",
-            HttpHeaderScope.RESPONSE);
+            CacheControlDirectiveNameScope.RESPONSE);
 
     /**
      * s-maxage
      */
     public final static CacheControlDirectiveName<Long> S_MAXAGE = registerWithRequiredSecondsParameter("s-maxage",
-            HttpHeaderScope.RESPONSE);
+            CacheControlDirectiveNameScope.RESPONSE);
 
     // token predicates ................................................................................................
 
@@ -175,7 +175,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
                 new CacheControlDirectiveName<>(name,
                         CacheControlDirectiveNameParameter.OPTIONAL,
                         CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE, // maybe
-                        HttpHeaderScope.UNKNOWN);
+                        CacheControlDirectiveNameScope.UNKNOWN);
     }
 
     /**
@@ -184,7 +184,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     private CacheControlDirectiveName(final String name,
                                       final CacheControlDirectiveNameParameter parameter,
                                       final HeaderValueConverter<T> converter,
-                                      final HttpHeaderScope scope) {
+                                      final CacheControlDirectiveNameScope scope) {
         super();
         this.name = name;
         this.parameter = parameter;
@@ -216,8 +216,6 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
 
     final HeaderValueConverter<T> converter;
 
-    final HttpHeaderScope scope;
-
     @Override
     public Optional<T> toValue(final String text) {
         return Optional.of(this.converter.parse(text, this));
@@ -245,6 +243,16 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     public final int compareTo(final CacheControlDirectiveName other) {
         return this.value().compareToIgnoreCase(other.value());
     }
+
+    boolean isRequest() {
+        return this.scope.isRequest();
+    }
+
+    boolean isResponse() {
+        return this.scope.isResponse();
+    }
+
+    private final CacheControlDirectiveNameScope scope;
 
     // Object...........................................................................................................
 

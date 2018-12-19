@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
@@ -28,7 +27,6 @@ import java.util.function.Supplier;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
 final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBoundary> {
 
@@ -65,13 +63,6 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     public void testWith() {
         final String text = "abc123";
         checkValue(MediaTypeBoundary.with(text), text);
-    }
-
-    @Test
-    public void testHeaderScope() {
-        assertSame(HttpHeaderScope.REQUEST_RESPONSE,
-                MediaTypeBoundary.with("abc123")
-                        .httpHeaderScope());
     }
 
     // parse........................................................................................................
@@ -235,8 +226,18 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     @Override
-    protected HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return true;
     }
 
     @Override

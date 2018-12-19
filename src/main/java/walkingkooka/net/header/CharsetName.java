@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
@@ -230,11 +229,21 @@ public abstract class CharsetName implements Name,
         return this.value();
     }
 
-    // HasHttpHeaderScope ....................................................................................................
+    // HasHeaderScope ....................................................................................................
 
     @Override
-    public final HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    public final boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    public final boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    public final boolean isResponse() {
+        return true;
     }
 
     // Comparable...........................................................................................................

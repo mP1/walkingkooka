@@ -158,10 +158,7 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
      */
     abstract public IfRange<LocalDateTime> lastModified();
 
-    @Override
-    public final HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST;
-    }
+    //HeaderValue............................................................................
 
     @Override
     public final String toHeaderText() {
@@ -172,6 +169,23 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
      * A converter used to format the value as a header text.
      */
     abstract HeaderValueConverter<T> converter();
+
+    // HasHeaderScope ....................................................................................................
+
+    @Override
+    public final boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    public final boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    public final boolean isResponse() {
+        return false;
+    }
 
     // Object .........................................................................................
 

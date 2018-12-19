@@ -167,11 +167,21 @@ public abstract class ETag implements HeaderValue,
         return this.toString();
     }
 
-    // HasHttpHeaderScope ....................................................................................................
+    // HasHeaderScope ....................................................................................................
 
     @Override
-    public final HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    public final boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    public final boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    public final boolean isResponse() {
+        return true;
     }
 }
 

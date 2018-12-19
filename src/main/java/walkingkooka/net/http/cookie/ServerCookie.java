@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -467,11 +466,16 @@ final public class ServerCookie extends Cookie {
         return ClientCookie.from(this);
     }
 
-    // HasHttpHeaderScope ....................................................................................................
+    // HasHeaderScope ....................................................................................................
 
     @Override
-    public HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.RESPONSE;
+    public boolean isRequest() {
+        return false;
+    }
+
+    @Override
+    public boolean isResponse() {
+        return true;
     }
 
     // Object ..........................................................................

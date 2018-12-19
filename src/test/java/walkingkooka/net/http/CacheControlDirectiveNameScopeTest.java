@@ -16,30 +16,13 @@
  *
  */
 
-package walkingkooka.net.http.server;
+package walkingkooka.net.http;
 
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.test.EnumTestCase;
 
-public final class HttpRequests implements PublicStaticHelper {
-
-    /**
-     * {@see FakeHttpRequest}
-     */
-    public static HttpRequest fake() {
-        return new FakeHttpRequest();
-    }
-
-    /**
-     * {@see HeaderScopeHttpRequest}
-     */
-    public static HttpRequest headerScope(final HttpRequest request) {
-        return HeaderScopeHttpRequest.with(request);
-    }
-
-    /**
-     * Stop creation
-     */
-    private HttpRequests() {
-        throw new UnsupportedOperationException();
+public final class CacheControlDirectiveNameScopeTest extends EnumTestCase<CacheControlDirectiveNameScope> {
+    @Override
+    protected Class<CacheControlDirectiveNameScope> type() {
+        return CacheControlDirectiveNameScope.class;
     }
 }

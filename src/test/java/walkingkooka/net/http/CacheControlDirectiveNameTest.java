@@ -21,10 +21,13 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HeaderNameTestCase;
 import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.HttpHeaderScope;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -87,71 +90,96 @@ final public class CacheControlDirectiveNameTest extends HeaderNameTestCase<Cach
 
     @Test
     public void testMaxAge() {
-        this.checkScope(CacheControlDirectiveName.MAX_AGE, HttpHeaderScope.REQUEST_RESPONSE);
+        this.checkScope(CacheControlDirectiveName.MAX_AGE,
+                HttpHeaderScope.REQUEST,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testMaxStale() {
-        this.checkScope(CacheControlDirectiveName.MAX_STALE, HttpHeaderScope.REQUEST);
+        this.checkScope(CacheControlDirectiveName.MAX_STALE,
+                HttpHeaderScope.REQUEST);
     }
 
     @Test
     public void testMinFresh() {
-        this.checkScope(CacheControlDirectiveName.MIN_FRESH, HttpHeaderScope.REQUEST);
+        this.checkScope(CacheControlDirectiveName.MIN_FRESH,
+                HttpHeaderScope.REQUEST);
     }
 
     @Test
     public void testMustRevalidate() {
-        this.checkScope(CacheControlDirectiveName.MUST_REVALIDATE, HttpHeaderScope.RESPONSE);
+        this.checkScope(CacheControlDirectiveName.MUST_REVALIDATE,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testNoCache() {
-        this.checkScope(CacheControlDirectiveName.NO_CACHE, HttpHeaderScope.REQUEST_RESPONSE);
+        this.checkScope(CacheControlDirectiveName.NO_CACHE,
+                HttpHeaderScope.REQUEST,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testNoStore() {
-        this.checkScope(CacheControlDirectiveName.NO_STORE, HttpHeaderScope.REQUEST_RESPONSE);
+        this.checkScope(CacheControlDirectiveName.NO_STORE,
+                HttpHeaderScope.REQUEST,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testNoTransform() {
-        this.checkScope(CacheControlDirectiveName.NO_TRANSFORM, HttpHeaderScope.REQUEST_RESPONSE);
+        this.checkScope(CacheControlDirectiveName.NO_TRANSFORM,
+                HttpHeaderScope.REQUEST,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testOnlyIfCached() {
-        this.checkScope(CacheControlDirectiveName.ONLY_IF_CACHED, HttpHeaderScope.REQUEST);
+        this.checkScope(CacheControlDirectiveName.ONLY_IF_CACHED,
+                HttpHeaderScope.REQUEST);
     }
 
     @Test
     public void testPrivate() {
-        this.checkScope(CacheControlDirectiveName.PRIVATE, HttpHeaderScope.RESPONSE);
+        this.checkScope(CacheControlDirectiveName.PRIVATE,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testProxyRevalidate() {
-        this.checkScope(CacheControlDirectiveName.PROXY_REVALIDATE, HttpHeaderScope.RESPONSE);
+        this.checkScope(CacheControlDirectiveName.PROXY_REVALIDATE,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testPublic() {
-        this.checkScope(CacheControlDirectiveName.PUBLIC, HttpHeaderScope.RESPONSE);
+        this.checkScope(CacheControlDirectiveName.PUBLIC,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testSMaxage() {
-        this.checkScope(CacheControlDirectiveName.S_MAXAGE, HttpHeaderScope.RESPONSE);
+        this.checkScope(CacheControlDirectiveName.S_MAXAGE,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testScopeRequestUnknown() {
-        this.checkScope(CacheControlDirectiveName.with("extension"), HttpHeaderScope.UNKNOWN);
+        this.checkScope(CacheControlDirectiveName.with("extension"),
+                HttpHeaderScope.REQUEST,
+                HttpHeaderScope.RESPONSE);
     }
 
-    private void checkScope(final CacheControlDirectiveName directiveName, final HttpHeaderScope scope) {
-        assertSame(scope, directiveName.scope);
+    private void checkScope(final CacheControlDirectiveName directiveName, final HttpHeaderScope... scopes) {
+        final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
+
+        assertEquals(directiveName + " isRequest",
+                scopesSet.contains(HttpHeaderScope.REQUEST),
+                directiveName.isRequest());
+        assertEquals(directiveName + " isResponse",
+                scopesSet.contains(HttpHeaderScope.RESPONSE),
+                directiveName.isResponse());
     }
 
     // setParameter .......................................................
