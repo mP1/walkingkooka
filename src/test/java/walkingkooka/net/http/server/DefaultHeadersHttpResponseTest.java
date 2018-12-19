@@ -21,7 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.header.HeaderValueToken;
+import walkingkooka.net.header.TokenHeaderValue;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
@@ -89,7 +89,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
 
     private Map<HttpHeaderName<?>, Object> headers() {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
-        headers.put(HttpHeaderName.CONTENT_ENCODING, HeaderValueToken.parse("EN"));
+        headers.put(HttpHeaderName.CONTENT_ENCODING, TokenHeaderValue.parse("EN"));
         headers.put(HttpHeaderName.SERVER, "Server 123");
         return headers;
     }

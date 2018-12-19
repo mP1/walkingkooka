@@ -79,20 +79,6 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     public static HeaderValueConverter<Float> floatConverter() {
         return FloatHeaderValueConverter.INSTANCE;
     }
-
-    /**
-     * {@see HeaderValueTokenHeaderValueConverter}
-     */
-    public static HeaderValueConverter<HeaderValueToken> headerValueToken() {
-        return HeaderValueTokenHeaderValueConverter.INSTANCE;
-    }
-    
-    /**
-     * {@see HeaderValueTokenListHeaderValueConverter}
-     */
-    public static HeaderValueConverter<List<HeaderValueToken>> headerValueTokenList() {
-        return HeaderValueTokenListHeaderValueConverter.INSTANCE;
-    }
     
     /**
      * {@see LocalDateTimeHeaderValueConverter}
@@ -149,6 +135,20 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     public static HeaderValueConverter<String> string(final CharPredicate predicate,
                                                       final StringHeaderValueConverterFeature...features) {
         return StringHeaderValueConverter.with(predicate, features);
+    }
+
+    /**
+     * {@see TokenHeaderValueHeaderValueConverter}
+     */
+    public static HeaderValueConverter<TokenHeaderValue> token() {
+        return TokenHeaderValueHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see TokenHeaderValueListHeaderValueConverter}
+     */
+    public static HeaderValueConverter<List<TokenHeaderValue>> tokenList() {
+        return TokenHeaderValueListHeaderValueConverter.INSTANCE;
     }
 
     /**

@@ -21,15 +21,14 @@ package walkingkooka.net.header;
 /**
  * Base class for all header value token parsers.
  */
-abstract class HeaderValueTokenHeaderParser extends HeaderParser<HeaderValueTokenParameterName<?>> {
+abstract class TokenHeaderValueHeaderParser extends HeaderParser<TokenHeaderValueParameterName<?>> {
 
-    HeaderValueTokenHeaderParser(final String text) {
+    TokenHeaderValueHeaderParser(final String text) {
         super(text);
     }
 
-    @Override
-    final void value() {
-        this.token = this.parseValue(RFC2045TOKEN, VALUE, this::createHeaderValueToken);
+    @Override final void value() {
+        this.token = this.parseValue(RFC2045TOKEN, VALUE, this::createTokenHeaderValue);
     }
 
     @Override
@@ -39,32 +38,28 @@ abstract class HeaderValueTokenHeaderParser extends HeaderParser<HeaderValueToke
 
     private final static String VALUE = "value";
 
-    private HeaderValueToken createHeaderValueToken(final String value) {
-        return HeaderValueToken.with(value);
+    private TokenHeaderValue createTokenHeaderValue(final String value) {
+        return TokenHeaderValue.with(value);
     }
 
-    @Override
-    final void parameterName() {
-        this.parseParameterName(RFC2045TOKEN, HeaderValueTokenParameterName::with);
+    @Override final void parameterName() {
+        this.parseParameterName(RFC2045TOKEN, TokenHeaderValueParameterName::with);
     }
 
-    @Override
-    final void parameterValue() {
+    @Override final void parameterValue() {
         this.parseParameterValue(RFC2045TOKEN);
     }
 
-    @Override
-    final void missingParameterValue() {
+    @Override final void missingParameterValue() {
         this.failEmptyParameterValue();
     }
 
-    @Override
-    final void tokenEnd() {
+    @Override final void tokenEnd() {
         this.token = this.token.setParameters(this.parameters);
-        this.headerValueTokenEnd();
+        this.tokenHeaderValueEnd();
     }
 
-    abstract void headerValueTokenEnd();
+    abstract void tokenHeaderValueEnd();
 
-    HeaderValueToken token;
+    TokenHeaderValue token;
 }

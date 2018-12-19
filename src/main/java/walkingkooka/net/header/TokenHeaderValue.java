@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * Holds a simple header value, and any accompanying parameters. Parameter values will be of the type
  * compatible with each parameter name.
  */
-public final class HeaderValueToken implements HeaderValueWithParameters<HeaderValueTokenParameterName<?>>,
+public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHeaderValueParameterName<?>>,
         Value<String>,
         HasQFactorWeight,
         UsesToStringBuilder {
@@ -47,7 +47,7 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
     /**
      * A constants with no parameters.
      */
-    public final static Map<HeaderValueTokenParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
+    public final static Map<TokenHeaderValueParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
      * Parses a header value expecting a single token.
@@ -55,8 +55,8 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
      * Content-Encoding: gzip;
      * </pre>
      */
-    public static HeaderValueToken parse(final String text) {
-        return HeaderValueTokenOneHeaderParser.parseHeaderValueToken(text);
+    public static TokenHeaderValue parse(final String text) {
+        return TokenHeaderValueOneHeaderParser.parseTokenHeaderValue(text);
     }
 
     /**
@@ -65,14 +65,14 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
      * Accept-Encoding: br;q=1.0, gzip;q=0.8, *;q=0.1
      * </pre>
      */
-    public static List<HeaderValueToken> parseList(final String text) {
-        return HeaderValueTokenListHeaderParser.parseHeaderValueTokenList(text);
+    public static List<TokenHeaderValue> parseList(final String text) {
+        return TokenHeaderValueListHeaderParser.parseTokenHeaderValueList(text);
     }
 
     /**
      * Formats a list of tokens, basically the inverse of {@link #parseList(String)}
      */
-    public static String toHeaderTextList(final List<HeaderValueToken> tokens) {
+    public static String toHeaderTextList(final List<TokenHeaderValue> tokens) {
         Objects.requireNonNull(tokens, "tokens");
 
         return tokens.stream()
@@ -81,18 +81,18 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
     }
 
     /**
-     * Factory that creates a new {@link HeaderValueToken}
+     * Factory that creates a new {@link TokenHeaderValue}
      */
-    public static HeaderValueToken with(final String value) {
+    public static TokenHeaderValue with(final String value) {
         checkValue(value);
 
-        return new HeaderValueToken(value, NO_PARAMETERS);
+        return new TokenHeaderValue(value, NO_PARAMETERS);
     }
 
     /**
      * Private ctor use factory
      */
-    private HeaderValueToken(final String value, final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
+    private TokenHeaderValue(final String value, final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
         super();
         this.value = value;
         this.parameters = parameters;
@@ -105,7 +105,7 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
         return this.value;
     }
 
-    public HeaderValueToken setValue(final String value) {
+    public TokenHeaderValue setValue(final String value) {
         checkValue(value);
 
         return this.value.equals(value) ?
@@ -132,24 +132,24 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
      * A map view of all parameters to their text or string value.
      */
     @Override
-    public Map<HeaderValueTokenParameterName<?>, Object> parameters() {
+    public Map<TokenHeaderValueParameterName<?>, Object> parameters() {
         return this.parameters;
     }
 
     @Override
-    public HeaderValueToken setParameters(final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
-        final Map<HeaderValueTokenParameterName<?>, Object> copy = checkParameters(parameters);
+    public TokenHeaderValue setParameters(final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
+        final Map<TokenHeaderValueParameterName<?>, Object> copy = checkParameters(parameters);
         return this.parameters.equals(copy) ?
                 this :
                 this.replace(this.value, copy);
     }
 
-    private final Map<HeaderValueTokenParameterName<?>, Object> parameters;
+    private final Map<TokenHeaderValueParameterName<?>, Object> parameters;
 
-    private static Map<HeaderValueTokenParameterName<?>, Object> checkParameters(final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
-        final Map<HeaderValueTokenParameterName<?>, Object> copy = Maps.ordered();
-        for (Entry<HeaderValueTokenParameterName<?>, Object> nameAndValue : parameters.entrySet()) {
-            final HeaderValueTokenParameterName<?> name = nameAndValue.getKey();
+    private static Map<TokenHeaderValueParameterName<?>, Object> checkParameters(final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
+        final Map<TokenHeaderValueParameterName<?>, Object> copy = Maps.ordered();
+        for (Entry<TokenHeaderValueParameterName<?>, Object> nameAndValue : parameters.entrySet()) {
+            final TokenHeaderValueParameterName<?> name = nameAndValue.getKey();
             copy.put(name,
                     name.checkValue(nameAndValue.getValue()));
         }
@@ -158,16 +158,16 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
 
     // replace ...........................................................................................................
 
-    private HeaderValueToken replace(final String value,
-                                     final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
-        return new HeaderValueToken(value, parameters);
+    private TokenHeaderValue replace(final String value,
+                                     final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
+        return new TokenHeaderValue(value, parameters);
     }
 
     // HasQFactorWeight................................................................................................
 
     @Override
     public Optional<Float> qFactorWeight() {
-        return Optional.ofNullable(Float.class.cast(this.parameters.get(HeaderValueTokenParameterName.Q)));
+        return Optional.ofNullable(Float.class.cast(this.parameters.get(TokenHeaderValueParameterName.Q)));
     }
 
     // HeaderValue .............................................................................................
@@ -194,11 +194,11 @@ public final class HeaderValueToken implements HeaderValueWithParameters<HeaderV
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof HeaderValueToken &&
+                other instanceof TokenHeaderValue &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HeaderValueToken other) {
+    private boolean equals0(final TokenHeaderValue other) {
         return this.value.equals(other.value) &&
                 this.parameters.equals(other.parameters);
     }

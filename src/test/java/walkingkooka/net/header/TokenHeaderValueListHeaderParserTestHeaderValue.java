@@ -26,8 +26,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public final class HeaderValueTokenListHeaderParserTest extends HeaderValueTokenHeaderParserTestCase<HeaderValueTokenListHeaderParser,
-        List<HeaderValueToken>> {
+public final class TokenHeaderValueListHeaderParserTestHeaderValue extends TokenHeaderValueHeaderParserTestCaseHeaderValue<TokenHeaderValueListHeaderParser,
+        List<TokenHeaderValue>> {
 
     @Test
     public void testValueParameterSeparatorValue() {
@@ -192,28 +192,28 @@ public final class HeaderValueTokenListHeaderParserTest extends HeaderValueToken
     }
 
     @Override
-    HeaderValueTokenListHeaderParser createHeaderParser(final String text) {
-        return new HeaderValueTokenListHeaderParser(text);
+    TokenHeaderValueListHeaderParser createHeaderParser(final String text) {
+        return new TokenHeaderValueListHeaderParser(text);
     }
 
     @Override
-    void parseAndCheck2(final String headerValue, final HeaderValueToken token) {
+    void parseAndCheck2(final String headerValue, final TokenHeaderValue token) {
         this.parseAndCheck3(headerValue, token);
     }
 
-    private void parseAndCheck3(final String headerValue, final HeaderValueToken... tokens) {
+    private void parseAndCheck3(final String headerValue, final TokenHeaderValue... tokens) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(headerValue),
                 Lists.of(tokens),
-                HeaderValueToken.parseList(headerValue));
+                TokenHeaderValue.parseList(headerValue));
     }
 
     @Override
-    List<HeaderValueToken> parse(final String text) {
-        return HeaderValueTokenListHeaderParser.parseHeaderValueTokenList(text);
+    List<TokenHeaderValue> parse(final String text) {
+        return TokenHeaderValueListHeaderParser.parseTokenHeaderValueList(text);
     }
 
     @Override
-    protected Class<HeaderValueTokenListHeaderParser> type() {
-        return HeaderValueTokenListHeaderParser.class;
+    protected Class<TokenHeaderValueListHeaderParser> type() {
+        return TokenHeaderValueListHeaderParser.class;
     }
 }

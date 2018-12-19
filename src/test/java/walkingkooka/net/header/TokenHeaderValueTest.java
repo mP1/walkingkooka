@@ -29,8 +29,8 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCase<HeaderValueToken,
-        HeaderValueTokenParameterName<?>> {
+public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCase<TokenHeaderValue,
+        TokenHeaderValueParameterName<?>> {
 
     private final static String VALUE = "abc";
     private final static String PARAMETER_VALUE = "v1";
@@ -39,22 +39,22 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test(expected = NullPointerException.class)
     public void testWithNullValueFails() {
-        HeaderValueToken.with(null);
+        TokenHeaderValue.with(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyValueFails() {
-        HeaderValueToken.with("");
+        TokenHeaderValue.with("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidCharactersValueFails() {
-        HeaderValueToken.with("<");
+        TokenHeaderValue.with("<");
     }
 
     @Test
     public void testWith() {
-        final HeaderValueToken token = this.token();
+        final TokenHeaderValue token = this.token();
         this.check(token);
     }
 
@@ -77,13 +77,13 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test
     public void testSetValueSame() {
-        final HeaderValueToken token = this.token();
+        final TokenHeaderValue token = this.token();
         assertSame(token, token.setValue(VALUE));
     }
 
     @Test
     public void testSetValueDifferent() {
-        final HeaderValueToken token = this.token();
+        final TokenHeaderValue token = this.token();
         final String value = "different";
         this.check(token.setValue(value), value, this.parameters());
         this.check(token);
@@ -98,8 +98,8 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test
     public void testSetParametersDifferent() {
-        final HeaderValueToken token = this.token();
-        final Map<HeaderValueTokenParameterName<?>, Object> parameters = this.parameters("different", "2");
+        final TokenHeaderValue token = this.token();
+        final Map<TokenHeaderValueParameterName<?>, Object> parameters = this.parameters("different", "2");
         this.check(token.setParameters(parameters), VALUE, parameters);
         this.check(token);
     }
@@ -108,7 +108,7 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test
     public void testToHeaderTextNoParameters() {
-        this.toHeaderTextAndCheck(HeaderValueToken.with(VALUE),
+        this.toHeaderTextAndCheck(TokenHeaderValue.with(VALUE),
                 "abc");
     }
 
@@ -120,7 +120,7 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test
     public void testToHeaderTextWithSeveralParameters() {
-        this.toHeaderTextAndCheck(HeaderValueToken.with(VALUE)
+        this.toHeaderTextAndCheck(TokenHeaderValue.with(VALUE)
                         .setParameters(this.parameters("p1", "v1", "p2", "v2")),
                 "abc; p1=v1; p2=v2");
     }
@@ -129,7 +129,7 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test
     public void testToStringNoParameters() {
-        this.toStringAndCheck(HeaderValueToken.with(VALUE),
+        this.toStringAndCheck(TokenHeaderValue.with(VALUE),
                 "abc");
     }
 
@@ -141,12 +141,12 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test
     public void testToStringWithSeveralParameters() {
-        this.toStringAndCheck(HeaderValueToken.with(VALUE)
-                .setParameters(this.parameters("p1", "v1", "p2", "v2")),
+        this.toStringAndCheck(TokenHeaderValue.with(VALUE)
+                        .setParameters(this.parameters("p1", "v1", "p2", "v2")),
                 "abc; p1=v1; p2=v2");
     }
 
-    private void toStringAndCheck(final HeaderValueToken token, final String toString) {
+    private void toStringAndCheck(final TokenHeaderValue token, final String toString) {
         assertEquals("toString", toString, token.toString());
     }
 
@@ -154,91 +154,91 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
 
     @Test(expected = NullPointerException.class)
     public void testToHeaderTextListNullFails() {
-        HeaderValueToken.toHeaderTextList(null);
+        TokenHeaderValue.toHeaderTextList(null);
     }
 
     @Test
     public void testToHeaderTextListOne() {
         this.toHeaderTextListAndCheck("A",
-                HeaderValueToken.with("A"));
+                TokenHeaderValue.with("A"));
     }
 
     @Test
     public void testToHeaderTextListOneWithParameters() {
         this.toHeaderTextListAndCheck("A; p1=v1",
-                HeaderValueToken.with("A")
+                TokenHeaderValue.with("A")
                         .setParameters(this.parameters()));
     }
 
     @Test
     public void testToHeaderTextListMany() {
         this.toHeaderTextListAndCheck("A, B",
-                HeaderValueToken.with("A"),
-                HeaderValueToken.with("B"));
+                TokenHeaderValue.with("A"),
+                TokenHeaderValue.with("B"));
     }
 
-    private void toHeaderTextListAndCheck(final String toString, final HeaderValueToken... tokens) {
+    private void toHeaderTextListAndCheck(final String toString, final TokenHeaderValue... tokens) {
         assertEquals("toheaderTextList of " + Arrays.toString(tokens),
                 toString,
-                HeaderValueToken.toHeaderTextList(Lists.of(tokens)));
+                TokenHeaderValue.toHeaderTextList(Lists.of(tokens)));
     }
 
     // helpers ...........................................................................................
 
     @Override
-    protected HeaderValueToken createHeaderValueWithParameters() {
+    protected TokenHeaderValue createHeaderValueWithParameters() {
         return this.token();
     }
 
-    private HeaderValueToken token() {
-        return HeaderValueToken.with(VALUE)
+    private TokenHeaderValue token() {
+        return TokenHeaderValue.with(VALUE)
                 .setParameters(this.parameters());
     }
 
-    private Map<HeaderValueTokenParameterName<?>, Object> parameters() {
+    private Map<TokenHeaderValueParameterName<?>, Object> parameters() {
         return this.parameters("p1", PARAMETER_VALUE);
     }
 
-    private Map<HeaderValueTokenParameterName<?>, Object> parameters(final String name,
+    private Map<TokenHeaderValueParameterName<?>, Object> parameters(final String name,
                                                                      final Object value) {
-        return this.parameters(HeaderValueTokenParameterName.with(name), value);
+        return this.parameters(TokenHeaderValueParameterName.with(name), value);
     }
 
-    private Map<HeaderValueTokenParameterName<?>, Object> parameters(final HeaderValueTokenParameterName<?> name,
+    private Map<TokenHeaderValueParameterName<?>, Object> parameters(final TokenHeaderValueParameterName<?> name,
                                                                      final Object value) {
         return Maps.one(name, value);
     }
 
-    private Map<HeaderValueTokenParameterName<?>, Object> parameters(final String name1,
+    private Map<TokenHeaderValueParameterName<?>, Object> parameters(final String name1,
                                                                      final Object value1,
                                                                      final String name2,
                                                                      final Object value2) {
-        return this.parameters(HeaderValueTokenParameterName.with(name1),
+        return this.parameters(TokenHeaderValueParameterName.with(name1),
                 value1,
-                HeaderValueTokenParameterName.with(name2),
+                TokenHeaderValueParameterName.with(name2),
                 value2);
     }
 
-    private Map<HeaderValueTokenParameterName<?>, Object> parameters(final HeaderValueTokenParameterName<?> name1,
+    private Map<TokenHeaderValueParameterName<?>, Object> parameters(final TokenHeaderValueParameterName<?> name1,
                                                                      final Object value1,
-                                                                     final HeaderValueTokenParameterName<?> name2,
+                                                                     final TokenHeaderValueParameterName<?> name2,
                                                                      final Object value2) {
-        final Map<HeaderValueTokenParameterName<?>, Object> parameters = Maps.ordered();
+        final Map<TokenHeaderValueParameterName<?>, Object> parameters = Maps.ordered();
         parameters.put(name1, value1);
         parameters.put(name2, value2);
         return parameters;
     }
 
-    private void check(final HeaderValueToken token) {
+    private void check(final TokenHeaderValue token) {
         this.check(token, VALUE, token.parameters());
     }
 
-    private void check(final HeaderValueToken token,
+    private void check(final TokenHeaderValue token,
                        final String value,
-                       final Map<HeaderValueTokenParameterName<?>, Object> parameters) {
+                       final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
         assertEquals("value", value, token.value());
         assertEquals("parameters", parameters, token.parameters());
-        assertEquals("is wildcard", value.equals(HeaderValueToken.WILDCARD), token.isWildcard());
+        assertEquals("is wildcard", value.equals(TokenHeaderValue.WILDCARD), token.isWildcard());
     }
 
     @Override
@@ -247,7 +247,7 @@ public final class HeaderValueTokenTest extends HeaderValueWithParametersTestCas
     }
 
     @Override
-    protected Class<HeaderValueToken> type() {
-        return HeaderValueToken.class;
+    protected Class<TokenHeaderValue> type() {
+        return TokenHeaderValue.class;
     }
 }

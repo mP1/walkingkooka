@@ -22,7 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.net.header.HeaderValueToken;
+import walkingkooka.net.header.TokenHeaderValue;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.EnumTestCase;
@@ -110,7 +110,7 @@ public final class HttpHeaderScopeTest extends EnumTestCase<HttpHeaderScope> {
     public void testResponseContentEncodingGzipValueRequestResponseScope() {
         this.checkResponse(
                 scope(HttpHeaderName.CONTENT_ENCODING, HttpHeaderScope.RESPONSE),
-                scope(HeaderValueToken.with("gzip"), HttpHeaderScope.REQUEST_RESPONSE));
+                scope(TokenHeaderValue.with("gzip"), HttpHeaderScope.REQUEST_RESPONSE));
     }
 
     @Test

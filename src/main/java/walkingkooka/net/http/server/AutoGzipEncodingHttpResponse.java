@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.header.HeaderValueToken;
+import walkingkooka.net.header.TokenHeaderValue;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
@@ -70,7 +70,7 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
 
         //byte[] possiblyCompressed = body;
         if (this.isAcceptEncodingGzipSupported()) {
-            final Optional<HeaderValueToken> contentEncoding = HttpHeaderName.CONTENT_ENCODING
+            final Optional<TokenHeaderValue> contentEncoding = HttpHeaderName.CONTENT_ENCODING
                     .headerValue(add.headers());
             if (contentEncoding.isPresent()) {
                 if (this.isGzipSupported(contentEncoding.get())) {
@@ -92,8 +92,8 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
                 .anyMatch(this::isGzipSupported);
     }
 
-    private boolean isGzipSupported(final HeaderValueToken token) {
-        return token.isWildcard() || GZIP.equals(token.setParameters(HeaderValueToken.NO_PARAMETERS));
+    private boolean isGzipSupported(final TokenHeaderValue token) {
+        return token.isWildcard() || GZIP.equals(token.setParameters(TokenHeaderValue.NO_PARAMETERS));
     }
 
     /**
@@ -112,5 +112,5 @@ final class AutoGzipEncodingHttpResponse extends WrapperHttpRequestHttpResponse 
         }
     }
 
-    private final static HeaderValueToken GZIP = HeaderValueToken.with("gzip");
+    private final static TokenHeaderValue GZIP = TokenHeaderValue.with("gzip");
 }
