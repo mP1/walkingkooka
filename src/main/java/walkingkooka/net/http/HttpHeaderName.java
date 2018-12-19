@@ -181,7 +181,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link MediaType} header values.
      */
-    private static HttpHeaderName<List<MediaType>> registerManyMediaTypeConstant(final String header,
+    private static HttpHeaderName<List<MediaType>> registerMediaTypeListConstant(final String header,
                                                                                  final HttpHeaderNameScope scope) {
         return registerConstant(header, scope, HeaderValueConverters.mediaTypeList());
     }
@@ -283,7 +283,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Accept: text/html, application/xhtml+xml, application/xml;q=0.9, * /*;q=0.8
      * </pre>
      */
-    public final static HttpHeaderName<List<MediaType>> ACCEPT = registerManyMediaTypeConstant("Accept",
+    public final static HttpHeaderName<List<MediaType>> ACCEPT = registerMediaTypeListConstant("Accept",
             HttpHeaderNameScope.REQUEST);
 
     /**
