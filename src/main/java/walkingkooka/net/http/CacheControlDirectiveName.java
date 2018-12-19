@@ -234,7 +234,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     /**
      * Factory that creates a {@link CacheControlDirective} with the parameter which may or may not be empty or present.
      */
-    CacheControlDirective<T> setParameter(final Optional<T> parameter) {
+    public CacheControlDirective<T> setParameter(final Optional<T> parameter) {
         return CacheControlDirective.with(this,
                 this.checkValue(parameter));
     }
