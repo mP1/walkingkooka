@@ -23,9 +23,11 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HeaderNameTestCase;
 import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.HttpHeaderScope;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CharSequences;
 
@@ -33,6 +35,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -84,16 +87,31 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
 
     @Test
     public void testScopeRequestResponse() {
-        this.checkScope(HttpHeaderName.CONTENT_LENGTH, HttpHeaderScope.REQUEST_RESPONSE);
+        this.checkScope(HttpHeaderName.CONTENT_LENGTH,
+                HttpHeaderScope.REQUEST,
+                HttpHeaderScope.RESPONSE);
     }
 
     @Test
     public void testScopeRequestUnknown() {
-        this.checkScope(HttpHeaderName.with("xyz"), HttpHeaderScope.UNKNOWN);
+        this.checkScope(HttpHeaderName.with("xyz"),
+                HttpHeaderScope.MULTIPART,
+                HttpHeaderScope.REQUEST,
+                HttpHeaderScope.RESPONSE);
     }
 
-    private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope scope) {
-        assertSame("scope", scope, header.httpHeaderScope());
+    private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope...scopes) {
+        final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
+
+        assertEquals(header + " isMultipart",
+                scopesSet.contains(HttpHeaderScope.MULTIPART),
+                header.isMultipart());
+        assertEquals(header + " isRequest",
+                scopesSet.contains(HttpHeaderScope.REQUEST),
+                header.isRequest());
+        assertEquals(header + " isResponse",
+                scopesSet.contains(HttpHeaderScope.RESPONSE),
+                header.isResponse());
     }
 
     @Test

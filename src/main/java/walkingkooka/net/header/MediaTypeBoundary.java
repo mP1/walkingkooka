@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
@@ -217,10 +216,24 @@ public final class MediaTypeBoundary implements Value<String>,
 
     private final String value;
 
+    // HasHeaderScope ....................................................................................................
+
     @Override
-    public final HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    public final boolean isMultipart() {
+        return MediaType.IS_MULTIPART;
     }
+
+    @Override
+    public final boolean isRequest() {
+        return MediaType.IS_REQUEST;
+    }
+
+    @Override
+    public final boolean isResponse() {
+        return MediaType.IS_RESPONSE;
+    }
+
+    // headerText.............................................................................
 
     @Override
     public String toHeaderText() {

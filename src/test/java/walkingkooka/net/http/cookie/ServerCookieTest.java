@@ -20,7 +20,6 @@ package walkingkooka.net.http.cookie;
 
 import org.junit.Test;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.net.http.HttpHeaderScope;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -1111,8 +1110,13 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     @Override
-    protected HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.RESPONSE;
+    protected boolean isRequest() {
+        return false;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return true;
     }
 
     @Override

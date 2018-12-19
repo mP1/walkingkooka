@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -221,8 +220,18 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     }
 
     @Override
-    protected HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return true;
     }
 
     @Override

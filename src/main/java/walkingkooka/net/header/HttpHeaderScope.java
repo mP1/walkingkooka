@@ -16,10 +16,9 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
-import walkingkooka.net.header.HeaderValueException;
-import walkingkooka.net.header.NotAcceptableHeaderException;
+import walkingkooka.net.http.HttpHeaderName;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,44 +28,34 @@ import java.util.Objects;
  * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers"></a>
  */
 public enum HttpHeaderScope {
+
     /**
-     * The header is only valid in a request
+     * Multipart scope
+     */
+    MULTIPART {
+        @Override
+        boolean isNotAcceptable(final HasHeaderScope other) {
+            return !other.isMultipart();
+        }
+    },
+
+    /**
+     * Request scope
      */
     REQUEST {
         @Override
-        boolean isNotAcceptable(final HttpHeaderScope other) {
-            return other == RESPONSE;
+        boolean isNotAcceptable(final HasHeaderScope other) {
+            return !other.isRequest();
         }
     },
 
     /**
-     * The header is only valid in a response.
+     * Response scope.
      */
     RESPONSE {
         @Override
-        boolean isNotAcceptable(final HttpHeaderScope other) {
-            return other == REQUEST;
-        }
-    },
-
-    /**
-     * THe header may appear in either request or response.
-     */
-    REQUEST_RESPONSE {
-        @Override
-        boolean isNotAcceptable(final HttpHeaderScope other) {
-            return false;
-        }
-    },
-
-    /**
-     * The header scope is unknown. All headers that are not constants
-     * will have this value.
-     */
-    UNKNOWN {
-        @Override
-        boolean isNotAcceptable(final HttpHeaderScope other) {
-            return false;
+        boolean isNotAcceptable(final HasHeaderScope other) {
+            return !other.isResponse();
         }
     };
 
@@ -76,7 +65,7 @@ public enum HttpHeaderScope {
     public final void check(final HttpHeaderName<?> name) {
         Objects.requireNonNull(name, "name");
         
-        if (this.isNotAcceptable(name.httpHeaderScope())) {
+        if (this.isNotAcceptable(name)) {
             throw new NotAcceptableHeaderException("Invalid header " + name);
         }
     }
@@ -89,8 +78,8 @@ public enum HttpHeaderScope {
 
         Objects.requireNonNull(value, "value");
 
-        if (value instanceof HasHttpHeaderScope) {
-            if (this.isNotAcceptable(HasHttpHeaderScope.class.cast(value))) {
+        if (value instanceof HasHeaderScope) {
+            if (this.isNotAcceptable(HasHeaderScope.class.cast(value))) {
                 this.failInvalidHeader(name, value);
             }
         }
@@ -104,15 +93,17 @@ public enum HttpHeaderScope {
     }
 
     private boolean isNotAcceptable(final Object has) {
-        return has instanceof HasHttpHeaderScope &&
-                this.isNotAcceptable0(HasHttpHeaderScope.class.cast(has));
+        return has instanceof HasHeaderScope &&
+                this.isNotAcceptable(HasHeaderScope.class.cast(has));
     }
 
-    private boolean isNotAcceptable0(final HasHttpHeaderScope has) {
-        return this.isNotAcceptable(has.httpHeaderScope());
-    }
+    abstract boolean isNotAcceptable(final HasHeaderScope other);
 
-    abstract boolean isNotAcceptable(final HttpHeaderScope other);
+//    private boolean isNotAcceptable0(final HasHeaderScope has) {
+//        return this.isNotAcceptable(false == this.isScope(has));
+//    }
+//
+//    abstract boolean isScope(final HasHeaderScope has);
 
     final <T> void failInvalidHeader(final HttpHeaderName<T> name, final T value) {
         throw new NotAcceptableHeaderException(invalidHeader(name, value));

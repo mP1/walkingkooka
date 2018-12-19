@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderScope;
 
 import static org.junit.Assert.assertEquals;
 
@@ -81,8 +80,18 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
     abstract String charsetNameToString();
 
     @Override
-    protected final HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    protected final boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected final boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected final boolean isResponse() {
+        return true;
     }
 
     @Override

@@ -19,9 +19,9 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
+import walkingkooka.net.header.HttpHeaderScope;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.net.http.HttpStatus;
 
 import java.util.Map.Entry;
@@ -31,14 +31,14 @@ import java.util.Objects;
  * A {@link HttpResponse} that checks the scope correctness of any header names when adding new headers, or reading
  * existing headers.
  */
-final class HttpHeaderScopeHttpResponse extends WrapperHttpResponse {
+final class HeaderScopeHttpResponse extends WrapperHttpResponse {
 
-    static HttpHeaderScopeHttpResponse with(final HttpResponse response) {
+    static HeaderScopeHttpResponse with(final HttpResponse response) {
         check(response);
-        return new HttpHeaderScopeHttpResponse(response);
+        return new HeaderScopeHttpResponse(response);
     }
     
-    private HttpHeaderScopeHttpResponse(final HttpResponse response) {
+    private HeaderScopeHttpResponse(final HttpResponse response) {
         super(response);
     }
 

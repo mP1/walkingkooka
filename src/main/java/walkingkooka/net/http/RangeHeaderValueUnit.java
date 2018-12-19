@@ -56,11 +56,21 @@ public enum RangeHeaderValueUnit implements HeaderValue {
 
     private final String headerText;
 
+    // HasHeaderScope....................................................................
     @Override
-    public HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    public final boolean isMultipart() {
+        return RangeHeaderValue.IS_MULTIPART;
     }
 
+    @Override
+    public final boolean isRequest() {
+        return RangeHeaderValue.IS_REQUEST;
+    }
+
+    @Override
+    public final boolean isResponse() {
+        return RangeHeaderValue.IS_RESPONSE;
+    }
     /**
      * Finds a matching {@link RangeHeaderValueUnit} for the given text or throw an {@link IllegalArgumentException}.
      */

@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
-import walkingkooka.net.http.HttpHeaderScope;
 
 import java.util.List;
 import java.util.Map;
@@ -215,11 +214,21 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
         return this.toString();
     }
 
-    // HasHttpHeaderScope ....................................................................................................
+    // HasHeaderScope ....................................................................................................
 
     @Override
-    public HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    public final boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    public final boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    public final boolean isResponse() {
+        return true;
     }
 
     // Object................................................................................................................

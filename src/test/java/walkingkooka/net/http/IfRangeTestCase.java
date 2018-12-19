@@ -116,11 +116,6 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     }
 
     @Override
-    protected final HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST;
-    }
-
-    @Override
     protected final R createHeaderValue() {
         return this.createHeaderValue(this.value());
     }
@@ -143,6 +138,21 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     final LocalDateTime lastModified() {
         return LocalDateTime.of(2000, 12, 31, 6, 28, 29);
+    }
+
+    @Override
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return false;
     }
 
     @Override

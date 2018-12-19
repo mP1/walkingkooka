@@ -101,4 +101,9 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
     final void checkValue(final Cookie cookie, final String value) {
         assertEquals("value", value, cookie.value());
     }
+
+    @Override
+    protected final boolean isMultipart() {
+        return false;
+    }
 }

@@ -16,15 +16,25 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 /**
- * Includes a method which returns a {@link walkingkooka.net.header.HeaderValue}
+ * Includes methods to test the scope for a header name and value.
  */
-public interface HasHttpHeaderScope {
+public interface HasHeaderScope {
 
     /**
-     * Returns the {@link HttpHeaderScope}.
+     * Will be true if valid for multi parts.
      */
-    HttpHeaderScope httpHeaderScope();
+    boolean isMultipart();
+
+    /**
+     * Will be true if valid for http requests.
+     */
+    boolean isRequest();
+
+    /**
+     * Will be true if valid for http response.
+     */
+    boolean isResponse();
 }

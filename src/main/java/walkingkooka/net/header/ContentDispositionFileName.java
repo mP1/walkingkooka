@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicates;
 
 /**
@@ -61,9 +60,21 @@ final public class ContentDispositionFileName implements Name, HeaderValue {
         return this.value();
     }
 
+    // HasHeaderScope....................................................................
+
     @Override
-    public HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    public final boolean isMultipart() {
+        return true;
+    }
+
+    @Override
+    public final boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    public final boolean isResponse() {
+        return true;
     }
 
     // Object .................................................................................

@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
-import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
@@ -512,11 +511,27 @@ final public class MediaType implements Value<String>,
         return this.toString();
     }
 
-    // HasHttpHeaderScope ....................................................................................................
+    // HasHeaderScope ....................................................................................................
+
+    final static boolean IS_MULTIPART = true;
 
     @Override
-    public HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    public final boolean isMultipart() {
+        return IS_MULTIPART;
+    }
+
+    final static boolean IS_REQUEST = true;
+
+    @Override
+    public final boolean isRequest() {
+        return IS_REQUEST;
+    }
+
+    final static boolean IS_RESPONSE = true;
+
+    @Override
+    public final boolean isResponse() {
+        return IS_RESPONSE;
     }
 
     // Object................................................................................................................

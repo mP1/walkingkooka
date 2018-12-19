@@ -206,13 +206,24 @@ public final class CacheControlDirective<T> implements HeaderValue {
         return new CacheControlDirective(this.name, parameter);
     }
 
-    /**
-     * Returns the scope of the directive
-     */
+    // HasHeaderScope............................................................................................
+
     @Override
-    public HttpHeaderScope httpHeaderScope() {
-        return this.name.scope;
+    public boolean isMultipart() {
+        return false;
     }
+
+    @Override
+    public boolean isRequest() {
+        return this.name.isRequest();
+    }
+
+    @Override
+    public boolean isResponse() {
+        return this.name.isResponse();
+    }
+
+    // HeaderValue....................................................................................................
 
     @Override
     public String toHeaderText() {

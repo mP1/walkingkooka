@@ -141,25 +141,29 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
 
     @Test
     public void testScopeMaxAge() {
-        this.checkScope(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
-                HttpHeaderScope.REQUEST_RESPONSE);
+        this.checkScope(CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)));
     }
 
     @Test
     public void testScopeMaxStale() {
-        this.checkScope(CacheControlDirectiveName.MAX_STALE.setParameter(Optional.of(123L)),
-                HttpHeaderScope.REQUEST);
+        this.checkScope(CacheControlDirectiveName.MAX_STALE.setParameter(Optional.of(123L)));
     }
 
     @Test
     public void testScopeOnlyIfCached() {
-        this.checkScope(CacheControlDirective.ONLY_IF_CACHED, HttpHeaderScope.REQUEST);
+        this.checkScope(CacheControlDirective.ONLY_IF_CACHED);
     }
 
-    private void checkScope(final CacheControlDirective<?> directive, final HttpHeaderScope scope) {
-        assertSame("Incorrect HeaderScope returned by " + directive,
-                scope,
-                directive.httpHeaderScope());
+    private void checkScope(final CacheControlDirective<?> directive) {
+        assertEquals(directive + " isMultipart",
+                false,
+                directive.isMultipart());
+        assertEquals(directive + " isRequest",
+                directive.value().isRequest(),
+                directive.isRequest());
+        assertEquals(directive + " isResponse",
+                directive.value().isResponse(),
+                directive.isResponse());
     }
 
     // parse..........................................................................
@@ -232,8 +236,18 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     @Override
-    protected HttpHeaderScope httpHeaderScope() {
-        return HttpHeaderScope.REQUEST_RESPONSE;
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return true;
     }
 
     @Override

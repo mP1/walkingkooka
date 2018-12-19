@@ -67,10 +67,10 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
-     * {@see HttpHeaderScopeHttpResponse}
+     * {@see HeaderScopeHttpResponse}
      */
-    public static HttpResponse httpHeaderScope(final HttpResponse response) {
-        return HttpHeaderScopeHttpResponse.with(response);
+    public static HttpResponse headerScope(final HttpResponse response) {
+        return HeaderScopeHttpResponse.with(response);
     }
 
     /**

@@ -19,8 +19,8 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.header.HttpHeaderScope;
 import walkingkooka.net.http.HttpHeaderName;
-import walkingkooka.net.http.HttpHeaderScope;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -33,17 +33,17 @@ import java.util.Objects;
 /**
  * A wrapper {@link HttpRequest} that wraps the map of headers verifying the header keys used to test and fetch values.
  */
-final class HttpHeaderScopeHttpRequest implements HttpRequest {
+final class HeaderScopeHttpRequest implements HttpRequest {
 
-    static HttpHeaderScopeHttpRequest with(final HttpRequest request) {
+    static HeaderScopeHttpRequest with(final HttpRequest request) {
         Objects.requireNonNull(request, "request");
-        return new HttpHeaderScopeHttpRequest(request);
+        return new HeaderScopeHttpRequest(request);
     }
 
-    private HttpHeaderScopeHttpRequest(final HttpRequest request) {
+    private HeaderScopeHttpRequest(final HttpRequest request) {
         super();
         this.request = request;
-        this.headers = HttpHeaderScopeHttpRequestHeadersMap.with(request.headers(), HttpHeaderScope.REQUEST);
+        this.headers = HeaderScopeHttpRequestHeadersMap.with(request.headers(), HttpHeaderScope.REQUEST);
     }
 
     @Override
@@ -71,7 +71,7 @@ final class HttpHeaderScopeHttpRequest implements HttpRequest {
         return this.headers;
     }
 
-    private final HttpHeaderScopeHttpRequestHeadersMap headers;
+    private final HeaderScopeHttpRequestHeadersMap headers;
 
     @Override
     public List<ClientCookie> cookies() {
