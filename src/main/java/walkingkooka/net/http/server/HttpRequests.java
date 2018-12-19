@@ -20,6 +20,8 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.type.PublicStaticHelper;
 
+import javax.servlet.http.HttpServletRequest;
+
 public final class HttpRequests implements PublicStaticHelper {
 
     /**
@@ -34,6 +36,13 @@ public final class HttpRequests implements PublicStaticHelper {
      */
     public static HttpRequest headerScope(final HttpRequest request) {
         return HeaderScopeHttpRequest.with(request);
+    }
+
+    /**
+     * {@see HttpServletRequestHttpRequest}
+     */
+    public static HttpRequest httpServletRequest(final HttpServletRequest request) {
+        return HttpServletRequestHttpRequest.with(request);
     }
 
     /**
