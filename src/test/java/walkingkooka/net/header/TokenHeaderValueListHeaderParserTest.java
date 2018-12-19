@@ -26,7 +26,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public final class TokenHeaderValueListHeaderParserTestHeaderValue extends TokenHeaderValueHeaderParserTestCaseHeaderValue<TokenHeaderValueListHeaderParser,
+public final class TokenHeaderValueListHeaderParserTest extends TokenHeaderValueHeaderParserTestCase<TokenHeaderValueListHeaderParser,
         List<TokenHeaderValue>> {
 
     @Test
