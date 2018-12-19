@@ -60,7 +60,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * A read only cache of already prepared {@link HttpHeaderName names}. The selected constants are taken from<br>
      * <a href="http://en.wikipedia.org/wiki/List_of_HTTP_headers"></a>.
      */
-    final static Map<String, HttpHeaderName<?>> CONSTANTS = Maps.sorted();
+    final static Map<String, HttpHeaderName<?>> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link AbsoluteUrl} header values.

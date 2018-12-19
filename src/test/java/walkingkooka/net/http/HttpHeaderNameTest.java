@@ -120,6 +120,11 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     }
 
     @Test
+    public void testConstantNameReturnsConstantIgnoresCase() {
+        assertSame(HttpHeaderName.ACCEPT, HttpHeaderName.with("ACCept"));
+    }
+
+    @Test
     public void testContentTypeConstants() {
         final List<HttpHeaderName<?>> headers = HttpHeaderName.CONSTANTS.values()
                 .stream()
