@@ -26,12 +26,12 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class TokenHeaderValueHeaderParserTestCaseHeaderValue<P extends TokenHeaderValueHeaderParser, V> extends
+public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeaderValueHeaderParser, V> extends
         HeaderParserTestCase<P,
                 TokenHeaderValueParameterName<?>,
                 V> {
 
-    TokenHeaderValueHeaderParserTestCaseHeaderValue() {
+    TokenHeaderValueHeaderParserTestCase() {
         super();
     }
 

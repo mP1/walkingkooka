@@ -25,7 +25,7 @@ import walkingkooka.net.http.HttpHeaderName;
 
 import java.util.List;
 
-public final class TokenHeaderValueListConverterTestHeaderValue extends
+public final class TokenHeaderValueListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<TokenHeaderValueListHeaderValueConverter, List<TokenHeaderValue>> {
 
     @Override

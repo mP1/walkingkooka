@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
-public final class TokenHeaderValueOneHeaderParserTestHeaderValue extends TokenHeaderValueHeaderParserTestCaseHeaderValue<TokenHeaderValueOneHeaderParser,
+public final class TokenHeaderValueOneHeaderParserTest extends TokenHeaderValueHeaderParserTestCase<TokenHeaderValueOneHeaderParser,
         TokenHeaderValue> {
 
     @Test
