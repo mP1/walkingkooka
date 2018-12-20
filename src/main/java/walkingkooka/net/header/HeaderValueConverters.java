@@ -22,6 +22,8 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.type.PublicStaticHelper;
 
@@ -39,6 +41,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see CacheControlDirectiveListHeaderValueConverter}
+     */
+    public static HeaderValueConverter<List<CacheControlDirective<?>>> cacheControlDirectiveList() {
+        return CacheControlDirectiveListHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see CharsetHeaderValueListHeaderValueConverter}
      */
     public static HeaderValueConverter<List<CharsetHeaderValue>> charsetHeaderValueList() {
@@ -50,6 +59,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
      */
     public static HeaderValueConverter<CharsetName> charsetName() {
         return CharsetNameHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see ClientCookieListHeaderValueConverter}
+     */
+    public static HeaderValueConverter<List<ClientCookie>> clientCookieList() {
+        return ClientCookieListHeaderValueConverter.INSTANCE;
     }
 
     /**
@@ -67,10 +83,31 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see ContentRangeHeaderValueConverter}
+     */
+    public static HeaderValueConverter<ContentRange> contentRange() {
+        return ContentRangeHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see EmailAddressHeaderValueConverter}
      */
     public static HeaderValueConverter<EmailAddress> emailAddress() {
         return EmailAddressHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see ETagHeaderValueConverter}
+     */
+    public static HeaderValueConverter<ETag> eTag() {
+        return ETagHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see ETagListHeaderValueConverter}
+     */
+    public static HeaderValueConverter<List<ETag>> eTagList() {
+        return ETagListHeaderValueConverter.INSTANCE;
     }
 
     /**
@@ -79,7 +116,21 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     public static HeaderValueConverter<Float> floatConverter() {
         return FloatHeaderValueConverter.INSTANCE;
     }
-    
+
+    /**
+     * {@see HttpHeaderNameListHeaderValueConverter}
+     */
+    public static HeaderValueConverter<List<HttpHeaderName<?>>> httpHeaderNameList() {
+        return HttpHeaderNameListHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see IfRangeHeaderValueConverter}
+     */
+    public static HeaderValueConverter<IfRange<?>> ifRange() {
+        return IfRangeHeaderValueConverter.INSTANCE;
+    }
+
     /**
      * {@see LocalDateTimeHeaderValueConverter}
      */
@@ -116,6 +167,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see HttpMethodListHeaderValueConverter}
+     */
+    public static HeaderValueConverter<List<HttpMethod>> methodList() {
+        return HttpMethodListHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see OffsetDateTimeHeaderValueConverter}
      */
     public static HeaderValueConverter<OffsetDateTime> offsetDateTime() {
@@ -123,10 +181,31 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see RangeHeaderValueHeaderValueConverter}
+     */
+    public static HeaderValueConverter<RangeHeaderValue> range() {
+        return RangeHeaderValueHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see RangeHeaderValueUnitHeaderValueConverter}
+     */
+    public static HeaderValueConverter<RangeHeaderValueUnit> rangeUnit() {
+        return RangeHeaderValueUnitHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see RelativeUrlHeaderValueConverter}
      */
     public static HeaderValueConverter<RelativeUrl> relativeUrl() {
         return RelativeUrlHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see ServerCookieHeaderValueConverter}
+     */
+    public static HeaderValueConverter<ServerCookie> serverCookie() {
+        return ServerCookieHeaderValueConverter.INSTANCE;
     }
 
     /**

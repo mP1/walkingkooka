@@ -26,46 +26,45 @@ import walkingkooka.text.CharSequences;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public abstract class HeaderParserTestCase<P extends HeaderParser<N>,
-        N extends HeaderParameterName<?>,
-        V> extends PackagePrivateClassTestCase<P> {
+public abstract class HeaderParserTestCase<P extends HeaderParser, V>
+        extends PackagePrivateClassTestCase<P> {
 
     HeaderParserTestCase() {
         super();
     }
 
+    // parse ...........................................................................................
+
     @Test(expected = NullPointerException.class)
-    public final void testParseNullFails() {
+    public final void testNullFails() {
         this.parse(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public final void testParseEmptyFails() {
+    public final void testEmpty() {
         this.parse("");
     }
 
     @Test
-    public final void testToString() {
-        assertEquals("0 in \"123\"", this.createHeaderParser("123").toString());
+    public final void testInvalidInitialFails() {
+        this.parseInvalidCharacterFails("\0");
     }
 
-    abstract P createHeaderParser(final String text);
-
-    final void parseAndCheck(final String text, final V value) {
+    final void parseAndCheck(final String text, final V expected) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(text),
-                value,
+                expected,
                 this.parse(text));
     }
 
-    final void parseFails(final String text) {
-        this.parseFails(text, text.length() - 1);
+    final void parseInvalidCharacterFails(final String text) {
+        this.parseInvalidCharacterFails(text, text.length() - 1);
     }
 
-    final void parseFails(final String text, final char pos) {
-        this.parseFails(text, text.indexOf(pos));
+    final void parseInvalidCharacterFails(final String text, final char c) {
+        this.parseInvalidCharacterFails(text, text.indexOf(c));
     }
 
-    final void parseFails(final String text, final int pos) {
+    final void parseInvalidCharacterFails(final String text, final int pos) {
         parseFails(text, new InvalidCharacterException(text, pos).getMessage());
     }
 
@@ -74,7 +73,9 @@ public abstract class HeaderParserTestCase<P extends HeaderParser<N>,
             this.parse(text);
             fail();
         } catch (final HeaderValueException expected) {
-            assertEquals("Incorrect failure message", message, expected.getMessage());
+            assertEquals("Incorrect failure message for " + CharSequences.quoteIfChars(text),
+                    message,
+                    expected.getMessage());
         }
     }
 

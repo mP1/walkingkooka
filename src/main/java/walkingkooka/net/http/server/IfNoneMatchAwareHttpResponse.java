@@ -18,8 +18,8 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.http.ETag;
-import walkingkooka.net.http.ETagValidator;
+import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;

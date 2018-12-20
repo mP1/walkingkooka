@@ -18,7 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.net.http.HttpException;
 import walkingkooka.test.PublicThrowableTestCase;
 
 final public class HeaderExceptionTest extends PublicThrowableTestCase<HeaderException> {

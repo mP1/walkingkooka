@@ -25,7 +25,7 @@ import walkingkooka.collect.map.Maps;
 import java.util.List;
 import java.util.Map;
 
-public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTestCase<CharsetHeaderValueListHeaderParser,
+public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2TestCase<CharsetHeaderValueListHeaderParser,
         CharsetHeaderValueParameterName<?>,
         List<CharsetHeaderValue>> {
 
@@ -33,7 +33,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
 
     @Test
     public void testCharsetSeparatorFails() {
-        this.parseFails("utf-8,", ',');
+        this.parseInvalidCharacterFails("utf-8,", ',');
     }
 
     @Test
@@ -48,12 +48,12 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
 
     @Test
     public void testCharsetInvalidInitialCharacterFails() {
-        this.parseFails("!utf-8", '!');
+        this.parseInvalidCharacterFails("!utf-8", '!');
     }
 
     @Test
     public void testCharsetInvalidPartCharacterFails() {
-        this.parseFails("utf!8", '!');
+        this.parseInvalidCharacterFails("utf!8", '!');
     }
 
     @Test
@@ -63,7 +63,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
 
     @Test
     public void testCharsetInvalidCharacterFails2() {
-        this.parseFails("UTF-8BC<");
+        this.parseInvalidCharacterFails("UTF-8BC<");
     }
 
     @Test(expected = HeaderValueException.class)
@@ -98,7 +98,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
 
     @Test
     public void testCharsetParameterSeparatorSeparatorFails() {
-        this.parseFails("UTF-8;;", 6);
+        this.parseInvalidCharacterFails("UTF-8;;", 6);
     }
 
     @Test
@@ -140,32 +140,32 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
     public void testCharsetParameterSeparatorFails() {
         final String text = "UTF-8;=";
         this.parseFails(text,
-                HeaderParser.emptyToken(HeaderParser.PARAMETER_NAME, 6, text));
+                HeaderParser2.emptyToken(HeaderParser2.PARAMETER_NAME, 6, text));
     }
 
     @Test
     public void testCharsetParameterNameInvalidCharFails() {
-        this.parseFails("UTF-8;b>=c", '>');
+        this.parseInvalidCharacterFails("UTF-8;b>=c", '>');
     }
 
     @Test
     public void testCharsetParameterNameSpaceInvalidCharFails() {
-        this.parseFails("UTF-8;b >=c", '>');
+        this.parseInvalidCharacterFails("UTF-8;b >=c", '>');
     }
 
     @Test
     public void testCharsetParameterNameTabInvalidCharFails() {
-        this.parseFails("UTF-8;b\t>=c", '>');
+        this.parseInvalidCharacterFails("UTF-8;b\t>=c", '>');
     }
 
     @Test
     public void testCharsetParameterNameEqualsInvalidCharFails() {
-        this.parseFails("UTF-8;b=\0c", '\0');
+        this.parseInvalidCharacterFails("UTF-8;b=\0c", '\0');
     }
 
     @Test
     public void testCharsetSubTypeSeparatorFails() {
-        this.parseFails("UTF-8,");
+        this.parseInvalidCharacterFails("UTF-8,");
     }
 
     @Test
@@ -219,17 +219,17 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
 
     @Test
     public void testCharsetParameterValueInvalidCharFails() {
-        this.parseFails("UTF-8;b=c>", '>');
+        this.parseInvalidCharacterFails("UTF-8;b=c>", '>');
     }
 
     @Test
     public void testCharsetParameterValueSpaceInvalidCharFails() {
-        this.parseFails("UTF-8;b=c Q", 'Q');
+        this.parseInvalidCharacterFails("UTF-8;b=c Q", 'Q');
     }
 
     @Test
     public void testCharsetParameterValueSpaceInvalidCharFails2() {
-        this.parseFails("UTF-8;b=c >", '>');
+        this.parseInvalidCharacterFails("UTF-8;b=c >", '>');
     }
 
     @Test
@@ -306,7 +306,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserTe
     public void testCharsetParameterSeparatorParameterNameFails() {
         final String text = "UTF-8;b=c;D";
         this.parseFails(text,
-                HeaderParser.emptyToken(HeaderParser.PARAMETER_VALUE,
+                HeaderParser2.emptyToken(HeaderParser2.PARAMETER_VALUE,
                         10,
                         text));
     }

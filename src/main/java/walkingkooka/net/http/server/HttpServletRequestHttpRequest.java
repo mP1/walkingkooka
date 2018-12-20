@@ -21,12 +21,12 @@ package walkingkooka.net.http.server;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.header.ClientCookie;
+import walkingkooka.net.header.Cookie;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.net.http.cookie.ClientCookie;
-import walkingkooka.net.http.cookie.Cookie;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;

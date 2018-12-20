@@ -26,7 +26,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Map;
 
-public final class ContentDispositionHeaderParserTest extends HeaderParserTestCase<ContentDispositionHeaderParser,
+public final class ContentDispositionHeaderParserTest extends HeaderParser2TestCase<ContentDispositionHeaderParser,
         ContentDispositionParameterName<?>,
         ContentDisposition> {
 
@@ -39,27 +39,27 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
 
     @Test
     public void testTypeSeparatorFails() {
-        this.parseFails("A,", ',');
+        this.parseInvalidCharacterFails("A,", ',');
     }
 
     @Test
     public void testTypeSeparatorSpaceFails() {
-        this.parseFails("A, ", ',');
+        this.parseInvalidCharacterFails("A, ", ',');
     }
 
     @Test
     public void testTypeSeparatorTabFails() {
-        this.parseFails("A,\t", ',');
+        this.parseInvalidCharacterFails("A,\t", ',');
     }
 
     @Test
     public void testTypeInvalidCharacterFails() {
-        this.parseFails("A<");
+        this.parseInvalidCharacterFails("A<");
     }
 
     @Test
     public void testTypeInvalidCharacterFails2() {
-        this.parseFails("ABC<");
+        this.parseInvalidCharacterFails("ABC<");
     }
 
     @Test(expected = HeaderValueException.class)
@@ -94,7 +94,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
 
     @Test
     public void testTypeParameterSeparatorSeparatorFails() {
-        this.parseFails("A;;", 2);
+        this.parseInvalidCharacterFails("A;;", 2);
     }
 
     @Test
@@ -136,32 +136,32 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
     public void testTypeParameterSeparatorFails() {
         final String text = "A;=";
         this.parseFails(text,
-                HeaderParser.emptyToken(HeaderParser.PARAMETER_NAME, 2, text));
+                HeaderParser2.emptyToken(HeaderParser2.PARAMETER_NAME, 2, text));
     }
 
     @Test
     public void testTypeParameterNameInvalidCharFails() {
-        this.parseFails("A;b>=c", '>');
+        this.parseInvalidCharacterFails("A;b>=c", '>');
     }
 
     @Test
     public void testTypeParameterNameSpaceInvalidCharFails() {
-        this.parseFails("A;b >=c", '>');
+        this.parseInvalidCharacterFails("A;b >=c", '>');
     }
 
     @Test
     public void testTypeParameterNameTabInvalidCharFails() {
-        this.parseFails("A;b\t>=c", '>');
+        this.parseInvalidCharacterFails("A;b\t>=c", '>');
     }
 
     @Test
     public void testTypeParameterNameEqualsInvalidCharFails() {
-        this.parseFails("A;b=\0c", '\0');
+        this.parseInvalidCharacterFails("A;b=\0c", '\0');
     }
 
     @Test
     public void testTypeSubTypeCommaFails() {
-        this.parseFails("A,");
+        this.parseInvalidCharacterFails("A,");
     }
 
     @Test
@@ -215,17 +215,17 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
 
     @Test
     public void testTypeParameterValueInvalidCharFails() {
-        this.parseFails("A;b=c>", '>');
+        this.parseInvalidCharacterFails("A;b=c>", '>');
     }
 
     @Test
     public void testTypeParameterValueSpaceInvalidCharFails() {
-        this.parseFails("A;b=c Q", 'Q');
+        this.parseInvalidCharacterFails("A;b=c Q", 'Q');
     }
 
     @Test
     public void testTypeParameterValueSpaceInvalidCharFails2() {
-        this.parseFails("A;b=c >", '>');
+        this.parseInvalidCharacterFails("A;b=c >", '>');
     }
 
     @Test
@@ -302,7 +302,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
     public void testTypeParameterSeparatorParameterNameFails() {
         final String text = "A;b=c;D";
         this.parseFails(text,
-                HeaderParser.emptyToken(HeaderParser.PARAMETER_VALUE,
+                HeaderParser2.emptyToken(HeaderParser2.PARAMETER_VALUE,
                         6,
                         text));
     }
@@ -368,7 +368,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
 
     @Test
     public void testFilenameInvalidFails() {
-        this.parseFails("V; filename=\0");
+        this.parseInvalidCharacterFails("V; filename=\0");
     }
 
     @Test
@@ -429,7 +429,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserTestCa
 
     @Test
     public void testSizeInvalidFails() {
-        this.parseFails("V; filename=\0");
+        this.parseInvalidCharacterFails("V; filename=\0");
     }
 
     @Test

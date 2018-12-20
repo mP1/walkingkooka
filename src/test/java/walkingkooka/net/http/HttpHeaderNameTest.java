@@ -24,10 +24,12 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.header.HeaderNameTestCase;
 import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderScope;
+import walkingkooka.net.header.IfRange;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CharSequences;
 

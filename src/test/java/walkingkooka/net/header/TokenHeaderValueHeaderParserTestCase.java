@@ -27,9 +27,9 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeaderValueHeaderParser, V> extends
-        HeaderParserTestCase<P,
-                TokenHeaderValueParameterName<?>,
-                V> {
+        HeaderParser2TestCase<P,
+                        TokenHeaderValueParameterName<?>,
+                        V> {
 
     TokenHeaderValueHeaderParserTestCase() {
         super();
@@ -43,12 +43,12 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
 
     @Test
     public final void testValueInvalidCharacterFails() {
-        this.parseFails("A<");
+        this.parseInvalidCharacterFails("A<");
     }
 
     @Test
     public final void testValueInvalidCharacterFails2() {
-        this.parseFails("ABC<");
+        this.parseInvalidCharacterFails("ABC<");
     }
 
     @Test
@@ -95,7 +95,7 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
 
     @Test
     public final void testValueSemiColonSeparatorFails() {
-        this.parseFails("A;,", ',');
+        this.parseInvalidCharacterFails("A;,", ',');
     }
 
     @Test
@@ -124,25 +124,25 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
 
     @Test
     public final void testValueParameterNameInvalidCharFails() {
-        this.parseFails("A;b>=c",
+        this.parseInvalidCharacterFails("A;b>=c",
                 '>');
     }
 
     @Test
     public final void testValueParameterNameSpaceInvalidCharFails() {
-        this.parseFails("A;b >=c",
+        this.parseInvalidCharacterFails("A;b >=c",
                 '>');
     }
 
     @Test
     public final void testValueParameterNameTabInvalidCharFails() {
-        this.parseFails("A;b\t>=c",
+        this.parseInvalidCharacterFails("A;b\t>=c",
                 '>');
     }
 
     @Test
     public final void testValueParameterNameEqualsInvalidCharFails() {
-        this.parseFails("A;b=\0c",
+        this.parseInvalidCharacterFails("A;b=\0c",
                 '\0');
     }
 
@@ -190,19 +190,19 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
 
     @Test
     public final void testValueParameterValueInvalidCharFails() {
-        this.parseFails("A;b=c>",
+        this.parseInvalidCharacterFails("A;b=c>",
                 '>');
     }
 
     @Test
     public final void testValueParameterValueSpaceInvalidCharFails() {
-        this.parseFails("A;b=c Q",
+        this.parseInvalidCharacterFails("A;b=c Q",
                 'Q');
     }
 
     @Test
     public final void testValueParameterValueSpaceInvalidCharFails2() {
-        this.parseFails("A;b=c >",
+        this.parseInvalidCharacterFails("A;b=c >",
                 '>');
     }
 

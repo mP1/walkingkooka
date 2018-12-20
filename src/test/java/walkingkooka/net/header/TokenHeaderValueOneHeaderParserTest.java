@@ -25,22 +25,22 @@ public final class TokenHeaderValueOneHeaderParserTest extends TokenHeaderValueH
 
     @Test
     public void testValueSeparatorFails() {
-        this.parseFails("A,");
+        this.parseInvalidCharacterFails("A,");
     }
 
     @Test
     public void testValueSpaceSeparatorFails() {
-        this.parseFails("A ,");
+        this.parseInvalidCharacterFails("A ,");
     }
 
     @Test
     public void testValueTabSeparatorFails() {
-        this.parseFails("A\t,");
+        this.parseInvalidCharacterFails("A\t,");
     }
 
     @Test
     public void testValueParameterSeparatorFails() {
-        this.parseFails("A;b=c,");
+        this.parseInvalidCharacterFails("A;b=c,");
     }
 
     @Override

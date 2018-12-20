@@ -32,7 +32,7 @@ import java.util.List;
  * Accept-Charset: utf-8, iso-8859-1;q=0.5
  * </pre>
  */
-final class CharsetHeaderValueListHeaderParser extends HeaderParser<CharsetHeaderValueParameterName<?>> {
+final class CharsetHeaderValueListHeaderParser extends HeaderParser2<CharsetHeaderValueParameterName<?>> {
 
     static List<CharsetHeaderValue> parseCharsetHeaderValueList(final String text) {
         checkText(text, "header text");

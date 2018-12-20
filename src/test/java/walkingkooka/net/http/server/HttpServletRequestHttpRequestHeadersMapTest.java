@@ -22,8 +22,8 @@ import org.junit.Test;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.MapTestCase;
-import walkingkooka.net.http.ETag;
-import walkingkooka.net.http.ETagValidator;
+import walkingkooka.net.header.ETag;
+import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.http.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;

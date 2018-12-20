@@ -26,17 +26,23 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.CacheControlDirective;
 import walkingkooka.net.header.CharsetHeaderValue;
+import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.ContentDisposition;
+import walkingkooka.net.header.ContentRange;
+import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HasHeaderScope;
 import walkingkooka.net.header.HeaderName;
 import walkingkooka.net.header.HeaderValueConverter;
 import walkingkooka.net.header.HeaderValueConverters;
 import walkingkooka.net.header.HeaderValueException;
+import walkingkooka.net.header.IfRange;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.RangeHeaderValue;
+import walkingkooka.net.header.RangeHeaderValueUnit;
+import walkingkooka.net.header.ServerCookie;
 import walkingkooka.net.header.TokenHeaderValue;
-import walkingkooka.net.http.cookie.ClientCookie;
-import walkingkooka.net.http.cookie.ServerCookie;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
@@ -79,7 +85,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
                                                                                                             final HttpHeaderNameScope scope) {
         return registerConstant(header,
                 scope,
-                HttpHeaderValueConverter.cacheControlDirectiveList());
+                HeaderValueConverters.cacheControlDirectiveList());
     }
 
     /**
@@ -95,7 +101,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<List<ClientCookie>> registerClientCookieListConstant(final String header,
                                                                                        final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.clientCookieList());
+        return registerConstant(header, scope, HeaderValueConverters.clientCookieList());
     }
 
     /**
@@ -103,7 +109,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<ContentRange> registerContentRangeConstant(final String header,
                                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.contentRange());
+        return registerConstant(header, scope, HeaderValueConverters.contentRange());
     }
 
     /**
@@ -119,7 +125,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<ETag> registerETagConstant(final String header,
                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.eTag());
+        return registerConstant(header, scope, HeaderValueConverters.eTag());
     }
 
     /**
@@ -127,7 +133,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<List<ETag>> registerETagListConstant(final String header,
                                                                        final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.eTagList());
+        return registerConstant(header, scope, HeaderValueConverters.eTagList());
     }
 
     /**
@@ -135,7 +141,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<List<HttpHeaderName<?>>> registerHttpHeaderNameListConstant(final String header,
                                                                                               final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.httpHeaderNameList());
+        return registerConstant(header, scope, HeaderValueConverters.httpHeaderNameList());
     }
 
     /**
@@ -143,7 +149,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<IfRange<?>> registerIfRangeConstant(final String header,
                                                                     final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.ifRange());
+        return registerConstant(header, scope, HeaderValueConverters.ifRange());
     }
 
     /**
@@ -167,7 +173,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<List<HttpMethod>> registerMethodListConstant(final String header,
                                                                                final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.methodList());
+        return registerConstant(header, scope, HeaderValueConverters.methodList());
     }
 
     /**
@@ -191,7 +197,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<RangeHeaderValue> registerRangeConstant(final String header,
                                                                           final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.range());
+        return registerConstant(header, scope, HeaderValueConverters.range());
     }
 
     /**
@@ -199,7 +205,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<RangeHeaderValueUnit> registerRangeUnitConstant(final String header,
                                                                                   final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.rangeUnit());
+        return registerConstant(header, scope, HeaderValueConverters.rangeUnit());
     }
 
     /**
@@ -215,7 +221,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     private static HttpHeaderName<ServerCookie> registerServerCookieConstant(final String header,
                                                                              final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HttpHeaderValueConverter.serverCookie());
+        return registerConstant(header, scope, HeaderValueConverters.serverCookie());
     }
 
     /**
