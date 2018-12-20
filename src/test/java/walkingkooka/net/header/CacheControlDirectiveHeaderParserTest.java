@@ -25,7 +25,7 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 import java.util.Optional;
 
-public final class CacheControlDirectiveHttpHeaderParserTest extends HeaderParserTestCase<CacheControlDirectiveHttpHeaderParser,
+public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTestCase<CacheControlDirectiveHeaderParser,
         List<CacheControlDirective<?>>> {
 
     @Test
@@ -564,11 +564,11 @@ public final class CacheControlDirectiveHttpHeaderParserTest extends HeaderParse
     }
 
     private void parseMissingParameterFails(final String text, final int at) {
-        this.parseFails(text, CacheControlDirectiveHttpHeaderParser.missingParameter(at, text));
+        this.parseFails(text, CacheControlDirectiveHeaderParser.missingParameter(at, text));
     }
 
     private void parseMissingClosingQuoteFails(final String text) {
-        this.parseFails(text, CacheControlDirectiveHttpHeaderParser.missingClosingQuote(text));
+        this.parseFails(text, CacheControlDirectiveHeaderParser.missingClosingQuote(text));
     }
 
     private void parseAndCheck2(final String text, final String directive) {
@@ -587,11 +587,11 @@ public final class CacheControlDirectiveHttpHeaderParserTest extends HeaderParse
 
     @Override
     List<CacheControlDirective<?>> parse(final String text) {
-        return CacheControlDirectiveHttpHeaderParser.parseCacheControlDirectiveList(text);
+        return CacheControlDirectiveHeaderParser.parseCacheControlDirectiveList(text);
     }
 
     @Override
-    protected Class<CacheControlDirectiveHttpHeaderParser> type() {
-        return CacheControlDirectiveHttpHeaderParser.class;
+    protected Class<CacheControlDirectiveHeaderParser> type() {
+        return CacheControlDirectiveHeaderParser.class;
     }
 }

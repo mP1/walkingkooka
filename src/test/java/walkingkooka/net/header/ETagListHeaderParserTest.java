@@ -26,36 +26,36 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ETagListHttpHeaderParserTest extends ETagHttpHeaderParserTestCase<ETagListHttpHeaderParser> {
+public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETagListHeaderParser> {
 
     @Test
     public final void testSeparatorFails() {
         final String text = "\"ABC\",";
-        this.parseFails(text, ETagHttpHeaderParser.missingETagValue(text));
+        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
     }
 
     @Test
     public final void testSeparatorSpaceFails() {
         final String text = "\"ABC\", ";
-        this.parseFails(text, ETagHttpHeaderParser.missingETagValue(text));
+        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
     }
 
     @Test
     public final void testSeparatorTabFails() {
         final String text = "\"ABC\",\t";
-        this.parseFails(text, ETagHttpHeaderParser.missingETagValue(text));
+        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
     }
 
     @Test
     public final void testWeakSeparatorSpaceFails() {
         final String text = "W/\"ABC\", ";
-        this.parseFails(text, ETagHttpHeaderParser.missingETagValue(text));
+        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
     }
 
     @Test
     public final void testWeakSeparatorTabFails() {
         final String text = "W/\"ABC\",\t";
-        this.parseFails(text, ETagHttpHeaderParser.missingETagValue(text));
+        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
     }
 
     @Test
@@ -110,18 +110,18 @@ public final class ETagListHttpHeaderParserTest extends ETagHttpHeaderParserTest
     final void parseAndCheck2(final String text, final ETag... tags) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(text),
                 Lists.of(tags),
-                ETagListHttpHeaderParser.parseList(text));
+                ETagListHeaderParser.parseList(text));
     }
 
     @Override
     ETag parse(final String text) {
-        final List<ETag> tags = ETagListHttpHeaderParser.parseList(text);
+        final List<ETag> tags = ETagListHeaderParser.parseList(text);
         assertEquals("expected one tag =" + CharSequences.quote(text) + "=" + tags, 1, tags.size());
         return tags.get(0);
     }
 
     @Override
-    protected Class<ETagListHttpHeaderParser> type() {
-        return ETagListHttpHeaderParser.class;
+    protected Class<ETagListHeaderParser> type() {
+        return ETagListHeaderParser.class;
     }
 }

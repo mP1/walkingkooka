@@ -26,12 +26,12 @@ import walkingkooka.text.CharSequences;
 /**
  * Base parser for both tag parsers.
  */
-abstract class ETagHttpHeaderParser extends HeaderParser {
+abstract class ETagHeaderParser extends HeaderParser {
 
     /**
      * Package private to limit sub classing.
      */
-    ETagHttpHeaderParser(final String text) {
+    ETagHeaderParser(final String text) {
         super(text);
     }
 

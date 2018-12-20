@@ -54,14 +54,14 @@ public abstract class ETag implements HeaderValue,
      * Parsers a header value holding a single tag.
      */
     public static ETag parseOne(final String text) {
-        return ETagOneHttpHeaderParser.parseOne(text);
+        return ETagOneHeaderParser.parseOne(text);
     }
 
     /**
      * Parsers a header value which may hold one or more tags.
      */
     public static List<ETag> parseList(final String text) {
-        return ETagListHttpHeaderParser.parseList(text);
+        return ETagListHeaderParser.parseList(text);
     }
 
     /**
@@ -114,7 +114,7 @@ public abstract class ETag implements HeaderValue,
     }
 
     static void checkValue(final String value) {
-        CharPredicates.failIfNullOrFalse(value, "value", ETagHttpHeaderParser.ETAG_VALUE);
+        CharPredicates.failIfNullOrFalse(value, "value", ETagHeaderParser.ETAG_VALUE);
     }
 
     // weak...........................................................................................................

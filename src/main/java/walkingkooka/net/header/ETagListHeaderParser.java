@@ -18,28 +18,35 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.collect.list.Lists;
+
+import java.util.List;
+
 /**
- * A parser that only parses text with a single etag.
+ * A parser that handles comma separated etags.
  */
-final class ETagOneHttpHeaderParser extends ETagHttpHeaderParser {
+final class ETagListHeaderParser extends ETagHeaderParser {
 
-    static ETag parseOne(final String text) {
-        final ETagOneHttpHeaderParser parser = new ETagOneHttpHeaderParser(text);
-        final ETag tag = parser.parse(ETagOneHttpHeaderParser.MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN);
+    static List<ETag> parseList(final String text) {
+        final List<ETag> result = Lists.array();
+        final ETagListHeaderParser parser = new ETagListHeaderParser(text);
+        final int length = text.length();
 
-        final int position = parser.position;
-        if (position != text.length()) {
-            parser.failInvalidCharacter();
-        }
-        return tag;
+        int mode = MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN;
+        do {
+            result.add(parser.parse(mode));
+            mode = MODE_SEPARATOR;
+        } while (parser.position < length);
+
+        return result;
     }
 
-    private ETagOneHttpHeaderParser(final String text) {
+    private ETagListHeaderParser(final String text) {
         super(text);
     }
 
     @Override
     void separator() {
-        this.failInvalidCharacter();
+        // separator ok!
     }
 }
