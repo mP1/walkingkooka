@@ -65,7 +65,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extend
         return HttpServletRequestHttpRequestParametersMapEntrySet.with(parameters);
     }
 
-    private Entry entry(final String key, final String... values) {
+    private Entry<String, String[]> entry(final String key, final String... values) {
         return new Entry<String, String[]>() {
             @Override
             public String getKey() {
@@ -84,7 +84,8 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extend
         };
     }
 
-    private Entry entry(final HttpRequestParameterName key, final String... values) {
+    private HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry entry(final HttpRequestParameterName key,
+                                                                                  final String... values) {
         return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(key.value(), values));
     }
 
