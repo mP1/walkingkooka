@@ -47,7 +47,7 @@ public class InvalidCharacterException extends IllegalArgumentException {
         if (position < 0 || position >= text.length()) {
             throw new IllegalArgumentException("Invalid position " + position + " not between 0 and " +
                     text.length() + " in " +
-                    CharSequences.quote(text));
+                    CharSequences.quoteAndEscape(text));
         }
     }
 
