@@ -121,7 +121,7 @@ final class BigDecimalFractionSpreadsheetTextFormatterComponentContext implement
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
+        return ToStringBuilder.empty()
                 .disable(ToStringBuilderOption.QUOTE)
                 .separator("")
                 .labelSeparator(this.sign.symbol())

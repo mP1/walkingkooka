@@ -122,7 +122,7 @@ final class BigDecimalSpreadsheetTextFormatterComponentContext implements Contex
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
+        return ToStringBuilder.empty()
                 .disable(ToStringBuilderOption.QUOTE)
                 .separator("")
                 .labelSeparator("")

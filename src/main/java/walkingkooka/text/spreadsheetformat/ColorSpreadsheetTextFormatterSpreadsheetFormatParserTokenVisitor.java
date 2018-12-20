@@ -65,7 +65,7 @@ final class ColorSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor ext
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
+        return ToStringBuilder.empty()
                 .valueSeparator(" ")
                 .value(this.source)
                 .value(this.numberOfName)

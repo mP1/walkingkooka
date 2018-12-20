@@ -29,7 +29,7 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Test
     public void testEqualWithoutNames() {
-        this.checkEquals(SequenceParserBuilder.<FakeParserContext>create()
+        this.checkEquals(SequenceParserBuilder.<FakeParserContext>empty()
                 .required(PARSER1)
                 .required(PARSER2)
                 .optional(PARSER3)
@@ -38,7 +38,7 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Test
     public void testDifferent() {
-        this.checkNotEquals(SequenceParserBuilder.<FakeParserContext>create()
+        this.checkNotEquals(SequenceParserBuilder.<FakeParserContext>empty()
                 .required(PARSER3)
                 .required(PARSER2)
                 .required(PARSER1)
@@ -47,7 +47,7 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Test
     public void testDifferentRequiredOptionals() {
-        this.checkNotEquals(SequenceParserBuilder.<FakeParserContext>create()
+        this.checkNotEquals(SequenceParserBuilder.<FakeParserContext>empty()
                 .optional(PARSER1)
                 .required(PARSER2)
                 .required(PARSER3)
@@ -64,7 +64,7 @@ public final class SequenceParserEqualityTest extends HashCodeEqualsDefinedEqual
 
     @Override
     protected SequenceParser createObject() {
-        return Cast.to(SequenceParserBuilder.<FakeParserContext>create()
+        return Cast.to(SequenceParserBuilder.<FakeParserContext>empty()
                 .required(PARSER1)
                 .required(PARSER2)
                 .optional(PARSER3)

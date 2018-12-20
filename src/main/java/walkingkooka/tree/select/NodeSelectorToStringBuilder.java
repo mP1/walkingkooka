@@ -28,7 +28,7 @@ import walkingkooka.naming.PathSeparator;
  */
 final class NodeSelectorToStringBuilder implements Builder<String> {
 
-    static NodeSelectorToStringBuilder create() {
+    static NodeSelectorToStringBuilder empty() {
         return new NodeSelectorToStringBuilder();
     }
 
@@ -180,7 +180,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
+        return ToStringBuilder.empty()
                 .value(this.axis)
                 .value(this.node)
                 .value(this.predicate)

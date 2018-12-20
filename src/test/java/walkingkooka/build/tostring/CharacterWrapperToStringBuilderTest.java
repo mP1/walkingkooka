@@ -23,7 +23,7 @@ public final class CharacterWrapperToStringBuilderTest extends WrapperToStringBu
 
     @Test
     public void testValueWithQuotes() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.QUOTE);
         b.value((Object)'a');
         b.label(LABEL);
@@ -34,7 +34,7 @@ public final class CharacterWrapperToStringBuilderTest extends WrapperToStringBu
 
     @Test
     public void testValueWithEscape() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.QUOTE);
         b.enable(ToStringBuilderOption.ESCAPE);
 

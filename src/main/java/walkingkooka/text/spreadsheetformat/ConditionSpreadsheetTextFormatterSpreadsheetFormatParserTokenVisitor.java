@@ -93,7 +93,7 @@ final class ConditionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisitor
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
+        return ToStringBuilder.empty()
                 .valueSeparator(" ")
                 .value(this.relation)
                 .value(this.number)

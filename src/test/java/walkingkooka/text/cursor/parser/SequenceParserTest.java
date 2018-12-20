@@ -75,7 +75,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     @Test
     public void testMissingOptionalFirst() {
         final String text = TEXT2 + TEXT1;
-        this.parseAndCheck(SequenceParserBuilder.create()
+        this.parseAndCheck(SequenceParserBuilder.empty()
                 .optional(PARSER3)
                 .required(PARSER2)
                 .required(PARSER1)
@@ -88,7 +88,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
 
     @Test
     public void testAllOptionalFail() {
-        this.parseFailAndCheck(SequenceParserBuilder.create()
+        this.parseFailAndCheck(SequenceParserBuilder.empty()
                         .optional(PARSER3)
                         .optional(PARSER2)
                         .optional(PARSER1)
@@ -158,7 +158,7 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
 
     @Override
     protected SequenceParser<ParserContext> createParser() {
-        return Cast.to(SequenceParserBuilder.<ParserContext>create()
+        return Cast.to(SequenceParserBuilder.<ParserContext>empty()
                 .required(PARSER1)
                 .required(PARSER2)
                 .optional(PARSER3)

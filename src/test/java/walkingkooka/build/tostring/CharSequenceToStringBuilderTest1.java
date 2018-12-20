@@ -23,7 +23,7 @@ public final class CharSequenceToStringBuilderTest1 extends ScalarToStringBuilde
 
     @Test
     public void testValueDefaultEmpty() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.value("");
 
         this.buildAndCheck(b, "");
@@ -31,7 +31,7 @@ public final class CharSequenceToStringBuilderTest1 extends ScalarToStringBuilde
 
     @Test
     public void testLabelValueDefaultEmpty() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.label(LABEL);
         b.value("");
 
@@ -40,7 +40,7 @@ public final class CharSequenceToStringBuilderTest1 extends ScalarToStringBuilde
 
     @Test
     public void testQuoted() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.QUOTE);
 
         b.label(LABEL);
@@ -51,7 +51,7 @@ public final class CharSequenceToStringBuilderTest1 extends ScalarToStringBuilde
 
     @Test
     public void testEscaped() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.disable(ToStringBuilderOption.QUOTE);
         b.enable(ToStringBuilderOption.ESCAPE);
 

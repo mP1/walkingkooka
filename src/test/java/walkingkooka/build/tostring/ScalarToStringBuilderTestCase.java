@@ -53,7 +53,7 @@ public abstract class ScalarToStringBuilderTestCase<T> extends ToStringBuilderTe
     }
 
     final ToStringBuilder builder() {
-        return ToStringBuilder.create().disable(ToStringBuilderOption.ESCAPE)
+        return ToStringBuilder.empty().disable(ToStringBuilderOption.ESCAPE)
                 .disable(ToStringBuilderOption.HEX_BYTES)
                 .disable(ToStringBuilderOption.HEX_WHOLE_NUMBERS)
                 .disable(ToStringBuilderOption.INLINE_ELEMENTS)

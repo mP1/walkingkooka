@@ -22,9 +22,12 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
+/**
+ * A {@link Builder} that may be used to build a sequence of tokens, some required or optional.
+ */
 public final class SequenceParserBuilder<C extends ParserContext> implements Builder<Parser<SequenceParserToken, C>> {
 
-    static <C extends ParserContext> SequenceParserBuilder<C> create() {
+    static <C extends ParserContext> SequenceParserBuilder<C> empty() {
         return new SequenceParserBuilder<>();
     }
 

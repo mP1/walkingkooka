@@ -28,7 +28,7 @@ final public class MissingBuilder implements Builder<String> {
     /**
      * Creates a new empty {@link MissingBuilder}
      */
-    public static MissingBuilder create() {
+    public static MissingBuilder empty() {
         return new MissingBuilder();
     }
 

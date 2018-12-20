@@ -191,7 +191,7 @@ class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object>
 
     @Override
     public String toString() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.value(this.name());
         b.surroundValues("[", "]").value(this.children());
         b.surroundValues("{", "}").value(this.attributes());

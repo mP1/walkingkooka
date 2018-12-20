@@ -123,7 +123,7 @@ final class DecimalFormatStringConverterSymbols implements HashCodeEqualsDefined
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
+        return ToStringBuilder.empty()
                 .value(this.currencySymbol)
                 .value(this.decimalPoint)
                 .value(this.exponentSymbol)

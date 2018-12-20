@@ -48,7 +48,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
         final Routing<StringName, String> route = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, file1);
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(route)
                 .build();
 
@@ -64,7 +64,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
         final Routing<StringName, String> route = Routing.with(StringName.class, ONE)
                 .andValueEquals(PATH_0, this.file1());
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(route)
                 .build();
 
@@ -87,7 +87,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
         final Routing<StringName, String> routing2 = Routing.with(StringName.class, TWO)
                 .andValueEquals(PATH_0, file2);
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .build();
@@ -109,7 +109,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_0, dir)
                 .andValueEquals(PATH_1, this.file2());
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .build();
@@ -137,7 +137,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_1, this.file2())
                 .andValueEquals(PATH_0, dir);
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .build();
@@ -165,7 +165,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, this.file2());
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .build();
@@ -193,7 +193,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, file1);
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .build();
@@ -223,7 +223,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_1, this.dir3())
                 .andValueEquals(PATH_2, this.file3());
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .add(routing3)
@@ -268,7 +268,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_1, this.dir5())
                 .andValueEquals(PATH_2, this.file3());
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .add(routing3)
@@ -316,14 +316,14 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_1, this.dir5())
                 .andValueEquals(PATH_2, this.file3());
 
-        this.buildOrderUnimportantCheck(RouterBuilder.<StringName, String>create()
+        this.buildOrderUnimportantCheck(RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .add(routing3)
                 .add(routing4)
                 .build());
 
-        this.buildOrderUnimportantCheck(RouterBuilder.<StringName, String>create()
+        this.buildOrderUnimportantCheck(RouterBuilder.<StringName, String>empty()
                 .add(routing4)
                 .add(routing3)
                 .add(routing2)
@@ -359,7 +359,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_0, this.dir1())
                 .andValueEquals(PATH_1, this.file1());
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .build();
         assertEquals("\"path-0\"=\"dir-1-abc\" & \"path-1\"=\"file-1-one.txt\" ->target-1", routers.toString());
@@ -375,7 +375,7 @@ public final class RouterBuilderRouterTest extends RouterTestCase<RouterBuilderR
                 .andValueEquals(PATH_0, this.dir2())
                 .andValueEquals(PATH_1, this.file2());
 
-        final Router<StringName, String> routers = RouterBuilder.<StringName, String>create()
+        final Router<StringName, String> routers = RouterBuilder.<StringName, String>empty()
                 .add(routing1)
                 .add(routing2)
                 .build();

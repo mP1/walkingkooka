@@ -90,7 +90,7 @@ final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry impl
 
     @Override
     public String toString() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.label(this.getKey().value());
         b.value(this.getValue());
         return b.build();

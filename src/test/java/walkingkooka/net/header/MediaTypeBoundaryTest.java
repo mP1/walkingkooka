@@ -189,7 +189,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
                 boundaryCharcters,
                 boundary.length());
 
-        assertEquals("Incorrected boundary generated for " + ToStringBuilder.create().value(body).build(),
+        assertEquals("Incorrected boundary generated for " + ToStringBuilder.empty().value(body).build(),
                 MediaTypeBoundary.with(boundary),
                 mediaTypeBoundary);
         assertArrayEquals(mediaTypeBoundary.toString(),

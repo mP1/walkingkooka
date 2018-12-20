@@ -50,7 +50,7 @@ final public class EbnfIdentifierName implements Name,
      * character = letter | digit |  "_" ;
      * </pre>
      */
-    final static CharPredicate PART = CharPredicateBuilder.create()
+    final static CharPredicate PART = CharPredicateBuilder.empty()
             .any("0123456789")
             .any("_")
             .or(INITIAL)

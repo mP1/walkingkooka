@@ -45,14 +45,14 @@ public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<Strin
                 .andValueEquals(Names.string("path-0"), "dir-1")
                 .andValueEquals(Names.string("path-1"), "file-2.txt");
 
-        final RouterBuilder<StringName, String> builder = RouterBuilder.<StringName, String>create()
+        final RouterBuilder<StringName, String> builder = RouterBuilder.<StringName, String>empty()
                 .add(routing1);
         assertEquals("\"path-0\"=\"dir-1\" & \"path-1\"=\"file-2.txt\" ->one", builder.toString());
     }
 
     @Override
     protected RouterBuilder<StringName, String> createBuilder() {
-        return RouterBuilder.create();
+        return RouterBuilder.empty();
     }
 
     @Override

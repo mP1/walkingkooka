@@ -70,7 +70,7 @@ public final class UrlScheme
      * other = "+" | "-" | "."
      * </pre>
      */
-    private final static CharPredicate PART = CharPredicateBuilder.create()
+    private final static CharPredicate PART = CharPredicateBuilder.empty()
             .any("0123456789")
             .any("+-.")
             .or(INITIAL)

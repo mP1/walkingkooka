@@ -429,7 +429,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
      */
     @Override
     public final String toString() {
-        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.create();
+        final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         this.toString0(b);
         return b.build();
     }
