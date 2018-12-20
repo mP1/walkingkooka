@@ -60,7 +60,7 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
         return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, VALUE1, VALUE2));
     }
 
-    private Entry entry(final String key, final String... values) {
+    private Entry<String, String[]> entry(final String key, final String... values) {
         return new Entry<String, String[]>() {
             @Override
             public String getKey() {
