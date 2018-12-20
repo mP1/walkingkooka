@@ -175,6 +175,13 @@ public final class InvalidCharacterExceptionTest extends PublicThrowableTestCase
     }
 
     @Test
+    public void testGetMessageEscapedCharacter() {
+        assertEquals("Invalid character \'\\\"\' at 3 in \"abc\"123\"",
+                new InvalidCharacterException("abc\"123", 3)
+                        .getMessage());
+    }
+
+    @Test
     public void testGetMessageAfterSetTextAndPosition() {
         assertEquals("Invalid character \'!\' at 5 in \"@@abc!123\"",
                 this.create().setTextAndPosition("@@" + TEXT, 2 + POSITION)
