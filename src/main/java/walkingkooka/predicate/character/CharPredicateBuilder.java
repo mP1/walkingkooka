@@ -34,7 +34,7 @@ final public class CharPredicateBuilder
     /**
      * Creates a new {@link CharPredicateBuilder}
      */
-    public static CharPredicateBuilder create() {
+    public static CharPredicateBuilder empty() {
         return new CharPredicateBuilder();
     }
 

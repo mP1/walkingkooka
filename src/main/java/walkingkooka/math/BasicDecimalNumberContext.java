@@ -110,7 +110,7 @@ final class BasicDecimalNumberContext implements DecimalNumberContext {
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
+        return ToStringBuilder.empty()
                 .value(this.currencySymbol)
                 .value(this.decimalPoint)
                 .value(this.exponentSymbol)

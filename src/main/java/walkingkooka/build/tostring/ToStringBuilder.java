@@ -57,7 +57,7 @@ final public class ToStringBuilder implements Builder<String> {
     /**
      * Creates an empty {@link ToStringBuilder}.
      */
-    public static ToStringBuilder create() {
+    public static ToStringBuilder empty() {
         return new ToStringBuilder();
     }
 

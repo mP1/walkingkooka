@@ -122,7 +122,7 @@ final class ExpressionSpreadsheetTextFormatterSpreadsheetFormatParserTokenVisito
 
     @Override
     public String toString() {
-        return ToStringBuilder.create()
+        return ToStringBuilder.empty()
                 .value(this.condition)
                 .value(this.color)
                 .value(this.formatter)

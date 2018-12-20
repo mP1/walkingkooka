@@ -33,7 +33,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testNothingMissing() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         this.check(missing, "", 0, 0);
     }
 
@@ -50,7 +50,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     }
 
     private void addFails(final String label) {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         try {
             missing.add(label);
             Assert.fail();
@@ -60,14 +60,14 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testAdd() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.add(MissingBuilderTest.LABEL);
         this.check(missing, MissingBuilderTest.LABEL, 1, 1);
     }
 
     @Test
     public void testManyErrors() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.add("a");
         missing.add("b");
         missing.add("c");
@@ -87,7 +87,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     }
 
     private void addIfNullFails(final String label) {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         try {
             missing.addIfNull(1, label);
             Assert.fail();
@@ -97,14 +97,14 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testNullErrorWithNull() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.addIfNull(null, MissingBuilderTest.LABEL);
         this.check(missing, MissingBuilderTest.LABEL, 1, 1);
     }
 
     @Test
     public void testNullErrorWithNotNull() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.addIfNull(new Object(), "A");
         this.check(missing, "", 1, 0);
     }
@@ -122,7 +122,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     }
 
     private void addIfZeroFails(final String label) {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         try {
             missing.addIfZero(1, label);
             Assert.fail();
@@ -132,14 +132,14 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testAddIfZeroWithZero() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.addIfZero(0, MissingBuilderTest.LABEL);
         this.check(missing, MissingBuilderTest.LABEL, 1, 1);
     }
 
     @Test
     public void testAddIfZeroWithNotZero() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.addIfZero(1, "A");
         this.check(missing, "", 1, 0);
     }
@@ -157,7 +157,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
     }
 
     private void addIfFails(final String label) {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         try {
             missing.addIfFalse(true, label);
             Assert.fail();
@@ -167,21 +167,21 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testAddIfFalseWithFalse() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.addIfFalse(false, MissingBuilderTest.LABEL);
         this.check(missing, MissingBuilderTest.LABEL, 1, 1);
     }
 
     @Test
     public void testAddIfFalseWithTrue() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.addIfFalse(true, "A");
         this.check(missing, "", 1, 0);
     }
 
     @Test
     public void testFailIfMissingWithNullFails() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         try {
             missing.failIfMissing(null);
             Assert.fail();
@@ -191,7 +191,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testFailIfMissingWithWhitespaceFails() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         try {
             missing.failIfMissing(" \t");
             Assert.fail();
@@ -201,13 +201,13 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Test
     public void testFailIfMissingWhenNone() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.failIfMissing(MissingBuilderTest.BEFORE);
     }
 
     @Test
     public void testFailIfMissingWhenMany() {
-        final MissingBuilder missing = MissingBuilder.create();
+        final MissingBuilder missing = MissingBuilder.empty();
         missing.add("1");
         missing.add("2");
         try {
@@ -230,7 +230,7 @@ final public class MissingBuilderTest extends BuilderTestCase<MissingBuilder, St
 
     @Override
     protected MissingBuilder createBuilder() {
-        return MissingBuilder.create();
+        return MissingBuilder.empty();
     }
 
     @Override

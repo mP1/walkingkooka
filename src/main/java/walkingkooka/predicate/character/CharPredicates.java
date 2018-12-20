@@ -33,7 +33,7 @@ final public class CharPredicates implements PublicStaticHelper {
      * {@see CharPredicateBuilder}
      */
     public static CharPredicateBuilder builder() {
-        return CharPredicateBuilder.create();
+        return CharPredicateBuilder.empty();
     }
 
     /**

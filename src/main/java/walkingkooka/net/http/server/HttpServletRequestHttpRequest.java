@@ -132,7 +132,7 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
      */
     @Override
     public String toString() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.disable(ToStringBuilderOption.QUOTE);
         b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
         b.separator(" ");

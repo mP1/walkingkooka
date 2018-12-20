@@ -141,7 +141,7 @@ public abstract class VectorToStringBuilderTestCase<T> extends ToStringBuilderTe
     }
 
     final ToStringBuilder builder() {
-        return ToStringBuilder.create().disable(ToStringBuilderOption.ESCAPE)
+        return ToStringBuilder.empty().disable(ToStringBuilderOption.ESCAPE)
                 .disable(ToStringBuilderOption.HEX_BYTES)
                 .disable(ToStringBuilderOption.HEX_WHOLE_NUMBERS)
                 .enable(ToStringBuilderOption.INLINE_ELEMENTS)

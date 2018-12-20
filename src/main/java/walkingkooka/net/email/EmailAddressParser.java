@@ -141,7 +141,7 @@ abstract class EmailAddressParser {
         return emailAddress;
     }
 
-    private final static CharPredicate USERNAME_CHARACTERS = CharPredicateBuilder.create()//
+    private final static CharPredicate USERNAME_CHARACTERS = CharPredicateBuilder.empty()//
             .range('A', 'Z')//
             .range('a', 'z')//
             .range('0', '9')//

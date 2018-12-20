@@ -74,7 +74,7 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
 
     @Override
     protected SequenceParserBuilder<FakeParserContext> createBuilder() {
-        return SequenceParserBuilder.create();
+        return SequenceParserBuilder.empty();
     }
 
     private static Parser<ParserToken, FakeParserContext> parser(final String string) {

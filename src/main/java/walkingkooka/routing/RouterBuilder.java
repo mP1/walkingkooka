@@ -32,7 +32,7 @@ import java.util.function.Predicate;
  */
 public final class RouterBuilder<K, T> implements Builder<Router<K, T>> {
 
-    public static <K, T> RouterBuilder<K, T> create() {
+    public static <K, T> RouterBuilder<K, T> empty() {
         return new RouterBuilder<K, T>();
     }
 

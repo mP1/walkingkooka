@@ -597,7 +597,7 @@ public final class DomDocument extends DomParentNode {
      * Creates something like a comma separated string holding all truthy configuration properties.
      */
     private String configurationPropertiesToString() {
-        final ToStringBuilder builder = ToStringBuilder.create();
+        final ToStringBuilder builder = ToStringBuilder.empty();
         builder.separator(", ");
 
         for (DomConfigurationProperty property : DomConfigurationProperty.values()) {

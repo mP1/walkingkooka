@@ -274,7 +274,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
      */
     @Override
     public String toString() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.disable(ToStringBuilderOption.QUOTE);
         b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
 

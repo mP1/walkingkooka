@@ -23,7 +23,7 @@ public final class CharToStringBuilderTest extends ScalarToStringBuilderTestCase
 
     @Test
     public void testValueWithQuotes() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.QUOTE);
         b.value('a');
         b.label(LABEL);
@@ -34,7 +34,7 @@ public final class CharToStringBuilderTest extends ScalarToStringBuilderTestCase
 
     @Test
     public void testValueWitEscape() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.QUOTE);
         b.enable(ToStringBuilderOption.ESCAPE);
 

@@ -23,7 +23,7 @@ public final class ByteToStringBuilderTest extends ScalarToStringBuilderTestCase
 
     @Test
     public void testValueWithHexEncoding() {
-        final ToStringBuilder b = ToStringBuilder.create();
+        final ToStringBuilder b = ToStringBuilder.empty();
         b.enable(ToStringBuilderOption.HEX_BYTES);
         b.value(12);
         b.label(LABEL);

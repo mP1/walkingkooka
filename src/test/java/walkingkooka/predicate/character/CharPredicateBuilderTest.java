@@ -339,7 +339,7 @@ final public class CharPredicateBuilderTest
 
     @Override
     protected CharPredicateBuilder createBuilder() {
-        return CharPredicateBuilder.create();
+        return CharPredicateBuilder.empty();
     }
 
     @Override

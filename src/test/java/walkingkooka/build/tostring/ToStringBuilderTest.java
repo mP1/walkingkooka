@@ -40,7 +40,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testCreateAndBuild() {
-        this.buildAndCheck(ToStringBuilder.create());
+        this.buildAndCheck(ToStringBuilder.empty());
     }
 
     @Test
@@ -56,50 +56,50 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test(expected = NullPointerException.class)
     public void testNullLabelFails() {
-        ToStringBuilder.create().label(null);
+        ToStringBuilder.empty().label(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void testNullLabelSeparatorFails() {
-        ToStringBuilder.create().labelSeparator(null);
+        ToStringBuilder.empty().labelSeparator(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void testNullValueSeparatorFails() {
-        ToStringBuilder.create().valueSeparator(null);
+        ToStringBuilder.empty().valueSeparator(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void testNullSeparatorFails() {
-        ToStringBuilder.create().separator(null);
+        ToStringBuilder.empty().separator(null);
 
     }
 
     @Test(expected = NullPointerException.class)
     public void testNullDisableFails() {
-        ToStringBuilder.create().disable(null);
+        ToStringBuilder.empty().disable(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void testNullEnableFails() {
-        ToStringBuilder.create().enable(null);
+        ToStringBuilder.empty().enable(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void testSurroundValuesNullBeforeFails() {
-        ToStringBuilder.create().surroundValues(null, "after");
+        ToStringBuilder.empty().surroundValues(null, "after");
     }
 
     @Test(expected = NullPointerException.class)
     public void testSurroundValuesNullAfterFails() {
-        ToStringBuilder.create().surroundValues("before", null);
+        ToStringBuilder.empty().surroundValues("before", null);
     }
 
     // UsesToStringBuilder
 
     @Test
     public void testEmptyUsesToStringBuilderIgnoresLabel() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .label("label")//
                         .value(this.createUsesToStringBuilder("")), //
                 "");
@@ -107,7 +107,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testEmptyUsesToStringBuilderThenValue() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("%") //
                         .value(this.createUsesToStringBuilder("")) //
                         .value("next"),//
@@ -118,7 +118,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testSkipSeparatorForValuesWithoutLabelsWithAppendsBetween() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .value(1)//
                         .append(",")//
@@ -130,7 +130,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testAddsSeparatorBetweenValuesWithoutLabels() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .value(1)//
                         .value(2)//
@@ -140,7 +140,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testManyLabelsAndValues() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .label("label1")//
                         .value(1)//
                         .label("label2")//
@@ -150,7 +150,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testManyLabelsAndValuesChangeSeparator() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .label("label1")//
                         .value(1)//
@@ -161,7 +161,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testManyLabelsIncludingNullValue() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .label("label1").value(1)//
                         .label("label2").value(ToStringBuilderTest.NULL)//
@@ -171,7 +171,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testValueWithoutLabelAndNullValue() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .label("label1").value(1)//
                         .label("label2").value(ToStringBuilderTest.NULL)//
@@ -181,7 +181,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testValueImplementsUsesToStringBuilder() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")//
                         .labelSeparator("=")//
                         .valueSeparator(",")//
@@ -194,7 +194,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testUsesToStringBuilderChangesBuilderState() {
-        this.buildAndCheck(ToStringBuilder.create()//
+        this.buildAndCheck(ToStringBuilder.empty()//
                         .separator("*")
                         .labelSeparator("=")
                         .valueSeparator(",")
@@ -223,7 +223,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidValueLengthFails() {
-        ToStringBuilder.create().valueLength(0);
+        ToStringBuilder.empty().valueLength(0);
     }
 
     @Test
@@ -237,14 +237,14 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     }
 
     private void valueLengthAndCheck(final int length) {
-        final ToStringBuilder builder = ToStringBuilder.create();
+        final ToStringBuilder builder = ToStringBuilder.empty();
         builder.valueLength(length);
         assertEquals("valueLength", length, builder.valueLength);
     }
 
     @Test
     public void testValueLength() {
-        final ToStringBuilder builder = ToStringBuilder.create();
+        final ToStringBuilder builder = ToStringBuilder.empty();
         builder.disable(ToStringBuilderOption.QUOTE);
         builder.valueSeparator("");
         builder.separator("");
@@ -258,7 +258,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testValueLengthBytes() {
-        final ToStringBuilder builder = ToStringBuilder.create();
+        final ToStringBuilder builder = ToStringBuilder.empty();
         builder.disable(ToStringBuilderOption.QUOTE);
         builder.enable(ToStringBuilderOption.HEX_BYTES);
         builder.valueSeparator("");
@@ -271,7 +271,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testValueLengthShorter() {
-        final ToStringBuilder builder = ToStringBuilder.create();
+        final ToStringBuilder builder = ToStringBuilder.empty();
         builder.disable(ToStringBuilderOption.QUOTE);
         builder.valueSeparator("");
         builder.separator("");
@@ -285,7 +285,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidGlobalLengthFails() {
-        ToStringBuilder.create().globalLength(0);
+        ToStringBuilder.empty().globalLength(0);
     }
 
     @Test
@@ -299,7 +299,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
     }
 
     private void globalLengthAndCheck(final int length) {
-        final ToStringBuilder builder = ToStringBuilder.create();
+        final ToStringBuilder builder = ToStringBuilder.empty();
         builder.globalLength(length);
         assertEquals("globalLength", length, builder.globalLength);
     }
@@ -562,7 +562,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         assertEquals(
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*value*\"",
                 //
-                ToStringBuilder.create()//
+                ToStringBuilder.empty()//
                         .append("*value*").//
                         toString());
     }
@@ -572,7 +572,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         assertEquals(
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"@\", valueSeparator=\"#\", separator=\"$\", valueLength=900, globalLength=1000] 7=\"*value*\"",
                 //
-                ToStringBuilder.create()//
+                ToStringBuilder.empty()//
                         .labelSeparator("@") //
                         .valueSeparator("#") //
                         .separator("$") //
@@ -585,14 +585,14 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
         assertEquals(
                 "[QUOTE, INLINE_ELEMENTS, SKIP_IF_DEFAULT_VALUE, labelSeparator=\"=\", valueSeparator=\", \", separator=\" \", valueLength=900, globalLength=1000] 7=\"*tab \\t*\"",
                 //
-                ToStringBuilder.create()//
+                ToStringBuilder.empty()//
                         .append("*tab \t*")//
                         .toString());
     }
 
     @Override
     protected ToStringBuilder createBuilder() {
-        return ToStringBuilder.create();
+        return ToStringBuilder.empty();
     }
 
     private UsesToStringBuilder createUsesToStringBuilder(final Object result) {
@@ -626,7 +626,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
      * Creates a {@link ToStringBuilder} with quoting disabled and the separator set to nothing.
      */
     private ToStringBuilder create() {
-        return ToStringBuilder.create()//
+        return ToStringBuilder.empty()//
                 .disable(ToStringBuilderOption.QUOTE)//
                 .separator("");
     }
