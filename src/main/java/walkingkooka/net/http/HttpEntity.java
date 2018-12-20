@@ -30,6 +30,8 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.LineEnding;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +44,16 @@ import java.util.stream.Collectors;
  * A http entity containing headers and body.
  */
 public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
+
+    /**
+     * The line ending used in http requests/responses.
+     */
+    public final static LineEnding LINE_ENDING = LineEnding.CRNL;
+
+    /**
+     * The separator that follows a header name and comes before a any values.
+     */
+    public final static CharacterConstant HEADER_NAME_SEPARATOR = CharacterConstant.with(':');
 
     /**
      * Creates an {@link HttpEntity} after encoding the text as bytes using a negotiated charset.
@@ -278,11 +290,13 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
         b.disable(ToStringBuilderOption.QUOTE);
         b.disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE);
 
+        final String eol = LINE_ENDING.toString();
+
         // headers
-        b.valueSeparator("\r\n");
-        b.labelSeparator(": ");
+        b.valueSeparator(eol);
+        b.labelSeparator(HEADER_NAME_SEPARATOR.string().concat(" "));
         b.value(this.headers());
-        b.append("\r\n\r\n");
+        b.append(eol).append(eol);
 
         // body
         b.valueSeparator("");
