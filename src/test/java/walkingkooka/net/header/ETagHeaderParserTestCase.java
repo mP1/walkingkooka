@@ -20,10 +20,10 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
-public abstract class ETagHttpHeaderParserTestCase<P extends ETagHttpHeaderParser>
+public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
         extends HeaderParserTestCase<P, ETag> {
 
-    ETagHttpHeaderParserTestCase() {
+    ETagHeaderParserTestCase() {
         super();
     }
 
@@ -51,12 +51,12 @@ public abstract class ETagHttpHeaderParserTestCase<P extends ETagHttpHeaderParse
 
     @Test
     public final void testWFails() {
-        this.parseFails("W", ETagHttpHeaderParser.incompleteWeakIndicator("W"));
+        this.parseFails("W", ETagHeaderParser.incompleteWeakIndicator("W"));
     }
 
     @Test
     public final void testWeaknessWithoutQuotedValueFails() {
-        this.parseFails("W/", ETagHttpHeaderParser.missingETagValue("W/"));
+        this.parseFails("W/", ETagHeaderParser.missingETagValue("W/"));
     }
 
     @Test
@@ -72,19 +72,19 @@ public abstract class ETagHttpHeaderParserTestCase<P extends ETagHttpHeaderParse
     @Test
     public final void testBeginQuoteFails() {
         final String text = "\"";
-        this.parseFails(text, ETagHttpHeaderParser.missingClosingQuote(text));
+        this.parseFails(text, ETagHeaderParser.missingClosingQuote(text));
     }
 
     @Test
     public final void testBeginQuoteFails2() {
         final String text = "\"A";
-        this.parseFails(text, ETagHttpHeaderParser.missingClosingQuote(text));
+        this.parseFails(text, ETagHeaderParser.missingClosingQuote(text));
     }
 
     @Test
     public final void testBeginQuoteFails3() {
         final String text = "\"'";
-        this.parseFails(text, ETagHttpHeaderParser.missingClosingQuote(text));
+        this.parseFails(text, ETagHeaderParser.missingClosingQuote(text));
     }
 
     @Test

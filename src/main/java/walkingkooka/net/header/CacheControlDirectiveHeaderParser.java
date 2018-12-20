@@ -31,14 +31,14 @@ import java.util.Optional;
 /**
  * A parser that knows how to parse text holding one or more directives.
  */
-final class CacheControlDirectiveHttpHeaderParser extends HeaderParser {
+final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
     static List<CacheControlDirective<?>> parseCacheControlDirectiveList(final String text) {
-        return new CacheControlDirectiveHttpHeaderParser(text)
+        return new CacheControlDirectiveHeaderParser(text)
                 .parse();
     }
 
-    private CacheControlDirectiveHttpHeaderParser(String text) {
+    private CacheControlDirectiveHeaderParser(String text) {
         super(text);
     }
 
