@@ -74,7 +74,7 @@ import walkingkooka.text.CharSequences;
  *    [RFC 822].
  * </pre>
  */
-final class ContentDispositionHeaderParser extends HeaderParser<ContentDispositionParameterName<?>>{
+final class ContentDispositionHeaderParser extends HeaderParser2<ContentDispositionParameterName<?>> {
 
     static ContentDisposition parse(final String text) {
         checkText(text, "content disposition");

@@ -27,12 +27,12 @@ public final class MediaTypeHeaderParserOneTest extends MediaTypeHeaderParserTes
 
     @Test
     public void testTrailingCommaFails() {
-        this.parseFails("type/subtype,");
+        this.parseInvalidCharacterFails("type/subtype,");
     }
 
     @Test
     public void testTrailingCommaFails2() {
-        this.parseFails("type/subtype;p=v,");
+        this.parseInvalidCharacterFails("type/subtype;p=v,");
     }
 
     @Override

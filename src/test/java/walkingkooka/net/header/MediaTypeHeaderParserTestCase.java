@@ -25,7 +25,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderParser, V> extends HeaderParserTestCase<P,
+public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderParser, V> extends HeaderParser2TestCase<P,
         MediaTypeParameterName<?>,
         V> {
 
@@ -40,7 +40,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
 
     @Test
     public final void testInvalidFails() {
-        this.parseFails("\u0100\u0101",
+        this.parseInvalidCharacterFails("\u0100\u0101",
                 0);
     }
 
@@ -64,33 +64,33 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
 
     @Test
     public final void testTypeInvalidCharacterFails() {
-        this.parseFails("prima?ry/subtype",
+        this.parseInvalidCharacterFails("prima?ry/subtype",
                 '?');
     }
 
     @Test
     public final void testTypeSlashSubTypeMissingFails() {
-        this.parseFails("type/;");
+        this.parseInvalidCharacterFails("type/;");
     }
 
     @Test
     public final void testTypeSlashSubTypeSpaceInvalidFails() {
-        this.parseFails("type/subtype Q", 'Q');
+        this.parseInvalidCharacterFails("type/subtype Q", 'Q');
     }
 
     @Test
     public final void testTypeSlashSubTypeTabInvalidFails() {
-        this.parseFails("type/subtype\tQ", 'Q');
+        this.parseInvalidCharacterFails("type/subtype\tQ", 'Q');
     }
 
     @Test
     public final void testParameterNameInvalidFails() {
-        this.parseFails("type/subtype;parameter;");
+        this.parseInvalidCharacterFails("type/subtype;parameter;");
     }
 
     @Test
     public final void testParameterValueInvalidFails() {
-        this.parseFails("type/subtype;parameter=value/");
+        this.parseInvalidCharacterFails("type/subtype;parameter=value/");
     }
 
     @Test
@@ -125,50 +125,50 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
 
     @Test
     public final void testParameterValueInvalidEscapeFails() {
-        this.parseFails("type/subtype;parameter=\"\\z\"",
+        this.parseInvalidCharacterFails("type/subtype;parameter=\"\\z\"",
                 'z');
     }
 
     @Test
     public final void testParameterValueQuotedInvalidFails() {
-        this.parseFails("type/subtype;p=\"v\";[",
+        this.parseInvalidCharacterFails("type/subtype;p=\"v\";[",
                 '[');
     }
 
     @Test
     public final void testParameterValueQuotedInvalidFails2() {
-        this.parseFails("type/subtype;p=\"v\"[",
+        this.parseInvalidCharacterFails("type/subtype;p=\"v\"[",
                 '[');
     }
 
     @Test
     public void testSeparatorFails() {
-        this.parseFails(",");
+        this.parseInvalidCharacterFails(",");
     }
 
     @Test
     public void testSeparatorTypeSlashSubtypeFails() {
-        this.parseFails(",type/subtype", ',');
+        this.parseInvalidCharacterFails(",type/subtype", ',');
     }
 
     @Test
     public final void testTypeSpaceSlashSubFails() {
-        this.parseFails("a /b", ' ');
+        this.parseInvalidCharacterFails("a /b", ' ');
     }
 
     @Test
     public final void testTypeTabSlashSubFails() {
-        this.parseFails("a\t/b", '\t');
+        this.parseInvalidCharacterFails("a\t/b", '\t');
     }
 
     @Test
     public final void testTypeSlashSpaceSubFails() {
-        this.parseFails("a/ b", ' ');
+        this.parseInvalidCharacterFails("a/ b", ' ');
     }
 
     @Test
     public final void testTypeSlashTabSubFails() {
-        this.parseFails("a/\tb", '\t');
+        this.parseInvalidCharacterFails("a/\tb", '\t');
     }
 
     @Test

@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.net.http.ETag;
+import walkingkooka.net.header.ETag;
 import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.type.PublicStaticHelper;
 

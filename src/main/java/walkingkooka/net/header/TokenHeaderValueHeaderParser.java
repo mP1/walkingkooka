@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 /**
  * Base class for all header value token parsers.
  */
-abstract class TokenHeaderValueHeaderParser extends HeaderParser<TokenHeaderValueParameterName<?>> {
+abstract class TokenHeaderValueHeaderParser extends HeaderParser2<TokenHeaderValueParameterName<?>> {
 
     TokenHeaderValueHeaderParser(final String text) {
         super(text);

@@ -27,8 +27,8 @@ import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.net.http.cookie.ClientCookie;
-import walkingkooka.net.http.cookie.Cookie;
+import walkingkooka.net.header.ClientCookie;
+import walkingkooka.net.header.Cookie;
 
 import java.util.List;
 import java.util.Map;

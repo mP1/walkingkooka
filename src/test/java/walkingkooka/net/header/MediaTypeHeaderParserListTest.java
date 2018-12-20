@@ -32,7 +32,7 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
 
     @Test
     public void testTypeSlashSubTypeTrailingSeparatorFails() {
-        this.parseFails("type/subtype,", ',');
+        this.parseInvalidCharacterFails("type/subtype,", ',');
     }
 
     @Test
@@ -47,7 +47,7 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
 
     @Test
     public void testTypeSlashSubParametersTrailingSeparatorFails() {
-        this.parseFails("type/subtype;parameter123=value456,", ',');
+        this.parseInvalidCharacterFails("type/subtype;parameter123=value456,", ',');
     }
 
     @Test

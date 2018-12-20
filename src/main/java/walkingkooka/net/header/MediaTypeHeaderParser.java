@@ -23,7 +23,7 @@ import walkingkooka.text.CharSequences;
 /**
  * Base class which parses text containing one or many media types.
  */
-abstract class MediaTypeHeaderParser extends HeaderParser<MediaTypeParameterName<?>> {
+abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterName<?>> {
 
     static void checkText(final String text) {
         checkText(text, "media type");
