@@ -99,12 +99,6 @@ public enum HttpHeaderScope {
 
     abstract boolean isNotAcceptable(final HasHeaderScope other);
 
-//    private boolean isNotAcceptable0(final HasHeaderScope has) {
-//        return this.isNotAcceptable(false == this.isScope(has));
-//    }
-//
-//    abstract boolean isScope(final HasHeaderScope has);
-
     final <T> void failInvalidHeader(final HttpHeaderName<T> name, final T value) {
         throw new NotAcceptableHeaderException(invalidHeader(name, value));
     }
