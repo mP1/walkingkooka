@@ -20,22 +20,42 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
-public final class FloatHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<FloatHeaderValueConverter, Float> {
+public final class QWeightHeaderValueConverterTest extends
+        HeaderValueConverterTestCase<QWeightHeaderValueConverter, Float> {
 
     @Override
     protected String requiredPrefix() {
-        return Float.class.getSimpleName();
+        return "QWeight";
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testNegativeFails() {
+        this.parse("-0.1");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testMoreThanOneFails() {
+        this.parse("1.01");
     }
 
     @Test
-    public void testFloat() {
-        this.parseAndToTextAndCheck("123.5", 123.5f);
+    public void testZero() {
+        this.parseAndToTextAndCheck("0.0", 0f);
     }
 
-    protected @Override
-    FloatHeaderValueConverter converter() {
-        return FloatHeaderValueConverter.INSTANCE;
+    @Test
+    public void testHalf() {
+        this.parseAndToTextAndCheck("0.5", 0.5f);
+    }
+
+    @Test
+    public void testOne() {
+        this.parseAndToTextAndCheck("1.0", 1.0f);
+    }
+
+    @Override
+    protected QWeightHeaderValueConverter converter() {
+        return QWeightHeaderValueConverter.INSTANCE;
     }
 
     @Override
@@ -50,16 +70,16 @@ public final class FloatHeaderValueConverterTest extends
 
     @Override
     protected Float value() {
-        return 123.5f;
+        return 0.25f;
     }
 
     @Override
     protected String converterToString() {
-        return Float.class.getSimpleName();
+        return "QWeight";
     }
 
     @Override
-    protected Class<FloatHeaderValueConverter> type() {
-        return FloatHeaderValueConverter.class;
+    protected Class<QWeightHeaderValueConverter> type() {
+        return QWeightHeaderValueConverter.class;
     }
 }

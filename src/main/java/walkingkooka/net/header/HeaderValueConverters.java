@@ -111,13 +111,6 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see FloatHeaderValueConverter}
-     */
-    public static HeaderValueConverter<Float> floatConverter() {
-        return FloatHeaderValueConverter.INSTANCE;
-    }
-
-    /**
      * {@see HttpHeaderNameListHeaderValueConverter}
      */
     public static HeaderValueConverter<List<HttpHeaderName<?>>> httpHeaderNameList() {
@@ -178,6 +171,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
      */
     public static HeaderValueConverter<OffsetDateTime> offsetDateTime() {
         return OffsetDateTimeHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see QWeightHeaderValueConverter}
+     */
+    public static HeaderValueConverter<Float> qWeight() {
+        return QWeightHeaderValueConverter.INSTANCE;
     }
 
     /**

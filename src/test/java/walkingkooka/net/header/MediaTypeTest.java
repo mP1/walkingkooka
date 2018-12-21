@@ -205,6 +205,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     // setParameters ..........................................................................................
 
+    @Test(expected = HeaderValueException.class)
+    public void testSetParametersInvalidQWeight() {
+        this.mediaType().setParameters(Maps.one(MediaTypeParameterName.Q_FACTOR, -1.0f));
+    }
+
     @Test
     public void testSetParametersSameDifferentCase() {
         final MediaType mediaType = this.mediaType();

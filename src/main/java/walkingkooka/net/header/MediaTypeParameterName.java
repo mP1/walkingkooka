@@ -72,8 +72,7 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
             HeaderValueConverters.charsetName());
 
 
-    private final static CharPredicate DIGITS = CharPredicates.digit()
-            .or(CharPredicates.any("+-."))
+    private final static CharPredicate DIGITS = CharPredicates.any(".0123456789")
             .setToString("Q factor");
 
     /**
@@ -81,7 +80,7 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
      */
     public final static MediaTypeParameterName<Float> Q_FACTOR = registerConstant("q",
             DIGITS,
-            HeaderValueConverters.floatConverter());
+            HeaderValueConverters.qWeight());
 
     /**
      * Factory that creates a {@link MediaTypeParameterName}

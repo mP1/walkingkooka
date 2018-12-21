@@ -21,30 +21,39 @@ package walkingkooka.net.header;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderValueConverter2} that parses a header value into a {@link Float}
+ * A {@link HeaderValueConverter} that parses a header text into a q weights and verifies the value is within the
+ * accept range of 0.0 and 1.0 (inclusive).
  */
-final class FloatHeaderValueConverter extends HeaderValueConverter2<Float> {
+final class QWeightHeaderValueConverter extends HeaderValueConverter2<Float> {
 
     /**
      * Singleton
      */
-    final static FloatHeaderValueConverter INSTANCE = new FloatHeaderValueConverter();
+    final static QWeightHeaderValueConverter INSTANCE = new QWeightHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private FloatHeaderValueConverter() {
+    private QWeightHeaderValueConverter() {
         super();
     }
 
     @Override
-    Float parse0(final String value, final Name name) {
-        return Float.parseFloat(value.trim());
+    Float parse0(final String text, final Name name) {
+        return this.checkValue(Float.parseFloat(text.trim()));
     }
 
     @Override
     void check0(final Object value) {
-        this.checkType(value, Float.class);
+        this.checkValue(this.checkType(value, Float.class));
+    }
+
+    // https://restfulapi.net/q-parameter-in-http-accept-header/
+    private float checkValue(final float value) {
+        if (value < 0 || value > 1.0) {
+            throw new HeaderValueException("Q weight " + value + " must be bewteen 0.0 and 1.0");
+        }
+        return value;
     }
 
     @Override
@@ -54,6 +63,6 @@ final class FloatHeaderValueConverter extends HeaderValueConverter2<Float> {
 
     @Override
     public String toString() {
-        return toStringType(Float.class);
+        return "QWeight";
     }
 }
