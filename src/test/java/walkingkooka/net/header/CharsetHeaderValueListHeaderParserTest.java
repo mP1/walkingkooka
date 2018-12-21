@@ -66,34 +66,44 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
         this.parseInvalidCharacterFails("UTF-8BC<");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCharsetEqualsFails() {
-        CharsetHeaderValue.parse("UTF-8;b=");
+        this.parseMissingParameterValueFails("UTF-8;b=");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCharsetSpaceEqualsFails() {
-        CharsetHeaderValue.parse("UTF-8;b =");
+        this.parseMissingParameterValueFails("UTF-8;b =");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCharsetTabEqualsFails() {
-        CharsetHeaderValue.parse("UTF-8;b =");
+        this.parseMissingParameterValueFails("UTF-8;b =");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCharsetSpaceTabSpaceTabEqualsFails() {
-        CharsetHeaderValue.parse("UTF-8;b \t \t=");
+        this.parseMissingParameterValueFails("UTF-8;b \t \t=");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCharsetEqualsSpaceFails() {
-        CharsetHeaderValue.parse("UTF-8;b= ");
+        this.parseMissingParameterValueFails("UTF-8;b= ");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCharsetEqualsTabFails() {
-        CharsetHeaderValue.parse("UTF-8;b=\t");
+        this.parseMissingParameterValueFails("UTF-8;b=\t");
+    }
+
+    @Test
+    public void testCharsetEqualsCrNlSpaceFails() {
+        this.parseMissingParameterValueFails("UTF-8;b=\r\n ");
+    }
+
+    @Test
+    public void testCharsetEqualsCrNlTabFails() {
+        this.parseMissingParameterValueFails("UTF-8;b=\r\n\t");
     }
 
     @Test
@@ -314,10 +324,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
 
     @Test
     public void testCharsetParameterSeparatorParameterNameFails() {
-        final String text = "UTF-8;b=c;D";
-        this.parseFails(text,
-                HeaderParser2.missingParameterValue(10,
-                        text));
+        this.parseMissingParameterValueFails("UTF-8;b=c;D");
     }
 
     @Test

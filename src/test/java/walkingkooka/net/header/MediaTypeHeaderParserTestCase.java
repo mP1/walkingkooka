@@ -95,22 +95,22 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
 
     @Test
     public final void testParameterValueMissingFails() {
-        this.parseMissingParameterValueFails("type/subtype;parameter", 21);
+        this.parseMissingParameterValueFails("type/subtype;parameter");
     }
 
     @Test
     public final void testParameterValueMissingFails2() {
-        this.parseMissingParameterValueFails("type/subtype;parameter=", 22);
+        this.parseMissingParameterValueFails("type/subtype;parameter=");
     }
 
     @Test
     public final void testParameterValueMissingFails3() {
-        this.parseMissingParameterValueFails("type/subtype;p1=v1;p2", 20);
+        this.parseMissingParameterValueFails("type/subtype;p1=v1;p2");
     }
 
     @Test
     public final void testParameterValueMissingFails4() {
-        this.parseMissingParameterValueFails("type/subtype;p1=v1;p2=", 21);
+        this.parseMissingParameterValueFails("type/subtype;p1=v1;p2=");
     }
 
     @Test

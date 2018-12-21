@@ -120,7 +120,6 @@ enum HeaderParser2Mode {
 
         @Override
         void endOfText(final HeaderParser2<?> parser) {
-            parser.position--;
             parser.missingParameterValue();
         }
     },
@@ -140,7 +139,7 @@ enum HeaderParser2Mode {
 
         @Override
         void endOfText(final HeaderParser2<?> parser) {
-            parser.position--;
+            //parser.position--;
             parser.missingParameterValue();
         }
     },
@@ -153,7 +152,6 @@ enum HeaderParser2Mode {
 
         @Override
         void endOfText(final HeaderParser2<?> parser) {
-            parser.position--;
             parser.missingParameterValue();
         }
     },
@@ -167,7 +165,6 @@ enum HeaderParser2Mode {
 
         @Override
         void endOfText(final HeaderParser2<?> parser) {
-            parser.position--;
             parser.missingParameterValue();
         }
     },

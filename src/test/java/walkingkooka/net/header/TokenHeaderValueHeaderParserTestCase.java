@@ -53,33 +53,32 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
 
     @Test
     public final void testValueEqualsFails() {
-        this.parseFails("A;b=",
-                "Missing parameter value at 3 in \"A;b=\"");
+        this.parseMissingParameterValueFails("A;b=");
     }
 
     @Test
     public final void testValueSpaceEqualsFails() {
-        this.parseMissingParameterValueFails("A;b =", 4);
+        this.parseMissingParameterValueFails("A;b =");
     }
 
     @Test
     public final void testValueTabEqualsFails() {
-        this.parseMissingParameterValueFails("A;b =", 4);
+        this.parseMissingParameterValueFails("A;b =");
     }
 
     @Test
     public final void testValueSpaceTabSpaceTabEqualsFails() {
-        this.parseMissingParameterValueFails("A;b \t \t=", 7);
+        this.parseMissingParameterValueFails("A;b \t \t=");
     }
 
     @Test
     public final void testValueEqualsSpaceFails() {
-        this.parseMissingParameterValueFails("A;b= ", 4);
+        this.parseMissingParameterValueFails("A;b= ");
     }
 
     @Test
     public final void testValueEqualsTabFails() {
-        this.parseMissingParameterValueFails("A;b=\t", 4);
+        this.parseMissingParameterValueFails("A;b=\t");
     }
 
     @Test

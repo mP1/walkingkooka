@@ -61,34 +61,44 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
         this.parseInvalidCharacterFails("ABC<");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testTypeEqualsFails() {
-        ContentDisposition.parse("A;b=");
+        this.parseMissingParameterValueFails("A;b=");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testTypeSpaceEqualsFails() {
-        ContentDisposition.parse("A;b =");
+        this.parseMissingParameterValueFails("A;b =");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testTypeTabEqualsFails() {
-        ContentDisposition.parse("A;b =");
+        this.parseMissingParameterValueFails("A;b =");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testTypeSpaceTabSpaceTabEqualsFails() {
-        ContentDisposition.parse("A;b \t \t=");
+        this.parseMissingParameterValueFails("A;b \t \t=");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testTypeEqualsSpaceFails() {
-        ContentDisposition.parse("A;b= ");
+        parseMissingParameterValueFails("A;b= ");
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testTypeEqualsTabFails() {
-        ContentDisposition.parse("A;b=\t");
+        parseMissingParameterValueFails("A;b=\t");
+    }
+
+    @Test
+    public void testTypeEqualsCrNlSpaceFails() {
+        parseMissingParameterValueFails("A;b=\r\n ");
+    }
+
+    @Test
+    public void testTypeEqualsCrNlTabFails() {
+        parseMissingParameterValueFails("A;b=\r\n\t");
     }
 
     @Test
@@ -325,9 +335,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     @Test
     public void testTypeParameterSeparatorParameterNameFails() {
         final String text = "A;b=c;D";
-        this.parseFails(text,
-                HeaderParser2.missingParameterValue(6,
-                        text));
+        this.parseMissingParameterValueFails(text);
     }
 
     @Test
@@ -396,7 +404,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
 
     @Test
     public void testFilenameMissingFails() {
-        this.parseMissingParameterValueFails("V; filename=", 11);
+        this.parseMissingParameterValueFails("V; filename=");
     }
 
     @Test
