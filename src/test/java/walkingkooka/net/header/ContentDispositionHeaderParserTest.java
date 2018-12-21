@@ -112,6 +112,31 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     }
 
     @Test
+    public void testTypeCrFails() {
+        this.parseInvalidCharacterFails("A\r");
+    }
+
+    @Test
+    public void testTypeCrNlFails() {
+        this.parseInvalidCharacterFails("A\r\n");
+    }
+
+    @Test
+    public void testTypeCrNlNonWhitespaceFails() {
+        this.parseInvalidCharacterFails("A\r\n.");
+    }
+
+    @Test
+    public void testTypeCrNlSpace() {
+        this.parseAndCheck("A\r\n ", "A");
+    }
+
+    @Test
+    public void testTypeCrNlTab() {
+        this.parseAndCheck("A\r\n\t", "A");
+    }
+
+    @Test
     public void testTypeSpaceTabSpaceTab() {
         this.parseAndCheck("A \t \t", "A");
     }

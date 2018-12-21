@@ -44,16 +44,6 @@ abstract class HeaderParser {
     final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
     final static CharPredicate RFC2045SPECIAL = CharPredicates.rfc2045TokenSpecial();
 
-    /**
-     * Matches any whitespace characters.<br>
-     * <a href="https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_form"></a>
-     * <pre>
-     * HS | SP
-     * </pre>
-     */
-    final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020")
-            .setToString("SP|HTAB");
-
     // helpers ..................................................................................
 
     /**
@@ -94,10 +84,56 @@ abstract class HeaderParser {
     // whitespace.................................................................................................
 
     /**
-     * Consumes any optional whitespace.
+     * Consumes any optional whitespace, including support for CRNLSP<br>
+     * <a href="https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_form"></a>
+     * <pre>
+     * HS | SP
+     * </pre>
+     * or the new line continuation combination.
+     * <pre>
+     * CR, NL, HS | SP
+     * </pre>
      */
     final void consumeWhitespace() {
-        this.consume(WHITESPACE);
+        while(this.hasMoreCharacters()){
+            final char c = this.character();
+            if('\t' == c || ' ' == c) {
+                this.position++;
+                continue;
+            }
+
+            // expect CR NL and then HS or SP.
+            if('\r' ==c) {
+                this.position++;
+
+                if(!this.hasMoreCharacters()) {
+                    this.position--;
+                    this.failInvalidCharacter();
+                }
+                if('\n' != this.character()) {
+                    this.failInvalidCharacter();
+                }
+                this.position++;
+
+                if(!this.hasMoreCharacters()) {
+                    this.position--;
+                    this.failInvalidCharacter();
+                }
+                if(spaceOrHorizontalTab(this.character())) {
+                    this.position++;
+                    continue;
+                }
+
+                this.failInvalidCharacter();
+            }
+
+            // exit end of whitespace
+            break;
+        }
+    }
+
+    private static boolean spaceOrHorizontalTab(final char c) {
+        return ' ' == c || '\t' == c;
     }
 
     // fail .......................................................................................

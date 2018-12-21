@@ -74,18 +74,18 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testDirectiveSeparator() {
-        this.parseAndCheck2("A,", "A");
+    public void testDirectiveSeparatorFails() {
+        this.parseInvalidCharacterFails("A,");
     }
 
     @Test
-    public void testDirectiveSeparatorSpace() {
-        this.parseAndCheck2("A, ", "A");
+    public void testDirectiveSeparatorSpaceFails() {
+        this.parseInvalidCharacterFails("A, ");
     }
 
     @Test
-    public void testDirectiveSeparatorTab() {
-        this.parseAndCheck2("A,\t", "A");
+    public void testDirectiveSeparatorTabFails() {
+        this.parseInvalidCharacterFails("A,\t");
     }
 
     @Test
@@ -193,8 +193,8 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testMaxStaleWithoutSecondsSeparator() {
-        this.parseAndCheck2("max-stale,", "max-stale");
+    public void testMaxStaleWithoutSecondsSeparatorFails() {
+        this.parseInvalidCharacterFails("max-stale,");
     }
 
     @Test
@@ -245,8 +245,8 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testMustRevalidateSeparator() {
-        this.parseAndCheck2("must-revalidate,", "must-revalidate");
+    public void testMustRevalidateSeparatorFails() {
+        this.parseInvalidCharacterFails("must-revalidate,");
     }
 
     @Test
@@ -272,13 +272,13 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testNoCache() {
-        this.parseAndCheck2("no-cache", "no-cache");
+    public void testNoCacheSeparatorFails() {
+        this.parseInvalidCharacterFails("no-cache,");
     }
 
     @Test
-    public void testNoCacheSeparator() {
-        this.parseAndCheck2("no-cache,", "no-cache");
+    public void testNoCache() {
+        this.parseAndCheck2("no-cache", "no-cache");
     }
 
     // no-store.....................................................
@@ -299,13 +299,13 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testNoStore() {
-        this.parseAndCheck2("no-store", "no-store");
+    public void testNoStoreSeparatorFails() {
+        this.parseInvalidCharacterFails("no-store,");
     }
 
     @Test
-    public void testNoStoreSeparator() {
-        this.parseAndCheck2("no-store,", "no-store");
+    public void testNoStore() {
+        this.parseAndCheck2("no-store", "no-store");
     }
 
     // no-transform.....................................................
@@ -326,13 +326,13 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testNoTransform() {
-        this.parseAndCheck2("no-transform", "no-transform");
+    public void testNoTransformSeparatorFails() {
+        this.parseInvalidCharacterFails("no-transform,");
     }
 
     @Test
-    public void testNoTransformSeparator() {
-        this.parseAndCheck2("no-transform,", "no-transform");
+    public void testNoTransform() {
+        this.parseAndCheck2("no-transform", "no-transform");
     }
 
     // public.....................................................
@@ -352,15 +352,14 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
         this.parseInvalidCharacterFails("public=");
     }
 
+    @Test
+    public void testPublicSeparatorFails() {
+        this.parseInvalidCharacterFails("public,");
+    }
 
     @Test
     public void testPublic() {
         this.parseAndCheck2("public", "public");
-    }
-
-    @Test
-    public void testPublicSeparator() {
-        this.parseAndCheck2("public,", "public");
     }
 
     // private.....................................................
@@ -381,13 +380,13 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testPrivate() {
-        this.parseAndCheck2("private", "private");
+    public void testPrivateSeparatorFails() {
+        this.parseInvalidCharacterFails("private,");
     }
 
     @Test
-    public void testPrivateSeparator() {
-        this.parseAndCheck2("private,", "private");
+    public void testPrivate() {
+        this.parseAndCheck2("private", "private");
     }
 
     // proxy-revalidate.....................................................
@@ -408,13 +407,13 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testProxyRevalidate() {
-        this.parseAndCheck2("proxy-revalidate", "proxy-revalidate");
+    public void testProxyRevalidateSeparatorFails() {
+        this.parseInvalidCharacterFails("proxy-revalidate,");
     }
 
     @Test
-    public void testProxyRevalidateSeparator() {
-        this.parseAndCheck2("proxy-revalidate,", "proxy-revalidate");
+    public void testProxyRevalidate() {
+        this.parseAndCheck2("proxy-revalidate", "proxy-revalidate");
     }
 
     // s-maxage.....................................................
@@ -491,7 +490,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     // several ....................................................................
 
     @Test
-    public void testMaxAgeSeparatorrNoCache() {
+    public void testMaxAgeSeparatorNoCache() {
         this.parseAndCheck3("max-age=123,no-cache",
                 CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
                 CacheControlDirective.NO_CACHE);
@@ -545,6 +544,14 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     @Test
     public void testNoCacheSeparatorSpaceTabSpaceTabNoStoreSeparatorNoTransform() {
         this.parseAndCheck3("no-cache, \t \tno-store,no-transform",
+                CacheControlDirective.NO_CACHE,
+                CacheControlDirective.NO_STORE,
+                CacheControlDirective.NO_TRANSFORM);
+    }
+
+    @Test
+    public void testNoCacheSeparatorSpaceCrNlNoStoreSeparatorNoTransform() {
+        this.parseAndCheck3("no-cache,\r\n no-store,no-transform",
                 CacheControlDirective.NO_CACHE,
                 CacheControlDirective.NO_STORE,
                 CacheControlDirective.NO_TRANSFORM);

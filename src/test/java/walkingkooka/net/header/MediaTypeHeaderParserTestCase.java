@@ -223,6 +223,35 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
+    public final void testTypeSlashSubTypeCrFails() {
+        this.parseInvalidCharacterFails("a/b\r");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeCrNlFails() {
+        this.parseInvalidCharacterFails("a/b\r\n");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeCrNlNonWhitespaceFails() {
+        this.parseInvalidCharacterFails("a/b\r\n!");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeCrNlSpace() {
+        this.parseAndCheck("a/b\r\n ",
+                "a",
+                "b");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeCrNlTab() {
+        this.parseAndCheck("a/b\r\n\t",
+                "a",
+                "b");
+    }
+
+    @Test
     public final void testTypeSlashSubTypeSpaceSpace() {
         this.parseAndCheck("a/b  ",
                 "a",
@@ -244,7 +273,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSlashSubTypeWhitespaceTabSpace() {
+    public final void testTypeSlashSubTypeTabSpace() {
         this.parseAndCheck("abc/def\t ",
                 "abc",
                 "def");
@@ -304,8 +333,23 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSlashSubTypeParameterSpaceSpace() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value  ",
+    public final void testTypeSlashSubTypeParameterCrFails() {
+        this.parseInvalidCharacterFails(TYPE + "/" + SUBTYPE + ";parameter=value\r");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeParameterCrNlFails() {
+        this.parseInvalidCharacterFails(TYPE + "/" + SUBTYPE + ";parameter=value\r\n");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeParameterCrNlNonWhitespaceFails() {
+        this.parseInvalidCharacterFails(TYPE + "/" + SUBTYPE + ";parameter=value\r\n!");
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeParameterSpaceTabCrNlSpaceTab() {
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value \t\r\n \t",
                 TYPE,
                 SUBTYPE,
                 parameters("parameter", "value"));
@@ -392,6 +436,16 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
+    public final void testTypeSlashSubTypeCrParameterFails() {
+        this.parseInvalidCharacterFails(TYPE + "/" + SUBTYPE + ";\rq=v", 'q');
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeCrNlParameterFails() {
+        this.parseInvalidCharacterFails(TYPE + "/" + SUBTYPE + ";\r\nq=v", 'q');
+    }
+
+    @Test
     public final void testTypeSlashSubTypeSpaceTabSpaceTabParameter2() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + "; \t \tp=v",
                 TYPE,
@@ -408,8 +462,8 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testTypeSlashSubTypeSpaceTabSpaceTabParameter() {
-        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v; \t \tp2=v2",
+    public final void testTypeSlashSubTypeSpaceTabCrNlSpaceTabParameter() {
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";p=v; \t\r\n \tp2=v2",
                 TYPE,
                 SUBTYPE,
                 parameters("p", "v", "p2", "v2"));

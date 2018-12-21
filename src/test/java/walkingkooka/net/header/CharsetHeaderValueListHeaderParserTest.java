@@ -117,8 +117,18 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
     }
 
     @Test
-    public void testCharsetSpaceTabSpaceTab() {
-        this.parseAndCheck("UTF-8 \t \t", "UTF-8");
+    public void testCharsetCrNlSpace() {
+        this.parseAndCheck("utf-8\r\n ", "utf-8");
+    }
+
+    @Test
+    public void testCharsetCrNlTab() {
+        this.parseAndCheck("utf-8\r\n\t", "utf-8");
+    }
+
+    @Test
+    public void testCharsetSpaceTabCrNlSpaceTab() {
+        this.parseAndCheck("UTF-8 \t\r\n \t", "UTF-8");
     }
 
     @Test

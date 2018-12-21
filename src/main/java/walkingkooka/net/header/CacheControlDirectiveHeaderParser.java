@@ -55,13 +55,14 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
             switch (mode) {
                 case MODE_SEPARATOR_WHITESPACE:
-                    if (WHITESPACE.test(c)) {
-                        break;
-                    }
+                    this.consumeWhitespace();
+
                     start = this.position;
                     parameter = Optional.empty();
                     mode = MODE_DIRECTIVE_NAME;
-                    // fall thru intentional
+
+                    this.position--;
+                    break;
                 case MODE_DIRECTIVE_NAME:
                     if (RFC2045TOKEN.test(c)) {
                         break;
@@ -128,6 +129,8 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
         switch (mode) {
             case MODE_SEPARATOR_WHITESPACE:
+                this.position--;
+                failInvalidCharacter();
                 break;
             case MODE_DIRECTIVE_NAME:
                 this.addParameter(Cast.to(this.directiveName(start)), parameter);
@@ -172,6 +175,9 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
     private CacheControlDirectiveName<?> directiveName(final int start) {
         final String text = this.text.substring(start, this.position);
         if (text.isEmpty()) {
+            if(this.position == this.text.length()) {
+                this.position--;
+            }
             this.failInvalidCharacter();
         }
         return CacheControlDirectiveName.with(text);
