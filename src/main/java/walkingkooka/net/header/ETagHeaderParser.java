@@ -73,11 +73,10 @@ abstract class ETagHeaderParser extends HeaderParser {
                     }
                     failInvalidCharacter();
                 case MODE_WHITESPACE:
-                    if (WHITESPACE.test(c)) {
-                        break;
-                    }
-                    // fall thru intentional...
+                    this.consumeWhitespace();
                     mode = MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN;
+                    this.position--;
+                    break;
                 case MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN:
                     if ('W' == c) {
                         mode = MODE_WEAK;

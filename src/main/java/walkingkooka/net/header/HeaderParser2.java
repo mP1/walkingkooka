@@ -74,7 +74,7 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
     }
 
     /**
-     * Uses the given predicate to parse the value token. The only valid trailing character is {@link #WHITESPACE} or
+     * Uses the given predicate to parse the value token. The only valid trailing character is LWSP or
      * {@link #PARAMETER_SEPARATOR} others will be reported as an invalid character.
      */
     final <V> V parseValue(final CharPredicate predicate,
@@ -93,7 +93,7 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
     }
 
     /**
-     * Uses the given predicate to parse the {@link HeaderParameterName}. The only valid trailing character is {@link #WHITESPACE} or
+     * Uses the given predicate to parse the {@link HeaderParameterName}. The only valid trailing character is LWSP or
      * {@link #PARAMETER_NAME_VALUE_SEPARATOR} others will be reported as an invalid character.
      */
     final void parseParameterName(final CharPredicate predicate, final Function<String, N> factory) {
@@ -101,15 +101,15 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
 
         final int start = this.position;
         if(this.hasMoreCharacters()) {
-            for(;;) {
-                final char c = this.character();
-                if(c == PARAMETER_NAME_VALUE_SEPARATOR) {
+            switch(this.character()) {
+                case PARAMETER_NAME_VALUE_SEPARATOR:
+                case '\t':
+                case ' ':
+                case '\r':
                     break;
-                }
-                if(WHITESPACE.test(c)) {
-                    break;
-                }
-                this.failInvalidCharacter();
+
+                default:
+                    this.failInvalidCharacter();
             }
         }
 
@@ -125,7 +125,7 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
     }
 
     /**
-     * Uses the given predicate to parse the parameter value. The only valid trailing character is {@link #WHITESPACE} or
+     * Uses the given predicate to parse the parameter value. The only valid trailing character is WHITESPACE or
      * {@link #PARAMETER_SEPARATOR} or {@link #SEPARATOR} others will be reported as an invalid character.
      */
     final void parseParameterValue(final CharPredicate predicate) {
@@ -203,19 +203,21 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
     }
 
     final void failNotIfWhitespaceOrParameterSeparatorOrSeparator() {
-        while(this.hasMoreCharacters()) {
-            final char c = this.character();
-            if(WHITESPACE.test(c)){
-                break;
+        if(this.hasMoreCharacters()) {
+
+            switch(this.character()) {
+                case '\t':
+                case ' ':
+                case '\r':
+                    break;
+                case PARAMETER_SEPARATOR:
+                    break;
+                case SEPARATOR:
+                    this.separator();
+                    break;
+                default:
+                    this.failInvalidCharacter();
             }
-            if(PARAMETER_SEPARATOR == c){
-                break;
-            }
-            if(SEPARATOR == c){
-                this.separator();
-                break;
-            }
-            this.failInvalidCharacter();
         }
     }
 }

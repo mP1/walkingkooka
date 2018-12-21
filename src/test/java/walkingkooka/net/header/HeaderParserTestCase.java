@@ -45,11 +45,6 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
         this.parse("");
     }
 
-    @Test
-    public final void testInvalidInitialFails() {
-        this.parseInvalidCharacterFails("\0");
-    }
-
     final void parseAndCheck(final String text, final V expected) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(text),
                 expected,
@@ -86,7 +81,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
             this.parse(text);
             fail();
         } catch (final HeaderValueException expected) {
-            assertEquals("Incorrect failure message for " + CharSequences.quoteIfChars(text),
+            assertEquals("Incorrect failure message for " + CharSequences.quoteAndEscape(text),
                     message,
                     expected.getMessage());
         }

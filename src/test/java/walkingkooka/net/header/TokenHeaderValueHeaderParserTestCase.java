@@ -112,8 +112,23 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     }
 
     @Test
-    public final void testValueSpaceTabSpaceTab() {
-        this.parseAndCheck2("A \t \t",
+    public final void testValueCrFails() {
+        this.parseInvalidCharacterFails("A\r");
+    }
+
+    @Test
+    public final void testValueCrNlFails() {
+        this.parseInvalidCharacterFails("A\r\n");
+    }
+
+    @Test
+    public final void testValueCrNlNonWhitespaceFails() {
+        this.parseInvalidCharacterFails("A\r\n!");
+    }
+
+    @Test
+    public final void testValueSpaceTabCrNlSpaceTab() {
+        this.parseAndCheck2("A \t\r\n \t",
                 this.token("A"));
     }
 
@@ -160,8 +175,18 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     }
 
     @Test
-    public final void testValueParameterNameSpaceTabSpaceTabEqualsParameterValue() {
-        this.parseAndCheck2("A;b \t \t=c",
+    public final void testValueParameterNameCrEqualsParameterValueFails() {
+        this.parseInvalidCharacterFails("A;b\r=c", '=');
+    }
+
+    @Test
+    public final void testValueParameterNameCrNlEqualsParameterValueFails() {
+        this.parseInvalidCharacterFails("A;b\r\n=c", '=');
+    }
+
+    @Test
+    public final void testValueParameterNameSpaceTabSpaceCrNlTabEqualsParameterValue() {
+        this.parseAndCheck2("A;b \t\r\n \t=c",
                 this.token("A", "b", "c"));
     }
 
@@ -178,8 +203,18 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     }
 
     @Test
-    public final void testValueParameterNameEqualsSpaceTabSpaceTabParameterValue() {
-        this.parseAndCheck2("A;b= \t \tc",
+    public final void testValueParameterNameEqualsCrParameterValueFails() {
+        this.parseInvalidCharacterFails("A;b=\rc", 'c');
+    }
+
+    @Test
+    public final void testValueParameterNameEqualsCrNlParameterValueFails() {
+        this.parseInvalidCharacterFails("A;b=\r\nc", 'c');
+    }
+
+    @Test
+    public final void testValueParameterNameEqualsSpaceTabCrNlSpaceTabParameterValue() {
+        this.parseAndCheck2("A;b= \t\r\n \tc",
                 this.token("A", "b", "c"));
     }
 
@@ -211,6 +246,21 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     public final void testValueParameterTab() {
         this.parseAndCheck2("A;bcd=123\t",
                 this.token("A", "bcd", "123"));
+    }
+
+    @Test
+    public final void testValueParameterCrFails() {
+        this.parseInvalidCharacterFails("A;bcd=123\r");
+    }
+
+    @Test
+    public final void testValueParameterCrNlFails() {
+        this.parseInvalidCharacterFails("A;bcd=123\r\n");
+    }
+
+    @Test
+    public final void testValueParameterCrNlNonWhitespaceFails() {
+        this.parseInvalidCharacterFails("A;bcd=123\r\n!");
     }
 
     @Test
