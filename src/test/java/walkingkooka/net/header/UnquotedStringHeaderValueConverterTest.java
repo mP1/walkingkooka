@@ -49,7 +49,7 @@ public final class UnquotedStringHeaderValueConverterTest extends StringHeaderVa
 
     @Override
     protected UnquotedStringHeaderValueConverter converter() {
-        return UnquotedStringHeaderValueConverter.unquoted(this.charPredicate());
+        return UnquotedStringHeaderValueConverter.with(this.charPredicate());
     }
 
     @Override

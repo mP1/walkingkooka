@@ -20,6 +20,8 @@ package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.HasQFactorWeight;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 
 import java.util.List;
 
@@ -32,89 +34,85 @@ import java.util.List;
  * Accept-Charset: utf-8, iso-8859-1;q=0.5
  * </pre>
  */
-final class CharsetHeaderValueListHeaderParser extends HeaderParser2<CharsetHeaderValueParameterName<?>> {
+final class CharsetHeaderValueListHeaderParser extends HeaderParserWithParameters<CharsetHeaderValue, CharsetHeaderValueParameterName<?>> {
 
     static List<CharsetHeaderValue> parseCharsetHeaderValueList(final String text) {
-        checkText(text, "header text");
-
         final CharsetHeaderValueListHeaderParser parser = new CharsetHeaderValueListHeaderParser(text);
         parser.parse();
-        parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());
-        return Lists.readOnly(parser.list);
+        parser.charsets.sort(HasQFactorWeight.qFactorDescendingComparator());
+        return Lists.readOnly(parser.charsets);
     }
 
-    // @VisibleForTesting
-    CharsetHeaderValueListHeaderParser(final String text) {
+    private CharsetHeaderValueListHeaderParser(final String text) {
         super(text);
     }
 
     @Override
-    void value() {
-        this.token = CharsetHeaderValue.with(this.charsetName());
+    CharsetHeaderValue wildcardValue() {
+        this.position++;
+        return CharsetHeaderValue.WILDCARD_VALUE;
     }
 
     @Override
-    void failMissingValue() {
-        this.failEmptyToken(CHARSET);
+    CharsetHeaderValue value() {
+        return CharsetHeaderValue.with(this.charsetName());
     }
 
     private CharsetName charsetName() {
         if (!this.hasMoreCharacters()) {
-            failEmptyToken(CHARSET);
+            this.missingValue();
         }
 
-        final char c = this.character();
-        return HeaderValue.WILDCARD.character() == c ?
-                charsetNameWildcard() :
-                charsetNameNotWildcard();
-    }
-
-    private CharsetName charsetNameWildcard() {
+        final char initial = this.character();
+        if(!CharsetName.INITIAL_CHAR_PREDICATE.test(initial)) {
+            this.failInvalidCharacter();
+        }
         this.position++;
-        return CharsetName.WILDCARD_CHARSET;
-    }
-
-    private CharsetName charsetNameNotWildcard() {
-        final String initial = this.token(CharsetName.INITIAL_CHAR_PREDICATE);
-        if (initial.isEmpty()) {
-            failInvalidCharacter();
-        }
 
         return CharsetName.with(initial + this.token(CharsetName.PART_CHAR_PREDICATE));
     }
 
-    private final static String CHARSET = "charset";
+    // @VisibleForTesting
+    final static String CHARSET = "charset";
 
     @Override
-    void parameterName() {
-        this.parameterName(RFC2045TOKEN, CharsetHeaderValueParameterName::with);
+    boolean allowMultipleValues() {
+        return true;
     }
 
     @Override
-    void quotedParameterValue() {
-        this.failInvalidCharacter();
+    CharsetHeaderValueParameterName<?> parameterName() {
+        return this.token(PARAMETER_NAME, CharsetHeaderValueParameterName::with);
+    }
+
+    final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
+
+    @Override
+    String quotedParameterValue(final CharsetHeaderValueParameterName<?> parameterName) {
+        return this.quotedText(QUOTED_PARAMETER_VALUE, true);
+    }
+
+    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
+
+    @Override
+    String unquotedParameterValue(final CharsetHeaderValueParameterName<?> parameterName) {
+        return this.token(UNQUOTED_PARAMETER_VALUE);
+    }
+
+    final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
+
+    @Override
+    void valueComplete(final CharsetHeaderValue value) {
+        this.charsets.add(value);
     }
 
     @Override
-    void unquotedParameterValue() {
-        this.parameterValue(RFC2045TOKEN);
+    void missingValue() {
+        this.failMissingValue(CHARSET);
     }
 
-    @Override
-    void separator() {
-        // multiple charsets are ok!
-    }
-
-    @Override
-    void missingParameterValue() {
-        this.failMissingParameterValue();
-    }
-
-    @Override
-    void tokenEnd() {
-        this.list.add(this.token.setParameters(this.parameters));
-    }
-
-    CharsetHeaderValue token;
-    private final List<CharsetHeaderValue> list = Lists.array();
+    /**
+     * Aggregates all charsets.
+     */
+    final List<CharsetHeaderValue> charsets = Lists.array();
 }

@@ -24,25 +24,24 @@ package walkingkooka.net.header;
 final class MediaTypeHeaderParserOne extends MediaTypeHeaderParser{
 
     static MediaType parseMediaType(final String text) {
-        checkText(text);
-
         final MediaTypeHeaderParserOne parser = new MediaTypeHeaderParserOne(text);
         parser.parse();
         return parser.mediaType;
     }
 
-    // @VisibleForTesting
-    MediaTypeHeaderParserOne(final String text) {
+    private MediaTypeHeaderParserOne(final String text) {
         super(text);
     }
 
     @Override
-    void separator() {
-        this.failInvalidCharacter();
+    boolean allowMultipleValues() {
+        return false;
     }
 
     @Override
-    void mediaTypeEnd() {
-
+    void valueComplete(final MediaType mediaType) {
+        this.mediaType = mediaType;
     }
+
+    private MediaType mediaType;
 }

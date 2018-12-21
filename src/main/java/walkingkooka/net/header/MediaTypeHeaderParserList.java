@@ -29,26 +29,24 @@ import java.util.List;
 final class MediaTypeHeaderParserList extends MediaTypeHeaderParser{
 
     static List<MediaType> parseMediaTypeList(final String text) {
-        checkText(text);
-
         final MediaTypeHeaderParserList parser = new MediaTypeHeaderParserList(text);
         parser.parse();
         parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());
         return Lists.readOnly(parser.list);
     }
 
-    // @VisibleForTesting
-    MediaTypeHeaderParserList(final String text) {
+    private MediaTypeHeaderParserList(final String text) {
         super(text);
     }
 
     @Override
-    void separator() {
+    boolean allowMultipleValues() {
+        return true;
     }
 
     @Override
-    void mediaTypeEnd() {
-        this.list.add(this.mediaType);
+    void valueComplete(final MediaType mediaType) {
+        this.list.add(mediaType);
     }
 
     private final List<MediaType> list = Lists.array();

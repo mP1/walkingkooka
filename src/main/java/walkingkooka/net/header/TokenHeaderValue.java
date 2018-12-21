@@ -69,7 +69,7 @@ public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHe
     }
 
     /**
-     * Formats a list of tokens, basically the inverse of {@link #parseList(String)}
+     * Formats a charsets of tokens, basically the inverse of {@link #parseList(String)}
      */
     public static String toHeaderTextList(final List<TokenHeaderValue> tokens) {
         Objects.requireNonNull(tokens, "tokens");

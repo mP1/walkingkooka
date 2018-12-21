@@ -509,19 +509,21 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Test
     public void testToHeaderTextParse() {
         final String text = "type/subtype";
-        assertEquals(text, MediaType.parse(text).toHeaderText());
+
+        this.toHeaderTextAndCheck(MediaType.parse(text),
+                TYPE + "/" + SUBTYPE);
     }
 
     @Test
     public void testToHeaderTextParseWithParameters() {
-        final String text = "type/subtype;a=b;c=d";
-        assertEquals(text, MediaType.parse(text).toHeaderText());
+        this.toHeaderTextAndCheck(MediaType.parse("type/subtype;a=b;c=d"),
+                "type/subtype; a=b; c=d");
     }
 
     @Test
     public void testToHeaderTextParseWithParametersWithQuotes() {
-        final String text = "type/subtype;a=b;c=\"d\"";
-        assertEquals(text, MediaType.parse(text).toHeaderText());
+        this.toHeaderTextAndCheck(MediaType.parse("type/subtype;a=b;c=\"d e\""),
+                "type/subtype; a=b; c=\"d e\"");
     }
 
     @Test
@@ -552,19 +554,19 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Test
     public void testToStringParse() {
         final String text = "type/subtype";
-        assertEquals(text, MediaType.parse(text).toString());
+        this.toStringAndCheck(MediaType.parse(text), text);
     }
 
     @Test
     public void testToStringParseWithParameters() {
-        final String text = "type/subtype;a=b;c=d";
-        assertEquals(text, MediaType.parse(text).toString());
+        this.toStringAndCheck(MediaType.parse("type/subtype;a=b;c=d"),
+                "type/subtype; a=b; c=d");
     }
 
     @Test
     public void testToStringParseWithParametersWithQuotes() {
-        final String text = "type/subtype;a=b;c=\"d\"";
-        assertEquals(text, MediaType.parse(text).toString());
+        this.toStringAndCheck(MediaType.parse("type/subtype;a=b;c=\"d e\""),
+                "type/subtype; a=b; c=\"d e\"");
     }
 
     @Test

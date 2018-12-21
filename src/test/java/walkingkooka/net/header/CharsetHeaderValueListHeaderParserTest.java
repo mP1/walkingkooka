@@ -25,15 +25,14 @@ import walkingkooka.collect.map.Maps;
 import java.util.List;
 import java.util.Map;
 
-public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2TestCase<CharsetHeaderValueListHeaderParser,
-        CharsetHeaderValueParameterName<?>,
+public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserWithParametersTestCase<CharsetHeaderValueListHeaderParser,
         List<CharsetHeaderValue>> {
 
     // parse ...................................................................................................
 
     @Test
     public void testCharsetSeparatorFails() {
-        this.parseInvalidCharacterFails("utf-8,", ',');
+        this.parseMissingValueFails("utf-8,");
     }
 
     @Test
@@ -53,7 +52,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
 
     @Test
     public void testCharsetInvalidPartCharacterFails() {
-        this.parseInvalidCharacterFails("utf!8", '!');
+        this.parseInvalidCharacterFails("utf\08", '\0');
     }
 
     @Test
@@ -64,6 +63,26 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
     @Test
     public void testCharsetInvalidCharacterFails2() {
         this.parseInvalidCharacterFails("UTF-8BC<");
+    }
+
+    @Test
+    public void testWildcard() {
+        this.parseAndCheck("*", CharsetHeaderValue.WILDCARD_VALUE);
+    }
+
+    @Test
+    public void testWildcardInvalidFails() {
+        this.parseInvalidCharacterFails("*1");
+    }
+
+    @Test
+    public void testWildcardInvalidFails2() {
+        this.parseInvalidCharacterFails("*u");
+    }
+
+    @Test
+    public void testWildcardWildcardFails() {
+        this.parseInvalidCharacterFails("**");
     }
 
     @Test
@@ -107,7 +126,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
     }
 
     @Test
-    public void testCharsetParameterSeparatorSeparatorFails() {
+    public void testCharsetParameterTokenSeparatorTokenSeparatorFails() {
         this.parseInvalidCharacterFails("UTF-8;;", 6);
     }
 
@@ -158,9 +177,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
 
     @Test
     public void testCharsetParameterSeparatorFails() {
-        final String text = "UTF-8;=";
-        this.parseFails(text,
-                HeaderParser2.emptyToken(HeaderParser2.PARAMETER_NAME, 6, text));
+        this.parseInvalidCharacterFails("UTF-8;=", 6);
     }
 
     @Test
@@ -181,11 +198,6 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
     @Test
     public void testCharsetParameterNameEqualsInvalidCharFails() {
         this.parseInvalidCharacterFails("UTF-8;b=\0c", '\0');
-    }
-
-    @Test
-    public void testCharsetSubTypeSeparatorFails() {
-        this.parseInvalidCharacterFails("UTF-8,");
     }
 
     @Test
@@ -323,6 +335,12 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
     }
 
     @Test
+    public void testCharsetParameterNameQuotedParameterValueQuotedParameterValueFails() {
+        final String text = "UTF-8;b=\"c\"\"d\"";
+        this.parseInvalidCharacterFails(text, text.indexOf('d') -1);
+    }
+
+    @Test
     public void testCharsetParameterSeparatorParameterNameFails() {
         this.parseMissingParameterValueFails("UTF-8;b=c;D");
     }
@@ -330,6 +348,13 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
     @Test
     public void testCharsetParameter() {
         this.parseAndCheck("utf-8;p1=v1;",
+                "utf-8",
+                "p1", "v1");
+    }
+
+    @Test
+    public void testCharsetParameterQuotedValue() {
+        this.parseAndCheck("utf-8;p1=\"v1\";",
                 "utf-8",
                 "p1", "v1");
     }
@@ -456,8 +481,8 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
     }
 
     @Override
-    CharsetHeaderValueListHeaderParser createHeaderParser(final String text) {
-        return new CharsetHeaderValueListHeaderParser(text);
+    String valueLabel() {
+        return CharsetHeaderValueListHeaderParser.CHARSET;
     }
 
     @Override

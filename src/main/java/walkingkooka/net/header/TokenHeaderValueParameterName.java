@@ -57,9 +57,9 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
      * Creates and adds a new {@link TokenHeaderValueParameterName} to the cache being built.
      */
     private static <T> TokenHeaderValueParameterName<T> registerConstant(final String name, final HeaderValueConverter<T> headerValue) {
-        final TokenHeaderValueParameterName<T> httpHeader = new TokenHeaderValueParameterName<T>(name, headerValue);
-        TokenHeaderValueParameterName.CONSTANTS.put(name, httpHeader);
-        return httpHeader;
+        final TokenHeaderValueParameterName<T> token = new TokenHeaderValueParameterName<T>(name, headerValue);
+        TokenHeaderValueParameterName.CONSTANTS.put(name, token);
+        return token;
     }
 
     /**
@@ -74,20 +74,27 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
     public static TokenHeaderValueParameterName<?> with(final String name) {
         CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
 
-        final TokenHeaderValueParameterName httpHeaderValueParameterName = CONSTANTS.get(name);
-        return null != httpHeaderValueParameterName ?
-                httpHeaderValueParameterName :
-                new TokenHeaderValueParameterName<String>(name, RFC2045);
+        final TokenHeaderValueParameterName constant = CONSTANTS.get(name);
+        return null != constant ?
+                constant :
+                new TokenHeaderValueParameterName<String>(name, QUOTED_UNQUOTED_STRING);
     }
 
-    private final static HeaderValueConverter<String> RFC2045 = HeaderValueConverters.string(CharPredicates.rfc2045Token());
+    /**
+     * Allow quoted and unquoted strings.
+     */
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+            TokenHeaderValueHeaderParser.QUOTED_PARAMETER_VALUE,
+            true,
+            TokenHeaderValueHeaderParser.UNQUOTED_PARAMETER_VALUE
+    );
 
     /**
      * Private constructor use factory.
      */
-    private TokenHeaderValueParameterName(final String name, final HeaderValueConverter<T> valueConverter) {
+    private TokenHeaderValueParameterName(final String name, final HeaderValueConverter<T> converter) {
         this.name = name;
-        this.valueConverter = valueConverter;
+        this.converter = converter;
     }
 
     @Override
@@ -104,7 +111,7 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
     public T toValue(final String text) {
         Objects.requireNonNull(text, "text");
 
-        return this.valueConverter.parse(text, this);
+        return this.converter.parse(text, this);
     }
 
     /**
@@ -112,10 +119,10 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
      */
     @Override
     public T checkValue(final Object value) {
-        return this.valueConverter.check(value);
+        return this.converter.check(value);
     }
 
-    private final HeaderValueConverter<T> valueConverter;
+    private final HeaderValueConverter<T> converter;
 
     // Comparable
 

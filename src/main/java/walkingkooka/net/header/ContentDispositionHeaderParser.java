@@ -18,6 +18,9 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
+
 /**
  * <a href="https://tools.ietf.org/html/rfc2183"></a>
  * <pre>
@@ -70,79 +73,66 @@ package walkingkooka.net.header;
  *    [RFC 822].
  * </pre>
  */
-final class ContentDispositionHeaderParser extends HeaderParser2<ContentDispositionParameterName<?>> {
+final class ContentDispositionHeaderParser extends HeaderParserWithParameters<ContentDisposition,
+        ContentDispositionParameterName<?>> {
 
-    static ContentDisposition parse(final String text) {
-        checkText(text, "content disposition");
-
+    static ContentDisposition parseContentDisposition(final String text) {
         final ContentDispositionHeaderParser parser = new ContentDispositionHeaderParser(text);
         parser.parse();
         return parser.disposition;
     }
 
-    // @VisibleForTesting
-    ContentDispositionHeaderParser(final String text) {
+    private ContentDispositionHeaderParser(final String text) {
         super(text);
     }
 
+
     @Override
-    void value() {
-        this.disposition = ContentDisposition.with(this.value(RFC2045TOKEN, TYPE,
-                ContentDispositionType::with));
+    boolean allowMultipleValues() {
+        return true;
     }
 
     @Override
-    void failMissingValue() {
-        this.failEmptyToken(TYPE);
-    }
-
-    private final static String TYPE = "type";
-
-    @Override
-    void parameterName() {
-        this.parameterName(RFC2045TOKEN, ContentDispositionParameterName::with);
+    ContentDisposition wildcardValue() {
+        return this.failInvalidCharacter();
     }
 
     @Override
-    void quotedParameterValue() {
-        this.position++;
-        final int start = this.position;
-
-        for(;;) {
-            if(!this.hasMoreCharacters()) {
-                fail(missingClosingQuote(this.text));
-            }
-            final char c = this.character();
-            if(DOUBLE_QUOTE == c){
-                this.addParameter(this.text.substring(start, this.position));
-                this.position++;
-                break;
-            }
-            if(!this.parameterName.valueCharPredicate.test(c)) {
-                failInvalidCharacter();
-            }
-            this.position++;
-        }
+    ContentDisposition value() {
+        return ContentDisposition.with(this.token(RFC2045TOKEN, ContentDispositionType::with));
     }
 
     @Override
-    void unquotedParameterValue() {
-        this.parameterValue(RFC2045TOKEN);
+    void missingValue() {
+        this.failMissingValue(TYPE);
     }
 
-    @Override
-    void separator() {
-        this.failInvalidCharacter();
-    }
+    final static String TYPE = "type";
 
     @Override
-    void missingParameterValue() {
-        this.failMissingParameterValue();
+    ContentDispositionParameterName<?> parameterName() {
+        return this.token(PARAMETER_NAME, ContentDispositionParameterName::with);
     }
 
+    final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
+
     @Override
-    void tokenEnd() {
-        this.disposition = this.disposition.setParameters(this.parameters);
+    String quotedParameterValue(final ContentDispositionParameterName<?> parameterName) {
+        return this.quotedText(QUOTED_PARAMETER_VALUE, true);
+    }
+
+    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
+
+    @Override
+    String unquotedParameterValue(final ContentDispositionParameterName<?> parameterName) {
+        return this.token(UNQUOTED_PARAMETER_VALUE);
+    }
+
+    final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
+
+    @Override
+    void valueComplete(final ContentDisposition disposition) {
+        this.disposition = disposition;
     }
 
     ContentDisposition disposition;

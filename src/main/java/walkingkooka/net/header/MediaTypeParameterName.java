@@ -22,8 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Comparables;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
@@ -48,11 +46,8 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
      * Creates and adds a new {@link MediaTypeParameterName} to the cache being built.
      */
     private static <T> MediaTypeParameterName<T> registerConstant(final String name,
-                                                                  final CharPredicate charPredicate,
-                                                                  final HeaderValueConverter<T> valueConverter) {
-        final MediaTypeParameterName<T> parameterName = new MediaTypeParameterName<T>(name,
-                charPredicate,
-                valueConverter);
+                                                                  final HeaderValueConverter<T> converter) {
+        final MediaTypeParameterName<T> parameterName = new MediaTypeParameterName<T>(name, converter);
         MediaTypeParameterName.CONSTANTS.put(name, parameterName);
         return parameterName;
     }
@@ -61,25 +56,18 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
      * Holds the boundary parameter name.
      */
     public final static MediaTypeParameterName<MediaTypeBoundary> BOUNDARY = registerConstant("boundary",
-            MediaTypeBoundary.QUOTED_CHARACTER_PREDICATE,
             MediaTypeBoundaryHeaderValueConverter.INSTANCE);
 
     /**
      * Holds the charset parameter name.
      */
     public final static MediaTypeParameterName<CharsetName> CHARSET = registerConstant("charset",
-            CharsetName.PART_CHAR_PREDICATE, // part includes initial.
             HeaderValueConverters.charsetName());
-
-
-    private final static CharPredicate DIGITS = CharPredicates.any(".0123456789")
-            .setToString("Q factor");
 
     /**
      * The q factor weight parameter.
      */
     public final static MediaTypeParameterName<Float> Q_FACTOR = registerConstant("q",
-            DIGITS,
             HeaderValueConverters.qWeight());
 
     /**
@@ -91,18 +79,21 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
         final MediaTypeParameterName<?> parameterName = CONSTANTS.get(value);
         return null != parameterName ?
                 parameterName :
-                new MediaTypeParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeAutoQuotingString());
+                new MediaTypeParameterName<String>(value, QUOTED_UNQUOTED_STRING);
     }
+
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+            MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
+            true,
+            MediaTypeHeaderParser.UNQUOTED_PARAMETER_VALUE);
 
     /**
      * Private ctor use factory.
      */
     private MediaTypeParameterName(final String value,
-                                   final CharPredicate valueCharPredicate,
-                                   final HeaderValueConverter<T> valueConverter) {
+                                   final HeaderValueConverter<T> converter) {
         this.value = value;
-        this.valueCharPredicate = valueCharPredicate;
-        this.valueConverter = valueConverter;
+        this.converter = converter;
     }
 
     @Override
@@ -112,9 +103,6 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
 
     private final String value;
 
-
-    final transient CharPredicate valueCharPredicate;
-
     /**
      * Accepts text and converts it into its value.
      */
@@ -122,7 +110,7 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
     public T toValue(final String text) {
         Objects.requireNonNull(text, "text");
 
-        return this.valueConverter.parse(text, this);
+        return this.converter.parse(text, this);
     }
 
     /**
@@ -130,10 +118,10 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
      */
     @Override
     public T checkValue(final Object value) {
-        return this.valueConverter.check(value);
+        return this.converter.check(value);
     }
 
-    final transient HeaderValueConverter<T> valueConverter;
+    final transient HeaderValueConverter<T> converter;
 
     // Comparable
 

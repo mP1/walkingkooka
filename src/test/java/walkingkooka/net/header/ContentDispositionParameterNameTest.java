@@ -87,7 +87,7 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
     @Test
     public void testToValueOffsetDateTime() {
         this.toValueAndCheck(ContentDispositionParameterName.CREATION_DATE,
-                "Wed, 12 Feb 1997 16:29:51 -0500",
+                "\"Wed, 12 Feb 1997 16:29:51 -0500\"",
                 OffsetDateTime.of(1997, 2, 12, 16, 29, 51, 0, ZoneOffset.ofHours(-5)));
     }
 

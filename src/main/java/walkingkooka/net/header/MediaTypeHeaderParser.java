@@ -18,14 +18,14 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
+
 /**
  * Base class which parses text containing one or many media types.
  */
-abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterName<?>> {
-
-    static void checkText(final String text) {
-        checkText(text, "media type");
-    }
+abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaType,
+        MediaTypeParameterName<?>> {
 
     // @VisibleForTesting
     MediaTypeHeaderParser(final String text) {
@@ -33,119 +33,95 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
     }
 
     @Override
-    final void value() {
-        this.start = this.position;
-
-        // assumes leading whitespace skipped.
-
-        // type
-        this.type = this.token(RFC2045TOKEN);
-        if(!this.hasMoreCharacters()) {
-            failEmptyToken(TYPE);
-        }
-
-        if(this.character()!=SLASH){
-            this.failInvalidCharacter();
-        }
-
-        if(this.type.isEmpty()) {
-           this.failEmptyToken(TYPE);
-        }
-
+    final MediaType wildcardValue() {
+        final String type = "" + WILDCARD;
         this.position++;
 
-        // sub type
-        this.subType = this.token(RFC2045TOKEN);
-        if(this.subType.isEmpty()) {
-            if(!this.hasMoreCharacters()) {
-                this.failEmptyToken(SUBTYPE);
-            }
-            this.failInvalidCharacter();
-        }
+        this.expectSlash();
 
-        this.failNotIfWhitespaceOrParameterSeparatorOrSeparator();
+        return MediaType.with(type,
+                this.subType());
     }
 
     @Override
-    void failMissingValue() {
-        this.failEmptyToken(TYPE);
+    final MediaType value() {
+        return MediaType.with(this.type(),
+                this.subType());
     }
+
+    private String type() {
+        final String type = this.token(RFC2045TOKEN);
+        if (!this.hasMoreCharacters()) {
+            failEmptyToken(TYPE);
+        }
+
+        this.expectSlash();
+
+        if (type.isEmpty()) {
+            this.failEmptyToken(TYPE);
+        }
+
+        return type;
+    }
+
+    private void expectSlash() {
+        if (!this.hasMoreCharacters()) {
+            this.failEmptyToken(SUBTYPE);
+        }
+        if (this.character() != SLASH) {
+            this.failInvalidCharacter();
+        }
+        this.position++;
+    }
+
+    private String subType() {
+        String subType;
+
+        if (this.hasMoreCharacters() && this.character() == WILDCARD) {
+            subType = "" + WILDCARD;
+            this.position++;
+        } else {
+            subType = this.token(RFC2045TOKEN);
+            if (subType.isEmpty()) {
+                if (!this.hasMoreCharacters()) {
+                    this.failEmptyToken(SUBTYPE);
+                }
+
+                this.failInvalidCharacter();
+            }
+        }
+        return subType;
+    }
+
+    @Override
+    final void missingValue() {
+        this.failMissingValue(MEDIATYPE);
+    }
+
+    final static String MEDIATYPE = "media type";
 
     private final static char SLASH = '/';
     private final static String TYPE = "type";
     private final static String SUBTYPE = "sub type";
 
-
     @Override
-    final void parameterName() {
-        this.parameterName(RFC2045TOKEN, MediaTypeParameterName::with);
+    final MediaTypeParameterName<?> parameterName() {
+        return this.token(PARAMETER_NAME, MediaTypeParameterName::with);
     }
 
-    @Override
-    void quotedParameterValue() {
-        final int start = this.position;
-        this.position++;
-
-        boolean escaping = false;
-
-        Exit:
-        for(;;) {
-            if(!this.hasMoreCharacters()) {
-                fail(missingClosingQuote(this.text));
-            }
-            final char c = this.character();
-            this.position++;
-
-            if(escaping) {
-                switch(c){
-                    case BACKSLASH:
-                    case DOUBLE_QUOTE:
-                        break;
-                    default:
-                        this.position--;
-                        this.failInvalidCharacter();
-                        break;
-                }
-                escaping = false;
-                continue;
-            }
-
-            switch(c){
-                case BACKSLASH:
-                    escaping = true;
-                    break;
-                case DOUBLE_QUOTE:
-                    this.addParameter(this.text.substring(start, this.position)); // include the open/closing quotes
-                    break Exit;
-                default:
-                    break;
-            }
-        }
-    }
+    final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
-    void unquotedParameterValue() {
-        this.parameterValue(RFC2045TOKEN);
+    final String quotedParameterValue(final MediaTypeParameterName<?> parameterName) {
+        return this.quotedText(QUOTED_PARAMETER_VALUE, true);
     }
+
+    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
 
     @Override
-    final void missingParameterValue() {
-        this.failMissingParameterValue();
+    final String unquotedParameterValue(final MediaTypeParameterName<?> parameterName) {
+        return this.token(UNQUOTED_PARAMETER_VALUE);
     }
 
-    @Override
-    final void tokenEnd() {
-        this.mediaType = MediaType.withParameters(this.type,
-                this.subType,
-                this.parameters,
-                this.text.substring(this.start, this.position));
-        this.mediaTypeEnd();
-    }
-
-    private int start;
-    private String type;
-    private String subType;
-    MediaType mediaType;
-
-    abstract void mediaTypeEnd();
+    final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 }

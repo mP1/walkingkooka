@@ -26,6 +26,21 @@ import java.time.ZoneOffset;
 public final class OffsetDateTimeHeaderValueConverterTest extends
         HeaderValueConverterTestCase<OffsetDateTimeHeaderValueConverter, OffsetDateTime> {
 
+    @Test(expected = HeaderValueException.class)
+    public void testyParseEmptyFails() {
+        this.parse("");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testyParseMissingOpeningDoubleQuoteFails() {
+        this.parse("abc\"");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testyParseMissingClosingDoubleQuoteFails() {
+        this.parse("\"abc");
+    }
+
     @Override
     protected String requiredPrefix() {
         return OffsetDateTime.class.getSimpleName();
@@ -33,13 +48,13 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
 
     @Test(expected = HeaderValueException.class)
     public void testDateWithGmtFails() {
-        OffsetDateTimeHeaderValueConverter.INSTANCE.parse("Wed, 21 Oct 2015 07:28:00 GMT",
+        OffsetDateTimeHeaderValueConverter.INSTANCE.parse("\"Wed, 21 Oct 2015 07:28:00 GMT\"",
                 ContentDispositionParameterName.CREATION_DATE);
     }
 
     @Test
     public void testContentDispositionCreationDateNegativeOffset() {
-        this.parseAndToTextAndCheck("Wed, 21 Oct 2015 07:28:00 -0500",
+        this.parseAndToTextAndCheck("\"Wed, 21 Oct 2015 07:28:00 -0500\"",
                 OffsetDateTime.of(2015,
                         10,
                         21,
@@ -52,7 +67,7 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
 
     @Test
     public void testContentDispositionCreationDatePositiveOffset() {
-        this.parseAndToTextAndCheck("Wed, 21 Oct 2015 07:28:00 +0500",
+        this.parseAndToTextAndCheck("\"Wed, 21 Oct 2015 07:28:00 +0500\"",
                 OffsetDateTime.of(2015,
                         10,
                         21,

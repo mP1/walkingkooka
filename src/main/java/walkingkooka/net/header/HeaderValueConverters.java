@@ -153,13 +153,6 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see MediaTypeParameterHeaderValueConverter}
-     */
-    public static HeaderValueConverter<String> mediaTypeAutoQuotingString() {
-        return MediaTypeParameterHeaderValueConverter.INSTANCE;
-    }
-
-    /**
      * {@see HttpMethodListHeaderValueConverter}
      */
     public static HeaderValueConverter<List<HttpMethod>> methodList() {
@@ -171,6 +164,23 @@ public final class HeaderValueConverters implements PublicStaticHelper {
      */
     public static HeaderValueConverter<OffsetDateTime> offsetDateTime() {
         return OffsetDateTimeHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see QuotedUnquotedStringHeaderValueConverter}
+     */
+    public static HeaderValueConverter<String> quotedUnquotedString(final CharPredicate quotedPredicate,
+                                                                    final boolean supportBackslashEscaping,
+                                                                    final CharPredicate unquotedPredicate) {
+        return QuotedUnquotedStringHeaderValueConverter.with(quotedPredicate, supportBackslashEscaping, unquotedPredicate);
+    }
+
+    /**
+     * {@see QuotedStringHeaderValueConverter}
+     */
+    public static HeaderValueConverter<String> quoted(final CharPredicate predicate,
+                                                      final boolean supportBackslashEscaping) {
+        return QuotedStringHeaderValueConverter.with(predicate, supportBackslashEscaping);
     }
 
     /**
@@ -209,14 +219,6 @@ public final class HeaderValueConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see StringHeaderValueConverter}
-     */
-    public static HeaderValueConverter<String> string(final CharPredicate predicate,
-                                                      final StringHeaderValueConverterFeature...features) {
-        return StringHeaderValueConverter.with(predicate, features);
-    }
-
-    /**
      * {@see TokenHeaderValueHeaderValueConverter}
      */
     public static HeaderValueConverter<TokenHeaderValue> token() {
@@ -228,6 +230,13 @@ public final class HeaderValueConverters implements PublicStaticHelper {
      */
     public static HeaderValueConverter<List<TokenHeaderValue>> tokenList() {
         return TokenHeaderValueListHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see UnquotedStringHeaderValueConverter}
+     */
+    public static HeaderValueConverter<String> unquoted(final CharPredicate predicate) {
+        return UnquotedStringHeaderValueConverter.with(predicate);
     }
 
     /**

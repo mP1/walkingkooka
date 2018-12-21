@@ -67,22 +67,31 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     // parse........................................................................................................
 
+    @Test(expected = HeaderValueException.class)
+    public void testParseEmpty() {
+        MediaTypeBoundary.parse("");
+    }
+
     @Test
     public void testParseUnquoted() {
         this.parseAndCheck("abc",
-                MediaTypeBoundary.with("abc"));
+                "abc",
+                "abc");
     }
 
     @Test
     public void testParseQuoted() {
         this.parseAndCheck("\"abc\"",
-                MediaTypeBoundary.with0("abc",
-                        "\"abc\""));
+                "abc",
+                        "abc");
     }
 
-    private void parseAndCheck(final String text, final
-    MediaTypeBoundary boundary) {
-        assertEquals("parse " + CharSequences.quote(text), boundary, MediaTypeBoundary.parse(text));
+    private void parseAndCheck(final String text,
+                               final String value,
+                               final String headerText) {
+        final MediaTypeBoundary boundary = MediaTypeBoundary.parse(text);
+        assertEquals("value " + CharSequences.quote(text), value, boundary.value());
+        assertEquals("toHeaderText " + CharSequences.quote(text), headerText, boundary.toHeaderText());
     }
 
     private void checkValue(final MediaTypeBoundary boundary, final String value) {
@@ -98,11 +107,6 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     @Test
     public void testToHeaderText() {
         this.toHeaderTextAndCheck(MediaTypeBoundary.with("abc"), "abc");
-    }
-
-    @Test
-    public void testToHeaderTextQuoted() {
-        this.toHeaderTextAndCheck(MediaTypeBoundary.with0("abc", "\"abc\""), "\"abc\"");
     }
 
     @Test
@@ -127,8 +131,8 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Test
     public void testMultipartBoundaryDelimiterQuoted() {
-        this.multipartBoundaryDelimiterAndCheck(MediaTypeBoundary.with0("abc", "\"abc\""),
-                "--abc");
+        this.multipartBoundaryDelimiterAndCheck(MediaTypeBoundary.with("abc+def"),
+                "--abc+def");
     }
 
     private void multipartBoundaryDelimiterAndCheck(final MediaTypeBoundary boundary, final String delimiter) {

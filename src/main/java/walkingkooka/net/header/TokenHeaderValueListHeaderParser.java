@@ -24,31 +24,29 @@ import walkingkooka.net.HasQFactorWeight;
 import java.util.List;
 
 /**
- * A parser that creates a list of {@link TokenHeaderValue}.
+ * A parser that creates a charsets of {@link TokenHeaderValue}.
  */
 final class TokenHeaderValueListHeaderParser extends TokenHeaderValueHeaderParser {
 
     static List<TokenHeaderValue> parseTokenHeaderValueList(final String text) {
-        checkText(text, "header");
-
         final TokenHeaderValueListHeaderParser parser = new TokenHeaderValueListHeaderParser(text);
         parser.parse();
         parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());
         return Lists.readOnly(parser.list);
     }
 
-    // @VisibleForTesting
-    TokenHeaderValueListHeaderParser(final String text) {
+    private TokenHeaderValueListHeaderParser(final String text) {
         super(text);
     }
 
-    @Override final void tokenHeaderValueEnd() {
-        this.list.add(this.token);
+    @Override
+    boolean allowMultipleValues() {
+        return true;
     }
 
     @Override
-    void separator() {
-        // multiple tokens allowed.
+    void valueComplete(final TokenHeaderValue token) {
+        this.list.add(token);
     }
 
     private final List<TokenHeaderValue> list = Lists.array();

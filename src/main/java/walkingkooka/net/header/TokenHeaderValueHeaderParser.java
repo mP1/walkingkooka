@@ -18,54 +18,54 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
+
 /**
  * Base class for all header value token parsers.
  */
-abstract class TokenHeaderValueHeaderParser extends HeaderParser2<TokenHeaderValueParameterName<?>> {
+abstract class TokenHeaderValueHeaderParser extends HeaderParserWithParameters<TokenHeaderValue,
+        TokenHeaderValueParameterName<?>> {
 
     TokenHeaderValueHeaderParser(final String text) {
         super(text);
     }
 
     @Override
-    final void value() {
-        this.token = this.value(RFC2045TOKEN, VALUE, TokenHeaderValue::with);
+    final TokenHeaderValue wildcardValue() {
+        return this.failInvalidCharacter();
     }
 
     @Override
-    void failMissingValue() {
-        this.failEmptyToken(VALUE);
-    }
-
-    private final static String VALUE = "value";
-
-    @Override
-    final void parameterName() {
-        this.parameterName(RFC2045TOKEN, TokenHeaderValueParameterName::with);
+    final TokenHeaderValue value() {
+        return this.token(RFC2045TOKEN, TokenHeaderValue::with);
     }
 
     @Override
-    void quotedParameterValue() {
-        this.failInvalidCharacter();
+    final TokenHeaderValueParameterName<?> parameterName() {
+        return this.token(PARAMETER_NAME, TokenHeaderValueParameterName::with);
     }
+
+    final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
     @Override
-    void unquotedParameterValue() {
-        this.parameterValue(RFC2045TOKEN);
+    final String quotedParameterValue(final TokenHeaderValueParameterName<?> parameterName) {
+        return this.failInvalidCharacter();
     }
+
+    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
 
     @Override
-    final void missingParameterValue() {
-        this.failMissingParameterValue();
+    final String unquotedParameterValue(final TokenHeaderValueParameterName<?> parameterName) {
+        return this.token(RFC2045TOKEN);
     }
+
+    final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
     @Override
-    final void tokenEnd() {
-        this.token = this.token.setParameters(this.parameters);
-        this.tokenHeaderValueEnd();
+    final void missingValue() {
+        this.failMissingValue(VALUE);
     }
 
-    abstract void tokenHeaderValueEnd();
-
-    TokenHeaderValue token;
+    final static String VALUE = "value";
 }

@@ -18,18 +18,17 @@
 
 package walkingkooka.net.header;
 
-/**
- * A collection of features supported by {@link StringHeaderValueConverter}.
- */
-public enum StringHeaderValueConverterFeature {
+import org.junit.Test;
 
-    /**
-     * The string text must be surrounded by double quotes.
-     */
-    DOUBLE_QUOTES,
+public abstract class HeaderParserWithParametersTestCase<P extends HeaderParser, V>
+        extends HeaderParserTestCase<P, V> {
 
-    /**
-     * The string text supports backslash escaping.
-     */
-    BACKSLASH_ESCAPING;
+    HeaderParserWithParametersTestCase() {
+        super();
+    }
+
+    @Test
+    public final void testSlash() {
+        this.parseInvalidCharacterFails("/");
+    }
 }

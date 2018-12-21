@@ -29,21 +29,6 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
         List<CacheControlDirective<?>>> {
 
     @Test
-    public void testSpaceFails() {
-        this.parseInvalidCharacterFails(" ");
-    }
-
-    @Test
-    public void testTabFails() {
-        this.parseInvalidCharacterFails("\t");
-    }
-
-    @Test
-    public void testInvalidCharacterFails() {
-        this.parseInvalidCharacterFails(",");
-    }
-
-    @Test
     public void testDirective() {
         this.parseAndCheck2("A", "A");
     }
@@ -54,93 +39,74 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     @Test
-    public void testDirectiveParameterSeparatorSpaceFails() {
+    public void testDirectiveParameterSeparatorWhitespaceFails() {
         this.parseInvalidCharacterFails("A= ");
     }
 
     @Test
-    public void testDirectiveParameterSeparatorTabFails() {
-        this.parseInvalidCharacterFails("A=\t");
-    }
-
-    @Test
-    public void testDirectiveSpaceFails() {
+    public void testDirectiveWhitespaceFails() {
         this.parseInvalidCharacterFails("A ");
     }
 
     @Test
-    public void testDirectiveTabFails() {
-        this.parseInvalidCharacterFails("A\t");
-    }
-
-    @Test
-    public void testDirectiveSeparatorFails() {
+    public void testDirectiveValueSeparatorFails() {
         this.parseInvalidCharacterFails("A,");
     }
 
     @Test
-    public void testDirectiveSeparatorSpaceFails() {
+    public void testDirectiveValueSeparatorSpaceFails() {
         this.parseInvalidCharacterFails("A, ");
     }
 
     @Test
-    public void testDirectiveSeparatorTabFails() {
-        this.parseInvalidCharacterFails("A,\t");
-    }
-
-    @Test
-    public void testDirectiveParameterQuoteFails() {
+    public void testDirectiveKeyValueSeparatorUnclosedQuoteFails() {
         this.parseMissingClosingQuoteFails("A=\"");
     }
 
     @Test
-    public void testDirectiveParameterQuoteInvalidCharFails() {
-        this.parseInvalidCharacterFails("A=\";");
-    }
-
-    @Test
-    public void testDirectiveParameterQuoteInvalidCharFails2() {
-        this.parseInvalidCharacterFails("A=\"B;");
-    }
-
-    @Test
-    public void testDirectiveParameterQuoteUnclosedFails() {
+    public void testDirectiveKeyValueSeparatorUnclosedQuoteFails2() {
         this.parseMissingClosingQuoteFails("A=\"BCD");
     }
 
     @Test
-    public void testDirectiveParameterNonNumericValueFails() {
+    public void testDirectiveKeyValueSeparatorParameterNonNumericValueFails() {
         this.parseInvalidCharacterFails("A=B");
     }
 
     @Test
-    public void testDirectiveParameterNonNumericValueFails2() {
+    public void testDirectiveKeyValueSeparatorParameterNonNumericValueFails2() {
         this.parseInvalidCharacterFails("A=BCD", 'B');
     }
 
     @Test
-    public void testDirectiveParameterNumericValue() {
+    public void testDirectiveKeyValueSeparatorParameterNumericValue() {
         this.parseAndCheck2("A=1", "A", 1L);
     }
 
     @Test
-    public void testDirectiveParameterNumericValue2() {
+    public void testDirectiveKeyValueSeparatorParameterNumericValue2() {
         this.parseAndCheck2("A=123", "A", 123L);
     }
 
     @Test
-    public void testDirectiveParameterQuoteValueQuote() {
+    public void testDirectiveKeyValueSeparatorParameterQuoteValueQuote() {
         this.parseAndCheck2("A=\"B\"", "A", "B");
     }
 
     @Test
-    public void testDirectiveParameterQuoteValueQuote2() {
+    public void testDirectiveKeyValueSeparatorParameterQuoteValueQuote2() {
         this.parseAndCheck2("A=\"BCD\"", "A", "BCD");
     }
 
     @Test
-    public void testDirectiveParameterQuoteValueQuote3() {
-        this.parseAndCheck2("A=\"1\"", "A", 1L); // contents of quotes gets detected as a Long
+    public void testDirectiveKeyValueSeparatorParameterQuoteValueQuote3() {
+        this.parseAndCheck2("A=\"1\"", "A", "1");
+    }
+
+    @Test
+    public void testDirectiveKeyValueSeparatorParameterQuoteValueQuoteValueFails() {
+        final String text = "A=\"1\"\"2\"";
+        this.parseInvalidCharacterFails(text, text.indexOf('2') - 1);
     }
 
     // max-age.....................................................
@@ -241,7 +207,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testMustRevalidateParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("must-revalidate=");
+        this.parseMissingParameterValueFails("must-revalidate=");
     }
 
     @Test
@@ -268,7 +234,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testNoCacheParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("no-cache=");
+        this.parseMissingParameterValueFails("no-cache=");
     }
 
     @Test
@@ -295,7 +261,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testNoStoreParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("no-store=");
+        this.parseMissingParameterValueFails("no-store=");
     }
 
     @Test
@@ -322,7 +288,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testNoTransformParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("no-transform=");
+        this.parseMissingParameterValueFails("no-transform=");
     }
 
     @Test
@@ -349,7 +315,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testPublicParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("public=");
+        this.parseMissingParameterValueFails("public=");
     }
 
     @Test
@@ -376,7 +342,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testPrivateParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("private=");
+        this.parseMissingParameterValueFails("private=");
     }
 
     @Test
@@ -403,7 +369,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testProxyRevalidateParameterSeparatorFails() {
-        this.parseInvalidCharacterFails("proxy-revalidate=");
+        this.parseMissingParameterValueFails("proxy-revalidate=");
     }
 
     @Test
@@ -583,6 +549,11 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     @Override
     List<CacheControlDirective<?>> parse(final String text) {
         return CacheControlDirectiveHeaderParser.parseCacheControlDirectiveList(text);
+    }
+
+    @Override
+    String valueLabel() {
+        return CacheControlDirectiveHeaderParser.DIRECTIVE;
     }
 
     @Override

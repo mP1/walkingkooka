@@ -186,13 +186,6 @@ public final class MediaTypeBoundary implements Value<String>,
     final static CharPredicate QUOTED_CHARACTER_PREDICATE = UNQUOTED_CHARACTER_PREDICATE.or(BOUNDARY_SPECIALS);
 
     /**
-     * Factory creates a new {@link MediaTypeBoundary}
-     */
-    static MediaTypeBoundary with0(final String text, final String headerText) {
-        return new MediaTypeBoundary(text, headerText, ENCODED_ABSENT);
-    }
-
-    /**
      * Private ctor.
      */
     private MediaTypeBoundary(final String value,

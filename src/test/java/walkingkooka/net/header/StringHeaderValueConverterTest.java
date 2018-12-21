@@ -18,24 +18,10 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.PackagePrivateClassTestCase;
 
 public final class StringHeaderValueConverterTest extends
         PackagePrivateClassTestCase<StringHeaderValueConverter> {
-
-    private final static String TEXT = "abc123";
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullPredicateFails() {
-        StringHeaderValueConverter.with(null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testWithNullFeaturesFails() {
-        StringHeaderValueConverter.with(CharPredicates.fake(), (StringHeaderValueConverterFeature[]) null);
-    }
 
     @Override
     protected Class<StringHeaderValueConverter> type() {

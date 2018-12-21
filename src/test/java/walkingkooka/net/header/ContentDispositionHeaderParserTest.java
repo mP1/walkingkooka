@@ -25,8 +25,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Map;
 
-public final class ContentDispositionHeaderParserTest extends HeaderParser2TestCase<ContentDispositionHeaderParser,
-        ContentDispositionParameterName<?>,
+public final class ContentDispositionHeaderParserTest extends HeaderParserWithParametersTestCase<ContentDispositionHeaderParser,
         ContentDisposition> {
 
     // parse ...................................................................................................
@@ -38,17 +37,17 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
 
     @Test
     public void testTypeSeparatorFails() {
-        this.parseInvalidCharacterFails("A,", ',');
+        this.parseMissingValueFails("A,");
     }
 
     @Test
     public void testTypeSeparatorSpaceFails() {
-        this.parseInvalidCharacterFails("A, ", ',');
+        this.parseMissingValueFails("A, ");
     }
 
     @Test
     public void testTypeSeparatorTabFails() {
-        this.parseInvalidCharacterFails("A,\t", ',');
+        this.parseMissingValueFails("A,\t");
     }
 
     @Test
@@ -167,10 +166,8 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     }
 
     @Test
-    public void testTypeParameterSeparatorFails() {
-        final String text = "A;=";
-        this.parseFails(text,
-                HeaderParser2.emptyToken(HeaderParser2.PARAMETER_NAME, 2, text));
+    public void testTypeParameterSeparatorEqualsFails() {
+        this.parseInvalidCharacterFails("A;=");
     }
 
     @Test
@@ -194,8 +191,8 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     }
 
     @Test
-    public void testTypeSubTypeCommaFails() {
-        this.parseInvalidCharacterFails("A,");
+    public void testTypeMultiValueSeparatorFails() {
+        this.parseMissingValueFails("A,");
     }
 
     @Test
@@ -243,6 +240,19 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     @Test
     public void testTypeParameterNameEqualsSpaceTabSpaceTabParameterValue() {
         this.parseAndCheck("A;b= \t \tc",
+                "A",
+                "b", "c");
+    }
+
+    @Test
+    public void testTypeParameterQuotedParameterValue() {
+        final String text = "A;b=c\"d\"";
+        this.parseInvalidCharacterFails(text, text.indexOf('d') - 1);
+    }
+
+    @Test
+    public void testTypeParameterNameEqualsQuotedParameterValue() {
+        this.parseAndCheck("A;b=\"c\"",
                 "A",
                 "b", "c");
     }
@@ -374,17 +384,12 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
         this.parseMissingClosingQuoteFails("V1;p1=\"");
     }
 
-    @Test
-    public void testTypeParameterSeparatorQuoteInvalidCharacterFails() {
-        this.parseInvalidCharacterFails("V1;p1=\"/", 7);
-    }
-
     // parse creation-date............................................................................................
 
     @Test
     public void testCreationDateInvalidFails() {
         this.parseFails("V; creation-date=123",
-                "Failed to convert \"creation-date\" value \"123\", message: Text '123' could not be parsed at index 3");
+                "Failed to convert \"creation-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
     }
 
     @Test
@@ -398,12 +403,13 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     // parse filename............................................................................................
 
     @Test
-    public void testFilenameInvalidFails() {
-        this.parseInvalidCharacterFails("V; filename=\0");
+    public void testFilenameMissingFails() {
+        this.parseFails("V; filename=\"\"",
+                "Failed to convert \"filename\" value \"\"\"\", message: name is empty");
     }
 
     @Test
-    public void testFilenameMissingFails() {
+    public void testFilenameMissingFails2() {
         this.parseMissingParameterValueFails("V; filename=");
     }
 
@@ -428,7 +434,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     @Test
     public void testModificationDateInvalidFails() {
         this.parseFails("V; modification-date=123",
-                "Failed to convert \"modification-date\" value \"123\", message: Text '123' could not be parsed at index 3");
+                "Failed to convert \"modification-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
     }
 
     @Test
@@ -444,7 +450,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     @Test
     public void testReadDateInvalidFails() {
         this.parseFails("V; read-date=123",
-                "Failed to convert \"read-date\" value \"123\", message: Text '123' could not be parsed at index 3");
+                "Failed to convert \"read-date\" value \"123\", message: Invalid character '1' at 0 in \"123\"");
     }
 
     @Test
@@ -459,7 +465,8 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
 
     @Test
     public void testSizeInvalidFails() {
-        this.parseInvalidCharacterFails("V; filename=\0");
+        this.parseFails("V; size=A",
+                "Failed to convert \"size\" value \"A\", message: For input string: \"A\"");
     }
 
     @Test
@@ -474,7 +481,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
 
     @Override
     ContentDisposition parse(final String text) {
-        return ContentDispositionHeaderParser.parse(text);
+        return ContentDispositionHeaderParser.parseContentDisposition(text);
     }
 
     private void parseAndCheck(final String headerValue, final String type) {
@@ -507,8 +514,8 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     }
 
     @Override
-    ContentDispositionHeaderParser createHeaderParser(final String text) {
-        return new ContentDispositionHeaderParser(text);
+    String valueLabel() {
+        return ContentDispositionHeaderParser.TYPE;
     }
 
     @Override

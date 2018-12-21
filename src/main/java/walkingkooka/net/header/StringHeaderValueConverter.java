@@ -18,30 +18,12 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.collect.set.Sets;
 import walkingkooka.predicate.character.CharPredicate;
-
-import java.util.Objects;
-import java.util.Set;
 
 /**
  * A {@link HeaderValueConverter} that handles string values.
  */
 abstract class StringHeaderValueConverter extends HeaderValueConverter2<String> {
-
-    /**
-     * Factory that creates a new {@link StringHeaderValueConverter}.
-     */
-    final static StringHeaderValueConverter with(final CharPredicate predicate,
-                                                 final StringHeaderValueConverterFeature...features) {
-        Objects.requireNonNull(predicate, "predicate");
-        Objects.requireNonNull(features, "features");
-
-        final Set<StringHeaderValueConverterFeature> featuresSet = Sets.of(features);
-        return featuresSet.contains(StringHeaderValueConverterFeature.DOUBLE_QUOTES) ?
-                QuotedStringHeaderValueConverter.quoted(predicate, featuresSet.contains(StringHeaderValueConverterFeature.BACKSLASH_ESCAPING)) :
-                UnquotedStringHeaderValueConverter.unquoted(predicate);
-    }
 
     /**
      * Package private to limit sub classing.

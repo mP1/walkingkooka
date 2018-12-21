@@ -24,25 +24,24 @@ package walkingkooka.net.header;
 final class TokenHeaderValueOneHeaderParser extends TokenHeaderValueHeaderParser {
 
     static TokenHeaderValue parseTokenHeaderValue(final String text) {
-        checkText(text, "header");
-
         final TokenHeaderValueOneHeaderParser parser = new TokenHeaderValueOneHeaderParser(text);
         parser.parse();
         return parser.token;
     }
 
-    // @VisibleForTesting
-    TokenHeaderValueOneHeaderParser(final String text) {
+    private TokenHeaderValueOneHeaderParser(final String text) {
         super(text);
     }
 
     @Override
-    void tokenHeaderValueEnd() {
-        // nop
+    boolean allowMultipleValues() {
+        return false;
     }
 
     @Override
-    void separator() {
-        this.failInvalidCharacter();
+    void valueComplete(final TokenHeaderValue token) {
+        this.token = token;
     }
+
+    private TokenHeaderValue token;
 }
