@@ -164,9 +164,6 @@ abstract class ETagHeaderParser extends HeaderParser {
     private final static int MODE_VALUE = MODE_QUOTE_BEGIN + 1;
     private final static int MODE_FINISHED = MODE_VALUE + 1;
 
-
-    private final static char DOUBLE_QUOTE = '"';
-
     /**
      * A {@link CharPredicate} that match the content within an ETAG quoted string.<br>
      * <a href="https://tools.ietf.org/html/rfc7232#section-2.3></a>

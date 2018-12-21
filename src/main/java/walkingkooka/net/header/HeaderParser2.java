@@ -37,8 +37,6 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
         CharSequences.failIfNullOrEmpty(text, label);
     }
 
-    final static char BACKSLASH = '\\';
-    final static char SEPARATOR = ',';
     final static char PARAMETER_SEPARATOR = ';';
     final static char PARAMETER_NAME_VALUE_SEPARATOR = '=';
     final static String PARAMETER_NAME = "parameter name";
@@ -58,9 +56,6 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
             throw new NeverError(name + "=" + CharSequences.quoteIfChars(c) + " should be " + constant);
         }
     }
-
-    final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
-    final static CharPredicate RFC2045SPECIAL = CharPredicates.rfc2045TokenSpecial();
 
     HeaderParser2(final String text) {
         super(text);

@@ -65,7 +65,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
                     mode = MODE_DIRECTIVE_NAME;
                     // fall thru intentional
                 case MODE_DIRECTIVE_NAME:
-                    if (TOKEN.test(c)) {
+                    if (RFC2045TOKEN.test(c)) {
                         break;
                     }
                     directiveName = this.directiveName(start);
@@ -106,7 +106,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
                         mode = MODE_SEPARATOR;
                         break;
                     }
-                    if (TOKEN.test(c)) {
+                    if (RFC2045TOKEN.test(c)) {
                         break;
                     }
                     failInvalidCharacter();
@@ -163,7 +163,6 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
     private final static int MODE_PARAMETER_QUOTED_VALUE = MODE_PARAMETER_NUMERIC_VALUE + 1;
     private final static int MODE_SEPARATOR = MODE_PARAMETER_QUOTED_VALUE + 1;
 
-    private final static CharPredicate TOKEN = CharPredicates.rfc2045Token();
     private final static CharPredicate DIGIT = CharPredicates.digit();
 
     private final static char SEPARATOR = HeaderValue.SEPARATOR.character();

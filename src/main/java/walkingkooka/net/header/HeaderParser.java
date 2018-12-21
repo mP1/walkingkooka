@@ -37,7 +37,12 @@ abstract class HeaderParser {
         this.position = 0;
     }
 
+    final static char BACKSLASH = '\\';
     final static char DOUBLE_QUOTE = '"';
+    final static char SEPARATOR = ',';
+
+    final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
+    final static CharPredicate RFC2045SPECIAL = CharPredicates.rfc2045TokenSpecial();
 
     /**
      * Matches any whitespace characters.<br>
@@ -61,7 +66,7 @@ abstract class HeaderParser {
      * Reports a missing closing quote.
      */
     static String missingClosingQuote(final String text) {
-        return "Missing closing '\"' " + CharSequences.quote(text);
+        return "Missing closing '\"' in " + CharSequences.quoteAndEscape(text);
     }
 
     /**
