@@ -50,7 +50,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testDirectiveParameterSeparatorFails() {
-        this.parseMissingParameterFails("A=");
+        this.parseMissingParameterValueFails("A=");
     }
 
     @Test
@@ -147,7 +147,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testMaxAgeWithoutSecondsFails() {
-        this.parseMissingParameterFails("max-age");
+        this.parseMissingParameterValueFails("max-age");
     }
 
     @Test
@@ -421,7 +421,7 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
 
     @Test
     public void testSmaxAgeWithoutSecondsFails() {
-        this.parseMissingParameterFails("s-maxage", 8);
+        this.parseMissingParameterValueFails("s-maxage", 8);
     }
 
     @Test
@@ -558,18 +558,6 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
     }
 
     // helpers ...........................................................................
-
-    private void parseMissingParameterFails(final String text) {
-        this.parseMissingParameterFails(text, text.length());
-    }
-
-    private void parseMissingParameterFails(final String text, final int at) {
-        this.parseFails(text, CacheControlDirectiveHeaderParser.missingParameter(at, text));
-    }
-
-    private void parseMissingClosingQuoteFails(final String text) {
-        this.parseFails(text, CacheControlDirectiveHeaderParser.missingClosingQuote(text));
-    }
 
     private void parseAndCheck2(final String text, final String directive) {
         this.parseAndCheck3(text,

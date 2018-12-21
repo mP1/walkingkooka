@@ -54,6 +54,54 @@ abstract class HeaderParser {
     final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020")
             .setToString("SP|HTAB");
 
+    // helpers ..................................................................................
+
+    /**
+     * Tests if there is at least one more character.
+     */
+    final boolean hasMoreCharacters() {
+        return this.position < this.text.length();
+    }
+
+    /**
+     * Retrieves the current character.
+     */
+    final char character() {
+        return this.text.charAt(this.position);
+    }
+
+    /**
+     * Consumes the token text with characters matched by the given {@link CharPredicate}.
+     */
+    final String tokenText(final CharPredicate predicate) {
+        final int start = this.position;
+        this.consume(predicate);
+        return this.text.substring(start, this.position);
+    }
+
+    /**
+     * Consumes all characters that match the given {@link CharPredicate}.
+     */
+    final void consume(final CharPredicate predicate) {
+        while(this.hasMoreCharacters()) {
+            if(!predicate.test(this.character())) {
+                break;
+            }
+            this.position++;
+        }
+    }
+
+    // whitespace.................................................................................................
+
+    /**
+     * Consumes any optional whitespace.
+     */
+    final void consumeWhitespace() {
+        this.consume(WHITESPACE);
+    }
+
+    // fail .......................................................................................
+
     /**
      * Reports an invalid character within the unparsed text.
      */
@@ -67,6 +115,30 @@ abstract class HeaderParser {
      */
     static String missingClosingQuote(final String text) {
         return "Missing closing '\"' in " + CharSequences.quoteAndEscape(text);
+    }
+
+    final void failMissingParameterValue() {
+        fail(missingParameterValue(this.position, this.text));
+    }
+
+    static String missingParameterValue(final int start, final String text) {
+        return emptyToken("parameter value", start, text);
+    }
+
+    // error reporting.................................................................................................
+
+    /**
+     * Reports an empty token.
+     */
+    final void failEmptyToken(final String token) {
+        fail(emptyToken(token, this.position, this.text));
+    }
+
+    /**
+     * The message when a token is empty.
+     */
+    static String emptyToken(final String token, final int i, final String text) {
+        return "Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text);
     }
 
     /**

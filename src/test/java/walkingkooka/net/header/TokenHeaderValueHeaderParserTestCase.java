@@ -28,8 +28,8 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeaderValueHeaderParser, V> extends
         HeaderParser2TestCase<P,
-                        TokenHeaderValueParameterName<?>,
-                        V> {
+                TokenHeaderValueParameterName<?>,
+                V> {
 
     TokenHeaderValueHeaderParserTestCase() {
         super();
@@ -59,32 +59,27 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
 
     @Test
     public final void testValueSpaceEqualsFails() {
-        this.parseFails("A;b =",
-                "Missing parameter value at 4 in \"A;b =\"");
+        this.parseMissingParameterValueFails("A;b =", 4);
     }
 
     @Test
     public final void testValueTabEqualsFails() {
-        this.parseFails("A;b =",
-                "Missing parameter value at 4 in \"A;b =\"");
+        this.parseMissingParameterValueFails("A;b =", 4);
     }
 
     @Test
     public final void testValueSpaceTabSpaceTabEqualsFails() {
-        this.parseFails("A;b \t \t=",
-                "Missing parameter value at 7 in \"A;b \\t \\t=\"");
+        this.parseMissingParameterValueFails("A;b \t \t=", 7);
     }
 
     @Test
     public final void testValueEqualsSpaceFails() {
-        this.parseFails("A;b= ",
-                "Missing parameter value at 4 in \"A;b= \"");
+        this.parseMissingParameterValueFails("A;b= ", 4);
     }
 
     @Test
     public final void testValueEqualsTabFails() {
-        this.parseFails("A;b=\t",
-                "Missing parameter value at 4 in \"A;b=\\t\"");
+        this.parseMissingParameterValueFails("A;b=\t", 4);
     }
 
     @Test

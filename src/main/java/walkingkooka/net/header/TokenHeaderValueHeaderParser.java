@@ -55,7 +55,7 @@ abstract class TokenHeaderValueHeaderParser extends HeaderParser2<TokenHeaderVal
 
     @Override
     final void missingParameterValue() {
-        this.failEmptyParameterValue();
+        this.failMissingParameterValue();
     }
 
     @Override

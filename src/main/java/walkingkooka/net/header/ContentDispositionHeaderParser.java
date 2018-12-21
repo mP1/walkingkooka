@@ -140,7 +140,7 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
 
     @Override
     void missingParameterValue() {
-        this.failEmptyParameterValue();
+        this.failMissingParameterValue();
     }
 
     @Override

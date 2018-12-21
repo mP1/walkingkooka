@@ -23,7 +23,6 @@ import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CharSequences;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,15 +45,14 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
      * Parses a header value which must have one or more cache control directives.
      */
     private List<CacheControlDirective<?>> parse() {
-        final int length = text.length();
-
         int mode = MODE_DIRECTIVE_NAME;
         int start = 0;
         CacheControlDirectiveName<?> directiveName = null;
         Optional<?> parameter = Optional.empty();
 
-        while (this.position < length) {
-            final char c = this.text.charAt(this.position);
+        while (this.hasMoreCharacters()) {
+            final char c = this.character();
+
             switch (mode) {
                 case MODE_SEPARATOR_WHITESPACE:
                     if (WHITESPACE.test(c)) {
@@ -135,7 +133,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
                 this.addParameter(Cast.to(this.directiveName(start)), parameter);
                 break;
             case MODE_PARAMETER_VALUE_INITIAL:
-                this.failMissingParameter();
+                this.failMissingParameterValue();
             case MODE_PARAMETER_NUMERIC_VALUE:
                 this.addParameter(directiveName, start, DISALLOW_EMPTY_PARAMETER);
                 break;
@@ -190,7 +188,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
                                   final boolean allowEmpty) {
         final String parameter = this.text.substring(start, this.position);
         if (parameter.isEmpty() && !allowEmpty) {
-            this.failMissingParameter();
+            this.failMissingParameterValue();
         }
         this.addParameter(name, name.toValue(parameter));
     }
@@ -201,28 +199,20 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
     private <T> void addParameter(final CacheControlDirectiveName<T> name,
                                   final Optional<T> parameter) {
         if (name.requiresParameter() && Optional.empty().equals(parameter)) {
-            if (this.position < this.text.length()) {
+            if (this.hasMoreCharacters()) {
                 this.failInvalidCharacter();
             } else {
-                this.failMissingParameter();
+                this.failMissingParameterValue();
             }
         }
         if (!name.mayIncludeParameter() && !Optional.empty().equals(parameter)) {
-            if (this.position < this.text.length()) {
+            if (this.hasMoreCharacters()) {
                 this.failInvalidCharacter();
             } else {
-                this.failMissingParameter();
+                this.failMissingParameterValue();
             }
         }
         this.directives.add(name.setParameter(parameter));
-    }
-
-    private void failMissingParameter() {
-        fail(missingParameter(this.position, this.text));
-    }
-
-    static String missingParameter(final int start, final String text) {
-        return "Parameter missing at " + start + " in " + CharSequences.quoteAndEscape(text);
     }
 
     private final List<CacheControlDirective<?>> directives = Lists.array();

@@ -71,20 +71,17 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
 
     @Test
     public final void testBeginQuoteFails() {
-        final String text = "\"";
-        this.parseFails(text, ETagHeaderParser.missingClosingQuote(text));
+        this.parseMissingClosingQuoteFails("\"");
     }
 
     @Test
     public final void testBeginQuoteFails2() {
-        final String text = "\"A";
-        this.parseFails(text, ETagHeaderParser.missingClosingQuote(text));
+        this.parseMissingClosingQuoteFails("\"A");
     }
 
     @Test
     public final void testBeginQuoteFails3() {
-        final String text = "\"'";
-        this.parseFails(text, ETagHeaderParser.missingClosingQuote(text));
+        this.parseMissingClosingQuoteFails( "\"'");
     }
 
     @Test
