@@ -120,7 +120,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testParameterValueUnclosedQuoteFails() {
         this.parseFails("type/subtype;parameter=\"",
-                "Missing closing '\\\"' in \"type/subtype;parameter=\\\"\"");
+                "Missing closing '\"' in \"type/subtype;parameter=\\\"\"");
     }
 
     @Test

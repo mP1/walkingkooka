@@ -18,8 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.text.CharSequences;
-
 /**
  * Base class which parses text containing one or many media types.
  */
@@ -101,7 +99,7 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
         Exit:
         for(;;) {
             if(!this.hasMoreCharacters()) {
-                fail("Missing closing " + CharSequences.quoteAndEscape(DOUBLE_QUOTE) + " in " + CharSequences.quoteAndEscape(this.text));
+                fail(missingClosingQuote(this.text));
             }
             final char c = this.character();
             this.position++;
@@ -132,8 +130,6 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
             }
         }
     }
-
-    private final static char DOUBLE_QUOTE = '"';
 
     @Override
     final void missingParameterValue() {

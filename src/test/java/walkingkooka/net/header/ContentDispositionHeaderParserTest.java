@@ -340,7 +340,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
 
     @Test
     public void testTypeParameterSeparatorQuoteFails() {
-        this.parseFails("V1;p1=\"", "Missing closing '\\\"' in \"V1;p1=\\\"\"");
+        this.parseFails("V1;p1=\"", "Missing closing '\"' in \"V1;p1=\\\"\"");
     }
 
     @Test

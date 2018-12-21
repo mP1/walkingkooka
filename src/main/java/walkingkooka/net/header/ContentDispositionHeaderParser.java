@@ -18,10 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CharSequences;
-
 /**
  * <a href="https://tools.ietf.org/html/rfc2183"></a>
  * <pre>
@@ -122,7 +118,7 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
 
         for(;;) {
             if(!this.hasMoreCharacters()) {
-                fail("Missing closing " + CharSequences.quoteAndEscape(DOUBLE_QUOTE) + " in " + CharSequences.quoteAndEscape(this.text));
+                fail(missingClosingQuote(this.text));
             }
             final char c = this.character();
             if(DOUBLE_QUOTE == c){
@@ -137,52 +133,6 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
         }
     }
 
-    private final static char DOUBLE_QUOTE = '"';
-
-    /**
-     * <a href="https://tools.ietf.org/html/rfc822"></a>
-     * <pre>
-     * date-time   =  [ day "," ] date time        ; dd mm yy
-     *                                                  ;  hh:mm:ss zzz
-     *
-     *      day         =  "Mon"  / "Tue" /  "Wed"  / "Thu"
-     *                  /  "Fri"  / "Sat" /  "Sun"
-     *
-     *      date        =  1*2DIGIT month 2DIGIT        ; day month year
-     *                                                  ;  e.g. 20 Jun 82
-     *
-     *      month       =  "Jan"  /  "Feb" /  "Mar"  /  "Apr"
-     *                  /  "May"  /  "Jun" /  "Jul"  /  "Aug"
-     *                  /  "Sep"  /  "Oct" /  "Nov"  /  "Dec"
-     *
-     *      time        =  hour zone                    ; ANSI and Military
-     *
-     *      hour        =  2DIGIT ":" 2DIGIT [":" 2DIGIT]
-     *                                                  ; 00:00:00 - 23:59:59
-     *
-     *      zone        =  "UT"  / "GMT"                ; Universal Time
-     *                                                  ; North American : UT
-     *                  /  "EST" / "EDT"                ;  Eastern:  - 5/ - 4
-     *                  /  "CST" / "CDT"                ;  Central:  - 6/ - 5
-     *                  /  "MST" / "MDT"                ;  Mountain: - 7/ - 6
-     *                  /  "PST" / "PDT"                ;  Pacific:  - 8/ - 7
-     *                  /  1ALPHA                       ; Military: Z = UT;
-     *                                                  ;  A:-1; (J not used)
-     *                                                  ;  M:-12; N:+1; Y:+12
-     *                  / ( ("+" / "-") 4DIGIT )        ; Local differential
-     *                                                  ;  hours+min. (HHMM)
-     * </pre>
-     */
-    final static CharPredicate DATE = CharPredicates.builder()
-            .any("MonTuesWedThuFriSatSun,JanFebMarAprMayJunJulAugSepOctNovDec 0123456789:+-")
-            .build()
-            .setToString("RFC822 Date");
-
-    /**
-     * Only allow digits in a SIZE parameter value.
-     */
-    final static CharPredicate DIGIT = CharPredicates.digit();
-
     @Override
     void separator() {
         this.failInvalidCharacter();
@@ -195,7 +145,7 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
 
     @Override
     void tokenEnd() {
-            this.disposition = this.disposition.setParameters(this.parameters);
+        this.disposition = this.disposition.setParameters(this.parameters);
     }
 
     ContentDisposition disposition;
