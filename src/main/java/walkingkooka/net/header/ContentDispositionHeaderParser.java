@@ -104,17 +104,8 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
     }
 
     @Override
-    void parameterValue() {
-        final char c = this.character();
-        if(DOUBLE_QUOTE ==c) {
-            this.position++;
-            this.quotedParameterValue();
-        } else {
-            this.parameterValue(RFC2045TOKEN);
-        }
-    }
-
-    private void quotedParameterValue() {
+    void quotedParameterValue() {
+        this.position++;
         final int start = this.position;
 
         for(;;) {
@@ -132,6 +123,11 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
             }
             this.position++;
         }
+    }
+
+    @Override
+    void unquotedParameterValue() {
+        this.parameterValue(RFC2045TOKEN);
     }
 
     @Override

@@ -159,9 +159,25 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
     abstract void parameterName();
 
     /**
-     * Sub classes must consume the parameter value.
+     * Tests the first character and calls either {@link #quotedParameterValue()} or {@link #unquotedParameterValue()}.
      */
-    abstract void parameterValue();
+    final void parameterValue() {
+        if(DOUBLE_QUOTE ==this.character()) {
+            this.quotedParameterValue();
+        } else {
+            this.unquotedParameterValue();
+        }
+    }
+
+    /**
+     * Called when a quoted parameter value is encountered.
+     */
+    abstract void quotedParameterValue();
+
+    /**
+     * Called when a unquoted parameter value is encountered.
+     */
+    abstract void unquotedParameterValue();
 
     /**
      * Sub classes must handle any separator.

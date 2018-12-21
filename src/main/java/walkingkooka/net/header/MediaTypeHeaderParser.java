@@ -82,18 +82,10 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
     }
 
     @Override
-    void parameterValue() {
-        final char c = this.character();
-        if(DOUBLE_QUOTE ==c) {
-            this.position++;
-            this.quotedParameterValue();
-        } else {
-            this.parameterValue(RFC2045TOKEN);
-        }
-    }
+    void quotedParameterValue() {
+        final int start = this.position;
+        this.position++;
 
-    private void quotedParameterValue() {
-        final int start = this.position -1;
         boolean escaping = false;
 
         Exit:
@@ -129,6 +121,11 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
                     break;
             }
         }
+    }
+
+    @Override
+    void unquotedParameterValue() {
+        this.parameterValue(RFC2045TOKEN);
     }
 
     @Override

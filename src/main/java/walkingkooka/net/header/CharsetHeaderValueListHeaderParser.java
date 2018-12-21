@@ -91,7 +91,12 @@ final class CharsetHeaderValueListHeaderParser extends HeaderParser2<CharsetHead
     }
 
     @Override
-    void parameterValue() {
+    void quotedParameterValue() {
+        this.failInvalidCharacter();
+    }
+
+    @Override
+    void unquotedParameterValue() {
         this.parameterValue(RFC2045TOKEN);
     }
 
