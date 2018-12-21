@@ -75,24 +75,24 @@ final class CharsetHeaderValueListHeaderParser extends HeaderParser2<CharsetHead
     }
 
     private CharsetName charsetNameNotWildcard() {
-        final String initial = this.tokenText(CharsetName.INITIAL_CHAR_PREDICATE);
+        final String initial = this.token(CharsetName.INITIAL_CHAR_PREDICATE);
         if (initial.isEmpty()) {
             failInvalidCharacter();
         }
 
-        return CharsetName.with(initial + this.tokenText(CharsetName.PART_CHAR_PREDICATE));
+        return CharsetName.with(initial + this.token(CharsetName.PART_CHAR_PREDICATE));
     }
 
     private final static String CHARSET = "charset";
 
     @Override
     void parameterName() {
-        this.parseParameterName(RFC2045TOKEN, CharsetHeaderValueParameterName::with);
+        this.parameterName(RFC2045TOKEN, CharsetHeaderValueParameterName::with);
     }
 
     @Override
     void parameterValue() {
-        this.parseParameterValue(RFC2045TOKEN);
+        this.parameterValue(RFC2045TOKEN);
     }
 
     @Override
