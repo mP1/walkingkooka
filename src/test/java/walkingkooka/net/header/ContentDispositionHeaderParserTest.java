@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.map.Maps;
 
 import java.time.OffsetDateTime;
@@ -302,8 +301,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
     public void testTypeParameterSeparatorParameterNameFails() {
         final String text = "A;b=c;D";
         this.parseFails(text,
-                HeaderParser2.emptyToken(HeaderParser2.PARAMETER_VALUE,
-                        6,
+                HeaderParser2.missingParameterValue(6,
                         text));
     }
 
@@ -340,12 +338,12 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
 
     @Test
     public void testTypeParameterSeparatorQuoteFails() {
-        this.parseFails("V1;p1=\"", "Missing closing '\"' in \"V1;p1=\\\"\"");
+        this.parseMissingClosingQuoteFails("V1;p1=\"");
     }
 
     @Test
     public void testTypeParameterSeparatorQuoteInvalidCharacterFails() {
-        this.parseFails("V1;p1=\"/", new InvalidCharacterException("V1;p1=\"/", 7).getMessage());
+        this.parseInvalidCharacterFails("V1;p1=\"/", 7);
     }
 
     // parse creation-date............................................................................................
@@ -373,8 +371,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParser2TestC
 
     @Test
     public void testFilenameMissingFails() {
-        this.parseFails("V; filename=",
-                "Missing parameter value at 11 in \"V; filename=\"");
+        this.parseMissingParameterValueFails("V; filename=", 11);
     }
 
     @Test

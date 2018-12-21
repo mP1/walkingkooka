@@ -95,32 +95,27 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
 
     @Test
     public final void testParameterValueMissingFails() {
-        this.parseFails("type/subtype;parameter",
-                "Missing parameter value at 21 in \"type/subtype;parameter\"");
+        this.parseMissingParameterValueFails("type/subtype;parameter", 21);
     }
 
     @Test
     public final void testParameterValueMissingFails2() {
-        this.parseFails("type/subtype;parameter=",
-                "Missing parameter value at 22 in \"type/subtype;parameter=\"");
+        this.parseMissingParameterValueFails("type/subtype;parameter=", 22);
     }
 
     @Test
     public final void testParameterValueMissingFails3() {
-        this.parseFails("type/subtype;p1=v1;p2",
-                "Missing parameter value at 20 in \"type/subtype;p1=v1;p2\"");
+        this.parseMissingParameterValueFails("type/subtype;p1=v1;p2", 20);
     }
 
     @Test
     public final void testParameterValueMissingFails4() {
-        this.parseFails("type/subtype;p1=v1;p2=",
-                "Missing parameter value at 21 in \"type/subtype;p1=v1;p2=\"");
+        this.parseMissingParameterValueFails("type/subtype;p1=v1;p2=", 21);
     }
 
     @Test
     public final void testParameterValueUnclosedQuoteFails() {
-        this.parseFails("type/subtype;parameter=\"",
-                "Missing closing '\"' in \"type/subtype;parameter=\\\"\"");
+        this.parseMissingClosingQuoteFails("type/subtype;parameter=\"");
     }
 
     @Test

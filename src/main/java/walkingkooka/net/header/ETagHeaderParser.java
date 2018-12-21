@@ -59,12 +59,11 @@ abstract class ETagHeaderParser extends HeaderParser {
         String value = null;
         ETagValidator validator = ETagValidator.STRONG;
 
-        final int length = this.text.length();
         int mode = startMode;
         int start = -1;
 
-        while (this.position < length) {
-            final char c = this.text.charAt(this.position);
+        while (this.hasMoreCharacters()) {
+            final char c = this.character();
 
             switch (mode) {
                 case MODE_SEPARATOR:

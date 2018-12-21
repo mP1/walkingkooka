@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.NeverError;
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
 
@@ -138,41 +137,6 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
     }
 
     /**
-     * Tests if there is at least one more character.
-     */
-    final boolean hasMoreCharacters() {
-        return this.position < this.text.length();
-    }
-
-    /**
-     * Retrieves the current character.
-     */
-    final char character() {
-        return this.text.charAt(this.position);
-    }
-
-    /**
-     * Consumes the token text with characters matched by the given {@link CharPredicate}.
-     */
-    final String tokenText(final CharPredicate predicate) {
-        final int start = this.position;
-        this.consume(predicate);
-        return this.text.substring(start, this.position);
-    }
-
-    /**
-     * Consumes all characters that match the given {@link CharPredicate}.
-     */
-    final void consume(final CharPredicate predicate) {
-        while(this.hasMoreCharacters()) {
-            if(!predicate.test(this.character())) {
-                break;
-            }
-            this.position++;
-        }
-    }
-
-    /**
      * The current mode.
      */
     HeaderParser2Mode mode;
@@ -227,7 +191,15 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
      * Adds a new parameter to the parameters map.
      */
     final void addParameter(final String valueText) {
-            this.parameters.put(this.parameterName, this.parameterName.toValue(valueText));
+        this.parameters.put(this.parameterName, this.parameterName.toValue(valueText));
+    }
+
+    /**
+     * Consumes any optional whitespace and then updates the current mode to next.
+     */
+    final void consumeWhitespace(final HeaderParser2Mode next) {
+        this.consumeWhitespace();
+        this.mode = next;
     }
 
     final void failNotIfWhitespaceOrParameterSeparatorOrSeparator() {
@@ -245,45 +217,5 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
             }
             this.failInvalidCharacter();
         }
-    }
-
-    // whitespace.................................................................................................
-
-    /**
-     * Consumes any optional whitespace and then updates the current mode to next.
-     */
-    final void consumeWhitespace(final HeaderParser2Mode next) {
-        this.consumeWhitespace();
-        this.mode = next;
-    }
-
-    /**
-     * Consumes any optional whitespace.
-     */
-    final void consumeWhitespace() {
-        this.consume(WHITESPACE);
-    }
-
-    private final static CharPredicate WHITESPACE = CharPredicates.any("\u0009\u0020")
-            .setToString("SP|HTAB");
-
-    // error reporting.................................................................................................
-
-    final void failEmptyParameterValue() {
-        failEmptyToken("parameter value");
-    }
-
-    /**
-     * Reports an empty token.
-     */
-    final void failEmptyToken(final String token) {
-        fail(emptyToken(token, this.position, this.text));
-    }
-
-    /**
-     * The message when a token is empty.
-     */
-    static String emptyToken(final String token, final int i, final String text) {
-        return "Missing " + token + " at " + i + " in " + CharSequences.quoteAndEscape(text);
     }
 }

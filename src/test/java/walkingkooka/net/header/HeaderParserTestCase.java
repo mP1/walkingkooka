@@ -65,7 +65,20 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
     }
 
     final void parseInvalidCharacterFails(final String text, final int pos) {
-        parseFails(text, new InvalidCharacterException(text, pos).getMessage());
+        this.parseFails(text, new InvalidCharacterException(text, pos).getMessage());
+    }
+
+    final void parseMissingClosingQuoteFails(final String text) {
+        this.parseFails(text, HeaderParser.missingClosingQuote(text));
+    }
+
+    final void parseMissingParameterValueFails(final String text) {
+        this.parseMissingParameterValueFails(text, text.length());
+    }
+
+    final void parseMissingParameterValueFails(final String text, final int pos) {
+        this.parseFails(text,
+                HeaderParser.missingParameterValue(pos, text));
     }
 
     final void parseFails(final String text, final String message) {

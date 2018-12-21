@@ -306,8 +306,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParser2T
     public void testCharsetParameterSeparatorParameterNameFails() {
         final String text = "UTF-8;b=c;D";
         this.parseFails(text,
-                HeaderParser2.emptyToken(HeaderParser2.PARAMETER_VALUE,
-                        10,
+                HeaderParser2.missingParameterValue(10,
                         text));
     }
 

@@ -133,7 +133,7 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
 
     @Override
     final void missingParameterValue() {
-        this.failEmptyParameterValue();
+        this.failMissingParameterValue();
     }
 
     @Override

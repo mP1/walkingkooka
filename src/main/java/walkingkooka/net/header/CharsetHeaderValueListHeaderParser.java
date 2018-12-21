@@ -102,7 +102,7 @@ final class CharsetHeaderValueListHeaderParser extends HeaderParser2<CharsetHead
 
     @Override
     void missingParameterValue() {
-        this.failEmptyParameterValue();
+        this.failMissingParameterValue();
     }
 
     @Override
