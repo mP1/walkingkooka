@@ -55,7 +55,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
             switch (mode) {
                 case MODE_SEPARATOR_WHITESPACE:
-                    this.consumeWhitespace();
+                    this.whitespace();
 
                     start = this.position;
                     parameter = Optional.empty();

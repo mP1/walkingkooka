@@ -87,7 +87,8 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
 
     @Override
     void value() {
-        this.disposition = ContentDisposition.with(this.parseValue(RFC2045TOKEN, TYPE, ContentDispositionType::with));
+        this.disposition = ContentDisposition.with(this.value(RFC2045TOKEN, TYPE,
+                ContentDispositionType::with));
     }
 
     @Override
@@ -99,21 +100,12 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
 
     @Override
     void parameterName() {
-        this.parseParameterName(RFC2045TOKEN, ContentDispositionParameterName::with);
+        this.parameterName(RFC2045TOKEN, ContentDispositionParameterName::with);
     }
 
     @Override
-    void parameterValue() {
-        final char c = this.character();
-        if(DOUBLE_QUOTE ==c) {
-            this.position++;
-            this.quotedParameterValue();
-        } else {
-            this.parseParameterValue(RFC2045TOKEN);
-        }
-    }
-
-    private void quotedParameterValue() {
+    void quotedParameterValue() {
+        this.position++;
         final int start = this.position;
 
         for(;;) {
@@ -131,6 +123,11 @@ final class ContentDispositionHeaderParser extends HeaderParser2<ContentDisposit
             }
             this.position++;
         }
+    }
+
+    @Override
+    void unquotedParameterValue() {
+        this.parameterValue(RFC2045TOKEN);
     }
 
     @Override

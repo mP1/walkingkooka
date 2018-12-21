@@ -39,7 +39,7 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
         // assumes leading whitespace skipped.
 
         // type
-        this.type = this.tokenText(RFC2045TOKEN);
+        this.type = this.token(RFC2045TOKEN);
         if(!this.hasMoreCharacters()) {
             failEmptyToken(TYPE);
         }
@@ -55,7 +55,7 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
         this.position++;
 
         // sub type
-        this.subType = this.tokenText(RFC2045TOKEN);
+        this.subType = this.token(RFC2045TOKEN);
         if(this.subType.isEmpty()) {
             if(!this.hasMoreCharacters()) {
                 this.failEmptyToken(SUBTYPE);
@@ -78,22 +78,14 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
 
     @Override
     final void parameterName() {
-        this.parseParameterName(RFC2045TOKEN, MediaTypeParameterName::with);
+        this.parameterName(RFC2045TOKEN, MediaTypeParameterName::with);
     }
 
     @Override
-    void parameterValue() {
-        final char c = this.character();
-        if(DOUBLE_QUOTE ==c) {
-            this.position++;
-            this.quotedParameterValue();
-        } else {
-            this.parseParameterValue(RFC2045TOKEN);
-        }
-    }
+    void quotedParameterValue() {
+        final int start = this.position;
+        this.position++;
 
-    private void quotedParameterValue() {
-        final int start = this.position -1;
         boolean escaping = false;
 
         Exit:
@@ -129,6 +121,11 @@ abstract class MediaTypeHeaderParser extends HeaderParser2<MediaTypeParameterNam
                     break;
             }
         }
+    }
+
+    @Override
+    void unquotedParameterValue() {
+        this.parameterValue(RFC2045TOKEN);
     }
 
     @Override

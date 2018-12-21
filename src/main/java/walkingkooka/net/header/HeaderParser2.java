@@ -77,11 +77,11 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
      * Uses the given predicate to parse the value token. The only valid trailing character is LWSP or
      * {@link #PARAMETER_SEPARATOR} others will be reported as an invalid character.
      */
-    final <V> V parseValue(final CharPredicate predicate,
-                           final String tokenName,
-                           final Function<String, V> factory) {
+    final <V> V value(final CharPredicate predicate,
+                      final String tokenName,
+                      final Function<String, V> factory) {
         final int start = this.position;
-        final String value = this.tokenText(predicate);
+        final String value = this.token(predicate);
 
         this.failNotIfWhitespaceOrParameterSeparatorOrSeparator();
 
@@ -96,8 +96,9 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
      * Uses the given predicate to parse the {@link HeaderParameterName}. The only valid trailing character is LWSP or
      * {@link #PARAMETER_NAME_VALUE_SEPARATOR} others will be reported as an invalid character.
      */
-    final void parseParameterName(final CharPredicate predicate, final Function<String, N> factory) {
-        final String parameterName = this.tokenText(predicate);
+    final void parameterName(final CharPredicate predicate,
+                             final Function<String, N> factory) {
+        final String parameterName = this.token(predicate);
 
         final int start = this.position;
         if(this.hasMoreCharacters()) {
@@ -128,8 +129,8 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
      * Uses the given predicate to parse the parameter value. The only valid trailing character is WHITESPACE or
      * {@link #PARAMETER_SEPARATOR} or {@link #SEPARATOR} others will be reported as an invalid character.
      */
-    final void parseParameterValue(final CharPredicate predicate) {
-        final String parameterValue = this.tokenText(predicate);
+    final void parameterValue(final CharPredicate predicate) {
+        final String parameterValue = this.token(predicate);
 
         this.failNotIfWhitespaceOrParameterSeparatorOrSeparator();
 
@@ -158,9 +159,25 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
     abstract void parameterName();
 
     /**
-     * Sub classes must consume the parameter value.
+     * Tests the first character and calls either {@link #quotedParameterValue()} or {@link #unquotedParameterValue()}.
      */
-    abstract void parameterValue();
+    final void parameterValue() {
+        if(DOUBLE_QUOTE ==this.character()) {
+            this.quotedParameterValue();
+        } else {
+            this.unquotedParameterValue();
+        }
+    }
+
+    /**
+     * Called when a quoted parameter value is encountered.
+     */
+    abstract void quotedParameterValue();
+
+    /**
+     * Called when a unquoted parameter value is encountered.
+     */
+    abstract void unquotedParameterValue();
 
     /**
      * Sub classes must handle any separator.
@@ -198,7 +215,7 @@ abstract class HeaderParser2<N extends HeaderParameterName<?>> extends HeaderPar
      * Consumes any optional whitespace and then updates the current mode to next.
      */
     final void consumeWhitespace(final HeaderParser2Mode next) {
-        this.consumeWhitespace();
+        this.whitespace();
         this.mode = next;
     }
 

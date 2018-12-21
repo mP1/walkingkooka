@@ -29,7 +29,7 @@ abstract class TokenHeaderValueHeaderParser extends HeaderParser2<TokenHeaderVal
 
     @Override
     final void value() {
-        this.token = this.parseValue(RFC2045TOKEN, VALUE, this::createTokenHeaderValue);
+        this.token = this.value(RFC2045TOKEN, VALUE, TokenHeaderValue::with);
     }
 
     @Override
@@ -39,18 +39,19 @@ abstract class TokenHeaderValueHeaderParser extends HeaderParser2<TokenHeaderVal
 
     private final static String VALUE = "value";
 
-    private TokenHeaderValue createTokenHeaderValue(final String value) {
-        return TokenHeaderValue.with(value);
-    }
-
     @Override
     final void parameterName() {
-        this.parseParameterName(RFC2045TOKEN, TokenHeaderValueParameterName::with);
+        this.parameterName(RFC2045TOKEN, TokenHeaderValueParameterName::with);
     }
 
     @Override
-    final void parameterValue() {
-        this.parseParameterValue(RFC2045TOKEN);
+    void quotedParameterValue() {
+        this.failInvalidCharacter();
+    }
+
+    @Override
+    void unquotedParameterValue() {
+        this.parameterValue(RFC2045TOKEN);
     }
 
     @Override

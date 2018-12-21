@@ -28,50 +28,50 @@ import static walkingkooka.net.header.HeaderParser.fail;
 
 public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, Void> {
 
-    // consumeWhitespace......................................................................................
+    // whitespace......................................................................................
 
     @Test
-    public void testConsumeWhitespaceNonWhitespace() {
-        this.consumeWhitespaceAndCheck("AB", 0);
+    public void testWhitespaceNonWhitespace() {
+        this.whitespaceAndCheck("AB", 0);
     }
 
     @Test
-    public void testConsumeWhitespaceSpaceNonWhitespace() {
-        this.consumeWhitespaceAndCheck(" B", 1);
+    public void testWhitespaceSpaceNonWhitespace() {
+        this.whitespaceAndCheck(" B", 1);
     }
 
     @Test
-    public void testConsumeWhitespaceTabNonWhitespace() {
-        this.consumeWhitespaceAndCheck("\tB", 1);
+    public void testWhitespaceTabNonWhitespace() {
+        this.whitespaceAndCheck("\tB", 1);
     }
 
     @Test
-    public void testConsumeWhitespaceCrFails() {
-        consumeWhitespaceInvalidCharacterFails("\rA", 1);
+    public void testWhitespaceCrFails() {
+        whitespaceInvalidCharacterFails("\rA", 1);
     }
 
     @Test
-    public void testConsumeWhitespaceCrNlFails() {
-        consumeWhitespaceInvalidCharacterFails("\r\nA", 2);
+    public void testWhitespaceCrNlFails() {
+        whitespaceInvalidCharacterFails("\r\nA", 2);
     }
 
     @Test
-    public void testConsumeWhitespaceCrNlSpaceNonWhitespace() {
-        this.consumeWhitespaceAndCheck("\r\n B", 3);
+    public void testWhitespaceCrNlSpaceNonWhitespace() {
+        this.whitespaceAndCheck("\r\n B", 3);
     }
 
     @Test
-    public void testConsumeWhitespaceCrNlTabNonWhitespace() {
-        this.consumeWhitespaceAndCheck("\r\n\tB", 3);
+    public void testWhitespaceCrNlTabNonWhitespace() {
+        this.whitespaceAndCheck("\r\n\tB", 3);
     }
 
     @Test
-    public void testConsumeWhitespaceCrNlSpaceCrNlTabNonWhitespace() {
-        this.consumeWhitespaceAndCheck("\r\n \r\n\tB", 6);
+    public void testWhitespaceCrNlSpaceCrNlTabNonWhitespace() {
+        this.whitespaceAndCheck("\r\n \r\n\tB", 6);
     }
 
-    private void consumeWhitespaceAndCheck(final String text, final int positionAfter) {
-        final HeaderParser parser = this.consumeWhitespace(text);
+    private void whitespaceAndCheck(final String text, final int positionAfter) {
+        final HeaderParser parser = this.whitespace(text);
         this.checkPosition(parser, positionAfter);
     }
 
@@ -79,10 +79,10 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
         assertEquals("position", position, parser.position);
     }
 
-    private void consumeWhitespaceInvalidCharacterFails(final String text,
+    private void whitespaceInvalidCharacterFails(final String text,
                                                         final int invalidCharacterPosition) {
         try {
-            this.consumeWhitespace(text);
+            this.whitespace(text);
             fail("Expected invalid character");
         } catch (final HeaderValueException expected) {
             assertEquals("message",
@@ -91,37 +91,37 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
         }
     }
 
-    private HeaderParser consumeWhitespace(final String text) {
+    private HeaderParser whitespace(final String text) {
         final HeaderParser parser = new HeaderParser(text) {
         };
-        parser.consumeWhitespace();
+        parser.whitespace();
         return parser;
     }
 
-    // tokenText......................................................................................
+    // token......................................................................................
 
     @Test
-    public void testTokenTextEmpty() {
-        this.tokenTextAndCheck("ABC", "");
+    public void testTokenEmpty() {
+        this.tokenAndCheck("ABC", "");
     }
 
     @Test
-    public void testTokenText() {
-        this.tokenTextAndCheck("1ABC", "1");
+    public void testToken() {
+        this.tokenAndCheck("1ABC", "1");
     }
 
     @Test
-    public void testTokenText2() {
-        this.tokenTextAndCheck("123ABC", "123");
+    public void testToken2() {
+        this.tokenAndCheck("123ABC", "123");
     }
 
-    private void tokenTextAndCheck(final String text,
+    private void tokenAndCheck(final String text,
                                    final String expectedText) {
         final HeaderParser parser = new HeaderParser(text) {
         };
         assertEquals(parser.toString(),
                 expectedText,
-                parser.tokenText(CharPredicates.digit()));
+                parser.token(CharPredicates.digit()));
     }
 
     @Override

@@ -63,22 +63,17 @@ abstract class HeaderParser {
     /**
      * Consumes the token text with characters matched by the given {@link CharPredicate}.
      */
-    final String tokenText(final CharPredicate predicate) {
+    final String token(final CharPredicate predicate) {
         final int start = this.position;
-        this.consume(predicate);
-        return this.text.substring(start, this.position);
-    }
 
-    /**
-     * Consumes all characters that match the given {@link CharPredicate}.
-     */
-    final void consume(final CharPredicate predicate) {
         while(this.hasMoreCharacters()) {
             if(!predicate.test(this.character())) {
                 break;
             }
             this.position++;
         }
+
+        return this.text.substring(start, this.position);
     }
 
     // whitespace.................................................................................................
@@ -94,7 +89,7 @@ abstract class HeaderParser {
      * CR, NL, HS | SP
      * </pre>
      */
-    final void consumeWhitespace() {
+    final void whitespace() {
         while(this.hasMoreCharacters()){
             final char c = this.character();
             if('\t' == c || ' ' == c) {
