@@ -49,8 +49,8 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
     /**
      * Creates and adds a new {@link TokenHeaderValueParameterName} to the cache being built that handles float header values.
      */
-    private static TokenHeaderValueParameterName<Float> registerFloatConstant(final String header) {
-        return registerConstant(header, HeaderValueConverters.floatConverter());
+    private static TokenHeaderValueParameterName<Float> registerQWeightConstant(final String header) {
+        return registerConstant(header, HeaderValueConverters.qWeight());
     }
 
     /**
@@ -65,7 +65,7 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
     /**
      * A {@link TokenHeaderValueParameterName} holding <code>Q</code>
      */
-    public final static TokenHeaderValueParameterName<Float> Q = TokenHeaderValueParameterName.registerFloatConstant("Q");
+    public final static TokenHeaderValueParameterName<Float> Q = TokenHeaderValueParameterName.registerQWeightConstant("Q");
 
     /**
      * Factory that creates a {@link TokenHeaderValueParameterName}. If the parameter is not a constant it will

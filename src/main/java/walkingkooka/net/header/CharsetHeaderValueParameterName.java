@@ -66,7 +66,7 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
      */
     public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = registerConstant("q",
             DIGITS,
-            HeaderValueConverters.floatConverter());
+            HeaderValueConverters.qWeight());
 
     /**
      * Factory that creates a {@link CharsetHeaderValueParameterName}
