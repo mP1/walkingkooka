@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.nio.charset.Charset;
@@ -257,7 +258,7 @@ public abstract class CharsetName implements Name,
 
     @Override
     public final int hashCode() {
-        return this.value().hashCode();
+        return CaseSensitivity.INSENSITIVE.hash(this.value());
     }
 
     @Override
