@@ -53,7 +53,7 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
      * </pre>
      */
     public static ContentDisposition parse(final String text) {
-        return ContentDispositionHeaderParser.parse(text);
+        return ContentDispositionHeaderParser.parseContentDisposition(text);
     }
 
     /**

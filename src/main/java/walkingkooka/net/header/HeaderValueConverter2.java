@@ -42,6 +42,8 @@ abstract class HeaderValueConverter2<T> implements HeaderValueConverter<T> {
      * The entry point that accepts a value and tries to parse it.
      */
     public final T parse(final String value, final Name name) {
+        Objects.requireNonNull(value, "value");
+
         try {
             return this.parse0(value, name);
         } catch (final HeaderValueException cause) {

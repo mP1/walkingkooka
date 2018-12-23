@@ -225,17 +225,20 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
-     * A {@link HeaderValueConverter} that accepts any printable ascii characters.
+     * Allow quoted and unquoted strings.
      */
-    private final static HeaderValueConverter<String> ASCII_PRINTABLE_STRING_HEADER_VALUE_CONVERTER =
-            HeaderValueConverters.string(CharPredicates.asciiPrintable());
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+            CharPredicates.rfc2045Token().or(CharPredicates.rfc2045TokenSpecial()),
+            true,
+            CharPredicates.rfc2045Token()
+    );
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link String} header values.
      */
     private static HttpHeaderName<String> registerStringConstant(final String header,
                                                                  final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, ASCII_PRINTABLE_STRING_HEADER_VALUE_CONVERTER);
+        return registerConstant(header, scope, QUOTED_UNQUOTED_STRING);
     }
 
     /**
@@ -773,7 +776,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
         final HttpHeaderName<?> httpHeaderName = CONSTANTS.get(name);
         return null != httpHeaderName ?
                 httpHeaderName :
-                new HttpHeaderName<String>(name, HttpHeaderNameScope.UNKNOWN, ASCII_PRINTABLE_STRING_HEADER_VALUE_CONVERTER, NOT_CONTENT);
+                new HttpHeaderName<String>(name, HttpHeaderNameScope.UNKNOWN, QUOTED_UNQUOTED_STRING, NOT_CONTENT);
     }
 
     /**

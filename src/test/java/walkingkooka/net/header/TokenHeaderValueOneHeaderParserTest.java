@@ -43,9 +43,9 @@ public final class TokenHeaderValueOneHeaderParserTest extends TokenHeaderValueH
         this.parseInvalidCharacterFails("A;b=c,");
     }
 
-    @Override
-    TokenHeaderValueOneHeaderParser createHeaderParser(final String text) {
-        return new TokenHeaderValueOneHeaderParser(text);
+    @Test
+    public final void testValueValueSeparatorFails() {
+        this.parseInvalidCharacterFails("A;,");
     }
 
     @Override

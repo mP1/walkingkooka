@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
+import walkingkooka.predicate.character.CharPredicates;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -59,8 +60,14 @@ final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter2<Off
     }
 
     @Override
-    OffsetDateTime parse0(final String value, final Name name) {
-        return OffsetDateTime.parse(value, FORMATTER);
+    OffsetDateTime parse0(final String text, final Name name) {
+        return OffsetDateTime.parse(
+                QUOTED_STRING.parse(text, name),
+                FORMATTER);
+    }
+
+    static String notDoubleQuotedText(final String text) {
+        return "Expected double quoted string but was " + text;
     }
 
     @Override
@@ -70,7 +77,9 @@ final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter2<Off
 
     @Override
     String toText0(final OffsetDateTime value, final Name name) {
-        return FORMATTER.format(value);
+        return QUOTED_STRING.toText(
+                FORMATTER.format(value),
+                name);
     }
 
     // https://tools.ietf.org/html/rfc7231#section-7.1.1.2
@@ -129,6 +138,10 @@ final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter2<Off
                 .appendOffset("+HHMM", "")
                 .toFormatter();
     }
+
+    private final static HeaderValueConverter<String> QUOTED_STRING = HeaderValueConverters.quoted(
+            CharPredicates.asciiPrintable(),
+            false);
 
     @Override
     public String toString() {

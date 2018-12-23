@@ -42,16 +42,12 @@ final class MediaTypeBoundaryHeaderValueConverter extends HeaderValueConverter2<
 
     @Override
     MediaTypeBoundary parse0(final String text, final Name name) {
-        final HeaderValueConverter<String> converter = text.charAt(0) == DOUBLEQUOTE ?
-                QUOTED :
-                UNQUOTED;
-        return MediaTypeBoundary.with0(converter.parse(text, name), text);
+        return MediaTypeBoundary.with(STRING_PARSER.parse(text, name));
     }
 
-    private final static char DOUBLEQUOTE = '"';
-    private final static HeaderValueConverter<String> UNQUOTED = HeaderValueConverters.string(MediaTypeBoundary.UNQUOTED_CHARACTER_PREDICATE);
-    private final static HeaderValueConverter<String> QUOTED = HeaderValueConverters.string(MediaTypeBoundary.QUOTED_CHARACTER_PREDICATE,
-            StringHeaderValueConverterFeature.DOUBLE_QUOTES);
+    private final HeaderValueConverter<String> STRING_PARSER = HeaderValueConverters.quotedUnquotedString(MediaTypeBoundary.QUOTED_CHARACTER_PREDICATE,
+            false,
+            MediaTypeBoundary.UNQUOTED_CHARACTER_PREDICATE);
 
     @Override
     void check0(final Object value) {

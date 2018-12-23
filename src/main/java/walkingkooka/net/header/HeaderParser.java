@@ -23,6 +23,8 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
+import java.util.function.Function;
+
 /**
  * Base parser for any parser in this package.
  */
@@ -39,10 +41,160 @@ abstract class HeaderParser {
 
     final static char BACKSLASH = '\\';
     final static char DOUBLE_QUOTE = '"';
-    final static char SEPARATOR = ',';
+    final static char TOKEN_SEPARATOR = ';';
+    final static char MULTIVALUE_SEPARATOR = ',';
+    final static char KEYVALUE_SEPARATOR = '=';
+    final static char WILDCARD = '*';
+    final static char SLASH = '/';
 
     final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
     final static CharPredicate RFC2045SPECIAL = CharPredicates.rfc2045TokenSpecial();
+
+    // tokenizer ..............................................................................
+
+    /**
+     * Consumes all the text firing events for each of the symbols or tokens encountered.
+     */
+    final void parse() {
+        while(this.hasMoreCharacters()) {
+            final char c = this.character();
+            switch(this.character()) {
+                case '\t':
+                case '\r':
+                case ' ':
+                    this.whitespace();
+                    break;
+                case TOKEN_SEPARATOR:
+                    this.tokenSeparator();
+                    this.position++;
+                    break;
+
+                case KEYVALUE_SEPARATOR:
+                    this.keyValueSeparator();
+                    this.position++;
+                    break;
+
+                case MULTIVALUE_SEPARATOR:
+                    this.multiValueSeparator();
+                    this.position++;
+                    break;
+
+                case WILDCARD:
+                    this.wildcard();
+                    break;
+
+                case SLASH:
+                    this.slash();
+                    this.position++;
+                    break;
+
+                case DOUBLE_QUOTE:
+                    this.quotedText();
+                    break;
+
+                default:
+                    this.token();
+                    break;
+            }
+        }
+        this.endOfText();
+    }
+
+    abstract void whitespace();
+
+    abstract void tokenSeparator();
+
+    abstract void keyValueSeparator();
+
+    abstract void multiValueSeparator();
+
+    abstract void wildcard();
+
+    abstract void slash();
+
+    abstract void quotedText();
+
+    abstract void token();
+
+    abstract void endOfText();
+
+    /**
+     * Uses the predicate to match characters, and then passes that text providing its not empty to the factory.
+     */
+    final <T> T token(final CharPredicate predicate,
+                      final Function<String, T> factory) {
+        final int start = this.position;
+        final String tokenText = this.token(predicate);
+        if(tokenText.isEmpty()) {
+            this.failInvalidCharacter();
+        }
+
+        try {
+            return factory.apply(tokenText);
+        } catch (final InvalidCharacterException cause) {
+            throw cause.setTextAndPosition(this.text, start + cause.position());
+        }
+    }
+
+    // quoted ...............................................................................................
+
+    final static boolean ALLOW_ESCAPING = true;
+    final static boolean DISALLOW_ESCAPING = false;
+
+    /**
+     * Returns the quoted string in its raw form which will include the surrounding double quotes.
+     *
+     * <a href="https://tools.ietf.org/html/rfc2616#section-3.11"></a>
+     * <pre>
+     * A string of text is parsed as a single word if it is quoted using
+     * double-quote marks.
+     *
+     *      quoted-string  = ( <"> *(qdtext | quoted-pair ) <"> )
+     *      qdtext         = <any TEXT except <">>
+     *
+     * The backslash character ("\") MAY be used as a single-character
+     * quoting mechanism only within quoted-string and comment constructs.
+     *
+     *      quoted-pair    = "\" CHAR
+     * </pre>
+     */
+    String quotedText(final CharPredicate predicate, final boolean supportEscaping) {
+        final StringBuilder unescaped = new StringBuilder();
+        int start = this.position;
+        this.position++;
+
+        boolean escaping = false;
+
+        for(;;this.position++) {
+            if(!this.hasMoreCharacters()) {
+                fail(missingClosingQuote(this.text));
+            }
+            final char c = this.character();
+
+            if(supportEscaping && escaping) {
+                unescaped.append(c);
+                escaping = false;
+                continue;
+            }
+
+            if(supportEscaping && BACKSLASH == c) {
+                escaping = true;
+                continue;
+            }
+
+            if(DOUBLE_QUOTE == c) {
+                this.position++;
+                break;
+            }
+            if(!predicate.test(c)){
+                this.failInvalidCharacter();
+            }
+            unescaped.append(c);
+        }
+
+        //return unescaped.toString();
+        return this.text.substring(start, this.position);
+    }
 
     // helpers ..................................................................................
 
@@ -57,8 +209,18 @@ abstract class HeaderParser {
      * Retrieves the current character.
      */
     final char character() {
-        return this.text.charAt(this.position);
+        final char c = this.text.charAt(this.position);
+        if(!ASCII.test(c)) {
+            this.failInvalidCharacter();
+        }
+        return c;
     }
+
+    /**
+     * Used to match valid ascii characters.
+     */
+    private final static CharPredicate ASCII = CharPredicates.asciiPrintable()
+            .or(CharPredicates.any("\t\r\n "));
 
     /**
      * Consumes the token text with characters matched by the given {@link CharPredicate}.
@@ -89,7 +251,7 @@ abstract class HeaderParser {
      * CR, NL, HS | SP
      * </pre>
      */
-    final void whitespace() {
+    final void whitespace0() {
         while(this.hasMoreCharacters()){
             final char c = this.character();
             if('\t' == c || ' ' == c) {
@@ -131,14 +293,20 @@ abstract class HeaderParser {
         return ' ' == c || '\t' == c;
     }
 
-    // fail .......................................................................................
+    // error reporting.................................................................................................
 
     /**
      * Reports an invalid character within the unparsed text.
      */
-    final void failInvalidCharacter() {
+    final <T> T failInvalidCharacter() {
         final InvalidCharacterException cause = new InvalidCharacterException(this.text, this.position);
         throw new HeaderValueException(cause.getMessage(), cause);
+    }
+
+    abstract void missingValue();
+
+    final void failMissingValue(final String label) {
+        fail(emptyToken(label, this.position, this.text));
     }
 
     /**
@@ -148,6 +316,14 @@ abstract class HeaderParser {
         return "Missing closing '\"' in " + CharSequences.quoteAndEscape(text);
     }
 
+    final void failMissingParameterName() {
+        fail(missingParameterName(this.position, this.text));
+    }
+
+    static String missingParameterName(final int start, final String text) {
+        return emptyToken("parameter name", start, text);
+    }
+
     final void failMissingParameterValue() {
         fail(missingParameterValue(this.position, this.text));
     }
@@ -155,8 +331,6 @@ abstract class HeaderParser {
     static String missingParameterValue(final int start, final String text) {
         return emptyToken("parameter value", start, text);
     }
-
-    // error reporting.................................................................................................
 
     /**
      * Reports an empty token.

@@ -55,6 +55,8 @@ final public class MediaType implements Value<String>,
         HeaderValueWithParameters<MediaTypeParameterName<?>>,
         HasQFactorWeight {
 
+    private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
+
     /**
      * The separator character that separates the type and secondary portions within a mime type {@link String}.
      */
@@ -216,8 +218,8 @@ final public class MediaType implements Value<String>,
     }
 
     /**
-     * Creates a list of {@link MediaType}. If the text contains a single header type the results of this will be
-     * identical to {@link #parse(String)} except the result will be in a list, which will also be
+     * Creates a charsets of {@link MediaType}. If the text contains a single header type the results of this will be
+     * identical to {@link #parse(String)} except the result will be in a charsets, which will also be
      * sorted by the q factor of each header type.
      */
     public static List<MediaType> parseList(final String text) {
@@ -296,7 +298,7 @@ final public class MediaType implements Value<String>,
                 " " +
                 name.value() +
                 PARAMETER_NAME_VALUE_SEPARATOR.character() +
-                name.valueConverter.toText(Cast.to(nameAndValue.getValue()), name);
+                name.converter.toText(Cast.to(nameAndValue.getValue()), name);
     }
 
     /**
@@ -387,8 +389,6 @@ final public class MediaType implements Value<String>,
         CharPredicates.failIfNullOrEmptyOrFalse(value, label, RFC2045TOKEN);
         return value;
     }
-
-    private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
 
     // parameters ...............................................................................................
 

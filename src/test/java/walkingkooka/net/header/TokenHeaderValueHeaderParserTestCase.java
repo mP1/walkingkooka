@@ -27,9 +27,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeaderValueHeaderParser, V> extends
-        HeaderParser2TestCase<P,
-                TokenHeaderValueParameterName<?>,
-                V> {
+        HeaderParserWithParametersTestCase<P, V> {
 
     TokenHeaderValueHeaderParserTestCase() {
         super();
@@ -85,11 +83,6 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     public final void testValueParameterSeparatorEqualsParameterValue() {
         this.parseAndCheck2("A;b=c",
                 this.token("A", "b", "c"));
-    }
-
-    @Test
-    public final void testValueSemiColonSeparatorFails() {
-        this.parseInvalidCharacterFails("A;,", ',');
     }
 
     @Test
@@ -369,7 +362,9 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     }
 
     @Override
-    abstract P createHeaderParser(final String text);
+    final String valueLabel() {
+        return TokenHeaderValueHeaderParser.VALUE;
+    }
 
     @Override
     abstract V parse(final String text);

@@ -30,6 +30,11 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
     // parse ...........................................................................................
 
     @Test
+    public final void testSlashFails() {
+        this.parseInvalidCharacterFails("/");
+    }
+
+    @Test
     public final void testInvalidInitialFails2() {
         this.parseInvalidCharacterFails("w");
     }
@@ -56,7 +61,7 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
 
     @Test
     public final void testWeaknessWithoutQuotedValueFails() {
-        this.parseFails("W/", ETagHeaderParser.missingETagValue("W/"));
+        this.parseMissingValueFails("W/");
     }
 
     @Test
@@ -125,5 +130,10 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
 
     final void parseAndCheck(final String text, final String value, final ETagValidator validator) {
         this.parseAndCheck(text, ETag.with(value, validator));
+    }
+
+    @Override
+    final String valueLabel() {
+        return ETagHeaderParser.VALUE;
     }
 }

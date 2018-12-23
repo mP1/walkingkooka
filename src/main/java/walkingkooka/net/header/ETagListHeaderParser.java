@@ -22,23 +22,12 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
-/**
- * A parser that handles comma separated etags.
- */
 final class ETagListHeaderParser extends ETagHeaderParser {
 
     static List<ETag> parseList(final String text) {
-        final List<ETag> result = Lists.array();
         final ETagListHeaderParser parser = new ETagListHeaderParser(text);
-        final int length = text.length();
-
-        int mode = MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN;
-        do {
-            result.add(parser.parse(mode));
-            mode = MODE_SEPARATOR;
-        } while (parser.position < length);
-
-        return result;
+        parser.parse();
+        return parser.etags;
     }
 
     private ETagListHeaderParser(final String text) {
@@ -46,7 +35,19 @@ final class ETagListHeaderParser extends ETagHeaderParser {
     }
 
     @Override
-    void separator() {
-        // separator ok!
+    void tokenSeparator() {
+        this.failInvalidCharacter();
     }
+
+    @Override
+    void multiValueSeparator() {
+        this.requireValue = true;
+        this.validator = ETagValidator.STRONG;
+    }
+
+    void etag(final ETag etag) {
+        this.etags.add(etag);
+    }
+
+    private List<ETag> etags = Lists.array();
 }

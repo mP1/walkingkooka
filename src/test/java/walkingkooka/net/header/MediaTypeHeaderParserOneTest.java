@@ -26,12 +26,12 @@ public final class MediaTypeHeaderParserOneTest extends MediaTypeHeaderParserTes
         MediaType> {
 
     @Test
-    public void testTrailingCommaFails() {
+    public void testTypeSlashSubTypeValueSeparatorFails() {
         this.parseInvalidCharacterFails("type/subtype,");
     }
 
     @Test
-    public void testTrailingCommaFails2() {
+    public void testTypeSlashSubTypeParameterSeparatorParameterNameKeyValueSeparatorParameterValueValueSeparatorFails() {
         this.parseInvalidCharacterFails("type/subtype;p=v,");
     }
 
@@ -41,11 +41,6 @@ public final class MediaTypeHeaderParserOneTest extends MediaTypeHeaderParserTes
                              final String subtype,
                              final Map<MediaTypeParameterName<?>, Object> parameters) {
         this.check(MediaTypeHeaderParserOne.parseMediaType(text), type, subtype, parameters);
-    }
-
-    @Override
-    MediaTypeHeaderParserOne createHeaderParser(final String text) {
-        return new MediaTypeHeaderParserOne(text);
     }
 
     @Override

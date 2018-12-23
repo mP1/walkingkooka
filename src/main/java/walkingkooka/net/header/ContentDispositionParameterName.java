@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
@@ -87,59 +86,15 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      * Creates and adds a new {@link ContentDispositionParameterName} to the cache being built that handles float header values.
      */
     private static ContentDispositionParameterName<OffsetDateTime> registerOffsetDateTimeConstant(final String header) {
-        return registerConstant(header,
-                DATE,
-                HeaderValueConverters.offsetDateTime());
+        return registerConstant(header, HeaderValueConverters.offsetDateTime());
     }
-
-    /**
-     * <a href="https://tools.ietf.org/html/rfc822"></a>
-     * <pre>
-     * date-time   =  [ day "," ] date time        ; dd mm yy
-     *                                                  ;  hh:mm:ss zzz
-     *
-     *      day         =  "Mon"  / "Tue" /  "Wed"  / "Thu"
-     *                  /  "Fri"  / "Sat" /  "Sun"
-     *
-     *      date        =  1*2DIGIT month 2DIGIT        ; day month year
-     *                                                  ;  e.g. 20 Jun 82
-     *
-     *      month       =  "Jan"  /  "Feb" /  "Mar"  /  "Apr"
-     *                  /  "May"  /  "Jun" /  "Jul"  /  "Aug"
-     *                  /  "Sep"  /  "Oct" /  "Nov"  /  "Dec"
-     *
-     *      time        =  hour zone                    ; ANSI and Military
-     *
-     *      hour        =  2DIGIT ":" 2DIGIT [":" 2DIGIT]
-     *                                                  ; 00:00:00 - 23:59:59
-     *
-     *      zone        =  "UT"  / "GMT"                ; Universal Time
-     *                                                  ; North American : UT
-     *                  /  "EST" / "EDT"                ;  Eastern:  - 5/ - 4
-     *                  /  "CST" / "CDT"                ;  Central:  - 6/ - 5
-     *                  /  "MST" / "MDT"                ;  Mountain: - 7/ - 6
-     *                  /  "PST" / "PDT"                ;  Pacific:  - 8/ - 7
-     *                  /  1ALPHA                       ; Military: Z = UT;
-     *                                                  ;  A:-1; (J not used)
-     *                                                  ;  M:-12; N:+1; Y:+12
-     *                  / ( ("+" / "-") 4DIGIT )        ; Local differential
-     *                                                  ;  hours+min. (HHMM)
-     * </pre>
-     */
-    private final static CharPredicate DATE = CharPredicates.builder()
-            .any("MonTuesWedThuFriSatSun,JanFebMarAprMayJunJulAugSepOctNovDec 0123456789:+-")
-            .build()
-            .setToString("RFC822 Date");
 
     /**
      * Creates and adds a new {@link ContentDispositionParameterName} to the cache being built.
      */
     private static <T> ContentDispositionParameterName<T> registerConstant(final String name,
-                                                                           final CharPredicate charPredicate,
                                                                            final HeaderValueConverter<T> headerValue) {
-        final ContentDispositionParameterName<T> header = new ContentDispositionParameterName<T>(name,
-                charPredicate,
-                headerValue);
+        final ContentDispositionParameterName<T> header = new ContentDispositionParameterName<T>(name, headerValue);
         ContentDispositionParameterName.CONSTANTS.put(name, header);
         return header;
     }
@@ -153,7 +108,6 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      * A {@link ContentDispositionParameterName} holding <code>filename</code>
      */
     public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = registerConstant("filename",
-            ContentDispositionHeaderParser.RFC2045TOKEN,
             ContentDispositionFileNameHeaderValueConverter.INSTANCE);
 
     /**
@@ -170,7 +124,6 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      * A {@link ContentDispositionParameterName} holding <code>size</code>
      */
     public final static ContentDispositionParameterName<Long> SIZE = registerConstant("size",
-            CharPredicates.digit(),
             HeaderValueConverters.longConverter());
 
     // factory ......................................................................................................
@@ -185,23 +138,26 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
         final ContentDispositionParameterName<?> headerValueParameterName = CONSTANTS.get(name);
         return null != headerValueParameterName ?
                 headerValueParameterName :
-                new ContentDispositionParameterName<String>(name,
-                        ContentDispositionHeaderParser.RFC2045TOKEN,
-                        RFC2045);
+                new ContentDispositionParameterName<String>(name, QUOTED_UNQUOTED_STRING);
     }
 
-    private final static HeaderValueConverter<String> RFC2045 = HeaderValueConverters.string(CharPredicates.rfc2045Token());
+    /**
+     * Allow quoted and unquoted strings.
+     */
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+            ContentDispositionHeaderParser.QUOTED_PARAMETER_VALUE,
+            true,
+            ContentDispositionHeaderParser.UNQUOTED_PARAMETER_VALUE
+    );
 
     /**
      * Private constructor use factory.
      */
     private ContentDispositionParameterName(final String name,
-                                            final CharPredicate valueCharPredicate,
-                                            final HeaderValueConverter<T> valueConverter) {
+                                            final HeaderValueConverter<T> converter) {
         super();
         this.name = name;
-        this.valueCharPredicate = valueCharPredicate;
-        this.valueConverter = valueConverter;
+        this.converter = converter;
     }
 
     // Value ....................................................................................................
@@ -214,18 +170,13 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
     private final String name;
 
     /**
-     * Used during parsing to validate characters belonging to a parameter value.
-     */
-    final CharPredicate valueCharPredicate;
-
-    /**
      * Accepts text and converts it into its value.
      */
     @Override
     public T toValue(final String text) {
         Objects.requireNonNull(text, "text");
 
-        return this.valueConverter.parse(text, this);
+        return this.converter.parse(text, this);
     }
 
     /**
@@ -233,10 +184,10 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      */
     @Override
     public T checkValue(final Object value) {
-        return this.valueConverter.check(value);
+        return this.converter.check(value);
     }
 
-    private final HeaderValueConverter<T> valueConverter;
+    private final HeaderValueConverter<T> converter;
 
     // Comparable......................................................................................................
 

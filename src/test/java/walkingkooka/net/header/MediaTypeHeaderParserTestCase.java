@@ -25,8 +25,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderParser, V> extends HeaderParser2TestCase<P,
-        MediaTypeParameterName<?>,
+public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderParser, V> extends HeaderParserWithParametersTestCase<P,
         V> {
 
     MediaTypeHeaderParserTestCase() {
@@ -39,15 +38,8 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     final static String SUBTYPE = "subtype";
 
     @Test
-    public final void testInvalidFails() {
-        this.parseInvalidCharacterFails("\u0100\u0101",
-                0);
-    }
-
-    @Test
     public final void testSlashSubtypeFails() {
-        this.parseFails("/subtype",
-                "Missing type at 0 in \"/subtype\"");
+        this.parseInvalidCharacterFails("/subtype", '/');
     }
 
     @Test
@@ -116,12 +108,6 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testParameterValueUnclosedQuoteFails() {
         this.parseMissingClosingQuoteFails("type/subtype;parameter=\"");
-    }
-
-    @Test
-    public final void testParameterValueInvalidEscapeFails() {
-        this.parseInvalidCharacterFails("type/subtype;parameter=\"\\z\"",
-                'z');
     }
 
     @Test
@@ -317,6 +303,20 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
+    public final void testTypeSlashSubTypeParameterQuotedValue() {
+        this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=\"value\"",
+                TYPE,
+                SUBTYPE,
+                parameters("parameter", "value"));
+    }
+
+    @Test
+    public final void testTypeSlashSubTypeParameterParameterValueQuotedParameterValue() {
+        final String text = TYPE + "/" + SUBTYPE + ";parameter=\"value\"\"q\"";
+        this.parseInvalidCharacterFails(text, text.indexOf('q') -1);
+    }
+
+    @Test
     public final void testTypeSlashSubTypeParameterSpace() {
         this.parseAndCheck(TYPE + "/" + SUBTYPE + ";parameter=value ",
                 TYPE,
@@ -474,7 +474,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
         this.parseAndCheck("type/subtype;boundary=\"abc-123\"",
                 TYPE,
                 SUBTYPE,
-                parameters("boundary", MediaTypeBoundary.parse("\"abc-123\"")));
+                parameters("boundary", MediaTypeBoundary.with("abc-123")));
     }
 
     @Test
@@ -520,5 +520,10 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
         assertEquals("type=" + mediaType, type, mediaType.type());
         assertEquals("subType=" + mediaType, subtype, mediaType.subType());
         assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());
+    }
+
+    @Override
+    final String valueLabel() {
+        return MediaTypeHeaderParser.MEDIATYPE;
     }
 }

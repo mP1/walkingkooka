@@ -18,13 +18,12 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.NeverError;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 /**
- * Base parser for both tag parsers.
+ * Base parser for both etag parsers.
  */
 abstract class ETagHeaderParser extends HeaderParser {
 
@@ -35,132 +34,76 @@ abstract class ETagHeaderParser extends HeaderParser {
         super(text);
     }
 
-    /**
-     * Parses a ETAG header value.
-     * <pre>
-     * ETag: "xyzzy"
-     * ETag: W/"xyzzy"
-     * ETag: ""
-     * </pre>
-     *
-     * <pre>
-     * ETag       = entity-tag
-     *
-     * entity-tag = [ weak ] opaque-tag
-     * weak       = %x57.2F ; "W/", case-sensitive
-     * opaque-tag = DQUOTE *etagc DQUOTE
-     * etagc      = %x21 / %x23-7E / obs-text
-     *            ; VCHAR except double quotes, plus obs-text
-     * </pre>
-     */
-    final ETag parse(final int startMode) {
-        final char wildcard = ETag.WILDCARD_VALUE.character();
-
-        String value = null;
-        ETagValidator validator = ETagValidator.STRONG;
-
-        int mode = startMode;
-        int start = -1;
-
-        while (this.hasMoreCharacters()) {
-            final char c = this.character();
-
-            switch (mode) {
-                case MODE_SEPARATOR:
-                    if (ETag.SEPARATOR.character() == c) {
-                        mode = MODE_WHITESPACE;
-                        break;
-                    }
-                    failInvalidCharacter();
-                case MODE_WHITESPACE:
-                    this.whitespace();
-                    mode = MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN;
-                    this.position--;
-                    break;
-                case MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN:
-                    if ('W' == c) {
-                        mode = MODE_WEAK;
-                        break;
-                    }
-                    if (DOUBLE_QUOTE == c) {
-                        mode = MODE_VALUE;
-                        start = this.position + 1;
-                        break;
-                    }
-                    if (wildcard == c) {
-                        mode = MODE_FINISHED;
-                        break;
-                    }
-                    failInvalidCharacter();
-                case MODE_WEAK:
-                    if ('/' == c) {
-                        mode = MODE_QUOTE_BEGIN;
-                        validator = ETagValidator.WEAK;
-                        break;
-                    }
-                    failInvalidCharacter();
-                case MODE_QUOTE_BEGIN:
-                    if (DOUBLE_QUOTE == c) {
-                        mode = MODE_VALUE;
-                        start = this.position + 1;
-                        break;
-                    }
-                    if (ETAG_VALUE.test(c)) {
-                        break;
-                    }
-                    failInvalidCharacter();
-                case MODE_VALUE:
-                    if (DOUBLE_QUOTE == c) {
-                        value = this.text.substring(start, this.position);
-                        mode = MODE_FINISHED;
-                        break;
-                    }
-                    if (ETAG_VALUE.test(c)) {
-                        break;
-                    }
-                    failInvalidCharacter();
-                case MODE_FINISHED:
-                    failInvalidCharacter();
-                default:
-                    NeverError.unhandledCase(mode,
-                            MODE_WHITESPACE, MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN, MODE_WEAK, MODE_QUOTE_BEGIN, MODE_VALUE, MODE_FINISHED);
-            }
-            this.position++;
-
-            if (mode == MODE_FINISHED) {
-                break;
-            }
-        }
-
-        switch (mode) {
-            case MODE_WHITESPACE:
-                this.fail(missingETagValue(text));
-            case MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN:
-                this.fail(missingETagValue(text));
-            case MODE_WEAK:
-                this.fail(incompleteWeakIndicator(text));
-            case MODE_QUOTE_BEGIN:
-                this.fail(missingETagValue(text));
-            case MODE_VALUE:
-                this.fail(missingClosingQuote(text));
-            case MODE_FINISHED:
-                break;
-            default:
-                NeverError.unhandledCase(mode, MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN, MODE_WEAK, MODE_VALUE, MODE_FINISHED);
-        }
-
-        return null == value ?
-                ETag.wildcard() :
-                ETag.with(value, validator);
+    @Override
+    final void whitespace() {
+        this.whitespace0(); // skip whitespace
     }
 
-    final static int MODE_SEPARATOR = 1;
-    private final static int MODE_WHITESPACE = MODE_SEPARATOR + 1;
-    final static int MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN = MODE_WHITESPACE + 1;
-    private final static int MODE_WEAK = MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN + 1;
-    private final static int MODE_QUOTE_BEGIN = MODE_WEAK + 1;
-    private final static int MODE_VALUE = MODE_QUOTE_BEGIN + 1;
-    private final static int MODE_FINISHED = MODE_VALUE + 1;
+    @Override
+    final void keyValueSeparator() {
+        this.failInvalidCharacter();
+    }
+
+    @Override
+    final void wildcard() {
+        if(!this.requireValue) {
+            this.failInvalidCharacter();
+        }
+        this.etag(ETag.wildcard());
+        this.position++;
+        this.requireValue = false;
+    }
+
+    @Override
+    void slash() {
+        this.failInvalidCharacter();
+    }
+
+    @Override
+    void quotedText() {
+        if (!this.requireValue) {
+            this.failInvalidCharacter();
+        }
+
+        final String quotedText = this.quotedText(ETAG_VALUE, false);
+        this.etag(this.validator.setValue(quotedText.substring(1, quotedText.length()-1)));
+        this.requireValue = false;
+    }
+
+    @Override
+    void token() {
+        if ('W' != this.character()) {
+            this.failInvalidCharacter();
+        }
+        // W must be following etag in quotes...
+        if (!this.requireValue) {
+            this.failInvalidCharacter();
+        }
+        this.position++;
+
+        if (!this.hasMoreCharacters()) {
+            this.fail(incompleteWeakIndicator(text));
+        }
+        if ('/' != this.character()) {
+            this.failInvalidCharacter();
+        }
+        this.position++;
+        this.validator = ETagValidator.WEAK;
+        this.requireValue = true;
+    }
+
+    @Override
+    void endOfText() {
+        if (this.requireValue) {
+            this.missingValue();;
+        }
+    }
+
+    abstract void etag(final ETag etag);
+
+    boolean requireValue = true;
+    String value = null;
+    ETagValidator validator = ETagValidator.STRONG;
 
     /**
      * A {@link CharPredicate} that match the content within an ETAG quoted string.<br>
@@ -171,17 +114,17 @@ abstract class ETagHeaderParser extends HeaderParser {
      * </pre>
      */
     final static CharPredicate ETAG_VALUE = CharPredicates.builder()//
-                    .or(CharPredicates.is('\u0021'))//
-                    .or(CharPredicates.range('\u0023', '\u007e'))
-                    .toString("e tag quoted value character")//
-                    .build();
+            .or(CharPredicates.is('\u0021'))//
+            .or(CharPredicates.range('\u0023', '\u007e'))
+            .toString("e tag quoted value character")//
+            .build();
 
-    /**
-     * Reports a missing etag value.
-     */
-    static String missingETagValue(final String text) {
-        return "Missing etag " + CharSequences.quote(text);
+    @Override
+    void missingValue() {
+        this.failMissingValue(VALUE);
     }
+
+    final static String VALUE = "value";
 
     /**
      * Reports an incomplete weak indicator.
@@ -189,9 +132,4 @@ abstract class ETagHeaderParser extends HeaderParser {
     static String incompleteWeakIndicator(final String text) {
         return "Incomplete weak indicator " + CharSequences.quote(text);
     }
-
-    /**
-     * Called whenever a separator is encountered.
-     */
-    abstract void separator();
 }

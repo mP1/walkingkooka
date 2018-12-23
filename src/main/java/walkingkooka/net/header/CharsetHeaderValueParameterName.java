@@ -22,8 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Comparables;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
@@ -48,25 +46,16 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
      * Creates and adds a new {@link CharsetHeaderValueParameterName} to the cache being built.
      */
     private static <T> CharsetHeaderValueParameterName<T> registerConstant(final String name,
-                                                                           final CharPredicate charPredicate,
-                                                                           final HeaderValueConverter<T> valueConverter) {
-        final CharsetHeaderValueParameterName<T> parameterName = new CharsetHeaderValueParameterName<T>(name,
-                charPredicate,
-                valueConverter);
+                                                                           final HeaderValueConverter<T> converter) {
+        final CharsetHeaderValueParameterName<T> parameterName = new CharsetHeaderValueParameterName<T>(name, converter);
         CharsetHeaderValueParameterName.CONSTANTS.put(name, parameterName);
         return parameterName;
     }
 
-    private final static CharPredicate DIGITS = CharPredicates.digit()
-            .or(CharPredicates.any("+-."))
-            .setToString("Q factor");
-
     /**
      * The q factor weight parameter.
      */
-    public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = registerConstant("q",
-            DIGITS,
-            HeaderValueConverters.qWeight());
+    public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = registerConstant("q", HeaderValueConverters.qWeight());
 
     /**
      * Factory that creates a {@link CharsetHeaderValueParameterName}
@@ -77,18 +66,21 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
         final CharsetHeaderValueParameterName<?> parameterName = CONSTANTS.get(value);
         return null != parameterName ?
                 parameterName :
-                new CharsetHeaderValueParameterName<String>(value, MediaTypeHeaderParser.RFC2045TOKEN, HeaderValueConverters.mediaTypeAutoQuotingString());
+                new CharsetHeaderValueParameterName<String>(value, QUOTED_UNQUOTED_STRING);
     }
+
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+            CharsetHeaderValueListHeaderParser.QUOTED_PARAMETER_VALUE,
+            false,
+            CharsetHeaderValueListHeaderParser.UNQUOTED_PARAMETER_VALUE);
 
     /**
      * Private ctor use factory.
      */
     private CharsetHeaderValueParameterName(final String value,
-                                            final CharPredicate valueCharPredicate,
-                                            final HeaderValueConverter<T> valueConverter) {
+                                            final HeaderValueConverter<T> converter) {
         this.value = value;
-        this.valueCharPredicate = valueCharPredicate;
-        this.valueConverter = valueConverter;
+        this.converter = converter;
     }
 
     @Override
@@ -98,9 +90,6 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
 
     private final String value;
 
-
-    final transient CharPredicate valueCharPredicate;
-
     /**
      * Accepts text and converts it into its value.
      */
@@ -108,7 +97,7 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
     public T toValue(final String text) {
         Objects.requireNonNull(text, "text");
 
-        return this.valueConverter.parse(text, this);
+        return this.converter.parse(text, this);
     }
 
     /**
@@ -116,10 +105,10 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
      */
     @Override
     public T checkValue(final Object value) {
-        return this.valueConverter.check(value);
+        return this.converter.check(value);
     }
 
-    final transient HeaderValueConverter<T> valueConverter;
+    final transient HeaderValueConverter<T> converter;
 
     // Comparable
 

@@ -47,20 +47,14 @@ final class CacheControlDirectiveExtensionHeaderValueConverter extends HeaderVal
     Object parse0(final String text, final Name name) throws HeaderValueException, RuntimeException {
         Object value;
 
-        if(text.charAt(0) == DOUBLE_QUOTE) {
-            value = QUOTED.parse(text, name);
-        } else {
-            try {
-                value = LONG.parse(text, name);
-            } catch (final HeaderValueException cause) {
-                value = UNQUOTED.parse(text, name);
-            }
+        try {
+            value = LONG.parse(text, name);
+        } catch (final HeaderValueException cause) {
+            value = QUOTED_UNQUOTED_STRING.parse(text, name);
         }
 
         return value;
     }
-
-    private final static char DOUBLE_QUOTE = '"';
 
     /**
      * Try checking as a {@link Long} and then {@link String}
@@ -70,11 +64,7 @@ final class CacheControlDirectiveExtensionHeaderValueConverter extends HeaderVal
         try {
             LONG.check(value);
         } catch (final HeaderValueException cause) {
-            try {
-                QUOTED.check(value);
-            } catch (final HeaderValueException cause2) {
-                UNQUOTED.check(value);
-            }
+            QUOTED_UNQUOTED_STRING.check(value);
         }
     }
 
@@ -92,16 +82,18 @@ final class CacheControlDirectiveExtensionHeaderValueConverter extends HeaderVal
     }
 
     private String toTextString(final String value, final Name name) {
-        return QUOTED.toText(String.class.cast(value), name);
+        return QUOTED_UNQUOTED_STRING.toText(String.class.cast(value), name);
     }
 
     private String failInvalidValue(final Object value, final Name name) {
         throw new HeaderValueException(name + "  value is not a long or string " + CharSequences.quoteIfChars(value));
     }
 
-    private final static HeaderValueConverter<String> UNQUOTED = HeaderValueConverters.string(CharPredicates.rfc2045Token());
-    private final static HeaderValueConverter<String> QUOTED = HeaderValueConverters.string(CharPredicates.rfc2045Token(),
-            StringHeaderValueConverterFeature.DOUBLE_QUOTES);
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+            CharPredicates.asciiPrintable(),
+            false,
+            CharPredicates.rfc2045Token());
+
     private final static HeaderValueConverter<Long> LONG = HeaderValueConverters.longConverter();
 
     @Override

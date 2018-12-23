@@ -30,32 +30,27 @@ public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETa
 
     @Test
     public final void testSeparatorFails() {
-        final String text = "\"ABC\",";
-        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
+        this.parseMissingValueFails("\"ABC\",");
     }
 
     @Test
     public final void testSeparatorSpaceFails() {
-        final String text = "\"ABC\", ";
-        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
+        this.parseMissingValueFails("\"ABC\", ");
     }
 
     @Test
     public final void testSeparatorTabFails() {
-        final String text = "\"ABC\",\t";
-        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
+        this.parseMissingValueFails("\"ABC\",\t");
     }
 
     @Test
     public final void testWeakSeparatorSpaceFails() {
-        final String text = "W/\"ABC\", ";
-        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
+        this.parseMissingValueFails("W/\"ABC\", ");
     }
 
     @Test
     public final void testWeakSeparatorTabFails() {
-        final String text = "W/\"ABC\",\t";
-        this.parseFails(text, ETagHeaderParser.missingETagValue(text));
+        this.parseMissingValueFails("W/\"ABC\",\t");
     }
 
     @Test

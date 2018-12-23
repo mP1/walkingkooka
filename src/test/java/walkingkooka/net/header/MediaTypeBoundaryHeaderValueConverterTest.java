@@ -40,7 +40,7 @@ public final class MediaTypeBoundaryHeaderValueConverterTest extends
     @Test
     public void testParseWithQuotes() {
         this.parseAndCheck("\"abcdef\"",
-                MediaTypeBoundary.with0("abcdef", "\"abcdef\""));
+                MediaTypeBoundary.with("abcdef"));
     }
 
     @Test

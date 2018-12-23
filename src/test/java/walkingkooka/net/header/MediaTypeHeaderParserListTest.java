@@ -31,37 +31,22 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
         List<MediaType>> {
 
     @Test
-    public void testTypeSlashSubTypeTrailingSeparatorFails() {
-        this.parseInvalidCharacterFails("type/subtype,", ',');
+    public void testTypeSlashSubTypeValueSeparatorSeparatorFails() {
+        this.parseMissingValueFails("type/subtype,");
     }
 
     @Test
-    public void testTypeSlashSubTypeTrailingSeparatorSpaceFails() {
-        this.parseFails("type/subtype, ", "Missing type at 14 in \"type/subtype, \"");
+    public void testTypeSlashSubTypeValueSeparatorWhitespaceFails() {
+        this.parseMissingValueFails("type/subtype, ");
     }
 
     @Test
-    public void testTypeSlashSubTypeTrailingSeparatorTabFails() {
-        this.parseFails("type/subtype,\t", "Missing type at 14 in \"type/subtype,\\t\"");
+    public void testTypeSlashSubParametersValueSeparatorFails() {
+        this.parseMissingValueFails("type/subtype;parameter123=value456,");
     }
 
     @Test
-    public void testTypeSlashSubParametersTrailingSeparatorFails() {
-        this.parseInvalidCharacterFails("type/subtype;parameter123=value456,", ',');
-    }
-
-    @Test
-    public void testTypeSlashSubParametersTrailingSeparatorSpaceFails() {
-        this.parseFails("type/subtype;parameter123=value456, ", "Missing type at 36 in \"type/subtype;parameter123=value456, \"");
-    }
-
-    @Test
-    public void testTypeSlashSubParametersTrailingSeparatorTabFails() {
-        this.parseFails("type/subtype;parameter123=value456,\t", "Missing type at 36 in \"type/subtype;parameter123=value456,\\t\"");
-    }
-
-    @Test
-    public void testTypeSubTypeWhitespace4() {
+    public void testTypeSubTypeWhitespace() {
         this.parseAndCheck2("type1/subtype1 ",
                 MediaType.with("type1", "subtype1"));
     }
@@ -159,11 +144,6 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
         assertEquals("Incorrect result parsing " + CharSequences.quote(text),
                 Lists.of(mediaTypes),
                 MediaTypeHeaderParserList.parseMediaTypeList(text));
-    }
-
-    @Override
-    MediaTypeHeaderParserList createHeaderParser(final String text) {
-        return new MediaTypeHeaderParserList(text);
     }
 
     @Override

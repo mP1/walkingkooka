@@ -163,7 +163,7 @@ public final class RangeHeaderValue implements HeaderValue,
     private final List<Range<Long>> ranges;
 
     /**
-     * The list of ranges must not be empty, contain nulls or overlapping ranges. If any of these tests fail a
+     * The charsets of ranges must not be empty, contain nulls or overlapping ranges. If any of these tests fail a
      * {@link HeaderValueException} will be thrown.
      */
     private static List<Range<Long>> copyAndCheckValue(final List<Range<Long>> ranges) {

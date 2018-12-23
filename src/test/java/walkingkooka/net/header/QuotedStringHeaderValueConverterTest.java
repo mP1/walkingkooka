@@ -23,6 +23,16 @@ import org.junit.Test;
 public final class QuotedStringHeaderValueConverterTest extends StringHeaderValueConverterTestCase<QuotedStringHeaderValueConverter>{
 
     @Test(expected = HeaderValueException.class)
+    public void testParseControlCharacterFails() {
+        this.parse("a\\0");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testParseNonAsciiFails() {
+        this.parse("a\u0080");
+    }
+
+    @Test(expected = HeaderValueException.class)
     public void testParseMissingOpeningDoubleQuoteFails() {
         this.parse("abc\"");
     }
@@ -104,11 +114,11 @@ public final class QuotedStringHeaderValueConverterTest extends StringHeaderValu
 
     @Override
     protected QuotedStringHeaderValueConverter converter() {
-        return QuotedStringHeaderValueConverter.quoted(this.charPredicate(), false);
+        return QuotedStringHeaderValueConverter.with(this.charPredicate(), false);
     }
 
     private QuotedStringHeaderValueConverter converterSupportingBackslashes() {
-        return QuotedStringHeaderValueConverter.quoted(this.charPredicate(), true);
+        return QuotedStringHeaderValueConverter.with(this.charPredicate(), true);
     }
 
     @Override

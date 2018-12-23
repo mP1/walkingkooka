@@ -67,6 +67,26 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
         this.parseFails(text, HeaderParser.missingClosingQuote(text));
     }
 
+    final void parseMissingValueFails(final String text) {
+        this.parseMissingValueFails(text, text.length());
+    }
+
+    final void parseMissingValueFails(final String text, final int pos) {
+        this.parseFails(text,
+                HeaderParser.emptyToken(this.valueLabel(), pos, text));
+    }
+
+    abstract String valueLabel();
+
+    final void parseMissingParameterNameFails(final String text) {
+        this.parseMissingParameterNameFails(text, text.length());
+    }
+
+    final void parseMissingParameterNameFails(final String text, final int pos) {
+        this.parseFails(text,
+                HeaderParser.missingParameterName(pos, text));
+    }
+    
     final void parseMissingParameterValueFails(final String text) {
         this.parseMissingParameterValueFails(text, text.length());
     }

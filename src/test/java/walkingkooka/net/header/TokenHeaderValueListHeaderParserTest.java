@@ -30,6 +30,11 @@ public final class TokenHeaderValueListHeaderParserTest extends TokenHeaderValue
         List<TokenHeaderValue>> {
 
     @Test
+    public final void testValueValueSeparatorFails() {
+        this.parseMissingValueFails("A;,");
+    }
+
+    @Test
     public void testValueParameterSeparatorValue() {
         this.parseAndCheck3("A;b=c,D",
                 this.token("A", "b", "c"),
@@ -189,11 +194,6 @@ public final class TokenHeaderValueListHeaderParserTest extends TokenHeaderValue
                 this.token("V2", "q", 1.0f),
                 this.token("V1", "q", 0.5f),
                 this.token("V3", "q", 0.25f));
-    }
-
-    @Override
-    TokenHeaderValueListHeaderParser createHeaderParser(final String text) {
-        return new TokenHeaderValueListHeaderParser(text);
     }
 
     @Override

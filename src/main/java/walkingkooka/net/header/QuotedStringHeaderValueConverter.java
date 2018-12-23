@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.text.Ascii;
 
 /**
  * A {@link HeaderValueConverter} that handles string values in quotes with possible backslash escaping.
@@ -30,8 +31,8 @@ final class QuotedStringHeaderValueConverter extends StringHeaderValueConverter 
     /**
      * Factory that creates a new {@link QuotedStringHeaderValueConverter}.
      */
-    final static QuotedStringHeaderValueConverter quoted(final CharPredicate predicate,
-                                                         final boolean supportBackslashEscaping) {
+    final static QuotedStringHeaderValueConverter with(final CharPredicate predicate,
+                                                       final boolean supportBackslashEscaping) {
         return new QuotedStringHeaderValueConverter(predicate, supportBackslashEscaping);
     }
 
@@ -62,6 +63,9 @@ final class QuotedStringHeaderValueConverter extends StringHeaderValueConverter 
 
         for (int i = 1; i < last; i++) {
             final char c = text.charAt(i);
+            if(!Ascii.isPrintable(c)) {
+                throw new InvalidCharacterException(text, i);
+            }
             if (escapeNext) {
                 value.append(c);
                 escapeNext = false;
@@ -102,7 +106,7 @@ final class QuotedStringHeaderValueConverter extends StringHeaderValueConverter 
 
         int i = 0;
         for (char c : value.toCharArray()) {
-            if (!predicate.test(c)) {
+            if (BACKSLASH == c || DOUBLE_QUOTE == c || !predicate.test(c)) {
                 if (supportBackslashEscaping) {
                     text.append(BACKSLASH);
                     text.append(c);

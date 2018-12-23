@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 import static walkingkooka.net.header.HeaderParser.fail;
@@ -80,7 +81,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     }
 
     private void whitespaceInvalidCharacterFails(final String text,
-                                                        final int invalidCharacterPosition) {
+                                                 final int invalidCharacterPosition) {
         try {
             this.whitespace(text);
             fail("Expected invalid character");
@@ -92,13 +93,12 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     }
 
     private HeaderParser whitespace(final String text) {
-        final HeaderParser parser = new HeaderParser(text) {
-        };
-        parser.whitespace();
+        final HeaderParser parser = new TestHeaderParser(text);
+        parser.whitespace0();
         return parser;
     }
 
-    // token......................................................................................
+    // token..................................................................................................
 
     @Test
     public void testTokenEmpty() {
@@ -116,20 +116,315 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     }
 
     private void tokenAndCheck(final String text,
-                                   final String expectedText) {
-        final HeaderParser parser = new HeaderParser(text) {
-        };
-        assertEquals(parser.toString(),
+                               final String expectedText) {
+        final HeaderParser parser = new TestHeaderParser(text);
+        assertEquals("token in " + CharSequences.quoteAndEscape(text),
                 expectedText,
                 parser.token(CharPredicates.digit()));
     }
 
+    // quoted.................................................................................................
+
+    @Test
+    public void testQuotedTextEmpty() {
+        this.quotedAndCheck("\"\"", false, "\"\"");
+    }
+
+    @Test
+    public void testQuotedTextEmpty2() {
+        this.quotedAndCheck("\"\" ", false, "\"\"");
+    }
+
+    @Test
+    public void testQuotedText() {
+        this.quotedAndCheck("\"A\" ", false, "\"A\"");
+    }
+
+    @Test
+    public void testQuotedText2() {
+        this.quotedAndCheck("\"AB\" ", false, "\"AB\"");
+    }
+
+    @Test
+    public void testQuotedTextEscapedBackslash() {
+        this.quotedAndCheck("\"A\\\\B\" ", true, "\"A\\\\B\"");
+    }
+
+    @Test
+    public void testQuotedTextEscapedDoubleQuote() {
+        this.quotedAndCheck("\"A\\\"B\" ", true, "\"A\\\"B\"");
+    }
+
+    @Test
+    public void testQuotedTextEscapedTab() {
+        this.quotedAndCheck("\"A\\\tB\" ", true, "\"A\\\tB\"");
+    }
+
+    @Test
+    public void testQuotedTextEscaped2() {
+        this.quotedAndCheck("\"A\" ", true, "\"A\"");
+    }
+
+    @Test
+    public void testQuotedTextEscaped3() {
+        this.quotedAndCheck("\"AB\" ", true, "\"AB\"");
+    }
+
+    private void quotedAndCheck(final String text,
+                                final boolean escapingSupported,
+                                final String expectedText) {
+        final HeaderParser parser = new TestHeaderParser(text);
+        assertEquals("quoted text in " + CharSequences.quoteAndEscape(text),
+                expectedText,
+                parser.quotedText(CharPredicates.ascii(), escapingSupported));
+    }
+
+    // events.................................................................................................
+
+    @Test
+    public void testParseSlash() {
+        this.parseAndCheck("/", "[slash]");
+    }
+
+    @Test
+    public void testParseWildcard() {
+        this.parseAndCheck("*", "[wildcard]");
+    }
+
+    @Test
+    public void testParseWildcardWildcard() {
+        this.parseAndCheck("**", "[wildcard][wildcard]");
+    }
+
+    @Test
+    public void testParseToken() {
+        this.parseAndCheck("1", "[token-1]");
+    }
+
+    @Test
+    public void testParseToken2() {
+        this.parseAndCheck("123", "[token-123]");
+    }
+
+    @Test
+    public void testParseTokenWildcardToken() {
+        this.parseAndCheck("123*456", "[token-123][wildcard][token-456]");
+    }
+
+    @Test
+    public void testParseTokenSlashToken() {
+        this.parseAndCheck("123/456", "[token-123][slash][token-456]");
+    }
+
+    @Test
+    public void testParseSpaceToken() {
+        this.parseAndCheck(" 1", "[ws][token-1]");
+    }
+
+    @Test
+    public void testParseTabToken() {
+        this.parseAndCheck("\t1", "[ws][token-1]");
+    }
+
+    @Test
+    public void testParseCrNlSpaceToken() {
+        this.parseAndCheck("\r\n 1", "[ws][token-1]");
+    }
+
+    @Test
+    public void testParseCrNlTabToken() {
+        this.parseAndCheck("\r\n 1", "[ws][token-1]");
+    }
+
+    @Test
+    public void testParseSpaceTabCrNlSpaceTabToken() {
+        this.parseAndCheck(" \t\r\n \t1", "[ws][token-1]");
+    }
+
+    @Test
+    public void testParseTokenSpace() {
+        this.parseAndCheck("1 ", "[token-1][ws]");
+    }
+
+    @Test
+    public void testParseTokenTab() {
+        this.parseAndCheck("1\t", "[token-1][ws]");
+    }
+
+    @Test
+    public void testParseTokenCrNlSpace() {
+        this.parseAndCheck("1\r\n ", "[token-1][ws]");
+    }
+
+    @Test
+    public void testParseTokenCrNlTab() {
+        this.parseAndCheck("1\r\n\t", "[token-1][ws]");
+    }
+
+    @Test
+    public void testParseTokenTokenSeparator() {
+        this.parseAndCheck("1;", "[token-1][token-separator]");
+    }
+
+    @Test
+    public void testParseTokenTokenSeparatorToken() {
+        this.parseAndCheck("1;23", "[token-1][token-separator][token-23]");
+    }
+
+    @Test
+    public void testParseQuotedToken() {
+        this.parseAndCheck("\"1\"", "[quoted-1]");
+    }
+
+    @Test
+    public void testParseQuotedTokenTokenSeparator() {
+        this.parseAndCheck("\"1\",", "[quoted-1][multi]");
+    }
+
+    @Test
+    public void testParseQuotedTokenQuotedToken() {
+        this.parseAndCheck("\"1\"\"23\"", "[quoted-1][quoted-23]");
+    }
+
+    @Test
+    public void testParseQuotedTokenSlashWildcardToken() {
+        this.parseAndCheck("\"1\"/*23", "[quoted-1][slash][wildcard][token-23]");
+    }
+
+
+    private void parseAndCheck(final String text, final String events) {
+        final StringBuilder recorded = new StringBuilder();
+
+        new HeaderParser(text) {
+            @Override
+            void whitespace() {
+                recorded.append("[ws]");
+                this.whitespace0();
+            }
+
+            @Override
+            void tokenSeparator() {
+                recorded.append("[token-separator]");
+            }
+
+            @Override
+            void keyValueSeparator() {
+                recorded.append("[key-value-separator]");
+            }
+
+            @Override
+            void multiValueSeparator() {
+                recorded.append("[multi]");
+            }
+
+            @Override
+            void wildcard() {
+                recorded.append("[wildcard]");
+                this.position++;
+            }
+
+            @Override
+            void slash() {
+                recorded.append("[slash]");
+            }
+
+            @Override
+            void quotedText() {
+                final String text = this.quotedText(CharPredicates.letterOrDigit(), true);
+                recorded.append("[quoted-" + text.substring(1, text.length() - 1) + ']');
+            }
+
+            @Override
+            void token() {
+                recorded.append("[token-" + this.token(CharPredicates.letterOrDigit()) + "]");
+            }
+
+            @Override
+            void endOfText() {
+
+            }
+
+            @Override
+            void missingValue() {
+                this.failMissingValue(VALUE_LABEL);
+            }
+        }.parse();
+
+        assertEquals("recorded events",
+                events,
+                recorded.toString());
+    }
+
+    // helpers.................................................................................................
+
     @Override
     Void parse(final String text) {
-        new HeaderParser(text) {
-        };
+        new TestHeaderParser(text);
         return null;
     }
+
+    static class TestHeaderParser extends HeaderParser {
+        TestHeaderParser(final String text) {
+            super(text);
+        }
+
+        @Override
+        void whitespace() {
+
+        }
+
+        @Override
+        void tokenSeparator() {
+
+        }
+
+        @Override
+        void keyValueSeparator() {
+
+        }
+
+        @Override
+        void multiValueSeparator() {
+
+        }
+
+        @Override
+        void wildcard() {
+            this.position++;
+        }
+
+        @Override
+        void slash() {
+
+        }
+
+        @Override
+        void quotedText() {
+
+        }
+
+        @Override
+        void token() {
+
+        }
+
+        @Override
+        void endOfText() {
+
+        }
+
+        @Override
+        void missingValue() {
+            this.failMissingValue(VALUE_LABEL);
+        }
+    }
+
+    @Override
+    String valueLabel() {
+        return VALUE_LABEL;
+    }
+
+    private final static String VALUE_LABEL = "Value";
 
     @Override
     protected Class<HeaderParser> type() {

@@ -18,20 +18,12 @@
 
 package walkingkooka.net.header;
 
-/**
- * A parser that only parses text with a single etag.
- */
 final class ETagOneHeaderParser extends ETagHeaderParser {
 
     static ETag parseOne(final String text) {
         final ETagOneHeaderParser parser = new ETagOneHeaderParser(text);
-        final ETag tag = parser.parse(ETagOneHeaderParser.MODE_WEAK_OR_WILDCARD_OR_QUOTE_BEGIN);
-
-        final int position = parser.position;
-        if (position != text.length()) {
-            parser.failInvalidCharacter();
-        }
-        return tag;
+        parser.parse();
+        return parser.etag;
     }
 
     private ETagOneHeaderParser(final String text) {
@@ -39,7 +31,18 @@ final class ETagOneHeaderParser extends ETagHeaderParser {
     }
 
     @Override
-    void separator() {
+    void tokenSeparator() {
         this.failInvalidCharacter();
     }
+
+    @Override
+    void multiValueSeparator() {
+        this.failInvalidCharacter();
+    }
+
+    void etag(final ETag etag) {
+        this.etag = etag;
+    }
+
+    private ETag etag;
 }

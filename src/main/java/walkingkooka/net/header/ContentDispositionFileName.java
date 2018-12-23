@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.predicate.character.CharPredicates;
 
 /**
@@ -57,7 +58,7 @@ final public class ContentDispositionFileName implements Name, HeaderValue {
 
     @Override
     public String toHeaderText() {
-        return this.value();
+        return ContentDispositionFileNameHeaderValueConverter.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
     }
 
     // HasHeaderScope....................................................................
