@@ -91,8 +91,8 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
     static CharsetHeaderValue withParameters(final CharsetName charset,
                                              final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
         final CharsetHeaderValue result = parameters.isEmpty() ?
-                null :
-                CONSTANTS.get(charset);
+                CONSTANTS.get(charset) :
+                null;
         return null != result ?
                 result :
                 new CharsetHeaderValue(charset, parameters);
