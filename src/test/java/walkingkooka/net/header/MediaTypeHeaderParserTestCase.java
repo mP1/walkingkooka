@@ -38,6 +38,31 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     final static String SUBTYPE = "subtype";
 
     @Test
+    public final void testWildcardFails() {
+        this.parseFails("*", "Missing sub type at 1 in \"*\"");
+    }
+
+    @Test
+    public final void testParameterSeparatorFails() {
+        this.parseMissingValueFails(";");
+    }
+
+    @Test
+    public final void testKeyValueSeparatorFails() {
+        this.parseInvalidCharacterFails("=");
+    }
+
+    @Test
+    public void testSlashFails() {
+        this.parseInvalidCharacterFails("/");
+    }
+
+    @Test
+    public void testValueSeparatorFails() {
+        this.parseInvalidCharacterFails(",");
+    }
+
+    @Test
     public final void testSlashSubtypeFails() {
         this.parseInvalidCharacterFails("/subtype", '/');
     }

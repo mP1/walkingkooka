@@ -242,7 +242,7 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
 
     @Override
     protected boolean isMultipart() {
-        return false;
+        return true;
     }
 
     @Override

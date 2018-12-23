@@ -176,7 +176,7 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
 
     @Override
     protected boolean isMultipart() {
-        return false;
+        return true;
     }
 
     @Override

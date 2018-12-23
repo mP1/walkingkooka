@@ -29,6 +29,11 @@ import static org.junit.Assert.assertEquals;
 public final class ETagListHeaderParserTest extends ETagHeaderParserTestCase<ETagListHeaderParser> {
 
     @Test
+    public void testValueSeparatorFails() {
+        this.parseMissingValueFails(",");
+    }
+
+    @Test
     public final void testSeparatorFails() {
         this.parseMissingValueFails("\"ABC\",");
     }

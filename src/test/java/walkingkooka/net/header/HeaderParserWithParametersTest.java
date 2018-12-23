@@ -25,7 +25,8 @@ import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 
-public final class HeaderParserWithParametersTest extends HeaderParserTestCase<HeaderParserWithParameters<?, ?>, Void> {
+public final class HeaderParserWithParametersTest extends HeaderParserWithParametersTestCase<HeaderParserWithParameters<?, ?>,
+        Void> {
 
     @Test
     public void testParseQuotedFails() {

@@ -18,17 +18,10 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
-
 public abstract class HeaderParserWithParametersTestCase<P extends HeaderParser, V>
         extends HeaderParserTestCase<P, V> {
 
     HeaderParserWithParametersTestCase() {
         super();
-    }
-
-    @Test
-    public final void testSlash() {
-        this.parseInvalidCharacterFails("/");
     }
 }

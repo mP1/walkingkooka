@@ -23,6 +23,11 @@ import org.junit.Test;
 public final class ETagOneHeaderParserTest extends ETagHeaderParserTestCase<ETagOneHeaderParser> {
 
     @Test
+    public void testValueSeparatorFails() {
+        this.parseInvalidCharacterFails(",");
+    }
+
+    @Test
     public final void testSeparatorFails() {
         this.parseInvalidCharacterFails("\"ABC\",", ',');
     }

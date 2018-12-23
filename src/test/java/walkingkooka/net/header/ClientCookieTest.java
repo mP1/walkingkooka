@@ -46,6 +46,13 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
     }
 
     @Test
+    public void testCookieClient() {
+        final ClientCookie cookie = Cookie.client(NAME, VALUE);
+        checkName(cookie);
+        checkValue(cookie);
+    }
+
+    @Test
     public void testSetNameDifferent() {
         final CookieName name = CookieName.with("different");
         final ClientCookie cookie = ClientCookie.with(NAME, VALUE);
@@ -86,6 +93,16 @@ final public class ClientCookieTest extends CookieTestCase<ClientCookie> {
                 VALUE);
 
         final ClientCookie cookie = ClientCookie.from(source);
+        checkName(cookie);
+        checkValue(cookie);
+    }
+
+    @Test
+    public void testCookieClientFrom() {
+        final javax.servlet.http.Cookie source = new javax.servlet.http.Cookie(NAME.value(),
+                VALUE);
+
+        final ClientCookie cookie = Cookie.clientFrom(source);
         checkName(cookie);
         checkValue(cookie);
     }

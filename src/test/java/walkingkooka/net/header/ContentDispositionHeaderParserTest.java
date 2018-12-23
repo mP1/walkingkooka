@@ -31,6 +31,31 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
     // parse ...................................................................................................
 
     @Test
+    public void testWildcardFails() {
+        this.parseInvalidCharacterFails("*");
+    }
+
+    @Test
+    public void testParameterSeparatorFails() {
+        this.parseMissingValueFails(";");
+    }
+
+    @Test
+    public void testKeyValueSeparatorFails() {
+        this.parseInvalidCharacterFails("=");
+    }
+
+    @Test
+    public void testSlashFails() {
+        this.parseInvalidCharacterFails("/");
+    }
+
+    @Test
+    public void testValueSeparatorFails() {
+        this.parseInvalidCharacterFails(",");
+    }
+
+    @Test
     public void testType() {
         this.parseAndCheck("A", "A");
     }

@@ -231,7 +231,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Override
     protected boolean isMultipart() {
-        return false;
+        return true;
     }
 
     @Override

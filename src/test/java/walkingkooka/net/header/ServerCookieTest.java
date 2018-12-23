@@ -183,6 +183,28 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     }
 
     @Test
+    public void testCookieServer() {
+        final ServerCookie cookie = Cookie.server(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                MAXAGE,
+                SECURE,
+                HTTPONLY,
+                VERSION);
+        checkName(cookie);
+        checkValue(cookie);
+        checkDomain(cookie);
+        checkPath(cookie);
+        checkComment(cookie);
+        checkDeletion(cookie);
+        checkSecure(cookie);
+        checkHttpOnly(cookie);
+        checkVersion(cookie);
+    }
+
+    @Test
     public void testSetNameDifferent() {
         final ServerCookie cookie = this.createCookieWithoutAttributes(NAME, VALUE);
         final CookieName name = CookieName.with("different");
@@ -443,6 +465,29 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
         checkSecure(cookie, CookieSecure.ABSENT);
         checkHttpOnly(cookie, CookieHttpOnly.DEFAULT);
         checkVersion(cookie, CookieVersion.VERSION_0);
+    }
+
+    @Test
+    public void testCookieServerFrom() {
+        final int seconds = 123;
+        final javax.servlet.http.Cookie servletCookie = new javax.servlet.http.Cookie(NAME.value(), VALUE);
+        servletCookie.setPath(PATH.get());
+        servletCookie.setComment(COMMENT.get());
+        servletCookie.setDomain(DOMAIN.get());
+        servletCookie.setMaxAge(seconds);
+        servletCookie.setSecure(SECURE.toJavaxServletCookieSecure());
+        servletCookie.setVersion(VERSION.value());
+
+        final ServerCookie cookie = Cookie.serverFrom(servletCookie);
+        checkName(cookie);
+        checkValue(cookie);
+        checkDomain(cookie);
+        checkPath(cookie);
+        checkComment(cookie);
+        checkDeletion(cookie);
+        checkSecure(cookie);
+        checkHttpOnly(cookie, CookieHttpOnly.ABSENT);
+        checkVersion(cookie);
     }
 
     @Test(expected = NullPointerException.class)

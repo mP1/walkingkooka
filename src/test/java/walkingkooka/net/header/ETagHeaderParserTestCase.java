@@ -30,7 +30,17 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
     // parse ...........................................................................................
 
     @Test
-    public final void testSlashFails() {
+    public final void testParameterSeparatorFails() {
+        this.parseInvalidCharacterFails(";");
+    }
+
+    @Test
+    public final void testKeyValueSeparatorFails() {
+        this.parseInvalidCharacterFails("=");
+    }
+
+    @Test
+    public void testSlashFails() {
         this.parseInvalidCharacterFails("/");
     }
 
