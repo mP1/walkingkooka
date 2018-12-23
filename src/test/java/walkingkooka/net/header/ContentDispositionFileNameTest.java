@@ -74,7 +74,7 @@ public final class ContentDispositionFileNameTest extends HeaderValueTestCase<Co
 
     @Override
     protected boolean isMultipart() {
-        return false;
+        return true;
     }
 
     @Override

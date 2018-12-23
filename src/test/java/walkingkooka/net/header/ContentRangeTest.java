@@ -224,8 +224,18 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
     }
 
     @Test
-    public void testParseWhitespaceEqualsFails() {
+    public void testParseUnitUnknownFails() {
+        this.parseFails("b", "Missing unit from \"b\"");
+    }
+
+    @Test
+    public void testParseUnitInvalidFails() {
         this.parseFails("bytes-0-100/*", '-');
+    }
+
+    @Test
+    public void testParseUnitLowerBoundInvalidFails() {
+        this.parseFails("bytes 0/", '/');
     }
 
     @Test
@@ -437,7 +447,7 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
     @Override
     protected boolean isMultipart() {
-        return false;
+        return true;
     }
 
     @Override

@@ -29,6 +29,31 @@ public final class CacheControlDirectiveHeaderParserTest extends HeaderParserTes
         List<CacheControlDirective<?>>> {
 
     @Test
+    public void testWildcardFails() {
+        this.parseInvalidCharacterFails("*");
+    }
+
+    @Test
+    public final void testParameterSeparatorFails() {
+        this.parseInvalidCharacterFails(";");
+    }
+
+    @Test
+    public final void testKeyValueSeparatorFails() {
+        this.parseInvalidCharacterFails("=");
+    }
+
+    @Test
+    public void testSlashFails() {
+        this.parseInvalidCharacterFails("/");
+    }
+
+    @Test
+    public void testValueSeparatorFails() {
+        this.parseInvalidCharacterFails(",");
+    }
+
+    @Test
     public void testDirective() {
         this.parseAndCheck2("A", "A");
     }

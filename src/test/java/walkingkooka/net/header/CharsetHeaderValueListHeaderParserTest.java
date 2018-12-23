@@ -31,6 +31,26 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserWi
     // parse ...................................................................................................
 
     @Test
+    public final void testParameterSeparatorFails() {
+        this.parseMissingValueFails(";");
+    }
+
+    @Test
+    public final void testKeyValueSeparatorFails() {
+        this.parseInvalidCharacterFails("=");
+    }
+
+    @Test
+    public void testSlashFails() {
+        this.parseInvalidCharacterFails("/");
+    }
+
+    @Test
+    public void testValueSeparatorFails() {
+        this.parseInvalidCharacterFails(",");
+    }
+
+    @Test
     public void testCharsetSeparatorFails() {
         this.parseMissingValueFails("utf-8,");
     }

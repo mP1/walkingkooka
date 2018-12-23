@@ -18,12 +18,28 @@
 
 package walkingkooka.net.header;
 
+import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
 public abstract class HeaderValueTestCase<V extends HeaderValue> extends PublicClassTestCase<V> {
 
+    @Test
+    public final void testIsMultipart() {
+        assertEquals(this.isMultipart(), this.createHeaderValue().isMultipart());
+    }
+
+    @Test
+    public final void testIsRequest() {
+        assertEquals(this.isRequest(), this.createHeaderValue().isRequest());
+    }
+
+    @Test
+    public final void testIsResponse() {
+        assertEquals(this.isResponse(), this.createHeaderValue().isResponse());
+    }
+    
     abstract protected boolean isMultipart();
 
     abstract protected boolean isRequest();

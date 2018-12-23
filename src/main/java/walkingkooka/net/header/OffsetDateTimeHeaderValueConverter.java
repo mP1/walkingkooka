@@ -66,10 +66,6 @@ final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter<Offs
                 FORMATTER);
     }
 
-    static String notDoubleQuotedText(final String text) {
-        return "Expected double quoted string but was " + text;
-    }
-
     @Override
     void check0(final Object value) {
         this.checkType(value, OffsetDateTime.class);
