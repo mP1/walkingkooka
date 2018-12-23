@@ -19,19 +19,55 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Defines a few methods to retrieve header parameters.
+ * Base class for any {@link HeaderName}.
  */
-public interface HeaderParameterName<V> extends HeaderName<V>{
+abstract class HeaderParameterName<V> implements HeaderName<V>{
+
+    /**
+     * Private ctor to limit sub classing.
+     */
+    HeaderParameterName(final String name, final HeaderValueConverter<V> converter) {
+        this.name = name;
+        this.converter = converter;
+    }
+
+    @Override
+    public final String value() {
+        return this.name;
+    }
+
+    private final String name;
+
+    /**
+     * Accepts text and converts it into its value.
+     */
+    @Override
+    public final V toValue(final String text) {
+        Objects.requireNonNull(text, "text");
+
+        return this.converter.parse(text, this);
+    }
+
+    /**
+     * Validates the value and casts it to its correct type.
+     */
+    @Override
+    public final V checkValue(final Object value) {
+        return this.converter.check(value);
+    }
+
+    final HeaderValueConverter<V> converter;
 
     /**
      * Gets a value wrapped in an {@link Optional} in a type safe manner.
      */
-    default Optional<V> parameterValue(final HeaderValueWithParameters hasParameters) {
+    public Optional<V> parameterValue(final HeaderValueWithParameters hasParameters) {
         Objects.requireNonNull(hasParameters, "hasParameters");
         return Optional.ofNullable(Cast.to(hasParameters.parameters().get(this)));
     }
@@ -39,11 +75,42 @@ public interface HeaderParameterName<V> extends HeaderName<V>{
     /**
      * Retrieves the value or throws a {@link HeaderValueException} if absent.
      */
-    default V parameterValueOrFail(final HeaderValueWithParameters hasParameters) {
+    public V parameterValueOrFail(final HeaderValueWithParameters hasParameters) {
         final Optional<V> value = this.parameterValue(hasParameters);
         if (!value.isPresent()) {
             throw new HeaderValueException("Required value is absent for " + this);
         }
         return value.get();
+    }
+
+    // Comparable
+
+    final int compareTo0(final HeaderParameterName<?> other) {
+        return this.name.compareToIgnoreCase(other.value());
+    }
+
+    // Object
+
+    @Override
+    public final int hashCode() {
+        return CaseSensitivity.INSENSITIVE.hash(this.name);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+                this.canBeEqual(other) &&
+                        this.equals0(Cast.to(other));
+    }
+
+    abstract boolean canBeEqual(Object other);
+
+    private boolean equals0(final HeaderParameterName other) {
+        return this.name.equalsIgnoreCase(other.name);
+    }
+
+    @Override
+    public final String toString() {
+        return this.name;
     }
 }

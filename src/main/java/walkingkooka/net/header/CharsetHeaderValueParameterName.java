@@ -18,21 +18,17 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.compare.Comparables;
 import walkingkooka.naming.Name;
-import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
-import java.util.Objects;
 
 
 /**
  * The {@link Name} of an optional parameter accompanying a {@link MediaType}. Note the name may not contain the whitespace, equals sign, semi colons
  * or commas.
  */
-final public class CharsetHeaderValueParameterName<T> implements HeaderParameterName<T>,
+final public class CharsetHeaderValueParameterName<T> extends HeaderParameterName<T> implements
         Comparable<CharsetHeaderValueParameterName<?>> {
 
     // constants
@@ -79,67 +75,20 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
      */
     private CharsetHeaderValueParameterName(final String value,
                                             final HeaderValueConverter<T> converter) {
-        this.value = value;
-        this.converter = converter;
+        super(value, converter);
     }
-
-    @Override
-    public String value() {
-        return this.value;
-    }
-
-    private final String value;
-
-    /**
-     * Accepts text and converts it into its value.
-     */
-    @Override
-    public T toValue(final String text) {
-        Objects.requireNonNull(text, "text");
-
-        return this.converter.parse(text, this);
-    }
-
-    /**
-     * Validates the value.
-     */
-    @Override
-    public T checkValue(final Object value) {
-        return this.converter.check(value);
-    }
-
-    final transient HeaderValueConverter<T> converter;
 
     // Comparable
 
     @Override
-    public int compareTo(final CharsetHeaderValueParameterName name) {
-        return this.value.compareToIgnoreCase(name.value());
+    public int compareTo(final CharsetHeaderValueParameterName<?> other) {
+        return this.compareTo0(other);
     }
 
     // Object
 
     @Override
-    public int hashCode() {
-        return CaseSensitivity.INSENSITIVE.hash(this.value);
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof CharsetHeaderValueParameterName &&
-                        this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final CharsetHeaderValueParameterName other) {
-        return this.compareTo(other) == Comparables.EQUAL;
-    }
-
-    /**
-     * Dumps the request raw name
-     */
-    @Override
-    public String toString() {
-        return this.value;
+    boolean canBeEqual(final Object other) {
+        return other instanceof CharsetHeaderValueParameterName;
     }
 }
