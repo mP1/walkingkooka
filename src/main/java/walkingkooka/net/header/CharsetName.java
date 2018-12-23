@@ -188,7 +188,7 @@ public abstract class CharsetName implements Name,
 
     /**
      * Tests if this {@link CharsetName} is a match for the given, including wildcard matches.
-     * Typically all values of {@link walkingkooka.net.http.HttpHeaderName#ACCEPT_CHARSET} are called until a match
+     * Typically all values of {@link HttpHeaderName#ACCEPT_CHARSET} are called until a match
      * against a content-type {@link CharsetName}.
      */
     public final boolean matches(final CharsetName contentType) {

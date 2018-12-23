@@ -36,14 +36,14 @@ import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import static java.time.temporal.ChronoField.YEAR;
 
 /**
- * A {@link HeaderValueConverter2} that parses a header value into a {@link LocalDateTime}.
+ * A {@link HeaderValueConverter} that parses a header value into a {@link LocalDateTime}.
  * Sample Date/Time
  * <pre>
  * Fri, 07 Nov 2014 23:59:59 GMT
  * </pre>
  * <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields"></a>
  */
-final class LocalDateTimeHeaderValueConverter extends HeaderValueConverter2<LocalDateTime> {
+final class LocalDateTimeHeaderValueConverter extends HeaderValueConverter<LocalDateTime> {
 
     /**
      * Singleton

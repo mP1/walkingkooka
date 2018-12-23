@@ -19,7 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;

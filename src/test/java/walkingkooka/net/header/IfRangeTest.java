@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;

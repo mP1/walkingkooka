@@ -50,7 +50,7 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
      * Creates and adds a new {@link TokenHeaderValueParameterName} to the cache being built that handles float header values.
      */
     private static TokenHeaderValueParameterName<Float> registerQWeightConstant(final String header) {
-        return registerConstant(header, HeaderValueConverters.qWeight());
+        return registerConstant(header, HeaderValueConverter.qWeight());
     }
 
     /**
@@ -83,7 +83,7 @@ final public class TokenHeaderValueParameterName<T> implements HeaderParameterNa
     /**
      * Allow quoted and unquoted strings.
      */
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
             TokenHeaderValueHeaderParser.QUOTED_PARAMETER_VALUE,
             true,
             TokenHeaderValueHeaderParser.UNQUOTED_PARAMETER_VALUE

@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link HeaderValueConverter} that expects comma separated {@link HttpMethod methods}.
  */
-final class HttpMethodListHeaderValueConverter extends HeaderValueConverter2<List<HttpMethod>> {
+final class HttpMethodListHeaderValueConverter extends HeaderValueConverter<List<HttpMethod>> {
 
     /**
      * Singleton

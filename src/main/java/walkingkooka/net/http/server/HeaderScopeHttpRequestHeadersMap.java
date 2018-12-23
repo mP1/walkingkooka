@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.net.header.HttpHeaderScope;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractMap;
 import java.util.Collection;

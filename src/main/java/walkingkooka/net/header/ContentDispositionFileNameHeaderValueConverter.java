@@ -25,7 +25,7 @@ import walkingkooka.predicate.character.CharPredicates;
 /**
  * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileName}.
  */
-final class ContentDispositionFileNameHeaderValueConverter extends HeaderValueConverter2<ContentDispositionFileName> {
+final class ContentDispositionFileNameHeaderValueConverter extends HeaderValueConverter<ContentDispositionFileName> {
 
     /**
      * Singleton
@@ -54,7 +54,7 @@ final class ContentDispositionFileNameHeaderValueConverter extends HeaderValueCo
         return QUOTED_UNQUOTED_STRING.toText(value.value(), name);
     }
 
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
             CharPredicates.asciiPrintable(),
             false,
             CharPredicates.rfc2045Token());

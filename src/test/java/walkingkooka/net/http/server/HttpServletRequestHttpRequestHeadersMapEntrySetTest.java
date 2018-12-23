@@ -22,7 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.SetTestCase;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;

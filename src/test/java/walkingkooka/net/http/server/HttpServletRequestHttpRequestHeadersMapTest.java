@@ -24,7 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.MapTestCase;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

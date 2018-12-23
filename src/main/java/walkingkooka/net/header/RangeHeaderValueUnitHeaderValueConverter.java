@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderName;
 
 /**
  * A {@link HeaderValueConverter} that parses a header value into a {@link RangeHeaderValueUnit >}.
@@ -30,7 +29,7 @@ import walkingkooka.net.http.HttpHeaderName;
  * Accept-Ranges: none
  * </pre>
  */
-final class RangeHeaderValueUnitHeaderValueConverter extends HeaderValueConverter2<RangeHeaderValueUnit> {
+final class RangeHeaderValueUnitHeaderValueConverter extends HeaderValueConverter<RangeHeaderValueUnit> {
 
     /**
      * Singleton

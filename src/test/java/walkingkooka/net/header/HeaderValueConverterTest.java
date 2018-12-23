@@ -19,9 +19,9 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-public final class HeaderValueConverterTest extends PublicClassTestCase<HeaderValueConverter<Void>> {
+public final class HeaderValueConverterTest extends PackagePrivateClassTestCase<HeaderValueConverter<Void>> {
     @Override
     protected Class<HeaderValueConverter<Void>> type() {
         return Cast.to(HeaderValueConverter.class);

@@ -23,9 +23,9 @@ import walkingkooka.naming.Name;
 import java.util.List;
 
 /**
- * A {@link HeaderValueConverter2} that converts a {@link String} into many {@link MediaType}.
+ * A {@link HeaderValueConverter} that converts a {@link String} into many {@link MediaType}.
  */
-final class MediaTypeListHeaderValueConverter extends HeaderValueConverter2<List<MediaType>> {
+final class MediaTypeListHeaderValueConverter extends HeaderValueConverter<List<MediaType>> {
 
     /**
      * Singleton

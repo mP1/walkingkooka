@@ -23,9 +23,9 @@ import walkingkooka.naming.Name;
 import java.util.List;
 
 /**
- * A {@link HeaderValueConverter2} that expects comma separated {@link TokenHeaderValue tokens}.
+ * A {@link HeaderValueConverter} that expects comma separated {@link TokenHeaderValue tokens}.
  */
-final class TokenHeaderValueListHeaderValueConverter extends HeaderValueConverter2<List<TokenHeaderValue>> {
+final class TokenHeaderValueListHeaderValueConverter extends HeaderValueConverter<List<TokenHeaderValue>> {
 
     /**
      * Singleton

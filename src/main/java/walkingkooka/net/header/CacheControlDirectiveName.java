@@ -50,7 +50,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
                                                                                         final CacheControlDirectiveNameScope scope) {
         return register(name,
                 CacheControlDirectiveNameParameter.REQUIRED,
-                HeaderValueConverters.longConverter(),
+                HeaderValueConverter.longConverter(),
                 scope);
     }
 
@@ -82,7 +82,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
      */
     public final static CacheControlDirectiveName<Long> MAX_STALE = register("max-stale",
             CacheControlDirectiveNameParameter.OPTIONAL,
-            HeaderValueConverters.longConverter(),
+            HeaderValueConverter.longConverter(),
             CacheControlDirectiveNameScope.REQUEST);
 
     /**

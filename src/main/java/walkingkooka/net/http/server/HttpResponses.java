@@ -19,7 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.header.ETag;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Map;

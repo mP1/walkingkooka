@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.header.ClientCookie;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;

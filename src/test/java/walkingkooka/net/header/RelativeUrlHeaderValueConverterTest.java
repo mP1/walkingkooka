@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.http.HttpHeaderName;
 
 public final class RelativeUrlHeaderValueConverterTest extends
         HeaderValueConverterTestCase<RelativeUrlHeaderValueConverter, RelativeUrl> {

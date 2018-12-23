@@ -24,7 +24,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.test.EnumTestCase;
 import walkingkooka.text.CharSequences;
 

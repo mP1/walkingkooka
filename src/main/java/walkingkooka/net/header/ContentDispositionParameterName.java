@@ -86,7 +86,7 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      * Creates and adds a new {@link ContentDispositionParameterName} to the cache being built that handles float header values.
      */
     private static ContentDispositionParameterName<OffsetDateTime> registerOffsetDateTimeConstant(final String header) {
-        return registerConstant(header, HeaderValueConverters.offsetDateTime());
+        return registerConstant(header, HeaderValueConverter.offsetDateTime());
     }
 
     /**
@@ -124,7 +124,7 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      * A {@link ContentDispositionParameterName} holding <code>size</code>
      */
     public final static ContentDispositionParameterName<Long> SIZE = registerConstant("size",
-            HeaderValueConverters.longConverter());
+            HeaderValueConverter.longConverter());
 
     // factory ......................................................................................................
 
@@ -144,7 +144,7 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
     /**
      * Allow quoted and unquoted strings.
      */
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
             ContentDispositionHeaderParser.QUOTED_PARAMETER_VALUE,
             true,
             ContentDispositionHeaderParser.UNQUOTED_PARAMETER_VALUE

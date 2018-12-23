@@ -26,7 +26,7 @@ import walkingkooka.text.CharSequences;
  * A converter that accepts both {@link Long} and {@link String} values. This converter is only intended
  * for extension (non standard) directives which could hold either numbers or quoted text.
  */
-final class CacheControlDirectiveExtensionHeaderValueConverter extends HeaderValueConverter2<Object> {
+final class CacheControlDirectiveExtensionHeaderValueConverter extends HeaderValueConverter<Object> {
 
     /**
      * Singleton
@@ -89,12 +89,12 @@ final class CacheControlDirectiveExtensionHeaderValueConverter extends HeaderVal
         throw new HeaderValueException(name + "  value is not a long or string " + CharSequences.quoteIfChars(value));
     }
 
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
             CharPredicates.asciiPrintable(),
             false,
             CharPredicates.rfc2045Token());
 
-    private final static HeaderValueConverter<Long> LONG = HeaderValueConverters.longConverter();
+    private final static HeaderValueConverter<Long> LONG = HeaderValueConverter.longConverter();
 
     @Override
     public String toString() {

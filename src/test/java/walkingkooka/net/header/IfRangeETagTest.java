@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.time.LocalDateTime;
 
@@ -50,7 +49,7 @@ public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, Lo
 
     @Override
     String headerText() {
-        return HeaderValueConverters.eTag().toText(this.value(), HttpHeaderName.E_TAG);
+        return HeaderValueConverter.eTag().toText(this.value(), HttpHeaderName.E_TAG);
     }
 
     @Override

@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.compare.Range;
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ import java.util.List;
  * Range: bytes=200-1000, 2000-6576, 19000-
  * </pre>
  */
-final class RangeHeaderValueHeaderValueConverter extends HeaderValueConverter2<RangeHeaderValue> {
+final class RangeHeaderValueHeaderValueConverter extends HeaderValueConverter<RangeHeaderValue> {
 
     /**
      * Singleton

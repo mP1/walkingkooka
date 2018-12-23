@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderName;
 
 public final class RangeHeaderValueUnitHeaderValueConverterTest extends
         HeaderValueConverterTestCase<RangeHeaderValueUnitHeaderValueConverter, RangeHeaderValueUnit> {

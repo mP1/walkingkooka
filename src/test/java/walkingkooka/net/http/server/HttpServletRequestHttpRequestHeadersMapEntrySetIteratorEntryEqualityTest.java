@@ -19,7 +19,7 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 import static org.junit.Assert.assertEquals;

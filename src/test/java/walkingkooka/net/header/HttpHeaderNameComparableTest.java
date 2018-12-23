@@ -16,11 +16,12 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 
 import org.junit.Test;
 import walkingkooka.compare.ComparableTestCase;
+import walkingkooka.net.header.HttpHeaderName;
 
 final public class HttpHeaderNameComparableTest extends ComparableTestCase<HttpHeaderName<?>> {
 

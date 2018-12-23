@@ -21,9 +21,9 @@ package walkingkooka.net.header;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderValueConverter2} that parses a header value into a {@link Long}
+ * A {@link HeaderValueConverter} that parses a header value into a {@link Long}
  */
-final class LongHeaderValueConverter extends HeaderValueConverter2<Long> {
+final class LongHeaderValueConverter extends HeaderValueConverter<Long> {
 
     /**
      * Singleton

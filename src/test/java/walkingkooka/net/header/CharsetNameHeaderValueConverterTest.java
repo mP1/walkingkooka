@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.nio.charset.Charset;
 

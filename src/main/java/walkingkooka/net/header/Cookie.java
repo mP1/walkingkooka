@@ -23,7 +23,6 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;

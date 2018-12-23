@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
-import walkingkooka.net.http.HttpHeaderName;
 
 public final class RangeHeaderValueHeaderValueConverterTest extends
         HeaderValueConverterTestCase<RangeHeaderValueHeaderValueConverter, RangeHeaderValue> {

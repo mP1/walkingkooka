@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.text.Whitespace;
 
 import java.util.List;

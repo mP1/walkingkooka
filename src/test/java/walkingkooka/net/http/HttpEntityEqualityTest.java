@@ -20,6 +20,7 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
 import java.util.Map;

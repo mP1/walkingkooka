@@ -62,13 +62,13 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
      * Holds the charset parameter name.
      */
     public final static MediaTypeParameterName<CharsetName> CHARSET = registerConstant("charset",
-            HeaderValueConverters.charsetName());
+            HeaderValueConverter.charsetName());
 
     /**
      * The q factor weight parameter.
      */
     public final static MediaTypeParameterName<Float> Q_FACTOR = registerConstant("q",
-            HeaderValueConverters.qWeight());
+            HeaderValueConverter.qWeight());
 
     /**
      * Factory that creates a {@link MediaTypeParameterName}
@@ -82,7 +82,7 @@ final public class MediaTypeParameterName<T> implements HeaderParameterName<T>,
                 new MediaTypeParameterName<String>(value, QUOTED_UNQUOTED_STRING);
     }
 
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
             MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
             true,
             MediaTypeHeaderParser.UNQUOTED_PARAMETER_VALUE);
