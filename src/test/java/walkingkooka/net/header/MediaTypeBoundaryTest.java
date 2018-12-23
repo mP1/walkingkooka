@@ -25,7 +25,6 @@ import walkingkooka.text.CharSequences;
 import java.util.Arrays;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBoundary> {
@@ -97,9 +96,6 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     private void checkValue(final MediaTypeBoundary boundary, final String value) {
         assertEquals("value", value, boundary.value());
         assertEquals("delimiter", "--" + value, boundary.multipartBoundaryDelimiter());
-        assertArrayEquals("mediaTypeBoundaryBytes",
-                ("--" + value).getBytes(CharsetName.UTF_8.charset().get()),
-                boundary.multipartBoundaryDelimiterBytes());
     }
 
     // toHeaderText........................................................................................................
@@ -193,12 +189,9 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
                 boundaryCharcters,
                 boundary.length());
 
-        assertEquals("Incorrected boundary generated for " + ToStringBuilder.empty().value(body).build(),
+        assertEquals("Incorrect boundary generated for " + ToStringBuilder.empty().value(body).build(),
                 MediaTypeBoundary.with(boundary),
                 mediaTypeBoundary);
-        assertArrayEquals(mediaTypeBoundary.toString(),
-                ("--" + boundary).getBytes(CharsetName.UTF_8.charset().get()),
-                mediaTypeBoundary.multipartBoundaryDelimiterBytes());
     }
 
     // multipartByteRanges........................................................................................................

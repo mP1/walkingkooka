@@ -118,7 +118,7 @@ public final class MediaTypeBoundary implements Value<String>,
         }
         final String text = new String(chars);
 
-        return new MediaTypeBoundary(text, text, boundary);
+        return new MediaTypeBoundary(text, text);
     }
 
     /**
@@ -160,8 +160,7 @@ public final class MediaTypeBoundary implements Value<String>,
 
         return new MediaTypeBoundary(trimmed, requiresDoubleQuotes ?
                 quoted.toString() :
-                trimmed,
-                ENCODED_ABSENT);
+                trimmed);
     }
 
     private final static char DOUBLE_QUOTE = '"';
@@ -189,8 +188,7 @@ public final class MediaTypeBoundary implements Value<String>,
      * Private ctor.
      */
     private MediaTypeBoundary(final String value,
-                              final String headerText,
-                              final byte[] multipartBoundaryDelimiter) {
+                              final String headerText) {
         super();
 
         final int length = value.length();
@@ -199,7 +197,6 @@ public final class MediaTypeBoundary implements Value<String>,
         }
         this.value = value;
         this.headerText = headerText;
-        this.multipartBoundaryDelimiter = multipartBoundaryDelimiter;
     }
 
     @Override
@@ -253,23 +250,6 @@ public final class MediaTypeBoundary implements Value<String>,
 
     private final static String PREFIX = "--";
     private final static int PREFIX_LENGTH = 2;
-
-    /**
-     * Returns the delimiter in byte form ready for insertion into a multipart entity.
-     */
-    public byte[] multipartBoundaryDelimiterBytes() {
-        if(null == this.multipartBoundaryDelimiter) {
-            this.multipartBoundaryDelimiter = this.multipartBoundaryDelimiter().getBytes(CharsetName.UTF_8.charset().get());
-        }
-        return this.multipartBoundaryDelimiter.clone();
-    }
-
-    /**
-     * The value encoded as ascii.
-     */
-    byte[] multipartBoundaryDelimiter;
-
-    private final static byte[] ENCODED_ABSENT = null;
 
     /**
      * Creates a {@link MediaType#MULTIPART_BYTE_RANGES} with this boundary parameter.
