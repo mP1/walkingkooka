@@ -33,7 +33,8 @@ abstract class TokenHeaderValueHeaderParser extends HeaderParserWithParameters<T
 
     @Override
     final TokenHeaderValue wildcardValue() {
-        return this.failInvalidCharacter();
+        this.position++;
+        return TokenHeaderValue.with("" + WILDCARD);
     }
 
     @Override

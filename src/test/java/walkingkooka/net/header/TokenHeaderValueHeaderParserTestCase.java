@@ -34,6 +34,17 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     }
 
     @Test
+    public final void testWildcard() {
+        this.parseAndCheck2("*",
+                TokenHeaderValue.with("*"));
+    }
+
+    @Test
+    public final void testWildcardWildcardFails() {
+        this.parseInvalidCharacterFails("**", 1);
+    }
+
+    @Test
     public final void testValue() {
         this.parseAndCheck2("A",
                 this.token("A"));
@@ -301,6 +312,12 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     public final void testInvalidParameterValueFails() {
         this.parseFails("V;q=XYZ",
                 "Failed to convert \"Q\" value \"XYZ\", message: For input string: \"XYZ\"");
+    }
+
+    @Test
+    public final void testWildcardParameter() {
+        this.parseAndCheck2("*; p=v",
+                this.token("*", "p", "v"));
     }
 
     abstract void parseAndCheck2(final String headerValue, final TokenHeaderValue token);
