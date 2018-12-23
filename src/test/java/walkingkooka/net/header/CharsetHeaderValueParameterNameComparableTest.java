@@ -20,9 +20,9 @@ package walkingkooka.net.header;
 
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
+import walkingkooka.compare.ComparableTestCase;
 
-final public class CharsetHeaderValueParameterNameEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<CharsetHeaderValueParameterName> {
+final public class CharsetHeaderValueParameterNameComparableTest extends ComparableTestCase<CharsetHeaderValueParameterName<?>> {
 
     @Test
     public void testDifferent() {
@@ -30,7 +30,7 @@ final public class CharsetHeaderValueParameterNameEqualityTest extends HashCodeE
     }
 
     @Override
-    protected CharsetHeaderValueParameterName createObject() {
+    protected CharsetHeaderValueParameterName createComparable() {
         return CharsetHeaderValueParameterName.Q_FACTOR;
     }
 }

@@ -18,15 +18,12 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CaseSensitivity;
 
 import java.time.OffsetDateTime;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -67,7 +64,7 @@ import java.util.Optional;
  *                       ; numeric timezones (+HHMM or -HHMM) MUST be used
  * </pre>
  */
-final public class ContentDispositionParameterName<T> implements HeaderParameterName<T>,
+final public class ContentDispositionParameterName<T> extends HeaderParameterName<T> implements
         Comparable<ContentDispositionParameterName<?>> {
 
     /**
@@ -155,67 +152,20 @@ final public class ContentDispositionParameterName<T> implements HeaderParameter
      */
     private ContentDispositionParameterName(final String name,
                                             final HeaderValueConverter<T> converter) {
-        super();
-        this.name = name;
-        this.converter = converter;
+        super(name, converter);
     }
-
-    // Value ....................................................................................................
-
-    @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
-
-    /**
-     * Accepts text and converts it into its value.
-     */
-    @Override
-    public T toValue(final String text) {
-        Objects.requireNonNull(text, "text");
-
-        return this.converter.parse(text, this);
-    }
-
-    /**
-     * Validates the value and casts it to its type.
-     */
-    @Override
-    public T checkValue(final Object value) {
-        return this.converter.check(value);
-    }
-
-    private final HeaderValueConverter<T> converter;
 
     // Comparable......................................................................................................
 
     @Override
     public int compareTo(final ContentDispositionParameterName<?> other) {
-        return this.name.compareToIgnoreCase(other.name);
+        return this.compareTo0(other);
     }
 
-    // Object.....................................................................................................
+    // Object
 
     @Override
-    public int hashCode() {
-        return CaseSensitivity.INSENSITIVE.hash(this.name);
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof ContentDispositionParameterName &&
-                        this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final ContentDispositionParameterName name) {
-        return this.name.equalsIgnoreCase(name.name);
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
+    boolean canBeEqual(final Object other) {
+        return other instanceof ContentDispositionParameterName;
     }
 }
