@@ -30,7 +30,7 @@ import walkingkooka.net.header.RangeHeaderValue;
 import walkingkooka.net.header.RangeHeaderValueUnit;
 import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpStatusCodeCategory;

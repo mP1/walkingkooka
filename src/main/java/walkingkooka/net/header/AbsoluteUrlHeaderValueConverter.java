@@ -20,13 +20,12 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.http.HttpHeaderName;
 
 /**
- * A {@link HeaderValueConverter2} that parses a header value into a {@link AbsoluteUrl}.
+ * A {@link HeaderValueConverter} that parses a header value into a {@link AbsoluteUrl}.
  * This is useful for headers such as {@link HttpHeaderName#REFERER}.
  */
-final class AbsoluteUrlHeaderValueConverter extends HeaderValueConverter2<AbsoluteUrl> {
+final class AbsoluteUrlHeaderValueConverter extends HeaderValueConverter<AbsoluteUrl> {
 
     /**
      * Singleton

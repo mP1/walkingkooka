@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

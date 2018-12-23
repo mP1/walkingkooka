@@ -26,6 +26,7 @@ import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
 import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.header.NotAcceptableHeaderException;

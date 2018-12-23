@@ -18,6 +18,8 @@
 
 package walkingkooka.net.http;
 
+import walkingkooka.net.header.HttpHeaderName;
+
 import java.util.Map;
 
 /**

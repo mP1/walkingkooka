@@ -19,14 +19,13 @@
 package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.time.LocalDateTime;
 
 /**
  * A {@link HeaderValueConverter} that converts a {@link String} into one {@link IfRange}.
  */
-final class IfRangeHeaderValueConverter extends HeaderValueConverter2<IfRange<?>> {
+final class IfRangeHeaderValueConverter extends HeaderValueConverter<IfRange<?>> {
 
     /**
      * Singleton
@@ -51,7 +50,7 @@ final class IfRangeHeaderValueConverter extends HeaderValueConverter2<IfRange<?>
         return parsed;
     }
 
-    final static HeaderValueConverter<LocalDateTime> DATE_TIME = HeaderValueConverters.localDateTime();
+    final static HeaderValueConverter<LocalDateTime> DATE_TIME = HeaderValueConverter.localDateTime();
 
     @Override
     void check0(final Object value) {

@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.HttpHeaderName;
 
 public final class MediaTypeHeaderValueConverterTest extends
         HeaderValueConverterTestCase<MediaTypeHeaderValueConverter, MediaType> {

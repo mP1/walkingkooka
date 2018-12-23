@@ -55,7 +55,7 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
     /**
      * The q factor weight parameter.
      */
-    public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = registerConstant("q", HeaderValueConverters.qWeight());
+    public final static CharsetHeaderValueParameterName<Float> Q_FACTOR = registerConstant("q", HeaderValueConverter.qWeight());
 
     /**
      * Factory that creates a {@link CharsetHeaderValueParameterName}
@@ -69,7 +69,7 @@ final public class CharsetHeaderValueParameterName<T> implements HeaderParameter
                 new CharsetHeaderValueParameterName<String>(value, QUOTED_UNQUOTED_STRING);
     }
 
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverters.quotedUnquotedString(
+    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
             CharsetHeaderValueListHeaderParser.QUOTED_PARAMETER_VALUE,
             false,
             CharsetHeaderValueListHeaderParser.UNQUOTED_PARAMETER_VALUE);

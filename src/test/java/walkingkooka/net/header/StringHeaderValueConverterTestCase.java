@@ -18,7 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 

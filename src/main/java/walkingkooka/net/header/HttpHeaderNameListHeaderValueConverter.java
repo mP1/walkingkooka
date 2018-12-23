@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link HeaderValueConverter} that expects comma separated {@link HttpHeaderName methods}.
  */
-final class HttpHeaderNameListHeaderValueConverter extends HeaderValueConverter2<List<HttpHeaderName<?>>> {
+final class HttpHeaderNameListHeaderValueConverter extends HeaderValueConverter<List<HttpHeaderName<?>>> {
 
     /**
      * Singleton

@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 import walkingkooka.net.header.HasHeaderScope;
 

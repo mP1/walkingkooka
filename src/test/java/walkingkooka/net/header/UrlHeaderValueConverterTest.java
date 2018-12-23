@@ -23,7 +23,6 @@ import org.junit.Test;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
-import walkingkooka.net.http.HttpHeaderName;
 
 public final class UrlHeaderValueConverterTest extends
         HeaderValueConverterTestCase<UrlHeaderValueConverter, Url> {

@@ -29,14 +29,14 @@ import walkingkooka.predicate.character.CharPredicate;
  * <a href="https://mimesniff.spec.whatwg.org/#parsing-a-mime-type">mime type</a>
  * <a href="https://fetch.spec.whatwg.org/#collect-an-http-quoted-string">Quoted string</a>
  */
-final class QuotedUnquotedStringHeaderValueConverter extends HeaderValueConverter2<String> {
+final class QuotedUnquotedStringHeaderValueConverter extends HeaderValueConverter<String> {
 
     static QuotedUnquotedStringHeaderValueConverter with(final CharPredicate quotedPredicate,
                                                          final boolean supportBackslashEscaping,
                                                          final CharPredicate unquotedPredicate) {
         return new QuotedUnquotedStringHeaderValueConverter(
-                HeaderValueConverters.quoted(quotedPredicate, supportBackslashEscaping),
-                HeaderValueConverters.unquoted(unquotedPredicate));
+                HeaderValueConverter.quoted(quotedPredicate, supportBackslashEscaping),
+                HeaderValueConverter.unquoted(unquotedPredicate));
     }
 
     /**

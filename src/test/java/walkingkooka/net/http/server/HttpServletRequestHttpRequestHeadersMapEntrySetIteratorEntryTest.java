@@ -20,7 +20,7 @@ package walkingkooka.net.http.server;
 
 import org.junit.Test;
 import walkingkooka.collect.map.EntryTestCase;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

@@ -21,16 +21,15 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
 
 /**
- * A {@link HeaderValueConverter2} that parses a header value into a {@link EmailAddress}.
+ * A {@link HeaderValueConverter} that parses a header value into a {@link EmailAddress}.
  * This is useful for headers such as {@link HttpHeaderName#FROM}.
  */
-final class EmailAddressHeaderValueConverter extends HeaderValueConverter2<EmailAddress> {
+final class EmailAddressHeaderValueConverter extends HeaderValueConverter<EmailAddress> {
 
     /**
      * Singleton

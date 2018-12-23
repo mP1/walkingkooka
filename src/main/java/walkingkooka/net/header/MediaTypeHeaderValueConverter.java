@@ -21,9 +21,9 @@ package walkingkooka.net.header;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderValueConverter2} that converts a {@link String} into one {@link MediaType}.
+ * A {@link HeaderValueConverter} that converts a {@link String} into one {@link MediaType}.
  */
-final class MediaTypeHeaderValueConverter extends HeaderValueConverter2<MediaType> {
+final class MediaTypeHeaderValueConverter extends HeaderValueConverter<MediaType> {
 
     /**
      * Singleton

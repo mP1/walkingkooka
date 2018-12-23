@@ -23,7 +23,7 @@ import walkingkooka.predicate.character.CharPredicate;
 /**
  * A {@link HeaderValueConverter} that handles string values.
  */
-abstract class StringHeaderValueConverter extends HeaderValueConverter2<String> {
+abstract class StringHeaderValueConverter extends HeaderValueConverter<String> {
 
     /**
      * Package private to limit sub classing.

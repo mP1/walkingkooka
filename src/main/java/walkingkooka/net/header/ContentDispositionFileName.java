@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.predicate.character.CharPredicates;
 
 /**

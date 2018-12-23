@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderName;
 
 public final class ServerCookieHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ServerCookieHeaderValueConverter, ServerCookie> {

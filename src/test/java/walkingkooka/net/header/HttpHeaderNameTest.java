@@ -16,7 +16,7 @@
  *
  */
 
-package walkingkooka.net.http;
+package walkingkooka.net.header;
 
 
 import org.junit.Test;
@@ -24,13 +24,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.header.ETagValidator;
-import walkingkooka.net.header.HeaderNameTestCase;
-import walkingkooka.net.header.HeaderValueConverters;
-import walkingkooka.net.header.HeaderValueException;
-import walkingkooka.net.header.HttpHeaderScope;
-import walkingkooka.net.header.IfRange;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
@@ -235,7 +228,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
         final LocalDateTime lastModified = LocalDateTime.of(2000, 12, 31, 6, 28, 29);
 
         this.toValueAndCheck(HttpHeaderName.IF_RANGE,
-                HeaderValueConverters.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
+                HeaderValueConverter.localDateTime().toText(lastModified, HttpHeaderName.LAST_MODIFIED),
                 IfRange.with(lastModified));
     }
 

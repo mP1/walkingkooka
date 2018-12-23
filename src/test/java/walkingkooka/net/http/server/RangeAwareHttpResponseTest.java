@@ -29,7 +29,7 @@ import walkingkooka.net.header.ContentRange;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.ETagValidator;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.header.IfRange;
 import walkingkooka.net.header.RangeHeaderValue;

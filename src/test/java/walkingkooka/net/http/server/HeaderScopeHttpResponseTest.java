@@ -21,7 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpHeaderName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.test.Latch;

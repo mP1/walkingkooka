@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.Value;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
@@ -80,8 +79,8 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
         return IfRangeHeaderValueConverter.INSTANCE.parse(text, HEADER_NAME);
     }
 
-    final static HeaderValueConverter<ETag> ETAG = HeaderValueConverters.eTag();
-    final static HeaderValueConverter<LocalDateTime> DATE_TIME = HeaderValueConverters.localDateTime();
+    final static HeaderValueConverter<ETag> ETAG = HeaderValueConverter.eTag();
+    final static HeaderValueConverter<LocalDateTime> DATE_TIME = HeaderValueConverter.localDateTime();
 
     /**
      * Factory that creates an {@link IfRange} expecting an etag or date/time.

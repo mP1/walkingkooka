@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.util.List;
 import java.util.Optional;

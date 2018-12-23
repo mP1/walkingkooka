@@ -18,8 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.net.http.HttpHeaderName;
-
 import java.nio.charset.Charset;
 import java.util.Optional;
 

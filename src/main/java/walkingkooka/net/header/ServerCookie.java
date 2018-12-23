@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import walkingkooka.Cast;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.net.http.HttpHeaderName;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 

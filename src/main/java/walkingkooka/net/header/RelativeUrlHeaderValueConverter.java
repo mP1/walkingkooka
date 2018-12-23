@@ -20,13 +20,12 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.http.HttpHeaderName;
 
 /**
- * A {@link HeaderValueConverter2} that parses a header value into a {@link RelativeUrl}.
+ * A {@link HeaderValueConverter} that parses a header value into a {@link RelativeUrl}.
  * This is useful for headers such as {@link HttpHeaderName#CONTENT_LOCATION}.
  */
-final class RelativeUrlHeaderValueConverter extends HeaderValueConverter2<RelativeUrl> {
+final class RelativeUrlHeaderValueConverter extends HeaderValueConverter<RelativeUrl> {
 
     /**
      * Singleton

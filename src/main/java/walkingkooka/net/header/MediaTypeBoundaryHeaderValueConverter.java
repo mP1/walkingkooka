@@ -26,7 +26,7 @@ import walkingkooka.naming.Name;
  * Content-type: multipart/mixed; boundary="abcdefGHIJK"
  * </pre>
  */
-final class MediaTypeBoundaryHeaderValueConverter extends HeaderValueConverter2<MediaTypeBoundary> {
+final class MediaTypeBoundaryHeaderValueConverter extends HeaderValueConverter<MediaTypeBoundary> {
 
     /**
      * Singleton
@@ -45,7 +45,7 @@ final class MediaTypeBoundaryHeaderValueConverter extends HeaderValueConverter2<
         return MediaTypeBoundary.with(STRING_PARSER.parse(text, name));
     }
 
-    private final HeaderValueConverter<String> STRING_PARSER = HeaderValueConverters.quotedUnquotedString(MediaTypeBoundary.QUOTED_CHARACTER_PREDICATE,
+    private final HeaderValueConverter<String> STRING_PARSER = HeaderValueConverter.quotedUnquotedString(MediaTypeBoundary.QUOTED_CHARACTER_PREDICATE,
             false,
             MediaTypeBoundary.UNQUOTED_CHARACTER_PREDICATE);
 

@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.compare.Range;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.util.Optional;
 

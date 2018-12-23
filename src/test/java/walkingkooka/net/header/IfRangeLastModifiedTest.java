@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.net.http.HttpHeaderName;
 
 import java.time.LocalDateTime;
 
@@ -50,7 +49,7 @@ public final class IfRangeLastModifiedTest extends IfRangeTestCase<IfRangeLastMo
 
     @Override
     String headerText() {
-        return HeaderValueConverters.localDateTime().toText(this.value(), HttpHeaderName.LAST_MODIFIED);
+        return HeaderValueConverter.localDateTime().toText(this.value(), HttpHeaderName.LAST_MODIFIED);
     }
 
     @Override
