@@ -96,58 +96,58 @@ public final class TokenHeaderValueListHeaderParserTest extends TokenHeaderValue
 
     @Test
     public void testValueSeparatorValueSeparatorValue() {
-        this.parseAndCheck3("A,B,C",
+        this.parseAndCheck3("A,B,CONSTANTS",
                 this.token("A"),
                 this.token("B"),
-                this.token("C"));
+                this.token("CONSTANTS"));
     }
 
     @Test
     public void testValueSpaceSeparatorValueSpaceSeparatorValueSpace() {
-        this.parseAndCheck3("A ,B ,C ",
+        this.parseAndCheck3("A ,B ,CONSTANTS ",
                 this.token("A"),
                 this.token("B"),
-                this.token("C"));
+                this.token("CONSTANTS"));
     }
 
     @Test
     public void testValueTabSeparatorValueTabSeparatorValueTab() {
-        this.parseAndCheck3("A\t,B\t,C\t",
+        this.parseAndCheck3("A\t,B\t,CONSTANTS\t",
                 this.token("A"),
                 this.token("B"),
-                this.token("C"));
+                this.token("CONSTANTS"));
     }
 
     @Test
     public void testValueSpaceTabSpaceTabSeparatorValueSpaceTabSeparatorValueSpaceTab() {
-        this.parseAndCheck3("A \t \t,B \t \t,C \t \t",
+        this.parseAndCheck3("A \t \t,B \t \t,CONSTANTS \t \t",
                 this.token("A"),
                 this.token("B"),
-                this.token("C"));
+                this.token("CONSTANTS"));
     }
 
     @Test
     public void testValueSeparatorSpaceValueSeparatorSpaceValue() {
-        this.parseAndCheck3("A, B, C",
+        this.parseAndCheck3("A, B, CONSTANTS",
                 this.token("A"),
                 this.token("B"),
-                this.token("C"));
+                this.token("CONSTANTS"));
     }
 
     @Test
     public void testValueSeparatorTabValueSeparatorTabValue() {
-        this.parseAndCheck3("A,\tB,\tC",
+        this.parseAndCheck3("A,\tB,\tCONSTANTS",
                 this.token("A"),
                 this.token("B"),
-                this.token("C"));
+                this.token("CONSTANTS"));
     }
 
     @Test
     public void testValueSeparatorSpaceTabSpaceTabValueSeparatorSpaceTabValue() {
-        this.parseAndCheck3("A, \t \tB, \t \tC",
+        this.parseAndCheck3("A, \t \tB, \t \tCONSTANTS",
                 this.token("A"),
                 this.token("B"),
-                this.token("C"));
+                this.token("CONSTANTS"));
     }
 
     @Test

@@ -18,10 +18,7 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
-
-import java.util.Map;
 
 
 /**
@@ -30,57 +27,38 @@ import java.util.Map;
  */
 final public class MediaTypeParameterName<T> extends HeaderParameterName<T> implements Comparable<MediaTypeParameterName<?>> {
 
-    // constants
-
     /**
      * A read only cache of already prepared {@link MediaTypeParameterName names}. These constants are incomplete.
      */
-    final static Map<String, MediaTypeParameterName> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
-
-    /**
-     * Creates and adds a new {@link MediaTypeParameterName} to the cache being built.
-     */
-    private static <T> MediaTypeParameterName<T> registerConstant(final String name,
-                                                                  final HeaderValueConverter<T> converter) {
-        final MediaTypeParameterName<T> parameterName = new MediaTypeParameterName<T>(name, converter);
-        MediaTypeParameterName.CONSTANTS.put(name, parameterName);
-        return parameterName;
-    }
+    private final static HeaderParameterNameConstants<MediaTypeParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
+            MediaTypeParameterName::new,
+            HeaderValueConverter.quotedUnquotedString(
+                    MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
+                    true,
+                    MediaTypeHeaderParser.UNQUOTED_PARAMETER_VALUE)
+    );
 
     /**
      * Holds the boundary parameter name.
      */
-    public final static MediaTypeParameterName<MediaTypeBoundary> BOUNDARY = registerConstant("boundary",
-            MediaTypeBoundaryHeaderValueConverter.INSTANCE);
+    public final static MediaTypeParameterName<MediaTypeBoundary> BOUNDARY = CONSTANTS.register("boundary", MediaTypeBoundaryHeaderValueConverter.INSTANCE);
 
     /**
      * Holds the charset parameter name.
      */
-    public final static MediaTypeParameterName<CharsetName> CHARSET = registerConstant("charset",
-            HeaderValueConverter.charsetName());
+    public final static MediaTypeParameterName<CharsetName> CHARSET = CONSTANTS.register("charset", HeaderValueConverter.charsetName());
 
     /**
      * The q factor weight parameter.
      */
-    public final static MediaTypeParameterName<Float> Q_FACTOR = registerConstant("q",
-            HeaderValueConverter.qWeight());
+    public final static MediaTypeParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueConverter.qWeight());
 
     /**
      * Factory that creates a {@link MediaTypeParameterName}
      */
     public static MediaTypeParameterName<?> with(final String value) {
-        MediaType.check(value, "value");
-
-        final MediaTypeParameterName<?> parameterName = CONSTANTS.get(value);
-        return null != parameterName ?
-                parameterName :
-                new MediaTypeParameterName<String>(value, QUOTED_UNQUOTED_STRING);
+        return CONSTANTS.lookup(value);
     }
-
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
-            MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
-            true,
-            MediaTypeHeaderParser.UNQUOTED_PARAMETER_VALUE);
 
     /**
      * Private ctor use factory.

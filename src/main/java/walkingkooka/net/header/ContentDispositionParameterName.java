@@ -18,12 +18,9 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicates;
 
 import java.time.OffsetDateTime;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -72,55 +69,44 @@ final public class ContentDispositionParameterName<T> extends HeaderParameterNam
      */
     public final static Optional<?> VALUE_ABSENT = Optional.empty();
 
-    // constants
-
     /**
-     * A read only cache of already prepared {@link ContentDispositionParameterName names}. These constants are incomplete.
+     * Holds all constants and lookup or creation.
      */
-    final static Map<String, ContentDispositionParameterName> CONSTANTS = Maps.sorted();
-
-    /**
-     * Creates and adds a new {@link ContentDispositionParameterName} to the cache being built that handles float header values.
-     */
-    private static ContentDispositionParameterName<OffsetDateTime> registerOffsetDateTimeConstant(final String header) {
-        return registerConstant(header, HeaderValueConverter.offsetDateTime());
-    }
-
-    /**
-     * Creates and adds a new {@link ContentDispositionParameterName} to the cache being built.
-     */
-    private static <T> ContentDispositionParameterName<T> registerConstant(final String name,
-                                                                           final HeaderValueConverter<T> headerValue) {
-        final ContentDispositionParameterName<T> header = new ContentDispositionParameterName<T>(name, headerValue);
-        ContentDispositionParameterName.CONSTANTS.put(name, header);
-        return header;
-    }
+    private final static HeaderParameterNameConstants<ContentDispositionParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
+            ContentDispositionParameterName::new,
+            HeaderValueConverter.quotedUnquotedString(
+                    ContentDispositionHeaderParser.QUOTED_PARAMETER_VALUE,
+                    true,
+                    ContentDispositionHeaderParser.UNQUOTED_PARAMETER_VALUE
+            ));
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>creation-date</code>
      */
-    public final static ContentDispositionParameterName<OffsetDateTime> CREATION_DATE = registerOffsetDateTimeConstant("creation-date");
+    public final static ContentDispositionParameterName<OffsetDateTime> CREATION_DATE = CONSTANTS.register("creation-date",
+            HeaderValueConverter.offsetDateTime());
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>filename</code>
      */
-    public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = registerConstant("filename",
+    public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = CONSTANTS.register("filename",
             ContentDispositionFileNameHeaderValueConverter.INSTANCE);
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>modification-date</code>
      */
-    public final static ContentDispositionParameterName<OffsetDateTime> MODIFICATION_DATE = registerOffsetDateTimeConstant("modification-date");
+    public final static ContentDispositionParameterName<OffsetDateTime> MODIFICATION_DATE = CONSTANTS.register("modification-date",
+            HeaderValueConverter.offsetDateTime());
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>read-date</code>
      */
-    public final static ContentDispositionParameterName<OffsetDateTime> READ_DATE = registerOffsetDateTimeConstant("read-date");
-
+    public final static ContentDispositionParameterName<OffsetDateTime> READ_DATE = CONSTANTS.register("read-date",
+            HeaderValueConverter.offsetDateTime());
     /**
      * A {@link ContentDispositionParameterName} holding <code>size</code>
      */
-    public final static ContentDispositionParameterName<Long> SIZE = registerConstant("size",
+    public final static ContentDispositionParameterName<Long> SIZE = CONSTANTS.register("size",
             HeaderValueConverter.longConverter());
 
     // factory ......................................................................................................
@@ -130,22 +116,8 @@ final public class ContentDispositionParameterName<T> extends HeaderParameterNam
      * it will return a parameter name with value of type {@link String}.
      */
     public static ContentDispositionParameterName<?> with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
-
-        final ContentDispositionParameterName<?> headerValueParameterName = CONSTANTS.get(name);
-        return null != headerValueParameterName ?
-                headerValueParameterName :
-                new ContentDispositionParameterName<String>(name, QUOTED_UNQUOTED_STRING);
+        return CONSTANTS.lookup(name);
     }
-
-    /**
-     * Allow quoted and unquoted strings.
-     */
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
-            ContentDispositionHeaderParser.QUOTED_PARAMETER_VALUE,
-            true,
-            ContentDispositionHeaderParser.UNQUOTED_PARAMETER_VALUE
-    );
 
     /**
      * Private constructor use factory.
