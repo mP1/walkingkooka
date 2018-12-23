@@ -83,6 +83,21 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
         this.check(token);
     }
 
+    @Test
+    public void testWildcardSetParametersDifferent() {
+        final CharsetHeaderValue token = CharsetHeaderValue.WILDCARD_VALUE;
+        final Map<CharsetHeaderValueParameterName<?>, Object> parameters = this.parameters("different", "2");
+        this.check(token.setParameters(parameters), CharsetName.WILDCARD_CHARSET, parameters);
+        this.check(token, CharsetName.WILDCARD_CHARSET, CharsetHeaderValue.NO_PARAMETERS);
+    }
+
+    @Test
+    public void testWildcardSetParametersDifferent2() {
+        final CharsetHeaderValue token = CharsetHeaderValue.WILDCARD_VALUE;
+        final Map<CharsetHeaderValueParameterName<?>, Object> parameters = this.parameters("different", "2");
+        assertSame(token, token.setParameters(parameters).setParameters(CharsetHeaderValue.NO_PARAMETERS));
+    }
+
     // toHeaderText ...........................................................................................
 
     @Test
