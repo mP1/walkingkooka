@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.Value;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
@@ -33,7 +34,7 @@ import java.util.Optional;
  * Holds a cookie including all its properties. Note that values are verified to contain correct characters but no attempt is made to encode values
  * with incorrect values.
  */
-abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
+abstract public class Cookie implements HeaderValue, Value<String>, UsesToStringBuilder {
 
     /**
      * The <code>domain</code> attribute
@@ -242,6 +243,7 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
     /**
      * Getter that returns the value for this cookie.
      */
+    @Override
     final public String value() {
         return this.value;
     }
