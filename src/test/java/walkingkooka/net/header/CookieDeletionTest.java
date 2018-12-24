@@ -18,9 +18,9 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-final public class CookieDeletionTest extends PublicClassTestCase<CookieDeletion> {
+final public class CookieDeletionTest extends CookieDeletionTestCase<CookieDeletion> {
 
     @Override
     protected Class<CookieDeletion> type() {

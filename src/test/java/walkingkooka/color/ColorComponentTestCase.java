@@ -21,8 +21,9 @@ package walkingkooka.color;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
@@ -31,7 +32,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-abstract public class ColorComponentTestCase<C extends ColorComponent> extends PublicClassTestCase<C> {
+abstract public class ColorComponentTestCase<C extends ColorComponent> extends ClassTestCase<C> {
 
     ColorComponentTestCase() {
         super();
@@ -207,4 +208,9 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends P
     }
 
     abstract C createColorComponent(byte value);
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
 }

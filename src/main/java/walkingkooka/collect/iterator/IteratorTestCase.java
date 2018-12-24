@@ -20,7 +20,8 @@ package walkingkooka.collect.iterator;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -33,7 +34,7 @@ import static org.junit.Assert.assertEquals;
  * Base class for testing a {@link Iterator} with mostly parameter checking tests.
  */
 abstract public class IteratorTestCase<I extends Iterator<T>, T>
-        extends PackagePrivateClassTestCase<I> {
+        extends ClassTestCase<I> {
 
     protected IteratorTestCase() {
         super();
@@ -176,5 +177,10 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
 
     private String toString(final Object... list) {
         return this.toString(Arrays.asList(list));
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

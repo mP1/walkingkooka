@@ -20,11 +20,12 @@ package walkingkooka.net;
 
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class UrlCredentialsTest extends PublicClassTestCase<UrlCredentials> {
+public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials> {
 
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";
@@ -57,5 +58,10 @@ public final class UrlCredentialsTest extends PublicClassTestCase<UrlCredentials
     @Override
     protected Class<UrlCredentials> type() {
         return UrlCredentials.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

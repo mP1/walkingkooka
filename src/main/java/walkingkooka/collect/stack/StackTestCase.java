@@ -18,12 +18,13 @@
 package walkingkooka.collect.stack;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 /**
  * Base class for testing a {@link Stack}.
  */
-abstract public class StackTestCase<S extends Stack<T>, T> extends PackagePrivateClassTestCase<S> {
+abstract public class StackTestCase<S extends Stack<T>, T> extends ClassTestCase<S> {
 
     protected StackTestCase() {
         super();
@@ -45,4 +46,9 @@ abstract public class StackTestCase<S extends Stack<T>, T> extends PackagePrivat
     }
 
     abstract protected S createStack();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

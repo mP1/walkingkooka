@@ -22,6 +22,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -800,12 +801,12 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return true;
+    protected Class<Range<Integer>> type() {
+        return Cast.to(Range.class);
     }
 
     @Override
-    protected Class<Range<Integer>> type() {
-        return Cast.to(Range.class);
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

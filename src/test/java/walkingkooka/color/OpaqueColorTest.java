@@ -19,6 +19,7 @@
 package walkingkooka.color;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -109,12 +110,12 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected Class<OpaqueColor> type() {
+        return OpaqueColor.class;
     }
 
     @Override
-    protected Class<OpaqueColor> type() {
-        return OpaqueColor.class;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

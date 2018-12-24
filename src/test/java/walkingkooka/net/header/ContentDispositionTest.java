@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
@@ -192,5 +193,10 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
     @Override
     protected Class<ContentDisposition> type() {
         return ContentDisposition.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

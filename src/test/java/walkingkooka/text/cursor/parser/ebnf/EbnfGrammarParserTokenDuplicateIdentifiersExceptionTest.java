@@ -21,13 +21,14 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest extends PublicClassTestCase<EbnfGrammarParserTokenDuplicateIdentifiersException> {
+public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest extends ClassTestCase<EbnfGrammarParserTokenDuplicateIdentifiersException> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullDuplicatesFails() {
@@ -62,5 +63,10 @@ public final class EbnfGrammarParserTokenDuplicateIdentifiersExceptionTest exten
     @Override
     protected Class<EbnfGrammarParserTokenDuplicateIdentifiersException> type() {
         return EbnfGrammarParserTokenDuplicateIdentifiersException.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

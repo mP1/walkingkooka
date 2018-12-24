@@ -21,15 +21,16 @@ package walkingkooka.text.cursor.parser.ebnf.combinator;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class EbnfParserCombinatorDuplicateRuleExceptionTest extends PublicClassTestCase<EbnfParserCombinatorDuplicateRuleException> {
+public final class EbnfParserCombinatorDuplicateRuleExceptionTest extends ClassTestCase<EbnfParserCombinatorDuplicateRuleException> {
 
     @Test
     @Ignore
@@ -75,5 +76,10 @@ public final class EbnfParserCombinatorDuplicateRuleExceptionTest extends Public
     @Override
     protected Class<EbnfParserCombinatorDuplicateRuleException> type() {
         return EbnfParserCombinatorDuplicateRuleException.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

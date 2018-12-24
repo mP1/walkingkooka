@@ -19,7 +19,8 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertSame;
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
-abstract public class UrlTestCase<U extends Url> extends PublicClassTestCase<U> {
+abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> {
 
     UrlTestCase() {
         super();
@@ -205,5 +206,10 @@ abstract public class UrlTestCase<U extends Url> extends PublicClassTestCase<U> 
 
     final void checkFragment(final Url url, final UrlFragment fragment) {
         assertEquals("fragment", fragment, url.fragment());
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

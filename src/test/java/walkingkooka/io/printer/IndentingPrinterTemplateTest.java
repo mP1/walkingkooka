@@ -17,13 +17,19 @@
 
 package walkingkooka.io.printer;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 final public class IndentingPrinterTemplateTest
-        extends PackagePrivateClassTestCase<IndentingPrinterTemplate> {
+        extends ClassTestCase<IndentingPrinterTemplate> {
 
     @Override
     protected Class<IndentingPrinterTemplate> type() {
         return IndentingPrinterTemplate.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -19,11 +19,12 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchSequenceNode;
 import walkingkooka.tree.visit.Visiting;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -37,7 +38,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicClassTestCase<T> {
+public abstract class ParserTokenTestCase<T extends ParserToken> extends ClassTestCase<T> {
 
     @Test
     public final void testNaming() {
@@ -260,5 +261,10 @@ public abstract class ParserTokenTestCase<T extends ParserToken> extends PublicC
 
     protected void checkText(final ParserToken token, final String text) {
         assertEquals("text of " + token, text, token.text());
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

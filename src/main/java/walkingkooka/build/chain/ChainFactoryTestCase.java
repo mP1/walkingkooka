@@ -18,13 +18,14 @@
 package walkingkooka.build.chain;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 /**
  * Base class for any {@link ChainFactory} that includes mostly parameter check tests
  */
 abstract public class ChainFactoryTestCase<F extends ChainFactory<T>, T>
-        extends PackagePrivateClassTestCase<F> {
+        extends ClassTestCase<F> {
 
     protected ChainFactoryTestCase() {
         super();
@@ -37,4 +38,9 @@ abstract public class ChainFactoryTestCase<F extends ChainFactory<T>, T>
     }
 
     abstract protected F createFactory();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

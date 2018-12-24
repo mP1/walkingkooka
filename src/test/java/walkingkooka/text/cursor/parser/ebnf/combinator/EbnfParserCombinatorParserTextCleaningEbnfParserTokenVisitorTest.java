@@ -18,11 +18,17 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitorTest extends PackagePrivateClassTestCase<EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor> {
+public final class EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitorTest extends ClassTestCase<EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor> {
     @Override
     protected Class<EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor> type() {
         return EbnfParserCombinatorParserTextCleaningEbnfParserTokenVisitor.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

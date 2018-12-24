@@ -19,13 +19,14 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference<V>> extends PublicClassTestCase<V> {
+public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference<V>> extends ClassTestCase<V> {
 
     final static int VALUE = 123;
     final static SpreadsheetReferenceKind REFERENCE_KIND = SpreadsheetReferenceKind.ABSOLUTE;
@@ -206,4 +207,9 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     }
 
     abstract int maxValue();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
 }

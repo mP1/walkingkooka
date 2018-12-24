@@ -19,8 +19,9 @@ package walkingkooka.predicate.character;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -30,7 +31,7 @@ import static org.junit.Assert.assertSame;
  * {@link CharPredicate#test(char)} results.
  */
 abstract public class CharPredicateTestCase<P extends CharPredicate>
-        extends PackagePrivateClassTestCase<P> {
+        extends ClassTestCase<P> {
 
     protected CharPredicateTestCase() {
         super();
@@ -94,5 +95,10 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
         if (predicate.test(c)) {
             Assert.fail(predicate + " should not have matched=" + CharSequences.quoteAndEscape(c));
         }
+    }
+    
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

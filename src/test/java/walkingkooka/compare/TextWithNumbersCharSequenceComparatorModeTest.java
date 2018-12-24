@@ -17,13 +17,19 @@
 
 package walkingkooka.compare;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 final public class TextWithNumbersCharSequenceComparatorModeTest
-        extends PackagePrivateClassTestCase<TextWithNumbersCharSequenceComparatorMode> {
+        extends ClassTestCase<TextWithNumbersCharSequenceComparatorMode> {
 
     @Override
     protected Class<TextWithNumbersCharSequenceComparatorMode> type() {
         return TextWithNumbersCharSequenceComparatorMode.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

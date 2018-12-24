@@ -19,14 +19,15 @@
 package walkingkooka.routing;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class RouterTestCase<R extends Router<K, T>, K, T> extends PackagePrivateClassTestCase<R> {
+public abstract class RouterTestCase<R extends Router<K, T>, K, T> extends ClassTestCase<R> {
 
     @Test(expected = NullPointerException.class)
     public void testNullParametersFails() {
@@ -45,6 +46,11 @@ public abstract class RouterTestCase<R extends Router<K, T>, K, T> extends Packa
         assertEquals("Routing of parameters=" + parameters + " should have failed",
                 Optional.empty(),
                 routers.route(parameters));
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
 

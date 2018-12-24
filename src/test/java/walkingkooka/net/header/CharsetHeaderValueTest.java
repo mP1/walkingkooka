@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -252,5 +253,10 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
     @Override
     protected Class<CharsetHeaderValue> type() {
         return CharsetHeaderValue.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

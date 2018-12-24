@@ -36,9 +36,4 @@ public final class FakeSpreadsheetParserTokenVisitorTest extends SpreadsheetPars
     protected Class<FakeSpreadsheetParserTokenVisitor> parserTokenVisitorType() {
         return FakeSpreadsheetParserTokenVisitor.class;
     }
-
-    @Override
-    protected boolean typeMustBePublic() {
-        return true;
-    }
 }

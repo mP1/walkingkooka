@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
@@ -92,7 +93,7 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
     }
 
     @Override
-    protected final boolean typeMustBePublic() {
-        return false;
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

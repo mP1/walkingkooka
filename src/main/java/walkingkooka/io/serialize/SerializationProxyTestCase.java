@@ -19,13 +19,14 @@ package walkingkooka.io.serialize;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 /**
  * Base class for testing a {@link SerializationProxy} with mostly parameter checking tests.
  */
 abstract public class SerializationProxyTestCase<P extends SerializationProxy>
-        extends PackagePrivateClassTestCase<P> {
+        extends ClassTestCase<P> {
 
     protected SerializationProxyTestCase() {
         super();
@@ -62,4 +63,9 @@ abstract public class SerializationProxyTestCase<P extends SerializationProxy>
 
     @Test
     abstract public void testToString();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

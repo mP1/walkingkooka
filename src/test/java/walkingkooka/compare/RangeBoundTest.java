@@ -19,11 +19,17 @@
 package walkingkooka.compare;
 
 import walkingkooka.Cast;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class RangeBoundTest extends PublicClassTestCase<RangeBound<?>> {
+public final class RangeBoundTest extends ClassTestCase<RangeBound<?>> {
     @Override
     protected Class<RangeBound<?>> type() {
         return Cast.to(RangeBound.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

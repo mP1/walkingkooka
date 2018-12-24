@@ -21,12 +21,13 @@ package walkingkooka.tree.pointer;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -36,7 +37,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
+public final class NodePointerTest extends ClassTestCase<NodePointer<JsonNode, JsonNodeName, Name, Object>> {
 
     private final static JsonNodeName ABC = JsonNodeName.with("abc");
     private final static JsonNodeName DEF = JsonNodeName.with("def");
@@ -587,5 +588,10 @@ public final class NodePointerTest extends PublicClassTestCase<NodePointer<JsonN
     @Override
     protected Class<NodePointer<JsonNode, JsonNodeName, Name, Object>> type() {
         return Cast.to(NodePointer.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

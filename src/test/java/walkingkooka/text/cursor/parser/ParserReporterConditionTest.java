@@ -18,12 +18,18 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class ParserReporterConditionTest extends PublicClassTestCase<ParserReporterCondition> {
+public final class ParserReporterConditionTest extends ClassTestCase<ParserReporterCondition> {
 
     @Override
     protected Class<ParserReporterCondition> type() {
         return ParserReporterCondition.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

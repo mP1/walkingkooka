@@ -19,8 +19,9 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
@@ -32,7 +33,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public final class HostAddressTest extends PublicClassTestCase<HostAddress> {
+public final class HostAddressTest extends ClassTestCase<HostAddress> {
 
     // tests
 
@@ -993,6 +994,11 @@ public final class HostAddressTest extends PublicClassTestCase<HostAddress> {
     @Override
     protected Class<HostAddress> type() {
         return HostAddress.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 
     static public void checkEquals(final String message, final byte[] expected, final byte[] actual) {

@@ -22,8 +22,9 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class UrlQueryStringTest extends PublicClassTestCase<UrlQueryString> {
+public final class UrlQueryStringTest extends ClassTestCase<UrlQueryString> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -471,5 +472,10 @@ public final class UrlQueryStringTest extends PublicClassTestCase<UrlQueryString
     @Override
     protected Class<UrlQueryString> type() {
         return UrlQueryString.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

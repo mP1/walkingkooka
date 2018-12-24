@@ -18,12 +18,18 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class DomMapEntrySetEntryTest extends PackagePrivateClassTestCase<DomMapEntrySetEntry> {
+public final class DomMapEntrySetEntryTest extends ClassTestCase<DomMapEntrySetEntry> {
     @Override
     protected Class<DomMapEntrySetEntry> type() {
         return DomMapEntrySetEntry.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
 

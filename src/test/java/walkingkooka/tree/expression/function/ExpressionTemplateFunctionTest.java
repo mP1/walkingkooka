@@ -19,12 +19,18 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionTemplateFunctionTest extends PackagePrivateClassTestCase<ExpressionTemplateFunction<?>> {
+public final class ExpressionTemplateFunctionTest extends ClassTestCase<ExpressionTemplateFunction<?>> {
 
     @Override
     protected Class<ExpressionTemplateFunction<?>> type() {
         return Cast.to(ExpressionTemplateFunction.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

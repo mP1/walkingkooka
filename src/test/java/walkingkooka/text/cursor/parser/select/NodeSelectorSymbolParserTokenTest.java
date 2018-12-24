@@ -17,12 +17,18 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class NodeSelectorSymbolParserTokenTest extends PackagePrivateClassTestCase<NodeSelectorSymbolParserToken> {
+public final class NodeSelectorSymbolParserTokenTest extends ClassTestCase<NodeSelectorSymbolParserToken> {
 
     @Override
     protected Class<NodeSelectorSymbolParserToken> type() {
         return NodeSelectorSymbolParserToken.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

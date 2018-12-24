@@ -20,12 +20,13 @@ package walkingkooka.net.http;
 
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class HttpProtocolVersionTest extends PublicClassTestCase<HttpProtocolVersion> {
+final public class HttpProtocolVersionTest extends ClassTestCase<HttpProtocolVersion> {
 
     @Test
     public void testOneZero() {
@@ -70,5 +71,10 @@ final public class HttpProtocolVersionTest extends PublicClassTestCase<HttpProto
     @Override
     protected Class<HttpProtocolVersion> type() {
         return HttpProtocolVersion.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

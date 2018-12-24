@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -78,7 +79,7 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

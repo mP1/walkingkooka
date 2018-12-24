@@ -18,11 +18,17 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class HeaderParameterNameTest extends PackagePrivateClassTestCase<HeaderParameterName> {
+public final class HeaderParameterNameTest extends ClassTestCase<HeaderParameterName> {
     @Override
     protected Class<HeaderParameterName> type() {
         return HeaderParameterName.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

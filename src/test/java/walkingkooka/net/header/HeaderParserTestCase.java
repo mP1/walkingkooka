@@ -20,14 +20,15 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public abstract class HeaderParserTestCase<P extends HeaderParser, V>
-        extends PackagePrivateClassTestCase<P> {
+        extends ClassTestCase<P> {
 
     HeaderParserTestCase() {
         super();
@@ -113,4 +114,9 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
     }
 
     abstract V parse(final String text);
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

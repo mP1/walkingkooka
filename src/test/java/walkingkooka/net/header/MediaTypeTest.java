@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -675,5 +676,10 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Override
     protected Class<MediaType> type() {
         return MediaType.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

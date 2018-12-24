@@ -19,14 +19,15 @@ package walkingkooka.text;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class IndentationTest extends PublicClassTestCase<Indentation> {
+final public class IndentationTest extends ClassTestCase<Indentation> {
 
     @Test
     public void testCarriageReturnRepeatingCharFails() {
@@ -219,5 +220,10 @@ final public class IndentationTest extends PublicClassTestCase<Indentation> {
     @Override
     protected Class<Indentation> type() {
         return Indentation.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

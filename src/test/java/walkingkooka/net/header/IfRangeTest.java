@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.time.LocalDateTime;
 
@@ -101,5 +102,10 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> {
     @Override
     protected Class<IfRange<?>> type() {
         return Cast.to(IfRange.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

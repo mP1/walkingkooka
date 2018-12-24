@@ -18,11 +18,17 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class ExpressionParentFixedNodeTest extends PackagePrivateClassTestCase<ExpressionParentFixedNode> {
+public final class ExpressionParentFixedNodeTest extends ClassTestCase<ExpressionParentFixedNode> {
     @Override
     protected Class<ExpressionParentFixedNode> type() {
         return ExpressionParentFixedNode.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

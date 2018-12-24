@@ -19,13 +19,14 @@
 package walkingkooka.math;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FractionTest extends PublicClassTestCase<Fraction> {
+public final class FractionTest extends ClassTestCase<Fraction> {
 
     private final static BigInteger NUMERATOR = BigInteger.ONE;
     private final static BigInteger DENOMINATOR = BigInteger.TEN;
@@ -60,5 +61,10 @@ public final class FractionTest extends PublicClassTestCase<Fraction> {
     @Override
     protected Class<Fraction> type() {
         return Fraction.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

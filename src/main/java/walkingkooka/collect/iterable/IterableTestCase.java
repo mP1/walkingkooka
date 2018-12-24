@@ -18,10 +18,11 @@
 package walkingkooka.collect.iterable;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 abstract public class IterableTestCase<I extends Iterable<T>, T>
-        extends PackagePrivateClassTestCase<I> {
+        extends ClassTestCase<I> {
 
     protected IterableTestCase() {
         super();
@@ -37,4 +38,9 @@ abstract public class IterableTestCase<I extends Iterable<T>, T>
     }
 
     abstract protected I createIterable();
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

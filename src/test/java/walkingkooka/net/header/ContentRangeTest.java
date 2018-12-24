@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.compare.Range;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
@@ -470,5 +471,10 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
     @Override
     protected Class<ContentRange> type() {
         return ContentRange.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

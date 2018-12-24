@@ -19,12 +19,13 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotSame;
 
-abstract public class IpAddressTestCase<A extends IpAddress> extends PublicClassTestCase<A> {
+abstract public class IpAddressTestCase<A extends IpAddress> extends ClassTestCase<A> {
 
     IpAddressTestCase() {
         super();
@@ -57,4 +58,9 @@ abstract public class IpAddressTestCase<A extends IpAddress> extends PublicClass
     abstract A createAddress(byte[] components);
 
     abstract int bitCount();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
 }

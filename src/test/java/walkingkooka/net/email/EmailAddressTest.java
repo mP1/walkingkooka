@@ -24,8 +24,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.net.HostAddressProblem;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -34,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 
-final public class EmailAddressTest extends PublicClassTestCase<EmailAddress> {
+final public class EmailAddressTest extends ClassTestCase<EmailAddress> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -1618,5 +1619,10 @@ final public class EmailAddressTest extends PublicClassTestCase<EmailAddress> {
     @Override
     protected Class<EmailAddress> type() {
         return EmailAddress.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

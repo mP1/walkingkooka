@@ -18,12 +18,18 @@
 
 package walkingkooka.tree.pojo;
 
-import walkingkooka.test.PackagePrivateThrowableTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class ReflectionPojoExceptionTest extends PackagePrivateThrowableTestCase<ReflectionPojoException> {
+public final class ReflectionPojoExceptionTest extends ClassTestCase<ReflectionPojoException> {
 
     @Override
     protected Class<ReflectionPojoException> type() {
         return ReflectionPojoException.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

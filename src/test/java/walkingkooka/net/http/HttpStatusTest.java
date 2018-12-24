@@ -19,13 +19,14 @@
 package walkingkooka.net.http;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-final public class HttpStatusTest extends PublicClassTestCase<HttpStatus> {
+final public class HttpStatusTest extends ClassTestCase<HttpStatus> {
 
     // constants
 
@@ -105,5 +106,10 @@ final public class HttpStatusTest extends PublicClassTestCase<HttpStatus> {
     @Override
     protected Class<HttpStatus> type() {
         return HttpStatus.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

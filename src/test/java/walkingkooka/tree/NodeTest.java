@@ -19,18 +19,19 @@ package walkingkooka.tree;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class NodeTest extends PublicClassTestCase<Node> {
+public final class NodeTest extends ClassTestCase<Node> {
 
     @Test
     public void testRoot() {
@@ -131,5 +132,10 @@ public final class NodeTest extends PublicClassTestCase<Node> {
     @Override
     protected Class<Node> type() {
         return Node.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

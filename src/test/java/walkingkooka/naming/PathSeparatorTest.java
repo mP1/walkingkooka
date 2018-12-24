@@ -19,12 +19,13 @@ package walkingkooka.naming;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class PathSeparatorTest extends PublicClassTestCase<PathSeparator> {
+final public class PathSeparatorTest extends ClassTestCase<PathSeparator> {
 
     // constants
 
@@ -126,5 +127,10 @@ final public class PathSeparatorTest extends PublicClassTestCase<PathSeparator> 
     @Override
     protected Class<PathSeparator> type() {
         return PathSeparator.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

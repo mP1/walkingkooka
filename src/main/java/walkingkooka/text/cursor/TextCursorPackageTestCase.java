@@ -17,19 +17,20 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 /**
- * A {@link TestCase} that includes no actual tests except for those in {@link PackagePrivateClassTestCase} but adds helpers for various
+ * A {@link TestCase} that includes no actual tests except for those in {@link ClassTestCase} but adds helpers for various
  * {@link TextCursor} operations. Unfortunately JUNIT requires this class to be public but its constructor is package private to limit sub classes.
  */
-abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTestCase<T> {
+abstract public class TextCursorPackageTestCase<T> extends ClassTestCase<T> {
 
     /**
      * Package private to limit sub classing.
@@ -128,5 +129,10 @@ abstract public class TextCursorPackageTestCase<T> extends PackagePrivateClassTe
      */
     private void failNotEquals(final String message, final char expected, final char actual) {
         assertEquals(message, CharSequences.quoteAndEscape(expected), CharSequences.quoteAndEscape(actual));
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

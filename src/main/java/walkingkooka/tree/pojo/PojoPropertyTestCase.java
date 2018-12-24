@@ -17,11 +17,12 @@
 
 package walkingkooka.tree.pojo;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class PojoPropertyTestCase<P extends PojoProperty> extends PackagePrivateClassTestCase<P> {
+public abstract class PojoPropertyTestCase<P extends PojoProperty> extends ClassTestCase<P> {
 
     final protected void getAndCheck(final Object instance, final Object value){
         this.getAndCheck(this.createPojoProperty(), instance, value);
@@ -40,4 +41,9 @@ public abstract class PojoPropertyTestCase<P extends PojoProperty> extends Packa
     }
 
     abstract protected P createPojoProperty();
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

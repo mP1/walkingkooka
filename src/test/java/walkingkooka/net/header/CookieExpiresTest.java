@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import java.time.LocalDateTime;
 

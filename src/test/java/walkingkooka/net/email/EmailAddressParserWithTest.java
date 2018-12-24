@@ -18,11 +18,17 @@
 
 package walkingkooka.net.email;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class EmailAddressParserWithTest extends PackagePrivateClassTestCase<EmailAddressParserWith> {
+public final class EmailAddressParserWithTest extends ClassTestCase<EmailAddressParserWith> {
     @Override
     protected Class<EmailAddressParserWith> type() {
         return EmailAddressParserWith.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

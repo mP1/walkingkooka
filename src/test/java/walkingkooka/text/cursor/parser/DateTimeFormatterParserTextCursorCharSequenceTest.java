@@ -18,11 +18,17 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class DateTimeFormatterParserTextCursorCharSequenceTest extends PackagePrivateClassTestCase<DateTimeFormatterParserTextCursorCharSequence> {
+public final class DateTimeFormatterParserTextCursorCharSequenceTest extends ClassTestCase<DateTimeFormatterParserTextCursorCharSequence> {
     @Override
     protected Class<DateTimeFormatterParserTextCursorCharSequence> type() {
         return DateTimeFormatterParserTextCursorCharSequence.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

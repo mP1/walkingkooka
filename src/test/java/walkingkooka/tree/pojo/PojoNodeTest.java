@@ -19,9 +19,10 @@ package walkingkooka.tree.pojo;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.select.FakeNodeSelectorContext;
 import walkingkooka.tree.select.NodeSelector;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Set;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public final class PojoNodeTest extends PublicClassTestCase<PojoNode> {
+public final class PojoNodeTest extends ClassTestCase<PojoNode> {
 
     @Test
     public void testSelectorNodeByClassName() {
@@ -62,6 +63,11 @@ public final class PojoNodeTest extends PublicClassTestCase<PojoNode> {
     @Override
     protected Class<PojoNode> type() {
         return PojoNode.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 
     private class TestBean {

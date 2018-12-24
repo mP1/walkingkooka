@@ -23,16 +23,17 @@ import walkingkooka.Cast;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 
-public final class VisitorPrettyPrinterTest extends PublicClassTestCase<VisitorPrettyPrinter<Object>> {
+public final class VisitorPrettyPrinterTest extends ClassTestCase<VisitorPrettyPrinter<Object>> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPrinterFails() {
@@ -172,5 +173,10 @@ public final class VisitorPrettyPrinterTest extends PublicClassTestCase<VisitorP
     @Override
     protected Class<VisitorPrettyPrinter<Object>> type() {
         return Cast.to(VisitorPrettyPrinter.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

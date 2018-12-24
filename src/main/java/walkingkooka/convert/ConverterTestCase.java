@@ -20,15 +20,16 @@ package walkingkooka.convert;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public abstract class ConverterTestCase<C extends Converter> extends PackagePrivateClassTestCase<C> {
+public abstract class ConverterTestCase<C extends Converter> extends ClassTestCase<C> {
 
     @Test
     public void testCheckNaming() {
@@ -121,5 +122,10 @@ public abstract class ConverterTestCase<C extends Converter> extends PackagePriv
 
     protected Object convert(final Object value, final Class<?> type) {
         return this.createConverter().convert(value, type, this.createContext());
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

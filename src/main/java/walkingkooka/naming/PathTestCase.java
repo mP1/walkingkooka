@@ -21,9 +21,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +33,7 @@ import java.util.Optional;
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
  */
-abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends PublicClassTestCase<P> {
+abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends ClassTestCase<P> {
 
     protected PathTestCase() {
         super();
@@ -275,5 +276,10 @@ abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends
 
     protected void checkSameName(final Path<?, ?> path, final Name name) {
         Assert.assertSame("parent", name, path.name());
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

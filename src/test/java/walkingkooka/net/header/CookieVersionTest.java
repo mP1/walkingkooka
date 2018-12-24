@@ -19,11 +19,12 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertSame;
 
-final public class CookieVersionTest extends PublicClassTestCase<CookieVersion> {
+final public class CookieVersionTest extends ClassTestCase<CookieVersion> {
 
     @Test
     public void testFromZero() {
@@ -43,5 +44,10 @@ final public class CookieVersionTest extends PublicClassTestCase<CookieVersion> 
     @Override
     protected Class<CookieVersion> type() {
         return CookieVersion.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

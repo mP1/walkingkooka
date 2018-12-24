@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -137,7 +138,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

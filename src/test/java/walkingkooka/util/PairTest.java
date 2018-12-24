@@ -20,12 +20,13 @@ package walkingkooka.util;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class PairTest extends PublicClassTestCase<Pair<?, ?>> {
+final public class PairTest extends ClassTestCase<Pair<?, ?>> {
 
     private final static A A = new A(1);
 
@@ -131,5 +132,10 @@ final public class PairTest extends PublicClassTestCase<Pair<?, ?>> {
     @Override
     protected Class<Pair<?, ?>> type() {
         return Cast.to(Pair.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

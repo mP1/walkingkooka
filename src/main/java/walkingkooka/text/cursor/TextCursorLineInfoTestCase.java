@@ -17,9 +17,10 @@
 
 package walkingkooka.text.cursor;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> extends PackagePrivateClassTestCase<L> {
+abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> extends ClassTestCase<L> {
 
     protected TextCursorLineInfoTestCase() {
         super();
@@ -30,4 +31,9 @@ abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> e
     }
 
     abstract protected L createLineInfo();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

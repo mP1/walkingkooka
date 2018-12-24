@@ -17,12 +17,18 @@
 
 package walkingkooka.text;
 
-import walkingkooka.test.PackagePrivateThrowableTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-final public class ReaderConsumingCharSequenceTextExceptionTest extends PackagePrivateThrowableTestCase<ReaderConsumingCharSequenceTextException> {
+final public class ReaderConsumingCharSequenceTextExceptionTest extends ClassTestCase<ReaderConsumingCharSequenceTextException> {
 
     @Override
     protected Class<ReaderConsumingCharSequenceTextException> type() {
         return ReaderConsumingCharSequenceTextException.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

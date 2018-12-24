@@ -20,7 +20,8 @@ package walkingkooka.collect.enumeration;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -30,7 +31,7 @@ import java.util.NoSuchElementException;
 import static org.junit.Assert.assertEquals;
 
 abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
-        extends PackagePrivateClassTestCase<E> {
+        extends ClassTestCase<E> {
 
     protected EnumerationTestCase() {
         super();
@@ -135,5 +136,10 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
 
     private String toString(final Object... list) {
         return this.toString(Arrays.asList(list));
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

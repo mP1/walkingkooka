@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -137,7 +138,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
     }
 
     @Override
-    protected final boolean typeMustBePublic() {
-        return false;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

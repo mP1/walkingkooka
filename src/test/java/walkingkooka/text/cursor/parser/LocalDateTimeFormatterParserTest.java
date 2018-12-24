@@ -18,11 +18,17 @@
 
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class LocalDateTimeFormatterParserTest extends PackagePrivateClassTestCase<LocalDateTimeFormatterParser> {
+public final class LocalDateTimeFormatterParserTest extends ClassTestCase<LocalDateTimeFormatterParser> {
     @Override
     protected Class<LocalDateTimeFormatterParser> type() {
         return LocalDateTimeFormatterParser.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -19,6 +19,7 @@
 package walkingkooka.color;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -107,12 +108,12 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return true;
+    protected Class<AlphaColor> type() {
+        return AlphaColor.class;
     }
 
     @Override
-    protected Class<AlphaColor> type() {
-        return AlphaColor.class;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

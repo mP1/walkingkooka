@@ -17,12 +17,18 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class SpreadsheetSymbolParserTokenTest extends PackagePrivateClassTestCase<SpreadsheetSymbolParserToken> {
+public final class SpreadsheetSymbolParserTokenTest extends ClassTestCase<SpreadsheetSymbolParserToken> {
 
     @Override
     protected Class<SpreadsheetSymbolParserToken> type() {
         return SpreadsheetSymbolParserToken.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

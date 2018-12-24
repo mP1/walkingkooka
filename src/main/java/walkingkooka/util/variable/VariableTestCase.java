@@ -21,14 +21,15 @@ package walkingkooka.util.variable;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertSame;
 
 /**
  * Base class for testing a {@link Variable}.
  */
-abstract public class VariableTestCase<V extends Variable<T>, T> extends PackagePrivateClassTestCase<V> {
+abstract public class VariableTestCase<V extends Variable<T>, T> extends ClassTestCase<V> {
 
     protected VariableTestCase() {
         super();
@@ -73,4 +74,9 @@ abstract public class VariableTestCase<V extends Variable<T>, T> extends Package
     }
 
     abstract protected T createValue();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

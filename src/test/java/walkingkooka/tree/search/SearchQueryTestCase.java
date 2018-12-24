@@ -20,7 +20,8 @@ package walkingkooka.tree.search;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -33,7 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class SearchQueryTestCase<Q extends SearchQuery> extends PackagePrivateClassTestCase<Q> {
+public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTestCase<Q> {
 
     static final String DATE = "2000-01-31";
     static final String DATE_LT = "1999-12-31";
@@ -256,5 +257,10 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends Package
 
     final SearchTextQueryValue textQueryValue(final String value) {
         return SearchQueryValue.text(value);
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

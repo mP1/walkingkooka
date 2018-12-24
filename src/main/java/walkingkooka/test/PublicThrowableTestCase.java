@@ -31,7 +31,7 @@ import static org.junit.Assert.assertSame;
 /**
  * Base class for testing a {@link Throwable} with mostly parameter checking tests.
  */
-abstract public class PublicThrowableTestCase<T extends Throwable> extends PublicClassTestCase<T> {
+abstract public class PublicThrowableTestCase<T extends Throwable> extends ClassTestCase<T> {
 
     // constants
 
@@ -130,5 +130,10 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
         final Constructor<T> constructor = this.type().getDeclaredConstructor(parameters);
         constructor.setAccessible(true);
         return constructor;
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

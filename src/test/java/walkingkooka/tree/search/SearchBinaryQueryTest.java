@@ -18,11 +18,17 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class SearchBinaryQueryTest extends PackagePrivateClassTestCase<SearchBinaryQuery> {
+public final class SearchBinaryQueryTest extends ClassTestCase<SearchBinaryQuery> {
     @Override
     protected Class<SearchBinaryQuery> type() {
         return SearchBinaryQuery.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

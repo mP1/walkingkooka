@@ -20,14 +20,15 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.TextCursorLineInfo;
 import walkingkooka.text.cursor.TextCursorLineInfos;
 import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ParserReporterExceptionTest extends PublicClassTestCase<ParserReporterException> {
+public final class ParserReporterExceptionTest extends ClassTestCase<ParserReporterException> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullMessageFails() {
@@ -65,5 +66,10 @@ public final class ParserReporterExceptionTest extends PublicClassTestCase<Parse
     @Override
     protected Class<ParserReporterException> type() {
         return ParserReporterException.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

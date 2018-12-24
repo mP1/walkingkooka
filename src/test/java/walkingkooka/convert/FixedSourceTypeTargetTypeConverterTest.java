@@ -18,11 +18,17 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class FixedSourceTypeTargetTypeConverterTest extends PackagePrivateClassTestCase<FixedSourceTypeTargetTypeConverter> {
+public final class FixedSourceTypeTargetTypeConverterTest extends ClassTestCase<FixedSourceTypeTargetTypeConverter> {
     @Override
     protected Class<FixedSourceTypeTargetTypeConverter> type() {
         return FixedSourceTypeTargetTypeConverter.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,11 +20,12 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserToken, C extends ParserContext> extends PackagePrivateClassTestCase<P> {
+public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserToken, C extends ParserContext> extends ClassTestCase<P> {
 
     @Test(expected = NullPointerException.class)
     public void testNullCursorFail() {
@@ -238,5 +239,10 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
 
     protected final DecimalNumberContext decimalNumberContext() {
         return DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+');
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

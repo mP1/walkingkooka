@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
@@ -72,7 +73,7 @@ final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharS
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

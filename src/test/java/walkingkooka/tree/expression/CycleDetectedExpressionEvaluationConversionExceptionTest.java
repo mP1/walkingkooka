@@ -19,10 +19,10 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-public final class CycleDetectedExpressionEvaluationConversionExceptionTest extends PublicClassTestCase<CycleDetectedExpressionEvaluationConversionException> {
+public final class CycleDetectedExpressionEvaluationConversionExceptionTest extends ClassTestCase<CycleDetectedExpressionEvaluationConversionException> {
 
     @Test(expected = NullPointerException.class)
     public void testCreateNullReferenceFails() {
@@ -38,5 +38,10 @@ public final class CycleDetectedExpressionEvaluationConversionExceptionTest exte
     @Override
     protected Class<CycleDetectedExpressionEvaluationConversionException> type() {
         return CycleDetectedExpressionEvaluationConversionException.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

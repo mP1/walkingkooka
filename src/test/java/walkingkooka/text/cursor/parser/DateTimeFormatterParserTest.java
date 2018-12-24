@@ -19,15 +19,16 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.time.ZoneId;
 import java.util.function.Predicate;
 
 import static org.junit.Assert.assertTrue;
 
-public final class DateTimeFormatterParserTest extends PackagePrivateClassTestCase<DateTimeFormatterParser> {
+public final class DateTimeFormatterParserTest extends ClassTestCase<DateTimeFormatterParser> {
 
     @Test
     public void testIsZoneId() {
@@ -50,5 +51,10 @@ public final class DateTimeFormatterParserTest extends PackagePrivateClassTestCa
     @Override
     protected Class<DateTimeFormatterParser> type() {
         return DateTimeFormatterParser.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

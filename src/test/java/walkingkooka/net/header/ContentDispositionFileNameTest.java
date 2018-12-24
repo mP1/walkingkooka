@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.InvalidCharacterException;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
@@ -95,5 +96,10 @@ public final class ContentDispositionFileNameTest extends HeaderValueTestCase<Co
     @Override
     protected Class<ContentDispositionFileName> type() {
         return ContentDispositionFileName.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

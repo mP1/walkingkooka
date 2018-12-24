@@ -18,11 +18,17 @@
 
 package walkingkooka.predicate.character;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class CharPredicateGrammarEbnfParserTokenVisitorProxyTest extends PackagePrivateClassTestCase<CharPredicateGrammarEbnfParserTokenVisitorProxy> {
+public final class CharPredicateGrammarEbnfParserTokenVisitorProxyTest extends ClassTestCase<CharPredicateGrammarEbnfParserTokenVisitorProxy> {
     @Override
     protected Class<CharPredicateGrammarEbnfParserTokenVisitorProxy> type() {
         return CharPredicateGrammarEbnfParserTokenVisitorProxy.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

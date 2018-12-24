@@ -18,11 +18,17 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class WrapperHttpResponseTest extends PackagePrivateClassTestCase<WrapperHttpResponse> {
+public final class WrapperHttpResponseTest extends ClassTestCase<WrapperHttpResponse> {
     @Override
     protected Class<WrapperHttpResponse> type() {
         return WrapperHttpResponse.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

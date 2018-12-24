@@ -19,6 +19,7 @@ package walkingkooka.text;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -99,7 +100,7 @@ final public class LineEndingTest extends CharSequenceTestCase<LineEnding> {
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return true;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

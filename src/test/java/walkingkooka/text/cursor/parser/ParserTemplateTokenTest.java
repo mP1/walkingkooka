@@ -16,11 +16,17 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class ParserTemplateTokenTest extends PackagePrivateClassTestCase<ParserTemplateToken> {
+public final class ParserTemplateTokenTest extends ClassTestCase<ParserTemplateToken> {
     @Override
     protected Class<ParserTemplateToken> type() {
         return ParserTemplateToken.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

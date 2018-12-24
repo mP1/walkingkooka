@@ -19,7 +19,8 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -29,7 +30,7 @@ import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ExpressionNodeTest extends PublicClassTestCase<ExpressionNode> {
+public final class ExpressionNodeTest extends ClassTestCase<ExpressionNode> {
 
     @Test(expected = NullPointerException.class)
     public void testValueOrFailNullFails() {
@@ -125,5 +126,10 @@ public final class ExpressionNodeTest extends PublicClassTestCase<ExpressionNode
     @Override
     protected Class<ExpressionNode> type() {
         return ExpressionNode.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -23,11 +23,12 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class RoutingTest extends PublicClassTestCase<Routing<StringName, String>> {
+public final class RoutingTest extends ClassTestCase<Routing<StringName, String>> {
 
     private final static Class<StringName> TYPE = StringName.class;
     private final static String TARGET = "Target";
@@ -74,5 +75,10 @@ public final class RoutingTest extends PublicClassTestCase<Routing<StringName, S
     @Override
     protected Class<Routing<StringName, String>> type() {
         return Cast.to(Routing.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

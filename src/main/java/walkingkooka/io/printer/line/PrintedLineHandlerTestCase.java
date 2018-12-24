@@ -21,9 +21,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,7 +32,7 @@ import static org.junit.Assert.assertEquals;
  * Base class for testing a {@link PrintedLineHandler} with mostly parameter checking tests.
  */
 abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
-        extends PackagePrivateClassTestCase<H> {
+        extends ClassTestCase<H> {
 
     protected PrintedLineHandlerTestCase() {
         super();
@@ -135,5 +136,10 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
                     CharSequences.quoteAndEscape(expected),
                     CharSequences.quoteAndEscape(printed));
         }
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

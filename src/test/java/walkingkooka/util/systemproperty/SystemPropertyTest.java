@@ -19,13 +19,14 @@ package walkingkooka.util.systemproperty;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class SystemPropertyTest extends PublicClassTestCase<SystemProperty> {
+final public class SystemPropertyTest extends ClassTestCase<SystemProperty> {
 
     @Test
     public void testGetNullFails() {
@@ -134,5 +135,10 @@ final public class SystemPropertyTest extends PublicClassTestCase<SystemProperty
     @Override
     protected Class<SystemProperty> type() {
         return SystemProperty.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

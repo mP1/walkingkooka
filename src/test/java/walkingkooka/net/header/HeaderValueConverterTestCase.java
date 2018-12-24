@@ -20,12 +20,13 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.naming.Name;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends PackagePrivateClassTestCase<C> {
+public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends ClassTestCase<C> {
 
     private final static String SUFFIX = HeaderValueConverter.class.getSimpleName();
 
@@ -115,4 +116,9 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     }
 
     protected abstract T value();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

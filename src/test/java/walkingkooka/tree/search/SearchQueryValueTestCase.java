@@ -19,11 +19,12 @@
 package walkingkooka.tree.search;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> extends PublicClassTestCase<Q> {
+public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> extends ClassTestCase<Q> {
 
     @Test
     public final void testToString() {
@@ -35,4 +36,9 @@ public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> ex
     abstract V value();
 
     abstract String searchQueryValueToString();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
 }

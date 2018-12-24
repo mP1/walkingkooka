@@ -19,6 +19,7 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.NodeTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertSame;
 
@@ -54,14 +55,14 @@ public abstract class ParserTokenNodeTestCase<N extends ParserTokenNode> extends
     }
 
     @Override
-    final protected boolean typeMustBePublic() {
-        return false;
-    }
-
-    @Override
     protected final Class<ParserTokenNode> type() {
         return Cast.to(this.parserTokenNodeType());
     }
 
     abstract Class<N> parserTokenNodeType();
+
+    @Override
+    final protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

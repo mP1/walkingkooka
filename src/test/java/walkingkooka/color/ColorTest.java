@@ -18,12 +18,18 @@
 
 package walkingkooka.color;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class ColorTest extends PublicClassTestCase<Color> {
+public final class ColorTest extends ClassTestCase<Color> {
 
     @Override
     protected Class<Color> type() {
         return Color.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

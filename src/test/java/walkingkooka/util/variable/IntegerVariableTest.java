@@ -18,11 +18,12 @@
 package walkingkooka.util.variable;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-final public class IntegerVariableTest extends PublicClassTestCase<IntegerVariable> {
+final public class IntegerVariableTest extends ClassTestCase<IntegerVariable> {
 
     @Test
     public void testCreate() {
@@ -65,5 +66,10 @@ final public class IntegerVariableTest extends PublicClassTestCase<IntegerVariab
     @Override
     protected Class<IntegerVariable> type() {
         return IntegerVariable.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

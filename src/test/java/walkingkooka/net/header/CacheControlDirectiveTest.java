@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -258,5 +259,10 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     @Override
     protected Class<CacheControlDirective<Long>> type() {
         return Cast.to(CacheControlDirective.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

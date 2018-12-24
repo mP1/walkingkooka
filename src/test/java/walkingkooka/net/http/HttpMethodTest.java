@@ -21,7 +21,7 @@ package walkingkooka.net.http;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
 
@@ -34,7 +34,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 
-final public class HttpMethodTest extends PublicClassTestCase<HttpMethod> {
+final public class HttpMethodTest extends ClassTestCase<HttpMethod> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -173,5 +173,10 @@ final public class HttpMethodTest extends PublicClassTestCase<HttpMethod> {
     @Override
     protected Class<HttpMethod> type() {
         return HttpMethod.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

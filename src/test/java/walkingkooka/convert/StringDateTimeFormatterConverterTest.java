@@ -18,12 +18,18 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class StringDateTimeFormatterConverterTest extends PackagePrivateClassTestCase<StringDateTimeFormatterConverter> {
+public final class StringDateTimeFormatterConverterTest extends ClassTestCase<StringDateTimeFormatterConverter> {
 
     @Override
     protected Class<StringDateTimeFormatterConverter> type() {
         return StringDateTimeFormatterConverter.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -19,17 +19,18 @@
 package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T extends ParserToken, C extends ParserContext> extends PackagePrivateClassTestCase<R> {
+public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T extends ParserToken, C extends ParserContext> extends ClassTestCase<R> {
 
     @Test(expected = NullPointerException.class)
     public final void testNullTextCursorFails() {
@@ -109,5 +110,10 @@ public abstract class ParserReporterTestCase<R extends ParserReporter<T, C>, T e
                                   final C context,
                                   final Parser<T, C> parser) {
         reporter.report(cursor, context, parser);
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

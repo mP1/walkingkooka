@@ -19,7 +19,8 @@
 package walkingkooka.tree.file;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FilesystemNodeCacheAtomTest extends PublicClassTestCase<FilesystemNodeCacheAtom> {
+public final class FilesystemNodeCacheAtomTest extends ClassTestCase<FilesystemNodeCacheAtom> {
 
     @Test
     public void testAtoms() {
@@ -49,5 +50,10 @@ public final class FilesystemNodeCacheAtomTest extends PublicClassTestCase<Files
     @Override
     protected Class<FilesystemNodeCacheAtom> type() {
         return FilesystemNodeCacheAtom.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

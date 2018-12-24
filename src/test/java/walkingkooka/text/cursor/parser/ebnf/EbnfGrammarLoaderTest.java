@@ -18,11 +18,17 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class EbnfGrammarLoaderTest extends PublicClassTestCase<EbnfGrammarLoader> {
+public final class EbnfGrammarLoaderTest extends ClassTestCase<EbnfGrammarLoader> {
     @Override
     protected Class<EbnfGrammarLoader> type() {
         return EbnfGrammarLoader.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

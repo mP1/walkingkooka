@@ -18,9 +18,10 @@
 package walkingkooka;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class ContextTestCase<C extends Context> extends PackagePrivateClassTestCase<C> {
+public abstract class ContextTestCase<C extends Context> extends ClassTestCase<C> {
 
     @Test
     public void testCheckNaming() {
@@ -30,4 +31,9 @@ public abstract class ContextTestCase<C extends Context> extends PackagePrivateC
     abstract protected String requiredNameSuffix();
 
     protected abstract C createContext();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

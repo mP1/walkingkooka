@@ -18,12 +18,18 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-final public class CookieHttpOnlyTest extends PublicClassTestCase<CookieHttpOnly> {
+final public class CookieHttpOnlyTest extends ClassTestCase<CookieHttpOnly> {
 
     @Override
     protected Class<CookieHttpOnly> type() {
         return CookieHttpOnly.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
