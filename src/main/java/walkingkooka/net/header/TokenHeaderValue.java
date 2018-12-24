@@ -18,18 +18,13 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.Value;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,10 +33,10 @@ import java.util.stream.Collectors;
  * Holds a simple header value, and any accompanying parameters. Parameter values will be of the type
  * compatible with each parameter name.
  */
-public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHeaderValueParameterName<?>>,
-        Value<String>,
-        HasQFactorWeight,
-        UsesToStringBuilder {
+public final class TokenHeaderValue extends HeaderValueWithParameters2<TokenHeaderValue,
+        TokenHeaderValueParameterName<?>,
+        String>
+        implements HasQFactorWeight {
 
     /**
      * A constants with no parameters.
@@ -92,17 +87,10 @@ public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHe
      * Private ctor use factory
      */
     private TokenHeaderValue(final String value, final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
-        super();
-        this.value = value;
-        this.parameters = parameters;
+        super(value, parameters);
     }
 
     // value.........................................................................................
-
-    @Override
-    public String value() {
-        return this.value;
-    }
 
     public TokenHeaderValue setValue(final String value) {
         checkValue(value);
@@ -112,43 +100,16 @@ public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHe
                 this.replace(value, this.parameters);
     }
 
-    private final String value;
-
     private static void checkValue(final String value) {
         CharPredicates.failIfNullOrEmptyOrFalse(value, "value", CharPredicates.rfc2045Token());
     }
 
-    // parameters.........................................................................................
-
-    /**
-     * A map view of all parameters to their text or string value.
-     */
-    @Override
-    public Map<TokenHeaderValueParameterName<?>, Object> parameters() {
-        return this.parameters;
-    }
-
-    @Override
-    public TokenHeaderValue setParameters(final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
-        final Map<TokenHeaderValueParameterName<?>, Object> copy = checkParameters(parameters);
-        return this.parameters.equals(copy) ?
-                this :
-                this.replace(this.value, copy);
-    }
-
-    private final Map<TokenHeaderValueParameterName<?>, Object> parameters;
-
-    private static Map<TokenHeaderValueParameterName<?>, Object> checkParameters(final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
-        final Map<TokenHeaderValueParameterName<?>, Object> copy = Maps.ordered();
-        for (Entry<TokenHeaderValueParameterName<?>, Object> nameAndValue : parameters.entrySet()) {
-            final TokenHeaderValueParameterName<?> name = nameAndValue.getKey();
-            copy.put(name,
-                    name.checkValue(nameAndValue.getValue()));
-        }
-        return copy;
-    }
-
     // replace ...........................................................................................................
+
+    @Override
+    TokenHeaderValue replace(final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
+        return this.replace(this.value, parameters);
+    }
 
     private TokenHeaderValue replace(final String value,
                                      final Map<TokenHeaderValueParameterName<?>, Object> parameters) {
@@ -159,7 +120,7 @@ public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHe
 
     @Override
     public Optional<Float> qFactorWeight() {
-        return Optional.ofNullable(Float.class.cast(this.parameters.get(TokenHeaderValueParameterName.Q)));
+        return this.qFactorWeight(TokenHeaderValueParameterName.Q);
     }
 
     // HeaderValue .............................................................................................
@@ -196,43 +157,17 @@ public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHe
     // Object .............................................................................................
 
     @Override
-    public int hashCode() {
-        return Objects.hash(this.value, this.parameters);
+    int hashCode0(final String value) {
+        return CaseSensitivity.INSENSITIVE.hash(value);
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof TokenHeaderValue &&
-                        this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final TokenHeaderValue other) {
-        return this.value.equals(other.value) &&
-                this.parameters.equals(other.parameters);
-    }
-
-    /**
-     * Dumps the raw header value without quotes.
-     */
-    @Override
-    public String toString() {
-        return ToStringBuilder.buildFrom(this);
+    boolean equals1(final String value, final String otherValue) {
+        return value.equalsIgnoreCase(otherValue);
     }
 
     @Override
-    public void buildToString(final ToStringBuilder builder) {
-        builder.disable(ToStringBuilderOption.QUOTE);
-        builder.value(this.value);
-
-        builder.separator(TO_STRING_PARAMETER_SEPARATOR);
-        builder.valueSeparator(TO_STRING_PARAMETER_SEPARATOR);
-        builder.labelSeparator(PARAMETER_NAME_VALUE_SEPARATOR.string());
-        builder.value(this.parameters);
+    boolean canBeEquals(final Object other) {
+        return other instanceof TokenHeaderValue;
     }
-
-    /**
-     * Separator between parameters used by {@link #toString()}.
-     */
-    private final static String TO_STRING_PARAMETER_SEPARATOR = PARAMETER_SEPARATOR.string().concat(" ");
 }

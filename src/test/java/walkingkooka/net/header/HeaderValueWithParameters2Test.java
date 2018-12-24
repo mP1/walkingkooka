@@ -18,21 +18,12 @@
 
 package walkingkooka.net.header;
 
-import java.util.Map;
+import walkingkooka.Cast;
+import walkingkooka.test.PackagePrivateClassTestCase;
 
-/**
- * Defines a method to retrieve the parameters from a header.
- */
-public interface HeaderValueWithParameters<P extends HeaderParameterName<?>> extends HeaderValue {
-
-    /**
-     * A read only map view of all parameters.
-     */
-    Map<P, Object> parameters();
-
-    /**
-     * Would be setter that returns a {@link HeaderValueWithParameters} creating a new instance if the parameters
-     * are different.
-     */
-    HeaderValueWithParameters<P> setParameters(final Map<P, Object> parameters);
+public final class HeaderValueWithParameters2Test extends PackagePrivateClassTestCase<HeaderValueWithParameters2<?, ?, ?>> {
+    @Override
+    protected Class<HeaderValueWithParameters2<?, ?, ?>> type() {
+        return Cast.to(HeaderValueWithParameters2.class);
+    }
 }

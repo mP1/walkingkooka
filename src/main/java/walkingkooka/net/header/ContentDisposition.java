@@ -18,23 +18,18 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.build.tostring.ToStringBuilder;
-import walkingkooka.build.tostring.ToStringBuilderOption;
-import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
  * Represents a content disposition header and its component values.<br>
  * <a href="https://en.wikipedia.org/wiki/MIME#Content-Disposition"></a>
  */
-public final class ContentDisposition implements HeaderValueWithParameters<ContentDispositionParameterName<?>>,
-        UsesToStringBuilder {
-
+public final class ContentDisposition extends HeaderValueWithParameters2<ContentDisposition,
+        ContentDispositionParameterName<?>,
+        ContentDispositionType> {
     /**
      * A constants with no parameters.
      */
@@ -69,9 +64,7 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
      * Private ctor use factory
      */
     private ContentDisposition(final ContentDispositionType type, final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        super();
-        this.type = type;
-        this.parameters = parameters;
+        super(type, parameters);
     }
 
     // type .....................................................
@@ -80,7 +73,7 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
      * Getter that retrieves the type
      */
     public ContentDispositionType type() {
-        return this.type;
+        return this.value();
     }
 
     /**
@@ -88,51 +81,21 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
      */
     public ContentDisposition setType(final ContentDispositionType type) {
         checkType(type);
-        return this.type.equals(type) ?
+        return this.value.equals(type) ?
                 this :
                 this.replace(type, this.parameters);
     }
-
-    private final ContentDispositionType type;
 
     private static void checkType(final ContentDispositionType type) {
         Objects.requireNonNull(type, "type");
     }
 
-    // parameters.........................................................................................
-
-    /**
-     * A map view of all parameters to their text or string value.
-     */
-    @Override
-    public Map<ContentDispositionParameterName<?>, Object> parameters() {
-        return this.parameters;
-    }
-
-    @Override
-    public ContentDisposition setParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        final Map<ContentDispositionParameterName<?>, Object> copy = checkParameters(parameters);
-        return this.parameters.equals(copy) ?
-                this :
-                this.replace(this.type, copy);
-    }
-
-    private final Map<ContentDispositionParameterName<?>, Object> parameters;
-
-    /**
-     * Makes a copy of the parameters and also checks the value.
-     */
-    private static Map<ContentDispositionParameterName<?>, Object> checkParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
-        final Map<ContentDispositionParameterName<?>, Object> copy = Maps.ordered();
-        for(Entry<ContentDispositionParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
-            final ContentDispositionParameterName name = nameAndValue.getKey();
-            copy.put(name,
-                    name.checkValue(nameAndValue.getValue()));
-        }
-        return copy;
-    }
-
     // replace ...........................................................................................................
+
+    @Override
+    ContentDisposition replace(final Map<ContentDispositionParameterName<?>, Object> parameters) {
+        return this.replace(this.value, parameters);
+    }
 
     private ContentDisposition replace(final ContentDispositionType type, final Map<ContentDispositionParameterName<?>, Object> parameters) {
         return new ContentDisposition(type, parameters);
@@ -167,46 +130,20 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
         return true;
     }
 
-    // Object .............................................................................................
+    // Object ..........................................................................................................
 
     @Override
-    public int hashCode() {
-        return Objects.hash(this.type, this.parameters);
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof ContentDisposition &&
-                        this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final ContentDisposition other) {
-        return this.type.equals(other.type) &&
-                this.parameters.equals(other.parameters);
-    }
-
-    /**
-     * Dumps the raw header value without quotes.
-     */
-    @Override
-    public String toString() {
-        return ToStringBuilder.buildFrom(this);
+    int hashCode0(final ContentDispositionType value) {
+        return value.hashCode();
     }
 
     @Override
-    public void buildToString(final ToStringBuilder builder) {
-        builder.disable(ToStringBuilderOption.QUOTE);
-        builder.value(this.type);
-
-        builder.separator(TO_STRING_PARAMETER_SEPARATOR);
-        builder.valueSeparator(TO_STRING_PARAMETER_SEPARATOR);
-        builder.labelSeparator(PARAMETER_NAME_VALUE_SEPARATOR.string());
-        builder.value(this.parameters);
+    boolean equals1(final ContentDispositionType value, final ContentDispositionType otherValue) {
+        return value.equals(otherValue);
     }
 
-    /**
-     * Separator between parameters used by {@link #toString()}.
-     */
-    private final static String TO_STRING_PARAMETER_SEPARATOR = PARAMETER_SEPARATOR.string().concat(" ");
+    @Override
+    boolean canBeEquals(final Object other) {
+        return other instanceof ContentDisposition;
+    }
 }
