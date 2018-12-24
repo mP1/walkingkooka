@@ -39,6 +39,12 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends PublicC
     public final void testIsResponse() {
         assertEquals(this.isResponse(), this.createHeaderValue().isResponse());
     }
+
+    @Test
+    public final void testIsWildcardHeaderText() {
+        final V header = this.createHeaderValue();
+        this.isWildcardAndCheck(header, String.valueOf(HeaderValue.WILDCARD).equals(header.toHeaderText()));
+    }
     
     abstract protected boolean isMultipart();
 
@@ -54,13 +60,21 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends PublicC
 
     protected void toHeaderTextAndCheck(final HeaderValue headerValue, final String expected) {
         assertEquals("headerText of " + headerValue, expected, headerValue.toHeaderText());
+        this.isWildcardAndCheck0(headerValue, String.valueOf(HeaderValue.WILDCARD).equals(expected));
     }
 
     protected void isWildcardAndCheck(final boolean expected) {
         this.isWildcardAndCheck(this.createHeaderValue(), expected);
     }
 
-    protected void isWildcardAndCheck(final V headerValue, final boolean expected) {
+    protected void isWildcardAndCheck(final HeaderValue headerValue, final boolean expected) {
+        this.isWildcardAndCheck0(headerValue, expected);
+
+        final String text = headerValue.toHeaderText();
+        this.isWildcardAndCheck0(headerValue, String.valueOf(HeaderValue.WILDCARD).equals(text) || "*/*".equals(text));
+    }
+
+    private void isWildcardAndCheck0(final HeaderValue headerValue, final boolean expected) {
         assertEquals("header " + headerValue, expected, headerValue.isWildcard());
     }
 }
