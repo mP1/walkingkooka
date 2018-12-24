@@ -18,10 +18,11 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.test.Fake;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
-public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVisitor {
+public class FakeSpreadsheetParserTokenVisitor extends SpreadsheetParserTokenVisitor implements Fake {
 
     protected FakeSpreadsheetParserTokenVisitor() {
         super();

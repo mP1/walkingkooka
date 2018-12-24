@@ -18,9 +18,10 @@
 
 package walkingkooka.text.cursor.parser.select;
 
+import walkingkooka.test.Fake;
 import walkingkooka.tree.visit.Visiting;
 
-public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
+public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor implements Fake {
 
     protected FakeNodeSelectorParserTokenVisitor() {
         super();

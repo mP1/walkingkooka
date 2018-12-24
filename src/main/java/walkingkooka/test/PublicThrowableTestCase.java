@@ -19,6 +19,7 @@ package walkingkooka.test;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -55,9 +56,9 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Publi
      */
     @Test
     public void testAllConstructorsVisibility() throws Throwable {
-        this.checkConstructorIsProtected(this.constructor());
-        this.checkConstructorIsPublic(this.constructor(String.class));
-        this.checkConstructorIsPublic(this.constructor(String.class, Throwable.class));
+        this.checkConstructorVisibility(this.constructor(), MemberVisibility.PROTECTED);
+        this.checkConstructorVisibility(this.constructor(String.class), MemberVisibility.PUBLIC);
+        this.checkConstructorVisibility(this.constructor(String.class, Throwable.class), MemberVisibility.PUBLIC);
     }
 
     @Test(expected = NullPointerException.class)

@@ -21,47 +21,59 @@ import walkingkooka.collect.set.Sets;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Set;
 
 public enum MethodAttributes {
     ABSTRACT {
-        boolean testModifiers(final int modifiers) {
-            return Modifier.isAbstract(modifiers);
+        boolean test(final Method method) {
+            return Modifier.isAbstract(method.getModifiers());
         }
     },
-    NATIVE {
-        boolean testModifiers(final int modifiers) {
-            return Modifier.isNative(modifiers);
-        }
-    },
-    STATIC {
-        boolean testModifiers(final int modifiers) {
-            return Modifier.isStatic(modifiers);
+    BRIDGE {
+        boolean test(final Method method) {
+            return method.isBridge();
         }
     },
     FINAL {
-        boolean testModifiers(final int modifiers) {
-            return Modifier.isFinal(modifiers);
+        boolean test(final Method method) {
+            return Modifier.isFinal(method.getModifiers());
+        }
+    },
+    NATIVE {
+        boolean test(final Method method) {
+            return Modifier.isNative(method.getModifiers());
+        }
+    },
+    STATIC {
+        boolean test(final Method method) {
+            return Modifier.isStatic(method.getModifiers());
+        }
+    },
+    SYNTHETIC {
+        boolean test(final Method method) {
+            return false == Arrays.equals(method.getGenericParameterTypes(), method.getParameterTypes()) ||
+                    method.isBridge();
+
         }
     };
 
     public final boolean is(final Method method) {
         Objects.requireNonNull(method, "method");
-        return this.testModifiers(method.getModifiers());
+        return this.test(method);
     }
 
-    abstract boolean testModifiers(final int modifiers);
+    abstract boolean test(final Method method);
 
     public static Set<MethodAttributes> get(final Method method) {
         Objects.requireNonNull(method, "method");
 
         Set<MethodAttributes> result = EnumSet.noneOf(MethodAttributes.class);
 
-        final int modifiers = method.getModifiers();
         for (MethodAttributes possible : values()) {
-            if (possible.testModifiers(modifiers)) {
+            if (possible.test(method)) {
                 result.add(possible);
             }
         }
