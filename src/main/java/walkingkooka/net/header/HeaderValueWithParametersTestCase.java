@@ -38,13 +38,6 @@ public abstract class HeaderValueWithParametersTestCase<V extends HeaderValueWit
         assertSame(headerValueWithParameters, headerValueWithParameters.setParameters(headerValueWithParameters.parameters()));
     }
 
-    // isWildcard ..................................................................................................
-
-    @Test
-    public final void testIsWildcard() {
-        this.isWildcardAndCheck(false);
-    }
-
     abstract protected V createHeaderValueWithParameters();
 
     @Override

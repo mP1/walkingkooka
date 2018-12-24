@@ -120,6 +120,13 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
                 VALUE + "; p1=v1; p2=v2");
     }
 
+    // isWildcard ..................................................................................................
+
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     // toString ...........................................................................................
 
     @Test
