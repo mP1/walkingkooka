@@ -29,6 +29,11 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
         Void> {
 
     @Test
+    public void testNaming() {
+        this.checkNaming(HeaderParserWithParameters.class);
+    }
+
+    @Test
     public void testParseQuotedFails() {
         this.parseInvalidCharacterFails("\"quoted\"", '"');
     }

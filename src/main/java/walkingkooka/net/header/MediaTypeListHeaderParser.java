@@ -26,16 +26,16 @@ import java.util.List;
 /**
  * Parsers text which holds a multiple media type separated by commas.
  */
-final class MediaTypeHeaderParserList extends MediaTypeHeaderParser{
+final class MediaTypeListHeaderParser extends MediaTypeHeaderParser{
 
     static List<MediaType> parseMediaTypeList(final String text) {
-        final MediaTypeHeaderParserList parser = new MediaTypeHeaderParserList(text);
+        final MediaTypeListHeaderParser parser = new MediaTypeListHeaderParser(text);
         parser.parse();
         parser.list.sort(HasQFactorWeight.qFactorDescendingComparator());
         return Lists.readOnly(parser.list);
     }
 
-    private MediaTypeHeaderParserList(final String text) {
+    private MediaTypeListHeaderParser(final String text) {
         super(text);
     }
 
