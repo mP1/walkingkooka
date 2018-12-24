@@ -135,6 +135,13 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
         assertEquals("value", values, range.value());
     }
 
+    // isWildcard ..................................................................................................
+
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     // parse ...........................................................
 
     @Test(expected = HeaderValueException.class)

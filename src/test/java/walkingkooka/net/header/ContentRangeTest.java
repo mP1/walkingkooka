@@ -211,6 +211,13 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
         assertEquals("size", size, contentRange.size());
     }
 
+    // check ..................................................................................................
+
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     // parse ......................................................................................................
 
     @Test(expected = NullPointerException.class)

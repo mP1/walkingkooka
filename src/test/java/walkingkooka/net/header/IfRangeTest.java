@@ -38,6 +38,11 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> {
         IfRange.with("");
     }
 
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     @Test(expected = NullPointerException.class)
     public void testParseNullFails() {
         IfRange.parse(null);

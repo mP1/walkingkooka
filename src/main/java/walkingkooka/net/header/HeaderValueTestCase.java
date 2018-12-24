@@ -55,4 +55,12 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends PublicC
     protected void toHeaderTextAndCheck(final HeaderValue headerValue, final String expected) {
         assertEquals("headerText of " + headerValue, expected, headerValue.toHeaderText());
     }
+
+    protected void isWildcardAndCheck(final boolean expected) {
+        this.isWildcardAndCheck(this.createHeaderValue(), expected);
+    }
+
+    protected void isWildcardAndCheck(final V headerValue, final boolean expected) {
+        assertEquals("header " + headerValue, expected, headerValue.isWildcard());
+    }
 }

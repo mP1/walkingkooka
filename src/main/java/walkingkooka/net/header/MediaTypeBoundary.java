@@ -232,6 +232,13 @@ public final class MediaTypeBoundary implements Value<String>,
 
     private final String headerText;
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
+    // MediaTypeBoundary.............................................................................
+
     /**
      * Returns the boundary delimiter form that would be used in constructing a multipart message, without the trailing
      * CRLF.

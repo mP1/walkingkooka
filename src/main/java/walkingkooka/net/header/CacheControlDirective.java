@@ -233,6 +233,11 @@ public final class CacheControlDirective<T> implements HeaderValue {
                 name;
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // Object.........................................................................................................
 
     @Override

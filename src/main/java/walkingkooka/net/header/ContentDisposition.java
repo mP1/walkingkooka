@@ -145,6 +145,11 @@ public final class ContentDisposition implements HeaderValueWithParameters<Conte
         return this.toString();
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // HasHeaderScope ....................................................................................................
 
     @Override

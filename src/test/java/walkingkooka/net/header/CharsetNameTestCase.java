@@ -30,10 +30,7 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
 
     @Test
     public final void testIsWildcard() {
-        final N charset = this.createCharsetName();
-        assertEquals(charset.toString(),
-                CharsetNameWildcard.class.equals(this.type()),
-                charset.isWildcard());
+        this.isWildcardAndCheck(CharsetNameWildcard.class.equals(this.type()));
     }
 
     // matches.......................................................

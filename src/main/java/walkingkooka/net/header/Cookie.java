@@ -271,6 +271,15 @@ abstract public class Cookie implements HeaderValue, UsesToStringBuilder {
         return Cast.to(this);
     }
 
+    // HeaderValue...........................................................................................
+
+    /**
+     * Cookies do not support wildcard concept.
+     */
+    public final boolean isWildcard() {
+        return false;
+    }
+
     // misc............................................................................................
 
     /**

@@ -111,6 +111,11 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
                 "\"gc0pJq0M:08jU534c0p\"");
     }
 
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     // multipartBoundaryText........................................................................................................
 
     @Test

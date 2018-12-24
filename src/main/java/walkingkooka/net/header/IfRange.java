@@ -162,6 +162,11 @@ public abstract class IfRange<T> implements HeaderValue, Value<T> {
         return this.converter().toText(this.value(), HEADER_NAME);
     }
 
+    @Override
+    public final boolean isWildcard() {
+        return false;
+    }
+
     /**
      * A converter used to format the value as a header text.
      */

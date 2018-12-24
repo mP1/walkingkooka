@@ -214,6 +214,11 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
         return this.toString();
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // HasHeaderScope ....................................................................................................
 
     @Override

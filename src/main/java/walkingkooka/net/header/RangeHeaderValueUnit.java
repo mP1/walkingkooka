@@ -49,11 +49,16 @@ public enum RangeHeaderValueUnit implements HeaderValue {
     abstract RangeHeaderValueUnit rangeCheck();
 
     @Override
-    public String toHeaderText() {
+    public final String toHeaderText() {
         return this.headerText;
     }
 
     private final String headerText;
+
+    @Override
+    public final boolean isWildcard() {
+        return false;
+    }
 
     // HasHeaderScope....................................................................
     @Override

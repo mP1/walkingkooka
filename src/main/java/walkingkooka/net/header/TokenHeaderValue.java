@@ -118,13 +118,6 @@ public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHe
         CharPredicates.failIfNullOrEmptyOrFalse(value, "value", CharPredicates.rfc2045Token());
     }
 
-    /**
-     * Only returns true if the value is WILDCARD.
-     */
-    public boolean isWildcard() {
-        return WILDCARD.equals(this.value());
-    }
-
     // parameters.........................................................................................
 
     /**
@@ -174,6 +167,13 @@ public final class TokenHeaderValue implements HeaderValueWithParameters<TokenHe
     @Override
     public String toHeaderText() {
         return this.toString();
+    }
+
+    /**
+     * Only returns true if the value is WILDCARD.
+     */
+    public boolean isWildcard() {
+        return WILDCARD.equals(this.value());
     }
 
     // HasHeaderScope ....................................................................................................

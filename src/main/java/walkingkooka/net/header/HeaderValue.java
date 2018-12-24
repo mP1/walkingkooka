@@ -50,4 +50,9 @@ public interface HeaderValue extends HashCodeEqualsDefined, HasHeaderScope {
      * Converts this value to its text form.
      */
     String toHeaderText();
+
+    /**
+     * Returns true only if this is a wildcard.
+     */
+    boolean isWildcard();
 }

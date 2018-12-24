@@ -215,11 +215,16 @@ public final class RangeHeaderValue implements HeaderValue,
         return new RangeHeaderValue(unit, ranges);
     }
 
-    // Object.............................................................................
+    // HeaderValue.............................................................................
 
     @Override
     public String toHeaderText() {
         return this.toString();
+    }
+
+    @Override
+    public boolean isWildcard() {
+        return false;
     }
 
     // HasHeaderScope ....................................................................................................

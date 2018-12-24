@@ -60,6 +60,11 @@ final public class ContentDispositionFileName implements Name, HeaderValue {
         return ContentDispositionFileNameHeaderValueConverter.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // HasHeaderScope....................................................................
 
     @Override
