@@ -214,7 +214,7 @@ final public class MediaType implements Value<String>,
     public static MediaType parse(final String text) {
         checkText(text);
 
-        return MediaTypeHeaderParserOne.parseMediaType(text);
+        return MediaTypeOneHeaderParser.parseMediaType(text);
     }
 
     /**
@@ -225,7 +225,7 @@ final public class MediaType implements Value<String>,
     public static List<MediaType> parseList(final String text) {
         checkText(text);
 
-        return MediaTypeHeaderParserList.parseMediaTypeList(text);
+        return MediaTypeListHeaderParser.parseMediaTypeList(text);
     }
 
     private static void checkText(final String text) {
