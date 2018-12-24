@@ -77,7 +77,7 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     @Test
     public final void testIsWildcard() {
-        assertEquals(this.isWildcard(), this.createETag().isWildcard());
+        this.isWildcardAndCheck(this.isWildcard());
     }
 
     abstract boolean isWildcard();

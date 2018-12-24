@@ -517,6 +517,11 @@ public final class ContentRange implements HeaderValue {
                 WILDCARD.string();
     }
 
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
     // Object.........................................................................................................
 
     @Override

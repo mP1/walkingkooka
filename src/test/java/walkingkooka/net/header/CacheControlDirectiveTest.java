@@ -164,6 +164,13 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
                 directive.isResponse());
     }
 
+    // wildcard...........................................................................
+
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     // parse..........................................................................
 
     @Test(expected = NullPointerException.class)

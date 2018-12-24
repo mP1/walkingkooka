@@ -58,6 +58,11 @@ public final class ContentDispositionFileNameTest extends HeaderValueTestCase<Co
         this.toHeaderTextAndCheck(FILENAME);
     }
 
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     private void checkValue(final ContentDispositionFileName filename, final String value) {
         assertEquals("value", value, filename.value());
     }

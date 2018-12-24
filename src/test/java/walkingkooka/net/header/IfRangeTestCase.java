@@ -101,6 +101,11 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     }
 
     @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
+    @Test
     public final void testToString() {
         assertEquals(this.headerText(),
                 this.createHeaderValue().toString());

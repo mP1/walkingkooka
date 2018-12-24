@@ -24,6 +24,15 @@ import static org.junit.Assert.assertSame;
 
 public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHeaderValueUnit> {
 
+    // isWildcard ..................................................................................................
+
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
+    // parse ..................................................................................................
+
     @Test(expected = NullPointerException.class)
     public void testParseNullFails() {
         RangeHeaderValueUnit.parse(null);

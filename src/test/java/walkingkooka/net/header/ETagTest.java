@@ -61,6 +61,11 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
                 "W/\"abc123\"");
     }
 
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     // toString ...........................................................................................
 
     @Test

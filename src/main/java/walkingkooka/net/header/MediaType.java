@@ -511,6 +511,11 @@ final public class MediaType implements Value<String>,
         return this.toString();
     }
 
+    @Override
+    public boolean isWildcard() {
+        return ALL == this;
+    }
+
     // HasHeaderScope ....................................................................................................
 
     final static boolean IS_MULTIPART = true;

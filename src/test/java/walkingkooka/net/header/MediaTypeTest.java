@@ -549,6 +549,16 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 "type/subtype; a=\"b\\\\c\"");
     }
 
+    @Test
+    public void testIsWildcardAll() {
+        this.isWildcardAndCheck(MediaType.ALL, true);
+    }
+
+    @Test
+    public void testIsWildcardNotAll() {
+        this.isWildcardAndCheck(false);
+    }
+
     // toString........................................................................................................
 
     @Test
