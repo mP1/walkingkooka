@@ -21,25 +21,22 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
+import walkingkooka.type.ClassAttributes;
+import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 import walkingkooka.type.PublicClass;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -69,29 +66,29 @@ abstract public class ClassTestCase<T> extends TestCase {
     @Test
     public void testClassVisibility() {
         final Class<?> type = this.type();
-        if(this.typeMustBePublic()) {
-            assertTrue(type.getName() + " is not public=" + type, Modifier.isPublic(type.getModifiers()));
-        } else {
-            assertFalse(type.getName() + " is not package private=" + type, Modifier.isPublic(type.getModifiers()));
-        }
+        assertEquals(type.getName() + " visibility", this.typeMustBePublic() ?
+                MemberVisibility.PUBLIC :
+                MemberVisibility.PACKAGE_PRIVATE, MemberVisibility.get(type));
     }
 
     @Test
     public void testClassIsFinalIfAllConstructorsArePrivate() {
         final Class<T> type = this.type();
-        if (false == this.isAbstract(type)) {
-            boolean mustBeFinal = true;
-            for (final Constructor<?> constructor : type.getDeclaredConstructors()) {
-                if (false == this.isPrivate(constructor)) {
-                    mustBeFinal = false;
-                    break;
+        if (!Fake.class.isAssignableFrom(type)) {
+            if (!ClassAttributes.ABSTRACT.is(type)) {
+                boolean mustBeFinal = true;
+                for (final Constructor<?> constructor : type.getDeclaredConstructors()) {
+                    if (false == MemberVisibility.PRIVATE.is(constructor)) {
+                        mustBeFinal = false;
+                        break;
+                    }
                 }
-            }
 
-            if (mustBeFinal) {
-                if (false == this.isFinal(type)) {
-                    Assert.fail("All constructors are private so class should be final="
-                            + type.getName());
+                if (mustBeFinal) {
+                    if (false == ClassAttributes.FINAL.is(type)) {
+                        Assert.fail("All constructors are private so class should be final="
+                                + type.getName());
+                    }
                 }
             }
         }
@@ -102,53 +99,21 @@ abstract public class ClassTestCase<T> extends TestCase {
      */
     @Test
     public void testAllConstructorsVisibility() throws Throwable {
-        final Class<T> type = this.type();
-        if (this.isFinal(type)) {
-            this.checkAllConstructorsArePrivate(type);
-        } else {
-            this.checkAllConstructorsArePackagePrivate(type);
+        this.checkAllConstructorsVisibility(ClassAttributes.FINAL.is(this.type()) ?
+                MemberVisibility.PRIVATE :
+                MemberVisibility.PACKAGE_PRIVATE);
+    }
+
+    protected final void checkAllConstructorsVisibility(final MemberVisibility visibility) {
+        for (final Constructor<?> constructor : this.type().getConstructors()) {
+            this.checkConstructorVisibility(constructor, visibility);
         }
     }
 
-    final protected void checkAllConstructorsArePrivate(final Class<T> type) {
-        this.checkAllConstructorsVisibility(type, this::checkConstructorIsPrivate);
-    }
-
-    final protected void checkAllConstructorsAreProtected(final Class<T> type) {
-        this.checkAllConstructorsVisibility(type, this::checkConstructorIsProtected);
-    }
-
-    final protected void checkAllConstructorsArePackagePrivate(final Class<T> type) {
-        this.checkAllConstructorsVisibility(type, this::checkConstructorIsPackagePrivate);
-    }
-
-    private void checkAllConstructorsVisibility(final Class<T> type, final Consumer<Constructor<?>> checker) {
-        for (final Constructor<?> constructor : type.getConstructors()) {
-            checker.accept(constructor);
-        }
-    }
-
-    final protected void checkConstructorIsPackagePrivate(final Constructor<?> constructor) {
-        if (false == this.isPackagePrivate(constructor)) {
-            Assert.fail("Constructor is not package private=" + constructor);
-        }
-    }
-
-    final protected void checkConstructorIsPrivate(final Constructor<?> constructor) {
-        if (false == this.isPrivate(constructor)) {
-            Assert.fail("Constructor is not private=" + constructor);
-        }
-    }
-
-    final protected void checkConstructorIsProtected(final Constructor<?> constructor) {
-        if (false == this.isProtected(constructor)) {
-            Assert.fail("Constructor is not protected=" + constructor);
-        }
-    }
-
-    final protected void checkConstructorIsPublic(final Constructor<?> constructor) {
-        if (false == this.isPublic(constructor)) {
-            Assert.fail("Constructor is not public=" + constructor);
+    protected final void checkConstructorVisibility(final Constructor<?> constructor,
+                                                    final MemberVisibility visibility) {
+        if (!visibility.is(constructor)) {
+            fail("Constructor " + constructor + " is not " + visibility);
         }
     }
 
@@ -158,15 +123,12 @@ abstract public class ClassTestCase<T> extends TestCase {
         if (false == type.isAnnotationPresent(PublicClass.class)) {
             if (false == type.isEnum()) {
                 for (final Field field : type.getDeclaredFields()) {
-                    // static fields may be public
-                    if (this.isStatic(field)) {
+                    if (FieldAttributes.STATIC.is(field) ||
+                            MemberVisibility.PRIVATE.is(field) ||
+                            MemberVisibility.PACKAGE_PRIVATE.is(field)) {
                         continue;
                     }
-
-                    if (this.isPublic(field) || this.isProtected(field)) {
-                        Assert.fail("Fields must be private/package protected(testing)="
-                                + field.toGenericString());
-                    }
+                    fail("Fields must be private/package protected(testing)=" + field.toGenericString());
                 }
             }
         }
@@ -254,75 +216,6 @@ abstract public class ClassTestCase<T> extends TestCase {
 
     abstract protected boolean typeMustBePublic();
 
-    final boolean isPublic(final Member member) {
-        return Modifier.isPublic(member.getModifiers());
-    }
-
-    final boolean isProtected(final Member member) {
-        return Modifier.isProtected(member.getModifiers());
-    }
-
-    final boolean isPackagePrivate(final Member member) {
-        return 0 == (member.getModifiers() & (Modifier.PRIVATE | Modifier.PROTECTED
-                | Modifier.PUBLIC));
-    }
-
-    final boolean isPrivate(final Member member) {
-        return Modifier.isPrivate(member.getModifiers());
-    }
-
-    final boolean isStatic(final Member member) {
-        return Modifier.isStatic(member.getModifiers());
-    }
-
-    final boolean isFinal(final Class<?> type) {
-        return Modifier.isFinal(type.getModifiers());
-    }
-
-    final boolean isFinal(final Member member) {
-        return Modifier.isFinal(member.getModifiers());
-    }
-
-    final boolean isAbstract(final Class<?> type) {
-        return Modifier.isAbstract(type.getModifiers());
-    }
-
-    final boolean isAbstract(final Member member) {
-        return Modifier.isAbstract(member.getModifiers());
-    }
-
-    final boolean isBridge(final Method method) {
-        return method.isSynthetic() || method.isBridge();
-    }
-
-    final boolean isSythetic(final Method method) {
-        return Arrays.equals(method.getGenericParameterTypes(), method.getParameterTypes())
-                || method.isBridge();
-    }
-
-    final boolean isGeneric(final Method method) {
-        return Arrays.equals(method.getGenericParameterTypes(), method.getParameterTypes());
-    }
-
-    final boolean isEnumMethod(final Method method) {
-        boolean result = false;
-
-        do {
-            final String name = method.getName();
-            if (method.getDeclaringClass().isEnum()) {
-                if (name.equals("valueOf")) {
-                    result = true;
-                    continue;
-                }
-                if (name.equals("values")) {
-                    result = true;
-                    continue;
-                }
-            }
-        } while (false);
-        return result;
-    }
-
     @SafeVarargs
     protected final void checkNaming(final Class<?>... superTypes) {
         assertNotNull("superTypes is null", superTypes);
@@ -336,10 +229,6 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     protected void checkNaming(final String... superTypes) {
-        this.checkNaming(false, superTypes);
-    }
-
-    private void checkNaming(final boolean ignoreCase, final String... superTypes) {
         assertNotNull("superTypes is null", superTypes);
 
         final String name = this.type().getName();
@@ -356,10 +245,6 @@ abstract public class ClassTestCase<T> extends TestCase {
         }
     }
 
-    protected void checkNamingStartAndEnd(final Class<?> start, final Class<?> end) {
-        this.checkNamingStartAndEnd(start, end.getSimpleName());
-    }
-
     protected void checkNamingStartAndEnd(final Class<?> start, final String end) {
         this.checkNamingStartAndEnd(start.getSimpleName(), end);
     }
@@ -370,11 +255,6 @@ abstract public class ClassTestCase<T> extends TestCase {
 
     protected void checkNamingStartAndEnd(final String start, final String end) {
         this.checkNamingStartAndEnd(this.type(), start, end);
-    }
-
-    protected void checkNamingStartAndEnd(final Class<?> type, final String start,
-                                          final Class<?> end) {
-        this.checkNamingStartAndEnd(type, start, end.getSimpleName());
     }
 
     protected void checkNamingStartAndEnd(final Class<?> type, final String start, final String end) {

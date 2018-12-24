@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.Test;
 import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 public final class CycleDetectedExpressionEvaluationConversionExceptionTest extends PublicClassTestCase<CycleDetectedExpressionEvaluationConversionException> {
 
@@ -30,7 +31,8 @@ public final class CycleDetectedExpressionEvaluationConversionExceptionTest exte
 
     @Test
     public void testAllConstructorsVisibility() throws NoSuchMethodException {
-        this.checkConstructorIsPublic(CycleDetectedExpressionEvaluationConversionException.class.getConstructor(String.class, ExpressionReference.class));
+        this.checkConstructorVisibility(CycleDetectedExpressionEvaluationConversionException.class.getConstructor(String.class, ExpressionReference.class),
+                MemberVisibility.PUBLIC);
     }
 
     @Override

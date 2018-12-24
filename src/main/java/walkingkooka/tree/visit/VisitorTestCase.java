@@ -44,7 +44,7 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
      */
     @Test
     public void testAllConstructorsVisibility() {
-        this.checkAllConstructorsAreProtected(this.type());
+        this.checkAllConstructorsVisibility(MemberVisibility.PROTECTED);
     }
 
     @Test

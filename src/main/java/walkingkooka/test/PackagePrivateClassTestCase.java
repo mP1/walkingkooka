@@ -18,9 +18,12 @@
 package walkingkooka.test;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
+import walkingkooka.type.MethodAttributes;
 import walkingkooka.type.PublicClass;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -47,11 +50,11 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
             final Set<Method> overridable = this.overridableMethods(type);
 
             for (final Method method : type.getDeclaredMethods()) {
-                if (this.isStatic(method)) {
+                if (MethodAttributes.STATIC.is(method)) {
                     if (this.isEnumMethod(method)) {
                         continue;
                     }
-                    if (this.isPublic(method) || this.isProtected(method)) {
+                    if (MemberVisibility.PUBLIC.is(method) || MemberVisibility.PROTECTED.is(method)) {
                         fail("Static methods should be package private="
                                 + method.toGenericString());
                     }
@@ -59,16 +62,39 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
                 if (overridable.contains(method)) {
                     continue;
                 }
-                if (this.isBridge(method) || this.isSythetic(method) || this.isGeneric(method)) {
+                if (MethodAttributes.BRIDGE.is(method) || MethodAttributes.SYNTHETIC.is(method) || this.isGeneric(method)) {
                     continue;
                 }
-                if (this.isPublic(method) || this.isProtected(method)) {
+                if (MemberVisibility.PUBLIC.is(method) || MemberVisibility.PROTECTED.is(method)) {
                     fail(
                             "Method must be package private/private of it does not override a public/protected method="
                                     + method.toGenericString());
                 }
             }
         }
+    }
+
+    private boolean isEnumMethod(final Method method) {
+        boolean result = false;
+
+        do {
+            final String name = method.getName();
+            if (method.getDeclaringClass().isEnum()) {
+                if (name.equals("valueOf")) {
+                    result = true;
+                    continue;
+                }
+                if (name.equals("values")) {
+                    result = true;
+                    continue;
+                }
+            }
+        } while (false);
+        return result;
+    }
+
+    private boolean isGeneric(final Method method) {
+        return Arrays.equals(method.getGenericParameterTypes(), method.getParameterTypes());
     }
 
     private Set<Method> overridableMethods(final Class<?> type) {
@@ -120,7 +146,7 @@ abstract public class PackagePrivateClassTestCase<T> extends ClassTestCase<T> {
 
     private void addMethods(final Class<?> klass, final Set<Method> methods) {
         for (final Method method : klass.getDeclaredMethods()) {
-            if (this.isStatic(method)) {
+            if (MethodAttributes.STATIC.is(method)) {
                 continue;
             }
             methods.add(method);
