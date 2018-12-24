@@ -534,7 +534,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testToHeaderTextWithParameters() {
-        this.toHeaderTextAndCheck(mediaType(), TYPE + "/" + SUBTYPE + ";parameter123=value456");
+        this.toHeaderTextAndCheck(mediaType(), TYPE + "/" + SUBTYPE + "; parameter123=value456");
     }
 
     @Test
@@ -587,7 +587,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testToStringWithParameters() {
-        this.toStringAndCheck(mediaType(), TYPE + "/" + SUBTYPE + ";parameter123=value456");
+        this.toStringAndCheck(mediaType(), TYPE + "/" + SUBTYPE + "; parameter123=value456");
     }
 
     @Test
@@ -646,7 +646,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     private MediaType mediaType() {
-        return MediaType.withParameters(TYPE, SUBTYPE, parameters(), "type/subtype;parameter123=value456");
+        return MediaType.withParameters(TYPE, SUBTYPE, parameters());
     }
 
     private Map<MediaTypeParameterName<?>, Object> parameters() {

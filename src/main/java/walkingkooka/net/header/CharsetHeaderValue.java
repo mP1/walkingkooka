@@ -18,14 +18,11 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,9 +31,9 @@ import java.util.stream.Collectors;
 /**
  * A {@link HeaderValueWithParameters} that represents a single charset name with optional parameters.
  */
-final public class CharsetHeaderValue implements Value<CharsetName>,
-        HeaderValueWithParameters<CharsetHeaderValueParameterName<?>>,
-        HasQFactorWeight {
+final public class CharsetHeaderValue extends HeaderValueWithParameters2<CharsetHeaderValue,
+        CharsetHeaderValueParameterName<?>,
+        CharsetName> implements HasQFactorWeight {
 
     /**
      * No parameters.
@@ -119,21 +116,10 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
      */
     private CharsetHeaderValue(final CharsetName charsetName,
                                final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        super();
-
-        this.charsetName = charsetName;
-        this.parameters = parameters;
+        super(charsetName, parameters);
     }
 
     // charsetName .......................................................................................................
-
-    /**
-     * Getter that returns the {@link CharsetName} component.
-     */
-    @Override
-    public CharsetName value() {
-        return this.charsetName;
-    }
 
     /**
      * Would be setter that returns an instance with the new {@link CharsetName}, creating a new instance if required.
@@ -141,12 +127,10 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
     public CharsetHeaderValue setValue(final CharsetName charsetName) {
         checkValue(charsetName);
 
-        return this.charsetName.equals(charsetName) ?
+        return this.value.equals(charsetName) ?
                 this :
                 this.replace(charsetName, this.parameters);
     }
-
-    private final CharsetName charsetName;
 
     static void checkValue(final CharsetName charsetName) {
         Objects.requireNonNull(charsetName, "charsetName");
@@ -155,56 +139,22 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
     // parameters ...............................................................................................
 
     /**
-     * Retrieves the parameters.
+     * Retrieves the q-weight for this value.
      */
-    @Override
-    public Map<CharsetHeaderValueParameterName<?>, Object> parameters() {
-        return this.parameters;
-    }
-
-    @Override
-    public CharsetHeaderValue setParameters(final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        final Map<CharsetHeaderValueParameterName<?>, Object> copy = checkParameters(parameters);
-        return this.parameters.equals(copy) ?
-                this :
-                this.replace(this.charsetName, copy);
-    }
-
-    /**
-     * Package private for testing.
-     */
-    private transient final Map<CharsetHeaderValueParameterName<?>, Object> parameters;
-
-    /**
-     * While checking the parameters (name and value) makes a defensive copy.
-     */
-    private static Map<CharsetHeaderValueParameterName<?>, Object> checkParameters(final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
-        Objects.requireNonNull(parameters, "parameters");
-
-        final Map<CharsetHeaderValueParameterName<?>, Object> copy = Maps.sorted();
-        for (Entry<CharsetHeaderValueParameterName<?>, Object> nameAndValue : parameters.entrySet()) {
-            final CharsetHeaderValueParameterName name = nameAndValue.getKey();
-            copy.put(name,
-                    name.checkValue(nameAndValue.getValue()));
-        }
-        return copy;
+    public final Optional<Float> qFactorWeight() {
+        return this.qFactorWeight(CharsetHeaderValueParameterName.Q_FACTOR);
     }
 
     // replace .................................................................................................
 
+    @Override
+    CharsetHeaderValue replace(final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
+        return this.replace(this.value, parameters);
+    }
+
     private CharsetHeaderValue replace(final CharsetName charsetName,
                                        final Map<CharsetHeaderValueParameterName<?>, Object> parameters) {
         return CharsetHeaderValue.withParameters(charsetName, parameters);
-    }
-
-    // qWeight ...................................................................
-
-    /**
-     * Retrieves the q-weight for this value. If the value is not a number a {@link IllegalStateException} will be thrown.
-     */
-    public Optional<Float> qFactorWeight() {
-        return Optional.ofNullable(Float.class.cast(this.parameters()
-                .get(CharsetHeaderValueParameterName.Q_FACTOR)));
     }
 
     // HeaderValue................................................................................................................
@@ -236,43 +186,18 @@ final public class CharsetHeaderValue implements Value<CharsetName>,
         return true;
     }
 
-    // Object................................................................................................................
-
     @Override
-    public int hashCode() {
-        return Objects.hash(this.charsetName, this.parameters);
+    int hashCode0(final CharsetName value) {
+        return value.hashCode();
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof CharsetHeaderValue &&
-                        this.equals0(Cast.to(other));
+    boolean equals1(final CharsetName value, final CharsetName otherValue) {
+        return value.equals(otherValue);
     }
 
-    private boolean equals0(final CharsetHeaderValue other) {
-        return this.charsetName.equals(other.charsetName) && //
-                this.parameters.equals(other.parameters);
-    }
-
-    /**
-     * Rebuilds a string with the charset name and any parameters.
-     */
     @Override
-    public String toString() {
-        return "" + this.charsetName + this.parameters.entrySet()
-                .stream()
-                .map(CharsetHeaderValue::toStringParameter)
-                .collect(Collectors.joining());
+    boolean canBeEquals(final Object other) {
+        return other instanceof CharsetHeaderValue;
     }
-
-    private static String toStringParameter(final Entry<CharsetHeaderValueParameterName<?>, Object> nameAndValue) {
-        final CharsetHeaderValueParameterName<?> name = nameAndValue.getKey();
-        return TO_STRING_PARAMETER_SEPARATOR +
-                name.value() +
-                PARAMETER_NAME_VALUE_SEPARATOR.character() +
-                name.converter.toText(Cast.to(nameAndValue.getValue()), name);
-    }
-
-    private final static String TO_STRING_PARAMETER_SEPARATOR = PARAMETER_SEPARATOR + " ";
 }

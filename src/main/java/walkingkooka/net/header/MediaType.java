@@ -18,7 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
@@ -30,7 +29,6 @@ import walkingkooka.text.Whitespace;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,9 +49,10 @@ import java.util.stream.Collectors;
  * message/External-body is not case-sensitive.)
  * </pre>
  */
-final public class MediaType implements Value<String>,
-        HeaderValueWithParameters<MediaTypeParameterName<?>>,
-        HasQFactorWeight {
+final public class MediaType extends HeaderValueWithParameters2<MediaType,
+        MediaTypeParameterName<?>,
+        String>
+        implements HasQFactorWeight {
 
     private final static CharPredicate RFC2045TOKEN = CharPredicates.rfc2045Token();
 
@@ -239,23 +238,7 @@ final public class MediaType implements Value<String>,
         checkType(type);
         checkSubType(subType);
 
-        final String toString = type + TYPE_SUBTYPE_SEPARATOR.character() + subType;
-        final MediaType mediaType = CONSTANTS.get(toString);
-        return null != mediaType ?
-                mediaType :
-                new MediaType(type, subType, NO_PARAMETERS, toString);
-    }
-
-    /**
-     * Factory method used to create a {@link MediaType} with parameters, currently a media type with charset constant.
-     */
-    static MediaType withParameters(final String type,
-                                    final String subType,
-                                    final Map<MediaTypeParameterName<?>, Object> parameters) {
-        return new MediaType(type,
-                        subType,
-                        parameters,
-                        toStringMimeType(type, subType, parameters));
+        return withParameters(type, subType, NO_PARAMETERS);
     }
 
     /**
@@ -264,8 +247,7 @@ final public class MediaType implements Value<String>,
      */
     static MediaType withParameters(final String type,
                                     final String subType,
-                                    final Map<MediaTypeParameterName<?>, Object> parameters,
-                                    final String toString) {
+                                    final Map<MediaTypeParameterName<?>, Object> parameters) {
         final MediaType result = parameters.isEmpty() ?
                 CONSTANTS.get(type + TYPE_SUBTYPE_SEPARATOR.character() + subType) :
                 null;
@@ -273,32 +255,7 @@ final public class MediaType implements Value<String>,
                 result :
                 new MediaType(type,
                         subType,
-                        parameters,
-                        toString);
-    }
-
-    /**
-     * Recomputes the toString for a {@link MediaType} from its components.
-     */
-    private static String toStringMimeType(final String type,
-                                           final String subType,
-                                           final Map<MediaTypeParameterName<?>, Object> parameters) {
-        return type +
-                TYPE_SUBTYPE_SEPARATOR.character() +
-                subType +
-                parameters.entrySet()
-                        .stream()
-                        .map(MediaType::toStringParameter)
-                        .collect(Collectors.joining());
-    }
-
-    private static String toStringParameter(final Entry<MediaTypeParameterName<?>, Object> nameAndValue) {
-        final MediaTypeParameterName<?> name = nameAndValue.getKey();
-        return PARAMETER_SEPARATOR.character() +
-                " " +
-                name.value() +
-                PARAMETER_NAME_VALUE_SEPARATOR.character() +
-                name.converter.toText(Cast.to(nameAndValue.getValue()), name);
+                        parameters);
     }
 
     /**
@@ -322,14 +279,11 @@ final public class MediaType implements Value<String>,
      */
     private MediaType(final String type,
                       final String subType,
-                      final Map<MediaTypeParameterName<?>, Object> parameters,
-                      final String toString) {
-        super();
+                      final Map<MediaTypeParameterName<?>, Object> parameters) {
+        super(type + TYPE_SUBTYPE_SEPARATOR.character() + subType, parameters);
 
         this.type = type;
         this.subType = subType;
-        this.parameters = parameters;
-        this.toString = toString;
     }
 
     // type .......................................................................................................
@@ -393,48 +347,25 @@ final public class MediaType implements Value<String>,
     // parameters ...............................................................................................
 
     /**
-     * Retrieves the parameters.
+     * Retrieves the q-weight for this value.
      */
-    @Override
-    public Map<MediaTypeParameterName<?>, Object> parameters() {
-        return this.parameters;
-    }
-
-    @Override
-    public MediaType setParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
-        final Map<MediaTypeParameterName<?>, Object> copy = checkParameters(parameters);
-        return this.parameters.equals(copy) ?
-                this :
-                this.replace(this.type, this.subType, copy);
-    }
-
-    /**
-     * Package private for testing.
-     */
-    private transient final Map<MediaTypeParameterName<?>, Object> parameters;
-
-    /**
-     * While checking the parameters (name and value) makes a defensive copy.
-     */
-    private static Map<MediaTypeParameterName<?>, Object> checkParameters(final Map<MediaTypeParameterName<?>, Object> parameters) {
-        Objects.requireNonNull(parameters, "parameters");
-
-        final Map<MediaTypeParameterName<?>, Object> copy = Maps.sorted();
-        for(Entry<MediaTypeParameterName<?>, Object> nameAndValue  : parameters.entrySet()) {
-            final MediaTypeParameterName name = nameAndValue.getKey();
-            copy.put(name,
-                    name.checkValue(nameAndValue.getValue()));
-        }
-        return copy;
+    public final Optional<Float> qFactorWeight() {
+        return this.qFactorWeight(MediaTypeParameterName.Q_FACTOR);
     }
 
     // replace .......................................................................
 
+    @Override
+    MediaType replace(final Map<MediaTypeParameterName<?>, Object> parameters) {
+        return this.replace(this.type,
+                this.subType,
+                parameters);
+    }
+
     private MediaType replace(final String type, final String subType, final Map<MediaTypeParameterName<?>, Object> parameters) {
         return withParameters(type,
                 subType,
-                parameters,
-                toStringMimeType(type, subType, parameters));
+                parameters);
     }
 
     // setCharset .................................................................................................
@@ -458,23 +389,6 @@ final public class MediaType implements Value<String>,
         parameters.put(MediaTypeParameterName.CHARSET, charset);
 
         return this.replace(this.type, this.subType, parameters);
-    }
-
-    // value ...................................................................
-
-    @Override
-    public String value() {
-        return this.type + TYPE_SUBTYPE_SEPARATOR.character() + this.subType;
-    }
-
-    // qWeight ...................................................................
-
-    /**
-     * Retrieves the q-weight for this value. If the value is not a number a {@link IllegalStateException} will be thrown.
-     */
-    public Optional<Float> qFactorWeight() {
-        return Optional.ofNullable(Float.class.cast(this.parameters()
-                .get(MediaTypeParameterName.Q_FACTOR)));
     }
 
     // misc .......................................................................
@@ -542,32 +456,17 @@ final public class MediaType implements Value<String>,
     // Object................................................................................................................
 
     @Override
-    public int hashCode() {
-        return Objects.hash(CaseSensitivity.INSENSITIVE.hash(this.type),
-                CaseSensitivity.INSENSITIVE.hash(this.subType),
-                this.parameters);
+    int hashCode0(final String value) {
+        return CaseSensitivity.INSENSITIVE.hash(value);
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof MediaType &&
-                        this.equals0(Cast.to(other));
+    boolean equals1(final String value, final String otherValue) {
+        return value.equalsIgnoreCase(otherValue);
     }
 
-    private boolean equals0(final MediaType other) {
-        return this.type.equalsIgnoreCase(other.type) && //
-                this.subType.equalsIgnoreCase(other.subType) && //
-                this.parameters.equals(other.parameters);
-    }
-
-    /**
-     * If sourced or created by parsing, the original text is returned, if built using setters a toString is constructed.
-     */
     @Override
-    public String toString() {
-        return this.toString;
+    boolean canBeEquals(final Object other) {
+        return other instanceof MediaType;
     }
-
-    private final String toString;
 }
