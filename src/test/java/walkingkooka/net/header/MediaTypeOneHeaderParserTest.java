@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import java.util.Map;
 
-public final class MediaTypeHeaderParserOneTest extends MediaTypeHeaderParserTestCase<MediaTypeHeaderParserOne,
+public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTestCase<MediaTypeOneHeaderParser,
         MediaType> {
 
     @Test
@@ -40,16 +40,16 @@ public final class MediaTypeHeaderParserOneTest extends MediaTypeHeaderParserTes
                              final String type,
                              final String subtype,
                              final Map<MediaTypeParameterName<?>, Object> parameters) {
-        this.check(MediaTypeHeaderParserOne.parseMediaType(text), type, subtype, parameters);
+        this.check(MediaTypeOneHeaderParser.parseMediaType(text), type, subtype, parameters);
     }
 
     @Override
     MediaType parse(final String text) {
-        return MediaTypeHeaderParserOne.parseMediaType(text);
+        return MediaTypeOneHeaderParser.parseMediaType(text);
     }
 
     @Override
-    protected Class<MediaTypeHeaderParserOne> type() {
-        return MediaTypeHeaderParserOne.class;
+    protected Class<MediaTypeOneHeaderParser> type() {
+        return MediaTypeOneHeaderParser.class;
     }
 }

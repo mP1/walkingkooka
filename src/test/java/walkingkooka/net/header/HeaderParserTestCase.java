@@ -33,6 +33,11 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
         super();
     }
 
+    @Test
+    public void testNaming() {
+        this.checkNaming(HeaderParser.class);
+    }
+
     // parse ...........................................................................................
 
     @Test(expected = NullPointerException.class)

@@ -27,7 +27,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTestCase<MediaTypeHeaderParserList,
+public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTestCase<MediaTypeListHeaderParser,
         List<MediaType>> {
 
     @Test
@@ -108,7 +108,7 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
                                   final String type,
                                   final String subtype,
                                   final Map<MediaTypeParameterName<?>, Object> parameters) {
-        final List<MediaType> result = MediaTypeHeaderParserList.parseMediaTypeList(text);
+        final List<MediaType> result = MediaTypeListHeaderParser.parseMediaTypeList(text);
         assertEquals("parse " + CharSequences.quote(text) + " got " + result, 1, result.size());
         this.check(result.get(0), type, subtype, parameters);
     }
@@ -118,7 +118,7 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
                                        final String subtype,
                                        final Map<MediaTypeParameterName<?>, Object> parameters) {
         final String parsed = text + MediaType.SEPARATOR + text;
-        final List<MediaType> result = MediaTypeHeaderParserList.parseMediaTypeList(parsed);
+        final List<MediaType> result = MediaTypeListHeaderParser.parseMediaTypeList(parsed);
         assertEquals("parse " + CharSequences.quote(parsed) + " got " + result, 2, result.size());
         this.check(result.get(0), type, subtype, parameters);
         this.check(result.get(1), type, subtype, parameters);
@@ -129,7 +129,7 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
                                       final String subtype,
                                       final Map<MediaTypeParameterName<?>, Object> parameters) {
         final String parsed = "TYPE1/SUBTYPE1," + text + ",TYPE2/SUBTYPE2;x=y," + text;
-        final List<MediaType> result = MediaTypeHeaderParserList.parseMediaTypeList(parsed);
+        final List<MediaType> result = MediaTypeListHeaderParser.parseMediaTypeList(parsed);
 
         assertEquals("parse " + CharSequences.quote(parsed) + " got " + result, 4, result.size());
 
@@ -143,16 +143,16 @@ public final class MediaTypeHeaderParserListTest extends MediaTypeHeaderParserTe
     private void parseAndCheck2(final String text, final MediaType...mediaTypes) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(text),
                 Lists.of(mediaTypes),
-                MediaTypeHeaderParserList.parseMediaTypeList(text));
+                MediaTypeListHeaderParser.parseMediaTypeList(text));
     }
 
     @Override
     List<MediaType> parse(final String text) {
-        return MediaTypeHeaderParserList.parseMediaTypeList(text);
+        return MediaTypeListHeaderParser.parseMediaTypeList(text);
     }
 
     @Override
-    protected Class<MediaTypeHeaderParserList> type() {
-        return MediaTypeHeaderParserList.class;
+    protected Class<MediaTypeListHeaderParser> type() {
+        return MediaTypeListHeaderParser.class;
     }
 }

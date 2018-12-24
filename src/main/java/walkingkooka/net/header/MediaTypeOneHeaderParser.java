@@ -21,15 +21,15 @@ package walkingkooka.net.header;
 /**
  * Parsers text which holds a single media type. This will if a separator (comma) is found.
  */
-final class MediaTypeHeaderParserOne extends MediaTypeHeaderParser{
+final class MediaTypeOneHeaderParser extends MediaTypeHeaderParser{
 
     static MediaType parseMediaType(final String text) {
-        final MediaTypeHeaderParserOne parser = new MediaTypeHeaderParserOne(text);
+        final MediaTypeOneHeaderParser parser = new MediaTypeOneHeaderParser(text);
         parser.parse();
         return parser.mediaType;
     }
 
-    private MediaTypeHeaderParserOne(final String text) {
+    private MediaTypeOneHeaderParser(final String text) {
         super(text);
     }
 
