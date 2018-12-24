@@ -20,11 +20,12 @@ package walkingkooka.tree.pointer;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class RelativeNodePointerTest extends PackagePrivateClassTestCase<RelativeNodePointer<?, ?, ?, ?>> {
+public final class RelativeNodePointerTest extends ClassTestCase<RelativeNodePointer<?, ?, ?, ?>> {
 
     private final static boolean NO_HASH = false;
     private final static boolean HASH = !NO_HASH;
@@ -67,5 +68,10 @@ public final class RelativeNodePointerTest extends PackagePrivateClassTestCase<R
     @Override
     protected Class<RelativeNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(RelativeNodePointer.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

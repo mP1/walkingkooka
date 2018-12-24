@@ -36,9 +36,4 @@ public final class FakeNodeSelectorParserTokenVisitorTest extends NodeSelectorPa
     protected Class<FakeNodeSelectorParserTokenVisitor> parserTokenVisitorType() {
         return FakeNodeSelectorParserTokenVisitor.class;
     }
-
-    @Override
-    protected boolean typeMustBePublic() {
-        return true;
-    }
 }

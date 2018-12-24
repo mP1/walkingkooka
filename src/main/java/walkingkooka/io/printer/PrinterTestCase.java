@@ -19,16 +19,17 @@ package walkingkooka.io.printer;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Base class for testing a {@link Printer} with mostly parameter checking tests.
  */
-abstract public class PrinterTestCase<P extends Printer> extends PackagePrivateClassTestCase<P> {
+abstract public class PrinterTestCase<P extends Printer> extends ClassTestCase<P> {
 
     protected PrinterTestCase() {
         super();
@@ -158,5 +159,10 @@ abstract public class PrinterTestCase<P extends Printer> extends PackagePrivateC
     static public void checkEquals(final String message, final CharSequence expected,
                                    final CharSequence actual) {
         assertEquals(CharSequences.escape(expected).toString(), CharSequences.escape(actual).toString());
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

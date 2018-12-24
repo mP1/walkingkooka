@@ -18,11 +18,17 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class SpreadsheetExpressionReferenceTest extends PublicClassTestCase<SpreadsheetExpressionReference> {
+public final class SpreadsheetExpressionReferenceTest extends ClassTestCase<SpreadsheetExpressionReference> {
     @Override
     protected Class<SpreadsheetExpressionReference> type() {
         return SpreadsheetExpressionReference.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

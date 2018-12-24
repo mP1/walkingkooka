@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.NodeTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Optional;
@@ -132,7 +133,7 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

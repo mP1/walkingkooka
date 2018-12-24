@@ -48,6 +48,11 @@ public enum MemberVisibility {
         }
     };
 
+    public final boolean is(final Class<?> type) {
+        Objects.requireNonNull(type, "type");
+        return this.testModifiers(type.getModifiers());
+    }
+
     public final boolean is(final Member member) {
         Objects.requireNonNull(member, "member");
         return this.testModifiers(member.getModifiers());

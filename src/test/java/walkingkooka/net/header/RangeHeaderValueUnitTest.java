@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertSame;
 
@@ -86,5 +87,10 @@ public final class RangeHeaderValueUnitTest extends HeaderValueTestCase<RangeHea
     @Override
     protected Class<RangeHeaderValueUnit> type() {
         return RangeHeaderValueUnit.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

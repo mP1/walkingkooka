@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 
@@ -391,5 +392,10 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     @Override
     protected Class<RangeHeaderValue> type() {
         return RangeHeaderValue.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

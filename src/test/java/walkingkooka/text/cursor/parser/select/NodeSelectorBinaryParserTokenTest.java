@@ -19,11 +19,17 @@
 package walkingkooka.text.cursor.parser.select;
 
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class NodeSelectorBinaryParserTokenTest extends PackagePrivateClassTestCase<NodeSelectorBinaryParserToken<?>> {
+public final class NodeSelectorBinaryParserTokenTest extends ClassTestCase<NodeSelectorBinaryParserToken<?>> {
     @Override
     protected Class<NodeSelectorBinaryParserToken<?>> type() {
         return Cast.to(NodeSelectorBinaryParserToken.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

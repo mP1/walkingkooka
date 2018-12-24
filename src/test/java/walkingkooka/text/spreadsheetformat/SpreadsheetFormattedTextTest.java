@@ -20,8 +20,9 @@ package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
 import walkingkooka.color.Color;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormattedTextTest extends PublicClassTestCase<SpreadsheetFormattedText> {
+public final class SpreadsheetFormattedTextTest extends ClassTestCase<SpreadsheetFormattedText> {
 
     private final static Optional<Color> COLOR = Optional.of(Color.BLACK);
     private final static String TEXT = "1/1/2000";
@@ -131,5 +132,10 @@ public final class SpreadsheetFormattedTextTest extends PublicClassTestCase<Spre
     @Override
     protected Class<SpreadsheetFormattedText> type() {
         return SpreadsheetFormattedText.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

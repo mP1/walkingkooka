@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.NodeTestCase2;
+import walkingkooka.type.MemberVisibility;
 
 public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, StringName, Object> {
 
@@ -46,12 +47,12 @@ public class TestFakeNodeTest extends NodeTestCase2<TestFakeNode, StringName, St
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected Class<TestFakeNode> type() {
+        return TestFakeNode.class;
     }
 
     @Override
-    protected Class<TestFakeNode> type() {
-        return TestFakeNode.class;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -18,12 +18,18 @@
 
 package walkingkooka.net;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class HostAddressProbablyIp4ProblemTest extends PackagePrivateClassTestCase<HostAddressProbablyIp4Problem> {
+public final class HostAddressProbablyIp4ProblemTest extends ClassTestCase<HostAddressProbablyIp4Problem> {
 
     @Override
     protected Class<HostAddressProbablyIp4Problem> type() {
         return HostAddressProbablyIp4Problem.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

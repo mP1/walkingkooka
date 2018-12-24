@@ -18,11 +18,17 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class SearchLeafNodeTest extends PackagePrivateClassTestCase<SearchLeafNode> {
+public final class SearchLeafNodeTest extends ClassTestCase<SearchLeafNode> {
     @Override
     protected Class<SearchLeafNode> type() {
         return SearchLeafNode.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

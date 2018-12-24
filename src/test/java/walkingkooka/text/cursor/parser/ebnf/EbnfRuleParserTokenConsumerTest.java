@@ -16,11 +16,17 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class EbnfRuleParserTokenConsumerTest extends PackagePrivateClassTestCase<EbnfRuleParserTokenConsumer> {
+public final class EbnfRuleParserTokenConsumerTest extends ClassTestCase<EbnfRuleParserTokenConsumer> {
     @Override
     protected Class<EbnfRuleParserTokenConsumer> type() {
         return EbnfRuleParserTokenConsumer.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

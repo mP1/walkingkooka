@@ -18,11 +18,12 @@
 package walkingkooka.text;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public class LineAndColumnTest extends PublicClassTestCase<LineAndColumn> {
+public class LineAndColumnTest extends ClassTestCase<LineAndColumn> {
 
     private final static int LINE_NUMBER = 1;
     private final static int COLUMN_NUMBER = 2;
@@ -255,5 +256,10 @@ public class LineAndColumnTest extends PublicClassTestCase<LineAndColumn> {
     @Override
     protected Class<LineAndColumn> type() {
         return LineAndColumn.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

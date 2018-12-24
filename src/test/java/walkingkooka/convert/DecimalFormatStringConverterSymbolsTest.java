@@ -19,11 +19,12 @@
 package walkingkooka.convert;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class DecimalFormatStringConverterSymbolsTest extends PackagePrivateClassTestCase<DecimalFormatStringConverterSymbols> {
+public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase<DecimalFormatStringConverterSymbols> {
 
     @Test
     public void testToString() {
@@ -33,5 +34,10 @@ public final class DecimalFormatStringConverterSymbolsTest extends PackagePrivat
     @Override
     protected Class<DecimalFormatStringConverterSymbols> type() {
         return DecimalFormatStringConverterSymbols.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

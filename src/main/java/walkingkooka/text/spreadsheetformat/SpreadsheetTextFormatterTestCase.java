@@ -19,8 +19,9 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetTextFormatter<V>, V> extends PackagePrivateClassTestCase<F> {
+public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetTextFormatter<V>, V> extends ClassTestCase<F> {
 
     @Test(expected = NullPointerException.class)
     public final void testFormatNullValueFails() {
@@ -127,5 +128,10 @@ public abstract class SpreadsheetTextFormatterTestCase<F extends SpreadsheetText
                                   final SpreadsheetTextFormatContext context,
                                   final Optional<SpreadsheetFormattedText> formattedText) {
         assertEquals(formatter + " " + CharSequences.quoteIfChars(value), formattedText, formatter.format(value, context));
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,7 +20,8 @@ package walkingkooka.tree.pojo;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public abstract class PojoNodeContextTestCase<F extends PojoNodeContext> extends PackagePrivateClassTestCase<F> {
+public abstract class PojoNodeContextTestCase<F extends PojoNodeContext> extends ClassTestCase<F> {
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullFails() {
@@ -152,5 +153,10 @@ public abstract class PojoNodeContextTestCase<F extends PojoNodeContext> extends
                 .filter(p -> p.name().equals(name))
                 .collect(Collectors.toList())
                 .iterator().next();
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

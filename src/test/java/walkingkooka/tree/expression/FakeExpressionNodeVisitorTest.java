@@ -20,9 +20,10 @@ package walkingkooka.tree.expression;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class FakeExpressionNodeVisitorTest extends PublicClassTestCase<FakeExpressionNodeVisitor> {
+public final class FakeExpressionNodeVisitorTest extends ClassTestCase<FakeExpressionNodeVisitor> {
 
     @Test
     @Ignore
@@ -33,5 +34,10 @@ public final class FakeExpressionNodeVisitorTest extends PublicClassTestCase<Fak
     @Override
     protected Class<FakeExpressionNodeVisitor> type() {
         return FakeExpressionNodeVisitor.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

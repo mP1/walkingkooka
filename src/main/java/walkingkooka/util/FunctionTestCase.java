@@ -17,14 +17,15 @@
  */
 package walkingkooka.util;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class FunctionTestCase<F extends Function<T, R>, T, R> extends PackagePrivateClassTestCase<F> {
+public abstract class FunctionTestCase<F extends Function<T, R>, T, R> extends ClassTestCase<F> {
 
     protected void applyAndCheck(final T input, final R result) {
         this.applyAndCheck(this.createFunction(), input, result);
@@ -37,4 +38,9 @@ public abstract class FunctionTestCase<F extends Function<T, R>, T, R> extends P
     }
 
     protected abstract F createFunction();
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

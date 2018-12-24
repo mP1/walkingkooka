@@ -18,12 +18,18 @@
 package walkingkooka.text;
 
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-final public class PaddedCharSequenceTest extends PackagePrivateClassTestCase<PaddedCharSequence<?>> {
+final public class PaddedCharSequenceTest extends ClassTestCase<PaddedCharSequence<?>> {
 
     @Override
     protected Class<PaddedCharSequence<?>> type() {
         return Cast.to(PaddedCharSequence.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -18,11 +18,17 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class SpreadsheetTextFormatterTemplateTest extends PackagePrivateClassTestCase<SpreadsheetTextFormatterTemplate> {
+public final class SpreadsheetTextFormatterTemplateTest extends ClassTestCase<SpreadsheetTextFormatterTemplate> {
     @Override
     protected Class<SpreadsheetTextFormatterTemplate> type() {
         return SpreadsheetTextFormatterTemplate.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

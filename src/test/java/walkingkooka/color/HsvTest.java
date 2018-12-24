@@ -19,12 +19,13 @@
 package walkingkooka.color;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HsvTest extends PublicClassTestCase<Hsv> {
+public final class HsvTest extends ClassTestCase<Hsv> {
 
     // constants
 
@@ -213,5 +214,10 @@ public final class HsvTest extends PublicClassTestCase<Hsv> {
     @Override
     protected Class<Hsv> type() {
         return Hsv.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

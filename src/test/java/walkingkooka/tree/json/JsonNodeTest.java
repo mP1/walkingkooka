@@ -18,11 +18,17 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class JsonNodeTest extends PublicClassTestCase<JsonNode> {
+public final class JsonNodeTest extends ClassTestCase<JsonNode> {
     @Override
     protected Class<JsonNode> type() {
         return JsonNode.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

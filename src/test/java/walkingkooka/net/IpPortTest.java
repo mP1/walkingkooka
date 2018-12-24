@@ -19,7 +19,8 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 
-public final class IpPortTest extends PublicClassTestCase<IpPort> {
+public final class IpPortTest extends ClassTestCase<IpPort> {
 
     @Test
     public void testIsPort() {
@@ -75,5 +76,10 @@ public final class IpPortTest extends PublicClassTestCase<IpPort> {
     @Override
     protected Class<IpPort> type() {
         return IpPort.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

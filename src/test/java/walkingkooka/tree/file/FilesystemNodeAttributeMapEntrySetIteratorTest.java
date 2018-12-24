@@ -18,11 +18,17 @@
 
 package walkingkooka.tree.file;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class FilesystemNodeAttributeMapEntrySetIteratorTest extends PackagePrivateClassTestCase<FilesystemNodeAttributeMapEntrySetIterator> {
+public final class FilesystemNodeAttributeMapEntrySetIteratorTest extends ClassTestCase<FilesystemNodeAttributeMapEntrySetIterator> {
     @Override
     protected Class<FilesystemNodeAttributeMapEntrySetIterator> type() {
         return FilesystemNodeAttributeMapEntrySetIterator.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

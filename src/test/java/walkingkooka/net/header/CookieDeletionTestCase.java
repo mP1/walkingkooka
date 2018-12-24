@@ -18,11 +18,17 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class CookieDeletionTestCase<E extends CookieDeletion> extends PublicClassTestCase<E> {
+public abstract class CookieDeletionTestCase<E extends CookieDeletion> extends ClassTestCase<E> {
 
     CookieDeletionTestCase() {
         super();
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

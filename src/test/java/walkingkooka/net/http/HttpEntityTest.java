@@ -28,7 +28,8 @@ import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.NotAcceptableHeaderException;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.nio.charset.Charset;
 import java.util.List;
@@ -38,7 +39,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
+public final class HttpEntityTest extends ClassTestCase<HttpEntity> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 26L;
@@ -393,5 +394,10 @@ public final class HttpEntityTest extends PublicClassTestCase<HttpEntity> {
     @Override
     protected Class<HttpEntity> type() {
         return HttpEntity.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

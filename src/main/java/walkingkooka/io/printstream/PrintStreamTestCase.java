@@ -18,7 +18,8 @@
 package walkingkooka.io.printstream;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.io.PrintStream;
 
@@ -26,7 +27,7 @@ import java.io.PrintStream;
  * Base class for testing a {@link PrintStream}
  */
 abstract public class PrintStreamTestCase<P extends PrintStream>
-        extends PackagePrivateClassTestCase<P> {
+        extends ClassTestCase<P> {
 
     protected PrintStreamTestCase() {
         super();
@@ -37,9 +38,15 @@ abstract public class PrintStreamTestCase<P extends PrintStream>
         this.checkNaming(PrintStream.class);
     }
 
-    @Test final public void testCheckToStringOverridden() {
+    @Test
+    final public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
 
     abstract protected P createPrintStream();
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

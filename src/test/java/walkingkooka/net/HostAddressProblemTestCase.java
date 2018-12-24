@@ -19,12 +19,22 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-abstract public class HostAddressProblemTestCase<T extends HostAddressProblem> extends PackagePrivateClassTestCase<T> {
+abstract public class HostAddressProblemTestCase<T extends HostAddressProblem> extends ClassTestCase<T> {
+
+    HostAddressProblemTestCase() {
+        super();
+    }
 
     @Test
     public void testNaming() {
         this.checkNamingStartAndEnd(HostAddress.class.getSimpleName(), "Problem");
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -245,5 +246,10 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     @Override
     protected Class<MediaTypeBoundary> type() {
         return MediaTypeBoundary.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

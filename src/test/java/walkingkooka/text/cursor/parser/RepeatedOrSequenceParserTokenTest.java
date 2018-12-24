@@ -16,11 +16,17 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class RepeatedOrSequenceParserTokenTest extends PublicClassTestCase<RepeatedOrSequenceParserToken> {
+public final class RepeatedOrSequenceParserTokenTest extends ClassTestCase<RepeatedOrSequenceParserToken> {
     @Override
     protected Class<RepeatedOrSequenceParserToken> type() {
         return RepeatedOrSequenceParserToken.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

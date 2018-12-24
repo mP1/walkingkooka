@@ -20,8 +20,9 @@ package walkingkooka.color;
 
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
@@ -30,7 +31,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-abstract public class HsvComponentTestCase<C extends HsvComponent> extends PublicClassTestCase<C> {
+abstract public class HsvComponentTestCase<C extends HsvComponent> extends ClassTestCase<C> {
 
     HsvComponentTestCase() {
         super();
@@ -163,4 +164,9 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Publi
     abstract float min();
 
     abstract float max();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
 }

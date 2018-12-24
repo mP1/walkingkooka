@@ -18,9 +18,15 @@
 
 package walkingkooka.tree.visit;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 abstract public class VisitableTestCase<V extends Visitable>
         extends
-        PublicClassTestCase<V> {
+        ClassTestCase<V> {
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
 }

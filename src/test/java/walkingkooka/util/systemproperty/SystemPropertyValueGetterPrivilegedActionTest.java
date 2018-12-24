@@ -17,13 +17,19 @@
 
 package walkingkooka.util.systemproperty;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 final public class SystemPropertyValueGetterPrivilegedActionTest
-        extends PackagePrivateClassTestCase<SystemPropertyValueGetterPrivilegedAction> {
+        extends ClassTestCase<SystemPropertyValueGetterPrivilegedAction> {
 
     @Override
     protected Class<SystemPropertyValueGetterPrivilegedAction> type() {
         return SystemPropertyValueGetterPrivilegedAction.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

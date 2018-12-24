@@ -20,12 +20,13 @@ package walkingkooka.tree.pointer;
 
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class NodeChildNamedNodePointerTest extends PackagePrivateClassTestCase<NodeChildNamedNodePointer<?, ?, ?, ?>> {
+public final class NodeChildNamedNodePointerTest extends ClassTestCase<NodeChildNamedNodePointer<?, ?, ?, ?>> {
 
     @Test
     public void testWithSlash() {
@@ -44,5 +45,10 @@ public final class NodeChildNamedNodePointerTest extends PackagePrivateClassTest
     @Override
     protected Class<NodeChildNamedNodePointer<?, ?, ?, ?>> type() {
         return Cast.to(NodeChildNamedNodePointer.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

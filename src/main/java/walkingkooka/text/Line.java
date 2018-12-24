@@ -31,7 +31,7 @@ final class Line implements Value<String>, HashCodeEqualsDefined, Serializable, 
      * Factory that creates a new {@link Line} providing the {@link String} has no {@link
      * LineEnding} characters within it.
      */
-    public static Line with(final String value) {
+    static Line with(final String value) {
         Objects.requireNonNull(value, "value");
         LineEnding.CR.complainIfPresent(value);
         LineEnding.NL.complainIfPresent(value);

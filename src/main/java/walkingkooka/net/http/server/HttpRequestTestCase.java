@@ -18,9 +18,15 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class HttpRequestTestCase<R extends HttpRequest> extends PackagePrivateClassTestCase<R> {
+public abstract class HttpRequestTestCase<R extends HttpRequest> extends ClassTestCase<R> {
 
     protected abstract R createRequest();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

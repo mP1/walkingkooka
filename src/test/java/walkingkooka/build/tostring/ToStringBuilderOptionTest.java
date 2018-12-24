@@ -17,12 +17,18 @@
 
 package walkingkooka.build.tostring;
 
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-final public class ToStringBuilderOptionTest extends PublicClassTestCase<ToStringBuilderOption> {
+final public class ToStringBuilderOptionTest extends ClassTestCase<ToStringBuilderOption> {
 
     @Override
     protected Class<ToStringBuilderOption> type() {
         return ToStringBuilderOption.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

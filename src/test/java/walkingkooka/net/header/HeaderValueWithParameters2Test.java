@@ -19,11 +19,17 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class HeaderValueWithParameters2Test extends PackagePrivateClassTestCase<HeaderValueWithParameters2<?, ?, ?>> {
+public final class HeaderValueWithParameters2Test extends ClassTestCase<HeaderValueWithParameters2<?, ?, ?>> {
     @Override
     protected Class<HeaderValueWithParameters2<?, ?, ?>> type() {
         return Cast.to(HeaderValueWithParameters2.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

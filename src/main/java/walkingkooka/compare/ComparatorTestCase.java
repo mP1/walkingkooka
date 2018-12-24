@@ -18,15 +18,16 @@
 package walkingkooka.compare;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Comparator;
 
 import static org.junit.Assert.assertEquals;
 
 abstract public class ComparatorTestCase<C extends Comparator<T>, T>
-        extends PackagePrivateClassTestCase<C> {
+        extends ClassTestCase<C> {
 
     protected ComparatorTestCase() {
         super();
@@ -119,5 +120,10 @@ abstract public class ComparatorTestCase<C extends Comparator<T>, T>
 
     private static boolean isEqual(final int expected, final int actual) {
         return Comparables.normalize(expected) == Comparables.normalize(actual);
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

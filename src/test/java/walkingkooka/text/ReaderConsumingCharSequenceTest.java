@@ -20,6 +20,7 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import java.io.StringReader;
 
@@ -153,7 +154,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

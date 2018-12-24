@@ -18,7 +18,13 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class EbnfParserCombinatorSyntaxTreeTransformerTestCase<T extends EbnfParserCombinatorSyntaxTreeTransformer> extends PackagePrivateClassTestCase<T> {
+public abstract class EbnfParserCombinatorSyntaxTreeTransformerTestCase<T extends EbnfParserCombinatorSyntaxTreeTransformer> extends ClassTestCase<T> {
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

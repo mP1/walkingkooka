@@ -39,5 +39,4 @@ public final class ValueHsvComponentTest extends HsvComponentTestCase<ValueHsvCo
     protected Class<ValueHsvComponent> type() {
         return ValueHsvComponent.class;
     }
-
 }

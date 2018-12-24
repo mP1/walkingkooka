@@ -21,6 +21,7 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
@@ -386,7 +387,7 @@ public final class NodeSelectorToStringBuilderTest extends BuilderTestCase<NodeS
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

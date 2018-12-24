@@ -18,12 +18,18 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class DomParentNode2Test extends PackagePrivateClassTestCase<DomParentNode2> {
+public final class DomParentNode2Test extends ClassTestCase<DomParentNode2> {
     @Override
     protected Class<DomParentNode2> type() {
         return DomParentNode2.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
 

@@ -20,13 +20,14 @@ package walkingkooka.util;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 
-final public class OpenCheckerTest extends PublicClassTestCase<OpenChecker<Exception>> {
+final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>> {
     // constants
 
     private final static String MESSAGE = "Not Open";
@@ -161,5 +162,10 @@ final public class OpenCheckerTest extends PublicClassTestCase<OpenChecker<Excep
         private Thrown(final String message) {
             super(message);
         }
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

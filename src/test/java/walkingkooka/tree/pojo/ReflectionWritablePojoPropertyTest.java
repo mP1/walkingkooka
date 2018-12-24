@@ -19,11 +19,17 @@
 
 package walkingkooka.tree.pojo;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class ReflectionWritablePojoPropertyTest extends PackagePrivateClassTestCase<ReflectionWritablePojoProperty> {
+public final class ReflectionWritablePojoPropertyTest extends ClassTestCase<ReflectionWritablePojoProperty> {
     @Override
     protected Class<ReflectionWritablePojoProperty> type() {
         return ReflectionWritablePojoProperty.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

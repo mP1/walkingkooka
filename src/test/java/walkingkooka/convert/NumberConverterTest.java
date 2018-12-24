@@ -18,11 +18,17 @@
 
 package walkingkooka.convert;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class NumberConverterTest extends PackagePrivateClassTestCase<NumberConverter> {
+public final class NumberConverterTest extends ClassTestCase<NumberConverter> {
     @Override
     protected Class<NumberConverter> type() {
         return NumberConverter.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

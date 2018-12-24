@@ -18,9 +18,19 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class BigDecimalSpreadsheetTextFormatterComponentTestCase<C extends BigDecimalSpreadsheetTextFormatterComponent> extends PackagePrivateClassTestCase<C> {
+public abstract class BigDecimalSpreadsheetTextFormatterComponentTestCase<C extends BigDecimalSpreadsheetTextFormatterComponent> extends ClassTestCase<C> {
+
+    BigDecimalSpreadsheetTextFormatterComponentTestCase() {
+        super();
+    }
 
     public abstract void testToString();
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

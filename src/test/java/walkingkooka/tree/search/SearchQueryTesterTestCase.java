@@ -18,7 +18,17 @@
 
 package walkingkooka.tree.search;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester> extends PackagePrivateClassTestCase<T> {
+public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester> extends ClassTestCase<T> {
+
+    SearchQueryTesterTestCase() {
+        super();
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

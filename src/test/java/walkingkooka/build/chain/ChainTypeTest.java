@@ -19,12 +19,13 @@ package walkingkooka.build.chain;
 
 import org.junit.Assert;
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ChainTypeTest extends PublicClassTestCase<ChainType> {
+final public class ChainTypeTest extends ClassTestCase<ChainType> {
     // constants
 
     private final static String TYPE = "ALL";
@@ -68,5 +69,10 @@ final public class ChainTypeTest extends PublicClassTestCase<ChainType> {
     @Override
     protected Class<ChainType> type() {
         return ChainType.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

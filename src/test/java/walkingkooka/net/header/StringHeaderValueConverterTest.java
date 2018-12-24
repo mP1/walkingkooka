@@ -18,13 +18,19 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 public final class StringHeaderValueConverterTest extends
-        PackagePrivateClassTestCase<StringHeaderValueConverter> {
+        ClassTestCase<StringHeaderValueConverter> {
 
     @Override
     protected Class<StringHeaderValueConverter> type() {
         return StringHeaderValueConverter.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

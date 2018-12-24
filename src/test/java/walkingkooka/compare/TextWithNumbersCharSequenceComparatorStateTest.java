@@ -19,13 +19,14 @@ package walkingkooka.compare;
 
 import org.junit.Test;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
 final public class TextWithNumbersCharSequenceComparatorStateTest
-        extends PackagePrivateClassTestCase<TextWithNumbersCharSequenceComparatorState> {
+        extends ClassTestCase<TextWithNumbersCharSequenceComparatorState> {
 
     @Test
     public void testToString() {
@@ -38,5 +39,10 @@ final public class TextWithNumbersCharSequenceComparatorStateTest
     @Override
     protected Class<TextWithNumbersCharSequenceComparatorState> type() {
         return TextWithNumbersCharSequenceComparatorState.class;
+    }
+    
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

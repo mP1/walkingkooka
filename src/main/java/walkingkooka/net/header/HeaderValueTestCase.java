@@ -19,11 +19,11 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class HeaderValueTestCase<V extends HeaderValue> extends PublicClassTestCase<V> {
+public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTestCase<V> {
 
     @Test
     public final void testIsMultipart() {

@@ -36,9 +36,4 @@ public final class FakeJsonNodeVisitorTest extends JsonNodeVisitorTestCase<FakeJ
     protected Class<FakeJsonNodeVisitor> type() {
         return FakeJsonNodeVisitor.class;
     }
-
-    @Override
-    protected boolean typeMustBePublic() {
-        return true;
-    }
 }

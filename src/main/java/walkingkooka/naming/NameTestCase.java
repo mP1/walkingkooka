@@ -18,14 +18,15 @@
 package walkingkooka.naming;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */
-abstract public class NameTestCase<N extends Name> extends PublicClassTestCase<N> {
+abstract public class NameTestCase<N extends Name> extends ClassTestCase<N> {
 
     protected NameTestCase() {
         super();
@@ -60,5 +61,10 @@ abstract public class NameTestCase<N extends Name> extends PublicClassTestCase<N
 
     protected void checkValue(final Name name, final String value) {
         assertEquals("value", value, name.value());
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

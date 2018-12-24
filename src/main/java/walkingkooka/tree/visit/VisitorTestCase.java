@@ -20,7 +20,7 @@ package walkingkooka.tree.visit;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
 
@@ -33,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 
 abstract public class VisitorTestCase<V extends Visitor<T>, T>
         extends
-        PackagePrivateClassTestCase<V> {
+        ClassTestCase<V> {
 
     protected VisitorTestCase() {
         super();
@@ -144,4 +144,9 @@ abstract public class VisitorTestCase<V extends Visitor<T>, T>
 
 
     abstract protected V createVisitor();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

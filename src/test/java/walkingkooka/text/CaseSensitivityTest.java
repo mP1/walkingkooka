@@ -20,12 +20,13 @@ package walkingkooka.text;
 import org.junit.After;
 import org.junit.Test;
 import walkingkooka.compare.Comparables;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 import walkingkooka.util.systemproperty.SystemProperty;
 
 import static org.junit.Assert.assertEquals;
 
-final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivity> {
+final public class CaseSensitivityTest extends ClassTestCase<CaseSensitivity> {
 
     // compare
 
@@ -1069,9 +1070,13 @@ final public class CaseSensitivityTest extends PublicClassTestCase<CaseSensitivi
         CaseSensitivity.FILE_SYSTEM = null;
     }
 
-
     @Override
     protected Class<CaseSensitivity> type() {
         return CaseSensitivity.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

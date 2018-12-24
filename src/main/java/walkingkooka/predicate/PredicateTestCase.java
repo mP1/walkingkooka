@@ -18,7 +18,8 @@
 package walkingkooka.predicate;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Predicate;
 
@@ -29,7 +30,7 @@ import static org.junit.Assert.fail;
  * utility methods toassert matching and non matching.
  */
 abstract public class PredicateTestCase<P extends Predicate<T>, T>
-        extends PackagePrivateClassTestCase<P> {
+        extends ClassTestCase<P> {
 
     protected PredicateTestCase() {
         super();
@@ -74,5 +75,10 @@ abstract public class PredicateTestCase<P extends Predicate<T>, T>
         if (predicate.test(value)) {
             fail(predicate + " should not have matched=" + value);
         }
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

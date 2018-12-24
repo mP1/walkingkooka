@@ -18,6 +18,7 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -107,7 +108,7 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> {
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return true;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

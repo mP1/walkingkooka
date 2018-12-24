@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.FakeParserContext;
@@ -31,6 +31,7 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.RepeatedParserToken;
+import walkingkooka.type.MemberVisibility;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -39,7 +40,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public final class SearchQueryTest extends PublicClassTestCase<SearchQuery> {
+public final class SearchQueryTest extends ClassTestCase<SearchQuery> {
 
     @Test
     public void testReplaceSelected() throws IOException {
@@ -138,5 +139,10 @@ public final class SearchQueryTest extends PublicClassTestCase<SearchQuery> {
     @Override
     protected Class<SearchQuery> type() {
         return SearchQuery.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

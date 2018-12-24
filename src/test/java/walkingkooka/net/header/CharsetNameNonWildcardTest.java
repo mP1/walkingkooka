@@ -18,12 +18,18 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class CharsetNameNonWildcardTest extends PackagePrivateClassTestCase<CharsetNameNonWildcard> {
+public final class CharsetNameNonWildcardTest extends ClassTestCase<CharsetNameNonWildcard> {
 
     @Override
     protected Class<CharsetNameNonWildcard> type() {
         return CharsetNameNonWildcard.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

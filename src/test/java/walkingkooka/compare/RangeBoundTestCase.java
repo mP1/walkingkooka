@@ -19,14 +19,15 @@
 package walkingkooka.compare;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends PackagePrivateClassTestCase<B> {
+public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends ClassTestCase<B> {
 
     RangeBoundTestCase() {
         super();
@@ -87,5 +88,10 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends 
         if (!bound.equals(expected) && !other.equals(expected)) {
             fail("Expected " + expected + " must be either " + bound + " | " + other);
         }
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

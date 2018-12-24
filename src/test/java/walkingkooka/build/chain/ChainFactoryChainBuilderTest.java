@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.Fake;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
@@ -338,8 +339,8 @@ final public class ChainFactoryChainBuilderTest
     }
 
     @Override
-    protected boolean typeMustBePublic() {
-        return false;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 
     static private Fake createFake(final int value) {

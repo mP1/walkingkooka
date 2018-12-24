@@ -19,11 +19,12 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class UrlTest extends PublicClassTestCase<Url> {
+public final class UrlTest extends ClassTestCase<Url> {
     
     @Test(expected = NullPointerException.class)
     public void testParseNullFails() {
@@ -57,5 +58,10 @@ public final class UrlTest extends PublicClassTestCase<Url> {
     @Override
     protected Class<Url> type() {
         return Url.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -258,5 +259,10 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
     @Override
     protected Class<TokenHeaderValue> type() {
         return TokenHeaderValue.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -18,11 +18,17 @@
 
 package walkingkooka.text.cursor.parser.json;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class JsonNodeLeafParserTokenTest extends PackagePrivateClassTestCase<JsonNodeLeafParserToken> {
+public final class JsonNodeLeafParserTokenTest extends ClassTestCase<JsonNodeLeafParserToken> {
     @Override
     protected Class<JsonNodeLeafParserToken> type() {
         return JsonNodeLeafParserToken.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

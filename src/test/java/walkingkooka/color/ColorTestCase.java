@@ -21,6 +21,7 @@ package walkingkooka.color;
 import org.junit.Test;
 import walkingkooka.Equality;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
@@ -696,5 +697,10 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C> {
 
     private boolean isEqual(final HsvComponent component, final HsvComponent otherComponent, final float epislon) {
         return Equality.isAlmostEquals(component.value(), otherComponent.value(), epislon);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

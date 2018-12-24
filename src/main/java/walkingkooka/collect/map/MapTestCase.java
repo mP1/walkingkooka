@@ -19,8 +19,9 @@
 package walkingkooka.collect.map;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -30,7 +31,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePrivateClassTestCase<M> {
+public abstract class MapTestCase<M extends Map<K, V>, K, V> extends ClassTestCase<M> {
 
     @Test
     public final void testIteratorContainsKeyAndSize() {
@@ -142,5 +143,10 @@ public abstract class MapTestCase<M extends Map<K, V>, K, V> extends PackagePriv
     protected void sizeAndCheck(final Map<K, V> map, final int size) {
         assertEquals("size of " + map, size, map.size());
         this.isEmptyAndCheck(map, 0 == size);
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

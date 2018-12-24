@@ -19,11 +19,17 @@
 package walkingkooka.routing;
 
 import walkingkooka.Cast;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class RouterBuilderRouterChoicesTest extends PackagePrivateClassTestCase<RouterBuilderRouterChoices<Void, Void>> {
+public final class RouterBuilderRouterChoicesTest extends ClassTestCase<RouterBuilderRouterChoices<Void, Void>> {
     @Override
     protected Class<RouterBuilderRouterChoices<Void, Void>> type() {
         return Cast.to(RouterBuilderRouterChoices.class);
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

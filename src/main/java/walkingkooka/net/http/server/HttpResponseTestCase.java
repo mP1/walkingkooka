@@ -19,9 +19,10 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class HttpResponseTestCase<R extends HttpResponse> extends PackagePrivateClassTestCase<R> {
+public abstract class HttpResponseTestCase<R extends HttpResponse> extends ClassTestCase<R> {
 
     @Test(expected = NullPointerException.class)
     public void testSetStatusNullFails() {
@@ -34,4 +35,9 @@ public abstract class HttpResponseTestCase<R extends HttpResponse> extends Packa
     }
 
     protected abstract R createResponse();
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

@@ -36,9 +36,4 @@ public final class FakeJsonNodeParserTokenVisitorTest extends JsonNodeParserToke
     protected Class<FakeJsonNodeParserTokenVisitor> parserTokenVisitorType() {
         return FakeJsonNodeParserTokenVisitor.class;
     }
-
-    @Override
-    protected boolean typeMustBePublic() {
-        return true;
-    }
 }

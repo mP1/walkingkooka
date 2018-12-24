@@ -19,12 +19,13 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.test.PublicClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetCellReferenceTest extends PublicClassTestCase<SpreadsheetCellReference> {
+public final class SpreadsheetCellReferenceTest extends ClassTestCase<SpreadsheetCellReference> {
 
     private final static int COLUMN = 123;
     private final static int ROW = 456;
@@ -296,5 +297,10 @@ public final class SpreadsheetCellReferenceTest extends PublicClassTestCase<Spre
     @Override
     protected Class<SpreadsheetCellReference> type() {
         return SpreadsheetCellReference.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

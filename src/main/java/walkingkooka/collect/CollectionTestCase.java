@@ -20,8 +20,9 @@ package walkingkooka.collect;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -29,7 +30,7 @@ import java.util.Iterator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public abstract class CollectionTestCase<C extends Collection<E>, E> extends PackagePrivateClassTestCase<C> {
+public abstract class CollectionTestCase<C extends Collection<E>, E> extends ClassTestCase<C> {
 
     @Test
     public final void testIteratorContainsAndCollection() {
@@ -69,5 +70,10 @@ public abstract class CollectionTestCase<C extends Collection<E>, E> extends Pac
     protected void sizeAndCheck(final Collection<?> collection, final int size) {
         assertEquals("size of " + collection, size, collection.size());
         this.isEmptyAndCheck(collection, 0 == size);
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

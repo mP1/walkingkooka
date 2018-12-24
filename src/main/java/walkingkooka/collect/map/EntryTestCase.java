@@ -18,13 +18,14 @@
 
 package walkingkooka.collect.map;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map.Entry;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class EntryTestCase<M extends Entry<K, V>, K, V> extends PackagePrivateClassTestCase<M> {
+public abstract class EntryTestCase<M extends Entry<K, V>, K, V> extends ClassTestCase<M> {
 
     protected abstract M createEntry();
 
@@ -39,5 +40,10 @@ public abstract class EntryTestCase<M extends Entry<K, V>, K, V> extends Package
 
     protected void getValueAndCheck(final Entry<K, V> entry, final V value) {
         assertEquals("Value from " + entry, value, entry.getValue());
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

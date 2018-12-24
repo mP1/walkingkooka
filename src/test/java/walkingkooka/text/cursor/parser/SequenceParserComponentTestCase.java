@@ -16,8 +16,17 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import walkingkooka.test.PackagePrivateClassTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public abstract class SequenceParserComponentTestCase<C extends SequenceParserComponent> extends PackagePrivateClassTestCase<C> {
+public abstract class SequenceParserComponentTestCase<C extends SequenceParserComponent> extends ClassTestCase<C> {
 
+    SequenceParserComponentTestCase() {
+        super();
+    }
+
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }
