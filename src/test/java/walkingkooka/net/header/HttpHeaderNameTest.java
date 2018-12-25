@@ -24,6 +24,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -120,13 +122,68 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     }
 
     @Test
-    public void testContentTypeConstants() {
+    public void testContentConstants() {
         final List<HttpHeaderName<?>> headers = HttpHeaderName.CONSTANTS.values()
                 .stream()
                 .filter(h -> h.value().startsWith("content-"))
                 .filter(h -> false == h.isContent())
                 .collect(Collectors.toList());
         assertEquals("Several HttpHeaderName.isContent() returns false when it should return true",
+                Lists.empty(),
+                headers);
+    }
+
+    @Test
+    public void testAcceptConstantsRequest() {
+        this.constantScopeCheck("accept-",
+                "accept-ranges",
+                (h) -> h.isRequest(),
+                true,
+                "isRequest");
+    }
+
+    @Test
+    public void testAcceptConstantsResponse() {
+        this.constantScopeCheck("accept-",
+                "accept-ranges",
+                (h) -> h.isResponse(),
+                false,
+                "isResponse");
+    }
+
+    @Test
+    public void testContentConstantsRequest() {
+        this.constantScopeCheck("content-",
+                "",
+                (h) -> h.isRequest(),
+                true,
+                "isRequest");
+    }
+
+    @Test
+    public void testContentConstantsResponse() {
+        this.constantScopeCheck("content-",
+                "",
+                (h) -> h.isResponse(),
+                true,
+                "isResponse");
+    }
+
+    private void constantScopeCheck(final String prefix,
+                                    final String ignorePrefix,
+                                    final Predicate<HttpHeaderName<?>> test,
+                                    final boolean value,
+                                    final String method) {
+        final List<HttpHeaderName<?>> headers = HttpHeaderName.CONSTANTS.values()
+                .stream()
+                .filter(h -> CaseSensitivity.INSENSITIVE.startsWith(h.value(), prefix))
+                .filter(h -> !CaseSensitivity.INSENSITIVE.startsWith(h.value(), ignorePrefix))
+                .filter(h -> value != test.test(h))
+                .collect(Collectors.toList());
+        assertEquals("Several HttpHeaderName." + method +
+                        " starting with " + prefix +
+                        " returns " + !value +
+                        " when it should return " + value,
                 Lists.empty(),
                 headers);
     }
