@@ -24,6 +24,11 @@ public final class TokenHeaderValueOneHeaderParserTest extends TokenHeaderValueH
         TokenHeaderValue> {
 
     @Test
+    public void testParameterSeparatorFails() {
+        this.parseMissingValueFails(";", 0);
+    }
+
+    @Test
     public void testValueSeparatorFails() {
         this.parseInvalidCharacterFails("A,");
     }

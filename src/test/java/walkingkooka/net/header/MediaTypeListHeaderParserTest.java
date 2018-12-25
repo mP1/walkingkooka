@@ -31,6 +31,11 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
         List<MediaType>> {
 
     @Test
+    public void testParameterSeparatorFails() {
+        this.parseMissingValueFails(";", 0);
+    }
+
+    @Test
     public void testTypeSlashSubTypeValueSeparatorSeparatorFails() {
         this.parseMissingValueFails("type/subtype,");
     }

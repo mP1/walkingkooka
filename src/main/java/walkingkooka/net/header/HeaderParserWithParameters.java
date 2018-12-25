@@ -32,7 +32,7 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
     /**
      * Package private to limit sub classing.
      */
-    HeaderParserWithParameters(String text) {
+    HeaderParserWithParameters(final String text) {
         super(text);
     }
 
@@ -43,30 +43,36 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
 
     @Override
     final void tokenSeparator() {
-        if(this.requireParameterName || null!=this.parameterName && null == this.parameterValue) {
-            this.failInvalidCharacter();
+        if(!this.requireParameterOrMultiValueSeparator) {
+            if(this.requireValue){
+                this.missingValue();
+            } else {
+                this.failInvalidCharacter();
+            }
         }
+        this.requireParameterOrMultiValueSeparator = false;
         this.requireParameterName = true;
-        this.parameterName = null;
-        this.parameterValue = null;
     }
 
     @Override
     final void keyValueSeparator() {
-        if(null == this.value || null == this.parameterName) {
+        if(!this.requireKeyValueSeparator) {
             this.failInvalidCharacter();
         }
+        this.requireKeyValueSeparator = false;
+        this.requireParameterValue = true;
     }
 
     @Override
     final void multiValueSeparator() {
-        if(! this.allowMultipleValues() || null == this.value) {
+        if(! this.allowMultipleValues() || ! this.requireParameterOrMultiValueSeparator) {
             this.failInvalidCharacter();
         }
         this.maybeEndOfValue();
 
         this.value = null;
         this.requireValue = true;
+        this.requireParameterOrMultiValueSeparator = false;
     }
 
     /**
@@ -107,8 +113,9 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
             if(this.requireParameterName) {
                 this.parameterName = this.parameterName();
                 this.requireParameterName = false;
+                this.requireKeyValueSeparator = true;
             } else {
-                if(null != this.parameterName && null == this.parameterValue) {
+                if(this.requireParameterValue) {
                     this.addParameterText(this.unquotedParameterValue(parameterName));
                 } else {
                     this.failInvalidCharacter();
@@ -123,19 +130,18 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
         this.value = value;
         this.parameters = Maps.ordered();
         this.requireValue = false;
-        this.parameterName = null;
-        this.parameterValue =null;
+        this.requireParameterOrMultiValueSeparator = true;
     }
 
     abstract N parameterName();
 
     @Override
     final void quotedText() {
-        final N parameterName = this.parameterName;
-        if(null==parameterName || null != this.parameterValue) {
+        if(this.requireParameterValue) {
+            this.addParameterText(this.quotedParameterValue(this.parameterName));
+        } else {
             this.failInvalidCharacter();
         }
-        this.addParameterText(this.quotedParameterValue(parameterName));
     }
 
     abstract String quotedParameterValue(final N parameterName);
@@ -150,19 +156,20 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
         if(this.requireValue) {
             this.missingValue();
         }
-        if(null!=this.parameterName && null == this.parameterValue) {
+        if(this.requireKeyValueSeparator) {
+            this.failMissingParameterValue();
+        }
+        if(this.requireParameterValue) {
             this.failMissingParameterValue();
         }
         this.maybeEndOfValue();
     }
 
     final void maybeEndOfValue() {
-        if(null!=value) {
-            if(null!=this.parameterName && null == this.parameterValue) {
-                this.failMissingParameterValue();
-            }
-            this.valueComplete(Cast.to(this.value.setParameters(this.parameters)));
+        if (this.requireParameterValue) {
+            this.failMissingParameterValue();
         }
+        this.valueComplete(Cast.to(this.value.setParameters(this.parameters)));
     }
 
     /**
@@ -181,6 +188,11 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
     private V value;
 
     /**
+     * Becomes true after parsing a token but before any parameter name.
+     */
+    private boolean requireParameterOrMultiValueSeparator;
+
+    /**
      * Becomes true after encountering a {@link #tokenSeparator()}.
      */
     private boolean requireParameterName;
@@ -189,6 +201,16 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
      * When present indicates a parameter value is expected next.
      */
     private N parameterName;
+
+    /**
+     * Becomes true after parsing a parameter name but before parsing a value
+     */
+    private boolean requireKeyValueSeparator;
+
+    /**
+     * Becomes true after encountering a {@link #keyValueSeparator()}.
+     */
+    private boolean requireParameterValue;
 
     /**
      * The last parameter value.
@@ -206,6 +228,9 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
      * Adds a new parameter value.
      */
     private void addParameterValue(final Object value) {
+        this.requireParameterValue = false;
+        this.requireParameterOrMultiValueSeparator = true;
+
         final N parameterName = this.parameterName;
         this.parameterValue = parameterName.checkValue(value);
         this.parameters.put(parameterName, this.parameterValue);

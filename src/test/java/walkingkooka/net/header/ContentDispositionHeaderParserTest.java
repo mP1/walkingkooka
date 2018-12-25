@@ -37,7 +37,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
 
     @Test
     public void testParameterSeparatorFails() {
-        this.parseMissingValueFails(";");
+        this.parseMissingValueFails(";", 0);
     }
 
     @Test

@@ -24,6 +24,10 @@ import java.util.Map;
 
 public final class MediaTypeOneHeaderParserTest extends MediaTypeHeaderParserTestCase<MediaTypeOneHeaderParser,
         MediaType> {
+    @Test
+    public void testParameterSeparatorFails() {
+        this.parseMissingValueFails(";", 0);
+    }
 
     @Test
     public void testTypeSlashSubTypeValueSeparatorFails() {

@@ -28,10 +28,14 @@ import static org.junit.Assert.assertEquals;
 
 public final class TokenHeaderValueListHeaderParserTest extends TokenHeaderValueHeaderParserTestCase<TokenHeaderValueListHeaderParser,
         List<TokenHeaderValue>> {
+    @Test
+    public final void testParameterSeparatorFails() {
+        this.parseMissingValueFails(";", 0);
+    }
 
     @Test
     public final void testValueValueSeparatorFails() {
-        this.parseMissingValueFails("A;,");
+        this.parseInvalidCharacterFails("A;,", 2);
     }
 
     @Test

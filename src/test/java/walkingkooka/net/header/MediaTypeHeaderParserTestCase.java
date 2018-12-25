@@ -43,11 +43,6 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     }
 
     @Test
-    public final void testParameterSeparatorFails() {
-        this.parseMissingValueFails(";");
-    }
-
-    @Test
     public final void testKeyValueSeparatorFails() {
         this.parseInvalidCharacterFails("=");
     }

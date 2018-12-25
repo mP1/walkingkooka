@@ -107,6 +107,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
             this.parse(text);
             fail();
         } catch (final HeaderValueException expected) {
+            expected.printStackTrace();
             assertEquals("Incorrect failure message for " + CharSequences.quoteAndEscape(text),
                     message,
                     expected.getMessage());
