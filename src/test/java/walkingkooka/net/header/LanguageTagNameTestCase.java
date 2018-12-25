@@ -19,12 +19,15 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTestCase;
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends NameTestCase<L> {
 
@@ -36,6 +39,15 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
     @Override
     public final void testNaming() {
         this.checkNamingStartAndEnd(LanguageTagName.class.getSimpleName(), "");
+    }
+
+    @Test
+    public final void testSetParameters() {
+        final L name = this.createName("en");
+        final Map<LanguageTagParameterName<?>, Object> parameters = Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f);
+        final LanguageTag tag = name.setParameters(parameters);
+        assertSame("value", name, tag.value());
+        assertEquals("parameters", parameters, tag.parameters());
     }
 
     final void check(final LanguageTagName name,

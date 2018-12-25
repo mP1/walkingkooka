@@ -24,6 +24,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -66,6 +67,15 @@ public abstract class LanguageTagName implements Name, Comparable<LanguageTagNam
     }
 
     final String value;
+
+
+    /**
+     * Factory that creates a {@link LanguageTag} with the given parameters.
+     */
+    public LanguageTag setParameters(final Map<LanguageTagParameterName<?>, Object> parameters) {
+        return LanguageTag.with(this)
+                .setParameters(parameters);
+    }
 
     abstract boolean isMatch(final LanguageTag languageTag);
 
