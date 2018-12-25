@@ -22,7 +22,112 @@ import org.junit.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.type.MemberVisibility;
 
-public final class LanguageTagTest extends LanguageTagTestCase<LanguageTag> {
+import java.util.Map;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+
+public final class LanguageTagTest extends HeaderValueWithParametersTestCase<LanguageTag,
+        LanguageTagParameterName<?>> {
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullFails() {
+        LanguageTag.with(null);
+    }
+
+    @Test
+    public void testWith() {
+        final LanguageTag languageTag = LanguageTag.with(this.value());
+        this.check(languageTag);
+    }
+
+    @Test
+    public void testWithCached() {
+        assertSame(LanguageTag.with(LanguageTagName.WILDCARD), LanguageTag.with(LanguageTagName.WILDCARD));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetValueNullFails() {
+        LanguageTag.WILDCARD.setValue(null);
+    }
+
+    @Test
+    public void testSetValueSame() {
+        final LanguageTag tag = LanguageTag.WILDCARD;
+        assertSame(tag, tag.setValue(tag.value()));
+    }
+
+    @Test
+    public void testSetValueSame2() {
+        final LanguageTag tag = LanguageTag.with(this.value());
+        assertSame(tag, tag.setValue(this.value()));
+    }
+
+    @Test
+    public void testSetValueDifferent() {
+        final LanguageTag tag = LanguageTag.WILDCARD;
+        final LanguageTagName name = LanguageTagName.with("fr");
+        final LanguageTag different = tag.setValue(name);
+        assertNotSame(tag, different);
+
+        this.check(different, name, LanguageTag.NO_PARAMETERS);
+    }
+
+    @Test
+    public void testSetValueDifferent2() {
+        final LanguageTag tag = LanguageTag.with(this.value());
+        final LanguageTagName name = LanguageTagName.with("fr");
+        final LanguageTag different = tag.setValue(name);
+        assertNotSame(tag, different);
+
+        this.check(different, name, LanguageTag.NO_PARAMETERS);
+    }
+
+    @Test
+    public void testSetValueDifferent3() {
+        final LanguageTag tag = LanguageTag.with(this.value()).setParameters(this.parametersWithQFactor());
+        final LanguageTagName name = LanguageTagName.with("fr");
+        final LanguageTag different = tag.setValue(name);
+        assertNotSame(tag, different);
+        this.check(different, name, this.parametersWithQFactor());
+    }
+
+    private void check(final LanguageTag tag) {
+        this.check(tag, this.value(), LanguageTag.NO_PARAMETERS);
+    }
+
+    private LanguageTagName value() {
+        return LanguageTagName.with("en");
+    }
+    
+    @Test
+    public final void testSetParameterDifferent() {
+        final LanguageTag languageTag = this.createHeaderValueWithParameters();
+        final Map<LanguageTagParameterName<?>, Object> parameters = this.parametersWithQFactor();
+        final LanguageTag different = languageTag.setParameters(parameters);
+        this.check(different, languageTag.value(), parameters);
+    }
+
+    final Map<LanguageTagParameterName<?>, Object> parametersWithQFactor() {
+        return Maps.one(LanguageTagParameterName.Q_FACTOR, 0.75f);
+    }
+
+    @Test
+    public void testSetParametersDifferentAndBack() {
+        assertSame(LanguageTag.WILDCARD,
+                LanguageTag.WILDCARD
+                        .setParameters(this.parametersWithQFactor())
+                        .setParameters(LanguageTag.NO_PARAMETERS));
+    }
+
+    final void check(final LanguageTag language,
+                     final LanguageTagName value,
+                     final Map<LanguageTagParameterName<?>, Object> parameters) {
+        assertEquals("value", value, language.value());
+        assertEquals("parameters", parameters, language.parameters());
+    }
 
     // toHeaderTextList.......................................................................................
 
@@ -35,34 +140,106 @@ public final class LanguageTagTest extends LanguageTagTestCase<LanguageTag> {
     @Test
     public void testToHeaderTextListListOfOneWithParameters() {
         this.toHeaderTextListAndCheck("en; q=0.75",
-                this.en075());
+                this.en075WithParameters());
     }
 
     @Test
     public void testToHeaderTextListListOfOneWildcard() {
         this.toHeaderTextListAndCheck("*",
-                LanguageTag.wildcard());
+                LanguageTag.WILDCARD);
     }
 
     @Test
     public void testToHeaderTextListListOfMany() {
         this.toHeaderTextListAndCheck("en; q=0.75, fr",
-                this.en075(),
+                this.en075WithParameters(),
                 this.fr());
     }
 
-    private LanguageTag en075() {
-        return LanguageTag.with("en")
+    // isMatch ...................................................................................
+
+    @Test
+    public void testIsMatch() {
+        assertTrue(LanguageTag.WILDCARD.isMatch(this.en075WithParameters()));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testIsMatchNullFails() {
+        this.createHeaderValueWithParameters().isMatch(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsMatchWildcardWildcardFails() {
+        LanguageTag.WILDCARD.isMatch(LanguageTag.WILDCARD);
+    }
+
+    @Test
+    public void testIsMatchWildcardNonWildcardFails() {
+        this.isMatchAndCheck(LanguageTag.WILDCARD,
+                this.en075WithParameters(),
+                true);
+    }
+
+    @Test
+    public void testIsMatchWildcardNonWildcardFails2() {
+        this.isMatchAndCheck(LanguageTag.WILDCARD,
+                this.fr(),
+                true);
+    }
+
+    @Test
+    public void testIsMatchNonWildcardNonWildcard() {
+        this.isMatchAndCheck(this.en075WithParameters(),
+                this.en(),
+                true);
+    }
+
+    @Test
+    public void testIsMatchNonWildcardNonWildcard2() {
+        this.isMatchAndCheck(this.en075WithParameters(),
+                this.fr(),
+                false);
+    }
+
+    final void isMatchAndCheck(final LanguageTag tag,
+                               final LanguageTag other,
+                               final boolean expected) {
+        assertEquals(tag + " isMatch " + other,
+                expected,
+                tag.isMatch(other));
+    }
+
+    private LanguageTag en075WithParameters() {
+        return this.en()
                 .setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.75f));
     }
 
+    private LanguageTag en() {
+        return LanguageTag.with(LanguageTagName.with("en"));
+    }
+
     private LanguageTag fr() {
-        return LanguageTag.with("fr");
+        return LanguageTag.with(LanguageTagName.with("fr"));
     }
 
     @Override
     protected LanguageTag createHeaderValueWithParameters() {
-        return LanguageTag.wildcard();
+        return LanguageTag.WILDCARD;
+    }
+
+    @Override
+    protected final boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected final boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected final boolean isResponse() {
+        return true;
     }
 
     @Override
@@ -74,5 +251,4 @@ public final class LanguageTagTest extends LanguageTagTestCase<LanguageTag> {
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
-
 }

@@ -19,44 +19,28 @@
 package walkingkooka.net.header;
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Optional;
 
 /**
  * Holds a Wildcard language tag.
  */
-final class LanguageTagWildcard extends LanguageTag {
+final class LanguageTagNameWildcard extends LanguageTagName {
 
     /**
      * Wildcard with no parameters instance.
      */
-    final static LanguageTagWildcard INSTANCE = new LanguageTagWildcard(NO_PARAMETERS);
-
-    /**
-     * Factory that creates a new {@link LanguageTagWildcard}
-     */
-    static LanguageTagWildcard wildcard(final Map<LanguageTagParameterName<?>, Object> parameters) {
-        return new LanguageTagWildcard(parameters);
-    }
+    final static LanguageTagNameWildcard INSTANCE = new LanguageTagNameWildcard();
 
     /**
      * Private ctor use factory
      */
-    private LanguageTagWildcard(final Map<LanguageTagParameterName<?>, Object> parameters) {
-        super(WILDCARD_VALUE.string(), parameters);
+    private LanguageTagNameWildcard() {
+        super(HeaderValue.WILDCARD.string());
     }
 
     @Override
     public Optional<Locale> locale() {
         return NO_LOCALE;
-    }
-
-    /**
-     * Matches any other languageTag except for another wildcard.
-     */
-    @Override
-    boolean isMatch0(final LanguageTag languageTag) {
-        return true;
     }
 
     // isXXX........................................................................................................
@@ -66,10 +50,19 @@ final class LanguageTagWildcard extends LanguageTag {
         return true;
     }
 
+    /**
+     * Matches any other languageTag except for another wildcard.
+     */
     @Override
-    LanguageTag replace(final Map<LanguageTagParameterName<?>, Object> parameters) {
-        return parameters.isEmpty() ?
-                INSTANCE :
-                new LanguageTagWildcard(parameters);
+    boolean isMatch(final LanguageTag languageTag) {
+        if (languageTag.value.isWildcard()) {
+            throw new IllegalArgumentException("Parameter is wildcard=" + languageTag);
+        }
+        return true;
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof LanguageTagNameNonWildcard;
     }
 }

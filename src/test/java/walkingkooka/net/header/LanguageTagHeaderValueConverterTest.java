@@ -32,7 +32,7 @@ public final class LanguageTagHeaderValueConverterTest extends
     @Test
     public void testRoundtrip() {
         this.parseAndToTextAndCheck("en; q=0.5",
-                LanguageTag.with("en")
+                LanguageTag.with(LanguageTagName.with("en"))
                         .setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f)));
     }
 

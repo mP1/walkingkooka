@@ -18,6 +18,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 
 import java.util.Locale;
@@ -28,20 +29,37 @@ import java.util.Optional;
  * Holds a language tag.<br>
  * <a href="https://tools.ietf.org/html/bcp47"></a>
  */
-final class LanguageTagNonWildcard extends LanguageTag {
+final class LanguageTagNameNonWildcard extends LanguageTagName {
+
+    private final static Map<String, LanguageTagNameNonWildcard> CONSTANTS = registerConstants();
 
     /**
-     * Factory that creates a new {@link LanguageTagNonWildcard}
+     * Creates constants for all the available {@link Locale locales}
      */
-    static LanguageTagNonWildcard nonWildcard(final String value, final Map<LanguageTagParameterName<?>, Object> parameters) {
-        return new LanguageTagNonWildcard(value,
-                Optional.of(locale(value)),
-                parameters);
+    private final static Map<String, LanguageTagNameNonWildcard> registerConstants() {
+        final Map<String, LanguageTagNameNonWildcard> constants = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+
+        for (Locale locale : Locale.getAvailableLocales()) {
+            final String languageTag = locale.toLanguageTag();
+            constants.put(languageTag, new LanguageTagNameNonWildcard(languageTag, Optional.of(locale)));
+        }
+
+        return constants;
+    }
+
+    /**
+     * Factory that creates a new {@link LanguageTagNameNonWildcard}
+     */
+    static LanguageTagNameNonWildcard nonWildcard(final String value) {
+        final LanguageTagNameNonWildcard constant = CONSTANTS.get(value);
+        return null != constant ?
+                constant :
+                new LanguageTagNameNonWildcard(value, Optional.of(locale(value)));
     }
 
     private static Locale locale(final String value) {
         final Locale locale = Locale.forLanguageTag(value);
-        if(locale.toString().isEmpty()) {
+        if (locale.toString().isEmpty()) {
             throw new IllegalArgumentException("Invalid language tag " + CharSequences.quoteAndEscape(value));
         }
         return locale;
@@ -50,8 +68,8 @@ final class LanguageTagNonWildcard extends LanguageTag {
     /**
      * Private ctor use factory
      */
-    private LanguageTagNonWildcard(final String value, final Optional<Locale> locale, final Map<LanguageTagParameterName<?>, Object> parameters) {
-        super(value, parameters);
+    private LanguageTagNameNonWildcard(final String value, final Optional<Locale> locale) {
+        super(value);
         this.locale = locale;
     }
 
@@ -62,14 +80,6 @@ final class LanguageTagNonWildcard extends LanguageTag {
 
     private final Optional<Locale> locale;
 
-    /**
-     * Ignores the validator and only compares the value for equality.
-     */
-    @Override
-    boolean isMatch0(final LanguageTag languageTag) {
-        return this.value.equals(languageTag.value());
-    }
-
     // isXXX........................................................................................................
 
     @Override
@@ -77,8 +87,16 @@ final class LanguageTagNonWildcard extends LanguageTag {
         return false;
     }
 
+    /**
+     * Matches if the languages are equal.
+     */
     @Override
-    LanguageTag replace(final Map<LanguageTagParameterName<?>, Object> parameters) {
-        return new LanguageTagNonWildcard(this.value, this.locale, parameters);
+    boolean isMatch(final LanguageTag languageTag) {
+        return this.equals(languageTag.value);
+    }
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof LanguageTagNameWildcard;
     }
 }

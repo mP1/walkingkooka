@@ -64,7 +64,7 @@ abstract public class NameTestCase<N extends Name> extends ClassTestCase<N> {
     }
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 }

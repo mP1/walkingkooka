@@ -18,42 +18,48 @@
 
 package walkingkooka.net.header;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertSame;
 
-public final class LanguageTagWildcardTest extends LanguageTagTestCase<LanguageTagWildcard> {
+public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<LanguageTagNameWildcard> {
+
+    @Test
+    @Ignore
+    @Override
+    public void testNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
 
     @Test
     public void testWith() {
-        this.check(LanguageTagWildcard.INSTANCE,
+        this.check(LanguageTagNameWildcard.INSTANCE,
                 "*",
-                LanguageTag.NO_LOCALE,
-                LanguageTag.NO_PARAMETERS);
+                LanguageTagName.NO_LOCALE);
     }
 
     @Test
     public void testWithCached() {
-        assertSame(LanguageTag.with("*"), LanguageTag.with("*"));
-    }
-
-    @Test
-    public void testSetParametersDifferentAndBack() {
-        assertSame(LanguageTag.wildcard(),
-                LanguageTag.wildcard()
-                        .setParameters(this.parametersWithQFactor())
-                        .setParameters(LanguageTag.NO_PARAMETERS));
+        assertSame(LanguageTagName.with("*"), LanguageTagName.with("*"));
     }
 
     @Override
-    protected LanguageTagWildcard createHeaderValueWithParameters() {
-        return LanguageTagWildcard.INSTANCE;
+    protected LanguageTagNameWildcard createName(final String name) {
+        return LanguageTagNameWildcard.INSTANCE;
     }
 
     @Override
-    protected Class<LanguageTagWildcard> type() {
-        return LanguageTagWildcard.class;
+    protected Class<LanguageTagNameWildcard> type() {
+        return LanguageTagNameWildcard.class;
     }
 
     @Override

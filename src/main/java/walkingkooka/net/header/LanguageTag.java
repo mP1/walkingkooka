@@ -19,27 +19,17 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
-import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Holds a LanguageTag which is the value of a accept-language and similar headers.
  */
-public abstract class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
+public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
         LanguageTagParameterName<?>,
-        String> {
-
-    /**
-     * No {@link Locale}.
-     */
-    public final static Optional<Locale> NO_LOCALE = Optional.empty();
+        LanguageTagName> {
 
     /**
      * No parameters constant.
@@ -47,21 +37,19 @@ public abstract class LanguageTag extends HeaderValueWithParameters2<LanguageTag
     public final static Map<LanguageTagParameterName<?>, Object> NO_PARAMETERS = Maps.empty();
 
     /**
-     * Returns a wildcard {@link LanguageTag}
+     * A {@link LanguageTag} wildcard without any parameters.
      */
-    public static LanguageTag wildcard() {
-        return LanguageTagWildcard.INSTANCE;
-    }
+    public final static LanguageTag WILDCARD = new LanguageTag(LanguageTagName.WILDCARD, NO_PARAMETERS);
 
     /**
      * Factory that creates a new {@link LanguageTag}
      */
-    public static LanguageTag with(final String value) {
+    public static LanguageTag with(final LanguageTagName value) {
         checkValue(value);
 
-        return WILDCARD.string().equals(value) ?
-                wildcard() :
-                LanguageTagNonWildcard.nonWildcard(value, NO_PARAMETERS);
+        return value.isWildcard() ?
+                WILDCARD :
+                new LanguageTag(value, NO_PARAMETERS);
     }
 
     /**
@@ -81,7 +69,7 @@ public abstract class LanguageTag extends HeaderValueWithParameters2<LanguageTag
     /**
      * Package private to limit sub classing.
      */
-    LanguageTag(final String value, final Map<LanguageTagParameterName<?>, Object> parameters) {
+    LanguageTag(final LanguageTagName value, final Map<LanguageTagParameterName<?>, Object> parameters) {
         super(value, parameters);
     }
 
@@ -91,44 +79,42 @@ public abstract class LanguageTag extends HeaderValueWithParameters2<LanguageTag
      */
     public final boolean isMatch(final LanguageTag languageTag) {
         Objects.requireNonNull(languageTag, "languageTag");
-        return !languageTag.isWildcard() && this.isMatch0(languageTag);
+        return this.value.isMatch(languageTag);
     }
-
-    abstract boolean isMatch0(final LanguageTag languageTag);
 
     // value.....................................................................................................
 
     /**
-     * The wildcard character.
-     */
-    public final static CharacterConstant WILDCARD_VALUE = CharacterConstant.with('*');
-
-    /**
      * Would be setter that returns a {@link LanguageTag} with the given value creating a new instance as necessary.
      */
-    public final LanguageTag setValue(final String value) {
+    public final LanguageTag setValue(final LanguageTagName value) {
         checkValue(value);
 
-        return this.value().equals(value) ?
+        return this.value.equals(value) ?
                 this :
                 this.replace(value);
     }
 
-    static void checkValue(final String value) {
-        CharSequences.failIfNullOrEmpty(value, "value");
+    static void checkValue(final LanguageTagName value) {
+        Objects.requireNonNull(value, "value");
     }
-
-    // Locale ........................................................................................................
-
-    /**
-     * {@link Locale} getter.
-     */
-    abstract public Optional<Locale> locale();
 
     // replace ........................................................................................................
 
-    private LanguageTag replace(final String value) {
-        return with(value);
+    private LanguageTag replace(final LanguageTagName value) {
+        return this.replace0(value, this.parameters);
+    }
+
+    @Override
+    LanguageTag replace(final Map<LanguageTagParameterName<?>, Object> parameters) {
+        return this.replace0(this.value, parameters);
+    }
+
+    private LanguageTag replace0(final LanguageTagName name,
+                                 final Map<LanguageTagParameterName<?>, Object> parameters) {
+        return name.isWildcard() && parameters.isEmpty() ?
+                WILDCARD :
+                new LanguageTag(name, parameters);
     }
 
     // isXXX........................................................................................................
@@ -136,39 +122,41 @@ public abstract class LanguageTag extends HeaderValueWithParameters2<LanguageTag
     /**
      * Returns true if this LanguageTag is a wildcard.
      */
-    public abstract boolean isWildcard();
+    public boolean isWildcard() {
+        return this.value.isWildcard();
+    }
 
     // HeaderValue........................................................................................................
 
     /**
      * Returns the text or header value form.
      */
-    public final String toHeaderText() {
+    public String toHeaderText() {
         return this.toString();
     }
 
     // HasHeaderScope ....................................................................................................
 
     @Override
-    public final boolean isMultipart() {
+    public boolean isMultipart() {
         return false;
     }
 
     @Override
-    public final boolean isRequest() {
+    public boolean isRequest() {
         return true;
     }
 
     @Override
-    public final boolean isResponse() {
+    public boolean isResponse() {
         return true;
     }
 
     // Object..........................................................................................................
 
     @Override
-    int hashCode0(final String value) {
-        return CaseSensitivity.INSENSITIVE.hash(value);
+    int hashCode0(final LanguageTagName value) {
+        return value.hashCode();
     }
 
     @Override
@@ -177,8 +165,8 @@ public abstract class LanguageTag extends HeaderValueWithParameters2<LanguageTag
     }
 
     @Override
-    boolean equals1(final String value, final String otherValue) {
-        return CaseSensitivity.INSENSITIVE.equals(value, otherValue);
+    boolean equals1(final LanguageTagName value, final LanguageTagName otherValue) {
+        return value.equals(otherValue);
     }
 }
 

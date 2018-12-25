@@ -30,8 +30,8 @@ public final class LanguageTagListHeaderParserTest extends LanguageTagHeaderPars
     @Test
     public void testMultipleLanguages() {
         this.parseAndCheck3("en-US,en;q=0.5",
-                LanguageTag.with("en-US"),
-                LanguageTag.with("en").setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f)));
+                LanguageTag.with(LanguageTagName.with("en-US")),
+                LanguageTag.with(LanguageTagName.with("en")).setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f)));
     }
 
     private void parseAndCheck3(final String text, final LanguageTag...tags) {

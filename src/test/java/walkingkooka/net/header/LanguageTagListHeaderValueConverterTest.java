@@ -27,7 +27,7 @@ import java.util.List;
 public final class LanguageTagListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<LanguageTagListHeaderValueConverter, List<LanguageTag>> {
 
-    private final static String TEXT = "en; q=1.0, en-au; q=0.5";
+    private final static String TEXT = "en; q=1.0, en-AU; q=0.5";
 
     @Override
     protected String requiredPrefix() {
@@ -51,11 +51,13 @@ public final class LanguageTagListHeaderValueConverterTest extends
     }
 
     private LanguageTag en_10() {
-        return LanguageTag.with("en").setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 1.0f));
+        return LanguageTag.with(LanguageTagName.with("en"))
+                .setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 1.0f));
     }
 
     private LanguageTag en_au_05() {
-        return LanguageTag.with("en-au").setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f));
+        return LanguageTag.with(LanguageTagName.with("en-au"))
+                .setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f));
     }
 
     @Override

@@ -70,7 +70,7 @@ final public class LanguageTagParameterNameTest extends HeaderParameterNameTestC
     }
 
     private LanguageTag languageTag() {
-        return LanguageTag.wildcard();
+        return LanguageTag.WILDCARD;
     }
 
     // toString...........................................................................

@@ -18,11 +18,17 @@
 
 package walkingkooka.net.header;
 
+import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
-public abstract class LanguageTagEqualityTestCase<L extends LanguageTag> extends HashCodeEqualsDefinedEqualityTestCase<L> {
+public abstract class LanguageTagNameEqualityTestCase<N extends LanguageTagName> extends HashCodeEqualsDefinedEqualityTestCase<N> {
 
-    LanguageTagEqualityTestCase() {
+    LanguageTagNameEqualityTestCase() {
         super();
+    }
+
+    @Test
+    public final void testDifferent() {
+        this.checkNotEquals(LanguageTagName.with("fr"));
     }
 }
