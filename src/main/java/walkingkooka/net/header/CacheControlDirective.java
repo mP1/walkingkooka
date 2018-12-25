@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * <pre>
@@ -62,19 +61,6 @@ public final class CacheControlDirective<T> implements HeaderValue {
     public static List<CacheControlDirective<?>> parse(final String text) {
         return CacheControlDirectiveHeaderParser.parseCacheControlDirectiveList(text);
     }
-
-    /**
-     * Makes a header text from a list of directives.
-     */
-    public static String toHeaderTextList(final List<CacheControlDirective<?>> directives) {
-        Objects.requireNonNull(directives, "directives");
-
-        return directives.stream()
-                .map(d -> d.toHeaderText())
-                .collect(Collectors.joining(TO_STRING_SEPARATOR));
-    }
-
-    private final static String TO_STRING_SEPARATOR = SEPARATOR + " ";
 
     // constants................................................................................................
 

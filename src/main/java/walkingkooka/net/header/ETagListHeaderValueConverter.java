@@ -51,7 +51,7 @@ final class ETagListHeaderValueConverter extends HeaderValueConverter<List<ETag>
 
     @Override
     String toText0(final List<ETag> value, final Name name) {
-        return ETag.toHeaderTextList(value);
+        return HeaderValue.toHeaderTextList(value);
     }
 
     @Override

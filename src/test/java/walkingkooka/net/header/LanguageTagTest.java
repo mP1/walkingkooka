@@ -19,21 +19,12 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
-
-import static org.junit.Assert.assertEquals;
 
 public final class LanguageTagTest extends LanguageTagTestCase<LanguageTag> {
 
     // toHeaderTextList.......................................................................................
-
-    @Test(expected = NullPointerException.class)
-    public void testToHeaderTextListListNullFails() {
-        LanguageTag.toHeaderTextList(null);
-    }
 
     @Test
     public void testToHeaderTextListListOfOne() {
@@ -67,12 +58,6 @@ public final class LanguageTagTest extends LanguageTagTestCase<LanguageTag> {
 
     private LanguageTag fr() {
         return LanguageTag.with("fr");
-    }
-
-    private void toHeaderTextListAndCheck(final String toString, final LanguageTag... tags) {
-        assertEquals("LanguageTag.toString(List) failed =" + CharSequences.quote(toString),
-                toString,
-                LanguageTag.toHeaderTextList(Lists.of(tags)));
     }
 
     @Override

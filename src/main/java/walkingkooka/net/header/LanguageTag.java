@@ -28,7 +28,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Holds a LanguageTag which is the value of a accept-language and similar headers.
@@ -78,19 +77,6 @@ public abstract class LanguageTag extends HeaderValueWithParameters2<LanguageTag
     public static List<LanguageTag> parseList(final String text) {
         return LanguageTagListHeaderParser.parseList(text);
     }
-
-    /**
-     * Builds a header value representation of a list of tags.
-     */
-    public static String toHeaderTextList(final List<LanguageTag> tags) {
-        Objects.requireNonNull(tags, "tags");
-
-        return tags.stream()
-                .map(t -> t.toString())
-                .collect(Collectors.joining(TOSTRING_SEPARATOR));
-    }
-
-    private final static String TOSTRING_SEPARATOR = SEPARATOR.string().concat(" ");
 
     /**
      * Package private to limit sub classing.

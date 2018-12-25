@@ -81,45 +81,40 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
 
     // toHeaderTextList.......................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testToHeaderTextListListNullFails() {
-        ETag.toHeaderTextList(null);
-    }
-
     @Test
-    public void testToHeaderTextListListOfOne() {
+    public void testToHeaderTextListOne() {
         this.toHeaderTextListAndCheck("\"abc123\"",
                 ETag.with("abc123", ETagValidator.STRONG));
     }
 
     @Test
-    public void testToHeaderTextListListOfOne2() {
+    public void testToHeaderTextListOne2() {
         this.toHeaderTextListAndCheck("W/\"abc123\"",
                 ETag.with("abc123", ETagValidator.WEAK));
     }
 
     @Test
-    public void testToHeaderTextListListOfOneWildcard() {
+    public void testToHeaderTextListOneWildcard() {
         this.toHeaderTextListAndCheck("*",
                 ETag.wildcard());
     }
 
     @Test
-    public void testToHeaderTextListListOfMany() {
+    public void testToHeaderTextListSeveral() {
         this.toHeaderTextListAndCheck("\"1\", \"2\"",
                 ETag.with("1", ETagValidator.STRONG),
                 ETag.with("2", ETagValidator.STRONG));
     }
 
     @Test
-    public void testToHeaderTextListListOfMany2() {
+    public void testToHeaderTextListSeveral2() {
         this.toHeaderTextListAndCheck("\"11\", \"22\"",
                 ETag.with("11", ETagValidator.STRONG),
                 ETag.with("22", ETagValidator.STRONG));
     }
 
     @Test
-    public void testToHeaderTextListListOfMany3() {
+    public void testToHeaderTextListSeveral3() {
         this.toHeaderTextListAndCheck("W/\"11\", \"22\"",
                 ETag.with("11", ETagValidator.WEAK),
                 ETag.with("22", ETagValidator.STRONG));
@@ -128,7 +123,7 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
     private void toHeaderTextListAndCheck(final String toString, final ETag... tags) {
         assertEquals("ETag.toString(List) failed =" + CharSequences.quote(toString),
                 toString,
-                ETag.toHeaderTextList(Lists.of(tags)));
+                HeaderValue.toHeaderTextList(Lists.of(tags)));
     }
 
     @Override

@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 /**
@@ -257,20 +256,6 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
                         subType,
                         parameters);
     }
-
-    /**
-     * Formats or converts a list of media types back to a String. Basically
-     * an inverse of {@link #parseList(String)}.
-     */
-    public static String toHeaderTextList(final List<MediaType> mediaTypes) {
-        Objects.requireNonNull(mediaTypes, "mediaTypes");
-
-        return mediaTypes.stream()
-                .map(m -> m.toString())
-                .collect(Collectors.joining(TOSTRING_MEDIATYPE_SEPARATOR));
-    }
-
-    private final static String TOSTRING_MEDIATYPE_SEPARATOR = SEPARATOR.character() + " ";
 
     // ctor ...................................................................................................
 

@@ -25,9 +25,7 @@ import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Holds a simple header value, and any accompanying parameters. Parameter values will be of the type
@@ -61,17 +59,6 @@ public final class TokenHeaderValue extends HeaderValueWithParameters2<TokenHead
      */
     public static List<TokenHeaderValue> parseList(final String text) {
         return TokenHeaderValueListHeaderParser.parseTokenHeaderValueList(text);
-    }
-
-    /**
-     * Formats a charsets of tokens, basically the inverse of {@link #parseList(String)}
-     */
-    public static String toHeaderTextList(final List<TokenHeaderValue> tokens) {
-        Objects.requireNonNull(tokens, "tokens");
-
-        return tokens.stream()
-                .map(t -> t.toString())
-                .collect(Collectors.joining(", "));
     }
 
     /**

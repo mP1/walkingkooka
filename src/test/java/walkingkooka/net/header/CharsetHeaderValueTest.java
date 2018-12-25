@@ -154,11 +154,6 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     // toHeaderTextList ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testToHeaderTextListNullFails() {
-        CharsetHeaderValue.toHeaderTextList(null);
-    }
-
     @Test
     public void testToHeaderTextListOne() {
         final String text = "a";
@@ -178,12 +173,6 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
         this.toHeaderTextListAndCheck("a, b",
                 CharsetHeaderValue.with(CharsetName.with("a")),
                 CharsetHeaderValue.with(CharsetName.with("b")));
-    }
-
-    private void toHeaderTextListAndCheck(final String toString, final CharsetHeaderValue... tokens) {
-        assertEquals("header text of " + Arrays.toString(tokens),
-                toString,
-                CharsetHeaderValue.toHeaderTextList(Lists.of(tokens)));
     }
 
     // helpers ...........................................................................................

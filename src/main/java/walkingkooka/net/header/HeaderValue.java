@@ -21,10 +21,25 @@ package walkingkooka.net.header;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /**
  * Contract implemented by header value types.
  */
 public interface HeaderValue extends HashCodeEqualsDefined, HasHeaderScope {
+
+    /**
+     * Builds a header value representation of a list of headerValues.
+     */
+    static <H extends HeaderValue> String toHeaderTextList(final List<H> headerValues) {
+        Objects.requireNonNull(headerValues, "headerValues");
+
+        return headerValues.stream()
+                .map(t -> t.toHeaderText())
+                .collect(Collectors.joining(SEPARATOR.string().concat(" ")));
+    }
 
     /**
      * The separator character that separates multiple header values.

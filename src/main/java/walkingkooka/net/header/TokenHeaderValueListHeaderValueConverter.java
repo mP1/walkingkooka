@@ -51,7 +51,7 @@ final class TokenHeaderValueListHeaderValueConverter extends HeaderValueConverte
 
     @Override
     String toText0(final List<TokenHeaderValue> values, final Name name) {
-        return TokenHeaderValue.toHeaderTextList(values);
+        return HeaderValue.toHeaderTextList(values);
     }
 
     @Override

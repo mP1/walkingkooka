@@ -160,11 +160,6 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
 
     // toHeaderTextList ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testToHeaderTextListNullFails() {
-        TokenHeaderValue.toHeaderTextList(null);
-    }
-
     @Test
     public void testToHeaderTextListOne() {
         this.toHeaderTextListAndCheck("A",
@@ -183,12 +178,6 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
         this.toHeaderTextListAndCheck("A, B",
                 TokenHeaderValue.with("A"),
                 TokenHeaderValue.with("B"));
-    }
-
-    private void toHeaderTextListAndCheck(final String toString, final TokenHeaderValue... tokens) {
-        assertEquals("toheaderTextList of " + Arrays.toString(tokens),
-                toString,
-                TokenHeaderValue.toHeaderTextList(Lists.of(tokens)));
     }
 
     // helpers ...........................................................................................
