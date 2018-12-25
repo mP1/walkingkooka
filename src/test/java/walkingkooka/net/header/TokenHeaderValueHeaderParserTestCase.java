@@ -34,12 +34,7 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     }
 
     @Test
-    public final void testParameterSeparatorFails() {
-        this.parseMissingValueFails(";");
-    }
-
-    @Test
-    public final void testKeyValueSeparatorFails() {
+    public void testKeyValueSeparatorFails() {
         this.parseInvalidCharacterFails("=");
     }
 

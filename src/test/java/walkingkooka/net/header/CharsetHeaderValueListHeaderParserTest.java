@@ -32,7 +32,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserWi
 
     @Test
     public final void testParameterSeparatorFails() {
-        this.parseMissingValueFails(";");
+        this.parseMissingValueFails(";", 0);
     }
 
     @Test

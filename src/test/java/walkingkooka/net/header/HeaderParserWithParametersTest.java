@@ -40,7 +40,7 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
 
     @Test
     public void testParseParameterSeparatorFails() {
-        this.parseMissingValueFails(";");
+        this.parseMissingValueFails(";", 0);
     }
 
     @Test
@@ -109,6 +109,11 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
     }
 
     @Test
+    public void testParseValueParameterSeparatorParameterSeparatorFails() {
+        this.parseInvalidCharacterFails("v;;", 2);
+    }
+
+    @Test
     public void testParseValueParameterSeparatorParameterNameFails() {
         this.parseMissingParameterValueFails("v;p");
     }
@@ -151,6 +156,12 @@ public final class HeaderParserWithParametersTest extends HeaderParserWithParame
     @Test
     public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorUnquotedParameterValue() {
         this.parseAndCheck("v;p=u", "[value-v][parameter-name-p][parameter-value-unquoted-u]v; p=u");
+    }
+
+    @Test
+    public void testParseValueParameterSeparatorParameterNameKeyValueSeparatorKeyValueSeparatorUnquotedParameterValueFails() {
+        final String text = "v;p==u";
+        this.parseInvalidCharacterFails(text, text.indexOf('=') + 1);
     }
 
     @Test
