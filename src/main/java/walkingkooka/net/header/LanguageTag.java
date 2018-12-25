@@ -19,17 +19,19 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.HasQFactorWeight;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Holds a LanguageTag which is the value of a accept-language and similar headers.
  */
 public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
         LanguageTagParameterName<?>,
-        LanguageTagName> {
+        LanguageTagName> implements HasQFactorWeight {
 
     /**
      * No parameters constant.
@@ -124,6 +126,15 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
      */
     public boolean isWildcard() {
         return this.value.isWildcard();
+    }
+
+    // HasQFactorWeight................................................................................................
+
+    /**
+     * Retrieves the q-weight for this value.
+     */
+    public final Optional<Float> qFactorWeight() {
+        return this.qFactorWeight(LanguageTagParameterName.Q_FACTOR);
     }
 
     // HeaderValue........................................................................................................

@@ -19,6 +19,7 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.HasQFactorWeight;
 
 import java.util.List;
 
@@ -30,7 +31,10 @@ final class LanguageTagListHeaderParser extends LanguageTagHeaderParser {
     static List<LanguageTag> parseList(final String text) {
         final LanguageTagListHeaderParser parser = new LanguageTagListHeaderParser(text);
         parser.parse();
-        return parser.languageTags;
+
+        final List<LanguageTag> languageTags = parser.languageTags;
+        languageTags.sort(HasQFactorWeight.qFactorDescendingComparator());
+        return Lists.readOnly(languageTags);
     }
 
     private LanguageTagListHeaderParser(final String text) {
@@ -47,5 +51,5 @@ final class LanguageTagListHeaderParser extends LanguageTagHeaderParser {
         this.languageTags.add(languageTag);
     }
 
-    private List<LanguageTag> languageTags = Lists.array();
+    private final List<LanguageTag> languageTags = Lists.array();
 }
