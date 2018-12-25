@@ -51,7 +51,7 @@ final class CacheControlDirectiveListHeaderValueConverter extends HeaderValueCon
 
     @Override
     String toText0(final List<CacheControlDirective<?>> directives, final Name name) {
-        return CacheControlDirective.toHeaderTextList(directives);
+        return HeaderValue.toHeaderTextList(directives);
     }
 
     @Override

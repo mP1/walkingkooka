@@ -51,7 +51,7 @@ final class LanguageTagListHeaderValueConverter extends HeaderValueConverter<Lis
 
     @Override
     String toText0(final List<LanguageTag> values, final Name name) {
-        return LanguageTag.toHeaderTextList(values);
+        return HeaderValue.toHeaderTextList(values);
     }
 
     @Override

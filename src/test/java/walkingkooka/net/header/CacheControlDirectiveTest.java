@@ -204,11 +204,6 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
 
     // toHeaderTextList..........................................................................
 
-    @Test(expected = NullPointerException.class)
-    public void testToHeaderTextListNullFails() {
-        CacheControlDirective.toHeaderTextList(null);
-    }
-
     @Test
     public void testToHeaderTextListNoCache() {
         this.toHeaderTextListAndCheck("no-cache",
@@ -227,13 +222,6 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
                 CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
                 CacheControlDirective.NO_CACHE,
                 CacheControlDirective.NO_STORE);
-    }
-
-    private void toHeaderTextListAndCheck(final String toString,
-                                          final CacheControlDirective<?>... directives) {
-        assertEquals("toHeaderTextList returned wrong toString " + Arrays.toString(directives),
-                toString,
-                CacheControlDirective.toHeaderTextList(Lists.of(directives)));
     }
 
     @Override

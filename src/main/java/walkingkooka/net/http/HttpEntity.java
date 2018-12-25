@@ -26,6 +26,7 @@ import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
 import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HeaderValue;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
@@ -72,7 +73,7 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
                 .stream()
                 .anyMatch(v -> v.value().matches(contentTypeCharset))) {
             throw new NotAcceptableHeaderException("Content type " + contentTypeCharset +
-                    " not in accept-charset=" + CharsetHeaderValue.toHeaderTextList(acceptCharset));
+                    " not in accept-charset=" + HeaderValue.toHeaderTextList(acceptCharset));
         }
 
         final byte[] body = text.getBytes(contentTypeCharset.charset().get());

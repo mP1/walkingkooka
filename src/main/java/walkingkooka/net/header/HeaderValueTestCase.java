@@ -19,7 +19,10 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -61,6 +64,13 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTe
     protected void toHeaderTextAndCheck(final HeaderValue headerValue, final String expected) {
         assertEquals("headerText of " + headerValue, expected, headerValue.toHeaderText());
         this.isWildcardAndCheck0(headerValue, String.valueOf(HeaderValue.WILDCARD).equals(expected));
+    }
+
+    protected void toHeaderTextListAndCheck(final String toString,
+                                            final HeaderValue... headerValues) {
+        assertEquals("toHeaderTextList returned wrong toString " + Arrays.toString(headerValues),
+                toString,
+                HeaderValue.toHeaderTextList(Lists.of(headerValues)));
     }
 
     protected void isWildcardAndCheck(final boolean expected) {

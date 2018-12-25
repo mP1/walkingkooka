@@ -24,7 +24,6 @@ import walkingkooka.text.CharacterConstant;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Holds a ETAG.
@@ -63,19 +62,6 @@ public abstract class ETag implements HeaderValue,
     public static List<ETag> parseList(final String text) {
         return ETagListHeaderParser.parseList(text);
     }
-
-    /**
-     * Builds a header value representation of a list of tags.
-     */
-    public static String toHeaderTextList(final List<ETag> tags) {
-        Objects.requireNonNull(tags, "tags");
-
-        return tags.stream()
-                .map(t -> t.toString())
-                .collect(Collectors.joining(TOSTRING_SEPARATOR));
-    }
-
-    private final static String TOSTRING_SEPARATOR = SEPARATOR.string().concat(" ");
 
     /**
      * Package private to limit sub classing.

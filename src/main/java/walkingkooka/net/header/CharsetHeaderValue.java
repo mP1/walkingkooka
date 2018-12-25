@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 /**
@@ -94,20 +93,6 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
                 result :
                 new CharsetHeaderValue(charset, parameters);
     }
-
-    /**
-     * Formats or converts a list of media types back to a String. Basically
-     * an inverse of {@link #parse(String)}.
-     */
-    public static String toHeaderTextList(final List<CharsetHeaderValue> charsetHeaderValues) {
-        Objects.requireNonNull(charsetHeaderValues, "charsetHeaderValues");
-
-        return charsetHeaderValues.stream()
-                .map(m -> m.toString())
-                .collect(Collectors.joining(TOSTRING_CHARSET_SEPARATOR));
-    }
-
-    private final static String TOSTRING_CHARSET_SEPARATOR = SEPARATOR + " ";
 
     // ctor ...................................................................................................
 
