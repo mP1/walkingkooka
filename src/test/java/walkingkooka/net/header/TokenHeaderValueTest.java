@@ -125,6 +125,14 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
                 "abc; p1=v1; p2=v2");
     }
 
+
+    // isWildcard ..................................................................................................
+
+    @Test
+    public void testIsWildcard() {
+        this.isWildcardAndCheck(false);
+    }
+
     // toString ...........................................................................................
 
     @Test
