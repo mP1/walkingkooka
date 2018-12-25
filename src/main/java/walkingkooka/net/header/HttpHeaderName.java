@@ -137,6 +137,22 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values of type {@link LanguageTag}.
+     */
+    private static HttpHeaderName<LanguageTag> registerLanguageTagConstant(final String header,
+                                                                          final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueConverter.languageTag());
+    }
+
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values that include a list of {@link LanguageTag}.
+     */
+    private static HttpHeaderName<List<LanguageTag>> registerLanguageTagListConstant(final String header,
+                                                                                    final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueConverter.languageTagList());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link LocalDateTime} header values.
      */
     private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String header,
@@ -317,7 +333,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<TokenHeaderValue>> ACCEPT_LANGUAGE = registerTokenListConstant("Accept-Language",
+    public final static HttpHeaderName<List<LanguageTag>> ACCEPT_LANGUAGE = registerLanguageTagListConstant("Accept-Language",
             HttpHeaderNameScope.REQUEST);
 
     /**
@@ -621,7 +637,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * Content-Language: de-DE, en-CA
      * </pre>
      */
-    public final static HttpHeaderName<List<TokenHeaderValue>> CONTENT_LANGUAGE = registerTokenListConstant("Content-Language",
+    public final static HttpHeaderName<LanguageTag> CONTENT_LANGUAGE = registerLanguageTagConstant("Content-Language",
             HttpHeaderNameScope.RESPONSE);
 
     /**

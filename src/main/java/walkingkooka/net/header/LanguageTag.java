@@ -68,7 +68,7 @@ public abstract class LanguageTag extends HeaderValueWithParameters2<LanguageTag
     /**
      * Parsers a header value holding a single tag.
      */
-    public static LanguageTag parseOne(final String text) {
+    public static LanguageTag parse(final String text) {
         return LanguageTagOneHeaderParser.parseOne(text);
     }
 
