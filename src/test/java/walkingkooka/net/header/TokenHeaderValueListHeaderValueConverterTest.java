@@ -114,7 +114,7 @@ public final class TokenHeaderValueListHeaderValueConverterTest extends
 
     @Override
     protected HttpHeaderName<List<TokenHeaderValue>> name() {
-        return HttpHeaderName.CONTENT_LANGUAGE;
+        return HttpHeaderName.ACCEPT_ENCODING;
     }
 
     @Override

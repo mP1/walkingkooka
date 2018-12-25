@@ -130,6 +130,20 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
+     * {@see LanguageTagHeaderValueConverter}
+     */
+    static HeaderValueConverter<LanguageTag> languageTag() {
+        return LanguageTagHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LanguageTagListHeaderValueConverter}
+     */
+    static HeaderValueConverter<List<LanguageTag>> languageTagList() {
+        return LanguageTagListHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalDateTimeHeaderValueConverter}
      */
     static HeaderValueConverter<LocalDateTime> localDateTime() {
