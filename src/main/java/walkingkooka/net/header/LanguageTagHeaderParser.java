@@ -33,12 +33,12 @@ abstract class LanguageTagHeaderParser extends HeaderParserWithParameters<Langua
     @Override
     final LanguageTag wildcardValue() {
         this.position++;
-        return LanguageTag.wildcard();
+        return LanguageTag.WILDCARD;
     }
 
     @Override
     final LanguageTag value() {
-        return this.token(LANGUAGE_TAG, LanguageTag::with);
+        return LanguageTag.with(this.token(LANGUAGE_TAG, LanguageTagName::with));
     }
 
     final static CharPredicate LANGUAGE_TAG = RFC2045TOKEN;

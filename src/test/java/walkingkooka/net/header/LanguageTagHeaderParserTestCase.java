@@ -31,7 +31,7 @@ public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeade
 
     @Test
     public final void testWildcard() {
-        this.parseAndCheck2("*", LanguageTag.wildcard());
+        this.parseAndCheck2("*", LanguageTag.WILDCARD);
     }
 
     @Test
@@ -63,7 +63,7 @@ public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeade
     @Test
     public final void testWildcardWithQWeight() {
         this.parseAndCheck2("*; q=0.75",
-                LanguageTag.wildcard().setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.75f)));
+                LanguageTag.WILDCARD.setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.75f)));
     }
 
     @Test
@@ -73,17 +73,17 @@ public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeade
         parameters.put(LanguageTagParameterName.with("c"), "d");
 
         this.parseAndCheck2("*; a=b; c=d",
-                LanguageTag.wildcard().setParameters(parameters));
+                LanguageTag.WILDCARD.setParameters(parameters));
     }
 
     @Test
     public final void testLanguage_en() {
-        this.parseAndCheck2("en", LanguageTag.with("en"));
+        this.parseAndCheck2("en", LanguageTag.with(LanguageTagName.with("en")));
     }
 
     @Test
     public final void testLanguage_de_CH() {
-        this.parseAndCheck2("de-CH", LanguageTag.with("de-CH"));
+        this.parseAndCheck2("de-CH", LanguageTag.with(LanguageTagName.with("de-CH")));
     }
 
     abstract void parseAndCheck2(final String text, final LanguageTag expected);

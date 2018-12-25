@@ -19,23 +19,16 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.collect.map.Maps;
 
-public final class LanguageTagWildcardEqualityTest extends LanguageTagEqualityTestCase<LanguageTagWildcard> {
+public final class LanguageTagNameWildcardEqualityTest extends LanguageTagNameEqualityTestCase<LanguageTagNameWildcard> {
 
     @Test
     public void testNonWildcard() {
-        this.checkNotEquals(LanguageTag.with("en"));
-    }
-
-    @Test
-    public void testDifferentParameters() {
-        this.checkNotEquals(LanguageTagWildcard.INSTANCE
-                .setParameters(Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f)));
+        this.checkNotEquals(LanguageTagName.with("en"));
     }
 
     @Override
-    protected LanguageTagWildcard createObject() {
-        return LanguageTagWildcard.INSTANCE;
+    protected LanguageTagNameWildcard createObject() {
+        return LanguageTagNameWildcard.INSTANCE;
     }
 }

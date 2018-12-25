@@ -24,45 +24,52 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Locale;
 import java.util.Optional;
 
-public final class LanguageTagNonWildcardTest extends LanguageTagTestCase<LanguageTagNonWildcard> {
+import static org.junit.Assert.assertSame;
+
+public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCase<LanguageTagNameNonWildcard> {
 
     private final static String VALUE = "en";
     private final static Optional<Locale> LOCALE = Optional.of(Locale.forLanguageTag("en"));
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
-        LanguageTagNonWildcard.nonWildcard(null, LanguageTagNonWildcard.NO_PARAMETERS);
+        LanguageTagNameNonWildcard.nonWildcard(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyFails() {
-        LanguageTagNonWildcard.nonWildcard("", LanguageTagNonWildcard.NO_PARAMETERS);
+        LanguageTagNameNonWildcard.nonWildcard("");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWithInvalidLanguageTagFails() {
-        LanguageTagNonWildcard.nonWildcard("\0xyz", LanguageTagNonWildcard.NO_PARAMETERS);
+    public void testWithInvalidLanguageTagNameFails() {
+        LanguageTagNameNonWildcard.nonWildcard("\0xyz");
     }
 
     @Test
     public void testWith() {
-        final LanguageTagNonWildcard languageTag = LanguageTagNonWildcard.nonWildcard(VALUE,
-                LanguageTagNonWildcard.NO_PARAMETERS);
-        this.check(languageTag);
+        final LanguageTagNameNonWildcard LanguageTagName = LanguageTagNameNonWildcard.nonWildcard(VALUE);
+        this.check(LanguageTagName);
     }
 
-    private void check(final LanguageTag tag) {
-        this.check(tag, VALUE, LOCALE, LanguageTagNonWildcard.NO_PARAMETERS);
+    private void check(final LanguageTagName name) {
+        this.check(name, VALUE, LOCALE);
+    }
+
+    @Test
+    public void testConstant() {
+        assertSame(LanguageTagNameNonWildcard.nonWildcard("en"),
+                LanguageTagNameNonWildcard.nonWildcard("en"));
     }
 
     @Override
-    protected LanguageTagNonWildcard createHeaderValueWithParameters() {
-        return LanguageTagNonWildcard.nonWildcard(VALUE, LanguageTagNonWildcard.NO_PARAMETERS);
+    protected LanguageTagNameNonWildcard createName(final String name) {
+        return LanguageTagNameNonWildcard.nonWildcard(name);
     }
 
     @Override
-    protected Class<LanguageTagNonWildcard> type() {
-        return LanguageTagNonWildcard.class;
+    protected Class<LanguageTagNameNonWildcard> type() {
+        return LanguageTagNameNonWildcard.class;
     }
 
     @Override
