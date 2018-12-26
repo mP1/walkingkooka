@@ -23,6 +23,7 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
+import java.io.ByteArrayOutputStream;
 import java.util.function.Function;
 
 /**
@@ -192,8 +193,170 @@ abstract class HeaderParser {
             unescaped.append(c);
         }
 
-        //return unescaped.toString();
         return this.text.substring(start, this.position);
+    }
+
+    /**
+     * <a href="https://tools.ietf.org/html/rfc5987"></a>
+     */
+    EncodedText encodedText() {
+        final CharsetName charset = this.token(MIME_CHARSETC, CharsetName::with);
+        if(!this.hasMoreCharacters()) {
+            this.incompleteEncodedAsciiText();
+        }
+        this.languageQuoteCharacter();
+
+        final LanguageTagName languageTagName = this.token(MIME_CHARSETC, LanguageTagName::with);
+
+        this.languageQuoteCharacter();
+
+        final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        while(this.hasMoreCharacters()) {
+            final char c = this.character();
+            switch(c){
+                case EncodedText.ENCODE:
+                    this.position++;
+                    if(!this.hasMoreCharacters()) {
+                        this.incompleteEncodedAsciiText();
+                    }
+                    final int hi = digit(this.character());
+                    this.position++;
+
+                    if(!this.hasMoreCharacters()) {
+                        this.incompleteEncodedAsciiText();
+                    }
+                    final int lo = digit(this.character()); // below will advance position
+
+                    bytes.write((hi << 4) + lo);
+                    break;
+                case 'A':
+                case 'B':
+                case 'C':
+                case 'D':
+                case 'E':
+                case 'F':
+                case 'G':
+                case 'H':
+                case 'I':
+                case 'J':
+                case 'K':
+                case 'L':
+                case 'M':
+                case 'N':
+                case 'O':
+                case 'P':
+                case 'Q':
+                case 'R':
+                case 'S':
+                case 'T':
+                case 'U':
+                case 'V':
+                case 'W':
+                case 'X':
+                case 'Y':
+                case 'Z':
+                case 'a':
+                case 'b':
+                case 'c':
+                case 'd':
+                case 'e':
+                case 'f':
+                case 'g':
+                case 'h':
+                case 'i':
+                case 'j':
+                case 'k':
+                case 'l':
+                case 'm':
+                case 'n':
+                case 'o':
+                case 'p':
+                case 'q':
+                case 'r':
+                case 's':
+                case 't':
+                case 'u':
+                case 'v':
+                case 'w':
+                case 'x':
+                case 'y':
+                case 'z':
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case '!':
+                case '#':
+                case '$':
+                case '&':
+                case '+':
+                case '-':
+                case '.':
+                case '^':
+                case '_':
+                case '`':
+                case '|':
+                case '~':
+                    bytes.write(c);
+                    break;
+                default:
+                    this.incompleteEncodedAsciiText();
+            }
+            this.position++;
+        }
+
+        return EncodedText.with(charset,
+                languageTagName,
+                new String(bytes.toByteArray(), charset.charset().get()));
+    }
+
+    private void languageQuoteCharacter() {
+        if(!this.hasMoreCharacters()) {
+            this.incompleteEncodedAsciiText();
+        }
+        if (LANGUAGE_QUOTE != this.character()) {
+            this.failInvalidCharacter();
+        }
+        this.position++;
+    }
+
+    private final static char LANGUAGE_QUOTE = '\'';
+
+    /**
+     * <a href="https://tools.ietf.org/html/rfc5987"></a>
+     * <pre>
+     *  mime-charsetc = ALPHA / DIGIT
+     *                    / "!" / "#" / "$" / "%" / "&"
+     *                    / "+" / "-" / "^" / "_" / "`"
+     *                    / "{" / "}" / "~"
+     *                    ; as <mime-charset> in Section 2.3 of [RFC2978]
+     *                    ; except that the single quote is not included
+     *                    ; SHOULD be registered in the IANA charset registry
+     * </pre>
+     */
+    private final static CharPredicate MIME_CHARSETC = CharPredicates.builder()
+            .range('A', 'Z')
+            .range('a', 'z')
+            .range('0', '9')
+            .any("!#$%&+-^_`{}~")
+            .build()
+            .setToString("MIME CHARSETC");
+
+    private static int digit(final char c) {
+        return Character.digit(c, 16);
+    }
+
+    /**
+     * Reports an invalid non ascii encoded text.
+     */
+    private void incompleteEncodedAsciiText() {
+        throw new InvalidEncodedTextHeaderException("Invalid encoded text " + CharSequences.quoteAndEscape(this.text) + " at " + this.position);
     }
 
     // helpers ..................................................................................

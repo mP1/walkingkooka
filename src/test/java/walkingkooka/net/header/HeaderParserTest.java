@@ -179,6 +179,96 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
                 parser.quotedText(CharPredicates.ascii(), escapingSupported));
     }
 
+    // encodedText.................................................................................................
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEncodedTextEmptyFails() {
+        this.encodedText("");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testEncodedTextCharsetInvalidCharacterFails() {
+        this.encodedText("utf\08");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testEncodedTextCharsetEmptyFails() {
+        this.encodedText("'en'abc");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testEncodedTextLanguageInvalidCharacterFails() {
+        this.encodedText("utf-8'a\0c'abc");
+    }
+
+    @Test(expected = InvalidEncodedTextHeaderException.class)
+    public void testEncodedTextLanguageUnclosedFails() {
+        this.encodedText("utf-8'en");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testEncodedTextLanguageEmptyFails() {
+        this.encodedText("utf-8''abc");
+    }
+
+    @Test(expected = HeaderValueException.class)
+    public void testEncodedTextStringInvalidCharacterFails() {
+        this.encodedText("utf-8''ab ");
+    }
+
+    @Test
+    public void testEncodedText() {
+        this.encodedTextAndCheck("utf-8'en'abc",
+                EncodedText.with(CharsetName.UTF_8, LanguageTagName.with("en"), "abc"));
+    }
+
+    @Test
+    public void testEncodedTextNil() {
+        this.encodedTextAndCheck2("%00", "\0");
+    }
+
+    @Test
+    public void testEncodedText01() {
+        this.encodedTextAndCheck2("%01", "\u0001");
+    }
+
+    @Test
+    public void testEncodedText20() {
+        this.encodedTextAndCheck2("%20", " ");
+    }
+
+    @Test
+    public void testEncodedText3f() {
+        this.encodedTextAndCheck2("%3f", "\u003f");
+    }
+
+    private void encodedTextAndCheck2(final String text, final String value) {
+        this.encodedTextAndCheck("utf-8'en'" + text,
+                EncodedText.with(CharsetName.UTF_8, LanguageTagName.with("en"), value));
+    }
+
+    // strange encoding/decoding when loop until Character#MAX_VALUE
+    @Test
+    public void testEncodedTextHeaderTextRoundtrip() {
+        for (int i = 0x3f; i < 50000; i++) {
+            final EncodedText encodedText = EncodedText.with(CharsetName.UTF_8,
+                    LanguageTagName.with("en"),
+                    Character.valueOf((char) i).toString());
+            this.encodedTextAndCheck(encodedText.toHeaderText(), encodedText);
+        }
+    }
+
+    private void encodedTextAndCheck(final String text,
+                                     final EncodedText expectedText) {
+        assertEquals("quoted text in " + CharSequences.quoteAndEscape(text),
+                expectedText,
+                this.encodedText(text));
+    }
+
+    private EncodedText encodedText(final String text) {
+        return new TestHeaderParser(text).encodedText();
+    }
+
     // events.................................................................................................
 
     @Test
