@@ -21,6 +21,8 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 
 public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
@@ -36,6 +38,14 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
     @Test
     public void testHeaderText() {
         this.toHeaderTextAndCheck("UTF-8'en'abc123");
+    }
+
+    @Test
+    public void testHeaderTextWithoutLanguage() {
+        this.toHeaderTextAndCheck(EncodedText.with(this.charset(),
+                EncodedText.NO_LANGUAGE,
+                "abc123"),
+                "UTF-8''abc123");
     }
 
     @Test
@@ -65,8 +75,8 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
         return CharsetName.UTF_8;
     }
 
-    private LanguageTagName language() {
-        return LanguageTagName.with("en");
+    private Optional<LanguageTagName> language() {
+        return Optional.of(LanguageTagName.with("en"));
     }
 
     private String value() {
