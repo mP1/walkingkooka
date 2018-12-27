@@ -81,10 +81,10 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
-     * {@see ContentDispositionFileNameHeaderValueConverter}
+     * {@see ContentDispositionFileNameEncodedHeaderValueConverter}
      */
     static HeaderValueConverter<ContentDispositionFileName> contentDispositionFilename() {
-        return ContentDispositionFileNameHeaderValueConverter.INSTANCE;
+        return ContentDispositionFileNameEncodedHeaderValueConverter.INSTANCE;
     }
 
     /**

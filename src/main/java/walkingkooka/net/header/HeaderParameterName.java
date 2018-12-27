@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.CharacterConstant;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -43,6 +44,15 @@ abstract class HeaderParameterName<V> implements HeaderName<V>{
     }
 
     private final String name;
+
+    /**
+     * Parameter names ending with a <code>*</code> will use encoded text as their value, rather than text or quoted text.
+     */
+    final boolean isStarParameter() {
+        return name.endsWith(STAR.string());
+    }
+
+    final static CharacterConstant STAR = CharacterConstant.with('*');
 
     /**
      * Accepts text and converts it into its value.

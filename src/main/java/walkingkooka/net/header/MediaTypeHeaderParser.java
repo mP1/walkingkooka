@@ -106,7 +106,7 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
 
     @Override
     final MediaTypeParameterName<?> parameterName() {
-        return this.token(PARAMETER_NAME, MediaTypeParameterName::with);
+        return this.parameterName(PARAMETER_NAME, MediaTypeParameterName::with);
     }
 
     final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;

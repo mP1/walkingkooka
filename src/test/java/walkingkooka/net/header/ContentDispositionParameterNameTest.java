@@ -71,7 +71,7 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
     @Test
     public void testParameterValuePresent() {
         final ContentDispositionParameterName<ContentDispositionFileName> parameter = ContentDispositionParameterName.FILENAME;
-        final ContentDispositionFileName filename = ContentDispositionFileName.with("readme.txt");
+        final ContentDispositionFileName filename = ContentDispositionFileName.notEncoded("readme.txt");
 
         this.parameterValueAndCheckPresent(parameter,
                 this.contentDisposition(),

@@ -45,7 +45,7 @@ abstract class LanguageTagHeaderParser extends HeaderParserWithParameters<Langua
 
     @Override
     final LanguageTagParameterName<?> parameterName() {
-        return this.token(PARAMETER_NAME, LanguageTagParameterName::with);
+        return this.parameterName(PARAMETER_NAME, LanguageTagParameterName::with);
     }
 
     final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;

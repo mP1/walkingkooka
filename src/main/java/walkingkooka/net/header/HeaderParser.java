@@ -138,11 +138,35 @@ abstract class HeaderParser {
      */
     final <T> T token(final CharPredicate predicate,
                       final Function<String, T> factory) {
+        return this.token(predicate, false, factory);
+    }
+
+    /**
+     * Uses the predicate to match characters and possibly a trailing star.
+     */
+    final <N extends HeaderParameterName<?>> N parameterName(final CharPredicate predicate,
+                                                             final Function<String, N> factory) {
+        return this.token(predicate, true, factory);
+    }
+
+    /**
+     * Uses the predicate to match characters, and then passes that text providing its not empty to the factory.
+     */
+    private <T> T token(final CharPredicate predicate,
+                        final boolean star,
+                        final Function<String, T> factory) {
         final int start = this.position;
-        final String tokenText = this.token(predicate);
+        String tokenText = this.token(predicate);
         if (tokenText.isEmpty()) {
             this.failInvalidCharacter();
         }
+        if (star && this.hasMoreCharacters()) {
+            if (HeaderParameterName.STAR.character() == this.character()) {
+                tokenText = tokenText.concat(HeaderParameterName.STAR.string());
+                this.position++;
+            }
+        }
+
         return this.token0(tokenText, factory, start);
     }
 
@@ -178,7 +202,7 @@ abstract class HeaderParser {
      *      quoted-pair    = "\" CHAR
      * </pre>
      */
-    String quotedText(final CharPredicate predicate, final boolean supportEscaping) {
+    final String quotedText(final CharPredicate predicate, final boolean supportEscaping) {
         final StringBuilder unescaped = new StringBuilder();
         int start = this.position;
         this.position++;
@@ -218,7 +242,7 @@ abstract class HeaderParser {
     /**
      * <a href="https://tools.ietf.org/html/rfc5987"></a>
      */
-    EncodedText encodedText() {
+    final EncodedText encodedText() {
         final CharsetName charset = this.token(MIME_CHARSETC, CharsetName::with);
         if(!this.hasMoreCharacters()) {
             this.incompleteEncodedAsciiText();

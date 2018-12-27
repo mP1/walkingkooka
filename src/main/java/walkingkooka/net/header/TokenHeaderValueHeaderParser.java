@@ -44,7 +44,7 @@ abstract class TokenHeaderValueHeaderParser extends HeaderParserWithParameters<T
 
     @Override
     final TokenHeaderValueParameterName<?> parameterName() {
-        return this.token(PARAMETER_NAME, TokenHeaderValueParameterName::with);
+        return this.parameterName(PARAMETER_NAME, TokenHeaderValueParameterName::with);
     }
 
     final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
