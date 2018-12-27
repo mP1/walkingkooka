@@ -21,6 +21,8 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
 
+import java.util.Optional;
+
 public final class EncodedTextEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<EncodedText> {
 
     @Test
@@ -33,7 +35,14 @@ public final class EncodedTextEqualityTest extends HashCodeEqualsDefinedEquality
     @Test
     public void testDifferentLanguage() {
         this.checkNotEquals(EncodedText.with(this.charset(),
-                LanguageTagName.with("fr"),
+                Optional.of(LanguageTagName.with("fr")),
+                this.value()));
+    }
+
+    @Test
+    public void testDifferentLanguage2() {
+        this.checkNotEquals(EncodedText.with(this.charset(),
+                EncodedText.NO_LANGUAGE,
                 this.value()));
     }
 
@@ -55,8 +64,8 @@ public final class EncodedTextEqualityTest extends HashCodeEqualsDefinedEquality
         return CharsetName.UTF_8;
     }
 
-    private LanguageTagName language() {
-        return LanguageTagName.with("en");
+    private Optional<LanguageTagName> language() {
+        return Optional.of(LanguageTagName.with("en"));
     }
 
     private String value() {

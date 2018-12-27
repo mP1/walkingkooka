@@ -24,6 +24,8 @@ import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static walkingkooka.net.header.HeaderParser.fail;
 
@@ -206,12 +208,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
         this.encodedText("utf-8'en");
     }
 
-    @Test(expected = HeaderValueException.class)
-    public void testEncodedTextLanguageEmptyFails() {
-        this.encodedText("utf-8''abc");
-    }
-
-    @Test(expected = HeaderValueException.class)
+    @Test(expected = InvalidEncodedTextHeaderException.class)
     public void testEncodedTextStringInvalidCharacterFails() {
         this.encodedText("utf-8''ab ");
     }
@@ -219,7 +216,17 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     @Test
     public void testEncodedText() {
         this.encodedTextAndCheck("utf-8'en'abc",
-                EncodedText.with(CharsetName.UTF_8, LanguageTagName.with("en"), "abc"));
+                EncodedText.with(CharsetName.UTF_8,
+                        Optional.of(LanguageTagName.with("en")),
+                        "abc"));
+    }
+
+    @Test
+    public void testEncodedTextWithoutLanguage() {
+        this.encodedTextAndCheck("utf-8''abc",
+                EncodedText.with(CharsetName.UTF_8,
+                        EncodedText.NO_LANGUAGE,
+                        "abc"));
     }
 
     @Test
@@ -244,7 +251,9 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
     private void encodedTextAndCheck2(final String text, final String value) {
         this.encodedTextAndCheck("utf-8'en'" + text,
-                EncodedText.with(CharsetName.UTF_8, LanguageTagName.with("en"), value));
+                EncodedText.with(CharsetName.UTF_8,
+                        Optional.of(LanguageTagName.with("en")),
+                        value));
     }
 
     // strange encoding/decoding when loop until Character#MAX_VALUE
@@ -252,7 +261,7 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     public void testEncodedTextHeaderTextRoundtrip() {
         for (int i = 0x3f; i < 50000; i++) {
             final EncodedText encodedText = EncodedText.with(CharsetName.UTF_8,
-                    LanguageTagName.with("en"),
+                    Optional.of(LanguageTagName.with("en")),
                     Character.valueOf((char) i).toString());
             this.encodedTextAndCheck(encodedText.toHeaderText(), encodedText);
         }

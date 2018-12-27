@@ -23,6 +23,8 @@ import walkingkooka.Value;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 
+import java.util.Optional;
+
 /**
  * Holds the parsed result of a RFC5987 token.
  * <a href="https://tools.ietf.org/html/rfc5987"></a>
@@ -69,10 +71,22 @@ import walkingkooka.test.HashCodeEqualsDefined;
 final class EncodedText implements HashCodeEqualsDefined, Value<String>, HeaderValue {
 
     /**
+     * The value part of an extended parameter (ext-value) is a token that
+     * consists of three parts: the REQUIRED character set name (charset),
+     * the OPTIONAL language information (language), and a character
+     * sequence representing the actual value (value-chars), separated by
+     * single quote characters.  Note that both character set names and
+     * language tags are restricted to the US-ASCII character set, and are
+     * matched case-insensitively (see [RFC2978], Section 2.3 and [RFC5646],
+     * Section 2.1.1).
+     */
+    final static Optional<LanguageTagName> NO_LANGUAGE = Optional.empty();
+
+    /**
      * Factory that creates a new {@link EncodedText}
      */
     static EncodedText with(final CharsetName charset,
-                            final LanguageTagName language,
+                            final Optional<LanguageTagName> language,
                             final String value) {
         return new EncodedText(charset, language, value);
     }
@@ -81,7 +95,7 @@ final class EncodedText implements HashCodeEqualsDefined, Value<String>, HeaderV
      * Private ctor
      */
     private EncodedText(final CharsetName charset,
-                        final LanguageTagName language,
+                        final Optional<LanguageTagName> language,
                         final String value) {
         this.charset = charset;
         this.language = language;
@@ -94,11 +108,17 @@ final class EncodedText implements HashCodeEqualsDefined, Value<String>, HeaderV
 
     private final CharsetName charset;
 
-    LanguageTagName language() {
+    Optional<LanguageTagName> language() {
         return this.language;
     }
 
-    private final LanguageTagName language;
+    private String languageHeaderText() {
+        return this.language.isPresent() ?
+                this.language.get().toHeaderText() :
+                "";
+    }
+
+    private final Optional<LanguageTagName> language;
 
     // Value ............................................................................................
 
@@ -215,7 +235,7 @@ final class EncodedText implements HashCodeEqualsDefined, Value<String>, HeaderV
             }
         }
 
-        return charset.value() + '\'' + this.language.toHeaderText() + '\'' + encodedText;
+        return charset.value() + '\'' + this.languageHeaderText() + '\'' + encodedText;
     }
 
     private static char hex(final int c) {

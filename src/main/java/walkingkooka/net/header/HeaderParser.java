@@ -24,6 +24,7 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -122,14 +123,32 @@ abstract class HeaderParser {
     /**
      * Uses the predicate to match characters, and then passes that text providing its not empty to the factory.
      */
+    final <T> Optional<T> tokenOptional(final CharPredicate predicate,
+                                        final Function<String, T> factory) {
+        final int start = this.position;
+        final String tokenText = this.token(predicate);
+
+        return tokenText.isEmpty() ?
+                Optional.empty() :
+                Optional.of(this.token0(tokenText, factory, start));
+    }
+
+    /**
+     * Uses the predicate to match characters, and then passes that text providing its not empty to the factory.
+     */
     final <T> T token(final CharPredicate predicate,
                       final Function<String, T> factory) {
         final int start = this.position;
         final String tokenText = this.token(predicate);
-        if(tokenText.isEmpty()) {
+        if (tokenText.isEmpty()) {
             this.failInvalidCharacter();
         }
+        return this.token0(tokenText, factory, start);
+    }
 
+    private <T> T token0(final String tokenText,
+                         final Function<String, T> factory,
+                         final int start) {
         try {
             return factory.apply(tokenText);
         } catch (final InvalidCharacterException cause) {
@@ -206,7 +225,8 @@ abstract class HeaderParser {
         }
         this.languageQuoteCharacter();
 
-        final LanguageTagName languageTagName = this.token(MIME_CHARSETC, LanguageTagName::with);
+        final Optional<LanguageTagName> languageTagName = this.tokenOptional(MIME_CHARSETC,
+                LanguageTagName::with);
 
         this.languageQuoteCharacter();
 
