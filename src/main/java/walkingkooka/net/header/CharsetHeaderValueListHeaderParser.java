@@ -82,7 +82,7 @@ final class CharsetHeaderValueListHeaderParser extends HeaderParserWithParameter
 
     @Override
     CharsetHeaderValueParameterName<?> parameterName() {
-        return this.token(PARAMETER_NAME, CharsetHeaderValueParameterName::with);
+        return this.parameterName(PARAMETER_NAME, CharsetHeaderValueParameterName::with);
     }
 
     final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;

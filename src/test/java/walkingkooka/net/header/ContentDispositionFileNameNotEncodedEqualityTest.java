@@ -18,25 +18,10 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
-
-public final class ContentDispositionFileNameEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<ContentDispositionFileName> {
-
-    private final static String FILENAME = "filename123";
-
-    @Test
-    public void testDifferentCase() {
-        this.checkNotEquals(ContentDispositionFileName.with(FILENAME.toUpperCase()));
-    }
-
-    @Test
-    public void testDifferent() {
-        this.checkNotEquals(ContentDispositionFileName.with("different"));
-    }
+public final class ContentDispositionFileNameNotEncodedEqualityTest extends ContentDispositionFileNameEqualityTestCase<ContentDispositionFileNameNotEncoded> {
 
     @Override
-    protected ContentDispositionFileName createObject() {
-        return ContentDispositionFileName.with(FILENAME);
+    ContentDispositionFileNameNotEncoded createFileName(final String name) {
+        return ContentDispositionFileNameNotEncoded.with(name);
     }
 }

@@ -19,48 +19,27 @@
 package walkingkooka.net.header;
 
 
-import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicates;
-
 /**
- * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileName}.
+ * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileNameEncoded}.
  */
-final class ContentDispositionFileNameHeaderValueConverter extends HeaderValueConverter<ContentDispositionFileName> {
+abstract class ContentDispositionFileNameHeaderValueConverter<F extends ContentDispositionFileName> extends HeaderValueConverter<ContentDispositionFileName> {
 
     /**
-     * Singleton
+     * Package private
      */
-    final static ContentDispositionFileNameHeaderValueConverter INSTANCE = new ContentDispositionFileNameHeaderValueConverter();
-
-    /**
-     * Private ctor use singleton.
-     */
-    private ContentDispositionFileNameHeaderValueConverter() {
+    ContentDispositionFileNameHeaderValueConverter() {
         super();
     }
 
     @Override
-    ContentDispositionFileName parse0(final String value, final Name name) {
-        return ContentDispositionFileName.with(QUOTED_UNQUOTED_STRING.parse(value, name));
+    final void check0(final Object value) {
+        this.checkType(value, this.type());
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, ContentDispositionFileName.class);
+    public final String toString() {
+        return this.type().getSimpleName();
     }
 
-    @Override
-    String toText0(final ContentDispositionFileName value, final Name name) {
-        return QUOTED_UNQUOTED_STRING.toText(value.value(), name);
-    }
-
-    private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
-            CharPredicates.asciiPrintable(),
-            false,
-            CharPredicates.rfc2045Token());
-
-    @Override
-    public String toString() {
-        return ContentDispositionFileName.class.getSimpleName();
-    }
+    abstract Class<F> type();
 }

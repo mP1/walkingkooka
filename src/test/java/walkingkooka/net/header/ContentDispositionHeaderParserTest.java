@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Map;
+import java.util.Optional;
 
 public final class ContentDispositionHeaderParserTest extends HeaderParserWithParametersTestCase<ContentDispositionHeaderParser,
         ContentDisposition> {
@@ -443,7 +444,7 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
         this.parseAndCheck("attachment; filename=readme.txt",
                 "attachment",
                 "filename",
-                ContentDispositionFileName.with("readme.txt"));
+                ContentDispositionFileName.notEncoded("readme.txt"));
     }
 
     @Test
@@ -451,7 +452,20 @@ public final class ContentDispositionHeaderParserTest extends HeaderParserWithPa
         this.parseAndCheck("attachment; filename=\"readme.txt\"",
                 "attachment",
                 "filename",
-                ContentDispositionFileName.with("readme.txt"));
+                ContentDispositionFileName.notEncoded("readme.txt"));
+    }
+
+    // parse filename star............................................................................................
+
+    @Test
+    public void testFilenameStar() {
+        this.parseAndCheck("attachment; filename*=UTF-8'en'abc%20123.txt",
+                "attachment",
+                "filename*",
+                ContentDispositionFileName.encoded(
+                        EncodedText.with(CharsetName.UTF_8,
+                                Optional.of(LanguageTagName.with("en")),
+                                "abc 123.txt")));
     }
 
     // parse modification-date............................................................................................

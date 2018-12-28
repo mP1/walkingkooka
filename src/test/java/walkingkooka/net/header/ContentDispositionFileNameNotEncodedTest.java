@@ -20,48 +20,45 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.InvalidCharacterException;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ContentDispositionFileNameTest extends HeaderValueTestCase<ContentDispositionFileName> {
+public final class ContentDispositionFileNameNotEncodedTest extends ContentDispositionFileNameTestCase<ContentDispositionFileNameNotEncoded> {
 
     private final static String FILENAME = "filename123";
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyFails() {
-        ContentDispositionFileName.with("");
+        ContentDispositionFileNameNotEncoded.with("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidCharFails() {
-        ContentDispositionFileName.with("\0");
+        ContentDispositionFileNameNotEncoded.with("\0");
     }
 
     @Test(expected = InvalidCharacterException.class)
     public void testWithForwardSlashFails() {
-        ContentDispositionFileName.with("/path/to/file");
+        ContentDispositionFileNameNotEncoded.with("/path/to/file");
     }
 
     @Test(expected = InvalidCharacterException.class)
     public void testWithBackSlashFails() {
-        ContentDispositionFileName.with("\\path\\to\\file");
+        ContentDispositionFileNameNotEncoded.with("\\path\\to\\file");
     }
 
     @Test
     public void testWith() {
         final String value = "filename123";
-        this.checkValue(ContentDispositionFileName.with(value), value);
+        this.check(ContentDispositionFileNameNotEncoded.with(value),
+                value,
+                ContentDispositionFileNameNotEncoded.NO_CHARSET,
+                ContentDispositionFileNameNotEncoded.NO_LANGUAGE);
     }
 
     @Test
     public void testToHeaderText() {
         this.toHeaderTextAndCheck(FILENAME);
-    }
-
-    @Test
-    public void testIsWildcard() {
-        this.isWildcardAndCheck(false);
     }
 
     private void checkValue(final ContentDispositionFileName filename, final String value) {
@@ -70,36 +67,16 @@ public final class ContentDispositionFileNameTest extends HeaderValueTestCase<Co
 
     @Test
     public void testToString() {
-        assertEquals(FILENAME, ContentDispositionFileName.with(FILENAME).toString());
+        assertEquals(FILENAME, ContentDispositionFileNameNotEncoded.with(FILENAME).toString());
     }
 
     @Override
-    protected ContentDispositionFileName createHeaderValue() {
-        return ContentDispositionFileName.with(FILENAME);
+    protected ContentDispositionFileNameNotEncoded createHeaderValue() {
+        return ContentDispositionFileNameNotEncoded.with(FILENAME);
     }
 
     @Override
-    protected boolean isMultipart() {
-        return true;
-    }
-
-    @Override
-    protected boolean isRequest() {
-        return true;
-    }
-
-    @Override
-    protected boolean isResponse() {
-        return true;
-    }
-
-    @Override
-    protected Class<ContentDispositionFileName> type() {
-        return ContentDispositionFileName.class;
-    }
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PUBLIC;
+    protected Class<ContentDispositionFileNameNotEncoded> type() {
+        return ContentDispositionFileNameNotEncoded.class;
     }
 }

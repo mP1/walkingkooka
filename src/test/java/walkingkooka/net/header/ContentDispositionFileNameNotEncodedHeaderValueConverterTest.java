@@ -19,10 +19,9 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.net.email.EmailAddress;
 
-public final class ContentDispositionFileNameHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<ContentDispositionFileNameHeaderValueConverter, ContentDispositionFileName> {
+public final class ContentDispositionFileNameNotEncodedHeaderValueConverterTest extends
+        HeaderValueConverterTestCase<ContentDispositionFileNameNotEncodedHeaderValueConverter, ContentDispositionFileName> {
     @Override
     protected String requiredPrefix() {
         return ContentDispositionFileName.class.getSimpleName();
@@ -31,17 +30,17 @@ public final class ContentDispositionFileNameHeaderValueConverterTest extends
     @Test
     public void testFilename() {
         final String filename = "readme.txt";
-        this.parseAndToTextAndCheck(filename, ContentDispositionFileName.with(filename));
+        this.parseAndToTextAndCheck(filename, ContentDispositionFileName.notEncoded(filename));
     }
 
     @Override
-    protected ContentDispositionFileNameHeaderValueConverter converter() {
-        return ContentDispositionFileNameHeaderValueConverter.INSTANCE;
+    protected ContentDispositionFileNameNotEncodedHeaderValueConverter converter() {
+        return ContentDispositionFileNameNotEncodedHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<EmailAddress> name() {
-        return HttpHeaderName.FROM;
+    protected ContentDispositionParameterName name() {
+        return ContentDispositionParameterName.FILENAME;
     }
 
     @Override
@@ -51,16 +50,16 @@ public final class ContentDispositionFileNameHeaderValueConverterTest extends
 
     @Override
     protected ContentDispositionFileName value() {
-        return ContentDispositionFileName.with("readme.txt");
+        return ContentDispositionFileName.notEncoded("readme.txt");
     }
 
     @Override
     protected String converterToString() {
-        return ContentDispositionFileName.class.getSimpleName();
+        return ContentDispositionFileNameNotEncoded.class.getSimpleName();
     }
 
     @Override
-    protected Class<ContentDispositionFileNameHeaderValueConverter> type() {
-        return ContentDispositionFileNameHeaderValueConverter.class;
+    protected Class<ContentDispositionFileNameNotEncodedHeaderValueConverter> type() {
+        return ContentDispositionFileNameNotEncodedHeaderValueConverter.class;
     }
 }

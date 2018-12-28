@@ -51,7 +51,7 @@ public final class ContentDispositionHeaderValueConverterTest extends
 
     @Override
     protected ContentDisposition value() {
-        return ContentDispositionType.ATTACHMENT.setFilename(ContentDispositionFileName.with("readme.txt"));
+        return ContentDispositionType.ATTACHMENT.setFilename(ContentDispositionFileName.notEncoded("readme.txt"));
     }
 
     @Override

@@ -80,7 +80,7 @@ final public class ContentDispositionTypeTest extends NameTestCase<ContentDispos
 
     @Test
     public void testSetFilename() {
-        final ContentDispositionFileName filename = ContentDispositionFileName.with("readme.txt");
+        final ContentDispositionFileName filename = ContentDispositionFileName.notEncoded("readme.txt");
         final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
 
         final ContentDisposition disposition = type.setFilename(filename);
@@ -97,7 +97,7 @@ final public class ContentDispositionTypeTest extends NameTestCase<ContentDispos
 
     @Test
     public void testSetParameters() {
-        final ContentDispositionFileName filename = ContentDispositionFileName.with("readme.txt");
+        final ContentDispositionFileName filename = ContentDispositionFileName.notEncoded("readme.txt");
         final ContentDispositionType type = ContentDispositionType.ATTACHMENT;
         final Map<ContentDispositionParameterName<?>, Object> parameters = Maps.one(ContentDispositionParameterName.FILENAME, filename);
         final ContentDisposition disposition = type.setParameters(parameters);

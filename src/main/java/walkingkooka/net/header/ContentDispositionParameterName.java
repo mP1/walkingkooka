@@ -90,7 +90,13 @@ final public class ContentDispositionParameterName<T> extends HeaderParameterNam
      * A {@link ContentDispositionParameterName} holding <code>filename</code>
      */
     public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME = CONSTANTS.register("filename",
-            ContentDispositionFileNameHeaderValueConverter.INSTANCE);
+            ContentDispositionFileNameNotEncodedHeaderValueConverter.INSTANCE);
+
+    /**
+     * A {@link ContentDispositionParameterName} holding <code>filename*</code>
+     */
+    public final static ContentDispositionParameterName<ContentDispositionFileName> FILENAME_STAR = CONSTANTS.register("filename*",
+            ContentDispositionFileNameEncodedHeaderValueConverter.INSTANCE);
 
     /**
      * A {@link ContentDispositionParameterName} holding <code>modification-date</code>

@@ -20,48 +20,47 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.character.CharPredicates;
+
+import java.util.Optional;
 
 /**
  * The value of the filename parameter within a content disposition.
  */
-final public class ContentDispositionFileName implements Name, HeaderValue {
+abstract public class ContentDispositionFileName implements Name, HeaderValue {
+
+    public final static Optional<CharsetName> NO_CHARSET = Optional.empty();
+
+    public final static Optional<LanguageTagName> NO_LANGUAGE = Optional.empty();
 
     /**
      * Factory that creates a {@link ContentDispositionFileName}.
      */
-    public static ContentDispositionFileName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrFalse(name, "name", CharPredicates.rfc2045Token());
-
-        return new ContentDispositionFileName(name);
+    public static ContentDispositionFileName encoded(final EncodedText encodedText) {
+        return ContentDispositionFileNameEncoded.with(encodedText);
     }
 
     /**
-     * Private constructor use factory.
+     * Factory that creates a {@link ContentDispositionFileName}.
      */
-    private ContentDispositionFileName(final String name) {
+    public static ContentDispositionFileName notEncoded(final String name) {
+        return ContentDispositionFileNameNotEncoded.with(name);
+    }
+
+    /**
+     * Package private constructor.
+     */
+    ContentDispositionFileName() {
         super();
-        this.name = name;
     }
 
-    // Value .................................................................................
+    public abstract Optional<CharsetName> charsetName();
 
-    @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
+    public abstract Optional<LanguageTagName> language();
 
     // HeaderValue .................................................................................
 
     @Override
-    public String toHeaderText() {
-        return ContentDispositionFileNameHeaderValueConverter.INSTANCE.toText(this, HttpHeaderName.CONTENT_DISPOSITION);
-    }
-
-    @Override
-    public boolean isWildcard() {
+    public final boolean isWildcard() {
         return false;
     }
 
@@ -85,23 +84,23 @@ final public class ContentDispositionFileName implements Name, HeaderValue {
     // Object .................................................................................
 
     @Override
-    public int hashCode() {
-        return this.name.hashCode();
+    public final int hashCode() {
+        return this.value().hashCode();
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public final boolean equals(final Object other) {
         return this == other ||
                 other instanceof ContentDispositionFileName &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final ContentDispositionFileName name) {
-        return this.name.equals(name.name);
-    }
+    abstract boolean canBeEquals(final Object other);
+
+    abstract boolean equals0(final ContentDispositionFileName other);
 
     @Override
-    public String toString() {
-        return this.name;
+    public final String toString() {
+        return this.value();
     }
 }
