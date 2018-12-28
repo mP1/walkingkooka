@@ -17,17 +17,55 @@
 
 package walkingkooka.text;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.io.Reader;
 import java.util.Objects;
 
 final public class CharSequences implements PublicStaticHelper {
+
     /**
-     * {@see BigEndianHexByteReader#read(CharSequence)}
+     * Reads a {@link CharSequence} that contains pairs of hex digits representing individual bytes
+     * which are returned in a byte[].
      */
     public static byte[] bigEndianHexDigits(final CharSequence hexDigits) {
-        return BigEndianHexByteReader.read(hexDigits);
+        Objects.requireNonNull(hexDigits, "hexDigits");
+
+        final int length = hexDigits.length();
+        final int halfLength = length / 2;
+        if (length != (halfLength + halfLength)) {
+            throw new IllegalArgumentException(oddNumberOfDigits(length));
+        }
+
+        final byte[] bytes = new byte[halfLength];
+
+        int value = 0;
+        boolean lo = true;
+        int index = 0;
+
+        for (int i = 0; i < length; i++) {
+            final char c = hexDigits.charAt(i);
+            final int digit = Character.digit(c, 16);
+            if (digit < 0) {
+                throw new InvalidCharacterException(hexDigits.toString(), i);
+            }
+            if (lo) {
+                value = digit;
+                lo = false;
+                continue;
+            }
+
+            bytes[index] = (byte) ((value * 16) + digit);
+            index++;
+            lo = true;
+        }
+        return bytes;
+    }
+
+    // @VisibleForTesting
+    static String oddNumberOfDigits(final int length) {
+        return "Expected even number of hex digits=" + length;
     }
 
     /**
@@ -122,18 +160,133 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
-     * Accepts a character and returns a {@link CharSequence} that has been escaped and surrounded
-     * by single quotes.
-     */
-    public static CharSequence escape(final char c) {
-        return CharSequences.escape(String.valueOf(c));
-    }
-
-    /**
-     * {@see CharSequenceEscaping#escape(String)}
+     * Escapes all newline, carriage returns and other common characters that are escaped in java by
+     * a backslash prefix. Null inputs return null.
      */
     public static CharSequence escape(final CharSequence chars) {
-        return CharSequenceEscaping.escape(chars);
+        return null == chars ?
+                null :
+                escape0(chars);
+    }
+
+    private static CharSequence escape0(final CharSequence chars) {
+        final int length = chars.length();
+        final StringBuilder builder = new StringBuilder((length * 10) / 9);
+        for (int i = 0; i < length; i++) {
+            final char c = chars.charAt(i);
+
+            switch (c) {
+                case '\\':
+                    builder.append("\\\\");
+                    break;
+                case '\t':
+                    builder.append("\\t");
+                    break;
+                case '\r':
+                    builder.append("\\r");
+                    break;
+                case '\n':
+                    builder.append("\\n");
+                    break;
+                case '\0':
+                    builder.append("\\0");
+                    break;
+                case '\'':
+                    builder.append("\\\'");
+                    break;
+                case '\"':
+                    builder.append("\\\"");
+                    break;
+                case 1:
+                    builder.append("\\u0001");
+                    break;
+                case 2:
+                    builder.append("\\u0002");
+                    break;
+                case 3:
+                    builder.append("\\u0003");
+                    break;
+                case 4:
+                    builder.append("\\u0004");
+                    break;
+                case 5:
+                    builder.append("\\u0005");
+                    break;
+                case 6:
+                    builder.append("\\u0006");
+                    break;
+                case 7:
+                    builder.append("\\u0007");
+                    break;
+                case 8:
+                    builder.append("\\u0008");
+                    break;
+                case 11:
+                    builder.append("\\u000B");
+                    break;
+                case 12:
+                    builder.append("\\u000C");
+                    break;
+                case 14:
+                    builder.append("\\u000E");
+                    break;
+                case 15:
+                    builder.append("\\u000F");
+                    break;
+                case 16:
+                    builder.append("\\u0010");
+                    break;
+                case 17:
+                    builder.append("\\u0011");
+                    break;
+                case 18:
+                    builder.append("\\u0012");
+                    break;
+                case 19:
+                    builder.append("\\u0013");
+                    break;
+                case 20:
+                    builder.append("\\u0014");
+                    break;
+                case 21:
+                    builder.append("\\u0015");
+                    break;
+                case 22:
+                    builder.append("\\u0016");
+                    break;
+                case 23:
+                    builder.append("\\u0017");
+                    break;
+                case 24:
+                    builder.append("\\u0018");
+                    break;
+                case 25:
+                    builder.append("\\u0019");
+                    break;
+                case 26:
+                    builder.append("\\u001A");
+                    break;
+                case 27:
+                    builder.append("\\u001B");
+                    break;
+                case 28:
+                    builder.append("\\u001C");
+                    break;
+                case 29:
+                    builder.append("\\u001D");
+                    break;
+                case 30:
+                    builder.append("\\u001E");
+                    break;
+                case 31:
+                    builder.append("\\u001F");
+                    break;
+                default:
+                    builder.append(c);
+                    break;
+            }
+        }
+        return builder.toString();
     }
 
     /**
@@ -365,13 +518,6 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
-     * {@see CharSequenceSubSequencer#make(String, int, int)}.
-     */
-    public static CharSequence subSequence(final CharSequence string, final int from, final int to) {
-        return CharSequenceSubSequencer.make(string, from, to);
-    }
-
-    /**
      * Tests if the first string starts with the second ignoring case. This is equivalent to
      * CharSequence.startsWith() but ignores case.
      */
@@ -397,31 +543,212 @@ final public class CharSequences implements PublicStaticHelper {
     }
 
     /**
-     * {@see Trimmer#left(CharSequence)}.
+     * Adds support for negative to indexes without needing to fetch the length and subSequence. If
+     * the to index is negative and before the from index a {@link ArrayIndexOutOfBoundsException}
+     * is thrown.
      */
-    public static CharSequence trim(final CharSequence sequence) {
-        return CharSequenceTrimmer.leftAndRight(sequence);
+    public static CharSequence subSequence(final CharSequence chars, final int from, final int to) {
+        Objects.requireNonNull(chars, "chars");
+
+        CharSequence subSequence;
+        do {
+            if (0 == to) {
+                subSequence = chars.subSequence(from, chars.length());
+                break;
+            }
+            if (to > 0) {
+                subSequence = chars.subSequence(from, to);
+                break;
+            }
+            subSequence = subSequenceWithNegativeToIndex(chars, from, to);
+        } while (false);
+
+        return subSequence;
     }
 
     /**
-     * {@see Trimmer#left(CharSequence)}.
+     * Performs a {@link CharSequence#subSequence(int, int)} with a negative to index.
      */
-    public static CharSequence trimLeft(final CharSequence sequence) {
-        return CharSequenceTrimmer.left(sequence);
+    private static CharSequence subSequenceWithNegativeToIndex(final CharSequence sequence,
+                                                               final int from, final int to) {
+        final int length = sequence.length();
+        final int positiveToIndex = length + to;
+        if (positiveToIndex < from) {
+            throw new StringIndexOutOfBoundsException(toIndexBeforeFromIndex(
+                    from,
+                    to,
+                    length));
+        }
+        return sequence.subSequence(from, positiveToIndex);
     }
 
     /**
-     * {@see Trimmer#right(CharSequence)}.
+     * Returns a message that the to index points to a character before the from index.
      */
-    public static CharSequence trimRight(final CharSequence sequence) {
-        return CharSequenceTrimmer.right(sequence);
+    static String toIndexBeforeFromIndex(final int from, final int to, final int length) {
+        return "To index (which is negative) is before from: " + to + " < " + -(length - from);
     }
 
     /**
-     * {@see CharSequenceEscaping#unescape(CharSequence)}
+     * Trims whitespace from the left and end of the given {@link CharSequence}.
+     */
+    public static CharSequence trim(final CharSequence chars) {
+        Objects.requireNonNull(chars, "chars");
+
+        final int start = findStart(chars);
+        return chars.subSequence(start, findEnd(chars, start));
+    }
+
+    /**
+     * Trims whitespace from the left or beginning of the given {@link CharSequence}.
+     */
+    public static CharSequence trimLeft(final CharSequence chars) {
+        Objects.requireNonNull(chars, "chars");
+
+        return chars.subSequence(findStart(chars), chars.length());
+    }
+
+    /**
+     * Trims whitespace from the right or end of the given {@link CharSequence}.
+     */
+    public static CharSequence trimRight(final CharSequence chars) {
+        Objects.requireNonNull(chars, "chars");
+
+        return chars.subSequence(0, findEnd(chars, 0));
+    }
+
+    /**
+     * Finds the first non whitespace character in the {@link CharSequence}
+     */
+    static private int findStart(final CharSequence chars) {
+        final int length = chars.length();
+        int i = 0;
+
+        while (i < length) {
+            final char c = chars.charAt(i);
+            if (Character.isWhitespace(c)) {
+                i++;
+                continue;
+            }
+
+            break;
+        }
+
+        return i;
+    }
+
+    /**
+     * Finds the last non whitespace character in the {@link CharSequence}
+     */
+    static private int findEnd(final CharSequence chars, final int stop) {
+        int i = chars.length();
+
+        while (i > stop) {
+            i--;
+
+            final char c = chars.charAt(i);
+            if (Character.isWhitespace(c)) {
+                continue;
+            }
+            i++;
+            break;
+        }
+
+        return i;
+    }
+
+    /**
+     * Un-escapes {@link CharSequence chars} escaped by {@link #escape(CharSequence)}. Note support
+     * is included for backslash escape sequences and unicode escape sequences.
      */
     public static CharSequence unescape(final CharSequence chars) {
-        return CharSequenceEscaping.unescape(chars);
+        return null == chars ?
+                null :
+                unescape0(chars);
+    }
+
+    private static CharSequence unescape0(final CharSequence chars) {
+        final int length = chars.length();
+        final StringBuilder builder = new StringBuilder(length);
+
+        boolean wasBackslash = false;
+
+        int i = 0;
+        while (i < length) {
+            final char c = chars.charAt(i);
+            i++;
+
+            if (wasBackslash) {
+                switch (c) {
+                    case '\\':
+                        builder.append('\\');
+                        break;
+                    case 't':
+                        builder.append('\t');
+                        break;
+                    case 'r':
+                        builder.append('\r');
+                        break;
+                    case 'n':
+                        builder.append('\n');
+                        break;
+                    case '0':
+                        builder.append('\0');
+                        break;
+                    case '\'':
+                        builder.append('\'');
+                        break;
+                    case '"':
+                        builder.append('\"');
+                        break;
+                    case 'u':
+                        // incomplete unicode character
+                        if ((i + 4) > length) {
+                            builder.append("\\u");
+                            break;
+                        }
+                        // \\u0000;
+                        final char firstChar = chars.charAt(i);
+                        final int firstValue = Character.digit(firstChar, 16);
+                        if (firstValue < 0) {
+                            builder.append("\\u");
+                            break;
+                        }
+                        final char secondChar = chars.charAt(i + 1);
+                        final int secondValue = Character.digit(secondChar, 16);
+                        if (secondValue < 0) {
+                            builder.append("\\u");
+                            break;
+                        }
+                        final char thirdChar = chars.charAt(i + 2);
+                        final int thirdValue = Character.digit(thirdChar, 16);
+                        if (thirdValue < 0) {
+                            builder.append("\\u");
+                            break;
+                        }
+                        final char fourthChar = chars.charAt(i + 3);
+                        final int fourthValue = Character.digit(fourthChar, 16);
+                        if (fourthValue < 0) {
+                            builder.append("\\u");
+                            break;
+                        }
+                        i = i + 4;
+                        builder.append((char) ((firstValue * 0x1000) + (secondValue * 0x0100)
+                                + (thirdValue * 0x10) + fourthValue));
+                        break;
+                    default:
+                        builder.append(c);
+                        break;
+                }
+                wasBackslash = false;
+                continue;
+            }
+            wasBackslash = '\\' == c;
+            if (false == wasBackslash) {
+                builder.append(c);
+            }
+        }
+        return builder.toString();
     }
 
     /**

@@ -142,7 +142,7 @@ final class CharSequenceTextCursor implements TextCursor {
 
         if (position < length) {
             toString.append("[");
-            toString.append(CharSequences.escape(text.charAt(position)));
+            toString.append(CharSequences.escape(Character.toString(text.charAt(position))));
             toString.append("]");
 
             if (position < (length - 1)) {

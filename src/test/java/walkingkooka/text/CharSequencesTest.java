@@ -17,14 +17,84 @@
 
 package walkingkooka.text;
 
+import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
 final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequences> {
+
+    // bigEndianHexDigits....................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testBigEndianHexDigitsNullFails() {
+        CharSequences.bigEndianHexDigits(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBigEndianHexDigitsOddNumberOfDigitsFails() {
+        CharSequences.bigEndianHexDigits("1");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBigEndianHexDigitsOddNumberOfDigits2Fails() {
+        CharSequences.bigEndianHexDigits("12345");
+    }
+
+    @Test(expected = InvalidCharacterException.class)
+    public void testBigEndianHexDigitsIllegalCharacterFails() {
+        CharSequences.bigEndianHexDigits("123X56");
+    }
+
+    @Test
+    public void testBigEndianHexDigitsEmpty() {
+        this.bigEndianHexDigitsAndCheck("",
+                new byte[0]);
+    }
+
+    @Test
+    public void testBigEndianHexDigitsTwoDigits() {
+        this.bigEndianHexDigitsAndCheck("1F",
+                new byte[]{0x1f});
+    }
+
+    @Test
+    public void testBigEndianHexDigitsTwoDigits2() {
+        this.bigEndianHexDigitsAndCheck("1f",
+                new byte[]{0x1f});
+    }
+
+    @Test
+    public void testBigEndianHexDigitsTwoDigitsLeadingZero() {
+        this.bigEndianHexDigitsAndCheck("01",
+                new byte[]{0x01});
+    }
+
+    @Test
+    public void testBigEndianHexDigitsManyDigits() {
+        this.bigEndianHexDigitsAndCheck("010203",
+                new byte[]{1, 2, 3});
+    }
+
+    @Test
+    public void testBigEndianHexDigitsManyDigits2() {
+        this.bigEndianHexDigitsAndCheck("1234567890abcdef",
+                (byte)0x12, (byte)0x34, (byte)0x56, (byte)0x78, (byte) 0x90, (byte) 0xab, (byte) 0xcd, (byte) 0xef);
+    }
+
+    private void bigEndianHexDigitsAndCheck(final String hexDigits, final byte...expected) {
+        final byte[] bytes = CharSequences.bigEndianHexDigits(hexDigits);
+        if (false == Arrays.equals(expected, bytes)) {
+            assertEquals("from " + CharSequences.quote(hexDigits),
+                    Arrays.toString(expected),
+                    Arrays.toString(bytes));
+        }
+    }
 
     // capitalize....................................................................................
 
@@ -184,6 +254,72 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
         assertEquals(CharSequences.quote(chars) + " equals " + CharSequences.quote(endsWith),
                 result,
                 CharSequences.equals(chars, endsWith));
+    }
+
+    // escape/unescape .......................................................................
+
+    @Test
+    public void testEscapeUnescapeNoNeeded() {
+        this.escapeUnescapeAndCheck("apple", "apple");
+    }
+
+    @Test
+    public void testEscapeUnescapeNewLine() {
+        this.escapeUnescapeAndCheck("apple\nbanana", "apple\\nbanana");
+    }
+
+    @Test
+    public void testEscapeUnescapeCarriageReturn() {
+        this.escapeUnescapeAndCheck("apple\rbanana", "apple\\rbanana");
+    }
+
+    @Test
+    public void testEscapeUnescapeBackslash() {
+        this.escapeUnescapeAndCheck("apple\\banana", "apple\\\\banana");
+    }
+
+    @Test
+    public void testEscapeUnescapeTab() {
+        this.escapeUnescapeAndCheck("apple\tbanana", "apple\\tbanana");
+    }
+
+    @Test
+    public void testEscapeUnescapeDoubleQuote() {
+        this.escapeUnescapeAndCheck("apple\"", "apple\\\"");
+    }
+
+    @Test
+    public void testEscapeUnescapeSingleQuote() {
+        this.escapeUnescapeAndCheck("apple\'", "apple\\\'");
+    }
+
+    @Test
+    public void testEscapeUnescapeNul() {
+        this.escapeUnescapeAndCheck("apple\0", "apple\\0");
+    }
+
+    @Test
+    public void testEscapeUnescapeTabNewLineCarriageReturn() {
+        this.escapeUnescapeAndCheck("apple\t\n\r\\", "apple\\t\\n\\r\\\\");
+    }
+
+    @Test
+    public void testEscapeUnescapeControlCharacter() {
+        this.escapeUnescapeAndCheck("apple\u000F;banana", "apple\\u000F;banana");
+    }
+
+    @Test
+    public void testEscapeUnescapeControlCharacter2() {
+        this.escapeUnescapeAndCheck("apple\u001F;banana", "apple\\u001F;banana");
+    }
+
+    private void escapeUnescapeAndCheck(final CharSequence chars, final String expected) {
+        assertEquals("escape " + CharSequences.quote(chars),
+                expected,
+                CharSequences.escape(chars).toString());
+        assertEquals("unescape " + CharSequences.quote(chars),
+                chars.toString(),
+                CharSequences.unescape(expected));
     }
 
     // indexOf....................................................................
@@ -558,6 +694,159 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
         assertEquals(CharSequences.quote(chars) + " starts with " + CharSequences.quote(startsWith),
                 result,
                 CharSequences.startsWith(chars, startsWith));
+    }
+
+    // subSequence............................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testSubSequenceNullFails() {
+        CharSequences.subSequence(null, 1, 1);
+    }
+
+    @Test
+    public void testSubSequenceToBeforeFromFails() {
+        final int from = 4;
+        final int to = -5;
+        final String string = "string";
+        try {
+            CharSequences.subSequence(string, from, to);
+            Assert.fail();
+        } catch (final IndexOutOfBoundsException expected) {
+            assertEquals("message",
+                    CharSequences.toIndexBeforeFromIndex(from, to, string.length()),
+                    expected.getMessage());
+        }
+    }
+
+    @Test
+    public void testSubSequencePositiveIndices() {
+        this.subSequenceAndCheck(" sub ", 1, 4, "sub");
+    }
+
+    @Test
+    public void testSubSequenceNegativeTo() {
+        this.subSequenceAndCheck("abcdef", 1, -2, "bcd");
+    }
+
+    @Test
+    public void testSubSequenceZeroTo() {
+        this.subSequenceAndCheck("abcdef", 1, 0, "bcdef");
+    }
+
+    private void subSequenceAndCheck(final String chars, final int from, final int to, final String expected) {
+        assertEquals("subSequence of " + CharSequences.quote(chars) + " " + from + ".." + to,
+                expected,
+                CharSequences.subSequence(chars, from, to));
+    }
+
+    // trim............................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testTrimNullFails() {
+        CharSequences.trim(null);
+    }
+
+    @Test
+    public void testTrimEmpty() {
+        this.trimAndCheck("", "");
+    }
+
+    @Test
+    public void testTrimWhitespaceBefore() {
+        this.trimAndCheck(" apple", "apple");
+    }
+
+    @Test
+    public void testTrimWhitespaceAfter() {
+        this.trimAndCheck("apple ", "apple");
+    }
+
+    @Test
+    public void testTrimWhitespaceBeforeAndAfter() {
+        this.trimAndCheck(" apple ", "apple");
+    }
+
+    @Test
+    public void testTrimWhitespace() {
+        this.trimAndCheck(" ", "");
+    }
+
+    @Test
+    public void testTrimWhitespaceOnly() {
+        this.trimAndCheck("   ", "");
+    }
+
+    private void trimAndCheck(final CharSequence sequence, final CharSequence expected) {
+        final CharSequence actual = CharSequences.trim(sequence);
+        if (false == actual.equals(expected)) {
+            assertEquals("trimming of " + CharSequences.quote(sequence.toString()),
+                    expected,
+                    actual);
+        }
+    }
+
+    // trimLeft ............................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testTrimLeftNullFails() {
+        CharSequences.trimLeft(null);
+    }
+
+    @Test
+    public void testTrimLeftLeadingAndTrailingWhitespace() {
+        this.trimLeftAndCheck(" apple ", "apple ");
+    }
+
+    @Test
+    public void testTrimLeftTrailingWhitespace() {
+        this.trimLeftAndCheck("apple ", "apple ");
+    }
+
+    @Test
+    public void testTrimLeftLeadingWhitespace() {
+        this.trimLeftAndCheck("   apple ", "apple ");
+    }
+
+    @Test
+    public void testTrimLeftWhitespaceOnly() {
+        this.trimLeftAndCheck("   ", "");
+    }
+
+    private void trimLeftAndCheck(final CharSequence input, final CharSequence expected) {
+        final CharSequence actual = CharSequences.trimLeft(input);
+        assertEquals("trimming of " + CharSequences.quote(input.toString()), expected, actual);
+    }
+
+    // trimRight ............................................................................................
+
+    @Test(expected = NullPointerException.class)
+    public void testTrimRightNullFails() {
+        CharSequences.trimRight(null);
+    }
+
+    @Test
+    public void testTrimRightLeadingAndTrailingWhitespace() {
+        this.trimRightAndCheck(" apple ", " apple");
+    }
+
+    @Test
+    public void testTrimRightNoTrailingWhitespace() {
+        this.trimRightAndCheck(" apple", " apple");
+    }
+
+    @Test
+    public void testTrimRightTrailingWhitespace() {
+        this.trimRightAndCheck(" apple   ", " apple");
+    }
+
+    @Test
+    public void testTrimRightWhitespaceOnly() {
+        this.trimRightAndCheck("   ", "");
+    }
+
+    private void trimRightAndCheck(final CharSequence input, final CharSequence expected) {
+        final CharSequence actual = CharSequences.trimRight(input);
+        assertEquals("trimming of " + CharSequences.quote(input.toString()), expected, actual);
     }
 
     @Override
