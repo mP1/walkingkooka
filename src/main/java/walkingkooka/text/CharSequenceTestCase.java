@@ -200,7 +200,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends Class
     }
 
     private static String toString(final char c) {
-        return CharSequences.escape(c).toString();
+        return CharSequences.escape(Character.toString(c)).toString();
     }
 
     protected void checkSubSequence(final int start, final int end, final String expected) {
