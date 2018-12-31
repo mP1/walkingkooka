@@ -22,39 +22,39 @@ package walkingkooka.net.header;
 import walkingkooka.naming.Name;
 
 /**
- * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileNameEncoded}.
+ * A {@link HeaderValueConverter} that parses a content header value into a {@link EncodedText}.
  */
-final class ContentDispositionFileNameEncodedHeaderValueConverter extends HeaderValueConverter<ContentDispositionFileName> {
+final class EncodedTextHeaderValueConverter extends HeaderValueConverter<EncodedText> {
 
     /**
      * Singleton
      */
-    final static ContentDispositionFileNameEncodedHeaderValueConverter INSTANCE = new ContentDispositionFileNameEncodedHeaderValueConverter();
+    final static EncodedTextHeaderValueConverter INSTANCE = new EncodedTextHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private ContentDispositionFileNameEncodedHeaderValueConverter() {
+    private EncodedTextHeaderValueConverter() {
         super();
     }
 
     @Override
-    ContentDispositionFileName parse0(final String text, final Name name) {
-        return ContentDispositionFileName.encoded(HeaderValueConverter.encodedText().parse(text, name));
+    EncodedText parse0(final String text, final Name name) {
+        return EncodedTextHeaderValueConverterHeaderParser.parseEncodedText(text, name.value());
     }
 
     @Override
     void check0(final Object value) {
-        this.checkType(value, ContentDispositionFileNameEncoded.class);
+        this.checkType(value, EncodedText.class);
     }
 
     @Override
-    String toText0(final ContentDispositionFileName filename, final Name name) {
+    String toText0(final EncodedText filename, final Name name) {
         return filename.toHeaderText();
     }
 
     @Override
     public String toString() {
-        return ContentDispositionFileNameEncoded.class.getSimpleName();
+        return EncodedText.class.getSimpleName();
     }
 }
