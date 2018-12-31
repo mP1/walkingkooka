@@ -21,9 +21,9 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
@@ -393,28 +393,42 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testParse() {
-        assertEquals(MediaType.with("type1", "subtype1"), MediaType.parse("type1/subtype1"));
+        this.parseAndCheck("type1/subtype1",
+                MediaType.with("type1", "subtype1"));
     }
 
     @Test
     public void testParseWithUnquotedParameter() {
-        assertEquals(MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.one(MediaTypeParameterName.with("abc"), "def")),
-                MediaType.parse("type1/subtype1;abc=def"));
+        this.parseAndCheck("type1/subtype1;abc=def",
+                MediaType.with("type1", "subtype1")
+                        .setParameters(Maps.one(MediaTypeParameterName.with("abc"), "def")));
     }
 
     @Test
     public void testParseWithQuotedParameter() {
-        assertEquals(MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.one(MediaTypeParameterName.with("abc"), "d,\\ef")),
-                MediaType.parse("type1/subtype1;abc=\"d,\\\\ef\""));
+        this.parseAndCheck("type1/subtype1;abc=\"d,\\\\ef\"",
+                MediaType.with("type1", "subtype1")
+                        .setParameters(Maps.one(MediaTypeParameterName.with("abc"), "d,\\ef")));
     }
 
     @Test
     public void testParseWithBoundary() {
-        assertEquals(MediaType.with("type1", "subtype1")
-                        .setParameters(Maps.one(MediaTypeParameterName.BOUNDARY, MediaTypeBoundary.with("def"))),
-                MediaType.parse("type1/subtype1;boundary=def"));
+        this.parseAndCheck("type1/subtype1;boundary=def",
+                MediaType.with("type1", "subtype1")
+                        .setParameters(Maps.one(MediaTypeParameterName.BOUNDARY, MediaTypeBoundary.with("def"))));
+    }
+
+    @Test
+    public void testParseWithTitleStar() {
+        this.parseAndCheck("type1/subtype1;title*=UTF-8''abc%20123",
+                MediaType.with("type1", "subtype1")
+                        .setParameters(Maps.one(MediaTypeParameterName.TITLE_STAR, EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"))));
+    }
+
+    private void parseAndCheck(final String text, final MediaType mediaType) {
+        assertEquals("Parsing of " + CharSequences.quoteAndEscape(text) + " failed",
+                mediaType,
+                MediaType.parse(text));
     }
 
     @Test(expected = NullPointerException.class)

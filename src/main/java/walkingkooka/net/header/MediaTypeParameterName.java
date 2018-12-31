@@ -54,6 +54,11 @@ final public class MediaTypeParameterName<T> extends HeaderParameterName<T> impl
     public final static MediaTypeParameterName<Float> Q_FACTOR = CONSTANTS.register("q", HeaderValueConverter.qWeight());
 
     /**
+     * The title star parameter.
+     */
+    public final static MediaTypeParameterName<EncodedText> TITLE_STAR = CONSTANTS.register("title*", HeaderValueConverter.encodedText());
+
+    /**
      * Factory that creates a {@link MediaTypeParameterName}
      */
     public static MediaTypeParameterName<?> with(final String value) {

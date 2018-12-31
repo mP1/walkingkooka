@@ -102,6 +102,13 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
+     * {@see EncodedTextHeaderValueConverter}
+     */
+    static HeaderValueConverter<EncodedText> encodedText() {
+        return EncodedTextHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see ETagHeaderValueConverter}
      */
     static HeaderValueConverter<ETag> eTag() {

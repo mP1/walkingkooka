@@ -19,23 +19,25 @@
 package walkingkooka.net.header;
 
 /**
- * A {@link HeaderParser} that parsers text into a {@link ContentDispositionFileName}.
+ * A {@link HeaderParser} that parsers text into a {@link EncodedText}.
  */
-final class ContentDispositionFileNameEncodedHeaderValueConverterHeaderParser extends HeaderParser {
+final class EncodedTextHeaderValueConverterHeaderParser extends HeaderParser {
 
-    static ContentDispositionFileName parseContentDispositionFileName(final String text) {
-        final ContentDispositionFileNameEncodedHeaderValueConverterHeaderParser parser = new ContentDispositionFileNameEncodedHeaderValueConverterHeaderParser(text);
+    static EncodedText parseEncodedText(final String text, final String label) {
+        final EncodedTextHeaderValueConverterHeaderParser parser = new EncodedTextHeaderValueConverterHeaderParser(text, label);
         parser.parse();
-        return parser.filename;
+        return parser.encodedText;
     }
 
-    private ContentDispositionFileNameEncodedHeaderValueConverterHeaderParser(final String text) {
+    // @VisibleForTesting
+    EncodedTextHeaderValueConverterHeaderParser(final String text, final String label) {
         super(text);
+        this.label = label;
     }
 
     @Override
     void whitespace() {
-        this.whitespace0();
+        this.failInvalidCharacter();
     }
 
     @Override
@@ -70,7 +72,7 @@ final class ContentDispositionFileNameEncodedHeaderValueConverterHeaderParser ex
 
     @Override
     void token() {
-        this.filename = ContentDispositionFileName.encoded(this.encodedText());
+        this.encodedText = this.encodedText();
     }
 
     @Override
@@ -80,10 +82,10 @@ final class ContentDispositionFileNameEncodedHeaderValueConverterHeaderParser ex
 
     @Override
     void missingValue() {
-        this.failMissingValue(FILENAME);
+        this.failMissingValue(this.label);
     }
 
-    private final static String FILENAME = "filename";
+    private final String label;
 
-    private ContentDispositionFileName filename;
+    private EncodedText encodedText;
 }
