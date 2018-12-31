@@ -27,12 +27,57 @@ import static org.junit.Assert.assertEquals;
 
 public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
 
+    @Test(expected = NullPointerException.class)
+    public void testWithNullCharsetFails() {
+        EncodedText.with(null, EncodedText.NO_LANGUAGE, "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithWildcardCharsetFails() {
+        EncodedText.with(CharsetName.WILDCARD_CHARSET, EncodedText.NO_LANGUAGE, "");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWithNullLanguageFails() {
+        EncodedText.with(this.charset(), null, "");
+    }
+
     @Test
     public void testWith() {
-        final EncodedText encodedText = this.createHeaderValue();
-        assertEquals("charset", this.charset(), encodedText.charset());
-        assertEquals("language", this.language(), encodedText.language());
-        assertEquals("value", this.value(), encodedText.value());
+        this.check(this.createHeaderValue(), this.charset(), this.language(), this.value());
+    }
+
+    @Test
+    public void testWithEmptyText() {
+        final CharsetName charset = this.charset();
+        final Optional<LanguageTagName> language = this.language();
+        final String text = "";
+
+        this.check(EncodedText.with(charset, language, text),
+                charset,
+                language,
+                text);
+    }
+
+    @Test
+    public void testWithNoLanguage() {
+        final CharsetName charset = this.charset();
+        final Optional<LanguageTagName> language = EncodedText.NO_LANGUAGE;
+        final String text = this.value();
+
+        this.check(EncodedText.with(charset, language, text),
+                charset,
+                language,
+                text);
+    }
+
+    private void check(final EncodedText encodedText,
+                       final CharsetName charset,
+                       final Optional<LanguageTagName> language,
+                       final String value) {
+        assertEquals("charset", charset, encodedText.charset());
+        assertEquals("language", language, encodedText.language());
+        assertEquals("value", value, encodedText.value());
     }
 
     @Test
@@ -105,6 +150,6 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
 
     @Override
     protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
+        return MemberVisibility.PUBLIC;
     }
 }
