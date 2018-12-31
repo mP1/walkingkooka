@@ -91,7 +91,7 @@ abstract public class ContentDispositionFileName implements Name, HeaderValue {
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                other instanceof ContentDispositionFileName &&
+                this.canBeEquals(other) &&
                         this.equals0(Cast.to(other));
     }
 
