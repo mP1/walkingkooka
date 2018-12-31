@@ -23,6 +23,7 @@ import walkingkooka.Value;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -68,7 +69,7 @@ import java.util.Optional;
  *                    ; token except ( "*" / "'" / "%" )
  * </pre>
  */
-final class EncodedText implements HashCodeEqualsDefined, Value<String>, HeaderValue {
+public final class EncodedText implements HashCodeEqualsDefined, Value<String>, HeaderValue {
 
     /**
      * The value part of an extended parameter (ext-value) is a token that
@@ -85,9 +86,17 @@ final class EncodedText implements HashCodeEqualsDefined, Value<String>, HeaderV
     /**
      * Factory that creates a new {@link EncodedText}
      */
-    static EncodedText with(final CharsetName charset,
+    public static EncodedText with(final CharsetName charset,
                             final Optional<LanguageTagName> language,
                             final String value) {
+        Objects.requireNonNull(charset, "charset");
+        if(charset.isWildcard()) {
+            throw new IllegalArgumentException("Encoded text charset must not be a wildcard");
+        }
+
+        Objects.requireNonNull(language, "language");
+        Objects.requireNonNull(value, "value");
+
         return new EncodedText(charset, language, value);
     }
 
