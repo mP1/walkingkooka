@@ -38,8 +38,8 @@ final class TokenHeaderValueHeaderValueConverter extends HeaderValueConverter<To
     }
 
     @Override
-    TokenHeaderValue parse0(final String value, final Name name) {
-        return TokenHeaderValue.parse(value);
+    TokenHeaderValue parse0(final String text, final Name name) {
+        return TokenHeaderValue.parse(text);
     }
 
     @Override

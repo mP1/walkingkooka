@@ -44,10 +44,10 @@ final class EmailAddressHeaderValueConverter extends HeaderValueConverter<EmailA
     }
 
     @Override
-    EmailAddress parse0(final String value, final Name name) {
-        final Optional<EmailAddress> emailAddress = EmailAddress.tryParse(value);
+    EmailAddress parse0(final String text, final Name name) {
+        final Optional<EmailAddress> emailAddress = EmailAddress.tryParse(text);
         if (!emailAddress.isPresent()) {
-            throw new IllegalArgumentException(name + " contains invalid email " + CharSequences.quote(value));
+            throw new IllegalArgumentException(name + " contains invalid email " + CharSequences.quote(text));
         }
         return emailAddress.get();
     }

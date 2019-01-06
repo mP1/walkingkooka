@@ -50,8 +50,8 @@ final class RangeHeaderValueHeaderValueConverter extends HeaderValueConverter<Ra
     }
 
     @Override
-    RangeHeaderValue parse0(final String value, final Name name) {
-        return RangeHeaderValue.parse(value);
+    RangeHeaderValue parse0(final String text, final Name name) {
+        return RangeHeaderValue.parse(text);
     }
 
     @Override

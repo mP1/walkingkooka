@@ -38,8 +38,8 @@ final class ServerCookieHeaderValueConverter extends HeaderValueConverter<Server
     }
 
     @Override
-    ServerCookie parse0(final String value, final Name name) {
-        return Cookie.parseServerHeader(value);
+    ServerCookie parse0(final String text, final Name name) {
+        return Cookie.parseServerHeader(text);
     }
 
     @Override

@@ -289,16 +289,16 @@ abstract class HeaderValueConverter<T> {
     /**
      * The entry point that accepts a value and tries to parse it.
      */
-    final T parse(final String value, final Name name) {
-        Objects.requireNonNull(value, "value");
+    final T parse(final String text, final Name name) {
+        Objects.requireNonNull(text, "text");
 
         try {
-            return this.parse0(value, name);
+            return this.parse0(text, name);
         } catch (final HeaderValueException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
             throw new HeaderValueException("Failed to convert " + CharSequences.quote(name.value()) +
-                    " value " + CharSequences.quote(value) +
+                    " value " + CharSequences.quote(text) +
                     ", message: " + cause.getMessage(),
                     cause);
         }
@@ -307,7 +307,7 @@ abstract class HeaderValueConverter<T> {
     /**
      * Sub classes parse the {@link String} value.
      */
-    abstract T parse0(final String value, final Name name) throws HeaderValueException, RuntimeException;
+    abstract T parse0(final String text, final Name name) throws HeaderValueException, RuntimeException;
 
     // checkValue...........................................................
 

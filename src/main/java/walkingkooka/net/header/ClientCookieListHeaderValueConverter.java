@@ -40,8 +40,8 @@ final class ClientCookieListHeaderValueConverter extends HeaderValueConverter<Li
     }
 
     @Override
-    List<ClientCookie> parse0(final String value, final Name name) {
-        return Cookie.parseClientHeader(value);
+    List<ClientCookie> parse0(final String text, final Name name) {
+        return Cookie.parseClientHeader(text);
     }
 
     @Override

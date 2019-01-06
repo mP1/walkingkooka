@@ -40,8 +40,8 @@ final class CacheControlDirectiveListHeaderValueConverter extends HeaderValueCon
     }
 
     @Override
-    List<CacheControlDirective<?>> parse0(final String value, final Name name) {
-        return CacheControlDirective.parse(value);
+    List<CacheControlDirective<?>> parse0(final String text, final Name name) {
+        return CacheControlDirective.parse(text);
     }
 
     @Override

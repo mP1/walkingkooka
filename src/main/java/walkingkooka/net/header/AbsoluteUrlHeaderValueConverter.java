@@ -40,8 +40,8 @@ final class AbsoluteUrlHeaderValueConverter extends HeaderValueConverter<Absolut
     }
 
     @Override
-    AbsoluteUrl parse0(final String value, final Name name) {
-        return AbsoluteUrl.parse(value);
+    AbsoluteUrl parse0(final String text, final Name name) {
+        return AbsoluteUrl.parse(text);
     }
 
     @Override
