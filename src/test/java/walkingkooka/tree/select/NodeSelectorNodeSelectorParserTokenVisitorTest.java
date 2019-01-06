@@ -1238,7 +1238,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
             }
 
             /**
-             * Currently {@link walkingkooka.tree.expression.ExpressionBinaryNode} will convert a pair of {@link Boolean} into
+             * Currently {@link walkingkooka.tree.expression.ExpressionNode} will convert a pair of {@link Boolean} into
              * {@link BigDecimal} prior to performing the operation such as equals.
              */
             private BigDecimal convertToBigDecimal(final Object value) {
