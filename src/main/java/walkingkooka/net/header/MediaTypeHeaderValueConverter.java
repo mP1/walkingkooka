@@ -38,8 +38,8 @@ final class MediaTypeHeaderValueConverter extends HeaderValueConverter<MediaType
     }
 
     @Override
-    MediaType parse0(final String value, final Name name) {
-        return MediaType.parse(value);
+    MediaType parse0(final String text, final Name name) {
+        return MediaType.parse(text);
     }
 
     @Override

@@ -43,8 +43,8 @@ final class HttpMethodListHeaderValueConverter extends HeaderValueConverter<List
     }
 
     @Override
-    List<HttpMethod> parse0(final String value, final Name name) {
-        return Arrays.stream(value.split(","))
+    List<HttpMethod> parse0(final String text, final Name name) {
+        return Arrays.stream(text.split(","))
                 .map(m -> HttpMethod.with(m.trim()))
                 .collect(Collectors.toList());
     }

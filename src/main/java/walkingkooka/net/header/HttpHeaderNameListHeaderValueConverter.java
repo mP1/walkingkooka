@@ -43,8 +43,8 @@ final class HttpHeaderNameListHeaderValueConverter extends HeaderValueConverter<
     }
 
     @Override
-    List<HttpHeaderName<?>> parse0(final String value, final Name name) {
-        return Arrays.stream(value.split(","))
+    List<HttpHeaderName<?>> parse0(final String text, final Name name) {
+        return Arrays.stream(text.split(","))
                 .map(m -> Cast.<HttpHeaderName<?>>to(HttpHeaderName.with(m.trim())))
                 .collect(Collectors.toList());
     }

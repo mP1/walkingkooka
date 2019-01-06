@@ -38,8 +38,8 @@ final class ContentRangeHeaderValueConverter extends HeaderValueConverter<Conten
     }
 
     @Override
-    ContentRange parse0(final String value, final Name name) {
-        return ContentRange.parse(value);
+    ContentRange parse0(final String text, final Name name) {
+        return ContentRange.parse(text);
     }
 
     @Override

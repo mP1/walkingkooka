@@ -40,8 +40,8 @@ final class ETagHeaderValueConverter extends HeaderValueConverter<ETag> {
     }
 
     @Override
-    ETag parse0(final String value, final Name name) {
-        return ETag.parseOne(value);
+    ETag parse0(final String text, final Name name) {
+        return ETag.parseOne(text);
     }
 
     @Override

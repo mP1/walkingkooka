@@ -38,8 +38,8 @@ final class LanguageTagHeaderValueConverter extends HeaderValueConverter<Languag
     }
 
     @Override
-    LanguageTag parse0(final String value, final Name name) {
-        return LanguageTag.parse(value);
+    LanguageTag parse0(final String text, final Name name) {
+        return LanguageTag.parse(text);
     }
 
     @Override

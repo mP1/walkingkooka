@@ -39,8 +39,8 @@ final class ContentDispositionHeaderValueConverter extends HeaderValueConverter<
     }
 
     @Override
-    ContentDisposition parse0(final String value, final Name name) {
-        return ContentDisposition.parse(value);
+    ContentDisposition parse0(final String text, final Name name) {
+        return ContentDisposition.parse(text);
     }
 
     @Override

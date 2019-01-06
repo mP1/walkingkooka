@@ -44,8 +44,8 @@ final class RangeHeaderValueUnitHeaderValueConverter extends HeaderValueConverte
     }
 
     @Override
-    RangeHeaderValueUnit parse0(final String value, final Name name) {
-        return RangeHeaderValueUnit.parse(value);
+    RangeHeaderValueUnit parse0(final String text, final Name name) {
+        return RangeHeaderValueUnit.parse(text);
     }
 
     @Override

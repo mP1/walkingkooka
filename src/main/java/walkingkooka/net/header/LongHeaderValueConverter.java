@@ -38,8 +38,8 @@ final class LongHeaderValueConverter extends HeaderValueConverter<Long> {
     }
 
     @Override
-    Long parse0(final String value, final Name name) {
-        return Long.parseLong(value.trim());
+    Long parse0(final String text, final Name name) {
+        return Long.parseLong(text.trim());
     }
 
     @Override

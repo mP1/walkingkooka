@@ -40,8 +40,8 @@ final class RelativeUrlHeaderValueConverter extends HeaderValueConverter<Relativ
     }
 
     @Override
-    RelativeUrl parse0(final String value, final Name name) {
-        return RelativeUrl.parse(value);
+    RelativeUrl parse0(final String text, final Name name) {
+        return RelativeUrl.parse(text);
     }
 
     @Override

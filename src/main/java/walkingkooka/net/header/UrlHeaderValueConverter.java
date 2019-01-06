@@ -40,8 +40,8 @@ final class UrlHeaderValueConverter extends HeaderValueConverter<Url> {
     }
 
     @Override
-    Url parse0(final String value, final Name name) {
-        return Url.parse(value);
+    Url parse0(final String text, final Name name) {
+        return Url.parse(text);
     }
 
     @Override

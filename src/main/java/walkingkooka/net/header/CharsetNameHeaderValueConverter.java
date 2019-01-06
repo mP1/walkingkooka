@@ -39,8 +39,8 @@ final class CharsetNameHeaderValueConverter extends HeaderValueConverter<Charset
     }
 
     @Override
-    CharsetName parse0(final String value, final Name name) {
-        return CharsetName.with(value);
+    CharsetName parse0(final String text, final Name name) {
+        return CharsetName.with(text);
     }
 
     @Override

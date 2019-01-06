@@ -40,8 +40,8 @@ final class LanguageTagListHeaderValueConverter extends HeaderValueConverter<Lis
     }
 
     @Override
-    List<LanguageTag> parse0(final String value, final Name name) {
-        return LanguageTag.parseList(value);
+    List<LanguageTag> parse0(final String text, final Name name) {
+        return LanguageTag.parseList(text);
     }
 
     @Override
