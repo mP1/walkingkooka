@@ -33,12 +33,14 @@ public interface HeaderValue extends HashCodeEqualsDefined, HasHeaderScope {
     /**
      * Builds a header value representation of a list of headerValues.
      */
-    static <H extends HeaderValue> String toHeaderTextList(final List<H> headerValues) {
+    static <H extends HeaderValue> String toHeaderTextList(final List<H> headerValues,
+                                                           final String separator) {
         Objects.requireNonNull(headerValues, "headerValues");
+        Objects.requireNonNull(separator, "separator");
 
         return headerValues.stream()
                 .map(t -> t.toHeaderText())
-                .collect(Collectors.joining(SEPARATOR.string().concat(" ")));
+                .collect(Collectors.joining(separator));
     }
 
     /**

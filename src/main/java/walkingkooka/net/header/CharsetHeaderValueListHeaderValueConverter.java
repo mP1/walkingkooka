@@ -52,8 +52,10 @@ final class CharsetHeaderValueListHeaderValueConverter extends HeaderValueConver
 
     @Override
     String toText0(final List<CharsetHeaderValue> value, final Name name) {
-        return HeaderValue.toHeaderTextList(value);
+        return HeaderValue.toHeaderTextList(value, SEPARATOR);
     }
+
+    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
 
     @Override
     public String toString() {

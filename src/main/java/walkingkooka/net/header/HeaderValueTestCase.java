@@ -70,7 +70,7 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTe
                                             final HeaderValue... headerValues) {
         assertEquals("toHeaderTextList returned wrong toString " + Arrays.toString(headerValues),
                 toString,
-                HeaderValue.toHeaderTextList(Lists.of(headerValues)));
+                HeaderValue.toHeaderTextList(Lists.of(headerValues), HeaderValue.SEPARATOR.string().concat(" ")));
     }
 
     protected void isWildcardAndCheck(final boolean expected) {
