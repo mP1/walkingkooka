@@ -271,6 +271,11 @@ abstract class HeaderValueConverter<T> {
     static HeaderValueConverter<Url> url() {
         return UrlHeaderValueConverter.INSTANCE;
     }
+
+    /**
+     * Separator to be used when producing the text form from a list of header values.
+     */
+    final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
     
     /**
      * Package private to limit sub classing.

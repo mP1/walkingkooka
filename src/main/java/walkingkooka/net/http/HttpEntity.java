@@ -73,7 +73,8 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
                 .stream()
                 .anyMatch(v -> v.value().matches(contentTypeCharset))) {
             throw new NotAcceptableHeaderException("Content type " + contentTypeCharset +
-                    " not in accept-charset=" + HeaderValue.toHeaderTextList(acceptCharset));
+                    " not in accept-charset=" +
+                    HeaderValue.toHeaderTextList(acceptCharset, HeaderValue.SEPARATOR.string() + " "));
         }
 
         final byte[] body = text.getBytes(contentTypeCharset.charset().get());

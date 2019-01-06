@@ -123,7 +123,7 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
     private void toHeaderTextListAndCheck(final String toString, final ETag... tags) {
         assertEquals("ETag.toString(List) failed =" + CharSequences.quote(toString),
                 toString,
-                HeaderValue.toHeaderTextList(Lists.of(tags)));
+                HeaderValue.toHeaderTextList(Lists.of(tags), HeaderValue.SEPARATOR.string().concat(" ")));
     }
 
     @Override
