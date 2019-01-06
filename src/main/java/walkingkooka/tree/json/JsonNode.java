@@ -32,7 +32,6 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.search.HasSearchNode;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.util.Map;
 import java.util.Objects;
@@ -72,18 +71,9 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     }
 
     /**
-     * Absolute {@see NodeSelectorBuilder}
+     * The {@link PathSeparator} for node selector paths.
      */
-    public static NodeSelectorBuilder<JsonNode, JsonNodeName, Name, Object> absoluteNodeSelectorBuilder() {
-        return NodeSelectorBuilder.absolute(PathSeparator.notRequiredAtStart('/'));
-    }
-
-    /**
-     * Relative {@see NodeSelectorBuilder}
-     */
-    public static NodeSelectorBuilder<JsonNode, JsonNodeName, Name, Object> relativeNodeSelectorBuilder() {
-        return NodeSelectorBuilder.relative(PathSeparator.notRequiredAtStart('/'));
-    }
+    public static final PathSeparator PATH_SEPARATOR = PathSeparator.notRequiredAtStart('/');
 
     final static Optional<JsonNode> NO_PARENT = Optional.empty();
     final static int NO_PARENT_INDEX = -1;

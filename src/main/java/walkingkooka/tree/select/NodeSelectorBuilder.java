@@ -36,25 +36,44 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
     /**
      * Creates an select that begins its search from the root of the graph.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute(final PathSeparator separator) {
-        Objects.requireNonNull(separator, "separator");
+    public static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absolute(final Class<N> node,
+                                                                         final PathSeparator separator) {
+        check(node, separator);
         return new NodeSelectorBuilder<N, NAME, ANAME, AVALUE>(separator).absolute();
     }
 
     /**
      * Creates a select that begins its search with the given node.
      */
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> relative(final PathSeparator separator) {
-        Objects.requireNonNull(separator, "separator");
+    public static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> relative(final Class<N> node,
+                                                                         final PathSeparator separator) {
+        check(node, separator);
         return new NodeSelectorBuilder<>(separator);
     }
 
-    private final PathSeparator separator;
+    /**
+     * Checks the parameters are not null.
+     */
+    private static void check(final Class<?> node, final PathSeparator separator) {
+        Objects.requireNonNull(node, "node");
+        Objects.requireNonNull(separator, "separator");
+    }
 
+    /**
+     * Private ctor use factory.
+     */
     private NodeSelectorBuilder(final PathSeparator separator) {
         super();
         this.separator = separator;
     }
+
+    private final PathSeparator separator;
 
     /**
      * {@see AncestorNodeSelector}

@@ -25,7 +25,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -39,6 +38,14 @@ import java.util.Optional;
 
 public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionNodeName, Name, Object> {
 
+    /**
+     * The {@link PathSeparator} for node selector paths.
+     */
+    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
+
+    /**
+     * An empty list that holds no children.
+     */
     public final static List<ExpressionNode> NO_CHILDREN = Lists.empty();
 
     /**
@@ -285,20 +292,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
      */
     public static ExpressionXorNode xor(final ExpressionNode left, final ExpressionNode right){
         return ExpressionXorNode.with(left, right);
-    }
-    
-    /**
-     * Absolute {@see NodeSelectorBuilder}
-     */
-    public static NodeSelectorBuilder<ExpressionNode, ExpressionNodeName, Name, Object> absoluteNodeSelectorBuilder() {
-        return NodeSelectorBuilder.absolute(PathSeparator.notRequiredAtStart('/'));
-    }
-
-    /**
-     * Relative {@see NodeSelectorBuilder}
-     */
-    public static NodeSelectorBuilder<ExpressionNode, ExpressionNodeName, Name, Object> relativeNodeSelectorBuilder() {
-        return NodeSelectorBuilder.relative(PathSeparator.notRequiredAtStart('/'));
     }
 
     final static Optional<ExpressionNode> NO_PARENT = Optional.empty();

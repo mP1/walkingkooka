@@ -36,7 +36,6 @@ import walkingkooka.text.Whitespace;
 import walkingkooka.tree.search.HasSearchNode;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;
@@ -75,13 +74,6 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     public final static Optional<DomSystemId> NO_SYSTEM_ID = Optional.empty();
     public final static Optional<DomDocumentType> NO_DOCUMENT_TYPE = Optional.empty();
     public final static Optional<DomElement> NO_ELEMENT = Optional.empty();
-
-    /**
-     * Absolute {@see NodeSelectorBuilder}
-     */
-    public static NodeSelectorBuilder<DomNode, DomName, DomAttributeName, String> absoluteNodeSelectorBuilder() {
-        return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
-    }
 
     /**
      * {@see DomAtttributeName}
@@ -123,11 +115,9 @@ public abstract class DomNode implements walkingkooka.tree.Node<DomNode, DomName
     }
 
     /**
-     * relative {@see NodeSelectorBuilder}
+     * The {@link PathSeparator} for node selector paths.
      */
-    public static NodeSelectorBuilder<DomNode, DomName, DomAttributeName, String> relativeNodeSelectorBuilder() {
-        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
-    }
+    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
     /**
      * Creates a new system id

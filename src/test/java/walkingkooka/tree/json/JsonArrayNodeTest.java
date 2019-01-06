@@ -292,7 +292,7 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 .appendChild(JsonNode.number(2))
                 .appendChild(JsonNode.string("third"));
         final JsonNode selected = array.get(1);
-        final NodeSelector<JsonNode, JsonNodeName, Name, Object> selector = JsonNode.absoluteNodeSelectorBuilder()
+        final NodeSelector<JsonNode, JsonNodeName, Name, Object> selector = JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
                 .descendant()
                 .named(selected.name())
                 .build();

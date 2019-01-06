@@ -261,7 +261,7 @@ public final class FilesystemNodeTest extends NodeTestCase<FilesystemNode, Files
     @Test
     public void testSelectorUsage() throws Exception {
         final FilesystemNode document = this.createNode();
-        final NodeSelector<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> selector = FilesystemNode.absoluteNodeSelectorBuilder()
+        final NodeSelector<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> selector = FilesystemNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(FilesystemNode.class)
                 .descendant()
                 .named(FilesystemNodeName.with(SUB_FILE))
                 .build();

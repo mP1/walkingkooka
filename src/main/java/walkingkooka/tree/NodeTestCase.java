@@ -22,11 +22,15 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
+import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorContext;
 import walkingkooka.tree.select.NodeSelectorContexts;
 import walkingkooka.tree.visit.VisitableTestCase;
+import walkingkooka.type.FieldAttributes;
+import walkingkooka.type.MemberVisibility;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -53,6 +57,15 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     abstract protected String requiredNamePrefix();
+
+    @Test
+    public final void testPathSeparatorConstant() throws Exception {
+        final Field field = this.type().getField("PATH_SEPARATOR");
+
+        assertEquals("PATH_SEPARATOR constant must be public=" + field, MemberVisibility.PUBLIC, MemberVisibility.get(field));
+        assertEquals("PATH_SEPARATOR constant must be static=" + field, true, FieldAttributes.STATIC.is(field));
+        assertEquals("PATH_SEPARATOR constant type=" + field, PathSeparator.class, field.getType());
+    }
 
     @Test
     final public void testNameCached() {

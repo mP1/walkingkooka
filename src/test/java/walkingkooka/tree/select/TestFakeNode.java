@@ -24,6 +24,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Names;
+import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
@@ -37,6 +38,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object> {
+
+    /**
+     * The {@link PathSeparator} for node selector paths.
+     */
+    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
     final static Optional<TestFakeNode> NO_PARENT = Optional.empty();
 
