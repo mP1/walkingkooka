@@ -20,9 +20,11 @@ package walkingkooka.naming;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.tree.Node;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 final public class PathSeparatorTest extends ClassTestCase<PathSeparator> {
@@ -60,10 +62,10 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator> {
 
     @Test
     public void testRequiredAtStart() {
-        final PathSeparator separator = PathSeparator.requiredAtStart(PathSeparatorTest.SEPARATOR);
-        assertEquals("character", PathSeparatorTest.SEPARATOR, separator.character());
-        assertEquals("string", String.valueOf(PathSeparatorTest.SEPARATOR), separator.string());
-        assertEquals("requiredAtStart", PathSeparatorTest.REQUIRED, separator.isRequiredAtStart());
+        final PathSeparator separator = PathSeparator.requiredAtStart(SEPARATOR);
+        assertEquals("character", SEPARATOR, separator.character());
+        assertEquals("string", String.valueOf(SEPARATOR), separator.string());
+        assertEquals("requiredAtStart", REQUIRED, separator.isRequiredAtStart());
     }
 
     @Test
@@ -73,7 +75,7 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator> {
         assertSame(separator, PathSeparator.requiredAtStart(c));
         assertEquals("character", c, separator.character());
         assertEquals("string", String.valueOf(c), separator.string());
-        assertEquals("requiredAtStart", PathSeparatorTest.REQUIRED, separator.isRequiredAtStart());
+        assertEquals("requiredAtStart", REQUIRED, separator.isRequiredAtStart());
     }
 
     @Test
@@ -102,9 +104,9 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator> {
 
     @Test
     public void testNotRequiredAtStart() {
-        final PathSeparator separator = PathSeparator.notRequiredAtStart(PathSeparatorTest.SEPARATOR);
-        assertEquals("character", PathSeparatorTest.SEPARATOR, separator.character());
-        assertEquals("string", String.valueOf(PathSeparatorTest.SEPARATOR), separator.string());
+        final PathSeparator separator = PathSeparator.notRequiredAtStart(SEPARATOR);
+        assertEquals("character", SEPARATOR, separator.character());
+        assertEquals("string", String.valueOf(SEPARATOR), separator.string());
         assertEquals("requiredAtStart", false, separator.isRequiredAtStart());
     }
 
@@ -119,9 +121,21 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator> {
     }
 
     @Test
+    public void testAbsoluteNodeSelectorBuilder() {
+        assertNotNull(PathSeparator.requiredAtStart(SEPARATOR)
+                .absoluteNodeSelectorBuilder(Node.class));
+    }
+
+    @Test
+    public void testRelativeNodeSelectorBuilder() {
+        assertNotNull(PathSeparator.requiredAtStart(SEPARATOR)
+                .relativeNodeSelectorBuilder(Node.class));
+    }
+
+    @Test
     public void testToString() {
-        assertEquals(String.valueOf(PathSeparatorTest.SEPARATOR),
-                PathSeparator.requiredAtStart(PathSeparatorTest.SEPARATOR).toString());
+        assertEquals(String.valueOf(SEPARATOR),
+                PathSeparator.requiredAtStart(SEPARATOR).toString());
     }
 
     @Override

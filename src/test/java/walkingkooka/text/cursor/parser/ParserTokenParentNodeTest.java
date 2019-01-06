@@ -161,7 +161,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
 
     @Test
     public void testSelectorByName() {
-        final NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> selector = ParserTokenNode.absoluteNodeSelectorBuilder()
+        final NodeSelector<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> selector = ParserTokenNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(ParserTokenNode.class)
                 .descendant()
                 .named(StringParserToken.NAME)
                 .build();

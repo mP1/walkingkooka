@@ -37,7 +37,7 @@ public final class PojoNodeTest extends ClassTestCase<PojoNode> {
     public void testSelectorNodeByClassName() {
         final TestBean bean = new TestBean("1", "2", 99, "3");
 
-        final NodeSelector<PojoNode, PojoName, PojoNodeAttributeName, Object> selector = PojoNode.absoluteNodeSelectorBuilder()
+        final NodeSelector<PojoNode, PojoName, PojoNodeAttributeName, Object> selector = PojoNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(PojoNode.class)
                 .descendant()
                 .attributeValueEquals(PojoNodeAttributeName.CLASS, String.class.getName())
                 .build();

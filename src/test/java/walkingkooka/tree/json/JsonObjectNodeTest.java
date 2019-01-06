@@ -315,7 +315,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .set(key2(), JsonNode.number(2))
                 .set(key3(), JsonNode.string("third"));
         final JsonNodeName key2 = this.key2();
-        final NodeSelector<JsonNode, JsonNodeName, Name, Object> selector = JsonNode.absoluteNodeSelectorBuilder()
+        final NodeSelector<JsonNode, JsonNodeName, Name, Object> selector = JsonNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(JsonNode.class)
                 .descendant()
                 .named(key2)
                 .build();

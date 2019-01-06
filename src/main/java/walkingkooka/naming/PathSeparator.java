@@ -19,6 +19,8 @@ package walkingkooka.naming;
 
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.Node;
+import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -129,6 +131,26 @@ final public class PathSeparator implements HashCodeEqualsDefined, Serializable 
                     (this.requiredAtStart ? "is missing" : "should not start with") +
                     " " + CharSequences.quote(this.string) + " " + CharSequences.quote(path));
         }
+    }
+
+    /**
+     * Factory that creates a {@link NodeSelectorBuilder} with an absolute path.
+     */
+    public <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> absoluteNodeSelectorBuilder(final Class<N> node) {
+        return NodeSelectorBuilder.absolute(node, this);
+    }
+
+    /**
+     * Factory that creates a {@link NodeSelectorBuilder} with an relative path.
+     */
+    public <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE> NodeSelectorBuilder<N, NAME, ANAME, AVALUE> relativeNodeSelectorBuilder(final Class<N> node) {
+        return NodeSelectorBuilder.relative(node, this);
     }
 
     // Serializable

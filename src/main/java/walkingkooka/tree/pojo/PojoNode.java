@@ -23,7 +23,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -44,19 +43,11 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
         HasChildrenValues<Object, PojoNode>,
         Value<Object>,
         Comparable<PojoNode>{
-    /**
-     * Absolute {@see NodeSelectorBuilder}
-     */
-    public static NodeSelectorBuilder<PojoNode, PojoName, PojoNodeAttributeName, Object> absoluteNodeSelectorBuilder() {
-        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
-    }
 
     /**
-     * Relative {@see NodeSelectorBuilder}
+     * The {@link PathSeparator} for node selector paths.
      */
-    public static NodeSelectorBuilder<PojoNode, PojoName, PojoNodeAttributeName, Object> relativeNodeSelectorBuilder() {
-        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
-    }
+    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
     final static Optional<PojoNode> NO_PARENT = Optional.empty();
 

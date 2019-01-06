@@ -55,6 +55,26 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
         TestFakeNode.names.clear();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testAbsoluteNullClassFails() {
+        NodeSelectorBuilder.absolute(null, this.separator());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAbsoluteNullSeparatorFails() {
+        NodeSelectorBuilder.absolute(TestFakeNode.class, null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testRelativeNullClassFails() {
+        NodeSelectorBuilder.relative(null, this.separator());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testRelativeNullSeparatorFails() {
+        NodeSelectorBuilder.relative(TestFakeNode.class, null);
+    }
+    
     @Test
     public void testNamedNotSelected() {
         final TestFakeNode root = TestFakeNode.node(ROOT);
@@ -336,7 +356,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testToStringRelativeManySelectors3() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= NodeSelectorBuilder.relative(separator());;
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.relative();
         b.preceding()
                 .self()
                 .following();
@@ -350,11 +370,11 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     private NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> absolute() {
-        return NodeSelectorBuilder.absolute(this.separator());
+        return this.separator().absoluteNodeSelectorBuilder(TestFakeNode.class);
     }
 
     private NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> relative() {
-        return NodeSelectorBuilder.relative(this.separator());
+        return this.separator().relativeNodeSelectorBuilder(TestFakeNode.class);
     }
 
     private PathSeparator separator() {

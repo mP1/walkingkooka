@@ -774,7 +774,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     @Test
     public void testSelectorUsage() throws Exception {
         final DomDocument document = this.fromXml();
-        final NodeSelector<DomNode, DomName, DomAttributeName, String> selector = DomNode.absoluteNodeSelectorBuilder()
+        final NodeSelector<DomNode, DomName, DomAttributeName, String> selector = DomNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(DomNode.class)
                 .descendant()
                 .named(DomName.element("img"))
                 .build();
@@ -797,7 +797,7 @@ public final class DomDocumentTest extends DomParentNodeTestCase<DomDocument> {
     public void testSelectorUsage2() throws Exception {
         final DomDocument document = this.fromXml();
 
-        final NodeSelector<DomNode, DomName, DomAttributeName, String> selector = DomNode.absoluteNodeSelectorBuilder()
+        final NodeSelector<DomNode, DomName, DomAttributeName, String> selector = DomNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(DomNode.class)
                 .descendant()
                 .named(DomName.element("a"))
                 .attributeValueContains(DomNode.attribute("href", DomNode.NO_PREFIX), "19")

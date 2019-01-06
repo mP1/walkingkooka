@@ -1302,7 +1302,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
 
     @Override
     protected NodeSelectorNodeSelectorParserTokenVisitor<TestFakeNode, StringName, StringName, Object> createParserTokenVisitor() {
-        return new NodeSelectorNodeSelectorParserTokenVisitor<TestFakeNode, StringName, StringName, Object>(null, null);
+        return new NodeSelectorNodeSelectorParserTokenVisitor<>(null, null, null);
     }
 
     @Override

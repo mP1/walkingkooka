@@ -24,7 +24,6 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -76,18 +75,9 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     }
 
     /**
-     * Absolute {@see NodeSelectorBuilder}
+     * The {@link PathSeparator} for node selector paths.
      */
-    public static NodeSelectorBuilder<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> absoluteNodeSelectorBuilder() {
-        return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
-    }
-
-    /**
-     * Absolute {@see NodeSelectorBuilder}
-     */
-    public static NodeSelectorBuilder<FilesystemNode, FilesystemNodeName, FilesystemNodeAttributeName, String> relativeNodeSelectorBuilder() {
-        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
-    }
+    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
     
     /**
      * Package private to limit sub classing.

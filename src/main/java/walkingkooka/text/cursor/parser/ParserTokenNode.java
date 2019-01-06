@@ -23,7 +23,6 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.HasChildrenValues;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.select.NodeSelectorBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -39,18 +38,9 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
         Value<ParserToken> {
 
     /**
-     * Absolute {@see NodeSelectorBuilder}
+     * The {@link PathSeparator} for node selector paths.
      */
-    public static NodeSelectorBuilder<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> absoluteNodeSelectorBuilder() {
-        return NodeSelectorBuilder.absolute(PathSeparator.requiredAtStart('/'));
-    }
-
-    /**
-     * Relative {@see NodeSelectorBuilder}
-     */
-    public static NodeSelectorBuilder<ParserTokenNode, ParserTokenNodeName, ParserTokenNodeAttributeName, String> relativeNodeSelectorBuilder() {
-        return NodeSelectorBuilder.relative(PathSeparator.requiredAtStart('/'));
-    }
+    public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
     /**
      * Wraps the provided node.

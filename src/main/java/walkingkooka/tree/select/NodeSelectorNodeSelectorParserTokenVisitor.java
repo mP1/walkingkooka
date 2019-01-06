@@ -58,19 +58,21 @@ import java.util.function.Predicate;
 final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NodeSelectorParserTokenVisitor {
 
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-    NodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorParserToken token,
-                                              final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                              final Predicate<ExpressionNodeName> functions,
-                                              final Class<N> node) {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorParserToken token,
+                                                                                  final Function<NodeSelectorNodeName, NAME> nameFactory,
+                                                                                  final Predicate<ExpressionNodeName> functions,
+                                                                                  final Class<N> node) {
         Objects.requireNonNull(token, "token");
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(node, "name");
 
-        return new NodeSelectorNodeSelectorParserTokenVisitor<N, NAME, ANAME, AVALUE>(nameFactory, functions)
-                .acceptAndBuild(token);
-    }
+        return new NodeSelectorNodeSelectorParserTokenVisitor<>(NodeSelectorBuilder.relative(node, SEPARATOR),
+                nameFactory,
+                functions).acceptAndBuild(token);
+    };
 
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
@@ -78,11 +80,12 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
      * Private ctor use static factory
      */
     // @VisibleForTesting
-    NodeSelectorNodeSelectorParserTokenVisitor(final Function<NodeSelectorNodeName, NAME> nameFactory,
+    NodeSelectorNodeSelectorParserTokenVisitor(final NodeSelectorBuilder<N, NAME, ANAME, AVALUE> builder,
+                                               final Function<NodeSelectorNodeName, NAME> nameFactory,
                                                final Predicate<ExpressionNodeName> functions) {
         super();
 
-        this.builder = NodeSelectorBuilder.relative(SEPARATOR);
+        this.builder = builder;
         this.nameFactory = nameFactory;
         this.functions = functions;
         this.reset();
