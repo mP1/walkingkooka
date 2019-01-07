@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 
 /**
  * <a href="https://tools.ietf.org/html/rfc2183"></a>
@@ -118,10 +117,10 @@ final class ContentDispositionHeaderParser extends HeaderParserWithParameters<Co
 
     @Override
     String quotedParameterValue(final ContentDispositionParameterName<?> parameterName) {
-        return this.quotedText(QUOTED_PARAMETER_VALUE, true);
+        return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
-    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
+    final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
     String unquotedParameterValue(final ContentDispositionParameterName<?> parameterName) {

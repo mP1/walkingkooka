@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 
 /**
  * Base class which parses text containing one or many media types.
@@ -113,10 +112,10 @@ abstract class MediaTypeHeaderParser extends HeaderParserWithParameters<MediaTyp
 
     @Override
     final String quotedParameterValue(final MediaTypeParameterName<?> parameterName) {
-        return this.quotedText(QUOTED_PARAMETER_VALUE, true);
+        return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
-    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
+    final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
     final String unquotedParameterValue(final MediaTypeParameterName<?> parameterName) {

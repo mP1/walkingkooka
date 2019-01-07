@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 
 /**
  * Base class for a parser of language tags.
@@ -52,10 +51,10 @@ abstract class LanguageTagHeaderParser extends HeaderParserWithParameters<Langua
 
     @Override
     final String quotedParameterValue(final LanguageTagParameterName<?> parameterName) {
-        return this.quotedText(QUOTED_PARAMETER_VALUE, true);
+        return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
-    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
+    final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
     final String unquotedParameterValue(final LanguageTagParameterName<?> parameterName) {

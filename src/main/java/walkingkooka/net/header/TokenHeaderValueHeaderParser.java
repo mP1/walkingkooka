@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 
 /**
  * Base class for all header value token parsers.
@@ -54,7 +53,7 @@ abstract class TokenHeaderValueHeaderParser extends HeaderParserWithParameters<T
         return this.failInvalidCharacter();
     }
 
-    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
+    final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
     final String unquotedParameterValue(final TokenHeaderValueParameterName<?> parameterName) {
