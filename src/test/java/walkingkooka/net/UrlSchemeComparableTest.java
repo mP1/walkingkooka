@@ -19,17 +19,32 @@
 package walkingkooka.net;
 
 import org.junit.Test;
-import walkingkooka.test.HashCodeEqualsDefinedEqualityTestCase;
+import walkingkooka.compare.ComparableTestCase;
 
-public final class UrlSchemeEqualityTest extends HashCodeEqualsDefinedEqualityTestCase<UrlScheme> {
+public final class UrlSchemeComparableTest extends ComparableTestCase<UrlScheme> {
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(UrlScheme.with("z"));
+    }
+
+    @Test
+    public void testLessIgnoresCase() {
+        this.compareToAndCheckLess(UrlScheme.with("Z"));
+    }
 
     @Test
     public void testDifferent() {
         this.checkNotEquals(UrlScheme.with("different"));
     }
 
+    @Test
+    public void testEqualityCaseIgnored() {
+        this.checkEquals(UrlScheme.with("CUSTOM"));
+    }
+
     @Override
-    protected UrlScheme createObject() {
+    protected UrlScheme createComparable() {
         return UrlScheme.with("custom");
     }
 }
