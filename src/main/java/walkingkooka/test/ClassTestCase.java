@@ -230,7 +230,7 @@ abstract public class ClassTestCase<T> extends TestCase {
 
                 for (final Method method : type.getDeclaredMethods()) {
                     if (MethodAttributes.STATIC.is(method)) {
-                        if (this.isEnumMethod(method)) {
+                        if (this.isMainMethod(method) || this.isEnumMethod(method)) {
                             continue;
                         }
                         if (MemberVisibility.PUBLIC.is(method) || MemberVisibility.PROTECTED.is(method)) {
@@ -252,6 +252,14 @@ abstract public class ClassTestCase<T> extends TestCase {
                 }
             }
         }
+    }
+
+    /**
+     * Returns true if the given method has the signature of a main method used to start a java program in a JVM.
+     */
+    private boolean isMainMethod(final Method method) {
+        return method.getName().equals("main") &&
+                Arrays.equals(new Class[]{String[].class}, method.getParameterTypes());
     }
 
     private boolean isEnumMethod(final Method method) {
