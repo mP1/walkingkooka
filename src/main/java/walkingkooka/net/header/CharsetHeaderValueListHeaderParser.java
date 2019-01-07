@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.HasQFactorWeight;
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.predicate.character.CharPredicates;
 
 import java.util.List;
 
@@ -89,10 +88,10 @@ final class CharsetHeaderValueListHeaderParser extends HeaderParserWithParameter
 
     @Override
     String quotedParameterValue(final CharsetHeaderValueParameterName<?> parameterName) {
-        return this.quotedText(QUOTED_PARAMETER_VALUE, true);
+        return this.quotedText(QUOTED_PARAMETER_VALUE, ESCAPING_SUPPORTED);
     }
 
-    final static CharPredicate QUOTED_PARAMETER_VALUE = CharPredicates.ascii();
+    final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
     @Override
     String unquotedParameterValue(final CharsetHeaderValueParameterName<?> parameterName) {

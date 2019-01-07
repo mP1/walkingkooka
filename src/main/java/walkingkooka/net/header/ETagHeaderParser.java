@@ -65,7 +65,7 @@ abstract class ETagHeaderParser extends HeaderParser {
             this.failInvalidCharacter();
         }
 
-        final String quotedText = this.quotedText(ETAG_VALUE, false);
+        final String quotedText = this.quotedText(ETAG_VALUE, ESCAPING_UNSUPPORTED);
         this.etag(this.validator.setValue(quotedText.substring(1, quotedText.length()-1)));
         this.requireValue = false;
     }

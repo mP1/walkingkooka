@@ -100,7 +100,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
         if(this.requireDirectiveName || !this.expectsParameterValue) {
             this.failInvalidCharacter();
         }
-        this.parameterValue = this.directiveName.toValue(this.quotedText(CharPredicates.ascii(), ALLOW_ESCAPING));
+        this.parameterValue = this.directiveName.toValue(this.quotedText(ASCII, ESCAPING_SUPPORTED));
         this.expectsParameterValue = false;
 
         //this.addParameter();

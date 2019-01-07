@@ -182,8 +182,8 @@ abstract class HeaderParser {
 
     // quoted ...............................................................................................
 
-    final static boolean ALLOW_ESCAPING = true;
-    final static boolean DISALLOW_ESCAPING = false;
+    final static boolean ESCAPING_SUPPORTED = true;
+    final static boolean ESCAPING_UNSUPPORTED = false;
 
     /**
      * Returns the quoted string in its raw form which will include the surrounding double quotes.
@@ -426,7 +426,7 @@ abstract class HeaderParser {
     /**
      * Used to match valid ascii characters.
      */
-    private final static CharPredicate ASCII = CharPredicates.asciiPrintable()
+    final static CharPredicate ASCII = CharPredicates.asciiPrintable()
             .or(CharPredicates.any("\t\r\n "));
 
     /**
