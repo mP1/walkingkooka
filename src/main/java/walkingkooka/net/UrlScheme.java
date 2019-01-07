@@ -23,6 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicateBuilder;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -41,7 +42,7 @@ public final class UrlScheme
     /**
      * A read only cache of already prepared {@link UrlScheme schemes}.
      */
-    final static Map<String, UrlScheme> CONSTANTS = Maps.sorted();
+    final static Map<String, UrlScheme> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
      * Creates and adds a new {@link UrlScheme} to the cache being built.
@@ -62,6 +63,30 @@ public final class UrlScheme
      */
     public final static UrlScheme HTTPS = UrlScheme.registerConstant("https");
 
+    /**
+     * <a href="https://tools.ietf.org/html/rfc3986#section-3"></a>
+     * <pre>
+     * 3.1.  Scheme
+     *
+     * Each URI begins with a scheme name that refers to a specification for
+     * assigning identifiers within that scheme.  As such, the URI syntax is
+     * a federated and extensible naming system wherein each scheme's
+     * specification may further restrict the syntax and semantics of
+     * identifiers using that scheme.
+     *
+     * Scheme names consist of a sequence of characters beginning with a
+     * letter and followed by any combination of letters, digits, plus
+     * ("+"), period ("."), or hyphen ("-").  Although schemes are case-
+     * insensitive, the canonical form is lowercase and documents that
+     * specify schemes must do so with lowercase letters.  An implementation
+     * should accept uppercase letters as equivalent to lowercase in scheme
+     * names (e.g., allow "HTTP" as well as "http") for the sake of
+     * robustness but should only produce lowercase scheme names for
+     * consistency.
+     *
+     *    scheme      = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )    
+     * </pre>
+     */
     private final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 
     /**
@@ -100,7 +125,7 @@ public final class UrlScheme
     UrlScheme(final String name) {
         super();
         this.name = name;
-        this.nameWithSlashes = name + "://";
+        this.nameWithSlashes = name.toLowerCase() + "://";
     }
 
     // Name
@@ -135,14 +160,14 @@ public final class UrlScheme
 
     @Override
     public int compareTo(final UrlScheme scheme) {
-        return this.name.compareToIgnoreCase(scheme.name);
+        return CASE_SENSITIVITY.comparator().compare(this.name, scheme.name);
     }
 
     // Object
 
     @Override
     public int hashCode() {
-        return this.name.hashCode();
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
@@ -152,8 +177,10 @@ public final class UrlScheme
     }
 
     private boolean equals0(final UrlScheme other) {
-        return this.name.equalsIgnoreCase(other.name);
+        return this.compareTo(other) == 0;
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     /**
      * Returns the raw {@link String}.

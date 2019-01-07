@@ -44,6 +44,11 @@ public final class UrlSchemeTest extends NameTestCase<UrlScheme> {
         assertSame(UrlScheme.HTTPS, UrlScheme.with("https"));
     }
 
+    @Test
+    public void testHttpsUpperCaseUnimportantConstants() {
+        assertSame(UrlScheme.HTTPS, UrlScheme.with("HTTPS"));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidFirstCharFails() {
         this.createName("1http");
@@ -57,6 +62,22 @@ public final class UrlSchemeTest extends NameTestCase<UrlScheme> {
     @Test
     public void testIncludesPlusMinusDot() {
         this.createName("A123456789+-.abcABCxyzXYZ");
+    }
+
+    @Test
+    public void testNameWithSlashes() {
+        this.createNameAndCheckWithSlashes("http", "http://");
+    }
+
+    @Test
+    public void testNameWithSlashes2() {
+        this.createNameAndCheckWithSlashes("HTTP", "http://");
+    }
+
+    private void createNameAndCheckWithSlashes(final String value,
+                                               final String nameWithSlashes) {
+        final UrlScheme urlScheme = UrlScheme.with(value);
+        assertEquals("nameWithSlashes", nameWithSlashes, urlScheme.nameWithSlashes());
     }
 
     // withHost...........................................................................................

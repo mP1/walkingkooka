@@ -338,6 +338,18 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
         assertEquals("http://host:123/path?query=value#fragment", this.createUrl().toString());
     }
 
+    @Test
+    public void testToStringUpperCasedScheme() {
+        assertEquals("test://host:123",
+                AbsoluteUrl.with(UrlScheme.with("TEST"),
+                        AbsoluteUrl.NO_CREDENTIALS,
+                        HOST,
+                        PORT,
+                        UrlPath.EMPTY,
+                        UrlQueryString.EMPTY,
+                        UrlFragment.EMPTY).toString());
+    }
+
     // factory
 
     @Override
