@@ -145,6 +145,16 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
     // HeaderValue................................................................................................................
 
     @Override
+    String toHeaderTextValue() {
+        return this.value.toString();
+    }
+
+    @Override
+    String toHeaderTextParameterSeparator() {
+        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
+    }
+
+    @Override
     public boolean isWildcard() {
         return false;
     }

@@ -119,7 +119,17 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
                 new LanguageTag(name, parameters);
     }
 
-    // isXXX........................................................................................................
+    // headerValue........................................................................................................
+
+    @Override
+    String toHeaderTextValue() {
+        return this.value.toString();
+    }
+
+    @Override
+    String toHeaderTextParameterSeparator() {
+        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
+    }
 
     /**
      * Returns true if this LanguageTag is a wildcard.
