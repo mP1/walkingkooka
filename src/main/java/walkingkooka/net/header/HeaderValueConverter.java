@@ -151,6 +151,20 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
+     * {@see LanguageTagNameHeaderValueConverter}
+     */
+    static HeaderValueConverter<LanguageTagName> languageTagName() {
+        return LanguageTagNameHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LinkHeaderValueConverter}
+     */
+    static HeaderValueConverter<List<Link>> link() {
+        return LinkHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see LocalDateTimeHeaderValueConverter}
      */
     static HeaderValueConverter<LocalDateTime> localDateTime() {
@@ -235,6 +249,13 @@ abstract class HeaderValueConverter<T> {
      */
     static HeaderValueConverter<RelativeUrl> relativeUrl() {
         return RelativeUrlHeaderValueConverter.INSTANCE;
+    }
+
+    /**
+     * {@see LinkRelationHeaderValueConverter}
+     */
+    static HeaderValueConverter<List<LinkRelation<?>>> relation() {
+        return LinkRelationHeaderValueConverter.INSTANCE;
     }
 
     /**
