@@ -406,11 +406,6 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
     // HeaderValue................................................................................................................
 
     @Override
-    public String toHeaderText() {
-        return this.toString();
-    }
-
-    @Override
     public boolean isWildcard() {
         return ALL == this;
     }
