@@ -29,11 +29,6 @@ public final class TokenHeaderValueOneHeaderParserTest extends TokenHeaderValueH
     }
 
     @Test
-    public void testValueSeparatorFails() {
-        this.parseInvalidCharacterFails("A,");
-    }
-
-    @Test
     public void testValueSpaceSeparatorFails() {
         this.parseInvalidCharacterFails("A ,");
     }
