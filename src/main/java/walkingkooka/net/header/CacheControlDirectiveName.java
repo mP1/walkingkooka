@@ -218,10 +218,6 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
         return Optional.of(this.converter.parse(text, this));
     }
 
-    boolean mayIncludeParameter() {
-        return this.parameter != CacheControlDirectiveNameParameter.ABSENT;
-    }
-
     boolean requiresParameter() {
         return this.parameter == CacheControlDirectiveNameParameter.REQUIRED;
     }
