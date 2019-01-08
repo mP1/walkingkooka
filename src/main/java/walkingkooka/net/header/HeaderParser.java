@@ -59,10 +59,10 @@ abstract class HeaderParser {
      */
     final void parse() {
         while(this.hasMoreCharacters()) {
-            final char c = this.character();
             switch(this.character()) {
                 case '\t':
                 case '\r':
+                case '\n':
                 case ' ':
                     this.whitespace();
                     break;
