@@ -18,7 +18,6 @@
 package walkingkooka.compare;
 
 import walkingkooka.predicate.character.CharPredicate;
-import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.PublicStaticHelper;
 
 import java.util.Comparator;
@@ -57,14 +56,6 @@ final public class Comparators implements PublicStaticHelper {
      */
     public static <T> Comparator<T> not(final Comparator<T> comparator) {
         return NotComparator.wrap(comparator);
-    }
-
-    /**
-     * {@see TextWithNumbersCharSequenceComparator}.
-     */
-    public static <S extends CharSequence> Comparator<S> textWithNumbers(final CaseSensitivity sensitivity,
-                                                                         final CharPredicate decimal) {
-        return TextWithNumbersCharSequenceComparator.with(sensitivity, decimal);
     }
 
     /**
