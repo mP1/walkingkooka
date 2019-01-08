@@ -18,6 +18,7 @@
 package walkingkooka.predicate;
 
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -25,7 +26,7 @@ import java.util.function.Predicate;
 /**
  * A {@link Predicate} that inverts the result of the wrapped {@link Predicate}.
  */
-final class NotPredicate<T> implements Predicate<T>, Notable<Predicate<T>> {
+final class NotPredicate<T> implements Predicate<T>, Notable<Predicate<T>>, HashCodeEqualsDefined {
     static <T> Predicate<T> wrap(final Predicate<T> predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
@@ -78,5 +79,5 @@ final class NotPredicate<T> implements Predicate<T>, Notable<Predicate<T>> {
 
     // Serializable
 
-    private static final long serialVersionUID = 6320293177696634438L;
+    private static final long serialVersionUID = 1L;
 }
