@@ -22,6 +22,8 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
 final public class CookieNameTest extends NameTestCase<CookieName> {
 
@@ -128,6 +130,11 @@ final public class CookieNameTest extends NameTestCase<CookieName> {
     @Test
     public void testBeginsDollarSign() {
         this.createNameAndCheck("$cookie");
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("cookie123", CookieName.with("cookie123").toString());
     }
 
     @Override
