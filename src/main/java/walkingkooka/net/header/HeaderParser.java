@@ -496,7 +496,10 @@ abstract class HeaderParser {
         }
     }
 
-    private static boolean spaceOrHorizontalTab(final char c) {
+    /**
+     * Returns true if the character is a space or tab.
+     */
+    static boolean spaceOrHorizontalTab(final char c) {
         return ' ' == c || '\t' == c;
     }
 

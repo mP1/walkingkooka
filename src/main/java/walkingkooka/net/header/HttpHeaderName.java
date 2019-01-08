@@ -153,6 +153,14 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link Link} header values.
+     */
+    private static HttpHeaderName<List<Link>> registerLinkConstant(final String header,
+                                                                   final HttpHeaderNameScope scope) {
+        return registerConstant(header, scope, HeaderValueConverter.link());
+    }
+
+    /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link LocalDateTime} header values.
      */
     private static HttpHeaderName<LocalDateTime> registerLocalDateTimeConstant(final String header,
@@ -494,6 +502,13 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      * </pre>
      */
     public final static HttpHeaderName<String> KEEP_ALIVE = registerStringConstant("Keep-Alive",
+            HttpHeaderNameScope.REQUEST_RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Link</code>
+     * <a href="http://www.rfc-editor.org/rfc/rfc5988.txt"></a>
+     */
+    public final static HttpHeaderName<List<Link>> LINK = registerLinkConstant("Link",
             HttpHeaderNameScope.REQUEST_RESPONSE);
 
     /**
