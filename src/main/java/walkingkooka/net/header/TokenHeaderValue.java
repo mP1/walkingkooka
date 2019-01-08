@@ -112,6 +112,16 @@ public final class TokenHeaderValue extends HeaderValueWithParameters2<TokenHead
 
     // HeaderValue .............................................................................................
 
+    @Override
+    String toHeaderTextValue() {
+        return this.value;
+    }
+
+    @Override
+    String toHeaderTextParameterSeparator() {
+        return TO_HEADERTEXT_PARAMETER_SEPARATOR;
+    }
+
     /**
      * Only returns true if the value is WILDCARD.
      */
