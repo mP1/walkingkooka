@@ -104,11 +104,6 @@ public final class ContentDisposition extends HeaderValueWithParameters2<Content
     // HeaderValue.................................................................
 
     @Override
-    public String toHeaderText() {
-        return this.toString();
-    }
-
-    @Override
     public boolean isWildcard() {
         return false;
     }

@@ -137,15 +137,6 @@ public final class LanguageTag extends HeaderValueWithParameters2<LanguageTag,
         return this.qFactorWeight(LanguageTagParameterName.Q_FACTOR);
     }
 
-    // HeaderValue........................................................................................................
-
-    /**
-     * Returns the text or header value form.
-     */
-    public String toHeaderText() {
-        return this.toString();
-    }
-
     // HasHeaderScope ....................................................................................................
 
     @Override

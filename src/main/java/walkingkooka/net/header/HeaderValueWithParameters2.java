@@ -108,6 +108,32 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
         return Optional.ofNullable(Float.class.cast(this.parameters().get(parameter)));
     }
 
+    // headerValue..................................................................................................
+
+    /**
+     * Reproduces this header as text.
+     */
+    @Override
+    public final String toHeaderText() {
+        return this.value() +
+                this.parameters.entrySet()
+                        .stream()
+                        .map(this::toHeaderTextParameter)
+                        .collect(Collectors.joining());
+    }
+
+    /**
+     * Helper that converts the parameter key/value into text using the name's {@link HeaderValueConverter}.
+     */
+    private String toHeaderTextParameter(final Entry<P, Object> nameAndValue) {
+        final P name = nameAndValue.getKey();
+        return PARAMETER_SEPARATOR.character() +
+                " " +
+                name.value() +
+                PARAMETER_NAME_VALUE_SEPARATOR.character() +
+                name.converter.toText(Cast.to(nameAndValue.getValue()), name);
+    }
+
     // Object................................................................................................................
 
     @Override
@@ -133,24 +159,8 @@ abstract class HeaderValueWithParameters2<H extends HeaderValueWithParameters2<H
 
     abstract boolean equals1(final V value, final V otherValue);
 
-    /**
-     * Reproduces this header as text.
-     */
     @Override
     public final String toString() {
-        return this.value() +
-                parameters.entrySet()
-                        .stream()
-                        .map(this::toStringParameter)
-                        .collect(Collectors.joining());
-    }
-
-    private String toStringParameter(final Entry<P, Object> nameAndValue) {
-        final P name = nameAndValue.getKey();
-        return PARAMETER_SEPARATOR.character() +
-                " " +
-                name.value() +
-                PARAMETER_NAME_VALUE_SEPARATOR.character() +
-                name.converter.toText(Cast.to(nameAndValue.getValue()), name);
+        return this.toHeaderText();
     }
 }
