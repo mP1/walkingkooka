@@ -23,25 +23,20 @@ enum TextWithNumbersCharSequenceComparatorMode {
      */
     NON_DIGITS {
         @Override
-        TextWithNumbersCharSequenceComparatorMode compare(final char c1, final char c2,
-                                                          final TextWithNumbersCharSequenceComparatorState job) {
+        TextWithNumbersCharSequenceComparatorMode compare(final char c1,
+                                                          final char c2,
+                                                          final TextWithNumbersCharSequenceComparatorState state) {
             TextWithNumbersCharSequenceComparatorMode next;
 
             // they may both be digits.
-            final int value1 = TextWithNumbersCharSequenceComparatorMode.digit(c1);
-            final int value2 = TextWithNumbersCharSequenceComparatorMode.digit(c2);
-            final boolean digit1
-                    = TextWithNumbersCharSequenceComparatorMode.isDigit(value1);
-            final boolean digit2
-                    = TextWithNumbersCharSequenceComparatorMode.isDigit(value2);
-            if (digit1 && digit2) {
+            if (isDigit(digit(c1)) && isDigit(digit(c2))) {
                 if (('0' == c1) || ('0' == c2)) {
                     next = SKIP_LEADING_ZEROS;
                 } else {
                     next = WHOLE_NUMBER_DIGITS;
                 }
             } else {
-                next = this.compareNonDigits(c1, c2, job);
+                next = this.compareNonDigits(c1, c2, state);
             }
             return next;
         }
@@ -52,13 +47,14 @@ enum TextWithNumbersCharSequenceComparatorMode {
      */
     SKIP_LEADING_ZEROS {
         @Override
-        TextWithNumbersCharSequenceComparatorMode compare(final char c1, final char c2,
-                                                          final TextWithNumbersCharSequenceComparatorState job) {
+        TextWithNumbersCharSequenceComparatorMode compare(final char c1,
+                                                          final char c2,
+                                                          final TextWithNumbersCharSequenceComparatorState state) {
             if ('0' == c1) {
-                job.pos1 = this.skipZeroes(job.chars1, 1 + job.pos1);
+                state.pos1 = this.skipZeroes(state.chars1, 1 + state.pos1);
             }
             if ('0' == c2) {
-                job.pos2 = this.skipZeroes(job.chars2, 1 + job.pos2);
+                state.pos2 = this.skipZeroes(state.chars2, 1 + state.pos2);
             }
             return WHOLE_NUMBER_DIGITS;
         }
@@ -85,7 +81,8 @@ enum TextWithNumbersCharSequenceComparatorMode {
      */
     WHOLE_NUMBER_DIGITS {
         @Override
-        TextWithNumbersCharSequenceComparatorMode compare(final char c1, final char c2,
+        TextWithNumbersCharSequenceComparatorMode compare(final char c1,
+                                                          final char c2,
                                                           final TextWithNumbersCharSequenceComparatorState state) {
             // count the number of digits for both
             final int pos1 = state.pos1;
@@ -107,6 +104,9 @@ enum TextWithNumbersCharSequenceComparatorMode {
 
                 // same number of digits need to check them of by of.
                 for (int i = 0; i < digitCount1; i++) {
+                    final char c = chars1.charAt(i + pos1);
+                    final char d = chars2.charAt(i + pos2);
+
                     final int result = chars1.charAt(i + pos1) - chars2.charAt(i + pos2);
                     if (Comparators.EQUAL != result) {
                         state.result = result;
@@ -126,8 +126,7 @@ enum TextWithNumbersCharSequenceComparatorMode {
 
             final int stop = chars.length();
             while (j < stop) {
-                if (false == TextWithNumbersCharSequenceComparatorMode.isDigit(chars.charAt(
-                        j))) {
+                if (false == isDigit(chars.charAt(j))) {
                     break;
                 }
                 j++;
@@ -141,9 +140,10 @@ enum TextWithNumbersCharSequenceComparatorMode {
      */
     MAYBE_DECIMAL {
         @Override
-        TextWithNumbersCharSequenceComparatorMode compare(final char c1, final char c2,
-                                                          final TextWithNumbersCharSequenceComparatorState job) {
-            return this.compareMaybeDigits(c1, c2, job);
+        TextWithNumbersCharSequenceComparatorMode compare(final char c1,
+                                                          final char c2,
+                                                          final TextWithNumbersCharSequenceComparatorState state) {
+            return this.compareMaybeDigits(c1, c2, state);
         }
 
     },
@@ -152,9 +152,10 @@ enum TextWithNumbersCharSequenceComparatorMode {
      */
     FRACTIONAL_DIGITS {
         @Override
-        TextWithNumbersCharSequenceComparatorMode compare(final char c1, final char c2,
-                                                          final TextWithNumbersCharSequenceComparatorState job) {
-            return this.compareMaybeDigits(c1, c2, job);
+        TextWithNumbersCharSequenceComparatorMode compare(final char c1,
+                                                          final char c2,
+                                                          final TextWithNumbersCharSequenceComparatorState state) {
+            return this.compareMaybeDigits(c1, c2, state);
         }
     },
     /**
@@ -163,8 +164,9 @@ enum TextWithNumbersCharSequenceComparatorMode {
      */
     STOP {
         @Override
-        TextWithNumbersCharSequenceComparatorMode compare(final char c1, final char c2,
-                                                          final TextWithNumbersCharSequenceComparatorState job) {
+        TextWithNumbersCharSequenceComparatorMode compare(final char c1,
+                                                          final char c2,
+                                                          final TextWithNumbersCharSequenceComparatorState state) {
             throw new UnsupportedOperationException();
         }
     };
@@ -172,19 +174,21 @@ enum TextWithNumbersCharSequenceComparatorMode {
     /**
      * This is called without either {@link CharSequence} being exhaused.
      */
-    abstract TextWithNumbersCharSequenceComparatorMode compare(char c1, char c2,
-                                                               TextWithNumbersCharSequenceComparatorState job);
+    abstract TextWithNumbersCharSequenceComparatorMode compare(final char c1,
+                                                               final char c2,
+                                                               final TextWithNumbersCharSequenceComparatorState state);
 
     /**
      * Assumes both characters are digits and compares them of values.
      */
-    final TextWithNumbersCharSequenceComparatorMode compareNonDigits(final char c1, final char c2,
-                                                                     final TextWithNumbersCharSequenceComparatorState job) {
-        job.result = job.comparator.compareNonDigits(c1, c2);
+    final TextWithNumbersCharSequenceComparatorMode compareNonDigits(final char c1,
+                                                                     final char c2,
+                                                                     final TextWithNumbersCharSequenceComparatorState state) {
+        state.result = state.comparator.compare(c1, c2);
 
         TextWithNumbersCharSequenceComparatorMode next;
-        if (Comparators.EQUAL == job.result) {
-            job.next();
+        if (Comparators.EQUAL == state.result) {
+            state.next();
             next = this;
         } else {
             next = STOP;
@@ -195,36 +199,52 @@ enum TextWithNumbersCharSequenceComparatorMode {
     /**
      * After testing if both are digits then compares their values.
      */
-    final TextWithNumbersCharSequenceComparatorMode compareMaybeDigits(final char c1, final char c2,
-                                                                       final TextWithNumbersCharSequenceComparatorState job) {
+    final TextWithNumbersCharSequenceComparatorMode compareMaybeDigits(final char c1,
+                                                                       final char c2,
+                                                                       final TextWithNumbersCharSequenceComparatorState state) {
         // they may both be digits.
-        final int value1 = TextWithNumbersCharSequenceComparatorMode.digit(c1);
-        final int value2 = TextWithNumbersCharSequenceComparatorMode.digit(c2);
-        final boolean digit1 = TextWithNumbersCharSequenceComparatorMode.isDigit(value1);
-        final boolean digit2 = TextWithNumbersCharSequenceComparatorMode.isDigit(value2);
+        final int value1 = digit(c1);
+        final int value2 = digit(c2);
+        final boolean digit1 = isDigit(value1);
+        final boolean digit2 = isDigit(value2);
 
         TextWithNumbersCharSequenceComparatorMode next;
 
         // compare values if both are digits
         if (digit1 && digit2) {
-            job.result = value1 - value2;
-            if (Comparators.EQUAL == job.result) {
+            state.result = value1 - value2;
+            if (Comparators.EQUAL == state.result) {
                 next = this;
-                job.next();
+                state.next();
             } else {
-                // give up job.result has the "result"
+                // give up state.result has the "result"
                 next = STOP;
             }
         } else {
             if (digit1) {
-                job.result = Comparators.MORE;
+                state.result = Comparators.MORE;
                 next = STOP;
             } else {
                 if (digit2) {
-                    job.result = Comparators.LESS;
+                    state.result = Comparators.LESS;
                     next = STOP;
                 } else {
-                    next = this.compareNonDigits(c1, c2, job);
+                    final boolean decimal1 = state.isDecimal(c1);
+                    final boolean decimal2 = state.isDecimal(c2);
+                    if(decimal1 || decimal2) {
+                        if(decimal1) {
+                            state.pos1++;
+                        }
+                        if(decimal2) {
+                            state.pos2++;
+                        }
+                        next = FRACTIONAL_DIGITS;
+                        if(decimal1 ^ decimal2) {
+                            state.result = this.compareNonDigits(c1, c2, state);
+                        }
+                    } else {
+                        next = this.compareNonDigits(c1, c2, state);
+                    }
                 }
             }
 

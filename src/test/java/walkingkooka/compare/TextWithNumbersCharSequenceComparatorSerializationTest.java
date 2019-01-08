@@ -32,8 +32,7 @@ final public class TextWithNumbersCharSequenceComparatorSerializationTest
 
     @Override
     protected TextWithNumbersCharSequenceComparator<String> create() {
-        return TextWithNumbersCharSequenceComparator.with(CaseSensitivity.SENSITIVE,
-                CharPredicates.is('.'));
+        return TextWithNumbersCharSequenceComparator.with(CaseSensitivity.SENSITIVE, CharPredicates.is('.'));
     }
 
     @Override

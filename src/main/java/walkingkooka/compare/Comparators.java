@@ -62,8 +62,8 @@ final public class Comparators implements PublicStaticHelper {
     /**
      * {@see TextWithNumbersCharSequenceComparator}.
      */
-    public static <S extends CharSequence> Comparator<S> textWithNumbers(
-            final CaseSensitivity sensitivity, final CharPredicate decimal) {
+    public static <S extends CharSequence> Comparator<S> textWithNumbers(final CaseSensitivity sensitivity,
+                                                                         final CharPredicate decimal) {
         return TextWithNumbersCharSequenceComparator.with(sensitivity, decimal);
     }
 

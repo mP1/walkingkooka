@@ -17,7 +17,6 @@
 
 package walkingkooka.compare;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
@@ -34,30 +33,14 @@ import static org.junit.Assert.assertEquals;
 final public class TextWithNumbersCharSequenceComparatorTest
         extends ComparatorTestCase<TextWithNumbersCharSequenceComparator<String>, String> {
 
-    // constants
-
-    private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
-
-    private final static CharPredicate DECIMAL = CharPredicates.is('.');
-
-    // tests
-
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testWithNullCaseSensitivityFails() {
-        this.withFails(null, TextWithNumbersCharSequenceComparatorTest.DECIMAL);
+        TextWithNumbersCharSequenceComparator.with(null, CharPredicates.fake());
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testWithNullDecimalFails() {
-        this.withFails(TextWithNumbersCharSequenceComparatorTest.SENSITIVITY, null);
-    }
-
-    private void withFails(final CaseSensitivity sensitivity, final CharPredicate decimal) {
-        try {
-            TextWithNumbersCharSequenceComparator.with(sensitivity, decimal);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        TextWithNumbersCharSequenceComparator.with(CaseSensitivity.INSENSITIVE, null);
     }
 
     // testCaseSensitives CASE SENSITIVE
@@ -179,17 +162,17 @@ final public class TextWithNumbersCharSequenceComparatorTest
 
     @Test
     public void testCaseSensitiveExactDecimal() {
-        this.compareAndCheckEqualCaseSensitive("1.2", "1.2");
+        this.compareAndCheckEqualCaseSensitive("1$2", "1$2");
     }
 
     @Test
     public void testCaseSensitiveLessDecimal() {
-        this.compareAndCheckLessCaseSensitive("12.3", "12.30");
+        this.compareAndCheckLessCaseSensitive("12$3", "12$30");
     }
 
     @Test
     public void testCaseSensitiveLessDecimalAfterLetters() {
-        this.compareAndCheckLessCaseSensitive("before 1.2 after", "before 1.23 after");
+        this.compareAndCheckLessCaseSensitive("before 1$2 after", "before 1$23 after");
     }
 
     @Test
@@ -341,17 +324,27 @@ final public class TextWithNumbersCharSequenceComparatorTest
 
     @Test
     public void testCaseInsensitiveExactDecimal() {
-        this.compareAndCheckEqualCaseSensitive("1.2", "1.2");
+        this.compareAndCheckEqualCaseSensitive("1$2", "1$2");
     }
 
     @Test
     public void testCaseInsensitiveLessDecimal() {
-        this.compareAndCheckLessCaseInsensitive("12.3", "12.30");
+        this.compareAndCheckLessCaseInsensitive("12$3", "12$30");
+    }
+
+    @Test
+    public void testCaseInsensitiveLessDecimal2() {
+        this.compareAndCheckLessCaseInsensitive("12$03", "12$005");
+    }
+
+    @Test
+    public void testCaseInsensitiveLessDecimal3() {
+        this.compareAndCheckLessCaseInsensitive("012$03", "0012$005");
     }
 
     @Test
     public void testCaseInsensitiveLessDecimalAfterLetters() {
-        this.compareAndCheckLessCaseInsensitive("before 1.2 after", "BEFORE 1.23 after");
+        this.compareAndCheckLessCaseInsensitive("before 1$2 after", "BEFORE 1$23 after");
     }
 
     private void compareAndCheckEqualCaseInsensitive(final String value) {
@@ -435,8 +428,11 @@ final public class TextWithNumbersCharSequenceComparatorTest
 
     private TextWithNumbersCharSequenceComparator<String> createComparator(
             final CaseSensitivity sensitivity) {
-        return TextWithNumbersCharSequenceComparator.with(sensitivity,
-                TextWithNumbersCharSequenceComparatorTest.DECIMAL);
+        return TextWithNumbersCharSequenceComparator.with(sensitivity, decimal());
+    }
+
+    private CharPredicate decimal() {
+        return CharPredicates.is('$');
     }
 
     @Override
