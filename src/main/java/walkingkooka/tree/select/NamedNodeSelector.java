@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.tree.Node;
@@ -75,15 +76,23 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
 
     private final PathSeparator separator;
 
-    @Override int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    @Override
+    int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         return Objects.hash(next, this.name);
     }
 
-    @Override boolean canBeEqual(final Object other) {
+    @Override
+    boolean canBeEqual(final Object other) {
         return other instanceof NamedNodeSelector;
     }
 
-    @Override boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other) {
-        return other instanceof NamedNodeSelector;
+    @Override
+    boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+        return this.equals2(Cast.to(other));
+    }
+
+    private boolean equals2(final NamedNodeSelector<N, NAME, ANAME, AVALUE> other) {
+        return this.name.equals(other.name) &&
+                this.separator.equals(other.separator);
     }
 }

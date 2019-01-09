@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.cursor.parser.select.NodeSelectorExpressionParserToken;
 import walkingkooka.text.cursor.parser.select.NodeSelectorNodeName;
 import walkingkooka.text.cursor.parser.select.NodeSelectorParserToken;
@@ -35,7 +36,10 @@ import java.util.function.Predicate;
 /**
  * A select maybe used to select zero or more nodes within a tree given a {@link Node}.
  */
-public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> {
+public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> implements HashCodeEqualsDefined {
 
     /**
      * Creates a {@link NodeSelector} from a {@link NodeSelectorParserToken}.
@@ -43,11 +47,10 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE>
-    NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final NodeSelectorExpressionParserToken token,
-                                                     final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                                     final Predicate<ExpressionNodeName> functions,
-                                                     final Class<N> nodeType) {
+            AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final NodeSelectorExpressionParserToken token,
+                                                                     final Function<NodeSelectorNodeName, NAME> nameFactory,
+                                                                     final Predicate<ExpressionNodeName> functions,
+                                                                     final Class<N> nodeType) {
 
         return NodeSelectorNodeSelectorParserTokenVisitor.with(token, nameFactory, functions, nodeType);
     }

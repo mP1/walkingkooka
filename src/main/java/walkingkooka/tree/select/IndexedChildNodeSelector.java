@@ -21,6 +21,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A {@link NodeSelector} that pushes the child at the index from the {@link Node#children()}. Note that index begins
@@ -28,7 +29,7 @@ import java.util.List;
  */
 final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Creates a {@link IndexedChildNodeSelector}
@@ -65,6 +66,16 @@ final class IndexedChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     }
 
     private final int index;
+
+    @Override
+    final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        return Objects.hash(this.index, next);
+    }
+
+    @Override
+    final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+        return this.index == IndexedChildNodeSelector.class.cast(other).index;
+    }
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {

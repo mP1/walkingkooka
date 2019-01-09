@@ -87,11 +87,11 @@ abstract class NonLogicalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other) {
+    private boolean equals0(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
         return this.equals1(other) && this.next.equals(other.next);
     }
 
-    abstract boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other);
+    abstract boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other);
 
     @Override
     final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
