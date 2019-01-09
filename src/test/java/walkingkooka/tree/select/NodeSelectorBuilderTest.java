@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import org.junit.Before;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -47,12 +48,20 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     private static final String CHILD1 = "child1";
     private static final String CHILD2 = "child2";
     private static final String CHILD3 = "child3";
-    private static final String GRAND_CHILD = "grandChild";
+    private static final String GRAND_CHILD = "grand-child";
+    private static final String GRAND_CHILD1 = "grand-child1";
+    private static final String GRAND_CHILD2 = "grand-child2";
+    private static final String GRAND_CHILD3 = "grand-child3";
     private static final String PARENT_SIBLING_AFTER = "parentSiblingAfter";
 
     @Before
     public void beforeEachTest() {
         TestFakeNode.names.clear();
+    }
+
+    @Test(expected = BuilderException.class)
+    public void testBuildNothingFails() {
+        this.relative().build();
     }
 
     @Test(expected = NullPointerException.class)
@@ -93,6 +102,104 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
                 .named(Names.string(ROOT));
 
         this.acceptAndCheck(b, root, root);
+    }
+
+    @Test
+    public void testAncestorOrSelf() {
+        final TestFakeNode grandChild1 = TestFakeNode.node(GRAND_CHILD1);
+        final TestFakeNode grandChild2 = TestFakeNode.node(GRAND_CHILD2);
+        final TestFakeNode grandChild3 = TestFakeNode.node(GRAND_CHILD3);
+
+        final TestFakeNode child1 = TestFakeNode.node(CHILD1, grandChild1);
+        final TestFakeNode child2 = TestFakeNode.node(CHILD2);
+        final TestFakeNode child3 = TestFakeNode.node(CHILD3, grandChild2, grandChild3);
+
+        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.relative()
+                .ancestorOrSelf();
+
+        this.acceptAndCheck(b, root.child(2), child3, root);
+    }
+
+    @Test
+    public void testAttributeEndsWith() {
+        final StringName a = Names.string("a");
+
+        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(a, "xyz"));
+        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(a, "qrs"));
+        final TestFakeNode child3 = TestFakeNode.node(CHILD3).setAttributes(Maps.one(Names.string("b"), "abc"));
+
+        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.absolute()
+                .descendant()
+                .attributeValueEndsWith(a, "z");
+
+        this.acceptAndCheck(b, root, child1);
+    }
+
+    @Test
+    public void testAttributeStartsWith() {
+        final StringName a = Names.string("a");
+
+        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(a, "xyz"));
+        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(a, "qrs"));
+        final TestFakeNode child3 = TestFakeNode.node(CHILD3).setAttributes(Maps.one(Names.string("b"), "abc"));
+
+        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.absolute()
+                .descendant()
+                .attributeValueStartsWith(a, "x");
+
+        this.acceptAndCheck(b, root, child1);
+    }
+
+    @Test
+    public void testDescendantOrSelf() {
+        final TestFakeNode grandChild1 = TestFakeNode.node(GRAND_CHILD1);
+        final TestFakeNode grandChild2 = TestFakeNode.node(GRAND_CHILD2);
+        final TestFakeNode grandChild3 = TestFakeNode.node(GRAND_CHILD3);
+
+        final TestFakeNode child1 = TestFakeNode.node(CHILD1, grandChild1);
+        final TestFakeNode child2 = TestFakeNode.node(CHILD2);
+        final TestFakeNode child3 = TestFakeNode.node(CHILD3, grandChild2, grandChild3);
+
+        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.relative()
+                .descendantOrSelf();
+
+        this.acceptAndCheck(b, root.child(2), child3, grandChild2, grandChild3);
+    }
+
+    @Test
+    public void testFirstChild() {
+        final TestFakeNode child1 = TestFakeNode.node(CHILD1);
+        final TestFakeNode child2 = TestFakeNode.node(CHILD2);
+        final TestFakeNode child3 = TestFakeNode.node(CHILD3);
+
+        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.absolute()
+                .firstChild();
+
+        this.acceptAndCheck(b, root, child1);
+    }
+
+    @Test
+    public void testLastChild() {
+        final TestFakeNode child1 = TestFakeNode.node(CHILD1);
+        final TestFakeNode child2 = TestFakeNode.node(CHILD2);
+        final TestFakeNode child3 = TestFakeNode.node(CHILD3);
+
+        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+
+        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.absolute()
+                .lastChild();
+
+        this.acceptAndCheck(b, root, child3);
     }
 
     @Test

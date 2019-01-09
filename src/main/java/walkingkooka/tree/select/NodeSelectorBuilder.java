@@ -253,7 +253,11 @@ public final class NodeSelectorBuilder<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     private NodeSelector<N, NAME, ANAME, AVALUE> selector;
 
-    @Override public NodeSelector<N, NAME, ANAME, AVALUE> build() throws BuilderException {
+    /**
+     * Returns a {@link NodeSelector} ready for use, throwing an exception if no selectors have been added.
+     */
+    @Override
+    public NodeSelector<N, NAME, ANAME, AVALUE> build() throws BuilderException {
         if (null == this.selector) {
             throw new BuilderException("Builder is empty!");
         }
