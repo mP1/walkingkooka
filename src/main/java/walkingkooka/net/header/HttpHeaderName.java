@@ -291,8 +291,6 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
         return httpHeader;
     }
 
-    // Request headers
-
     /**
      * A {@link HttpHeaderName} holding <code>Accept</code>
      * <pre>
@@ -344,6 +342,36 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     public final static HttpHeaderName<List<LanguageTag>> ACCEPT_LANGUAGE = registerLanguageTagListConstant("Accept-Language",
             HttpHeaderNameScope.REQUEST);
 
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Accept-Ranges</code>
+     * <pre>
+     * Accept-Ranges: bytes
+     * Accept-Ranges: none
+     * </pre>
+     */
+    public final static HttpHeaderName<RangeHeaderValueUnit> ACCEPT_RANGES = registerRangeUnitConstant("Accept-Ranges",
+            HttpHeaderNameScope.RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Age</code>
+     * <pre>
+     * Age: <delta-seconds>
+     * </pre>
+     */
+    public final static HttpHeaderName<Long> AGE = registerLongConstant("Age",
+            HttpHeaderNameScope.RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Allow</code>
+     * <pre>
+     * Allow: GET, POST, HEAD
+     * </pre>
+     */
+    public final static HttpHeaderName<List<HttpMethod>> ALLOW = registerMethodListConstant("Allow",
+            HttpHeaderNameScope.RESPONSE);
+
+
     /**
      * A {@link HttpHeaderName} holding <code>Authorization</code>
      * <pre>
@@ -380,6 +408,51 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     public final static HttpHeaderName<String> CONNECTION = registerStringConstant("Connection",
             HttpHeaderNameScope.REQUEST);
 
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Content-Disposition</code>
+     * <pre>
+     * Content-Disposition: inline
+     * Content-Disposition: attachment
+     * Content-Disposition: attachment; filename="filename.jpg"
+     *
+     * Content-Disposition: form-data
+     * Content-Disposition: form-data; name="fieldName"
+     * Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
+     * </pre>
+     */
+    public final static HttpHeaderName<ContentDisposition> CONTENT_DISPOSITION = registerConstant("Content-Disposition",
+            HttpHeaderNameScope.REQUEST_RESPONSE,
+            HeaderValueConverter.contentDisposition());
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Content-Encoding</code>
+     * <pre>
+     * Content-Encoding: gzip
+     * Content-Encoding: compress
+     * Content-Encoding: deflate
+     * Content-Encoding: identity
+     * Content-Encoding: br
+     *
+     * // Multiple, in the order in which they were applied
+     * Content-Encoding: gzip, identity
+     * Content-Encoding: deflate, gzip
+     * </pre>
+     */
+    public final static HttpHeaderName<TokenHeaderValue> CONTENT_ENCODING = registerTokenConstant("Content-Encoding",
+            HttpHeaderNameScope.RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Content-Language</code>
+     * <pre>
+     * Content-Language: de-DE
+     * Content-Language: en-US
+     * Content-Language: de-DE, en-CA
+     * </pre>
+     */
+    public final static HttpHeaderName<LanguageTag> CONTENT_LANGUAGE = registerLanguageTagConstant("Content-Language",
+            HttpHeaderNameScope.RESPONSE);
+
     /**
      * A {@link HttpHeaderName} holding <code>Content-Length</code>
      * <pre>
@@ -388,6 +461,29 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     public final static HttpHeaderName<Long> CONTENT_LENGTH = registerLongConstant("Content-Length",
             HttpHeaderNameScope.REQUEST_RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Content-Location</code>
+     * <pre>
+     * Request header	Response header
+     * Accept: application/json, text/json	Content-Location: /documents/foo.json
+     * Accept: application/xml, text/xml	Content-Location: /documents/foo.xml
+     * Accept: text/plain, text/*	Content-Location: /documents/foo.txt
+     * </pre>
+     */
+    public final static HttpHeaderName<RelativeUrl> CONTENT_LOCATION = registerRelativeUrlConstant("Content-Location",
+            HttpHeaderNameScope.RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Content-Range</code>
+     * <pre>
+     * Content-Range: <unit> <range-start>-<range-end>/<size>
+     * Content-Range: <unit> <range-start>-<range-end>/*
+     * Content-Range: <unit> * /<size>
+     * </pre>
+     */
+    public final static HttpHeaderName<ContentRange> CONTENT_RANGE = registerContentRangeConstant("Content-Range",
+            HttpHeaderNameScope.RESPONSE);
 
     /**
      * A {@link HttpHeaderName} holding <code>Content-Type</code>
@@ -418,6 +514,25 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     public final static HttpHeaderName<LocalDateTime> DATE = registerLocalDateTimeConstant("Date",
             HttpHeaderNameScope.REQUEST_RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>ETag</code>
+     * <pre>
+     * ETag: "33a64df551425fcc55e4d42a148795d9f25f89d4"
+     * ETag: W/"0815"
+     * </pre>
+     */
+    public final static HttpHeaderName<ETag> E_TAG = registerETagConstant("ETag",
+            HttpHeaderNameScope.RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>EXPIRES</code>
+     * <pre>
+     * Expires: Wed, 21 Oct 2015 07:28:00 GMT
+     * </pre>
+     */
+    public final static HttpHeaderName<LocalDateTime> EXPIRES = registerLocalDateTimeConstant("Expires",
+            HttpHeaderNameScope.RESPONSE);
 
     /**
      * A {@link HttpHeaderName} holding <code>Expect</code>
@@ -504,12 +619,33 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     public final static HttpHeaderName<String> KEEP_ALIVE = registerStringConstant("Keep-Alive",
             HttpHeaderNameScope.REQUEST_RESPONSE);
 
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Last-Modified</code>
+     * <pre>
+     * Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT
+     * </pre>
+     */
+    public final static HttpHeaderName<LocalDateTime> LAST_MODIFIED = registerLocalDateTimeConstant("Last-Modified",
+            HttpHeaderNameScope.RESPONSE);
+
     /**
      * A {@link HttpHeaderName} holding <code>Link</code>
      * <a href="http://www.rfc-editor.org/rfc/rfc5988.txt"></a>
      */
     public final static HttpHeaderName<List<Link>> LINK = registerLinkConstant("Link",
             HttpHeaderNameScope.REQUEST_RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Location</code>
+     * <pre>
+     * A relative (to the request URL) or absolute URL.
+     * ...
+     * Location: /index.html
+     * </pre>
+     */
+    public final static HttpHeaderName<Url> LOCATION = registerUrlConstant("Location",
+            HttpHeaderNameScope.RESPONSE);
 
     /**
      * A {@link HttpHeaderName} holding <code>Pragma</code>
@@ -540,182 +676,6 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     public final static HttpHeaderName<AbsoluteUrl> REFERER = registerAbsoluteUrlConstant("Referer",
             HttpHeaderNameScope.REQUEST);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>TE</code>
-     * <pre>
-     * TE: compress
-     * TE: deflate
-     * TE: gzip
-     * TE: trailers
-     *
-     * // Multiple directives, weighted with the quality value syntax:
-     * TE: trailers, deflate;q=0.5
-     * </pre>
-     */
-    public final static HttpHeaderName<List<TokenHeaderValue>> TE = registerTokenListConstant("TE",
-            HttpHeaderNameScope.REQUEST);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>User-Agent</code>
-     * <pre>
-     * User-Agent: <product> / <product-version> <comment>
-     *
-     * Common format for web browsers:
-     *
-     * User-Agent: Mozilla/<version> (<system-information>) <platform> (<platform-details>) <extensions>
-     * </pre>
-     */
-    public final static HttpHeaderName<String> USER_AGENT = registerStringConstant("User-Agent",
-            HttpHeaderNameScope.REQUEST);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Warning</code>
-     * <pre>
-     * Warning: 110 anderson/1.3.37 "Response is stale"
-     *
-     * Date: Wed, 21 Oct 2015 07:28:00 GMT
-     * Warning: 112 - "cache down" "Wed, 21 Oct 2015 07:28:00 GMT"
-     * </pre>
-     */
-    public final static HttpHeaderName<String> WARNING = registerStringConstant("Warning",
-            HttpHeaderNameScope.REQUEST);
-
-    // Responses
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Accept-Ranges</code>
-     * <pre>
-     * Accept-Ranges: bytes
-     * Accept-Ranges: none
-     * </pre>
-     */
-    public final static HttpHeaderName<RangeHeaderValueUnit> ACCEPT_RANGES = registerRangeUnitConstant("Accept-Ranges",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Age</code>
-     * <pre>
-     * Age: <delta-seconds>
-     * </pre>
-     */
-    public final static HttpHeaderName<Long> AGE = registerLongConstant("Age",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Allow</code>
-     * <pre>
-     * Allow: GET, POST, HEAD
-     * </pre>
-     */
-    public final static HttpHeaderName<List<HttpMethod>> ALLOW = registerMethodListConstant("Allow",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Content-Disposition</code>
-     * <pre>
-     * Content-Disposition: inline
-     * Content-Disposition: attachment
-     * Content-Disposition: attachment; filename="filename.jpg"
-     *
-     * Content-Disposition: form-data
-     * Content-Disposition: form-data; name="fieldName"
-     * Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
-     * </pre>
-     */
-    public final static HttpHeaderName<ContentDisposition> CONTENT_DISPOSITION = registerConstant("Content-Disposition",
-            HttpHeaderNameScope.REQUEST_RESPONSE,
-            HeaderValueConverter.contentDisposition());
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Content-Encoding</code>
-     * <pre>
-     * Content-Encoding: gzip
-     * Content-Encoding: compress
-     * Content-Encoding: deflate
-     * Content-Encoding: identity
-     * Content-Encoding: br
-     *
-     * // Multiple, in the order in which they were applied
-     * Content-Encoding: gzip, identity
-     * Content-Encoding: deflate, gzip
-     * </pre>
-     */
-    public final static HttpHeaderName<TokenHeaderValue> CONTENT_ENCODING = registerTokenConstant("Content-Encoding",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Content-Language</code>
-     * <pre>
-     * Content-Language: de-DE
-     * Content-Language: en-US
-     * Content-Language: de-DE, en-CA
-     * </pre>
-     */
-    public final static HttpHeaderName<LanguageTag> CONTENT_LANGUAGE = registerLanguageTagConstant("Content-Language",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Content-Location</code>
-     * <pre>
-     * Request header	Response header
-     * Accept: application/json, text/json	Content-Location: /documents/foo.json
-     * Accept: application/xml, text/xml	Content-Location: /documents/foo.xml
-     * Accept: text/plain, text/*	Content-Location: /documents/foo.txt
-     * </pre>
-     */
-    public final static HttpHeaderName<RelativeUrl> CONTENT_LOCATION = registerRelativeUrlConstant("Content-Location",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Content-Range</code>
-     * <pre>
-     * Content-Range: <unit> <range-start>-<range-end>/<size>
-     * Content-Range: <unit> <range-start>-<range-end>/*
-     * Content-Range: <unit> * /<size>
-     * </pre>
-     */
-    public final static HttpHeaderName<ContentRange> CONTENT_RANGE = registerContentRangeConstant("Content-Range",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>ETag</code>
-     * <pre>
-     * ETag: "33a64df551425fcc55e4d42a148795d9f25f89d4"
-     * ETag: W/"0815"
-     * </pre>
-     */
-    public final static HttpHeaderName<ETag> E_TAG = registerETagConstant("ETag",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>EXPIRES</code>
-     * <pre>
-     * Expires: Wed, 21 Oct 2015 07:28:00 GMT
-     * </pre>
-     */
-    public final static HttpHeaderName<LocalDateTime> EXPIRES = registerLocalDateTimeConstant("Expires",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Last-Modified</code>
-     * <pre>
-     * Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT    
-     * </pre>
-     */
-    public final static HttpHeaderName<LocalDateTime> LAST_MODIFIED = registerLocalDateTimeConstant("Last-Modified",
-            HttpHeaderNameScope.RESPONSE);
-
-    /**
-     * A {@link HttpHeaderName} holding <code>Location</code>
-     * <pre>
-     * A relative (to the request URL) or absolute URL.
-     * ...
-     * Location: /index.html
-     * </pre>
-     */
-    public final static HttpHeaderName<Url> LOCATION = registerUrlConstant("Location",
-            HttpHeaderNameScope.RESPONSE);
 
     /**
      * A {@link HttpHeaderName} holding <code>Retry-After</code>
@@ -758,6 +718,21 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
             HttpHeaderNameScope.RESPONSE);
 
     /**
+     * A {@link HttpHeaderName} holding <code>TE</code>
+     * <pre>
+     * TE: compress
+     * TE: deflate
+     * TE: gzip
+     * TE: trailers
+     *
+     * // Multiple directives, weighted with the quality value syntax:
+     * TE: trailers, deflate;q=0.5
+     * </pre>
+     */
+    public final static HttpHeaderName<List<TokenHeaderValue>> TE = registerTokenListConstant("TE",
+            HttpHeaderNameScope.REQUEST);
+
+    /**
      * A {@link HttpHeaderName} holding <code>Trailer</code>
      * <pre>
      * Trailer: header-names
@@ -781,6 +756,31 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
      */
     public final static HttpHeaderName<List<TokenHeaderValue>> TRANSFER_ENCODING = registerTokenListConstant("Transfer-Encoding",
             HttpHeaderNameScope.RESPONSE);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>User-Agent</code>
+     * <pre>
+     * User-Agent: <product> / <product-version> <comment>
+     *
+     * Common format for web browsers:
+     *
+     * User-Agent: Mozilla/<version> (<system-information>) <platform> (<platform-details>) <extensions>
+     * </pre>
+     */
+    public final static HttpHeaderName<String> USER_AGENT = registerStringConstant("User-Agent",
+            HttpHeaderNameScope.REQUEST);
+
+    /**
+     * A {@link HttpHeaderName} holding <code>Warning</code>
+     * <pre>
+     * Warning: 110 anderson/1.3.37 "Response is stale"
+     *
+     * Date: Wed, 21 Oct 2015 07:28:00 GMT
+     * Warning: 112 - "cache down" "Wed, 21 Oct 2015 07:28:00 GMT"
+     * </pre>
+     */
+    public final static HttpHeaderName<String> WARNING = registerStringConstant("Warning",
+            HttpHeaderNameScope.REQUEST);
 
     /**
      * Factory that creates a {@link HttpHeaderName}.
