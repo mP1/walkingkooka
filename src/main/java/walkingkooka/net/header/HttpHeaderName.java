@@ -910,15 +910,15 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     // Comparable.......................................................................................................
 
     @Override
-    public int compareTo(final HttpHeaderName<?> name) {
-        return this.name.compareToIgnoreCase(name.name);
+    public int compareTo(final HttpHeaderName<?> other) {
+        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
 
     // Object
 
     @Override
     public int hashCode() {
-        return CaseSensitivity.INSENSITIVE.hash(this.name);
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
@@ -928,9 +928,11 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final HttpHeaderName name) {
-        return this.name.equalsIgnoreCase(name.name);
+    private boolean equals0(final HttpHeaderName other) {
+        return this.compareTo(other) == 0;
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     /**
      * Dumps the raw header name without quotes.

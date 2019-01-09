@@ -146,7 +146,7 @@ final public class ContentDispositionType implements Name {
 
     @Override
     public int hashCode() {
-        return CaseSensitivity.INSENSITIVE.hash(this.name);
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
@@ -156,9 +156,11 @@ final public class ContentDispositionType implements Name {
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final ContentDispositionType name) {
-        return this.name.equalsIgnoreCase(name.name);
+    private boolean equals0(final ContentDispositionType other) {
+        return CASE_SENSITIVITY.equals(this.name, other.name);
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public String toString() {

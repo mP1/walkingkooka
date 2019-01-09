@@ -497,7 +497,7 @@ final public class ServerCookie extends Cookie {
 
     private int hashDomain() {
         return this.domain.isPresent() ?
-                CaseSensitivity.INSENSITIVE.hash(this.domain.get()) :
+                DOMAIN_CASE_SENSITIVITY.hash(this.domain.get()) :
                 0;
     }
 
@@ -536,8 +536,10 @@ final public class ServerCookie extends Cookie {
     private static boolean domainEquals(final Optional<String> domain, final Optional<String> otherDomain) {
         final boolean domainPresent = domain.isPresent();
         return domainPresent == otherDomain.isPresent() &&
-                (!domainPresent || domain.get().equalsIgnoreCase(otherDomain.get()));
+                (!domainPresent || DOMAIN_CASE_SENSITIVITY.equals(domain.get(), otherDomain.get()));
     }
+
+    private final static CaseSensitivity DOMAIN_CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     /**
      * Does nothing client cookies only have name and value which is already added.

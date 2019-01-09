@@ -664,7 +664,7 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
 
     @Override
     public int hashCode() {
-        return CaseSensitivity.INSENSITIVE.hash(this.address);
+        return CASE_SENSITIVITY.hash(this.address);
     }
 
     @Override
@@ -675,8 +675,10 @@ public final class HostAddress implements Value<String>, HashCodeEqualsDefined, 
     }
 
     private boolean equals0(final HostAddress other) {
-        return this.address.equalsIgnoreCase(other.address);
+        return CASE_SENSITIVITY.equals(this.address, other.address);
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public String toString() {
