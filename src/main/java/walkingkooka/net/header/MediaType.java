@@ -447,16 +447,18 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
 
     @Override
     int hashCode0(final String value) {
-        return CaseSensitivity.INSENSITIVE.hash(value);
-    }
-
-    @Override
-    boolean equals1(final String value, final String otherValue) {
-        return value.equalsIgnoreCase(otherValue);
+        return CASE_SENSITIVITY.hash(value);
     }
 
     @Override
     boolean canBeEquals(final Object other) {
         return other instanceof MediaType;
     }
+
+    @Override
+    boolean equals1(final String value, final String otherValue) {
+        return CASE_SENSITIVITY.equals(this.value, otherValue);
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 }

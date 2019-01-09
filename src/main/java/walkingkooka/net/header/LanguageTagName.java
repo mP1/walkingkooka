@@ -106,7 +106,7 @@ public abstract class LanguageTagName implements Name, Comparable<LanguageTagNam
 
     @Override
     public final int hashCode() {
-        return CaseSensitivity.INSENSITIVE.hash(this.value);
+        return CASE_SENSITIVITY.hash(this.value);
     }
 
     @Override
@@ -121,6 +121,8 @@ public abstract class LanguageTagName implements Name, Comparable<LanguageTagNam
     private boolean equals0(final LanguageTagName other) {
         return this.compareTo(other) == 0;
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public final String toString() {

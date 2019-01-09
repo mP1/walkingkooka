@@ -251,14 +251,14 @@ public abstract class CharsetName implements Name,
 
     @Override
     public final int compareTo(final CharsetName other) {
-        return this.value().compareToIgnoreCase(other.value());
+        return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
     }
 
     // Object...........................................................................................................
 
     @Override
     public final int hashCode() {
-        return CaseSensitivity.INSENSITIVE.hash(this.value());
+        return CASE_SENSITIVITY.hash(this.value());
     }
 
     @Override
@@ -271,6 +271,8 @@ public abstract class CharsetName implements Name,
     private boolean equals0(final CharsetName other) {
         return this.compareTo(other) == 0;
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public String toString() {

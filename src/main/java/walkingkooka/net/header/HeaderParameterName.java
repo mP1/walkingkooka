@@ -96,14 +96,14 @@ abstract class HeaderParameterName<V> implements HeaderName<V>{
     // Comparable
 
     final int compareTo0(final HeaderParameterName<?> other) {
-        return this.name.compareToIgnoreCase(other.value());
+        return CASE_SENSITIVITY.comparator().compare(this.name, other.value());
     }
 
     // Object
 
     @Override
     public final int hashCode() {
-        return CaseSensitivity.INSENSITIVE.hash(this.name);
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
@@ -116,8 +116,10 @@ abstract class HeaderParameterName<V> implements HeaderName<V>{
     abstract boolean canBeEqual(Object other);
 
     private boolean equals0(final HeaderParameterName other) {
-        return this.name.equalsIgnoreCase(other.name);
+        return this.compareTo0(other) == 0;
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public final String toString() {
