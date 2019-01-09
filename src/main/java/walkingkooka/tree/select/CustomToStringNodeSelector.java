@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
@@ -66,6 +67,21 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     @Override
     void select(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.selector.select(node, context);
+    }
+
+    // Object
+
+    public int hashCode() {
+        return this.selector.hashCode();
+    }
+
+    public final boolean equals(final Object other) {
+        return this == other || other instanceof CustomToStringNodeSelector && this.equals0(Cast.to(other));
+    }
+
+    private boolean equals0(final CustomToStringNodeSelector<?, ?, ?, ?> other) {
+        return this.selector.equals(other.selector) &&
+                this.toString.equals(other.toString);
     }
 
     @Override

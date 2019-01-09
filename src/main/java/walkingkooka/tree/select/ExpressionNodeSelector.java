@@ -120,7 +120,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other) {
+    boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
         return this.equals2(Cast.to(other));
     }
 

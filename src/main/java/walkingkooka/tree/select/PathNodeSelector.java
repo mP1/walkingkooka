@@ -16,7 +16,6 @@
  */
 package walkingkooka.tree.select;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
@@ -32,23 +31,29 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
 
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final N node) {
         Objects.requireNonNull(node, "node");
-        return node.isRoot() ? SelfNodeSelector.get() : new PathNodeSelector<>(node, NodeSelector.terminal());
+        return node.isRoot() ?
+                SelfNodeSelector.get() :
+                new PathNodeSelector<>(walkAncestorPath(node), NodeSelector.<N, NAME, ANAME, AVALUE>terminal());
     }
 
-    private PathNodeSelector(final N node, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
-
+    private static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> List<Integer> walkAncestorPath(final N node) {
         final List<Integer> path = Lists.array();
-        this.path = path;
-        walkAncestorPath(node, path);
+        walkAncestorPath0(node, path);
+        return path;
     }
 
-    private static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> void walkAncestorPath(final N node, final List<Integer> path) {
+    private static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> void walkAncestorPath0(final N node, final List<Integer> path) {
         final Optional<N> parent = node.parent();
         if (parent.isPresent()) {
-            walkAncestorPath(parent.get(), path);
+            walkAncestorPath0(parent.get(), path);
             path.add(node.index() + 1);
         }
+    }
+
+    private PathNodeSelector(final List<Integer> path, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+        super(selector);
+
+        this.path = path;
     }
 
     @Override
@@ -78,7 +83,7 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
 
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        throw new UnsupportedOperationException();
+        return new PathNodeSelector<N, NAME, ANAME, AVALUE>(this.path, selector);
     }
 
     @Override
@@ -88,16 +93,12 @@ final class PathNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionNodeSelector;
+        return other instanceof PathNodeSelector;
     }
 
     @Override
-    boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other) {
-        return this.equals2(Cast.to(other));
-    }
-
-    private boolean equals2(final PathNodeSelector<N, NAME, ANAME, AVALUE> other) {
-        return this.path.equals(other.path);
+    boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+         return this.path.equals(PathNodeSelector.class.cast(other).path);
     }
 
     @Override

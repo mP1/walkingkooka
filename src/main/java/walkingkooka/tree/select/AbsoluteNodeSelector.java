@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
-        NonLogicalNodeSelector2<N, NAME, ANAME, AVALUE> {
+        NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link AbsoluteNodeSelector} factory
@@ -60,6 +60,16 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     @Override
     final void accept1(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         this.select(node.root(), context);
+    }
+
+    @Override
+    final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        return Objects.hash(this.separator, next);
+    }
+
+    @Override
+    final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
+        return this.separator.equals(AbsoluteNodeSelector.class.cast(other).separator);
     }
 
     @Override

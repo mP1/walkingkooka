@@ -36,7 +36,7 @@ abstract class NonLogicalNodeSelector2<N extends Node<N, NAME, ANAME, AVALUE>, N
         return next.hashCode();
     }
 
-    final boolean equals1(final NonLogicalNodeSelector<N, NAME, ANAME, AVALUE> other) {
+    final boolean equals1(final NonLogicalNodeSelector<?, ?, ?, ?> other) {
         return true; // no extra properties...
     }
 }
