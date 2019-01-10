@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
@@ -27,7 +28,7 @@ import walkingkooka.predicate.character.CharPredicates;
  * The {@link Name} of {@link Cookie}. Note that cookie names must start with an ASCII letter and be composed of only ASCII letters, digits and dash.
  * Though more characters are valid, in the interests of capability and simplicity this limited sub set is enforced.
  */
-final public class CookieName implements Name {
+final public class CookieName implements Name, HttpRequestAttribute {
 
     /**
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
