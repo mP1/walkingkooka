@@ -18,10 +18,24 @@
 
 package walkingkooka.net.http.server;
 
+import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Map;
+
+import static org.junit.Assert.assertNotEquals;
+
 public abstract class HttpRequestTestCase<R extends HttpRequest> extends ClassTestCase<R> {
+
+    @Test
+    public void testRoutingParameters() {
+        final Map<HttpRequestAttribute, Object> routingParameters = this.createRequest().routingParameters();
+        assertNotEquals("method absent", null, routingParameters.get(HttpRequestAttributes.METHOD));
+        assertNotEquals("transport absent", null, routingParameters.get(HttpRequestAttributes.TRANSPORT));
+        assertNotEquals("protocol absent", null, routingParameters.get(HttpRequestAttributes.HTTP_PROTOCOL_VERSION));
+    }
+
 
     protected abstract R createRequest();
 

@@ -27,6 +27,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
@@ -42,7 +43,8 @@ import java.util.Optional;
  */
 final public class HttpHeaderName<T> implements HeaderName<T>,
         Comparable<HttpHeaderName<?>>,
-        HasHeaderScope {
+        HasHeaderScope,
+        HttpRequestAttribute {
 
     // constants
 

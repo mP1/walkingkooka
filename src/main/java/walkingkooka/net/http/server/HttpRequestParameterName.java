@@ -25,7 +25,7 @@ import walkingkooka.text.CharSequences;
 /**
  * The {@link Name} of a parameter within a {@link HttpRequest}.
  */
-final public class HttpRequestParameterName implements Name {
+final public class HttpRequestParameterName implements Name, HttpRequestAttribute {
 
     /**
      * Factory that creates a {@link HttpRequestParameterName}
