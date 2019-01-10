@@ -18,28 +18,22 @@
 
 package walkingkooka.net.header;
 
-
 /**
- * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileNameEncoded}.
+ * Base converter that provides support for converting header text to values and back where T is not {@link String}.
  */
-abstract class ContentDispositionFileNameHeaderValueConverter<F extends ContentDispositionFileName> extends HeaderValueConverter2<ContentDispositionFileName> {
-
+abstract class HeaderValueConverter2<T> extends HeaderValueConverter<T> {
     /**
-     * Package private
+     * Package private to limit sub classing.
      */
-    ContentDispositionFileNameHeaderValueConverter() {
+    HeaderValueConverter2() {
         super();
     }
 
+    /**
+     * Reports that the value is not a {@link String}.
+     */
     @Override
-    final void check0(final Object value) {
-        this.checkType(value, this.type());
+    final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
+        throw new HttpHeaderNameTypeParameterHeaderException(headerName.toString());
     }
-
-    @Override
-    public final String toString() {
-        return this.type().getSimpleName();
-    }
-
-    abstract Class<F> type();
 }

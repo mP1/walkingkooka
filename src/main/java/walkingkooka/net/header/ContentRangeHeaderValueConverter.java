@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter} that parses a header value into a {@link ContentRange}.
  */
-final class ContentRangeHeaderValueConverter extends HeaderValueConverter<ContentRange> {
+final class ContentRangeHeaderValueConverter extends HeaderValueConverter2<ContentRange> {
 
     /**
      * Singleton

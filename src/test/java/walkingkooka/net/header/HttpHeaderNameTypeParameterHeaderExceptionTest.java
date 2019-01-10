@@ -18,28 +18,12 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.test.PublicThrowableTestCase;
 
-/**
- * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileNameEncoded}.
- */
-abstract class ContentDispositionFileNameHeaderValueConverter<F extends ContentDispositionFileName> extends HeaderValueConverter2<ContentDispositionFileName> {
-
-    /**
-     * Package private
-     */
-    ContentDispositionFileNameHeaderValueConverter() {
-        super();
-    }
+final public class HttpHeaderNameTypeParameterHeaderExceptionTest extends PublicThrowableTestCase<HttpHeaderNameTypeParameterHeaderException> {
 
     @Override
-    final void check0(final Object value) {
-        this.checkType(value, this.type());
+    protected Class<HttpHeaderNameTypeParameterHeaderException> type() {
+        return HttpHeaderNameTypeParameterHeaderException.class;
     }
-
-    @Override
-    public final String toString() {
-        return this.type().getSimpleName();
-    }
-
-    abstract Class<F> type();
 }

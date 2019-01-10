@@ -35,7 +35,7 @@ import java.util.List;
  * Range: bytes=200-1000, 2000-6576, 19000-
  * </pre>
  */
-final class RangeHeaderValueHeaderValueConverter extends HeaderValueConverter<RangeHeaderValue> {
+final class RangeHeaderValueHeaderValueConverter extends HeaderValueConverter2<RangeHeaderValue> {
 
     /**
      * Singleton

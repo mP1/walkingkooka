@@ -43,7 +43,7 @@ import static java.time.temporal.ChronoField.YEAR;
  * </pre>
  * <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields"></a>
  */
-final class LocalDateTimeHeaderValueConverter extends HeaderValueConverter<LocalDateTime> {
+final class LocalDateTimeHeaderValueConverter extends HeaderValueConverter2<LocalDateTime> {
 
     /**
      * Singleton

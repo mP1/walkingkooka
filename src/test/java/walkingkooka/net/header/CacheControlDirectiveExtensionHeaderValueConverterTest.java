@@ -88,7 +88,7 @@ public final class CacheControlDirectiveExtensionHeaderValueConverterTest extend
 
     @Override
     protected Object value() {
-        return "abc123";
+        return 123L;
     }
 
     @Override

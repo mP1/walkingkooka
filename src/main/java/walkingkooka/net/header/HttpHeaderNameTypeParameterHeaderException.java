@@ -18,28 +18,22 @@
 
 package walkingkooka.net.header;
 
-
 /**
- * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileNameEncoded}.
+ * The exception by {@link HttpHeaderName#stringValues()} when the type parameter is not {@link String}.
  */
-abstract class ContentDispositionFileNameHeaderValueConverter<F extends ContentDispositionFileName> extends HeaderValueConverter2<ContentDispositionFileName> {
+public class HttpHeaderNameTypeParameterHeaderException extends HeaderException {
 
-    /**
-     * Package private
-     */
-    ContentDispositionFileNameHeaderValueConverter() {
+    private final static long serialVersionUID = 1L;
+
+    protected HttpHeaderNameTypeParameterHeaderException() {
         super();
     }
 
-    @Override
-    final void check0(final Object value) {
-        this.checkType(value, this.type());
+    public HttpHeaderNameTypeParameterHeaderException(final String message) {
+        super(message);
     }
 
-    @Override
-    public final String toString() {
-        return this.type().getSimpleName();
+    public HttpHeaderNameTypeParameterHeaderException(final String message, final Throwable cause) {
+        super(message, cause);
     }
-
-    abstract Class<F> type();
 }

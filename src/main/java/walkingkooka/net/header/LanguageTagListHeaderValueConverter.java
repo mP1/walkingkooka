@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A {@link HeaderValueConverter} that converts a {@link String} into many {@link LanguageTag}.
  */
-final class LanguageTagListHeaderValueConverter extends HeaderValueConverter<List<LanguageTag>> {
+final class LanguageTagListHeaderValueConverter extends HeaderValueConverter2<List<LanguageTag>> {
 
     /**
      * Singleton

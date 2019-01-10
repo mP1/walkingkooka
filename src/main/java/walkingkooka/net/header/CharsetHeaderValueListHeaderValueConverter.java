@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A {@link HeaderValueConverter} that parses a content header value into a {@link List<CharsetHeaderValue>}.
  */
-final class CharsetHeaderValueListHeaderValueConverter extends HeaderValueConverter<List<CharsetHeaderValue>> {
+final class CharsetHeaderValueListHeaderValueConverter extends HeaderValueConverter2<List<CharsetHeaderValue>> {
 
     /**
      * Singleton

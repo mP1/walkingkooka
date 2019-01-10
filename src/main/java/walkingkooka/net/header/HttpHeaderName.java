@@ -821,6 +821,14 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
         this.content = content;
     }
 
+    /**
+     * This method will return a reference to {@link HttpHeaderName} with a type parameter of {@link String} otherwise
+     * this will fail.
+     */
+    public HttpHeaderName<String> stringValues() {
+        return this.valueConverter.httpHeaderNameCast(this);
+    }
+
     private final static boolean NOT_CONTENT = false;
 
     /**

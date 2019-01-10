@@ -188,6 +188,24 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
                 headers);
     }
 
+    // stringValues.........................................................................
+
+    @Test
+    public void testStringValuesStringHeader() {
+        assertSame(HttpHeaderName.SERVER, HttpHeaderName.SERVER.stringValues());
+    }
+
+    @Test
+    public void testStringValuesCustomHeader() {
+        final HttpHeaderName<?> custom = HttpHeaderName.with("x-custom");
+        assertSame(custom, custom.stringValues());
+    }
+
+    @Test(expected = HttpHeaderNameTypeParameterHeaderException.class)
+    public void testStringValuesNonStringHeaderFails() {
+        HttpHeaderName.CONTENT_LENGTH.stringValues();
+    }
+
     // headerValue.........................................................................
 
     @Test(expected = NullPointerException.class)

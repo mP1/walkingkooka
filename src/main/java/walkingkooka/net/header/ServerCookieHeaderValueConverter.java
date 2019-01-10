@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter} that converts a {@link String} into one {@link ServerCookie}.
  */
-final class ServerCookieHeaderValueConverter extends HeaderValueConverter<ServerCookie> {
+final class ServerCookieHeaderValueConverter extends HeaderValueConverter2<ServerCookie> {
 
     /**
      * Singleton

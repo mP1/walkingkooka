@@ -45,7 +45,7 @@ import static java.time.temporal.ChronoField.YEAR;
  * </pre>
  * <a href="https://en.wikipedia.org/wiki/MIME#Content-Disposition"></a>
  */
-final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter<OffsetDateTime> {
+final class OffsetDateTimeHeaderValueConverter extends HeaderValueConverter2<OffsetDateTime> {
 
     /**
      * Singleton
