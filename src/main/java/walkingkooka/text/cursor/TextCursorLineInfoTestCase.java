@@ -17,6 +17,7 @@
 
 package walkingkooka.text.cursor;
 
+import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
@@ -26,6 +27,7 @@ abstract public class TextCursorLineInfoTestCase<L extends TextCursorLineInfo> e
         super();
     }
 
+    @Test
     public void testNaming() {
         this.checkNaming(TextCursorLineInfo.class);
     }
