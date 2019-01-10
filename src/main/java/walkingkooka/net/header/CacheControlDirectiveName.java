@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
 import java.util.Objects;
@@ -234,7 +235,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
 
     @Override
     public final int compareTo(final CacheControlDirectiveName other) {
-        return this.value().compareToIgnoreCase(other.value());
+        return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
     }
 
     boolean isRequest() {
@@ -251,7 +252,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
 
     @Override
     public final int hashCode() {
-        return this.value().hashCode();
+        return CASE_SENSITIVITY.hash(this.value());
     }
 
     @Override
@@ -264,6 +265,8 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     private boolean equals0(final CacheControlDirectiveName other) {
         return this.compareTo(other) == 0;
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public String toString() {
