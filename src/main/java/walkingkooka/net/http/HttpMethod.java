@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.Value;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 
@@ -149,7 +150,7 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
 
     @Override
     public int hashCode() {
-        return this.value.hashCode();
+        return CASE_SENSITIVITY.hash(this.value);
     }
 
     @Override
@@ -160,8 +161,10 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
     }
 
     private boolean equals0(final HttpMethod other) {
-        return this.value.equalsIgnoreCase(other.value);
+        return CASE_SENSITIVITY.equals(this.value, other.value);
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     // Object
 

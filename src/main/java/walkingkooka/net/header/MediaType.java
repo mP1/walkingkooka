@@ -285,7 +285,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
      */
     public MediaType setType(final String type) {
         checkType(type);
-        return this.type.equalsIgnoreCase(type) ?
+        return TYPE_CASE_SENSITIVITY.equals(this.type, type) ?
                 this :
                 this.replace(type, this.subType, this.parameters);
     }
@@ -295,6 +295,8 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
     static String checkType(final String type) {
         return check(type, "type");
     }
+
+    private final static CaseSensitivity TYPE_CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     // sub type ...................................................................................................
 
@@ -310,7 +312,7 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
      */
     public MediaType setSubType(final String subType) {
         checkSubType(subType);
-        return this.subType.equalsIgnoreCase(subType) ?
+        return SUBTYPE_CASE_SENSITIVITY.equals(this.subType, subType) ?
                 this :
                 this.replace(this.type, subType, this.parameters);
     }
@@ -328,6 +330,8 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
         CharPredicates.failIfNullOrEmptyOrFalse(value, label, RFC2045TOKEN);
         return value;
     }
+
+    private final static CaseSensitivity SUBTYPE_CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     // parameters ...............................................................................................
 
@@ -382,19 +386,19 @@ final public class MediaType extends HeaderValueWithParameters2<MediaType,
      * Tests if the given {@link MediaType} is compatible and understand wildcards that may appear in the type or sub type components. The
      * {@link MediaType#ALL} will of course be compatible with any other {@link MediaType}.
      */
-    public boolean isCompatible(final MediaType mimeType) {
-        Objects.requireNonNull(mimeType, "mimeType");
+    public boolean isCompatible(final MediaType mediaType) {
+        Objects.requireNonNull(mediaType, "mimeType");
 
         boolean compatible = true;
 
-        if (this != mimeType) {
+        if (this != mediaType) {
             final String type = this.type();
             if (false == WILDCARD.equals(type)) {
-                compatible = type.equalsIgnoreCase(mimeType.type);
+                compatible = TYPE_CASE_SENSITIVITY.equals(type, mediaType.type);
                 if (compatible) {
                     final String subType = this.subType;
                     if (false == WILDCARD.equals(subType)) {
-                        compatible = subType.equalsIgnoreCase(mimeType.subType);
+                        compatible = SUBTYPE_CASE_SENSITIVITY.equals(subType, mediaType.subType);
                     }
                 }
             }
