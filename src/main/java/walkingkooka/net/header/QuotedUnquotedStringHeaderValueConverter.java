@@ -18,6 +18,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 
@@ -74,6 +75,11 @@ final class QuotedUnquotedStringHeaderValueConverter extends HeaderValueConverte
             text = this.quoted.toText(value, name);
         }
         return text;
+    }
+
+    @Override
+    final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
+        return Cast.to(headerName);
     }
 
     private final HeaderValueConverter<String> quoted;

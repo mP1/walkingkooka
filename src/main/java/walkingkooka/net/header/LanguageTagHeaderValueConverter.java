@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter} that converts a {@link String} into one {@link LanguageTag}.
  */
-final class LanguageTagHeaderValueConverter extends HeaderValueConverter<LanguageTag> {
+final class LanguageTagHeaderValueConverter extends HeaderValueConverter2<LanguageTag> {
 
     /**
      * Singleton

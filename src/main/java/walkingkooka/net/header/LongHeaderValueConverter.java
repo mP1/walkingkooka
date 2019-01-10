@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 /**
  * A {@link HeaderValueConverter} that parses a header value into a {@link Long}
  */
-final class LongHeaderValueConverter extends HeaderValueConverter<Long> {
+final class LongHeaderValueConverter extends HeaderValueConverter2<Long> {
 
     /**
      * Singleton

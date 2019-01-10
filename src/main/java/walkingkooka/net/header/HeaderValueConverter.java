@@ -366,7 +366,7 @@ abstract class HeaderValueConverter<T> {
         return Cast.to(list);
     }
 
-    // format ....................................................................................................
+    // toText ....................................................................................................
 
     /**
      * Accepts a typed value and formats it into a http response header string.
@@ -385,6 +385,13 @@ abstract class HeaderValueConverter<T> {
     }
 
     abstract String toText0(final T value, final Name name);
+
+    // httpHeaderNameCast ....................................................................................................
+
+    /**
+     * Casts this {@link HttpHeaderName} only if it is already giving {@link String} values.
+     */
+    abstract HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName);
 
     // Object ..........................................................................................
 

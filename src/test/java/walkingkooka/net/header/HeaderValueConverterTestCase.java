@@ -25,6 +25,8 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static walkingkooka.net.header.HeaderParser.fail;
 
 public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverter<T>, T> extends ClassTestCase<C> {
 
@@ -57,6 +59,22 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     @Test
     public void testCheck() {
         this.check(this.value());
+    }
+
+    @Test
+    public final void testHttpHeaderNameCast() {
+        final C converter = this.converter();
+
+        final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
+        if(this.value() instanceof String) {
+            assertSame(header, converter.httpHeaderNameCast(header));
+        } else {
+            try {
+                converter.httpHeaderNameCast(header);
+                fail("httpHeaderNameCast() should have failed");
+            } catch (final HttpHeaderNameTypeParameterHeaderException expected){
+            }
+        }
     }
 
     @Test

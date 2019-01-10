@@ -24,7 +24,7 @@ import walkingkooka.naming.Name;
  * A {@link HeaderValueConverter} that parses a header text into a q weights and verifies the value is within the
  * accept range of 0.0 and 1.0 (inclusive).
  */
-final class QWeightHeaderValueConverter extends HeaderValueConverter<Float> {
+final class QWeightHeaderValueConverter extends HeaderValueConverter2<Float> {
 
     /**
      * Singleton
