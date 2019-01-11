@@ -50,7 +50,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
     public static <T> HttpRequestAttributeRoutingBuilder<T> with(final T target) {
         Objects.requireNonNull(target, "target");
 
-        return new HttpRequestAttributeRoutingBuilder(target);
+        return new HttpRequestAttributeRoutingBuilder<T>(target);
     }
 
     /**
@@ -67,7 +67,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Adds a requirement for a particular {@link HttpTransport}.<br>
      * This method will throw an exception if called more than once.
      */
-    public HttpRequestAttributeRoutingBuilder transport(final HttpTransport transport) {
+    public HttpRequestAttributeRoutingBuilder<T> transport(final HttpTransport transport) {
         failIfSecondChange(HttpRequestAttributes.TRANSPORT,
                 transport,
                 this.transport);
@@ -84,7 +84,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Adds a requirement for a particular {@link HttpProtocolVersion}.<br>
      * This method will throw an exception if called more than once.
      */
-    public HttpRequestAttributeRoutingBuilder protocolVersion(final HttpProtocolVersion protocolVersion) {
+    public HttpRequestAttributeRoutingBuilder<T> protocolVersion(final HttpProtocolVersion protocolVersion) {
         failIfSecondChange(HttpRequestAttributes.HTTP_PROTOCOL_VERSION,
                 protocolVersion,
                 this.protocolVersion);
@@ -95,7 +95,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
 
     private HttpProtocolVersion protocolVersion;
 
-    private <T> void failIfSecondChange(final HttpRequestAttribute attribute, final T neww, final T previous) {
+    private <TT> void failIfSecondChange(final HttpRequestAttribute attribute, final TT neww, final TT previous) {
         Objects.requireNonNull(neww, attribute.toString());
 
         if (null != previous && false == neww.equals(previous)) {
@@ -109,7 +109,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
     /**
      * Adds a requirement for a particular {@link HttpMethod}. Subsequent calls change the test to require any of the methods.
      */
-    public HttpRequestAttributeRoutingBuilder method(final HttpMethod method) {
+    public HttpRequestAttributeRoutingBuilder<T> method(final HttpMethod method) {
         Objects.requireNonNull(method, "method");
 
         this.methods.add(method);
@@ -131,14 +131,15 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
     /**
      * Adds a requirement for a particular path component by name.
      */
-    public HttpRequestAttributeRoutingBuilder path(final int pathComponent, UrlPathName pathName) {
+    public HttpRequestAttributeRoutingBuilder<T> path(final int pathComponent, UrlPathName pathName) {
         return this.path(pathComponent, Predicates.is(pathName));
     }
 
     /**
      * Adds a predicate for a path component.
      */
-    public HttpRequestAttributeRoutingBuilder path(final int pathComponent, final Predicate<UrlPathName> predicate) {
+    public HttpRequestAttributeRoutingBuilder<T> path(final int pathComponent,
+                                                      final Predicate<UrlPathName> predicate) {
         if (pathComponent < 0) {
             throw new IllegalArgumentException("Invalid path component " + pathComponent + " < 0");
         }
@@ -154,8 +155,8 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Adds a requirement that a {@link HttpHeaderName} has the provided value.
      * An exception will be thrown if multiple different predicates for the same header are set.
      */
-    public <T> HttpRequestAttributeRoutingBuilder headerAndValue(final HttpHeaderName<T> header,
-                                                                 final T headerValue) {
+    public <H> HttpRequestAttributeRoutingBuilder<T> headerAndValue(final HttpHeaderName<H> header,
+                                                                    final H headerValue) {
         return this.header(header, Predicates.is(headerValue));
     }
 
@@ -163,8 +164,8 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Adds a requirement for a particular {@link HttpHeaderName}.<br>
      * An exception will be thrown if multiple different predicates for the same header are set.
      */
-    public <T> HttpRequestAttributeRoutingBuilder header(final HttpHeaderName<T> header,
-                                                         final Predicate<T> headerValue) {
+    public <H> HttpRequestAttributeRoutingBuilder<T> header(final HttpHeaderName<H> header,
+                                                            final Predicate<H> headerValue) {
         Objects.requireNonNull(header, "header");
         Objects.requireNonNull(headerValue, "headerValue");
 
@@ -180,8 +181,8 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Adds a requirement for a particular {@link CookieName}.<br>
      * This method will throw an exception if called more than once for a particular cookie name.
      */
-    public HttpRequestAttributeRoutingBuilder cookie(final CookieName cookieName,
-                                                     final Predicate<ClientCookie> cookie) {
+    public HttpRequestAttributeRoutingBuilder<T> cookie(final CookieName cookieName,
+                                                        final Predicate<ClientCookie> cookie) {
         Objects.requireNonNull(cookieName, "cookieName");
         Objects.requireNonNull(cookie, "cookie");
 
@@ -195,8 +196,8 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Adds a requirement that a {@link HttpRequestParameterName} has the provided value.
      * An exception will be thrown if multiple different predicates for the same parameter are set.
      */
-    public HttpRequestAttributeRoutingBuilder parameterAndValue(final HttpRequestParameterName parameter,
-                                                                final String parameterValue) {
+    public HttpRequestAttributeRoutingBuilder<T> parameterAndValue(final HttpRequestParameterName parameter,
+                                                                   final String parameterValue) {
         return this.parameter(parameter, Predicates.is(parameterValue));
     }
 
@@ -205,8 +206,8 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Adds a requirement for a particular {@link HttpRequestParameterName}.<br>
      * An exception will be thrown if multiple different predicates for the same parameter are set.
      */
-    public HttpRequestAttributeRoutingBuilder parameter(final HttpRequestParameterName parameter,
-                                                        final Predicate<String> parameterValue) {
+    public HttpRequestAttributeRoutingBuilder<T> parameter(final HttpRequestParameterName parameter,
+                                                           final Predicate<String> parameterValue) {
         Objects.requireNonNull(parameter, "parameter");
         Objects.requireNonNull(parameterValue, "parameterValue");
 
@@ -247,7 +248,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
         }
 
         Routing<HttpRequestAttribute, T> routing = Routing.with(HttpRequestAttribute.class, this.target);
-        for(Entry<HttpRequestAttribute, Predicate<Object>> attributeAndPredicate : attributeToPredicate.entrySet()){
+        for (Entry<HttpRequestAttribute, Predicate<Object>> attributeAndPredicate : attributeToPredicate.entrySet()) {
             routing = routing.andPredicateTrue(attributeAndPredicate.getKey(), attributeAndPredicate.getValue());
         }
         return routing;

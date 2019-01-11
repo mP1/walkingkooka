@@ -427,7 +427,7 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
     // helpers.................................................................................................
 
     @Override
-    protected HttpRequestAttributeRoutingBuilder createBuilder() {
+    protected HttpRequestAttributeRoutingBuilder<String> createBuilder() {
         return HttpRequestAttributeRoutingBuilder.with(TARGET);
     }
 
@@ -440,7 +440,7 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
     }
 
     @Override
-    protected Class<HttpRequestAttributeRoutingBuilder> type() {
+    protected Class<HttpRequestAttributeRoutingBuilder<String>> type() {
         return Cast.to(HttpRequestAttributeRoutingBuilder.class);
     }
 
