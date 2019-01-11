@@ -26,7 +26,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
 /**
  * Base class for testing a {@link Throwable} with mostly parameter checking tests.
@@ -73,10 +72,9 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Class
 
     @Test
     public void testCreateOnlyMessage() throws Throwable {
-        final Constructor<T> constructor = this.constructor(String.class);
-        final T instance = constructor.newInstance(MESSAGE);
-        assertEquals("message", MESSAGE, instance.getMessage());
-        Assert.assertNull("cause", instance.getCause());
+        this.check(this.constructor(String.class).newInstance(MESSAGE),
+                MESSAGE,
+                null);
     }
 
     @Test(expected = NoSuchMethodException.class)
@@ -106,10 +104,9 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Class
 
     private void callConstructorString(final String message) throws Throwable {
         try {
-            final Constructor<T> constructor = this.constructor(String.class);
-            final T instance = constructor.newInstance(message);
-            assertEquals("message", message, instance.getMessage());
-            assertSame("cause", null, instance.getCause());
+            this.check(this.constructor(String.class).newInstance(message),
+                    message,
+                    null);
         } catch (final InvocationTargetException cause) {
             throw cause.getTargetException();
         }
@@ -117,10 +114,9 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Class
 
     private void callConstructorStringThrowable(final String message, final Throwable cause) throws Throwable {
         try {
-            final Constructor<T> constructor = this.constructor(String.class, Throwable.class);
-            final T instance = constructor.newInstance(message, cause);
-            assertEquals("message", message, instance.getMessage());
-            assertSame("cause", cause, instance.getCause());
+            this.check(this.constructor(String.class, Throwable.class).newInstance(message, cause),
+                    message,
+                    cause);
         } catch (final InvocationTargetException targetException) {
             throw targetException.getTargetException();
         }
@@ -130,6 +126,32 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Class
         final Constructor<T> constructor = this.type().getDeclaredConstructor(parameters);
         constructor.setAccessible(true);
         return constructor;
+    }
+
+    protected void check(final Runnable throwable, final String message, final Throwable cause) {
+        this.check(andCatch(throwable), message, cause);
+    }
+
+    protected Throwable andCatch(final Runnable run) {
+        try {
+            run.run();
+        } catch (final Throwable cause) {
+            return cause;
+        }
+        throw new AssertionError("Did not throw");
+    }
+
+    protected void check(final Throwable throwable, final String message, final Throwable cause) {
+        this.checkMessage(throwable, message);
+        this.checkCause(throwable, cause);
+    }
+
+    protected void checkMessage(final Throwable throwable, final String message) {
+        assertEquals("message", message, throwable.getMessage());
+    }
+
+    protected void checkCause(final Throwable throwable, final Throwable cause) {
+        assertEquals("cause of " + throwable, cause, throwable.getCause());
     }
 
     @Override

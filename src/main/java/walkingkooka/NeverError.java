@@ -67,7 +67,7 @@ public class NeverError extends Error {
     }
 
     static String check(final String message) {
-        Objects.requireNonNull(message, "message");
+        CharSequences.failIfNullOrEmpty(message, "message");
         return message;
     }
 
@@ -82,10 +82,6 @@ public class NeverError extends Error {
 
     public NeverError(final String message) {
         super(NeverError.check(message));
-    }
-
-    public NeverError(final Throwable cause) {
-        super(NeverError.check(cause));
     }
 
     public NeverError(final String message, final Throwable cause) {
