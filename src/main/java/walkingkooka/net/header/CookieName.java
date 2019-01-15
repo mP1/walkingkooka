@@ -20,9 +20,12 @@ package walkingkooka.net.header;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+
+import java.util.Optional;
 
 /**
  * The {@link Name} of {@link Cookie}. Note that cookie names must start with an ASCII letter and be composed of only ASCII letters, digits and dash.
@@ -61,6 +64,18 @@ final public class CookieName implements Name, HttpRequestAttribute<ClientCookie
     }
 
     private final String name;
+
+    // HttpRequestAttribute..............................................................................................
+
+    /**
+     * A typed getter that retrieves a value from a {@link HttpRequest}
+     */
+    @Override
+    public Optional<ClientCookie> parameterValue(final HttpRequest request) {
+        return request.cookies().stream()
+                .filter(c -> c.name().equals(this))
+                .findFirst();
+    }
 
     // Object..............................................................................................
 

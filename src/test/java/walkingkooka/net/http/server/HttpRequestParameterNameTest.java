@@ -20,15 +20,35 @@ package walkingkooka.net.http.server;
 
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTestCase;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequestParameterName> {
 
     @Test
     public void testWith() {
         this.createNameAndCheck("Abc123");
+    }
+
+    @Test
+    public void testParameterValue() {
+        final HttpRequestParameterName name = HttpRequestParameterName.with("parameter1");
+        final List<String> value = Lists.of("a", "b", "c");
+
+        assertEquals(Optional.of(value),
+                name.parameterValue(new FakeHttpRequest() {
+                    @Override
+                    public List<String> parameterValues(final HttpRequestParameterName n) {
+                        assertSame(name, n);
+                        return value;
+                    }
+                }));
     }
 
     @Test

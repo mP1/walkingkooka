@@ -37,4 +37,9 @@ public interface HttpRequestAttribute<T> {
 
         return Optional.ofNullable(Cast.to(parameters.get(this)));
     }
+
+    /**
+     * A typed getter that retrieves a value from a {@link HttpRequest}
+     */
+    Optional<T> parameterValue(final HttpRequest request);
 }

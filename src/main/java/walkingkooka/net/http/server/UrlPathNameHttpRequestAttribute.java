@@ -19,14 +19,16 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.test.HashCodeEqualsDefined;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 /**
  * A key to a url path component ({@link walkingkooka.net.UrlPathName}.
  */
-final class UrlPathNameHttpRequestAttribute implements HttpRequestAttribute, HashCodeEqualsDefined {
+final class UrlPathNameHttpRequestAttribute implements HttpRequestAttribute<UrlPathName>, HashCodeEqualsDefined {
 
     /**
      * Factory that returns a {@link UrlPathNameHttpRequestAttribute}.
@@ -58,6 +60,27 @@ final class UrlPathNameHttpRequestAttribute implements HttpRequestAttribute, Has
     private UrlPathNameHttpRequestAttribute(final int index) {
         super();
         this.index = index;
+    }
+
+    // HttpRequestAttribute..............................................................................................
+
+    /**
+     * A typed getter that retrieves a value from a {@link HttpRequest}
+     */
+    @Override
+    public Optional<UrlPathName> parameterValue(final HttpRequest request) {
+        UrlPathName pathName = null;
+
+        int i = 0;
+        for (UrlPathName possible : request.url().path()) {
+            if (i == this.index) {
+                pathName = possible;
+                break;
+            }
+            i++;
+        }
+
+        return Optional.ofNullable(pathName);
     }
 
     // Object....................................................................................................

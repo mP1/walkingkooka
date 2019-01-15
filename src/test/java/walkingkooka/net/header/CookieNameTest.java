@@ -21,6 +21,10 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.net.http.server.FakeHttpRequest;
+
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -130,6 +134,18 @@ final public class CookieNameTest extends NameTestCase<CookieName> {
     @Test
     public void testBeginsDollarSign() {
         this.createNameAndCheck("$cookie");
+    }
+
+    @Test
+    public void testParameterValue() {
+        final CookieName name = CookieName.with("cookie123");
+        assertEquals(Optional.of(Cookie.client(name, "value123")),
+                name.parameterValue(new FakeHttpRequest() {
+                    @Override
+                    public List<ClientCookie> cookies() {
+                        return Cookie.parseClientHeader("a=b;cookie123=value123;x=y");
+                    }
+                }));
     }
 
     @Test
