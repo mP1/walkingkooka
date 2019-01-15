@@ -18,8 +18,23 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.Cast;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+
 /**
  * A tag interface that all http request attributes such as headers implement.
  */
-public interface HttpRequestAttribute {
+public interface HttpRequestAttribute<T> {
+
+    /**
+     * A typed getter that retrieves an attribute's value.
+     */
+    default Optional<T> parameterValue(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(parameters, "parameters");
+
+        return Optional.ofNullable(Cast.to(parameters.get(this)));
+    }
 }

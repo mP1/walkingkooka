@@ -19,11 +19,8 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.UrlPathName;
-import walkingkooka.net.header.Cookie;
-import walkingkooka.net.header.CookieName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -35,25 +32,10 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class HttpRequestAttributesTest extends ClassTestCase<HttpRequestAttributes> {
+public final class HttpRequestAttributeTest extends ClassTestCase<HttpRequestAttribute<?>> {
 
     @Test
-    public void testParameterValueCookieName() {
-        final CookieName name1 = CookieName.with("cookie111");
-        this.parameterValueAndCheck(name1, Cookie.client(name1, "value111"));
-
-        final CookieName name2 = CookieName.with("cookie222");
-        this.parameterValueAndCheck(name2, Cookie.client(name2, "value222"));
-    }
-
-    @Test
-    public void testParameterValueHeaderName() {
-        this.parameterValueAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
-        this.parameterValueAndCheck(HttpHeaderName.SERVER, "Server 123");
-    }
-
-    @Test
-    public void testParameterValueHttpMethod() {
+    public void testParameterValueHttpMethodl() {
         this.parameterValueAndCheck(HttpRequestAttributes.METHOD, HttpMethod.GET);
         this.parameterValueAndCheck(HttpRequestAttributes.METHOD, HttpMethod.POST);
     }
@@ -61,12 +43,6 @@ public final class HttpRequestAttributesTest extends ClassTestCase<HttpRequestAt
     @Test
     public void testParameterValueHttpProtocol() {
         this.parameterValueAndCheck(HttpRequestAttributes.HTTP_PROTOCOL_VERSION, HttpProtocolVersion.VERSION_1_0);
-    }
-
-    @Test
-    public void testParameterValuePath() {
-        this.parameterValueAndCheck(HttpRequestAttributes.pathComponent(2), UrlPathName.with("222"));
-        this.parameterValueAndCheck(HttpRequestAttributes.pathComponent(3), UrlPathName.with("path-3"));
     }
 
     @Test
@@ -81,8 +57,8 @@ public final class HttpRequestAttributesTest extends ClassTestCase<HttpRequestAt
     }
 
     @Override
-    protected Class<HttpRequestAttributes> type() {
-        return HttpRequestAttributes.class;
+    protected Class<HttpRequestAttribute<?>> type() {
+        return Cast.to(HttpRequestAttribute.class);
     }
 
     @Override
