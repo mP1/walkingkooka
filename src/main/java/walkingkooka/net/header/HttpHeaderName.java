@@ -27,6 +27,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -44,7 +45,7 @@ import java.util.Optional;
 final public class HttpHeaderName<T> implements HeaderName<T>,
         Comparable<HttpHeaderName<?>>,
         HasHeaderScope,
-        HttpRequestAttribute {
+        HttpRequestAttribute<T> {
 
     // constants
 
@@ -897,6 +898,16 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     private final HeaderValueConverter<T> valueConverter;
+
+    // HttpRequestAttribute..............................................................................................
+
+    /**
+     * A typed getter that retrieves a value from a {@link HttpRequest}
+     */
+    @Override
+    public Optional<T> parameterValue(final HttpRequest request) {
+        return this.headerValue(request.headers());
+    }
 
     // HasHttpHeaderNameScope ....................................................................................................
 

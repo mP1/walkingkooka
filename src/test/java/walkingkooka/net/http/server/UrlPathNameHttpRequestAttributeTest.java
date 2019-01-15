@@ -19,8 +19,13 @@
 package walkingkooka.net.http.server;
 
 import org.junit.Test;
+import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.Url;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -42,6 +47,19 @@ public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<Url
     public void testUncached() {
         final int index = UrlPathNameHttpRequestAttribute.CONSTANT_COUNT;
         assertNotSame(UrlPathNameHttpRequestAttribute.with(index), UrlPathNameHttpRequestAttribute.with(index));
+    }
+
+    @Test
+    public void testParameterValue() {
+        final UrlPathNameHttpRequestAttribute name = UrlPathNameHttpRequestAttribute.with(2);
+
+        assertEquals(Optional.of(UrlPathName.with("path2")),
+                name.parameterValue(new FakeHttpRequest() {
+                    @Override
+                    public RelativeUrl url() {
+                        return Url.parseRelative("/path1/path2/path3");
+                    }
+                }));
     }
 
     @Test

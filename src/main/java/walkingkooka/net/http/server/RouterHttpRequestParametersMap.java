@@ -18,12 +18,10 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.ClientCookie;
-import walkingkooka.net.header.CookieName;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractMap;
@@ -61,41 +59,15 @@ final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttrib
     public Object get(final Object key) {
         Object value = null;
 
-        while (key instanceof HttpRequestAttribute) {
-            if (key instanceof CookieName) {
-                value = this.clientCookieOrNull(Cast.to(key));
-                break;
-            }
-            if (key instanceof HttpHeaderName) {
-                value = this.headers().get(key);
-                break;
-            }
-            if (key instanceof HttpRequestAttributes) {
-                value = HttpRequestAttributes.class.cast(key).value(this.request);
-                break;
-            }
-            if(key instanceof HttpRequestParameterName) {
-                value = this.parameters().get(key);
-                break;
-            }
-            if (key instanceof UrlPathNameHttpRequestAttribute) {
+        if(key instanceof HttpRequestAttribute) {
+            if(key instanceof UrlPathNameHttpRequestAttribute) {
                 value = this.pathNameOrNull(UrlPathNameHttpRequestAttribute.class.cast(key).index);
-                break;
+            } else {
+                value = HttpRequestAttribute.class.cast(key).parameterValue(this.request).orElse(null);
             }
-            break;
         }
 
         return value;
-    }
-
-    /**
-     * Finds a cookie with the {@link CookieName}
-     */
-    private ClientCookie clientCookieOrNull(final CookieName name) {
-        return this.request.cookies().stream()
-                .filter(c -> c.name().equals(name))
-                .findFirst()
-                .orElse(null);
     }
 
     /**

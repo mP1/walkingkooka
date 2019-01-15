@@ -18,31 +18,36 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
+import walkingkooka.net.http.HttpTransport;
+
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A {@link HttpRequestAttribute} to be used as a key for several misc {@link HttpRequest} attributes.
  */
-public enum HttpRequestAttributes implements HttpRequestAttribute {
+public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
 
-    TRANSPORT {
-        @Override
-        Object value(final HttpRequest request) {
-            return request.transport();
-        }
-    },
-    METHOD {
-        @Override
-        Object value(final HttpRequest request) {
-            return request.method();
-        }
-    },
-    HTTP_PROTOCOL_VERSION {
-        @Override
-        Object value(final HttpRequest request) {
-            return request.protocolVersion();
-        }
-    };
+    /**
+     * A {@link HttpRequestAttribute} for {@link HttpRequest#method()}
+     */
+    public final static HttpRequestAttributes<HttpMethod> METHOD = new HttpRequestAttributes<HttpMethod>("METHOD",
+            HttpRequest::method);
+
+    /**
+     * A {@link HttpRequestAttribute} for {@link HttpRequest#protocolVersion()}
+     */
+    public final static HttpRequestAttributes<HttpProtocolVersion> HTTP_PROTOCOL_VERSION = new HttpRequestAttributes<HttpProtocolVersion>("PROTOCOL_VERSION",
+            HttpRequest::protocolVersion);
+
+    /**
+     * A {@link HttpRequestAttribute} for {@link HttpRequest#transport()}
+     */
+    public final static HttpRequestAttributes<HttpTransport> TRANSPORT = new HttpRequestAttributes<HttpTransport>("TRANSPORT",
+            HttpRequest::transport);
 
     /**
      * {@see UrlPathNameHttpRequestAttribute}
@@ -52,10 +57,21 @@ public enum HttpRequestAttributes implements HttpRequestAttribute {
     }
 
     /**
-     * Retrieves the request value associated with this attribute. Different attributes match up with different
-     * getters of a {@link HttpRequest}.
+     * Private ctor use constant.
      */
-    abstract Object value(final HttpRequest request);
+    private HttpRequestAttributes(final String name,
+                                  final Function<HttpRequest, T> request) {
+        super();
+        this.name = name;
+        this.request = request;
+    }
+
+    @Override
+    public Optional<T> parameterValue(final HttpRequest request) {
+        return Optional.ofNullable(this.request.apply(request));
+    }
+
+    private final Function<HttpRequest, T> request;
 
     /**
      * The number of values
@@ -72,7 +88,7 @@ public enum HttpRequestAttributes implements HttpRequestAttribute {
             throw new NoSuchElementException();
         }
         final HttpRequestAttributes key = VALUES[position];
-        return RouterHttpRequestParametersMapEntry.with(key, key.value(request));
+        return RouterHttpRequestParametersMapEntry.with(key, key.parameterValue(request).get());
     }
 
     /**
@@ -80,12 +96,23 @@ public enum HttpRequestAttributes implements HttpRequestAttribute {
      */
     final static String iteratorEntryToString(final int position, final HttpRequest request) {
         return position < VALUES.length ?
-                VALUES[position] + "=" + VALUES[position].value(request) :
+                VALUES[position] + "=" + VALUES[position].parameterValue(request).get() :
                 "";
     }
 
     /**
-     * Constant cached to save the defensive copy every time {@link #values()} is called.
+     * Constants an array to facilitate access via index.
      */
-    private final static HttpRequestAttributes[] VALUES = HttpRequestAttributes.values();
+    private final static HttpRequestAttributes<?>[] VALUES = new HttpRequestAttributes<?>[]{TRANSPORT,
+            METHOD,
+            HTTP_PROTOCOL_VERSION};
+
+    // Object...........................................................................................................
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    private final String name;
 }

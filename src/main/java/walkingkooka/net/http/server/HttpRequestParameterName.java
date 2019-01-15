@@ -22,10 +22,13 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * The {@link Name} of a parameter within a {@link HttpRequest}.
  */
-final public class HttpRequestParameterName implements Name, HttpRequestAttribute {
+final public class HttpRequestParameterName implements Name, HttpRequestAttribute<List<String>> {
 
     /**
      * Factory that creates a {@link HttpRequestParameterName}
@@ -51,6 +54,16 @@ final public class HttpRequestParameterName implements Name, HttpRequestAttribut
     }
 
     private final String name;
+
+    // HttpRequestAttribute..............................................................................................
+
+    /**
+     * A typed getter that retrieves a value from a {@link HttpRequest}
+     */
+    @Override
+    public Optional<List<String>> parameterValue(final HttpRequest request) {
+        return Optional.ofNullable(request.parameterValues(this));
+    }
 
     // Object...............................................................................................
 

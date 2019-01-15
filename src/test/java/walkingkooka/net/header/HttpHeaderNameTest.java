@@ -24,6 +24,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -331,6 +332,33 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
         assertEquals(header + ".headerText " + CharSequences.quoteIfChars(value),
                 formatted,
                 header.headerText(value));
+    }
+
+    // HttpRequestAttribute.................................................................................
+
+    @Test
+    public void testParameterValue() {
+        this.parameterValueAndCheck(HttpHeaderName.CONTENT_LENGTH, 123L);
+    }
+
+    @Test
+    public void testParameterValue2() {
+        this.parameterValueAndCheck(HttpHeaderName.USER_AGENT, "Browser 123");
+    }
+
+    @Test
+    public void testParameterValueAbsent() {
+        this.parameterValueAndCheck(HttpHeaderName.CONTENT_LENGTH, null);
+    }
+
+    private <T> void parameterValueAndCheck(final HttpHeaderName<T> header, final T value) {
+        assertEquals(Optional.ofNullable(value),
+                header.parameterValue(new FakeHttpRequest() {
+                    @Override
+                    public Map<HttpHeaderName<?>, Object> headers() {
+                        return Maps.one(header, value);
+                    }
+                }));
     }
 
     // toString.................................................................................
