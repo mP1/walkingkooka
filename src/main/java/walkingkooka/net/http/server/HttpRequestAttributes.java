@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
@@ -52,7 +53,7 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
     /**
      * {@see UrlPathNameHttpRequestAttribute}
      */
-    public static HttpRequestAttribute pathComponent(final int index) {
+    public static HttpRequestAttribute<UrlPathName> pathComponent(final int index) {
         return UrlPathNameHttpRequestAttribute.with(index);
     }
 
