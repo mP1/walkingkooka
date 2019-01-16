@@ -21,6 +21,7 @@ package walkingkooka.net.http;
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.Value;
+import walkingkooka.net.header.HeaderValue;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
@@ -32,7 +33,7 @@ import java.util.WeakHashMap;
 /**
  * A {@link Value} including an enumeration of standards methods that contains the HTTP request methods.
  */
-public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
+public final class HttpMethod implements Value<String>, HeaderValue, HashCodeEqualsDefined {
 
     /**
      * A cache of all {@link HttpMethod versions}. Placed above constants so it is initialized before constants
@@ -88,7 +89,7 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
      * Creates and adds a new {@link HttpMethod} to the cache being built.
      */
     private static HttpMethod createAndAdd(final String header) {
-        final HttpMethod httpHeader = new HttpMethod(header);
+        final HttpMethod httpHeader = new HttpMethod(header, header.toUpperCase());
         if (null != HttpMethod.CACHE.put(header, httpHeader)) {
             throw new NeverError("Attempt to add duplicate constant=" + CharSequences.quoteAndEscape(header));
         }
@@ -101,8 +102,8 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
     public static HttpMethod with(final String method) {
         Whitespace.failIfNullOrEmptyOrWhitespace(method, "method");
 
-        final String key = method.toUpperCase();
-        HttpMethod httpMethod = HttpMethod.CACHE.get(key);
+        final String headerText = method.toUpperCase();
+        HttpMethod httpMethod = HttpMethod.CACHE.get(headerText);
         if (null == httpMethod) {
             // verify method name
             final int length = method.length();
@@ -115,7 +116,7 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
                 }
             }
 
-            httpMethod = new HttpMethod(method);
+            httpMethod = new HttpMethod(method, headerText);
         }
 
         return httpMethod;
@@ -124,9 +125,10 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
     /**
      * Private constructor use static factory.
      */
-    private HttpMethod(final String value) {
+    private HttpMethod(final String value, final String headerText) {
         super();
         this.value = value;
+        this.headerText = headerText;
     }
 
     /**
@@ -146,7 +148,36 @@ public final class HttpMethod implements Value<String>, HashCodeEqualsDefined {
         return this == GET || this == HEAD;
     }
 
-    // Object
+    // HeaderValue...........................................................................................................
+
+    @Override
+    public String toHeaderText() {
+        return this.headerText;
+    }
+
+    private final String headerText;
+
+    @Override
+    public boolean isWildcard() {
+        return false;
+    }
+
+    @Override
+    public boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    public boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    public boolean isResponse() {
+        return true;
+    }
+
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {
