@@ -18,10 +18,70 @@
 
 package walkingkooka.tree.json;
 
+import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.Assert.assertEquals;
+
 public final class JsonNodeTest extends ClassTestCase<JsonNode> {
+
+    @Test(expected = ParserException.class)
+    public void testParseFails() {
+        JsonNode.parse("");
+    }
+
+    @Test(expected = ParserException.class)
+    public void testParseFails2() {
+        JsonNode.parse("{\"");
+    }
+
+    @Test
+    public void testParseBoolean() {
+        this.parseAndCheck("true",
+                JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testParseNull() {
+        this.parseAndCheck("null",
+                JsonNode.nullNode());
+    }
+
+    @Test
+    public void testParseNumber() {
+        this.parseAndCheck("123.5",
+                JsonNode.number(123.5));
+    }
+
+    @Test
+    public void testParseString() {
+        this.parseAndCheck("\"abc123\"",
+                JsonNode.string("abc123"));
+    }
+
+    @Test
+    public void testParseArray() {
+        this.parseAndCheck("[\"abc123\", true]",
+                JsonNode.array()
+                        .appendChild(JsonNode.string("abc123"))
+                        .appendChild(JsonNode.booleanNode(true)));
+    }
+
+    @Test
+    public void testParseObject() {
+        this.parseAndCheck("{\"prop1\": \"value1\"}",
+                JsonNode.object().set(JsonNodeName.with("prop1"), JsonNode.string("value1")));
+    }
+
+    private void parseAndCheck(final String json, final JsonNode node) {
+        assertEquals("Parse result incorrect for " + CharSequences.quoteAndEscape(json),
+                JsonNode.parse(json),
+                node);
+    }
+
     @Override
     protected Class<JsonNode> type() {
         return JsonNode.class;
