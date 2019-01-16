@@ -30,6 +30,13 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.HasText;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserReporters;
+import walkingkooka.text.cursor.parser.json.JsonNodeParserContext;
+import walkingkooka.text.cursor.parser.json.JsonNodeParserContexts;
+import walkingkooka.text.cursor.parser.json.JsonNodeParserToken;
+import walkingkooka.text.cursor.parser.json.JsonNodeParsers;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.search.HasSearchNode;
 
@@ -46,6 +53,23 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         HasText,
         HasJsonNode,
         HashCodeEqualsDefined {
+
+    /**
+     * Parsers the given json and returns its {@link JsonNode} equivalent.
+     */
+    public static JsonNode parse(final String text) {
+        return PARSER.parse(TextCursors.charSequence(text),
+                JsonNodeParserContexts.basic())
+                .get()
+                .toJsonNode().get();
+    }
+
+    /**
+     * Parser that will consume json or report a parsing error.
+     */
+    private final static Parser<JsonNodeParserToken, JsonNodeParserContext> PARSER = JsonNodeParsers.value()
+            .orReport(ParserReporters.basic())
+            .cast();
 
     public static JsonArrayNode array() {
         return JsonArrayNode.EMPTY;
