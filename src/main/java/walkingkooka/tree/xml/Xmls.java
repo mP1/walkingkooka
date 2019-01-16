@@ -67,7 +67,7 @@ final public class Xmls implements PublicStaticHelper {
                         decoded.append('"');
                         continue;
                     }
-                    throw new DomException("Unknown/unsupported Xml entity &" + entity + ";");
+                    throw new XmlException("Unknown/unsupported Xml entity &" + entity + ";");
                 }
                 decoded.append(c);
                 unchanged++;
