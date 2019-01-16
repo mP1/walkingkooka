@@ -44,6 +44,7 @@ import java.util.Optional;
 public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Object>,
         HasSearchNode,
         HasText,
+        HasJsonNode,
         HashCodeEqualsDefined {
 
     public static JsonArrayNode array() {
@@ -229,6 +230,16 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     }
 
     abstract void accept(final JsonNodeVisitor visitor);
+
+    // HasJsonNode .......................................................................................................
+
+    /**
+     * Already a {@link JsonNode}
+     */
+    @Override
+    public JsonNode toJsonNode() {
+        return this;
+    }
 
     // Object .......................................................................................................
 
