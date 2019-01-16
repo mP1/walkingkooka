@@ -26,6 +26,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
@@ -128,6 +129,26 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
         this.toHeaderTextListAndCheck("<http://example.com>, <http://example2.com>",
                 this.createLink(),
                 Link.with(Url.parse("http://example2.com")));
+    }
+
+    // toJsonNode .......................................................................................
+
+    @Test
+    public void testToJsonNode() {
+        this.toJsonNodeAndCheck("<http://example.com>",
+                "{\"href\": \"http://example.com\"}");
+    }
+
+    @Test
+    public void testToJsonNodeRel() {
+        this.toJsonNodeAndCheck("<http://example.com>;type=text/plain;rel=previous",
+                "{\"href\": \"http://example.com\", \"rel\": \"previous\", \"type\": \"text/plain\"}");
+    }
+
+    private void toJsonNodeAndCheck(final String link, final String json) {
+        assertEquals("toJson doesnt match=" + CharSequences.quoteAndEscape(link),
+                Link.parse(link).get(0).toJsonNode(),
+                JsonNode.parse(json));
     }
 
     // parse.......................................................................................

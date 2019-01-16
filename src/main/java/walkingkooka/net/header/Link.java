@@ -18,13 +18,19 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 import walkingkooka.text.Whitespace;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 
@@ -33,7 +39,7 @@ import java.util.Objects;
  */
 final public class Link extends HeaderValueWithParameters2<Link,
         LinkParameterName<?>,
-        Url> {
+        Url> implements HasJsonNode {
 
     /**
      * No parameters.
@@ -143,6 +149,32 @@ final public class Link extends HeaderValueWithParameters2<Link,
     public boolean isResponse() {
         return true;
     }
+
+    // HasJsonNode..........................................................................................................
+
+    /**
+     * Builds the json representation of this link, with the value assigned to HREF attribute.
+     */
+    @Override
+    public JsonNode toJsonNode() {
+        JsonObjectNode json = JsonNode.object()
+                .set(HREF, JsonNode.string(this.value.toString()));
+
+        for (Entry<LinkParameterName<?>, Object> parameterNameAndValue : this.parameters.entrySet()) {
+            final LinkParameterName<?> name = parameterNameAndValue.getKey();
+
+            json = json.set(JsonNodeName.with(name.value()),
+                    JsonNode.string(name.converter.toText(Cast.to(parameterNameAndValue.getValue()), name)));
+        }
+
+
+        return json;
+    }
+
+    /**
+     * The attribute on the json object which will hold the {@link #value}.
+     */
+    private final static JsonNodeName HREF = JsonNodeName.with("href");
 
     // Object................................................................................................................
 
