@@ -70,9 +70,9 @@ public final class LinkHeaderParserTest extends HeaderParserTestCase<LinkHeaderP
     }
 
     @Test
-    public void testLinkMediaTypeParameter() {
-        this.parseAndCheck2("</path/file>; mediaType=text/plain",
-                this.link(LinkParameterName.MEDIA_TYPE, MediaType.TEXT_PLAIN));
+    public void testLinkTypeParameter() {
+        this.parseAndCheck2("</path/file>; type=text/plain",
+                this.link(LinkParameterName.TYPE, MediaType.TEXT_PLAIN));
     }
 
     @Test

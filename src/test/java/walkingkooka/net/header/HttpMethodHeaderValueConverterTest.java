@@ -51,7 +51,7 @@ public final class HttpMethodHeaderValueConverterTest extends
 
     @Override
     protected LinkParameterName<HttpMethod> name() {
-        return LinkParameterName.TYPE;
+        return LinkParameterName.METHOD;
     }
 
     @Override
