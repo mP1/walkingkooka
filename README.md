@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/mP1/walkingkooka/badge.svg?branch=feature%2Fcoveralls-travis-ci-integration)](https://coveralls.io/github/mP1/walkingkooka?branch=feature%2Fcoveralls-travis-ci-integration)
+[![Coverage Status](https://coveralls.io/repos/github/mP1/walkingkooka/badge.svg?branch=master)](https://coveralls.io/github/mP1/walkingkooka?branch=master)
 
 # Basic Project
 
