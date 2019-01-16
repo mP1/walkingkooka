@@ -254,6 +254,28 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testContainsAbsent() {
+        this.containsAndCheck(JsonNode.object()
+                        .set(JsonNodeName.with("prop1"), JsonNode.string("value1")),
+                JsonNodeName.with("different-prop"),
+                false);
+    }
+
+    @Test
+    public void testContainsPresent() {
+        final JsonNodeName property = JsonNodeName.with("prop123");
+        this.containsAndCheck(JsonNode.object()
+                        .set(JsonNodeName.with("prop1"), JsonNode.string("value1"))
+                        .set(property, JsonNode.string("value2")),
+                property,
+                true);
+    }
+
+    private void containsAndCheck(final JsonObjectNode object, final JsonNodeName name, final boolean contains) {
+        assertEquals(object + " contains " + name, contains, object.contains(name));
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<JsonNode> visited = Lists.array();

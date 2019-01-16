@@ -81,6 +81,11 @@ public final class JsonNullNodeTest extends JsonLeafNodeTestCase<JsonNullNode, V
     }
 
     @Override
+    JsonNullNode setValue(final JsonNullNode node, final Void value) {
+        return node.setValue(value);
+    }
+
+    @Override
     Void value() {
         return null;
     }

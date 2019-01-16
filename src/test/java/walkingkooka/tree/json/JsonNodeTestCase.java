@@ -20,6 +20,7 @@ package walkingkooka.tree.json;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
 import walkingkooka.io.printer.Printers;
@@ -56,6 +57,11 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
 
     @Test
     public abstract void testSetNameDifferent();
+
+    @Test(expected = UnsupportedOperationException.class)
+    public final void testSetAttributesFails() {
+        this.createJsonNode().setAttributes(Maps.empty());
+    }
 
     @Test
     public final void testIsMethods() throws Exception {

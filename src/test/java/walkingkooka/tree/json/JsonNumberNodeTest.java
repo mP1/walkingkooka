@@ -76,6 +76,11 @@ public final class JsonNumberNodeTest extends JsonLeafNodeTestCase<JsonNumberNod
     }
 
     @Override
+    JsonNumberNode setValue(final JsonNumberNode node, final Double value) {
+        return node.setValue(value);
+    }
+
+    @Override
     Double value() {
         return 1.0;
     }
