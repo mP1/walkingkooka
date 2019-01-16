@@ -86,6 +86,12 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
         }
     }
 
+    @Test
+    public final void testToJsonNode() {
+        final N node = this.createJsonNode();
+        assertSame(node, node.toJsonNode());
+    }
+
     @Test(expected = NullPointerException.class)
     public void testPrintJsonNullPrinterFails() {
         this.createJsonNode().printJson(null);
