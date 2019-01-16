@@ -25,11 +25,11 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.NodeSelectorContexts;
-import walkingkooka.tree.xml.DomAttributeName;
-import walkingkooka.tree.xml.DomDocument;
-import walkingkooka.tree.xml.DomElement;
-import walkingkooka.tree.xml.DomName;
-import walkingkooka.tree.xml.DomNode;
+import walkingkooka.tree.xml.XmlAttributeName;
+import walkingkooka.tree.xml.XmlDocument;
+import walkingkooka.tree.xml.XmlElement;
+import walkingkooka.tree.xml.XmlName;
+import walkingkooka.tree.xml.XmlNode;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
@@ -46,14 +46,14 @@ import java.util.stream.Collectors;
 final class LinkRelationConstantGenerator {
 
     public static void main(final String[] args) throws Exception {
-        final DomDocument document = DomDocument.fromXml(DocumentBuilderFactory.newInstance().newDocumentBuilder(),
+        final XmlDocument document = XmlDocument.fromXml(DocumentBuilderFactory.newInstance().newDocumentBuilder(),
                 file());
-        DomNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(DomNode.class)
+        XmlNode.PATH_SEPARATOR.absoluteNodeSelectorBuilder(XmlNode.class)
                 .descendant()
-                .named(DomName.element("record"))
+                .named(XmlName.element("record"))
                 .build()
                 .accept(document,
-                        NodeSelectorContexts.<DomNode, DomName, DomAttributeName, String>basic(LinkRelationConstantGenerator::potential,
+                        NodeSelectorContexts.<XmlNode, XmlName, XmlAttributeName, String>basic(LinkRelationConstantGenerator::potential,
                                 LinkRelationConstantGenerator::record,
                                 LinkRelationConstantGenerator::functions,
                                 Converters.fake(),
@@ -64,7 +64,7 @@ final class LinkRelationConstantGenerator {
         return new BufferedReader(new InputStreamReader(LinkRelationConstantGenerator.class.getResourceAsStream("link-relations.xml")));
     }
 
-    private static void potential(final DomNode node) {
+    private static void potential(final XmlNode node) {
         // nop
     }
 
@@ -85,12 +85,12 @@ final class LinkRelationConstantGenerator {
      * </record>
      * </pre>
      */
-    private static void record(final DomNode node) {
-        record0(DomElement.class.cast(node));
+    private static void record(final XmlNode node) {
+        record0(XmlElement.class.cast(node));
     }
 
-    private static void record0(final DomElement element) {
-        final List<DomNode> children = element.children()
+    private static void record0(final XmlElement element) {
+        final List<XmlNode> children = element.children()
                 .stream()
                 .filter(e -> e.isElement())
                 .collect(Collectors.toList());
@@ -98,9 +98,9 @@ final class LinkRelationConstantGenerator {
         final String value = children.get(0).text();
         final String description = children.get(1).text();
 
-        final Map<DomAttributeName, String> specAttributes = children.get(2).attributes();
-        final String specType = specAttributes.get(DomAttributeName.with("type", DomAttributeName.NO_PREFIX));
-        final String specData = specAttributes.get(DomAttributeName.with("data", DomAttributeName.NO_PREFIX));
+        final Map<XmlAttributeName, String> specAttributes = children.get(2).attributes();
+        final String specType = specAttributes.get(XmlAttributeName.with("type", XmlAttributeName.NO_PREFIX));
+        final String specData = specAttributes.get(XmlAttributeName.with("data", XmlAttributeName.NO_PREFIX));
 
         String javadoc = "/**" + description;
 

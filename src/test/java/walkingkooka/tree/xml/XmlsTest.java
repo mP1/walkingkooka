@@ -60,7 +60,7 @@ final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
         this.decodeAndCheck("before &amp; after", "before & after");
     }
 
-    @Test(expected = DomException.class)
+    @Test(expected = XmlException.class)
     public void testDecodeUnknownEntityFails() {
         Xmls.decode("before &unknown; after");
     }
