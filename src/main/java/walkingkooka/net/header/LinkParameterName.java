@@ -65,9 +65,55 @@ final public class LinkParameterName<T> extends HeaderParameterName<T> implement
     public final static LinkParameterName<LanguageTagName> HREFLANG = CONSTANTS.register("hreflang", HeaderValueConverter.languageTagName());
 
     /**
-     * The media type parameter.
+     * The media type parameter.<br>
+     * <a href="https://www.w3.org/TR/1999/REC-html401-19991224/types.html#h-6.13"></a>
+     * <pre>
+     * 6.13 Media descriptors
+     * The following is a list of recognized media descriptors ( %MediaDesc in the DTD).
+     *
+     * screen
+     * Intended for non-paged computer screens.
+     * tty
+     * Intended for media using a fixed-pitch character grid, such as teletypes, terminals, or portable devices with limited display capabilities.
+     * tv
+     * Intended for television-type devices (low resolution, color, limited scrollability).
+     * projection
+     * Intended for projectors.
+     * handheld
+     * Intended for handheld devices (small screen, monochrome, bitmapped graphics, limited bandwidth).
+     * print
+     * Intended for paged, opaque material and for documents viewed on screen in print preview mode.
+     * braille
+     * Intended for braille tactile feedback devices.
+     * aural
+     * Intended for speech synthesizers.
+     * all
+     * Suitable for all devices.
+     * Future versions of HTML may introduce new values and may allow parameterized values. To facilitate the introduction of these extensions, conforming user agents must be able to parse the media attribute value as follows:
+     *
+     * The value is a comma-separated list of entries. For example,
+     * media="screen, 3d-glasses, print and resolution > 90dpi"
+     * is mapped to:
+     *
+     * "screen"
+     * "3d-glasses"
+     * "print and resolution > 90dpi"
+     * Each entry is truncated just before the first character that isn't a US ASCII letter [a-zA-Z] (ISO 10646 hex 41-5a, 61-7a), digit [0-9] (hex 30-39), or hyphen (hex 2d). In the example, this gives:
+     * "screen"
+     * "3d-glasses"
+     * "print"
+     * A case-sensitive match is then made with the set of media types defined above. User agents may ignore entries that don't match. In the example we are left with screen and print.
+     * Note. Style sheets may include media-dependent variations within them (e.g., the CSS @media construct). In such cases it may be appropriate to use "media=all".
+     * </pre>
      */
-    public final static LinkParameterName<MediaType> MEDIA_TYPE = CONSTANTS.register("mediaType", HeaderValueConverter.mediaType());
+    public final static LinkParameterName<String> MEDIA = CONSTANTS.register("media", HeaderValueConverter.quotedUnquotedString(LinkHeaderParser.QUOTED_PARAMETER_VALUE,
+            true, // backslash escaping...
+            LinkHeaderParser.UNQUOTED_PARAMETER_VALUE));
+
+    /**
+     * A non standard parameter to hold the {@linkHttpMethod} for this resource
+     */
+    public final static LinkParameterName<HttpMethod> METHOD = CONSTANTS.register("method", HeaderValueConverter.method());
 
     /**
      * The title parameter.
@@ -85,9 +131,9 @@ final public class LinkParameterName<T> extends HeaderParameterName<T> implement
     public final static LinkParameterName<EncodedText> TITLE_STAR = CONSTANTS.register("title*", HeaderValueConverter.encodedText());
 
     /**
-     * The type parameter.
+     * The type parameter, which holds the {@link MediaType content type} for this link.
      */
-    public final static LinkParameterName<HttpMethod> TYPE = CONSTANTS.register("type", HeaderValueConverter.method());
+    public final static LinkParameterName<MediaType> TYPE = CONSTANTS.register("type", HeaderValueConverter.mediaType());
 
     /**
      * Factory that creates a {@link LinkParameterName}

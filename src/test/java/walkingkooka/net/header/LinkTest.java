@@ -133,17 +133,29 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     // parse.......................................................................................
 
     @Test
+    public void testParseLinkWithMedia() {
+        this.parseAndCheck("<http://example.com>;media=\"abc 123\"",
+                this.createLink().setParameters(Maps.one(LinkParameterName.MEDIA, "abc 123")));
+    }
+
+    @Test
+    public void testParseLinkWithMethod() {
+        this.parseAndCheck("<http://example.com>;method=GET",
+                this.createLink().setParameters(Maps.one(LinkParameterName.METHOD, HttpMethod.GET)));
+    }
+
+    @Test
+    public void testParseLinkWithType() {
+        this.parseAndCheck("<http://example.com>;type=text/plain",
+                this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
+    }
+
+    @Test
     public void testParseSeveralLinks() {
         this.parseAndCheck("<http://example.com>;rel=previous, <http://example2.com>",
                 this.createLink().setParameters(Maps.one(LinkParameterName.REL, LinkRelation.parse("previous"))),
                 Link.with(Url.parse("http://example2.com"))
         );
-    }
-
-    @Test
-    public void testParseLinkWithType() {
-        this.parseAndCheck("<http://example.com>;type=GET",
-                this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, HttpMethod.GET)));
     }
 
     private void parseAndCheck(final String text, final Link... links) {

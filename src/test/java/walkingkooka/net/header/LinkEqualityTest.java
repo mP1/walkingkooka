@@ -34,7 +34,7 @@ public final class LinkEqualityTest extends HashCodeEqualsDefinedEqualityTestCas
 
     @Test
     public void testDifferentParameters() {
-        this.checkNotEquals(Link.with(this.url()).setParameters(Maps.one(LinkParameterName.MEDIA_TYPE, MediaType.TEXT_PLAIN)));
+        this.checkNotEquals(Link.with(this.url()).setParameters(Maps.one(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
     }
 
     @Test
