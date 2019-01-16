@@ -21,7 +21,7 @@ package walkingkooka.net.http;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.net.header.HeaderValueTestCase;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
 
@@ -34,7 +34,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 
-final public class HttpMethodTest extends ClassTestCase<HttpMethod> {
+final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -166,8 +166,43 @@ final public class HttpMethodTest extends ClassTestCase<HttpMethod> {
     }
 
     @Test
+    public void testHeaderText() {
+        this.toHeaderTextAndCheck2("get", "GET");
+    }
+
+    @Test
+    public void testHeaderText2() {
+        this.toHeaderTextAndCheck2("xcustom", "XCUSTOM");
+    }
+
+    private void toHeaderTextAndCheck2(final String text,
+                                       final String headerText) {
+        this.toHeaderTextAndCheck(HttpMethod.with(text), headerText);
+    }
+
+    @Test
     public void testToString() {
         assertEquals("GET", HttpMethod.GET.toString());
+    }
+
+    @Override
+    protected HttpMethod createHeaderValue() {
+        return HttpMethod.GET;
+    }
+
+    @Override
+    protected boolean isMultipart() {
+        return false;
+    }
+
+    @Override
+    protected boolean isRequest() {
+        return true;
+    }
+
+    @Override
+    protected boolean isResponse() {
+        return true;
     }
 
     @Override

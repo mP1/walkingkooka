@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 import walkingkooka.net.Url;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.predicate.character.CharPredicates;
 
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.List;
 /**
  * The {@link Name} of an optional parameter accompanying a {@link Link}. Note the name may not contain the whitespace, equals sign, semi colons
  * or commas.
+ * <a href="https://restfulapi.net/hateoas/"></a>
  */
 final public class LinkParameterName<T> extends HeaderParameterName<T> implements Comparable<LinkParameterName<?>> {
 
@@ -68,7 +70,8 @@ final public class LinkParameterName<T> extends HeaderParameterName<T> implement
     public final static LinkParameterName<MediaType> MEDIA_TYPE = CONSTANTS.register("mediaType", HeaderValueConverter.mediaType());
 
     /**
-     * The title star parameter.
+     * The title parameter.
+     * This should be used for ascii only title text.
      */
     public final static LinkParameterName<EncodedText> TITLE = CONSTANTS.register("title", HeaderValueConverter.quotedUnquotedString(
             CharPredicates.asciiPrintable(),
@@ -77,13 +80,14 @@ final public class LinkParameterName<T> extends HeaderParameterName<T> implement
 
     /**
      * The title star parameter.
+     * This should be used for all non ascii safe title text.
      */
     public final static LinkParameterName<EncodedText> TITLE_STAR = CONSTANTS.register("title*", HeaderValueConverter.encodedText());
 
     /**
-     * The title star parameter.
+     * The type parameter.
      */
-    public final static LinkParameterName<EncodedText> TYPE = CONSTANTS.register("type", HeaderValueConverter.encodedText());
+    public final static LinkParameterName<HttpMethod> TYPE = CONSTANTS.register("type", HeaderValueConverter.method());
 
     /**
      * Factory that creates a {@link LinkParameterName}

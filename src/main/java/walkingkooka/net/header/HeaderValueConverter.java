@@ -193,6 +193,13 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
+     * {@see HttpMethodHeaderValueConverter}
+     */
+    static HeaderValueConverter<HttpMethod> method() {
+        return HttpMethodHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see HttpMethodListHeaderValueConverter}
      */
     static HeaderValueConverter<List<HttpMethod>> methodList() {

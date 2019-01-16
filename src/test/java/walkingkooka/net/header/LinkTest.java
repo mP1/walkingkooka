@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -132,13 +133,22 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     // parse.......................................................................................
 
     @Test
-    public void testParse() {
-        final String text = "<http://example.com>;rel=previous, <http://example2.com>";
+    public void testParseSeveralLinks() {
+        this.parseAndCheck("<http://example.com>;rel=previous, <http://example2.com>",
+                this.createLink().setParameters(Maps.one(LinkParameterName.REL, LinkRelation.parse("previous"))),
+                Link.with(Url.parse("http://example2.com"))
+        );
+    }
+
+    @Test
+    public void testParseLinkWithType() {
+        this.parseAndCheck("<http://example.com>;type=GET",
+                this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, HttpMethod.GET)));
+    }
+
+    private void parseAndCheck(final String text, final Link... links) {
         assertEquals("Failed to parse " + CharSequences.quote(text),
-                Lists.of(
-                        this.createLink().setParameters(Maps.one(LinkParameterName.REL, LinkRelation.parse("previous"))),
-                        Link.with(Url.parse("http://example2.com"))
-                ),
+                Lists.of(links),
                 Link.parse(text));
     }
 
