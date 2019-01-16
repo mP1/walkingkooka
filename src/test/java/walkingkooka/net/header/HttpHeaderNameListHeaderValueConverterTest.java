@@ -65,19 +65,19 @@ public final class HttpHeaderNameListHeaderValueConverterTest extends
     }
 
     @Test
-    public void testFormat() {
-        this.formatAndCheck2("Accept",
+    public void testToText() {
+        this.toTextAndCheck2("Accept",
                 HttpHeaderName.ACCEPT);
     }
 
     @Test
-    public void testFormat2() {
-        this.formatAndCheck2("Accept, Content-Length",
+    public void testToText2() {
+        this.toTextAndCheck2("Accept, Content-Length",
                 HttpHeaderName.ACCEPT,
                 HttpHeaderName.CONTENT_LENGTH);
     }
 
-    private void formatAndCheck2(final String value,
+    private void toTextAndCheck2(final String value,
                                  final HttpHeaderName<?>...headers) {
         this.toTextAndCheck(Lists.of(headers), value);
     }

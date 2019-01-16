@@ -67,15 +67,15 @@ public final class HttpMethodListHeaderValueConverterTest extends
 
     @Test
     public void testGetResponse() {
-        this.formatAndCheck2("GET", HttpMethod.GET);
+        this.toTextAndCheck2("GET", HttpMethod.GET);
     }
 
     @Test
     public void testGetPostResponse() {
-        this.formatAndCheck2("GET, POST", HttpMethod.GET, HttpMethod.POST);
+        this.toTextAndCheck2("GET, POST", HttpMethod.GET, HttpMethod.POST);
     }
 
-    private void formatAndCheck2(final String headerValue, final HttpMethod... methods) {
+    private void toTextAndCheck2(final String headerValue, final HttpMethod... methods) {
         this.toTextAndCheck(Lists.of(methods), headerValue);
     }
 
