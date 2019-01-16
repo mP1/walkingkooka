@@ -40,6 +40,13 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
         return this.setName0(name).cast();
     }
 
+    /**
+     * Always returns this, only included for completeness.
+     */
+    public JsonNullNode setValue(final Void value) {
+        return this;
+    }
+
     @Override
     JsonNullNode wrap0(final JsonNodeName name, final int index, final Void value) {
         return new JsonNullNode(name, index, value);

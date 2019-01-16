@@ -55,7 +55,7 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     @Test
     public final void testSetSameValue() {
         final N node = this.createJsonNode();
-        assertSame(node, node.setValue0(node.value()));
+        assertSame(node, this.setValue(node, this.value()));
     }
 
     @Test
@@ -63,13 +63,15 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
         final N node = this.createJsonNode();
 
         final V differentValue = this.differentValue();
-        final N different = node.setValue0(differentValue).cast();
+        final N different = this.setValue(node, differentValue);
         assertNotSame(node, different);
         this.checkValue(different, differentValue);
         this.checkWithoutParent(different);
 
         this.checkValue(node, this.value());
     }
+
+    abstract N setValue(final N node, final V value);
 
     @Test
     public void testEqualsDifferentValue() {
@@ -146,6 +148,11 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     @Ignore
     public void testSetDifferentChildren() {
         // Ignored
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testSeChildrenFails() {
+        this.createJsonNode().setChildren(Lists.empty());
     }
 
     @Test

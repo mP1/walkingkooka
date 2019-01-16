@@ -43,7 +43,7 @@ public final class JsonNumberNode extends JsonLeafNode<Double>{
         return this.setName0(name).cast();
     }
 
-    public JsonBooleanNode setValue(final double value) {
+    public JsonNumberNode setValue(final double value) {
         return this.setValue0(value).cast();
     }
 

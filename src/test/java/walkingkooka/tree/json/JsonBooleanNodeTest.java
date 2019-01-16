@@ -81,6 +81,11 @@ public final class JsonBooleanNodeTest extends JsonLeafNodeTestCase<JsonBooleanN
     }
 
     @Override
+    JsonBooleanNode setValue(final JsonBooleanNode node, final Boolean value) {
+        return node.setValue(value);
+    }
+
+    @Override
     Boolean value() {
         return true;
     }

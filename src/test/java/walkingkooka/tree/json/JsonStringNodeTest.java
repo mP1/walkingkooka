@@ -77,6 +77,11 @@ public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNod
     }
 
     @Override
+    JsonStringNode setValue(final JsonStringNode node, final String value) {
+        return node.setValue(value);
+    }
+
+    @Override
     String value() {
         return "A";
     }
