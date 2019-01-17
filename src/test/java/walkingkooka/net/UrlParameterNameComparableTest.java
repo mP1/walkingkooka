@@ -21,25 +21,20 @@ package walkingkooka.net;
 import org.junit.Test;
 import walkingkooka.compare.ComparableTestCase;
 
-public final class UrlPathNameComparableTest extends ComparableTestCase<UrlPathName> {
+public final class UrlParameterNameComparableTest extends ComparableTestCase<UrlParameterName> {
 
     @Test
     public void testDifferentName() {
-        this.checkNotEquals(UrlPathName.with("different"));
-    }
-    
-    @Test
-    public void testLess() {
-        this.compareToAndCheckLess(UrlPathName.with("zzzzz"));
+        this.checkNotEquals(UrlParameterName.with("different"));
     }
 
     @Test
     public void testCaseSignificant() {
-        this.checkNotEquals(UrlParameterName.with("ABC"));
+        this.checkNotEquals(UrlParameterName.with("PARAM1"));
     }
 
     @Override
-    protected UrlPathName createComparable() {
-        return UrlPathName.with("abc");
+    protected UrlParameterName createComparable() {
+        return UrlParameterName.with("param1");
     }
 }

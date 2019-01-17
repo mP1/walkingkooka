@@ -18,28 +18,17 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
-import walkingkooka.compare.ComparableTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class UrlPathNameComparableTest extends ComparableTestCase<UrlPathName> {
-
-    @Test
-    public void testDifferentName() {
-        this.checkNotEquals(UrlPathName.with("different"));
-    }
-    
-    @Test
-    public void testLess() {
-        this.compareToAndCheckLess(UrlPathName.with("zzzzz"));
-    }
-
-    @Test
-    public void testCaseSignificant() {
-        this.checkNotEquals(UrlParameterName.with("ABC"));
+public final class NetNameTest extends ClassTestCase<NetName> {
+    @Override
+    protected Class<NetName> type() {
+        return NetName.class;
     }
 
     @Override
-    protected UrlPathName createComparable() {
-        return UrlPathName.with("abc");
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
