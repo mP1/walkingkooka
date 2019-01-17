@@ -32,9 +32,8 @@ import java.util.Objects;
 /**
  * A {@link Name} that holds a URI/URL scheme and when testing for equality case is insignificant.
  */
-public final class UrlScheme
-        implements Name,
-        Comparable<UrlScheme>,
+public final class UrlScheme extends NetName
+        implements Comparable<UrlScheme>,
         Serializable {
 
     // constants
@@ -123,19 +122,9 @@ public final class UrlScheme
      * package private constructor.
      */
     UrlScheme(final String name) {
-        super();
-        this.name = name;
+        super(name);
         this.nameWithSlashes = name.toLowerCase() + "://";
     }
-
-    // Name
-
-    @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
 
     /**
      * Returns the scheme with <code>://</code>
@@ -156,28 +145,19 @@ public final class UrlScheme
         return Url.absolute(this, UrlCredentials.NO_CREDENTIALS, address, IpPort.WITHOUT_PORT, UrlPath.EMPTY, UrlQueryString.EMPTY, UrlFragment.EMPTY);
     }
 
-    // Comparable
-
     @Override
-    public int compareTo(final UrlScheme scheme) {
-        return CASE_SENSITIVITY.comparator().compare(this.name, scheme.name);
-    }
-
-    // Object
-
-    @Override
-    public int hashCode() {
-        return CASE_SENSITIVITY.hash(this.name);
+    public int compareTo(final UrlScheme other) {
+        return this.compareTo0(other);
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return (this == other) ||
-                other instanceof UrlScheme && this.equals0((UrlScheme) other);
+    boolean canBeEqual(final Object other) {
+        return other instanceof UrlScheme;
     }
 
-    private boolean equals0(final UrlScheme other) {
-        return this.compareTo(other) == 0;
+    @Override
+    CaseSensitivity caseSensitivity() {
+        return CASE_SENSITIVITY;
     }
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;

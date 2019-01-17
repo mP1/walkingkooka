@@ -19,18 +19,16 @@
 package walkingkooka.net;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A {@link Name} is a component within a {@link UrlPath}. It is assumed that the {@link String value} is decoded and thus may include invalid
  * characters that would otherwise need encoding such as <code>?</code>.
  */
-public final class UrlPathName implements Name,
-        Comparable<UrlPathName>,
-        Serializable {
+public final class UrlPathName extends NetName implements Comparable<UrlPathName> {
 
     /**
      * The maximum length of a {@link UrlPathName}.
@@ -72,42 +70,33 @@ public final class UrlPathName implements Name,
      * Private constructor
      */
     private UrlPathName(final String name) {
-        this.name = name;
+        super(name);
+    }
+
+    // NetName........................................................................................................
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof UrlPathName;
     }
 
     @Override
-    public String value() {
-        return this.name;
+    CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
     }
-
-    final private String name;
 
     // Comparable......................................................................................................
 
     @Override
-    public int compareTo(final UrlPathName name) {
-        return this.name.compareTo(name.name);
+    public int compareTo(final UrlPathName other) {
+        return this.compareTo0(other);
     }
 
-    // Object.........................................................................................................
-
+    /**
+     * Dumps the {@link String value} adding quotes if necessary.
+     */
     @Override
-    public int hashCode() {
-        return this.name.hashCode();
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-               other instanceof UrlPathName && this.equals0((UrlPathName) other);
-    }
-
-    private boolean equals0(final UrlPathName other) {
-        return this.name.equals(other.name);
-    }
-
-    @Override
-    public String toString() {
+    public final String toString() {
         return CharSequences.quoteIfNecessary(this.name).toString();
     }
 

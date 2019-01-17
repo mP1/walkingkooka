@@ -19,15 +19,13 @@
 package walkingkooka.net;
 
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-
-import java.io.Serializable;
 
 /**
  * The {@link Name} of a query string parameter.
  */
-public final class UrlParameterName implements Name,
-        Serializable {
+public final class UrlParameterName extends NetName implements Comparable<UrlParameterName> {
 
     private final static long serialVersionUID = 1L;
 
@@ -44,38 +42,26 @@ public final class UrlParameterName implements Name,
      * Private constructor
      */
     private UrlParameterName(final String name) {
-        this.name = name;
+        super(name);
     }
 
     @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
-
-    // Object
-
-    @Override
-    public int hashCode() {
-        return this.name.hashCode();
+    public int compareTo(final UrlParameterName other) {
+        return this.compareTo0(other);
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-               other instanceof UrlParameterName && this.equals0((UrlParameterName) other);
+    boolean canBeEqual(final Object other) {
+        return other instanceof UrlParameterName;
     }
 
-    private boolean equals0(final UrlParameterName other) {
-        return this.name.equals(other.name);
-    }
-
-    /**
-     * Dumps the parameter name.
-     */
     @Override
-    public String toString() {
+    CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    public final String toString() {
         return this.name;
     }
 }
