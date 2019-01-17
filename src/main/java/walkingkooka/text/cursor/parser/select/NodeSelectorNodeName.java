@@ -25,7 +25,7 @@ import walkingkooka.predicate.character.CharPredicates;
 /**
  * The {@link Name} of a node.
  */
-final public class NodeSelectorNodeName implements Name {
+final public class NodeSelectorNodeName extends NodeSelectorNameValue {
 
     final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 
@@ -51,35 +51,11 @@ final public class NodeSelectorNodeName implements Name {
      * Private constructor
      */
     private NodeSelectorNodeName(final String name) {
-        super();
-        this.name = name;
+        super(name);
     }
 
     @Override
-    public String value() {
-        return this.name;
-    }
-
-    final String name;
-
-    // Object
-
-    @Override
-    public final int hashCode() {
-        return this.name.hashCode();
-    }
-
-    @Override
-    public final boolean equals(final Object other) {
-        return (this == other) || other instanceof NodeSelectorNodeName && this.equals0((NodeSelectorNodeName) other);
-    }
-
-    private boolean equals0(final NodeSelectorNodeName other) {
-        return this.name.equals(other.name);
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
+    boolean canBeEqual(final Object other) {
+        return other instanceof NodeSelectorNodeName;
     }
 }
