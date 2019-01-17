@@ -18,11 +18,17 @@
 
 package walkingkooka.net.http;
 
-import walkingkooka.test.EnumTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class HttpStatusCodeCategoryTest extends EnumTestCase<HttpStatusCodeCategory> {
+public final class HttpStatusCodeCategoryTest extends ClassTestCase<HttpStatusCodeCategory> {
     @Override
     protected Class<HttpStatusCodeCategory> type() {
         return HttpStatusCodeCategory.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

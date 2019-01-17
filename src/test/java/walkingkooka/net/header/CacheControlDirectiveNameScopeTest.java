@@ -18,11 +18,17 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.test.EnumTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-public final class CacheControlDirectiveNameScopeTest extends EnumTestCase<CacheControlDirectiveNameScope> {
+public final class CacheControlDirectiveNameScopeTest extends ClassTestCase<CacheControlDirectiveNameScope> {
     @Override
     protected Class<CacheControlDirectiveNameScope> type() {
         return CacheControlDirectiveNameScope.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

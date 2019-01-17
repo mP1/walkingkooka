@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
-package walkingkooka.test;
+package walkingkooka.type;
 
 import org.junit.Test;
-import walkingkooka.type.MemberVisibility;
+import walkingkooka.test.ClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public final class MemberVisibilityTest extends EnumTestCase<MemberVisibility> {
+public final class MemberVisibilityTest extends ClassTestCase<MemberVisibility> {
 
     @Test
     public void testClassPublic() {
@@ -49,7 +50,13 @@ public final class MemberVisibilityTest extends EnumTestCase<MemberVisibility> {
     class PackagePrivateClass {
     }
 
-    @Override protected Class<MemberVisibility> type() {
+    @Override
+    protected Class<MemberVisibility> type() {
         return MemberVisibility.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -13,66 +13,76 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
-package walkingkooka.test;
+package walkingkooka.type;
 
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.type.MethodAttributes;
+import walkingkooka.test.ClassTestCase;
 
 import java.lang.reflect.Method;
 
 import static org.junit.Assert.assertEquals;
 
-public final class MethodAttributesTest extends EnumTestCase<MethodAttributes> {
+public final class MethodAttributesTest extends ClassTestCase<MethodAttributes> {
 
     @Test
-    public void testAbstract() throws Exception{
+    public void testAbstract() throws Exception {
         methodAndCheck("abstractMethod", MethodAttributes.ABSTRACT);
     }
 
     @Test
-    public void testFinal() throws Exception{
+    public void testFinal() throws Exception {
         methodAndCheck("finalMethod", MethodAttributes.FINAL);
     }
 
 
     @Test
-    public void testNone() throws Exception{
+    public void testNone() throws Exception {
         methodAndCheck("noneMethod");
     }
 
 
     @Test
-    public void testStatic() throws Exception{
+    public void testStatic() throws Exception {
         methodAndCheck("staticMethod", MethodAttributes.STATIC);
     }
 
     @Test
-    public void testFinalStatic() throws Exception{
+    public void testFinalStatic() throws Exception {
         methodAndCheck("finalStaticMethod", MethodAttributes.FINAL, MethodAttributes.STATIC);
     }
 
-    private void methodAndCheck(final String name, final MethodAttributes...attributes) throws Exception
-    {
+    private void methodAndCheck(final String name, final MethodAttributes... attributes) throws Exception {
         final Method method = MethodAttributesTestTest.class.getDeclaredMethod(name);
         assertEquals(Sets.of(attributes), MethodAttributes.get(method));
     }
 
-    static abstract class MethodAttributesTestTest{
+    static abstract class MethodAttributesTestTest {
         abstract void abstractMethod();
+
         final void finalMethod() {
         }
+
         final static void finalStaticMethod() {
         }
+
         void noneMethod() {
         }
+
         static void staticMethod() {
         }
     }
 
-    @Override protected Class<MethodAttributes> type() {
+    @Override
+    protected Class<MethodAttributes> type() {
         return MethodAttributes.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

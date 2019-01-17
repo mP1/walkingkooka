@@ -20,7 +20,8 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.test.EnumTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-public final class HttpStatusCodeTest extends EnumTestCase<HttpStatusCode> {
+public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> {
 
     @Test
     public void testStatusCodeUnique() {
@@ -127,5 +128,10 @@ public final class HttpStatusCodeTest extends EnumTestCase<HttpStatusCode> {
     @Override
     protected Class<HttpStatusCode> type() {
         return HttpStatusCode.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
-package walkingkooka.test;
+package walkingkooka.type;
 
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.type.ClassAttributes;
+import walkingkooka.test.ClassTestCase;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ClassAttributesTest extends EnumTestCase<ClassAttributes> {
+public final class ClassAttributesTest extends ClassTestCase<ClassAttributes> {
 
     @Test
     public void testFinal() {
@@ -35,7 +36,8 @@ public final class ClassAttributesTest extends EnumTestCase<ClassAttributes> {
         assertEquals(Sets.of(ClassAttributes.STATIC), ClassAttributes.get(TestStaticClass.class));
     }
 
-    static class TestStaticClass{}
+    static class TestStaticClass {
+    }
 
 
     @Test
@@ -43,16 +45,24 @@ public final class ClassAttributesTest extends EnumTestCase<ClassAttributes> {
         assertEquals(Sets.of(ClassAttributes.ABSTRACT), ClassAttributes.get(TestAbstractClass.class));
     }
 
-    abstract class TestAbstractClass{}
+    abstract class TestAbstractClass {
+    }
 
     @Test
     public void testAbstractStatic() {
         assertEquals(Sets.of(ClassAttributes.ABSTRACT, ClassAttributes.STATIC), ClassAttributes.get(TestAbstractStaticClass.class));
     }
 
-    abstract static class TestAbstractStaticClass{}
+    abstract static class TestAbstractStaticClass {
+    }
 
-    @Override protected Class<ClassAttributes> type() {
+    @Override
+    protected Class<ClassAttributes> type() {
         return ClassAttributes.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
