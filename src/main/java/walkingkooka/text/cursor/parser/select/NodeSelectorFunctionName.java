@@ -26,8 +26,7 @@ import walkingkooka.tree.expression.ExpressionReference;
 /**
  * The {@link Name} of a function.
  */
-final public class NodeSelectorFunctionName implements ExpressionReference,
-        Name {
+final public class NodeSelectorFunctionName extends NodeSelectorNameValue implements ExpressionReference {
 
     final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 
@@ -53,35 +52,11 @@ final public class NodeSelectorFunctionName implements ExpressionReference,
      * Private constructor
      */
     private NodeSelectorFunctionName(final String name) {
-        super();
-        this.name = name;
+        super(name);
     }
 
     @Override
-    public String value() {
-        return this.name;
-    }
-
-    final String name;
-
-    // Object
-
-    @Override
-    public final int hashCode() {
-        return this.name.hashCode();
-    }
-
-    @Override
-    public final boolean equals(final Object other) {
-        return (this == other) || other instanceof NodeSelectorFunctionName && this.equals0((NodeSelectorFunctionName) other);
-    }
-
-    private boolean equals0(final NodeSelectorFunctionName other) {
-        return this.name.equals(other.name);
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
+    boolean canBeEqual(final Object other) {
+        return other instanceof NodeSelectorFunctionName;
     }
 }
