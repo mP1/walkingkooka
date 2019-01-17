@@ -20,28 +20,20 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ConstantsTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> {
-
-    @Test
-    public void testStatusCodeUnique() {
-        final Map<Integer, HttpStatusCode> intToCode = Maps.ordered();
-        for (HttpStatusCode code : HttpStatusCode.values()) {
-            if(code == HttpStatusCode.FOUND || code == HttpStatusCode.MOVED_TEMPORARILY) {
-                continue;
-            }
-            assertNull("Code value is not unique " + code.code() + "=" + code, intToCode.put(code.code(), code));
-        }
-    }
+public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> implements ConstantsTesting<HttpStatusCode> {
 
     @Test
     public void testStatusDefaultMessageUnique() {
@@ -126,12 +118,17 @@ public final class HttpStatusCodeTest extends ClassTestCase<HttpStatusCode> {
     }
 
     @Override
-    protected Class<HttpStatusCode> type() {
+    public Class<HttpStatusCode> type() {
         return HttpStatusCode.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Set<HttpStatusCode> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 }

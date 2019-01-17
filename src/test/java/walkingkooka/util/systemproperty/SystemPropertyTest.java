@@ -19,14 +19,19 @@ package walkingkooka.util.systemproperty;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.net.IpPort;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ConstantsTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class SystemPropertyTest extends ClassTestCase<SystemProperty> {
+final public class SystemPropertyTest extends ClassTestCase<SystemProperty> implements ConstantsTesting<SystemProperty> {
 
     @Test
     public void testGetNullFails() {
@@ -133,12 +138,17 @@ final public class SystemPropertyTest extends ClassTestCase<SystemProperty> {
     }
 
     @Override
-    protected Class<SystemProperty> type() {
+    public Class<SystemProperty> type() {
         return SystemProperty.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Set<SystemProperty> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 }

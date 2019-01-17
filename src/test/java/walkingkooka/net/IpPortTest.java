@@ -19,8 +19,12 @@
 package walkingkooka.net;
 
 import org.junit.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.ConstantsTesting;
 import walkingkooka.type.MemberVisibility;
+
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,7 +33,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 
-public final class IpPortTest extends ClassTestCase<IpPort> {
+public final class IpPortTest extends ClassTestCase<IpPort> implements ConstantsTesting<IpPort> {
 
     @Test
     public void testIsPort() {
@@ -74,12 +78,17 @@ public final class IpPortTest extends ClassTestCase<IpPort> {
     }
 
     @Override
-    protected Class<IpPort> type() {
+    public Class<IpPort> type() {
         return IpPort.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Set<IpPort> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 }
