@@ -76,7 +76,7 @@ final public class AndNotCharPredicateTest extends LogicalCharPredicateTestCase<
     }
 
     @Override
-    protected Class<AndNotCharPredicate> type() {
+    public Class<AndNotCharPredicate> type() {
         return AndNotCharPredicate.class;
     }
 }

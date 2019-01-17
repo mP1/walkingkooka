@@ -19,11 +19,13 @@ package walkingkooka.text;
 
 import org.junit.Test;
 import walkingkooka.predicate.character.CharPredicateTestCase;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 final public class CaseSensitivityCharPredicateTest
-        extends CharPredicateTestCase<CaseSensitivityCharPredicate> {
+        extends CharPredicateTestCase<CaseSensitivityCharPredicate>
+        implements SerializationTesting<CaseSensitivityCharPredicate> {
 
     // constants
 
@@ -110,7 +112,17 @@ final public class CaseSensitivityCharPredicateTest
     }
 
     @Override
-    protected Class<CaseSensitivityCharPredicate> type() {
+    public Class<CaseSensitivityCharPredicate> type() {
         return CaseSensitivityCharPredicate.class;
+    }
+
+    @Override
+    public CaseSensitivityCharPredicate serializableInstance() {
+        return CaseSensitivityCharPredicate.with('a', CaseSensitivity.SENSITIVE);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

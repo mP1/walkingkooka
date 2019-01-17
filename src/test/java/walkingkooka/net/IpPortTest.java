@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
@@ -33,7 +34,8 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 
-public final class IpPortTest extends ClassTestCase<IpPort> implements ConstantsTesting<IpPort> {
+public final class IpPortTest extends ClassTestCase<IpPort> implements ConstantsTesting<IpPort>,
+        SerializationTesting<IpPort> {
 
     @Test
     public void testIsPort() {
@@ -90,5 +92,25 @@ public final class IpPortTest extends ClassTestCase<IpPort> implements Constants
     @Override
     public Set<IpPort> intentionalDuplicateConstants() {
         return Sets.empty();
+    }
+
+    @Test
+    public void testHttpSingleton() throws Exception {
+        this.serializeSingletonAndCheck(IpPort.HTTP);
+    }
+
+    @Test
+    public void testHttpsSingleton() throws Exception {
+        this.serializeSingletonAndCheck(IpPort.HTTPS);
+    }
+
+    @Override
+    public IpPort serializableInstance() {
+        return IpPort.with(65000);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

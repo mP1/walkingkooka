@@ -65,7 +65,7 @@ final public class CaseSensitivityEndsWithCharSequencePredicateTest extends
     }
 
     @Override
-    protected Class<CaseSensitivityEndsWithCharSequencePredicate<String>> type() {
+    public Class<CaseSensitivityEndsWithCharSequencePredicate<String>> type() {
         return Cast.to(CaseSensitivityEndsWithCharSequencePredicate.class);
     }
 }

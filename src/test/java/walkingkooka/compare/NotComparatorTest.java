@@ -21,13 +21,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.Notable;
+import walkingkooka.test.SerializationTesting;
 
 import java.util.Comparator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Object>, Object> {
+final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Object>, Object>
+        implements SerializationTesting<NotComparator<Object>> {
 
     private final static Comparator<Object> COMPARATOR = Comparators.fake();
 
@@ -94,7 +96,17 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
     }
 
     @Override
-    protected Class<NotComparator<Object>> type() {
+    public Class<NotComparator<Object>> type() {
         return Cast.to(NotComparator.class);
+    }
+
+    @Override
+    public NotComparator<Object> serializableInstance() {
+        return Cast.to(NotComparator.wrap(Comparators.<String>naturalOrdering()));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

@@ -18,11 +18,13 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharSequence> {
+final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharSequence>
+        implements SerializationTesting<EmptyCharSequence> {
 
     @Test
     public void testCharAtFails() {
@@ -68,12 +70,22 @@ final public class EmptyCharSequenceTest extends CharSequenceTestCase<EmptyCharS
     }
 
     @Override
-    protected Class<EmptyCharSequence> type() {
+    public Class<EmptyCharSequence> type() {
         return EmptyCharSequence.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public EmptyCharSequence serializableInstance() {
+        return EmptyCharSequence.INSTANCE;
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

@@ -19,11 +19,13 @@ package walkingkooka.predicate.character;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
-        extends CharPredicateTestCase<P> {
+        extends CharPredicateTestCase<P>
+        implements SerializationTesting<P> {
 
     LogicalCharPredicateTestCase() {
         super();
@@ -58,9 +60,20 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
         return predicate.operator();
     }
 
-    @Override final protected P createCharacterPredicate() {
+    @Override
+    final protected P createCharacterPredicate() {
         return this.createCharacterPredicate(CharPredicates.fake(), CharPredicates.fake());
     }
 
     abstract P createCharacterPredicate(CharPredicate first, CharPredicate second);
+
+    @Override
+    public final P serializableInstance() {
+        return this.createCharacterPredicate();
+    }
+
+    @Override
+    public final boolean serializableInstanceIsSingleton() {
+        return false;
+    }
 }

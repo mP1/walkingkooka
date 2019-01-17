@@ -19,8 +19,15 @@ package walkingkooka.naming;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
-final public class PropertiesPathTest extends PathTestCase<PropertiesPath, PropertiesName> {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
+final public class PropertiesPathTest extends PathTestCase<PropertiesPath, PropertiesName>
+        implements SerializationTesting<PropertiesPath> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testParseWithLeadingDot() {
@@ -57,6 +64,23 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
         // nop
     }
 
+    @Test
+    public void testGeneral() throws Exception {
+        final PropertiesPath path = this.cloneUsingSerialization(PropertiesPath.parse("one.two.three"));
+        final PropertiesPath parent = path.parent().get();
+
+        assertEquals("one.two", parent.value());
+
+        assertFalse(parent.isRoot());
+        assertSame(parent, path.parent().get());
+        assertEquals(PropertiesName.with("two"), parent.name());
+
+        final PropertiesPath grandParent = parent.parent().get();
+        assertEquals("one", grandParent.value());
+        assertTrue(grandParent.isRoot());
+        assertEquals(PropertiesName.with("one"), grandParent.name());
+    }
+
     @Override
     protected PropertiesPath root() {
         throw new UnsupportedOperationException();
@@ -83,7 +107,17 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     }
 
     @Override
-    protected Class<PropertiesPath> type() {
+    public Class<PropertiesPath> type() {
         return PropertiesPath.class;
+    }
+
+    @Override
+    public PropertiesPath serializableInstance() {
+        return PropertiesPath.parse("abc.def");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

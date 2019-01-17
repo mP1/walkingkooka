@@ -22,6 +22,7 @@ package walkingkooka.color;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
@@ -32,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-abstract public class ColorComponentTestCase<C extends ColorComponent> extends ClassTestCase<C> {
+abstract public class ColorComponentTestCase<C extends ColorComponent> extends ClassTestCase<C> implements SerializationTesting<C> {
 
     ColorComponentTestCase() {
         super();
@@ -201,6 +202,11 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
     @Test
     public final void testToStringLessThan16() {
         assertEquals("0F", this.createColorComponent((byte) 0xF).toString());
+    }
+
+    @Test
+    public final void testFF() throws Exception {
+        this.cloneUsingSerialization(this.createColorComponent((byte)0x255));
     }
 
     final C createColorComponent() {

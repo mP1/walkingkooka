@@ -35,7 +35,7 @@ final public class IndentationConstantSerializationProxyTest
     }
 
     @Override
-    protected Class<IndentationConstantSerializationProxy> type() {
+    public Class<IndentationConstantSerializationProxy> type() {
         return IndentationConstantSerializationProxy.class;
     }
 }

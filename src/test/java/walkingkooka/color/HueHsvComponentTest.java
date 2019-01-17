@@ -36,7 +36,17 @@ public final class HueHsvComponentTest extends HsvComponentTestCase<HueHsvCompon
     }
 
     @Override
-    protected Class<HueHsvComponent> type() {
+    public Class<HueHsvComponent> type() {
         return HueHsvComponent.class;
+    }
+
+    @Override
+    public HueHsvComponent serializableInstance() {
+        return HueHsvComponent.with(180);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

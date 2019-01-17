@@ -20,12 +20,13 @@ package walkingkooka.predicate.character;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 final public class LowerCasingCharPredicateTest
-        extends CharPredicateTestCase<LowerCasingCharPredicate> {
+        extends CharPredicateTestCase<LowerCasingCharPredicate> implements SerializationTesting<LowerCasingCharPredicate> {
 
     @Test
     public void testWrapNullPredicateFails() {
@@ -83,7 +84,17 @@ final public class LowerCasingCharPredicateTest
     }
 
     @Override
-    protected Class<LowerCasingCharPredicate> type() {
+    public Class<LowerCasingCharPredicate> type() {
         return LowerCasingCharPredicate.class;
+    }
+
+    @Override
+    public LowerCasingCharPredicate serializableInstance() {
+        return Cast.to(LowerCasingCharPredicate.wrap(CharPredicates.always()));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

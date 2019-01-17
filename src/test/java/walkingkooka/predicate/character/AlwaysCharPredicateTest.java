@@ -18,11 +18,12 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysCharPredicate> {
+final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysCharPredicate> implements SerializationTesting<AlwaysCharPredicate> {
 
     @Test
     public void testMatches() {
@@ -57,7 +58,17 @@ final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysC
     }
 
     @Override
-    protected Class<AlwaysCharPredicate> type() {
+    public Class<AlwaysCharPredicate> type() {
         return AlwaysCharPredicate.class;
+    }
+
+    @Override
+    public AlwaysCharPredicate serializableInstance() {
+        return AlwaysCharPredicate.INSTANCE;
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

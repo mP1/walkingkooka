@@ -162,7 +162,17 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     }
 
     @Override
-    protected Class<JdkStackStack<Object>> type() {
+    public Class<JdkStackStack<Object>> type() {
         return Cast.to(JdkStackStack.class);
+    }
+
+    @Override
+    public JdkStackStack<Object> serializableInstance() {
+        return JdkStackStack.create();
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

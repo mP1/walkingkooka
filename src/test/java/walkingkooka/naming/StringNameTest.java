@@ -18,8 +18,9 @@
 package walkingkooka.naming;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
-final public class StringNameTest extends NameTestCase<StringName> {
+final public class StringNameTest extends NameTestCase<StringName> implements SerializationTesting<StringName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testContainsSeparatorFails() {
@@ -31,13 +32,28 @@ final public class StringNameTest extends NameTestCase<StringName> {
         this.createNameAndCheck("abc-123");
     }
 
+    @Test
+    public void testSerializeRootIsSingleton() throws Exception {
+        this.serializeSingletonAndCheck(StringName.ROOT);
+    }
+
     @Override
     protected StringName createName(final String name) {
         return StringName.with(name);
     }
 
     @Override
-    protected Class<StringName> type() {
+    public Class<StringName> type() {
         return StringName.class;
+    }
+
+    @Override
+    public StringName serializableInstance() {
+        return StringName.with("string");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

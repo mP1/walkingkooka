@@ -19,6 +19,7 @@ package walkingkooka.predicate;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
@@ -26,7 +27,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>{
+public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>
+        implements SerializationTesting<CustomToStringPredicate<String>> {
 
     private final static String STRING = "abc";
     private final static Predicate<String> WRAPPED = Predicates.is(STRING);
@@ -95,7 +97,17 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     }
 
     @Override
-    protected Class<CustomToStringPredicate<String>> type() {
+    public Class<CustomToStringPredicate<String>> type() {
         return Cast.to(CustomToStringPredicate.class);
+    }
+
+    @Override
+    public CustomToStringPredicate<String> serializableInstance() {
+        return Cast.to(CustomToStringPredicate.wrap(Predicates.is("abc123"), "custom-to-string"));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

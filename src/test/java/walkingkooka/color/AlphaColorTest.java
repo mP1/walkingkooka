@@ -19,6 +19,7 @@
 package walkingkooka.color;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
@@ -108,12 +109,26 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
     }
 
     @Override
-    protected Class<AlphaColor> type() {
+    public Class<AlphaColor> type() {
         return AlphaColor.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public AlphaColor serializableInstance() {
+        final byte value = 1;
+        return AlphaColor.with(ColorComponent.red(value),
+                ColorComponent.green(value),
+                ColorComponent.blue(value),
+                ColorComponent.alpha(value));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

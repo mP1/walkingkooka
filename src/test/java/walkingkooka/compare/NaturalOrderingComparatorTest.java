@@ -20,11 +20,13 @@ package walkingkooka.compare;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 final public class NaturalOrderingComparatorTest
-        extends ComparatorTestCase<NaturalOrderingComparator<Integer>, Integer> {
+        extends ComparatorTestCase<NaturalOrderingComparator<Integer>, Integer>
+        implements SerializationTesting<NaturalOrderingComparator<Integer>> {
 
     @Test
     public void testNullFirstFails() {
@@ -62,7 +64,17 @@ final public class NaturalOrderingComparatorTest
     }
 
     @Override
-    protected Class<NaturalOrderingComparator<Integer>> type() {
+    public Class<NaturalOrderingComparator<Integer>> type() {
         return Cast.to(NaturalOrderingComparator.class);
+    }
+
+    @Override
+    public NaturalOrderingComparator<Integer> serializableInstance() {
+        return NaturalOrderingComparator.instance();
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

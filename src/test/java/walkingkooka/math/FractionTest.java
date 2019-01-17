@@ -20,13 +20,14 @@ package walkingkooka.math;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigInteger;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FractionTest extends ClassTestCase<Fraction> {
+public final class FractionTest extends ClassTestCase<Fraction> implements SerializationTesting<Fraction> {
 
     private final static BigInteger NUMERATOR = BigInteger.ONE;
     private final static BigInteger DENOMINATOR = BigInteger.TEN;
@@ -59,12 +60,22 @@ public final class FractionTest extends ClassTestCase<Fraction> {
     }
 
     @Override
-    protected Class<Fraction> type() {
+    public Class<Fraction> type() {
         return Fraction.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Fraction serializableInstance() {
+        return Fraction.with(BigInteger.ONE, BigInteger.TEN);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

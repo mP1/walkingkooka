@@ -22,11 +22,13 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 final public class NormalizingCharSequenceComparatorTest
-        extends ComparatorTestCase<NormalizingCharSequenceComparator<String>, String> {
+        extends ComparatorTestCase<NormalizingCharSequenceComparator<String>, String>
+        implements SerializationTesting<NormalizingCharSequenceComparator<String>> {
 
     // constants
 
@@ -149,7 +151,17 @@ final public class NormalizingCharSequenceComparatorTest
     }
 
     @Override
-    protected Class<NormalizingCharSequenceComparator<String>> type() {
+    public Class<NormalizingCharSequenceComparator<String>> type() {
         return Cast.to(NormalizingCharSequenceComparator.class);
+    }
+
+    @Override
+    public NormalizingCharSequenceComparator<String> serializableInstance() {
+        return NormalizingCharSequenceComparator.with(CharPredicates.is('A'));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

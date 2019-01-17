@@ -20,6 +20,7 @@ package walkingkooka.naming;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.type.MemberVisibility;
 
@@ -27,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
-final public class PathSeparatorTest extends ClassTestCase<PathSeparator> {
+final public class PathSeparatorTest extends ClassTestCase<PathSeparator> implements SerializationTesting<PathSeparator> {
 
     // constants
 
@@ -138,13 +139,33 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator> {
                 PathSeparator.requiredAtStart(SEPARATOR).toString());
     }
 
+    @Test
+    public void testRequiredSlashSingletoness() throws Exception {
+        this.serializeSingletonAndCheck(PathSeparator.requiredAtStart('/'));
+    }
+
+    @Test
+    public void testNotRequiredDotSingletoness() throws Exception {
+        this.serializeSingletonAndCheck(PathSeparator.notRequiredAtStart('.'));
+    }
+
     @Override
-    protected Class<PathSeparator> type() {
+    public Class<PathSeparator> type() {
         return PathSeparator.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public PathSeparator serializableInstance() {
+        return PathSeparator.requiredAtStart('@');
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

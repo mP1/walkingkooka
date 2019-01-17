@@ -164,7 +164,17 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Objec
     }
 
     @Override
-    protected Class<ArrayListStack<Object>> type() {
+    public Class<ArrayListStack<Object>> type() {
         return Cast.to(ArrayListStack.class);
+    }
+
+    @Override
+    public ArrayListStack<Object> serializableInstance() {
+        return ArrayListStack.create();
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

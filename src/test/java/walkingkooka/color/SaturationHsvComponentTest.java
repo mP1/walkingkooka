@@ -36,7 +36,17 @@ public final class SaturationHsvComponentTest extends HsvComponentTestCase<Satur
     }
 
     @Override
-    protected Class<SaturationHsvComponent> type() {
+    public Class<SaturationHsvComponent> type() {
         return SaturationHsvComponent.class;
+    }
+
+    @Override
+    public SaturationHsvComponent serializableInstance() {
+        return SaturationHsvComponent.with(0.5f);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

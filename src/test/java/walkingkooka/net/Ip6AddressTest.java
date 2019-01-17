@@ -66,7 +66,12 @@ public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
     }
 
     @Override
-    protected Class<Ip6Address> type() {
+    public Class<Ip6Address> type() {
         return Ip6Address.class;
+    }
+
+    @Override
+    public Ip6Address serializableInstance() {
+        return Ip6Address.with(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0});
     }
 }

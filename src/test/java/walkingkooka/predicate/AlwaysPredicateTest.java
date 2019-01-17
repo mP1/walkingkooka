@@ -20,13 +20,16 @@ package walkingkooka.predicate;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate<Object>, Object> {
+final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate<Object>, Object>
+        implements SerializationTesting<AlwaysPredicate<Object>> {
+    
     @Test
     @Ignore
     @Override
@@ -67,7 +70,17 @@ final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate
     }
 
     @Override
-    protected Class<AlwaysPredicate<Object>> type() {
+    public Class<AlwaysPredicate<Object>> type() {
         return Cast.to(AlwaysPredicate.class);
+    }
+
+    @Override
+    public AlwaysPredicate<Object> serializableInstance() {
+        return AlwaysPredicate.instance();
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

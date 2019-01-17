@@ -20,6 +20,7 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class IndentationTest extends ClassTestCase<Indentation> {
+final public class IndentationTest extends ClassTestCase<Indentation> implements SerializationTesting<Indentation> {
 
     @Test
     public void testCarriageReturnRepeatingCharFails() {
@@ -209,6 +210,11 @@ final public class IndentationTest extends ClassTestCase<Indentation> {
         assertEquals("a1 ", Indentation.with("a1 ").toString());
     }
 
+    @Test
+    public void testConstants() throws Exception {
+        this.constantsAreSingletons();
+    }
+
     private void check(final Indentation indentation, final String value) {
         assertEquals("value", value, indentation.value());
     }
@@ -218,12 +224,22 @@ final public class IndentationTest extends ClassTestCase<Indentation> {
     }
 
     @Override
-    protected Class<Indentation> type() {
+    public Class<Indentation> type() {
         return Indentation.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Indentation serializableInstance() {
+        return Indentation.with("123");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

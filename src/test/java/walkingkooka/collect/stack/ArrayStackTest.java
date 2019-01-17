@@ -29,7 +29,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
+final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, String> {
 
     @Test
     public void testWithOne() {
@@ -235,12 +235,22 @@ final public class ArrayStackTest extends StackTestCase<Stack<String>, String> {
     }
 
     @Override
-    protected Stack<String> createStack() {
+    protected ArrayStack<String> createStack() {
         return ArrayStack.with("1");
     }
 
     @Override
-    protected Class<Stack<String>> type() {
+    public Class<ArrayStack<String>> type() {
         return Cast.to(ArrayStack.class);
+    }
+
+    @Override
+    public ArrayStack<String> serializableInstance() {
+        return ArrayStack.with("1");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

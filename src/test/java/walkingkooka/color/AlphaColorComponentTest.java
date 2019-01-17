@@ -18,7 +18,11 @@
 
 package walkingkooka.color;
 
-public final class AlphaColorComponentTest extends ColorComponentTestCase<AlphaColorComponent> {
+import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
+
+public final class AlphaColorComponentTest extends ColorComponentTestCase<AlphaColorComponent>
+        implements SerializationTesting<AlphaColorComponent> {
 
     @Override
     AlphaColorComponent createColorComponent(final byte value) {
@@ -26,7 +30,17 @@ public final class AlphaColorComponentTest extends ColorComponentTestCase<AlphaC
     }
 
     @Override
-    protected Class<AlphaColorComponent> type() {
+    public Class<AlphaColorComponent> type() {
         return AlphaColorComponent.class;
+    }
+
+    @Override
+    public AlphaColorComponent serializableInstance() {
+        return AlphaColorComponent.with((byte) 123);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }
