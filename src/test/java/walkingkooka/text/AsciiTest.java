@@ -23,6 +23,10 @@ import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
 
     // isLetter
@@ -73,11 +77,11 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void checkLetter(final char c) {
-        Assert.assertTrue("'" + c + "' is a letter", Ascii.isLetter(c));
+        assertTrue("'" + c + "' is a letter", Ascii.isLetter(c));
     }
 
     private void checkNotLetter(final char c) {
-        Assert.assertFalse("'" + c + "' is a NOT letter", Ascii.isLetter(c));
+        assertFalse("'" + c + "' is a NOT letter", Ascii.isLetter(c));
     }
 
     // isDigit
@@ -133,11 +137,11 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void checkDigit(final char c) {
-        Assert.assertTrue("'" + c + "' is a digit", Ascii.isDigit(c));
+        assertTrue("'" + c + "' is a digit", Ascii.isDigit(c));
     }
 
     private void checkNotDigit(final char c) {
-        Assert.assertFalse("'" + c + "' is a NOT digit", Ascii.isDigit(c));
+        assertFalse("'" + c + "' is a NOT digit", Ascii.isDigit(c));
     }
 
     // isPrintable
@@ -173,11 +177,11 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void checkPrintable(final char c) {
-        Assert.assertTrue("'" + c + "' is a printable", Ascii.isPrintable(c));
+        assertTrue("'" + c + "' is a printable", Ascii.isPrintable(c));
     }
 
     private void checkNotPrintable(final char c) {
-        Assert.assertFalse("'" + c + "' is a NOT printable", Ascii.isPrintable(c));
+        assertFalse("'" + c + "' is a NOT printable", Ascii.isPrintable(c));
     }
 
     // isControl
@@ -213,11 +217,88 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
     }
 
     private void checkControl(final char c) {
-        Assert.assertTrue("'" + c + "' is a unprintable", Ascii.isControl(c));
+        assertTrue("'" + c + "' is a unprintable", Ascii.isControl(c));
     }
 
     private void checkNotControl(final char c) {
-        Assert.assertFalse("'" + c + "' is a NOT printable", Ascii.isControl(c));
+        assertFalse("'" + c + "' is a NOT printable", Ascii.isControl(c));
+    }
+
+    // Ascii.is ........................................................................................
+
+    @Test
+    public void testIsControlCharacter() {
+        this.isAndCheck('\n', true);
+    }
+
+    @Test
+    public void testIsAsciiLetter() {
+        this.isAndCheck('A', true);
+    }
+
+    @Test
+    public void testIsAsciiDigit() {
+        this.isAndCheck('0', true);
+    }
+
+    @Test
+    public void testIsNonAscii() {
+        this.isAndCheck((char)255, false);
+    }
+
+    private void isAndCheck(final char c, final boolean expected) {
+        assertEquals("Ascii.is " + CharSequences.quoteAndEscape(c), expected, Ascii.is(c));
+    }
+
+    // Ascii.isDigit ........................................................................................
+
+    @Test
+    public void testIsDigitLetter() {
+        this.isDigitAndCheck('a', false);
+    }
+
+    @Test
+    public void testIsDigitCharacterBeforeZero() {
+        this.isDigitAndCheck('0' - 1, false);
+    }
+
+    @Test
+    public void testIsDigitZero() {
+        this.isDigitAndCheck('0', true);
+    }
+
+    @Test
+    public void testIsDigitTwo() {
+        this.isDigitAndCheck('2', true);
+    }
+
+    @Test
+    public void testIsDigitNine() {
+        this.isDigitAndCheck('9', true);
+    }
+
+    @Test
+    public void testIsDigitAfterNine() {
+        this.isDigitAndCheck('9'+ 1, false);
+    }
+
+    @Test
+    public void testIsDigitNonAsciiNumber() {
+        char c = 0;
+        for (int i = 255; i < 65536; i++) {
+            if (Character.isDigit(c)) {
+                c = (char) i;
+                break;
+            }
+        }
+        Assert.assertFalse("didnt find non ascii digit", c != 0);
+        this.isDigitAndCheck(c, false);
+    }
+
+    private void isDigitAndCheck(final int c, final boolean expected) {
+        assertEquals("isLetter " + CharSequences.quoteAndEscape((char)c),
+                expected,
+                Ascii.isDigit((char)c));
     }
 
     // test
