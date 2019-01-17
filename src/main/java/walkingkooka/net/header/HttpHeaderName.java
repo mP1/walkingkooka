@@ -40,12 +40,12 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * The {@link Name} of request or response header
+ * The {@link Name} of header.
  */
-final public class HttpHeaderName<T> implements HeaderName<T>,
-        Comparable<HttpHeaderName<?>>,
-        HasHeaderScope,
-        HttpRequestAttribute<T> {
+final public class HttpHeaderName<T> extends HeaderName2<T>
+        implements HasHeaderScope,
+        HttpRequestAttribute<T>,
+        Comparable<HttpHeaderName<?>> {
 
     // constants
 
@@ -818,7 +818,7 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
                            final HttpHeaderNameScope scope,
                            final HeaderValueConverter<T> valueConverter,
                            final boolean content) {
-        this.name = name;
+        super(name);
         this.scope = scope;
         this.valueConverter = valueConverter;
         this.content = content;
@@ -842,13 +842,6 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
     }
 
     private final boolean content;
-
-    @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
 
     /**
      * Validates the value.
@@ -928,38 +921,17 @@ final public class HttpHeaderName<T> implements HeaderName<T>,
 
     private final HttpHeaderNameScope scope;
 
+    // HeaderName2......................................................................................................
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof HttpHeaderName;
+    }
+
     // Comparable.......................................................................................................
 
     @Override
     public int compareTo(final HttpHeaderName<?> other) {
-        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
-    }
-
-    // Object
-
-    @Override
-    public int hashCode() {
-        return CASE_SENSITIVITY.hash(this.name);
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof HttpHeaderName &&
-                        this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final HttpHeaderName other) {
-        return this.compareTo(other) == 0;
-    }
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
-    /**
-     * Dumps the raw header name without quotes.
-     */
-    @Override
-    public String toString() {
-        return this.name;
+        return this.compareTo0(other);
     }
 }

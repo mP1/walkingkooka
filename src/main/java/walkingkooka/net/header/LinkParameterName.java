@@ -31,7 +31,7 @@ import java.util.List;
  * or commas.
  * <a href="https://restfulapi.net/hateoas/"></a>
  */
-final public class LinkParameterName<T> extends HeaderParameterName<T> implements Comparable<LinkParameterName<?>> {
+final public class LinkParameterName<V> extends HeaderParameterName<V> implements Comparable<LinkParameterName<?>> {
 
     /**
      * A read only cache of already prepared {@link LinkParameterName names}. These constants are incomplete.
@@ -146,7 +146,7 @@ final public class LinkParameterName<T> extends HeaderParameterName<T> implement
      * Private ctor use factory.
      */
     private LinkParameterName(final String value,
-                              final HeaderValueConverter<T> converter) {
+                              final HeaderValueConverter<V> converter) {
         super(value, converter);
     }
 
@@ -157,7 +157,7 @@ final public class LinkParameterName<T> extends HeaderParameterName<T> implement
         return this.compareTo0(other);
     }
 
-    // Object
+    // HeaderName2......................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

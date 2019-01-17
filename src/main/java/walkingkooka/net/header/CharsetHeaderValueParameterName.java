@@ -25,8 +25,8 @@ import walkingkooka.naming.Name;
  * The {@link Name} of an optional parameter accompanying a {@link MediaType}. Note the name may not contain the whitespace, equals sign, semi colons
  * or commas.
  */
-final public class CharsetHeaderValueParameterName<T> extends HeaderParameterName<T> implements
-        Comparable<CharsetHeaderValueParameterName<?>> {
+final public class CharsetHeaderValueParameterName<V> extends HeaderParameterName<V>
+        implements Comparable<CharsetHeaderValueParameterName<?>> {
 
     // constants
 
@@ -53,18 +53,18 @@ final public class CharsetHeaderValueParameterName<T> extends HeaderParameterNam
      * Private ctor use factory.
      */
     private CharsetHeaderValueParameterName(final String value,
-                                            final HeaderValueConverter<T> converter) {
+                                            final HeaderValueConverter<V> converter) {
         super(value, converter);
     }
 
-    // Comparable
+    // Comparable..................................................................................................
 
     @Override
     public int compareTo(final CharsetHeaderValueParameterName<?> other) {
         return this.compareTo0(other);
     }
 
-    // Object
+    // HeaderValue2.................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

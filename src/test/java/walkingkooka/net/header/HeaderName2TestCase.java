@@ -18,21 +18,9 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.naming.Name;
+public abstract class HeaderName2TestCase<H extends HeaderName2<V>, V> extends HeaderNameTestCase<H> {
 
-/**
- * A header name including support methods to convert text to values and back. This interface applies to both
- * header and parameter names.
- */
-public interface HeaderName<V> extends Name {
-
-    /**
-     * Converts the header text to the value.
-     */
-    V toValue(final String text);
-
-    /**
-     * Validates the value and returns it as its type.
-     */
-    V checkValue(final Object value);
+    HeaderName2TestCase() {
+        super();
+    }
 }

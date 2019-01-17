@@ -25,7 +25,7 @@ import walkingkooka.Cast;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNameTestCase<CharsetHeaderValueParameterName<?>> {
+final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNameTestCase<CharsetHeaderValueParameterName<Object>, Object> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
@@ -115,7 +115,7 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
     }
 
     @Override
-    protected Class<CharsetHeaderValueParameterName<?>> type() {
+    protected Class<CharsetHeaderValueParameterName<Object>> type() {
         return Cast.to(CharsetHeaderValueParameterName.class);
     }
 }

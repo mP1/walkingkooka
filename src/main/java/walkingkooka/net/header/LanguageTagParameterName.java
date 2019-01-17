@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 /**
  * The name of any parameter that accompanies a language-tag.
  */
-final public class LanguageTagParameterName<T> extends HeaderParameterName<T> implements Comparable<LanguageTagParameterName<?>> {
+final public class LanguageTagParameterName<V> extends HeaderParameterName<V> implements Comparable<LanguageTagParameterName<?>> {
 
     private final static HeaderValueConverter<String> QUOTED_UNQUOTED_STRING = HeaderValueConverter.quotedUnquotedString(
             MediaTypeHeaderParser.QUOTED_PARAMETER_VALUE,
@@ -53,7 +53,7 @@ final public class LanguageTagParameterName<T> extends HeaderParameterName<T> im
      * Private ctor use factory.
      */
     private LanguageTagParameterName(final String value,
-                                     final HeaderValueConverter<T> converter) {
+                                     final HeaderValueConverter<V> converter) {
         super(value, converter);
     }
 
@@ -64,7 +64,7 @@ final public class LanguageTagParameterName<T> extends HeaderParameterName<T> im
         return this.compareTo0(other);
     }
 
-    // Object
+    // HeaderName2......................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

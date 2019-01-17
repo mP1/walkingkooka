@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import walkingkooka.Cast;
-import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 
 import java.util.Objects;
@@ -28,28 +27,21 @@ import java.util.Optional;
 /**
  * Base class for any {@link HeaderName}.
  */
-abstract class HeaderParameterName<V> implements HeaderName<V>{
+abstract class HeaderParameterName<V> extends HeaderName2<V>{
 
     /**
      * Private ctor to limit sub classing.
      */
     HeaderParameterName(final String name, final HeaderValueConverter<V> converter) {
-        this.name = name;
+        super(name);
         this.converter = converter;
     }
-
-    @Override
-    public final String value() {
-        return this.name;
-    }
-
-    private final String name;
 
     /**
      * Parameter names ending with a <code>*</code> will use encoded text as their value, rather than text or quoted text.
      */
     final boolean isStarParameter() {
-        return name.endsWith(STAR.string());
+        return this.value().endsWith(STAR.string());
     }
 
     final static CharacterConstant STAR = CharacterConstant.with('*');
@@ -77,7 +69,7 @@ abstract class HeaderParameterName<V> implements HeaderName<V>{
     /**
      * Gets a value wrapped in an {@link Optional} in a type safe manner.
      */
-    public Optional<V> parameterValue(final HeaderValueWithParameters hasParameters) {
+    public Optional<V> parameterValue(final HeaderValueWithParameters<?> hasParameters) {
         Objects.requireNonNull(hasParameters, "hasParameters");
         return Optional.ofNullable(Cast.to(hasParameters.parameters().get(this)));
     }
@@ -91,38 +83,5 @@ abstract class HeaderParameterName<V> implements HeaderName<V>{
             throw new HeaderValueException("Required value is absent for " + this);
         }
         return value.get();
-    }
-
-    // Comparable
-
-    final int compareTo0(final HeaderParameterName<?> other) {
-        return CASE_SENSITIVITY.comparator().compare(this.name, other.value());
-    }
-
-    // Object
-
-    @Override
-    public final int hashCode() {
-        return CASE_SENSITIVITY.hash(this.name);
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
-    }
-
-    abstract boolean canBeEqual(Object other);
-
-    private boolean equals0(final HeaderParameterName other) {
-        return this.compareTo0(other) == 0;
-    }
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
-    @Override
-    public final String toString() {
-        return this.name;
     }
 }

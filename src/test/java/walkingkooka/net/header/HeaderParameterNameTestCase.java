@@ -24,7 +24,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<?>> extends HeaderNameTestCase<N> {
+public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<V>, V> extends HeaderName2TestCase<N, V> {
 
     @Test(expected = NullPointerException.class)
     public final void testParameterValueNullFails() {
@@ -36,20 +36,20 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
         this.createName().parameterValueOrFail(null);
     }
 
-    protected void parameterValueAndCheckAbsent(final N name,
-                                                final HeaderValueWithParameters<N> hasParameters) {
-        this.parameterValueAndCheck(name, hasParameters, Optional.empty());
+    final <VV> void parameterValueAndCheckAbsent(final HeaderParameterName<VV> name,
+                                                 final HeaderValueWithParameters<? extends HeaderParameterName<?>> hasParameters) {
+        this.parameterValueAndCheck2(name, hasParameters, Optional.empty());
     }
 
-    protected <T> void parameterValueAndCheckPresent(final N name,
-                                                     final HeaderValueWithParameters<N> hasParameters,
-                                                     final T value) {
-        this.parameterValueAndCheck(name, hasParameters, Optional.of(value));
+    final <VV> void parameterValueAndCheckPresent(final HeaderParameterName<VV> name,
+                                                  final HeaderValueWithParameters<? extends HeaderParameterName<?>> hasParameters,
+                                                  final VV value) {
+        this.parameterValueAndCheck2(name, hasParameters, Optional.of(value));
     }
 
-    protected <T> void parameterValueAndCheck(final N name,
-                                              final HeaderValueWithParameters<N> hasParameters,
-                                              final Optional<T> value) {
+    private <VV> void parameterValueAndCheck2(final HeaderParameterName<VV> name,
+                                              final HeaderValueWithParameters<? extends HeaderParameterName<?>> hasParameters,
+                                              final Optional<VV> value) {
         assertEquals("wrong parameter value " + name + " in " + hasParameters,
                 value,
                 name.parameterValue(hasParameters));

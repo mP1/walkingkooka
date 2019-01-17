@@ -25,7 +25,7 @@ import java.util.Optional;
 /**
  * The {@link Name} of token header value parameter.
  */
-final public class TokenHeaderValueParameterName<T> extends HeaderParameterName<T> implements Comparable<TokenHeaderValueParameterName<?>> {
+final public class TokenHeaderValueParameterName<V> extends HeaderParameterName<V> implements Comparable<TokenHeaderValueParameterName<?>> {
 
     /**
      * Constant returned when a parameter value is absent.
@@ -58,7 +58,7 @@ final public class TokenHeaderValueParameterName<T> extends HeaderParameterName<
     /**
      * Private constructor use factory.
      */
-    private TokenHeaderValueParameterName(final String name, final HeaderValueConverter<T> converter) {
+    private TokenHeaderValueParameterName(final String name, final HeaderValueConverter<V> converter) {
         super(name, converter);
     }
 
@@ -69,7 +69,7 @@ final public class TokenHeaderValueParameterName<T> extends HeaderParameterName<
         return this.compareTo0(other);
     }
 
-    // Object
+    // HeaderName2......................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
