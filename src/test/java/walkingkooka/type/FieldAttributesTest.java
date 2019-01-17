@@ -13,69 +13,75 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
-package walkingkooka.test;
+package walkingkooka.type;
 
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.type.FieldAttributes;
+import walkingkooka.test.ClassTestCase;
 
 import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FieldAttributesTest extends EnumTestCase<FieldAttributes> {
+public final class FieldAttributesTest extends ClassTestCase<FieldAttributes> {
 
     @Test
-    public void testFinal() throws Exception{
+    public void testFinal() throws Exception {
         fieldAndCheck("finalField", FieldAttributes.FINAL);
     }
 
     private final Object finalField = null;
 
     @Test
-    public void testNone() throws Exception{
+    public void testNone() throws Exception {
         fieldAndCheck("noneField");
     }
 
     private Object noneField = null;
 
     @Test
-    public void testStatic() throws Exception{
+    public void testStatic() throws Exception {
         fieldAndCheck("staticField", FieldAttributes.STATIC);
     }
 
     private static Object staticField = null;
 
     @Test
-    public void testStaticTransientVolatile() throws Exception{
-       fieldAndCheck("staticTransientVolatileField", FieldAttributes.STATIC, FieldAttributes.TRANSIENT, FieldAttributes.VOLATILE);
+    public void testStaticTransientVolatile() throws Exception {
+        fieldAndCheck("staticTransientVolatileField", FieldAttributes.STATIC, FieldAttributes.TRANSIENT, FieldAttributes.VOLATILE);
     }
 
     private static transient volatile Object staticTransientVolatileField = null;
 
     @Test
-    public void testTransient() throws Exception{
+    public void testTransient() throws Exception {
         fieldAndCheck("transientField", FieldAttributes.TRANSIENT);
     }
 
     private transient Object transientField = null;
 
     @Test
-    public void testVolatile() throws Exception{
+    public void testVolatile() throws Exception {
         fieldAndCheck("volatileField", FieldAttributes.VOLATILE);
     }
 
     private volatile Object volatileField = null;
 
-    private void fieldAndCheck(final String name, final FieldAttributes...attributes) throws Exception
-    {
+    private void fieldAndCheck(final String name, final FieldAttributes... attributes) throws Exception {
         final Field field = this.getClass().getDeclaredField(name);
         assertEquals(Sets.of(attributes), FieldAttributes.get(field));
     }
 
-    @Override protected Class<FieldAttributes> type() {
+    @Override
+    protected Class<FieldAttributes> type() {
         return FieldAttributes.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

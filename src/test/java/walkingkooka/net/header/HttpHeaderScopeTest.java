@@ -24,13 +24,14 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.email.EmailAddress;
-import walkingkooka.test.EnumTestCase;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 import java.util.Set;
 
-public final class HttpHeaderScopeTest extends EnumTestCase<HttpHeaderScope> {
+public final class HttpHeaderScopeTest extends ClassTestCase<HttpHeaderScope> {
 
     // checkRequest .....................................................
 
@@ -168,5 +169,10 @@ public final class HttpHeaderScopeTest extends EnumTestCase<HttpHeaderScope> {
     @Override
     protected Class<HttpHeaderScope> type() {
         return HttpHeaderScope.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

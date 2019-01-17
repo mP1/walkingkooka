@@ -19,11 +19,12 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.test.EnumTestCase;
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ETagValidatorTest extends EnumTestCase<ETagValidator> {
+public final class ETagValidatorTest extends ClassTestCase<ETagValidator> {
 
     @Test
     public void testSetValue() {
@@ -38,5 +39,10 @@ public final class ETagValidatorTest extends EnumTestCase<ETagValidator> {
     @Override
     protected Class<ETagValidator> type() {
         return ETagValidator.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
