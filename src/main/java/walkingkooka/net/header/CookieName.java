@@ -18,12 +18,12 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Optional;
 
@@ -31,7 +31,7 @@ import java.util.Optional;
  * The {@link Name} of {@link Cookie}. Note that cookie names must start with an ASCII letter and be composed of only ASCII letters, digits and dash.
  * Though more characters are valid, in the interests of capability and simplicity this limited sub set is enforced.
  */
-final public class CookieName implements Name, HttpRequestAttribute<ClientCookie> {
+final public class CookieName extends HeaderNameValue implements HttpRequestAttribute<ClientCookie> {
 
     /**
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
@@ -55,15 +55,8 @@ final public class CookieName implements Name, HttpRequestAttribute<ClientCookie
      * Private constructor use factory
      */
     private CookieName(final String name) {
-        this.name = name;
+        super(name);
     }
-
-    @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
 
     // HttpRequestAttribute..............................................................................................
 
@@ -77,23 +70,19 @@ final public class CookieName implements Name, HttpRequestAttribute<ClientCookie
                 .findFirst();
     }
 
-    // Object..............................................................................................
+    // HeaderNameValue..............................................................................................
 
     @Override
-    public int hashCode() {
-        return this.name.hashCode();
+    boolean canBeEqual(final Object other) {
+        return other instanceof CookieName;
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof CookieName &&
-                        this.equals0(Cast.to(other));
+    CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
     }
 
-    private boolean equals0(final CookieName other) {
-        return this.name.equals(other.name);
-    }
+    // Object..................................................................................................
 
     /**
      * Dumps the cookie name

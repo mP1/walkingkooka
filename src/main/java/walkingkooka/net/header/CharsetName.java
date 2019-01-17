@@ -18,10 +18,8 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
@@ -49,8 +47,8 @@ import java.util.Optional;
  *    to the procedures defined in [RFC2978].
  * </pre>
  */
-public abstract class CharsetName implements Name,
-        HeaderValue,
+public abstract class CharsetName extends HeaderNameValue
+        implements HeaderValue,
         Comparable<CharsetName> {
 
     /**
@@ -173,8 +171,8 @@ public abstract class CharsetName implements Name,
     /**
      * Package private to limit sub classing, use a constant or factory.
      */
-    CharsetName() {
-        super();
+    CharsetName(final String name) {
+        super(name);
     }
 
     /**
@@ -251,28 +249,20 @@ public abstract class CharsetName implements Name,
 
     @Override
     public final int compareTo(final CharsetName other) {
-        return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
+        return this.compareTo0(other);
     }
 
-    // Object...........................................................................................................
+    // HeaderNameValue..............................................................................................
 
     @Override
-    public final int hashCode() {
-        return CASE_SENSITIVITY.hash(this.value());
+    boolean canBeEqual(final Object other) {
+        return other instanceof CharsetName;
     }
 
     @Override
-    public final boolean equals(final Object other) {
-        return this == other ||
-                other instanceof CharsetName &&
-                        this.equals0(Cast.to(other));
+    CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.INSENSITIVE;
     }
-
-    private boolean equals0(final CharsetName other) {
-        return this.compareTo(other) == 0;
-    }
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
 
     @Override
     public String toString() {

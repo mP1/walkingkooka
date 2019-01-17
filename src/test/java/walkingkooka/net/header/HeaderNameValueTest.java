@@ -18,20 +18,18 @@
 
 package walkingkooka.net.header;
 
-/**
- * Base class for non wildcard charsetnames.
- */
-abstract class CharsetNameNonWildcard extends CharsetName {
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-    CharsetNameNonWildcard(final String name) {
-        super();
-        this.name = name;
+public final class HeaderNameValueTest extends ClassTestCase<HeaderNameValue> {
+
+    @Override
+    protected Class<HeaderNameValue> type() {
+        return HeaderNameValue.class;
     }
 
     @Override
-    public final String value() {
-        return this.name;
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
-
-    private final String name;
 }

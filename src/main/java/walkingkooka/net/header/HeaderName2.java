@@ -18,64 +18,25 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.text.CaseSensitivity;
 
 /**
  * Base class for all {@link HeaderName}
  */
-abstract class HeaderName2<V> implements HeaderName<V> {
+abstract class HeaderName2<V> extends HeaderNameValue implements HeaderName<V> {
 
     /**
      * Package private to limit sub classing.
      */
     HeaderName2(final String name) {
-        super();
-        this.name = name;
-    }
-
-    @Override
-    public final String value() {
-        return this.name;
-    }
-
-    private final String name;
-
-    // Comparable...........................................................................................................
-
-    final int compareTo0(final HeaderName2<?> other) {
-        return this.caseSensitivity().comparator()
-                .compare(this.value(),
-                        other.value());
-    }
-
-    // Object...........................................................................................................
-
-    @Override
-    public final int hashCode() {
-        return this.caseSensitivity().hash(this.value());
-    }
-
-    @Override
-    public final boolean equals(final Object other) {
-        return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
-    }
-
-    /**
-     * Sub classes should do an instanceof this type test.
-     */
-    abstract boolean canBeEqual(final Object other);
-
-    private boolean equals0(final HeaderName2<?> other) {
-        return this.compareTo0(other) == 0;
+        super(name);
     }
 
     /**
      * Used during hashing and equality checks.
      */
-    private CaseSensitivity caseSensitivity() {
+    @Override
+    final CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
 
