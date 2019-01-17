@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * A {@link CharsetName} holding a supported/known {@link Charset}.
  */
-final class CharsetNameSupportedCharset extends CharsetNameNonWildcard {
+final class CharsetNameSupportedCharset extends CharsetName {
     /**
      * Factory that creates a new {@link CharsetNameSupportedCharset}. This should
      * only be called by {@link CharsetName} when registering constants for all available charsets.

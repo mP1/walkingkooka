@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * A named {@link CharsetName} that refers to an unknown or unsupported charset.
  */
-final class CharsetNameUnsupportedCharset extends CharsetNameNonWildcard {
+final class CharsetNameUnsupportedCharset extends CharsetName {
 
     static CharsetNameUnsupportedCharset unsupportedCharset(final String name) {
         return new CharsetNameUnsupportedCharset(name);

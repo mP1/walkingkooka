@@ -35,12 +35,7 @@ final class CharsetNameWildcard extends CharsetName {
      * Private ctor use singleton.
      */
     private CharsetNameWildcard() {
-        super();
-    }
-
-    @Override
-    public String value() {
-        return WILDCARD.string();
+        super(WILDCARD.string());
     }
 
     /**

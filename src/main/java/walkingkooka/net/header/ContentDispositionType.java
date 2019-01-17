@@ -18,7 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicates;
@@ -65,7 +64,7 @@ import java.util.Objects;
  *                       ; numeric timezones (+HHMM or -HHMM) MUST be used
  * </pre>
  */
-final public class ContentDispositionType implements Name {
+final public class ContentDispositionType extends HeaderNameValue {
 
     /**
      * A read only cache of already prepared {@link ContentDispositionType names}. These constants are incomplete.
@@ -112,18 +111,8 @@ final public class ContentDispositionType implements Name {
      * Private constructor use factory.
      */
     private ContentDispositionType(final String name) {
-        super();
-        this.name = name;
+        super(name);
     }
-
-    // Value ....................................................................................................
-
-    @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
 
     /**
      * Factory that creates a {@link ContentDisposition} with this type and filename.
@@ -142,25 +131,19 @@ final public class ContentDispositionType implements Name {
                 .setParameters(parameters);
     }
 
-    // Object.....................................................................................................
+    // HeaderNameValue..............................................................................................
 
     @Override
-    public int hashCode() {
-        return CASE_SENSITIVITY.hash(this.name);
+    boolean canBeEqual(final Object other) {
+        return other instanceof ContentDispositionType;
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof ContentDispositionType &&
-                        this.equals0(Cast.to(other));
+    CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
     }
 
-    private boolean equals0(final ContentDispositionType other) {
-        return CASE_SENSITIVITY.equals(this.name, other.name);
-    }
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+    // Object..................................................................................................
 
     @Override
     public String toString() {
