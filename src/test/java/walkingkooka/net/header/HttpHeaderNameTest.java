@@ -40,7 +40,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
-final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<?>> {
+final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<Object>, Object> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
@@ -380,7 +380,7 @@ final public class HttpHeaderNameTest extends HeaderNameTestCase<HttpHeaderName<
     }
 
     @Override
-    protected Class<HttpHeaderName<?>> type() {
+    protected Class<HttpHeaderName<Object>> type() {
         return Cast.to(HttpHeaderName.class);
     }
 }

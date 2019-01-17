@@ -18,11 +18,9 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
-import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +29,8 @@ import java.util.Optional;
 /**
  * Holds a cache control directive name.
  */
-public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T>>, Comparable<CacheControlDirectiveName<?>> {
+public final class CacheControlDirectiveName<V> extends HeaderName2<Optional<V>>
+        implements Comparable<CacheControlDirectiveName<?>> {
 
     /**
      * Registers one of the parameterless directive names.
@@ -58,11 +57,11 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     /**
      * Registers a directive name including some meta data about its parameters.
      */
-    private static <T> CacheControlDirectiveName<T> register(final String name,
+    private static <V> CacheControlDirectiveName<V> register(final String name,
                                                              final CacheControlDirectiveNameParameter required,
-                                                             final HeaderValueConverter<T> value,
+                                                             final HeaderValueConverter<V> value,
                                                              final CacheControlDirectiveNameScope scope) {
-        final CacheControlDirectiveName<T> constant = new CacheControlDirectiveName<T>(name, required, value, scope);
+        final CacheControlDirectiveName<V> constant = new CacheControlDirectiveName<V>(name, required, value, scope);
         CONSTANTS.put(name, constant);
         return constant;
     }
@@ -70,7 +69,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     /**
      * Holds all constants.
      */
-    private final static Map<String, CacheControlDirectiveName> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
+    private final static Map<String, CacheControlDirectiveName<?>> CONSTANTS = Maps.sorted(String.CASE_INSENSITIVE_ORDER);
 
     /**
      * max-age
@@ -167,7 +166,7 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
                 INITIAL_CHAR_PREDICATE,
                 PART_CHAR_PREDICATE);
 
-        final CacheControlDirectiveName directiveName = CONSTANTS.get(name);
+        final CacheControlDirectiveName<?> directiveName = CONSTANTS.get(name);
         return null != directiveName ?
                 directiveName :
                 new CacheControlDirectiveName<>(name,
@@ -181,10 +180,9 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
      */
     private CacheControlDirectiveName(final String name,
                                       final CacheControlDirectiveNameParameter parameter,
-                                      final HeaderValueConverter<T> converter,
+                                      final HeaderValueConverter<V> converter,
                                       final CacheControlDirectiveNameScope scope) {
-        super();
-        this.name = name;
+        super(name);
         this.parameter = parameter;
         this.converter = converter;
         this.scope = scope;
@@ -194,28 +192,21 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
      * Returns true if the this directive is an extension which also requires quoted values.
      */
     public boolean isExtension() {
-        return CONSTANTS.containsKey(this.name);
+        return CONSTANTS.containsKey(this.value());
     }
 
     @Override
-    public String value() {
-        return this.name;
-    }
-
-    private final String name;
-
-    @Override
-    public Optional<T> checkValue(final Object parameter) {
+    public Optional<V> checkValue(final Object parameter) {
         Objects.requireNonNull(parameter, "parameter");
         return this.parameter.check(parameter, this);
     }
 
     private final CacheControlDirectiveNameParameter parameter;
 
-    final HeaderValueConverter<T> converter;
+    final HeaderValueConverter<V> converter;
 
     @Override
-    public Optional<T> toValue(final String text) {
+    public Optional<V> toValue(final String text) {
         return Optional.of(this.converter.parse(text, this));
     }
 
@@ -226,17 +217,12 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
     /**
      * Factory that creates a {@link CacheControlDirective} with the parameter which may or may not be empty or present.
      */
-    public CacheControlDirective<T> setParameter(final Optional<T> parameter) {
+    public CacheControlDirective<V> setParameter(final Optional<V> parameter) {
         return CacheControlDirective.with(this,
                 this.checkValue(parameter));
     }
 
-    // Comparable...........................................................................................................
-
-    @Override
-    public final int compareTo(final CacheControlDirectiveName other) {
-        return CASE_SENSITIVITY.comparator().compare(this.value(), other.value());
-    }
+    // HeaderValue...........................................................................................................
 
     boolean isRequest() {
         return this.scope.isRequest();
@@ -248,28 +234,17 @@ public final class CacheControlDirectiveName<T> implements HeaderName<Optional<T
 
     private final CacheControlDirectiveNameScope scope;
 
-    // Object...........................................................................................................
+    // HeaderName2......................................................................................................
 
     @Override
-    public final int hashCode() {
-        return CASE_SENSITIVITY.hash(this.value());
+    boolean canBeEqual(final Object other) {
+        return other instanceof CacheControlDirectiveName;
     }
+
+    // Comparable.......................................................................................................
 
     @Override
-    public final boolean equals(final Object other) {
-        return this == other ||
-                other instanceof CacheControlDirectiveName &&
-                        this.equals0(Cast.to(other));
-    }
-
-    private boolean equals0(final CacheControlDirectiveName other) {
-        return this.compareTo(other) == 0;
-    }
-
-    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
-
-    @Override
-    public String toString() {
-        return this.value();
+    public int compareTo(CacheControlDirectiveName<?> other) {
+        return this.compareTo0(other);
     }
 }

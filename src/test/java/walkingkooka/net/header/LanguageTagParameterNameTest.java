@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class LanguageTagParameterNameTest extends HeaderParameterNameTestCase<LanguageTagParameterName<?>> {
+final public class LanguageTagParameterNameTest extends HeaderParameterNameTestCase<LanguageTagParameterName<Object>, Object> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithIncludesWhitespaceFails() {
@@ -92,7 +92,7 @@ final public class LanguageTagParameterNameTest extends HeaderParameterNameTestC
     }
 
     @Override
-    protected Class<LanguageTagParameterName<?>> type() {
+    protected Class<LanguageTagParameterName<Object>> type() {
         return Cast.to(LanguageTagParameterName.class);
     }
 }

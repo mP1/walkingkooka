@@ -29,7 +29,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class CacheControlDirectiveNameTest extends HeaderNameTestCase<CacheControlDirectiveName<?>> {
+final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<CacheControlDirectiveName<Object>, Optional<Object>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithControlCharacterFails() {
@@ -219,7 +219,7 @@ final public class CacheControlDirectiveNameTest extends HeaderNameTestCase<Cach
     }
 
     @Override
-    protected Class<CacheControlDirectiveName<?>> type() {
+    protected Class<CacheControlDirectiveName<Object>> type() {
         return Cast.to(CacheControlDirectiveName.class);
     }
 }

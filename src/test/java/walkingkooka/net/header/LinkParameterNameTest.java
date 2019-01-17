@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class LinkParameterNameTest extends HeaderParameterNameTestCase<LinkParameterName<?>> {
+final public class LinkParameterNameTest extends HeaderParameterNameTestCase<LinkParameterName<Object>, Object> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithIncludesWhitespaceFails() {
@@ -95,7 +95,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
     }
 
     @Override
-    protected Class<LinkParameterName<?>> type() {
+    protected Class<LinkParameterName<Object>> type() {
         return Cast.to(LinkParameterName.class);
     }
 }

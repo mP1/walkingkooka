@@ -25,7 +25,7 @@ import walkingkooka.naming.Name;
  * The {@link Name} of an optional parameter accompanying a {@link MediaType}. Note the name may not contain the whitespace, equals sign, semi colons
  * or commas.
  */
-final public class MediaTypeParameterName<T> extends HeaderParameterName<T> implements Comparable<MediaTypeParameterName<?>> {
+final public class MediaTypeParameterName<V> extends HeaderParameterName<V> implements Comparable<MediaTypeParameterName<?>> {
 
     /**
      * A read only cache of already prepared {@link MediaTypeParameterName names}. These constants are incomplete.
@@ -69,7 +69,7 @@ final public class MediaTypeParameterName<T> extends HeaderParameterName<T> impl
      * Private ctor use factory.
      */
     private MediaTypeParameterName(final String value,
-                                   final HeaderValueConverter<T> converter) {
+                                   final HeaderValueConverter<V> converter) {
         super(value, converter);
     }
 
@@ -80,7 +80,7 @@ final public class MediaTypeParameterName<T> extends HeaderParameterName<T> impl
         return this.compareTo0(other);
     }
 
-    // Object
+    // HeaderName2......................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

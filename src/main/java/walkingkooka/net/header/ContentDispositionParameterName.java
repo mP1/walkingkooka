@@ -61,7 +61,7 @@ import java.util.Optional;
  *                       ; numeric timezones (+HHMM or -HHMM) MUST be used
  * </pre>
  */
-final public class ContentDispositionParameterName<T> extends HeaderParameterName<T> implements
+final public class ContentDispositionParameterName<V> extends HeaderParameterName<V> implements
         Comparable<ContentDispositionParameterName<?>> {
 
     /**
@@ -129,7 +129,7 @@ final public class ContentDispositionParameterName<T> extends HeaderParameterNam
      * Private constructor use factory.
      */
     private ContentDispositionParameterName(final String name,
-                                            final HeaderValueConverter<T> converter) {
+                                            final HeaderValueConverter<V> converter) {
         super(name, converter);
     }
 
@@ -140,7 +140,7 @@ final public class ContentDispositionParameterName<T> extends HeaderParameterNam
         return this.compareTo0(other);
     }
 
-    // Object
+    // HeaderName2......................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
