@@ -18,10 +18,12 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
-final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPredicate> {
+final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPredicate>
+        implements SerializationTesting<XmlCharPredicate> {
 
     @Test
     public void testNul() {
@@ -115,7 +117,17 @@ final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPre
     }
 
     @Override
-    protected Class<XmlCharPredicate> type() {
+    public Class<XmlCharPredicate> type() {
         return XmlCharPredicate.class;
+    }
+
+    @Override
+    public XmlCharPredicate serializableInstance() {
+        return XmlCharPredicate.INSTANCE;
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

@@ -20,12 +20,13 @@ package walkingkooka.color;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HslTest extends ClassTestCase<Hsl> {
+public final class HslTest extends ClassTestCase<Hsl> implements SerializationTesting<Hsl> {
 
     // constants
 
@@ -217,12 +218,22 @@ public final class HslTest extends ClassTestCase<Hsl> {
     }
 
     @Override
-    protected Class<Hsl> type() {
+    public Class<Hsl> type() {
         return Hsl.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Hsl serializableInstance() {
+        return Hsl.with(HueHslComponent.with(180), SaturationHslComponent.with(0.5f), LightnessHslComponent.with(0.5f));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

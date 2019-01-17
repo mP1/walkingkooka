@@ -22,11 +22,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTestCase;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> {
+public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implements SerializationTesting<UrlPath> {
 
     @Test
     public void testEmpty() {
@@ -105,6 +106,11 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> {
         assertEquals("fragment", UrlFragment.EMPTY, url.fragment());
     }
 
+    @Test
+    public void testConstantsAreSingleton() throws Exception {
+        this.constantsAreSingletons();
+    }
+
     // helpers..................................................................................................
 
     @Override
@@ -134,7 +140,17 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> {
     }
 
     @Override
-    protected Class<UrlPath> type() {
+    public Class<UrlPath> type() {
         return UrlPath.class;
+    }
+
+    @Override
+    public UrlPath serializableInstance() {
+        return UrlPath.parse("/path/to");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

@@ -19,12 +19,13 @@ package walkingkooka.text;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class LineEndingTest extends CharSequenceTestCase<LineEnding> {
+final public class LineEndingTest extends CharSequenceTestCase<LineEnding> implements SerializationTesting<LineEnding> {
 
     @Test
     public void testCr() {
@@ -95,12 +96,22 @@ final public class LineEndingTest extends CharSequenceTestCase<LineEnding> {
     }
 
     @Override
-    protected Class<LineEnding> type() {
+    public Class<LineEnding> type() {
         return LineEnding.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public LineEnding serializableInstance() {
+        return LineEnding.CR;
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

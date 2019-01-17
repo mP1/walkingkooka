@@ -28,7 +28,7 @@ import walkingkooka.type.MemberVisibility;
 abstract public class SerializationProxyTestCase<P extends SerializationProxy>
         extends ClassTestCase<P> {
 
-    protected SerializationProxyTestCase() {
+    public SerializationProxyTestCase() {
         super();
     }
 
@@ -65,7 +65,7 @@ abstract public class SerializationProxyTestCase<P extends SerializationProxy>
     abstract public void testToString();
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    public final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

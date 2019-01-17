@@ -112,7 +112,18 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
     }
 
     @Override
-    protected Class<EmptyArrayStack<Object>> type() {
+    public Class<EmptyArrayStack<Object>> type() {
         return Cast.to(EmptyArrayStack.class);
     }
+
+    @Override
+    public EmptyArrayStack<Object> serializableInstance() {
+        return EmptyArrayStack.instance();
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
+    }
+
 }

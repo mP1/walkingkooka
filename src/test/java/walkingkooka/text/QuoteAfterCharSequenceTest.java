@@ -18,11 +18,13 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<QuoteAfterCharSequence> {
+final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<QuoteAfterCharSequence>
+        implements SerializationTesting<QuoteAfterCharSequence> {
 
     // constants
 
@@ -105,12 +107,22 @@ final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<Quote
     }
 
     @Override
-    protected Class<QuoteAfterCharSequence> type() {
+    public Class<QuoteAfterCharSequence> type() {
         return QuoteAfterCharSequence.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public QuoteAfterCharSequence serializableInstance() {
+        return (QuoteAfterCharSequence) QuoteAfterCharSequence.with("quoted");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

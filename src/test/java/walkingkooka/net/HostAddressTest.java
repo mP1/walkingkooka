@@ -20,6 +20,7 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -33,7 +34,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public final class HostAddressTest extends ClassTestCase<HostAddress> {
+public final class HostAddressTest extends ClassTestCase<HostAddress> implements SerializationTesting<HostAddress> {
 
     // tests
 
@@ -992,7 +993,7 @@ public final class HostAddressTest extends ClassTestCase<HostAddress> {
     }
 
     @Override
-    protected Class<HostAddress> type() {
+    public Class<HostAddress> type() {
         return HostAddress.class;
     }
 
@@ -1009,5 +1010,15 @@ public final class HostAddressTest extends ClassTestCase<HostAddress> {
 
     static private String toHex(final byte[] bytes) {
         return HostAddressTesting.toHexString(bytes);
+    }
+
+    @Override
+    public HostAddress serializableInstance() {
+        return HostAddress.with("example.com");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

@@ -36,8 +36,17 @@ public final class LightnessHslComponentTest extends HslComponentTestCase<Lightn
     }
 
     @Override
-    protected Class<LightnessHslComponent> type() {
+    public Class<LightnessHslComponent> type() {
         return LightnessHslComponent.class;
     }
 
+    @Override
+    public LightnessHslComponent serializableInstance() {
+        return LightnessHslComponent.with(0.5f);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
+    }
 }

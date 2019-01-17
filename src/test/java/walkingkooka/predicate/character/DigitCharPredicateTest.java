@@ -18,10 +18,11 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
-final public class DigitCharPredicateTest extends CharPredicateTestCase<DigitCharPredicate> {
+final public class DigitCharPredicateTest extends CharPredicateTestCase<DigitCharPredicate> implements SerializationTesting<DigitCharPredicate> {
 
     @Test
     public void testLetter() {
@@ -54,7 +55,17 @@ final public class DigitCharPredicateTest extends CharPredicateTestCase<DigitCha
     }
 
     @Override
-    protected Class<DigitCharPredicate> type() {
+    public Class<DigitCharPredicate> type() {
         return DigitCharPredicate.class;
+    }
+
+    @Override
+    public DigitCharPredicate serializableInstance() {
+        return DigitCharPredicate.INSTANCE;
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

@@ -25,6 +25,7 @@ import org.junit.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -35,7 +36,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 
-final public class EmailAddressTest extends ClassTestCase<EmailAddress> {
+final public class EmailAddressTest extends ClassTestCase<EmailAddress> implements SerializationTesting<EmailAddress> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -1617,12 +1618,22 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress> {
     }
 
     @Override
-    protected Class<EmailAddress> type() {
+    public Class<EmailAddress> type() {
         return EmailAddress.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public EmailAddress serializableInstance() {
+        return EmailAddress.with("user@server");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

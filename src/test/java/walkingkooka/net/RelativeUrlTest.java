@@ -19,12 +19,13 @@
 package walkingkooka.net;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> {
+public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements SerializationTesting<RelativeUrl> {
 
     // parseRelative..........................................................................................
 
@@ -107,7 +108,17 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> {
     }
 
     @Override
-    protected Class<RelativeUrl> type() {
+    public Class<RelativeUrl> type() {
         return RelativeUrl.class;
+    }
+
+    @Override
+    public RelativeUrl serializableInstance() {
+        return Url.relative(UrlPath.parse("/path"), UrlQueryString.with("query"), UrlFragment.with("fragment123"));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

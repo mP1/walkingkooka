@@ -21,8 +21,9 @@ package walkingkooka.net;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.test.SerializationTesting;
 
-public final class UrlParameterNameTest extends NameTestCase<UrlParameterName> {
+public final class UrlParameterNameTest extends NameTestCase<UrlParameterName> implements SerializationTesting<UrlParameterName> {
 
     @Test
     @Ignore
@@ -46,7 +47,17 @@ public final class UrlParameterNameTest extends NameTestCase<UrlParameterName> {
     }
 
     @Override
-    protected Class<UrlParameterName> type() {
+    public Class<UrlParameterName> type() {
         return UrlParameterName.class;
+    }
+
+    @Override
+    public UrlParameterName serializableInstance() {
+        return UrlParameterName.with("name");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

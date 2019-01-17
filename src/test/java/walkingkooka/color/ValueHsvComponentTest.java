@@ -36,7 +36,17 @@ public final class ValueHsvComponentTest extends HsvComponentTestCase<ValueHsvCo
     }
 
     @Override
-    protected Class<ValueHsvComponent> type() {
+    public Class<ValueHsvComponent> type() {
         return ValueHsvComponent.class;
+    }
+
+    @Override
+    public ValueHsvComponent serializableInstance() {
+        return ValueHsvComponent.with(0.5f);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

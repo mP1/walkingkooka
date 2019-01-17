@@ -18,8 +18,9 @@
 package walkingkooka.naming;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
-final public class PropertiesNameTest extends NameTestCase<PropertiesName> {
+final public class PropertiesNameTest extends NameTestCase<PropertiesName> implements SerializationTesting<PropertiesName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
@@ -37,7 +38,17 @@ final public class PropertiesNameTest extends NameTestCase<PropertiesName> {
     }
 
     @Override
-    protected Class<PropertiesName> type() {
+    public Class<PropertiesName> type() {
         return PropertiesName.class;
+    }
+
+    @Override
+    public PropertiesName serializableInstance() {
+        return PropertiesName.with("abc");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

@@ -37,7 +37,7 @@ public final class AbsoluteUrlSerializationProxyTest extends SerializationProxyT
     }
 
     @Override
-    protected Class<AbsoluteUrlSerializationProxy> type() {
+    public Class<AbsoluteUrlSerializationProxy> type() {
         return AbsoluteUrlSerializationProxy.class;
     }
 }

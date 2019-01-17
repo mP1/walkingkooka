@@ -36,7 +36,17 @@ public final class SaturationHslComponentTest extends HslComponentTestCase<Satur
     }
 
     @Override
-    protected Class<SaturationHslComponent> type() {
+    public Class<SaturationHslComponent> type() {
         return SaturationHslComponent.class;
+    }
+
+    @Override
+    public SaturationHslComponent serializableInstance() {
+        return SaturationHslComponent.with(0.5f);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

@@ -19,6 +19,7 @@
 package walkingkooka.net;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
+public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements SerializationTesting<AbsoluteUrl> {
 
     // constants
 
@@ -397,7 +398,23 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> {
 
 
     @Override
-    protected Class<AbsoluteUrl> type() {
+    public Class<AbsoluteUrl> type() {
         return AbsoluteUrl.class;
+    }
+
+    @Override
+    public AbsoluteUrl serializableInstance() {
+        return Url.absolute(UrlScheme.HTTP, //
+                Optional.of(UrlCredentials.with("user", "pass")), //
+                HostAddress.with("host"), //
+                Optional.of(IpPort.HTTP), //
+                UrlPath.parse("/path"), //
+                UrlQueryString.with("query"),//
+                UrlFragment.with("fragment123"));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

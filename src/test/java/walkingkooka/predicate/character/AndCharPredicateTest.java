@@ -119,7 +119,7 @@ final public class AndCharPredicateTest extends LogicalCharPredicateTestCase<And
     }
 
     @Override
-    protected Class<AndCharPredicate> type() {
+    public Class<AndCharPredicate> type() {
         return AndCharPredicate.class;
     }
 }

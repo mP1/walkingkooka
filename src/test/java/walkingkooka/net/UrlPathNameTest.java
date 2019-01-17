@@ -21,6 +21,7 @@ package walkingkooka.net;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
@@ -28,7 +29,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class UrlPathNameTest extends NameTestCase<UrlPathName> {
+public final class UrlPathNameTest extends NameTestCase<UrlPathName> implements SerializationTesting<UrlPathName> {
 
     @Test
     @Ignore
@@ -70,13 +71,28 @@ public final class UrlPathNameTest extends NameTestCase<UrlPathName> {
         assertEquals(CharSequences.quote(string).toString(), name.toString());
     }
 
+    @Test
+    public void testRootIsSingleton() throws Exception {
+        this.serializeSingletonAndCheck(UrlPathName.ROOT);
+    }
+
     @Override
     protected UrlPathName createName(final String name) {
         return UrlPathName.with(name);
     }
 
     @Override
-    protected Class<UrlPathName> type() {
+    public Class<UrlPathName> type() {
         return UrlPathName.class;
+    }
+
+    @Override
+    public UrlPathName serializableInstance() {
+        return UrlPathName.with("name");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

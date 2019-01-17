@@ -20,11 +20,13 @@ package walkingkooka.predicate;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 final public class InitialAndPartCharPredicateCharSequencePredicateTest
-        extends PredicateTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence> {
+        extends PredicateTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence>
+        implements SerializationTesting<InitialAndPartCharPredicateCharSequencePredicate> {
 
     // tests
 
@@ -86,7 +88,17 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
     }
 
     @Override
-    protected Class<InitialAndPartCharPredicateCharSequencePredicate> type() {
+    public Class<InitialAndPartCharPredicateCharSequencePredicate> type() {
         return InitialAndPartCharPredicateCharSequencePredicate.class;
+    }
+
+    @Override
+    public InitialAndPartCharPredicateCharSequencePredicate serializableInstance() {
+        return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.ascii(), CharPredicates.digit()));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

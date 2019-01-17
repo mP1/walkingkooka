@@ -20,11 +20,14 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
-        extends PredicateTestCase<P, String> {
+        extends PredicateTestCase<P, String>
+        implements SerializationTesting<P> {
+
     private static final String CHARS = "#$%";
 
     CaseSensitivityCharSequencePredicateTemplateTestCase() {
@@ -48,20 +51,23 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
         }
     }
 
-    @Test final public void testToStringCaseSensitive() {
+    @Test
+    final public void testToStringCaseSensitive() {
         assertEquals(this.prefix() + CharSequences.quoteAndEscape(
                 CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS),
                 this.createPredicate().toString());
     }
 
-    @Test final public void testToStringCaseInsensitive() {
+    @Test
+    final public void testToStringCaseInsensitive() {
         assertEquals(this.prefix() + CharSequences.quoteAndEscape(
                 CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS) + " (CaseInsensitive)",
                 this.createPredicateCaseInsensitivity(
                         CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS).toString());
     }
 
-    @Override final protected P createPredicate() {
+    @Override
+    final protected P createPredicate() {
         return this.createPredicateCaseSensitivity(
                 CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS);
     }
@@ -96,5 +102,15 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
 
     final P createPredicateCaseInsensitivity(final String chars) {
         return this.createPredicate(chars, CaseSensitivity.INSENSITIVE);
+    }
+
+    @Override
+    public final P serializableInstance() {
+        return this.createPredicate();
+    }
+
+    @Override
+    public final boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

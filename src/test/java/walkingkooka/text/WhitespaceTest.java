@@ -18,12 +18,13 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> {
+final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> implements SerializationTesting<Whitespace> {
 
     @Test(expected = NullPointerException.class)
     public void testNullFails() {
@@ -96,6 +97,11 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> {
                 Whitespace.has(text));
     }
 
+    @Test
+    public void testConstantsAreSingletons() throws Exception {
+        this.constantsAreSingletons();
+    }
+
     @Override
     protected Whitespace createCharSequence() {
         return Whitespace.with(" \t\r\n");
@@ -103,12 +109,22 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> {
 
 
     @Override
-    protected Class<Whitespace> type() {
+    public Class<Whitespace> type() {
         return Whitespace.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Whitespace serializableInstance() {
+        return Whitespace.with("   ");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

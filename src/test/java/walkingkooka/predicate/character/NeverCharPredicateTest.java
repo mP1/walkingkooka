@@ -18,11 +18,12 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class NeverCharPredicateTest extends CharPredicateTestCase<NeverCharPredicate> {
+final public class NeverCharPredicateTest extends CharPredicateTestCase<NeverCharPredicate> implements SerializationTesting<NeverCharPredicate> {
 
     @Test
     public void testMatches() {
@@ -57,7 +58,17 @@ final public class NeverCharPredicateTest extends CharPredicateTestCase<NeverCha
     }
 
     @Override
-    protected Class<NeverCharPredicate> type() {
+    public Class<NeverCharPredicate> type() {
         return NeverCharPredicate.class;
+    }
+
+    @Override
+    public NeverCharPredicate serializableInstance() {
+        return NeverCharPredicate.INSTANCE;
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

@@ -26,7 +26,17 @@ public final class BlueColorComponentTest extends ColorComponentTestCase<BlueCol
     }
 
     @Override
-    protected Class<BlueColorComponent> type() {
+    public Class<BlueColorComponent> type() {
         return BlueColorComponent.class;
+    }
+
+    @Override
+    public BlueColorComponent serializableInstance() {
+        return BlueColorComponent.with((byte) 123);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

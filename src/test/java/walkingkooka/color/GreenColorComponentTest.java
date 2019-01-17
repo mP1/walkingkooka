@@ -26,7 +26,17 @@ public final class GreenColorComponentTest extends ColorComponentTestCase<GreenC
     }
 
     @Override
-    protected Class<GreenColorComponent> type() {
+    public Class<GreenColorComponent> type() {
         return GreenColorComponent.class;
+    }
+
+    @Override
+    public GreenColorComponent serializableInstance() {
+        return GreenColorComponent.with((byte) 123);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

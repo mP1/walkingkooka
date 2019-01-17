@@ -18,8 +18,14 @@
 package walkingkooka.naming;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
-final public class StringPathTest extends PathTestCase<StringPath, StringName> {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+
+final public class StringPathTest extends PathTestCase<StringPath, StringName>
+        implements SerializationTesting<StringPath> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testParseMissingRequiredLeadingSlash() {
@@ -60,6 +66,30 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName> {
         this.checkWithoutParent(path);
     }
 
+    @Test
+    public void testSerializeRootIsSingleton() throws Exception {
+        this.serializeSingletonAndCheck(StringPath.ROOT);
+    }
+
+    @Test
+    public void testSerializeParentNameAndIsRoot() throws Exception {
+        final StringPath path = this.cloneUsingSerialization(StringPath.parse("/one/two/three"));
+        final StringPath parent = path.parent().get();
+
+        assertEquals("/one/two", parent.value());
+
+        assertFalse(parent.isRoot());
+        assertSame(parent, path.parent().get());
+        assertEquals(StringName.with("two"), parent.name());
+
+        final StringPath grandParent = parent.parent().get();
+        assertEquals("/one", grandParent.value());
+        assertFalse(grandParent.isRoot());
+        assertEquals(StringName.with("one"), grandParent.name());
+
+        assertSame(StringPath.ROOT, grandParent.parent().get());
+    }
+
     @Override
     protected StringPath root() {
         return StringPath.ROOT;
@@ -86,7 +116,17 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName> {
     }
 
     @Override
-    protected Class<StringPath> type() {
+    public Class<StringPath> type() {
         return StringPath.class;
+    }
+
+    @Override
+    public StringPath serializableInstance() {
+        return StringPath.parse("/path");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

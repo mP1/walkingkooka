@@ -18,10 +18,11 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
-final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndOfLineCharPredicate> {
+final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndOfLineCharPredicate> implements SerializationTesting<EndOfLineCharPredicate> {
 
     @Test
     public void testCarriageReturn() {
@@ -54,7 +55,17 @@ final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndO
     }
 
     @Override
-    protected Class<EndOfLineCharPredicate> type() {
+    public Class<EndOfLineCharPredicate> type() {
         return EndOfLineCharPredicate.class;
+    }
+
+    @Override
+    public EndOfLineCharPredicate serializableInstance() {
+        return EndOfLineCharPredicate.INSTANCE;
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

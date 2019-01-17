@@ -18,11 +18,12 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-final public class LineTest extends CharSequenceTestCase<Line> {
+final public class LineTest extends CharSequenceTestCase<Line> implements SerializationTesting<Line> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTextFails() {
@@ -65,12 +66,22 @@ final public class LineTest extends CharSequenceTestCase<Line> {
     }
 
     @Override
-    protected Class<Line> type() {
+    public Class<Line> type() {
         return Line.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public Line serializableInstance() {
+        return Line.with("abc123");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

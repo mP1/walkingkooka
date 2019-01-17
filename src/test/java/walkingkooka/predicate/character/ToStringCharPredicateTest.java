@@ -20,11 +20,13 @@ package walkingkooka.predicate.character;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStringCharPredicate> {
+final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStringCharPredicate>
+        implements SerializationTesting<ToStringCharPredicate> {
 
     // constants
 
@@ -114,7 +116,17 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     }
 
     @Override
-    protected Class<ToStringCharPredicate> type() {
+    public Class<ToStringCharPredicate> type() {
         return Cast.to(ToStringCharPredicate.class);
+    }
+
+    @Override
+    public ToStringCharPredicate serializableInstance() {
+        return Cast.to(ToStringCharPredicate.wrap(CharPredicates.is('a'), "fancy toString"));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

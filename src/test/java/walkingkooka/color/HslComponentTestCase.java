@@ -20,6 +20,7 @@ package walkingkooka.color;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 import walkingkooka.type.MethodAttributes;
@@ -30,7 +31,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-abstract public class HslComponentTestCase<C extends HslComponent> extends ClassTestCase<C> {
+abstract public class HslComponentTestCase<C extends HslComponent> extends ClassTestCase<C>
+        implements SerializationTesting<C> {
 
     HslComponentTestCase() {
         super();

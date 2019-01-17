@@ -18,11 +18,12 @@
 package walkingkooka.predicate.character;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 final public class WhitespaceCharPredicateTest
-        extends CharPredicateTestCase<WhitespaceCharPredicate> {
+        extends CharPredicateTestCase<WhitespaceCharPredicate> implements SerializationTesting<WhitespaceCharPredicate> {
 
     @Test
     public void testWhitespace() {
@@ -45,7 +46,17 @@ final public class WhitespaceCharPredicateTest
     }
 
     @Override
-    protected Class<WhitespaceCharPredicate> type() {
+    public Class<WhitespaceCharPredicate> type() {
         return WhitespaceCharPredicate.class;
+    }
+
+    @Override
+    public WhitespaceCharPredicate serializableInstance() {
+        return WhitespaceCharPredicate.INSTANCE;
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return true;
     }
 }

@@ -18,12 +18,14 @@
 package walkingkooka.text;
 
 import org.junit.Test;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class RepeatingCharSequenceTest extends CharSequenceTestCase<RepeatingCharSequence> {
+final public class RepeatingCharSequenceTest extends CharSequenceTestCase<RepeatingCharSequence>
+        implements SerializationTesting<RepeatingCharSequence> {
 
     // constants
 
@@ -74,12 +76,22 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
     }
 
     @Override
-    protected Class<RepeatingCharSequence> type() {
+    public Class<RepeatingCharSequence> type() {
         return RepeatingCharSequence.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public RepeatingCharSequence serializableInstance() {
+        return (RepeatingCharSequence) RepeatingCharSequence.with('X', 5);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

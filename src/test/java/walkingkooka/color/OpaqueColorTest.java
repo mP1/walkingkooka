@@ -110,12 +110,25 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
     }
 
     @Override
-    protected Class<OpaqueColor> type() {
+    public Class<OpaqueColor> type() {
         return OpaqueColor.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public OpaqueColor serializableInstance() {
+        final byte value = 1;
+        return OpaqueColor.createOpaqueColor(RedColorComponent.with(value),
+                GreenColorComponent.with(value),
+                BlueColorComponent.with(value));
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

@@ -20,12 +20,13 @@ package walkingkooka.build.chain;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ChainTypeTest extends ClassTestCase<ChainType> {
+final public class ChainTypeTest extends ClassTestCase<ChainType> implements SerializationTesting<ChainType> {
     // constants
 
     private final static String TYPE = "ALL";
@@ -66,13 +67,28 @@ final public class ChainTypeTest extends ClassTestCase<ChainType> {
         assertEquals(ChainTypeTest.TYPE, ChainType.with(ChainTypeTest.TYPE).toString());
     }
 
+    @Test
+    public void testConstantsAreSingletons() throws Exception {
+        this.constantsAreSingletons();
+    }
+
     @Override
-    protected Class<ChainType> type() {
+    public Class<ChainType> type() {
         return ChainType.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public ChainType serializableInstance() {
+        return ChainType.with("all");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

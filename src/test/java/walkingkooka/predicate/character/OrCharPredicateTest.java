@@ -101,7 +101,7 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
     }
 
     @Override
-    protected Class<OrCharPredicate> type() {
+    public Class<OrCharPredicate> type() {
         return OrCharPredicate.class;
     }
 }

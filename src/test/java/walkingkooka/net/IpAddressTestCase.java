@@ -20,12 +20,13 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotSame;
 
-abstract public class IpAddressTestCase<A extends IpAddress> extends ClassTestCase<A> {
+abstract public class IpAddressTestCase<A extends IpAddress> extends ClassTestCase<A> implements SerializationTesting<A> {
 
     IpAddressTestCase() {
         super();
@@ -62,5 +63,10 @@ abstract public class IpAddressTestCase<A extends IpAddress> extends ClassTestCa
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public final boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

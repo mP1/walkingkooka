@@ -21,11 +21,12 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials> {
+public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials> implements SerializationTesting<UrlCredentials> {
 
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";
@@ -56,12 +57,22 @@ public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials> {
     }
 
     @Override
-    protected Class<UrlCredentials> type() {
+    public Class<UrlCredentials> type() {
         return UrlCredentials.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public UrlCredentials serializableInstance() {
+        return UrlCredentials.with("user123", "password456");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

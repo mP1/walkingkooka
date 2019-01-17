@@ -108,7 +108,19 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
     }
 
     @Override
-    protected Class<UnreadableStack<Object>> type() {
+    public Class<UnreadableStack<Object>> type() {
         return Cast.to(UnreadableStack.class);
+    }
+
+    @Override
+    public UnreadableStack<Object> serializableInstance() {
+        final Stack<Object> stack = Stacks.arrayList();
+        stack.push("*pushed onto stack*");
+        return UnreadableStack.wrap(stack);
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

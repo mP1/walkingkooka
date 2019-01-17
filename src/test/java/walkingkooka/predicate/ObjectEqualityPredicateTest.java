@@ -21,12 +21,14 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 
 final public class ObjectEqualityPredicateTest
-        extends PredicateTestCase<ObjectEqualityPredicate<String>, String> {
+        extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
+        implements SerializationTesting<ObjectEqualityPredicate<String>> {
 
     final private static String MAGIC = "magic\n";
 
@@ -86,7 +88,17 @@ final public class ObjectEqualityPredicateTest
     }
 
     @Override
-    protected Class<ObjectEqualityPredicate<String>> type() {
+    public Class<ObjectEqualityPredicate<String>> type() {
         return Cast.to(ObjectEqualityPredicate.class);
+    }
+
+    @Override
+    public ObjectEqualityPredicate<String> serializableInstance() {
+        return ObjectEqualityPredicate.with("*string*");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

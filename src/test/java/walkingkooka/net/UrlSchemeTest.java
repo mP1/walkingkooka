@@ -22,11 +22,12 @@ package walkingkooka.net;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class UrlSchemeTest extends NameTestCase<UrlScheme> {
+public final class UrlSchemeTest extends NameTestCase<UrlScheme> implements SerializationTesting<UrlScheme> {
 
     @Test
     @Ignore
@@ -107,7 +108,17 @@ public final class UrlSchemeTest extends NameTestCase<UrlScheme> {
     }
 
     @Override
-    protected Class<UrlScheme> type() {
+    public Class<UrlScheme> type() {
         return UrlScheme.class;
+    }
+
+    @Override
+    public UrlScheme serializableInstance() {
+        return UrlScheme.with("custom");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

@@ -21,12 +21,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class PairTest extends ClassTestCase<Pair<?, ?>> {
+final public class PairTest extends ClassTestCase<Pair<?, ?>> implements SerializationTesting<Pair<?, ?>> {
 
     private final static A A = new A(1);
 
@@ -130,12 +131,22 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>> {
     }
 
     @Override
-    protected Class<Pair<?, ?>> type() {
+    public Class<Pair<?, ?>> type() {
         return Cast.to(Pair.class);
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Pair<String, String> serializableInstance() {
+        return Pair.with("1st", "2nd");
+    }
+
+    @Override
+    public boolean serializableInstanceIsSingleton() {
+        return false;
     }
 }

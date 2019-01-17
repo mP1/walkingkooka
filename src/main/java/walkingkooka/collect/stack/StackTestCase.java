@@ -19,12 +19,14 @@ package walkingkooka.collect.stack;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 /**
  * Base class for testing a {@link Stack}.
  */
-abstract public class StackTestCase<S extends Stack<T>, T> extends ClassTestCase<S> {
+abstract public class StackTestCase<S extends Stack<T>, T> extends ClassTestCase<S>
+        implements SerializationTesting<S> {
 
     protected StackTestCase() {
         super();
