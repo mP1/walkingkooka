@@ -25,6 +25,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.test.ConstantsTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
@@ -40,7 +41,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
-final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<Object>, Object> {
+final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<Object>, Object>
+        implements ConstantsTesting<HttpHeaderName<Object>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
@@ -380,7 +382,12 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     @Override
-    protected Class<HttpHeaderName<Object>> type() {
+    public Class<HttpHeaderName<Object>> type() {
         return Cast.to(HttpHeaderName.class);
+    }
+
+    @Override
+    public Set<HttpHeaderName<Object>> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 }

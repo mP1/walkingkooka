@@ -18,10 +18,10 @@
 
 package walkingkooka.net.http;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HeaderValueTestCase;
+import walkingkooka.test.ConstantsTesting;
 import walkingkooka.type.FieldAttributes;
 import walkingkooka.type.MemberVisibility;
 
@@ -34,7 +34,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 
-final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> {
+final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implements ConstantsTesting<HttpMethod> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -129,17 +129,6 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> {
     }
 
     @Test
-    public void testConstantsAllUnique() throws Exception {
-        final Set<HttpMethod> methods = Sets.hash();
-        this.constants().stream()
-                .forEach(c -> {
-                    if (false == methods.add(c)) {
-                        Assert.fail("Duplicate header constant=" + c);
-                    }
-                });
-    }
-
-    @Test
     public void testIsGetOrHead() throws Exception {
         this.constants().stream()
                 .forEach(this::isGetOrHeadCheck);
@@ -206,12 +195,17 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> {
     }
 
     @Override
-    protected Class<HttpMethod> type() {
+    public Class<HttpMethod> type() {
         return HttpMethod.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Set<HttpMethod> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 }
