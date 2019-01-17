@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.search;
 
-import java.time.LocalTime;
-
 /**
  * A {@link SearchNode} that holds a {@link long} value.
  */

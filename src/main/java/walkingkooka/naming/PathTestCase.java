@@ -21,7 +21,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.type.MemberVisibility;
@@ -33,7 +35,8 @@ import java.util.Optional;
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
  */
-abstract public class PathTestCase<P extends Path<P, N>, N extends Name> extends ClassTestCase<P> {
+abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined & Comparable<P>, N extends Name> extends ClassTestCase<P>
+        implements ComparableTesting<P> {
 
     protected PathTestCase() {
         super();

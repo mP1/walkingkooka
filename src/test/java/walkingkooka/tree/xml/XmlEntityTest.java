@@ -45,6 +45,11 @@ public final class XmlEntityTest extends XmlParentNodeTestCase<XmlEntity> {
     }
 
     @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(this.createNode("testEqualsDifferent.xml"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("<!ENTITY file SYSTEM \"http://www.example.com/archive.zip\">", this.createNode().toString());
     }
@@ -53,7 +58,11 @@ public final class XmlEntityTest extends XmlParentNodeTestCase<XmlEntity> {
 
     @Override
     XmlEntity createNode(final Document document) {
-        try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/createNode.xml")) {
+        return this.createNode("default.xml");
+    }
+
+    private XmlEntity createNode(final String file) {
+        try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/" + file)) {
             final XmlDocument root = XmlNode.fromXml(this.documentBuilder(false, true), reader);
             final DocumentType documentType = Cast.to(root.node.getChildNodes().item(0));
             final Entity entity = Cast.to(documentType.getEntities().item(0));

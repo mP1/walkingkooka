@@ -95,6 +95,11 @@ public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNo
     }
 
     @Test
+    public void testEqualsDifferentQuery() {
+        this.checkNotEquals(SearchNotQuery.with(this.textQueryValue("different").equalsQuery(CaseSensitivity.SENSITIVE)));
+    }
+
+    @Test
     @Ignore
     public void testNotTwiceGivesOriginalQuery() {
         throw new UnsupportedOperationException();

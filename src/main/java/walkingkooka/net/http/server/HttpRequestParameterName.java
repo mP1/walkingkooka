@@ -20,6 +20,7 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -28,7 +29,9 @@ import java.util.Optional;
 /**
  * The {@link Name} of a parameter within a {@link HttpRequest}.
  */
-final public class HttpRequestParameterName implements Name, HttpRequestAttribute<List<String>> {
+final public class HttpRequestParameterName implements Name,
+        Comparable<HttpRequestParameterName>,
+        HttpRequestAttribute<List<String>> {
 
     /**
      * Factory that creates a {@link HttpRequestParameterName}
@@ -65,11 +68,18 @@ final public class HttpRequestParameterName implements Name, HttpRequestAttribut
         return Optional.ofNullable(request.parameterValues(this));
     }
 
+    // Comparable...............................................................................................
+
+    @Override
+    public int compareTo(final HttpRequestParameterName other) {
+        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
+    }
+
     // Object...............................................................................................
 
     @Override
     public int hashCode() {
-        return this.name.hashCode();
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
@@ -80,8 +90,10 @@ final public class HttpRequestParameterName implements Name, HttpRequestAttribut
     }
 
     private boolean equals0(final HttpRequestParameterName other) {
-        return this.name.equals(other.name);
+        return 0 == this.compareTo(other);
     }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     /**
      * Dumps the parameter name.

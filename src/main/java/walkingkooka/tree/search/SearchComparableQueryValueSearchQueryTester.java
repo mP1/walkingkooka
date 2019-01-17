@@ -22,12 +22,12 @@ import walkingkooka.Cast;
 
 abstract class SearchComparableQueryValueSearchQueryTester<T extends Comparable<T>> extends SearchQueryTester<T> {
 
-    SearchComparableQueryValueSearchQueryTester(final T value, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
+    SearchComparableQueryValueSearchQueryTester(final T value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
         super(value);
-        this.result = result;
+        this.predicate = predicate;
     }
 
-    final SearchQueryValueSearchQueryTesterComparisonPredicate result;
+    final SearchQueryValueSearchQueryTesterComparisonPredicate predicate;
 
     @Override
     final boolean test(final SearchLocalDateNode node) {
@@ -50,7 +50,7 @@ abstract class SearchComparableQueryValueSearchQueryTester<T extends Comparable<
     }
 
     private boolean equals2(final SearchComparableQueryValueSearchQueryTester other) {
-        return this.result == other.result &&
+        return this.predicate == other.predicate &&
                this.equals3(other);
     }
 

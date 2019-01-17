@@ -31,13 +31,13 @@ public final class XmlCDataSectionTest extends XmlTextNodeTestCase<XmlCDataSecti
 
     @Test
     public void testWithEmptyText() {
-        this.domDocument().createCDataSection("");
+        this.xmlDocument().createCDataSection("");
         ;
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidTextFails() {
-        this.domDocument().createCDataSection(XmlCDataSection.CLOSE);
+        this.xmlDocument().createCDataSection(XmlCDataSection.CLOSE);
     }
 
     @Test(expected = IllegalArgumentException.class)

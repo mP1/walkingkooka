@@ -18,7 +18,11 @@
 package walkingkooka.naming;
 
 import org.junit.Test;
+import walkingkooka.Cast;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +30,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */
-abstract public class NameTestCase<N extends Name> extends ClassTestCase<N> {
+abstract public class NameTestCase<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined> extends ClassTestCase<N>
+        implements ComparableTesting<C>{
 
     protected NameTestCase() {
         super();
@@ -48,11 +53,71 @@ abstract public class NameTestCase<N extends Name> extends ClassTestCase<N> {
     }
 
     @Test
+    public void testWith() {
+        this.createNameAndCheck(this.nameText());
+    }
+
+    // Comparable.................................................................................
+
+    @Test
+    public void testDifferentText() {
+        this.checkNotEquals(this.createComparable(this.differentNameText()));
+    }
+
+    @Test
+    public void testCompareDifferentCase() {
+        final String value = this.nameText();
+
+        final C lower = this.createComparable(value.toLowerCase());
+        final C upper = this.createComparable(value.toUpperCase());
+
+        if (this.caseSensitivity() == CaseSensitivity.INSENSITIVE) {
+            this.compareToAndCheckEqual(
+                    lower,
+                    upper);
+        } else {
+            this.compareToAndCheckLess(
+                    upper,
+                    lower);
+        }
+    }
+
+    @Test
+    public void testCompareLess() {
+        this.compareToAndCheckLess(
+                this.createComparable(this.nameTextLess()),
+                this.createComparable(this.nameText()));
+    }
+
+    @Test
+    public void testCompareLessDifferentCase() {
+        if (CaseSensitivity.INSENSITIVE == this.caseSensitivity()) {
+            this.compareToAndCheckLess(
+                    this.createComparable(this.nameTextLess().toUpperCase()),
+                    this.createComparable(this.nameText().toLowerCase()));
+        }
+    }
+
+    // toString.................................................................................
+
+    @Test
     public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
 
-    abstract protected N createName(String name);
+    protected abstract N createName(final String name);
+
+    private C createComparable(final String name) {
+        return Cast.to(this.createName(name));
+    }
+
+    protected abstract CaseSensitivity caseSensitivity();
+
+    protected abstract String nameText();
+
+    protected abstract String differentNameText();
+
+    protected abstract String nameTextLess();
 
     protected void createNameAndCheck(final String value) {
         final N name = this.createName(value);
@@ -66,5 +131,10 @@ abstract public class NameTestCase<N extends Name> extends ClassTestCase<N> {
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public final C createComparable() {
+        return Cast.to(this.createName(this.nameText()));
     }
 }

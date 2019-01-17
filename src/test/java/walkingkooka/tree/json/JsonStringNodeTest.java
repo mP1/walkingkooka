@@ -28,6 +28,11 @@ import static org.junit.Assert.assertSame;
 public final class JsonStringNodeTest extends JsonLeafNodeTestCase<JsonStringNode, String>{
 
     @Test
+    public void testSameValueDifferentCase() {
+        this.checkNotEquals(JsonNode.string("ABC123"));
+    }
+
+    @Test
     public void testToSearchNode() {
         final String text = "abc123";
         this.toSearchNodeAndCheck(this.createJsonNode(text), SearchNode.text(text, text));

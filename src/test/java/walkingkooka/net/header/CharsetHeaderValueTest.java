@@ -19,11 +19,9 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.type.MemberVisibility;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -34,6 +32,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
 
     private final static CharsetName VALUE = CharsetName.UTF_8;
     private final static String PARAMETER_VALUE = "v1";
+    private final static float Q = 0.5f;
 
     // with.........................................................................................
 
@@ -127,6 +126,27 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
         this.isWildcardAndCheck(false);
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentCharset() {
+        this.checkNotEquals(CharsetHeaderValue.with(CharsetName.UTF_16)
+                .setParameters(this.parameters()));
+    }
+
+    @Test
+    public void testEqualsDifferentParameterValue() {
+        this.checkNotEquals(CharsetHeaderValue.with(VALUE)
+                .setParameters(this.parameters(CharsetHeaderValueParameterName.Q_FACTOR, Q + 0.5f)));
+    }
+
+    @Test
+    public void testEqualsDifferentParameter() {
+        this.checkNotEquals(CharsetHeaderValue.with(VALUE)
+                .setParameters(this.parameters(CharsetHeaderValueParameterName.with("different"), "xyz")));
+    }
+
+    
     // toString ...........................................................................................
 
     @Test

@@ -22,13 +22,15 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 final public class NormalizingCharSequenceComparatorTest
         extends ComparatorTestCase<NormalizingCharSequenceComparator<String>, String>
-        implements SerializationTesting<NormalizingCharSequenceComparator<String>> {
+        implements HashCodeEqualsDefinedTesting<NormalizingCharSequenceComparator<String>>,
+        SerializationTesting<NormalizingCharSequenceComparator<String>> {
 
     // constants
 
@@ -140,19 +142,29 @@ final public class NormalizingCharSequenceComparatorTest
     }
 
     @Test
+    public void testEqualsDifferentCharacterPredicate() {
+        this.checkNotEquals(NormalizingCharSequenceComparator.with(CharPredicates.never()));
+    }
+    
+    @Test
     public void testToString() {
-        assertEquals("normalizing " + NormalizingCharSequenceComparatorTest.PREDICATE,
+        assertEquals("normalizing " + PREDICATE,
                 this.createComparator().toString());
     }
 
     @Override
     protected NormalizingCharSequenceComparator<String> createComparator() {
-        return NormalizingCharSequenceComparator.with(NormalizingCharSequenceComparatorTest.PREDICATE);
+        return NormalizingCharSequenceComparator.with(PREDICATE);
     }
 
     @Override
     public Class<NormalizingCharSequenceComparator<String>> type() {
         return Cast.to(NormalizingCharSequenceComparator.class);
+    }
+    
+    @Override
+    public NormalizingCharSequenceComparator<String> createObject() {
+        return this.createComparator();
     }
 
     @Override

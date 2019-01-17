@@ -18,9 +18,17 @@
 
 package walkingkooka.tree.search;
 
-public final class SearchLocalDateTimeQueryValueSearchQueryTesterTest extends  SearchQueryTesterTestCase<SearchLocalDateTimeQueryValueSearchQueryTester>{
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
+
+public final class SearchLocalDateTimeQueryValueSearchQueryTesterTest extends ClassTestCase<SearchLocalDateTimeQueryValueSearchQueryTester> {
     @Override
     protected Class<SearchLocalDateTimeQueryValueSearchQueryTester> type() {
         return SearchLocalDateTimeQueryValueSearchQueryTester.class;
+    }
+
+    @Override
+    protected MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -20,15 +20,11 @@ package walkingkooka.tree.expression;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ExpressionNodeNameTest extends NameTestCase<ExpressionNodeName> {
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("abc");
-    }
+public final class ExpressionNodeNameTest extends NameTestCase<ExpressionNodeName, ExpressionNodeName> {
 
     @Test
     public void testToString() {
@@ -38,6 +34,26 @@ public final class ExpressionNodeNameTest extends NameTestCase<ExpressionNodeNam
     @Override
     protected ExpressionNodeName createName(final String name) {
         return ExpressionNodeName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "abc2";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "a1";
     }
 
     @Override

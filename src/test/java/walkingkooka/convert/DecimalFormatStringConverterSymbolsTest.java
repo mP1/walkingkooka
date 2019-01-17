@@ -20,11 +20,56 @@ package walkingkooka.convert;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase<DecimalFormatStringConverterSymbols> {
+public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase<DecimalFormatStringConverterSymbols>
+        implements HashCodeEqualsDefinedTesting<DecimalFormatStringConverterSymbols> {
+
+    private final static String CURRENCY = "C";
+    private final static char DECIMAL = 'D';
+    private final static char EXPONENT = 'E';
+    private final static char GROUPING = 'G';
+    private final static char MINUS = 'M';
+    private final static char PERCENTAGE = 'R';
+    private final static char PLUS = 'P';
+
+    @Test
+    public void testEqualsDifferentCurrency() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with("!", DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
+    }
+
+    @Test
+    public void testEqualsDifferentDecimal() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, '!', EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS));
+    }
+
+    @Test
+    public void testEqualsDifferentExponent() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, '!', GROUPING, MINUS, PERCENTAGE, PLUS));
+    }
+
+    @Test
+    public void testEqualsDifferentGroupingSeparator() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, '!', MINUS, PERCENTAGE, PLUS));
+    }
+
+    @Test
+    public void testEqualsDifferentMinus() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, '!', PERCENTAGE, PLUS));
+    }
+
+    @Test
+    public void testEqualsDifferentPercentage() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS,  '!', PLUS));
+    }
+
+    @Test
+    public void testEqualsDifferentPlus() {
+        this.checkNotEquals(DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, '!'));
+    }
 
     @Test
     public void testToString() {
@@ -39,5 +84,10 @@ public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public DecimalFormatStringConverterSymbols createObject() {
+        return DecimalFormatStringConverterSymbols.with(CURRENCY, DECIMAL, EXPONENT, GROUPING, MINUS, PERCENTAGE, PLUS);
     }
 }

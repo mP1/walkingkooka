@@ -105,6 +105,28 @@ public final class ContentDispositionTest extends HeaderValueWithParametersTestC
         this.isWildcardAndCheck(false);
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentContentDispositionType() {
+        this.checkNotEquals2("inline; p1=\"v1\";");
+    }
+
+    @Test
+    public void testEqualsDifferentParameters() {
+        this.checkNotEquals2("attachment; p2=\"v2\";");
+    }
+
+    @Test
+    public void testEqualsDifferentParameters2() {
+        this.checkNotEquals2("attachment; p1=\"v1\"; p2=\"v2\";");
+    }
+
+    private void checkNotEquals2(final String disposition2) {
+        this.checkNotEquals(ContentDisposition.parse("attachment; p1=\"v1\";"),
+                ContentDisposition.parse(disposition2));
+    }
+
     // toString ...........................................................................................
 
     @Test

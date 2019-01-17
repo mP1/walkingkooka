@@ -18,5 +18,42 @@
 
 package walkingkooka.tree.search;
 
+import org.junit.Test;
+import walkingkooka.text.CaseSensitivity;
+
 public abstract class SearchValueComparisonLeafQueryTestCase<Q extends SearchValueComparisonLeafQuery> extends SearchLeafQueryTestCase<Q> {
+
+    SearchValueComparisonLeafQueryTestCase() {
+        super();
+    }
+
+    @Test
+    public final void testEqualsDifferentQueryValue() {
+        this.checkNotEquals(this.createSearchQuery(this.textQueryValue("different"), this.searchQueryTester()));
+    }
+
+    @Test
+    public final void testEqualsDifferentSearchQueryTester() {
+        this.checkNotEquals(this.createSearchQuery(this.queryValue(), this.differentSearchQueryTester()));
+    }
+
+    final Q createSearchQuery() {
+        return this.createSearchQuery(this.queryValue(), this.searchQueryTester());
+    }
+
+    final SearchTextQueryValue queryValue() {
+        return this.textQueryValue("value");
+    }
+
+    final SearchQueryTester searchQueryTester() {
+        return SearchTextQueryValueSearchQueryTester.with(this.queryValue().text(), CaseSensitivity.SENSITIVE, this.predicate());
+    }
+
+    final SearchQueryTester differentSearchQueryTester() {
+        return SearchTextQueryValueSearchQueryTester.with("different-text", CaseSensitivity.SENSITIVE, this.predicate());
+    }
+
+    abstract SearchQueryValueSearchQueryTesterComparisonPredicate predicate();
+
+    abstract Q createSearchQuery(final SearchTextQueryValue value, final SearchQueryTester tester);
 }

@@ -18,8 +18,6 @@
 
 package walkingkooka.tree.search;
 
-import java.math.BigInteger;
-
 /**
  * A {@link SearchNode} that holds a {@link Double} value.
  */

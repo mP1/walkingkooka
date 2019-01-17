@@ -68,4 +68,8 @@ extends NodeSelectorTestCase<S>{
 
         assertEquals("Finished processing contains unselected nodes", Lists.empty(), expected);
     }
+
+    final NodeSelector<TestFakeNode, StringName, StringName, Object> wrapped() {
+        return NodeSelector.terminal();
+    }
 }

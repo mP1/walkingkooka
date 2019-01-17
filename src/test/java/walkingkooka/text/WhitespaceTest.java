@@ -102,11 +102,20 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> imple
         this.constantsAreSingletons();
     }
 
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(Whitespace.with("\t"));
+    }
+
+    @Test
+    public void testEqualsDifferentSameLength() {
+        this.checkNotEquals(Whitespace.with("\t\t\t"));
+    }
+
     @Override
     protected Whitespace createCharSequence() {
         return Whitespace.with(" \t\r\n");
     }
-
 
     @Override
     public Class<Whitespace> type() {
@@ -117,6 +126,8 @@ final public class WhitespaceTest extends CharSequenceTestCase<Whitespace> imple
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
+
+
 
     @Override
     public Whitespace serializableInstance() {

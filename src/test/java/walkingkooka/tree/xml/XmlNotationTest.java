@@ -25,6 +25,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.search.SearchNodeName;
 
+import javax.xml.parsers.DocumentBuilder;
 import java.io.Reader;
 
 import static org.junit.Assert.assertEquals;
@@ -35,6 +36,22 @@ public final class XmlNotationTest extends XmlLeafNodeTestCase<XmlNotation> {
     @Ignore
     public void testParentWith() {
         // n/a
+    }
+
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(this.createNode(this.documentBuilder(), "testEqualsDifferent.xml"));
+    }
+
+    private XmlNotation createNode(final DocumentBuilder builder, final String file) {
+        try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/" + file)) {
+            final XmlDocument root = XmlNode.fromXml(builder, reader);
+            return XmlNotation.with(root.documentNode().getDoctype().getNotations().item(0));
+        } catch (final Exception rethrow) {
+            throw new Error(rethrow);
+        }
     }
 
     // toSearchNode.....................................................................................................
@@ -61,7 +78,7 @@ public final class XmlNotationTest extends XmlLeafNodeTestCase<XmlNotation> {
 
     @Override
     XmlNotation createNode(final Document document) {
-        try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/createNode.xml")) {
+        try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/default.xml")) {
             final XmlDocument root = XmlNode.fromXml(this.documentBuilder(), reader);
             return XmlNotation.with(root.documentNode().getDoctype().getNotations().item(0));
         } catch (final Exception rethrow) {

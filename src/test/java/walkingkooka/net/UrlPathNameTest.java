@@ -22,6 +22,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.Arrays;
@@ -29,7 +30,8 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class UrlPathNameTest extends NameTestCase<UrlPathName> implements SerializationTesting<UrlPathName> {
+public final class UrlPathNameTest extends NameTestCase<UrlPathName, UrlPathName>
+        implements SerializationTesting<UrlPathName> {
 
     @Test
     @Ignore
@@ -65,6 +67,21 @@ public final class UrlPathNameTest extends NameTestCase<UrlPathName> implements 
     }
 
     @Test
+    public void testDifferentName() {
+        this.checkNotEquals(UrlPathName.with("different"));
+    }
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(UrlPathName.with("zzzzz"));
+    }
+
+    @Test
+    public void testCaseSignificant() {
+        this.checkNotEquals(UrlParameterName.with("ABC"));
+    }
+
+    @Test
     public void testToStringAddQuotesBecauseOfWhitespace() {
         final String string = "name with whitespace";
         final UrlPathName name = UrlPathName.with(string);
@@ -79,6 +96,26 @@ public final class UrlPathNameTest extends NameTestCase<UrlPathName> implements 
     @Override
     protected UrlPathName createName(final String name) {
         return UrlPathName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "path";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "file";
     }
 
     @Override

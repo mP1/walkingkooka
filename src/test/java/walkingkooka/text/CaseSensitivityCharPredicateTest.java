@@ -19,13 +19,15 @@ package walkingkooka.text;
 
 import org.junit.Test;
 import walkingkooka.predicate.character.CharPredicateTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 final public class CaseSensitivityCharPredicateTest
         extends CharPredicateTestCase<CaseSensitivityCharPredicate>
-        implements SerializationTesting<CaseSensitivityCharPredicate> {
+        implements HashCodeEqualsDefinedTesting<CaseSensitivityCharPredicate>,
+        SerializationTesting<CaseSensitivityCharPredicate> {
 
     // constants
 
@@ -61,6 +63,23 @@ final public class CaseSensitivityCharPredicateTest
     @Test
     public void testDifferentCaseInsensitive() {
         this.testFalseCaseInsensitive('z');
+    }
+
+    @Test
+    public void testEqualsDifferentCharacter() {
+        this.checkNotEquals(CaseSensitivityCharPredicate.with('b', CaseSensitivity.SENSITIVE));
+    }
+
+    @Test
+    public void testEqualsDifferentCase() {
+        this.checkNotEquals(CaseSensitivityCharPredicate.with('A', CaseSensitivity.SENSITIVE));
+    }
+
+    @Test
+    public void testEqualsDifferentCaseSensitivity() {
+        this.checkNotEquals(CaseSensitivityCharPredicate.with(
+                CHAR,
+                CaseSensitivity.INSENSITIVE));
     }
 
     @Test
@@ -114,6 +133,11 @@ final public class CaseSensitivityCharPredicateTest
     @Override
     public Class<CaseSensitivityCharPredicate> type() {
         return CaseSensitivityCharPredicate.class;
+    }
+
+    @Override
+    public CaseSensitivityCharPredicate createObject() {
+        return CaseSensitivityCharPredicate.with(CHAR, CaseSensitivity.SENSITIVE);
     }
 
     @Override

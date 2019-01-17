@@ -18,7 +18,14 @@
 
 package walkingkooka.color;
 
+import org.junit.Test;
+
 public final class HueHslComponentTest extends HslComponentTestCase<HueHslComponent> {
+
+    @Test
+    public void testEqualsDifferentLightness() {
+        this.checkNotEquals(HueHslComponent.with(0));
+    }
 
     @Override
     HueHslComponent createHslComponent(final float value) {

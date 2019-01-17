@@ -41,8 +41,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
-final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<Object>, Object>
-        implements ConstantsTesting<HttpHeaderName<Object>> {
+final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<?>, HttpHeaderName<?>>
+        implements ConstantsTesting<HttpHeaderName<?>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
@@ -382,12 +382,22 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     @Override
-    public Class<HttpHeaderName<Object>> type() {
+    protected String differentNameText() {
+        return "X-different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return HttpHeaderName.ACCEPT.value();
+    }
+
+    @Override
+    public Class<HttpHeaderName<?>> type() {
         return Cast.to(HttpHeaderName.class);
     }
 
     @Override
-    public Set<HttpHeaderName<Object>> intentionalDuplicateConstants() {
+    public Set<HttpHeaderName<?>> intentionalDuplicateConstants() {
         return Sets.empty();
     }
 }

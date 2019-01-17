@@ -57,6 +57,21 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
         this.toHeaderTextAndCheck(TEXT);
     }
 
+    @Test
+    public void testEqualsDifferentText() {
+        this.checkNotEquals(LinkRelation.with("different"));
+    }
+
+    @Test
+    public void testEqualsUpperCaseText() {
+        this.checkNotEquals(LinkRelation.with("ABC123"));
+    }
+
+    @Test
+    public void testEqualsUrl() {
+        this.checkNotEquals(LinkRelation.with("http://example.com"));
+    }
+
     @Override
     boolean url() {
         return false;

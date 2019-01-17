@@ -64,6 +64,11 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     }
 
     @Test
+    public final void testEqualsDifferentParent() {
+        this.checkNotEquals(JsonNode.array().appendChild(this.createObject()));
+    }
+
+    @Test
     public final void testIsMethods() throws Exception {
         final String prefix = "Json";
         final String suffix = Node.class.getSimpleName();

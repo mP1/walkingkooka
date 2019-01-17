@@ -25,7 +25,7 @@ import walkingkooka.predicate.character.CharPredicates;
 /**
  * The {@link Name} of a node.
  */
-final public class NodeSelectorNodeName extends NodeSelectorNameValue {
+final public class NodeSelectorNodeName extends NodeSelectorNameValue implements Comparable<NodeSelectorNodeName> {
 
     final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 
@@ -57,5 +57,10 @@ final public class NodeSelectorNodeName extends NodeSelectorNameValue {
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof NodeSelectorNodeName;
+    }
+
+    @Override
+    public int compareTo(final NodeSelectorNodeName other) {
+        return this.compareTo0(other);
     }
 }

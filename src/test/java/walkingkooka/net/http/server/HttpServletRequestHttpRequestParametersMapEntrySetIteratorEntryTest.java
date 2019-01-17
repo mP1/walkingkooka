@@ -21,6 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.EntryTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -30,7 +31,9 @@ import static org.junit.Assert.assertEquals;
 public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntryTest extends EntryTestCase
         <HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry,
                 HttpRequestParameterName,
-                List<String>> {
+                List<String>>
+        implements HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry> {
+
     private final static String KEY = "parameter1";
     private final static String VALUE1 = "value1";
     private final static String VALUE2 = "value2";
@@ -48,6 +51,16 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
     @Test(expected = UnsupportedOperationException.class)
     public void testSetValueFails() {
         this.createEntry().setValue(Lists.empty());
+    }
+
+    @Test
+    public void testEqualsDifferentKey() {
+        this.checkNotEquals(HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry("different", VALUE1, VALUE2)));
+    }
+
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, "different-value")));
     }
 
     @Test
@@ -82,5 +95,10 @@ public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorEnt
     @Override
     protected Class<HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry> type() {
         return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.class;
+    }
+
+    @Override
+    public HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry createObject() {
+        return HttpServletRequestHttpRequestParametersMapEntrySetIteratorEntry.with(this.entry(KEY, VALUE1, VALUE2));
     }
 }

@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 
 import org.junit.Test;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -47,28 +46,34 @@ final public class CookieMaxAgeTest extends CookieDeletionTestCase<CookieMaxAge>
 
     @Test
     public void testWith() {
-        final CookieMaxAge age = this.createCookieMaxAge();
+        final CookieMaxAge age = this.createDeletion();
         assertEquals("seconds", this.SECONDS, age.seconds());
     }
 
     @Test
     public void testIsExpires() {
-        final CookieMaxAge maxAge = this.createCookieMaxAge();
+        final CookieMaxAge maxAge = this.createDeletion();
         assertFalse(maxAge.toString(), maxAge.isExpires());
     }
 
     @Test
     public void testIsMaxAge() {
-        final CookieMaxAge maxAge = this.createCookieMaxAge();
+        final CookieMaxAge maxAge = this.createDeletion();
         assertTrue(maxAge.toString(), maxAge.isMaxAge());
     }
 
     @Test
-    public void testToString() {
-        assertEquals("max-age=123", this.createCookieMaxAge().toString());
+    public void testEqualsDifferentSeconds() {
+        this.checkNotEquals(CookieMaxAge.with(1 + SECONDS));
     }
 
-    private CookieMaxAge createCookieMaxAge() {
+    @Test
+    public void testToString() {
+        assertEquals("max-age=123", this.createDeletion().toString());
+    }
+
+    @Override
+    CookieMaxAge createDeletion() {
         return CookieMaxAge.with(this.SECONDS);
     }
 

@@ -21,13 +21,15 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String> {
+final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String>
+        implements HashCodeEqualsDefinedTesting<NotPredicate<String>> {
 
     // constants
 
@@ -35,7 +37,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     private final static String DIFFERENT = "different";
 
-    private final static Predicate<String> PREDICATE = Predicates.is(NotPredicateTest.MATCHED);
+    private final static Predicate<String> PREDICATE = Predicates.is(MATCHED);
 
     // tests
 
@@ -50,8 +52,8 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Test
     public void testWrapNotPredicate() {
-        assertSame(NotPredicateTest.PREDICATE,
-                NotPredicate.wrap(NotPredicate.wrap(NotPredicateTest.PREDICATE)));
+        assertSame(PREDICATE,
+                NotPredicate.wrap(NotPredicate.wrap(PREDICATE)));
     }
 
     @Test
@@ -73,24 +75,24 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Test
     public void testNotMatched() {
-        final Predicate<String> not = NotPredicate.wrap(NotPredicateTest.PREDICATE);
-        Assert.assertNotSame(NotPredicateTest.PREDICATE, not);
-        Assert.assertTrue(NotPredicateTest.PREDICATE.test(NotPredicateTest.MATCHED));
-        Assert.assertFalse(not.test(NotPredicateTest.MATCHED));
+        final Predicate<String> not = NotPredicate.wrap(PREDICATE);
+        Assert.assertNotSame(PREDICATE, not);
+        Assert.assertTrue(PREDICATE.test(MATCHED));
+        Assert.assertFalse(not.test(MATCHED));
     }
 
     @Test
     public void testMatched() {
-        final Predicate<String> predicate = Predicates.is(NotPredicateTest.MATCHED);
+        final Predicate<String> predicate = Predicates.is(MATCHED);
         final Predicate<String> not = NotPredicate.wrap(predicate);
         Assert.assertNotSame(predicate, not);
-        Assert.assertFalse(predicate.test(NotPredicateTest.DIFFERENT));
-        Assert.assertTrue(not.test(NotPredicateTest.DIFFERENT));
+        Assert.assertFalse(predicate.test(DIFFERENT));
+        Assert.assertTrue(not.test(DIFFERENT));
     }
 
     @Test
     public void testWrapNotable() {
-        final Predicate<String> notted = NotPredicateTest.PREDICATE;
+        final Predicate<String> notted = PREDICATE;
         assertSame(notted, NotPredicate.wrap(new TestNotablePredicate(notted)));
     }
 
@@ -115,6 +117,11 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     }
 
     @Test
+    public void testEqualsDifferentWrapped() {
+        this.checkNotEquals(NotPredicate.wrap(Predicates.fake()));
+    }
+
+    @Test
     public void testToString() {
         final Predicate<Object> predicate = Predicates.fake();
         assertEquals("!" + predicate, NotPredicate.wrap(predicate).toString());
@@ -122,7 +129,7 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Override
     protected NotPredicate<String> createPredicate() {
-        return this.createPredicate(NotPredicateTest.PREDICATE);
+        return this.createPredicate(PREDICATE);
     }
 
     private NotPredicate<String> createPredicate(final Predicate<String> predicate) {
@@ -132,5 +139,10 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     @Override
     protected Class<NotPredicate<String>> type() {
         return Cast.to(NotPredicate.class);
+    }
+
+    @Override 
+    public NotPredicate<String> createObject() {
+        return this.createPredicate();
     }
 }

@@ -33,7 +33,7 @@ public abstract class XmlTextNodeTestCase<N extends XmlTextNode> extends XmlLeaf
 
     @Test(expected = NullPointerException.class)
     public final void testWithNullTextFails() {
-        this.domDocument().createText(null);
+        this.xmlDocument().createText(null);
     }
 
     @Test
@@ -80,17 +80,23 @@ public abstract class XmlTextNodeTestCase<N extends XmlTextNode> extends XmlLeaf
         this.checkWithParent(node);
     }
 
-    @Override final N createNode(final Document document) {
-        return this.createNode(document, this.text());
+    @Test
+    public final void testEqualsDifferentText() {
+        this.checkNotEquals(this.createNode(this.document(), "different"));
     }
 
     final N createNode(final String text) {
         return this.createNode(this.documentBuilder().newDocument(), text);
     }
 
+    @Override
+    final N createNode(final Document document) {
+        return this.createNode(document, this.text());
+    }
+
     abstract N createNode(final Document document, final String text);
 
-    final XmlDocument domDocument() {
+    final XmlDocument xmlDocument() {
         return XmlNode.createDocument(this.documentBuilder());
     }
 

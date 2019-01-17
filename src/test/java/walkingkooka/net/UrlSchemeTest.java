@@ -23,11 +23,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class UrlSchemeTest extends NameTestCase<UrlScheme> implements SerializationTesting<UrlScheme> {
+public final class UrlSchemeTest extends NameTestCase<UrlScheme, UrlScheme>
+        implements SerializationTesting<UrlScheme> {
 
     @Test
     @Ignore
@@ -105,6 +107,26 @@ public final class UrlSchemeTest extends NameTestCase<UrlScheme> implements Seri
     @Override
     protected UrlScheme createName(final String name) {
         return UrlScheme.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.INSENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "https";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "ftp";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "http";
     }
 
     @Override

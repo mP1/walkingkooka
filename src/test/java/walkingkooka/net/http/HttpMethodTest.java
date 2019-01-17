@@ -170,6 +170,11 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implem
     }
 
     @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(HttpMethod.POST);
+    }
+
+    @Test
     public void testToString() {
         assertEquals("GET", HttpMethod.GET.toString());
     }

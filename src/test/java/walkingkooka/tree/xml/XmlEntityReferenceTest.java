@@ -34,6 +34,11 @@ public final class XmlEntityReferenceTest extends XmlParentNodeTestCase<XmlEntit
     private final static String REFERENCE = "kooka";
 
     @Test
+    public void testEqualsDifferentName() {
+        this.checkNotEquals(XmlEntityReference.with(document().createEntityReference("different")));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("&kooka;", this.createNode().toString());
     }

@@ -39,7 +39,7 @@ final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<Quote
 
     @Test
     public void testEmpty() {
-        this.checkEquals(QuoteAfterCharSequence.with(""), "\"");
+        this.checkEquals2(QuoteAfterCharSequence.with(""), "\"");
     }
 
     @Test
@@ -85,15 +85,20 @@ final public class QuoteAfterCharSequenceTest extends CharSequenceTestCase<Quote
     @Test
     public void testSubSequenceIncludesQuote() {
         final CharSequence sub = this.createCharSequence().subSequence(1, 4);
-        this.checkEquals(sub, "BC\"");
+        this.checkEquals2(sub, "BC\"");
         assertEquals("sub.toString", "BC\"", sub.toString());
     }
 
     @Test
     public void testSubSequenceIncludesQuote2() {
         final CharSequence sub = this.createCharSequence().subSequence(2, 4);
-        this.checkEquals(sub, "C\"");
+        this.checkEquals2(sub, "C\"");
         assertEquals("sub.toString", "C\"", sub.toString());
+    }
+
+    @Test
+    public void testEqualsDifferentText() {
+        this.checkNotEquals(QuoteAfterCharSequence.with("different"));
     }
 
     @Test

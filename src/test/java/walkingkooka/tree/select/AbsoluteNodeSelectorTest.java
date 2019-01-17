@@ -78,6 +78,12 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Test
+    public void testEqualsDifferentPathSeparator() {
+        this.checkNotEquals(this.createSelector(PathSeparator.requiredAtStart('.'),
+                this.wrapped()));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("/", this.createSelector().toString());
     }
@@ -109,5 +115,10 @@ final public class AbsoluteNodeSelectorTest extends
     @Override
     protected Class<AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
         return Cast.to(AbsoluteNodeSelector.class);
+    }
+
+    private AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final PathSeparator pathSeparator,
+                                                                                              final NodeSelector<TestFakeNode, StringName, StringName, Object> selector) {
+        return Cast.to(AbsoluteNodeSelector.<TestFakeNode, StringName, StringName, Object>with(pathSeparator).append(selector));
     }
 }

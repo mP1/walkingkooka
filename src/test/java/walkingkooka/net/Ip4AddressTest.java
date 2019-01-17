@@ -116,6 +116,26 @@ public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
     }
 
     @Test
+    public void testDifferent() {
+        this.checkNotEquals(Ip4Address.with(new byte[]{5, 6, 7, 8}));
+    }
+
+    @Test
+    public void testEqualsIp6() {
+        this.checkNotEquals(Ip6Address.with(new byte[]{1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+    }
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(Ip4Address.with(new byte[]{(byte) 255, 2, 3, 4}));
+    }
+
+    @Override
+    public Ip4Address createComparable() {
+        return Ip4Address.with(new byte[]{1, 2, 3, 4});
+    }
+
+    @Test
     public void testToString() {
         assertEquals("1.2.3.4", this.createAddress(new byte[]{1, 2, 3, 4}).toString());
     }

@@ -38,7 +38,7 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
     /**
      * Returns a wildcard {@link LanguageTagName}
      */
-    public static LanguageTagName WILDCARD = LanguageTagNameWildcard.INSTANCE;
+    public final static LanguageTagName WILDCARD = LanguageTagNameWildcard.INSTANCE;
 
     /**
      * Factory that creates a new {@link LanguageTagName}

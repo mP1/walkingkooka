@@ -21,6 +21,7 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.map.EntryTestCase;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -28,7 +29,8 @@ import static org.junit.Assert.assertSame;
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryTest extends
         EntryTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry,
                 HttpHeaderName<?>,
-                Object> {
+                Object>
+        implements HashCodeEqualsDefinedTesting<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry>{
 
     private final static String HEADER_NAME = "content-length";
     private final static Long CONTENT_LENGTH = 123L;
@@ -61,6 +63,19 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
     }
 
     @Test
+    public void testEqualsDifferentHeaderName() {
+        final String value = "abc123";
+
+        this.checkNotEquals(this.createEntry(HttpHeaderName.SERVER.value(), value),
+                this.createEntry(HttpHeaderName.USER_AGENT.value(), value));
+    }
+
+    @Test
+    public void testEqualsDifferentHeaderValue() {
+        this.checkNotEquals(this.createEntry(HEADER_NAME, "" + (CONTENT_LENGTH + 999L)));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("Content-Length: 123", this.createEntry().toString());
     }
@@ -80,5 +95,22 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntryT
     @Override
     protected Class<HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry> type() {
         return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.class;
+    }
+
+    @Override
+    public HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry createObject() {
+        return this.createEntry();
+    }
+
+    private HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry createEntry(final String headerName,
+                                                                                     final String value) {
+        return HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(headerName,
+                new FakeHttpServletRequest() {
+                    @Override
+                    public String getHeader(final String header) {
+                        assertEquals("header", headerName, header);
+                        return value;
+                    }
+                });
     }
 }

@@ -21,10 +21,11 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.naming.PropertiesPath;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
-final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabelName> {
+final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabelName, SpreadsheetLabelName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
@@ -54,11 +55,6 @@ final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabe
     @Test//(expected = IllegalArgumentException.class)
     public void testCellReferenceFails3() {
         SpreadsheetLabelName.with(SpreadsheetColumnReference.MAX_ROW_NAME + "1");
-    }
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("Abc_123");
     }
 
     @Test
@@ -109,6 +105,26 @@ final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabe
     @Override
     protected SpreadsheetLabelName createName(final String name) {
         return SpreadsheetLabelName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.INSENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "state";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "postcode";
     }
 
     @Override

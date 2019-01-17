@@ -22,8 +22,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.text.CaseSensitivity;
 
-public final class UrlParameterNameTest extends NameTestCase<UrlParameterName> implements SerializationTesting<UrlParameterName> {
+public final class UrlParameterNameTest extends NameTestCase<UrlParameterName, UrlParameterName>
+        implements SerializationTesting<UrlParameterName> {
 
     @Test
     @Ignore
@@ -32,18 +34,43 @@ public final class UrlParameterNameTest extends NameTestCase<UrlParameterName> i
     }
 
     @Test
-    public void testWith() {
-        this.createNameAndCheck("abc");
+    public void testWithEncoding() {
+        this.createNameAndCheck("abc%20xyz");
     }
 
     @Test
-    public void testWithEncoding() {
-        this.createNameAndCheck("abc%20xyz");
+    public void testDifferentName() {
+        this.checkNotEquals(UrlParameterName.with("different"));
+    }
+
+    @Test
+    public void testCaseSignificant() {
+        this.checkNotEquals(UrlParameterName.with("PARAM1"));
     }
 
     @Override
     protected UrlParameterName createName(final String name) {
         return UrlParameterName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "param-1";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "aaa";
     }
 
     @Override

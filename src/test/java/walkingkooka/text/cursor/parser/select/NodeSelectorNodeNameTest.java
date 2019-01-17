@@ -20,12 +20,13 @@ package walkingkooka.text.cursor.parser.select;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-final public class NodeSelectorNodeNameTest extends NameTestCase<NodeSelectorNodeName> {
+final public class NodeSelectorNodeNameTest extends NameTestCase<NodeSelectorNodeName, NodeSelectorNodeName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidInitialFails() {
@@ -58,6 +59,26 @@ final public class NodeSelectorNodeNameTest extends NameTestCase<NodeSelectorNod
     @Override
     protected NodeSelectorNodeName createName(final String name) {
         return NodeSelectorNodeName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "node-22";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "node-1";
     }
 
     @Override

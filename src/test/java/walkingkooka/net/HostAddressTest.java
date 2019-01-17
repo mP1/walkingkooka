@@ -20,6 +20,7 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
@@ -34,7 +35,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public final class HostAddressTest extends ClassTestCase<HostAddress> implements SerializationTesting<HostAddress> {
+public final class HostAddressTest extends ClassTestCase<HostAddress>
+        implements HashCodeEqualsDefinedTesting<HostAddress>, SerializationTesting<HostAddress> {
 
     // tests
 
@@ -268,6 +270,18 @@ public final class HostAddressTest extends ClassTestCase<HostAddress> implements
     private void checkIp6Address(final HostAddress address) {
         assertFalse(address + " should not be a name", address.isName());
         assertNotNull(address + " should have an Ip6Address", address.isIpAddress().isIp6());
+    }
+
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testCaseUnimportant() {
+        this.checkEqualsAndHashCode(HostAddress.with("ADDRESS"));
+    }
+
+    @Test
+    public void testEqualsDifferentName() {
+        this.checkNotEquals(HostAddress.with("different"));
     }
 
     // parse .........................................................
@@ -1010,6 +1024,11 @@ public final class HostAddressTest extends ClassTestCase<HostAddress> implements
 
     static private String toHex(final byte[] bytes) {
         return HostAddressTesting.toHexString(bytes);
+    }
+
+    @Override
+    public HostAddress createObject() {
+        return HostAddress.with("address");
     }
 
     @Override

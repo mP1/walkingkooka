@@ -85,6 +85,16 @@ abstract public class CookieTestCase<C extends Cookie> extends HeaderValueTestCa
         this.isWildcardAndCheck(false);
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    final public void testEqualsDifferentName() {
+        this.checkNotEquals(this.createCookie(CookieName.with("different"), VALUE));
+    }
+
+    final public void testEqualsDifferentValue() {
+        this.checkNotEquals(this.createCookie(NAME, "different"));
+    }
+
     // helpers ................................................................................................
 
     final C createCookie() {

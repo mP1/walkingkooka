@@ -25,7 +25,8 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class LineEndingTest extends CharSequenceTestCase<LineEnding> implements SerializationTesting<LineEnding> {
+final public class LineEndingTest extends CharSequenceTestCase<LineEnding>
+        implements SerializationTesting<LineEnding> {
 
     @Test
     public void testCr() {
@@ -88,6 +89,11 @@ final public class LineEndingTest extends CharSequenceTestCase<LineEnding> imple
     @Test
     public void testFromEmpty() {
         assertSame(LineEnding.NONE, LineEnding.from(""));
+    }
+
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(LineEnding.NL);
     }
 
     @Override

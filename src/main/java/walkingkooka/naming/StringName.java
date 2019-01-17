@@ -18,6 +18,8 @@
 package walkingkooka.naming;
 
 
+import walkingkooka.Cast;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.ShouldBeQuoted;
 import walkingkooka.text.Whitespace;
@@ -28,6 +30,7 @@ import java.io.Serializable;
  * A simple {@link Name} that accepts a {@link String} composed of any character.
  */
 final public class StringName implements Name,
+        Comparable<StringName>,
         ShouldBeQuoted,
         Serializable {
 
@@ -71,24 +74,35 @@ final public class StringName implements Name,
         return this.name.equals(StringName.ROOT.name) ? StringName.ROOT : this;
     }
 
-    // Object
+    // Object..................................................................................................
 
     @Override
     public int hashCode() {
-        return this.name.hashCode();
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
     public boolean equals(final Object other) {
-        return (this == other) || ((other instanceof StringName) && this.equals0((StringName) other));
+        return this == other ||
+                other instanceof StringName &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final StringName other) {
-        return this.name.equals(other.name);
+        return this.compareTo(other) == 0;
     }
 
     @Override
     public String toString() {
         return CharSequences.quote(this.name).toString();
     }
+
+    // Comparable ...................................................................................................
+
+    @Override
+    public int compareTo(final StringName other) {
+        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

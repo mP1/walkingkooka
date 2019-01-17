@@ -134,6 +134,23 @@ public final class XmlDocumentTypeTest extends XmlLeafNodeTestCase<XmlDocumentTy
                 )).setName(SearchNodeName.with("DocType")));
     }
 
+    // HashCodeEqualsDefined.....................................................................................................
+
+    @Test
+    public void testEqualsTypeDifferent() {
+        this.checkNotEquals(this.createNode("different-type", PUBLIC_ID_STRING, SYSTEM_ID_STRING));
+    }
+
+    @Test
+    public void testEqualsPublicIdDifferent() {
+        this.checkNotEquals(this.createNode(TYPE, "//-/publicId-DIFFERENT", SYSTEM_ID_STRING));
+    }
+
+    @Test
+    public void testEqualsSystemIdDifferent() {
+        this.createNode(TYPE, PUBLIC_ID_STRING, "http://www.example.com/different.dtd");
+    }
+
     // toString.....................................................................................................
 
     @Test

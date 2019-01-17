@@ -29,6 +29,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.nio.charset.Charset;
@@ -39,7 +40,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HttpEntityTest extends ClassTestCase<HttpEntity> {
+public final class HttpEntityTest extends ClassTestCase<HttpEntity>
+        implements HashCodeEqualsDefinedTesting<HttpEntity> {
 
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 26L;
@@ -376,6 +378,16 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity> {
                 entity.extractRange(range));
     }
 
+    @Test
+    public void testEqualsDifferentHeaders() {
+        this.checkNotEquals(HttpEntity.with(Maps.one(HttpHeaderName.CONTENT_LENGTH, 456L), BODY));
+    }
+
+    @Test
+    public void testEqualsDifferentBody() {
+        this.checkNotEquals(HttpEntity.with(HEADERS, new byte[456]));
+    }
+
     // helpers................................................................................................
 
     private HttpEntity create() {
@@ -399,5 +411,10 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity> {
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public HttpEntity createObject() {
+        return HttpEntity.with(HEADERS, BODY);
     }
 }

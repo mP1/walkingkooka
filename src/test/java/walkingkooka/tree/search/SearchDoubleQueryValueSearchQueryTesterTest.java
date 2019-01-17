@@ -18,7 +18,24 @@
 
 package walkingkooka.tree.search;
 
-public final class SearchDoubleQueryValueSearchQueryTesterTest extends SearchQueryTesterTestCase<SearchDoubleQueryValueSearchQueryTester> {
+public final class SearchDoubleQueryValueSearchQueryTesterTest extends SearchComparableQueryValueSearchQueryTesterTestCase<SearchDoubleQueryValueSearchQueryTester, Double> {
+
+    @Override
+    SearchDoubleQueryValueSearchQueryTester createSearchQueryTester(final Double value,
+                                                                    final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        return SearchDoubleQueryValueSearchQueryTester.with(value, predicate);
+    }
+
+    @Override
+    Double value() {
+        return 1.5;
+    }
+
+    @Override
+    Double differentValue() {
+        return 99.5;
+    }
+
     @Override
     protected Class<SearchDoubleQueryValueSearchQueryTester> type() {
         return SearchDoubleQueryValueSearchQueryTester.class;

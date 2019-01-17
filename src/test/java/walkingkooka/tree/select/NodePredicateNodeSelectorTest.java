@@ -21,6 +21,7 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 
 import java.util.function.Predicate;
 
@@ -56,6 +57,11 @@ final public class NodePredicateNodeSelectorTest extends
     }
 
     @Test
+    public void testEqualsDifferentPredicate() {
+        this.checkNotEquals(this.createSelector(Predicates.fake(), this.wrapped()));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("*[" + PREDICATE.toString() + "]", this.createSelector().toString());
     }
@@ -69,4 +75,11 @@ final public class NodePredicateNodeSelectorTest extends
     protected Class<NodePredicateNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
         return Cast.to(NodePredicateNodeSelector.class);
     }
+
+    private NodePredicateNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final Predicate<TestFakeNode> node,
+                                                                                                   final NodeSelector<TestFakeNode, StringName, StringName, Object> selector) {
+        return Cast.to(NodePredicateNodeSelector.with(node).append(selector));
+    }
+
+    private final TestFakeNode node = TestFakeNode.node("node1");
 }

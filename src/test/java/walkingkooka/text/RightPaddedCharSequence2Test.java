@@ -39,24 +39,24 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
 
     private final static char PADDING = '.';
 
-    private final static int LENGTH = RightPaddedCharSequence2Test.PADDING_LENGTH
-            + RightPaddedCharSequence2Test.SEQUENCE_LENGTH;
+    private final static int LENGTH = PADDING_LENGTH
+            + SEQUENCE_LENGTH;
 
     // tests
 
     @Test
     public void testCharAt() {
-        this.checkCharAt("abcde" + RightPaddedCharSequence2Test.PADDING
-                + RightPaddedCharSequence2Test.PADDING + RightPaddedCharSequence2Test.PADDING);
+        this.checkCharAt("abcde" + PADDING
+                + PADDING + PADDING);
     }
 
     @Test
     public void testLength() {
-        this.checkLength(RightPaddedCharSequence2.wrap(RightPaddedCharSequence2Test.SEQUENCE,
-                RightPaddedCharSequence2Test.SEQUENCE_OFFSET,
-                RightPaddedCharSequence2Test.SEQUENCE_LENGTH,
-                RightPaddedCharSequence2Test.PADDING_LENGTH,
-                RightPaddedCharSequence2Test.PADDING), RightPaddedCharSequence2Test.LENGTH);
+        this.checkLength(RightPaddedCharSequence2.wrap(SEQUENCE,
+                SEQUENCE_OFFSET,
+                SEQUENCE_LENGTH,
+                PADDING_LENGTH,
+                PADDING), LENGTH);
     }
 
     @Test
@@ -64,7 +64,7 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(6, 7);
         assertNotEquals("class", RightPaddedCharSequence2.class, sub.getClass());
-        this.checkEquals(sub, RightPaddedCharSequence2Test.PADDING);
+        this.checkEquals2(sub, PADDING);
         assertEquals("sub.toString", ".", sub.toString());
     }
 
@@ -73,23 +73,23 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(5, 8);
         assertNotEquals("class", RightPaddedCharSequence2.class, sub.getClass());
-        this.checkEquals(sub,
-                RightPaddedCharSequence2Test.PADDING,
-                RightPaddedCharSequence2Test.PADDING,
-                RightPaddedCharSequence2Test.PADDING);
+        this.checkEquals2(sub,
+                PADDING,
+                PADDING,
+                PADDING);
         assertEquals("sub.toString", "...", sub.toString());
     }
 
     @Test
     public void testSubSequenceExactlyWrapped() {
-        this.checkSubSequence(0, RightPaddedCharSequence2Test.SEQUENCE_LENGTH, "abcde");
+        this.checkSubSequence(0, SEQUENCE_LENGTH, "abcde");
     }
 
     @Test
     public void testSubSequenceWithinWrapped() {
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 4);
-        this.checkEquals(sub, "bcd");
+        this.checkEquals2(sub, "bcd");
         assertEquals("sub.toString", "bcd", sub.toString());
     }
 
@@ -97,7 +97,7 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
     public void testSubSequenceWithLessPadding() {
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 7);
-        this.checkEquals(sub, "abcde..");
+        this.checkEquals2(sub, "abcde..");
         assertEquals("sub.toString", "abcde..", sub.toString());
     }
 
@@ -105,7 +105,7 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
     public void testSubSequenceWithLessPadding2() {
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 6);
-        this.checkEquals(sub, "bcde.");
+        this.checkEquals2(sub, "bcde.");
         assertEquals("sub.toString", "bcde.", sub.toString());
     }
 
@@ -113,7 +113,7 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
     public void testSubSequenceTwice() {
         final RightPaddedCharSequence2 sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 7).subSequence(1, 5);
-        this.checkEquals(sub, "cde.");
+        this.checkEquals2(sub, "cde.");
         assertEquals("sub.toString", "cde.", sub.toString());
     }
 
@@ -124,11 +124,11 @@ final public class RightPaddedCharSequence2Test extends CharSequenceTestCase<Rig
 
     @Override
     protected RightPaddedCharSequence2 createCharSequence() {
-        return RightPaddedCharSequence2.wrap(RightPaddedCharSequence2Test.SEQUENCE,
-                RightPaddedCharSequence2Test.SEQUENCE_OFFSET,
-                RightPaddedCharSequence2Test.SEQUENCE_LENGTH,
-                RightPaddedCharSequence2Test.PADDING_LENGTH,
-                RightPaddedCharSequence2Test.PADDING);
+        return RightPaddedCharSequence2.wrap(SEQUENCE,
+                SEQUENCE_OFFSET,
+                SEQUENCE_LENGTH,
+                PADDING_LENGTH,
+                PADDING);
     }
 
     @Override

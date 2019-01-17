@@ -20,10 +20,11 @@ package walkingkooka.tree.json;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
-public final class JsonNodeNameTest extends NameTestCase<JsonNodeName> {
+public final class JsonNodeNameTest extends NameTestCase<JsonNodeName, JsonNodeName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithNegativeIndexFails() {
@@ -41,6 +42,16 @@ public final class JsonNodeNameTest extends NameTestCase<JsonNodeName> {
     }
 
     @Test
+    public void testDifferent() {
+        this.checkNotEquals(JsonNodeName.with("different"));
+    }
+
+    @Test
+    public void testEqualsCaseSignificant() {
+        this.checkNotEquals(JsonNodeName.with("PROP1"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("abc", this.createName("abc").toString());
     }
@@ -48,6 +59,26 @@ public final class JsonNodeNameTest extends NameTestCase<JsonNodeName> {
     @Override
     protected JsonNodeName createName(final String name) {
         return JsonNodeName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "property-2";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "property-1";
     }
 
     @Override

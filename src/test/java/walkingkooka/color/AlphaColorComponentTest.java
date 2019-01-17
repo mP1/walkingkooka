@@ -24,6 +24,26 @@ import walkingkooka.test.SerializationTesting;
 public final class AlphaColorComponentTest extends ColorComponentTestCase<AlphaColorComponent>
         implements SerializationTesting<AlphaColorComponent> {
 
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(AlphaColorComponent.with(VALUE2));
+    }
+
+    @Test
+    public void testEqualsDifferentRed() {
+        this.checkNotEquals(ColorComponent.red(VALUE));
+    }
+
+    @Test
+    public void testEqualsDifferentGreen() {
+        this.checkNotEquals(ColorComponent.green(VALUE));
+    }
+
+    @Test
+    public void testEqualsDifferentBlue() {
+        this.checkNotEquals(ColorComponent.blue(VALUE));
+    }
+
     @Override
     AlphaColorComponent createColorComponent(final byte value) {
         return AlphaColorComponent.with(value);

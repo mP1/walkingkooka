@@ -28,13 +28,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Object>, Object> {
+final public class ArrayListStackTest extends StackTestCase<ArrayListStack<String>, String> {
 
     @Test
     public void testCreate() {
-        final Stack<Object> stack = ArrayListStack.create();
+        final Stack<String> stack = ArrayListStack.create();
         Assert.assertTrue("isempty", stack.isEmpty());
         assertEquals("size when empty", 0, stack.size());
     }
@@ -97,7 +98,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Objec
 
     @Test
     public void testPeekWhenEmptyFails() {
-        final Stack<Object> stack = ArrayListStack.create();
+        final Stack<String> stack = ArrayListStack.create();
         try {
             stack.peek();
             Assert.fail();
@@ -107,7 +108,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Objec
 
     @Test
     public void testPopWhenEmptyFails() {
-        final Stack<Object> stack = ArrayListStack.create();
+        final Stack<String> stack = ArrayListStack.create();
         try {
             stack.pop();
             Assert.fail();
@@ -150,6 +151,48 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Objec
     }
 
     @Test
+    public void testEqualsBothEmpty() {
+        final ArrayListStack<String> stack1 = ArrayListStack.create();
+        final ArrayListStack<String> stack2 = ArrayListStack.create();
+        checkEqualsAndHashCode(stack1, stack2);
+    }
+
+    @Test
+    public void testEqual() {
+        final ArrayListStack<String> stack1 = ArrayListStack.create();
+        final ArrayListStack<String> stack2 = ArrayListStack.create();
+        stack1.push("1");
+        stack1.push("2");
+        stack2.push("1");
+        stack2.push("*");
+        stack2.pop();
+        stack2.push("2");
+        checkEqualsAndHashCode(stack1, stack2);
+    }
+
+    @Test
+    public void testDifferentItems() {
+        final ArrayListStack<String> stack1 = ArrayListStack.create();
+        final ArrayListStack<String> stack2 = ArrayListStack.create();
+        stack1.push("1");
+        stack1.push("2");
+        stack2.push("3");
+        stack2.push("4");
+        assertNotEquals(stack1, stack2);
+    }
+
+    @Test
+    public void testSameItemsDifferentStackType() {
+        final ArrayListStack<String> stack1 = ArrayListStack.create();
+        final Stack<String> stack2 = Stacks.jdk();
+        stack1.push("1");
+        stack1.push("2");
+        stack2.push("1");
+        stack2.push("2");
+        assertEquals(stack1, stack2);
+    }
+
+    @Test
     public void testToString() {
         final ArrayListStack<String> stack = ArrayListStack.create();
         stack.push("1");
@@ -159,22 +202,27 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Objec
     }
 
     @Override
-    protected ArrayListStack<Object> createStack() {
+    protected ArrayListStack<String> createStack() {
         return ArrayListStack.create();
     }
 
     @Override
-    public Class<ArrayListStack<Object>> type() {
+    public Class<ArrayListStack<String>> type() {
         return Cast.to(ArrayListStack.class);
     }
 
     @Override
-    public ArrayListStack<Object> serializableInstance() {
+    public ArrayListStack<String> serializableInstance() {
         return ArrayListStack.create();
     }
 
     @Override
     public boolean serializableInstanceIsSingleton() {
         return false;
+    }
+
+    @Override
+    public ArrayListStack<String> createObject() {
+        return ArrayListStack.create();
     }
 }

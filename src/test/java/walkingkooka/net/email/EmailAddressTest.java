@@ -25,6 +25,7 @@ import org.junit.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
@@ -36,7 +37,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 
-final public class EmailAddressTest extends ClassTestCase<EmailAddress> implements SerializationTesting<EmailAddress> {
+final public class EmailAddressTest extends ClassTestCase<EmailAddress>
+        implements HashCodeEqualsDefinedTesting<EmailAddress>, SerializationTesting<EmailAddress> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -1608,6 +1610,13 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress> implemen
     private String makeEmptyIfNull(final String string) {
         return null != string ? string : "";
     }
+
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentEmail() {
+        this.checkNotEquals(EmailAddress.with("different@server"));
+    }
     
     // toString.................................................................
 
@@ -1625,6 +1634,11 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress> implemen
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public EmailAddress createObject() {
+        return EmailAddress.with("user@example.com");
     }
 
     @Override

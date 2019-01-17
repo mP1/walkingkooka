@@ -18,8 +18,9 @@ package walkingkooka.tree.pojo;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
-public final class PojoNameTest extends NameTestCase<PojoName> {
+public final class PojoNameTest extends NameTestCase<PojoName, PojoName> {
 
     private final static String PROPERTY = "abc";
 
@@ -62,6 +63,26 @@ public final class PojoNameTest extends NameTestCase<PojoName> {
     @Override
     protected PojoName createName(final String name) {
         return PojoName.property(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "name";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "address";
     }
 
     @Override

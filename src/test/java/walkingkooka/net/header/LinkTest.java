@@ -151,6 +151,24 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
                 JsonNode.parse(json));
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentUrl() {
+        this.checkNotEquals(Link.with(Url.parse("/different")).setParameters(this.parameters()));
+    }
+
+    @Test
+    public void testEqualsDifferentParameters() {
+        this.checkNotEquals(this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)));
+    }
+
+    @Test
+    public void testEqualsDifferentParameters2() {
+        this.checkNotEquals(this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, MediaType.TEXT_PLAIN)),
+                this.createLink().setParameters(Maps.one(LinkParameterName.TYPE, MediaType.BINARY)));
+    }
+
     // parse.......................................................................................
 
     @Test

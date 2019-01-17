@@ -570,6 +570,23 @@ public final class XmlDocumentTest extends XmlParentNodeTestCase<XmlDocument> {
         // na
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentRootElement() {
+        this.checkNotEquals(this.createNode().createElement(XmlName.element("root")),
+                this.createNode().createElement(XmlName.element("root2")));
+    }
+
+    @Test
+    public void testEqualsDifferentGrandchildren() {
+        final XmlElement child = this.createNode().createElement(XmlName.element("root"))
+                .createElement(XmlName.element("child"));
+
+        this.checkNotEquals(child.createElement(XmlName.element("grandChild")).root(),
+                child.createElement(XmlName.element("different")).root());
+    }
+
     // fromXml..................................................................................
 
     @Test

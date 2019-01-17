@@ -23,6 +23,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.PathSeparator;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorContext;
 import walkingkooka.tree.select.NodeSelectorContexts;
@@ -45,7 +46,8 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         ANAME extends Name,
         AVALUE extends Object>
         extends
-        VisitableTestCase<N> {
+        VisitableTestCase<N>
+        implements HashCodeEqualsDefinedTesting<N> {
 
     protected NodeTestCase() {
         super();
@@ -157,6 +159,11 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     abstract protected N createNode();
+
+    @Override
+    public final N createObject() {
+        return this.createNode();
+    }
 
     protected final void childrenCheck(final Node<?, ?, ?, ?> node) {
         final Optional<Node> nodeAsParent = Optional.of(node);

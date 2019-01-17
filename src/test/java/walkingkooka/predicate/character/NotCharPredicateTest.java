@@ -20,12 +20,14 @@ package walkingkooka.predicate.character;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPredicate> implements SerializationTesting<NotCharPredicate> {
+final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPredicate>
+        implements HashCodeEqualsDefinedTesting<NotCharPredicate>, SerializationTesting<NotCharPredicate> {
 
     // constants
 
@@ -54,29 +56,39 @@ final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPre
 
     @Test
     public void testNot() {
-        assertSame(NotCharPredicateTest.PREDICATE, this.createCharacterPredicate().negate());
+        assertSame(PREDICATE, this.createCharacterPredicate().negate());
     }
 
     @Test
     public void testUnwrapsAlreadyWrapped() {
-        assertSame(NotCharPredicateTest.PREDICATE,
+        assertSame(PREDICATE,
                 NotCharPredicate.wrap(this.createCharacterPredicate()));
     }
 
     @Test
+    public void testEqualsDifferentPredicate() {
+        this.checkNotEquals(NotCharPredicate.wrap(CharPredicates.fake()));
+    }
+
+    @Test
     public void testToString() {
-        assertEquals("!" + NotCharPredicateTest.PREDICATE,
-                NotCharPredicate.wrap(NotCharPredicateTest.PREDICATE).toString());
+        assertEquals("!" + PREDICATE,
+                NotCharPredicate.wrap(PREDICATE).toString());
     }
 
     @Override
     protected NotCharPredicate createCharacterPredicate() {
-        return Cast.to(NotCharPredicate.wrap(NotCharPredicateTest.PREDICATE));
+        return Cast.to(NotCharPredicate.wrap(PREDICATE));
     }
 
     @Override
     public Class<NotCharPredicate> type() {
         return NotCharPredicate.class;
+    }
+    
+    @Override
+    public NotCharPredicate createObject() {
+        return this.createCharacterPredicate();
     }
 
     @Override

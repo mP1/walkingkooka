@@ -21,6 +21,7 @@ package walkingkooka.text.spreadsheetformat;
 import org.junit.Test;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -30,7 +31,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetFormattedTextTest extends ClassTestCase<SpreadsheetFormattedText> {
+public final class SpreadsheetFormattedTextTest extends ClassTestCase<SpreadsheetFormattedText>
+        implements HashCodeEqualsDefinedTesting<SpreadsheetFormattedText> {
 
     private final static Optional<Color> COLOR = Optional.of(Color.BLACK);
     private final static String TEXT = "1/1/2000";
@@ -115,6 +117,25 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
         assertEquals("text", text, formatted.text());
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentColor() {
+        this.checkNotEquals(SpreadsheetFormattedText.with(Optional.of(Color.WHITE), TEXT));
+    }
+
+    @Test
+    public void testEqualsDifferentColor2() {
+        this.checkNotEquals(SpreadsheetFormattedText.with(SpreadsheetFormattedText.WITHOUT_COLOR, TEXT));
+    }
+
+    @Test
+    public void testEqualsDifferentText() {
+        this.checkNotEquals(SpreadsheetFormattedText.with(COLOR, "different"));
+    }
+
+    // toString ..................................................................................................
+
     @Test
     public void testToString() {
         assertEquals(COLOR.get() + " " + CharSequences.quote(TEXT), this.createFormattedText().toString());
@@ -137,5 +158,10 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public SpreadsheetFormattedText createObject() {
+        return SpreadsheetFormattedText.with(COLOR, TEXT);
     }
 }

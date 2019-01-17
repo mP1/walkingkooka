@@ -24,7 +24,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -222,6 +221,24 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
                 CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L)),
                 CacheControlDirective.NO_CACHE,
                 CacheControlDirective.NO_STORE);
+    }
+
+    // equals ............................................................................
+
+    private final static Optional<Long> PARAMETER = Optional.of(123L);
+
+    @Test
+    public void testEqualsDifferentParameter() {
+        this.checkNotEquals(this.directiveName().setParameter(Optional.of(456L)));
+    }
+
+    @Test
+    public void testEqualsDifferentName() {
+        this.checkNotEquals(CacheControlDirectiveName.S_MAXAGE.setParameter(PARAMETER));
+    }
+
+    private CacheControlDirectiveName<Long> directiveName() {
+        return CacheControlDirectiveName.MAX_AGE;
     }
 
     @Override

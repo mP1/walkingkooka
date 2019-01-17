@@ -19,14 +19,16 @@ package walkingkooka.collect.stack;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 /**
  * Base class for testing a {@link Stack}.
  */
-abstract public class StackTestCase<S extends Stack<T>, T> extends ClassTestCase<S>
-        implements SerializationTesting<S> {
+abstract public class StackTestCase<S extends Stack<T> & HashCodeEqualsDefined, T> extends ClassTestCase<S>
+        implements HashCodeEqualsDefinedTesting<S>, SerializationTesting<S> {
 
     protected StackTestCase() {
         super();
@@ -43,7 +45,8 @@ abstract public class StackTestCase<S extends Stack<T>, T> extends ClassTestCase
         stack.pushAll(null);
     }
 
-    @Test final public void testCheckToStringOverridden() {
+    @Test
+    final public void testCheckToStringOverridden() {
         this.checkToStringOverridden(this.type());
     }
 
@@ -52,5 +55,10 @@ abstract public class StackTestCase<S extends Stack<T>, T> extends ClassTestCase
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public S createObject() {
+        return this.createStack();
     }
 }

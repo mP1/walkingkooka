@@ -73,6 +73,11 @@ public abstract class PojoNodeTestCase<N extends PojoNode, V> extends NodeTestCa
         this.createNode().setAttributes(Maps.empty());
     }
 
+    @Test
+    public final void testDifferentValue() {
+        this.checkNotEquals(this.createPojoNode().setValue(this.differentValue()));
+    }
+
     @Override
     protected final PojoNode createNode() {
         return this.createPojoNode();

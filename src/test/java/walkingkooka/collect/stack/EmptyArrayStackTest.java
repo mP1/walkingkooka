@@ -102,6 +102,21 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
     }
 
     @Test
+    public void testBothEmpty() {
+        final EmptyArrayStack<String> stack1 = EmptyArrayStack.instance();
+        final Stack<String> stack2 = Stacks.arrayList();
+        this.checkEqualsAndHashCode(stack1, stack2);
+    }
+
+    @Test
+    public void testOtherNotEmpty() {
+        final EmptyArrayStack<String> stack1 = EmptyArrayStack.instance();
+        final Stack<String> stack2 = Stacks.arrayList();
+        stack2.push("*");
+        this.checkNotEquals(stack1, stack2);
+    }
+
+    @Test
     public void testToString() {
         assertEquals("[]", EmptyArrayStack.instance().toString());
     }

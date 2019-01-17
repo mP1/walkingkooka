@@ -75,7 +75,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(6, 7);
         assertNotEquals("class", RightPaddedCharSequence.class, sub.getClass());
-        this.checkEquals(sub, RightPaddedCharSequenceTest.PADDING);
+        this.checkEquals2(sub, RightPaddedCharSequenceTest.PADDING);
         assertEquals("sub.toString", ".", sub.toString());
     }
 
@@ -84,7 +84,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(5, 8);
         assertNotEquals("class", RightPaddedCharSequence.class, sub.getClass());
-        this.checkEquals(sub,
+        this.checkEquals2(sub,
                 RightPaddedCharSequenceTest.PADDING,
                 RightPaddedCharSequenceTest.PADDING,
                 RightPaddedCharSequenceTest.PADDING);
@@ -102,7 +102,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
     public void testSubSequenceWithinWrapped() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 4);
-        this.checkEquals(sub, "bcd");
+        this.checkEquals2(sub, "bcd");
         assertEquals("sub.toString", "bcd", sub.toString());
     }
 
@@ -110,7 +110,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
     public void testSubSequenceWithLessPadding() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 7);
-        this.checkEquals(sub, "abcde..");
+        this.checkEquals2(sub, "abcde..");
         assertEquals("sub.toString", "abcde..", sub.toString());
     }
 
@@ -118,7 +118,7 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
     public void testSubSequenceWithLessPadding2() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 6);
-        this.checkEquals(sub, "bcde.");
+        this.checkEquals2(sub, "bcde.");
         assertEquals("sub.toString", "bcde.", sub.toString());
     }
 

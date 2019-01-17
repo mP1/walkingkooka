@@ -20,17 +20,17 @@ package walkingkooka.tree.search;
 
 final class SearchLongQueryValueSearchQueryTester extends SearchComparableQueryValueSearchQueryTester<Long> {
 
-    static SearchLongQueryValueSearchQueryTester with(final Long value, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
-        return new SearchLongQueryValueSearchQueryTester(value, result);
+    static SearchLongQueryValueSearchQueryTester with(final Long value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        return new SearchLongQueryValueSearchQueryTester(value, predicate);
     }
 
-    private SearchLongQueryValueSearchQueryTester(final Long value, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
-        super(value, result);
+    private SearchLongQueryValueSearchQueryTester(final Long value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        super(value, predicate);
     }
 
     @Override
     SearchLongQueryValueSearchQueryTester not() {
-        return new SearchLongQueryValueSearchQueryTester(this.value, this.result.not());
+        return new SearchLongQueryValueSearchQueryTester(this.value, this.predicate.not());
     }
 
     @Override
@@ -50,7 +50,7 @@ final class SearchLongQueryValueSearchQueryTester extends SearchComparableQueryV
 
     @Override
     final boolean test(final SearchLongNode node) {
-        return this.result.test(this.value, node.value());
+        return this.predicate.test(this.value, node.value());
     }
 
     @Override

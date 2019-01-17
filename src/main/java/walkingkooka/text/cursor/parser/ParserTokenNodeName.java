@@ -19,13 +19,14 @@ package walkingkooka.text.cursor.parser;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Objects;
 
 /**
  * Represents the (simple) class name of a {@link ParserTokenNode}
  */
-public final class ParserTokenNodeName implements Name {
+public final class ParserTokenNodeName implements Name, Comparable<ParserTokenNodeName> {
 
     /**
      * Factory that creates a {@link ParserTokenNodeName} given a {@link Class ParserToken class}.
@@ -97,22 +98,35 @@ public final class ParserTokenNodeName implements Name {
 
     private final String value;
 
+    // Object..................................................................................................
+
     @Override
     public int hashCode() {
-        return this.value().hashCode();
+        return CASE_SENSITIVITY.hash(this.value);
     }
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof ParserTokenNodeName && this.equals0(Cast.to(other));
+        return this == other ||
+                other instanceof ParserTokenNodeName &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ParserTokenNodeName other) {
-        return this.value().equals(other.value());
+        return this.compareTo(other) == 0;
     }
 
     @Override
     public String toString() {
-        return this.value();
+        return this.value;
     }
+
+    // Comparable ...................................................................................................
+
+    @Override
+    public int compareTo(final ParserTokenNodeName other) {
+        return CASE_SENSITIVITY.comparator().compare(this.value, other.value);
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

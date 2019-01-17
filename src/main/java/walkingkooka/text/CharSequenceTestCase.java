@@ -20,6 +20,8 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -27,7 +29,8 @@ import static org.junit.Assert.assertSame;
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
  */
-abstract public class CharSequenceTestCase<C extends CharSequence> extends ClassTestCase<C> {
+abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqualsDefined> extends ClassTestCase<C>
+        implements HashCodeEqualsDefinedTesting<C> {
 
     protected CharSequenceTestCase() {
         super();
@@ -121,7 +124,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends Class
     @Test
     public void testEmptySubSequence() {
         final C sequence = this.createCharSequence();
-        this.checkEquals(sequence.subSequence(0, 0), "");
+        this.checkEquals2(sequence.subSequence(0, 0), "");
     }
 
     @Test
@@ -131,7 +134,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends Class
         final int length = sequence.length();
         Assert.assertTrue("sequence length must be greater than equal to 1=" + CharSequences.quote(
                 sequence.toString()), length >= 1);
-        this.checkEquals(sequence.subSequence(length - 1, length - 1), "");
+        this.checkEquals2(sequence.subSequence(length - 1, length - 1), "");
     }
 
     @Test
@@ -142,11 +145,16 @@ abstract public class CharSequenceTestCase<C extends CharSequence> extends Class
 
     abstract protected C createCharSequence();
 
-    protected void checkEquals(final CharSequence actual, final String expected) {
-        this.checkEquals(actual, expected.toCharArray());
+    @Override
+    public final C createObject() {
+        return this.createCharSequence();
     }
 
-    protected void checkEquals(final CharSequence actual, final char... c) {
+    protected void checkEquals2(final CharSequence actual, final String expected) {
+        this.checkEquals2(actual, expected.toCharArray());
+    }
+
+    protected void checkEquals2(final CharSequence actual, final char... c) {
         this.checkLength(actual, c.length);
         this.checkCharAt(actual, c);
     }

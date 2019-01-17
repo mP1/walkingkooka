@@ -101,7 +101,7 @@ public final class PojoCharArrayNodeTest extends PojoArrayNodeTestCase<PojoCharA
     }
 
     @Test
-    public void testSetValieWithImmutableParent() {
+    public void testSetValueWithImmutableParent() {
         final char[] array = new char[]{ELEMENT0, ELEMENT1};
         final TestImmutableParent parent = new TestImmutableParent(array);
 
@@ -123,6 +123,16 @@ public final class PojoCharArrayNodeTest extends PojoArrayNodeTestCase<PojoCharA
 
         this.childrenAndCheckNames(childNode, INDEX0, INDEX1);
         this.childrenValuesCheck(childNode, ELEMENT0, ELEMENT1);
+    }
+
+    @Test
+    public void testEqualsDifferentValues() {
+        this.createPojoNode(new char[]{'z'});
+    }
+
+    @Test
+    public void testEqualsDifferentValues2() {
+        this.createPojoNode(new char[]{'a', 'b'});
     }
     
     @Override

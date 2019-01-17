@@ -17,12 +17,14 @@
 
 package walkingkooka.text;
 
+import walkingkooka.test.HashCodeEqualsDefined;
+
 import java.io.Serializable;
 
 /**
  * A {@link CharSequence} that is always empty.
  */
-final class EmptyCharSequence implements CharSequence, Serializable {
+final class EmptyCharSequence implements CharSequence, HashCodeEqualsDefined, Serializable {
 
     private static final long serialVersionUID = 5821759502950692584L;
 

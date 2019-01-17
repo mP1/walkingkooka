@@ -28,12 +28,17 @@ public final class SearchLocalDateQueryValueTest extends SearchQueryValueTestCas
 
     @Override
     LocalDate value() {
-        return LocalDate.of(2000, 1, 31);
+        return LocalDate.of(2000, 1, 2);
+    }
+
+    @Override
+    LocalDate differentValue() {
+        return LocalDate.of(1999, 12, 31);
     }
 
     @Override
     String searchQueryValueToString() {
-        return "2000-01-31";
+        return "2000-01-02";
     }
 
     @Override

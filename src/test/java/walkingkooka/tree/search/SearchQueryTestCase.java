@@ -21,6 +21,7 @@ package walkingkooka.tree.search;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.math.BigDecimal;
@@ -34,7 +35,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTestCase<Q> {
+public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTestCase<Q>
+        implements HashCodeEqualsDefinedTesting<Q> {
 
     static final String DATE = "2000-01-31";
     static final String DATE_LT = "1999-12-31";
@@ -59,6 +61,10 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTe
     static final String TEXT2 = "mNop";
     static final String TEXT2_LT = "aBc";
     static final String TEXT2_GT = "xYz";
+
+    SearchQueryTestCase() {
+        super();
+    }
 
     // tests.........................................................................................................
 
@@ -262,5 +268,10 @@ public abstract class SearchQueryTestCase<Q extends SearchQuery> extends ClassTe
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public final Q createObject() {
+        return this.createSearchQuery();
     }
 }

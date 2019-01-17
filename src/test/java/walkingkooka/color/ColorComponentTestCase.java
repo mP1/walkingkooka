@@ -22,6 +22,7 @@ package walkingkooka.color;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
@@ -33,7 +34,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-abstract public class ColorComponentTestCase<C extends ColorComponent> extends ClassTestCase<C> implements SerializationTesting<C> {
+abstract public class ColorComponentTestCase<C extends ColorComponent> extends ClassTestCase<C>
+        implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
 
     ColorComponentTestCase() {
         super();
@@ -41,9 +43,8 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     // constants
 
-    private final static byte VALUE = 123;
-    private final static int VALUE2 = 240;
-    private final static byte BYTE_VALUE2 = (byte) VALUE2;
+    final static byte VALUE = 0x11;
+    final static byte VALUE2 = 0x22;
 
     // tests
 
@@ -52,7 +53,7 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
         final C component = this.createColorComponent(VALUE);
         assertEquals("value", VALUE, component.value());
         assertEquals("unsignedIntValue", VALUE, component.unsignedIntValue);
-        assertEquals("floatValue", 123.0f / 255f, component.floatValue, 0.1f);
+        assertEquals("floatValue", 0x11 / 255f, component.floatValue, 0.1f);
     }
 
     @Test
@@ -82,7 +83,7 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     @Test
     public final void testAddZero2() {
-        final C component = this.createColorComponent(BYTE_VALUE2);
+        final C component = this.createColorComponent(VALUE2);
         assertSame(component, component.add(0));
     }
 
@@ -96,7 +97,7 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     @Test
     public final void testAddOne2() {
-        final C component = this.createColorComponent(BYTE_VALUE2);
+        final C component = this.createColorComponent(VALUE2);
         final C added = Cast.to(component.add(1));
         assertEquals("result of add was not the same component type", component.getClass(), added.getClass());
         assertEquals(VALUE2 + 1, added.unsignedIntValue);
@@ -112,7 +113,7 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     @Test
     public final void testAddNegativeOne2() {
-        final C component = this.createColorComponent(BYTE_VALUE2);
+        final C component = this.createColorComponent(VALUE2);
         final C added = Cast.to(component.add(-1));
         assertEquals("result of add was not the same component type", component.getClass(), added.getClass());
         assertEquals(VALUE2 - 1, added.unsignedIntValue);
@@ -218,5 +219,10 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public final C createObject() {
+        return this.createColorComponent();
     }
 }

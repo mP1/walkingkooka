@@ -90,6 +90,12 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
     }
 
     @Test
+    public void testWithAlpha() {
+        final Color color = this.createObject();
+        this.checkNotEquals(AlphaColor.with(color.red(), color.green(), color.blue(), AlphaColorComponent.with((byte) 4)));
+    }
+
+    @Test
     public void testToAwtColor() {
         final java.awt.Color color = Color.fromRgb(0x010203).toAwtColor();
         assertEquals("red", 1, color.getRed());

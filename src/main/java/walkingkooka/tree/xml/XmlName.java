@@ -19,8 +19,10 @@
 package walkingkooka.tree.xml;
 
 import org.w3c.dom.Document;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
@@ -30,6 +32,7 @@ import java.util.Map;
  * A dom name, which comes in different flavours for the various dom node types.
  */
 public final class XmlName implements Name,
+        Comparable<XmlName>,
         Serializable {
 
     private final static Map<String, XmlName> constants = Maps.hash();
@@ -99,26 +102,41 @@ public final class XmlName implements Name,
         throw new IllegalArgumentException("Invalid tag name " + CharSequences.quote(this.value()));
     }
 
-    // Object
+    // Object..................................................................................................
 
     @Override
-    public final int hashCode() {
-        return this.name.hashCode();
+    public int hashCode() {
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
-    public final boolean equals(final Object other) {
-        return (this == other) || other instanceof XmlName && this.equals0((XmlName) other);
+    public boolean equals(final Object other) {
+        return this == other ||
+                other instanceof XmlName &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final XmlName other) {
-        return this.name.equals(other.name) && this.kind == other.kind;
+        return this.compareTo(other) == 0;
     }
 
     @Override
     public String toString() {
         return this.name;
     }
+
+    // Comparable ...................................................................................................
+
+    @Override
+    public int compareTo(final XmlName other) {
+        int value = CASE_SENSITIVITY.comparator().compare(this.name, other.name);
+        if(0 == value) {
+            value = CASE_SENSITIVITY.comparator().compare(this.kind.name(), other.kind.name());
+        }
+        return value;
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     // Serializable
 

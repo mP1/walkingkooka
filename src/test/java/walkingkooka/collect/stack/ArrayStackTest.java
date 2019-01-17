@@ -217,6 +217,51 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     }
 
     @Test
+    public void testEqualsAgainstEmpty() {
+        this.checkNotEquals(Stacks.arrayList());
+    }
+
+    @Test
+    public void testEqualsDifferentItemCount() {
+        final Stack<String> stack1 = this.createObject();
+        final Stack<String> stack2 = this.createObject().push("2");
+        checkNotEquals(stack1, stack2);
+    }
+
+    @Test
+    public void testEqualsDifferentItems() {
+        this.checkNotEquals(ArrayStack.with("different"));
+    }
+
+    @Test
+    public void testEqualsDifferentItems2() {
+        checkNotEquals(this.createObject().push("2"), ArrayStack.with("different").push("2"));
+    }
+
+    @Test
+    public void testEqualsDifferentItems3() {
+        checkNotEquals(this.createObject().push("2"), ArrayStack.with("1").push("different"));
+    }
+
+    @Test
+    public void testEqualsDifferentItemsAndDifferentStackType() {
+        this.checkNotEquals(Stacks.arrayList().push("different"));
+    }
+
+    @Test
+    public void testEqualsDifferentItemsAndDifferentStackType2() {
+        checkNotEquals(this.createObject().push("2"),
+                Stacks.arrayList().push("1").push("different"));
+    }
+
+    @Test
+    public void testSameItemsDifferentStackType() {
+        final Stack<String> stack1 = this.createObject().push("2");
+        final Stack<String> stack2 = Stacks.<String>arrayList().push("1").push("2");
+        checkEqualsAndHashCode(stack1, stack2);
+    }
+
+    @Test
     public void testToString() {
         final Stack<String> stack = ArrayStack.with("1");
         assertEquals("[1]", stack.toString());
@@ -252,5 +297,10 @@ final public class ArrayStackTest extends StackTestCase<ArrayStack<String>, Stri
     @Override
     public boolean serializableInstanceIsSingleton() {
         return false;
+    }
+
+    @Override
+    public ArrayStack<String> createObject() {
+        return ArrayStack.with("1");
     }
 }

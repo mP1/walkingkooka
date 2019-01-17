@@ -21,7 +21,7 @@ package walkingkooka.tree.search;
 import java.util.Comparator;
 
 /**
- * Returns true if the condition is met, testing the result of a {@link Number} comparing against another
+ * Returns true if the condition is met, testing the predicate of a {@link Number} comparing against another
  * number of the same type.
  */
 enum SearchQueryValueSearchQueryTesterComparisonPredicate {
@@ -33,8 +33,8 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
 
         @Override
-        boolean test0(final int result) {
-            return 0 == result;
+        boolean test0(final int predicate) {
+            return 0 == predicate;
         }
     },
     GREATER_THAN {
@@ -45,8 +45,8 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
 
         @Override
-        boolean test0(final int result) {
-            return result > 0;
+        boolean test0(final int predicate) {
+            return predicate > 0;
         }
     },
     GREATER_THAN_EQUALS {
@@ -57,8 +57,8 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
 
         @Override
-        boolean test0(final int result) {
-            return result >= 0;
+        boolean test0(final int predicate) {
+            return predicate >= 0;
         }
     },
     LESS_THAN {
@@ -69,8 +69,8 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
 
         @Override
-        boolean test0(final int result) {
-            return result < 0;
+        boolean test0(final int predicate) {
+            return predicate < 0;
         }
     },
     LESS_THAN_EQUALS {
@@ -81,8 +81,8 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
 
         @Override
-        boolean test0(final int result) {
-            return result <= 0;
+        boolean test0(final int predicate) {
+            return predicate <= 0;
         }
     },
     NOT_EQUALS {
@@ -93,8 +93,8 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         }
 
         @Override
-        boolean test0(final int result) {
-            return 0 != result;
+        boolean test0(final int predicate) {
+            return 0 != predicate;
         }
     };
 
@@ -108,5 +108,5 @@ enum SearchQueryValueSearchQueryTesterComparisonPredicate {
         return this.test0(comparator.compare(otherValue, value));
     }
 
-    abstract boolean test0(int result);
+    abstract boolean test0(int predicate);
 }

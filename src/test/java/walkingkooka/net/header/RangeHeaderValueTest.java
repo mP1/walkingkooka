@@ -274,6 +274,13 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
         this.toHeaderTextAndCheck(this.range(unit, ranges), headerText);
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentRanges() {
+        this.checkNotEquals(this.range(UNIT, Range.greaterThan(456L)));
+    }
+
     // toString.......................................................
 
     @Test

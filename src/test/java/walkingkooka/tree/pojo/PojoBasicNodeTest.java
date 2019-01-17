@@ -64,6 +64,21 @@ public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Int
     }
 
     @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(this.createPojoNode(456));
+    }
+
+    @Test
+    public void testEqualsDifferentValueType() {
+        this.checkNotEquals(this.createPojoNode(6.7));
+    }
+
+    @Test
+    public void testSameValueDifferentType() {
+        this.checkNotEquals(this.createPojoNode((byte) 123));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("123", this.createNode().toString());
     }

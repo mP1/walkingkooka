@@ -21,6 +21,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.Notable;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import java.util.Comparator;
@@ -29,7 +30,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Object>, Object>
-        implements SerializationTesting<NotComparator<Object>> {
+        implements HashCodeEqualsDefinedTesting<NotComparator<Object>>,
+        SerializationTesting<NotComparator<Object>> {
 
     private final static Comparator<Object> COMPARATOR = Comparators.fake();
 
@@ -44,7 +46,7 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
 
     @Test
     public void testWrapNotable() {
-        assertSame(NotComparatorTest.COMPARATOR, NotComparator.wrap(new NotableComparator()));
+        assertSame(COMPARATOR, NotComparator.wrap(new NotableComparator()));
     }
 
     private static class NotableComparator
@@ -52,7 +54,7 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
 
         @Override
         public Comparator<Object> negate() {
-            return NotComparatorTest.COMPARATOR;
+            return COMPARATOR;
         }
 
         @Override
@@ -85,19 +87,29 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
     }
 
     @Test
+    public void testEqualsDifferentPredicate() {
+        this.checkNotEquals(NotComparator.wrap(String.CASE_INSENSITIVE_ORDER));
+    }
+
+    @Test
     public void testToString() {
-        assertEquals("NOT (" + NotComparatorTest.COMPARATOR.toString() + ")",
+        assertEquals("NOT (" + COMPARATOR.toString() + ")",
                 this.createComparator().toString());
     }
 
     @Override
     protected NotComparator<Object> createComparator() {
-        return Cast.to(NotComparator.wrap(NotComparatorTest.COMPARATOR));
+        return Cast.to(NotComparator.wrap(COMPARATOR));
     }
 
     @Override
     public Class<NotComparator<Object>> type() {
         return Cast.to(NotComparator.class);
+    }
+    
+    @Override
+    public NotComparator<Object> createObject() {
+        return this.createComparator();
     }
 
     @Override

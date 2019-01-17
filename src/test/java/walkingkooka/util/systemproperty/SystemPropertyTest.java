@@ -20,9 +20,9 @@ package walkingkooka.util.systemproperty;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.IpPort;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -31,7 +31,8 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class SystemPropertyTest extends ClassTestCase<SystemProperty> implements ConstantsTesting<SystemProperty> {
+final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
+        implements ConstantsTesting<SystemProperty>, HashCodeEqualsDefinedTesting<SystemProperty> {
 
     @Test
     public void testGetNullFails() {
@@ -125,6 +126,11 @@ final public class SystemPropertyTest extends ClassTestCase<SystemProperty> impl
     }
 
     @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(SystemProperty.FILE_ENCODING_PKG);
+    }
+
+    @Test
     public void testToString() {
         final String name = "name";
         assertEquals(name, SystemProperty.get(name).toString());
@@ -145,6 +151,11 @@ final public class SystemPropertyTest extends ClassTestCase<SystemProperty> impl
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public SystemProperty createObject() {
+        return SystemProperty.FILE_SYSTEM_CASE_SENSITIVITY;
     }
 
     @Override

@@ -20,13 +20,14 @@ package walkingkooka.color;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HsvTest extends ClassTestCase<Hsv> implements SerializationTesting<Hsv> {
+public final class HsvTest extends ClassTestCase<Hsv> implements HashCodeEqualsDefinedTesting<Hsv>, SerializationTesting<Hsv> {
 
     // constants
 
@@ -207,6 +208,21 @@ public final class HsvTest extends ClassTestCase<Hsv> implements SerializationTe
     }
 
     @Test
+    public void testEqualsDifferentHue() {
+        this.checkNotEquals(Hsv.with(HueHsvComponent.with(180), SATURATION, VALUE));
+    }
+
+    @Test
+    public void testEqualsDifferentSaturation() {
+        this.checkNotEquals(Hsv.with(HUE, SaturationHsvComponent.with(0.5f), VALUE));
+    }
+
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(Hsv.with(HUE, SATURATION, ValueHsvComponent.with(0.5f)));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(HsvTest.HUE + "," + HsvTest.SATURATION + "," + HsvTest.VALUE,
                 Hsv.with(HsvTest.HUE, HsvTest.SATURATION, HsvTest.VALUE).toString());
@@ -220,6 +236,12 @@ public final class HsvTest extends ClassTestCase<Hsv> implements SerializationTe
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+
+    @Override
+    public Hsv createObject() {
+        return Hsv.with(HUE, SATURATION, VALUE);
     }
 
     @Override

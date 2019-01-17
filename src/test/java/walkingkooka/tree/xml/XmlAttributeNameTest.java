@@ -20,17 +20,57 @@ package walkingkooka.tree.xml;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
-public final class XmlAttributeNameTest extends NameTestCase<XmlAttributeName> {
+import java.util.Optional;
+
+public final class XmlAttributeNameTest extends NameTestCase<XmlAttributeName, XmlAttributeName> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNoPrefixNullFails() {
         XmlAttributeName.with("a", null);
     }
 
+    @Test
+    public void testDifferentPrefix() {
+        this.checkNotEquals(this.createName(this.nameText(), "different"));
+    }
+
+    @Test
+    public void testDifferentPrefix2() {
+        final String nameText = this.nameText();
+
+        this.checkNotEquals(this.createName(nameText, "prefix"),
+                this.createName(nameText, "different"));
+    }
+
+    private XmlAttributeName createName(final String name, final String prefix) {
+        return XmlAttributeName.with(name, Optional.of(XmlNameSpacePrefix.with(prefix)));
+    }
+
     @Override
     protected XmlAttributeName createName(final String name) {
         return XmlAttributeName.with(name, XmlAttributeName.NO_PREFIX);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "attribute-22";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "attribute-1";
     }
 
     @Override

@@ -23,6 +23,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
@@ -31,7 +32,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<UrlPathNameHttpRequestAttribute> {
+public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<UrlPathNameHttpRequestAttribute>
+        implements HashCodeEqualsDefinedTesting<UrlPathNameHttpRequestAttribute> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidIndexFails() {
@@ -63,6 +65,19 @@ public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<Url
     }
 
     @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(UrlPathNameHttpRequestAttribute.with(1));
+    }
+
+    @Test
+    public void testSameUncached() {
+        final int index = UrlPathNameHttpRequestAttribute.CONSTANT_COUNT + 1;
+        this.checkEquals(
+                UrlPathNameHttpRequestAttribute.with(index),
+                UrlPathNameHttpRequestAttribute.with(index));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("path-0", UrlPathNameHttpRequestAttribute.with(0).toString());
     }
@@ -75,5 +90,10 @@ public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<Url
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public UrlPathNameHttpRequestAttribute createObject() {
+        return UrlPathNameHttpRequestAttribute.with(0);
     }
 }

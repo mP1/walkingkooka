@@ -329,6 +329,19 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
                 string.toSearchNode())));
     }
 
+    // HashCodeAnddEqualityDefined.......................................................
+
+    @Test
+    public void testEqualsDifferentChildren() {
+        this.checkNotEquals(JsonNode.array().appendChild(JsonNode.string("different")));
+    }
+
+    @Test
+    public void testEqualsDifferentChildren2() {
+        this.checkNotEquals(JsonNode.array().appendChild(JsonNode.string("child1")),
+                JsonNode.array().appendChild(JsonNode.string("child2")));
+    }
+
     // toString .......................................................................................
 
     @Test

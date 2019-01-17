@@ -21,12 +21,15 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials> implements SerializationTesting<UrlCredentials> {
+public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials>
+        implements HashCodeEqualsDefinedTesting<UrlCredentials>,
+        SerializationTesting<UrlCredentials> {
 
     private final static String USER = "user123";
     private final static String PASSWORD = "password456";
@@ -48,6 +51,16 @@ public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials> impl
         assertEquals("password", PASSWORD, credentials.password());
     }
 
+    @Test
+    public void testEqualsDifferentUser() {
+        this.checkNotEquals(UrlCredentials.with("different", PASSWORD));
+    }
+
+    @Test
+    public void testEqualsDifferentPassword() {
+        this.checkNotEquals(UrlCredentials.with(USER, "different"));
+    }
+
     public void testToString() {
         assertEquals(USER + ":" + PASSWORD, this.credentials().toString());
     }
@@ -64,6 +77,11 @@ public final class UrlCredentialsTest extends ClassTestCase<UrlCredentials> impl
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public UrlCredentials createObject() {
+        return UrlCredentials.with(USER, PASSWORD);
     }
 
     @Override

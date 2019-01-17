@@ -18,7 +18,32 @@
 
 package walkingkooka.tree.search;
 
-public final class SearchTextQueryValueSearchQueryTesterTest extends SearchQueryTesterTestCase<SearchTextQueryValueSearchQueryTester>{
+import org.junit.Test;
+import walkingkooka.text.CaseSensitivity;
+
+public final class SearchTextQueryValueSearchQueryTesterTest extends SearchComparableQueryValueSearchQueryTesterTestCase<SearchTextQueryValueSearchQueryTester, String> {
+
+    @Test
+    public void testDifferentCaseSensitivity() {
+        this.checkNotEquals(SearchTextQueryValueSearchQueryTester.with(this.value(), CaseSensitivity.INSENSITIVE, this.predicate()));
+    }
+
+    @Override
+    SearchTextQueryValueSearchQueryTester createSearchQueryTester(final String value,
+                                                                  final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        return SearchTextQueryValueSearchQueryTester.with(value, CaseSensitivity.SENSITIVE, predicate);
+    }
+
+    @Override
+    String value() {
+        return "abc";
+    }
+
+    @Override
+    String differentValue() {
+        return "xyz";
+    }
+
     @Override
     protected Class<SearchTextQueryValueSearchQueryTester> type() {
         return SearchTextQueryValueSearchQueryTester.class;

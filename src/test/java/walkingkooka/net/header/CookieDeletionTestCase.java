@@ -19,12 +19,22 @@
 package walkingkooka.net.header;
 
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class CookieDeletionTestCase<E extends CookieDeletion> extends ClassTestCase<E> {
+public abstract class CookieDeletionTestCase<D extends CookieDeletion & HashCodeEqualsDefined> extends ClassTestCase<D>
+        implements HashCodeEqualsDefinedTesting<D> {
 
     CookieDeletionTestCase() {
         super();
+    }
+
+    abstract D createDeletion();
+
+    @Override
+    public final D createObject() {
+        return this.createDeletion();
     }
 
     @Override

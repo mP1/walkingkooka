@@ -23,7 +23,8 @@ import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-final public class LineTest extends CharSequenceTestCase<Line> implements SerializationTesting<Line> {
+final public class LineTest extends CharSequenceTestCase<Line>
+        implements SerializationTesting<Line> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullTextFails() {
@@ -58,6 +59,16 @@ final public class LineTest extends CharSequenceTestCase<Line> implements Serial
     private void createAndCheck(final String text) {
         final Line line = Line.with(text);
         assertEquals("text value", text, line.value());
+    }
+
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(Line.with("different"));
+    }
+
+    @Test
+    public void testSameTextDifferentCase() {
+        this.checkNotEquals(Line.with("ABC123"));
     }
 
     @Override

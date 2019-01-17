@@ -18,8 +18,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.net.header.HasHeaderScope;
-
 enum HttpHeaderNameScope implements HasHeaderScope {
 
     REQUEST(false, true, false),

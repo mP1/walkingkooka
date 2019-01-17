@@ -219,6 +219,36 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
         this.isWildcardAndCheck(false);
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentRange() {
+        this.checkNotEquals(this.range(UNIT,
+                this.range(456, 789),
+                SIZE));
+    }
+
+    @Test
+    public void testEqualsDifferentRange2() {
+        this.checkNotEquals(this.range(UNIT,
+                ContentRange.NO_RANGE,
+                SIZE));
+    }
+
+    @Test
+    public void testEqualsDifferentSize() {
+        this.checkNotEquals(this.range(UNIT,
+                this.range(),
+                ContentRange.NO_SIZE));
+    }
+
+    @Test
+    public void testEqualsDifferentSize2() {
+        this.checkNotEquals(this.range(UNIT,
+                range(),
+                Optional.of(456L)));
+    }
+
     // parse ......................................................................................................
 
     @Test(expected = NullPointerException.class)
@@ -446,6 +476,12 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
     private Optional<Range<Long>> range(final long lower, final long upper) {
         return Optional.of(Range.greaterThanEquals(lower).and(Range.lessThanEquals(upper)));
+    }
+
+    private final ContentRange range(final RangeHeaderValueUnit unit,
+                                     final Optional<Range<Long>> range,
+                                     final Optional<Long> size) {
+        return ContentRange.with(unit, range, size);
     }
 
     @Override

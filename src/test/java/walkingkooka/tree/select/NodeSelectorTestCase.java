@@ -27,6 +27,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.type.MemberVisibility;
@@ -43,7 +44,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>> extends ClassTestCase<S> {
+abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>>
+        extends ClassTestCase<S>
+        implements HashCodeEqualsDefinedTesting<S> {
 
     final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
@@ -161,5 +164,10 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public final S createObject() {
+        return this.createSelector();
     }
 }

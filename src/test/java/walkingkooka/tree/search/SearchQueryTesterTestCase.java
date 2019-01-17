@@ -18,17 +18,47 @@
 
 package walkingkooka.tree.search;
 
+import org.junit.Ignore;
+import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
-public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester> extends ClassTestCase<T> {
+public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester<V>, V> extends ClassTestCase<T>
+        implements HashCodeEqualsDefinedTesting<T> {
 
     SearchQueryTesterTestCase() {
         super();
+    }
+
+    @Test
+    @Ignore
+    public final void testHashCodeAndEqualsInPairs() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testDifferentValue() {
+        this.checkNotEquals(this.createSearchQueryTester(this.differentValue()));
     }
 
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
+
+    @Override
+    public final T createObject() {
+        return this.createSearchQueryTester();
+    }
+
+    private T createSearchQueryTester() {
+        return this.createSearchQueryTester(this.value());
+    }
+
+    abstract T createSearchQueryTester(final V value);
+
+    abstract V value();
+
+    abstract V differentValue();
 }

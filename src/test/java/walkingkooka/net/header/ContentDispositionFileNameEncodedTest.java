@@ -38,7 +38,23 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
 
     @Test
     public void testToHeaderText() {
-        this.toHeaderTextAndCheck("UTF-8''filename%20123");
+        this.toHeaderTextAndCheck("UTF-8'en'filename%20123");
+    }
+
+    @Test
+    public void testEqualsDifferentCharsetName() {
+        this.checkNotEquals(ContentDispositionFileNameEncoded.with(
+                EncodedText.with(CharsetName.UTF_16,
+                        this.language(),
+                        FILENAME)));
+    }
+
+    @Test
+    public void testEqualsDifferentLanguage() {
+        this.checkNotEquals(ContentDispositionFileNameEncoded.with(
+                EncodedText.with(this.charsetName(),
+                        this.language("fr"),
+                        FILENAME)));
     }
 
     @Test
@@ -52,11 +68,23 @@ public final class ContentDispositionFileNameEncodedTest extends ContentDisposit
     }
 
     private EncodedText encodedText() {
-        return EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, FILENAME);
+        return EncodedText.with(this.charsetName(), this.language(), FILENAME);
     }
 
     @Override
     protected Class<ContentDispositionFileNameEncoded> type() {
         return ContentDispositionFileNameEncoded.class;
+    }
+
+    private CharsetName charsetName() {
+        return CharsetName.UTF_8;
+    }
+
+    private Optional<LanguageTagName> language() {
+        return this.language("en");
+    }
+
+    private Optional<LanguageTagName> language(final String language) {
+        return Optional.of(LanguageTagName.with(language));
     }
 }

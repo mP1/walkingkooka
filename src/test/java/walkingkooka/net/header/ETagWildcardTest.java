@@ -39,6 +39,11 @@ public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
         this.isMatchAndCheck(ETagValidator.WEAK.setValue("abc"), true);
     }
 
+    @Test
+    public void testNonWildcard() {
+        this.checkNotEquals(ETag.with("0123456789", ETagValidator.STRONG));
+    }
+
     @Override
     ETagWildcard createETag() {
         return ETagWildcard.instance();

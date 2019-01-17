@@ -20,21 +20,23 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
         extends PredicateTestCase<P, String>
-        implements SerializationTesting<P> {
+        implements HashCodeEqualsDefinedTesting<P>, SerializationTesting<P> {
 
-    private static final String CHARS = "#$%";
+    private static final String STRING = "#$%";
 
     CaseSensitivityCharSequencePredicateTemplateTestCase() {
         super();
     }
 
-    @Test final public void testWithNullCharacterSequenceFails() {
+    @Test
+    final public void testWithNullCharacterSequenceFails() {
         this.withFails(null);
     }
 
@@ -54,22 +56,22 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     @Test
     final public void testToStringCaseSensitive() {
         assertEquals(this.prefix() + CharSequences.quoteAndEscape(
-                CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS),
+                STRING),
                 this.createPredicate().toString());
     }
 
     @Test
     final public void testToStringCaseInsensitive() {
         assertEquals(this.prefix() + CharSequences.quoteAndEscape(
-                CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS) + " (CaseInsensitive)",
+                STRING) + " (CaseInsensitive)",
                 this.createPredicateCaseInsensitivity(
-                        CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS).toString());
+                        STRING).toString());
     }
 
     @Override
     final protected P createPredicate() {
         return this.createPredicateCaseSensitivity(
-                CaseSensitivityCharSequencePredicateTemplateTestCase.CHARS);
+                STRING);
     }
 
     abstract P createPredicate(final String chars, final CaseSensitivity sensitivity);
@@ -102,6 +104,21 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
 
     final P createPredicateCaseInsensitivity(final String chars) {
         return this.createPredicate(chars, CaseSensitivity.INSENSITIVE);
+    }
+
+    @Test
+    public void testEqualsDifferentCharSequence() {
+        this.checkNotEquals(this.createPredicate("different", CaseSensitivity.SENSITIVE));
+    }
+
+    @Test
+    public void testEqualsDifferentCaseSensitivity() {
+        this.checkNotEquals(this.createPredicate(STRING, CaseSensitivity.INSENSITIVE));
+    }
+
+    @Override 
+    final public P createObject() {
+        return this.createPredicate(STRING, CaseSensitivity.SENSITIVE);
     }
 
     @Override

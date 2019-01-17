@@ -40,31 +40,31 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
 
     @Test(expected = NullPointerException.class)
     public void testWrapNullCharSequenceFails() {
-        this.wrapFails(null, LeftPaddedCharSequenceTest.LENGTH);
+        this.wrapFails(null, LENGTH);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWrapInvalidLengthFails() {
-        this.wrapFails(LeftPaddedCharSequenceTest.SEQUENCE, 4);
+        this.wrapFails(SEQUENCE, 4);
     }
 
     private void wrapFails(final CharSequence sequence, final int length) {
-        LeftPaddedCharSequence.wrap(sequence, length, LeftPaddedCharSequenceTest.PADDING);
+        LeftPaddedCharSequence.wrap(sequence, length, PADDING);
     }
 
     @Test
     public void testPaddingNotRequired() {
-        assertSame(LeftPaddedCharSequenceTest.SEQUENCE,
-                LeftPaddedCharSequence.wrap(LeftPaddedCharSequenceTest.SEQUENCE,
+        assertSame(SEQUENCE,
+                LeftPaddedCharSequence.wrap(SEQUENCE,
                         5,
-                        LeftPaddedCharSequenceTest.PADDING));
+                        PADDING));
     }
 
     @Test
     public void testCharAt() {
-        this.checkCharAt(LeftPaddedCharSequenceTest.PADDING,
-                LeftPaddedCharSequenceTest.PADDING,
-                LeftPaddedCharSequenceTest.PADDING,
+        this.checkCharAt(PADDING,
+                PADDING,
+                PADDING,
                 'a',
                 'b',
                 'c',
@@ -74,10 +74,10 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
 
     @Test
     public void testLength() {
-        assertEquals(LeftPaddedCharSequenceTest.LENGTH,
-                LeftPaddedCharSequence.wrap(LeftPaddedCharSequenceTest.SEQUENCE,
-                        LeftPaddedCharSequenceTest.LENGTH,
-                        LeftPaddedCharSequenceTest.PADDING).length());
+        assertEquals(LENGTH,
+                LeftPaddedCharSequence.wrap(SEQUENCE,
+                        LENGTH,
+                        PADDING).length());
     }
 
     @Test
@@ -85,7 +85,7 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
         final LeftPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 1);
         assertNotEquals("class", LeftPaddedCharSequence.class, sub.getClass());
-        this.checkEquals(sub, LeftPaddedCharSequenceTest.PADDING);
+        this.checkEquals2(sub, PADDING);
         assertEquals("sub.toString", ".", sub.toString());
     }
 
@@ -94,33 +94,33 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
         final LeftPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(0, 3);
         assertNotEquals("class", LeftPaddedCharSequence.class, sub.getClass());
-        this.checkEquals(sub,
-                LeftPaddedCharSequenceTest.PADDING,
-                LeftPaddedCharSequenceTest.PADDING,
-                LeftPaddedCharSequenceTest.PADDING);
+        this.checkEquals2(sub,
+                PADDING,
+                PADDING,
+                PADDING);
         assertEquals("sub.toString", "...", sub.toString());
     }
 
     @Test
     public void testSubSequenceExactlyWrapped() {
         final LeftPaddedCharSequence sequence = this.createCharSequence();
-        assertSame(LeftPaddedCharSequenceTest.SEQUENCE,
-                sequence.subSequence(3, LeftPaddedCharSequenceTest.LENGTH));
+        assertSame(SEQUENCE,
+                sequence.subSequence(3, LENGTH));
     }
 
     @Test
     public void testSubSequenceWithinWrapped() {
         final LeftPaddedCharSequence sequence = this.createCharSequence();
-        final CharSequence sub = sequence.subSequence(4, LeftPaddedCharSequenceTest.LENGTH);
-        this.checkEquals(sub, "bcde");
+        final CharSequence sub = sequence.subSequence(4, LENGTH);
+        this.checkEquals2(sub, "bcde");
         assertEquals("sub.toString", "bcde", sub.toString());
     }
 
     @Test
     public void testSubSequenceWithLessPadding() {
         final LeftPaddedCharSequence sequence = this.createCharSequence(); // ...abcde
-        final CharSequence sub = sequence.subSequence(1, LeftPaddedCharSequenceTest.LENGTH);
-        this.checkEquals(sub, "..abcde");
+        final CharSequence sub = sequence.subSequence(1, LENGTH);
+        this.checkEquals2(sub, "..abcde");
         assertEquals("sub.toString", "..abcde", sub.toString());
     }
 
@@ -128,7 +128,7 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
     public void testSubSequenceWithLessPadding2() {
         final LeftPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(1, 7);
-        this.checkEquals(sub, "..abcd");
+        this.checkEquals2(sub, "..abcd");
         assertEquals("sub.toString", "..abcd", sub.toString());
     }
 
@@ -139,9 +139,9 @@ final public class LeftPaddedCharSequenceTest extends CharSequenceTestCase<LeftP
 
     @Override
     protected LeftPaddedCharSequence createCharSequence() {
-        return (LeftPaddedCharSequence) LeftPaddedCharSequence.wrap(LeftPaddedCharSequenceTest.SEQUENCE,
-                LeftPaddedCharSequenceTest.LENGTH,
-                LeftPaddedCharSequenceTest.PADDING);
+        return (LeftPaddedCharSequence) LeftPaddedCharSequence.wrap(SEQUENCE,
+                LENGTH,
+                PADDING);
     }
 
     @Override

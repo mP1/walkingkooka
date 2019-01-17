@@ -19,7 +19,6 @@
 package walkingkooka.color;
 
 import org.junit.Test;
-import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
@@ -95,6 +94,12 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
         assertEquals("green", 2, color.getGreen());
         assertEquals("blue", 3, color.getBlue());
         assertEquals("alpha", 4, color.getAlpha());
+    }
+
+    @Test
+    public void testEqualsDifferentAlpha() {
+        final Color color = this.createObject();
+        this.checkNotEquals(AlphaColor.with(color.red(), color.green(), color.blue(), AlphaColorComponent.with((byte) 0xff)));
     }
     
     @Test

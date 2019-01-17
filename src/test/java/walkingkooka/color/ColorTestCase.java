@@ -21,6 +21,7 @@ package walkingkooka.color;
 import org.junit.Test;
 import walkingkooka.Equality;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,7 +29,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C> implements SerializationTesting<C> {
+abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
+        implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
 
     ColorTestCase() {
         super();
@@ -550,7 +552,7 @@ abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C> im
 
     // factory
 
-    final protected C createObject() {
+    final public C createObject() {
         return this.createObject(RED, GREEN, BLUE);
     }
 
