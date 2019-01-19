@@ -75,7 +75,7 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
 
     @Test
     public void testWithLongString() {
-        final AnyCharPredicate predicate = this.createCharacterPredicate();
+        final AnyCharPredicate predicate = this.createCharPredicate();
         assertArrayEquals("array", "123ABC".toCharArray(), predicate.array);
     }
 
@@ -114,15 +114,15 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
 
     @Test
     public void testToString() {
-        assertEquals("\"123ABC\"", this.createCharacterPredicate().toString());
+        assertEquals("\"123ABC\"", this.createCharPredicate().toString());
     }
 
     @Override
-    protected AnyCharPredicate createCharacterPredicate() {
-        return this.createCharacterPredicate(AnyCharPredicateTest.CHARS);
+    protected AnyCharPredicate createCharPredicate() {
+        return this.createCharPredicate(AnyCharPredicateTest.CHARS);
     }
 
-    private AnyCharPredicate createCharacterPredicate(final String chars) {
+    private AnyCharPredicate createCharPredicate(final String chars) {
         return Cast.to(AnyCharPredicate.with(chars));
     }
 
@@ -133,7 +133,7 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
 
     @Override
     public AnyCharPredicate createObject() {
-        return this.createCharacterPredicate();
+        return this.createCharPredicate();
     }
 
     @Override

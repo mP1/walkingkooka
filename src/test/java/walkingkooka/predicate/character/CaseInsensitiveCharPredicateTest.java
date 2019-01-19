@@ -44,11 +44,11 @@ public final class CaseInsensitiveCharPredicateTest extends CharPredicateTestCas
 
     @Test
     public void testToString() {
-        assertEquals("\"abc\" (CaseInsensitive)", this.createCharacterPredicate().toString());
+        assertEquals("\"abc\" (CaseInsensitive)", this.createCharPredicate().toString());
     }
 
     @Override
-    protected CaseInsensitiveCharPredicate createCharacterPredicate() {
+    protected CaseInsensitiveCharPredicate createCharPredicate() {
         return Cast.to(CaseInsensitiveCharPredicate.with(CharPredicates.any("abc")));
     }
 

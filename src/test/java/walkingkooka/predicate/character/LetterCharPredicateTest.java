@@ -56,7 +56,7 @@ final public class LetterCharPredicateTest extends CharPredicateTestCase<LetterC
     }
 
     @Override
-    protected LetterCharPredicate createCharacterPredicate() {
+    protected LetterCharPredicate createCharPredicate() {
         return LetterCharPredicate.INSTANCE;
     }
 

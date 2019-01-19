@@ -96,7 +96,7 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
     }
 
     @Override
-    OrCharPredicate createCharacterPredicate(final CharPredicate left, final CharPredicate right) {
+    OrCharPredicate createCharPredicate(final CharPredicate left, final CharPredicate right) {
         return Cast.to(OrCharPredicate.wrap(left, right));
     }
 

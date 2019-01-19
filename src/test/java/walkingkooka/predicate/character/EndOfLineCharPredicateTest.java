@@ -50,7 +50,7 @@ final public class EndOfLineCharPredicateTest extends CharPredicateTestCase<EndO
     }
 
     @Override
-    protected EndOfLineCharPredicate createCharacterPredicate() {
+    protected EndOfLineCharPredicate createCharPredicate() {
         return EndOfLineCharPredicate.INSTANCE;
     }
 

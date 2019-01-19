@@ -41,7 +41,7 @@ final public class WhitespaceCharPredicateTest
     }
 
     @Override
-    protected WhitespaceCharPredicate createCharacterPredicate() {
+    protected WhitespaceCharPredicate createCharPredicate() {
         return WhitespaceCharPredicate.INSTANCE;
     }
 

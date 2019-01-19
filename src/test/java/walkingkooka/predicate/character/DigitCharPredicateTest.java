@@ -50,7 +50,7 @@ final public class DigitCharPredicateTest extends CharPredicateTestCase<DigitCha
     }
 
     @Override
-    protected DigitCharPredicate createCharacterPredicate() {
+    protected DigitCharPredicate createCharPredicate() {
         return DigitCharPredicate.INSTANCE;
     }
 

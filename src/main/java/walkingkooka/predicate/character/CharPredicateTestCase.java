@@ -44,25 +44,25 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
 
     @Test
     public void testAnd() {
-        final P predicate = this.createCharacterPredicate();
+        final P predicate = this.createCharPredicate();
         assertSame(predicate, predicate.and(predicate));
     }
 
     @Test
     public void testNotNot() {
-        final P predicate = this.createCharacterPredicate();
+        final P predicate = this.createCharPredicate();
         assertEquals(predicate, predicate.negate().negate());
     }
 
     @Test
     public void testOr() {
-        final P predicate = this.createCharacterPredicate();
+        final P predicate = this.createCharPredicate();
         assertSame(predicate, predicate.or(predicate));
     }
 
     @Test
     public void testSetToStringSame() {
-        final P predicate = this.createCharacterPredicate();
+        final P predicate = this.createCharPredicate();
         assertSame(predicate, predicate.setToString(predicate.toString()));
     }
 
@@ -71,14 +71,14 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
         this.checkToStringOverridden(this.type());
     }
 
-    abstract protected P createCharacterPredicate();
+    abstract protected P createCharPredicate();
 
     protected boolean test(final char c) {
-        return this.createCharacterPredicate().test(c);
+        return this.createCharPredicate().test(c);
     }
 
     final protected void testTrue(final char c) {
-        this.testTrue(this.createCharacterPredicate(), c);
+        this.testTrue(this.createCharPredicate(), c);
     }
 
     final protected void testTrue(final CharPredicate predicate, final char c) {
@@ -88,7 +88,7 @@ abstract public class CharPredicateTestCase<P extends CharPredicate>
     }
 
     final protected void testFalse(final char c) {
-        this.testFalse(this.createCharacterPredicate(), c);
+        this.testFalse(this.createCharPredicate(), c);
     }
 
     final protected void testFalse(final CharPredicate predicate, final char c) {

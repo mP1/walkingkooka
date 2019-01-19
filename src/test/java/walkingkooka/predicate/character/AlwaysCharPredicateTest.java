@@ -53,7 +53,7 @@ final public class AlwaysCharPredicateTest extends CharPredicateTestCase<AlwaysC
     }
 
     @Override
-    protected AlwaysCharPredicate createCharacterPredicate() {
+    protected AlwaysCharPredicate createCharPredicate() {
         return AlwaysCharPredicate.INSTANCE;
     }
 

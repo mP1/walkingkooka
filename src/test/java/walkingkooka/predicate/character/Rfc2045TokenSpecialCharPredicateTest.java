@@ -159,11 +159,11 @@ public final class Rfc2045TokenSpecialCharPredicateTest extends CharPredicateTes
 
     @Test
     public void testToString() {
-        assertEquals("RFC2045TokenSpecial", this.createCharacterPredicate().toString());
+        assertEquals("RFC2045TokenSpecial", this.createCharPredicate().toString());
     }
 
     @Override
-    protected Rfc2045TokenSpecialCharPredicate createCharacterPredicate() {
+    protected Rfc2045TokenSpecialCharPredicate createCharPredicate() {
         return Rfc2045TokenSpecialCharPredicate.INSTANCE;
     }
 

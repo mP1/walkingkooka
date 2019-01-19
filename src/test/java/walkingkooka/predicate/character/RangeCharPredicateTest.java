@@ -26,12 +26,12 @@ public class RangeCharPredicateTest extends CharPredicateTestCase<RangeCharPredi
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithStartAfterEndFails() {
-        this.createCharacterPredicate('z', 'a');
+        this.createCharPredicate('z', 'a');
     }
 
     @Test
     public void testWithSameStartAndEnd() {
-        assertEquals(CharPredicates.is('a'), this.createCharacterPredicate('a', 'a'));
+        assertEquals(CharPredicates.is('a'), this.createCharPredicate('a', 'a'));
     }
 
     @Test
@@ -61,14 +61,14 @@ public class RangeCharPredicateTest extends CharPredicateTestCase<RangeCharPredi
 
     @Test
     public void testToString() {
-        assertEquals("'m'..'p'", this.createCharacterPredicate().toString());
+        assertEquals("'m'..'p'", this.createCharPredicate().toString());
     }
 
-    @Override protected RangeCharPredicate createCharacterPredicate() {
-        return Cast.to(this.createCharacterPredicate('m', 'p'));
+    @Override protected RangeCharPredicate createCharPredicate() {
+        return Cast.to(this.createCharPredicate('m', 'p'));
     }
 
-    private CharPredicate createCharacterPredicate(final char start, final char end){
+    private CharPredicate createCharPredicate(final char start, final char end){
         return RangeCharPredicate.with(start, end);
     }
 

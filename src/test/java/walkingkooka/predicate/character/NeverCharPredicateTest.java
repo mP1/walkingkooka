@@ -53,7 +53,7 @@ final public class NeverCharPredicateTest extends CharPredicateTestCase<NeverCha
     }
 
     @Override
-    protected NeverCharPredicate createCharacterPredicate() {
+    protected NeverCharPredicate createCharPredicate() {
         return NeverCharPredicate.INSTANCE;
     }
 

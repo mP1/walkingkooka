@@ -23,7 +23,7 @@ import walkingkooka.predicate.character.CharPredicates;
 
 import static org.junit.Assert.assertEquals;
 
-final public class CharacterPredicatePredicateTest extends PredicateTestCase<CharacterPredicatePredicate, Character> {
+final public class CharPredicatePredicateTest extends PredicateTestCase<CharPredicatePredicate, Character> {
 
     // constants
 
@@ -32,8 +32,8 @@ final public class CharacterPredicatePredicateTest extends PredicateTestCase<Cha
     // tests
 
     @Test(expected = NullPointerException.class)
-    public void testAdaptNullCharacterPredicateFails() {
-        CharacterPredicatePredicate.adapt(null);
+    public void testAdaptNullCharPredicateFails() {
+        CharPredicatePredicate.adapt(null);
     }
 
     @Test
@@ -48,17 +48,17 @@ final public class CharacterPredicatePredicateTest extends PredicateTestCase<Cha
 
     @Test
     public void testToString() {
-        assertEquals(CharacterPredicatePredicateTest.PREDICATE.toString(),
+        assertEquals(CharPredicatePredicateTest.PREDICATE.toString(),
                 this.createPredicate().toString());
     }
 
     @Override
-    protected CharacterPredicatePredicate createPredicate() {
-        return CharacterPredicatePredicate.adapt(CharacterPredicatePredicateTest.PREDICATE);
+    protected CharPredicatePredicate createPredicate() {
+        return CharPredicatePredicate.adapt(CharPredicatePredicateTest.PREDICATE);
     }
 
     @Override
-    protected Class<CharacterPredicatePredicate> type() {
-        return CharacterPredicatePredicate.class;
+    protected Class<CharPredicatePredicate> type() {
+        return CharPredicatePredicate.class;
     }
 }
