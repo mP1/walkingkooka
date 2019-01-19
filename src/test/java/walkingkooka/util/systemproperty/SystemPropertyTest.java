@@ -29,6 +29,8 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
@@ -73,12 +75,12 @@ final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
 
     @Test
     public void testValue() {
-        Assert.assertNotNull(SystemProperty.FILE_SEPARATOR.propertyValue());
+        assertNotNull(SystemProperty.FILE_SEPARATOR.propertyValue());
     }
 
     @Test
     public void testUnknown() {
-        Assert.assertNull(SystemProperty.get(this.getClass().getName() + ".unknown")
+        assertNull(SystemProperty.get(this.getClass().getName() + ".unknown")
                 .propertyValue());
     }
 
@@ -120,7 +122,7 @@ final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
         try {
             property.set(value);
             property.clear();
-            Assert.assertNull(property.propertyValue());
+            assertNull(property.propertyValue());
         } catch (final SecurityException ignore) {
         }
     }

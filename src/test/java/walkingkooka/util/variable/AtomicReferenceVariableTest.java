@@ -17,10 +17,10 @@
 
 package walkingkooka.util.variable;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 final public class AtomicReferenceVariableTest extends VariableTestCase<AtomicReferenceVariable<Object>, Object> {
@@ -29,7 +29,7 @@ final public class AtomicReferenceVariableTest extends VariableTestCase<AtomicRe
     @Test
     public void testWith() {
         final AtomicReferenceVariable<Object> variable = AtomicReferenceVariable.create();
-        Assert.assertNull(variable.get());
+        assertNull(variable.get());
     }
 
     @Test

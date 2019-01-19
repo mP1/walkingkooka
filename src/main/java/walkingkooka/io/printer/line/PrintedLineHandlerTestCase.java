@@ -27,6 +27,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Base class for testing a {@link PrintedLineHandler} with mostly parameter checking tests.
@@ -106,8 +107,8 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
 
     protected void linePrintedAndCheck(final PrintedLineHandler handler, final CharSequence line,
                                        final LineEnding lineEnding, final String expected, final String message) {
-        Assert.assertNotNull("handler", handler);
-        Assert.assertNotNull("line", line);
+        assertNotNull("handler", handler);
+        assertNotNull("line", line);
 
         final String lineString = line.toString();
         if (lineString.contains("\r\n")) {
@@ -120,8 +121,8 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
             Assert.fail("Line contains NL=" + CharSequences.quoteAndEscape(lineString));
         }
 
-        Assert.assertNotNull("lineEnding", lineEnding);
-        Assert.assertNotNull("expected", expected);
+        assertNotNull("lineEnding", lineEnding);
+        assertNotNull("expected", expected);
 
         final StringBuilder printedBuffer = new StringBuilder();
         final Printer printer = Printers.stringBuilder(printedBuffer,

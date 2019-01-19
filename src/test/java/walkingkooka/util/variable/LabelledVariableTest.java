@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 final public class LabelledVariableTest extends VariableTestCase<LabelledVariable<Object>, Object> {
@@ -63,7 +64,7 @@ final public class LabelledVariableTest extends VariableTestCase<LabelledVariabl
     @Test
     public void testWrapNamed() {
         final LabelledVariable<Object> variable = this.createVariable();
-        Assert.assertNotSame(variable, LabelledVariable.wrap("different", variable));
+        assertNotSame(variable, LabelledVariable.wrap("different", variable));
         assertSame(LabelledVariableTest.VALUE, variable.get());
     }
 

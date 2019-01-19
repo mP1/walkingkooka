@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPrinter> {
 
@@ -67,7 +68,7 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
         final PrintStream stream = System.out;
         final PrintStreamPrinter printer = PrintStreamPrinter.with(stream,
                 PrintStreamPrinterTest.LINE_ENDING);
-        Assert.assertTrue(printer + " does not implement HasPrintStream",
+        assertTrue(printer + " does not implement HasPrintStream",
                 printer instanceof HasPrintStream);
         assertSame("printStream getter", stream, printer.printStream());
     }

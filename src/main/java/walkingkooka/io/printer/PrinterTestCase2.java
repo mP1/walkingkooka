@@ -17,10 +17,10 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCase<P> {
 
@@ -81,10 +81,10 @@ abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCas
     protected void printAndCheck(final Printer printer, final CharSequence[] chars,
                                  final StringBuilder target, final String expected, final boolean flushAndClose,
                                  final String message) {
-        Assert.assertNotNull("printer", printer);
-        Assert.assertNotNull("chars", chars);
-        Assert.assertNotNull("target", target);
-        Assert.assertNotNull("expected", expected);
+        assertNotNull("printer", printer);
+        assertNotNull("chars", chars);
+        assertNotNull("target", target);
+        assertNotNull("expected", expected);
 
         for (final CharSequence c : chars) {
             printer.print(c);
@@ -105,7 +105,7 @@ abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCas
      * Splits a CharSequence into many CharSequence each holding a single character.
      */
     protected CharSequence[] characterByCharacter(final CharSequence chars) {
-        Assert.assertNotNull("chars is null", chars);
+        assertNotNull("chars is null", chars);
 
         final int length = chars.length();
         final CharSequence[] array = new CharSequence[length];

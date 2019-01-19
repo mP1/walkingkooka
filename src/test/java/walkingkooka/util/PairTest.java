@@ -17,7 +17,6 @@
 
 package walkingkooka.util;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
@@ -26,6 +25,7 @@ import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 final public class PairTest extends ClassTestCase<Pair<?, ?>>
@@ -48,14 +48,14 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>>
     public void testNullSecond() {
         final Pair<A, B> pair = Pair.with(A, null);
         assertSame("first value", A, pair.first());
-        Assert.assertNull("second value", pair.second());
+        assertNull("second value", pair.second());
     }
 
     @Test
     public void testTwoNulls() {
         final Pair<A, B> pair = Pair.with(null, null);
-        Assert.assertNull("first value", pair.first());
-        Assert.assertNull("second value", pair.second());
+        assertNull("first value", pair.first());
+        assertNull("second value", pair.second());
     }
 
     @Test

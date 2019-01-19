@@ -17,11 +17,11 @@
 
 package walkingkooka.util.variable;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.util.Waiter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 final public class ThreadLocalVariableTest extends VariableTestCase<ThreadLocalVariable<Object>, Object> {
 
@@ -29,7 +29,7 @@ final public class ThreadLocalVariableTest extends VariableTestCase<ThreadLocalV
     @Test
     public void testWith() {
         final ThreadLocalVariable<Object> variable = ThreadLocalVariable.createWithThreadLocal();
-        Assert.assertNull(variable.get());
+        assertNull(variable.get());
     }
 
     @Test

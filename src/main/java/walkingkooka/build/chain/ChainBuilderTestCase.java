@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.collect.list.Lists;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 /**
@@ -58,7 +59,7 @@ abstract public class ChainBuilderTestCase<B extends ChainBuilder<T>, T>
     @Test final public void testToStringAfterAdd() {
         final B builder = this.createBuilder();
         final T added = this.createAdded();
-        Assert.assertEquals(Lists.of(added).toString(), builder.add(added).toString());
+        assertEquals(Lists.of(added).toString(), builder.add(added).toString());
     }
 
     abstract protected T createAdded();

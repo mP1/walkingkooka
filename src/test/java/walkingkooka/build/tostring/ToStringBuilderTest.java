@@ -17,7 +17,6 @@
 
 package walkingkooka.build.tostring;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.collect.list.Lists;
@@ -28,6 +27,7 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, String> {
     // constants
@@ -45,7 +45,7 @@ final public class ToStringBuilderTest extends BuilderTestCase<ToStringBuilder, 
 
     @Test
     public void testClassIsFinal() {
-        Assert.assertTrue(ToStringBuilder.class.toString(),
+        assertTrue(ToStringBuilder.class.toString(),
                 Modifier.isFinal(ToStringBuilder.class.getModifiers()));
     }
 

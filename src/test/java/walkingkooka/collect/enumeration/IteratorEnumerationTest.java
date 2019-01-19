@@ -27,7 +27,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class IteratorEnumerationTest
         extends EnumerationTestCase<IteratorEnumeration<Object>, Object> {
@@ -54,16 +56,16 @@ final public class IteratorEnumerationTest
     @Test
     public void testConsume() {
         final IteratorEnumeration<Object> enumeration = this.createEnumeration();
-        Assert.assertTrue(enumeration.hasMoreElements());
+        assertTrue(enumeration.hasMoreElements());
         assertSame(IteratorEnumerationTest.FIRST, enumeration.nextElement());
 
-        Assert.assertTrue(enumeration.hasMoreElements());
+        assertTrue(enumeration.hasMoreElements());
         assertSame(IteratorEnumerationTest.SECOND, enumeration.nextElement());
 
-        Assert.assertTrue(enumeration.hasMoreElements());
+        assertTrue(enumeration.hasMoreElements());
         assertSame(IteratorEnumerationTest.THIRD, enumeration.nextElement());
 
-        Assert.assertFalse("enumeration(iterator) should be empty", enumeration.hasMoreElements());
+        assertFalse("enumeration(iterator) should be empty", enumeration.hasMoreElements());
 
         try {
             enumeration.nextElement();

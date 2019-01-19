@@ -17,7 +17,6 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.type.MemberVisibility;
 
@@ -26,6 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Base class for testing a {@link Throwable} with mostly parameter checking tests.
@@ -44,7 +44,7 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Class
     public void testNoArgumentsConstructorItNotPublic() throws Throwable {
         final Constructor<T> constructor = this.constructor();
         final int modifier = constructor.getModifiers();
-        Assert.assertFalse(Modifier.isPublic(modifier));
+        assertFalse(Modifier.isPublic(modifier));
 
         constructor.newInstance();
     }

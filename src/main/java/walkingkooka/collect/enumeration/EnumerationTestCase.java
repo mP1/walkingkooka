@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
         extends ClassTestCase<E> {
@@ -55,7 +56,7 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
 
     protected void checkDoesntHasMoreElements(final String message,
                                               final Enumeration<?> enumeration) {
-        Assert.assertNotNull("enumeration", enumeration);
+        assertNotNull("enumeration", enumeration);
         if (enumeration.hasMoreElements()) {
             Assert.fail(message + "=" + enumeration);
         }
@@ -66,7 +67,7 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
     }
 
     protected void checkHasMoreElements(final String message, final Enumeration<T> enumeration) {
-        Assert.assertNotNull("enumeration", enumeration);
+        assertNotNull("enumeration", enumeration);
         if (false == enumeration.hasMoreElements()) {
             Assert.fail(message + "=" + enumeration);
         }
@@ -93,7 +94,7 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
     @SafeVarargs
     protected final <U> void enumerateUsingHasMoreElementsAndCheck(final Enumeration<U> enumeration,
                                                                    final U... expected) {
-        Assert.assertNotNull("enumeration", enumeration);
+        assertNotNull("enumeration", enumeration);
 
         int i = 0;
         final List<U> consumed = Lists.array();
@@ -116,7 +117,7 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
 
     @SafeVarargs
     protected final <U> void enumerateAndCheck(final Enumeration<U> enumeration, final U... expected) {
-        Assert.assertNotNull("enumeration", enumeration);
+        assertNotNull("enumeration", enumeration);
 
         int i = 0;
         final List<U> consumed = Lists.array();

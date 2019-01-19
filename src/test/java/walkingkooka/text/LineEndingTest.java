@@ -23,6 +23,7 @@ import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 final public class LineEndingTest extends CharSequenceTestCase<LineEnding>
@@ -50,7 +51,7 @@ final public class LineEndingTest extends CharSequenceTestCase<LineEnding>
 
     @Test
     public void testSystem() {
-        Assert.assertNotSame(LineEnding.SYSTEM, LineEnding.NONE);
+        assertNotSame(LineEnding.SYSTEM, LineEnding.NONE);
     }
 
     @Test

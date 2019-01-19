@@ -26,6 +26,7 @@ import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 final public class ObjectEqualityPredicateTest
         extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
@@ -48,7 +49,7 @@ final public class ObjectEqualityPredicateTest
     @Test
     public void testWith() {
         final ObjectEqualityPredicate<Object> predicate = ObjectEqualityPredicate.with("String");
-        Assert.assertNotNull(predicate);
+        assertNotNull(predicate);
     }
 
     @Override

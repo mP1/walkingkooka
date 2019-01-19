@@ -25,6 +25,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
@@ -132,7 +133,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
         final C sequence = this.createCharSequence();
 
         final int length = sequence.length();
-        Assert.assertTrue("sequence length must be greater than equal to 1=" + CharSequences.quote(
+        assertTrue("sequence length must be greater than equal to 1=" + CharSequences.quote(
                 sequence.toString()), length >= 1);
         this.checkEquals2(sequence.subSequence(length - 1, length - 1), "");
     }

@@ -17,7 +17,7 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Throws an exception with the provided message if an attempt is made to {@link #set} more than
@@ -41,7 +41,7 @@ final public class Latch {
      * Setter that includes a guard that only allows the boolean state to be set once.
      */
     public void set(final String message) {
-        Assert.assertFalse(message, this.value());
+        assertFalse(message, this.value());
         this.flag = true;
     }
 

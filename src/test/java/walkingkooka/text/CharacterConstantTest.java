@@ -17,12 +17,12 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class CharacterConstantTest extends CharSequenceTestCase<CharacterConstant> {
 
@@ -70,22 +70,22 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
 
     @Test
     public void testSameCharacter() {
-        Assert.assertTrue(this.createObject().equals(CHAR));
+        assertTrue(this.createObject().equals(CHAR));
     }
 
     @Test
     public void testSameCharacter2() {
-        Assert.assertTrue(this.createObject().equals((Object) CHAR));
+        assertTrue(this.createObject().equals((Object) CHAR));
     }
 
     @Test
     public void testSameString() {
-        Assert.assertTrue(this.createObject().equals("" + CHAR));
+        assertTrue(this.createObject().equals("" + CHAR));
     }
 
     @Test
     public void testSameString2() {
-        Assert.assertTrue(this.createObject()
+        assertTrue(this.createObject()
                 .equals("" + CHAR));
     }
     @Test

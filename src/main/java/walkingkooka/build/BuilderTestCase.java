@@ -27,6 +27,7 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Base class for any {@link Builder} which includes helpers that assert failure if {@link
@@ -67,7 +68,7 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     }
 
     protected void buildFails(final Builder<?> builder, final String message) {
-        Assert.assertNotNull("builder is null", builder);
+        assertNotNull("builder is null", builder);
 
         try {
             builder.build();
@@ -79,7 +80,7 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     }
 
     final protected void buildFails(final String message) {
-        Assert.assertNotNull("expectedMessage", message);
+        assertNotNull("expectedMessage", message);
         this.buildFails(this.createBuilder(), message);
     }
 
@@ -89,8 +90,8 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
 
     final protected void buildMissingFails(final Builder<?> builder, final String firstRequired,
                                            final String... requireds) {
-        Assert.assertNotNull("builder is null", builder);
-        Assert.assertNotNull("required is null", firstRequired);
+        assertNotNull("builder is null", builder);
+        assertNotNull("required is null", firstRequired);
 
         try {
             builder.build();

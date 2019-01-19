@@ -27,15 +27,17 @@ import java.util.EmptyStackException;
 import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>, Object> {
 
     @Test
     public void testCreate() {
         final Stack<Object> stack = JdkStackStack.create();
-        Assert.assertTrue("isempty", stack.isEmpty());
+        assertTrue("isempty", stack.isEmpty());
         assertEquals("size with empty", 0, stack.size());
     }
 
@@ -43,7 +45,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     public void testPush() {
         final JdkStackStack<String> stack = JdkStackStack.create();
         assertSame("this not returned", stack, stack.push("1"));
-        Assert.assertFalse("isempty", stack.isEmpty());
+        assertFalse("isempty", stack.isEmpty());
         assertSame("this not returned", stack, stack.push("2"));
         assertEquals("size with 2 items", 2, stack.size());
 
@@ -64,7 +66,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     public void testPushAll() {
         final JdkStackStack<String> stack = JdkStackStack.create();
         assertSame("this was not returned", stack, stack.pushAll(Lists.of("1", "2").iterator()));
-        Assert.assertFalse("isempty", stack.isEmpty());
+        assertFalse("isempty", stack.isEmpty());
         assertEquals("size with 2 items", 2, stack.size());
 
         final java.util.Stack<String> jdkStack = new java.util.Stack<String>();
@@ -77,7 +79,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
     public void testPopAndPeek() {
         final JdkStackStack<String> stack = JdkStackStack.create();
         stack.push("1");
-        Assert.assertFalse("isempty", stack.isEmpty());
+        assertFalse("isempty", stack.isEmpty());
         stack.push("2");
 
         assertEquals("size with 2 items", 2, stack.size());
@@ -90,7 +92,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
 
         assertSame("pop last", stack, stack.pop());
 
-        Assert.assertTrue("isempty", stack.isEmpty());
+        assertTrue("isempty", stack.isEmpty());
         assertEquals("size when empty", 0, stack.size());
     }
 
@@ -125,7 +127,7 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         assertEquals("first", "1", iterator.next());
         assertEquals("second", "2", iterator.next());
         assertEquals("last", "3", iterator.next());
-        Assert.assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
+        assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
     }
 
     @Test
@@ -141,11 +143,11 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         assertEquals("second", "2", iterator.next());
         iterator.remove();
         assertEquals("last", "3", iterator.next());
-        Assert.assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
+        assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
 
         assertSame("3", stack.peek());
         stack.pop();
-        Assert.assertTrue("stack should be empty", stack.isEmpty());
+        assertTrue("stack should be empty", stack.isEmpty());
     }
 
     // HashCodeEqualsDefined ..................................................................................................

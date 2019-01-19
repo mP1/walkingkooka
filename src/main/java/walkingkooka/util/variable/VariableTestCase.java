@@ -18,12 +18,13 @@
 package walkingkooka.util.variable;
 
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 /**
@@ -44,7 +45,7 @@ abstract public class VariableTestCase<V extends Variable<T>, T> extends ClassTe
 
     @Test
     public void testWith() {
-        Assert.assertNotNull(this.createVariable());
+        assertNotNull(this.createVariable());
     }
 
     @Test
@@ -60,7 +61,7 @@ abstract public class VariableTestCase<V extends Variable<T>, T> extends ClassTe
         final V variable = this.createVariable();
         variable.set(this.createValue());
         variable.set(null);
-        Assert.assertNull(variable.get());
+        assertNull(variable.get());
     }
 
     @Test final public void testCheckToStringOverridden() {

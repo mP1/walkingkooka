@@ -29,7 +29,9 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream> {
     // constants
@@ -367,8 +369,8 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
                         flushed2.set("Already flushed");
                     }
                 }).flush();
-        Assert.assertTrue("First PrintStream was NOT flushed", flushed1.value());
-        Assert.assertTrue("Second PrintStream was NOT flushed", flushed1.value());
+        assertTrue("First PrintStream was NOT flushed", flushed1.value());
+        assertTrue("Second PrintStream was NOT flushed", flushed1.value());
     }
 
     @Test
@@ -388,13 +390,13 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
                         closed2.set("Already closed");
                     }
                 }).flush();
-        Assert.assertTrue("First PrintStream was NOT closed", closed1.value());
-        Assert.assertTrue("Second PrintStream was NOT closed", closed1.value());
+        assertTrue("First PrintStream was NOT closed", closed1.value());
+        assertTrue("Second PrintStream was NOT closed", closed1.value());
     }
 
     @Test
     public void testCheckError() {
-        Assert.assertFalse(TeePrintStream.wrap(//
+        assertFalse(TeePrintStream.wrap(//
                 new FakePrintStream() {
                     @Override
                     public boolean checkError() {
@@ -411,7 +413,7 @@ final public class TeePrintStreamTest extends PrintStreamTestCase<TeePrintStream
 
     @Test
     public void testCheckErrorWhenTrue() {
-        Assert.assertTrue(TeePrintStream.wrap(//
+        assertTrue(TeePrintStream.wrap(//
                 new FakePrintStream() {
                     @Override
                     public boolean checkError() {
