@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 
 public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIteratorTest extends
         IteratorTestCase<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator,
-                Entry<HttpRequestAttribute, Object>> {
+                Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.UNSECURED;
     private final static HttpMethod METHOD = HttpMethod.HEAD;

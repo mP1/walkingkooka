@@ -101,7 +101,7 @@ public final class LanguageTagTest extends HeaderValueWithParametersTestCase<Lan
     private LanguageTagName value() {
         return LanguageTagName.with("en");
     }
-    
+
     @Test
     public final void testSetParameterDifferent() {
         final LanguageTag languageTag = this.createHeaderValueWithParameters();

@@ -357,7 +357,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserWi
     @Test
     public void testCharsetParameterNameQuotedParameterValueQuotedParameterValueFails() {
         final String text = "UTF-8;b=\"c\"\"d\"";
-        this.parseInvalidCharacterFails(text, text.indexOf('d') -1);
+        this.parseInvalidCharacterFails(text, text.indexOf('d') - 1);
     }
 
     @Test

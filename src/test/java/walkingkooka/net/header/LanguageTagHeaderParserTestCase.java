@@ -53,7 +53,7 @@ public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeade
     public final void testWildcardParameterNameKeyValueSeparatorFails() {
         this.parseMissingParameterValueFails("*; parameter=");
     }
-    
+
     @Test
     public final void testWildcardQWeightInvalidValueFails() {
         this.parseFails("*; q=ABC",
@@ -88,8 +88,7 @@ public abstract class LanguageTagHeaderParserTestCase<P extends LanguageTagHeade
 
     abstract void parseAndCheck2(final String text, final LanguageTag expected);
 
-    @Override
-    final String valueLabel() {
+    @Override final String valueLabel() {
         return LanguageTagHeaderParser.LANGUAGE;
     }
 }

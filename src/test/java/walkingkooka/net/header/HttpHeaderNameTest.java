@@ -100,7 +100,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 HttpHeaderScope.RESPONSE);
     }
 
-    private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope...scopes) {
+    private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope... scopes) {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
         assertEquals(header + " isMultipart",
@@ -329,8 +329,8 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     private <T> void headerTextAndCheck(final HttpHeaderName<T> header,
-                                               final T value,
-                                               final String formatted) {
+                                        final T value,
+                                        final String formatted) {
         assertEquals(header + ".headerText " + CharSequences.quoteIfChars(value),
                 formatted,
                 header.headerText(value));

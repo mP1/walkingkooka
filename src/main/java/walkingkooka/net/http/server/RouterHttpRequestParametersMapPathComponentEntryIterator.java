@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
 /**
  * An {@link Iterator} entry view of all {@link UrlPathName pathNames}.
  */
-final class RouterHttpRequestParametersMapPathComponentEntryIterator implements Iterator<Entry<HttpRequestAttribute, Object>> {
+final class RouterHttpRequestParametersMapPathComponentEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
 
     static RouterHttpRequestParametersMapPathComponentEntryIterator with(final UrlPathName[] pathNames) {
         return new RouterHttpRequestParametersMapPathComponentEntryIterator(pathNames);

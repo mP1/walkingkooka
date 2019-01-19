@@ -96,7 +96,7 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
 
     @Test
     public final void testBeginQuoteFails3() {
-        this.parseMissingClosingQuoteFails( "\"'");
+        this.parseMissingClosingQuoteFails("\"'");
     }
 
     @Test
@@ -142,8 +142,7 @@ public abstract class ETagHeaderParserTestCase<P extends ETagHeaderParser>
         this.parseAndCheck(text, ETag.with(value, validator));
     }
 
-    @Override
-    final String valueLabel() {
+    @Override final String valueLabel() {
         return ETagHeaderParser.VALUE;
     }
 }

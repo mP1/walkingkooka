@@ -27,7 +27,7 @@ import java.util.Optional;
 /**
  * Base class for any {@link HeaderName}.
  */
-abstract class HeaderParameterName<V> extends HeaderName2<V>{
+abstract class HeaderParameterName<V> extends HeaderName2<V> {
 
     /**
      * Private ctor to limit sub classing.

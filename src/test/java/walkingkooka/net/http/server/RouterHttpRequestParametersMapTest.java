@@ -41,7 +41,7 @@ import java.util.Map.Entry;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public final class RouterHttpRequestParametersMapTest extends MapTestCase<RouterHttpRequestParametersMap, HttpRequestAttribute, Object> {
+public final class RouterHttpRequestParametersMapTest extends MapTestCase<RouterHttpRequestParametersMap, HttpRequestAttribute<?>, Object> {
 
     @Test
     public void testContainsAndGet() {
@@ -50,7 +50,7 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
 
     @Test
     public void testEntrySet() {
-        final Iterator<Entry<HttpRequestAttribute, Object>> iterator = this.createMap().entrySet().iterator();
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator = this.createMap().entrySet().iterator();
 
         this.checkEntry(iterator, HttpRequestAttributes.TRANSPORT, this.transport());
         this.checkEntry(iterator, HttpRequestAttributes.METHOD, this.method());
@@ -86,15 +86,15 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
         }
     }
 
-    private void checkEntry(final Iterator<Entry<HttpRequestAttribute, Object>> iterator,
-                            final HttpRequestAttribute key,
+    private void checkEntry(final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator,
+                            final HttpRequestAttribute<?> key,
                             final Object value) {
         assertTrue("has next", iterator.hasNext());
         this.checkEntry0(iterator.next(), key, value);
     }
 
-    private void checkEntry0(final Entry<HttpRequestAttribute, Object> entry,
-                             final HttpRequestAttribute key,
+    private void checkEntry0(final Entry<HttpRequestAttribute<?>, Object> entry,
+                             final HttpRequestAttribute<?> key,
                              final Object value) {
         assertEquals("entry key", key, entry.getKey());
         assertEquals("entry value", value, entry.getValue());

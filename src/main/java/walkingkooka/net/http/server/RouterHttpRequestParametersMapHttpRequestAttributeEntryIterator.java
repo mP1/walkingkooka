@@ -24,7 +24,7 @@ import java.util.Map.Entry;
 /**
  * An {@link Iterator} over all {@link HttpRequestAttributes} values as {@link Entry}.
  */
-final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator implements Iterator<Entry<HttpRequestAttribute, Object>> {
+final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
 
     /**
      * Factory

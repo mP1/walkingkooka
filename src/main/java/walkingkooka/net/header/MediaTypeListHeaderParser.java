@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Parsers text which holds a multiple media type separated by commas.
  */
-final class MediaTypeListHeaderParser extends MediaTypeHeaderParser{
+final class MediaTypeListHeaderParser extends MediaTypeHeaderParser {
 
     static List<MediaType> parseMediaTypeList(final String text) {
         final MediaTypeListHeaderParser parser = new MediaTypeListHeaderParser(text);

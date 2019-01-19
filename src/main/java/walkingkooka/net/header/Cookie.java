@@ -65,7 +65,7 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
      * The <code>httpOnly</code> attribute
      */
     public final static String HTTP_ONLY = "httpOnly";
-    
+
     /**
      * {@see ClientCookie#parseHeader(String)}.
      */
@@ -243,8 +243,7 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
     /**
      * Getter that returns the value for this cookie.
      */
-    @Override
-    final public String value() {
+    @Override final public String value() {
         return this.value;
     }
 
@@ -335,8 +334,7 @@ abstract public class Cookie implements HeaderValue, Value<String>, UsesToString
     /**
      * Dumps all attributes.
      */
-    @Override
-    final public String toString() {
+    @Override final public String toString() {
         return ToStringBuilder.buildFrom(this);
     }
 

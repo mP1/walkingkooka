@@ -36,15 +36,13 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
         super(text);
     }
 
-    @Override
-    final void whitespace() {
+    @Override final void whitespace() {
         this.whitespace0();
     }
 
-    @Override
-    final void tokenSeparator() {
-        if(!this.requireParameterOrMultiValueSeparator) {
-            if(this.requireValue){
+    @Override final void tokenSeparator() {
+        if (!this.requireParameterOrMultiValueSeparator) {
+            if (this.requireValue) {
                 this.missingValue();
             } else {
                 this.failInvalidCharacter();
@@ -54,18 +52,16 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
         this.requireParameterName = true;
     }
 
-    @Override
-    final void keyValueSeparator() {
-        if(!this.requireKeyValueSeparator) {
+    @Override final void keyValueSeparator() {
+        if (!this.requireKeyValueSeparator) {
             this.failInvalidCharacter();
         }
         this.requireKeyValueSeparator = false;
         this.requireParameterValue = true;
     }
 
-    @Override
-    final void multiValueSeparator() {
-        if(! this.allowMultipleValues() || ! this.requireParameterOrMultiValueSeparator) {
+    @Override final void multiValueSeparator() {
+        if (!this.allowMultipleValues() || !this.requireParameterOrMultiValueSeparator) {
             this.failInvalidCharacter();
         }
         this.maybeEndOfValue();
@@ -84,7 +80,7 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
      * Assumes wildcard maps to a value. Parameters may follow.
      */
     final void wildcard() {
-        if(this.requireValue) {
+        if (this.requireValue) {
             this.saveValue(this.wildcardValue());
         } else {
             this.failInvalidCharacter();
@@ -96,26 +92,24 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
     /**
      * Slashes are a failure.
      */
-    @Override
-    final void slash() {
-       this.failInvalidCharacter();
+    @Override final void slash() {
+        this.failInvalidCharacter();
     }
 
     /**
      * Handles parsing a token.
      */
-    @Override
-    final void token() {
-        if(this.requireValue) {
+    @Override final void token() {
+        if (this.requireValue) {
             this.saveValue(this.value());
         } else {
             final N parameterName = this.parameterName;
-            if(this.requireParameterName) {
+            if (this.requireParameterName) {
                 this.parameterName = this.parameterName();
                 this.requireParameterName = false;
                 this.requireKeyValueSeparator = true;
             } else {
-                if(this.requireParameterValue) {
+                if (this.requireParameterValue) {
                     this.addParameterText(this.unquotedParameterValue(parameterName));
                 } else {
                     this.failInvalidCharacter();
@@ -135,9 +129,8 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
 
     abstract N parameterName();
 
-    @Override
-    final void quotedText() {
-        if(this.requireParameterValue) {
+    @Override final void quotedText() {
+        if (this.requireParameterValue) {
             this.addParameterText(this.quotedParameterValue(this.parameterName));
         } else {
             this.failInvalidCharacter();
@@ -151,15 +144,14 @@ abstract class HeaderParserWithParameters<V extends HeaderValueWithParameters<N>
     /**
      * Called when the end of text is reached, allow opportunities to complete key/value pairs or fail etc.
      */
-    @Override
-    final void endOfText() {
-        if(this.requireValue) {
+    @Override final void endOfText() {
+        if (this.requireValue) {
             this.missingValue();
         }
-        if(this.requireKeyValueSeparator) {
+        if (this.requireKeyValueSeparator) {
             this.failMissingParameterValue();
         }
-        if(this.requireParameterValue) {
+        if (this.requireParameterValue) {
             this.failMissingParameterValue();
         }
         this.maybeEndOfValue();

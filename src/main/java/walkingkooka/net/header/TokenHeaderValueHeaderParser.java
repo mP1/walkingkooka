@@ -30,40 +30,34 @@ abstract class TokenHeaderValueHeaderParser extends HeaderParserWithParameters<T
         super(text);
     }
 
-    @Override
-    final TokenHeaderValue wildcardValue() {
+    @Override final TokenHeaderValue wildcardValue() {
         this.position++;
         return TokenHeaderValue.with("" + WILDCARD);
     }
 
-    @Override
-    final TokenHeaderValue value() {
+    @Override final TokenHeaderValue value() {
         return this.token(RFC2045TOKEN, TokenHeaderValue::with);
     }
 
-    @Override
-    final TokenHeaderValueParameterName<?> parameterName() {
+    @Override final TokenHeaderValueParameterName<?> parameterName() {
         return this.parameterName(PARAMETER_NAME, TokenHeaderValueParameterName::with);
     }
 
     final static CharPredicate PARAMETER_NAME = RFC2045TOKEN;
 
-    @Override
-    final String quotedParameterValue(final TokenHeaderValueParameterName<?> parameterName) {
+    @Override final String quotedParameterValue(final TokenHeaderValueParameterName<?> parameterName) {
         return this.failInvalidCharacter();
     }
 
     final static CharPredicate QUOTED_PARAMETER_VALUE = ASCII;
 
-    @Override
-    final String unquotedParameterValue(final TokenHeaderValueParameterName<?> parameterName) {
+    @Override final String unquotedParameterValue(final TokenHeaderValueParameterName<?> parameterName) {
         return this.token(RFC2045TOKEN);
     }
 
     final static CharPredicate UNQUOTED_PARAMETER_VALUE = RFC2045TOKEN;
 
-    @Override
-    final void missingValue() {
+    @Override final void missingValue() {
         this.failMissingValue(VALUE);
     }
 

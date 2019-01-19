@@ -147,8 +147,8 @@ public final class MediaTypeBoundary implements Value<String>,
         quoted.append(DOUBLE_QUOTE);
 
         int i = 0;
-        for(char c : trimmed.toCharArray()) {
-            if(!QUOTED_CHARACTER_PREDICATE.test(c)){
+        for (char c : trimmed.toCharArray()) {
+            if (!QUOTED_CHARACTER_PREDICATE.test(c)) {
                 throw new InvalidCharacterException(value, i);
             }
 

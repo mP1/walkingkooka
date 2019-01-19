@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
-public final class QuotedStringHeaderValueConverterTest extends StringHeaderValueConverterTestCase<QuotedStringHeaderValueConverter>{
+public final class QuotedStringHeaderValueConverterTest extends StringHeaderValueConverterTestCase<QuotedStringHeaderValueConverter> {
 
     @Test(expected = HeaderValueException.class)
     public void testParseControlCharacterFails() {

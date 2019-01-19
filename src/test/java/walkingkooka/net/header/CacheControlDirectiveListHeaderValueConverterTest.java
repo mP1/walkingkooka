@@ -27,7 +27,7 @@ import java.util.Optional;
 
 public final class CacheControlDirectiveListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<CacheControlDirectiveListHeaderValueConverter,
-                        List<CacheControlDirective<?>>> {
+                List<CacheControlDirective<?>>> {
 
     @Test
     public void testCacheControlRoundtrip() {

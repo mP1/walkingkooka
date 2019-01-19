@@ -146,7 +146,7 @@ public final class CharsetHeaderValueTest extends HeaderValueWithParametersTestC
                 .setParameters(this.parameters(CharsetHeaderValueParameterName.with("different"), "xyz")));
     }
 
-    
+
     // toString ...........................................................................................
 
     @Test

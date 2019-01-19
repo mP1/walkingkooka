@@ -45,7 +45,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCase<HttpRequestAttributeRoutingBuilder<String>,
-        Routing<HttpRequestAttribute, String>> {
+        Routing<HttpRequestAttribute<?>, String>> {
 
     private final static String TARGET = "target123";
 
@@ -217,9 +217,9 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         assertSame(builder, builder.method(HttpMethod.GET));
         assertSame(builder, builder.protocolVersion(HttpProtocolVersion.VERSION_1_0));
 
-        final Router<HttpRequestAttribute, String> router = this.build(builder);
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
-        final Map<HttpRequestAttribute, Object> parameters = Maps.ordered();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
         parameters.put(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED);
         this.routeFails(router, parameters);
@@ -238,9 +238,9 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         assertSame(builder, builder.method(HttpMethod.GET).method(HttpMethod.POST));
         assertSame(builder, builder.protocolVersion(HttpProtocolVersion.VERSION_1_0));
 
-        final Router<HttpRequestAttribute, String> router = this.build(builder);
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
-        final Map<HttpRequestAttribute, Object> parameters = Maps.ordered();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
         parameters.put(HttpRequestAttributes.TRANSPORT, HttpTransport.SECURED);
         this.routeFails(router, parameters);
@@ -265,9 +265,9 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         final UrlPathName path2 = UrlPathName.with("path2");
         assertSame(builder, builder.path(2, path2));
 
-        final Router<HttpRequestAttribute, String> router = this.build(builder);
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
-        final Map<HttpRequestAttribute, Object> parameters = Maps.ordered();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
         parameters.put(HttpRequestAttributes.pathComponent(1), path1);
         this.routeFails(router, parameters);
@@ -293,9 +293,9 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         assertSame(builder, builder.header(headerName1, (c) -> null != c && c.contains("1")));
         assertSame(builder, builder.header(headerName2, (c) -> null != c && c.contains("2")));
 
-        final Router<HttpRequestAttribute, String> router = this.build(builder);
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
-        final Map<HttpRequestAttribute, Object> parameters = Maps.ordered();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
         parameters.put(headerName1, "value1");
         this.routeFails(router, parameters);
@@ -320,9 +320,9 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         assertSame(builder, builder.headerAndValue(headerName1, headerValue1));
         assertSame(builder, builder.headerAndValue(headerName2, headerValue2));
 
-        final Router<HttpRequestAttribute, String> router = this.build(builder);
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
-        final Map<HttpRequestAttribute, Object> parameters = Maps.ordered();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
         parameters.put(headerName1, headerValue1);
         this.routeFails(router, parameters);
@@ -344,9 +344,9 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         assertSame(builder, builder.cookie(cookieName1, (c) -> null != c && c.value().contains("1")));
         assertSame(builder, builder.cookie(cookieName2, (c) -> null != c && c.value().contains("2")));
 
-        final Router<HttpRequestAttribute, String> router = this.build(builder);
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
-        final Map<HttpRequestAttribute, Object> parameters = Maps.ordered();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
         parameters.put(cookieName1, ClientCookie.client(cookieName1, "value1"));
         this.routeFails(router, parameters);
@@ -368,9 +368,9 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         assertSame(builder, builder.parameterAndValue(parameter1, "value1"));
         assertSame(builder, builder.parameterAndValue(parameter2, "value2"));
 
-        final Router<HttpRequestAttribute, String> router = this.build(builder);
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
-        final Map<HttpRequestAttribute, Object> parameters = Maps.ordered();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
         parameters.put(parameter1, Lists.of("value1"));
         this.routeFails(router, parameters);
@@ -389,12 +389,12 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         final HttpRequestParameterName parameter1 = HttpRequestParameterName.with("parameter1");
         final HttpRequestParameterName parameter2 = HttpRequestParameterName.with("parameter2");
 
-        assertSame(builder, builder.parameter(parameter1, (v) -> null !=v && v.contains("1")));
-        assertSame(builder, builder.parameter(parameter2, (v) -> null !=v && v.contains("2")));
+        assertSame(builder, builder.parameter(parameter1, (v) -> null != v && v.contains("1")));
+        assertSame(builder, builder.parameter(parameter2, (v) -> null != v && v.contains("2")));
 
-        final Router<HttpRequestAttribute, String> router = this.build(builder);
+        final Router<HttpRequestAttribute<?>, String> router = this.build(builder);
 
-        final Map<HttpRequestAttribute, Object> parameters = Maps.ordered();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.ordered();
 
         parameters.put(parameter1, Lists.of("value1"));
         this.routeFails(router, parameters);
@@ -406,24 +406,24 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
         this.routeAndCheck(router, parameters);
     }
 
-    private Router<HttpRequestAttribute, String> build(final HttpRequestAttributeRoutingBuilder<String> builder) {
-        return RouterBuilder.<HttpRequestAttribute, String>empty()
+    private Router<HttpRequestAttribute<?>, String> build(final HttpRequestAttributeRoutingBuilder<String> builder) {
+        return RouterBuilder.<HttpRequestAttribute<?>, String>empty()
                 .add(builder.build())
                 .build();
     }
 
-    private void routeAndCheck(final Router<HttpRequestAttribute, String> routers, final Map<HttpRequestAttribute, Object> parameters) {
+    private void routeAndCheck(final Router<HttpRequestAttribute<?>, String> routers, final Map<HttpRequestAttribute<?>, Object> parameters) {
         assertEquals("Routing of parameters=" + parameters + " failed",
                 Optional.of(TARGET),
                 routers.route(parameters));
     }
 
-    private void routeFails(final Router<HttpRequestAttribute, String> routers, final Map<HttpRequestAttribute, Object> parameters) {
+    private void routeFails(final Router<HttpRequestAttribute<?>, String> routers, final Map<HttpRequestAttribute<?>, Object> parameters) {
         assertEquals("Routing of parameters=" + parameters + " should have failed",
                 Optional.empty(),
                 routers.route(parameters));
     }
-    
+
     // helpers.................................................................................................
 
     @Override
@@ -445,7 +445,7 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
     }
 
     @Override
-    protected Class<Routing<HttpRequestAttribute, String>> builderProductType() {
+    protected Class<Routing<HttpRequestAttribute<?>, String>> builderProductType() {
         return Cast.to(Routing.class);
     }
 }

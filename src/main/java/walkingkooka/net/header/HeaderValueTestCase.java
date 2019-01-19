@@ -50,7 +50,7 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTe
         final V header = this.createHeaderValue();
         this.isWildcardAndCheck(header, String.valueOf(HeaderValue.WILDCARD).equals(header.toHeaderText()));
     }
-    
+
     abstract protected boolean isMultipart();
 
     abstract protected boolean isRequest();

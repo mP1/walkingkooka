@@ -34,19 +34,16 @@ abstract class ETagHeaderParser extends HeaderParser {
         super(text);
     }
 
-    @Override
-    final void whitespace() {
+    @Override final void whitespace() {
         this.whitespace0(); // skip whitespace
     }
 
-    @Override
-    final void keyValueSeparator() {
+    @Override final void keyValueSeparator() {
         this.failInvalidCharacter();
     }
 
-    @Override
-    final void wildcard() {
-        if(!this.requireValue) {
+    @Override final void wildcard() {
+        if (!this.requireValue) {
             this.failInvalidCharacter();
         }
         this.etag(ETag.wildcard());
@@ -66,7 +63,7 @@ abstract class ETagHeaderParser extends HeaderParser {
         }
 
         final String quotedText = this.quotedText(ETAG_VALUE, ESCAPING_UNSUPPORTED);
-        this.etag(this.validator.setValue(quotedText.substring(1, quotedText.length()-1)));
+        this.etag(this.validator.setValue(quotedText.substring(1, quotedText.length() - 1)));
         this.requireValue = false;
     }
 
@@ -95,7 +92,8 @@ abstract class ETagHeaderParser extends HeaderParser {
     @Override
     void endOfText() {
         if (this.requireValue) {
-            this.missingValue();;
+            this.missingValue();
+            ;
         }
     }
 

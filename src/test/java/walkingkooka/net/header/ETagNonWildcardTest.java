@@ -45,7 +45,7 @@ public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
     // isMatch ...........................................................................................
 
     private final static String DIFFERENT_VALUE = "FEDCBA9876543210";
-    
+
     @Test
     public void testIsMatchStrongStrongSameValue() {
         this.isMatchAndCheck(ETagValidator.STRONG.setValue(VALUE),

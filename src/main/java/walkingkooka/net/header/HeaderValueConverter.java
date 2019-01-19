@@ -217,8 +217,8 @@ abstract class HeaderValueConverter<T> {
      * {@see QuotedUnquotedStringHeaderValueConverter}
      */
     static HeaderValueConverter<String> quotedUnquotedString(final CharPredicate quotedPredicate,
-                                                                    final boolean supportBackslashEscaping,
-                                                                    final CharPredicate unquotedPredicate) {
+                                                             final boolean supportBackslashEscaping,
+                                                             final CharPredicate unquotedPredicate) {
         return QuotedUnquotedStringHeaderValueConverter.with(quotedPredicate, supportBackslashEscaping, unquotedPredicate);
     }
 
@@ -226,7 +226,7 @@ abstract class HeaderValueConverter<T> {
      * {@see QuotedStringHeaderValueConverter}
      */
     static HeaderValueConverter<String> quoted(final CharPredicate predicate,
-                                                      final boolean supportBackslashEscaping) {
+                                               final boolean supportBackslashEscaping) {
         return QuotedStringHeaderValueConverter.with(predicate, supportBackslashEscaping);
     }
 
@@ -304,7 +304,7 @@ abstract class HeaderValueConverter<T> {
      * Separator to be used when producing the text form from a list of header values.
      */
     final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
-    
+
     /**
      * Package private to limit sub classing.
      */

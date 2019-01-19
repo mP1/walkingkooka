@@ -51,7 +51,7 @@ public final class LanguageTagListHeaderParserTest extends LanguageTagHeaderPars
         return LanguageTag.with(LanguageTagName.with(tag));
     }
 
-    private void parseAndCheck3(final String text, final LanguageTag...tags) {
+    private void parseAndCheck3(final String text, final LanguageTag... tags) {
         this.parseAndCheck(text, Lists.of(tags));
     }
 

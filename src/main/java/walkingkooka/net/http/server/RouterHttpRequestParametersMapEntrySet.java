@@ -29,7 +29,7 @@ import java.util.Map.Entry;
 /**
  * The {@link Map#entrySet()} for {@link RouterHttpRequestParametersMap}.
  */
-final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<HttpRequestAttribute, Object>> {
+final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<HttpRequestAttribute<?>, Object>> {
 
     /**
      * Factory only called by {@link RouterHttpRequestParametersMap}.
@@ -47,18 +47,18 @@ final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<Htt
     }
 
     @Override
-    public Iterator<Entry<HttpRequestAttribute, Object>> iterator() {
+    public Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator() {
         // attributes, path, headers, cookies, parameters
         final RouterHttpRequestParametersMap map = this.map;
         final HttpRequest request = map.request;
 
-        final Iterator<Entry<HttpRequestAttribute, Object>> attributes = RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator.with(request);
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> attributes = RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator.with(request);
 
         // url query string parameters are ignored...
-        final Iterator<Entry<HttpRequestAttribute, Object>> pathNames = RouterHttpRequestParametersMapPathComponentEntryIterator.with(map.pathNames());
-        final Iterator<Entry<HttpRequestAttribute, Object>> headers = RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(request.headers().entrySet().iterator());
-        final Iterator<Entry<HttpRequestAttribute, Object>> cookies = RouterHttpRequestParametersMapCookiesEntryIterator.with(request.cookies());
-        final Iterator<Entry<HttpRequestAttribute, Object>> parameters = Cast.to(request.parameters().entrySet().iterator());
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> pathNames = RouterHttpRequestParametersMapPathComponentEntryIterator.with(map.pathNames());
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(request.headers().entrySet().iterator());
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = RouterHttpRequestParametersMapCookiesEntryIterator.with(request.cookies());
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> parameters = Cast.to(request.parameters().entrySet().iterator());
 
         return Iterators.chain(attributes, Iterators.chain(pathNames, Iterators.chain(headers, Iterators.chain(cookies, parameters))));
     }

@@ -33,7 +33,7 @@ import java.util.Map.Entry;
 import static org.junit.Assert.assertEquals;
 
 public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest extends
-        IteratorTestCase<RouterHttpRequestParametersMapHttpHeaderEntryIterator, Entry<HttpRequestAttribute, Object>> {
+        IteratorTestCase<RouterHttpRequestParametersMapHttpHeaderEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpHeaderName<Long> CONTENT_LENGTH = HttpHeaderName.CONTENT_LENGTH;
     private final static Long CONTENT_LENGTH_VALUE = 123L;

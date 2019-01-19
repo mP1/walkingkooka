@@ -136,7 +136,7 @@ public final class HttpHeaderScopeTest extends ClassTestCase<HttpHeaderScope> {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
         for (HttpHeaderScope scope : HttpHeaderScope.values()) {
-            if(scopesSet.contains(scope)) {
+            if (scopesSet.contains(scope)) {
                 scope.check(header, value);
             } else {
                 try {
@@ -154,7 +154,7 @@ public final class HttpHeaderScopeTest extends ClassTestCase<HttpHeaderScope> {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
         for (HttpHeaderScope scope : HttpHeaderScope.values()) {
-            if(scopesSet.contains(scope)) {
+            if (scopesSet.contains(scope)) {
                 scope.check(header);
             } else {
                 try {

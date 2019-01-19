@@ -92,7 +92,7 @@ public abstract class HeaderParserTestCase<P extends HeaderParser, V>
         this.parseFails(text,
                 HeaderParser.missingParameterName(pos, text));
     }
-    
+
     final void parseMissingParameterValueFails(final String text) {
         this.parseMissingParameterValueFails(text, text.length());
     }

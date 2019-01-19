@@ -307,9 +307,9 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     }
 
     private void setStatusAddEntityAndCheck(final String requestRanges,
-                                             final IfRange requestIfRange,
-                                             final Map<HttpHeaderName<?>, Object> headers,
-                                             final HttpEntity...expectedEntities) {
+                                            final IfRange requestIfRange,
+                                            final Map<HttpHeaderName<?>, Object> headers,
+                                            final HttpEntity... expectedEntities) {
         this.setStatusAddEntityAndCheck(
                 this.createRequest(RangeHeaderValue.parse(requestRanges), requestIfRange),
                 HttpStatusCode.OK.status(),
@@ -386,11 +386,11 @@ public final class RangeAwareHttpResponseTest extends BufferingHttpResponseTestC
     private HttpRequest createRequest(final RangeHeaderValue ranges, final IfRange<?> ifRange) {
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
 
-        if(null!=ranges) {
+        if (null != ranges) {
             headers.put(HttpHeaderName.RANGE, ranges);
         }
 
-        if(null!=ifRange) {
+        if (null != ifRange) {
             headers.put(HttpHeaderName.IF_RANGE, ifRange);
         }
 

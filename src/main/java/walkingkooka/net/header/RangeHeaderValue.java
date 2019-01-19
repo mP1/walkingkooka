@@ -96,7 +96,7 @@ public final class RangeHeaderValue implements HeaderValue,
                     CharSequences.quote(value));
         }
 
-        if(0 == dash) {
+        if (0 == dash) {
             throw new HeaderValueException("Header range missing start " + CharSequences.quote(value));
         }
 
