@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Base class for testing a {@link Iterator} with mostly parameter checking tests.
@@ -56,7 +57,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     }
 
     protected void checkHasNextFalse(final String message, final Iterator<?> iterator) {
-        Assert.assertNotNull("iterator", iterator);
+        assertNotNull("iterator", iterator);
         if (iterator.hasNext()) {
             Assert.fail(message + "=" + iterator);
         }
@@ -67,7 +68,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
     }
 
     protected void checkHasNextTrue(final String message, final Iterator<T> iterator) {
-        Assert.assertNotNull("iterator", iterator);
+        assertNotNull("iterator", iterator);
         if (false == iterator.hasNext()) {
             Assert.fail(message + "=" + iterator);
         }
@@ -134,7 +135,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
 
     @SafeVarargs
     protected final <U> void iterateUsingHasNextAndCheck(final Iterator<U> iterator, final U... expected) {
-        Assert.assertNotNull("iterator", iterator);
+        assertNotNull("iterator", iterator);
 
         int i = 0;
         final List<U> consumed = Lists.array();
@@ -157,7 +158,7 @@ abstract public class IteratorTestCase<I extends Iterator<T>, T>
 
     @SafeVarargs
     protected final <U> void iterateAndCheck(final Iterator<U> iterator, final U... expected) {
-        Assert.assertNotNull("iterator", iterator);
+        assertNotNull("iterator", iterator);
 
         int i = 0;
         final List<U> consumed = Lists.array();

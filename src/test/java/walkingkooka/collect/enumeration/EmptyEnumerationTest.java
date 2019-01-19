@@ -17,15 +17,16 @@
 
 package walkingkooka.collect.enumeration;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+
+import static org.junit.Assert.assertFalse;
 
 final public class EmptyEnumerationTest extends EnumerationTestCase<EmptyEnumeration<Void>, Void> {
 
     @Test
     public void testHasMoreElements() {
-        Assert.assertFalse(EmptyEnumeration.instance().hasMoreElements());
+        assertFalse(EmptyEnumeration.instance().hasMoreElements());
     }
 
     @Test

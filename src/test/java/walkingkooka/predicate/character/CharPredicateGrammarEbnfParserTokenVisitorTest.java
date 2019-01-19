@@ -18,7 +18,6 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,6 +39,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPredicateTestCase<CharPredicate> {
@@ -177,7 +177,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
         final Map<EbnfIdentifierName, CharPredicate> all = CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(grammar, defaults);
 
         final CharPredicate test = all.get(TEST);
-        Assert.assertNotNull(TEST + " parser not found in grammar\n" + grammar, test);
+        assertNotNull(TEST + " parser not found in grammar\n" + grammar, test);
         return test;
     }
 

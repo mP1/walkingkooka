@@ -17,7 +17,6 @@
 
 package walkingkooka.naming;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
@@ -31,6 +30,10 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
@@ -163,13 +166,13 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
             actualNames.add(name);
         }
 
-        Assert.assertEquals("names returned by iterator", names, actualNames);
+        assertEquals("names returned by iterator", names, actualNames);
     }
 
     @Test
     public void testToString() {
         final P path = this.createPath();
-        Assert.assertEquals(path instanceof ShouldBeQuoted ?
+        assertEquals(path instanceof ShouldBeQuoted ?
                         CharSequences.quote(path.value()).toString() :
                         path.value(),
                 path.toString());
@@ -211,13 +214,13 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     }
 
     protected void checkRoot(final Path<?, ?> path) {
-        Assert.assertEquals("path must not be root=" + path, Optional.empty(), path.parent());
-        Assert.assertEquals("path must not be root=" + path, true, path.isRoot());
+        assertEquals("path must not be root=" + path, Optional.empty(), path.parent());
+        assertEquals("path must not be root=" + path, true, path.isRoot());
     }
 
     protected void checkNotRoot(final Path<?, ?> path) {
-        Assert.assertNotEquals("path must not be root=" + path, Optional.empty(), path.parent());
-        Assert.assertEquals("path must not be root=" + path, false, path.isRoot());
+        assertNotEquals("path must not be root=" + path, Optional.empty(), path.parent());
+        assertEquals("path must not be root=" + path, false, path.isRoot());
     }
 
     protected void checkValue(final Path<?, ?> path) {
@@ -243,42 +246,42 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     }
 
     protected void checkValue(final P path, final String value) {
-        Assert.assertEquals("path", value, path.value());
+        assertEquals("path", value, path.value());
     }
 
     protected void checkName(final P path, final N name) {
-        Assert.assertEquals("name", path.name(), name);
+        assertEquals("name", path.name(), name);
         this.checkName(path, name.value());
     }
 
     protected void checkName(final P path, final String value) {
-        Assert.assertEquals("name", path.name().value(), value);
+        assertEquals("name", path.name().value(), value);
     }
 
     protected P checkParent(final P path) {
         final Optional<P> parent = path.parent();
-        Assert.assertNotEquals("parent missing", Optional.empty(), parent);
+        assertNotEquals("parent missing", Optional.empty(), parent);
         return parent.get();
     }
 
     protected void checkParent(final P path, final P parent) {
-        Assert.assertEquals("parent", checkParent(path), parent);
+        assertEquals("parent", checkParent(path), parent);
     }
 
     protected void checkParent(final P path, final String value) {
-        Assert.assertEquals("parent", checkParent(path).value(), value);
+        assertEquals("parent", checkParent(path).value(), value);
     }
 
     protected void checkSameParent(final P path, final P parent) {
-        Assert.assertSame("parent of " + path, checkParent(path), parent);
+        assertSame("parent of " + path, checkParent(path), parent);
     }
 
     protected void checkWithoutParent(final Path<?, ?> path) {
-        Assert.assertEquals("parent", Optional.empty(), path.parent());
+        assertEquals("parent", Optional.empty(), path.parent());
     }
 
     protected void checkSameName(final Path<?, ?> path, final Name name) {
-        Assert.assertSame("parent", name, path.name());
+        assertSame("parent", name, path.name());
     }
 
     @Override

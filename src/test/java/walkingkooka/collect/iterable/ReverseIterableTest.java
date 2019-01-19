@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 
 final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<String>, String> {
@@ -62,7 +63,7 @@ final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<
         assertEquals("3", iterator.next());
         assertEquals("2", iterator.next());
         assertEquals("1", iterator.next());
-        Assert.assertFalse("iterator should be empty", iterator.hasNext());
+        assertFalse("iterator should be empty", iterator.hasNext());
     }
 
     @Test

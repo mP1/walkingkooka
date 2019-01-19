@@ -28,6 +28,8 @@ import walkingkooka.type.MemberVisibility;
 import java.lang.reflect.Field;
 import java.util.Set;
 
+import static org.junit.Assert.assertSame;
+
 /**
  * Base class for testing public constants declared in a class.
  */
@@ -47,7 +49,7 @@ public interface ConstantsTesting<T> extends Testing {
             if (false == constant.getType().equals(type)) {
                 continue;
             }
-            Assert.assertSame("Constant must be public", MemberVisibility.PUBLIC, MemberVisibility.get(constant));
+            assertSame("Constant must be public", MemberVisibility.PUBLIC, MemberVisibility.get(constant));
             if (false == FieldAttributes.STATIC.is(constant)) {
                 Assert.fail("Constant is not static=" + constant.getName());
             }

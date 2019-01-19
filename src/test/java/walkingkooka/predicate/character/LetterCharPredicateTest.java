@@ -17,17 +17,17 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 final public class LetterCharPredicateTest extends CharPredicateTestCase<LetterCharPredicate> implements SerializationTesting<LetterCharPredicate> {
 
     @Test
     public void testLetter() {
-        Assert.assertTrue(this.test('A'));
+        assertTrue(this.test('A'));
     }
 
     @Test

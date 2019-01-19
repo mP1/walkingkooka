@@ -30,6 +30,7 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 
 final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPrintStream> {
@@ -432,7 +433,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
 
     @Test
     public void testCheckError() {
-        Assert.assertFalse(this.createPrintStream().checkError());
+        assertFalse(this.createPrintStream().checkError());
     }
 
     @Test

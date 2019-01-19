@@ -41,6 +41,8 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -366,10 +368,10 @@ abstract public class ClassTestCase<T> extends TestCase {
             Assert.fail("Cannot find public constant field of type " + enclosingType + " called "
                     + name);
         }
-        Assert.assertEquals("The field " + name + " is wrong the type", fieldType, field.getType());
-        Assert.assertTrue("The field " + name + " must be static =" + field, FieldAttributes.STATIC.is(field));
-        Assert.assertSame("The field " + name + " must be public =" + field, MemberVisibility.PUBLIC, MemberVisibility.get(field));
-        Assert.assertTrue("The field " + name + " must be final=" + field, FieldAttributes.FINAL.is(field));
+        assertEquals("The field " + name + " is wrong the type", fieldType, field.getType());
+        assertTrue("The field " + name + " must be static =" + field, FieldAttributes.STATIC.is(field));
+        assertSame("The field " + name + " must be public =" + field, MemberVisibility.PUBLIC, MemberVisibility.get(field));
+        assertTrue("The field " + name + " must be final=" + field, FieldAttributes.FINAL.is(field));
     }
 
     // helpers

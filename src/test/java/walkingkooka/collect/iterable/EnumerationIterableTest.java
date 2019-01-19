@@ -26,6 +26,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 final public class EnumerationIterableTest
         extends IterableTestCase<EnumerationIterable<Object>, Object> {
@@ -46,7 +47,7 @@ final public class EnumerationIterableTest
         final Iterator<Object> iterator = iterable.iterator();
         assertEquals("1", iterator.next());
         assertEquals("2", iterator.next());
-        Assert.assertFalse("iterator should be empty=" + iterator, iterator.hasNext());
+        assertFalse("iterator should be empty=" + iterator, iterator.hasNext());
     }
 
     @Test

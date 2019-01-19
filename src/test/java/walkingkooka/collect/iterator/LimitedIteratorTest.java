@@ -27,7 +27,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<String>, String> {
 
@@ -80,13 +82,13 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
     @Test
     public void testExhaustUsingHasNextNext() {
         final LimitedIterator<String> iterator = this.createIterator();
-        Assert.assertTrue(iterator.hasNext());
+        assertTrue(iterator.hasNext());
         assertSame("1", iterator.next());
 
-        Assert.assertTrue(iterator.hasNext());
+        assertTrue(iterator.hasNext());
         assertSame("2", iterator.next());
 
-        Assert.assertFalse(iterator.hasNext());
+        assertFalse(iterator.hasNext());
         try {
             iterator.next();
             Assert.fail();
@@ -121,7 +123,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         assertEquals(Lists.of("2", "3"), source);
 
         assertSame("2", iterator.next());
-        Assert.assertFalse(iterator.hasNext());
+        assertFalse(iterator.hasNext());
     }
 
     @Test

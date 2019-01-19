@@ -25,6 +25,7 @@ import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class LowerCasingCharPredicateTest
         extends CharPredicateTestCase<LowerCasingCharPredicate>
@@ -64,7 +65,7 @@ final public class LowerCasingCharPredicateTest
 
     @Test
     public void testWrapCharPredicate() {
-        Assert.assertTrue(LowerCasingCharPredicate.wrap(CharPredicates.is('a')).test('A'));
+        assertTrue(LowerCasingCharPredicate.wrap(CharPredicates.is('a')).test('A'));
     }
 
     @Test

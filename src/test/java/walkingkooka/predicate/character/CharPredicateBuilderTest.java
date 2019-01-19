@@ -24,7 +24,10 @@ import walkingkooka.build.BuilderTestCase;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class CharPredicateBuilderTest
         extends BuilderTestCase<CharPredicateBuilder, CharPredicate> {
@@ -38,7 +41,7 @@ final public class CharPredicateBuilderTest
     @Test
     public void testCreate() {
         final CharPredicateBuilder builder = this.createBuilder();
-        Assert.assertNull("predicate", builder.predicate);
+        assertNull("predicate", builder.predicate);
     }
 
     // or
@@ -247,10 +250,10 @@ final public class CharPredicateBuilderTest
         builder.or(CharPredicates.is(c));
         assertSame(builder, builder.negate());
         final CharPredicate predicate = builder.build();
-        Assert.assertFalse("testing with 'z' should fail", predicate.test(c));
+        assertFalse("testing with 'z' should fail", predicate.test(c));
 
         final CharPredicate predicate2 = builder.negate().build();
-        Assert.assertTrue("testing with 'z' should fail", predicate2.test(c));
+        assertTrue("testing with 'z' should fail", predicate2.test(c));
     }
 
     // range
@@ -325,7 +328,7 @@ final public class CharPredicateBuilderTest
     @Test
     public void testCopyEmpty() {
         final CharPredicateBuilder builder = this.createBuilder();
-        Assert.assertNull("predicate", builder.predicate);
+        assertNull("predicate", builder.predicate);
     }
 
     @Test

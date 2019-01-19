@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterable<String>, String> {
 
@@ -54,16 +56,16 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
         final ReadOnlyIterable<String> readOnly = ReadOnlyIterable.wrap(iterable);
         final Iterator<String> iterator = readOnly.iterator();
 
-        Assert.assertTrue("iterator should not be empty", iterator.hasNext());
+        assertTrue("iterator should not be empty", iterator.hasNext());
         assertEquals("1", iterator.next());
 
-        Assert.assertTrue("iterator should not be empty", iterator.hasNext());
+        assertTrue("iterator should not be empty", iterator.hasNext());
         assertEquals("2", iterator.next());
 
-        Assert.assertTrue("iterator should not be empty", iterator.hasNext());
+        assertTrue("iterator should not be empty", iterator.hasNext());
         assertEquals("3", iterator.next());
 
-        Assert.assertFalse("iterator should be empty", iterator.hasNext());
+        assertFalse("iterator should be empty", iterator.hasNext());
     }
 
     @Test
@@ -76,7 +78,7 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
         final ReadOnlyIterable<String> readOnly = ReadOnlyIterable.wrap(iterable);
         final Iterator<String> iterator = readOnly.iterator();
 
-        Assert.assertTrue("iterator should not be empty", iterator.hasNext());
+        assertTrue("iterator should not be empty", iterator.hasNext());
         assertEquals("1", iterator.next());
 
         try {

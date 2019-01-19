@@ -28,15 +28,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class ArrayListStackTest extends StackTestCase<ArrayListStack<String>, String> {
 
     @Test
     public void testCreate() {
         final Stack<String> stack = ArrayListStack.create();
-        Assert.assertTrue("isempty", stack.isEmpty());
+        assertTrue("isempty", stack.isEmpty());
         assertEquals("size when empty", 0, stack.size());
     }
 
@@ -44,7 +46,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
     public void testPush() {
         final ArrayListStack<String> stack = ArrayListStack.create();
         assertSame("this not returned", stack, stack.push("1"));
-        Assert.assertFalse("isempty", stack.isEmpty());
+        assertFalse("isempty", stack.isEmpty());
         assertSame("this not returned", stack, stack.push("2"));
         assertEquals("size with 2 items", 2, stack.size());
 
@@ -66,7 +68,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         final ArrayListStack<String> stack = ArrayListStack.create();
         assertSame("this was not returned", stack, stack.pushAll(Lists.of("1", "2").iterator()));
 
-        Assert.assertFalse("isempty", stack.isEmpty());
+        assertFalse("isempty", stack.isEmpty());
         assertEquals("size with 2 items", 2, stack.size());
 
         final List<String> list = Lists.array();
@@ -79,7 +81,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
     public void testPopAndPeek() {
         final ArrayListStack<String> stack = ArrayListStack.create();
         stack.push("1");
-        Assert.assertFalse("isempty", stack.isEmpty());
+        assertFalse("isempty", stack.isEmpty());
         stack.push("2");
 
         assertEquals("size with 2 items", 2, stack.size());
@@ -92,7 +94,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
 
         assertSame("pop last", stack, stack.pop());
 
-        Assert.assertTrue("isempty", stack.isEmpty());
+        assertTrue("isempty", stack.isEmpty());
         assertEquals("size when empty", 0, stack.size());
     }
 
@@ -127,7 +129,7 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         assertEquals("first", "1", iterator.next());
         assertEquals("second", "2", iterator.next());
         assertEquals("last", "3", iterator.next());
-        Assert.assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
+        assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
     }
 
     @Test
@@ -143,11 +145,11 @@ final public class ArrayListStackTest extends StackTestCase<ArrayListStack<Strin
         assertEquals("second", "2", iterator.next());
         iterator.remove();
         assertEquals("last", "3", iterator.next());
-        Assert.assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
+        assertFalse("iterator was NOT empty=" + iterator, iterator.hasNext());
 
         assertSame("3", stack.peek());
         stack.pop();
-        Assert.assertTrue("stack should be empty", stack.isEmpty());
+        assertTrue("stack should be empty", stack.isEmpty());
     }
 
     @Test

@@ -34,6 +34,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Base class for testing a {@link PublicStaticHelper} with tests mostly concerned with visibility
@@ -52,14 +53,14 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
     @Test
     final public void testClassIsFinal() {
         final Class<H> type = this.type();
-        Assert.assertTrue(type + " is NOT final", Modifier.isFinal(type.getModifiers()));
+        assertTrue(type + " is NOT final", Modifier.isFinal(type.getModifiers()));
     }
 
     @Test
     final public void testOnlyConstructorIsPrivate() throws Exception {
         final Class<H> type = this.type();
         final Constructor<H> constructor = type.getDeclaredConstructor();
-        Assert.assertTrue(type + " is NOT private", Modifier.isPrivate(constructor.getModifiers()));
+        assertTrue(type + " is NOT private", Modifier.isPrivate(constructor.getModifiers()));
     }
 
     @Test
@@ -73,7 +74,7 @@ abstract public class PublicStaticHelperTestCase<H extends PublicStaticHelper>
             Assert.fail();
         } catch (final InvocationTargetException expected) {
             final Throwable target = expected.getTargetException();
-            Assert.assertTrue("Expected UnsupportedOperationException but got " + target,
+            assertTrue("Expected UnsupportedOperationException but got " + target,
                     target instanceof UnsupportedOperationException);
         }
     }

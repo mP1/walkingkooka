@@ -26,6 +26,8 @@ import walkingkooka.type.MemberVisibility;
 import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>> {
     // constants
@@ -67,7 +69,7 @@ final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
     @Test
     public void testCreateAndCheck() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
-        Assert.assertFalse(checker.isClosed());
+        assertFalse(checker.isClosed());
         checker.check();
         checker.check();
     }
@@ -76,7 +78,7 @@ final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
     //    {
     //        final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE,
     //                THROWABLE_FACTORY);
-    //        Assert.assertFalse(checker.isClosed());
+    //        assertFalse(checker.isClosed());
     //        checker.check(ThrowableFactories.<NeverError>fake());
     //        checker.check(ThrowableFactories.<NeverError>fake());
     //    }
@@ -85,8 +87,8 @@ final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
     public void testCloseThenCheck() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
         checker.check();
-        Assert.assertFalse("was previous open", checker.close());
-        Assert.assertTrue(checker.isClosed());
+        assertFalse("was previous open", checker.close());
+        assertTrue(checker.isClosed());
 
         try {
             checker.check();
@@ -100,8 +102,8 @@ final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
     public void testCloseThenCheck2() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
         checker.check();
-        Assert.assertFalse("was previous open", checker.close());
-        Assert.assertTrue(checker.isClosed());
+        assertFalse("was previous open", checker.close());
+        assertTrue(checker.isClosed());
 
         try {
             checker.check(THROWABLE_FACTORY);
@@ -114,15 +116,15 @@ final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
     @Test
     public void testManyClosed() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
-        Assert.assertFalse("was previous open", checker.close());
-        Assert.assertTrue("was already closed", checker.close());
+        assertFalse("was previous open", checker.close());
+        assertTrue("was already closed", checker.close());
     }
 
     @Test
     public void testCloseOnce() throws Thrown {
         final OpenChecker<Thrown> checker = OpenChecker.with(MESSAGE, THROWABLE_FACTORY);
         checker.closeOnce();
-        Assert.assertTrue("should be closed", checker.isClosed());
+        assertTrue("should be closed", checker.isClosed());
     }
 
     @Test
@@ -134,7 +136,7 @@ final public class OpenCheckerTest extends ClassTestCase<OpenChecker<Exception>>
             Assert.fail();
         } catch (final Thrown expected) {
         }
-        Assert.assertTrue("should be closed", checker.isClosed());
+        assertTrue("should be closed", checker.isClosed());
     }
 
     @Test

@@ -26,7 +26,10 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String>
         implements HashCodeEqualsDefinedTesting<NotPredicate<String>> {
@@ -76,18 +79,18 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     @Test
     public void testNotMatched() {
         final Predicate<String> not = NotPredicate.wrap(PREDICATE);
-        Assert.assertNotSame(PREDICATE, not);
-        Assert.assertTrue(PREDICATE.test(MATCHED));
-        Assert.assertFalse(not.test(MATCHED));
+        assertNotSame(PREDICATE, not);
+        assertTrue(PREDICATE.test(MATCHED));
+        assertFalse(not.test(MATCHED));
     }
 
     @Test
     public void testMatched() {
         final Predicate<String> predicate = Predicates.is(MATCHED);
         final Predicate<String> not = NotPredicate.wrap(predicate);
-        Assert.assertNotSame(predicate, not);
-        Assert.assertFalse(predicate.test(DIFFERENT));
-        Assert.assertTrue(not.test(DIFFERENT));
+        assertNotSame(predicate, not);
+        assertFalse(predicate.test(DIFFERENT));
+        assertTrue(not.test(DIFFERENT));
     }
 
     @Test

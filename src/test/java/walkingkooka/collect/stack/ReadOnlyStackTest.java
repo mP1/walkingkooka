@@ -25,7 +25,9 @@ import walkingkooka.collect.iterator.Iterators;
 import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>, Object> {
 
@@ -65,11 +67,11 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     @Test
     public void testIsEmpty() {
         final ReadOnlyStack<Object> stack = this.createStack();
-        Assert.assertFalse("stack should NOT be empty it has of item", stack.isEmpty());
+        assertFalse("stack should NOT be empty it has of item", stack.isEmpty());
         assertEquals("size when with of item", 1, stack.size());
 
         stack.pop();
-        Assert.assertTrue("stack should be empty after pop", stack.isEmpty());
+        assertTrue("stack should be empty after pop", stack.isEmpty());
         assertEquals("size when empty", 0, stack.size());
     }
 

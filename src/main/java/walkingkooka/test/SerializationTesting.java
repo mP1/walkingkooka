@@ -32,6 +32,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
@@ -92,7 +93,7 @@ public interface SerializationTesting<S extends Serializable> extends Testing {
     @SuppressWarnings("unchecked")
     default <S extends Serializable> S cloneUsingSerialization(final Serializable object)
             throws IOException, ClassNotFoundException {
-        Assert.assertNotNull("object to be cloned is null", object);
+        assertNotNull("object to be cloned is null", object);
 
         final Thread thread = Thread.currentThread();
         final ClassLoader classLoader = object.getClass().getClassLoader();

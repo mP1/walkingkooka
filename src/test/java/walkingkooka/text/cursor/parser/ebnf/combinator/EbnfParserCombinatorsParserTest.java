@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -63,6 +62,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parser<ParserToken, FakeParserContext>,
@@ -376,7 +376,7 @@ public final class EbnfParserCombinatorsParserTest extends ParserTestCase3<Parse
                 this.syntaxTreeTransformer(grammar));
 
         final Parser<ParserToken, FakeParserContext> test = Cast.to(all.get(TEST));
-        Assert.assertNotNull(TEST + " parser not found in grammar\n" + grammar, test);
+        assertNotNull(TEST + " parser not found in grammar\n" + grammar, test);
         return test;
     }
 

@@ -28,14 +28,16 @@ import java.util.Iterator;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Object>, Object> {
 
     @Test
     public void testCreate() {
         final Stack<Object> stack = EmptyArrayStack.instance();
-        Assert.assertTrue("isempty", stack.isEmpty());
+        assertTrue("isempty", stack.isEmpty());
         assertEquals("size when empty", 0, stack.size());
     }
 
@@ -87,7 +89,7 @@ final public class EmptyArrayStackTest extends StackTestCase<EmptyArrayStack<Obj
         final EmptyArrayStack<String> stack = EmptyArrayStack.instance();
 
         final Iterator<String> iterator = stack.iterator();
-        Assert.assertFalse("iterator must be empty=" + iterator, iterator.hasNext());
+        assertFalse("iterator must be empty=" + iterator, iterator.hasNext());
     }
 
     @Test

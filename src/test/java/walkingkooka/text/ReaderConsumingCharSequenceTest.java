@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.type.MemberVisibility;
@@ -25,6 +24,7 @@ import walkingkooka.type.MemberVisibility;
 import java.io.StringReader;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<ReaderConsumingCharSequence> {
 
@@ -68,7 +68,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.checkSubSequence(chars, 4, 7, text.substring(4, 7));
-        Assert.assertSame("eof", false, chars.eof);
+        assertSame("eof", false, chars.eof);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);
         this.checkCharAt(chars, 13, text.charAt(13));
         this.checkSubSequence(chars, 0, 5, text.substring(0, 5));
-        Assert.assertSame("eof", false, chars.eof);
+        assertSame("eof", false, chars.eof);
     }
 
     @Test

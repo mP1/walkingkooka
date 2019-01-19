@@ -17,7 +17,6 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
@@ -291,7 +290,7 @@ final public class AsciiTest extends PublicStaticHelperTestCase<Ascii> {
                 break;
             }
         }
-        Assert.assertFalse("didnt find non ascii digit", c != 0);
+        assertFalse("didnt find non ascii digit", c != 0);
         this.isDigitAndCheck(c, false);
     }
 
