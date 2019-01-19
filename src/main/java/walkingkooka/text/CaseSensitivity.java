@@ -357,7 +357,7 @@ public enum CaseSensitivity {
         if(null==FILE_SYSTEM) {
             CaseSensitivity sensitivity = fromSystemProperty();
             if(null==sensitivity){
-                sensitivity = fromFileEqualsTests();
+                sensitivity = fromFileEqualityTests();
             }
             FILE_SYSTEM = sensitivity;
         }
@@ -376,10 +376,10 @@ public enum CaseSensitivity {
     /**
      * Create two paths with the different case and then checks if they are the same file using {@link Files#isSameFile(Path, Path)}.
      */
-    private static CaseSensitivity fromFileEqualsTests() {
+    private static CaseSensitivity fromFileEqualityTests() {
         try {
             final String filename = "abc";
-            return Files.isSameFile(Paths.get(filename.toLowerCase()), Paths.get(filename.toUpperCase())) ?
+            return Paths.get(filename.toLowerCase()).equals(Paths.get(filename.toUpperCase())) ?
                     INSENSITIVE :
                     SENSITIVE;
         } catch (final Exception cause) {
