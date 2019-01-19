@@ -19,6 +19,7 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.Iterator;
@@ -45,10 +46,10 @@ final class RouterHttpRequestParametersMapHttpHeaderEntryIterator implements Ite
     }
 
     @Override
-    public RouterHttpRequestParametersMapEntry next() {
+    public Entry<HttpRequestAttribute<?>, Object> next() {
         final Entry<HttpHeaderName<?>, Object> entry = this.headerAndValues.next();
         final HttpHeaderName<?> header = Cast.to(entry.getKey());
-        return RouterHttpRequestParametersMapEntry.with(header, entry.getValue());
+        return Maps.entry(header, entry.getValue());
     }
 
     private final Iterator<Entry<HttpHeaderName<?>, Object>> headerAndValues;

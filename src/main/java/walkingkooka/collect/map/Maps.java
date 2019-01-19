@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -45,6 +46,13 @@ final public class Maps implements PublicStaticHelper {
      */
     static public <K, V> Map<K, V> empty() {
         return Collections.emptyMap();
+    }
+
+    /**
+     * {@see MapsEntry}
+     */
+    static public <K,V> Entry<K,V> entry(final K key, final V value) {
+        return MapsEntry.with(key, value);
     }
 
     /**

@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.ClientCookie;
 
 import java.util.Iterator;
@@ -45,7 +46,7 @@ final class RouterHttpRequestParametersMapCookiesEntryIterator implements Iterat
     }
 
     @Override
-    public RouterHttpRequestParametersMapEntry next() {
+    public Entry<HttpRequestAttribute<?>, Object> next() {
         final List<ClientCookie> cookies = this.cookies;
         final int position = this.position;
         if (position >= cookies.size()) {
@@ -56,8 +57,8 @@ final class RouterHttpRequestParametersMapCookiesEntryIterator implements Iterat
         return entry(cookies.get(position));
     }
 
-    private RouterHttpRequestParametersMapEntry entry(final ClientCookie cookie) {
-        return RouterHttpRequestParametersMapEntry.with(cookie.name(), cookie);
+    private Entry<HttpRequestAttribute<?>, Object> entry(final ClientCookie cookie) {
+        return Maps.entry(cookie.name(), cookie);
     }
 
     private final List<ClientCookie> cookies;

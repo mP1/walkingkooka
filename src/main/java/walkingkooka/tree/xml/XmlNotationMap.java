@@ -45,9 +45,9 @@ final class XmlNotationMap extends XmlMap<XmlName, XmlNotation> {
     }
 
     @Override
-    XmlMapEntrySetEntry<XmlName, XmlNotation> entry(final Node node) {
+    Entry<XmlName, XmlNotation> entry(final Node node) {
         final XmlNotation notation = XmlNotation.with(node);
 
-        return new XmlMapEntrySetEntry<XmlName, XmlNotation>(notation.name(), notation);
+        return Maps.entry(notation.name(), notation);
     }
 }

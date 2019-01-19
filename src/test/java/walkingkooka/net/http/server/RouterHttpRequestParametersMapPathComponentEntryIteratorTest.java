@@ -80,7 +80,7 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
     private void checkNext(final RouterHttpRequestParametersMapPathComponentEntryIterator iterator,
                            final int position,
                            final UrlPathName name) {
-        final RouterHttpRequestParametersMapEntry entry = iterator.next();
+        final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
         assertEquals("key", HttpRequestAttributes.pathComponent(position), entry.getKey());
         assertEquals("value", name, entry.getValue());
     }
