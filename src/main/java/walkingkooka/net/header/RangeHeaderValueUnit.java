@@ -75,6 +75,7 @@ public enum RangeHeaderValueUnit implements HeaderValue {
     public final boolean isResponse() {
         return RangeHeaderValue.IS_RESPONSE;
     }
+
     /**
      * Finds a matching {@link RangeHeaderValueUnit} for the given text or throw an {@link IllegalArgumentException}.
      */
@@ -82,7 +83,7 @@ public enum RangeHeaderValueUnit implements HeaderValue {
         final Optional<RangeHeaderValueUnit> found = Arrays.stream(values())
                 .filter(u -> u.headerText.equalsIgnoreCase(text))
                 .findFirst();
-        if(!found.isPresent()){
+        if (!found.isPresent()) {
             throw new IllegalArgumentException("Unknown range unit " + CharSequences.quote(text));
         }
         return found.get();

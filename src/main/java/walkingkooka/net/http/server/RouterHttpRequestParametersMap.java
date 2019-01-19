@@ -33,7 +33,7 @@ import java.util.Set;
 /**
  * A {@link Map} view of a {@link HttpRequest}.
  */
-final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttribute, Object> {
+final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttribute<?>, Object> {
 
     /**
      * Factory that creates a map of parameters from a {@link HttpRequest}.
@@ -99,7 +99,7 @@ final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttrib
     private transient UrlPathName[] pathNames;
 
     @Override
-    public Set<Entry<HttpRequestAttribute, Object>> entrySet() {
+    public Set<Entry<HttpRequestAttribute<?>, Object>> entrySet() {
         return this.entrySet;
     }
 

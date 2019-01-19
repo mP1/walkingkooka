@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
-public abstract class StringHeaderValueConverterTestCase<C extends StringHeaderValueConverter> extends HeaderValueConverterTestCase<C, String>{
+public abstract class StringHeaderValueConverterTestCase<C extends StringHeaderValueConverter> extends HeaderValueConverterTestCase<C, String> {
 
     StringHeaderValueConverterTestCase() {
         super();

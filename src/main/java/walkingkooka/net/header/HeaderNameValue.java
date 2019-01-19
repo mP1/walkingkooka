@@ -51,8 +51,8 @@ abstract class HeaderNameValue implements Name {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-               this.canBeEqual(other) &&
-                       this.equals0((HeaderNameValue) other);
+                this.canBeEqual(other) &&
+                        this.equals0((HeaderNameValue) other);
     }
 
     abstract boolean canBeEqual(final Object other);

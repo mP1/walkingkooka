@@ -20,7 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
-public final class UnquotedStringHeaderValueConverterTest extends StringHeaderValueConverterTestCase<UnquotedStringHeaderValueConverter>{
+public final class UnquotedStringHeaderValueConverterTest extends StringHeaderValueConverterTestCase<UnquotedStringHeaderValueConverter> {
 
     @Test(expected = HeaderValueException.class)
     public void testParseOpeningDoubleQuoteFails() {

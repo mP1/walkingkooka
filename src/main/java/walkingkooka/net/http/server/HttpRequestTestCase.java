@@ -30,7 +30,7 @@ public abstract class HttpRequestTestCase<R extends HttpRequest> extends ClassTe
 
     @Test
     public void testRoutingParameters() {
-        final Map<HttpRequestAttribute, Object> routingParameters = this.createRequest().routingParameters();
+        final Map<HttpRequestAttribute<?>, Object> routingParameters = this.createRequest().routingParameters();
         assertNotEquals("method absent", null, routingParameters.get(HttpRequestAttributes.METHOD));
         assertNotEquals("transport absent", null, routingParameters.get(HttpRequestAttributes.TRANSPORT));
         assertNotEquals("protocol absent", null, routingParameters.get(HttpRequestAttributes.HTTP_PROTOCOL_VERSION));

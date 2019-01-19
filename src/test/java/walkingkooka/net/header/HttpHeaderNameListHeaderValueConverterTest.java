@@ -78,7 +78,7 @@ public final class HttpHeaderNameListHeaderValueConverterTest extends
     }
 
     private void toTextAndCheck2(final String value,
-                                 final HttpHeaderName<?>...headers) {
+                                 final HttpHeaderName<?>... headers) {
         this.toTextAndCheck(Lists.of(headers), value);
     }
 

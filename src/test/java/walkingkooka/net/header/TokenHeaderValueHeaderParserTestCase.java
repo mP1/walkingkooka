@@ -398,8 +398,7 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
         return parameters;
     }
 
-    @Override
-    final String valueLabel() {
+    @Override final String valueLabel() {
         return TokenHeaderValueHeaderParser.VALUE;
     }
 

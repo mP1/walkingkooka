@@ -357,7 +357,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     @Test
     public void testQParameterPresent() {
         this.qFactorWeightAndCheck(this.mediaType()
-                .setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), 0.5f)),
+                        .setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), 0.5f)),
                 0.5f);
     }
 
@@ -683,7 +683,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     @Test
     public void testToStringWithParametersRequireQuotesDoubleQuoteChar() {
-        this.toStringAndCheck( MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\"c")),
+        this.toStringAndCheck(MediaType.with(TYPE, SUBTYPE).setParameters(parameters("a", "b\"c")),
                 "type/subtype; a=\"b\\\"c\"");
     }
 

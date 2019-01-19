@@ -333,7 +333,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
     @Test
     public final void testTypeSlashSubTypeParameterParameterValueQuotedParameterValue() {
         final String text = TYPE + "/" + SUBTYPE + ";parameter=\"value\"\"q\"";
-        this.parseInvalidCharacterFails(text, text.indexOf('q') -1);
+        this.parseInvalidCharacterFails(text, text.indexOf('q') - 1);
     }
 
     @Test
@@ -542,8 +542,7 @@ public abstract class MediaTypeHeaderParserTestCase<P extends MediaTypeHeaderPar
         assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());
     }
 
-    @Override
-    final String valueLabel() {
+    @Override final String valueLabel() {
         return MediaTypeHeaderParser.MEDIATYPE;
     }
 }

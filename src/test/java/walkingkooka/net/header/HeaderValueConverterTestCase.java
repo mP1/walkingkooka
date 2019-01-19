@@ -66,13 +66,13 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
         final C converter = this.converter();
 
         final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
-        if(this.value() instanceof String) {
+        if (this.value() instanceof String) {
             assertSame(header, converter.httpHeaderNameCast(header));
         } else {
             try {
                 converter.httpHeaderNameCast(header);
                 fail("httpHeaderNameCast() should have failed");
-            } catch (final HttpHeaderNameTypeParameterHeaderException expected){
+            } catch (final HttpHeaderNameTypeParameterHeaderException expected) {
             }
         }
     }

@@ -99,8 +99,7 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
                 MediaType.with("type1", "subtype1").setParameters(this.parameters("q", 0.25f)));
     }
 
-    @Override
-    final void parseAndCheck(final String text,
+    @Override final void parseAndCheck(final String text,
                                        final String type,
                                        final String subtype,
                                        final Map<MediaTypeParameterName<?>, Object> parameters) {
@@ -145,7 +144,7 @@ public final class MediaTypeListHeaderParserTest extends MediaTypeHeaderParserTe
         this.check(result.get(3), type, subtype, parameters);
     }
 
-    private void parseAndCheck2(final String text, final MediaType...mediaTypes) {
+    private void parseAndCheck2(final String text, final MediaType... mediaTypes) {
         assertEquals("Incorrect result parsing " + CharSequences.quote(text),
                 Lists.of(mediaTypes),
                 MediaTypeListHeaderParser.parseMediaTypeList(text));

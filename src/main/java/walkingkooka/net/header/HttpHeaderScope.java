@@ -62,7 +62,7 @@ public enum HttpHeaderScope {
      */
     public final void check(final HttpHeaderName<?> name) {
         Objects.requireNonNull(name, "name");
-        
+
         if (this.isNotAcceptable(name)) {
             throw new NotAcceptableHeaderException("Invalid header " + name);
         }

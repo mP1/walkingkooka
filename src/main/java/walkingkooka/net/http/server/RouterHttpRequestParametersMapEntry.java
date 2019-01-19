@@ -28,23 +28,23 @@ import java.util.Objects;
 /**
  * Read only {@link Entry} used by {@link RouterHttpRequestParametersMapEntrySet} and other iterators.
  */
-final class RouterHttpRequestParametersMapEntry implements Entry<HttpRequestAttribute, Object>, HashCodeEqualsDefined {
+final class RouterHttpRequestParametersMapEntry implements Entry<HttpRequestAttribute<?>, Object>, HashCodeEqualsDefined {
 
-    static RouterHttpRequestParametersMapEntry with(final HttpRequestAttribute key, final Object value) {
+    static RouterHttpRequestParametersMapEntry with(final HttpRequestAttribute<?> key, final Object value) {
         return new RouterHttpRequestParametersMapEntry(key, value);
     }
 
-    private RouterHttpRequestParametersMapEntry(final HttpRequestAttribute key, final Object value) {
+    private RouterHttpRequestParametersMapEntry(final HttpRequestAttribute<?> key, final Object value) {
         this.key = key;
         this.value = value;
     }
 
     @Override
-    public HttpRequestAttribute getKey() {
+    public HttpRequestAttribute<?> getKey() {
         return this.key;
     }
 
-    private final HttpRequestAttribute key;
+    private final HttpRequestAttribute<?> key;
 
     @Override
     public Object getValue() {

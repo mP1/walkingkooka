@@ -31,8 +31,7 @@ abstract class ContentDispositionFileNameHeaderValueConverter<F extends ContentD
         super();
     }
 
-    @Override
-    final void check0(final Object value) {
+    @Override final void check0(final Object value) {
         this.checkType(value, this.type());
     }
 

@@ -102,7 +102,7 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     public void testParseQuoted() {
         this.parseAndCheck("\"abc\"",
                 "abc",
-                        "abc");
+                "abc");
     }
 
     private void parseAndCheck(final String text,
@@ -164,12 +164,12 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     @Test(expected = NullPointerException.class)
     public void testGenerateNullBodyFails() {
-        MediaTypeBoundary.generate(null, ()-> Byte.MAX_VALUE);
+        MediaTypeBoundary.generate(null, () -> Byte.MAX_VALUE);
     }
 
     @Test(expected = NullPointerException.class)
     public void testGenerateNullBoundaryCharacterFails() {
-        MediaTypeBoundary.generate(new byte[0],null);
+        MediaTypeBoundary.generate(new byte[0], null);
     }
 
     @Test

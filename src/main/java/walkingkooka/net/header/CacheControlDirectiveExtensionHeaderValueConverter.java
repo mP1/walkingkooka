@@ -74,7 +74,7 @@ final class CacheControlDirectiveExtensionHeaderValueConverter extends HeaderVal
                 this.toTextLong(Long.class.cast(value), name) :
                 value instanceof String ?
                         this.toTextString(String.class.cast(value), name) :
-                    this.failInvalidValue(value, name);
+                        this.failInvalidValue(value, name);
     }
 
     private String toTextLong(final Long value, final Name name) {

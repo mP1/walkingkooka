@@ -77,8 +77,7 @@ final class QuotedUnquotedStringHeaderValueConverter extends HeaderValueConverte
         return text;
     }
 
-    @Override
-    final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
+    @Override final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
         return Cast.to(headerName);
     }
 

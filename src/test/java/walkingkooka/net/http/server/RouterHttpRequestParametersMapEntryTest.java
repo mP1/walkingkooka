@@ -25,11 +25,10 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import static org.junit.Assert.assertEquals;
 
-public final class RouterHttpRequestParametersMapEntryTest extends EntryTestCase<RouterHttpRequestParametersMapEntry,
-        HttpRequestAttribute,
-        Object> implements HashCodeEqualsDefinedTesting<RouterHttpRequestParametersMapEntry> {
+public final class RouterHttpRequestParametersMapEntryTest extends EntryTestCase<RouterHttpRequestParametersMapEntry, HttpRequestAttribute<?>, Object>
+        implements HashCodeEqualsDefinedTesting<RouterHttpRequestParametersMapEntry> {
 
-    private final static HttpRequestAttribute KEY = HttpRequestAttributes.TRANSPORT;
+    private final static HttpRequestAttribute<?> KEY = HttpRequestAttributes.TRANSPORT;
     private final static Object VALUE = HttpTransport.SECURED;
 
     @Test

@@ -64,7 +64,6 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
     }
 
 
-
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link List<CharsetHeaderValue>} header values.
      */
@@ -135,7 +134,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link IfRange} header values.
      */
     private static HttpHeaderName<IfRange<?>> registerIfRangeConstant(final String header,
-                                                                    final HttpHeaderNameScope scope) {
+                                                                      final HttpHeaderNameScope scope) {
         return registerConstant(header, scope, HeaderValueConverter.ifRange());
     }
 
@@ -143,7 +142,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values of type {@link LanguageTag}.
      */
     private static HttpHeaderName<LanguageTag> registerLanguageTagConstant(final String header,
-                                                                          final HttpHeaderNameScope scope) {
+                                                                           final HttpHeaderNameScope scope) {
         return registerConstant(header, scope, HeaderValueConverter.languageTag());
     }
 
@@ -151,7 +150,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Creates and adds a new {@link HttpHeaderName} to the cache that handles header values that include a list of {@link LanguageTag}.
      */
     private static HttpHeaderName<List<LanguageTag>> registerLanguageTagListConstant(final String header,
-                                                                                    final HttpHeaderNameScope scope) {
+                                                                                     final HttpHeaderNameScope scope) {
         return registerConstant(header, scope, HeaderValueConverter.languageTagList());
     }
 

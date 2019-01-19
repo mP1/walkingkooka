@@ -63,7 +63,7 @@ final class CharsetHeaderValueListHeaderParser extends HeaderParserWithParameter
         }
 
         final char initial = this.character();
-        if(!CharsetName.INITIAL_CHAR_PREDICATE.test(initial)) {
+        if (!CharsetName.INITIAL_CHAR_PREDICATE.test(initial)) {
             this.failInvalidCharacter();
         }
         this.position++;

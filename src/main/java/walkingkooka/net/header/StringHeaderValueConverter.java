@@ -36,8 +36,7 @@ abstract class StringHeaderValueConverter extends HeaderValueConverter<String> {
 
     final CharPredicate predicate;
 
-    @Override
-    final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
+    @Override final HttpHeaderName<String> httpHeaderNameCast(final HttpHeaderName<?> headerName) {
         return Cast.to(headerName);
     }
 

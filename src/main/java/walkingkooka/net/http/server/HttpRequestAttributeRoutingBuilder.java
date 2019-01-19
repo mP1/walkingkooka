@@ -42,7 +42,7 @@ import java.util.function.Predicate;
 /**
  * A {@link Builder} that builds a {@link Routing} that matches the given http request attributes.
  */
-final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Routing<HttpRequestAttribute, T>> {
+final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Routing<HttpRequestAttribute<?>, T>> {
 
     /**
      * Creates an empty builder without any predicates.
@@ -95,7 +95,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
 
     private HttpProtocolVersion protocolVersion;
 
-    private <TT> void failIfSecondChange(final HttpRequestAttribute attribute, final TT neww, final TT previous) {
+    private <TT> void failIfSecondChange(final HttpRequestAttribute<?> attribute, final TT neww, final TT previous) {
         Objects.requireNonNull(neww, attribute.toString());
 
         if (null != previous && false == neww.equals(previous)) {
@@ -116,7 +116,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
         return this;
     }
 
-    private void addMethodPredicate(final Map<HttpRequestAttribute, Predicate<Object>> attributeToPredicate) {
+    private void addMethodPredicate(final Map<HttpRequestAttribute<?>, Predicate<Object>> attributeToPredicate) {
         final Set<Object> copy = Sets.ordered();
         copy.addAll(this.methods);
         if (!copy.isEmpty()) {
@@ -223,7 +223,7 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
      * Each request attribute can only have one predicate.
      */
     private void failIfSecondChange(final String label,
-                                    final HttpRequestAttribute key,
+                                    final HttpRequestAttribute<?> key,
                                     final Predicate<?> predicate) {
         Objects.requireNonNull(key, label);
         Objects.requireNonNull(predicate, "predicate");
@@ -238,8 +238,8 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
     // build ......................................................................................
 
     @Override
-    public Routing<HttpRequestAttribute, T> build() throws BuilderException {
-        final Map<HttpRequestAttribute, Predicate<Object>> attributeToPredicate = Maps.ordered();
+    public Routing<HttpRequestAttribute<?>, T> build() throws BuilderException {
+        final Map<HttpRequestAttribute<?>, Predicate<Object>> attributeToPredicate = Maps.ordered();
         attributeToPredicate.putAll(this.attributeToPredicate);
         this.addMethodPredicate(attributeToPredicate);
 
@@ -247,8 +247,8 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
             throw new BuilderException("Builder empty!");
         }
 
-        Routing<HttpRequestAttribute, T> routing = Routing.with(HttpRequestAttribute.class, this.target);
-        for (Entry<HttpRequestAttribute, Predicate<Object>> attributeAndPredicate : attributeToPredicate.entrySet()) {
+        Routing<HttpRequestAttribute<?>, T> routing = Cast.to(Routing.with(HttpRequestAttribute.class, this.target));
+        for (Entry<HttpRequestAttribute<?>, Predicate<Object>> attributeAndPredicate : attributeToPredicate.entrySet()) {
             routing = routing.andPredicateTrue(attributeAndPredicate.getKey(), attributeAndPredicate.getValue());
         }
         return routing;
@@ -259,5 +259,5 @@ final public class HttpRequestAttributeRoutingBuilder<T> implements Builder<Rout
     /**
      * Each added predicate will set this to false.
      */
-    private final Map<HttpRequestAttribute, Predicate<Object>> attributeToPredicate = Maps.ordered();
+    private final Map<HttpRequestAttribute<?>, Predicate<Object>> attributeToPredicate = Maps.ordered();
 }

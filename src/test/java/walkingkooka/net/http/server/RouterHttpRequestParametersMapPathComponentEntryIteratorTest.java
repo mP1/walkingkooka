@@ -27,7 +27,7 @@ import java.util.Map.Entry;
 import static org.junit.Assert.assertEquals;
 
 public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest extends
-        IteratorTestCase<RouterHttpRequestParametersMapPathComponentEntryIterator, Entry<HttpRequestAttribute, Object>> {
+        IteratorTestCase<RouterHttpRequestParametersMapPathComponentEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static UrlPathName NAME1 = UrlPathName.with("a");
     private final static UrlPathName NAME2 = UrlPathName.with("b");

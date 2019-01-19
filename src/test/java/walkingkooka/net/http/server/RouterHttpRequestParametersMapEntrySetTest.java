@@ -42,7 +42,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RouterHttpRequestParametersMapEntrySetTest extends
         SetTestCase<RouterHttpRequestParametersMapEntrySet,
-                Entry<HttpRequestAttribute, Object>> {
+                Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static HttpTransport TRANSPORT = HttpTransport.SECURED;
     private final static HttpMethod METHOD = HttpMethod.with("CUSTOMHTTPMETHOD");
@@ -98,7 +98,7 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
                                   final RelativeUrl url,
                                   final Map<HttpHeaderName<?>, Object> headers,
                                   final List<ClientCookie> cookies) {
-        final Iterator<Entry<HttpRequestAttribute, Object>> iterator = this.createSet(transport,
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator = this.createSet(transport,
                 method,
                 version,
                 url,
@@ -138,15 +138,15 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
         }
     }
 
-    private void checkEntry(final Iterator<Entry<HttpRequestAttribute, Object>> iterator,
-                            final HttpRequestAttribute key,
+    private void checkEntry(final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator,
+                            final HttpRequestAttribute<?> key,
                             final Object value) {
         assertTrue("has next", iterator.hasNext());
         this.checkEntry0(iterator.next(), key, value);
     }
 
-    private void checkEntry0(final Entry<HttpRequestAttribute, Object> entry,
-                             final HttpRequestAttribute key,
+    private void checkEntry0(final Entry<HttpRequestAttribute<?>, Object> entry,
+                             final HttpRequestAttribute<?> key,
                              final Object value) {
         assertEquals("entry key", key, entry.getKey());
         assertEquals("entry value", value, entry.getValue());

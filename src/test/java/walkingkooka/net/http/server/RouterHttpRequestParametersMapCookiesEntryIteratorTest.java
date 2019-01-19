@@ -30,7 +30,7 @@ import java.util.Map.Entry;
 import static org.junit.Assert.assertEquals;
 
 public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extends
-        IteratorTestCase<RouterHttpRequestParametersMapCookiesEntryIterator, Entry<HttpRequestAttribute, Object>> {
+        IteratorTestCase<RouterHttpRequestParametersMapCookiesEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
 
     private final static ClientCookie COOKIE1 = Cookie.client(CookieName.with("a"), "1");
     private final static ClientCookie COOKIE2 = Cookie.client(CookieName.with("b"), "2");

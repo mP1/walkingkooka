@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
 /**
  * An {@link Iterator} entry view of all {@link ClientCookie cookies}.
  */
-final class RouterHttpRequestParametersMapCookiesEntryIterator implements Iterator<Entry<HttpRequestAttribute, Object>> {
+final class RouterHttpRequestParametersMapCookiesEntryIterator implements Iterator<Entry<HttpRequestAttribute<?>, Object>> {
 
     static RouterHttpRequestParametersMapCookiesEntryIterator with(final List<ClientCookie> cookies) {
         return new RouterHttpRequestParametersMapCookiesEntryIterator(cookies);

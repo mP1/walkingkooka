@@ -47,7 +47,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
     @Override
     void whitespace() {
-        if(!this.requireDirectiveName) {
+        if (!this.requireDirectiveName) {
             this.failInvalidCharacter(); // whitespace after directives not allowed.
         }
         this.whitespace0();
@@ -55,7 +55,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
     @Override
     void tokenSeparator() {
-        if(this.requireDirectiveName) {
+        if (this.requireDirectiveName) {
             this.failInvalidCharacter();
         }
         this.addParameter();
@@ -63,7 +63,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
     @Override
     void keyValueSeparator() {
-        if(this.requireDirectiveName) {
+        if (this.requireDirectiveName) {
             this.failInvalidCharacter();
         }
         this.expectsParameterValue = true;
@@ -71,15 +71,15 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
     @Override
     void multiValueSeparator() {
-        if(this.requireDirectiveName) {
+        if (this.requireDirectiveName) {
             this.failInvalidCharacter();
         }
-        if(this.expectsParameterValue) {
+        if (this.expectsParameterValue) {
             this.failMissingParameterValue();
         }
 
         final CacheControlDirectiveName directiveName = this.directiveName;
-        if(null!=directiveName) {
+        if (null != directiveName) {
             this.addParameter();
         }
     }
@@ -97,7 +97,7 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
     @Override
     void quotedText() {
         // didnt expect this quoted text.
-        if(this.requireDirectiveName || !this.expectsParameterValue) {
+        if (this.requireDirectiveName || !this.expectsParameterValue) {
             this.failInvalidCharacter();
         }
         this.parameterValue = this.directiveName.toValue(this.quotedText(ASCII, ESCAPING_SUPPORTED));
@@ -108,16 +108,16 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
     @Override
     void token() {
-        if(this.requireDirectiveName) {
+        if (this.requireDirectiveName) {
             this.requireDirectiveName = false;
             this.directiveName = CacheControlDirectiveName.with(this.token(RFC2045TOKEN));
             this.parameterValue = Optional.empty();
         } else {
-            if(!this.expectsParameterValue) {
+            if (!this.expectsParameterValue) {
                 this.failInvalidCharacter();
             }
             final String text = this.token(DIGIT);
-            if(text.isEmpty()) {
+            if (text.isEmpty()) {
                 this.failInvalidCharacter();
             }
             this.parameterValue = this.directiveName.toValue(text);
@@ -132,16 +132,16 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
 
     @Override
     void endOfText() {
-        if(this.requireDirectiveName) {
+        if (this.requireDirectiveName) {
             this.position--;
             this.failInvalidCharacter();
         }
-        if(this.expectsParameterValue) {
+        if (this.expectsParameterValue) {
             this.failMissingParameterValue();
         }
 
         CacheControlDirectiveName directiveName = this.directiveName;
-        if(null!=directiveName) {
+        if (null != directiveName) {
             this.addParameter();
         }
     }
@@ -150,8 +150,8 @@ final class CacheControlDirectiveHeaderParser extends HeaderParser {
         final CacheControlDirectiveName<?> directiveName = this.directiveName;
         final Optional<?> parameterValue = this.parameterValue;
 
-        if(directiveName.requiresParameter() && !parameterValue.isPresent()) {
-            if(this.hasMoreCharacters()) {
+        if (directiveName.requiresParameter() && !parameterValue.isPresent()) {
+            if (this.hasMoreCharacters()) {
                 this.failInvalidCharacter();
             } else {
                 this.failMissingParameterValue();

@@ -54,7 +54,7 @@ public final class RelativeUrlHeaderValueConverterTest extends
     protected RelativeUrl value() {
         return RelativeUrl.parse("/file?p1=v1");
     }
-    
+
     @Override
     protected String converterToString() {
         return RelativeUrl.class.getSimpleName();

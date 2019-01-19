@@ -63,7 +63,7 @@ final class QuotedStringHeaderValueConverter extends StringHeaderValueConverter 
 
         for (int i = 1; i < last; i++) {
             final char c = text.charAt(i);
-            if(!Ascii.isPrintable(c)) {
+            if (!Ascii.isPrintable(c)) {
                 throw new InvalidCharacterException(text, i);
             }
             if (escapeNext) {

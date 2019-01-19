@@ -87,7 +87,7 @@ final class LinkRelationHeaderParser extends HeaderParser {
     @Override
     void whitespace() {
         // empty means the character is a NL or CR
-        if(this.token(SPACE_HTAB).isEmpty()){
+        if (this.token(SPACE_HTAB).isEmpty()) {
             this.failInvalidCharacter();
         }
     }
@@ -133,7 +133,7 @@ final class LinkRelationHeaderParser extends HeaderParser {
         final String quotedText = this.quotedText(QUOTED_PARAMETER_VALUE, false);
         final int last = quotedText.length() - 1;
 
-        for(int i = 1; i < last; i++) {
+        for (int i = 1; i < last; i++) {
             final char c = quotedText.charAt(i);
             if (spaceOrHorizontalTab(c)) {
                 this.add(token);

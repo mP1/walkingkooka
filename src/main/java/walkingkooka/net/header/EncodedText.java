@@ -87,10 +87,10 @@ public final class EncodedText implements HashCodeEqualsDefined, Value<String>, 
      * Factory that creates a new {@link EncodedText}
      */
     public static EncodedText with(final CharsetName charset,
-                            final Optional<LanguageTagName> language,
-                            final String value) {
+                                   final Optional<LanguageTagName> language,
+                                   final String value) {
         Objects.requireNonNull(charset, "charset");
-        if(charset.isWildcard()) {
+        if (charset.isWildcard()) {
             throw new IllegalArgumentException("Encoded text charset must not be a wildcard");
         }
 

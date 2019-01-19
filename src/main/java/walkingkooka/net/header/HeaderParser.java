@@ -58,8 +58,8 @@ abstract class HeaderParser {
      * Consumes all the text firing events for each of the symbols or tokens encountered.
      */
     final void parse() {
-        while(this.hasMoreCharacters()) {
-            switch(this.character()) {
+        while (this.hasMoreCharacters()) {
+            switch (this.character()) {
                 case '\t':
                 case '\r':
                 case '\n':
@@ -209,28 +209,28 @@ abstract class HeaderParser {
 
         boolean escaping = false;
 
-        for(;;this.position++) {
-            if(!this.hasMoreCharacters()) {
+        for (; ; this.position++) {
+            if (!this.hasMoreCharacters()) {
                 fail(missingClosingQuote(this.text));
             }
             final char c = this.character();
 
-            if(supportEscaping && escaping) {
+            if (supportEscaping && escaping) {
                 unescaped.append(c);
                 escaping = false;
                 continue;
             }
 
-            if(supportEscaping && BACKSLASH == c) {
+            if (supportEscaping && BACKSLASH == c) {
                 escaping = true;
                 continue;
             }
 
-            if(DOUBLE_QUOTE == c) {
+            if (DOUBLE_QUOTE == c) {
                 this.position++;
                 break;
             }
-            if(!predicate.test(c)){
+            if (!predicate.test(c)) {
                 this.failInvalidCharacter();
             }
             unescaped.append(c);
@@ -244,7 +244,7 @@ abstract class HeaderParser {
      */
     final EncodedText encodedText() {
         final CharsetName charset = this.token(MIME_CHARSETC, CharsetName::with);
-        if(!this.hasMoreCharacters()) {
+        if (!this.hasMoreCharacters()) {
             this.incompleteEncodedAsciiText();
         }
         this.languageQuoteCharacter();
@@ -255,18 +255,18 @@ abstract class HeaderParser {
         this.languageQuoteCharacter();
 
         final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        while(this.hasMoreCharacters()) {
+        while (this.hasMoreCharacters()) {
             final char c = this.character();
-            switch(c){
+            switch (c) {
                 case EncodedText.ENCODE:
                     this.position++;
-                    if(!this.hasMoreCharacters()) {
+                    if (!this.hasMoreCharacters()) {
                         this.incompleteEncodedAsciiText();
                     }
                     final int hi = digit(this.character());
                     this.position++;
 
-                    if(!this.hasMoreCharacters()) {
+                    if (!this.hasMoreCharacters()) {
                         this.incompleteEncodedAsciiText();
                     }
                     final int lo = digit(this.character()); // below will advance position
@@ -361,7 +361,7 @@ abstract class HeaderParser {
     }
 
     private void languageQuoteCharacter() {
-        if(!this.hasMoreCharacters()) {
+        if (!this.hasMoreCharacters()) {
             this.incompleteEncodedAsciiText();
         }
         if (LANGUAGE_QUOTE != this.character()) {
@@ -417,7 +417,7 @@ abstract class HeaderParser {
      */
     final char character() {
         final char c = this.text.charAt(this.position);
-        if(!ASCII.test(c)) {
+        if (!ASCII.test(c)) {
             this.failInvalidCharacter();
         }
         return c;
@@ -435,8 +435,8 @@ abstract class HeaderParser {
     final String token(final CharPredicate predicate) {
         final int start = this.position;
 
-        while(this.hasMoreCharacters()) {
-            if(!predicate.test(this.character())) {
+        while (this.hasMoreCharacters()) {
+            if (!predicate.test(this.character())) {
                 break;
             }
             this.position++;
@@ -459,31 +459,31 @@ abstract class HeaderParser {
      * </pre>
      */
     final void whitespace0() {
-        while(this.hasMoreCharacters()){
+        while (this.hasMoreCharacters()) {
             final char c = this.character();
-            if('\t' == c || ' ' == c) {
+            if ('\t' == c || ' ' == c) {
                 this.position++;
                 continue;
             }
 
             // expect CR NL and then HS or SP.
-            if('\r' ==c) {
+            if ('\r' == c) {
                 this.position++;
 
-                if(!this.hasMoreCharacters()) {
+                if (!this.hasMoreCharacters()) {
                     this.position--;
                     this.failInvalidCharacter();
                 }
-                if('\n' != this.character()) {
+                if ('\n' != this.character()) {
                     this.failInvalidCharacter();
                 }
                 this.position++;
 
-                if(!this.hasMoreCharacters()) {
+                if (!this.hasMoreCharacters()) {
                     this.position--;
                     this.failInvalidCharacter();
                 }
-                if(spaceOrHorizontalTab(this.character())) {
+                if (spaceOrHorizontalTab(this.character())) {
                     this.position++;
                     continue;
                 }
