@@ -42,7 +42,7 @@ final public class AsciiControlCharPredicateTest
     }
 
     @Override
-    protected AsciiControlCharPredicate createCharacterPredicate() {
+    protected AsciiControlCharPredicate createCharPredicate() {
         return AsciiControlCharPredicate.INSTANCE;
     }
 

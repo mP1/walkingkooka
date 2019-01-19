@@ -42,7 +42,7 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
 
     private void wrapFails(final CharPredicate first, final CharPredicate second) {
         try {
-            this.createCharacterPredicate(first, second);
+            this.createCharPredicate(first, second);
             Assert.fail();
         } catch (final NullPointerException expected) {
         }
@@ -50,19 +50,19 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
 
     @Test
     final public void testEqualsDifferentFirstCharPredicate() {
-        this.checkNotEquals(this.createCharacterPredicate(CharPredicates.is('d'), CharPredicates.is('r')));
+        this.checkNotEquals(this.createCharPredicate(CharPredicates.is('d'), CharPredicates.is('r')));
     }
 
     @Test
     final public void testEqualsDifferentSecondCharPredicate() {
-        this.checkNotEquals(this.createCharacterPredicate(CharPredicates.is('l'), CharPredicates.is('d')));
+        this.checkNotEquals(this.createCharPredicate(CharPredicates.is('l'), CharPredicates.is('d')));
     }
 
     @Test
     public void testToString() {
         final CharPredicate first = CharPredicates.fake();
         final CharPredicate second = CharPredicates.fake();
-        final P predicate = this.createCharacterPredicate(first, second);
+        final P predicate = this.createCharPredicate(first, second);
         assertEquals(first + " " + this.operator(predicate) + " " + second,
                 predicate.toString());
     }
@@ -72,20 +72,20 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
     }
 
     @Override
-    final protected P createCharacterPredicate() {
-        return this.createCharacterPredicate(CharPredicates.fake(), CharPredicates.fake());
+    final protected P createCharPredicate() {
+        return this.createCharPredicate(CharPredicates.fake(), CharPredicates.fake());
     }
 
-    abstract P createCharacterPredicate(CharPredicate first, CharPredicate second);
+    abstract P createCharPredicate(CharPredicate first, CharPredicate second);
 
     @Override
     public P createObject() {
-        return this.createCharacterPredicate(CharPredicates.is('l'), CharPredicates.is('r'));
+        return this.createCharPredicate(CharPredicates.is('l'), CharPredicates.is('r'));
     }
 
     @Override
     public final P serializableInstance() {
-        return this.createCharacterPredicate();
+        return this.createCharPredicate();
     }
 
     @Override

@@ -114,7 +114,7 @@ final public class AndCharPredicateTest extends LogicalCharPredicateTestCase<And
     }
 
     @Override
-    AndCharPredicate createCharacterPredicate(final CharPredicate left, final CharPredicate right) {
+    AndCharPredicate createCharPredicate(final CharPredicate left, final CharPredicate right) {
         return Cast.to(AndCharPredicate.wrap(left, right));
     }
 

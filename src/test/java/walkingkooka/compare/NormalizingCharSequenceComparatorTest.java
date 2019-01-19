@@ -39,7 +39,7 @@ final public class NormalizingCharSequenceComparatorTest
     // tests
 
     @Test
-    public void testWithNullCharacterPredicateFails() {
+    public void testWithNullCharPredicateFails() {
         try {
             NormalizingCharSequenceComparator.with(null);
             Assert.fail();
@@ -142,7 +142,7 @@ final public class NormalizingCharSequenceComparatorTest
     }
 
     @Test
-    public void testEqualsDifferentCharacterPredicate() {
+    public void testEqualsDifferentCharPredicate() {
         this.checkNotEquals(NormalizingCharSequenceComparator.with(CharPredicates.never()));
     }
     

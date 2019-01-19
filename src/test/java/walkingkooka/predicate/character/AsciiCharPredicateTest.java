@@ -40,7 +40,7 @@ final public class AsciiCharPredicateTest extends CharPredicateTestCase<AsciiCha
     }
 
     @Override
-    protected AsciiCharPredicate createCharacterPredicate() {
+    protected AsciiCharPredicate createCharPredicate() {
         return AsciiCharPredicate.INSTANCE;
     }
 

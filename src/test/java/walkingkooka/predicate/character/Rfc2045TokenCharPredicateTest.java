@@ -159,11 +159,11 @@ public final class Rfc2045TokenCharPredicateTest extends CharPredicateTestCase<R
 
     @Test
     public void testToString() {
-        assertEquals("RFC2045Token", this.createCharacterPredicate().toString());
+        assertEquals("RFC2045Token", this.createCharPredicate().toString());
     }
 
     @Override
-    protected Rfc2045TokenCharPredicate createCharacterPredicate() {
+    protected Rfc2045TokenCharPredicate createCharPredicate() {
         return Rfc2045TokenCharPredicate.INSTANCE;
     }
 

@@ -34,12 +34,12 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
     // tests
 
     @Test(expected = NullPointerException.class)
-    public void testWithNullInitialCharacterPredicateFails() {
+    public void testWithNullInitialCharPredicateFails() {
         InitialAndPartCharPredicateCharSequencePredicate.with(null, CharPredicates.never());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWithNullRemainingCharacterPredicateFails() {
+    public void testWithNullRemainingCharPredicateFails() {
         InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.never(), null);
     }
 

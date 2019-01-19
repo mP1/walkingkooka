@@ -84,49 +84,49 @@ final public class CaseSensitivityCharPredicateTest
 
     @Test
     public void testToStringCaseSensitive() {
-        assertEquals("'A'", this.createCharacterPredicate().toString());
+        assertEquals("'A'", this.createCharPredicate().toString());
     }
 
     @Test
     public void testToStringCaseInsensitive() {
         assertEquals("'A' (CaseInsensitive)",
-                this.createCharacterPredicateCaseInsensitive('A').toString());
+                this.createCharPredicateCaseInsensitive('A').toString());
     }
 
     @Override
-    protected CaseSensitivityCharPredicate createCharacterPredicate() {
-        return this.createCharacterPredicateCaseSensitive('A');
+    protected CaseSensitivityCharPredicate createCharPredicate() {
+        return this.createCharPredicateCaseSensitive('A');
     }
 
     private void testTrueCaseSensitive(final char c) {
-        this.testTrue(this.createCharacterPredicateCaseSensitive(), c);
+        this.testTrue(this.createCharPredicateCaseSensitive(), c);
     }
 
     private void testFalseCaseSensitive(final char c) {
-        this.testFalse(this.createCharacterPredicateCaseSensitive(), c);
+        this.testFalse(this.createCharPredicateCaseSensitive(), c);
     }
 
-    private CaseSensitivityCharPredicate createCharacterPredicateCaseSensitive() {
-        return this.createCharacterPredicateCaseSensitive(CaseSensitivityCharPredicateTest.CHAR);
+    private CaseSensitivityCharPredicate createCharPredicateCaseSensitive() {
+        return this.createCharPredicateCaseSensitive(CaseSensitivityCharPredicateTest.CHAR);
     }
 
-    private CaseSensitivityCharPredicate createCharacterPredicateCaseSensitive(final char c) {
+    private CaseSensitivityCharPredicate createCharPredicateCaseSensitive(final char c) {
         return (CaseSensitivityCharPredicate) CaseSensitivity.SENSITIVE.charPredicate(c);
     }
 
     private void testTrueCaseInsensitive(final char c) {
-        this.testTrue(this.createCharacterPredicateCaseInsensitive(), c);
+        this.testTrue(this.createCharPredicateCaseInsensitive(), c);
     }
 
     private void testFalseCaseInsensitive(final char c) {
-        this.testFalse(this.createCharacterPredicateCaseInsensitive(), c);
+        this.testFalse(this.createCharPredicateCaseInsensitive(), c);
     }
 
-    private CaseSensitivityCharPredicate createCharacterPredicateCaseInsensitive() {
-        return this.createCharacterPredicateCaseInsensitive(CaseSensitivityCharPredicateTest.CHAR);
+    private CaseSensitivityCharPredicate createCharPredicateCaseInsensitive() {
+        return this.createCharPredicateCaseInsensitive(CaseSensitivityCharPredicateTest.CHAR);
     }
 
-    private CaseSensitivityCharPredicate createCharacterPredicateCaseInsensitive(final char c) {
+    private CaseSensitivityCharPredicate createCharPredicateCaseInsensitive(final char c) {
         return (CaseSensitivityCharPredicate) CaseSensitivity.INSENSITIVE.charPredicate(c);
     }
 

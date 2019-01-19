@@ -84,17 +84,17 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
 
     @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)
     public void testIdentifierUnknownFail() {
-        this.createCharacterPredicate0();
+        this.createCharPredicate0();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testRangeBeginInvalidTerminalFail() {
-        this.createCharacterPredicate0();
+        this.createCharPredicate0();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testRangeEndInvalidTerminalFail() {
-        this.createCharacterPredicate0();
+        this.createCharPredicate0();
     }
 
     @Test
@@ -109,7 +109,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
 
     @Test
     public void testPredefined() {
-        final CharPredicate predicate = this.createCharacterPredicate0();
+        final CharPredicate predicate = this.createCharPredicate0();
         this.testTrue(predicate,'@');
         this.testTrue(predicate,'B');
         this.testTrue(predicate,'C');
@@ -123,17 +123,17 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
 
     @Test(expected = UnsupportedOperationException.class)
     public void testConcatenation() {
-        this.createCharacterPredicate0();
+        this.createCharPredicate0();
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testOptional() {
-        this.createCharacterPredicate0();
+        this.createCharPredicate0();
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testRepeated() {
-        this.createCharacterPredicate0();
+        this.createCharPredicate0();
     }
 
     @Test
@@ -142,7 +142,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
     }
 
     private void readGrammarAndCheck() {
-        final CharPredicate predicate = this.createCharacterPredicate0();
+        final CharPredicate predicate = this.createCharPredicate0();
         this.testTrue(predicate,'A');
         this.testTrue(predicate,'B');
         this.testTrue(predicate,'C');
@@ -155,12 +155,12 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
     }
 
     @Override
-    protected CharPredicate createCharacterPredicate() {
-        return this.createCharacterPredicate1("default.grammar");
+    protected CharPredicate createCharPredicate() {
+        return this.createCharPredicate1("default.grammar");
     }
 
-    private CharPredicate createCharacterPredicate0() {
-        return this.createCharacterPredicate1(this.testName.getMethodName() + ".grammar");
+    private CharPredicate createCharPredicate0() {
+        return this.createCharPredicate1(this.testName.getMethodName() + ".grammar");
     }
 
     @Rule
@@ -169,7 +169,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
     /**
      * Parses the grammar file, uses the transformer to convert each rule into matchers and then returns the parser for the rule called "TEST".
      */
-    private CharPredicate createCharacterPredicate1(final String grammarResourceFile) {
+    private CharPredicate createCharPredicate1(final String grammarResourceFile) {
         final EbnfGrammarParserToken grammar = this.grammar(grammarResourceFile);
 
         final Map<EbnfIdentifierName, CharPredicate> defaults = Maps.hash();

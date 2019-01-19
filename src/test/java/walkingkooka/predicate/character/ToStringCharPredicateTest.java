@@ -80,7 +80,7 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     }
 
     @Test
-    public void testWrapAnotherToStringCharacterPredicate() {
+    public void testWrapAnotherToStringCharPredicate() {
         final ToStringCharPredicate predicate
                 = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicate.wrap(PREDICATE,
                 "different"), TOSTRING));
@@ -117,18 +117,18 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     @Test
     public void testToString() {
         assertEquals(TOSTRING,
-                this.createCharacterPredicate().toString());
+                this.createCharPredicate().toString());
     }
 
     @Override
-    protected ToStringCharPredicate createCharacterPredicate() {
+    protected ToStringCharPredicate createCharPredicate() {
         return Cast.to(ToStringCharPredicate.wrap(PREDICATE,
                 TOSTRING));
     }
 
     @Override
     public ToStringCharPredicate createObject() {
-        return this.createCharacterPredicate();
+        return this.createCharPredicate();
     }
 
     @Override

@@ -40,7 +40,7 @@ final public class LowerCasingCharPredicateTest
     }
 
     @Test
-    public void testDoesNotReWrapLowerCasingCharacterPredicate() {
+    public void testDoesNotReWrapLowerCasingCharPredicate() {
         final CharPredicate predicate = LowerCasingCharPredicate.wrap(CharPredicates.is('x'));
         assertSame("should not have rewrapped",
                 predicate,
@@ -63,7 +63,7 @@ final public class LowerCasingCharPredicateTest
     }
 
     @Test
-    public void testWrapCharacterPredicate() {
+    public void testWrapCharPredicate() {
         Assert.assertTrue(LowerCasingCharPredicate.wrap(CharPredicates.is('a')).test('A'));
     }
 
@@ -80,7 +80,7 @@ final public class LowerCasingCharPredicateTest
     }
 
     @Override
-    protected LowerCasingCharPredicate createCharacterPredicate() {
+    protected LowerCasingCharPredicate createCharPredicate() {
         return Cast.to(LowerCasingCharPredicate.wrap(new CharPredicate() {
 
             @Override
@@ -97,7 +97,7 @@ final public class LowerCasingCharPredicateTest
 
     @Override
     public LowerCasingCharPredicate createObject() {
-        return this.createCharacterPredicate();
+        return this.createCharPredicate();
     }
 
     @Override

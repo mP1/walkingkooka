@@ -56,13 +56,13 @@ final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPre
 
     @Test
     public void testNot() {
-        assertSame(PREDICATE, this.createCharacterPredicate().negate());
+        assertSame(PREDICATE, this.createCharPredicate().negate());
     }
 
     @Test
     public void testUnwrapsAlreadyWrapped() {
         assertSame(PREDICATE,
-                NotCharPredicate.wrap(this.createCharacterPredicate()));
+                NotCharPredicate.wrap(this.createCharPredicate()));
     }
 
     @Test
@@ -77,7 +77,7 @@ final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPre
     }
 
     @Override
-    protected NotCharPredicate createCharacterPredicate() {
+    protected NotCharPredicate createCharPredicate() {
         return Cast.to(NotCharPredicate.wrap(PREDICATE));
     }
 
@@ -88,7 +88,7 @@ final public class NotCharPredicateTest extends CharPredicateTestCase<NotCharPre
     
     @Override
     public NotCharPredicate createObject() {
-        return this.createCharacterPredicate();
+        return this.createCharPredicate();
     }
 
     @Override

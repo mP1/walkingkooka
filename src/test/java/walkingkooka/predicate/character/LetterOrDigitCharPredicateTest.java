@@ -42,11 +42,11 @@ final public class LetterOrDigitCharPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("Letter/Digit", this.createCharacterPredicate().toString());
+        assertEquals("Letter/Digit", this.createCharPredicate().toString());
     }
 
     @Override
-    protected LetterOrDigitCharPredicate createCharacterPredicate() {
+    protected LetterOrDigitCharPredicate createCharPredicate() {
         return LetterOrDigitCharPredicate.INSTANCE;
     }
 

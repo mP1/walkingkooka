@@ -112,7 +112,7 @@ final public class XmlCharPredicateTest extends CharPredicateTestCase<XmlCharPre
     }
 
     @Override
-    protected XmlCharPredicate createCharacterPredicate() {
+    protected XmlCharPredicate createCharPredicate() {
         return XmlCharPredicate.INSTANCE;
     }
 

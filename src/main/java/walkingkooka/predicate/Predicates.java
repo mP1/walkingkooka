@@ -45,10 +45,10 @@ final public class Predicates implements PublicStaticHelper {
     }
 
     /**
-     * {@see CharacterPredicatePredicate}
+     * {@see CharPredicatePredicate}
      */
     public static Predicate<Character> charPredicate(final CharPredicate predicate) {
-        return CharacterPredicatePredicate.adapt(predicate);
+        return CharPredicatePredicate.adapt(predicate);
     }
 
     /**
