@@ -27,6 +27,8 @@ import static org.junit.Assert.assertFalse;
 
 public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<SearchContainsQuery> {
 
+    private final static CaseSensitivity SENSITIVITY = CaseSensitivity.INSENSITIVE;
+    
     @Test
     @Ignore
     public void testNot() {
@@ -93,7 +95,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
     @Test
     public final void testTextAbsent() {
         this.querySelectAndFail(this.textQueryValue("$")
-                .contains(CaseSensitivity.SENSITIVE),
+                .contains(SENSITIVITY),
                 this.textNode(TEXT));
     }
 
@@ -111,7 +113,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         final SearchNode selected = this.textNode("Q")
                 .selected();
 
-        final SearchQuery query = this.textQueryValue("Q").contains(CaseSensitivity.SENSITIVE);
+        final SearchQuery query = this.textQueryValue("Q").contains(SENSITIVITY);
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, text, after),
                 this.sequenceNode(before,
@@ -128,7 +130,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         final SearchNode selected = this.textNode("Q")
                 .selected();
 
-        final SearchQuery query = this.textQueryValue("Q").contains(CaseSensitivity.SENSITIVE);
+        final SearchQuery query = this.textQueryValue("Q").contains(SENSITIVITY);
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, text, after),
                 this.sequenceNode(before,
@@ -145,8 +147,8 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         final SearchNode selected = text.selected();
 
         final SearchQuery query = this.textQueryValue("123").
-                contains(CaseSensitivity.SENSITIVE)
-                .or(SearchQueryValue.text("Q").notEquals(CaseSensitivity.SENSITIVE));
+                contains(SENSITIVITY)
+                .or(SearchQueryValue.text("Q").notEquals(SENSITIVITY));
 
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, text, after),
@@ -163,8 +165,8 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         final SearchTextNode text = this.textNode("123");
 
         final SearchQuery query = this.textQueryValue("2").
-                contains(CaseSensitivity.SENSITIVE)
-                .or(SearchQueryValue.text("Q").notEquals(CaseSensitivity.SENSITIVE));
+                contains(SENSITIVITY)
+                .or(SearchQueryValue.text("Q").notEquals(SENSITIVITY));
 
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, text, after),
@@ -181,8 +183,8 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         final SearchTextNode text = this.textNode("123");
 
         final SearchQuery query = this.textQueryValue("2").
-                contains(CaseSensitivity.SENSITIVE)
-                .or(SearchQueryValue.text("2").contains(CaseSensitivity.SENSITIVE));
+                contains(SENSITIVITY)
+                .or(SearchQueryValue.text("2").contains(SENSITIVITY));
 
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, text, after),
@@ -199,8 +201,8 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         final SearchTextNode text = this.textNode("12345");
 
         final SearchQuery query = this.textQueryValue("234").
-                contains(CaseSensitivity.SENSITIVE)
-                .or(SearchQueryValue.text("3").contains(CaseSensitivity.SENSITIVE));
+                contains(SENSITIVITY)
+                .or(SearchQueryValue.text("3").contains(SENSITIVITY));
 
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, text, after),
@@ -217,8 +219,8 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         final SearchTextNode text = this.textNode("12345");
 
         final SearchQuery query = this.textQueryValue("234").
-                contains(CaseSensitivity.SENSITIVE)
-                .or(SearchQueryValue.text("3").contains(CaseSensitivity.SENSITIVE));
+                contains(SENSITIVITY)
+                .or(SearchQueryValue.text("3").contains(SENSITIVITY));
 
         this.querySelectAndCheck(query,
                 this.sequenceNode(before, text, after),
@@ -274,7 +276,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
     }
 
     private void querySensitiveSelectAndCheck(final SearchNode node) {
-        this.querySelectAndCheck2(node, CaseSensitivity.SENSITIVE);
+        this.querySelectAndCheck2(node, SENSITIVITY);
     }
 
     private void queryInsensitiveSelectAndCheck(final SearchNode node) {
@@ -307,7 +309,7 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
 
     @Test
     public void testEqualsDifferentCaseSensitivity() {
-        this.checkNotEquals(SearchContainsQuery.with(this.queryTextValue(), CaseSensitivity.SENSITIVE));
+        this.checkNotEquals(SearchContainsQuery.with(this.queryTextValue(), SENSITIVITY.invert()));
     }
 
     @Override

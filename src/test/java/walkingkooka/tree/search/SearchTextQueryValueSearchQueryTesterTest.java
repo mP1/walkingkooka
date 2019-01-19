@@ -23,15 +23,17 @@ import walkingkooka.text.CaseSensitivity;
 
 public final class SearchTextQueryValueSearchQueryTesterTest extends SearchComparableQueryValueSearchQueryTesterTestCase<SearchTextQueryValueSearchQueryTester, String> {
 
+    private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
+
     @Test
     public void testDifferentCaseSensitivity() {
-        this.checkNotEquals(SearchTextQueryValueSearchQueryTester.with(this.value(), CaseSensitivity.INSENSITIVE, this.predicate()));
+        this.checkNotEquals(SearchTextQueryValueSearchQueryTester.with(this.value(), SENSITIVITY.invert(), this.predicate()));
     }
 
     @Override
     SearchTextQueryValueSearchQueryTester createSearchQueryTester(final String value,
                                                                   final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
-        return SearchTextQueryValueSearchQueryTester.with(value, CaseSensitivity.SENSITIVE, predicate);
+        return SearchTextQueryValueSearchQueryTester.with(value, SENSITIVITY, predicate);
     }
 
     @Override

@@ -99,7 +99,7 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<Parser
 
     @Test
     public void testEqualsDifferentCaseSensitivity() {
-        this.checkNotEquals(StringParser.with(STRING, CaseSensitivity.INSENSITIVE));
+        this.checkNotEquals(StringParser.with(STRING, CASE_SENSITIVITY.invert()));
     }
 
     @Test

@@ -32,6 +32,7 @@ final public class CaseSensitivityCharPredicateTest
     // constants
 
     private final static char CHAR = 'a';
+    private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     // tests
 
@@ -67,19 +68,19 @@ final public class CaseSensitivityCharPredicateTest
 
     @Test
     public void testEqualsDifferentCharacter() {
-        this.checkNotEquals(CaseSensitivityCharPredicate.with('b', CaseSensitivity.SENSITIVE));
+        this.checkNotEquals(CaseSensitivityCharPredicate.with('b', SENSITIVITY));
     }
 
     @Test
     public void testEqualsDifferentCase() {
-        this.checkNotEquals(CaseSensitivityCharPredicate.with('A', CaseSensitivity.SENSITIVE));
+        this.checkNotEquals(CaseSensitivityCharPredicate.with('A', SENSITIVITY));
     }
 
     @Test
     public void testEqualsDifferentCaseSensitivity() {
         this.checkNotEquals(CaseSensitivityCharPredicate.with(
                 CHAR,
-                CaseSensitivity.INSENSITIVE));
+                SENSITIVITY.invert()));
     }
 
     @Test
@@ -111,7 +112,7 @@ final public class CaseSensitivityCharPredicateTest
     }
 
     private CaseSensitivityCharPredicate createCharPredicateCaseSensitive(final char c) {
-        return (CaseSensitivityCharPredicate) CaseSensitivity.SENSITIVE.charPredicate(c);
+        return (CaseSensitivityCharPredicate) SENSITIVITY.charPredicate(c);
     }
 
     private void testTrueCaseInsensitive(final char c) {
@@ -137,12 +138,12 @@ final public class CaseSensitivityCharPredicateTest
 
     @Override
     public CaseSensitivityCharPredicate createObject() {
-        return CaseSensitivityCharPredicate.with(CHAR, CaseSensitivity.SENSITIVE);
+        return CaseSensitivityCharPredicate.with(CHAR, SENSITIVITY);
     }
 
     @Override
     public CaseSensitivityCharPredicate serializableInstance() {
-        return CaseSensitivityCharPredicate.with('a', CaseSensitivity.SENSITIVE);
+        return CaseSensitivityCharPredicate.with('a', SENSITIVITY);
     }
 
     @Override
