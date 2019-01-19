@@ -42,26 +42,36 @@ final public class CustomToStringNodeSelectorTest
 
     @Test
     public void testUnnecessaryWrap() {
-        final FakeNodeSelector wrapped = this.wrapped();
+        final NodeSelector<TestFakeNode, StringName, StringName, Object> wrapped = this.wrapped();
         assertSame(wrapped, CustomToStringNodeSelector.with(wrapped, wrapped.toString()));
     }
 
     @Test
     public void testWith() {
-        final FakeNodeSelector wrapped = this.wrapped();
+        final NodeSelector<TestFakeNode, StringName, StringName, Object> wrapped = this.wrapped();
         final CustomToStringNodeSelector custom = this.createSelector(wrapped);
         assertEquals("selector", wrapped, custom.selector);
     }
 
     @Test
     public void testDoubleWrap() {
-        final FakeNodeSelector wrapped = this.wrapped();
+        final NodeSelector<TestFakeNode, StringName, StringName, Object> wrapped = this.wrapped();
         final CustomToStringNodeSelector custom = this.createSelector(wrapped, TOSTRING);
 
         final String toString2 = "CustomToString2";
         final CustomToStringNodeSelector again = this.createSelector(wrapped, toString2);
         assertEquals("selector", wrapped, again.selector);
         assertEquals("toString", toString2, again.toString());
+    }
+
+    @Test
+    public void testEqualsDifferentWrappedNodeSelector() {
+        this.checkNotEquals(CustomToStringNodeSelector.with(NodeSelector.<TestFakeNode, StringName, StringName, Object>self(), TOSTRING));
+    }
+
+    @Test
+    public void testEqualsDifferentCustomToString() {
+        this.checkNotEquals(CustomToStringNodeSelector.with(this.wrapped(), "different"));
     }
 
     @Test
@@ -81,15 +91,6 @@ final public class CustomToStringNodeSelectorTest
     private CustomToStringNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final NodeSelector<TestFakeNode, StringName, StringName, Object> wrap,
                                                                                                     final String toString) {
         return Cast.to(CustomToStringNodeSelector.with(wrap, toString));
-    }
-
-    private FakeNodeSelector wrapped() {
-        return new FakeNodeSelector() {
-            @Override
-            NodeSelector<TestFakeNode, StringName, StringName, Object> unwrapIfCustomToStringNodeSelector() {
-                return this;
-            }
-        };
     }
 
     @Override

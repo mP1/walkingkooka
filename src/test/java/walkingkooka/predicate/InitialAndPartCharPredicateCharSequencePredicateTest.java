@@ -19,14 +19,17 @@ package walkingkooka.predicate;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 final public class InitialAndPartCharPredicateCharSequencePredicateTest
         extends PredicateTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence>
-        implements SerializationTesting<InitialAndPartCharPredicateCharSequencePredicate> {
+        implements HashCodeEqualsDefinedTesting<InitialAndPartCharPredicateCharSequencePredicate>,
+        SerializationTesting<InitialAndPartCharPredicateCharSequencePredicate> {
 
     // tests
 
@@ -76,6 +79,16 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
     }
 
     @Test
+    public void testEqualsDifferentInitialCharPredicate() {
+        this.checkNotEquals(this.createPredicate(CharPredicates.asciiPrintable(), this.part()));
+    }
+
+    @Test
+    public void testEqualsDifferentRemainingCharPredicate() {
+        this.checkNotEquals(this.createPredicate(this.initial(), CharPredicates.asciiPrintable()));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("(\"ABC\", \"123\"*)",
                 this.createPredicate().toString());
@@ -83,13 +96,30 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
 
     @Override
     protected InitialAndPartCharPredicateCharSequencePredicate createPredicate() {
-        return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.any("ABC"),
-                CharPredicates.any("123")));
+        return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(this.initial(), this.part()));
+    }
+
+    private CharPredicate initial() {
+        return CharPredicates.any("ABC");
+    }
+
+    private CharPredicate part() {
+        return CharPredicates.any("123");
     }
 
     @Override
     public Class<InitialAndPartCharPredicateCharSequencePredicate> type() {
         return InitialAndPartCharPredicateCharSequencePredicate.class;
+    }
+
+    @Override
+    public InitialAndPartCharPredicateCharSequencePredicate createObject() {
+        return this.createPredicate();
+    }
+
+    private InitialAndPartCharPredicateCharSequencePredicate createPredicate(final CharPredicate initial,
+                                                                             final CharPredicate remaining) {
+        return Cast.to(InitialAndPartCharPredicateCharSequencePredicate.with(initial, remaining));
     }
 
     @Override

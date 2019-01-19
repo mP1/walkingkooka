@@ -31,7 +31,8 @@ import java.util.Optional;
  * The {@link Name} of {@link Cookie}. Note that cookie names must start with an ASCII letter and be composed of only ASCII letters, digits and dash.
  * Though more characters are valid, in the interests of capability and simplicity this limited sub set is enforced.
  */
-final public class CookieName extends HeaderNameValue implements HttpRequestAttribute<ClientCookie> {
+final public class CookieName extends HeaderNameValue
+        implements HttpRequestAttribute<ClientCookie>, Comparable<CookieName> {
 
     /**
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
@@ -68,6 +69,13 @@ final public class CookieName extends HeaderNameValue implements HttpRequestAttr
         return request.cookies().stream()
                 .filter(c -> c.name().equals(this))
                 .findFirst();
+    }
+
+    // Comparable..............................................................................................
+
+    @Override
+    public int compareTo(final CookieName other) {
+        return this.compareTo0(other);
     }
 
     // HeaderNameValue..............................................................................................

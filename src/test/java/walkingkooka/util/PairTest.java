@@ -21,13 +21,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class PairTest extends ClassTestCase<Pair<?, ?>> implements SerializationTesting<Pair<?, ?>> {
+final public class PairTest extends ClassTestCase<Pair<?, ?>>
+        implements HashCodeEqualsDefinedTesting<Pair<?, ?>>, SerializationTesting<Pair<?, ?>> {
 
     private final static A A = new A(1);
 
@@ -37,15 +39,15 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>> implements Seriali
 
     @Test
     public void testNullFirst() {
-        final Pair<A, B> pair = Pair.with(PairTest.A, PairTest.B);
-        assertSame("first value", PairTest.A, pair.first());
-        assertSame("second value", PairTest.B, pair.second());
+        final Pair<A, B> pair = Pair.with(A, B);
+        assertSame("first value", A, pair.first());
+        assertSame("second value", B, pair.second());
     }
 
     @Test
     public void testNullSecond() {
-        final Pair<A, B> pair = Pair.with(PairTest.A, null);
-        assertSame("first value", PairTest.A, pair.first());
+        final Pair<A, B> pair = Pair.with(A, null);
+        assertSame("first value", A, pair.first());
         Assert.assertNull("second value", pair.second());
     }
 
@@ -58,27 +60,45 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>> implements Seriali
 
     @Test
     public void testWith() {
-        final Pair<A, B> pair = Pair.with(PairTest.A, PairTest.B);
-        assertSame("first value", PairTest.A, pair.first());
-        assertSame("second value", PairTest.B, pair.second());
+        final Pair<A, B> pair = Pair.with(A, B);
+        assertSame("first value", A, pair.first());
+        assertSame("second value", B, pair.second());
+    }
+
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testDifferentFirst() {
+        final Pair<A, B> pair1 = Pair.with(new A(0), B);
+        final Pair<A, B> pair2 = Pair.with(new A(1), B);
+        this.checkNotEquals(pair1, pair2);
     }
 
     @Test
+    public void testDifferentSecond() {
+        final Pair<A, B> pair1 = Pair.with(new A(0), B);
+        final Pair<A, Object> pair2 = Pair.with(new A(0), new Object());
+        this.checkNotEquals(pair1, pair2);
+    }
+
+    // toString..................................................................
+
+    @Test
     public void testToString() {
-        final Pair<A, B> pair = Pair.with(PairTest.A, PairTest.B);
-        assertEquals(pair.toString(), PairTest.A.toString() + " & " + PairTest.B.toString());
+        final Pair<A, B> pair = Pair.with(A, B);
+        assertEquals(pair.toString(), A.toString() + " & " + B.toString());
     }
 
     @Test
     public void testToStringNullFirst() {
-        final Pair<A, B> pair = Pair.with(null, PairTest.B);
-        assertEquals(pair.toString(), "null & " + PairTest.B.toString());
+        final Pair<A, B> pair = Pair.with(null, B);
+        assertEquals(pair.toString(), "null & " + B.toString());
     }
 
     @Test
     public void testToStringNullSecond() {
-        final Pair<A, B> pair = Pair.with(PairTest.A, null);
-        assertEquals(pair.toString(), PairTest.A.toString() + " & null");
+        final Pair<A, B> pair = Pair.with(A, null);
+        assertEquals(pair.toString(), A.toString() + " & null");
     }
 
     @Test
@@ -89,13 +109,13 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>> implements Seriali
 
     @Test
     public void testToStringCharSequenceFirst() {
-        assertEquals(Pair.with("FIRST", PairTest.B).toString(), "\"FIRST\" & " + PairTest.B);
+        assertEquals(Pair.with("FIRST", B).toString(), "\"FIRST\" & " + B);
     }
 
     @Test
     public void testToStringCharSequenceSecond() {
-        assertEquals(Pair.with(PairTest.A, "SECOND").toString(),
-                PairTest.A + " & \"SECOND\"");
+        assertEquals(Pair.with(A, "SECOND").toString(),
+                A + " & \"SECOND\"");
     }
 
     // helpers
@@ -114,7 +134,7 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>> implements Seriali
 
         @Override
         public boolean equals(final Object object) {
-            return object instanceof PairTest.A && this.value == ((PairTest.A) object).value;
+            return object instanceof A && this.value == ((A) object).value;
         }
 
         @Override
@@ -138,6 +158,11 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>> implements Seriali
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Pair<?, ?> createObject() {
+        return Pair.with(A, B);
     }
 
     @Override

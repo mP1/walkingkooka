@@ -21,6 +21,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
@@ -28,7 +29,8 @@ import static org.junit.Assert.assertEquals;
 
 final public class ObjectEqualityPredicateTest
         extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
-        implements SerializationTesting<ObjectEqualityPredicate<String>> {
+        implements HashCodeEqualsDefinedTesting<ObjectEqualityPredicate<String>>,
+        SerializationTesting<ObjectEqualityPredicate<String>> {
 
     final private static String MAGIC = "magic\n";
 
@@ -62,13 +64,18 @@ final public class ObjectEqualityPredicateTest
     }
 
     @Test
-    public void testMatchedButDifferentInstance() {
+    public void testTestButDifferentInstance() {
         this.testTrue(new String(ObjectEqualityPredicateTest.MAGIC));
     }
 
     @Test
-    public void testDifferent() {
+    public void testTestEqualsDifferent() {
         this.testFalse("Unknown");
+    }
+
+    @Test
+    public void testTestEqualsDifferentValue() {
+        this.checkNotEquals(ObjectEqualityPredicate.with("different"));
     }
 
     @Test
@@ -90,6 +97,11 @@ final public class ObjectEqualityPredicateTest
     @Override
     public Class<ObjectEqualityPredicate<String>> type() {
         return Cast.to(ObjectEqualityPredicate.class);
+    }
+
+    @Override
+    public ObjectEqualityPredicate<String> createObject() {
+        return this.createPredicate();
     }
 
     @Override

@@ -32,6 +32,11 @@ public final class SearchTextQueryValueTest extends SearchQueryValueTestCase2<Se
     }
 
     @Override
+    String differentValue() {
+        return "different";
+    }
+
+    @Override
     String searchQueryValueToString() {
         return CharSequences.quoteAndEscape(this.value()).toString();
     }

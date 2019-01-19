@@ -313,6 +313,32 @@ public final class XmlElementTest extends XmlParentNodeTestCase<XmlElement> {
 //        this.checkChildCount("parent", 0, parent);
 //    }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    private final static String TAG = "element123";
+
+    @Test
+    public void testEqualsDifferentName() {
+        this.checkNotEquals(this.document().createElement("different"));
+    }
+
+    @Test
+    public void testEqualsDifferentAttributes() {
+        final Element element = this.document().createElement(TAG);
+        element.setAttribute("attribute", "attribute-value");
+        this.checkNotEquals(XmlElement.with(element));
+    }
+
+    @Test
+    public void testEqualsDifferentAttributes2() {
+        final Element element = this.document().createElement(TAG);
+        element.setAttribute("attribute", "attribute-value");
+
+        final Element element2 = this.document().createElement(TAG);
+        element2.setAttribute("attribute2", "attribute-value2");
+
+        this.checkNotEquals(XmlElement.with(element), XmlElement.with(element2));
+    }
 
     // toSearchNode.....................................................................................................
 

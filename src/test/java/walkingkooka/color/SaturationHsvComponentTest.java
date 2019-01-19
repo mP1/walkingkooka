@@ -18,7 +18,14 @@
 
 package walkingkooka.color;
 
+import org.junit.Test;
+
 public final class SaturationHsvComponentTest extends HsvComponentTestCase<SaturationHsvComponent> {
+
+    @Test
+    public void testEqualsDifferentLightness() {
+        this.checkNotEquals(SaturationHslComponent.with(0));
+    }
 
     @Override
     SaturationHsvComponent createHsvComponent(final float value) {

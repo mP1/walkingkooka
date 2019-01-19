@@ -18,10 +18,11 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ParserTokenNodeNameTest extends NameTestCase<ParserTokenNodeName> {
+public final class ParserTokenNodeNameTest extends NameTestCase<ParserTokenNodeName, ParserTokenNodeName> {
 
     @Test(expected = NullPointerException.class)
     public void testFromClassNullFails() {
@@ -50,11 +51,6 @@ public final class ParserTokenNodeNameTest extends NameTestCase<ParserTokenNodeN
     }
 
     @Test
-    public void testWith() {
-        this.createNameAndCheck("Hello");
-    }
-
-    @Test
     public void testWithIndex() {
         final ParserTokenNodeName name = ParserTokenNodeName.with(1);
         this.checkValue(name, "1");
@@ -69,6 +65,26 @@ public final class ParserTokenNodeNameTest extends NameTestCase<ParserTokenNodeN
     @Override
     protected ParserTokenNodeName createName(final String name) {
         return ParserTokenNodeName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "Hello";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "A";
     }
 
     @Override

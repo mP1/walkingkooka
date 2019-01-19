@@ -52,18 +52,59 @@ public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<L
         assertSame(LanguageTagName.with("*"), LanguageTagName.with("*"));
     }
 
+    @Test
+    public void testNonWildcard() {
+        this.checkNotEquals(LanguageTagName.with("en"));
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testCompareLess() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testCompareLessDifferentCase() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testDifferentText() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     protected LanguageTagNameWildcard createName(final String name) {
         return LanguageTagNameWildcard.INSTANCE;
     }
 
     @Override
-    protected Class<LanguageTagNameWildcard> type() {
+    Class<LanguageTagNameWildcard> languageTagNameType() {
         return LanguageTagNameWildcard.class;
     }
 
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "*";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "ES";
     }
 }

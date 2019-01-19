@@ -19,13 +19,15 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, ParserContext>, StringParserToken>{
+public final class CustomToStringParserTest extends ParserTestCase2<CustomToStringParser<StringParserToken, ParserContext>, StringParserToken>
+        implements HashCodeEqualsDefinedTesting<CustomToStringParser<StringParserToken, ParserContext>> {
 
     private final static String STRING = "abc";
     private final static Parser<StringParserToken, ParserContext> WRAPPED = CaseSensitivity.SENSITIVE.parser(STRING);
@@ -100,6 +102,16 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
     }
 
     @Test
+    public void testEqualsDifferentParser() {
+        this.checkNotEquals(this.createObject("different", CUSTOM_TO_STRING));
+    }
+
+    @Test
+    public void testEqualsDifferentCustomToString() {
+        this.checkNotEquals(CustomToStringParser.wrap(WRAPPED, "different"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(CUSTOM_TO_STRING, this.createParser().toString());
     }
@@ -112,5 +124,15 @@ public final class CustomToStringParserTest extends ParserTestCase2<CustomToStri
     @Override
     protected Class<CustomToStringParser<StringParserToken, ParserContext>> type() {
         return Cast.to(CustomToStringParser.class);
+    }
+
+    @Override
+    public CustomToStringParser<StringParserToken, ParserContext> createObject() {
+        return this.createParser();
+    }
+
+    protected CustomToStringParser<ParserToken, ParserContext> createObject(final String parserText, final String customToString) {
+        final Parser<ParserToken, ParserContext> parser = CaseSensitivity.SENSITIVE.parser(parserText).cast();
+        return CustomToStringParser.wrap(parser.cast(), customToString).cast();
     }
 }

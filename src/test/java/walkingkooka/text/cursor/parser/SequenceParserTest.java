@@ -19,12 +19,13 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
-public final class SequenceParserTest extends ParserTemplateTestCase<SequenceParser<ParserContext>,
-        SequenceParserToken> {
+public final class SequenceParserTest extends ParserTemplateTestCase<SequenceParser<ParserContext>, SequenceParserToken> 
+        implements HashCodeEqualsDefinedTesting<SequenceParser<ParserContext>> {
 
     private final static String TEXT1 = "abc";
     private final static String TEXT2 = "xyz";
@@ -152,6 +153,41 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     }
 
     @Test
+    public void testEqualWithoutNames() {
+        this.checkEquals(SequenceParserBuilder.<ParserContext>empty()
+                .required(PARSER1)
+                .required(PARSER2)
+                .optional(PARSER3)
+                .build());
+    }
+
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(SequenceParserBuilder.<ParserContext>empty()
+                .required(PARSER3)
+                .required(PARSER2)
+                .required(PARSER1)
+                .build());
+    }
+
+    @Test
+    public void testEqualsDifferentRequiredOptionals() {
+        this.checkNotEquals(SequenceParserBuilder.<ParserContext>empty()
+                .optional(PARSER1)
+                .required(PARSER2)
+                .required(PARSER3)
+                .build());
+    }
+
+    @Test
+    public void testEqualsBuiltUsingDefaultMethods() {
+        this.checkEquals(PARSER1.builder()
+                .required(PARSER2.cast())
+                .optional(PARSER3.cast())
+                .build());
+    }
+
+    @Test
     public void testToString() {
         assertEquals("(" + PARSER1 + ", " + PARSER2 + ", [" + PARSER3 + "])", this.createParser().toString());
     }
@@ -176,5 +212,10 @@ public final class SequenceParserTest extends ParserTemplateTestCase<SequencePar
     @Override
     protected Class<SequenceParser<ParserContext>> type() {
         return Cast.to(SequenceParser.class);
+    }
+
+    @Override
+    public SequenceParser<ParserContext> createObject() {
+        return this.createParser();
     }
 }

@@ -22,16 +22,19 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> {
+public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
+        implements HashCodeEqualsDefinedTesting<Range<Integer>> {
 
     private final static Integer BELOW_LOWER_VALUE = 1000;
     private final static Integer LOWER_VALUE = 2000;
     private final static Integer ABOVE_LOWER_VALUE = 3000;
+    private final static Integer VALUE = 3500;
     private final static Integer BELOW_UPPER_VALUE = 4000;
     private final static Integer UPPER_VALUE = 5000;
     private final static Integer ABOVE_UPPER_VALUE = 6000;
@@ -784,11 +787,109 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer> 
         throw new UnsupportedOperationException();
     }
 
+    // HashCodeEqualsDefined.....................................................................................
+
+    // all.....................................................................................
+
+    @Test
+    public void testEqualsAllSingleton() {
+        this.checkNotEquals(Range.all(), Range.singleton(VALUE));
+    }
+
+    @Test
+    public void testEqualsAllLessThan() {
+        this.checkNotEquals(Range.all(), Range.lessThan(VALUE));
+    }
+
+    @Test
+    public void testEqualsAllLessThanEquals() {
+        this.checkNotEquals(Range.all(), Range.lessThanEquals(VALUE));
+    }
+
+    @Test
+    public void testEqualsAllGreaterThan() {
+        this.checkNotEquals(Range.greaterThan(VALUE));
+    }
+
+    @Test
+    public void testEqualsAllGreaterThanEquals() {
+        this.checkNotEquals(Range.all(), Range.greaterThanEquals(VALUE));
+    }
+
+    // lessThan.....................................................................................
+
+    @Test
+    public void testEqualsLessThanAll() {
+        this.checkNotEquals(Range.lessThan(VALUE), Range.all());
+    }
+
+    @Test
+    public void testEqualsLessThanSingleton() {
+        this.checkNotEquals(Range.lessThan(VALUE), Range.singleton(VALUE));
+    }
+
+    @Test
+    public void testEqualsLessThanLessThan() {
+        this.checkEquals(Range.lessThan(VALUE), Range.lessThan(VALUE));
+    }
+
+    @Test
+    public void testEqualsLessThanLessThanEquals() {
+        this.checkNotEquals(Range.lessThan(VALUE), Range.lessThanEquals(VALUE));
+    }
+
+    @Test
+    public void testEqualsLessThanGreaterThan() {
+        this.checkNotEquals(Range.lessThan(VALUE), Range.greaterThan(VALUE));
+    }
+
+    @Test
+    public void testEqualsLessThanGreaterThanEquals() {
+        this.checkNotEquals(Range.lessThan(VALUE), Range.greaterThanEquals(VALUE));
+    }
+
+    // lessThan...........................................................................
+
+    @Test
+    public void testEqualsLessThanEqualsAll() {
+        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.all());
+    }
+
+    @Test
+    public void testEqualsLessThanEqualsSingleton() {
+        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.singleton(VALUE));
+    }
+
+    @Test
+    public void testEqualsLessThanEqualsLessThan() {
+        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.lessThan(VALUE));
+    }
+
+    @Test
+    public void testEqualsLessThanEqualsLessThanEquals() {
+        this.checkEquals(Range.lessThanEquals(VALUE), Range.lessThanEquals(VALUE));
+    }
+
+    @Test
+    public void testEqualsLessThanEqualsGreaterThan() {
+        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.greaterThan(VALUE));
+    }
+
+    @Test
+    public void testEqualsLessThanEqualsGreaterThanEquals() {
+        this.checkNotEquals(Range.lessThanEquals(VALUE), Range.greaterThanEquals(VALUE));
+    }
+
     // helper...........................................................................................
 
     @Override
     protected Range<Integer> createPredicate() {
         return Range.all();
+    }
+
+    @Override
+    public Range<Integer> createObject() {
+        return this.createPredicate();
     }
 
     private static Range<Integer> all() {

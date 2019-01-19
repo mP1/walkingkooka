@@ -20,6 +20,7 @@ package walkingkooka.predicate;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
@@ -27,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 
 final public class CharPredicateCharSequencePredicateTest
         extends PredicateTestCase<CharPredicateCharSequencePredicate, CharSequence>
-        implements SerializationTesting<CharPredicateCharSequencePredicate> {
+        implements HashCodeEqualsDefinedTesting<CharPredicateCharSequencePredicate>, SerializationTesting<CharPredicateCharSequencePredicate> {
 
     // constants
 
@@ -61,6 +62,11 @@ final public class CharPredicateCharSequencePredicateTest
     }
 
     @Test
+    public void testEqualsDifferentPredicate() {
+        this.checkNotEquals(CharPredicateCharSequencePredicate.with(CharPredicates.any("different")));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(CharSequences.quote(CHARS).toString(),
                 this.createPredicate().toString());
@@ -74,6 +80,11 @@ final public class CharPredicateCharSequencePredicateTest
     @Override
     public Class<CharPredicateCharSequencePredicate> type() {
         return CharPredicateCharSequencePredicate.class;
+    }
+
+    @Override
+    public CharPredicateCharSequencePredicate createObject() {
+        return this.createPredicate();
     }
 
     @Override

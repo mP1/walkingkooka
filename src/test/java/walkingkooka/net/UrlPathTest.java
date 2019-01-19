@@ -111,6 +111,21 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
         this.constantsAreSingletons();
     }
 
+    @Test
+    public void testEqualsDifferentComponent() {
+        this.checkNotEquals(UrlPath.parse("/different/path"));
+    }
+
+    @Test
+    public void testEqualsDifferentName() {
+        this.checkNotEquals(UrlPath.parse("/path/different"));
+    }
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(UrlPath.parse("/path/to/zzzzz"));
+    }
+
     // helpers..................................................................................................
 
     @Override
@@ -142,6 +157,11 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
     @Override
     public Class<UrlPath> type() {
         return UrlPath.class;
+    }
+
+    @Override
+    public UrlPath createComparable() {
+        return UrlPath.parse("/path/to/resource");
     }
 
     @Override

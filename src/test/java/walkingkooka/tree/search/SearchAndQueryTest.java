@@ -19,9 +19,8 @@
 package walkingkooka.tree.search;
 
 import org.junit.Test;
-import walkingkooka.text.CaseSensitivity;
 
-public final class SearchAndQueryTest extends SearchParentQueryTestCase<SearchAndQuery>{
+public final class SearchAndQueryTest extends SearchBinaryQueryTestCase<SearchAndQuery>{
 
     @Test
     public final void testNeither() {
@@ -94,9 +93,8 @@ public final class SearchAndQueryTest extends SearchParentQueryTestCase<SearchAn
     }
 
     @Override
-    SearchAndQuery createSearchQuery() {
-        return SearchAndQuery.with(this.textQueryValue("left").equalsQuery(CaseSensitivity.SENSITIVE),
-                this.textQueryValue("right").equalsQuery(CaseSensitivity.SENSITIVE));
+    SearchAndQuery createSearchQuery(final SearchQuery left, final SearchQuery right) {
+        return SearchAndQuery.with(left, right);
     }
     
     @Override

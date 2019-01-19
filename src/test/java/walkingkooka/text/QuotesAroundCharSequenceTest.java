@@ -95,15 +95,20 @@ final public class QuotesAroundCharSequenceTest extends CharSequenceTestCase<Quo
     @Test
     public void testSubSequenceZeroToSecondLast() {
         final CharSequence sub = this.createCharSequence().subSequence(0, 4);
-        this.checkEquals(sub, "\"ABC");
+        this.checkEquals2(sub, "\"ABC");
         assertEquals("sub.toString", "\"ABC", sub.toString());
     }
 
     @Test
     public void testSubSequenceOneToEnd() {
         final CharSequence sub = this.createCharSequence().subSequence(1, 5);
-        this.checkEquals(sub, "ABC\"");
+        this.checkEquals2(sub, "ABC\"");
         assertEquals("sub.toString", "ABC\"", sub.toString());
+    }
+
+    @Test
+    public void testEqualsDifferentSequence() {
+        this.checkNotEquals(QuotesAroundCharSequence.with("different"));
     }
 
     @Test

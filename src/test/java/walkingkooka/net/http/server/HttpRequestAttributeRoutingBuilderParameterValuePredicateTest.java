@@ -23,6 +23,7 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.PredicateTestCase;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -30,7 +31,8 @@ import java.util.function.Predicate;
 import static org.junit.Assert.assertEquals;
 
 public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest extends
-        PredicateTestCase<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>> {
+        PredicateTestCase<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>>
+        implements HashCodeEqualsDefinedTesting<HttpRequestAttributeRoutingBuilderParameterValuePredicate> {
 
     private final static String VALUE = "value123";
 
@@ -61,6 +63,11 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
     }
 
     @Test
+    public void testEqualsDifferentPredicate() {
+        this.checkNotEquals(HttpRequestAttributeRoutingBuilderParameterValuePredicate.with(Predicates.fake()));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(this.wrappedPredicate().toString(), this.createPredicate().toString());
     }
@@ -77,5 +84,10 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
     @Override
     protected Class<HttpRequestAttributeRoutingBuilderParameterValuePredicate> type() {
         return HttpRequestAttributeRoutingBuilderParameterValuePredicate.class;
+    }
+
+    @Override
+    public HttpRequestAttributeRoutingBuilderParameterValuePredicate createObject() {
+        return this.createPredicate();
     }
 }

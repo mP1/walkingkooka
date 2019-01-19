@@ -20,13 +20,15 @@ package walkingkooka.net.http;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-final public class HttpStatusTest extends ClassTestCase<HttpStatus> {
+final public class HttpStatusTest extends ClassTestCase<HttpStatus>
+        implements HashCodeEqualsDefinedTesting<HttpStatus> {
 
     // constants
 
@@ -87,6 +89,16 @@ final public class HttpStatusTest extends ClassTestCase<HttpStatus> {
         this.check(different, CODE, message);
     }
 
+    @Test
+    public void testEqualsDifferentCode() {
+        this.checkNotEquals(HttpStatus.with(HttpStatusCode.BAD_GATEWAY, MESSAGE));
+    }
+
+    @Test
+    public void testEqualsDifferentMessage() {
+        this.checkNotEquals(HttpStatus.with(CODE, "different"));
+    }
+
     // helpers ..................................
 
     private HttpStatus status() {
@@ -111,5 +123,10 @@ final public class HttpStatusTest extends ClassTestCase<HttpStatus> {
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public HttpStatus createObject() {
+        return this.status();
     }
 }

@@ -18,12 +18,14 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 
-public class StringParserTest extends ParserTemplateTestCase<StringParser<ParserContext>, StringParserToken> {
+public class StringParserTest extends ParserTemplateTestCase<StringParser<ParserContext>, StringParserToken>
+        implements HashCodeEqualsDefinedTesting<StringParser<ParserContext>> {
 
     private final static String STRING = "abcd";
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
@@ -91,6 +93,16 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<Parser
     }
 
     @Test
+    public void testEqualsDifferentText() {
+        this.checkNotEquals(StringParser.with("different", CASE_SENSITIVITY));
+    }
+
+    @Test
+    public void testEqualsDifferentCaseSensitivity() {
+        this.checkNotEquals(StringParser.with(STRING, CaseSensitivity.INSENSITIVE));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(CharSequences.quoteAndEscape(STRING).toString(), this.createParser().toString());
     }
@@ -120,5 +132,10 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<Parser
     @Override
     protected Class<StringParser<ParserContext>> type() {
         return Cast.to(StringParser.class);
+    }
+
+    @Override
+    public StringParser<ParserContext> createObject() {
+        return this.createParser();
     }
 }

@@ -21,6 +21,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.List;
 
@@ -48,6 +49,13 @@ extends NodeSelectorTestCase<S>{
     @Test
     public final void testWithEqualFirstAndSecond() {
         assertSame(SELECTOR, this.createSelector0(SELECTOR, SELECTOR));
+    }
+
+    @Test
+    public final void testEqualsDifferentSelectors() {
+        this.checkNotEquals(this.createSelector(
+                NodeSelector.terminal(),
+                NodeSelector.expression(ExpressionNode.text("different!"))));
     }
 
     @Override

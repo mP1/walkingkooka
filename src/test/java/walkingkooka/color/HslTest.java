@@ -20,13 +20,14 @@ package walkingkooka.color;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class HslTest extends ClassTestCase<Hsl> implements SerializationTesting<Hsl> {
+public final class HslTest extends ClassTestCase<Hsl> implements HashCodeEqualsDefinedTesting<Hsl>, SerializationTesting<Hsl> {
 
     // constants
 
@@ -212,6 +213,23 @@ public final class HslTest extends ClassTestCase<Hsl> implements SerializationTe
         return Math.abs(expected.value - actual.value) < 5;
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentHue() {
+        this.checkNotEquals(Hsl.with(HueHslComponent.with(180), SATURATION, LIGHTNESS));
+    }
+
+    @Test
+    public void testEqualsDifferentSaturation() {
+        this.checkNotEquals(Hsl.with(HUE, SaturationHslComponent.with(0.5f), LIGHTNESS));
+    }
+
+    @Test
+    public void testEqualsDifferentLightness() {
+        this.checkNotEquals(Hsl.with(HUE, SATURATION, LightnessHslComponent.with(0.5f)));
+    }
+
     public void testToString() {
         assertEquals(HUE + "," + SATURATION + "," + LIGHTNESS,
                 Hsl.with(HUE, SATURATION, LIGHTNESS).toString());
@@ -225,6 +243,11 @@ public final class HslTest extends ClassTestCase<Hsl> implements SerializationTe
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Hsl createObject() {
+        return Hsl.with(HUE, SATURATION, LIGHTNESS);
     }
 
     @Override

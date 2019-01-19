@@ -102,6 +102,16 @@ public final class ETagNonWildcardTest extends ETagTestCase<ETagNonWildcard> {
                 false);
     }
 
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(ETagNonWildcard.with0("different", ETagValidator.STRONG));
+    }
+
+    @Test
+    public void testEqualsDifferentWeak() {
+        this.checkNotEquals(ETagNonWildcard.with0(VALUE, ETagValidator.WEAK));
+    }
+
     @Override
     ETagNonWildcard createETag() {
         return ETagNonWildcard.with0(VALUE, ETagValidator.STRONG);

@@ -25,6 +25,27 @@ import static org.junit.Assert.assertEquals;
 public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
 
     @Test
+    public void testDifferent() {
+        this.checkNotEquals(Ip6Address.with(new byte[]{9, 10, 11, 12, 13, 14, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0}));
+    }
+
+    @Test
+    public void testEqualsIp4() {
+        this.checkNotEquals(Ip4Address.with(new byte[]{1, 2, 3, 4}));
+    }
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(
+                Ip6Address.with(new byte[]{(byte) 255, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}));
+    }
+
+    @Override
+    public Ip6Address createComparable() {
+        return Ip6Address.with(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0});
+    }
+
+    @Test
     public void testToStringWith0SignificantOctets() {
         assertEquals("0::", this.createAddress(new byte[Ip6Address.OCTET_COUNT]).toString());
     }

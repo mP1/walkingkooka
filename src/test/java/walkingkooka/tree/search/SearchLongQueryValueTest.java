@@ -26,7 +26,12 @@ public final class SearchLongQueryValueTest extends SearchQueryValueTestCase2<Se
 
     @Override
     Long value() {
-        return Long.valueOf(123);
+        return 123L;
+    }
+
+    @Override
+    Long differentValue() {
+        return 999L;
     }
 
     @Override

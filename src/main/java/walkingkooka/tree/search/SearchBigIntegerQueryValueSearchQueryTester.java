@@ -22,17 +22,17 @@ import java.math.BigInteger;
 
 final class SearchBigIntegerQueryValueSearchQueryTester extends SearchComparableQueryValueSearchQueryTester<BigInteger> {
 
-    static SearchBigIntegerQueryValueSearchQueryTester with(final BigInteger value, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
-        return new SearchBigIntegerQueryValueSearchQueryTester(value, result);
+    static SearchBigIntegerQueryValueSearchQueryTester with(final BigInteger value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        return new SearchBigIntegerQueryValueSearchQueryTester(value, predicate);
     }
 
-    private SearchBigIntegerQueryValueSearchQueryTester(final BigInteger value, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
-        super(value, result);
+    private SearchBigIntegerQueryValueSearchQueryTester(final BigInteger value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        super(value, predicate);
     }
 
     @Override
     SearchBigIntegerQueryValueSearchQueryTester not() {
-        return new SearchBigIntegerQueryValueSearchQueryTester(this.value, this.result.not());
+        return new SearchBigIntegerQueryValueSearchQueryTester(this.value, this.predicate.not());
     }
 
     @Override
@@ -42,7 +42,7 @@ final class SearchBigIntegerQueryValueSearchQueryTester extends SearchComparable
 
     @Override
     final boolean test(final SearchBigIntegerNode node) {
-        return this.result.test(this.value, node.value());
+        return this.predicate.test(this.value, node.value());
     }
 
     @Override

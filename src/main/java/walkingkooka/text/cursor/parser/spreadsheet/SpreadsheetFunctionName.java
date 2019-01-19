@@ -18,14 +18,16 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 
 /**
  * The {@link Name} of a function.
  */
-final public class SpreadsheetFunctionName implements Name {
+final public class SpreadsheetFunctionName implements Name, Comparable<SpreadsheetFunctionName> {
 
     final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 
@@ -62,24 +64,35 @@ final public class SpreadsheetFunctionName implements Name {
 
     final String name;
 
-    // Object
+    // Object..................................................................................................
 
     @Override
-    public final int hashCode() {
-        return this.name.hashCode();
+    public int hashCode() {
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
-    public final boolean equals(final Object other) {
-        return (this == other) || other instanceof SpreadsheetFunctionName && this.equals0((SpreadsheetFunctionName) other);
+    public boolean equals(final Object other) {
+        return this == other ||
+                other instanceof SpreadsheetFunctionName &&
+                        this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final SpreadsheetFunctionName other) {
-        return this.name.equals(other.name);
+        return this.compareTo(other) == 0;
     }
 
     @Override
     public String toString() {
         return this.name;
     }
+
+    // Comparable ...................................................................................................
+
+    @Override
+    public int compareTo(final SpreadsheetFunctionName other) {
+        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 }

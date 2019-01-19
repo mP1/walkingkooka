@@ -21,12 +21,14 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTestCase<V> {
+public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTestCase<V>
+        implements HashCodeEqualsDefinedTesting<V> {
 
     @Test
     public final void testIsMultipart() {
@@ -86,5 +88,10 @@ public abstract class HeaderValueTestCase<V extends HeaderValue> extends ClassTe
 
     private void isWildcardAndCheck0(final HeaderValue headerValue, final boolean expected) {
         assertEquals("header " + headerValue, expected, headerValue.isWildcard());
+    }
+
+    @Override
+    public final V createObject() {
+        return this.createHeaderValue();
     }
 }

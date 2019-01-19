@@ -20,12 +20,13 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-final public class SpreadsheetFunctionNameTest extends NameTestCase<SpreadsheetFunctionName> {
+final public class SpreadsheetFunctionNameTest extends NameTestCase<SpreadsheetFunctionName, SpreadsheetFunctionName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidInitialFails() {
@@ -58,6 +59,26 @@ final public class SpreadsheetFunctionNameTest extends NameTestCase<SpreadsheetF
     @Override
     protected SpreadsheetFunctionName createName(final String name) {
         return SpreadsheetFunctionName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "sin";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "abs";
     }
 
     @Override

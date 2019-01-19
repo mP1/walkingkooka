@@ -31,6 +31,29 @@ public final class XmlProcessingInstructionTest extends XmlLeafNodeTestCase<XmlP
     private final String TARGET = "target-abc";
     private final String PROCESSING_INSTRUCTION = "pi-123";
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentTarget() {
+        this.checkNotEquals(this.createNode("different", PROCESSING_INSTRUCTION));
+    }
+
+    @Test
+    public void testEqualsDifferentProcessingInstruction() {
+        this.checkNotEquals(this.createNode(TARGET, "different"));
+    }
+
+    private XmlProcessingInstruction createNode(final String target,
+                                                final String processingInstruction) {
+        return this.createNode(this.document(), target, processingInstruction);
+    }
+
+    private XmlProcessingInstruction createNode(final Document document,
+                                                final String target,
+                                                final String processingInstruction) {
+        return XmlProcessingInstruction.with(document.createProcessingInstruction(target, processingInstruction));
+    }
+
     // toSearchNode.....................................................................................................
 
     @Test

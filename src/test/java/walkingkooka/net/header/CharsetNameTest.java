@@ -19,16 +19,20 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.compare.Comparators;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-public final class CharsetNameTest extends NameTestCase<CharsetName> {
+public final class CharsetNameTest extends NameTestCase<CharsetName, CharsetName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyFails() {
@@ -150,9 +154,44 @@ public final class CharsetNameTest extends NameTestCase<CharsetName> {
         assertEquals("parameters", CharsetHeaderValue.NO_PARAMETERS, headerValue.parameters());
     }
 
+    @Test
+    public void testSort() {
+        final CharsetName wildcard = CharsetName.WILDCARD_CHARSET;
+        final CharsetName utf8 = CharsetName.UTF_8;
+        final CharsetName unsupported = CharsetName.with("unsupported");
+
+        final List<CharsetName> sorted = Lists.array();
+        sorted.add(unsupported);
+        sorted.add(utf8);
+        sorted.add(wildcard);
+        sorted.sort(Comparators.naturalOrdering());
+
+        assertEquals(Lists.of(wildcard, unsupported, utf8), sorted);
+    }
+
     @Override
     protected CharsetName createName(final String name) {
         return CharsetName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.INSENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "UTF-8";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "UTF-16";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "UTF-16";
     }
 
     @Override

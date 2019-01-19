@@ -20,6 +20,7 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,7 +29,8 @@ import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
 
-final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBoundary> {
+final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBoundary>
+        implements ComparableTesting<MediaTypeBoundary> {
 
     // with ................................................................................................
 
@@ -63,6 +65,23 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     public void testWith() {
         final String text = "abc123";
         checkValue(MediaTypeBoundary.with(text), text);
+    }
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(MediaTypeBoundary.with("qrst"));
+    }
+
+    // Comparable ..................................................................................................
+
+    @Test
+    public void testDifferent() {
+        this.checkNotEquals(MediaTypeBoundary.with("different"));
+    }
+
+    @Test
+    public void testDifferentCase() {
+        this.checkNotEquals(MediaTypeBoundary.with("ABC123"));
     }
 
     // parse........................................................................................................
@@ -251,5 +270,10 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public MediaTypeBoundary createComparable() {
+        return this.createHeaderValue();
     }
 }

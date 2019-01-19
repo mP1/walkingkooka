@@ -753,9 +753,13 @@ public final class SearchNotEqualsQueryTest extends SearchValueComparisonLeafQue
     }
 
     @Override
-    SearchNotEqualsQuery createSearchQuery() {
-        return SearchNotEqualsQuery.with(this.textQueryValue(TEXT2),
-                SearchTextQueryValueSearchQueryTester.with(TEXT2, CaseSensitivity.SENSITIVE, SearchQueryValueSearchQueryTesterComparisonPredicate.NOT_EQUALS));
+    SearchNotEqualsQuery createSearchQuery(final SearchTextQueryValue value, final SearchQueryTester tester) {
+        return SearchNotEqualsQuery.with(value, tester);
+    }
+
+    @Override
+    SearchQueryValueSearchQueryTesterComparisonPredicate predicate() {
+        return SearchQueryValueSearchQueryTesterComparisonPredicate.NOT_EQUALS;
     }
     
     @Override

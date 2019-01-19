@@ -19,12 +19,14 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<V>, V> extends HeaderName2TestCase<N, V> {
+public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
+        extends HeaderName2TestCase<N, C> {
 
     @Test(expected = NullPointerException.class)
     public final void testParameterValueNullFails() {
@@ -53,5 +55,20 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
         assertEquals("wrong parameter value " + name + " in " + hasParameters,
                 value,
                 name.parameterValue(hasParameters));
+    }
+
+    @Override
+    protected final String nameText() {
+        return "param-22";
+    }
+
+    @Override
+    protected final String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected final String nameTextLess() {
+        return "param-1";
     }
 }

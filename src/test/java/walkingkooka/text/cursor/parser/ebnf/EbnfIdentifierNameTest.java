@@ -21,10 +21,11 @@ package walkingkooka.text.cursor.parser.ebnf;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.naming.PropertiesPath;
+import walkingkooka.text.CaseSensitivity;
 
 import static org.junit.Assert.assertEquals;
 
-final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierName> {
+final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierName, EbnfIdentifierName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
@@ -42,11 +43,6 @@ final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierNam
     }
 
     @Test
-    public void testWith() {
-        this.createNameAndCheck("Abc_123");
-    }
-
-    @Test
     public void testToString() {
         assertEquals("ABC_123", this.createName("ABC_123").toString());
     }
@@ -54,6 +50,26 @@ final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierNam
     @Override
     protected EbnfIdentifierName createName(final String name) {
         return EbnfIdentifierName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "identifier123";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "abc";
     }
 
     @Override

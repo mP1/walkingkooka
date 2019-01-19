@@ -19,8 +19,10 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Locale;
 import java.util.Map;
@@ -29,7 +31,7 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends NameTestCase<L> {
+public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends NameTestCase<L, LanguageTagName> {
 
     LanguageTagNameTestCase() {
         super();
@@ -43,7 +45,7 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
 
     @Test
     public final void testSetParameters() {
-        final L name = this.createName("en");
+        final LanguageTagName name = this.createName("en");
         final Map<LanguageTagParameterName<?>, Object> parameters = Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f);
         final LanguageTag tag = name.setParameters(parameters);
         assertSame("value", name, tag.value());
@@ -56,4 +58,16 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
         assertEquals("value", value, name.value());
         assertEquals("locale", locale, name.locale());
     }
+
+    @Override
+    protected final CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.INSENSITIVE;
+    }
+
+    @Override
+    protected final Class<L> type() {
+        return Cast.to(this.languageTagNameType());
+    }
+
+    abstract Class<L> languageTagNameType();
 }

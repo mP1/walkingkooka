@@ -28,7 +28,8 @@ import java.time.ZoneOffset;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ContentDispositionParameterNameTest extends HeaderParameterNameTestCase<ContentDispositionParameterName<Object>, Object> {
+final public class ContentDispositionParameterNameTest extends HeaderParameterNameTestCase<ContentDispositionParameterName<?>,
+        ContentDispositionParameterName<?>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testControlCharacterFails() {
@@ -112,12 +113,7 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
     }
 
     @Override
-    protected String nameText() {
-        return "parameter123";
-    }
-
-    @Override
-    protected Class<ContentDispositionParameterName<Object>> type() {
+    protected Class<ContentDispositionParameterName<?>> type() {
         return Cast.to(ContentDispositionParameterName.class);
     }
 }

@@ -19,23 +19,74 @@ package walkingkooka.text.cursor.parser;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
-public final class ParserTokenNodeAttributeNameTest extends NameTestCase<ParserTokenNodeAttributeName> {
+public final class ParserTokenNodeAttributeNameTest extends NameTestCase<ParserTokenNodeAttributeName, ParserTokenNodeAttributeName> {
 
     @Test
     @Ignore
+    @Override
     public void testNullFails() {
         throw new UnsupportedOperationException();
     }
 
     @Test
     @Ignore
+    @Override
     public void testEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testWith() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testCompareDifferentCase() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testCompareLess() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testDifferentText() {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected ParserTokenNodeAttributeName createName(final String name) {
+        return ParserTokenNodeAttributeName.valueOf(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "TEXT";
+    }
+
+    @Override
+    protected String differentNameText() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected String nameTextLess() {
         throw new UnsupportedOperationException();
     }
 

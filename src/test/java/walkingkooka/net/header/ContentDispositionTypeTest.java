@@ -24,13 +24,14 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ContentDispositionTypeTest extends NameTestCase<ContentDispositionType> {
+final public class ContentDispositionTypeTest extends NameTestCase<ContentDispositionType, ContentDispositionType> {
 
     @Test
     @Ignore
@@ -108,6 +109,16 @@ final public class ContentDispositionTypeTest extends NameTestCase<ContentDispos
     }
 
     @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(ContentDispositionType.ATTACHMENT);
+    }
+
+    @Test
+    public void testEqualsDifferentCase() {
+        this.checkEquals(ContentDispositionType.with(ContentDispositionType.INLINE.value().toUpperCase()));
+    }
+
+    @Test
     public void testToString() {
         final String value = "abc123";
         assertEquals(value, ContentDispositionType.with(value).toString());
@@ -116,6 +127,26 @@ final public class ContentDispositionTypeTest extends NameTestCase<ContentDispos
     @Override
     protected ContentDispositionType createName(final String name) {
         return ContentDispositionType.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.INSENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "inline";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "form-data";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "attachment";
     }
 
     @Override

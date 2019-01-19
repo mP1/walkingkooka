@@ -72,6 +72,13 @@ final public class PathNodeSelectorTest extends
     }
 
     @Test
+    public void testEqualsDifferentNode() {
+        this.checkNotEquals(this.createSelector(
+                TestFakeNode.node("different-parent", TestFakeNode.node("different-child-1"), TestFakeNode.node("different-child-2")).child(1),
+                this.wrapped()));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(".", PathNodeSelector.with(ROOT).toString());
     }
@@ -89,5 +96,10 @@ final public class PathNodeSelectorTest extends
     @Override
     protected Class<PathNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
         return Cast.to(PathNodeSelector.class);
+    }
+
+    private PathNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final TestFakeNode node,
+                                                                                          final NodeSelector<TestFakeNode, StringName, StringName, Object> selector) {
+        return Cast.to(PathNodeSelector.with(node).append(selector));
     }
 }

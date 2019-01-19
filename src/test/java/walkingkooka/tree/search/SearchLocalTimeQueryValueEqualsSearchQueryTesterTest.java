@@ -18,7 +18,14 @@
 
 package walkingkooka.tree.search;
 
-public final class SearchLocalTimeQueryValueEqualsSearchQueryTesterTest extends  SearchQueryTesterTestCase<SearchLocalTimeQueryValueEqualsSearchQueryTester>{
+import java.time.LocalTime;
+
+public final class SearchLocalTimeQueryValueEqualsSearchQueryTesterTest extends SearchLocalTimeQueryValueSearchQueryTesterTestCase<SearchLocalTimeQueryValueEqualsSearchQueryTester>{
+    @Override
+    SearchLocalTimeQueryValueEqualsSearchQueryTester createSearchQueryTester(final LocalTime value) {
+        return SearchLocalTimeQueryValueEqualsSearchQueryTester.with(value);
+    }
+
     @Override
     protected Class<SearchLocalTimeQueryValueEqualsSearchQueryTester> type() {
         return SearchLocalTimeQueryValueEqualsSearchQueryTester.class;

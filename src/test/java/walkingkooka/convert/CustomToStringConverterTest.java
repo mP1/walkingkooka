@@ -19,12 +19,14 @@ package walkingkooka.convert;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-public final class CustomToStringConverterTest extends ConverterTestCase<CustomToStringConverter> {
+public final class CustomToStringConverterTest extends ConverterTestCase<CustomToStringConverter>
+        implements HashCodeEqualsDefinedTesting<CustomToStringConverter> {
 
     private final static Converter WRAPPED = Converters.string();
     private final static String CUSTOM_TO_STRING = "!!custom-to-string!!";
@@ -69,6 +71,16 @@ public final class CustomToStringConverterTest extends ConverterTestCase<CustomT
     }
 
     @Test
+    public void testEqualsDifferentWrappedConverter() {
+        this.checkNotEquals(CustomToStringConverter.wrap(Converters.stringBoolean(), CUSTOM_TO_STRING));
+    }
+
+    @Test
+    public void testEqualsDifferentCustomToString() {
+        this.checkNotEquals(CustomToStringConverter.wrap(WRAPPED, "different"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(CUSTOM_TO_STRING, this.createConverter().toString());
     }
@@ -86,5 +98,10 @@ public final class CustomToStringConverterTest extends ConverterTestCase<CustomT
     @Override
     protected Class<CustomToStringConverter> type() {
         return Cast.to(CustomToStringConverter.class);
+    }
+
+    @Override
+    public CustomToStringConverter createObject() {
+        return this.createConverter();
     }
 }

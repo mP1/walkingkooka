@@ -19,6 +19,7 @@ package walkingkooka.predicate;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
@@ -28,7 +29,8 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 public final class CustomToStringPredicateTest extends PredicateTestCase<CustomToStringPredicate<String>, String>
-        implements SerializationTesting<CustomToStringPredicate<String>> {
+        implements HashCodeEqualsDefinedTesting<CustomToStringPredicate<String>>,
+        SerializationTesting<CustomToStringPredicate<String>> {
 
     private final static String STRING = "abc";
     private final static Predicate<String> WRAPPED = Predicates.is(STRING);
@@ -87,6 +89,16 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     }
 
     @Test
+    public void testEqualsDifferentWrappedPredicate() {
+        this.checkNotEquals(CustomToStringPredicate.wrap(Predicate.isEqual("different"),CUSTOM_TO_STRING));
+    }
+
+    @Test
+    public void testEqualsDifferentCustomToString() {
+        this.checkNotEquals(CustomToStringPredicate.wrap(WRAPPED,"different"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(CUSTOM_TO_STRING, this.createPredicate().toString());
     }
@@ -99,6 +111,11 @@ public final class CustomToStringPredicateTest extends PredicateTestCase<CustomT
     @Override
     public Class<CustomToStringPredicate<String>> type() {
         return Cast.to(CustomToStringPredicate.class);
+    }
+
+    @Override
+    public CustomToStringPredicate<String> createObject() {
+        return this.createPredicate();
     }
 
     @Override

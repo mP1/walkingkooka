@@ -21,8 +21,9 @@ package walkingkooka.tree.file;
 import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
-public final class FilesystemNodeAttributeNameTest extends NameTestCase<FilesystemNodeAttributeName> {
+public final class FilesystemNodeAttributeNameTest extends NameTestCase<FilesystemNodeAttributeName, FilesystemNodeAttributeName> {
 
     @Test
     @Ignore
@@ -36,9 +37,35 @@ public final class FilesystemNodeAttributeNameTest extends NameTestCase<Filesyst
         throw new UnsupportedOperationException();
     }
 
+    @Test
+    @Ignore
+    public void testCompareDifferentCase() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     protected FilesystemNodeAttributeName createName(final String name) {
-        throw new UnsupportedOperationException();
+        return FilesystemNodeAttributeName.valueOf(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return FilesystemNodeAttributeName.TEXT.value();
+    }
+
+    @Override
+    protected String differentNameText() {
+        return FilesystemNodeAttributeName.HIDDEN.value();
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return FilesystemNodeAttributeName.CREATED.value();
     }
 
     @Override

@@ -20,13 +20,14 @@ package walkingkooka.predicate.character;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStringCharPredicate>
-        implements SerializationTesting<ToStringCharPredicate> {
+        implements HashCodeEqualsDefinedTesting<ToStringCharPredicate>, SerializationTesting<ToStringCharPredicate> {
 
     // constants
 
@@ -35,7 +36,7 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     private final static char DIFFERENT = 2;
 
     private final static CharPredicate PREDICATE
-            = CharPredicates.is(ToStringCharPredicateTest.MATCHED);
+            = CharPredicates.is(MATCHED);
 
     private final static String TOSTRING = "*toString*";
 
@@ -43,22 +44,22 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
 
     @Test
     public void testWrapNullPredicateFails() {
-        this.wrapFails(null, ToStringCharPredicateTest.TOSTRING);
+        this.wrapFails(null, TOSTRING);
     }
 
     @Test
     public void testWrapNullToStringFails() {
-        this.wrapFails(ToStringCharPredicateTest.PREDICATE, null);
+        this.wrapFails(PREDICATE, null);
     }
 
     @Test
     public void testWrapEmptyPredicateFails() {
-        this.wrapFails(ToStringCharPredicateTest.PREDICATE, "");
+        this.wrapFails(PREDICATE, "");
     }
 
     @Test
     public void testWrapWhitespacePredicateFails() {
-        this.wrapFails(ToStringCharPredicateTest.PREDICATE, "   ");
+        this.wrapFails(PREDICATE, "   ");
     }
 
     private void wrapFails(final CharPredicate predicate, final String toString) {
@@ -72,19 +73,19 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
     @Test
     public void testWrapPredicate() {
         final ToStringCharPredicate predicate
-                = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
-                ToStringCharPredicateTest.TOSTRING));
-        assertSame("predicate", ToStringCharPredicateTest.PREDICATE, predicate.predicate);
-        assertSame("toString", ToStringCharPredicateTest.TOSTRING, predicate.toString);
+                = Cast.to(ToStringCharPredicate.wrap(PREDICATE,
+                TOSTRING));
+        assertSame("predicate", PREDICATE, predicate.predicate);
+        assertSame("toString", TOSTRING, predicate.toString);
     }
 
     @Test
     public void testWrapAnotherToStringCharacterPredicate() {
         final ToStringCharPredicate predicate
-                = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
-                "different"), ToStringCharPredicateTest.TOSTRING));
-        assertSame("predicate", ToStringCharPredicateTest.PREDICATE, predicate.predicate);
-        assertSame("toString", ToStringCharPredicateTest.TOSTRING, predicate.toString);
+                = Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicate.wrap(PREDICATE,
+                "different"), TOSTRING));
+        assertSame("predicate", PREDICATE, predicate.predicate);
+        assertSame("toString", TOSTRING, predicate.toString);
     }
 
     @Test
@@ -95,24 +96,39 @@ final public class ToStringCharPredicateTest extends CharPredicateTestCase<ToStr
 
     @Test
     public void testMatched() {
-        this.testTrue(ToStringCharPredicateTest.MATCHED);
+        this.testTrue(MATCHED);
     }
 
     @Test
     public void testNotMatched() {
-        this.testFalse(ToStringCharPredicateTest.DIFFERENT);
+        this.testFalse(DIFFERENT);
+    }
+
+    @Test
+    public void testEqualsDifferentPredicate() {
+        this.checkNotEquals(ToStringCharPredicate.wrap(CharPredicates.fake(), TOSTRING));
+    }
+
+    @Test
+    public void testEqualsDifferentToString() {
+        this.checkNotEquals(ToStringCharPredicate.wrap(PREDICATE, "different"));
     }
 
     @Test
     public void testToString() {
-        assertEquals(ToStringCharPredicateTest.TOSTRING,
+        assertEquals(TOSTRING,
                 this.createCharacterPredicate().toString());
     }
 
     @Override
     protected ToStringCharPredicate createCharacterPredicate() {
-        return Cast.to(ToStringCharPredicate.wrap(ToStringCharPredicateTest.PREDICATE,
-                ToStringCharPredicateTest.TOSTRING));
+        return Cast.to(ToStringCharPredicate.wrap(PREDICATE,
+                TOSTRING));
+    }
+
+    @Override
+    public ToStringCharPredicate createObject() {
+        return this.createCharacterPredicate();
     }
 
     @Override

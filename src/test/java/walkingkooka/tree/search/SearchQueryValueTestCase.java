@@ -20,25 +20,43 @@ package walkingkooka.tree.search;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> extends ClassTestCase<Q> {
+public abstract class SearchQueryValueTestCase<Q extends SearchQueryValue, V> extends ClassTestCase<Q>
+        implements HashCodeEqualsDefinedTesting<Q> {
+
+    @Test
+    public final void testDifferentValue() {
+        this.checkNotEquals(this.createSearchQueryValue(this.differentValue()));
+    }
 
     @Test
     public final void testToString() {
         assertEquals("toString", this.searchQueryValueToString(), this.createSearchQueryValue(this.value()).toString());
     }
 
+    final Q createSearchQueryValue() {
+        return this.createSearchQueryValue(this.value());
+    }
+
     abstract Q createSearchQueryValue(final V value);
 
     abstract V value();
+
+    abstract V differentValue();
 
     abstract String searchQueryValueToString();
 
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public final Q createObject() {
+        return this.createSearchQueryValue();
     }
 }

@@ -20,13 +20,15 @@ package walkingkooka.predicate.character;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 final public class LowerCasingCharPredicateTest
-        extends CharPredicateTestCase<LowerCasingCharPredicate> implements SerializationTesting<LowerCasingCharPredicate> {
+        extends CharPredicateTestCase<LowerCasingCharPredicate>
+        implements HashCodeEqualsDefinedTesting<LowerCasingCharPredicate>, SerializationTesting<LowerCasingCharPredicate> {
 
     @Test
     public void testWrapNullPredicateFails() {
@@ -66,6 +68,11 @@ final public class LowerCasingCharPredicateTest
     }
 
     @Test
+    public void testEqualsDifferentPredicate() {
+        this.checkNotEquals(LowerCasingCharPredicate.wrap(CharPredicates.never()));
+    }
+
+    @Test
     public void testToString() {
         final CharPredicate predicate = CharPredicates.fake();
         assertEquals("lowercase then " + predicate,
@@ -86,6 +93,11 @@ final public class LowerCasingCharPredicateTest
     @Override
     public Class<LowerCasingCharPredicate> type() {
         return LowerCasingCharPredicate.class;
+    }
+
+    @Override
+    public LowerCasingCharPredicate createObject() {
+        return this.createCharacterPredicate();
     }
 
     @Override

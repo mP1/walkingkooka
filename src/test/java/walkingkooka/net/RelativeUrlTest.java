@@ -113,6 +113,11 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements S
     }
 
     @Override
+    RelativeUrl createObject(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
+        return Url.relative(path, query, fragment);
+    }
+
+    @Override
     public RelativeUrl serializableInstance() {
         return Url.relative(UrlPath.parse("/path"), UrlQueryString.with("query"), UrlFragment.with("fragment123"));
     }

@@ -753,11 +753,15 @@ public final class SearchLessThanQueryTest extends SearchValueComparisonLeafQuer
     }
 
     @Override
-    SearchLessThanQuery createSearchQuery() {
-        return SearchLessThanQuery.with(this.textQueryValue(TEXT2),
-                SearchTextQueryValueSearchQueryTester.with(TEXT2, CaseSensitivity.SENSITIVE, SearchQueryValueSearchQueryTesterComparisonPredicate.LESS_THAN));
+    SearchLessThanQuery createSearchQuery(final SearchTextQueryValue value, final SearchQueryTester tester) {
+        return SearchLessThanQuery.with(value, tester);
     }
-    
+
+    @Override
+    SearchQueryValueSearchQueryTesterComparisonPredicate predicate() {
+        return SearchQueryValueSearchQueryTesterComparisonPredicate.LESS_THAN;
+    }
+
     @Override
     protected Class<SearchLessThanQuery> type() {
         return SearchLessThanQuery.class;

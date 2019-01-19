@@ -31,12 +31,12 @@ public final class XmlCommentTest extends XmlTextNodeTestCase<XmlComment> {
 
     @Test
     public void testWithEmptyText() {
-        this.domDocument().createComment("");
+        this.xmlDocument().createComment("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidTextFails() {
-        this.domDocument().createComment("123--456");
+        this.xmlDocument().createComment("123--456");
     }
 
     @Test(expected = IllegalArgumentException.class)

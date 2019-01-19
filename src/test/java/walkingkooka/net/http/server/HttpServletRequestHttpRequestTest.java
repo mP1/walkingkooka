@@ -23,11 +23,11 @@ import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
+import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
-import walkingkooka.net.header.ClientCookie;
 
 import javax.servlet.http.Cookie;
 import java.util.Enumeration;

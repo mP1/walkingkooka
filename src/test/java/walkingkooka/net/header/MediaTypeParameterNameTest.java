@@ -26,7 +26,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCase<MediaTypeParameterName<Object>, Object> {
+final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCase<MediaTypeParameterName<?>,
+        MediaTypeParameterName<?>> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithIncludesWhitespaceFails() {
@@ -107,12 +108,7 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
     }
 
     @Override
-    protected String nameText() {
-        return "abc123";
-    }
-
-    @Override
-    protected Class<MediaTypeParameterName<Object>> type() {
+    protected Class<MediaTypeParameterName<?>> type() {
         return Cast.to(MediaTypeParameterName.class);
     }
 }

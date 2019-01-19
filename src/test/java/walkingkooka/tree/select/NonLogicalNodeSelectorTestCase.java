@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.StringName;
@@ -28,10 +30,15 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 
 public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>>
-extends NodeSelectorTestCase<S>{
+        extends NodeSelectorTestCase<S>{
 
     NonLogicalNodeSelectorTestCase(){
         super();
+    }
+
+    @Test
+    public final void testEqualsDifferentSelector() {
+        this.checkNotEquals(this.createSelector(NodeSelector.parent()));
     }
 
     final void acceptAndCheck0(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
@@ -51,5 +58,19 @@ extends NodeSelectorTestCase<S>{
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
         assertEquals("names of selected nodes", Lists.of(nodes), selectedNames);
+    }
+
+    final NodeSelector<TestFakeNode,
+            StringName,
+            StringName,
+            Object> wrapped() {
+        return NodeSelector.terminal();
+    }
+
+    final S createSelector(final NodeSelector<TestFakeNode,
+            StringName,
+            StringName,
+            Object> selector) {
+        return Cast.to(this.createSelector().append(selector));
     }
 }

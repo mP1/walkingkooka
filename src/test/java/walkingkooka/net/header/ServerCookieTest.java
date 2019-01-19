@@ -37,6 +37,7 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
     private final static Optional<String> DOMAIN = Optional.of("example.com");
     private final static Optional<String> PATH = Optional.of("/PATH/TO");
     private final static Optional<String> COMMENT = Optional.of("// comment");
+    private final static Optional<CookieDeletion> DELETION = CookieDeletion.maxAge(123);
     private final static Optional<CookieDeletion> MAXAGE = CookieDeletion.maxAge(123);
     private final static Optional<CookieDeletion> EXPIRES = Optional.of(CookieDeletion.expires(NOW));
     private final static CookieSecure SECURE = CookieSecure.PRESENT;
@@ -856,6 +857,109 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
                 "cookie123=value456;");
     }
 
+
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentDomain() {
+        this.checkNotEquals(ServerCookie.with(NAME,
+                VALUE,
+                Optional.of("different"),
+                PATH,
+                COMMENT,
+                DELETION,
+                SECURE,
+                HTTPONLY,
+                VERSION));
+    }
+
+    @Test
+    public void testEqualsDifferentPath() {
+        this.checkNotEquals(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                Optional.of("/different"),
+                COMMENT,
+                DELETION,
+                SECURE,
+                HTTPONLY,
+                VERSION));
+    }
+
+    @Test
+    public void testEqualsDifferentComment() {
+        this.checkNotEquals(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                Optional.of("different"),
+                DELETION,
+                SECURE,
+                HTTPONLY,
+                VERSION));
+    }
+
+    @Test
+    public void testEqualsDifferentDeletion() {
+        assertNotSame(DELETION, ServerCookie.NO_DELETION);
+
+        this.checkNotEquals(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                ServerCookie.NO_DELETION,
+                SECURE,
+                HTTPONLY,
+                VERSION));
+    }
+
+
+    @Test
+    public void testEqualsDifferentSecure() {
+        assertNotSame(SECURE, CookieSecure.ABSENT);
+
+        this.checkNotEquals(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                DELETION,
+                CookieSecure.ABSENT,
+                HTTPONLY,
+                VERSION));
+    }
+
+    @Test
+    public void testEqualsDifferentHttpOnly() {
+        assertNotSame(HTTPONLY, CookieHttpOnly.ABSENT);
+
+        this.checkNotEquals(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                DELETION,
+                SECURE,
+                CookieHttpOnly.ABSENT,
+                VERSION));
+    }
+
+    @Test
+    public void testEqualsDifferentVersion() {
+        assertNotSame(VERSION, CookieVersion.VERSION_1);
+
+        this.checkNotEquals(ServerCookie.with(NAME,
+                VALUE,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                DELETION,
+                SECURE,
+                HTTPONLY,
+                CookieVersion.VERSION_1));
+    }
+
     // toString.....................................................................................
 
     @Test
@@ -1003,9 +1107,18 @@ final public class ServerCookieTest extends CookieTestCase<ServerCookie> {
                         VERSION).toString());
     }
 
+
     @Override
     ServerCookie createCookie(final CookieName name, final String value) {
-        return ServerCookie.with(name, value, DOMAIN, PATH, COMMENT, MAXAGE, SECURE, HTTPONLY, VERSION);
+        return ServerCookie.with(name,
+                value,
+                DOMAIN,
+                PATH,
+                COMMENT,
+                DELETION,
+                SECURE,
+                HTTPONLY,
+                VERSION);
     }
 
     private ServerCookie createCookieWithoutAttributes(final CookieName name, final String value) {

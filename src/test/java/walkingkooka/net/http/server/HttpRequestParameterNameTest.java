@@ -22,6 +22,7 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,12 +30,7 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequestParameterName> {
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("Abc123");
-    }
+final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequestParameterName, HttpRequestParameterName> {
 
     @Test
     public void testParameterValue() {
@@ -60,6 +56,26 @@ final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequest
     @Override
     protected HttpRequestParameterName createName(final String name) {
         return HttpRequestParameterName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "param2";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "param99";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "param1";
     }
 
     @Override

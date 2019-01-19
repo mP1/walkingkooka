@@ -20,6 +20,7 @@ package walkingkooka.math;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -27,10 +28,12 @@ import java.math.BigInteger;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FractionTest extends ClassTestCase<Fraction> implements SerializationTesting<Fraction> {
+public final class FractionTest extends ClassTestCase<Fraction>
+        implements HashCodeEqualsDefinedTesting<Fraction>, SerializationTesting<Fraction> {
 
     private final static BigInteger NUMERATOR = BigInteger.ONE;
     private final static BigInteger DENOMINATOR = BigInteger.TEN;
+    private final static BigInteger DIFFERENT = BigInteger.valueOf(2);
 
     @Test(expected = NullPointerException.class)
     public void testWithNullNumeratorFails() {
@@ -55,6 +58,16 @@ public final class FractionTest extends ClassTestCase<Fraction> implements Seria
     }
 
     @Test
+    public void testEqualsDifferentNumerator() {
+        this.checkNotEquals(Fraction.with(DIFFERENT, DENOMINATOR));
+    }
+
+    @Test
+    public void testEqualsDifferentDenominator() {
+        this.checkNotEquals(Fraction.with(NUMERATOR, DIFFERENT));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("1/10", Fraction.with(NUMERATOR, DENOMINATOR).toString());
     }
@@ -67,6 +80,11 @@ public final class FractionTest extends ClassTestCase<Fraction> implements Seria
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Fraction createObject() {
+        return Fraction.with(NUMERATOR, DENOMINATOR);
     }
 
     @Override

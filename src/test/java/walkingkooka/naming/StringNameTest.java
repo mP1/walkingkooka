@@ -19,17 +19,14 @@ package walkingkooka.naming;
 
 import org.junit.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.text.CaseSensitivity;
 
-final public class StringNameTest extends NameTestCase<StringName> implements SerializationTesting<StringName> {
+final public class StringNameTest extends NameTestCase<StringName, StringName>
+        implements SerializationTesting<StringName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testContainsSeparatorFails() {
         StringName.with("name-" + StringPath.SEPARATOR.string());
-    }
-
-    @Test
-    public void testWith() {
-        this.createNameAndCheck("abc-123");
     }
 
     @Test
@@ -40,6 +37,26 @@ final public class StringNameTest extends NameTestCase<StringName> implements Se
     @Override
     protected StringName createName(final String name) {
         return StringName.with(name);
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "bbb";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "aa";
     }
 
     @Override

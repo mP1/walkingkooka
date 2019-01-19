@@ -20,31 +20,25 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.naming.NameTestCase;
+import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
-public abstract class HeaderNameTestCase<N extends HeaderName<?>> extends NameTestCase<N> {
-
-    @Test
-    public void testImplementsComparable() {
-        final Class<N> type = this.type();
-        assertTrue(type.getName() + " must implement Comparable",
-                Comparable.class.isAssignableFrom(type));
-    }
+public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
+        extends NameTestCase<N, C> {
 
     // parameterValue...........................................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testToValueNullFails() {
+    public final void testToValueNullFails() {
         this.createName().toValue(null);
     }
 
-    protected <T> void toValueAndCheck(final HeaderName<T> name,
+    protected <V> void toValueAndCheck(final HeaderName<V> name,
                                        final String headerValue,
-                                       final T value) {
+                                       final V value) {
         assertEquals(name + "=" + CharSequences.quoteIfNecessary(headerValue),
                 value,
                 name.toValue(headerValue));
@@ -53,12 +47,12 @@ public abstract class HeaderNameTestCase<N extends HeaderName<?>> extends NameTe
     // checkValue...........................................................................................
 
     @Test(expected = NullPointerException.class)
-    public void testCheckValueNullFails() {
+    public final void testCheckValueNullFails() {
         this.checkValue(null);
     }
 
     @Test(expected = HeaderValueException.class)
-    public void testCheckValueInvalidTypeFails() {
+    public final void testCheckValueInvalidTypeFails() {
         this.checkValue(this);
     }
 

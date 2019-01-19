@@ -32,6 +32,11 @@ public final class SearchLocalDateTimeQueryValueTest extends SearchQueryValueTes
     }
 
     @Override
+    LocalDateTime differentValue() {
+        return LocalDateTime.of(1999, 12, 31, 12, 58, 59);
+    }
+
+    @Override
     String searchQueryValueToString() {
         return "2000-01-31T12:58:59";
     }

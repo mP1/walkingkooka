@@ -38,7 +38,7 @@ public final class XmlEntityMapTest extends XmlMapTestCase<XmlEntityMap, XmlName
     }
 
     private NamedNodeMap entities() {
-        try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/createMap.xml")) {
+        try (Reader reader = this.resourceAsReader(this.getClass(), this.getClass().getSimpleName() + "/default.xml")) {
             final XmlDocument root = XmlNode.fromXml(this.documentBuilder(false, true), reader);
             final DocumentType documentType = Cast.to(root.node.getChildNodes().item(0));
             return Cast.to(documentType.getEntities());

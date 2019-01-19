@@ -18,7 +18,29 @@
 
 package walkingkooka.color;
 
+import org.junit.Test;
+
 public final class BlueColorComponentTest extends ColorComponentTestCase<BlueColorComponent> {
+
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(BlueColorComponent.with(VALUE2));
+    }
+
+    @Test
+    public void testRed() {
+        this.checkNotEquals(ColorComponent.red(VALUE));
+    }
+
+    @Test
+    public void testGreen() {
+        this.checkNotEquals(ColorComponent.green(VALUE));
+    }
+
+    @Test
+    public void testAlpha() {
+        this.checkNotEquals(ColorComponent.alpha(VALUE));
+    }
 
     @Override
     BlueColorComponent createColorComponent(final byte value) {

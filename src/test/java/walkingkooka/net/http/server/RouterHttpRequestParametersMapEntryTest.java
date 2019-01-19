@@ -21,12 +21,13 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.map.EntryTestCase;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import static org.junit.Assert.assertEquals;
 
 public final class RouterHttpRequestParametersMapEntryTest extends EntryTestCase<RouterHttpRequestParametersMapEntry,
         HttpRequestAttribute,
-        Object> {
+        Object> implements HashCodeEqualsDefinedTesting<RouterHttpRequestParametersMapEntry> {
 
     private final static HttpRequestAttribute KEY = HttpRequestAttributes.TRANSPORT;
     private final static Object VALUE = HttpTransport.SECURED;
@@ -42,6 +43,16 @@ public final class RouterHttpRequestParametersMapEntryTest extends EntryTestCase
     }
 
     @Test
+    public void testEqualsDifferentKey() {
+        this.checkNotEquals(RouterHttpRequestParametersMapEntry.with(HttpRequestAttributes.METHOD, VALUE));
+    }
+
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(RouterHttpRequestParametersMapEntry.with(KEY, "different"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("TRANSPORT=SECURED", this.createEntry().toString());
     }
@@ -54,5 +65,10 @@ public final class RouterHttpRequestParametersMapEntryTest extends EntryTestCase
     @Override
     protected Class<RouterHttpRequestParametersMapEntry> type() {
         return RouterHttpRequestParametersMapEntry.class;
+    }
+
+    @Override
+    public RouterHttpRequestParametersMapEntry createObject() {
+        return this.createEntry();
     }
 }

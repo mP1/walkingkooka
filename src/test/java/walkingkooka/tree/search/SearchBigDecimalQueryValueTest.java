@@ -32,6 +32,11 @@ public final class SearchBigDecimalQueryValueTest extends SearchQueryValueTestCa
     }
 
     @Override
+    BigDecimal differentValue() {
+        return BigDecimal.valueOf(999);
+    }
+
+    @Override
     String searchQueryValueToString() {
         return this.value().toString();
     }

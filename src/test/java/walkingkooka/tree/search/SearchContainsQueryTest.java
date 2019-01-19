@@ -300,9 +300,27 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
                 this.sequenceNode(expected));
     }
 
+    @Test
+    public void testEqualsDifferentText() {
+        this.checkNotEquals(SearchContainsQuery.with(this.textQueryValue("different"), this.caseSensitivity()));
+    }
+
+    @Test
+    public void testEqualsDifferentCaseSensitivity() {
+        this.checkNotEquals(SearchContainsQuery.with(this.queryTextValue(), CaseSensitivity.SENSITIVE));
+    }
+
     @Override
     SearchContainsQuery createSearchQuery() {
-        return SearchContainsQuery.with(this.textQueryValue("query"), CaseSensitivity.SENSITIVE);
+        return SearchContainsQuery.with(this.queryTextValue(), this.caseSensitivity());
+    }
+
+    private SearchTextQueryValue queryTextValue() {
+        return this.textQueryValue("query");
+    }
+
+    private CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.INSENSITIVE;
     }
 
     @Override

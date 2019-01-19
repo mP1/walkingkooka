@@ -64,7 +64,7 @@ import java.util.Objects;
  *                       ; numeric timezones (+HHMM or -HHMM) MUST be used
  * </pre>
  */
-final public class ContentDispositionType extends HeaderNameValue {
+final public class ContentDispositionType extends HeaderNameValue implements Comparable<ContentDispositionType> {
 
     /**
      * A read only cache of already prepared {@link ContentDispositionType names}. These constants are incomplete.
@@ -129,6 +129,13 @@ final public class ContentDispositionType extends HeaderNameValue {
     public ContentDisposition setParameters(final Map<ContentDispositionParameterName<?>, Object> parameters) {
         return ContentDisposition.with(this)
                 .setParameters(parameters);
+    }
+
+    // Comparable..............................................................................................
+
+    @Override
+    public int compareTo(final ContentDispositionType other) {
+        return this.compareTo0(other);
     }
 
     // HeaderNameValue..............................................................................................

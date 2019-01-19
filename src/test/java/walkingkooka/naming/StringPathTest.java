@@ -67,6 +67,21 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     }
 
     @Test
+    public void testEqualsDifferentPath() {
+        this.checkNotEquals(StringPath.parse("/different"));
+    }
+
+    @Test
+    public void testCompareLess() {
+        this.compareToAndCheckLess(StringPath.parse("/zebra"));
+    }
+
+    @Test
+    public void testCompareMore() {
+        this.compareToAndCheckMore(StringPath.parse("/before"));
+    }
+
+    @Test
     public void testSerializeRootIsSingleton() throws Exception {
         this.serializeSingletonAndCheck(StringPath.ROOT);
     }
@@ -118,6 +133,11 @@ final public class StringPathTest extends PathTestCase<StringPath, StringName>
     @Override
     public Class<StringPath> type() {
         return StringPath.class;
+    }
+
+    @Override
+    public StringPath createComparable() {
+        return StringPath.parse("/path");
     }
 
     @Override

@@ -21,9 +21,9 @@ package walkingkooka.net.http.server;
 import org.junit.Test;
 import walkingkooka.collect.map.MapTestCase;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.HttpHeaderScope;
+import walkingkooka.net.header.NotAcceptableHeaderException;
 
 import java.util.Map;
 

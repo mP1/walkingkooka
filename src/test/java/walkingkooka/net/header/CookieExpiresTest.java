@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 
 import org.junit.Test;
-import walkingkooka.type.MemberVisibility;
 
 import java.time.LocalDateTime;
 
@@ -43,38 +42,44 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
 
     @Test
     public void testWith() {
-        final CookieExpires expires = this.createCookieExpires();
+        final CookieExpires expires = this.createDeletion();
         assertEquals("dateTime", EXPIRES, expires.dateTime());
     }
 
     @Test
     public void testIsExpires() {
-        final CookieExpires expires = this.createCookieExpires();
+        final CookieExpires expires = this.createDeletion();
         assertTrue(expires.toString(), expires.isExpires());
     }
 
     @Test
     public void testIsMaxAge() {
-        final CookieExpires expires = this.createCookieExpires();
+        final CookieExpires expires = this.createDeletion();
         assertFalse(expires.toString(), expires.isMaxAge());
     }
 
     @Test
+    public void testEqualsDifferentDateTime() {
+        this.checkNotEquals(CookieExpires.with(EXPIRES.plusDays(1)));
+    }
+
+    @Test
     public void testToMaxAgeSeconds() {
-        assertEquals(0, this.createCookieExpires().toMaxAgeSeconds(EXPIRES));
+        assertEquals(0, this.createDeletion().toMaxAgeSeconds(EXPIRES));
     }
 
     @Test
     public void testToMaxAgeSeconds2() {
-        assertEquals(123, this.createCookieExpires().toMaxAgeSeconds(EXPIRES.minusSeconds(123)));
+        assertEquals(123, this.createDeletion().toMaxAgeSeconds(EXPIRES.minusSeconds(123)));
     }
 
     @Test
     public void testToString() {
-        assertEquals("expires=Sun, 31 Dec 2000 12:58:59 GMT", this.createCookieExpires().toString());
+        assertEquals("expires=Sun, 31 Dec 2000 12:58:59 GMT", this.createDeletion().toString());
     }
 
-    private CookieExpires createCookieExpires() {
+    @Override
+    CookieExpires createDeletion() {
         return CookieExpires.with(EXPIRES);
     }
 

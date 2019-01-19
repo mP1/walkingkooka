@@ -40,6 +40,24 @@ public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRow
     }
 
     @Test
+    public void testEqualReferenceKindIgnored() {
+        this.compareToAndCheckEqual(SpreadsheetReferenceKind.ABSOLUTE.column(VALUE),
+                SpreadsheetReferenceKind.RELATIVE.column(VALUE));
+    }
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(SpreadsheetReferenceKind.ABSOLUTE.column(VALUE),
+                SpreadsheetReferenceKind.ABSOLUTE.column(VALUE + 999));
+    }
+
+    @Test
+    public void testLess2() {
+        this.compareToAndCheckLess(SpreadsheetReferenceKind.ABSOLUTE.column(VALUE),
+                SpreadsheetReferenceKind.RELATIVE.column(VALUE + 999));
+    }
+
+    @Test
     public void testToStringRelative() {
         this.checkToString(0, SpreadsheetReferenceKind.RELATIVE, "A");
     }
@@ -75,7 +93,7 @@ public final class SpreadsheetColumnReferenceTest extends SpreadsheetColumnOrRow
     }
 
     @Override
-    SpreadsheetColumnReference create(final int value, final SpreadsheetReferenceKind kind) {
+    SpreadsheetColumnReference createReference(final int value, final SpreadsheetReferenceKind kind) {
         return SpreadsheetColumnReference.with(value, kind);
     }
 

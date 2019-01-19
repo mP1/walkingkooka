@@ -125,6 +125,16 @@ public final class PojoByteArrayNodeTest extends PojoArrayNodeTestCase<PojoByteA
         this.childrenValuesCheck(childNode, ELEMENT0, ELEMENT1);
     }
 
+    @Test
+    public void testEqualsDifferentValues() {
+        this.createPojoNode(new byte[]{1});
+    }
+
+    @Test
+    public void testEqualsDifferentValues2() {
+        this.createPojoNode(new byte[]{1, 2});
+    }
+
     @Override
     PojoByteArrayNode createEmptyPojoNode(){
         return this.createPojoNode(new byte[0]);

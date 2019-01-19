@@ -39,6 +39,11 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
         this.toHeaderTextAndCheck(TEXT);
     }
 
+    @Test
+    public void testEqualsDifferentUrl() {
+        this.checkNotEquals(LinkRelation.with("http://example2.com"));
+    }
+
     @Override
     boolean url() {
         return true;

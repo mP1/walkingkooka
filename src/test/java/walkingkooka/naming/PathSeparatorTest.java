@@ -20,6 +20,7 @@ package walkingkooka.naming;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.tree.Node;
 import walkingkooka.type.MemberVisibility;
@@ -28,7 +29,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
-final public class PathSeparatorTest extends ClassTestCase<PathSeparator> implements SerializationTesting<PathSeparator> {
+final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
+        implements HashCodeEqualsDefinedTesting<PathSeparator>, SerializationTesting<PathSeparator> {
 
     // constants
 
@@ -133,6 +135,20 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator> implem
                 .relativeNodeSelectorBuilder(Node.class));
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentSeparatorCharacter() {
+        this.checkNotEquals(PathSeparator.requiredAtStart('.'));
+    }
+
+    @Test
+    public void testEqualsDifferentRequiredAtStart() {
+        this.checkNotEquals(PathSeparator.notRequiredAtStart(SEPARATOR));
+    }
+
+    // toString ..................................................................................................
+
     @Test
     public void testToString() {
         assertEquals(String.valueOf(SEPARATOR),
@@ -157,6 +173,11 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator> implem
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public PathSeparator createObject() {
+        return PathSeparator.requiredAtStart(SEPARATOR);
     }
 
     @Override

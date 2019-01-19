@@ -22,22 +22,22 @@ import java.math.BigDecimal;
 
 final class SearchBigDecimalQueryValueSearchQueryTester extends SearchComparableQueryValueSearchQueryTester<BigDecimal> {
 
-    static SearchBigDecimalQueryValueSearchQueryTester with(final BigDecimal value, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
-        return new SearchBigDecimalQueryValueSearchQueryTester(value, result);
+    static SearchBigDecimalQueryValueSearchQueryTester with(final BigDecimal value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        return new SearchBigDecimalQueryValueSearchQueryTester(value, predicate);
     }
 
-    private SearchBigDecimalQueryValueSearchQueryTester(final BigDecimal value, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
-        super(value, result);
+    private SearchBigDecimalQueryValueSearchQueryTester(final BigDecimal value, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        super(value, predicate);
     }
 
     @Override
     SearchBigDecimalQueryValueSearchQueryTester not() {
-        return new SearchBigDecimalQueryValueSearchQueryTester(this.value, this.result.not());
+        return new SearchBigDecimalQueryValueSearchQueryTester(this.value, this.predicate.not());
     }
 
     @Override
     final boolean test(final SearchBigDecimalNode node) {
-        return this.result.test(this.value, node.value());
+        return this.predicate.test(this.value, node.value());
     }
 
     @Override

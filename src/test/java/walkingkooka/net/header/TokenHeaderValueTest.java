@@ -19,11 +19,9 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.type.MemberVisibility;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -125,6 +123,22 @@ public final class TokenHeaderValueTest extends HeaderValueWithParametersTestCas
                 "abc; p1=v1; p2=v2");
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(this.createObject().setValue("different"));
+    }
+
+    @Test
+    public void testEqualsDifferentParameters() {
+        this.checkNotEquals(this.createObject().setParameters(this.parameters("different", PARAMETER_VALUE)));
+    }
+
+    @Test
+    public void testEqualsDifferentParameters2() {
+        this.checkNotEquals(this.createObject().setParameters(TokenHeaderValue.NO_PARAMETERS));
+    }
 
     // isWildcard ..................................................................................................
 

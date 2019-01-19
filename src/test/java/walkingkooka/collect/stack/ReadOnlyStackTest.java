@@ -110,6 +110,24 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
         assertSame(iterator, stack.iterator());
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentItems() {
+        final Stack<Object> stack = Stacks.arrayList();
+        stack.push("*different*");
+        this.checkNotEquals(ReadOnlyStack.wrap(stack));
+    }
+
+    @Test
+    public void testSameItemsDifferentStackType() {
+        final Stack<Object> stack = Stacks.arrayList();
+        stack.push(ITEM);
+        this.checkEquals(stack);
+    }
+
+    // toString ..................................................................................................
+
     @Test
     public void testToString() {
         final Stack<Object> stack = Stacks.fake();
@@ -119,7 +137,7 @@ final public class ReadOnlyStackTest extends StackTestCase<ReadOnlyStack<Object>
     @Override
     protected ReadOnlyStack<Object> createStack() {
         final Stack<Object> stack = Stacks.arrayList();
-        stack.push(ReadOnlyStackTest.ITEM);
+        stack.push(ITEM);
         return ReadOnlyStack.wrap(stack);
     }
 

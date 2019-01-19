@@ -19,6 +19,7 @@
 package walkingkooka.net;
 
 import org.junit.Test;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
@@ -26,7 +27,9 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotSame;
 
-abstract public class IpAddressTestCase<A extends IpAddress> extends ClassTestCase<A> implements SerializationTesting<A> {
+abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> extends ClassTestCase<A>
+        implements ComparableTesting<A>,
+        SerializationTesting<A> {
 
     IpAddressTestCase() {
         super();

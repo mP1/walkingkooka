@@ -327,6 +327,41 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
         assertEquals(Optional.of(AbsoluteUrl.parse(url)), AbsoluteUrl.tryParse(url));
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqualsDifferentScheme() {
+        this.checkNotEquals(Url.absolute(UrlScheme.HTTPS,
+                CREDENTIALS,
+                HOST,
+                PORT,
+                PATH,
+                QUERY,
+                FRAGMENT));
+    }
+
+    @Test
+    public void testEqualsDifferentHost() {
+        this.checkNotEquals(Url.absolute(UrlScheme.HTTPS,
+                CREDENTIALS,
+                HOST,
+                PORT,
+                PATH,
+                QUERY,
+                FRAGMENT));
+    }
+
+    @Test
+    public void testEqualsDifferentPort() {
+        this.checkNotEquals(Url.absolute(UrlScheme.HTTPS,
+                CREDENTIALS,
+                HOST,
+                Optional.of(IpPort.with(9999)),
+                PATH,
+                QUERY,
+                FRAGMENT));
+    }
+
     // toString..........................................................................................
 
     @Test
@@ -400,6 +435,17 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
     @Override
     public Class<AbsoluteUrl> type() {
         return AbsoluteUrl.class;
+    }
+
+    @Override
+    AbsoluteUrl createObject(final UrlPath path, final UrlQueryString query, final UrlFragment fragment) {
+        return Url.absolute(SCHEME,
+                CREDENTIALS,
+                HOST,
+                PORT,
+                path,
+                query,
+                fragment);
     }
 
     @Override

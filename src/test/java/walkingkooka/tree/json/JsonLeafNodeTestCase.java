@@ -23,7 +23,6 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
@@ -72,11 +71,6 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     }
 
     abstract N setValue(final N node, final V value);
-
-    @Test
-    public void testEqualsDifferentValue() {
-        assertNotEquals(this.createJsonNode(), this.createJsonNode(this.differentValue()));
-    }
 
     @Test
     @Ignore
@@ -164,6 +158,11 @@ public abstract class JsonLeafNodeTestCase<N extends JsonLeafNode<V>, V> extends
     @Test
     public final void testText() {
         assertEquals(String.valueOf(this.value()), this.createJsonNode().text());
+    }
+
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(JsonNode.number(99));
     }
 
     @Override

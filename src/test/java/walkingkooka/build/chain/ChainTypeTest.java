@@ -20,13 +20,16 @@ package walkingkooka.build.chain;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ChainTypeTest extends ClassTestCase<ChainType> implements SerializationTesting<ChainType> {
+final public class ChainTypeTest extends ClassTestCase<ChainType>
+        implements HashCodeEqualsDefinedTesting<ChainType>,
+        SerializationTesting<ChainType> {
     // constants
 
     private final static String TYPE = "ALL";
@@ -58,18 +61,35 @@ final public class ChainTypeTest extends ClassTestCase<ChainType> implements Ser
 
     @Test
     public void testWith() {
-        final ChainType type = ChainType.with(ChainTypeTest.TYPE);
-        assertSame("type", ChainTypeTest.TYPE, type.type);
+        final ChainType type = ChainType.with(TYPE);
+        assertSame("type", TYPE, type.type);
     }
 
     @Test
     public void testToString() {
-        assertEquals(ChainTypeTest.TYPE, ChainType.with(ChainTypeTest.TYPE).toString());
+        assertEquals(TYPE, ChainType.with(TYPE).toString());
     }
 
     @Test
     public void testConstantsAreSingletons() throws Exception {
         this.constantsAreSingletons();
+    }
+    
+    // tests
+
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(ChainType.with("different"));
+    }
+
+    @Test
+    public void testEqualsDifferentCase() {
+        this.checkNotEquals(ChainType.with("TYpe"));
+    }
+
+    @Override
+    public ChainType createObject() {
+        return ChainType.with(TYPE);
     }
 
     @Override

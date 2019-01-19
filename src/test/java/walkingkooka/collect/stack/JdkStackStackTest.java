@@ -27,6 +27,7 @@ import java.util.EmptyStackException;
 import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
 final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>, Object> {
@@ -147,6 +148,43 @@ final public class JdkStackStackTest extends StackTestCase<JdkStackStack<Object>
         Assert.assertTrue("stack should be empty", stack.isEmpty());
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public void testEqual() {
+        final JdkStackStack<String> stack1 = JdkStackStack.create();
+        final JdkStackStack<String> stack2 = JdkStackStack.create();
+        stack1.push("1");
+        stack1.push("2");
+        stack2.push("1");
+        stack2.push("*");
+        stack2.pop();
+        stack2.push("2");
+        checkEqualsAndHashCode(stack1, stack2);
+    }
+
+    @Test
+    public void testEqualsDifferentItems() {
+        final JdkStackStack<String> stack1 = JdkStackStack.create();
+        final JdkStackStack<String> stack2 = JdkStackStack.create();
+        stack1.push("1");
+        stack1.push("2");
+        stack2.push("3");
+        stack2.push("4");
+        assertNotEquals(stack1, stack2);
+    }
+
+    @Test
+    public void testSameItemsDifferentStackType() {
+        final JdkStackStack<String> stack1 = JdkStackStack.create();
+        final Stack<String> stack2 = Stacks.arrayList();
+        stack1.push("1");
+        stack1.push("2");
+        stack2.push("1");
+        stack2.push("2");
+        assertEquals(stack1, stack2);
+    }
+    
     @Test
     public void testToString() {
         final JdkStackStack<String> stack = JdkStackStack.create();

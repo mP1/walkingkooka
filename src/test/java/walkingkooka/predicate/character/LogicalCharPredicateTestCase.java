@@ -19,13 +19,14 @@ package walkingkooka.predicate.character;
 
 import org.junit.Assert;
 import org.junit.Test;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
 import static org.junit.Assert.assertEquals;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
         extends CharPredicateTestCase<P>
-        implements SerializationTesting<P> {
+        implements HashCodeEqualsDefinedTesting<P>, SerializationTesting<P> {
 
     LogicalCharPredicateTestCase() {
         super();
@@ -48,6 +49,16 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
     }
 
     @Test
+    final public void testEqualsDifferentFirstCharPredicate() {
+        this.checkNotEquals(this.createCharacterPredicate(CharPredicates.is('d'), CharPredicates.is('r')));
+    }
+
+    @Test
+    final public void testEqualsDifferentSecondCharPredicate() {
+        this.checkNotEquals(this.createCharacterPredicate(CharPredicates.is('l'), CharPredicates.is('d')));
+    }
+
+    @Test
     public void testToString() {
         final CharPredicate first = CharPredicates.fake();
         final CharPredicate second = CharPredicates.fake();
@@ -66,6 +77,11 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
     }
 
     abstract P createCharacterPredicate(CharPredicate first, CharPredicate second);
+
+    @Override
+    public P createObject() {
+        return this.createCharacterPredicate(CharPredicates.is('l'), CharPredicates.is('r'));
+    }
 
     @Override
     public final P serializableInstance() {

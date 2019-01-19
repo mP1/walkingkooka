@@ -290,6 +290,11 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         };
     }
 
+    @Test
+    public void testEqualsDifferentValues() {
+        this.createPojoNode(Maps.one("KEY", "different"));
+    }
+
     @Override
     PojoMapNode createEmptyPojoNode(){
         return this.createPojoNode(Maps.empty());

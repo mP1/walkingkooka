@@ -61,8 +61,14 @@ public final class ContentDispositionFileNameNotEncodedTest extends ContentDispo
         this.toHeaderTextAndCheck(FILENAME);
     }
 
-    private void checkValue(final ContentDispositionFileName filename, final String value) {
-        assertEquals("value", value, filename.value());
+    @Test
+    public void testDifferentFileName() {
+        this.checkNotEquals(ContentDispositionFileNameNotEncoded.with("different"));
+    }
+
+    @Test
+    public void testFileNameCaseSensitive() {
+        this.checkNotEquals(ContentDispositionFileNameNotEncoded.with(FILENAME.toUpperCase()));
     }
 
     @Test

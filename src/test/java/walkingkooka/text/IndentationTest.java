@@ -20,6 +20,7 @@ package walkingkooka.text;
 import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
@@ -28,7 +29,8 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class IndentationTest extends ClassTestCase<Indentation> implements SerializationTesting<Indentation> {
+final public class IndentationTest extends ClassTestCase<Indentation>
+        implements HashCodeEqualsDefinedTesting<Indentation>, SerializationTesting<Indentation> {
 
     @Test
     public void testCarriageReturnRepeatingCharFails() {
@@ -89,6 +91,11 @@ final public class IndentationTest extends ClassTestCase<Indentation> implements
     @Test
     public void testEmpty() {
         this.checkConstant(Indentation.with(""), 0);
+    }
+
+    @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(Indentation.with("different"));
     }
 
     @Test
@@ -231,6 +238,11 @@ final public class IndentationTest extends ClassTestCase<Indentation> implements
     @Override
     protected MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public Indentation createObject() {
+        return Indentation.with("  ");
     }
 
     @Override

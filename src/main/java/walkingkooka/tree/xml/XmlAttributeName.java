@@ -22,6 +22,7 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -31,6 +32,7 @@ import java.util.Optional;
  * The {@link Name} of an {@link XmlElement} attribute.
  */
 final public class XmlAttributeName implements Name,
+        Comparable<XmlAttributeName>,
         HasXmlNameSpacePrefix,
         UsesToStringBuilder {
 
@@ -106,7 +108,7 @@ final public class XmlAttributeName implements Name,
 
     @Override
     public final int hashCode() {
-        return this.name.hashCode();
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
@@ -115,8 +117,25 @@ final public class XmlAttributeName implements Name,
     }
 
     private boolean equals0(final XmlAttributeName other) {
-        return this.name.equals(other.name) && this.prefix.equals(other.prefix);
+        return this.compareTo(other) == 0;
     }
+
+    @Override
+    public int compareTo(final XmlAttributeName other) {
+        int value = CASE_SENSITIVITY.comparator().compare(this.name, other.name);
+        if(0 == value) {
+            value = CASE_SENSITIVITY.comparator().compare(
+                    this.prefixValue(this.prefix),
+                    this.prefixValue(other.prefix));
+        }
+        return value;
+    }
+
+    private String prefixValue(final Optional<XmlNameSpacePrefix> prefix) {
+        return prefix.isPresent() ? prefix.get().value : "";
+    }
+
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     // UsesToStringBuilder
 

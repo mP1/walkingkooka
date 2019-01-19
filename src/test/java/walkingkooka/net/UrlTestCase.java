@@ -20,6 +20,7 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertSame;
 /**
  * Base class for testing a {@link Url} with mostly parameter checking tests.
  */
-abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> {
+abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> implements HashCodeEqualsDefinedTesting<U> {
 
     UrlTestCase() {
         super();
@@ -164,6 +165,24 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> {
         assertEquals(this.createUrl(PATH, QUERY, differentFragment), different);
     }
 
+    // HashCodeEqualsDefined ..................................................................................................
+
+    @Test
+    public final void testEqualsDifferentPath() {
+        this.checkNotEquals(
+                this.createObject(UrlPath.parse("/different"), QUERY, FRAGMENT));
+    }
+
+    @Test
+    public final void testEqualsDifferentQuery() {
+        this.checkNotEquals(this.createObject(PATH, UrlQueryString.with("differentQueryString"), FRAGMENT));
+    }
+
+    @Test
+    public void testEqualsDifferentAnchor() {
+        this.checkNotEquals(this.createObject(PATH, QUERY, UrlFragment.with("different")));
+    }
+
     // toString........................................................................
     
     @Test
@@ -212,4 +231,11 @@ abstract public class UrlTestCase<U extends Url> extends ClassTestCase<U> {
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
+
+    @Override
+    public U createObject() {
+        return this.createObject(PATH, QUERY, FRAGMENT);
+    }
+
+    abstract U createObject(final UrlPath path, final UrlQueryString query, final UrlFragment fragment);
 }

@@ -26,18 +26,18 @@ import walkingkooka.text.CaseSensitivity;
  */
 final class SearchTextQueryValueSearchQueryTester extends SearchComparableQueryValueSearchQueryTester<String> {
 
-    static SearchTextQueryValueSearchQueryTester with(final String value, final CaseSensitivity caseSensitivity, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
-        return new SearchTextQueryValueSearchQueryTester(value, caseSensitivity, result);
+    static SearchTextQueryValueSearchQueryTester with(final String value, final CaseSensitivity caseSensitivity, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        return new SearchTextQueryValueSearchQueryTester(value, caseSensitivity, predicate);
     }
 
-    private SearchTextQueryValueSearchQueryTester(final String value, final CaseSensitivity caseSensitivity, final SearchQueryValueSearchQueryTesterComparisonPredicate result) {
-        super(value, result);
+    private SearchTextQueryValueSearchQueryTester(final String value, final CaseSensitivity caseSensitivity, final SearchQueryValueSearchQueryTesterComparisonPredicate predicate) {
+        super(value, predicate);
         this.caseSensitivity = caseSensitivity;
     }
 
     @Override
     SearchTextQueryValueSearchQueryTester not() {
-        return new SearchTextQueryValueSearchQueryTester(this.value, this.caseSensitivity, this.result.not());
+        return new SearchTextQueryValueSearchQueryTester(this.value, this.caseSensitivity, this.predicate.not());
     }
 
     @Override
@@ -62,7 +62,7 @@ final class SearchTextQueryValueSearchQueryTester extends SearchComparableQueryV
 
     @Override
     final boolean test(final SearchTextNode node) {
-        return this.result.test(this.caseSensitivity.<String>comparator(), this.value, node.value());
+        return this.predicate.test(this.caseSensitivity.<String>comparator(), this.value, node.value());
     }
 
     final CaseSensitivity caseSensitivity;

@@ -33,6 +33,11 @@ public final class SearchLocalTimeQueryValueTest extends SearchQueryValueTestCas
     }
 
     @Override
+    LocalTime differentValue() {
+        return LocalTime.of(6, 28, 29);
+    }
+
+    @Override
     String searchQueryValueToString() {
         return "12:58:59";
     }

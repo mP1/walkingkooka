@@ -111,6 +111,11 @@ public class ReaderConsumingCharSequenceTest extends CharSequenceTestCase<Reader
     }
 
     @Test
+    public void testDifferentText() {
+        this.checkNotEquals(ReaderConsumingCharSequence.with(new StringReader("different"), 100));
+    }
+
+    @Test
     public void testToString() {
         final String text = "abcdefghijklmnopqrstuvwxyz";
         final ReaderConsumingCharSequence chars = this.createCharSequence(text);

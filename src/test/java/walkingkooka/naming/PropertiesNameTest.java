@@ -19,8 +19,10 @@ package walkingkooka.naming;
 
 import org.junit.Test;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.text.CaseSensitivity;
 
-final public class PropertiesNameTest extends NameTestCase<PropertiesName> implements SerializationTesting<PropertiesName> {
+final public class PropertiesNameTest extends NameTestCase<PropertiesName, PropertiesName>
+        implements SerializationTesting<PropertiesName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
@@ -40,6 +42,26 @@ final public class PropertiesNameTest extends NameTestCase<PropertiesName> imple
     @Override
     public Class<PropertiesName> type() {
         return PropertiesName.class;
+    }
+
+    @Override
+    protected CaseSensitivity caseSensitivity() {
+        return CaseSensitivity.SENSITIVE;
+    }
+
+    @Override
+    protected String nameText() {
+        return "b";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "different";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "a";
     }
 
     @Override

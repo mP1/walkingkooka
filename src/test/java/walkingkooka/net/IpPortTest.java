@@ -20,11 +20,13 @@ package walkingkooka.net;
 
 import org.junit.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -35,6 +37,7 @@ import static org.junit.Assert.assertTrue;
 
 
 public final class IpPortTest extends ClassTestCase<IpPort> implements ConstantsTesting<IpPort>,
+        ComparableTesting<IpPort>,
         SerializationTesting<IpPort> {
 
     @Test
@@ -112,5 +115,44 @@ public final class IpPortTest extends ClassTestCase<IpPort> implements Constants
     @Override
     public boolean serializableInstanceIsSingleton() {
         return false;
+    }
+
+    private final static int PORT = 80;
+
+    @Test
+    public void testDifferentPort() {
+        this.checkNotEquals(IpPort.HTTPS);
+    }
+
+    @Test
+    public void testEqual() {
+        this.checkEqualsAndHashCode(IpPort.with(PORT));
+    }
+
+    @Test
+    public void testLess() {
+        this.compareToAndCheckLess(IpPort.HTTPS);
+    }
+
+    @Test
+    public void testInSortedSet() {
+        final IpPort one = IpPort.with(1);
+        final IpPort two = IpPort.with(2);
+        final IpPort three = IpPort.with(3);
+
+        final Set<IpPort> set = Sets.sorted();
+        set.add(one);
+        set.add(two);
+        set.add(three);
+
+        final Iterator<IpPort> values = set.iterator();
+        assertEquals(one, values.next());
+        assertEquals(two, values.next());
+        assertEquals(three, values.next());
+    }
+
+    @Override
+    public IpPort createComparable() {
+        return IpPort.HTTP;
     }
 }

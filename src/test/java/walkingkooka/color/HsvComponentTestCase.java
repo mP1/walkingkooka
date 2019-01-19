@@ -21,6 +21,7 @@ package walkingkooka.color;
 
 import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
@@ -33,7 +34,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 abstract public class HsvComponentTestCase<C extends HsvComponent> extends ClassTestCase<C>
-        implements SerializationTesting<C> {
+        implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
 
     HsvComponentTestCase() {
         super();
@@ -170,5 +171,10 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
     @Override
     protected final MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
+    }
+
+    @Override
+    public final C createObject() {
+        return this.createHsvComponent();
     }
 }

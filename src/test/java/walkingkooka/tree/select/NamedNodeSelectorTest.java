@@ -74,6 +74,20 @@ final public class NamedNodeSelectorTest extends
     }
 
     @Test
+    public void testEqualsDifferentName() {
+        this.checkNotEquals(this.createSelector(Names.string("different-name-2"),
+                SEPARATOR,
+                this.wrapped()));
+    }
+
+    @Test
+    public void testEqualsDifferentPathSeparator() {
+        this.checkNotEquals(this.createSelector(this.name(),
+                PathSeparator.requiredAtStart('.'),
+                this.wrapped()));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(NAME.value(), this.createSelector().toString());
     }
@@ -103,5 +117,15 @@ final public class NamedNodeSelectorTest extends
     @Override
     protected Class<NamedNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
         return Cast.to(NamedNodeSelector.class);
+    }
+
+    private NamedNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final StringName name,
+                                                                                           final PathSeparator pathSeparator,
+                                                                                           final NodeSelector<TestFakeNode, StringName, StringName, Object> selector) {
+        return Cast.to(NamedNodeSelector.<TestFakeNode, StringName, StringName, Object>with(name, pathSeparator).append(selector));
+    }
+
+    private StringName name() {
+        return Names.string("name1");
     }
 }

@@ -107,6 +107,34 @@ public final class EncodedTextTest extends HeaderValueTestCase<EncodedText> {
         this.toHeaderTextAndCheck(this.createHeaderValue(value), headerText);
     }
 
+    @Test
+    public void testEqualsDifferentCharset() {
+        this.checkNotEquals(EncodedText.with(CharsetName.UTF_16,
+                this.language(),
+                this.value()));
+    }
+
+    @Test
+    public void testEqualsDifferentLanguage() {
+        this.checkNotEquals(EncodedText.with(this.charset(),
+                Optional.of(LanguageTagName.with("fr")),
+                this.value()));
+    }
+
+    @Test
+    public void testEqualsDifferentLanguage2() {
+        this.checkNotEquals(EncodedText.with(this.charset(),
+                EncodedText.NO_LANGUAGE,
+                this.value()));
+    }
+
+    @Test
+    public void testEqualsDifferentValue() {
+        this.checkNotEquals(EncodedText.with(this.charset(),
+                this.language(),
+                "different"));
+    }
+
     @Override
     protected EncodedText createHeaderValue() {
         return this.createHeaderValue(this.value());

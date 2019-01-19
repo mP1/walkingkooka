@@ -69,6 +69,11 @@ final public class IndexedChildNodeSelectorTest extends
     }
 
     @Test
+    public void testEqualsDifferentIndex() {
+        this.createSelector(INDEX + 1, this.wrapped());
+    }
+
+    @Test
     public void testToString() {
         assertEquals("INDEX", 2, IndexedChildNodeSelectorTest.INDEX);
         assertEquals("*[2]", this.createSelector().toString());
@@ -82,5 +87,10 @@ final public class IndexedChildNodeSelectorTest extends
     @Override
     protected Class<IndexedChildNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
         return Cast.to(IndexedChildNodeSelector.class);
+    }
+
+    private IndexedChildNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final int index,
+                                                                                                  final NodeSelector<TestFakeNode, StringName, StringName, Object> selector) {
+        return Cast.to(IndexedChildNodeSelector.<TestFakeNode, StringName, StringName, Object>with(index).append(selector));
     }
 }

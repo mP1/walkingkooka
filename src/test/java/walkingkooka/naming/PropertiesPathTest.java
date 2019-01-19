@@ -81,6 +81,11 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
         assertEquals(PropertiesName.with("one"), grandParent.name());
     }
 
+    @Test
+    public void testEqualsDifferentPath() {
+        this.checkNotEquals(PropertiesPath.parse("different.property"));
+    }
+
     @Override
     protected PropertiesPath root() {
         throw new UnsupportedOperationException();
@@ -109,6 +114,11 @@ final public class PropertiesPathTest extends PathTestCase<PropertiesPath, Prope
     @Override
     public Class<PropertiesPath> type() {
         return PropertiesPath.class;
+    }
+
+    @Override
+    public PropertiesPath createComparable() {
+        return PropertiesPath.parse("property-abc");
     }
 
     @Override

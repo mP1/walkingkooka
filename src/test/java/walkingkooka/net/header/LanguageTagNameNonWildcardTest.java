@@ -62,13 +62,38 @@ public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCas
                 LanguageTagNameNonWildcard.nonWildcard("en"));
     }
 
+    @Test
+    public void testEqualsWildcard() {
+        this.checkNotEquals(LanguageTagName.WILDCARD);
+    }
+
+    @Test
+    public void testEqualsDifferentCase() {
+        this.checkEquals(LanguageTagNameNonWildcard.nonWildcard("EN"));
+    }
+
     @Override
     protected LanguageTagNameNonWildcard createName(final String name) {
         return LanguageTagNameNonWildcard.nonWildcard(name);
     }
 
     @Override
-    protected Class<LanguageTagNameNonWildcard> type() {
+    protected String nameText() {
+        return "en";
+    }
+
+    @Override
+    protected String differentNameText() {
+        return "fr";
+    }
+
+    @Override
+    protected String nameTextLess() {
+        return "de";
+    }
+
+    @Override
+    Class<LanguageTagNameNonWildcard> languageTagNameType() {
         return LanguageTagNameNonWildcard.class;
     }
 

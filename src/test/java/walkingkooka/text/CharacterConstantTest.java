@@ -17,6 +17,7 @@
 
 package walkingkooka.text;
 
+import org.junit.Assert;
 import org.junit.Test;
 import walkingkooka.type.MemberVisibility;
 
@@ -24,6 +25,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 final public class CharacterConstantTest extends CharSequenceTestCase<CharacterConstant> {
+
+    private final static char CHAR = 'a';
 
     @Test
     public void testWith() {
@@ -60,13 +63,39 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
     }
 
     @Test
+    public void testEqualsDifferent() {
+        this.checkNotEquals(CharacterConstant.with((char) (CHAR
+                + 1)));
+    }
+
+    @Test
+    public void testSameCharacter() {
+        Assert.assertTrue(this.createObject().equals(CHAR));
+    }
+
+    @Test
+    public void testSameCharacter2() {
+        Assert.assertTrue(this.createObject().equals((Object) CHAR));
+    }
+
+    @Test
+    public void testSameString() {
+        Assert.assertTrue(this.createObject().equals("" + CHAR));
+    }
+
+    @Test
+    public void testSameString2() {
+        Assert.assertTrue(this.createObject()
+                .equals("" + CHAR));
+    }
+    @Test
     public void testToString() {
         assertEquals("toString", "a", CharacterConstant.with('a').toString());
     }
 
     @Override
     protected CharacterConstant createCharSequence() {
-        return CharacterConstant.with('a');
+        return CharacterConstant.with(CHAR);
     }
 
     @Override

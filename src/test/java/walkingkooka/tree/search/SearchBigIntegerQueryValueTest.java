@@ -32,6 +32,11 @@ public final class SearchBigIntegerQueryValueTest extends SearchQueryValueTestCa
     }
 
     @Override
+    BigInteger differentValue() {
+        return BigInteger.valueOf(999);
+    }
+
+    @Override
     String searchQueryValueToString() {
         return this.value().toString();
     }

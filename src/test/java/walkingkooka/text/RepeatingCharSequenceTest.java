@@ -37,7 +37,7 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidLengthFails() {
-        RepeatingCharSequence.with(RepeatingCharSequenceTest.CHAR, -1);
+        RepeatingCharSequence.with(CHAR, -1);
     }
 
     @Test
@@ -47,32 +47,42 @@ final public class RepeatingCharSequenceTest extends CharSequenceTestCase<Repeat
 
     @Test
     public void testCharAt() {
-        this.checkCharAt(RepeatingCharSequenceTest.CHAR,
-                RepeatingCharSequenceTest.CHAR,
-                RepeatingCharSequenceTest.CHAR,
-                RepeatingCharSequenceTest.CHAR,
-                RepeatingCharSequenceTest.CHAR);
+        this.checkCharAt(CHAR,
+                CHAR,
+                CHAR,
+                CHAR,
+                CHAR);
     }
 
     @Test
     public void testLength() {
-        this.checkLength(RepeatingCharSequenceTest.LENGTH);
+        this.checkLength(LENGTH);
     }
 
     @Test
     public void testSubSequence() {
         final RepeatingCharSequence sequence = (RepeatingCharSequence) RepeatingCharSequence.with(
-                RepeatingCharSequenceTest.CHAR,
-                RepeatingCharSequenceTest.LENGTH);
+                CHAR,
+                LENGTH);
         final CharSequence sub = sequence.subSequence(1, 2);
         assertEquals("class", RepeatingCharSequence.class, sub.getClass());
-        this.checkEquals(sub, RepeatingCharSequenceTest.CHAR);
+        this.checkEquals2(sub, CHAR);
     }
+
+    @Test
+    public void testEqualsDifferentChar() {
+        this.checkNotEquals(RepeatingCharSequence.with('?', LENGTH));
+    }
+
+    @Test
+    public void testEqualsDifferentLength() {
+        this.checkNotEquals(RepeatingCharSequence.with(CHAR, 1));
+    }
+
 
     @Override
     protected RepeatingCharSequence createCharSequence() {
-        return (RepeatingCharSequence) RepeatingCharSequence.with(RepeatingCharSequenceTest.CHAR,
-                RepeatingCharSequenceTest.LENGTH);
+        return (RepeatingCharSequence) RepeatingCharSequence.with(CHAR, LENGTH);
     }
 
     @Override
