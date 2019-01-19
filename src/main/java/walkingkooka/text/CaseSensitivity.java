@@ -43,6 +43,11 @@ public enum CaseSensitivity {
      */
     SENSITIVE {
         @Override
+        public CaseSensitivity invert() {
+            return INSENSITIVE;
+        }
+
+        @Override
         char maybeLowercase(final char c) {
             return c;
         }
@@ -67,6 +72,11 @@ public enum CaseSensitivity {
      * Case is not important when doing operations.
      */
     INSENSITIVE {
+        @Override
+        public CaseSensitivity invert() {
+            return SENSITIVE;
+        }
+
         @Override
         char maybeLowercase(final char c) {
             return Character.toLowerCase(c);
@@ -249,6 +259,11 @@ public enum CaseSensitivity {
     final public boolean isEqual(final char c, final char other) {
         return Comparables.EQUAL == this.compare(c, other);
     }
+
+    /**
+     * Returns the other {@link CaseSensitivity}.
+     */
+    abstract public CaseSensitivity invert();
 
     /**
      * Hashes a {@link CharSequence} which may be null, using the current sensitivity.

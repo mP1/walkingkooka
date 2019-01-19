@@ -30,6 +30,7 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
         implements HashCodeEqualsDefinedTesting<P>, SerializationTesting<P> {
 
     private static final String STRING = "#$%";
+    private final static CaseSensitivity SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     CaseSensitivityCharSequencePredicateTemplateTestCase() {
         super();
@@ -47,7 +48,7 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
 
     private void withFails(final String chars) {
         try {
-            this.createPredicate(chars, CaseSensitivity.SENSITIVE);
+            this.createPredicate(chars, SENSITIVITY);
             Assert.fail();
         } catch (final RuntimeException expected) {
         }
@@ -89,7 +90,7 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     }
 
     final P createPredicateCaseSensitivity(final String chars) {
-        return this.createPredicate(chars, CaseSensitivity.SENSITIVE);
+        return this.createPredicate(chars, SENSITIVITY);
     }
 
     // Insensitive
@@ -103,22 +104,22 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
     }
 
     final P createPredicateCaseInsensitivity(final String chars) {
-        return this.createPredicate(chars, CaseSensitivity.INSENSITIVE);
+        return this.createPredicate(chars, SENSITIVITY.invert());
     }
 
     @Test
     public void testEqualsDifferentCharSequence() {
-        this.checkNotEquals(this.createPredicate("different", CaseSensitivity.SENSITIVE));
+        this.checkNotEquals(this.createPredicate("different", SENSITIVITY));
     }
 
     @Test
     public void testEqualsDifferentCaseSensitivity() {
-        this.checkNotEquals(this.createPredicate(STRING, CaseSensitivity.INSENSITIVE));
+        this.checkNotEquals(this.createPredicate(STRING, SENSITIVITY.invert()));
     }
 
     @Override 
     final public P createObject() {
-        return this.createPredicate(STRING, CaseSensitivity.SENSITIVE);
+        return this.createPredicate(STRING, SENSITIVITY);
     }
 
     @Override

@@ -25,8 +25,23 @@ import walkingkooka.type.MemberVisibility;
 import walkingkooka.util.systemproperty.SystemProperty;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 final public class CaseSensitivityTest extends ClassTestCase<CaseSensitivity> {
+
+    @Test
+    public void testInvertSensitive() {
+        this.invertAndCheck(CaseSensitivity.SENSITIVE, CaseSensitivity.INSENSITIVE);
+    }
+
+    @Test
+    public void testInvertInsensitive() {
+        this.invertAndCheck(CaseSensitivity.INSENSITIVE, CaseSensitivity.SENSITIVE);
+    }
+
+    private void invertAndCheck(final CaseSensitivity sensitivity, final CaseSensitivity inverted) {
+        assertSame("Invert " + sensitivity, inverted, sensitivity.invert());
+    }
 
     // compare
 
