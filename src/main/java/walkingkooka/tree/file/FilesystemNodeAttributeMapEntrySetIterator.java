@@ -18,6 +18,8 @@
 
 package walkingkooka.tree.file;
 
+import walkingkooka.collect.map.Maps;
+
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -43,7 +45,7 @@ final class FilesystemNodeAttributeMapEntrySetIterator implements Iterator<Entry
     @Override
     public Entry<FilesystemNodeAttributeName, String> next() {
         final FilesystemNodeAttributeName name = this.names.next();
-        return FilesystemNodeAttributeMapEntrySetIteratorEntry.with(name, name.read(this.node));
+        return Maps.entry(name, name.read(this.node));
     }
 
     private final Iterator<FilesystemNodeAttributeName> names;

@@ -16,36 +16,45 @@
  *
  */
 
-package walkingkooka.tree.xml;
+package walkingkooka.collect.map;
 
 import walkingkooka.Cast;
+import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * A read only entry for a {@link XmlMapEntrySet}.
+ * A read only{@link Map.Entry}.
  */
-final class XmlMapEntrySetEntry<K, V> implements Map.Entry<K, V> {
+final class MapsEntry<K, V> implements Map.Entry<K, V>, HashCodeEqualsDefined {
 
-    XmlMapEntrySetEntry(final K key, final V value) {
+    static <K,V> MapsEntry<K,V> with(final K key, final V value) {
+        Objects.requireNonNull(key, "key");
+        return new MapsEntry<>(key, value);
+    }
+
+    private MapsEntry(final K key, final V value) {
         this.key = key;
         this.value = value;
     }
 
-    @Override public K getKey() {
+    @Override
+    public K getKey() {
         return this.key;
     }
 
     private final K key;
 
-    @Override public V getValue() {
+    @Override
+    public V getValue() {
         return this.value;
     }
 
     private final V value;
 
-    @Override public V setValue(final V value) {
+    @Override
+    public V setValue(final V value) {
         throw new UnsupportedOperationException();
     }
 

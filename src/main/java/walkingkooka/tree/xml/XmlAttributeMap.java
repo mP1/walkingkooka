@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.xml;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import walkingkooka.Cast;
@@ -46,8 +47,8 @@ final class XmlAttributeMap extends XmlMap<XmlAttributeName, String> {
     }
 
     @Override
-    XmlMapEntrySetEntry<XmlAttributeName, String> entry(final Node node) {
-        final org.w3c.dom.Attr attr = Cast.to(node);
-        return new XmlMapEntrySetEntry<>(XmlAttributeName.wrap(attr), attr.getValue());
+    Entry<XmlAttributeName, String> entry(final Node node) {
+        final Attr attr = Cast.to(node);
+        return Maps.entry(XmlAttributeName.wrap(attr), attr.getValue());
     }
 }

@@ -99,5 +99,5 @@ abstract class XmlMap<K, V> extends AbstractMap<K, V> {
     /**
      * Given a {@link org.w3c.dom.Node} creates an entry.
      */
-    abstract XmlMapEntrySetEntry<K, V> entry(org.w3c.dom.Node node);
+    abstract Entry<K, V> entry(org.w3c.dom.Node node);
 }

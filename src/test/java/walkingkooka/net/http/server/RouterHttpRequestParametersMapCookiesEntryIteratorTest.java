@@ -76,7 +76,7 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
 
     private void checkNext(final RouterHttpRequestParametersMapCookiesEntryIterator iterator,
                            final ClientCookie cookie) {
-        final RouterHttpRequestParametersMapEntry entry = iterator.next();
+        final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
         assertEquals("key", cookie.name(), entry.getKey());
         assertEquals("value", cookie, entry.getValue());
     }

@@ -47,7 +47,7 @@ final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator impl
     }
 
     @Override
-    public RouterHttpRequestParametersMapEntry next() {
+    public Entry<HttpRequestAttribute<?>, Object> next() {
         return HttpRequestAttributes.entry(this.position++, this.request);
     }
 

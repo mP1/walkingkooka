@@ -18,11 +18,13 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Function;
@@ -84,12 +86,12 @@ public final class HttpRequestAttributes<T> implements HttpRequestAttribute<T> {
     /**
      * Returns an entry holding this attribute as the key and the actual request value as the value.
      */
-    final static RouterHttpRequestParametersMapEntry entry(final int position, final HttpRequest request) {
+    final static Entry<HttpRequestAttribute<?>, Object> entry(final int position, final HttpRequest request) {
         if (position >= VALUES.length) {
             throw new NoSuchElementException();
         }
         final HttpRequestAttributes key = VALUES[position];
-        return RouterHttpRequestParametersMapEntry.with(key, key.parameterValue(request).get());
+        return Maps.entry(key, key.parameterValue(request).get());
     }
 
     /**

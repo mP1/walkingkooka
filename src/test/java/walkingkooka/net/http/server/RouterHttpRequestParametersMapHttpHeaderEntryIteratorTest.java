@@ -124,7 +124,7 @@ public final class RouterHttpRequestParametersMapHttpHeaderEntryIteratorTest ext
     private void checkNext(final RouterHttpRequestParametersMapHttpHeaderEntryIterator iterator,
                            final HttpHeaderName<?> header,
                            final Object value) {
-        final RouterHttpRequestParametersMapEntry entry = iterator.next();
+        final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
         assertEquals("key", header, entry.getKey());
         assertEquals("value", value, entry.getValue());
     }

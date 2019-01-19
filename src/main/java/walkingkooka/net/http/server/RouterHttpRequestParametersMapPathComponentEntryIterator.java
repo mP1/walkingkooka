@@ -18,6 +18,7 @@
 
 package walkingkooka.net.http.server;
 
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPathName;
 
 import java.util.Iterator;
@@ -44,7 +45,7 @@ final class RouterHttpRequestParametersMapPathComponentEntryIterator implements 
     }
 
     @Override
-    public RouterHttpRequestParametersMapEntry next() {
+    public Entry<HttpRequestAttribute<?>, Object> next() {
         final int position = this.position;
         if (position >= this.pathNames.length) {
             throw new NoSuchElementException();
@@ -54,8 +55,8 @@ final class RouterHttpRequestParametersMapPathComponentEntryIterator implements 
         return entry(position);
     }
 
-    private RouterHttpRequestParametersMapEntry entry(final int position) {
-        return RouterHttpRequestParametersMapEntry.with(
+    private Entry<HttpRequestAttribute<?>, Object> entry(final int position) {
+        return Maps.entry(
                 HttpRequestAttributes.pathComponent(position),
                 this.pathNames[position]);
     }

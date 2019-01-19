@@ -45,9 +45,9 @@ final class XmlEntityMap extends XmlMap<XmlName, XmlEntity> {
     }
 
     @Override
-    XmlMapEntrySetEntry<XmlName, XmlEntity> entry(final Node node) {
+    Entry<XmlName, XmlEntity> entry(final Node node) {
         final XmlEntity entity = XmlEntity.with(node);
 
-        return new XmlMapEntrySetEntry<XmlName, XmlEntity>(entity.name(), entity);
+        return Maps.entry(entity.name(), entity);
     }
 }
