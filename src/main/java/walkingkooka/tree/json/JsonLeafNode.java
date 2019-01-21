@@ -53,18 +53,17 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
     }
 
     final JsonLeafNode<V> replaceValue(final V value) {
-        return this.wrap0(this.name, this.index, value)
-                .replaceChild(this.parent())
+        return this.create(this.name, this.index, value)
+                .replaceChild(this.parent(), this.index)
                 .cast();
     }
 
     @Override
-    final JsonNode wrap(final JsonNodeName name, final int index) {
-        return this.wrap0(name, index, this.value)
-                .replaceChild(this.parent());
+    final JsonNode create(final JsonNodeName name, final int index) {
+        return this.create(name, index, this.value);
     }
 
-    abstract JsonLeafNode wrap0(final JsonNodeName name, final int index, final V value);
+    abstract JsonLeafNode create(final JsonNodeName name, final int index, final V value);
 
     @Override
     public final boolean isArray() {
@@ -88,7 +87,7 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
     }
 
     @Override
-    final JsonNode setChild(final JsonNode newChild) {
+    final JsonNode setChild(final JsonNode newChild, final int index) {
         throw new NeverError(this.getClass().getSimpleName() + ".setChild");
     }
 
@@ -107,12 +106,12 @@ abstract class JsonLeafNode<V> extends JsonNode implements Value<V> {
     }
 
     @Override
-    boolean equalsDescendants0(final JsonNode other) {
+    final boolean equalsDescendants(final JsonNode other) {
         return true;
     }
 
     @Override
-    final boolean equalsIgnoringParentAndChildren0(final JsonNode other) {
+    final boolean equalsValue(final JsonNode other) {
         return Objects.equals(this.value, JsonLeafNode.class.cast(other).value);
     }
 }

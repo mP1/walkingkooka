@@ -18,82 +18,70 @@
 
 package walkingkooka.tree.json;
 
-import walkingkooka.collect.list.Lists;
+import walkingkooka.Cast;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Base type for all the parent json nodes that hold other nodes, such as array and object
  */
-abstract class JsonParentNode extends JsonNode {
+abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
 
-    JsonParentNode(final JsonNodeName name, final int index, final List<JsonNode> children){
+    JsonParentNode(final JsonNodeName name, final int index, final C children){
         super(name, index);
 
-        final Optional<JsonNode> p = Optional.of(this);
-
-        final List<JsonNode> copy = Lists.array();
-        int i = 0;
-        for(JsonNode child : children) {
-            copy.add(child.setParent(p, i));
-            i++;
-        }
-
-        this.children = copy;
+        this.children = this.adoptChildren(children);
     }
+
+    /**
+     * Called during construction to adopt children.
+     */
+    abstract C adoptChildren(final C children);
 
     @Override
     public final List<JsonNode> children() {
         return this.children;
     }
 
-    final List<JsonNode> copyChildren() {
-        final List<JsonNode> copy = Lists.array();
-        copy.addAll(this.children);
-        return copy;
-    }
+    /**
+     * A list holding the children.
+     */
+    final C children;
 
-    final List<JsonNode> children;
-
-    final JsonNode setChildren1(final List<JsonNode> children) {
-        return Lists.equals(this.children, children, (first, other) -> first.equalsIgnoringParentAndChildren0(other) && first.equalsDescendants(other)) ?
+    /**
+     * If the children are different replaces the children otherwise returns this.
+     */
+    final JsonNode setChildren0(final C children) {
+        return this.childrenEquals(children) ?
                 this :
                 this.replaceChildren(children);
     }
 
-    @Override
-    final JsonNode setChild(final JsonNode newChild) {
-        final int index = newChild.index();
-        final JsonNode previous = this.children.get(index);
-        return previous.equalsIgnoringParentAndChildren0(newChild) && previous.equalsDescendants(newChild) ?
-              this :
-               this.replaceChild0(newChild, index);
-    }
+    /**
+     * Allows sub classes to have different strategies to compare children for equality.
+     */
+    abstract boolean childrenEquals(final List<JsonNode> children);
 
-    private JsonNode replaceChild0(final JsonNode newChild, final int index) {
-        final List<JsonNode> newChildren = Lists.array();
-        newChildren.addAll(this.children);
-        newChildren.set(index, newChild);
-
-        return this.replaceChildren(newChildren);
-    }
-
-    final JsonParentNode replaceChildren(final List<JsonNode> children) {
-        return this.wrap0(this.name, this.index, children)
-                .replaceChild(this.parent())
+    /**
+     * Returns a new {@Link JsonParentNode} with the given children and also updates the parent/ancestors.
+     */
+    final JsonParentNode<C> replaceChildren(final C children) {
+        return this.create(this.name, this.index, children)
+                .replaceChild(this.parent(), this.index)
                 .cast();
     }
 
     @Override
-    final JsonNode wrap(final JsonNodeName name, final int index) {
-        return this.wrap0(name, index, this.children)
-                .replaceChild(this.parent());
+    final JsonNode create(final JsonNodeName name, final int index) {
+        return this.create(name, index, this.children);
     }
 
-    abstract JsonParentNode wrap0(final JsonNodeName name, final int index, final List<JsonNode> children);
+    /**
+     * Factory that creates a {@link JsonParentNode} of the same type as this with the given new properties.
+     */
+    abstract JsonParentNode<C> create(final JsonNodeName name, final int index, final C children);
 
     // HasSearchNode...............................................................................................
 
@@ -153,29 +141,36 @@ abstract class JsonParentNode extends JsonNode {
         return this.children.hashCode();
     }
 
-    final boolean equalsDescendants0(final JsonNode other) {
-        return this.equalsDescendants1(other.children());
-    }
-
     /**
      * Only returns true if the descendants of this node and the given children are equal ignoring the parents.
      */
-    final boolean equalsDescendants1(final List<JsonNode> otherChildren) {
-        final List<JsonNode> children = this.children();
+    @Override
+    final boolean equalsDescendants(final JsonNode other) {
+        final C children = this.children;
         final int count = children.size();
-        boolean equals = count == otherChildren.size();
+
+        final C otherChildren = Cast.to(other.children());
+        boolean equals = count == other.children().size();
 
         if (equals) {
             for (int i = 0; equals && i < count; i++) {
-                equals = children.get(i).equalsDescendants(otherChildren.get(i));
+                equals = this.equalsDescendants0(children.get(i), otherChildren, i);
             }
         }
 
         return equals;
     }
 
+    /**
+     * Tests a child for equality. It should ignore the parent.
+     */
+    abstract boolean equalsDescendants0(final JsonNode child, final C otherChildren, final int i);
+
+    /**
+     * Tests if the immediate value belonging to this node for equality.
+     */
     @Override
-    final boolean equalsIgnoringParentAndChildren0(final JsonNode other) {
+    final boolean equalsValue(final JsonNode other) {
         return true; // no other properties name already tested.
     }
 }

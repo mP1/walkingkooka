@@ -18,6 +18,7 @@
 
 package walkingkooka.tree.json;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
@@ -52,6 +53,43 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     private final static String VALUE3 = "value3";
 
     @Test
+    @Ignore
+    @Override
+    public void testAppendChild2() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testRemoveChildFirst() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void testRemoveChildLast() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Override
+    public void testSetDifferentChildren() {
+        final JsonObjectNode parent = JsonNode.object();
+
+        final JsonStringNode child1 = JsonNode.string("a1");
+        final JsonNumberNode child2 = JsonNode.number(2);
+
+        final JsonNode parent1 = this.setChildrenAndCheck(parent, child1, child2);
+
+        final JsonObjectNode child3 = JsonNode.object();
+        final JsonNode parent2 = this.setChildrenAndCheck(parent1, child3);
+
+        this.checkChildCount(parent2, child3);
+    }
+
+    @Test
     public void testSetChildrenSame() {
         final JsonNodeName key1 = this.key1();
         final JsonStringNode value1 = this.value1();
@@ -75,6 +113,33 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         this.getAndCheck(object, key1, VALUE1);
 
         assertSame(object, object.setChildren(Lists.of(JsonNode.string(VALUE1).setName(key1))));
+    }
+
+    @Test
+    public void testSetChildrenSameDifferentOrder() {
+        final JsonNodeName key1 = this.key1();
+        final JsonStringNode value1 = this.value1();
+
+        final JsonNodeName key2 = this.key2();
+        final JsonStringNode value2 = this.value2();
+
+
+        final JsonObjectNode object = JsonNode.object()
+                .set(key1, value1)
+                .set(key2, value2);
+        this.childrenCheck(object);
+        this.getAndCheck(object, key1, VALUE1);
+
+        final JsonObjectNode object2 = JsonNode.object()
+                .set(key2, value2)
+                .set(key1, value1);
+        this.childrenCheck(object);
+        this.getAndCheck(object, key2, VALUE2);
+
+        final List<JsonNode> differentOrder = Lists.array();
+        differentOrder.addAll(object2.children());
+
+        assertSame(object, object.setChildren(differentOrder));
     }
 
     // set and get
@@ -109,6 +174,20 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .set(key1, value1);
 
         assertEquals(Optional.empty(), object.get(key2()));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetNullNameFails() {
+        JsonNode.object().set(
+                null,
+                this.value1());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetNullValueFails() {
+        JsonNode.object().set(
+                this.key1(),
+                null);
     }
 
     @Test
@@ -183,7 +262,10 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .remove(key1);
         this.childrenCheck(object);
         this.checkChildCount(object, 1);
-        this.getAndCheck(object, key1, VALUE1);
+
+        System.out.println("Test object: key1==" + object.get(key1) + " key2==" + object.get(key2) + " object: " + object.children);
+
+        this.getAndCheck(object, key2, VALUE2);
 
         // verify originals were not mutated.
         this.checkWithoutParent(value1);
@@ -201,6 +283,10 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         final JsonStringNode value2 = this.value2();
 
         final JsonObjectNode empty = JsonNode.object();
+
+        final JsonObjectNode zzz = empty.set(key1, value1)
+                .set(key2, value2)
+                .remove(key1);
 
         final JsonObjectNode object = empty.set(key1, value1)
                 .set(key2, value2)

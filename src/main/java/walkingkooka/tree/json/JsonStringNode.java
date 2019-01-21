@@ -51,7 +51,7 @@ public final class JsonStringNode extends JsonLeafNode<String>{
     }
 
     @Override
-    JsonStringNode wrap0(final JsonNodeName name, final int index, final String value) {
+    JsonStringNode create(final JsonNodeName name, final int index, final String value) {
         return new JsonStringNode(name, index, value);
     }
 
