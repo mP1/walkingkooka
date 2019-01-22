@@ -22,7 +22,7 @@ import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
-import walkingkooka.tree.Node;
+import walkingkooka.tree.TestNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
@@ -126,13 +126,13 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
     @Test
     public void testAbsoluteNodeSelectorBuilder() {
         assertNotNull(PathSeparator.requiredAtStart(SEPARATOR)
-                .absoluteNodeSelectorBuilder(Node.class));
+                .absoluteNodeSelectorBuilder(TestNode.class));
     }
 
     @Test
     public void testRelativeNodeSelectorBuilder() {
         assertNotNull(PathSeparator.requiredAtStart(SEPARATOR)
-                .relativeNodeSelectorBuilder(Node.class));
+                .relativeNodeSelectorBuilder(TestNode.class));
     }
 
     // HashCodeEqualsDefined ..................................................................................................
