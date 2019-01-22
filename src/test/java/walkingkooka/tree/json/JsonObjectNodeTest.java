@@ -42,7 +42,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 
-public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectNode>{
+public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectNode, JsonObjectNodeList>{
 
     private final static String KEY1 = "key1";
     private final static String KEY2 = "key2";

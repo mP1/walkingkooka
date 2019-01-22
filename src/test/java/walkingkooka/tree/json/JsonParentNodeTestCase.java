@@ -26,7 +26,12 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class JsonParentNodeTestCase<N extends JsonParentNode> extends JsonNodeTestCase<N> {
+public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C extends List<JsonNode>>
+        extends JsonNodeTestCase<N> {
+
+    JsonParentNodeTestCase() {
+        super();
+    }
 
     @Test
     public final void testCreate() {
@@ -51,14 +56,16 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode> extends J
 
     @Test
     @Ignore
+    @Override
     public final void testReplaceChildDifferentParent() {
         throw new UnsupportedOperationException();
     }
 
     @Test
     @Ignore
-    public void testSetSameAttributes() {
-
+    @Override
+    public final void testSetSameAttributes() {
+        throw new UnsupportedOperationException();
     }
 
     @Test

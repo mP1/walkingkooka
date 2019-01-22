@@ -36,7 +36,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNode>{
+public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNode, List<JsonNode>> {
 
     // append
 
@@ -391,7 +391,8 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     }
 
     @Override
-    protected JsonArrayNode appendChildAndCheck(final JsonNode parent, final JsonNode child) {
+    protected JsonArrayNode appendChildAndCheck(final JsonNode parent,
+                                                final JsonNode child) {
         final JsonArrayNode newParent = parent.appendChild(child).cast();
         assertNotSame("appendChild must not return the same node", newParent, parent);
 
