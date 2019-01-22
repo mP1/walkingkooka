@@ -217,6 +217,32 @@ public final class JsonArrayNodeTest extends JsonParentNodeTestCase<JsonArrayNod
     }
 
     @Test
+    public void testReplaceChild2() {
+        final JsonNode child1 = JsonNode.string("C1");
+
+        final JsonArrayNode root = JsonNode.array()
+                .appendChild(child1)
+                .appendChild(JsonNode.array()
+                        .appendChild(JsonNode.string("GC1-old")));
+        this.checkChildCount(root, 2);
+
+        final JsonNode grandChild1New = JsonNode.string("GC1-new");
+        final JsonArrayNode updatedChild = root.get(1)
+                .setChildren(Lists.of(grandChild1New))
+                .cast();
+        this.checkChildCount(updatedChild, 1);
+        
+        final JsonArrayNode updatedRoot = updatedChild.parent().get().cast();
+        this.checkChildCount(updatedRoot, 2);
+        assertEquals("updatedRoot",
+                JsonNode.array()
+                        .appendChild(child1)
+                        .appendChild(JsonNode.array()
+                                .appendChild(grandChild1New)),
+                updatedRoot);
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<JsonNode> visited = Lists.array();

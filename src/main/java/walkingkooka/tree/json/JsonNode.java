@@ -199,19 +199,6 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     final int index;
 
     /**
-     * Would be setter that returns an instance with the index, creating a new instance if necessary.
-     */
-    final JsonNode setIndex(final int index) {
-        return this.index == index ?
-               this :
-               this.replaceIndex(index);
-    }
-
-    private JsonNode replaceIndex(final int index) {
-        return this.create(this.name, index);
-    }
-
-    /**
      * Factory method that creates a new sub class of {@link JsonLeafNode} that is the same type as this.
      */
     abstract JsonNode create(final JsonNodeName name, final int index);
