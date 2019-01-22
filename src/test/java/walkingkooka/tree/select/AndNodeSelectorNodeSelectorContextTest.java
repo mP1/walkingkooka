@@ -20,9 +20,10 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
-public final class AndNodeSelectorNodeSelectorContextTest extends NodeSelectorContextTestCase<AndNodeSelectorNodeSelectorContext<TestFakeNode, StringName, StringName, Object>,
-        TestFakeNode,
+public final class AndNodeSelectorNodeSelectorContextTest extends NodeSelectorContextTestCase<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>,
+        TestNode,
         StringName,
         StringName,
         Object> {
@@ -33,12 +34,12 @@ public final class AndNodeSelectorNodeSelectorContextTest extends NodeSelectorCo
     }
 
     @Override
-    protected AndNodeSelectorNodeSelectorContext<TestFakeNode, StringName, StringName, Object> createContext() {
+    protected AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
         return AndNodeSelectorNodeSelectorContext.with(null, null);
     }
 
     @Override
-    protected Class<AndNodeSelectorNodeSelectorContext<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<AndNodeSelectorNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AndNodeSelectorNodeSelectorContext.class);
     }
 }

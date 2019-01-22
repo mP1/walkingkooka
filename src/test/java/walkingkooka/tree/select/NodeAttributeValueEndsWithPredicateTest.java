@@ -20,22 +20,23 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 
 public class NodeAttributeValueEndsWithPredicateTest
-        extends NodeAttributeValuePredicateTestCase<NodeAttributeValueEndsWithPredicate<TestFakeNode, StringName, StringName, Object>> {
+        extends NodeAttributeValuePredicateTestCase<NodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void tesEndsWith() {
-        this.testTrue(new TestFakeNode("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, "!!!" + VALUE)));
+        this.testTrue(TestNode.with("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, "!!!" + VALUE)));
     }
 
     @Test
     public void testWrongEndsWith() {
-        this.testFalse(new TestFakeNode("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, VALUE + "!!!")));
+        this.testFalse(TestNode.with("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, VALUE + "!!!")));
     }
 
     @Test
@@ -44,12 +45,12 @@ public class NodeAttributeValueEndsWithPredicateTest
     }
 
     @Override
-    NodeAttributeValueEndsWithPredicate<TestFakeNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
+    NodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
         return NodeAttributeValueEndsWithPredicate.with(name, value);
     }
 
     @Override
-    protected Class<NodeAttributeValueEndsWithPredicate<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<NodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeAttributeValueEndsWithPredicate.class);
     }
 }

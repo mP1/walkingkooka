@@ -21,11 +21,12 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import static org.junit.Assert.assertEquals;
 
 final public class DescendantOrSelfNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<DescendantOrSelfNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPathSeparatorFails() {
@@ -34,59 +35,59 @@ final public class DescendantOrSelfNodeSelectorTest extends
 
     @Test
     public void testChildless() {
-        final TestFakeNode only = TestFakeNode.node("only");
+        final TestNode only = TestNode.with("only");
         this.acceptAndCheck(only, only);
     }
 
     @Test
     public void testIgnoresParent() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
 
         this.acceptAndCheck(parent.child(0), child);
     }
 
     @Test
     public void testParentWithChildren() {
-        final TestFakeNode child1 = TestFakeNode.node("child1");
-        final TestFakeNode child2 = TestFakeNode.node("child2");
-        final TestFakeNode parent = TestFakeNode.node("parent", child1, child2);
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.acceptAndCheck(parent, parent, child1, child2);
     }
 
     @Test
     public void testParentWithGrandChildren() {
-        final TestFakeNode grandChild1 = TestFakeNode.node("grandChild1");
-        final TestFakeNode grandChild2 = TestFakeNode.node("grandChild2");
+        final TestNode grandChild1 = TestNode.with("grandChild1");
+        final TestNode grandChild2 = TestNode.with("grandChild2");
 
-        final TestFakeNode child1 = TestFakeNode.node("child1", grandChild1);
-        final TestFakeNode child2 = TestFakeNode.node("child2", grandChild2);
+        final TestNode child1 = TestNode.with("child1", grandChild1);
+        final TestNode child2 = TestNode.with("child2", grandChild2);
 
-        final TestFakeNode parent = TestFakeNode.node("parent", child1, child2);
+        final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.acceptAndCheck(parent, parent, child1, grandChild1, child2, grandChild2);
     }
 
     @Test
     public void testChildrenWithChildren2() {
-        final TestFakeNode grandChild1 = TestFakeNode.node("grandChild1");
-        final TestFakeNode grandChild2 = TestFakeNode.node("grandChild2");
+        final TestNode grandChild1 = TestNode.with("grandChild1");
+        final TestNode grandChild2 = TestNode.with("grandChild2");
 
-        final TestFakeNode child1 = TestFakeNode.node("child1", grandChild1, grandChild2);
-        final TestFakeNode child2 = TestFakeNode.node("child2");
+        final TestNode child1 = TestNode.with("child1", grandChild1, grandChild2);
+        final TestNode child2 = TestNode.with("child2");
 
-        final TestFakeNode parent = TestFakeNode.node("parent", child1, child2);
+        final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.acceptAndCheck(parent, parent, child1, grandChild1, grandChild2, child2);
     }
 
     @Test
     public void testIgnoresSiblings() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
-        final TestFakeNode siblingOfParent = TestFakeNode.node("siblingOfParent");
-        final TestFakeNode root = TestFakeNode.node("root", parent, siblingOfParent);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+        final TestNode siblingOfParent = TestNode.with("siblingOfParent");
+        final TestNode root = TestNode.with("root", parent, siblingOfParent);
 
         this.acceptAndCheck(root, root, parent, child, siblingOfParent);
         this.acceptAndCheck(parent.child(0), child);
@@ -98,12 +99,12 @@ final public class DescendantOrSelfNodeSelectorTest extends
     }
 
     @Override
-    protected DescendantOrSelfNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return DescendantOrSelfNodeSelector.with(SEPARATOR);
     }
 
     @Override
-    protected Class<DescendantOrSelfNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(DescendantOrSelfNodeSelector.class);
     }
 }

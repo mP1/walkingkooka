@@ -13,13 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
+
 package walkingkooka.tree;
 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.test.ClassTestCase;
+import walkingkooka.naming.StringName;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
@@ -31,15 +37,20 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public final class NodeTest extends ClassTestCase<Node> {
+public class TestNodeTest extends NodeTestCase2<TestNode, StringName, StringName, Object> {
+
+    @Before
+    public void beforeEachTest() {
+        TestNode.clear();
+    }
 
     @Test
     public void testRoot() {
-        final TestFakeNode child1 = new TestFakeNode("child1");
-        final TestFakeNode child2 = new TestFakeNode("child2");
-        final TestFakeNode parent1 = new TestFakeNode("parent1", child1, child2);
-        final TestFakeNode parent2 = new TestFakeNode("parent2");
-        final TestFakeNode root = new TestFakeNode("root", parent1, parent2);
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode parent1 = TestNode.with("parent1", child1, child2);
+        final TestNode parent2 = TestNode.with("parent2");
+        final TestNode root = TestNode.with("root", parent1, parent2);
 
         assertEquals(root, child1.root());
         assertEquals(root, child2.root());
@@ -49,44 +60,44 @@ public final class NodeTest extends ClassTestCase<Node> {
 
     @Test
     public void testPointerRoot() {
-        this.traverseAndCheck(new TestFakeNode("root"));
+        this.traverseAndCheck(TestNode.with("root"));
     }
 
     @Test
     public void testPointerChild() {
-        final TestFakeNode child1 = new TestFakeNode("child1");
-        final TestFakeNode child2 = new TestFakeNode("child2");
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2");
 
-        new TestFakeNode("parent", child1, child2);
+        TestNode.with("parent", child1, child2);
 
         this.traverseAndCheck(child2);
     }
 
     @Test
     public void testPointerGrandChild2() {
-        final TestFakeNode grandChild1 = new TestFakeNode("grandChild1");
-        final TestFakeNode grandChild2 = new TestFakeNode("grandChild2");
-        final TestFakeNode grandChild3 = new TestFakeNode("grandChild3");
+        final TestNode grandChild1 = TestNode.with("grandChild1");
+        final TestNode grandChild2 = TestNode.with("grandChild2");
+        final TestNode grandChild3 = TestNode.with("grandChild3");
 
-        final TestFakeNode child1 = new TestFakeNode("child1");
-        final TestFakeNode child2 = new TestFakeNode("child2", grandChild1, grandChild2, grandChild3);
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2", grandChild1, grandChild2, grandChild3);
 
-        new TestFakeNode("parent", child1, child2);
+        TestNode.with("parent", child1, child2);
 
         this.traverseAndCheck(grandChild3);
     }
 
     @Test
     public void testPointerGrandChild3() {
-        final TestFakeNode grandChild1 = new TestFakeNode("grandChild1");
-        final TestFakeNode grandChild2 = new TestFakeNode("grandChild2");
-        final TestFakeNode grandChild3 = new TestFakeNode("grandChild3");
-        final TestFakeNode grandChild4 = new TestFakeNode("grandChild4");
+        final TestNode grandChild1 = TestNode.with("grandChild1");
+        final TestNode grandChild2 = TestNode.with("grandChild2");
+        final TestNode grandChild3 = TestNode.with("grandChild3");
+        final TestNode grandChild4 = TestNode.with("grandChild4");
 
-        final TestFakeNode child1 = new TestFakeNode("child1");
-        final TestFakeNode child2 = new TestFakeNode("child2", grandChild1, grandChild2, grandChild3, grandChild4);
+        final TestNode child1 = TestNode.with("child1");
+        final TestNode child2 = TestNode.with("child2", grandChild1, grandChild2, grandChild3, grandChild4);
 
-        new TestFakeNode("parent", child1, child2);
+        TestNode.with("parent", child1, child2);
 
         this.traverseAndCheck(grandChild4);
     }
@@ -129,9 +140,30 @@ public final class NodeTest extends ClassTestCase<Node> {
                 pointer.traverse(node.root()));
     }
 
+    @Test
+    @Ignore
+    public void testReplaceChildDifferentParent() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Rule
+    public TestName name = new TestName();
+
     @Override
-    protected Class<Node> type() {
-        return Node.class;
+    protected TestNode createNode() {
+        return TestNode.with(this.name.getMethodName() + "-" + this.i++);
+    }
+
+    private int i = 0;
+
+    @Override
+    protected String requiredNamePrefix() {
+        return "Test";
+    }
+
+    @Override
+    protected Class<TestNode> type() {
+        return TestNode.class;
     }
 
     @Override

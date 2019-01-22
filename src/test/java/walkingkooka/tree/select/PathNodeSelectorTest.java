@@ -19,34 +19,35 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import static org.junit.Assert.assertEquals;
 
 final public class PathNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<PathNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<PathNodeSelector<TestNode, StringName, StringName, Object>> {
 
-    private static TestFakeNode make() {
-        final TestFakeNode childChild = TestFakeNode.node("childChild");
+    private static TestNode make() {
+        final TestNode childChild = TestNode.with("childChild");
 
-        final TestFakeNode child2 = TestFakeNode.node("child2");
-        final TestFakeNode child3 = TestFakeNode.node("child3", childChild);
+        final TestNode child2 = TestNode.with("child2");
+        final TestNode child3 = TestNode.with("child3", childChild);
 
-        final TestFakeNode parent1 = TestFakeNode.node("parent1");
-        final TestFakeNode parent2 = TestFakeNode.node("parent2", TestFakeNode.node("child1"));
-        final TestFakeNode parent3 = TestFakeNode.node("parent3", child2, child3);
+        final TestNode parent1 = TestNode.with("parent1");
+        final TestNode parent2 = TestNode.with("parent2", TestNode.with("child1"));
+        final TestNode parent3 = TestNode.with("parent3", child2, child3);
 
-        return TestFakeNode.node("root", parent1, parent2, parent3);
+        return TestNode.with("root", parent1, parent2, parent3);
     }
 
-    private static TestFakeNode child3() {
+    private static TestNode child3() {
         return ROOT.child(2).child(1);
     }
 
-    private static TestFakeNode childChild() {
+    private static TestNode childChild() {
         return child3().child(0);
     }
 
-    private final static TestFakeNode ROOT = make();
+    private final static TestNode ROOT = make();
 
     @Test
     public void testRoot() {
@@ -55,26 +56,26 @@ final public class PathNodeSelectorTest extends
 
     @Test
     public void testDescendant() {
-        final TestFakeNode child2 = child3();
+        final TestNode child2 = child3();
         this.acceptAndCheck(PathNodeSelector.with(child2), ROOT, child2);
     }
 
     @Test
     public void testDescendantLeaf() {
-        final TestFakeNode childChild = childChild();
+        final TestNode childChild = childChild();
         this.acceptAndCheck(PathNodeSelector.with(childChild), ROOT, childChild);
     }
 
     @Test
     public void testNotFound() {
-        final TestFakeNode childChild = childChild();
+        final TestNode childChild = childChild();
         this.acceptAndCheck(PathNodeSelector.with(childChild), child3());
     }
 
     @Test
     public void testEqualsDifferentNode() {
         this.checkNotEquals(this.createSelector(
-                TestFakeNode.node("different-parent", TestFakeNode.node("different-child-1"), TestFakeNode.node("different-child-2")).child(1),
+                TestNode.with("different-parent", TestNode.with("different-child-1"), TestNode.with("different-child-2")).child(1),
                 this.wrapped()));
     }
 
@@ -89,17 +90,17 @@ final public class PathNodeSelectorTest extends
     }
 
     @Override
-    protected PathNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected PathNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return Cast.to(PathNodeSelector.with(child3()));
     }
 
     @Override
-    protected Class<PathNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<PathNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(PathNodeSelector.class);
     }
 
-    private PathNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final TestFakeNode node,
-                                                                                          final NodeSelector<TestFakeNode, StringName, StringName, Object> selector) {
+    private PathNodeSelector<TestNode, StringName, StringName, Object> createSelector(final TestNode node,
+                                                                                      final NodeSelector<TestNode, StringName, StringName, Object> selector) {
         return Cast.to(PathNodeSelector.with(node).append(selector));
     }
 }
