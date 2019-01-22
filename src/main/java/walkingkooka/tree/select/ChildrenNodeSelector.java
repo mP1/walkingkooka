@@ -35,7 +35,7 @@ final class ChildrenNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         return Cast.to(ChildrenNodeSelector.INSTANCE);
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     private final static ChildrenNodeSelector INSTANCE = new ChildrenNodeSelector(NodeSelector.terminal());
 
     /**

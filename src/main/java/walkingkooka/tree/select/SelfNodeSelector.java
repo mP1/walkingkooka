@@ -36,7 +36,7 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
         return Cast.to(SelfNodeSelector.INSTANCE);
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     private final static SelfNodeSelector INSTANCE = new SelfNodeSelector(NodeSelector.terminal());
 
     /**
