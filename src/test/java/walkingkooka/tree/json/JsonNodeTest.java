@@ -76,6 +76,22 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> {
                 JsonNode.object().set(JsonNodeName.with("prop1"), JsonNode.string("value1")));
     }
 
+    @Test
+    public void testParseObjectManyProperties() {
+        this.parseAndCheck("{\"prop1\": \"value1\", \"prop2\": \"value2\"}",
+                JsonNode.object()
+                        .set(JsonNodeName.with("prop1"), JsonNode.string("value1"))
+                        .set(JsonNodeName.with("prop2"), JsonNode.string("value2")));
+    }
+
+    @Test
+    public void testParseObjectOrderUnimportant() {
+        this.parseAndCheck("{\"prop1\": \"value1\", \"prop2\": \"value2\"}",
+                JsonNode.object()
+                        .set(JsonNodeName.with("prop2"), JsonNode.string("value2"))
+                        .set(JsonNodeName.with("prop1"), JsonNode.string("value1")));
+    }
+
     private void parseAndCheck(final String json, final JsonNode node) {
         assertEquals("Parse result incorrect for " + CharSequences.quoteAndEscape(json),
                 JsonNode.parse(json),

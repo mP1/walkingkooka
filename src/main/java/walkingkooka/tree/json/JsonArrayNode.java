@@ -26,12 +26,13 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Represents an immutable json array
  */
-public final class JsonArrayNode extends JsonParentNode{
+public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonArrayNode.class);
 
@@ -42,6 +43,25 @@ public final class JsonArrayNode extends JsonParentNode{
 
     private JsonArrayNode(final JsonNodeName name, final int index, final List<JsonNode> children) {
         super(name, index, children);
+    }
+
+    /**
+     * Makes a copy of the list and sets the parent upon the children.
+     */
+    @Override
+    final List<JsonNode> adoptChildren(final List<JsonNode> children) {
+        final Optional<JsonNode> parent = Optional.of(this);
+
+        final List<JsonNode> copy = Lists.array();
+        int i = 0;
+        for(JsonNode child : children) {
+            copy.add(child.setParent(parent,
+                    JsonNodeName.index(i),
+                    i));
+            i++;
+        }
+
+        return copy;
     }
 
     @Override
@@ -60,15 +80,12 @@ public final class JsonArrayNode extends JsonParentNode{
         return this.setChildren0(children).cast();
     }
 
-    final JsonNode setChildren0(final List<JsonNode> children) {
-        int i = 0;
-        final List<JsonNode> copy = Lists.array();
-        for(JsonNode child : children){
-            copy.add(child.setName0(JsonNodeName.index(i)));
-            i++;
-        }
-
-        return this.setChildren1(copy);
+    /**
+     * Compares the two lists, with a custom {@link java.util.function.BiPredicate} to compare child/elements.
+     */
+    @Override
+    boolean childrenEquals(final List<JsonNode> children) {
+        return Lists.equals(this.children, children, JsonParentNodeChildPredicate.INSTANCE);
     }
 
     /**
@@ -85,8 +102,7 @@ public final class JsonArrayNode extends JsonParentNode{
         Objects.requireNonNull(element, "element");
 
         final List<JsonNode> children = this.copyChildren();
-        children.set(index, element.setIndexAndName(index));
-
+        children.set(index, element);
         return this.setChildren0(children).cast();
     }
 
@@ -98,21 +114,44 @@ public final class JsonArrayNode extends JsonParentNode{
         Objects.requireNonNull(element, "element");
 
         final List<JsonNode> children = this.copyChildren();
-        children.add(element.setIndexAndName(children.size()));
+        children.add(element);
 
-        return this.wrap0(this.name, this.index, children).cast();
+        return this.create(this.name, this.index, children).cast();
     }
 
+    /**
+     * Removes the child at the given index.
+     */
     public JsonArrayNode remove(final int index) {
         final List<JsonNode> children = this.copyChildren();
         children.remove(index);
 
-        return this.wrap0(this.name, this.index, children).cast();
+        return this.create(this.name, this.index, children);
+    }
+
+    /**
+     * Creates a new list of children and replaces the child at the given slot, returning the new child.
+     */
+    @Override
+    final JsonNode setChild(final JsonNode newChild, final int index) {
+        final List<JsonNode> newChildren = this.copyChildren();
+        newChildren.set(index, newChild);
+
+        return this.replaceChildren(newChildren).children().get(index);
     }
 
     @Override
-    JsonArrayNode wrap0(final JsonNodeName name, final int index, final List<JsonNode> children) {
+    JsonArrayNode create(final JsonNodeName name, final int index, final List<JsonNode> children) {
         return new JsonArrayNode(name, index, children);
+    }
+
+    /**
+     * Creates a defensive copy of all children.
+     */
+    private List<JsonNode> copyChildren() {
+        final List<JsonNode> copy = Lists.array();
+        copy.addAll(this.children);
+        return copy;
     }
 
     // HasSearchNode............................................................................................................
@@ -147,6 +186,14 @@ public final class JsonArrayNode extends JsonParentNode{
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof JsonArrayNode;
+    }
+
+    /**
+     * Only returns true if the descendants of this node and the given children are equal ignoring the parents.
+     */
+    @Override
+    boolean equalsDescendants0(final JsonNode child, final List<JsonNode> otherChildren, final int i) {
+        return child.equalsNameValueAndDescendants(otherChildren.get(i));
     }
 
     @Override

@@ -141,7 +141,7 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Returns a new instance with the given name.
      */
     private JsonNode replaceName(final JsonNodeName name) {
-        return this.wrap(name, this.index);
+        return this.create(name, this.index);
     }
 
     @Override
@@ -160,8 +160,10 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * This setter is used to recreate the entire graph including parents of parents receiving new children.
      * It is only ever called by a parent node and is used to adopt new children.
      */
-    final JsonNode setParent(final Optional<JsonNode> parent, final int index) {
-        final JsonNode copy = this.wrap(this.name, index);
+    final JsonNode setParent(final Optional<JsonNode> parent,
+                             final JsonNodeName name,
+                             final int index) {
+        final JsonNode copy = this.create(name, index);
         copy.parent = parent;
         return copy;
     }
@@ -174,18 +176,16 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Sub classes must create a new copy of the parent and replace the identified child using its index or similar,
      * and also sets its parent after creation, returning the equivalent child at the same index.
      */
-    abstract JsonNode setChild(final JsonNode newChild);
+    abstract JsonNode setChild(final JsonNode newChild, final int index);
 
     /**
      * Only ever called after during the completion of a setChildren, basically used to recreate the parent graph
      * containing this child.
      */
-    final JsonNode replaceChild(final Optional<JsonNode> previousParent) {
+    final JsonNode replaceChild(final Optional<JsonNode> previousParent, final int index) {
         return previousParent.isPresent() ?
                 previousParent.get()
-                        .setChild(this)
-                        .children()
-                        .get(this.index()) :
+                        .setChild(this, index) :
                 this;
     }
 
@@ -208,19 +208,13 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     }
 
     private JsonNode replaceIndex(final int index) {
-        return this.wrap(this.name, index);
+        return this.create(this.name, index);
     }
 
-    abstract JsonNode wrap(final JsonNodeName name, final int index);
-
-    final JsonNode setIndexAndName(final int index) {
-        if (index < 0) {
-            throw new IllegalArgumentException("Index " + index + " must be greater than 0");
-        }
-
-        return this.setName0(JsonNodeName.index(index))
-                .setIndex(index);
-    }
+    /**
+     * Factory method that creates a new sub class of {@link JsonLeafNode} that is the same type as this.
+     */
+    abstract JsonNode create(final JsonNodeName name, final int index);
 
     // attributes............................................................................................................
 
@@ -277,11 +271,11 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final JsonNode other) {
-        return this.equalsAncestors(other) && this.equalsDescendants0(other);
+        return this.equalsAncestors(other) && this.equalsDescendants(other);
     }
 
     private boolean equalsAncestors(final JsonNode other) {
-        boolean result = this.equalsIgnoringParentAndChildren(other);
+        boolean result = this.equalsNameAndValue(other);
 
         if(result) {
             final Optional<JsonNode> parent = this.parent();
@@ -302,22 +296,22 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
         return result;
     }
 
-    final boolean equalsDescendants(final JsonNode other) {
-        return this.equalsIgnoringParentAndChildren(other) &&
-                this.equalsDescendants0(other);
+    final boolean equalsNameValueAndDescendants(final JsonNode other) {
+        return this.equalsNameAndValue(other) &&
+                this.equalsDescendants(other);
     }
 
-    abstract boolean equalsDescendants0(final JsonNode other);
+    abstract boolean equalsDescendants(final JsonNode other);
 
-    private boolean equalsIgnoringParentAndChildren(final JsonNode other) {
+    private boolean equalsNameAndValue(final JsonNode other) {
         return this.name.equals(other.name) &&
-               this.equalsIgnoringParentAndChildren0(other);
+               this.equalsValue(other);
     }
 
     /**
      * Sub classes should do equals but ignore the parent and children properties.
      */
-    abstract boolean equalsIgnoringParentAndChildren0(final JsonNode other);
+    abstract boolean equalsValue(final JsonNode other);
     /**
      * Pretty prints the entire json graph.
      */

@@ -48,7 +48,7 @@ public final class JsonNumberNode extends JsonLeafNode<Double>{
     }
 
     @Override
-    JsonNumberNode wrap0(final JsonNodeName name, final int index, final Double value) {
+    JsonNumberNode create(final JsonNodeName name, final int index, final Double value) {
         return new JsonNumberNode(name, index, value);
     }
 
