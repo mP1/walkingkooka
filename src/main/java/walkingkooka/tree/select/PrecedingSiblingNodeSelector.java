@@ -34,7 +34,7 @@ final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         return Cast.to(PrecedingSiblingNodeSelector.INSTANCE);
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     private final static PrecedingSiblingNodeSelector INSTANCE = new PrecedingSiblingNodeSelector(NodeSelector.terminal());
 
     /**

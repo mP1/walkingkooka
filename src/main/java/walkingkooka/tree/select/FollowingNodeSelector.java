@@ -38,7 +38,7 @@ final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         return Cast.to(FollowingNodeSelector.INSTANCE);
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     private final static FollowingNodeSelector INSTANCE = new FollowingNodeSelector(NodeSelector.terminal());
 
     /**
