@@ -20,22 +20,23 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 
 public class NodeAttributeValueEqualsPredicateTest
-        extends NodeAttributeValuePredicateTestCase<NodeAttributeValueEqualsPredicate<TestFakeNode, StringName, StringName, Object>> {
+        extends NodeAttributeValuePredicateTestCase<NodeAttributeValueEqualsPredicate<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testEquals() {
-        this.testTrue(new TestFakeNode("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, VALUE)));
+        this.testTrue(TestNode.with("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, VALUE)));
     }
 
     @Test
     public void testUnequalValue() {
-        this.testFalse(new TestFakeNode("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, "!!!" + VALUE)));
+        this.testFalse(TestNode.with("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, "!!!" + VALUE)));
     }
 
     @Test
@@ -44,11 +45,11 @@ public class NodeAttributeValueEqualsPredicateTest
     }
 
     @Override
-    NodeAttributeValueEqualsPredicate<TestFakeNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
+    NodeAttributeValueEqualsPredicate<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
         return NodeAttributeValueEqualsPredicate.with(name, value);
     }
 
-    @Override protected Class<NodeAttributeValueEqualsPredicate<TestFakeNode, StringName, StringName, Object>> type() {
+    @Override protected Class<NodeAttributeValueEqualsPredicate<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeAttributeValueEqualsPredicate.class);
     }
 }

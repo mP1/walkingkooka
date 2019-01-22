@@ -21,18 +21,19 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import java.util.List;
 
 public final class AndNodeSelectorTest extends
-        LogicalNodeSelectorTestCase<AndNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        LogicalNodeSelectorTestCase<AndNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testNothingSelected() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
-        final TestFakeNode sibling = TestFakeNode.node("sibling");
-        final TestFakeNode root = TestFakeNode.node("root", parent, sibling);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+        final TestNode sibling = TestNode.with("sibling");
+        final TestNode root = TestNode.with("root", parent, sibling);
 
         this.acceptAndCheck(this.createSelector0(NamedNodeSelector.with(Names.string("unknown1"), SEPARATOR),
                 NamedNodeSelector.with(Names.string("unknown1"), SEPARATOR)),
@@ -41,10 +42,10 @@ public final class AndNodeSelectorTest extends
 
     @Test
     public void testDifferentSelectors() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
-        final TestFakeNode sibling = TestFakeNode.node("sibling");
-        final TestFakeNode root = TestFakeNode.node("root", parent, sibling);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+        final TestNode sibling = TestNode.with("sibling");
+        final TestNode root = TestNode.with("root", parent, sibling);
 
         this.acceptAndCheck(this.createSelector0(ChildrenNodeSelector.get(), AncestorNodeSelector.get()),
                 root.child(0));
@@ -52,10 +53,10 @@ public final class AndNodeSelectorTest extends
 
     @Test
     public void testOverlappingSelectors() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
-        final TestFakeNode sibling = TestFakeNode.node("sibling");
-        final TestFakeNode root = TestFakeNode.node("root", parent, sibling);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
+        final TestNode sibling = TestNode.with("sibling");
+        final TestNode root = TestNode.with("root", parent, sibling);
 
         this.acceptAndCheck(this.createSelector0(ChildrenNodeSelector.get(), DescendantNodeSelector.get()),
                 root.child(0),
@@ -63,13 +64,13 @@ public final class AndNodeSelectorTest extends
     }
 
     @Override
-    final NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(
-            final List<NodeSelector<TestFakeNode, StringName, StringName, Object>> selectors) {
+    final NodeSelector<TestNode, StringName, StringName, Object> createSelector0(
+            final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors) {
         return AndNodeSelector.with(selectors);
     }
 
     @Override
-    protected Class<AndNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<AndNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AndNodeSelector.class);
     }
 }

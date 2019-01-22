@@ -17,15 +17,22 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.Before;
 import org.junit.Test;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.PredicateTestCase;
+import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
-public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttributeValuePredicate<TestFakeNode, StringName, StringName, Object>>
-        extends PredicateTestCase<N, TestFakeNode> {
+public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
+        extends PredicateTestCase<N, TestNode> {
+
+    @Before
+    public void beforeEachTest() {
+        TestNode.clear();
+    }
 
     final static StringName ATTRIBUTE_NAME1 = Names.string("attribute-1");
     final static StringName ATTRIBUTE_NAME2 = Names.string("attribute-2");
@@ -42,12 +49,12 @@ public abstract class NodeAttributeValuePredicateTestCase<N extends NodeAttribut
 
     @Test
     public final void testAttributeMissing() {
-        this.testFalse(new TestFakeNode("nodeName").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME2, "value")));
+        this.testFalse(TestNode.with("nodeName").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME2, "value")));
     }
 
     @Test
     public final void testAttributeDifferentValue() {
-        this.testFalse(new TestFakeNode("nodeName").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, "*DIFFERENT*")));
+        this.testFalse(TestNode.with("nodeName").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, "*DIFFERENT*")));
     }
 
     protected N createPredicate() {

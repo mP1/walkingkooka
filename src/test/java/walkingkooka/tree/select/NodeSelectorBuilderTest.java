@@ -28,6 +28,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +37,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object>, NodeSelector<TestFakeNode, StringName, StringName, Object>> {
+public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorBuilder<TestNode, StringName, StringName, Object>, NodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static StringName ATTRIBUTE = Names.string("attribute");
     private final static String VALUE = "*VALUE*";
@@ -56,7 +57,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Before
     public void beforeEachTest() {
-        TestFakeNode.names.clear();
+        TestNode.clear();
     }
 
     @Test(expected = BuilderException.class)
@@ -71,7 +72,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test(expected = NullPointerException.class)
     public void testAbsoluteNullSeparatorFails() {
-        NodeSelectorBuilder.absolute(TestFakeNode.class, null);
+        NodeSelectorBuilder.absolute(TestNode.class, null);
     }
 
     @Test(expected = NullPointerException.class)
@@ -81,14 +82,14 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test(expected = NullPointerException.class)
     public void testRelativeNullSeparatorFails() {
-        NodeSelectorBuilder.relative(TestFakeNode.class, null);
+        NodeSelectorBuilder.relative(TestNode.class, null);
     }
     
     @Test
     public void testNamedNotSelected() {
-        final TestFakeNode root = TestFakeNode.node(ROOT);
+        final TestNode root = TestNode.with(ROOT);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .named(Names.string("not-found"));
 
         this.acceptAndCheck(b, root);
@@ -96,9 +97,9 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testNamedSelected() {
-        final TestFakeNode root = TestFakeNode.node(ROOT);
+        final TestNode root = TestNode.with(ROOT);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .named(Names.string(ROOT));
 
         this.acceptAndCheck(b, root, root);
@@ -106,17 +107,17 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testAncestorOrSelf() {
-        final TestFakeNode grandChild1 = TestFakeNode.node(GRAND_CHILD1);
-        final TestFakeNode grandChild2 = TestFakeNode.node(GRAND_CHILD2);
-        final TestFakeNode grandChild3 = TestFakeNode.node(GRAND_CHILD3);
+        final TestNode grandChild1 = TestNode.with(GRAND_CHILD1);
+        final TestNode grandChild2 = TestNode.with(GRAND_CHILD2);
+        final TestNode grandChild3 = TestNode.with(GRAND_CHILD3);
 
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1, grandChild1);
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2);
-        final TestFakeNode child3 = TestFakeNode.node(CHILD3, grandChild2, grandChild3);
+        final TestNode child1 = TestNode.with(CHILD1, grandChild1);
+        final TestNode child2 = TestNode.with(CHILD2);
+        final TestNode child3 = TestNode.with(CHILD3, grandChild2, grandChild3);
 
-        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+        final TestNode root = TestNode.with(ROOT, child1, child2, child3);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.relative()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.relative()
                 .ancestorOrSelf();
 
         this.acceptAndCheck(b, root.child(2), child3, root);
@@ -126,13 +127,13 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     public void testAttributeEndsWith() {
         final StringName a = Names.string("a");
 
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(a, "xyz"));
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(a, "qrs"));
-        final TestFakeNode child3 = TestFakeNode.node(CHILD3).setAttributes(Maps.one(Names.string("b"), "abc"));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(a, "xyz"));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(a, "qrs"));
+        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.one(Names.string("b"), "abc"));
 
-        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+        final TestNode root = TestNode.with(ROOT, child1, child2, child3);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .attributeValueEndsWith(a, "z");
 
@@ -143,13 +144,13 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     public void testAttributeStartsWith() {
         final StringName a = Names.string("a");
 
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(a, "xyz"));
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(a, "qrs"));
-        final TestFakeNode child3 = TestFakeNode.node(CHILD3).setAttributes(Maps.one(Names.string("b"), "abc"));
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(a, "xyz"));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(a, "qrs"));
+        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.one(Names.string("b"), "abc"));
 
-        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+        final TestNode root = TestNode.with(ROOT, child1, child2, child3);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .descendant()
                 .attributeValueStartsWith(a, "x");
 
@@ -158,17 +159,17 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testDescendantOrSelf() {
-        final TestFakeNode grandChild1 = TestFakeNode.node(GRAND_CHILD1);
-        final TestFakeNode grandChild2 = TestFakeNode.node(GRAND_CHILD2);
-        final TestFakeNode grandChild3 = TestFakeNode.node(GRAND_CHILD3);
+        final TestNode grandChild1 = TestNode.with(GRAND_CHILD1);
+        final TestNode grandChild2 = TestNode.with(GRAND_CHILD2);
+        final TestNode grandChild3 = TestNode.with(GRAND_CHILD3);
 
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1, grandChild1);
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2);
-        final TestFakeNode child3 = TestFakeNode.node(CHILD3, grandChild2, grandChild3);
+        final TestNode child1 = TestNode.with(CHILD1, grandChild1);
+        final TestNode child2 = TestNode.with(CHILD2);
+        final TestNode child3 = TestNode.with(CHILD3, grandChild2, grandChild3);
 
-        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+        final TestNode root = TestNode.with(ROOT, child1, child2, child3);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.relative()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.relative()
                 .descendantOrSelf();
 
         this.acceptAndCheck(b, root.child(2), child3, grandChild2, grandChild3);
@@ -176,13 +177,13 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testFirstChild() {
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1);
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2);
-        final TestFakeNode child3 = TestFakeNode.node(CHILD3);
+        final TestNode child1 = TestNode.with(CHILD1);
+        final TestNode child2 = TestNode.with(CHILD2);
+        final TestNode child3 = TestNode.with(CHILD3);
 
-        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+        final TestNode root = TestNode.with(ROOT, child1, child2, child3);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .firstChild();
 
         this.acceptAndCheck(b, root, child1);
@@ -190,13 +191,13 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testLastChild() {
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1);
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2);
-        final TestFakeNode child3 = TestFakeNode.node(CHILD3);
+        final TestNode child1 = TestNode.with(CHILD1);
+        final TestNode child2 = TestNode.with(CHILD2);
+        final TestNode child3 = TestNode.with(CHILD3);
 
-        final TestFakeNode root = TestFakeNode.node(ROOT, child1, child2, child3);
+        final TestNode root = TestNode.with(ROOT, child1, child2, child3);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b = this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b = this.absolute()
                 .lastChild();
 
         this.acceptAndCheck(b, root, child3);
@@ -204,11 +205,11 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testDeepPathName() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node(PARENT, child);
-        final TestFakeNode root = TestFakeNode.node(ROOT, parent);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with(PARENT, child);
+        final TestNode root = TestNode.with(ROOT, parent);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string("child"));
 
@@ -217,11 +218,11 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testNameAndAttribute() {
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
-        final TestFakeNode parent = TestFakeNode.node(PARENT, child1, child2);
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
+        final TestNode parent = TestNode.with(PARENT, child1, child2);
         
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(CHILD1))
                 .attributeValueEquals(ATTRIBUTE, VALUE);
@@ -231,12 +232,12 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testDeepPathNameAndAttribute() {
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
-        final TestFakeNode parent = TestFakeNode.node(PARENT, child1, child2);
-        final TestFakeNode root = TestFakeNode.node(ROOT, parent);
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
+        final TestNode parent = TestNode.with(PARENT, child1, child2);
+        final TestNode root = TestNode.with(ROOT, parent);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(CHILD1))
                 .attributeValueEquals(ATTRIBUTE, VALUE);
@@ -246,13 +247,13 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testMultipleAttribute() {
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
-        final TestFakeNode child3 = TestFakeNode.node(CHILD3).setAttributes(Maps.one(ATTRIBUTE, VALUE));
-        final TestFakeNode parent = TestFakeNode.node(PARENT, child1, child2, child3);
-        final TestFakeNode root = TestFakeNode.node(ROOT, parent);
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, VALUE));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "different"));
+        final TestNode child3 = TestNode.with(CHILD3).setAttributes(Maps.one(ATTRIBUTE, VALUE));
+        final TestNode parent = TestNode.with(PARENT, child1, child2, child3);
+        final TestNode root = TestNode.with(ROOT, parent);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .attributeValueEquals(ATTRIBUTE, VALUE);
 
@@ -261,13 +262,13 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testOr() {
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(ATTRIBUTE, "123"));
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "456"));
-        final TestFakeNode parent1 = TestFakeNode.node("parent1", child1, child2);
-        final TestFakeNode parent2 = TestFakeNode.node("parent2").setAttributes(Maps.one(ATTRIBUTE, "789"));
-        final TestFakeNode root = TestFakeNode.node(ROOT, parent1, parent2);
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, "123"));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "456"));
+        final TestNode parent1 = TestNode.with("parent1", child1, child2);
+        final TestNode parent2 = TestNode.with("parent2").setAttributes(Maps.one(ATTRIBUTE, "789"));
+        final TestNode root = TestNode.with(ROOT, parent1, parent2);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .or(this.relative().attributeValueEquals(ATTRIBUTE, "123").build(),
                         this.relative().attributeValueEquals(ATTRIBUTE, "789").build());
@@ -277,14 +278,14 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testAnd() {
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1).setAttributes(Maps.one(ATTRIBUTE, "123"));
-        final TestFakeNode child2 = TestFakeNode.node(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "222"));
-        final TestFakeNode parent1 = TestFakeNode.node("parent1", child1, child2);
-        final TestFakeNode parent2 = TestFakeNode.node("parent2").setAttributes(Maps.one(ATTRIBUTE, "111"));
-        final TestFakeNode parent3 = TestFakeNode.node("parent3").setAttributes(Maps.one(ATTRIBUTE, "12345"));
-        final TestFakeNode root = TestFakeNode.node(ROOT, parent1, parent2, parent3);
+        final TestNode child1 = TestNode.with(CHILD1).setAttributes(Maps.one(ATTRIBUTE, "123"));
+        final TestNode child2 = TestNode.with(CHILD2).setAttributes(Maps.one(ATTRIBUTE, "222"));
+        final TestNode parent1 = TestNode.with("parent1", child1, child2);
+        final TestNode parent2 = TestNode.with("parent2").setAttributes(Maps.one(ATTRIBUTE, "111"));
+        final TestNode parent3 = TestNode.with("parent3").setAttributes(Maps.one(ATTRIBUTE, "12345"));
+        final TestNode root = TestNode.with(ROOT, parent1, parent2, parent3);
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .and(this.relative().attributeValueContains(ATTRIBUTE, "1").build(),
                         this.relative().attributeValueContains(ATTRIBUTE, "2").build());
@@ -294,7 +295,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testDeepPathNameAndSelf() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .self();
@@ -304,7 +305,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testDeepPathNameAndParent() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .parent();
@@ -314,7 +315,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testDeepPathNameAndAncestor() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .ancestor();
@@ -325,7 +326,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     @Test
     public void testDeepPathNameAndChildren() {
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .children();
@@ -336,7 +337,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     @Test
     public void testDeepPathNameAndChild() {
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .child(2);
@@ -347,7 +348,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     @Test
     public void testDeepPathNameAndPrecedingSibling() {
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .precedingSibling();
@@ -358,7 +359,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     @Test
     public void testDeepPathNameAndFollowingSibling() {
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .followingSibling();
@@ -369,7 +370,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     @Test
     public void testDeepPathNameAndDescendants() {
 
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute()
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute()
                 .descendant()
                 .named(Names.string(PARENT))
                 .descendant();
@@ -377,19 +378,19 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
         this.acceptTreeAndCheck(b, CHILD1, GRAND_CHILD, CHILD2, CHILD3);
     }
 
-    private void acceptTreeAndCheck(final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b, final String...nodes) {
-        final TestFakeNode parentSiblingBefore = TestFakeNode.node(PARENT_SIBLING_BEFORE);
-        final TestFakeNode child1 = TestFakeNode.node(CHILD1, TestFakeNode.node(GRAND_CHILD));
-        final TestFakeNode parent = TestFakeNode.node(PARENT, child1, TestFakeNode.node(CHILD2), TestFakeNode.node(CHILD3));
-        final TestFakeNode parentSiblingAfter = TestFakeNode.node(PARENT_SIBLING_AFTER);
-        final TestFakeNode grandParent = TestFakeNode.node(GRAND_PARENT, parentSiblingBefore, parent, parentSiblingAfter);
+    private void acceptTreeAndCheck(final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b, final String...nodes) {
+        final TestNode parentSiblingBefore = TestNode.with(PARENT_SIBLING_BEFORE);
+        final TestNode child1 = TestNode.with(CHILD1, TestNode.with(GRAND_CHILD));
+        final TestNode parent = TestNode.with(PARENT, child1, TestNode.with(CHILD2), TestNode.with(CHILD3));
+        final TestNode parentSiblingAfter = TestNode.with(PARENT_SIBLING_AFTER);
+        final TestNode grandParent = TestNode.with(GRAND_PARENT, parentSiblingBefore, parent, parentSiblingAfter);
 
-        this.acceptAndCheck0(b, TestFakeNode.node(ROOT, grandParent), nodes);
+        this.acceptAndCheck0(b, TestNode.with(ROOT, grandParent), nodes);
     }
 
-    private void acceptAndCheck(final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> builder,
-                                final TestFakeNode start,
-                                final TestFakeNode... nodes) {
+    private void acceptAndCheck(final NodeSelectorBuilder<TestNode, StringName, StringName, Object> builder,
+                                final TestNode start,
+                                final TestNode... nodes) {
         this.acceptAndCheck0(builder,
                 start,
                 Arrays.stream(nodes)
@@ -397,20 +398,20 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
                         .toArray(size  -> new String[ size]));
     }
 
-    private void acceptAndCheck0(final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> builder,
-                                          final TestFakeNode start,
+    private void acceptAndCheck0(final NodeSelectorBuilder<TestNode, StringName, StringName, Object> builder,
+                                          final TestNode start,
                                           final String... nodes) {
-        final NodeSelector<TestFakeNode, StringName, StringName, Object> selector = builder.build();
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = builder.build();
 
-        final Set<TestFakeNode> selected = Sets.ordered();
-        selector.accept(start, new FakeNodeSelectorContext<TestFakeNode, StringName, StringName, Object>(){
+        final Set<TestNode> selected = Sets.ordered();
+        selector.accept(start, new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>(){
             @Override
-            public void potential(final TestFakeNode node) {
+            public void potential(final TestNode node) {
                 // ignore
             }
 
             @Override
-            public void selected(final TestFakeNode node) {
+            public void selected(final TestNode node) {
                 selected.add(node);
             }
         });
@@ -422,7 +423,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testToStringAbsoluteNodeAndAttributeSelector() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute();
         b.named(Names.string(PARENT))
                 .attributeValueContains(Names.string("attribute-name"), "attribute-value");
 
@@ -431,7 +432,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testToStringAbsoluteManySelectors() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute();
         b.absolute()
                 .precedingSibling()
                 .self()
@@ -442,7 +443,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testToStringAbsoluteManySelectors2() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute();
         b.absolute()
                 .preceding()
                 .self()
@@ -453,7 +454,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testToStringAbsoluteManySelectors3() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.absolute();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.absolute();
         b.preceding()
                 .self()
                 .following();
@@ -463,7 +464,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
 
     @Test
     public void testToStringRelativeManySelectors3() {
-        final NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> b= this.relative();
+        final NodeSelectorBuilder<TestNode, StringName, StringName, Object> b= this.relative();
         b.preceding()
                 .self()
                 .following();
@@ -472,16 +473,16 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Override
-    protected NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> createBuilder() {
+    protected NodeSelectorBuilder<TestNode, StringName, StringName, Object> createBuilder() {
         return this.absolute();
     }
 
-    private NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> absolute() {
-        return this.separator().absoluteNodeSelectorBuilder(TestFakeNode.class);
+    private NodeSelectorBuilder<TestNode, StringName, StringName, Object> absolute() {
+        return this.separator().absoluteNodeSelectorBuilder(TestNode.class);
     }
 
-    private NodeSelectorBuilder<TestFakeNode, StringName, StringName, Object> relative() {
-        return this.separator().relativeNodeSelectorBuilder(TestFakeNode.class);
+    private NodeSelectorBuilder<TestNode, StringName, StringName, Object> relative() {
+        return this.separator().relativeNodeSelectorBuilder(TestNode.class);
     }
 
     private PathSeparator separator() {
@@ -489,7 +490,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     }
 
     @Override
-    protected Class<NodeSelector<TestFakeNode, StringName, StringName, Object>> builderProductType() {
+    protected Class<NodeSelector<TestNode, StringName, StringName, Object>> builderProductType() {
         return Cast.to(NodeSelector.class);
     }
 

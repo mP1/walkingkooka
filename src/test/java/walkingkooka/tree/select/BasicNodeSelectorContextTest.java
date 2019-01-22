@@ -25,6 +25,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -32,8 +33,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestCase<BasicNodeSelectorContext<TestFakeNode, StringName, StringName, Object>,
-        TestFakeNode,
+public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestCase<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
+        TestNode,
         StringName,
         StringName,
         Object> {
@@ -89,7 +90,7 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
     }
 
     @Override
-    protected BasicNodeSelectorContext<TestFakeNode, StringName, StringName, Object> createContext() {
+    protected BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
         return BasicNodeSelectorContext.with(this.potential(),
                 this.selected(),
                 this.functions(),
@@ -97,11 +98,11 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
                 this.decimalNumberContext());
     }
 
-    private Consumer<TestFakeNode> potential() {
+    private Consumer<TestNode> potential() {
         return (n)->{};
     }
 
-    private Consumer<TestFakeNode> selected() {
+    private Consumer<TestNode> selected() {
         return (n)->{};
     }
 
@@ -118,7 +119,7 @@ public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestC
     }
 
     @Override
-    protected Class<BasicNodeSelectorContext<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(BasicNodeSelectorContext.class);
     }
 }

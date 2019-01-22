@@ -22,22 +22,23 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import static org.junit.Assert.assertEquals;
 
 final public class SelfNodeSelectorTest
-        extends NonLogicalNodeSelectorTestCase<SelfNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        extends NonLogicalNodeSelectorTestCase<SelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testSelf() {
-        final TestFakeNode node = TestFakeNode.node("self");
+        final TestNode node = TestNode.with("self");
         this.acceptAndCheck(node, node);
     }
 
     @Test
     public void testSelfAndDescendant() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
 
         this.acceptAndCheck(selfAndDescendant(),
                 parent,
@@ -46,22 +47,22 @@ final public class SelfNodeSelectorTest
 
     @Test
     public void testSelfAndDescendant2() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
 
         this.acceptAndCheck(selfAndDescendant(),
                 parent.child(0));
     }
 
-    private NodeSelector<TestFakeNode, StringName, StringName, Object> selfAndDescendant() {
+    private NodeSelector<TestNode, StringName, StringName, Object> selfAndDescendant() {
         return Cast.to(SelfNodeSelector.get()
                 .append(DescendantNodeSelector.get()));
     }
 
     @Test
     public void testSelfAndNamed() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
 
         this.acceptAndCheck(selfAndNamed(),
                 parent);
@@ -69,15 +70,15 @@ final public class SelfNodeSelectorTest
 
     @Test
     public void testSelfAndNamed2() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
 
         this.acceptAndCheck(selfAndNamed(),
                 parent.child(0),
                 child);
     }
 
-    private NodeSelector<TestFakeNode, StringName, StringName, Object> selfAndNamed() {
+    private NodeSelector<TestNode, StringName, StringName, Object> selfAndNamed() {
         return Cast.to(SelfNodeSelector.get()
                 .append(NamedNodeSelector.with(Names.string("child"), PathSeparator.requiredAtStart('/'))));
     }
@@ -88,12 +89,12 @@ final public class SelfNodeSelectorTest
     }
 
     @Override
-    protected SelfNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected SelfNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return SelfNodeSelector.get();
     }
 
     @Override
-    protected Class<SelfNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<SelfNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(SelfNodeSelector.class);
     }
 }

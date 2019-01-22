@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>>
+public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
         extends NodeSelectorTestCase<S>{
 
     NonLogicalNodeSelectorTestCase(){
@@ -41,17 +42,17 @@ public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<Test
         this.checkNotEquals(this.createSelector(NodeSelector.parent()));
     }
 
-    final void acceptAndCheck0(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
-                               final TestFakeNode start,
+    final void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                               final TestNode start,
                                final String... nodes) {
         this.acceptAndCheckRequiringOrder(selector, start, nodes);
         this.acceptAndCheckUsingContext(selector, start, nodes);
     }
 
-    final void acceptAndCheckRequiringOrder(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
-                                            final TestFakeNode start,
+    final void acceptAndCheckRequiringOrder(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                            final TestNode start,
                                             final String[] nodes) {
-        final Set<TestFakeNode> selected = Sets.ordered();
+        final Set<TestNode> selected = Sets.ordered();
         selector.accept(start, context((n)->{}, (n)->selected.add(n)));
         final List<String> selectedNames = selected
                 .stream()
@@ -60,14 +61,14 @@ public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<Test
         assertEquals("names of selected nodes", Lists.of(nodes), selectedNames);
     }
 
-    final NodeSelector<TestFakeNode,
+    final NodeSelector<TestNode,
             StringName,
             StringName,
             Object> wrapped() {
         return NodeSelector.terminal();
     }
 
-    final S createSelector(final NodeSelector<TestFakeNode,
+    final S createSelector(final NodeSelector<TestNode,
             StringName,
             StringName,
             Object> selector) {

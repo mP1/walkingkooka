@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.tree.TestNode;
 
 import java.util.function.Predicate;
 
@@ -28,10 +29,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 final public class AbsoluteNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
-    private final static Predicate<TestFakeNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");
+    private final static Predicate<TestNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPathSeparatorFails() {
@@ -40,39 +41,39 @@ final public class AbsoluteNodeSelectorTest extends
 
     @Test
     public void testAppendDescendant() {
-        final DescendantNodeSelector<TestFakeNode, StringName, StringName, Object> descendantNodeSelector = DescendantNodeSelector.get();
+        final DescendantNodeSelector<TestNode, StringName, StringName, Object> descendantNodeSelector = DescendantNodeSelector.get();
         assertSame(descendantNodeSelector, this.createSelector().append(descendantNodeSelector));
     }
 
     @Test
     public void testRoot() {
-        final TestFakeNode root = TestFakeNode.node("root");
+        final TestNode root = TestNode.with("root");
         this.acceptAndCheck(root, root);
     }
 
     @Test
     public void testIgnoresDescedants() {
-        final TestFakeNode grandChild = TestFakeNode.node("grandChild");
-        final TestFakeNode child = TestFakeNode.node("child!", grandChild);
-        final TestFakeNode parent = TestFakeNode.node("parent!", child);
+        final TestNode grandChild = TestNode.with("grandChild");
+        final TestNode child = TestNode.with("child!", grandChild);
+        final TestNode parent = TestNode.with("parent!", child);
 
         this.acceptAndCheck(parent, parent);
     }
 
     @Test
     public void testStartUnimportant() {
-        final TestFakeNode grandChild = TestFakeNode.node("grandChild");
-        final TestFakeNode child = TestFakeNode.node("child!", grandChild);
-        final TestFakeNode parent = TestFakeNode.node("parent!", child);
+        final TestNode grandChild = TestNode.with("grandChild");
+        final TestNode child = TestNode.with("child!", grandChild);
+        final TestNode parent = TestNode.with("parent!", child);
 
         this.acceptAndCheck(parent.child(0), parent);
     }
 
     @Test
     public void testStartUnimportantCustomToString() {
-        final TestFakeNode grandChild = TestFakeNode.node("grandChild");
-        final TestFakeNode child = TestFakeNode.node("child!", grandChild);
-        final TestFakeNode parent = TestFakeNode.node("parent!", child);
+        final TestNode grandChild = TestNode.with("grandChild");
+        final TestNode child = TestNode.with("child!", grandChild);
+        final TestNode parent = TestNode.with("parent!", child);
 
         this.acceptAndCheck(this.createSelector().setToString("CustomToString"), parent.child(0), parent);
     }
@@ -100,25 +101,25 @@ final public class AbsoluteNodeSelectorTest extends
     }
 
     @Override
-    protected AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected AbsoluteNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return this.createSelector(SEPARATOR);
     }
 
-    private AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final PathSeparator separator) {
+    private AbsoluteNodeSelector<TestNode, StringName, StringName, Object> createSelector(final PathSeparator separator) {
         return AbsoluteNodeSelector.with(separator);
     }
 
-    private NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector2() {
+    private NodeSelector<TestNode, StringName, StringName, Object> createSelector2() {
         return this.createSelector().append(NodeSelector.nodePredicate(PREDICATE));
     }
 
     @Override
-    protected Class<AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AbsoluteNodeSelector.class);
     }
 
-    private AbsoluteNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final PathSeparator pathSeparator,
-                                                                                              final NodeSelector<TestFakeNode, StringName, StringName, Object> selector) {
-        return Cast.to(AbsoluteNodeSelector.<TestFakeNode, StringName, StringName, Object>with(pathSeparator).append(selector));
+    private AbsoluteNodeSelector<TestNode, StringName, StringName, Object> createSelector(final PathSeparator pathSeparator,
+                                                                                          final NodeSelector<TestNode, StringName, StringName, Object> selector) {
+        return Cast.to(AbsoluteNodeSelector.<TestNode, StringName, StringName, Object>with(pathSeparator).append(selector));
     }
 }

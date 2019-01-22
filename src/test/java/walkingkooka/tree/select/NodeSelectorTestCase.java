@@ -28,6 +28,7 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.type.MemberVisibility;
@@ -44,7 +45,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, StringName, StringName, Object>>
+abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
         extends ClassTestCase<S>
         implements HashCodeEqualsDefinedTesting<S> {
 
@@ -52,7 +53,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
 
     @Before
     public void beforeEachTest() {
-        TestFakeNode.names.clear();
+        TestNode.clear();
     }
 
     NodeSelectorTestCase() {
@@ -79,28 +80,28 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
         final S selector = this.createSelector();
 
         final String toString = "custom " + selector;
-        final NodeSelector<TestFakeNode, StringName, StringName, Object> custom = selector.setToString(toString);
+        final NodeSelector<TestNode, StringName, StringName, Object> custom = selector.setToString(toString);
         assertEquals("toString", toString, custom.toString());
     }
 
     abstract S createSelector();
 
-    final void acceptAndCheck(final TestFakeNode start) {
+    final void acceptAndCheck(final TestNode start) {
         this.acceptAndCheck0(this.createSelector(), start, new String[0]);
     }
 
-    final void acceptAndCheck(final TestFakeNode start, final String... nodes) {
+    final void acceptAndCheck(final TestNode start, final String... nodes) {
         this.acceptAndCheck0(this.createSelector(), start, nodes);
     }
 
-    final void acceptAndCheck(final TestFakeNode start, final TestFakeNode... nodes) {
+    final void acceptAndCheck(final TestNode start, final TestNode... nodes) {
         this.acceptAndCheck(this.createSelector(), start, nodes);
     }
 
     @SafeVarargs
-    final void acceptAndCheck(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
-                               final TestFakeNode start,
-                               final TestFakeNode... nodes) {
+    final void acceptAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                               final TestNode start,
+                               final TestNode... nodes) {
         this.acceptAndCheck0(selector,
                 start,
                 Arrays.stream(nodes)
@@ -108,15 +109,15 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
                         .toArray(size  -> new String[ size]));
     }
 
-    abstract void acceptAndCheck0(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
-                               final TestFakeNode start,
+    abstract void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                               final TestNode start,
                                final String... nodes);
 
-    final void acceptAndCheckUsingContext(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
-                                          final TestFakeNode start,
+    final void acceptAndCheckUsingContext(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                          final TestNode start,
                                           final String... nodes) {
-        final Set<TestFakeNode> potential = Sets.ordered();
-        final Set<TestFakeNode> selected = Sets.ordered();
+        final Set<TestNode> potential = Sets.ordered();
+        final Set<TestNode> selected = Sets.ordered();
         selector.accept(start, context(
                 (n)->potential.add(n),
                 (n)->selected.add(n)));
@@ -128,8 +129,8 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestFakeNode, 
         assertTrue("potentials must include initial node=" + potential, potential.contains(start));
     }
 
-    final NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context(final Consumer<TestFakeNode> potential,
-                                                                                    final Consumer<TestFakeNode> selected) {
+    final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final Consumer<TestNode> potential,
+                                                                                final Consumer<TestNode> selected) {
         return NodeSelectorContexts.basic(potential,
                 selected,
                 this.functions(),

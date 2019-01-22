@@ -21,16 +21,17 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.List;
 
 import static org.junit.Assert.assertSame;
 
-public abstract class LogicalNodeSelectorTestCase<S extends LogicalNodeSelector<TestFakeNode, StringName, StringName, Object>>
+public abstract class LogicalNodeSelectorTestCase<S extends LogicalNodeSelector<TestNode, StringName, StringName, Object>>
 extends NodeSelectorTestCase<S>{
 
-    private final static NodeSelector<TestFakeNode, StringName, StringName, Object> SELECTOR = new FakeNodeSelector();
+    private final static NodeSelector<TestNode, StringName, StringName, Object> SELECTOR = new FakeNodeSelector();
 
     LogicalNodeSelectorTestCase(){
         super();
@@ -64,20 +65,20 @@ extends NodeSelectorTestCase<S>{
     }
 
     @SafeVarargs
-    final S createSelector(final NodeSelector<TestFakeNode, StringName, StringName, Object>...selectors) {
+    final S createSelector(final NodeSelector<TestNode, StringName, StringName, Object>...selectors) {
         return Cast.to(this.createSelector0(selectors));
     }
 
     @SafeVarargs
-    final NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(final NodeSelector<TestFakeNode, StringName, StringName, Object>...selectors) {
+    final NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final NodeSelector<TestNode, StringName, StringName, Object>...selectors) {
         return this.createSelector0(Lists.of(selectors));
     }
 
-    abstract NodeSelector<TestFakeNode, StringName, StringName, Object> createSelector0(final List<NodeSelector<TestFakeNode, StringName, StringName, Object>> selectors);
+    abstract NodeSelector<TestNode, StringName, StringName, Object> createSelector0(final List<NodeSelector<TestNode, StringName, StringName, Object>> selectors);
 
     @SafeVarargs
-    final void acceptAndCheck0(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector,
-                               final TestFakeNode start,
+    final void acceptAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                               final TestNode start,
                                final String... nodes) {
         this.acceptAndCheckUsingContext(selector, start, nodes);
     }

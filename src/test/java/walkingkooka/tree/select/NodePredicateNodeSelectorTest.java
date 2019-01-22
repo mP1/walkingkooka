@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.tree.TestNode;
 
 import java.util.function.Predicate;
 
@@ -29,11 +30,11 @@ import static org.junit.Assert.assertEquals;
 
 
 final public class NodePredicateNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<NodePredicateNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<NodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
 
     // constants
 
-    private final static Predicate<TestFakeNode> PREDICATE = (n)-> n.name().value().equals("self");
+    private final static Predicate<TestNode> PREDICATE = (n)-> n.name().value().equals("self");
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPredicateFails() {
@@ -42,16 +43,16 @@ final public class NodePredicateNodeSelectorTest extends
 
     @Test
     public void testMatch() {
-        final TestFakeNode self = TestFakeNode.node("self");
+        final TestNode self = TestNode.with("self");
         this.acceptAndCheck(self, self);
     }
 
     @Test
     public void testIgnoresNonSelfNodes() {
-        final TestFakeNode siblingBefore = TestFakeNode.node("siblingBefore");
-        final TestFakeNode self = TestFakeNode.node("self", TestFakeNode.node("child"));
-        final TestFakeNode siblingAfter = TestFakeNode.node("siblingAfter");
-        final TestFakeNode parent = TestFakeNode.node("parent", siblingBefore, self, siblingAfter);
+        final TestNode siblingBefore = TestNode.with("siblingBefore");
+        final TestNode self = TestNode.with("self", TestNode.with("child"));
+        final TestNode siblingAfter = TestNode.with("siblingAfter");
+        final TestNode parent = TestNode.with("parent", siblingBefore, self, siblingAfter);
 
         this.acceptAndCheck(parent.child(1), self);
     }
@@ -67,19 +68,19 @@ final public class NodePredicateNodeSelectorTest extends
     }
 
     @Override
-    protected NodePredicateNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected NodePredicateNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return NodePredicateNodeSelector.with(PREDICATE);
     }
 
     @Override
-    protected Class<NodePredicateNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<NodePredicateNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodePredicateNodeSelector.class);
     }
 
-    private NodePredicateNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final Predicate<TestFakeNode> node,
-                                                                                                   final NodeSelector<TestFakeNode, StringName, StringName, Object> selector) {
+    private NodePredicateNodeSelector<TestNode, StringName, StringName, Object> createSelector(final Predicate<TestNode> node,
+                                                                                               final NodeSelector<TestNode, StringName, StringName, Object> selector) {
         return Cast.to(NodePredicateNodeSelector.with(node).append(selector));
     }
 
-    private final TestFakeNode node = TestFakeNode.node("node1");
+    private final TestNode node = TestNode.with("node1");
 }

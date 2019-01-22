@@ -21,12 +21,13 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 final public class CustomToStringNodeSelectorTest
-        extends NodeSelectorTestCase2<CustomToStringNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        extends NodeSelectorTestCase2<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static String TOSTRING = "CustomToString";
 
@@ -42,20 +43,20 @@ final public class CustomToStringNodeSelectorTest
 
     @Test
     public void testUnnecessaryWrap() {
-        final NodeSelector<TestFakeNode, StringName, StringName, Object> wrapped = this.wrapped();
+        final NodeSelector<TestNode, StringName, StringName, Object> wrapped = this.wrapped();
         assertSame(wrapped, CustomToStringNodeSelector.with(wrapped, wrapped.toString()));
     }
 
     @Test
     public void testWith() {
-        final NodeSelector<TestFakeNode, StringName, StringName, Object> wrapped = this.wrapped();
+        final NodeSelector<TestNode, StringName, StringName, Object> wrapped = this.wrapped();
         final CustomToStringNodeSelector custom = this.createSelector(wrapped);
         assertEquals("selector", wrapped, custom.selector);
     }
 
     @Test
     public void testDoubleWrap() {
-        final NodeSelector<TestFakeNode, StringName, StringName, Object> wrapped = this.wrapped();
+        final NodeSelector<TestNode, StringName, StringName, Object> wrapped = this.wrapped();
         final CustomToStringNodeSelector custom = this.createSelector(wrapped, TOSTRING);
 
         final String toString2 = "CustomToString2";
@@ -66,7 +67,7 @@ final public class CustomToStringNodeSelectorTest
 
     @Test
     public void testEqualsDifferentWrappedNodeSelector() {
-        this.checkNotEquals(CustomToStringNodeSelector.with(NodeSelector.<TestFakeNode, StringName, StringName, Object>self(), TOSTRING));
+        this.checkNotEquals(CustomToStringNodeSelector.with(NodeSelector.<TestNode, StringName, StringName, Object>self(), TOSTRING));
     }
 
     @Test
@@ -80,21 +81,21 @@ final public class CustomToStringNodeSelectorTest
     }
 
     @Override
-    protected CustomToStringNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return createSelector(this.wrapped());
     }
 
-    private CustomToStringNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final NodeSelector<TestFakeNode, StringName, StringName, Object> wrap) {
+    private CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createSelector(final NodeSelector<TestNode, StringName, StringName, Object> wrap) {
         return this.createSelector(wrap, TOSTRING);
     }
 
-    private CustomToStringNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector(final NodeSelector<TestFakeNode, StringName, StringName, Object> wrap,
-                                                                                                    final String toString) {
+    private CustomToStringNodeSelector<TestNode, StringName, StringName, Object> createSelector(final NodeSelector<TestNode, StringName, StringName, Object> wrap,
+                                                                                                final String toString) {
         return Cast.to(CustomToStringNodeSelector.with(wrap, toString));
     }
 
     @Override
-    protected Class<CustomToStringNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<CustomToStringNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(CustomToStringNodeSelector.class);
     }
 }

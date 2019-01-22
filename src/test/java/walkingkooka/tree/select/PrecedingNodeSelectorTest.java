@@ -20,107 +20,108 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import static org.junit.Assert.assertEquals;
 
 final public class PrecedingNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<PrecedingNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<PrecedingNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test final public void testRoot() {
-        this.acceptAndCheck(TestFakeNode.node("root"));
+        this.acceptAndCheck(TestNode.with("root"));
     }
 
     @Test final public void testOnlyChildIgnoresParent() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
 
         this.acceptAndCheck(parent.child(0));
     }
 
     @Test final public void testChild() {
-        final TestFakeNode child = TestFakeNode.node("child");
-        final TestFakeNode parent = TestFakeNode.node("parent", child);
+        final TestNode child = TestNode.with("child");
+        final TestNode parent = TestNode.with("parent", child);
 
         this.acceptAndCheck(parent, child);
     }
 
     @Test final public void testPrecedingSibling() {
-        final TestFakeNode preceding1 = TestFakeNode.node("preceding1");
-        final TestFakeNode preceding2 = TestFakeNode.node("preceding2");
-        final TestFakeNode self = TestFakeNode.node("self");
-        final TestFakeNode parent = TestFakeNode.node("parent", preceding1, preceding2, self);
+        final TestNode preceding1 = TestNode.with("preceding1");
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode self = TestNode.with("self");
+        final TestNode parent = TestNode.with("parent", preceding1, preceding2, self);
 
         this.acceptAndCheck(parent.child(2), preceding2, preceding1);
     }
 
     @Test final public void testIgnoresFollowingSibling() {
-        final TestFakeNode self = TestFakeNode.node("self");
-        final TestFakeNode following = TestFakeNode.node("following");
-        final TestFakeNode parent = TestFakeNode.node("parent", self, following);
+        final TestNode self = TestNode.with("self");
+        final TestNode following = TestNode.with("following");
+        final TestNode parent = TestNode.with("parent", self, following);
 
         this.acceptAndCheck(parent.child(0));
     }
 
     @Test final public void testIgnoresFollowingSibling2() {
-        final TestFakeNode preceding1 = TestFakeNode.node("preceding1");
-        final TestFakeNode preceding2 = TestFakeNode.node("preceding2");
-        final TestFakeNode self = TestFakeNode.node("self");
-        final TestFakeNode following = TestFakeNode.node("following");
+        final TestNode preceding1 = TestNode.with("preceding1");
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode self = TestNode.with("self");
+        final TestNode following = TestNode.with("following");
 
-        final TestFakeNode parent = TestFakeNode.node("parent", preceding1, preceding2, self, following);
+        final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following);
 
         this.acceptAndCheck(parent.child(2), preceding2, preceding1);
     }
 
     @Test final public void testParentPrecedingSibling() {
-        final TestFakeNode parent = TestFakeNode.node("parent");
+        final TestNode parent = TestNode.with("parent");
 
-        final TestFakeNode parentProcedingSibling = TestFakeNode.node("parentProcedingSibling");
+        final TestNode parentProcedingSibling = TestNode.with("parentProcedingSibling");
 
-        final TestFakeNode grandParent = TestFakeNode.node("grandParent", parentProcedingSibling, parent);
+        final TestNode grandParent = TestNode.with("grandParent", parentProcedingSibling, parent);
 
         this.acceptAndCheck(grandParent.child(1), parentProcedingSibling);
     }
 
     @Test final public void testParentPrecedingSiblingWithChild() {
-        final TestFakeNode parent = TestFakeNode.node("parent");
+        final TestNode parent = TestNode.with("parent");
 
-        final TestFakeNode parentProcedingSiblingChild = TestFakeNode.node("parentProcedingSiblingChild");
-        final TestFakeNode parentProcedingSibling = TestFakeNode.node("parentProcedingSibling", parentProcedingSiblingChild);
+        final TestNode parentProcedingSiblingChild = TestNode.with("parentProcedingSiblingChild");
+        final TestNode parentProcedingSibling = TestNode.with("parentProcedingSibling", parentProcedingSiblingChild);
 
-        final TestFakeNode grandParent = TestFakeNode.node("grandParent", parentProcedingSibling, parent);
+        final TestNode grandParent = TestNode.with("grandParent", parentProcedingSibling, parent);
 
         this.acceptAndCheck(grandParent.child(1), parentProcedingSibling, parentProcedingSiblingChild);
     }
 
     @Test final public void testIgnoresParentFollowingSibling() {
-        final TestFakeNode parent = TestFakeNode.node("parent");
+        final TestNode parent = TestNode.with("parent");
 
-        final TestFakeNode parentFollowingSibling = TestFakeNode.node("parentFollowingSibling");
+        final TestNode parentFollowingSibling = TestNode.with("parentFollowingSibling");
 
-        final TestFakeNode grandParent = TestFakeNode.node("grandParent", parent, parentFollowingSibling);
+        final TestNode grandParent = TestNode.with("grandParent", parent, parentFollowingSibling);
 
         this.acceptAndCheck(grandParent.child(0));
     }
 
     @Test final public void testIgnoresFollowing() {
-        final TestFakeNode preceding = TestFakeNode.node("preceding");
-        final TestFakeNode self = TestFakeNode.node("self");
-        final TestFakeNode following = TestFakeNode.node("following");
+        final TestNode preceding = TestNode.with("preceding");
+        final TestNode self = TestNode.with("self");
+        final TestNode following = TestNode.with("following");
 
-        final TestFakeNode parent = TestFakeNode.node("parent", preceding, self, following);
+        final TestNode parent = TestNode.with("parent", preceding, self, following);
 
         this.acceptAndCheck(parent.child(1), preceding);
     }
 
     @Test final public void testIgnoresFollowing2() {
-        final TestFakeNode preceding1 = TestFakeNode.node("preceding1");
-        final TestFakeNode preceding2 = TestFakeNode.node("preceding2");
-        final TestFakeNode self = TestFakeNode.node("self");
-        final TestFakeNode following1 = TestFakeNode.node("following1");
-        final TestFakeNode following2 = TestFakeNode.node("following2");
+        final TestNode preceding1 = TestNode.with("preceding1");
+        final TestNode preceding2 = TestNode.with("preceding2");
+        final TestNode self = TestNode.with("self");
+        final TestNode following1 = TestNode.with("following1");
+        final TestNode following2 = TestNode.with("following2");
 
-        final TestFakeNode parent = TestFakeNode.node("parent", preceding1, preceding2, self, following1, following2);
+        final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2);
 
         this.acceptAndCheck(parent.child(2), preceding2, preceding1);
     }
@@ -131,12 +132,12 @@ final public class PrecedingNodeSelectorTest extends
     }
 
     @Override
-    protected PrecedingNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected PrecedingNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return PrecedingNodeSelector.get();
     }
 
     @Override
-    protected Class<PrecedingNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<PrecedingNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(PrecedingNodeSelector.class);
     }
 }

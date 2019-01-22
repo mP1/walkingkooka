@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
@@ -27,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 
 
 final public class ExpressionNodeSelectorTest extends
-        NonLogicalNodeSelectorTestCase<ExpressionNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        NonLogicalNodeSelectorTestCase<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPredicateFails() {
@@ -36,16 +37,16 @@ final public class ExpressionNodeSelectorTest extends
 
     @Test
     public void testSelfSelected() {
-        final TestFakeNode self = TestFakeNode.node("self");
+        final TestNode self = TestNode.with("self");
         this.acceptAndCheck(self, self);
     }
 
     @Test
     public void testIgnoresNonSelfNodes() {
-        final TestFakeNode siblingBefore = TestFakeNode.node("siblingBefore");
-        final TestFakeNode self = TestFakeNode.node("self", TestFakeNode.node("child"));
-        final TestFakeNode siblingAfter = TestFakeNode.node("siblingAfter");
-        final TestFakeNode parent = TestFakeNode.node("parent", siblingBefore, self, siblingAfter);
+        final TestNode siblingBefore = TestNode.with("siblingBefore");
+        final TestNode self = TestNode.with("self", TestNode.with("child"));
+        final TestNode siblingAfter = TestNode.with("siblingAfter");
+        final TestNode parent = TestNode.with("parent", siblingBefore, self, siblingAfter);
 
         this.acceptAndCheck(parent.child(1), self);
     }
@@ -56,7 +57,7 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Override
-    protected ExpressionNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected ExpressionNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return ExpressionNodeSelector.with(expression());
     }
 
@@ -68,7 +69,7 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     @Override
-    protected Class<ExpressionNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(ExpressionNodeSelector.class);
     }
 }

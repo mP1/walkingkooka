@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
-package walkingkooka.tree.select;
+package walkingkooka.tree;
 
 
 import org.junit.Assert;
@@ -27,7 +28,6 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.Node;
 
 import java.util.Iterator;
 import java.util.List;
@@ -35,37 +35,59 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object> {
+/**
+ * A basic {@link Node} with some simplifications. Note that all node names must be unique and that children have their
+ * parent and index properties modified when they get adopted. These considerations should be acocunted for in tests.
+ */
+public class TestNode implements Node<TestNode, StringName, StringName, Object> {
+
+    /**
+     * Should be called before each and every test.
+     */
+    public static void clear() {
+        names.clear();
+    }
 
     /**
      * The {@link PathSeparator} for node selector paths.
      */
     public static final PathSeparator PATH_SEPARATOR = PathSeparator.requiredAtStart('/');
 
-    final static Optional<TestFakeNode> NO_PARENT = Optional.empty();
+    public final static Optional<TestNode> NO_PARENT = Optional.empty();
 
-    static TestFakeNode node(final String name, final TestFakeNode... nodes) {
+    public static TestNode with(final String name, final TestNode... children) {
         if(!names.add(name)) {
             Assert.fail("Name " + CharSequences.quote(name)+ " must be unique per test");
         }
 
-        return new TestFakeNode(name).setChildren(Lists.of(nodes));
+        return new TestNode(Names.string(name),
+                NO_PARENT,
+                Lists.of(children),
+                Maps.empty());
     }
 
-    static Set<String> names = Sets.sorted();
+    /**
+     * Used to keep track of all node names, preventing duplicates.
+     */
+    private static Set<String> names = Sets.sorted();
 
-    TestFakeNode(final String name)
-    {
-        this(Names.string(name), NO_PARENT, Lists.empty(), Maps.empty());
-    }
-
-    private TestFakeNode(final StringName name, final Optional<TestFakeNode> parent, final List<TestFakeNode> children, final Map<StringName, Object> attributes) {
+    private TestNode(final StringName name,
+                     final Optional<TestNode> parent,
+                     final List<TestNode> children,
+                     final Map<StringName, Object> attributes) {
+        super();
         this.name = name;
         this.parent = parent;
         this.attributes = attributes;
         this.children = children;
+
+        int i = 0;
+        for(TestNode child : children) {
+            child.parent = Optional.of(this);
+            child.index = i;
+            i++;
+        }
     }
 
     public StringName name() {
@@ -80,67 +102,66 @@ class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object>
     }
 
     @Override
-    public Optional<TestFakeNode> parent() {
+    public Optional<TestNode> parent() {
         return this.parent;
     }
 
-    private Optional<TestFakeNode> parent;
+    private Optional<TestNode> parent;
 
     @Override
-    public List<TestFakeNode> children() {
+    public int index() {
+        return this.index;
+    }
+
+    private int index = -1;
+
+    @Override
+    public List<TestNode> children() {
         return this.children;
     }
 
-    @Override public TestFakeNode setChildren(final List<TestFakeNode> children) {
+    @Override
+    public TestNode setChildren(final List<TestNode> children) {
         Objects.requireNonNull(children, "children");
 
         return this.children.equals(children) ?
                 this :
-                new TestFakeNode(this.name, NO_PARENT, children, this.attributes).adopt();
+                new TestNode(this.name, NO_PARENT, children, this.attributes);
     }
 
-    TestFakeNode child(final int i){
+    public TestNode child(final int i){
         return this.children().get(i);
     }
 
-    private List<TestFakeNode> children;
+    private List<TestNode> children;
 
     @Override
     public Map<StringName, Object> attributes() {
         return this.attributes;
     }
 
-    @Override public TestFakeNode setAttributes(final Map<StringName, Object> attributes) {
+    @Override
+    public TestNode setAttributes(final Map<StringName, Object> attributes) {
         Objects.requireNonNull(attributes, "attributes");
 
         final Map<StringName, Object> copy = Maps.ordered();
         copy.putAll(attributes);
         return this.attributes.equals(copy) ?
                 this :
-                new TestFakeNode(this.name, NO_PARENT, this.children, copy).adopt();
+                new TestNode(this.name, NO_PARENT, this.children, copy);
     }
 
     private final Map<StringName, Object> attributes;
-
-    private TestFakeNode adopt() {
-        final Optional<TestFakeNode> parentOfChildren = Optional.of(this);
-
-        this.children = this.children().stream()
-                .map(c -> new TestFakeNode(c.name, parentOfChildren, c.children, c.attributes).adopt())
-                .collect(Collectors.toList());
-
-        return this;
-    }
 
     public int hashCode() {
         return Objects.hash(this.name(), this.attributes());
     }
 
     public boolean equals(final Object other){
-        return this == other || other instanceof TestFakeNode && equals0((TestFakeNode)other);
+        return this == other || other instanceof TestNode && equals0((TestNode)other);
     }
 
-    private boolean equals0(final TestFakeNode other) {
+    private boolean equals0(final TestNode other) {
         return this.name().equals(other.name()) &&
                 this.equalsParent(other.parent()) &&
                 this.equalsChildren(other.children()) &&
@@ -148,14 +169,14 @@ class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object>
     }
 
     // check all properties, except for children of parent...
-    private boolean equalsParent(final Optional<TestFakeNode> other) {
+    private boolean equalsParent(final Optional<TestNode> other) {
         boolean equals = false;
 
-        final Optional<TestFakeNode> maybeParent = this.parent();
+        final Optional<TestNode> maybeParent = this.parent();
         if(parent.isPresent()) {
             if(other.isPresent()){
-                final TestFakeNode parent = maybeParent.get();
-                final TestFakeNode otherParent = other.get();
+                final TestNode parent = maybeParent.get();
+                final TestNode otherParent = other.get();
 
                 // skip checking children...
                 equals = parent.name().equals(otherParent.name()) &&
@@ -171,13 +192,13 @@ class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object>
     }
 
     // check all properties of children except for parent.
-    private boolean equalsChildren(final List<TestFakeNode> otherChildren) {
+    private boolean equalsChildren(final List<TestNode> otherChildren) {
         boolean equals = false;
 
-        final List<TestFakeNode> children = this.children();
+        final List<TestNode> children = this.children();
         if(children.size() == otherChildren.size()) {
-            final Iterator<TestFakeNode> i = children.iterator();
-            final Iterator<TestFakeNode> j = otherChildren.iterator();
+            final Iterator<TestNode> i = children.iterator();
+            final Iterator<TestNode> j = otherChildren.iterator();
             equals = true;
 
             while(equals && i.hasNext()){
@@ -189,7 +210,7 @@ class TestFakeNode implements Node<TestFakeNode, StringName, StringName, Object>
     }
 
     // check all properties of children except for parent.
-    private boolean equalsChild(final TestFakeNode other) {
+    private boolean equalsChild(final TestNode other) {
         return this.name().equals(other.name()) &&
                 this.equalsChildren(other.children()) &&
                 this.attributes().equals(other.attributes());

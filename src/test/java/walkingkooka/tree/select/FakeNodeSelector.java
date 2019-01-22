@@ -19,21 +19,22 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.StringName;
 import walkingkooka.test.Fake;
+import walkingkooka.tree.TestNode;
 
-class FakeNodeSelector extends NodeSelector<TestFakeNode, StringName, StringName, Object> implements Fake {
+class FakeNodeSelector extends NodeSelector<TestNode, StringName, StringName, Object> implements Fake {
 
     @Override
-    NodeSelector<TestFakeNode, StringName, StringName, Object> append0(final NodeSelector<TestFakeNode, StringName, StringName, Object> selector){
+    NodeSelector<TestNode, StringName, StringName, Object> append0(final NodeSelector<TestNode, StringName, StringName, Object> selector){
         throw new UnsupportedOperationException();
     }
 
     @Override
-    void accept1(final TestFakeNode node, final NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context) {
+    void accept1(final TestNode node, final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    void select(TestFakeNode node, NodeSelectorContext<TestFakeNode, StringName, StringName, Object> context) {
+    void select(TestNode node, NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
         throw new UnsupportedOperationException();
     }
 
@@ -43,7 +44,7 @@ class FakeNodeSelector extends NodeSelector<TestFakeNode, StringName, StringName
     }
 
     @Override
-    NodeSelector<TestFakeNode, StringName, StringName, Object> unwrapIfCustomToStringNodeSelector() {
+    NodeSelector<TestNode, StringName, StringName, Object> unwrapIfCustomToStringNodeSelector() {
         throw new UnsupportedOperationException();
     }
 }

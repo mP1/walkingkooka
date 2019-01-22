@@ -20,11 +20,12 @@ package walkingkooka.tree.select;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.tree.TestNode;
 
 import static org.junit.Assert.assertEquals;
 
 final public class TerminalNodeSelectorTest
-        extends NodeSelectorTestCase2<TerminalNodeSelector<TestFakeNode, StringName, StringName, Object>> {
+        extends NodeSelectorTestCase2<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testToString() {
@@ -32,12 +33,12 @@ final public class TerminalNodeSelectorTest
     }
 
     @Override
-    protected TerminalNodeSelector<TestFakeNode, StringName, StringName, Object> createSelector() {
+    protected TerminalNodeSelector<TestNode, StringName, StringName, Object> createSelector() {
         return TerminalNodeSelector.get();
     }
 
     @Override
-    protected Class<TerminalNodeSelector<TestFakeNode, StringName, StringName, Object>> type() {
+    protected Class<TerminalNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(TerminalNodeSelector.class);
     }
 }
