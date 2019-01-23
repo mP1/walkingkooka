@@ -45,27 +45,27 @@ public final class HttpMethodHeaderValueConverterTest extends
     }
 
     @Override
-    protected HttpMethodHeaderValueConverter converter() {
+    HttpMethodHeaderValueConverter converter() {
         return HttpMethodHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected LinkParameterName<HttpMethod> name() {
+    LinkParameterName<HttpMethod> name() {
         return LinkParameterName.METHOD;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "/relative/url/must/fail";
     }
 
     @Override
-    protected HttpMethod value() {
+    HttpMethod value() {
         return HttpMethod.GET;
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return HttpMethod.class.getSimpleName();
     }
 

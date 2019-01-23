@@ -54,27 +54,27 @@ public final class CharsetHeaderValueListHeaderValueConverterTest extends
     }
 
     @Override
-    protected CharsetHeaderValueListHeaderValueConverter converter() {
+    CharsetHeaderValueListHeaderValueConverter converter() {
         return CharsetHeaderValueListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<EmailAddress> name() {
+    HttpHeaderName<EmailAddress> name() {
         return HttpHeaderName.FROM;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "\0";
     }
 
     @Override
-    protected List<CharsetHeaderValue> value() {
+    List<CharsetHeaderValue> value() {
         return Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8));
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<CharsetHeaderValue>";
     }
 

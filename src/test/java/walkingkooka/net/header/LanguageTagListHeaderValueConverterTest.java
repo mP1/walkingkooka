@@ -61,27 +61,27 @@ public final class LanguageTagListHeaderValueConverterTest extends
     }
 
     @Override
-    protected LanguageTagListHeaderValueConverter converter() {
+    LanguageTagListHeaderValueConverter converter() {
         return LanguageTagListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<LanguageTag>> name() {
+    HttpHeaderName<List<LanguageTag>> name() {
         return HttpHeaderName.ACCEPT_LANGUAGE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "invalid!!!";
     }
 
     @Override
-    protected List<LanguageTag> value() {
+    List<LanguageTag> value() {
         return LanguageTag.parseList(TEXT);
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<LanguageTag>";
     }
 

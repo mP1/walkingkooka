@@ -66,27 +66,27 @@ public final class TokenHeaderValueHeaderValueConverterTest extends
     }
 
     @Override
-    protected TokenHeaderValueHeaderValueConverter converter() {
+    TokenHeaderValueHeaderValueConverter converter() {
         return TokenHeaderValueHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<TokenHeaderValue> name() {
+    HttpHeaderName<TokenHeaderValue> name() {
         return null;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "/////";
     }
 
     @Override
-    protected TokenHeaderValue value() {
+    TokenHeaderValue value() {
         return this.en();
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "TokenHeaderValue";
     }
 

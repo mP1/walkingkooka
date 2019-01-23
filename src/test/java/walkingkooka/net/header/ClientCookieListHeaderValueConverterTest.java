@@ -58,27 +58,27 @@ public final class ClientCookieListHeaderValueConverterTest extends
     }
 
     @Override
-    protected ClientCookieListHeaderValueConverter converter() {
+    ClientCookieListHeaderValueConverter converter() {
         return ClientCookieListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<ClientCookie>> name() {
+    HttpHeaderName<List<ClientCookie>> name() {
         return HttpHeaderName.COOKIE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "";
     }
 
     @Override
-    protected List<ClientCookie> value() {
+    List<ClientCookie> value() {
         return ClientCookie.parseHeader("cookie1=value1; cookie2=value2;");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<ClientCookie>";
     }
 

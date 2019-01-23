@@ -80,27 +80,27 @@ public final class HttpMethodListHeaderValueConverterTest extends
     }
 
     @Override
-    protected HttpMethodListHeaderValueConverter converter() {
+    HttpMethodListHeaderValueConverter converter() {
         return HttpMethodListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<HttpMethod>> name() {
+    HttpHeaderName<List<HttpMethod>> name() {
         return HttpHeaderName.ALLOW;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "/relative/url/must/fail";
     }
 
     @Override
-    protected List<HttpMethod> value() {
+    List<HttpMethod> value() {
         return Lists.of(HttpMethod.GET, HttpMethod.POST);
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<HttpMethod>";
     }
 

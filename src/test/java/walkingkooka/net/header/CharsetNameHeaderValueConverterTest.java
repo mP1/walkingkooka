@@ -51,27 +51,27 @@ public final class CharsetNameHeaderValueConverterTest extends
     }
 
     @Override
-    protected CharsetNameHeaderValueConverter converter() {
+    CharsetNameHeaderValueConverter converter() {
         return CharsetNameHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<EmailAddress> name() {
+    HttpHeaderName<EmailAddress> name() {
         return HttpHeaderName.FROM;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "\0";
     }
 
     @Override
-    protected CharsetName value() {
+    CharsetName value() {
         return CharsetName.with("utf-8");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return CharsetName.class.getSimpleName();
     }
 

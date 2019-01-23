@@ -43,31 +43,32 @@ public final class CacheControlDirectiveListHeaderValueConverterTest extends
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "extension=\"abc";
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<CacheControlDirective>";
     }
 
     @Override
-    protected CacheControlDirectiveListHeaderValueConverter converter() {
+    CacheControlDirectiveListHeaderValueConverter converter() {
         return CacheControlDirectiveListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected Name name() {
+    Name name() {
         return HttpHeaderName.CACHE_CONTROL;
     }
 
     @Override
-    protected List<CacheControlDirective<?>> value() {
+    List<CacheControlDirective<?>> value() {
         return Lists.of(CacheControlDirective.NO_CACHE, CacheControlDirective.NO_STORE);
     }
 
-    @Override protected Class<CacheControlDirectiveListHeaderValueConverter> type() {
+    @Override
+    protected Class<CacheControlDirectiveListHeaderValueConverter> type() {
         return CacheControlDirectiveListHeaderValueConverter.class;
     }
 }

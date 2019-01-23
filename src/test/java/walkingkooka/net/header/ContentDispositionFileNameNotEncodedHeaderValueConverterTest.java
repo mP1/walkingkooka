@@ -34,27 +34,27 @@ public final class ContentDispositionFileNameNotEncodedHeaderValueConverterTest 
     }
 
     @Override
-    protected ContentDispositionFileNameNotEncodedHeaderValueConverter converter() {
+    ContentDispositionFileNameNotEncodedHeaderValueConverter converter() {
         return ContentDispositionFileNameNotEncodedHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected ContentDispositionParameterName name() {
+    ContentDispositionParameterName name() {
         return ContentDispositionParameterName.FILENAME;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "\0";
     }
 
     @Override
-    protected ContentDispositionFileName value() {
+    ContentDispositionFileName value() {
         return ContentDispositionFileName.notEncoded("readme.txt");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return ContentDispositionFileNameNotEncoded.class.getSimpleName();
     }
 

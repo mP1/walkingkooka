@@ -39,27 +39,27 @@ public final class ETagHeaderValueConverterTest extends
     }
 
     @Override
-    protected ETagHeaderValueConverter converter() {
+    ETagHeaderValueConverter converter() {
         return ETagHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<ETag> name() {
+    HttpHeaderName<ETag> name() {
         return HttpHeaderName.E_TAG;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "I/";
     }
 
     @Override
-    protected ETag value() {
+    ETag value() {
         return ETag.with("01234567890", ETagValidator.WEAK);
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return ETag.class.getSimpleName();
     }
 

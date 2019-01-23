@@ -36,27 +36,27 @@ public final class EmailAddressHeaderValueConverterTest extends
     }
 
     @Override
-    protected EmailAddressHeaderValueConverter converter() {
+    EmailAddressHeaderValueConverter converter() {
         return EmailAddressHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<EmailAddress> name() {
+    HttpHeaderName<EmailAddress> name() {
         return HttpHeaderName.FROM;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "/relative/url/must/fail";
     }
 
     @Override
-    protected EmailAddress value() {
+    EmailAddress value() {
         return EmailAddress.with("user@example.com");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return EmailAddress.class.getSimpleName();
     }
 

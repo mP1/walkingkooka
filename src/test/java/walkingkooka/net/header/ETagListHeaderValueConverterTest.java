@@ -58,27 +58,27 @@ public final class ETagListHeaderValueConverterTest extends
     }
 
     @Override
-    protected ETagListHeaderValueConverter converter() {
+    ETagListHeaderValueConverter converter() {
         return ETagListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<ETag>> name() {
+    HttpHeaderName<List<ETag>> name() {
         return HttpHeaderName.IF_MATCH;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "I/";
     }
 
     @Override
-    protected List<ETag> value() {
+    List<ETag> value() {
         return ETag.parseList("\"1\",\"2\"");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<ETag>";
     }
 

@@ -79,22 +79,22 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
     }
 
     @Override
-    protected OffsetDateTimeHeaderValueConverter converter() {
+    OffsetDateTimeHeaderValueConverter converter() {
         return OffsetDateTimeHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected ContentDispositionParameterName<OffsetDateTime> name() {
+    ContentDispositionParameterName<OffsetDateTime> name() {
         return ContentDispositionParameterName.CREATION_DATE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "abc";
     }
 
     @Override
-    protected OffsetDateTime value() {
+    OffsetDateTime value() {
         return OffsetDateTime.of(2000,
                 12,
                 31,
@@ -106,7 +106,7 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return OffsetDateTime.class.getSimpleName();
     }
 

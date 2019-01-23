@@ -67,22 +67,22 @@ public final class CacheControlDirectiveExtensionHeaderValueConverterTest extend
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return ",";
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "CacheControlDirectiveExtension";
     }
 
     @Override
-    protected CacheControlDirectiveExtensionHeaderValueConverter converter() {
+    CacheControlDirectiveExtensionHeaderValueConverter converter() {
         return CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected Name name() {
+    Name name() {
         return CacheControlDirectiveName.with("extension");
     }
 

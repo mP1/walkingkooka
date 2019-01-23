@@ -44,27 +44,27 @@ public final class LocalDateTimeHeaderValueConverterTest extends
     }
 
     @Override
-    protected LocalDateTimeHeaderValueConverter converter() {
+    LocalDateTimeHeaderValueConverter converter() {
         return LocalDateTimeHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName name() {
+    HttpHeaderName name() {
         return HttpHeaderName.DATE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "abc";
     }
 
     @Override
-    protected LocalDateTime value() {
+    LocalDateTime value() {
         return VALUE;
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return LocalDateTime.class.getSimpleName();
     }
 

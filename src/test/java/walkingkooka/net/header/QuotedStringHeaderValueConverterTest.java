@@ -108,7 +108,7 @@ public final class QuotedStringHeaderValueConverterTest extends StringHeaderValu
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "123";
     }
 

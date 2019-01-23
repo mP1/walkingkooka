@@ -43,7 +43,7 @@ public final class UnquotedStringHeaderValueConverterTest extends StringHeaderVa
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "123";
     }
 

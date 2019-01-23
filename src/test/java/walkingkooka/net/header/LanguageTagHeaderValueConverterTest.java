@@ -37,27 +37,27 @@ public final class LanguageTagHeaderValueConverterTest extends
     }
 
     @Override
-    protected LanguageTagHeaderValueConverter converter() {
+    LanguageTagHeaderValueConverter converter() {
         return LanguageTagHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<LanguageTag> name() {
+    HttpHeaderName<LanguageTag> name() {
         return HttpHeaderName.CONTENT_LANGUAGE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "invalid!!!";
     }
 
     @Override
-    protected LanguageTag value() {
+    LanguageTag value() {
         return LanguageTag.parse("en; q=0.5");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return LanguageTag.class.getSimpleName();
     }
 
