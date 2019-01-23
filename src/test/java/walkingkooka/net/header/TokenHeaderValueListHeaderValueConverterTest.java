@@ -128,6 +128,11 @@ public final class TokenHeaderValueListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(TokenHeaderValue.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<TokenHeaderValue>";
     }

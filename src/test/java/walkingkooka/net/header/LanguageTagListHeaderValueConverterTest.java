@@ -81,6 +81,11 @@ public final class LanguageTagListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(LanguageTag.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<LanguageTag>";
     }

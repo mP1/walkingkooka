@@ -45,8 +45,8 @@ final class LinkRelationHeaderValueConverter extends HeaderValueConverter2<List<
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkListOfType(value, LinkRelation.class);
+    void check0(final Object value, final Name name) {
+        this.checkListOfType(value, LinkRelation.class, name);
     }
 
     /**

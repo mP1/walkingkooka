@@ -78,6 +78,11 @@ public final class ClientCookieListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(ClientCookie.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<ClientCookie>";
     }

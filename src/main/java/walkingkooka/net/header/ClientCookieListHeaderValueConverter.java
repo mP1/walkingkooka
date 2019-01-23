@@ -45,8 +45,8 @@ final class ClientCookieListHeaderValueConverter extends HeaderValueConverter2<L
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkListOfType(value, ClientCookie.class);
+    void check0(final Object value, final Name name) {
+        this.checkListOfType(value, ClientCookie.class, name);
     }
 
     @Override

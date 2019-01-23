@@ -79,6 +79,11 @@ public final class MediaTypeListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(MediaType.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<MediaType>";
     }

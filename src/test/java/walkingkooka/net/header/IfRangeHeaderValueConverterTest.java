@@ -20,8 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
-import java.time.LocalDateTime;
-
 public final class IfRangeHeaderValueConverterTest extends
         HeaderValueConverterTestCase<IfRangeHeaderValueConverter, IfRange<?>> {
 
@@ -58,6 +56,11 @@ public final class IfRangeHeaderValueConverterTest extends
 
     private ETag etag() {
         return ETag.with("abc123", ETagValidator.WEAK);
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(IfRange.class);
     }
 
     @Override

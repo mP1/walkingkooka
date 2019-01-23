@@ -51,9 +51,18 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
         this.check(null);
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckWrongTypeFails() {
-        this.check(this);
+        try {
+            this.check(this);
+            fail(HeaderValueException.class.getName() + " was not thrown");
+        } catch (final HeaderValueException expected) {
+            expected.printStackTrace();
+
+            assertEquals("message",
+                   this.name() + " value " + this + " is not a " + this.valueType(),
+                    expected.getMessage());
+        }
     }
 
     @Test
@@ -114,7 +123,7 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
     }
 
     final void check(final Object value) {
-        this.converter().check(value);
+        this.converter().check(value, this.name());
     }
 
     final void toTextAndCheck(final T value, final String expected) {
@@ -135,6 +144,18 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
 
     abstract T value();
 
+    /**
+     * The value type as a {@link String} which will appear in {@link HeaderValueException} messages.
+     */
+    abstract String valueType();
+
+    final String valueType(final Class<?> type) {
+        return type.getName();
+    }
+
+    final String listValueType(final Class<?> type) {
+        return "List of " + this.valueType(type);
+    }
 
     @Override
     protected final MemberVisibility typeVisibility() {

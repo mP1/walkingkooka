@@ -79,6 +79,11 @@ public final class LinkRelationHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(LinkRelation.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<LinkRelation>";
     }

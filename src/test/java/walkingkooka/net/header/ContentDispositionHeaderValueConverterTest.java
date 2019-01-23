@@ -55,6 +55,11 @@ public final class ContentDispositionHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(ContentDisposition.class);
+    }
+
+    @Override
     String converterToString() {
         return ContentDisposition.class.getSimpleName();
     }

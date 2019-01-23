@@ -74,6 +74,11 @@ public final class QWeightHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(Float.class);
+    }
+
+    @Override
     String converterToString() {
         return "QWeight";
     }

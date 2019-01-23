@@ -44,8 +44,8 @@ final class HttpMethodHeaderValueConverter extends HeaderValueConverter2<HttpMet
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, HttpMethod.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, HttpMethod.class, name);
     }
 
     @Override

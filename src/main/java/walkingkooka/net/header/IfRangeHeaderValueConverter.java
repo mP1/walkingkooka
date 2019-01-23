@@ -53,8 +53,8 @@ final class IfRangeHeaderValueConverter extends HeaderValueConverter2<IfRange<?>
     final static HeaderValueConverter<LocalDateTime> DATE_TIME = HeaderValueConverter.localDateTime();
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, IfRange.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, IfRange.class, name);
     }
 
     @Override

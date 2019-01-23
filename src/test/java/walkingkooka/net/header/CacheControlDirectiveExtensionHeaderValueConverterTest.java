@@ -26,12 +26,12 @@ public final class CacheControlDirectiveExtensionHeaderValueConverterTest extend
 
     @Test
     public void testCheckLong() {
-        CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE.check(123L);
+        CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE.check(123L, this.name());
     }
 
     @Test
     public void testCheckString() {
-        CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE.check("abc123");
+        CacheControlDirectiveExtensionHeaderValueConverter.INSTANCE.check("abc123", this.name());
     }
 
     @Test
@@ -87,8 +87,13 @@ public final class CacheControlDirectiveExtensionHeaderValueConverterTest extend
     }
 
     @Override
-    protected Object value() {
+    Object value() {
         return 123L;
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(String.class);
     }
 
     @Override

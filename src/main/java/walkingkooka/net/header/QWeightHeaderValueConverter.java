@@ -44,8 +44,8 @@ final class QWeightHeaderValueConverter extends HeaderValueConverter2<Float> {
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkValue(this.checkType(value, Float.class));
+    void check0(final Object value, final Name name) {
+        this.checkValue(this.checkType(value, Float.class, name));
     }
 
     // https://restfulapi.net/q-parameter-in-http-accept-header/

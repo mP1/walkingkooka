@@ -20,6 +20,8 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
+import java.time.OffsetDateTime;
+
 public final class ServerCookieHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ServerCookieHeaderValueConverter, ServerCookie> {
 
@@ -52,6 +54,11 @@ public final class ServerCookieHeaderValueConverterTest extends
     @Override
     ServerCookie value() {
         return Cookie.parseServerHeader("cookie1=value1;secure;");
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(ServerCookie.class);
     }
 
     @Override

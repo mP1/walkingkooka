@@ -19,6 +19,8 @@
 package walkingkooka.net.header;
 
 
+import walkingkooka.naming.Name;
+
 /**
  * A {@link HeaderValueConverter} that parses a content header value into a {@link ContentDispositionFileNameEncoded}.
  */
@@ -31,8 +33,9 @@ abstract class ContentDispositionFileNameHeaderValueConverter<F extends ContentD
         super();
     }
 
-    @Override final void check0(final Object value) {
-        this.checkType(value, this.type());
+    @Override
+    final void check0(final Object value, final Name name) {
+        this.checkType(value, this.type(), name);
     }
 
     @Override

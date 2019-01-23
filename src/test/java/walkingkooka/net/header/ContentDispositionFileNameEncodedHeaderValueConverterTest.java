@@ -54,6 +54,11 @@ public final class ContentDispositionFileNameEncodedHeaderValueConverterTest ext
     }
 
     @Override
+    String valueType() {
+        return this.valueType(ContentDispositionFileNameEncoded.class);
+    }
+
+    @Override
     String converterToString() {
         return ContentDispositionFileNameEncoded.class.getSimpleName();
     }

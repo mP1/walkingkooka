@@ -43,8 +43,8 @@ final class ContentRangeHeaderValueConverter extends HeaderValueConverter2<Conte
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, ContentRange.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, ContentRange.class, name);
     }
 
     @Override

@@ -65,6 +65,11 @@ public final class HttpMethodHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(HttpMethod.class);
+    }
+
+    @Override
     String converterToString() {
         return HttpMethod.class.getSimpleName();
     }

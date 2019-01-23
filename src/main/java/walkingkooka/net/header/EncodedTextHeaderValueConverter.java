@@ -44,8 +44,8 @@ final class EncodedTextHeaderValueConverter extends HeaderValueConverter2<Encode
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, EncodedText.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, EncodedText.class, name);
     }
 
     @Override

@@ -48,8 +48,8 @@ final class UnquotedStringHeaderValueConverter extends StringHeaderValueConverte
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, String.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, String.class, name);
     }
 
     @Override

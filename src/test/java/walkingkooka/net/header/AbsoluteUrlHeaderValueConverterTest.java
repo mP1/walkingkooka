@@ -57,6 +57,11 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(AbsoluteUrl.class);
+    }
+
+    @Override
     String converterToString() {
         return AbsoluteUrl.class.getSimpleName();
     }

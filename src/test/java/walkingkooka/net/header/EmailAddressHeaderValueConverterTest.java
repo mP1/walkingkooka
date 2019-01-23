@@ -56,6 +56,11 @@ public final class EmailAddressHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(EmailAddress.class);
+    }
+
+    @Override
     String converterToString() {
         return EmailAddress.class.getSimpleName();
     }

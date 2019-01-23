@@ -44,8 +44,8 @@ final class CharsetNameHeaderValueConverter extends HeaderValueConverter2<Charse
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, CharsetName.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, CharsetName.class, name);
     }
 
     @Override

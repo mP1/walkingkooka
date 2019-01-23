@@ -56,6 +56,11 @@ public final class RelativeUrlHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(RelativeUrl.class);
+    }
+
+    @Override
     String converterToString() {
         return RelativeUrl.class.getSimpleName();
     }

@@ -21,6 +21,8 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
 
+import java.time.OffsetDateTime;
+
 public final class MediaTypeHeaderValueConverterTest extends
         HeaderValueConverterTestCase<MediaTypeHeaderValueConverter, MediaType> {
 
@@ -54,6 +56,11 @@ public final class MediaTypeHeaderValueConverterTest extends
     @Override
     MediaType value() {
         return MediaType.parse("type1/sub1;p1=v1");
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(MediaType.class);
     }
 
     @Override
