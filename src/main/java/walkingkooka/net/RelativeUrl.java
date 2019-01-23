@@ -18,6 +18,8 @@
 
 package walkingkooka.net;
 
+import walkingkooka.text.CharSequences;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
@@ -38,7 +40,12 @@ public final class RelativeUrl extends Url {
     private static RelativeUrl parseRelative0(final String url) {
         Objects.requireNonNull(url, "url");
 
+        if(url.contains("://")) {
+            throw new IllegalArgumentException("Relative url contains protocol=" + CharSequences.quote(url));
+        }
+
         try {
+            // protocol added but will be ignored when other components are picked.
             return parseRelative1(new URL("http://example" + url));
         } catch (final MalformedURLException cause) {
             throw new IllegalArgumentException(cause.getMessage(), cause);

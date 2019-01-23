@@ -46,16 +46,31 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
     }
 
     @Test
+    public void testParseWithoutLeadingSlash() {
+        final UrlPath path = UrlPath.parse("without-leading-slash");
+        this.checkValue(path, "/without-leading-slash");
+    }
+
+    @Test
+    public void testParseWithoutLeadingSlash2() {
+        final UrlPath path = UrlPath.parse("without/leading/slash");
+        this.checkValue(path, "/without/leading/slash");
+        this.checkParent(path, "/without/leading");
+    }
+
+    @Test
     public void testParseDeoesntNormalize() {
         final UrlPath path = UrlPath.parse("/a1/removed/../x/y");
         this.checkValue(path, "/a1/removed/../x/y");
         this.checkParent(path, "/a1/removed/../x");
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testAppendEmptyName() {
+    @Test
+    public void testAppendSlash() {
         final UrlPath path = UrlPath.parse("/path");
-        path.append(UrlPathName.ROOT);
+        final UrlPath pathSlash = path.append(UrlPathName.ROOT);
+        this.checkValue(pathSlash, "/path/");
+        this.checkParent(pathSlash, "/path");
     }
 
     @Test
@@ -67,6 +82,12 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
     @Test
     public void testAppendToEmptyPath() {
         final UrlPath path = UrlPath.parse("/path");
+        assertEquals(path, UrlPath.EMPTY.append(path));
+    }
+
+    @Test
+    public void testAppendToEmptyPath2() {
+        final UrlPath path = UrlPath.parse("/");
         assertEquals(path, UrlPath.EMPTY.append(path));
     }
 
