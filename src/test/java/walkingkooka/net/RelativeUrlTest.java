@@ -34,6 +34,11 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements S
         RelativeUrl.parse(null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseAbsoluteUrlFails() {
+        RelativeUrl.parse("http://example.com");
+    }
+
     @Test
     public void testParseEmptyPath() {
         final RelativeUrl url = RelativeUrl.parse("");
@@ -46,6 +51,14 @@ public final class RelativeUrlTest extends UrlTestCase<RelativeUrl> implements S
     public void testParseSlash() {
         final RelativeUrl url = RelativeUrl.parse("/");
         this.checkPath(url, UrlPath.parse("/"));
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParsePathEndingSlash() {
+        final RelativeUrl url = RelativeUrl.parse("/path/file/");
+        this.checkPath(url, UrlPath.parse("/path/file/"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
     }

@@ -114,10 +114,6 @@ public final class UrlPath implements Path<UrlPath, UrlPathName>, Comparable<Url
     public UrlPath append(final UrlPathName name) {
         Objects.requireNonNull(name, "name");
 
-        if (UrlPathName.ROOT.equals(name)) {
-            throw new IllegalArgumentException(UrlPath.CANNOT_APPEND_ROOT_NAME);
-        }
-
         final StringBuilder path = new StringBuilder();
         if (false == this.isRoot()) {
             path.append(this.path);

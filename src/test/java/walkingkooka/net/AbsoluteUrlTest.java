@@ -281,6 +281,18 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
     }
 
     @Test
+    public void testParseSchemeHostSlash() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("https://example.com/");
+        this.checkScheme(url, UrlScheme.HTTPS);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.parse("/"));
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
     public void testParseSchemeHostPort() {
         final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com:789");
         this.checkScheme(url, UrlScheme.HTTP);
@@ -293,6 +305,18 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
     }
 
     @Test
+    public void testParseSchemeHostPortSlash() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com:789/");
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPort(url, IpPort.with(789));
+        this.checkPath(url, UrlPath.parse("/"));
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
     public void testParseSchemeCredentialsHost() {
         final AbsoluteUrl url = AbsoluteUrl.parse("http://abc:def@example.com");
         this.checkScheme(url, UrlScheme.HTTP);
@@ -300,6 +324,30 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
         this.checkHost(url, HostAddress.with("example.com"));
         this.checkPortAbsent(url);
         this.checkPath(url, UrlPath.EMPTY);
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseSchemeHostPath() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com/path/to/file");
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.parse("/path/to/file"));
+        this.checkQueryString(url, UrlQueryString.EMPTY);
+        this.checkFragment(url, UrlFragment.EMPTY);
+    }
+
+    @Test
+    public void testParseSchemeHostPathEndsSlash() {
+        final AbsoluteUrl url = AbsoluteUrl.parse("http://example.com/path/to/file/");
+        this.checkScheme(url, UrlScheme.HTTP);
+        this.checkCredentialsAbsent(url);
+        this.checkHost(url, HostAddress.with("example.com"));
+        this.checkPortAbsent(url);
+        this.checkPath(url, UrlPath.parse("/path/to/file/"));
         this.checkQueryString(url, UrlQueryString.EMPTY);
         this.checkFragment(url, UrlFragment.EMPTY);
     }
