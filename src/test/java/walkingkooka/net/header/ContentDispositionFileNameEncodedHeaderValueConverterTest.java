@@ -34,27 +34,27 @@ public final class ContentDispositionFileNameEncodedHeaderValueConverterTest ext
     }
 
     @Override
-    protected ContentDispositionFileNameEncodedHeaderValueConverter converter() {
+    ContentDispositionFileNameEncodedHeaderValueConverter converter() {
         return ContentDispositionFileNameEncodedHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected ContentDispositionParameterName name() {
+    ContentDispositionParameterName name() {
         return ContentDispositionParameterName.FILENAME;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "utf-8'";
     }
 
     @Override
-    protected ContentDispositionFileName value() {
+    ContentDispositionFileName value() {
         return ContentDispositionFileName.encoded(EncodedText.with(CharsetName.UTF_8, EncodedText.NO_LANGUAGE, "abc 123"));
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return ContentDispositionFileNameEncoded.class.getSimpleName();
     }
 

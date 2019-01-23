@@ -44,7 +44,7 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
         this.converter().parse(this.invalidHeaderValue(), this.name());
     }
 
-    abstract protected String invalidHeaderValue();
+    abstract String invalidHeaderValue();
 
     @Test(expected = NullPointerException.class)
     public void testCheckNullFails() {
@@ -82,58 +82,59 @@ public abstract class HeaderValueConverterTestCase<C extends HeaderValueConverte
         assertEquals(this.converterToString(), this.converter().toString());
     }
 
-    protected abstract String converterToString();
+    abstract String converterToString();
 
-    protected abstract C converter();
+    abstract C converter();
 
-    protected final T parse(final String value) {
+    final T parse(final String value) {
         return this.converter().parse(value, this.name());
     }
 
-    protected final void parseAndToTextAndCheck(final String text, final T value) {
+    final void parseAndToTextAndCheck(final String text, final T value) {
         this.parseAndCheck(text, value);
         this.toTextAndCheck(value, text);
     }
 
-    protected final void parseAndCheck(final String value, final T expected) {
+    final void parseAndCheck(final String value, final T expected) {
         this.parseAndCheck(value, this.name(), expected);
     }
 
-    protected abstract Name name();
+    abstract Name name();
 
-    protected final void parseAndCheck(final String value, final Name name, final T expected) {
+    final void parseAndCheck(final String value, final Name name, final T expected) {
         this.parseAndCheck(this.converter(), value, name, expected);
     }
 
-    protected final void parseAndCheck(final C converter, final String value, final T expected) {
+    final void parseAndCheck(final C converter, final String value, final T expected) {
         this.parseAndCheck(converter, value, this.name(), expected);
     }
 
-    protected final void parseAndCheck(final C converter, final String value, final Name name, final T expected) {
+    final void parseAndCheck(final C converter, final String value, final Name name, final T expected) {
         assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.parse(value, name));
     }
 
-    protected final void check(final Object value) {
+    final void check(final Object value) {
         this.converter().check(value);
     }
 
-    protected final void toTextAndCheck(final T value, final String expected) {
+    final void toTextAndCheck(final T value, final String expected) {
         this.toTextAndCheck(value, this.name(), expected);
     }
 
-    protected final void toTextAndCheck(final T value, final Name name, final String expected) {
+    final void toTextAndCheck(final T value, final Name name, final String expected) {
         this.toTextAndCheck(this.converter(), value, name, expected);
     }
 
-    protected final void toTextAndCheck(final C converter, final T value, final String expected) {
+    final void toTextAndCheck(final C converter, final T value, final String expected) {
         this.toTextAndCheck(converter, value, this.name(), expected);
     }
 
-    protected final void toTextAndCheck(final C converter, final T value, final Name name, final String expected) {
+    final void toTextAndCheck(final C converter, final T value, final Name name, final String expected) {
         assertEquals(converter + " " + name + " of " + CharSequences.quoteIfChars(value), expected, converter.toText(value, name));
     }
 
-    protected abstract T value();
+    abstract T value();
+
 
     @Override
     protected final MemberVisibility typeVisibility() {

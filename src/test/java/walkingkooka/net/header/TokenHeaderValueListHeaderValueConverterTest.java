@@ -108,27 +108,27 @@ public final class TokenHeaderValueListHeaderValueConverterTest extends
     }
 
     @Override
-    protected TokenHeaderValueListHeaderValueConverter converter() {
+    TokenHeaderValueListHeaderValueConverter converter() {
         return TokenHeaderValueListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<TokenHeaderValue>> name() {
+    HttpHeaderName<List<TokenHeaderValue>> name() {
         return HttpHeaderName.ACCEPT_ENCODING;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "/////";
     }
 
     @Override
-    protected List<TokenHeaderValue> value() {
+    List<TokenHeaderValue> value() {
         return Lists.of(this.en(), this.en_AU());
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<TokenHeaderValue>";
     }
 

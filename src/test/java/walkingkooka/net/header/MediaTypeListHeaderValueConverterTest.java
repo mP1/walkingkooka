@@ -59,27 +59,27 @@ public final class MediaTypeListHeaderValueConverterTest extends
     }
 
     @Override
-    protected MediaTypeListHeaderValueConverter converter() {
+    MediaTypeListHeaderValueConverter converter() {
         return MediaTypeListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<MediaType>> name() {
+    HttpHeaderName<List<MediaType>> name() {
         return HttpHeaderName.ACCEPT;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "invalid!!!";
     }
 
     @Override
-    protected List<MediaType> value() {
+    List<MediaType> value() {
         return MediaType.parseList("type1/sub1;p1=v1,type2/sub2;p2=v2");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<MediaType>";
     }
 

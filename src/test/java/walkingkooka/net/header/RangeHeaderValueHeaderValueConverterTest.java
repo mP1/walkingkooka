@@ -49,27 +49,27 @@ public final class RangeHeaderValueHeaderValueConverterTest extends
     }
 
     @Override
-    protected RangeHeaderValueHeaderValueConverter converter() {
+    RangeHeaderValueHeaderValueConverter converter() {
         return RangeHeaderValueHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<RangeHeaderValue> name() {
+    HttpHeaderName<RangeHeaderValue> name() {
         return HttpHeaderName.RANGE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "http://example.com";
     }
 
     @Override
-    protected RangeHeaderValue value() {
+    RangeHeaderValue value() {
         return RangeHeaderValue.parse(TEXT);
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return RangeHeaderValue.class.getSimpleName();
     }
 

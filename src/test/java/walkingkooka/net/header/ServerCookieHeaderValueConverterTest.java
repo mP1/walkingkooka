@@ -40,22 +40,22 @@ public final class ServerCookieHeaderValueConverterTest extends
     }
 
     @Override
-    protected HttpHeaderName<ServerCookie> name() {
+    HttpHeaderName<ServerCookie> name() {
         return HttpHeaderName.SET_COOKIE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "///";
     }
 
     @Override
-    protected ServerCookie value() {
+    ServerCookie value() {
         return Cookie.parseServerHeader("cookie1=value1;secure;");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "ServerCookie";
     }
 

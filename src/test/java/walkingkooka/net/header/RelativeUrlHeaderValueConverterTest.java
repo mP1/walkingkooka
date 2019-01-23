@@ -36,27 +36,27 @@ public final class RelativeUrlHeaderValueConverterTest extends
     }
 
     @Override
-    protected RelativeUrlHeaderValueConverter converter() {
+    RelativeUrlHeaderValueConverter converter() {
         return RelativeUrlHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<RelativeUrl> name() {
+    HttpHeaderName<RelativeUrl> name() {
         return HttpHeaderName.CONTENT_LOCATION;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "http://example.com";
     }
 
     @Override
-    protected RelativeUrl value() {
+    RelativeUrl value() {
         return RelativeUrl.parse("/file?p1=v1");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return RelativeUrl.class.getSimpleName();
     }
 

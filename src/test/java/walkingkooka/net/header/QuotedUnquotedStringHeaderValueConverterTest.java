@@ -45,29 +45,29 @@ public final class QuotedUnquotedStringHeaderValueConverterTest extends
     }
 
     @Override
-    protected QuotedUnquotedStringHeaderValueConverter converter() {
+    QuotedUnquotedStringHeaderValueConverter converter() {
         return QuotedUnquotedStringHeaderValueConverter.with(CharPredicates.asciiPrintable(),
                 true,
                 CharPredicates.digit());
     }
 
     @Override
-    protected TokenHeaderValueParameterName name() {
+    TokenHeaderValueParameterName name() {
         return TokenHeaderValueParameterName.Q;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "\0";
     }
 
     @Override
-    protected String value() {
+    String value() {
         return "123";
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "String";
     }
 

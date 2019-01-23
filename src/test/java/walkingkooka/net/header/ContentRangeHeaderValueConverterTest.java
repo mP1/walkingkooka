@@ -55,27 +55,27 @@ public final class ContentRangeHeaderValueConverterTest extends
     }
 
     @Override
-    protected ContentRangeHeaderValueConverter converter() {
+    ContentRangeHeaderValueConverter converter() {
         return ContentRangeHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<ContentRange> name() {
+    HttpHeaderName<ContentRange> name() {
         return HttpHeaderName.CONTENT_RANGE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "http://example.com";
     }
 
     @Override
-    protected ContentRange value() {
+    ContentRange value() {
         return ContentRange.parse(TEXT);
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return ContentRange.class.getSimpleName();
     }
 

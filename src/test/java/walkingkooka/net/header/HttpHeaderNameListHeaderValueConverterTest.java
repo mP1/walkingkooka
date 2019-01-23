@@ -83,27 +83,27 @@ public final class HttpHeaderNameListHeaderValueConverterTest extends
     }
 
     @Override
-    protected HttpHeaderNameListHeaderValueConverter converter() {
+    HttpHeaderNameListHeaderValueConverter converter() {
         return HttpHeaderNameListHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<HttpHeaderName<?>>> name() {
+    HttpHeaderName<List<HttpHeaderName<?>>> name() {
         return HttpHeaderName.TRAILER;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "   ";
     }
 
     @Override
-    protected List<HttpHeaderName<?>> value() {
+    List<HttpHeaderName<?>> value() {
         return Lists.of(HttpHeaderName.ACCEPT, HttpHeaderName.ACCEPT_LANGUAGE);
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<HttpHeaderName>";
     }
 

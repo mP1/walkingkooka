@@ -54,27 +54,27 @@ public final class QWeightHeaderValueConverterTest extends
     }
 
     @Override
-    protected QWeightHeaderValueConverter converter() {
+    QWeightHeaderValueConverter converter() {
         return QWeightHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected TokenHeaderValueParameterName name() {
+    TokenHeaderValueParameterName name() {
         return TokenHeaderValueParameterName.Q;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "abc";
     }
 
     @Override
-    protected Float value() {
+    Float value() {
         return 0.25f;
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "QWeight";
     }
 

@@ -72,29 +72,29 @@ public final class LinkHeaderValueConverterTest extends
     }
 
     @Override
-    protected LinkHeaderValueConverter converter() {
+    LinkHeaderValueConverter converter() {
         return LinkHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<List<Link>> name() {
+    HttpHeaderName<List<Link>> name() {
         return HttpHeaderName.LINK;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "forgot surrounding lt gt";
     }
 
     @Override
-    protected List<Link> value() {
+    List<Link> value() {
         return Lists.of(
                 Link.with(Url.parse("/file")),
                 Link.with(Url.parse("http://example.com")));
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<Link>";
     }
 

@@ -56,27 +56,27 @@ public final class MediaTypeBoundaryHeaderValueConverterTest extends
     }
 
     @Override
-    protected MediaTypeBoundaryHeaderValueConverter converter() {
+    MediaTypeBoundaryHeaderValueConverter converter() {
         return MediaTypeBoundaryHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected MediaTypeParameterName<MediaTypeBoundary> name() {
+    MediaTypeParameterName<MediaTypeBoundary> name() {
         return MediaTypeParameterName.BOUNDARY;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected MediaTypeBoundary value() {
+    MediaTypeBoundary value() {
         return MediaTypeBoundary.with(TEXT);
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return MediaTypeBoundary.class.getSimpleName();
     }
 

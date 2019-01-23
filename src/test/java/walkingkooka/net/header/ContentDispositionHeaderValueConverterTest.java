@@ -35,27 +35,27 @@ public final class ContentDispositionHeaderValueConverterTest extends
     }
 
     @Override
-    protected ContentDispositionHeaderValueConverter converter() {
+    ContentDispositionHeaderValueConverter converter() {
         return ContentDispositionHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<EmailAddress> name() {
+    HttpHeaderName<EmailAddress> name() {
         return HttpHeaderName.FROM;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "\0";
     }
 
     @Override
-    protected ContentDisposition value() {
+    ContentDisposition value() {
         return ContentDispositionType.ATTACHMENT.setFilename(ContentDispositionFileName.notEncoded("readme.txt"));
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return ContentDisposition.class.getSimpleName();
     }
 

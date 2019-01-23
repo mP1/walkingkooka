@@ -30,17 +30,17 @@ public abstract class StringHeaderValueConverterTestCase<C extends StringHeaderV
     final static String TEXT = "abc123";
 
     @Override
-    protected final HttpHeaderName<String> name() {
+    final HttpHeaderName<String> name() {
         return HttpHeaderName.SERVER;
     }
 
     @Override
-    protected String value() {
+    String value() {
         return TEXT;
     }
 
     @Override
-    protected final String converterToString() {
+    final String converterToString() {
         return this.charPredicate().toString();
     }
 

@@ -61,7 +61,7 @@ public final class UrlHeaderValueConverterTest extends
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "\\";
     }
 
@@ -71,7 +71,7 @@ public final class UrlHeaderValueConverterTest extends
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return Url.class.getSimpleName();
     }
 

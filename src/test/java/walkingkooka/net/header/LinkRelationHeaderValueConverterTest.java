@@ -59,27 +59,27 @@ public final class LinkRelationHeaderValueConverterTest extends
     }
 
     @Override
-    protected LinkRelationHeaderValueConverter converter() {
+    LinkRelationHeaderValueConverter converter() {
         return LinkRelationHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected LinkParameterName<List<LinkRelation<?>>> name() {
+    LinkParameterName<List<LinkRelation<?>>> name() {
         return LinkParameterName.REL;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "\r";
     }
 
     @Override
-    protected List<LinkRelation<?>> value() {
+    List<LinkRelation<?>> value() {
         return Lists.of(LinkRelation.with("abc123"), LinkRelation.with("http://example.com"));
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "List<LinkRelation>";
     }
 

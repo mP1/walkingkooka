@@ -37,22 +37,22 @@ public final class IfRangeHeaderValueConverterTest extends
     }
 
     @Override
-    protected IfRangeHeaderValueConverter converter() {
+    IfRangeHeaderValueConverter converter() {
         return IfRangeHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<IfRange<?>> name() {
+    HttpHeaderName<IfRange<?>> name() {
         return HttpHeaderName.IF_RANGE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "///";
     }
 
     @Override
-    protected IfRange<?> value() {
+    IfRange<?> value() {
         return IfRange.with(this.etag());
     }
 
@@ -60,12 +60,8 @@ public final class IfRangeHeaderValueConverterTest extends
         return ETag.with("abc123", ETagValidator.WEAK);
     }
 
-    private LocalDateTime lastModified() {
-        return LocalDateTime.of(2000, 12, 31, 6, 28, 29);
-    }
-
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return "IfRange";
     }
 

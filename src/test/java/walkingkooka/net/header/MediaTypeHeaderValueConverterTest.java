@@ -37,27 +37,27 @@ public final class MediaTypeHeaderValueConverterTest extends
     }
 
     @Override
-    protected MediaTypeHeaderValueConverter converter() {
+    MediaTypeHeaderValueConverter converter() {
         return MediaTypeHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<MediaType> name() {
+    HttpHeaderName<MediaType> name() {
         return HttpHeaderName.CONTENT_TYPE;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "invalid!!!";
     }
 
     @Override
-    protected MediaType value() {
+    MediaType value() {
         return MediaType.parse("type1/sub1;p1=v1");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return MediaType.class.getSimpleName();
     }
 

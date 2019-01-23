@@ -37,27 +37,27 @@ public final class AbsoluteUrlHeaderValueConverterTest extends
     }
 
     @Override
-    protected AbsoluteUrlHeaderValueConverter converter() {
+    AbsoluteUrlHeaderValueConverter converter() {
         return AbsoluteUrlHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<AbsoluteUrl> name() {
+    HttpHeaderName<AbsoluteUrl> name() {
         return HttpHeaderName.REFERER;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "/relative/url/must/fail";
     }
 
     @Override
-    protected AbsoluteUrl value() {
+    AbsoluteUrl value() {
         return AbsoluteUrl.parse(URL);
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return AbsoluteUrl.class.getSimpleName();
     }
 

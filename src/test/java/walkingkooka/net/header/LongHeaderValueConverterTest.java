@@ -37,27 +37,27 @@ public final class LongHeaderValueConverterTest extends
     }
 
     @Override
-    protected LongHeaderValueConverter converter() {
+    LongHeaderValueConverter converter() {
         return LongHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected HttpHeaderName<Long> name() {
+    HttpHeaderName<Long> name() {
         return HttpHeaderName.CONTENT_LENGTH;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "abc";
     }
 
     @Override
-    protected Long value() {
+    Long value() {
         return VALUE;
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return Long.class.getSimpleName();
     }
 

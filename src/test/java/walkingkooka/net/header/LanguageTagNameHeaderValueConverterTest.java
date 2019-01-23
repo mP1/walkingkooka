@@ -34,27 +34,27 @@ public final class LanguageTagNameHeaderValueConverterTest extends
     }
 
     @Override
-    protected LanguageTagNameHeaderValueConverter converter() {
+    LanguageTagNameHeaderValueConverter converter() {
         return LanguageTagNameHeaderValueConverter.INSTANCE;
     }
 
     @Override
-    protected LinkParameterName<LanguageTagName> name() {
+    LinkParameterName<LanguageTagName> name() {
         return LinkParameterName.HREFLANG;
     }
 
     @Override
-    protected String invalidHeaderValue() {
+    String invalidHeaderValue() {
         return "invalid!!!";
     }
 
     @Override
-    protected LanguageTagName value() {
+    LanguageTagName value() {
         return LanguageTagName.with("en");
     }
 
     @Override
-    protected String converterToString() {
+    String converterToString() {
         return LanguageTagName.class.getSimpleName();
     }
 
