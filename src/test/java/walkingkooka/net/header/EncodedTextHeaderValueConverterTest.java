@@ -55,6 +55,11 @@ public final class EncodedTextHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(EncodedText.class);
+    }
+
+    @Override
     String converterToString() {
         return EncodedText.class.getSimpleName();
     }

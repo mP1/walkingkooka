@@ -54,6 +54,11 @@ public final class LanguageTagNameHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(LanguageTagName.class);
+    }
+
+    @Override
     String converterToString() {
         return LanguageTagName.class.getSimpleName();
     }

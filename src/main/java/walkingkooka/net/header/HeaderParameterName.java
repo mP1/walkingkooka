@@ -61,7 +61,7 @@ abstract class HeaderParameterName<V> extends HeaderName2<V> {
      */
     @Override
     public final V checkValue(final Object value) {
-        return this.converter.check(value);
+        return this.converter.check(value, this);
     }
 
     final HeaderValueConverter<V> converter;

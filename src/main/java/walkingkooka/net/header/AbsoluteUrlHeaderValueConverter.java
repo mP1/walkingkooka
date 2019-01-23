@@ -45,8 +45,8 @@ final class AbsoluteUrlHeaderValueConverter extends HeaderValueConverter2<Absolu
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, AbsoluteUrl.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, AbsoluteUrl.class, name);
     }
 
     @Override

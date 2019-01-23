@@ -22,6 +22,7 @@ import org.junit.Test;
 import walkingkooka.net.email.EmailAddress;
 
 import java.nio.charset.Charset;
+import java.time.OffsetDateTime;
 
 import static org.junit.Assert.assertEquals;
 
@@ -68,6 +69,11 @@ public final class CharsetNameHeaderValueConverterTest extends
     @Override
     CharsetName value() {
         return CharsetName.with("utf-8");
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(CharsetName.class);
     }
 
     @Override

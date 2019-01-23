@@ -43,8 +43,8 @@ final class ServerCookieHeaderValueConverter extends HeaderValueConverter2<Serve
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, ServerCookie.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, ServerCookie.class, name);
     }
 
     @Override

@@ -69,6 +69,11 @@ public final class RangeHeaderValueHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(RangeHeaderValue.class);
+    }
+
+    @Override
     String converterToString() {
         return RangeHeaderValue.class.getSimpleName();
     }

@@ -45,8 +45,8 @@ final class TokenHeaderValueListHeaderValueConverter extends HeaderValueConverte
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkListOfType(value, TokenHeaderValue.class);
+    void check0(final Object value, final Name name) {
+        this.checkListOfType(value, TokenHeaderValue.class, name);
     }
 
     @Override

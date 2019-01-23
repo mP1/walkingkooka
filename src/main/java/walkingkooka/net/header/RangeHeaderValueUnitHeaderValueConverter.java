@@ -49,8 +49,8 @@ final class RangeHeaderValueUnitHeaderValueConverter extends HeaderValueConverte
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, RangeHeaderValueUnit.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, RangeHeaderValueUnit.class, name);
     }
 
     @Override

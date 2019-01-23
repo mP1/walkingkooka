@@ -86,6 +86,11 @@ public final class TokenHeaderValueHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(TokenHeaderValue.class);
+    }
+
+    @Override
     String converterToString() {
         return "TokenHeaderValue";
     }

@@ -66,8 +66,13 @@ public final class UrlHeaderValueConverterTest extends
     }
 
     @Override
-    protected Url value() {
+    Url value() {
         return Url.parse("/path?p1=v1");
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(Url.class);
     }
 
     @Override

@@ -20,6 +20,8 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
+import java.time.OffsetDateTime;
+
 public final class LongHeaderValueConverterTest extends
         HeaderValueConverterTestCase<LongHeaderValueConverter, Long> {
 
@@ -54,6 +56,11 @@ public final class LongHeaderValueConverterTest extends
     @Override
     Long value() {
         return VALUE;
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(Long.class);
     }
 
     @Override

@@ -100,6 +100,11 @@ public final class HttpMethodListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(HttpMethod.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<HttpMethod>";
     }

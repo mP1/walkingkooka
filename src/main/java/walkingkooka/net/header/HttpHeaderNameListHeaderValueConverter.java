@@ -50,8 +50,8 @@ final class HttpHeaderNameListHeaderValueConverter extends HeaderValueConverter2
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkListOfType(value, HttpHeaderName.class);
+    void check0(final Object value, final Name name) {
+        this.checkListOfType(value, HttpHeaderName.class, name);
     }
 
     @Override

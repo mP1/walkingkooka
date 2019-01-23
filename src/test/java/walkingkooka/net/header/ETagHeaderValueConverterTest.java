@@ -20,6 +20,8 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 
+import java.time.OffsetDateTime;
+
 public final class ETagHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ETagHeaderValueConverter, ETag> {
 
@@ -56,6 +58,11 @@ public final class ETagHeaderValueConverterTest extends
     @Override
     ETag value() {
         return ETag.with("01234567890", ETagValidator.WEAK);
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(ETag.class);
     }
 
     @Override

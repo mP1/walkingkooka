@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.compare.Range;
 
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
 public final class ContentRangeHeaderValueConverterTest extends
@@ -72,6 +73,11 @@ public final class ContentRangeHeaderValueConverterTest extends
     @Override
     ContentRange value() {
         return ContentRange.parse(TEXT);
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(ContentRange.class);
     }
 
     @Override

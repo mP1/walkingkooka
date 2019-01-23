@@ -339,20 +339,20 @@ abstract class HeaderValueConverter<T> {
 
     // checkValue...........................................................
 
-    final T check(final Object value) {
+    final T check(final Object value, final Name name) {
         Objects.requireNonNull(value, "value");
-        this.check0(value);
+        this.check0(value, name);
         return Cast.to(value);
     }
 
-    abstract void check0(final Object value);
+    abstract void check0(final Object value, final Name name);
 
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.
      */
-    final <U> U checkType(final Object value, final Class<U> type) {
+    final <U> U checkType(final Object value, final Class<U> type, final Name name) {
         if (!type.isInstance(value)) {
-            throw new HeaderValueException("Value " + CharSequences.quoteIfChars(value) + " is not a " + type.getName());
+            throw new HeaderValueException(name + " value " + CharSequences.quoteIfChars(value) + " is not a " + type.getName());
         }
         return type.cast(value);
     }
@@ -360,13 +360,15 @@ abstract class HeaderValueConverter<T> {
     /**
      * Checks the type of the given value and throws a {@link HeaderValueException} if this test fails.
      */
-    final <U> List<U> checkListOfType(final Object value, final Class<U> type) {
-        this.checkType(value, List.class);
+    final <U> List<U> checkListOfType(final Object value, final Class<U> type, final Name name) {
+        if (!(value instanceof List)) {
+            throw new HeaderValueException(name + " value " + CharSequences.quoteIfChars(value) + " is not a List of " + type.getName());
+        }
 
         final List<U> list = Cast.to(value);
         for (Object element : list) {
             if (!type.isInstance(element)) {
-                throw new HeaderValueException("List " + CharSequences.quoteIfChars(value) +
+                throw new HeaderValueException(name + " list value " + CharSequences.quoteIfChars(value) +
                         " includes an element that is not a " + type.getName());
             }
         }

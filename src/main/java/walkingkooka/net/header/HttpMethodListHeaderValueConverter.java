@@ -50,8 +50,8 @@ final class HttpMethodListHeaderValueConverter extends HeaderValueConverter2<Lis
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkListOfType(value, HttpMethod.class);
+    void check0(final Object value, final Name name) {
+        this.checkListOfType(value, HttpMethod.class, name);
     }
 
     @Override

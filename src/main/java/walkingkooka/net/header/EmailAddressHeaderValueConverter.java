@@ -53,8 +53,8 @@ final class EmailAddressHeaderValueConverter extends HeaderValueConverter2<Email
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, EmailAddress.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, EmailAddress.class, name);
     }
 
     @Override

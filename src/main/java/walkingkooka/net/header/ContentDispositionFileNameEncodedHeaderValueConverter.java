@@ -44,8 +44,8 @@ final class ContentDispositionFileNameEncodedHeaderValueConverter extends Header
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, ContentDispositionFileNameEncoded.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, ContentDispositionFileNameEncoded.class, name);
     }
 
     @Override

@@ -103,6 +103,11 @@ public final class HttpHeaderNameListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(HttpHeaderName.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<HttpHeaderName>";
     }

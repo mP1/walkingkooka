@@ -106,6 +106,11 @@ public final class OffsetDateTimeHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.valueType(OffsetDateTime.class);
+    }
+
+    @Override
     String converterToString() {
         return OffsetDateTime.class.getSimpleName();
     }

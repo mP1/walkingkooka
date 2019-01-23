@@ -45,8 +45,8 @@ final class ETagListHeaderValueConverter extends HeaderValueConverter2<List<ETag
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkListOfType(value, ETag.class);
+    void check0(final Object value, final Name name) {
+        this.checkListOfType(value, ETag.class, name);
     }
 
     @Override

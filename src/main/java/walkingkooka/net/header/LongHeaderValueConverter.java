@@ -43,8 +43,8 @@ final class LongHeaderValueConverter extends HeaderValueConverter2<Long> {
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, Long.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, Long.class, name);
     }
 
     @Override

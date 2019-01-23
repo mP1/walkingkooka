@@ -45,8 +45,8 @@ final class RelativeUrlHeaderValueConverter extends HeaderValueConverter2<Relati
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, RelativeUrl.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, RelativeUrl.class, name);
     }
 
     @Override

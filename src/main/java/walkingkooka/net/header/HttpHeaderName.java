@@ -847,7 +847,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      */
     @Override
     public T checkValue(final Object value) {
-        return this.valueConverter.check(value);
+        return this.valueConverter.check(value, this);
     }
 
     /**

@@ -50,8 +50,8 @@ final class MediaTypeBoundaryHeaderValueConverter extends HeaderValueConverter2<
             MediaTypeBoundary.UNQUOTED_CHARACTER_PREDICATE);
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, MediaTypeBoundary.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, MediaTypeBoundary.class, name);
     }
 
     /**

@@ -94,6 +94,11 @@ public final class LinkHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(Link.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<Link>";
     }

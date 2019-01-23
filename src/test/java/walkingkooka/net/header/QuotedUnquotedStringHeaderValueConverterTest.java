@@ -21,6 +21,8 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.predicate.character.CharPredicates;
 
+import java.time.OffsetDateTime;
+
 public final class QuotedUnquotedStringHeaderValueConverterTest extends
         HeaderValueConverterTestCase<QuotedUnquotedStringHeaderValueConverter, String> {
 
@@ -64,6 +66,11 @@ public final class QuotedUnquotedStringHeaderValueConverterTest extends
     @Override
     String value() {
         return "123";
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(String.class);
     }
 
     @Override

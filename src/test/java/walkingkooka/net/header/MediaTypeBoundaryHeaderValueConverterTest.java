@@ -21,6 +21,8 @@ package walkingkooka.net.header;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.time.OffsetDateTime;
+
 public final class MediaTypeBoundaryHeaderValueConverterTest extends
         HeaderValueConverterTestCase<MediaTypeBoundaryHeaderValueConverter, MediaTypeBoundary> {
 
@@ -73,6 +75,11 @@ public final class MediaTypeBoundaryHeaderValueConverterTest extends
     @Override
     MediaTypeBoundary value() {
         return MediaTypeBoundary.with(TEXT);
+    }
+
+    @Override
+    String valueType() {
+        return this.valueType(MediaTypeBoundary.class);
     }
 
     @Override

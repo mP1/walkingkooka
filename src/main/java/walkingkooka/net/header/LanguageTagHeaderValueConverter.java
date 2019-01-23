@@ -43,8 +43,8 @@ final class LanguageTagHeaderValueConverter extends HeaderValueConverter2<Langua
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, LanguageTag.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, LanguageTag.class, name);
     }
 
     @Override

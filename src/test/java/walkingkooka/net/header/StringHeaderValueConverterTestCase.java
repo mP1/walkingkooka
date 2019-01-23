@@ -35,8 +35,13 @@ public abstract class StringHeaderValueConverterTestCase<C extends StringHeaderV
     }
 
     @Override
-    String value() {
+    final String value() {
         return TEXT;
+    }
+
+    @Override
+    final String valueType() {
+        return this.valueType(String.class);
     }
 
     @Override

@@ -74,6 +74,11 @@ public final class CharsetHeaderValueListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(CharsetHeaderValue.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<CharsetHeaderValue>";
     }

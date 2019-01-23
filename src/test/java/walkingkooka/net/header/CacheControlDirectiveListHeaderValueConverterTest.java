@@ -68,6 +68,11 @@ public final class CacheControlDirectiveListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(CacheControlDirective.class);
+    }
+
+    @Override
     protected Class<CacheControlDirectiveListHeaderValueConverter> type() {
         return CacheControlDirectiveListHeaderValueConverter.class;
     }

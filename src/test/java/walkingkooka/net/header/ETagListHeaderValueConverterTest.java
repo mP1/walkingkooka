@@ -78,6 +78,11 @@ public final class ETagListHeaderValueConverterTest extends
     }
 
     @Override
+    String valueType() {
+        return this.listValueType(ETag.class);
+    }
+
+    @Override
     String converterToString() {
         return "List<ETag>";
     }

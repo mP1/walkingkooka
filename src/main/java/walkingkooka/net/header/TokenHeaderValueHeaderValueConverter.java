@@ -43,8 +43,8 @@ final class TokenHeaderValueHeaderValueConverter extends HeaderValueConverter2<T
     }
 
     @Override
-    void check0(final Object value) {
-        this.checkType(value, TokenHeaderValue.class);
+    void check0(final Object value, final Name name) {
+        this.checkType(value, TokenHeaderValue.class, name);
     }
 
     @Override
