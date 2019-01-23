@@ -143,18 +143,23 @@ abstract class JsonParentNode<C extends List<JsonNode>> extends JsonNode {
 
     /**
      * Only returns true if the descendants of this node and the given children are equal ignoring the parents.
+     * A compatibility test between both objects is also done as this is called directly when parents compare their children.
      */
     @Override
     final boolean equalsDescendants(final JsonNode other) {
-        final C children = this.children;
-        final int count = children.size();
-
-        final C otherChildren = Cast.to(other.children());
-        boolean equals = count == other.children().size();
+        boolean equals = this.canBeEqual(other);
 
         if (equals) {
-            for (int i = 0; equals && i < count; i++) {
-                equals = this.equalsDescendants0(children.get(i), otherChildren, i);
+            final C children = this.children;
+            final int count = children.size();
+
+            final C otherChildren = Cast.to(other.children());
+            equals = count == other.children().size();
+
+            if (equals) {
+                for (int i = 0; equals && i < count; i++) {
+                    equals = this.equalsDescendants0(children.get(i), otherChildren, i);
+                }
             }
         }
 

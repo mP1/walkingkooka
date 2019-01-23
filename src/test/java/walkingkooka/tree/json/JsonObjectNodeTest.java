@@ -372,6 +372,22 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 JsonNode.object().set(property(), JsonNode.string("child2")));
     }
 
+    @Test
+    public void testEqualsArray() {
+        this.checkNotEquals(JsonNode.object().set(property(), JsonNode.string("child1")),
+                JsonNode.array().appendChild(JsonNode.string("child2")));
+    }
+
+    @Test
+    public void testEqualsArrayPropertyValue() {
+        final JsonObjectNode object = JsonNode.object();
+        final JsonNodeName property = this.property();
+
+        this.checkNotEquals(
+                object.set(property, JsonNode.object().set(JsonNodeName.with("p"), JsonNode.string("child1"))),
+                object.set(property, JsonNode.array().appendChild(JsonNode.string("child2"))));
+    }
+
     private JsonNodeName property() {
         return JsonNodeName.with("property");
     }
