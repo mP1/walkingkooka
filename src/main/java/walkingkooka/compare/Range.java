@@ -41,7 +41,7 @@ public final class Range<C extends Comparable<C>> implements Predicate<C>, HashC
     /**
      * The ALL singleton instance.
      */
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     private final static Range<?> ALL = new Range(RangeBound.all(), RangeBound.all());
 
     /**
