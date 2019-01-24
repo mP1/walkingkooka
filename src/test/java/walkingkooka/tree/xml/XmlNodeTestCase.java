@@ -159,6 +159,14 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
         assertEquals(node instanceof XmlText, node.isText());
     }
 
+    // toXmlNode ..................................................................................................
+
+    @Test
+    public final void testToXmlNode() {
+        final N node = this.createNode();
+        assertSame(node, node.toXmlNode());
+    }
+
     // toString ..................................................................................................
 
     @Test

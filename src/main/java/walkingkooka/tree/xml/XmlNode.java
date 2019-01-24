@@ -58,6 +58,7 @@ import java.util.Optional;
  */
 public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName, XmlAttributeName, String>,
         HasSearchNode,
+        HasXmlNode,
         HasText,
         UsesToStringBuilder {
 
@@ -461,6 +462,16 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
         final StreamResult result = new StreamResult(writer);
         DOMSource source = new DOMSource(this.node);
         transformer.transform(source, result);
+    }
+
+    // toXmlNode.........................................................................................................
+
+    /**
+     * Already an {@link XmlNode}.
+     */
+    @Override
+    public final XmlNode toXmlNode() {
+        return this;
     }
 
     // Node.name.....................................................................................................
