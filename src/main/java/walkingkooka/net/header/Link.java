@@ -27,7 +27,14 @@ import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.xml.HasXmlNode;
+import walkingkooka.tree.xml.XmlAttributeName;
+import walkingkooka.tree.xml.XmlDocument;
+import walkingkooka.tree.xml.XmlName;
+import walkingkooka.tree.xml.XmlNode;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,7 +46,8 @@ import java.util.Objects;
  */
 final public class Link extends HeaderValueWithParameters2<Link,
         LinkParameterName<?>,
-        Url> implements HasJsonNode {
+        Url>
+        implements HasJsonNode, HasXmlNode {
 
     /**
      * No parameters.
@@ -158,7 +166,7 @@ final public class Link extends HeaderValueWithParameters2<Link,
     @Override
     public JsonNode toJsonNode() {
         JsonObjectNode json = JsonNode.object()
-                .set(HREF, JsonNode.string(this.value.toString()));
+                .set(HREF_JSON_PROPERTY, JsonNode.string(this.value.toString()));
 
         for (Entry<LinkParameterName<?>, Object> parameterNameAndValue : this.parameters.entrySet()) {
             final LinkParameterName<?> name = parameterNameAndValue.getKey();
@@ -174,7 +182,63 @@ final public class Link extends HeaderValueWithParameters2<Link,
     /**
      * The attribute on the json object which will hold the {@link #value}.
      */
-    private final static JsonNodeName HREF = JsonNodeName.with("href");
+    private final static JsonNodeName HREF_JSON_PROPERTY = JsonNodeName.with("href");
+
+    // hasXmlNode..........................................................................................................
+
+    /**
+     * Builds the XML representation of this link, with the value assigned to HREF attribute.
+     */
+    @Override
+    public XmlNode toXmlNode() {
+        final XmlDocument document = XmlNode.createDocument(documentBuilder());
+
+        final Map<XmlAttributeName, String> attributes = Maps.ordered();
+        attributes.put(HREF_XML_ATTRIBUTE, this.value.toString());
+
+        for (Entry<LinkParameterName<?>, Object> parameterNameAndValue : this.parameters.entrySet()) {
+            final LinkParameterName<?> name = parameterNameAndValue.getKey();
+
+            attributes.put(XmlAttributeName.with(name.value(), XmlAttributeName.NO_PREFIX),
+                    name.converter.toText(Cast.to(parameterNameAndValue.getValue()), name));
+        }
+
+        return document.createElement(LINK)
+                .setAttributes(attributes);
+    }
+
+    /**
+     * The attribute on the json object which will hold the {@link #value}.
+     */
+    private final static XmlAttributeName HREF_XML_ATTRIBUTE = XmlAttributeName.with("href", XmlAttributeName.NO_PREFIX);
+
+    /**
+     * The name of the xml element holding the link with its attributes.
+     */
+    private final static XmlName LINK = XmlName.element("link");
+
+    /**
+     * Lazily creates a {@link DocumentBuilder} which can be reused to create additional documents.
+     */
+    private static DocumentBuilder documentBuilder() {
+        if (null == DOCUMENT_BUILDER) {
+            try {
+                final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                factory.setNamespaceAware(false);
+                factory.setValidating(false);
+                factory.setExpandEntityReferences(false);
+                return factory.newDocumentBuilder();
+            } catch (final Exception cause) {
+                throw new Error(cause);
+            }
+        }
+        return DOCUMENT_BUILDER;
+    }
+
+    /**
+     * A document builder which is lazily created and shared by all calls to {@link #toXmlNode()}.
+     */
+    private static DocumentBuilder DOCUMENT_BUILDER = null;
 
     // Object................................................................................................................
 
