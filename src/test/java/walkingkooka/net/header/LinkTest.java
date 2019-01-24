@@ -27,8 +27,12 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.xml.XmlNode;
 import walkingkooka.type.MemberVisibility;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.StringReader;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -146,9 +150,41 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
     }
 
     private void toJsonNodeAndCheck(final String link, final String json) {
-        assertEquals("toJson doesnt match=" + CharSequences.quoteAndEscape(link),
+        assertEquals("toJsonNode doesnt match=" + CharSequences.quoteAndEscape(link),
                 Link.parse(link).get(0).toJsonNode(),
                 JsonNode.parse(json));
+    }
+
+    // toXmlNode .......................................................................................
+
+    @Test
+    public void testToXmlNode() throws Exception {
+        this.toXmlNodeAndCheck("<http://example.com>",
+                "<link href=\"http://example.com\"/>");
+    }
+
+    @Test
+    public void testToXmlNodeRel() throws Exception {
+        this.toXmlNodeAndCheck("<http://example.com>;type=text/plain;rel=previous",
+                "<link href=\"http://example.com\" rel=\"previous\" type=\"text/plain\"/>");
+    }
+
+    private void toXmlNodeAndCheck(final String link, final String xml) throws Exception {
+        assertEquals("toXmlNode doesnt match=" + CharSequences.quoteAndEscape(link),
+                XmlNode.fromXml(documentBuilder(), new StringReader(xml)).element().get(),
+                Link.parse(link).get(0).toXmlNode());
+    }
+
+    private DocumentBuilder documentBuilder() {
+        try {
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(false);
+            factory.setValidating(false);
+            factory.setExpandEntityReferences(false);
+            return factory.newDocumentBuilder();
+        } catch (final Exception cause) {
+            throw new Error(cause);
+        }
     }
 
     // HashCodeEqualsDefined ..................................................................................................
