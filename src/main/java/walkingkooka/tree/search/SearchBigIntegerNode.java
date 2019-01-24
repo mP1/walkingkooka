@@ -30,7 +30,7 @@ public final class SearchBigIntegerNode extends SearchLeafNode<BigInteger>{
     static SearchBigIntegerNode with(final String text, final BigInteger value) {
         check(text, value);
 
-        return new SearchBigIntegerNode(NO_PARENT_INDEX, NAME, text, value);
+        return new SearchBigIntegerNode(NO_INDEX, NAME, text, value);
     }
 
     private SearchBigIntegerNode(final int index, final SearchNodeName name, final String text, final BigInteger value) {

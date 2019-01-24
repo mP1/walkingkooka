@@ -42,7 +42,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         extends HasName<NAME>, Visitable, HashCodeEqualsDefined {
 
     /**
-     * Returns the name of this node, or null if one is not present.
+     * Returns the name of this node.
      */
     NAME name();
 
@@ -53,7 +53,10 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         return false;
     }
 
-    int ROOT_NODE_INDEX = -1;
+    /**
+     * Standard index response to indicate a unsuccessful scan of an item in a list.
+     */
+    int NO_INDEX = -1;
 
     /**
      * If not the root returns the index of this node, or -1 for root.

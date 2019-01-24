@@ -31,7 +31,7 @@ public final class SearchLocalDateTimeNode extends SearchLeafNode<LocalDateTime>
     static SearchLocalDateTimeNode with(final String text, final LocalDateTime value) {
         check(text, value);
 
-        return new SearchLocalDateTimeNode(NO_PARENT_INDEX, NAME, text, value);
+        return new SearchLocalDateTimeNode(NO_INDEX, NAME, text, value);
     }
 
     private SearchLocalDateTimeNode(final int index, final SearchNodeName name, final String text, final LocalDateTime value) {

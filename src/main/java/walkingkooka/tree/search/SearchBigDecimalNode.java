@@ -30,7 +30,7 @@ public final class SearchBigDecimalNode extends SearchLeafNode<BigDecimal>{
     static SearchBigDecimalNode with(final String text, final BigDecimal value) {
         check(text, value);
 
-        return new SearchBigDecimalNode(NO_PARENT_INDEX, NAME, text, value);
+        return new SearchBigDecimalNode(NO_INDEX, NAME, text, value);
     }
 
     private SearchBigDecimalNode(final int index, final SearchNodeName name, final String text, final BigDecimal value) {

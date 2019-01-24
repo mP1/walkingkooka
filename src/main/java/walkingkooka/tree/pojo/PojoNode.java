@@ -60,7 +60,7 @@ public abstract class PojoNode implements Node<PojoNode, PojoName, PojoNodeAttri
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(context, "context");
 
-        return wrap0(name, value, ROOT_NODE_INDEX, context);
+        return wrap0(name, value, NO_INDEX, context);
     }
 
     /**

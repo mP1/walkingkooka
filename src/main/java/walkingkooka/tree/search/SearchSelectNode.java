@@ -41,7 +41,7 @@ public final class SearchSelectNode extends SearchParentNode2 {
         Objects.requireNonNull(child, "child");
         return child.isSelect() ?
                child.cast() :
-               new SearchSelectNode(NO_PARENT_INDEX, NAME, Lists.of(child));
+               new SearchSelectNode(NO_INDEX, NAME, Lists.of(child));
     }
 
     /**
