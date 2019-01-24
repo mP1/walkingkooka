@@ -498,11 +498,6 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
     // Node.children........................................................................................................
 
     /**
-     * Standard index response to indicate a unsuccessful scan of an item in a list.
-     */
-    private final static int NO_INDEX = -1;
-
-    /**
      * Returns the child index when its has a parent or -1.
      */
     @Override

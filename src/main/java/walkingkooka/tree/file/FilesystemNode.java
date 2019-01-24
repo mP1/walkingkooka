@@ -49,9 +49,6 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
         HasText,
         Value<Path> {
 
-    public final static String DIRECTORY_TYPE = "DIRECTORY";
-    public final static String FILE_TYPE = "FILE";
-
     /**
      * Creates a {@link FilesystemNode} for a directory.
      */
@@ -238,6 +235,9 @@ public abstract class FilesystemNode implements Node<FilesystemNode, FilesystemN
     abstract public String text();
 
     abstract String type();
+
+    final static String DIRECTORY_TYPE = "DIRECTORY";
+    final static String FILE_TYPE = "FILE";
 
     private void basicFileAttributes() {
         try {

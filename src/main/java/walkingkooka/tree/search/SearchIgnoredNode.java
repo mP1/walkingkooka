@@ -41,7 +41,7 @@ public final class SearchIgnoredNode extends SearchParentNode2 {
         Objects.requireNonNull(child, "child");
         return child.isIgnored() ?
                 child.cast() :
-                new SearchIgnoredNode(NO_PARENT_INDEX, NAME, Lists.of(child));
+                new SearchIgnoredNode(NO_INDEX, NAME, Lists.of(child));
     }
 
     /**

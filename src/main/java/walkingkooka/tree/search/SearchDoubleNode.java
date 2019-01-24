@@ -28,7 +28,7 @@ public final class SearchDoubleNode extends SearchLeafNode<Double>{
     static SearchDoubleNode with(final String text, final Double value) {
         check(text, value);
 
-        return new SearchDoubleNode(NO_PARENT_INDEX, NAME, text, value);
+        return new SearchDoubleNode(NO_INDEX, NAME, text, value);
     }
 
     private SearchDoubleNode(final int index, final SearchNodeName name, final String text, final Double value) {

@@ -30,7 +30,7 @@ public final class SearchTextNode extends SearchLeafNode<String>{
     static SearchTextNode with(final String text, final String value) {
         check(text, value);
 
-        return new SearchTextNode(NO_PARENT_INDEX, NAME, text, value);
+        return new SearchTextNode(NO_INDEX, NAME, text, value);
     }
 
     private SearchTextNode(final int index, final SearchNodeName name, final String text, final String value) {

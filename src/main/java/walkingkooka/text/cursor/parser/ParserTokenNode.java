@@ -83,6 +83,9 @@ public abstract class ParserTokenNode implements Node<ParserTokenNode, ParserTok
 
     // index ...........................................................................................................
 
+    /**
+     * A magic value that indicates the index has not be discovered.
+     */
     final static int UNKNOWN_INDEX = Integer.MIN_VALUE;
 
     @Override

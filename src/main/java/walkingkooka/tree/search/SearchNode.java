@@ -51,9 +51,6 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
      * An empty list with no children.
      */
     public final static List<SearchNode> NO_CHILDREN = Lists.empty();
-
-    final static Optional<SearchNode> NO_PARENT = Optional.empty();
-    final static int NO_PARENT_INDEX = -1;
     
     /**
      * {@see SearchBigDecimalNode}
@@ -159,6 +156,8 @@ public abstract class SearchNode implements Node<SearchNode, SearchNodeName, Sea
         this.index = index;
         this.name = name;
     }
+
+    private final static Optional<SearchNode> NO_PARENT = Optional.empty();
 
     // parent ..................................................................................................
 

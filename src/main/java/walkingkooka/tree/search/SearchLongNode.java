@@ -28,7 +28,7 @@ public final class SearchLongNode extends SearchLeafNode<Long>{
     static SearchLongNode with(final String text, final Long value) {
         check(text, value);
 
-        return new SearchLongNode(NO_PARENT_INDEX, NAME, text, value);
+        return new SearchLongNode(NO_INDEX, NAME, text, value);
     }
 
     private SearchLongNode(final int index, final SearchNodeName name, final String text, final Long value) {
