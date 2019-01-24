@@ -502,14 +502,19 @@ public abstract class XmlNode implements walkingkooka.tree.Node<XmlNode, XmlName
      */
     @Override
     public final int index() {
-        if (NO_INDEX == this.index) {
+        if (INDEX_UNKNOWN == this.index) {
             this.index = index0(this.node);
         }
         return this.index;
     }
 
     // @VisibleForTesting
-    int index = NO_INDEX;
+    int index = INDEX_UNKNOWN;
+
+    /**
+     * Magic index value that indicates the index has not been determined and cached.
+     */
+    private final static int INDEX_UNKNOWN = Integer.MIN_VALUE;
 
     /**
      * Accepts any node and counts the previous siblings to compute its child index.
