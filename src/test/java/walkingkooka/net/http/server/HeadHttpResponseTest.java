@@ -80,7 +80,7 @@ public final class HeadHttpResponseTest extends WrapperHttpRequestHttpResponseTe
         final HttpStatus status = HttpStatusCode.OK.status();
         final Map<HttpHeaderName<?>, Object> headers = this.headers();
 
-        final TestHttpResponse wrapped = new TestHttpResponse();
+        final TestRecordingHttpResponse wrapped = TestRecordingHttpResponse.with();
         final HttpRequest request = this.createRequest(HttpMethod.HEAD);
         final HttpResponse response = HeadHttpResponse.with(request, wrapped);
 

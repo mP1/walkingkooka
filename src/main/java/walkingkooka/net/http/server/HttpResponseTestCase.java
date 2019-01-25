@@ -37,7 +37,7 @@ public abstract class HttpResponseTestCase<R extends HttpResponse> extends Class
     protected abstract R createResponse();
 
     @Override
-    protected final MemberVisibility typeVisibility() {
+    protected MemberVisibility typeVisibility() {
         return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -30,16 +30,26 @@ import java.util.Objects;
 import static org.junit.Assert.assertEquals;
 
 /**
- * A response that records all parameters set up on it for later verification.
+ * A response that records all parameters set up on it for later verification by calling {@link #check(HttpRequest, HttpStatus, HttpEntity...)}.
  */
-final class TestHttpResponse implements HttpResponse {
+public final class TestRecordingHttpResponse implements HttpResponse {
 
-    TestHttpResponse() {
+    /**
+     * Creates an empty recording http response.
+     */
+    static TestRecordingHttpResponse with() {
+        return new TestRecordingHttpResponse();
+    }
+
+    /**
+     * Private ctor use factory.
+     */
+    private TestRecordingHttpResponse() {
         super();
     }
 
-    TestHttpResponse(final HttpStatus status,
-                     final List<HttpEntity> entities) {
+    TestRecordingHttpResponse(final HttpStatus status,
+                              final List<HttpEntity> entities) {
         super();
         this.status = status;
         this.entities.addAll(entities);
@@ -47,6 +57,7 @@ final class TestHttpResponse implements HttpResponse {
 
     @Override
     public void setStatus(final HttpStatus status) {
+        Objects.requireNonNull(status, "status");
         this.status = status;
     }
 
@@ -62,11 +73,14 @@ final class TestHttpResponse implements HttpResponse {
 
     String bodyText;
 
-    void check(final HttpRequest request,
+    /**
+     * Verifies that the set status and added entities match the expected.
+     */
+    public void check(final HttpRequest request,
                final HttpStatus status,
                final HttpEntity...entities) {
         assertEquals(request.toString(),
-                new TestHttpResponse(status, Lists.of(entities)),
+                new TestRecordingHttpResponse(status, Lists.of(entities)),
                 this);
     }
 
@@ -76,10 +90,10 @@ final class TestHttpResponse implements HttpResponse {
     }
 
     public boolean equals(final Object other) {
-        return this == other || other instanceof TestHttpResponse && this.equals0(Cast.to(other));
+        return this == other || other instanceof TestRecordingHttpResponse && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final TestHttpResponse other) {
+    private boolean equals0(final TestRecordingHttpResponse other) {
         return Objects.equals(this.status, other.status) &&
                 Objects.equals(this.entities, other.entities);
     }
