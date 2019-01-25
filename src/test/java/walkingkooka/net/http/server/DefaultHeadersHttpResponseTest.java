@@ -58,7 +58,7 @@ public final class DefaultHeadersHttpResponseTest extends WrapperHttpResponseTes
 
         final byte[] body = new byte[contentLength];
 
-        final TestHttpResponse wrapped = new TestHttpResponse();
+        final TestRecordingHttpResponse wrapped = TestRecordingHttpResponse.with();
         final HttpRequest request = HttpRequests.fake();
         DefaultHeadersHttpResponse response = this.createResponse(request, wrapped);
         response.setStatus(status);

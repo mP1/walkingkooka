@@ -101,6 +101,13 @@ public final class HttpResponses implements PublicStaticHelper {
     }
 
     /**
+     * {@see TestRecordingHttpResponse}
+     */
+    public static TestRecordingHttpResponse testRecording() {
+        return TestRecordingHttpResponse.with();
+    }
+
+    /**
      * Stop creation
      */
     private HttpResponses() {
