@@ -31,6 +31,7 @@ import walkingkooka.net.http.HttpTransport;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
@@ -44,6 +45,7 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HEADER, HEADER_VALUE);
+    private final static byte[] BYTES = new byte[]{ 1, 2, 3};
     private final static Map<HttpRequestParameterName, List<String>> PARAMETERS = Maps.fake();
     private final static String TOSTRING = HeaderScopeHttpRequestTest.class.getSimpleName() + ".toString";
 
@@ -127,6 +129,11 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
     }
 
     @Test
+    public void testBody() {
+        assertArrayEquals(BYTES, this.createRequest().body());
+    }
+
+    @Test
     public void testParameters() {
         assertSame(PARAMETERS, this.createRequest().parameters());
     }
@@ -138,7 +145,7 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
 
     @Override
     protected HeaderScopeHttpRequest createRequest() {
-        return HeaderScopeHttpRequest.with(new HttpRequest() {
+        return HeaderScopeHttpRequest.with(new FakeHttpRequest() {
             @Override
             public HttpTransport transport() {
                 return TRANSPORT;
@@ -162,6 +169,11 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
             @Override
             public Map<HttpHeaderName<?>, Object> headers() {
                 return HEADERS;
+            }
+
+            @Override
+            public byte[] body() {
+                return BYTES;
             }
 
             @Override

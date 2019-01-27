@@ -73,6 +73,11 @@ final class HeaderScopeHttpRequest implements HttpRequest {
     private final HeaderScopeHttpRequestHeadersMap headers;
 
     @Override
+    public byte[] body() {
+        return this.request.body();
+    }
+
+    @Override
     public Map<HttpRequestParameterName, List<String>> parameters() {
         return this.request.parameters();
     }

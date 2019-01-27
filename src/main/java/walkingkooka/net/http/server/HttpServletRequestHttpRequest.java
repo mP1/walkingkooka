@@ -26,7 +26,10 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -93,6 +96,33 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
     }
 
     private HttpServletRequestHttpRequestHeadersMap headers;
+
+    @Override
+    public byte[] body() {
+        if (null == this.body) {
+            try {
+                try (final ServletInputStream inputStream = this.request.getInputStream();
+                     final ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+                    final byte[] buffer = new byte[4096];
+
+                    for (; ; ) {
+                        final int count = inputStream.read(buffer);
+                        if (-1 == count) {
+                            break;
+                        }
+                        bytes.write(buffer, 0, count);
+                    }
+
+                    this.body = bytes.toByteArray();
+                }
+            } catch (final IOException cause) {
+                throw new HttpServerException(cause.getMessage(), cause);
+            }
+        }
+        return this.body.clone();
+    }
+
+    private byte[] body;
 
     @Override
     public Map<HttpRequestParameterName, List<String>> parameters() {

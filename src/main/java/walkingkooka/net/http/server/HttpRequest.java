@@ -65,6 +65,11 @@ public interface HttpRequest extends HasHeaders {
     HttpMethod method();
 
     /**
+     * Returns the body accompanying the request.
+     */
+    byte[] body();
+
+    /**
      * Returns a {@link Map} of parameters which may be taken from the query string or post data etc, depending on the method.
      */
     Map<HttpRequestParameterName, List<String>> parameters();
