@@ -48,8 +48,18 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
     private final static HttpMethod METHOD = HttpMethod.with("CUSTOMHTTPMETHOD");
     private final static HttpProtocolVersion PROTOCOL = HttpProtocolVersion.VERSION_1_1;
     private final static RelativeUrl URL = Url.parseRelative("/path1/file2.html?parameter1=parameter-value-1&parameter-2=parameter-value-2");
-    private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HttpHeaderName.CONTENT_LENGTH, "1");
     private final static List<ClientCookie> COOKIES = Cookie.parseClientHeader("cookie1=cookievalue1;cookie2=cookievalue2");
+
+    private final static Map<HttpHeaderName<?>, Object> headers(){
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+
+        headers.put(HttpHeaderName.CONTENT_LENGTH, "1");
+        headers.put(HttpHeaderName.COOKIE, COOKIES);
+
+        return headers;
+    }
+
+    private final static Map<HttpHeaderName<?>, Object> HEADERS = headers();
 
     // tests................................................................................................
 
@@ -60,50 +70,47 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
 
     @Test
     public void testIteratorWithParametersHeadersAndCookies() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS, COOKIES);
+        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS);
     }
 
     @Test
     public void testIteratorHeadersAndCookies() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "/path1/file2.html", HEADERS, COOKIES);
+        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "/path1/file2.html", HEADERS);
     }
 
     @Test
     public void testIteratorNoPath() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "/", HEADERS, COOKIES);
+        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "/", HEADERS);
     }
 
     @Test
     public void testIteratorNoPath2() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "", HEADERS, COOKIES);
+        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, "", HEADERS);
     }
 
     @Test
     public void testIteratorNoHeaders() {
-        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, URL, HttpRequest.NO_HEADERS, COOKIES);
+        this.iteratorAndCheck(TRANSPORT, METHOD, PROTOCOL, URL, HttpRequest.NO_HEADERS);
     }
 
     private void iteratorAndCheck(final HttpTransport transport,
                                   final HttpMethod method,
                                   final HttpProtocolVersion version,
                                   final String url,
-                                  final Map<HttpHeaderName<?>, Object> headers,
-                                  final List<ClientCookie> cookies) {
-        this.iteratorAndCheck(transport, method, version, Url.parseRelative(url), headers, cookies);
+                                  final Map<HttpHeaderName<?>, Object> headers) {
+        this.iteratorAndCheck(transport, method, version, Url.parseRelative(url), headers);
     }
 
     private void iteratorAndCheck(final HttpTransport transport,
                                   final HttpMethod method,
                                   final HttpProtocolVersion version,
                                   final RelativeUrl url,
-                                  final Map<HttpHeaderName<?>, Object> headers,
-                                  final List<ClientCookie> cookies) {
+                                  final Map<HttpHeaderName<?>, Object> headers) {
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> iterator = this.createSet(transport,
                 method,
                 version,
                 url,
-                headers,
-                cookies).iterator();
+                headers).iterator();
         this.checkEntry(iterator, HttpRequestAttributes.TRANSPORT, transport);
         this.checkEntry(iterator, HttpRequestAttributes.METHOD, method);
         this.checkEntry(iterator, HttpRequestAttributes.HTTP_PROTOCOL_VERSION, version);
@@ -124,7 +131,7 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
         }
 
         // cookies
-        for (ClientCookie cookie : cookies) {
+        for (ClientCookie cookie : HttpHeaderName.COOKIE.headerValue(headers).orElse(ClientCookie.NO_COOKIES)) {
             this.checkEntry(iterator,
                     cookie.name(),
                     cookie);
@@ -156,29 +163,26 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
 
     @Override
     protected RouterHttpRequestParametersMapEntrySet createSet() {
-        return this.createSet(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS, COOKIES);
+        return this.createSet(TRANSPORT, METHOD, PROTOCOL, URL, HEADERS);
     }
 
     private RouterHttpRequestParametersMapEntrySet createSet(final HttpTransport transport,
                                                              final HttpMethod method,
                                                              final HttpProtocolVersion version,
                                                              final RelativeUrl url,
-                                                             final Map<HttpHeaderName<?>, Object> headers,
-                                                             final List<ClientCookie> cookies) {
+                                                             final Map<HttpHeaderName<?>, Object> headers) {
         return RouterHttpRequestParametersMapEntrySet.with(RouterHttpRequestParametersMap.with(this.request(transport,
                 method,
                 version,
                 url,
-                headers,
-                cookies)));
+                headers)));
     }
 
     private HttpRequest request(final HttpTransport transport,
                                 final HttpMethod method,
                                 final HttpProtocolVersion version,
                                 final RelativeUrl url,
-                                final Map<HttpHeaderName<?>, Object> headers,
-                                final List<ClientCookie> cookies) {
+                                final Map<HttpHeaderName<?>, Object> headers) {
         return new FakeHttpRequest() {
 
             @Override
@@ -206,11 +210,6 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
                 return headers;
             }
 
-            @Override
-            public List<ClientCookie> cookies() {
-                return cookies;
-            }
-
             public Map<HttpRequestParameterName, List<String>> parameters() {
                 final Map<HttpRequestParameterName, List<String>> parameters = Maps.ordered();
 
@@ -223,7 +222,7 @@ public class RouterHttpRequestParametersMapEntrySetTest extends
 
             @Override
             public String toString() {
-                return transport + " " + version + " " + url + " " + method + " " + headers + " " + cookies;
+                return transport + " " + version + " " + url + " " + method + " " + headers;
             }
         };
     }

@@ -18,10 +18,8 @@
 
 package walkingkooka.net.http.server;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HasHeaders;
 import walkingkooka.net.http.HttpMethod;
@@ -40,11 +38,6 @@ public interface HttpRequest extends HasHeaders {
      * An empty {@link Map} with no headers.
      */
     Map<HttpHeaderName<?>, Object> NO_HEADERS = Maps.empty();
-
-    /**
-     * An empty {@link List} with no cookies.
-     */
-    List<ClientCookie> NO_COOKIES = Lists.empty();
 
     /**
      * An empty {@link Map} with no parameters.
@@ -70,11 +63,6 @@ public interface HttpRequest extends HasHeaders {
      * Returns the {@link HttpMethod method} used to make the request.
      */
     HttpMethod method();
-
-    /**
-     * Returns all cookies that appear in the request.
-     */
-    List<ClientCookie> cookies();
 
     /**
      * Returns a {@link Map} of parameters which may be taken from the query string or post data etc, depending on the method.
