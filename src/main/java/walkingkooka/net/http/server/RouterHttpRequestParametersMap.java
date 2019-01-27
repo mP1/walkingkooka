@@ -107,15 +107,23 @@ final class RouterHttpRequestParametersMap extends AbstractMap<HttpRequestAttrib
 
     @Override
     public int size() {
-        return HttpRequestAttributes.size() +
-                this.cookies().size() +
-                this.headers().size() +
-                this.pathNames().length +
-                this.parameters().size();
+        if(-1 == this.size) {
+            this.size = HttpRequestAttributes.size() +
+                    this.cookieCount() +
+                    this.headers().size() +
+                    this.pathNames().length +
+                    this.parameters().size();
+        }
+        return this.size;
     }
 
-    private List<ClientCookie> cookies() {
-        return this.request.cookies();
+    /**
+     * Caches the number of parameter values.
+     */
+    private int size = -1;
+
+    private int cookieCount() {
+        return HttpHeaderName.COOKIE.headerValue(this.headers()).orElse(ClientCookie.NO_COOKIES).size();
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {

@@ -21,19 +21,15 @@ package walkingkooka.net.http.server;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.header.ClientCookie;
-import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * An adapter that presents a {@link HttpRequest} from a {@link HttpServletRequest}.
@@ -97,21 +93,6 @@ final class HttpServletRequestHttpRequest implements HttpRequest {
     }
 
     private HttpServletRequestHttpRequestHeadersMap headers;
-
-    /**
-     * Lazily creates the list of {@link ClientCookie}.
-     */
-    @Override
-    public List<ClientCookie> cookies() {
-        if (null == this.cookies) {
-            this.cookies = Arrays.stream(this.request.getCookies())
-                    .map(Cookie::clientFrom)
-                    .collect(Collectors.toList());
-        }
-        return this.cookies;
-    }
-
-    private List<ClientCookie> cookies;
 
     @Override
     public Map<HttpRequestParameterName, List<String>> parameters() {

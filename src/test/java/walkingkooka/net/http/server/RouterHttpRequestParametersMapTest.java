@@ -122,7 +122,6 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
                 this.url(),
                 this.protocolVersion(),
                 this.headers(),
-                this.cookies(),
                 this.parameters());
     }
 
@@ -143,7 +142,10 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
     }
 
     private Map<HttpHeaderName<?>, Object> headers() {
-        return Maps.one(HttpHeaderName.CONNECTION, "Close");
+        final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
+        headers.put(HttpHeaderName.CONNECTION, "Close");
+        headers.put(HttpHeaderName.COOKIE, this.cookies());
+        return headers;
     }
 
     private List<ClientCookie> cookies() {
@@ -159,7 +161,6 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
                                                      final RelativeUrl url,
                                                      final HttpProtocolVersion protocolVersion,
                                                      final Map<HttpHeaderName<?>, Object> headers,
-                                                     final List<ClientCookie> cookies,
                                                      final Map<HttpRequestParameterName, List<String>> parameters) {
         return RouterHttpRequestParametersMap.with(new FakeHttpRequest() {
 
@@ -189,18 +190,13 @@ public final class RouterHttpRequestParametersMapTest extends MapTestCase<Router
             }
 
             @Override
-            public List<ClientCookie> cookies() {
-                return cookies;
-            }
-
-            @Override
             public Map<HttpRequestParameterName, List<String>> parameters() {
                 return parameters;
             }
 
             @Override
             public String toString() {
-                return transport + " " + method + " " + url + " " + protocolVersion + " " + headers + " " + cookies + " " + parameters;
+                return transport + " " + method + " " + url + " " + protocolVersion + " " + headers + " " + parameters;
             }
         });
     }

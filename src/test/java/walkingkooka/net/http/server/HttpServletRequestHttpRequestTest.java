@@ -23,7 +23,6 @@ import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
-import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -96,12 +95,6 @@ public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase
 
         assertEquals(headers,
                 this.createRequest().headers());
-    }
-
-    @Test
-    public void testCookies() {
-        assertEquals(ClientCookie.parseHeader("cookie123=cookievalue456"),
-                this.createRequest().cookies());
     }
 
     @Test

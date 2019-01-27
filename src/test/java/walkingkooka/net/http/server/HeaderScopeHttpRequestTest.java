@@ -22,8 +22,6 @@ import org.junit.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
-import walkingkooka.net.header.ClientCookie;
-import walkingkooka.net.header.Cookie;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.NotAcceptableHeaderException;
 import walkingkooka.net.http.HttpMethod;
@@ -46,7 +44,6 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
     private final static HttpHeaderName<Long> HEADER = HttpHeaderName.CONTENT_LENGTH;
     private final static Long HEADER_VALUE = 123L;
     private final static Map<HttpHeaderName<?>, Object> HEADERS = Maps.one(HEADER, HEADER_VALUE);
-    private final static List<ClientCookie> COOKIES = Cookie.parseClientHeader("cookie123=value456");
     private final static Map<HttpRequestParameterName, List<String>> PARAMETERS = Maps.fake();
     private final static String TOSTRING = HeaderScopeHttpRequestTest.class.getSimpleName() + ".toString";
 
@@ -130,11 +127,6 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
     }
 
     @Test
-    public void testCookies() {
-        assertSame(COOKIES, this.createRequest().cookies());
-    }
-
-    @Test
     public void testParameters() {
         assertSame(PARAMETERS, this.createRequest().parameters());
     }
@@ -170,11 +162,6 @@ public final class HeaderScopeHttpRequestTest extends HttpRequestTestCase<Header
             @Override
             public Map<HttpHeaderName<?>, Object> headers() {
                 return HEADERS;
-            }
-
-            @Override
-            public List<ClientCookie> cookies() {
-                return COOKIES;
             }
 
             @Override

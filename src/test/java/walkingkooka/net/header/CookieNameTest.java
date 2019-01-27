@@ -20,11 +20,12 @@ package walkingkooka.net.header;
 
 
 import org.junit.Test;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTestCase;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.text.CaseSensitivity;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -142,9 +143,10 @@ final public class CookieNameTest extends NameTestCase<CookieName, CookieName> {
         final CookieName name = CookieName.with("cookie123");
         assertEquals(Optional.of(Cookie.client(name, "value123")),
                 name.parameterValue(new FakeHttpRequest() {
+
                     @Override
-                    public List<ClientCookie> cookies() {
-                        return Cookie.parseClientHeader("a=b;cookie123=value123;x=y");
+                    public Map<HttpHeaderName<?>, Object> headers() {
+                        return Maps.one(HttpHeaderName.COOKIE, Cookie.parseClientHeader("a=b;cookie123=value123;x=y"));
                     }
                 }));
     }

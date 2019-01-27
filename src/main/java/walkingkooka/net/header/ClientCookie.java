@@ -31,6 +31,11 @@ import java.util.Objects;
 final public class ClientCookie extends Cookie {
 
     /**
+     * A constant list of no cookies.
+     */
+    public final static List<ClientCookie> NO_COOKIES = Lists.empty();
+
+    /**
      * Converts a {@link javax.servlet.http.Cookie} into a {@link Cookie}.
      */
     public static ClientCookie from(final javax.servlet.http.Cookie cookie) {

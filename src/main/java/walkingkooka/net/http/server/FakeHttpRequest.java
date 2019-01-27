@@ -19,7 +19,6 @@
 package walkingkooka.net.http.server;
 
 import walkingkooka.net.RelativeUrl;
-import walkingkooka.net.header.ClientCookie;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -53,11 +52,6 @@ public class FakeHttpRequest implements HttpRequest, Fake {
 
     @Override
     public Map<HttpHeaderName<?>, Object> headers() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<ClientCookie> cookies() {
         throw new UnsupportedOperationException();
     }
 

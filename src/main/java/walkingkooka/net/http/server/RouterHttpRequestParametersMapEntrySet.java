@@ -20,6 +20,8 @@ package walkingkooka.net.http.server;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.Iterators;
+import walkingkooka.net.header.ClientCookie;
+import walkingkooka.net.header.HttpHeaderName;
 
 import java.util.AbstractSet;
 import java.util.Iterator;
@@ -57,7 +59,7 @@ final class RouterHttpRequestParametersMapEntrySet extends AbstractSet<Entry<Htt
         // url query string parameters are ignored...
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> pathNames = RouterHttpRequestParametersMapPathComponentEntryIterator.with(map.pathNames());
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> headers = RouterHttpRequestParametersMapHttpHeaderEntryIterator.with(request.headers().entrySet().iterator());
-        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = RouterHttpRequestParametersMapCookiesEntryIterator.with(request.cookies());
+        final Iterator<Entry<HttpRequestAttribute<?>, Object>> cookies = RouterHttpRequestParametersMapCookiesEntryIterator.with(HttpHeaderName.COOKIE.headerValue(request.headers()).orElse(ClientCookie.NO_COOKIES));
         final Iterator<Entry<HttpRequestAttribute<?>, Object>> parameters = Cast.to(request.parameters().entrySet().iterator());
 
         return Iterators.chain(attributes, Iterators.chain(pathNames, Iterators.chain(headers, Iterators.chain(cookies, parameters))));
