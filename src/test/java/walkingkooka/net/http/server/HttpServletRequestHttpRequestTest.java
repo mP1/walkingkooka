@@ -28,11 +28,16 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpTransport;
 
+import javax.servlet.ReadListener;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
@@ -57,6 +62,8 @@ public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase
 
     private final static String COOKIENAME = "cookie123";
     private final static String COOKIEVALUE = "cookievalue456";
+
+    private final static byte[] BYTES = new byte[]{ 1, 2, 3};
 
     @Test(expected = NullPointerException.class)
     public void testWithNullHttpServletRequestFails() {
@@ -95,6 +102,12 @@ public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase
 
         assertEquals(headers,
                 this.createRequest().headers());
+    }
+
+    @Test
+    public void testBody() {
+        assertArrayEquals(BYTES, this.createRequest().body());
+        assertArrayEquals(BYTES, this.createRequest().body());
     }
 
     @Test
@@ -164,6 +177,33 @@ public final class HttpServletRequestHttpRequestTest extends HttpRequestTestCase
             @Override
             public Cookie[] getCookies() {
                 return new Cookie[]{new Cookie(COOKIENAME, COOKIEVALUE)};
+            }
+
+            @Override
+            public ServletInputStream getInputStream() {
+                final ByteArrayInputStream bytes = new ByteArrayInputStream(BYTES);
+
+                return new ServletInputStream() {
+                    @Override
+                    public boolean isFinished() {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public boolean isReady() {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public void setReadListener(final ReadListener readListener) {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public int read() throws IOException {
+                        return bytes.read();
+                    }
+                };
             }
 
             @Override
