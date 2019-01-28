@@ -33,16 +33,16 @@ import java.util.List;
  * Accept-Charset: utf-8, iso-8859-1;q=0.5
  * </pre>
  */
-final class CharsetHeaderValueListHeaderParser extends HeaderParserWithParameters<CharsetHeaderValue, CharsetHeaderValueParameterName<?>> {
+final class AcceptCharsetHeaderParser extends HeaderParserWithParameters<CharsetHeaderValue, CharsetHeaderValueParameterName<?>> {
 
-    static List<CharsetHeaderValue> parseCharsetHeaderValueList(final String text) {
-        final CharsetHeaderValueListHeaderParser parser = new CharsetHeaderValueListHeaderParser(text);
+    static AcceptCharset parseAcceptCharset(final String text) {
+        final AcceptCharsetHeaderParser parser = new AcceptCharsetHeaderParser(text);
         parser.parse();
         parser.charsets.sort(HasQFactorWeight.qFactorDescendingComparator());
-        return Lists.readOnly(parser.charsets);
+        return new AcceptCharset(Lists.readOnly(parser.charsets));
     }
 
-    private CharsetHeaderValueListHeaderParser(final String text) {
+    private AcceptCharsetHeaderParser(final String text) {
         super(text);
     }
 

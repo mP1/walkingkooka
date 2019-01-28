@@ -46,17 +46,17 @@ abstract class HeaderValueConverter<T> {
     }
 
     /**
+     * {@see AcceptCharsetHeaderValueConverter}
+     */
+    static HeaderValueConverter<AcceptCharset> acceptCharset() {
+        return AcceptCharsetHeaderValueConverter.INSTANCE;
+    }
+
+    /**
      * {@see CacheControlDirectiveListHeaderValueConverter}
      */
     static HeaderValueConverter<List<CacheControlDirective<?>>> cacheControlDirectiveList() {
         return CacheControlDirectiveListHeaderValueConverter.INSTANCE;
-    }
-
-    /**
-     * {@see CharsetHeaderValueListHeaderValueConverter}
-     */
-    static HeaderValueConverter<List<CharsetHeaderValue>> charsetHeaderValueList() {
-        return CharsetHeaderValueListHeaderValueConverter.INSTANCE;
     }
 
     /**

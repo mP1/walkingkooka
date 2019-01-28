@@ -63,6 +63,15 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         return registerConstant(header, scope, HeaderValueConverter.absoluteUrl());
     }
 
+    /**
+     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link List<CharsetHeaderValue>} header values.
+     */
+    private static HttpHeaderName<AcceptCharset> registerAcceptCharsetConstant(final String header,
+                                                                               final HttpHeaderNameScope scope) {
+        return registerConstant(header,
+                scope,
+                HeaderValueConverter.acceptCharset());
+    }
 
     /**
      * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link List<CharsetHeaderValue>} header values.
@@ -72,14 +81,6 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
         return registerConstant(header,
                 scope,
                 HeaderValueConverter.cacheControlDirectiveList());
-    }
-
-    /**
-     * Creates and adds a new {@link HttpHeaderName} to the cache being built that handles {@link List<CharsetHeaderValue>} header values.
-     */
-    private static HttpHeaderName<List<CharsetHeaderValue>> registerCharsetHeaderValueListConstant(final String header,
-                                                                                                   final HttpHeaderNameScope scope) {
-        return registerConstant(header, scope, HeaderValueConverter.charsetHeaderValueList());
     }
 
     /**
@@ -310,7 +311,7 @@ final public class HttpHeaderName<T> extends HeaderName2<T>
      * Accept-Charset: utf-8, iso-8859-1;q=0.5
      * </pre>
      */
-    public final static HttpHeaderName<List<CharsetHeaderValue>> ACCEPT_CHARSET = registerCharsetHeaderValueListConstant("Accept-Charset",
+    public final static HttpHeaderName<AcceptCharset> ACCEPT_CHARSET = registerAcceptCharsetConstant("Accept-Charset",
             HttpHeaderNameScope.REQUEST);
 
     /**

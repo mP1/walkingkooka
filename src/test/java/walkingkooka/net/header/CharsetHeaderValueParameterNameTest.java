@@ -21,6 +21,7 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.map.Maps;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -78,7 +79,8 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
     }
 
     private CharsetHeaderValue charsetHeaderValue() {
-        return CharsetHeaderValue.parse("utf-8; q=0.5").get(0);
+        return CharsetHeaderValue.with(CharsetName.UTF_8)
+                .setParameters(Maps.one(CharsetHeaderValueParameterName.Q_FACTOR, 0.5f));
     }
 
     // toValue...........................................................................................

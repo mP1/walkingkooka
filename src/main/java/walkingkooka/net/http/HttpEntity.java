@@ -24,9 +24,7 @@ import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
 import walkingkooka.compare.RangeBound;
-import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HeaderValue;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeParameterName;
@@ -35,11 +33,12 @@ import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.LineEnding;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -62,22 +61,17 @@ public final class HttpEntity implements HasHeaders, HashCodeEqualsDefined {
      * The returned entity will only have 2 headers set: content-type and content-length set.
      */
     static HttpEntity text(final MediaType contentType,
-                           final List<CharsetHeaderValue> acceptCharset,
                            final String text) {
         Objects.requireNonNull(contentType, "contentType");
-        Objects.requireNonNull(acceptCharset, "acceptCharset");
         Objects.requireNonNull(text, "text");
 
         final CharsetName contentTypeCharset = MediaTypeParameterName.CHARSET.parameterValueOrFail(contentType);
-        if (!acceptCharset
-                .stream()
-                .anyMatch(v -> v.value().matches(contentTypeCharset))) {
-            throw new NotAcceptableHeaderException("Content type " + contentTypeCharset +
-                    " not in accept-charset=" +
-                    HeaderValue.toHeaderTextList(acceptCharset, HeaderValue.SEPARATOR.string() + " "));
+        final Optional<Charset> possibleCharset = contentTypeCharset.charset();
+        if (!possibleCharset.isPresent()) {
+            throw new NotAcceptableHeaderException("Content type " + contentType + " contains unsupported charset.");
         }
 
-        final byte[] body = text.getBytes(contentTypeCharset.charset().get());
+        final byte[] body = text.getBytes(possibleCharset.get());
 
         // content type, content-length
         final Map<HttpHeaderName<?>, Object> headers = Maps.ordered();
