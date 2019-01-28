@@ -18,6 +18,7 @@
 
 package walkingkooka.net.header;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.net.AbsoluteUrl;
@@ -28,7 +29,14 @@ import static org.junit.Assert.assertEquals;
 public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Object>, Object> {
 
     private final static String TEXT = "abc123";
-    private final static String URL = "http://example.com";
+    private final static String URL_TEXT = "http://example.com";
+
+    @Test
+    @Ignore
+    @Override
+    public void testWith2() {
+
+    }
 
     @Test
     public void testWithText() {
@@ -38,8 +46,8 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
 
     @Test
     public void testWithUrl() {
-        final LinkRelation<?> linkRelation = LinkRelation.with(URL);
-        assertEquals("value", AbsoluteUrl.parse(URL), linkRelation.value());
+        final LinkRelation<?> linkRelation = LinkRelation.with(URL_TEXT);
+        assertEquals("value", AbsoluteUrl.parse(URL_TEXT), linkRelation.value());
     }
 
     @Test
@@ -49,17 +57,27 @@ public final class LinkRelationTest extends LinkRelationTestCase<LinkRelation<Ob
 
     @Test
     public void testHeaderTextUrl() {
-        this.toHeaderTextAndCheck(LinkRelation.with(URL), URL);
+        this.toHeaderTextAndCheck(LinkRelation.with(URL_TEXT), URL_TEXT);
     }
 
     @Override
     boolean url() {
-        return true;
+        return false; // TEXT is not a URL_TEXT
     }
 
     @Override
-    LinkRelation<Object> createLinkRelation() {
-        return Cast.to(LinkRelation.with(URL));
+    LinkRelation<Object> createLinkRelation(final Object value) {
+        return Cast.to(LinkRelation.with((String)value));
+    }
+
+    @Override
+    Object value() {
+        return TEXT;
+    }
+
+    @Override
+    Object differentValue() {
+        return URL_TEXT;
     }
 
     @Override

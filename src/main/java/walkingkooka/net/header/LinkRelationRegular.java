@@ -81,7 +81,7 @@ final class LinkRelationRegular extends LinkRelation<String> {
         return this.value();
     }
 
-    // Object ............................................................................................................
+    // HeaderValue2 ............................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

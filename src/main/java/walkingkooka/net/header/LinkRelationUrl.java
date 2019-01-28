@@ -51,7 +51,7 @@ final class LinkRelationUrl extends LinkRelation<AbsoluteUrl> {
         return this.value().toString();
     }
 
-    // Object ............................................................................................................
+    // HeaderValue2 ............................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {

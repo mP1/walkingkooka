@@ -28,11 +28,6 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
     private final static String TEXT = "abc123";
 
     @Test
-    public void testWith() {
-        this.createAndCheck(TEXT);
-    }
-
-    @Test
     public void testWithUpperCase() {
         this.createAndCheck("AB");
     }
@@ -58,11 +53,6 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
     }
 
     @Test
-    public void testEqualsDifferentText() {
-        this.checkNotEquals(LinkRelation.with("different"));
-    }
-
-    @Test
     public void testEqualsUpperCaseText() {
         this.checkNotEquals(LinkRelation.with("ABC123"));
     }
@@ -78,8 +68,18 @@ public final class LinkRelationRegularTest extends LinkRelationTestCase<LinkRela
     }
 
     @Override
-    LinkRelationRegular createLinkRelation() {
-        return LinkRelationRegular.regular(TEXT);
+    LinkRelationRegular createLinkRelation(final String value) {
+        return LinkRelationRegular.regular(value);
+    }
+
+    @Override
+    String value() {
+        return TEXT;
+    }
+
+    @Override
+    String differentValue() {
+        return "different";
     }
 
     @Override
