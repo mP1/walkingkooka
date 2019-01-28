@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends HeaderValueTestCase<R> {
+public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends HeaderValue2TestCase<R, T> {
 
     LinkRelationTestCase() {
         super();
@@ -43,11 +43,15 @@ public abstract class LinkRelationTestCase<R extends LinkRelation<T>, T> extends
         this.isWildcardAndCheck(this.createLinkRelation(), false);
     }
 
-    abstract R createLinkRelation();
+    final R createLinkRelation() {
+        return this.createHeaderValue();
+    }
+
+    abstract R createLinkRelation(final T value);
 
     @Override
-    protected final R createHeaderValue() {
-        return this.createLinkRelation();
+    protected final R createHeaderValue(final T value) {
+        return this.createLinkRelation(value);
     }
 
     @Override

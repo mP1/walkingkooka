@@ -16,8 +16,6 @@
 
 package walkingkooka.net.header;
 
-import walkingkooka.Cast;
-import walkingkooka.Value;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 
@@ -28,9 +26,7 @@ import java.util.Map;
  * Holds a link relation.<br>
  * <a href="https://tools.ietf.org/search/rfc5988"></a>
  */
-public abstract class LinkRelation<T> implements Value<T>,
-        HeaderValue,
-        Comparable<LinkRelation> {
+public abstract class LinkRelation<T> extends HeaderValue2<T> implements Comparable<LinkRelation> {
 
     /**
      * Holds all constants.
@@ -557,16 +553,8 @@ public abstract class LinkRelation<T> implements Value<T>,
      * Package private
      */
     LinkRelation(final T value) {
-        super();
-        this.value = value;
+        super(value);
     }
-
-    @Override
-    public T value() {
-        return this.value;
-    }
-
-    private final T value;
 
     /**
      * Returns true if the value is an absolute url.
@@ -602,30 +590,5 @@ public abstract class LinkRelation<T> implements Value<T>,
     @Override
     public final int compareTo(final LinkRelation other) {
         return this.toHeaderText().compareTo(other.toHeaderText());
-    }
-
-    // Object...........................................................................................................
-
-    @Override
-    public final int hashCode() {
-        return this.value().hashCode();
-    }
-
-    @Override
-    public final boolean equals(final Object other) {
-        return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
-    }
-
-    abstract boolean canBeEqual(final Object other);
-
-    private boolean equals0(final LinkRelation other) {
-        return this.compareTo(other) == 0;
-    }
-
-    @Override
-    public final String toString() {
-        return this.value().toString();
     }
 }

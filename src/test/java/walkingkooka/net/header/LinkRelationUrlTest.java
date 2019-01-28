@@ -22,17 +22,9 @@ import org.junit.Test;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-
 public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelationUrl, AbsoluteUrl> {
 
     private final static String TEXT = "http://example.com";
-
-    @Test
-    public void testWith() {
-        final LinkRelationUrl linkRelation = this.createLinkRelation();
-        assertEquals("value", AbsoluteUrl.parse(TEXT), linkRelation.value());
-    }
 
     @Test
     public void testHeaderText() {
@@ -50,8 +42,18 @@ public final class LinkRelationUrlTest extends LinkRelationTestCase<LinkRelation
     }
 
     @Override
-    LinkRelationUrl createLinkRelation() {
-        return LinkRelationUrl.url(TEXT);
+    LinkRelationUrl createLinkRelation(final AbsoluteUrl value) {
+        return LinkRelationUrl.url(value.toString());
+    }
+
+    @Override
+    AbsoluteUrl value() {
+        return AbsoluteUrl.parse(TEXT);
+    }
+
+    @Override
+    AbsoluteUrl differentValue() {
+        return AbsoluteUrl.parse("http://example.com/different");
     }
 
     @Override
