@@ -22,11 +22,10 @@ import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
-import java.util.List;
 import java.util.Map;
 
-public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserWithParametersTestCase<CharsetHeaderValueListHeaderParser,
-        List<CharsetHeaderValue>> {
+public final class AcceptCharsetHeaderParserTest extends HeaderParserWithParametersTestCase<AcceptCharsetHeaderParser,
+        AcceptCharset> {
 
     // parse ...................................................................................................
 
@@ -436,8 +435,8 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserWi
     // helpers...................................................................................................
 
     @Override
-    List<CharsetHeaderValue> parse(final String text) {
-        return CharsetHeaderValueListHeaderParser.parseCharsetHeaderValueList(text);
+    AcceptCharset parse(final String text) {
+        return AcceptCharsetHeaderParser.parseAcceptCharset(text);
     }
 
     private void parseAndCheck(final String headerValue, final String charset) {
@@ -467,7 +466,7 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserWi
     }
 
     private void parseAndCheck(final String headerValue, final CharsetHeaderValue... values) {
-        this.parseAndCheck(headerValue, Lists.of(values));
+        this.parseAndCheck(headerValue, AcceptCharset.with(Lists.of(values)));
     }
 
     private CharsetHeaderValue charsetHeaderValue(final String charset) {
@@ -502,11 +501,11 @@ public final class CharsetHeaderValueListHeaderParserTest extends HeaderParserWi
 
     @Override
     String valueLabel() {
-        return CharsetHeaderValueListHeaderParser.CHARSET;
+        return AcceptCharsetHeaderParser.CHARSET;
     }
 
     @Override
-    protected Class<CharsetHeaderValueListHeaderParser> type() {
-        return CharsetHeaderValueListHeaderParser.class;
+    protected Class<AcceptCharsetHeaderParser> type() {
+        return AcceptCharsetHeaderParser.class;
     }
 }

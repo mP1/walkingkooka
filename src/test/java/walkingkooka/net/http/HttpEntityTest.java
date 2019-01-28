@@ -22,7 +22,6 @@ import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
-import walkingkooka.net.header.CharsetHeaderValue;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HeaderValueException;
 import walkingkooka.net.header.HttpHeaderName;
@@ -33,7 +32,6 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -222,44 +220,24 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
     @Test(expected = NullPointerException.class)
     public void testTextContentTypeNullFails() {
         HttpEntity.text(null,
-                this.acceptCharset(),
-                this.text());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testTextAcceptCharsetNullFails() {
-        HttpEntity.text(this.contentType(),
-                null,
                 this.text());
     }
 
     @Test(expected = NullPointerException.class)
     public void testTextBodyNullFails() {
         HttpEntity.text(this.contentType(),
-                this.acceptCharset(),
                 null);
     }
 
     @Test(expected = HeaderValueException.class)
     public void testTextContentTypeMissingCharsetFails() {
         HttpEntity.text(MediaType.TEXT_PLAIN,
-                this.acceptCharset(),
                 this.text());
     }
 
     @Test(expected = NotAcceptableHeaderException.class)
     public void testTextContentTypeUnsupportedCharsetFails() {
-        final Charset utf8 = Charset.forName("utf8");
-
-        final Charset unsupported = Charset.availableCharsets()
-                .values()
-                .stream()
-                .filter(c -> !utf8.contains(c))
-                .findFirst()
-                .get();
-
-        HttpEntity.text(this.contentType(CharsetName.with(unsupported.name())),
-                this.acceptCharset(),
+        HttpEntity.text(this.contentType(CharsetName.with("unsupported")),
                 this.text());
     }
 
@@ -273,7 +251,7 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
         headers.put(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length));
         headers.put(HttpHeaderName.CONTENT_TYPE, contentType);
 
-        this.check(HttpEntity.text(contentType, this.acceptCharset(), text),
+        this.check(HttpEntity.text(contentType, text),
                 headers,
                 body);
     }
@@ -284,10 +262,6 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     private MediaType contentType(final CharsetName charsetName) {
         return MediaType.TEXT_PLAIN.setCharset(charsetName);
-    }
-
-    private List<CharsetHeaderValue> acceptCharset() {
-        return CharsetHeaderValue.parse("utf-8;");
     }
 
     private String text() {

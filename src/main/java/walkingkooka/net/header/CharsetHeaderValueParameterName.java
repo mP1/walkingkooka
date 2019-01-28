@@ -33,9 +33,9 @@ final public class CharsetHeaderValueParameterName<V> extends HeaderParameterNam
     final static HeaderParameterNameConstants<CharsetHeaderValueParameterName<?>> CONSTANTS = HeaderParameterNameConstants.empty(
             CharsetHeaderValueParameterName::new,
             HeaderValueConverter.quotedUnquotedString(
-                    CharsetHeaderValueListHeaderParser.QUOTED_PARAMETER_VALUE,
+                    AcceptCharsetHeaderParser.QUOTED_PARAMETER_VALUE,
                     false,
-                    CharsetHeaderValueListHeaderParser.UNQUOTED_PARAMETER_VALUE));
+                    AcceptCharsetHeaderParser.UNQUOTED_PARAMETER_VALUE));
 
     /**
      * The q factor weight parameter.

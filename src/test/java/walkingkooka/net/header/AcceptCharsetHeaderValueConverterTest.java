@@ -23,23 +23,22 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.net.email.EmailAddress;
 
 import java.nio.charset.Charset;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public final class CharsetHeaderValueListHeaderValueConverterTest extends
-        HeaderValueConverterTestCase<CharsetHeaderValueListHeaderValueConverter,
-                List<CharsetHeaderValue>> {
+public final class AcceptCharsetHeaderValueConverterTest extends
+        HeaderValueConverterTestCase<AcceptCharsetHeaderValueConverter,
+                AcceptCharset> {
     @Override
     protected String requiredPrefix() {
-        return CharsetHeaderValue.class.getSimpleName() + List.class.getSimpleName();
+        return AcceptCharset.class.getSimpleName();
     }
 
     @Test
     public void testContentType() {
         final String charset = Charset.forName("utf8").name();
-        this.parseAndToTextAndCheck(charset,
-                Lists.of(CharsetHeaderValue.with(CharsetName.with(charset))));
+        this.parseAndToTextAndCheck2(charset,
+                CharsetHeaderValue.with(CharsetName.with(charset)));
     }
 
     @Test
@@ -49,13 +48,17 @@ public final class CharsetHeaderValueListHeaderValueConverterTest extends
         assertEquals("charsetName must have no charset",
                 CharsetName.NO_CHARSET,
                 charsetName.charset());
-        this.parseAndToTextAndCheck(charset,
-                Lists.of(CharsetHeaderValue.with(CharsetName.with(charset))));
+        this.parseAndToTextAndCheck2(charset,
+                CharsetHeaderValue.with(CharsetName.with(charset)));
+    }
+
+    private void parseAndToTextAndCheck2(final String text, final CharsetHeaderValue...values) {
+        this.parseAndToTextAndCheck(text, AcceptCharset.with(Lists.of(values)));
     }
 
     @Override
-    CharsetHeaderValueListHeaderValueConverter converter() {
-        return CharsetHeaderValueListHeaderValueConverter.INSTANCE;
+    AcceptCharsetHeaderValueConverter converter() {
+        return AcceptCharsetHeaderValueConverter.INSTANCE;
     }
 
     @Override
@@ -69,22 +72,22 @@ public final class CharsetHeaderValueListHeaderValueConverterTest extends
     }
 
     @Override
-    List<CharsetHeaderValue> value() {
-        return Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8));
+    AcceptCharset value() {
+        return AcceptCharset.with(Lists.of(CharsetHeaderValue.with(CharsetName.UTF_8)));
     }
 
     @Override
     String valueType() {
-        return this.listValueType(CharsetHeaderValue.class);
+        return this.valueType(AcceptCharset.class);
     }
 
     @Override
     String converterToString() {
-        return "List<CharsetHeaderValue>";
+        return AcceptCharset.class.getSimpleName();
     }
 
     @Override
-    protected Class<CharsetHeaderValueListHeaderValueConverter> type() {
-        return CharsetHeaderValueListHeaderValueConverter.class;
+    protected Class<AcceptCharsetHeaderValueConverter> type() {
+        return AcceptCharsetHeaderValueConverter.class;
     }
 }

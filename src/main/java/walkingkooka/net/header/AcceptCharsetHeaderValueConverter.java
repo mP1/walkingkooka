@@ -21,44 +21,40 @@ package walkingkooka.net.header;
 
 import walkingkooka.naming.Name;
 
-import java.util.List;
-
 /**
- * A {@link HeaderValueConverter} that parses a content header value into a {@link List<CharsetHeaderValue>}.
+ * A {@link HeaderValueConverter} that parses a content header value into a {@link AcceptCharset}.
  */
-final class CharsetHeaderValueListHeaderValueConverter extends HeaderValueConverter2<List<CharsetHeaderValue>> {
+final class AcceptCharsetHeaderValueConverter extends HeaderValueConverter2<AcceptCharset> {
 
     /**
      * Singleton
      */
-    final static CharsetHeaderValueListHeaderValueConverter INSTANCE = new CharsetHeaderValueListHeaderValueConverter();
+    final static AcceptCharsetHeaderValueConverter INSTANCE = new AcceptCharsetHeaderValueConverter();
 
     /**
      * Private ctor use singleton.
      */
-    private CharsetHeaderValueListHeaderValueConverter() {
+    private AcceptCharsetHeaderValueConverter() {
         super();
     }
 
     @Override
-    List<CharsetHeaderValue> parse0(final String text, final Name name) {
-        return CharsetHeaderValue.parse(text);
+    AcceptCharset parse0(final String text, final Name name) {
+        return AcceptCharset.parse(text);
     }
 
     @Override
     void check0(final Object value, final Name name) {
-        this.checkListOfType(value, CharsetHeaderValue.class, name);
+        this.checkType(value, AcceptCharset.class, name);
     }
 
     @Override
-    String toText0(final List<CharsetHeaderValue> value, final Name name) {
-        return HeaderValue.toHeaderTextList(value, SEPARATOR);
+    String toText0(final AcceptCharset value, final Name name) {
+        return value.toHeaderText();
     }
-
-    private final static String SEPARATOR = HeaderValue.SEPARATOR.string().concat(" ");
 
     @Override
     public String toString() {
-        return this.toStringListOf(CharsetHeaderValue.class);
+        return this.toStringType(AcceptCharset.class);
     }
 }

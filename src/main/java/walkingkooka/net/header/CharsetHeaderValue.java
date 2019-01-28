@@ -21,7 +21,6 @@ package walkingkooka.net.header;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.HasQFactorWeight;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -59,13 +58,6 @@ final public class CharsetHeaderValue extends HeaderValueWithParameters2<Charset
         CONSTANTS.put(charsetName, charsetHeaderValue);
 
         return charsetHeaderValue;
-    }
-
-    /**
-     * Creates a {@link List} of {@link CharsetHeaderValue}.
-     */
-    public static List<CharsetHeaderValue> parse(final String text) {
-        return CharsetHeaderValueListHeaderParser.parseCharsetHeaderValueList(text);
     }
 
     /**
