@@ -18,17 +18,9 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
-
-public final class BigDecimalSpreadsheetTextFormatterMinusSignTest extends ClassTestCase<BigDecimalSpreadsheetTextFormatterMinusSign> {
+public final class BigDecimalSpreadsheetTextFormatterMinusSignTest extends BigDecimalSpreadsheetTextFormatterTestCase<BigDecimalSpreadsheetTextFormatterMinusSign> {
     @Override
     protected Class<BigDecimalSpreadsheetTextFormatterMinusSign> type() {
         return BigDecimalSpreadsheetTextFormatterMinusSign.class;
-    }
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
