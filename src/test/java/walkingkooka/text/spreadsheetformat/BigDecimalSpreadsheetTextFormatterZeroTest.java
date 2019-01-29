@@ -19,12 +19,10 @@
 package walkingkooka.text.spreadsheetformat;
 
 import org.junit.Test;
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class BigDecimalSpreadsheetTextFormatterZeroTest extends ClassTestCase<BigDecimalSpreadsheetTextFormatterZero> {
+public final class BigDecimalSpreadsheetTextFormatterZeroTest extends BigDecimalSpreadsheetTextFormatterTestCase<BigDecimalSpreadsheetTextFormatterZero> {
 
     @Test
     public void testHashPattern() {
@@ -48,10 +46,5 @@ public final class BigDecimalSpreadsheetTextFormatterZeroTest extends ClassTestC
     @Override
     protected Class<BigDecimalSpreadsheetTextFormatterZero> type() {
         return BigDecimalSpreadsheetTextFormatterZero.class;
-    }
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }
