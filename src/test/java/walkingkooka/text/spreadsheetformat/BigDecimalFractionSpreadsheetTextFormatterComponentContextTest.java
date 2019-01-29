@@ -18,18 +18,10 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import walkingkooka.test.ClassTestCase;
-import walkingkooka.type.MemberVisibility;
-
-public final class BigDecimalFractionSpreadsheetTextFormatterComponentContextTest extends ClassTestCase<BigDecimalFractionSpreadsheetTextFormatterComponentContext> {
+public final class BigDecimalFractionSpreadsheetTextFormatterComponentContextTest extends BigDecimalFractionTextFormatterTestCase<BigDecimalFractionSpreadsheetTextFormatterComponentContext> {
 
     @Override
     protected Class<BigDecimalFractionSpreadsheetTextFormatterComponentContext> type() {
         return BigDecimalFractionSpreadsheetTextFormatterComponentContext.class;
-    }
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

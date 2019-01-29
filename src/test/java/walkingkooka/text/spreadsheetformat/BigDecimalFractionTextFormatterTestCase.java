@@ -18,12 +18,17 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-public abstract class BigDecimalFractionSpreadsheetTextFormatterComponentTestCase<C extends BigDecimalFractionSpreadsheetTextFormatterComponent>
-        extends BigDecimalFractionTextFormatterTestCase<C> {
+import walkingkooka.test.ClassTestCase;
+import walkingkooka.type.MemberVisibility;
 
-    BigDecimalFractionSpreadsheetTextFormatterComponentTestCase() {
+public abstract class BigDecimalFractionTextFormatterTestCase<T> extends ClassTestCase<T> {
+
+    BigDecimalFractionTextFormatterTestCase() {
         super();
     }
 
-    public abstract void testToString();
+    @Override
+    protected final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }
