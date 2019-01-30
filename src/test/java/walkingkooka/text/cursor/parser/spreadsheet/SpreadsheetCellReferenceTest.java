@@ -308,7 +308,8 @@ public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionRef
         assertEquals("$DT$457", this.createReference().toString());
     }
 
-    private SpreadsheetCellReference createReference() {
+    @Override
+    SpreadsheetCellReference createReference() {
         return SpreadsheetCellReference.with(column(), row());
     }
 
