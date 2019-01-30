@@ -21,13 +21,12 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.naming.PropertiesPath;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-final public class SpreadsheetLabelNameTest extends ClassTestCase<SpreadsheetLabelName>
+final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferenceTestCase<SpreadsheetLabelName>
         implements NameTesting<SpreadsheetLabelName, SpreadsheetLabelName> {
 
     @Test(expected = IllegalArgumentException.class)

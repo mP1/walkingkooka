@@ -21,13 +21,12 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import org.junit.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class SpreadsheetCellReferenceTest extends ClassTestCase<SpreadsheetCellReference>
+public final class SpreadsheetCellReferenceTest extends SpreadsheetExpressionReferenceTestCase<SpreadsheetCellReference>
         implements ComparableTesting<SpreadsheetCellReference>,
         LowerOrUpperTesting<SpreadsheetCellReference> {
 
