@@ -28,7 +28,7 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
     default void toJsonNodeAndCheck(final HasJsonNode has, final JsonNode json) {
         assertEquals("toJsonNode doesnt match=" + has,
-                has.toJsonNode(),
-                json);
+                json,
+                has.toJsonNode());
     }
 }
