@@ -23,6 +23,7 @@ import walkingkooka.Equality;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
+import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertNotEquals;
@@ -30,7 +31,9 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 abstract public class ColorTestCase<C extends Color> extends ClassTestCase<C>
-        implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
+        implements HashCodeEqualsDefinedTesting<C>,
+        HasJsonNodeTesting<C>,
+        SerializationTesting<C> {
 
     ColorTestCase() {
         super();

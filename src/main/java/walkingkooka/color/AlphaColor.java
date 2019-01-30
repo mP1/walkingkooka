@@ -19,6 +19,7 @@
 package walkingkooka.color;
 
 import walkingkooka.build.tostring.ToStringBuilder;
+import walkingkooka.tree.json.JsonNode;
 
 /**
  * A {@link Color} that includes an alpha property.
@@ -149,5 +150,12 @@ final public class AlphaColor extends Color {
     }
 
     // Serializable
-    private static final long serialVersionUID = 7643631360002843295L;
+    private static final long serialVersionUID = 1L;
+
+    // HasJsonNode...........................................................................
+
+    @Override
+    public JsonNode toJsonNode() {
+        throw new UnsupportedOperationException();
+    }
 }

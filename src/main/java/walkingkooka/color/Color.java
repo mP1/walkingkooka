@@ -24,6 +24,7 @@ import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.HasJsonNode;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -31,7 +32,10 @@ import java.util.Objects;
 /**
  * Holds an immutable {@link Color}.
  */
-abstract public class Color implements UsesToStringBuilder, HashCodeEqualsDefined, Serializable {
+abstract public class Color implements HashCodeEqualsDefined,
+        HasJsonNode,
+        Serializable,
+        UsesToStringBuilder{
 
     /**
      * A constant holding black

@@ -19,6 +19,7 @@
 package walkingkooka.color;
 
 import org.junit.Test;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
@@ -92,6 +93,16 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
         assertEquals("green", 2, color.getGreen());
         assertEquals("blue", 3, color.getBlue());
     }
+
+    // HasJsonNode............................................................................................
+
+    @Test
+    public void testToJsonNode() {
+        this.toJsonNodeAndCheck(Color.fromRgb(0x123456),
+                JsonNode.string("#123456"));
+    }
+
+    // Object............................................................................................
 
     @Test
     public void testToString() {
