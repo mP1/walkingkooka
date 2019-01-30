@@ -24,6 +24,8 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 
 public final class JsonNodeTest extends ClassTestCase<JsonNode> {
@@ -96,6 +98,63 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> {
         assertEquals("Parse result incorrect for " + CharSequences.quoteAndEscape(json),
                 JsonNode.parse(json),
                 node);
+    }
+
+    // wrap....................................................................................................
+
+    @Test
+    public void testWrapNull() {
+        this.wrapAndCheck(null, JsonNode.nullNode());
+    }
+
+    @Test
+    public void testWrapBooleanTrue() {
+        this.wrapAndCheck(true, JsonNode.booleanNode(true));
+    }
+
+    @Test
+    public void testWrapBooleanFalse() {
+        this.wrapAndCheck(false, JsonNode.booleanNode(false));
+    }
+
+    @Test
+    public void testWrapInteger() {
+        this.wrapAndCheck(123, JsonNode.number(123));
+    }
+
+    @Test
+    public void testWrapDouble() {
+        this.wrapAndCheck(123.5, JsonNode.number(123.5));
+    }
+
+    @Test
+    public void testWrapString() {
+        this.wrapAndCheck("abc", JsonNode.string("abc"));
+    }
+
+    @Test
+    public void testWrapOptionalString() {
+        this.wrapAndCheck(Optional.of("abc"), JsonNode.string("abc"));
+    }
+
+    @Test
+    public void testWrapUnsupported() {
+        this.wrapAndCheck(this);
+    }
+
+    private void wrapAndCheck(final Object value) {
+        this.wrapAndCheck(value, Optional.empty());
+    }
+
+    private void wrapAndCheck(final Object value, final JsonNode node) {
+        this.wrapAndCheck(value, Optional.of(node));
+    }
+
+
+    private void wrapAndCheck(final Object value, final Optional<JsonNode> node) {
+        assertEquals("With value " + CharSequences.quoteIfChars(value),
+                node,
+                JsonNode.wrap(value));
     }
 
     @Override

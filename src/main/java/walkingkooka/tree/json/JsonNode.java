@@ -71,6 +71,51 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
             .orReport(ParserReporters.basic())
             .cast();
 
+    /**
+     * Accepts a value and if its supported returns a {@link JsonNode}. {@link Optional} are also unwrapped.
+     */
+    public static Optional<JsonNode> wrap(final Object value) {
+        return null == value ?
+                Optional.of(nullNode()) :
+                wrap0(value);
+    }
+
+    private static Optional<JsonNode> wrap0(final Object value) {
+        return value instanceof Optional ?
+                wrap(Optional.class.cast(value).get()) :
+                wrap1(value);
+    }
+
+    private static Optional<JsonNode> wrap1(final Object value) {
+        return value instanceof JsonNode ?
+                Optional.of(JsonNode.class.cast(value)) :
+                wrap2(value);
+    }
+
+    /**
+     * Currently only supports boolean, number and string values.
+     */
+    private static Optional<JsonNode> wrap2(final Object value) {
+        JsonNode jsonNode = null;
+
+        do {
+            if (value instanceof Boolean) {
+                jsonNode = booleanNode(Boolean.class.cast(value));
+                break;
+            }
+            if (value instanceof Number) {
+                jsonNode = number(Number.class.cast(value).doubleValue());
+                break;
+            }
+            if (value instanceof String) {
+                jsonNode = string(String.class.cast(value));
+                break;
+            }
+        } while (false);
+
+        return Optional.ofNullable(jsonNode);
+    }
+
     public static JsonArrayNode array() {
         return JsonArrayNode.EMPTY;
     }
