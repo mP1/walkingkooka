@@ -22,11 +22,11 @@ import static org.junit.Assert.assertEquals;
 
 public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
-    default void toJsonNodeAndCheck(final H has, final String json) {
+    default void toJsonNodeAndCheck(final HasJsonNode has, final String json) {
         toJsonNodeAndCheck(has, JsonNode.parse(json));
     }
 
-    default void toJsonNodeAndCheck(final H has, final JsonNode json) {
+    default void toJsonNodeAndCheck(final HasJsonNode has, final JsonNode json) {
         assertEquals("toJsonNode doesnt match=" + has,
                 has.toJsonNode(),
                 json);
