@@ -122,17 +122,21 @@ public final class SpreadsheetCellReference extends SpreadsheetExpressionReferen
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return this == other ||
-                other instanceof SpreadsheetCellReference &&
-                        this.equals0(Cast.to(other));
+    boolean canBeEqual(final Object other) {
+        return other instanceof SpreadsheetCellReference;
     }
 
-    private boolean equals0(final SpreadsheetCellReference other) {
+    @Override
+    boolean equals0(final Object other) {
+        return this.equals1(Cast.to(other));
+    }
+
+    private boolean equals1(final SpreadsheetCellReference other) {
         return this.column.equals(other.column) &&
                 this.row.equals(other.row);
     }
 
+    @Override
     public String toString() {
         return "" + this.column + this.row;
     }
