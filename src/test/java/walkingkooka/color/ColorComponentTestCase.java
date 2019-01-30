@@ -197,12 +197,12 @@ abstract public class ColorComponentTestCase<C extends ColorComponent> extends C
 
     @Test
     public final void testToStringFF() {
-        assertEquals("FF", this.createColorComponent((byte) 0xFF).toString());
+        assertEquals("ff", this.createColorComponent((byte) 0xFF).toString());
     }
 
     @Test
     public final void testToStringLessThan16() {
-        assertEquals("0F", this.createColorComponent((byte) 0xF).toString());
+        assertEquals("0f", this.createColorComponent((byte) 0xF).toString());
     }
 
     @Test
