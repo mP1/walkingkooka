@@ -64,16 +64,6 @@ public final class OpaqueColorTest extends ColorTestCase<OpaqueColor> {
     }
 
     @Test
-    public void testFromRgbIgnoresUpper8Bits() {
-        final Color color = Color.fromRgb(0xFF010203);
-        assertSame("red", RED, color.red());
-        assertSame("green", GREEN, color.green());
-        assertSame("blue", BLUE, color.blue());
-        assertSame("alpha", AlphaColorComponent.OPAQUE, color.alpha());
-        assertEquals("rgb", 0x010203, color.rgb());
-    }
-
-    @Test
     public void testRgbAndArgbAndValue() {
         final Color color = OpaqueColor.createOpaqueColor(RedColorComponent.with((byte) 0x80),
                 GreenColorComponent.with((byte) 0x81),
