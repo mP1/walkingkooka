@@ -22,6 +22,8 @@ import org.junit.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
@@ -29,7 +31,9 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference<V>> extends ClassTestCase<V>
-        implements ComparableTesting<V>, LowerOrUpperTesting<V> {
+        implements ComparableTesting<V>,
+        LowerOrUpperTesting<V>,
+        HasJsonNodeTesting<V> {
 
     final static int VALUE = 123;
     final static SpreadsheetReferenceKind REFERENCE_KIND = SpreadsheetReferenceKind.ABSOLUTE;
@@ -179,6 +183,14 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
         final V higher = this.createReference(VALUE + 99);
         assertSame(higher, reference.upper(higher));
         assertSame(higher, higher.upper(reference));
+    }
+
+    // HasJsonNode.......................................................................................
+
+    @Test
+    public final void testToJsonNode() {
+        final V reference = this.createReference();
+        this.toJsonNodeAndCheck(reference, JsonNode.string(reference.toString()));
     }
 
     // helper......................................................................................

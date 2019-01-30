@@ -22,6 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.Value;
 import walkingkooka.compare.LowerOrUpper;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
 import java.util.function.IntFunction;
@@ -32,7 +34,8 @@ import java.util.function.IntFunction;
 abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowReference<R>> implements Value<Integer>,
         Comparable<R>,
         LowerOrUpper<R>,
-        HashCodeEqualsDefined {
+        HashCodeEqualsDefined,
+        HasJsonNode {
 
     final static int CACHE_SIZE = 100;
 
@@ -106,5 +109,12 @@ abstract class SpreadsheetColumnOrRowReference<R extends SpreadsheetColumnOrRowR
 
     static void checkOther(final SpreadsheetColumnOrRowReference other) {
         Objects.requireNonNull(other, "other");
+    }
+
+    // HasJsonNode............................................................................................
+
+    @Override
+    public final JsonNode toJsonNode() {
+        return JsonNode.string(this.toString());
     }
 }

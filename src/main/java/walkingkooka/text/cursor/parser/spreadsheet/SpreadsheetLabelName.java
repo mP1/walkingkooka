@@ -190,4 +190,7 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
     final int compare0(final SpreadsheetLabelName other) {
         return other.compareTo(this);
     }
+
+    // SpreadsheetExpressionReferenceComparator........................................................................
+
 }

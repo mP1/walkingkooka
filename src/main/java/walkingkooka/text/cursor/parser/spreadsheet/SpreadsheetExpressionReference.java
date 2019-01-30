@@ -21,13 +21,16 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 import walkingkooka.compare.Comparators;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.json.HasJsonNode;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObjectNode;
 
 import java.util.Comparator;
 
 /**
  * Base class for all Spreadsheet {@link ExpressionReference}
  */
-abstract public class SpreadsheetExpressionReference implements ExpressionReference, HashCodeEqualsDefined {
+abstract public class SpreadsheetExpressionReference implements ExpressionReference, HashCodeEqualsDefined, HasJsonNode {
 
     /**
      * A comparator that orders {@link SpreadsheetLabelName} before {@link SpreadsheetCellReference}.
@@ -82,4 +85,12 @@ abstract public class SpreadsheetExpressionReference implements ExpressionRefere
      * Labels come before references, used as the result when a label compares with a reference.
      */
     final static int LABEL_COMPARED_WITH_CELL_RESULT = Comparators.LESS;
+
+    /**
+     * The json form of this object is also {@link #toString()}
+     */
+    @Override
+    public final JsonNode toJsonNode() {
+        return JsonObjectNode.string(this.toString());
+    }
 }

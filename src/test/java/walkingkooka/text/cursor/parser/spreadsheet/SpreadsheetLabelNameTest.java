@@ -105,6 +105,11 @@ final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferen
     }
 
     @Override
+    SpreadsheetLabelName createReference() {
+        return this.createComparable();
+    }
+
+    @Override
     public SpreadsheetLabelName createName(final String name) {
         return SpreadsheetLabelName.with(name);
     }

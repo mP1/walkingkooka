@@ -18,11 +18,23 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
+import walkingkooka.tree.json.HasJsonNodeTesting;
+import walkingkooka.tree.json.JsonNode;
 
-public abstract class SpreadsheetExpressionReferenceTestCase<R extends SpreadsheetExpressionReference> extends ClassTestCase<R> {
+public abstract class SpreadsheetExpressionReferenceTestCase<R extends SpreadsheetExpressionReference> extends ClassTestCase<R>
+        implements HasJsonNodeTesting<R> {
 
     SpreadsheetExpressionReferenceTestCase() {
         super();
     }
+
+    @Test
+    public final void testToJsonNode() {
+        final R reference = this.createReference();
+        this.toJsonNodeAndCheck(reference, JsonNode.string(reference.toString()));
+    }
+
+    abstract R createReference();
 }
