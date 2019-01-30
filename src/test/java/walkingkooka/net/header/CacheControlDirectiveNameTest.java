@@ -210,22 +210,22 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
     }
 
     @Override
-    protected CacheControlDirectiveName<Object> createName(final String name) {
+    public CacheControlDirectiveName<Object> createName(final String name) {
         return Cast.to(CacheControlDirectiveName.with(name));
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "X-Custom";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "X-different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return CacheControlDirectiveName.NO_CACHE.value();
     }
 

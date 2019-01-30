@@ -19,13 +19,16 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
 import walkingkooka.naming.PropertiesPath;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierName, EbnfIdentifierName> {
+final public class EbnfIdentifierNameTest extends ClassTestCase<EbnfIdentifierName>
+        implements NameTesting<EbnfIdentifierName, EbnfIdentifierName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
@@ -48,32 +51,37 @@ final public class EbnfIdentifierNameTest extends NameTestCase<EbnfIdentifierNam
     }
 
     @Override
-    protected EbnfIdentifierName createName(final String name) {
+    public EbnfIdentifierName createName(final String name) {
         return EbnfIdentifierName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "identifier123";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "abc";
     }
 
     @Override
     protected Class<EbnfIdentifierName> type() {
         return EbnfIdentifierName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

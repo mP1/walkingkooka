@@ -29,7 +29,7 @@ public abstract class HeaderName2TestCase<N extends HeaderName2<?>, C extends Co
     }
 
     @Override
-    protected final CaseSensitivity caseSensitivity() {
+    public final CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
 }

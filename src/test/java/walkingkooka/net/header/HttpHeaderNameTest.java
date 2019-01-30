@@ -372,22 +372,22 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     }
 
     @Override
-    protected HttpHeaderName<Object> createName(final String name) {
+    public HttpHeaderName<Object> createName(final String name) {
         return Cast.to(HttpHeaderName.with(name));
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "X-Custom";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "X-different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return HttpHeaderName.ACCEPT.value();
     }
 

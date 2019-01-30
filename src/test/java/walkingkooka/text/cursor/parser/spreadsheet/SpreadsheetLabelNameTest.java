@@ -19,13 +19,16 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
 import walkingkooka.naming.PropertiesPath;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabelName, SpreadsheetLabelName> {
+final public class SpreadsheetLabelNameTest extends ClassTestCase<SpreadsheetLabelName>
+        implements NameTesting<SpreadsheetLabelName, SpreadsheetLabelName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
@@ -103,32 +106,37 @@ final public class SpreadsheetLabelNameTest extends NameTestCase<SpreadsheetLabe
     }
 
     @Override
-    protected SpreadsheetLabelName createName(final String name) {
+    public SpreadsheetLabelName createName(final String name) {
         return SpreadsheetLabelName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "state";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "postcode";
     }
 
     @Override
     protected Class<SpreadsheetLabelName> type() {
         return SpreadsheetLabelName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

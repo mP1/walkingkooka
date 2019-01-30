@@ -21,8 +21,10 @@ package walkingkooka.net.http.server;
 
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +32,8 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequestParameterName, HttpRequestParameterName> {
+final public class HttpRequestParameterNameTest extends ClassTestCase<HttpRequestParameterName>
+        implements NameTesting<HttpRequestParameterName, HttpRequestParameterName> {
 
     @Test
     public void testParameterValue() {
@@ -54,32 +57,37 @@ final public class HttpRequestParameterNameTest extends NameTestCase<HttpRequest
     }
 
     @Override
-    protected HttpRequestParameterName createName(final String name) {
+    public HttpRequestParameterName createName(final String name) {
         return HttpRequestParameterName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "param2";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "param99";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "param1";
     }
 
     @Override
     protected Class<HttpRequestParameterName> type() {
         return HttpRequestParameterName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -103,7 +103,7 @@ final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCas
     }
 
     @Override
-    protected MediaTypeParameterName<Object> createName(final String name) {
+    public MediaTypeParameterName<Object> createName(final String name) {
         return Cast.to(MediaTypeParameterName.with(name));
     }
 

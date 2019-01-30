@@ -19,12 +19,15 @@
 package walkingkooka.tree.search;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class SearchNodeNameTest extends NameTestCase<SearchNodeName, SearchNodeName> {
+public final class SearchNodeNameTest extends ClassTestCase<SearchNodeName>
+        implements NameTesting<SearchNodeName, SearchNodeName> {
 
     @Test
     public void testToString() {
@@ -32,32 +35,37 @@ public final class SearchNodeNameTest extends NameTestCase<SearchNodeName, Searc
     }
 
     @Override
-    protected SearchNodeName createName(final String name) {
+    public SearchNodeName createName(final String name) {
         return SearchNodeName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "street";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "state";
     }
 
     @Override
     protected Class<SearchNodeName> type() {
         return SearchNodeName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

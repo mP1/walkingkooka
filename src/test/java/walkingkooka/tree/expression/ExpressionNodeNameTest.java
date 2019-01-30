@@ -19,12 +19,15 @@
 package walkingkooka.tree.expression;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class ExpressionNodeNameTest extends NameTestCase<ExpressionNodeName, ExpressionNodeName> {
+public final class ExpressionNodeNameTest extends ClassTestCase<ExpressionNodeName>
+        implements NameTesting<ExpressionNodeName, ExpressionNodeName> {
 
     @Test
     public void testToString() {
@@ -32,32 +35,37 @@ public final class ExpressionNodeNameTest extends NameTestCase<ExpressionNodeNam
     }
 
     @Override
-    protected ExpressionNodeName createName(final String name) {
+    public ExpressionNodeName createName(final String name) {
         return ExpressionNodeName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "abc2";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "a1";
     }
 
     @Override
     protected Class<ExpressionNodeName> type() {
         return ExpressionNodeName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

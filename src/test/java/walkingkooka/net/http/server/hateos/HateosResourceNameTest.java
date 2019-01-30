@@ -18,38 +18,46 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-public final class HateosResourceNameTest extends NameTestCase<HateosResourceName, HateosResourceName> {
+public final class HateosResourceNameTest extends ClassTestCase<HateosResourceName>
+        implements NameTesting<HateosResourceName, HateosResourceName> {
 
     @Override
-    protected HateosResourceName createName(final String name) {
+    public HateosResourceName createName(final String name) {
         return HateosResourceName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "australia";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "albania";
     }
 
     @Override
     protected Class<HateosResourceName> type() {
         return HateosResourceName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

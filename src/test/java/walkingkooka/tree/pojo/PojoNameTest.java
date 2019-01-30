@@ -17,10 +17,13 @@
 package walkingkooka.tree.pojo;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-public final class PojoNameTest extends NameTestCase<PojoName, PojoName> {
+public final class PojoNameTest extends ClassTestCase<PojoName>
+        implements NameTesting<PojoName, PojoName> {
 
     private final static String PROPERTY = "abc";
 
@@ -61,32 +64,37 @@ public final class PojoNameTest extends NameTestCase<PojoName, PojoName> {
     }
 
     @Override
-    protected PojoName createName(final String name) {
+    public PojoName createName(final String name) {
         return PojoName.property(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "name";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "address";
     }
 
     @Override
     protected Class<PojoName> type() {
         return PojoName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

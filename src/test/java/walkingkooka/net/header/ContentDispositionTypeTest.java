@@ -23,15 +23,18 @@ import org.junit.Ignore;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-final public class ContentDispositionTypeTest extends NameTestCase<ContentDispositionType, ContentDispositionType> {
+final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispositionType>
+        implements NameTesting<ContentDispositionType, ContentDispositionType> {
 
     @Test
     @Ignore
@@ -125,32 +128,37 @@ final public class ContentDispositionTypeTest extends NameTestCase<ContentDispos
     }
 
     @Override
-    protected ContentDispositionType createName(final String name) {
+    public ContentDispositionType createName(final String name) {
         return ContentDispositionType.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "inline";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "form-data";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "attachment";
     }
 
     @Override
     protected Class<ContentDispositionType> type() {
         return Cast.to(ContentDispositionType.class);
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

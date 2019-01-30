@@ -20,12 +20,15 @@ package walkingkooka.net;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-public final class UrlParameterNameTest extends NameTestCase<UrlParameterName, UrlParameterName>
-        implements SerializationTesting<UrlParameterName> {
+public final class UrlParameterNameTest extends ClassTestCase<UrlParameterName>
+        implements NameTesting<UrlParameterName, UrlParameterName>,
+        SerializationTesting<UrlParameterName> {
 
     @Test
     @Ignore
@@ -49,33 +52,38 @@ public final class UrlParameterNameTest extends NameTestCase<UrlParameterName, U
     }
 
     @Override
-    protected UrlParameterName createName(final String name) {
+    public UrlParameterName createName(final String name) {
         return UrlParameterName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "param-1";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "aaa";
     }
 
     @Override
     public Class<UrlParameterName> type() {
         return UrlParameterName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 
     @Override

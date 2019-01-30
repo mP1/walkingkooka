@@ -19,15 +19,18 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
-        extends NameTestCase<N, C> {
+        extends ClassTestCase<N>
+        implements NameTesting<N, C> {
 
     // parameterValue...........................................................................................
 
@@ -71,5 +74,10 @@ public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comp
         return this.createName(this.nameText());
     }
 
-    protected abstract String nameText();
+    public abstract String nameText();
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
+    }
 }

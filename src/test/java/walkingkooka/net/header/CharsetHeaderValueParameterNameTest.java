@@ -108,7 +108,7 @@ final public class CharsetHeaderValueParameterNameTest extends HeaderParameterNa
     }
 
     @Override
-    protected CharsetHeaderValueParameterName<Object> createName(final String name) {
+    public CharsetHeaderValueParameterName<Object> createName(final String name) {
         return Cast.to(CharsetHeaderValueParameterName.with(name));
     }
 

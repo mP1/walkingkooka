@@ -19,14 +19,17 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-final public class SpreadsheetFunctionNameTest extends NameTestCase<SpreadsheetFunctionName, SpreadsheetFunctionName> {
+final public class SpreadsheetFunctionNameTest extends ClassTestCase<SpreadsheetFunctionName>
+        implements NameTesting<SpreadsheetFunctionName, SpreadsheetFunctionName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidInitialFails() {
@@ -57,32 +60,37 @@ final public class SpreadsheetFunctionNameTest extends NameTestCase<SpreadsheetF
     }
 
     @Override
-    protected SpreadsheetFunctionName createName(final String name) {
+    public SpreadsheetFunctionName createName(final String name) {
         return SpreadsheetFunctionName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "sin";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "abs";
     }
 
     @Override
     protected Class<SpreadsheetFunctionName> type() {
         return SpreadsheetFunctionName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }
