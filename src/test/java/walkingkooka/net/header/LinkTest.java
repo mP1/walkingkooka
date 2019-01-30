@@ -26,7 +26,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.xml.XmlNode;
 import walkingkooka.type.MemberVisibility;
 
@@ -40,7 +40,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
-        LinkParameterName<?>> {
+        LinkParameterName<?>> implements HasJsonNodeTesting<Link> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullFails() {
@@ -139,20 +139,18 @@ public final class LinkTest extends HeaderValueWithParametersTestCase<Link,
 
     @Test
     public void testToJsonNode() {
-        this.toJsonNodeAndCheck("<http://example.com>",
+        this.toJsonNodeAndCheck2("<http://example.com>",
                 "{\"href\": \"http://example.com\"}");
     }
 
     @Test
     public void testToJsonNodeRel() {
-        this.toJsonNodeAndCheck("<http://example.com>;type=text/plain;rel=previous",
+        this.toJsonNodeAndCheck2("<http://example.com>;type=text/plain;rel=previous",
                 "{\"href\": \"http://example.com\", \"rel\": \"previous\", \"type\": \"text/plain\"}");
     }
 
-    private void toJsonNodeAndCheck(final String link, final String json) {
-        assertEquals("toJsonNode doesnt match=" + CharSequences.quoteAndEscape(link),
-                Link.parse(link).get(0).toJsonNode(),
-                JsonNode.parse(json));
+    private void toJsonNodeAndCheck2(final String link, final String json) {
+        this.toJsonNodeAndCheck(Link.parse(link).get(0), json);
     }
 
     // toXmlNode .......................................................................................
