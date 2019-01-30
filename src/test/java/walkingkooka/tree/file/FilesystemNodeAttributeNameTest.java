@@ -20,10 +20,13 @@ package walkingkooka.tree.file;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-public final class FilesystemNodeAttributeNameTest extends NameTestCase<FilesystemNodeAttributeName, FilesystemNodeAttributeName> {
+public final class FilesystemNodeAttributeNameTest extends ClassTestCase<FilesystemNodeAttributeName> 
+        implements NameTesting<FilesystemNodeAttributeName, FilesystemNodeAttributeName> {
 
     @Test
     @Ignore
@@ -44,32 +47,37 @@ public final class FilesystemNodeAttributeNameTest extends NameTestCase<Filesyst
     }
 
     @Override
-    protected FilesystemNodeAttributeName createName(final String name) {
+    public FilesystemNodeAttributeName createName(final String name) {
         return FilesystemNodeAttributeName.valueOf(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return FilesystemNodeAttributeName.TEXT.value();
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return FilesystemNodeAttributeName.HIDDEN.value();
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return FilesystemNodeAttributeName.CREATED.value();
     }
 
     @Override
     protected Class<FilesystemNodeAttributeName> type() {
         return FilesystemNodeAttributeName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

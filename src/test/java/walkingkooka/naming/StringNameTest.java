@@ -18,11 +18,13 @@
 package walkingkooka.naming;
 
 import org.junit.Test;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-final public class StringNameTest extends NameTestCase<StringName, StringName>
-        implements SerializationTesting<StringName> {
+final public class StringNameTest extends ClassTestCase<StringName>
+        implements NameTesting<StringName, StringName>, SerializationTesting<StringName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testContainsSeparatorFails() {
@@ -35,33 +37,38 @@ final public class StringNameTest extends NameTestCase<StringName, StringName>
     }
 
     @Override
-    protected StringName createName(final String name) {
+    public StringName createName(final String name) {
         return StringName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "bbb";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "aa";
     }
 
     @Override
     public Class<StringName> type() {
         return StringName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 
     @Override

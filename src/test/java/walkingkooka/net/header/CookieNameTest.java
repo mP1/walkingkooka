@@ -21,9 +21,11 @@ package walkingkooka.net.header;
 
 import org.junit.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Map;
 import java.util.Optional;
@@ -31,7 +33,7 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
-final public class CookieNameTest extends NameTestCase<CookieName, CookieName> {
+final public class CookieNameTest extends ClassTestCase<CookieName> implements NameTesting<CookieName, CookieName> {
 
     /**
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
@@ -167,32 +169,37 @@ final public class CookieNameTest extends NameTestCase<CookieName, CookieName> {
     }
 
     @Override
-    protected CookieName createName(final String name) {
+    public CookieName createName(final String name) {
         return CookieName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "cookie123";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "abc";
     }
 
     @Override
     protected Class<CookieName> type() {
         return CookieName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

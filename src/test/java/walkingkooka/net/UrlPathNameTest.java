@@ -20,18 +20,21 @@ package walkingkooka.net;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class UrlPathNameTest extends NameTestCase<UrlPathName, UrlPathName>
-        implements SerializationTesting<UrlPathName> {
+public final class UrlPathNameTest extends ClassTestCase<UrlPathName>
+        implements NameTesting<UrlPathName, UrlPathName>,
+        SerializationTesting<UrlPathName> {
 
     @Test
     @Ignore
@@ -94,33 +97,38 @@ public final class UrlPathNameTest extends NameTestCase<UrlPathName, UrlPathName
     }
 
     @Override
-    protected UrlPathName createName(final String name) {
+    public UrlPathName createName(final String name) {
         return UrlPathName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "path";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "file";
     }
 
     @Override
     public Class<UrlPathName> type() {
         return UrlPathName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 
     @Override

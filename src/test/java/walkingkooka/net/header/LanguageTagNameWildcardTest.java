@@ -20,7 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertSame;
 
@@ -79,7 +78,7 @@ public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<L
     }
 
     @Override
-    protected LanguageTagNameWildcard createName(final String name) {
+    public LanguageTagNameWildcard createName(final String name) {
         return LanguageTagNameWildcard.INSTANCE;
     }
 
@@ -89,22 +88,17 @@ public final class LanguageTagNameWildcardTest extends LanguageTagNameTestCase<L
     }
 
     @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
-    protected String nameText() {
+    public String nameText() {
         return "*";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "ES";
     }
 }

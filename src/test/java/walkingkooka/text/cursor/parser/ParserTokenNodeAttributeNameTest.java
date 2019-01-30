@@ -18,10 +18,13 @@ package walkingkooka.text.cursor.parser;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-public final class ParserTokenNodeAttributeNameTest extends NameTestCase<ParserTokenNodeAttributeName, ParserTokenNodeAttributeName> {
+public final class ParserTokenNodeAttributeNameTest extends ClassTestCase<ParserTokenNodeAttributeName>
+        implements NameTesting<ParserTokenNodeAttributeName, ParserTokenNodeAttributeName> {
 
     @Test
     @Ignore
@@ -66,32 +69,37 @@ public final class ParserTokenNodeAttributeNameTest extends NameTestCase<ParserT
     }
 
     @Override
-    protected ParserTokenNodeAttributeName createName(final String name) {
+    public ParserTokenNodeAttributeName createName(final String name) {
         return ParserTokenNodeAttributeName.valueOf(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "TEXT";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected Class<ParserTokenNodeAttributeName> type() {
         return ParserTokenNodeAttributeName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

@@ -381,7 +381,7 @@ abstract public class ClassTestCase<T> extends TestCase {
     abstract protected MemberVisibility typeVisibility();
 
     @SafeVarargs
-    protected final void checkNaming(final Class<?>... superTypes) {
+    public final void checkNaming(final Class<?>... superTypes) {
         assertNotNull("superTypes is null", superTypes);
 
         final int count = superTypes.length;

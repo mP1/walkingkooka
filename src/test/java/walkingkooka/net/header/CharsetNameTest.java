@@ -21,8 +21,11 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Comparators;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.Name;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import java.nio.charset.Charset;
 import java.util.List;
@@ -32,7 +35,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-public final class CharsetNameTest extends NameTestCase<CharsetName, CharsetName> {
+public final class CharsetNameTest extends ClassTestCase<CharsetName>
+        implements NameTesting<CharsetName, CharsetName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithEmptyFails() {
@@ -170,32 +174,37 @@ public final class CharsetNameTest extends NameTestCase<CharsetName, CharsetName
     }
 
     @Override
-    protected CharsetName createName(final String name) {
+    public CharsetName createName(final String name) {
         return CharsetName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "UTF-8";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "UTF-16";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "UTF-16";
     }
 
     @Override
     protected Class<CharsetName> type() {
         return CharsetName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

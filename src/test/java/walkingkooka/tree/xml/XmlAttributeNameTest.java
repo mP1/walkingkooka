@@ -19,12 +19,15 @@
 package walkingkooka.tree.xml;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-public final class XmlAttributeNameTest extends NameTestCase<XmlAttributeName, XmlAttributeName> {
+public final class XmlAttributeNameTest extends ClassTestCase<XmlAttributeName> 
+        implements NameTesting<XmlAttributeName, XmlAttributeName> {
 
     @Test(expected = NullPointerException.class)
     public void testWithNoPrefixNullFails() {
@@ -49,32 +52,37 @@ public final class XmlAttributeNameTest extends NameTestCase<XmlAttributeName, X
     }
 
     @Override
-    protected XmlAttributeName createName(final String name) {
+    public XmlAttributeName createName(final String name) {
         return XmlAttributeName.with(name, XmlAttributeName.NO_PREFIX);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "attribute-22";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "attribute-1";
     }
 
     @Override
     protected Class<XmlAttributeName> type() {
         return XmlAttributeName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

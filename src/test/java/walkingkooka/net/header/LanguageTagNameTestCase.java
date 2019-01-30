@@ -21,8 +21,10 @@ package walkingkooka.net.header;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Locale;
 import java.util.Map;
@@ -31,7 +33,8 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends NameTestCase<L, LanguageTagName> {
+public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends ClassTestCase<L>
+        implements NameTesting<L, LanguageTagName> {
 
     LanguageTagNameTestCase() {
         super();
@@ -60,7 +63,7 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
     }
 
     @Override
-    protected final CaseSensitivity caseSensitivity() {
+    public final CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
 
@@ -70,4 +73,9 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
     }
 
     abstract Class<L> languageTagNameType();
+
+    @Override
+    public final MemberVisibility typeVisibility() {
+        return MemberVisibility.PACKAGE_PRIVATE;
+    }
 }

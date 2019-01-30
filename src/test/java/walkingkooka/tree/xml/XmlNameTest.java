@@ -18,38 +18,45 @@
 
 package walkingkooka.tree.xml;
 
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-public final class XmlNameTest extends NameTestCase<XmlName, XmlName> {
+public final class XmlNameTest extends ClassTestCase<XmlName> implements NameTesting<XmlName, XmlName> {
 
     @Override
-    protected XmlName createName(final String name) {
+    public XmlName createName(final String name) {
         return XmlName.element(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "element-22";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "element-1";
     }
 
     @Override
     protected Class<XmlName> type() {
         return XmlName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

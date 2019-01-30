@@ -91,7 +91,7 @@ final public class TokenHeaderValueParameterNameTest extends HeaderParameterName
     }
 
     @Override
-    protected TokenHeaderValueParameterName<Object> createName(final String name) {
+    public TokenHeaderValueParameterName<Object> createName(final String name) {
         return Cast.to(TokenHeaderValueParameterName.with(name));
     }
 

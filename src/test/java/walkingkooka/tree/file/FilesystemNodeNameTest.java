@@ -19,12 +19,15 @@
 package walkingkooka.tree.file;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 
-public final class FilesystemNodeNameTest extends NameTestCase<FilesystemNodeName, FilesystemNodeName> {
+public final class FilesystemNodeNameTest extends ClassTestCase<FilesystemNodeName>
+        implements NameTesting<FilesystemNodeName, FilesystemNodeName> {
 
     @Test
     public void testToString() {
@@ -32,32 +35,37 @@ public final class FilesystemNodeNameTest extends NameTestCase<FilesystemNodeNam
     }
 
     @Override
-    protected FilesystemNodeName createName(final String name) {
+    public FilesystemNodeName createName(final String name) {
         return FilesystemNodeName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.fileSystem();
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "file123.txt";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different.txt";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "abc.txt";
     }
 
     @Override
     protected Class<FilesystemNodeName> type() {
         return FilesystemNodeName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

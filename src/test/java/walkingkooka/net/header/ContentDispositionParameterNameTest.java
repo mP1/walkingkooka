@@ -108,7 +108,7 @@ final public class ContentDispositionParameterNameTest extends HeaderParameterNa
     }
 
     @Override
-    protected ContentDispositionParameterName<Object> createName(final String name) {
+    public ContentDispositionParameterName<Object> createName(final String name) {
         return Cast.to(ContentDispositionParameterName.with(name));
     }
 

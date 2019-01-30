@@ -86,7 +86,7 @@ final public class LinkParameterNameTest extends HeaderParameterNameTestCase<Lin
     }
 
     @Override
-    protected LinkParameterName<Object> createName(final String name) {
+    public LinkParameterName<Object> createName(final String name) {
         return Cast.to(LinkParameterName.with(name));
     }
 

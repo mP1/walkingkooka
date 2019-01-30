@@ -83,7 +83,7 @@ final public class LanguageTagParameterNameTest extends HeaderParameterNameTestC
     }
 
     @Override
-    protected LanguageTagParameterName<Object> createName(final String name) {
+    public LanguageTagParameterName<Object> createName(final String name) {
         return Cast.to(LanguageTagParameterName.with(name));
     }
 

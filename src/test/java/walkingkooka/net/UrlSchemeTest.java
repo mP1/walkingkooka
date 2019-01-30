@@ -21,15 +21,17 @@ package walkingkooka.net;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public final class UrlSchemeTest extends NameTestCase<UrlScheme, UrlScheme>
-        implements SerializationTesting<UrlScheme> {
+public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
+        implements NameTesting<UrlScheme, UrlScheme>, SerializationTesting<UrlScheme> {
 
     @Test
     @Ignore
@@ -105,33 +107,38 @@ public final class UrlSchemeTest extends NameTestCase<UrlScheme, UrlScheme>
     }
 
     @Override
-    protected UrlScheme createName(final String name) {
+    public UrlScheme createName(final String name) {
         return UrlScheme.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.INSENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "https";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "ftp";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "http";
     }
 
     @Override
     public Class<UrlScheme> type() {
         return UrlScheme.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 
     @Override

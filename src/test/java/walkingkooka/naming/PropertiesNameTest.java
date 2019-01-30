@@ -18,11 +18,13 @@
 package walkingkooka.naming;
 
 import org.junit.Test;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-final public class PropertiesNameTest extends NameTestCase<PropertiesName, PropertiesName>
-        implements SerializationTesting<PropertiesName> {
+final public class PropertiesNameTest extends ClassTestCase<PropertiesName>
+        implements NameTesting<PropertiesName, PropertiesName>, SerializationTesting<PropertiesName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateContainsSeparatorFails() {
@@ -35,7 +37,7 @@ final public class PropertiesNameTest extends NameTestCase<PropertiesName, Prope
     }
 
     @Override
-    protected PropertiesName createName(final String name) {
+    public PropertiesName createName(final String name) {
         return PropertiesName.with(name);
     }
 
@@ -45,22 +47,22 @@ final public class PropertiesNameTest extends NameTestCase<PropertiesName, Prope
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "b";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "a";
     }
 
@@ -72,5 +74,10 @@ final public class PropertiesNameTest extends NameTestCase<PropertiesName, Prope
     @Override
     public boolean serializableInstanceIsSingleton() {
         return false;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

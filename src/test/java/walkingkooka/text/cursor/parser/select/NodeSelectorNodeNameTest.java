@@ -19,14 +19,17 @@
 package walkingkooka.text.cursor.parser.select;
 
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-final public class NodeSelectorNodeNameTest extends NameTestCase<NodeSelectorNodeName, NodeSelectorNodeName> {
+final public class NodeSelectorNodeNameTest extends ClassTestCase<NodeSelectorNodeName>
+        implements NameTesting<NodeSelectorNodeName, NodeSelectorNodeName> {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithInvalidInitialFails() {
@@ -57,32 +60,37 @@ final public class NodeSelectorNodeNameTest extends NameTestCase<NodeSelectorNod
     }
 
     @Override
-    protected NodeSelectorNodeName createName(final String name) {
+    public NodeSelectorNodeName createName(final String name) {
         return NodeSelectorNodeName.with(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "node-22";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "different";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "node-1";
     }
 
     @Override
     protected Class<NodeSelectorNodeName> type() {
         return NodeSelectorNodeName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

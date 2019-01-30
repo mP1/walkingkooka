@@ -18,10 +18,13 @@ package walkingkooka.tree.pojo;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import walkingkooka.naming.NameTestCase;
+import walkingkooka.naming.NameTesting;
+import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.type.MemberVisibility;
 
-public final class PojoNodeAttributeNameTest extends NameTestCase<PojoNodeAttributeName, PojoNodeAttributeName> {
+public final class PojoNodeAttributeNameTest extends ClassTestCase<PojoNodeAttributeName>
+        implements NameTesting<PojoNodeAttributeName, PojoNodeAttributeName> {
 
     @Test
     @Ignore
@@ -52,32 +55,37 @@ public final class PojoNodeAttributeNameTest extends NameTestCase<PojoNodeAttrib
     }
 
     @Override
-    protected PojoNodeAttributeName createName(final String name) {
+    public PojoNodeAttributeName createName(final String name) {
         return PojoNodeAttributeName.valueOf(name);
     }
 
     @Override
-    protected CaseSensitivity caseSensitivity() {
+    public CaseSensitivity caseSensitivity() {
         return CaseSensitivity.SENSITIVE;
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return PojoNodeAttributeName.CLASS.name();
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected Class<PojoNodeAttributeName> type() {
         return PojoNodeAttributeName.class;
+    }
+
+    @Override
+    public MemberVisibility typeVisibility() {
+        return MemberVisibility.PUBLIC;
     }
 }

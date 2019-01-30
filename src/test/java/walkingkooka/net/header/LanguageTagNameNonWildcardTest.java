@@ -19,7 +19,6 @@
 package walkingkooka.net.header;
 
 import org.junit.Test;
-import walkingkooka.type.MemberVisibility;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -73,32 +72,27 @@ public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCas
     }
 
     @Override
-    protected LanguageTagNameNonWildcard createName(final String name) {
+    public LanguageTagNameNonWildcard createName(final String name) {
         return LanguageTagNameNonWildcard.nonWildcard(name);
     }
 
     @Override
-    protected String nameText() {
+    public String nameText() {
         return "en";
     }
 
     @Override
-    protected String differentNameText() {
+    public String differentNameText() {
         return "fr";
     }
 
     @Override
-    protected String nameTextLess() {
+    public String nameTextLess() {
         return "de";
     }
 
     @Override
     Class<LanguageTagNameNonWildcard> languageTagNameType() {
         return LanguageTagNameNonWildcard.class;
-    }
-
-    @Override
-    protected MemberVisibility typeVisibility() {
-        return MemberVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ *
  */
 
 package walkingkooka.naming;
@@ -20,7 +21,6 @@ package walkingkooka.naming;
 import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparableTesting;
-import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
@@ -30,42 +30,39 @@ import static org.junit.Assert.assertEquals;
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
  */
-abstract public class NameTestCase<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined> extends ClassTestCase<N>
-        implements ComparableTesting<C>{
-
-    protected NameTestCase() {
-        super();
-    }
+public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeEqualsDefined> extends ComparableTesting<C>{
 
     @Test
-    public void testNaming() {
+    default void testNaming() {
         this.checkNaming(Name.class);
     }
 
+    void checkNaming(Class<?>...name);
+
     @Test(expected = NullPointerException.class)
-    public void testNullFails() {
+    default void testNullFails() {
         this.createName(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testEmptyFails() {
+    default void testEmptyFails() {
         this.createName("");
     }
 
     @Test
-    public void testWith() {
+    default void testWith() {
         this.createNameAndCheck(this.nameText());
     }
 
     // Comparable.................................................................................
 
     @Test
-    public void testDifferentText() {
+    default void testDifferentText() {
         this.checkNotEquals(this.createComparable(this.differentNameText()));
     }
 
     @Test
-    public void testCompareDifferentCase() {
+    default void testCompareDifferentCase() {
         final String value = this.nameText();
 
         final C lower = this.createComparable(value.toLowerCase());
@@ -83,14 +80,14 @@ abstract public class NameTestCase<N extends Name, C extends Comparable<C> & Has
     }
 
     @Test
-    public void testCompareLess() {
+    default void testCompareLess() {
         this.compareToAndCheckLess(
                 this.createComparable(this.nameTextLess()),
                 this.createComparable(this.nameText()));
     }
 
     @Test
-    public void testCompareLessDifferentCase() {
+    default void testCompareLessDifferentCase() {
         if (CaseSensitivity.INSENSITIVE == this.caseSensitivity()) {
             this.compareToAndCheckLess(
                     this.createComparable(this.nameTextLess().toUpperCase()),
@@ -98,43 +95,35 @@ abstract public class NameTestCase<N extends Name, C extends Comparable<C> & Has
         }
     }
 
-    // toString.................................................................................
+    N createName(final String name);
 
-    @Test
-    public void testCheckToStringOverridden() {
-        this.checkToStringOverridden(this.type());
-    }
-
-    protected abstract N createName(final String name);
-
-    private C createComparable(final String name) {
+    default C createComparable(final String name) {
         return Cast.to(this.createName(name));
     }
 
-    protected abstract CaseSensitivity caseSensitivity();
+    CaseSensitivity caseSensitivity();
 
-    protected abstract String nameText();
+    String nameText();
 
-    protected abstract String differentNameText();
+    String differentNameText();
 
-    protected abstract String nameTextLess();
+    String nameTextLess();
 
-    protected void createNameAndCheck(final String value) {
+    default void createNameAndCheck(final String value) {
         final N name = this.createName(value);
         this.checkValue(name, value);
     }
 
-    protected void checkValue(final Name name, final String value) {
+    default void checkValue(final Name name, final String value) {
         assertEquals("value", value, name.value());
     }
 
-    @Override
-    protected MemberVisibility typeVisibility() {
+    default MemberVisibility typeVisibility() {
         return MemberVisibility.PUBLIC;
     }
 
     @Override
-    public final C createComparable() {
+    default C createComparable() {
         return Cast.to(this.createName(this.nameText()));
     }
 }

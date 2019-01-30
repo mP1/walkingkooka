@@ -58,17 +58,17 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
     }
 
     @Override
-    protected final String nameText() {
+    public final String nameText() {
         return "param-22";
     }
 
     @Override
-    protected final String differentNameText() {
+    public final String differentNameText() {
         return "different";
     }
 
     @Override
-    protected final String nameTextLess() {
+    public final String nameTextLess() {
         return "param-1";
     }
 }
