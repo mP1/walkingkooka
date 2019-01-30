@@ -373,6 +373,14 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     @Test
+    public void testEqualsDifferentChildren3() {
+        final JsonNode value = JsonNode.string("value");
+
+        this.checkNotEquals(JsonNode.object().set(property(), value),
+                JsonNode.object().set(JsonNodeName.with("different"), value));
+    }
+
+    @Test
     public void testEqualsArray() {
         this.checkNotEquals(JsonNode.object().set(property(), JsonNode.string("child1")),
                 JsonNode.array().appendChild(JsonNode.string("child2")));
