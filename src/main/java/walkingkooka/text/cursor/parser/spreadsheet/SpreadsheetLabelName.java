@@ -18,10 +18,12 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -141,23 +143,28 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
 
     @Override
     public int compareTo(final SpreadsheetLabelName other) {
-        return this.name.compareToIgnoreCase(other.name);
+        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
 
     // Object
 
     @Override
     public int hashCode() {
-        return this.name.hashCode();
+        return CASE_SENSITIVITY.hash(this.name);
     }
 
     @Override
-    public boolean equals(final Object other) {
-        return (this == other) || other instanceof SpreadsheetLabelName && this.equals0((SpreadsheetLabelName) other);
+    boolean canBeEqual(final Object other) {
+        return other instanceof SpreadsheetLabelName;
     }
 
-    private boolean equals0(final SpreadsheetLabelName other) {
-        return this.name.equalsIgnoreCase(other.name);
+    @Override
+    boolean equals0(final Object other) {
+        return this.equals1(Cast.to(other));
+    }
+
+    private boolean equals1(final SpreadsheetLabelName other) {
+        return this.compare(other) == 0;
     }
 
     @Override
@@ -165,17 +172,22 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
         return this.name;
     }
 
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.INSENSITIVE;
+
     // SpreadsheetExpressionReferenceComparator........................................................................
 
-    @Override final int compare(final SpreadsheetExpressionReference other) {
+    @Override
+    final int compare(final SpreadsheetExpressionReference other) {
         return other.compare0(this);
     }
 
-    @Override final int compare0(final SpreadsheetCellReference other) {
+    @Override
+    final int compare0(final SpreadsheetCellReference other) {
         return -LABEL_COMPARED_WITH_CELL_RESULT;
     }
 
-    @Override final int compare0(final SpreadsheetLabelName other) {
-        return other.name.compareToIgnoreCase(this.name);
+    @Override
+    final int compare0(final SpreadsheetLabelName other) {
+        return other.compareTo(this);
     }
 }
