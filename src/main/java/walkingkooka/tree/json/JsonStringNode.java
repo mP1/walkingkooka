@@ -31,7 +31,7 @@ public final class JsonStringNode extends JsonLeafNode<String>{
 
     static JsonStringNode with(final String value) {
         Objects.requireNonNull(value, "value");
-        return new JsonStringNode(NAME, NO_PARENT_INDEX, value);
+        return new JsonStringNode(NAME, NO_INDEX, value);
     }
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonStringNode.class);

@@ -28,7 +28,7 @@ public final class JsonNullNode extends JsonLeafNode<Void>{
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonNullNode.class);
 
-    final static JsonNullNode INSTANCE = new JsonNullNode(NAME,NO_PARENT_INDEX, null);
+    final static JsonNullNode INSTANCE = new JsonNullNode(NAME,NO_INDEX, null);
 
     JsonNullNode(final JsonNodeName name, final int index, final Void value) {
         super(name, index, value);

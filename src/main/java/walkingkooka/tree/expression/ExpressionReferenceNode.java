@@ -35,7 +35,7 @@ public final class ExpressionReferenceNode extends ExpressionLeafNode<Expression
     static ExpressionReferenceNode with(final ExpressionReference reference){
         Objects.requireNonNull(reference, "reference");
 
-        return new ExpressionReferenceNode(NO_PARENT_INDEX, reference);
+        return new ExpressionReferenceNode(NO_INDEX, reference);
     }
 
     private ExpressionReferenceNode(final int index, final ExpressionReference reference){

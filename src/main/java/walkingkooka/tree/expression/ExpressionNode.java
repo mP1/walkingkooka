@@ -295,7 +295,6 @@ public abstract class ExpressionNode implements Node<ExpressionNode, ExpressionN
     }
 
     final static Optional<ExpressionNode> NO_PARENT = Optional.empty();
-    final static int NO_PARENT_INDEX = -1;
 
     /**
      * Package private ctor to limit sub classing.

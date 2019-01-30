@@ -27,7 +27,7 @@ import walkingkooka.tree.search.SearchNode;
 public final class JsonBooleanNode extends JsonLeafNode<Boolean>{
 
     static JsonBooleanNode with(final boolean value) {
-        return new JsonBooleanNode(NAME, NO_PARENT_INDEX, value);
+        return new JsonBooleanNode(NAME, NO_INDEX, value);
     }
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonBooleanNode.class);

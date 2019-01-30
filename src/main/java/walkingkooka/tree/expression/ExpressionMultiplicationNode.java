@@ -35,7 +35,7 @@ public final class ExpressionMultiplicationNode extends ExpressionArithmeticBina
 
     static ExpressionMultiplicationNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionMultiplicationNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionMultiplicationNode(NO_INDEX, left, right);
     }
 
     private ExpressionMultiplicationNode(final int index, final ExpressionNode left, final ExpressionNode right){

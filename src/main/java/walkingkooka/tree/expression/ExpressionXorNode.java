@@ -34,7 +34,7 @@ public final class ExpressionXorNode extends ExpressionLogicalBinaryNode {
 
     static ExpressionXorNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionXorNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionXorNode(NO_INDEX, left, right);
     }
 
     private ExpressionXorNode(final int index, final ExpressionNode left, final ExpressionNode right){

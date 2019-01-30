@@ -26,7 +26,7 @@ public final class ExpressionBooleanNode extends ExpressionValueNode<Boolean> {
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionBooleanNode.class);
 
     static ExpressionBooleanNode with(final boolean value) {
-        return new ExpressionBooleanNode(NO_PARENT_INDEX, value);
+        return new ExpressionBooleanNode(NO_INDEX, value);
     }
 
     private ExpressionBooleanNode(final int index, final Boolean value){

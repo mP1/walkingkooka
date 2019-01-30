@@ -27,7 +27,7 @@ public final class ExpressionDoubleNode extends ExpressionValueNode<Double> {
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionDoubleNode.class);
 
     static ExpressionDoubleNode with(final double value) {
-        return new ExpressionDoubleNode(NO_PARENT_INDEX, value);
+        return new ExpressionDoubleNode(NO_INDEX, value);
     }
 
     private ExpressionDoubleNode(final int index, final Double value){

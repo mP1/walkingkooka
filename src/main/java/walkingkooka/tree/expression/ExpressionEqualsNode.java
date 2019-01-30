@@ -30,7 +30,7 @@ public final class ExpressionEqualsNode extends ExpressionComparisonBinaryNode {
 
     static ExpressionEqualsNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionEqualsNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionEqualsNode(NO_INDEX, left, right);
     }
 
     private ExpressionEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right){

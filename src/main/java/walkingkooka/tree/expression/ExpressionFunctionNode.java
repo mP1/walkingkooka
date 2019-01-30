@@ -41,7 +41,7 @@ public final class ExpressionFunctionNode extends ExpressionVariableNode {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(expressions, "expressions");
 
-        return new ExpressionFunctionNode(NO_PARENT_INDEX, name, expressions);
+        return new ExpressionFunctionNode(NO_INDEX, name, expressions);
     }
 
     /**

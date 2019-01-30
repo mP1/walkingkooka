@@ -101,7 +101,6 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
     public static final PathSeparator PATH_SEPARATOR = PathSeparator.notRequiredAtStart('/');
 
     final static Optional<JsonNode> NO_PARENT = Optional.empty();
-    final static int NO_PARENT_INDEX = -1;
 
     /**
      * Package private ctor to limit sub classing.

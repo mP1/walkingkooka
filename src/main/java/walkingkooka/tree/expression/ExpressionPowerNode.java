@@ -35,7 +35,7 @@ public final class ExpressionPowerNode extends ExpressionArithmeticBinaryNode {
 
     static ExpressionPowerNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionPowerNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionPowerNode(NO_INDEX, left, right);
     }
 
     private ExpressionPowerNode(final int index, final ExpressionNode left, final ExpressionNode right){

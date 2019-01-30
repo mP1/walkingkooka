@@ -62,12 +62,12 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      * If not the root returns the index of this node, or -1 for root.
      */
     default int index() {
-        int index = -1;
+        int index = NO_INDEX;
 
         final Optional<N> parent = this.parent();
         if (parent.isPresent()) {
             index = parent.get().children().indexOf(this);
-            if (-1 == index) {
+            if (NO_INDEX == index) {
                 throw new NodeException("Child not present in children of parent=" + this);
             }
         }

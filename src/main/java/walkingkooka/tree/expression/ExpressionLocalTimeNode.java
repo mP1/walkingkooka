@@ -31,7 +31,7 @@ public final class ExpressionLocalTimeNode extends ExpressionValueNode<LocalTime
 
     static ExpressionLocalTimeNode with(final LocalTime value) {
         Objects.requireNonNull(value, "value");
-        return new ExpressionLocalTimeNode(NO_PARENT_INDEX, value);
+        return new ExpressionLocalTimeNode(NO_INDEX, value);
     }
 
     private ExpressionLocalTimeNode(final int index, final LocalTime value){

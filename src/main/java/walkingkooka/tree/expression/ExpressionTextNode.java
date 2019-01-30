@@ -31,7 +31,7 @@ public final class ExpressionTextNode extends ExpressionValueNode<String> {
 
     static ExpressionTextNode with(final String value) {
         Objects.requireNonNull(value, "value");
-        return new ExpressionTextNode(NO_PARENT_INDEX, value);
+        return new ExpressionTextNode(NO_INDEX, value);
     }
 
     private ExpressionTextNode(final int index, final String text){

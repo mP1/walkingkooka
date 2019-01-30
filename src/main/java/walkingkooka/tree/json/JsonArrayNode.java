@@ -36,7 +36,7 @@ public final class JsonArrayNode extends JsonParentNode<List<JsonNode>>{
 
     private final static JsonNodeName NAME = JsonNodeName.fromClass(JsonArrayNode.class);
 
-    final static JsonArrayNode EMPTY = new JsonArrayNode(NAME, NO_PARENT_INDEX, Lists.empty());
+    final static JsonArrayNode EMPTY = new JsonArrayNode(NAME, NO_INDEX, Lists.empty());
 
     final static CharacterConstant BEGIN = CharacterConstant.with('[');
     final static CharacterConstant END = CharacterConstant.with(']');

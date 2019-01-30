@@ -36,7 +36,7 @@ public final class ExpressionAdditionNode extends ExpressionArithmeticBinaryNode
 
     static ExpressionAdditionNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionAdditionNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionAdditionNode(NO_INDEX, left, right);
     }
 
     private ExpressionAdditionNode(final int index, final ExpressionNode left, final ExpressionNode right){
