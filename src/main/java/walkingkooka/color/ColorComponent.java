@@ -233,10 +233,10 @@ abstract public class ColorComponent implements HashCodeEqualsDefined, Serializa
     static String[] buildToStringLookup() {
         final String[] toString = new String[256];
         for (int i = 0; i < 16; i++) {
-            toString[i] = '0' + Integer.toHexString(i).toUpperCase();
+            toString[i] = '0' + Integer.toHexString(i).toLowerCase();
         }
         for (int i = 16; i < 256; i++) {
-            toString[i] = Integer.toHexString(i).toUpperCase();
+            toString[i] = Integer.toHexString(i).toLowerCase();
         }
         return toString;
     }
