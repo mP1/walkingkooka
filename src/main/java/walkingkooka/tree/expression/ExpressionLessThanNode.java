@@ -30,7 +30,7 @@ public final class ExpressionLessThanNode extends ExpressionComparisonBinaryNode
 
     static ExpressionLessThanNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionLessThanNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionLessThanNode(NO_INDEX, left, right);
     }
 
     private ExpressionLessThanNode(final int index, final ExpressionNode left, final ExpressionNode right){

@@ -26,7 +26,7 @@ public final class ExpressionLongNode extends ExpressionValueNode<Long> {
     public final static ExpressionNodeName NAME = ExpressionNodeName.fromClass(ExpressionLongNode.class);
 
     static ExpressionLongNode with(final long value) {
-        return new ExpressionLongNode(NO_PARENT_INDEX, value);
+        return new ExpressionLongNode(NO_INDEX, value);
     }
 
     private ExpressionLongNode(final int index, final Long value){

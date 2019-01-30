@@ -30,7 +30,7 @@ public final class ExpressionGreaterThanNode extends ExpressionComparisonBinaryN
 
     static ExpressionGreaterThanNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionGreaterThanNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionGreaterThanNode(NO_INDEX, left, right);
     }
 
     private ExpressionGreaterThanNode(final int index, final ExpressionNode left, final ExpressionNode right){

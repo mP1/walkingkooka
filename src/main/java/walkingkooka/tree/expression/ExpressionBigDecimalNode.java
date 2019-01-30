@@ -31,7 +31,7 @@ public final class ExpressionBigDecimalNode extends ExpressionValueNode<BigDecim
 
     static ExpressionBigDecimalNode with(final BigDecimal value) {
         Objects.requireNonNull(value, "value");
-        return new ExpressionBigDecimalNode(NO_PARENT_INDEX, value);
+        return new ExpressionBigDecimalNode(NO_INDEX, value);
     }
 
     private ExpressionBigDecimalNode(final int index, final BigDecimal value){

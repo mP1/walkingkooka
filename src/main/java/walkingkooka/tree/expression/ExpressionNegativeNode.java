@@ -37,7 +37,7 @@ public final class ExpressionNegativeNode extends ExpressionUnaryNode {
 
     static ExpressionNegativeNode with(final ExpressionNode value){
         Objects.requireNonNull(value, "value");
-        return new ExpressionNegativeNode(NO_PARENT_INDEX, value);
+        return new ExpressionNegativeNode(NO_INDEX, value);
     }
 
     private ExpressionNegativeNode(final int index, final ExpressionNode value){

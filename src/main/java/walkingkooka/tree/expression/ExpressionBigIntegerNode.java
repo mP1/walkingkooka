@@ -30,7 +30,7 @@ public final class ExpressionBigIntegerNode extends ExpressionValueNode<BigInteg
 
     static ExpressionBigIntegerNode with(final BigInteger value) {
         Objects.requireNonNull(value, "value");
-        return new ExpressionBigIntegerNode(NO_PARENT_INDEX, value);
+        return new ExpressionBigIntegerNode(NO_INDEX, value);
     }
 
     private ExpressionBigIntegerNode(final int index, final BigInteger value){

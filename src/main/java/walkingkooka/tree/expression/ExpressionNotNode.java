@@ -36,7 +36,7 @@ public final class ExpressionNotNode extends ExpressionUnaryNode {
 
     static ExpressionNotNode with(final ExpressionNode value){
         Objects.requireNonNull(value, "value");
-        return new ExpressionNotNode(NO_PARENT_INDEX, value);
+        return new ExpressionNotNode(NO_INDEX, value);
     }
 
     private ExpressionNotNode(final int index, final ExpressionNode value){

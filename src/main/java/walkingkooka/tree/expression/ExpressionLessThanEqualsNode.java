@@ -30,7 +30,7 @@ public final class ExpressionLessThanEqualsNode extends ExpressionComparisonBina
 
     static ExpressionLessThanEqualsNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionLessThanEqualsNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionLessThanEqualsNode(NO_INDEX, left, right);
     }
 
     private ExpressionLessThanEqualsNode(final int index, final ExpressionNode left, final ExpressionNode right){

@@ -34,7 +34,7 @@ public final class ExpressionDivisionNode extends ExpressionArithmeticBinaryNode
 
     static ExpressionDivisionNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionDivisionNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionDivisionNode(NO_INDEX, left, right);
     }
 
     private ExpressionDivisionNode(final int index, final ExpressionNode left, final ExpressionNode right){

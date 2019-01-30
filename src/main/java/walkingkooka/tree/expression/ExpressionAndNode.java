@@ -31,7 +31,7 @@ public final class ExpressionAndNode extends ExpressionLogicalBinaryNode {
 
     static ExpressionAndNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionAndNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionAndNode(NO_INDEX, left, right);
     }
 
     private ExpressionAndNode(final int index, final ExpressionNode left, final ExpressionNode right){

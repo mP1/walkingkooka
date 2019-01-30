@@ -35,7 +35,7 @@ public final class ExpressionModuloNode extends ExpressionArithmeticBinaryNode {
 
     static ExpressionModuloNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionModuloNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionModuloNode(NO_INDEX, left, right);
     }
 
     private ExpressionModuloNode(final int index, final ExpressionNode left, final ExpressionNode right){

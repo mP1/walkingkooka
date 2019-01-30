@@ -44,7 +44,7 @@ public final class JsonObjectNode extends JsonParentNode<JsonObjectNodeList> {
     /**
      * An empty json object.
      */
-    final static JsonObjectNode EMPTY = new JsonObjectNode(NAME, NO_PARENT_INDEX, JsonObjectNodeList.EMPTY);
+    final static JsonObjectNode EMPTY = new JsonObjectNode(NAME, NO_INDEX, JsonObjectNodeList.EMPTY);
 
     final static CharacterConstant BEGIN = CharacterConstant.with('{');
     final static CharacterConstant END = CharacterConstant.with('}');

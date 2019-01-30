@@ -35,7 +35,7 @@ public final class ExpressionSubtractionNode extends ExpressionArithmeticBinaryN
 
     static ExpressionSubtractionNode with(final ExpressionNode left, final ExpressionNode right){
         check(left, right);
-        return new ExpressionSubtractionNode(NO_PARENT_INDEX, left, right);
+        return new ExpressionSubtractionNode(NO_INDEX, left, right);
     }
 
     private ExpressionSubtractionNode(final int index, final ExpressionNode left, final ExpressionNode right){
