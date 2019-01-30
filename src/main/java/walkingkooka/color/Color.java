@@ -23,6 +23,7 @@ import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.build.tostring.ToStringBuilderOption;
 import walkingkooka.build.tostring.UsesToStringBuilder;
 import walkingkooka.test.HashCodeEqualsDefined;
+import walkingkooka.text.CharSequences;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -43,9 +44,63 @@ abstract public class Color implements UsesToStringBuilder, HashCodeEqualsDefine
     public final static Color WHITE = Color.fromRgb(0xFFFFFF);
 
     /**
+     * Parses a {@link Color}, currently only #RGB and #RRGBB formats are supported<br>
+     * <a href="https://en.wikipedia.org/wiki/Web_colors#CSS_colors"></a>
+     */
+    public static Color parse(final String text) {
+        CharSequences.failIfNullOrEmpty(text, "text");
+
+        Color color;
+        do {
+            if (text.startsWith("#")) {
+                color = parseHash(text);
+                break;
+            }
+            throw new IllegalArgumentException("Invalid color " + CharSequences.quoteAndEscape(text));
+        } while (false);
+
+        return color;
+    }
+
+    /**
+     * Only parses #RGB and #RRGGBB text, other forms will result in a {@link IllegalArgumentException}.
+     */
+    private static Color parseHash(final String text) {
+        int value = 0;
+
+        final int textLength = text.length();
+        switch (textLength) {
+            case 4:
+                value = parseHash0(text);
+                value = (value & 0xF00) * 0x1100 +
+                        (value & 0xF0) * 0x110 +
+                        (value & 0xF) * 0x11;
+                break;
+            case 7:
+                value = parseHash0(text);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid text length " + CharSequences.quoteAndEscape(text));
+        }
+        return fromRgb(value);
+    }
+
+    private static int parseHash0(final String text) {
+        try {
+            return Integer.parseInt(text.substring(1), 16);
+        } catch (final NumberFormatException cause) {
+            throw new IllegalArgumentException("Invalid color " + CharSequences.quote(text), cause);
+        }
+    }
+
+    /**
      * Creates a {@link Color} from the given RGB value.
      */
     public static Color fromRgb(final int rgb) {
+        if (rgb < 0 || rgb > 0xFFFFFF) {
+            throw new IllegalArgumentException("Invalid rgb value " + rgb);
+        }
+
         return OpaqueColor.with( //
                 ColorComponent.red(Color.shiftRight(rgb, Color.RED_SHIFT)), //
                 ColorComponent.green(Color.shiftRight(rgb, Color.GREEN_SHIFT)), //
@@ -59,8 +114,9 @@ abstract public class Color implements UsesToStringBuilder, HashCodeEqualsDefine
      * Creates a {@link Color} from the given ARGB value.
      */
     public static Color fromArgb(final int argb) {
-        return (argb & Color.ALPHA_MASK) == Color.ALPHA_MASK ? Color.fromRgb(argb)
-                : AlphaColor.createAlphaColorFromArgb(argb);
+        return (argb & Color.ALPHA_MASK) == Color.ALPHA_MASK ?
+                Color.fromRgb(WITHOUT_ALPHA & argb) :
+                AlphaColor.createAlphaColorFromArgb(argb);
     }
 
     /**
