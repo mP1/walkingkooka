@@ -101,7 +101,16 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
         final Color color = this.createObject();
         this.checkNotEquals(AlphaColor.with(color.red(), color.green(), color.blue(), AlphaColorComponent.with((byte) 0xff)));
     }
-    
+
+    // HasJsonNode............................................................................................
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testToJsonNode() {
+        Color.fromArgb(0x11223344).toJsonNode();
+    }
+
+    // Object............................................................................................
+
     @Test
     public void testToString() {
         assertEquals("#04010203", Color.fromArgb(0x04010203).toString());
