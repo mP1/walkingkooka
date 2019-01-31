@@ -75,30 +75,32 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
      * Accepts a value and if its supported returns a {@link JsonNode}. {@link Optional} are also unwrapped.
      */
     public static Optional<JsonNode> wrap(final Object value) {
-        return null == value ?
-                Optional.of(nullNode()) :
-                wrap0(value);
+        return Optional.ofNullable(wrap0(value));
     }
 
-    private static Optional<JsonNode> wrap0(final Object value) {
-        return value instanceof Optional ?
-                wrap(Optional.class.cast(value).get()) :
-                wrap1(value);
-    }
-
-    private static Optional<JsonNode> wrap1(final Object value) {
-        return value instanceof JsonNode ?
-                Optional.of(JsonNode.class.cast(value)) :
-                wrap2(value);
-    }
-
-    /**
-     * Currently only supports boolean, number and string values.
-     */
-    private static Optional<JsonNode> wrap2(final Object value) {
-        JsonNode jsonNode = null;
+    private static JsonNode wrap0(final Object value) {
+        JsonNode jsonNode;
 
         do {
+            if (null == value) {
+                jsonNode = JsonNode.nullNode();
+                break;
+            }
+            if (value instanceof Optional) {
+                final Optional<?> optional = Optional.class.cast(value);
+                jsonNode = optional.isPresent() ?
+                        wrap0(optional.get()) :
+                        null;
+                break;
+            }
+            if (value instanceof JsonNode) {
+                jsonNode = JsonNode.class.cast(value);
+                break;
+            }
+            if (value instanceof HasJsonNode) {
+                jsonNode = HasJsonNode.class.cast(value).toJsonNode();
+                break;
+            }
             if (value instanceof Boolean) {
                 jsonNode = booleanNode(Boolean.class.cast(value));
                 break;
@@ -111,9 +113,12 @@ public abstract class JsonNode implements Node<JsonNode, JsonNodeName, Name, Obj
                 jsonNode = string(String.class.cast(value));
                 break;
             }
+
+            // unsupported type answer is Optional.empty
+            jsonNode = null;
         } while (false);
 
-        return Optional.ofNullable(jsonNode);
+        return jsonNode;
     }
 
     public static JsonArrayNode array() {
