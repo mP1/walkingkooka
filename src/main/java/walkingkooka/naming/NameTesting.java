@@ -39,6 +39,11 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
 
     void checkNaming(Class<?>...name);
 
+    @Test
+    default void testPublicClass() {
+        assertEquals("Visibility of name", MemberVisibility.PUBLIC, this.typeVisibility());
+    }
+
     @Test(expected = NullPointerException.class)
     default void testNullFails() {
         this.createName(null);
