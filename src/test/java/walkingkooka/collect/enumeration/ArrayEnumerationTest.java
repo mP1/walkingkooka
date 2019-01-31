@@ -17,25 +17,23 @@
 
 package walkingkooka.collect.enumeration;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Enumeration;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ArrayEnumerationTest
         extends EnumerationTestCase<ArrayEnumeration<String>, String> {
 
     @Test
     public void testWithNullArrayFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ArrayEnumeration.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test

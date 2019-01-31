@@ -18,7 +18,7 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;

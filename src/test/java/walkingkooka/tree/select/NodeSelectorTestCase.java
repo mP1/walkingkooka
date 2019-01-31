@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
@@ -41,9 +41,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
         extends ClassTestCase<S>
@@ -51,7 +52,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
 
     final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
-    @Before
+    @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
     }
@@ -65,14 +66,18 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
         this.checkNaming(NodeSelector.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAppendNullFails() {
-        this.createSelector().append(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSelector().append(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetToStringNullFails() {
-        this.createSelector().setToString(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSelector().setToString(null);
+        });
     }
 
     @Test
@@ -81,7 +86,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
 
         final String toString = "custom " + selector;
         final NodeSelector<TestNode, StringName, StringName, Object> custom = selector.setToString(toString);
-        assertEquals("toString", toString, custom.toString());
+        assertEquals(toString, custom.toString(), "toString");
     }
 
     abstract S createSelector();
@@ -124,9 +129,9 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
         final List<String> selectedNames = selected.stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
-        assertEquals("Selector.accept\n" + start, Lists.of(nodes), selectedNames);
-        assertNotEquals("potentials must not be empty", Sets.empty(), potential);
-        assertTrue("potentials must include initial node=" + potential, potential.contains(start));
+        assertEquals(Lists.of(nodes), selectedNames, () -> "Selector.accept\n" + start);
+        assertNotEquals(Sets.empty(), potential, "potentials must not be empty");
+        assertTrue(potential.contains(start), ()-> "potentials must include initial node=" + potential);
     }
 
     final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final Consumer<TestNode> potential,

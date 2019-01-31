@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.compare.Range;
 import walkingkooka.text.CharSequences;
@@ -26,9 +26,9 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
@@ -37,46 +37,62 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
     // with.
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullUnitFails() {
-        ContentRange.with(null, range(), SIZE);
+        assertThrows(NullPointerException.class, () -> {
+            ContentRange.with(null, range(), SIZE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullRangeFails() {
-        ContentRange.with(UNIT, null, SIZE);
+        assertThrows(NullPointerException.class, () -> {
+            ContentRange.with(UNIT, null, SIZE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSizeFails() {
-        ContentRange.with(UNIT, this.range(), null);
+        assertThrows(NullPointerException.class, () -> {
+            ContentRange.with(UNIT, this.range(), null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNegativeRangeLowerFails() {
-        ContentRange.with(UNIT, this.range(-1, 123), SIZE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentRange.with(UNIT, this.range(-1, 123), SIZE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithRangeLowerExclusiveFails() {
-        ContentRange.with(UNIT, Optional.of(Range.greaterThan(123L)), SIZE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentRange.with(UNIT, Optional.of(Range.greaterThan(123L)), SIZE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithRangeUpperBeforeRangeLowerFails() {
-        ContentRange.with(UNIT, this.range(10, 9), SIZE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentRange.with(UNIT, this.range(10, 9), SIZE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithRangeUpperExclusiveFails() {
-        ContentRange.with(UNIT,
-                Optional.of(Range.greaterThanEquals(123L).and(Range.lessThan(456L))),
-                SIZE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentRange.with(UNIT,
+                    Optional.of(Range.greaterThanEquals(123L).and(Range.lessThan(456L))),
+                    SIZE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNegativeSizeFails() {
-        ContentRange.with(UNIT, this.range(), Optional.of(-1L));
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentRange.with(UNIT, this.range(), Optional.of(-1L));
+        });
     }
 
     @Test
@@ -99,14 +115,18 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
     // setUnit.....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetUnitNullFails() {
-        this.contentRange().setUnit(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.contentRange().setUnit(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetUnitNoneFails() {
-        this.contentRange().setUnit(RangeHeaderValueUnit.NONE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.contentRange().setUnit(RangeHeaderValueUnit.NONE);
+        });
     }
 
     @Test
@@ -117,19 +137,25 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
     // setRange.....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetRangeNullFails() {
-        this.contentRange().setRange(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.contentRange().setRange(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetRangeNegativeLowerBoundsFails() {
-        this.contentRange().setRange(this.range(-1, 123));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.contentRange().setRange(this.range(-1, 123));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetRangeUpperLessThanLowerBoundsFails() {
-        this.contentRange().setRange(this.range(10, 9));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.contentRange().setRange(this.range(10, 9));
+        });
     }
 
     @Test
@@ -159,14 +185,18 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
     // setSize.....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetSizeNullFails() {
-        this.contentRange().setSize(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.contentRange().setSize(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetSizeNegativeSizeFails() {
-        this.contentRange().setSize(Optional.of(-1L));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.contentRange().setSize(Optional.of(-1L));
+        });
     }
 
     @Test
@@ -207,9 +237,9 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
                        final RangeHeaderValueUnit unit,
                        final Optional<Range<Long>> range,
                        final Optional<Long> size) {
-        assertEquals("unit", unit, contentRange.unit());
-        assertEquals("range", range, contentRange.range());
-        assertEquals("size", size, contentRange.size());
+        assertEquals(unit, contentRange.unit(), "unit");
+        assertEquals(range, contentRange.range(), "range");
+        assertEquals(size, contentRange.size(), "size");
     }
 
     // check ..................................................................................................
@@ -251,14 +281,18 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
 
     // parse ......................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullFails() {
-        ContentRange.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            ContentRange.parse(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyFails() {
-        ContentRange.parse("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentRange.parse("");
+        });
     }
 
     @Test
@@ -370,21 +404,19 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
     }
 
     private void parseFails(final String text, final String message) {
-        try {
+        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
             ContentRange.parse(text);
-            fail(message);
-        } catch (final HeaderValueException expected) {
-            assertEquals("message", message, expected.getMessage());
-        }
+        });
+        assertEquals(message, expected.getMessage(), "message");
     }
 
     private void parseAndCheck(final String headerValue,
                                final RangeHeaderValueUnit unit,
                                final Optional<Range<Long>> range,
                                final Optional<Long> size) {
-        assertEquals("Incorrect result when parsing " + CharSequences.quote(headerValue),
-                ContentRange.with(unit, range, size),
-                ContentRange.parse(headerValue));
+        assertEquals(ContentRange.with(unit, range, size),
+                ContentRange.parse(headerValue),
+                "Incorrect result when parsing " + CharSequences.quote(headerValue));
     }
 
     // toHeaderText.................................................................................................
@@ -461,9 +493,9 @@ public final class ContentRangeTest extends HeaderValueTestCase<ContentRange> {
                                         final RangeHeaderValueUnit unit,
                                         final Optional<Range<Long>> range,
                                         final Optional<Long> size) {
-        assertEquals("toString",
-                toString,
-                ContentRange.with(unit, range, size).toString());
+        assertEquals(toString,
+                ContentRange.with(unit, range, size).toString(),
+                "toString");
     }
 
     private ContentRange contentRange() {

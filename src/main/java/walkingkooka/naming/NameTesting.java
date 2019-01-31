@@ -18,14 +18,15 @@
 
 package walkingkooka.naming;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for testing a {@link Name} with mostly helpers to assert construction failure.
@@ -41,17 +42,23 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
 
     @Test
     default void testPublicClass() {
-        assertEquals("Visibility of name", MemberVisibility.PUBLIC, this.typeVisibility());
+        assertEquals(MemberVisibility.PUBLIC,
+                this.typeVisibility(),
+                "Visibility of name");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     default void testNullFails() {
-        this.createName(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createName(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     default void testEmptyFails() {
-        this.createName("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createName("");
+        });
     }
 
     @Test
@@ -120,7 +127,7 @@ public interface NameTesting<N extends Name, C extends Comparable<C> & HashCodeE
     }
 
     default void checkValue(final Name name, final String value) {
-        assertEquals("value", value, name.value());
+        assertEquals(value, name.value(), "value");
     }
 
     default MemberVisibility typeVisibility() {

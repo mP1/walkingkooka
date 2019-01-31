@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
 
 import java.time.OffsetDateTime;

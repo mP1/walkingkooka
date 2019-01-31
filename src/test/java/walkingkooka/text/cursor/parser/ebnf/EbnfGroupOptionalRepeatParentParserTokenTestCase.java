@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.search.SearchNode;
@@ -24,15 +24,18 @@ import walkingkooka.tree.search.SearchNode;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends EbnfParentParserToken<T>> extends EbnfParentParserTokenTestCase2<T> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testTooManyTokensIgnoringCommentsSymbolsWhitespaceFails() {
-        this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier("identifier-3"));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier("identifier-3"));
+        });
     }
 
     @Test
@@ -41,16 +44,18 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
         final EbnfParserToken comment2 = this.comment2();
 
         final T token = this.createToken(this.text(), identifier1, comment2);
-        assertEquals("value", Lists.of(identifier1, comment2), token.value());
+        assertEquals(Lists.of(identifier1, comment2), token.value(), "value");
 
         final T without = token.withoutCommentsSymbolsOrWhitespace().get().cast();
         assertNotSame(token, without);
-        assertEquals("value", Lists.of(identifier1), without.value());
+        assertEquals(Lists.of(identifier1), without.value(), "value");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueWrongCountFails() {
-        this.createToken().setValue(Lists.of(identifier1(), identifier2()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(identifier1(), identifier2()));
+        });
     }
 
     @Test
@@ -86,7 +91,7 @@ public abstract class EbnfGroupOptionalRepeatParentParserTokenTestCase<T extends
         final T token = this.createToken(this.text(), symbol(this.openChar()), this.identifier1(), symbol(this.closeChar()));
         final SearchNode searchNode = token.toSearchNode();
 
-        assertEquals("text", token.text(), searchNode.text());
+        assertEquals(token.text(), searchNode.text(), "text");
     }
 
     @Override

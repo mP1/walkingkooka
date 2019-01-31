@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
@@ -35,7 +35,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ConditionSpreadsheetTextFormatter<String>,
         String,
@@ -43,9 +44,11 @@ public final class ConditionSpreadsheetTextFormatterTest extends SpreadsheetText
 
     private final static String TEXT_PATTERN = "!@@";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullWrappedFormatterFails() {
-        ConditionSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), null);
+        assertThrows(NullPointerException.class, () -> {
+            ConditionSpreadsheetTextFormatter.with(this.parsePatternOrFail(this.pattern()), null);
+        });
     }
 
     // EQ.....................................................................................

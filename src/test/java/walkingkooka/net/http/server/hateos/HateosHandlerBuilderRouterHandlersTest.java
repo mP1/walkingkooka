@@ -18,13 +18,13 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HateosHandlerBuilderRouterHandlersTest extends ClassTestCase<HateosHandlerBuilderRouterHandlers<JsonNode>> {
 
@@ -44,10 +44,10 @@ public final class HateosHandlerBuilderRouterHandlersTest extends ClassTestCase<
 
         final HateosHandlerBuilderRouterHandlers<JsonNode> copy = handlers.copy();
 
-        assertEquals("GET", get, copy.get);
-        assertEquals("POST", post, copy.post);
-        assertEquals("PUT", put, copy.put);
-        assertEquals("DELETE", delete, copy.delete);
+        assertEquals(get, copy.get, "GET");
+        assertEquals(post, copy.post, "POST");
+        assertEquals(put, copy.put, "PUT");
+        assertEquals(delete, copy.delete, "DELETE");
     }
 
     @Test

@@ -29,7 +29,7 @@ import walkingkooka.type.MemberVisibility;
 import java.math.BigInteger;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, N extends Node<N, ?, ?, ?>> extends ClassTestCase<C> {
 
@@ -44,9 +44,9 @@ public abstract class HateosContentTypeTestCase<C extends HateosContentType<N>, 
                                 final HateosResourceName resourceName,
                                 final Set<LinkRelation<?>> linkRelations,
                                 final String expected) throws Exception {
-        assertEquals("add links " + id + " " + CharSequences.quoteAndEscape(node) + " " + method + " " + base + " " + linkRelations,
-                this.parse(expected),
-                this.addLinks(id, this.parse(node), method, base, resourceName, linkRelations));
+        assertEquals(this.parse(expected),
+                this.addLinks(id, this.parse(node), method, base, resourceName, linkRelations),
+                "add links " + id + " " + CharSequences.quoteAndEscape(node) + " " + method + " " + base + " " + linkRelations);
     }
 
     final N addLinks(final BigInteger id,

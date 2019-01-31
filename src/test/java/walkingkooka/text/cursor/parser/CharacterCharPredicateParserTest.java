@@ -16,21 +16,24 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CharacterCharPredicateParserTest extends ParserTemplateTestCase<CharacterCharPredicateParser<ParserContext>, CharacterParserToken> {
 
     private final static CharPredicate DIGITS = CharPredicates.digit();
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCharPredicateFails() {
-        CharacterCharPredicateParser.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharacterCharPredicateParser.with(null);
+        });
     }
 
     @Test

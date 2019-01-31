@@ -18,30 +18,37 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ChainConverterTest extends ConverterTestCase<ChainConverter> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFirstConverterFails() {
-        ChainConverter.with(null, this.intermediateTargetType(), this.localDateToBigDecimal());
+        assertThrows(NullPointerException.class, () -> {
+            ChainConverter.with(null, this.intermediateTargetType(), this.localDateToBigDecimal());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullIntermediateTargetTypeFails() {
-        ChainConverter.with(this.stringToLocalDate(), null, this.localDateToBigDecimal());
+        assertThrows(NullPointerException.class, () -> {
+            ChainConverter.with(this.stringToLocalDate(), null, this.localDateToBigDecimal());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullLastConverterFails() {
-        ChainConverter.with(this.stringToLocalDate(), this.intermediateTargetType(), null);
+        assertThrows(NullPointerException.class, () -> {
+            ChainConverter.with(this.stringToLocalDate(), this.intermediateTargetType(), null);
+        });
     }
 
     @Test

@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -36,7 +36,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<ExpressionSpreadsheetTextFormatter, Object, SpreadsheetFormatExpressionParserToken> {
 
@@ -287,7 +287,7 @@ public final class ExpressionSpreadsheetTextFormatterTest extends SpreadsheetTex
 
             @Override
             public Color colorNumber(final int number) {
-                assertEquals("number", 31, number);
+                assertEquals(31, number, "number");
                 return COLOR31;
             }
 

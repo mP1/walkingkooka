@@ -17,12 +17,13 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class StringInitialAndPartCharPredicateParserTest extends ParserTemplateTestCase<StringInitialAndPartCharPredicateParser<ParserContext>, StringParserToken> {
 
@@ -31,29 +32,39 @@ public final class StringInitialAndPartCharPredicateParserTest extends ParserTem
     private final static int MIN_LENGTH = 4;
     private final static int MAX_LENGTH = 6;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullInitialCharPredicateFails() {
-        StringInitialAndPartCharPredicateParser.with(null, PART, MIN_LENGTH, MAX_LENGTH);
+        assertThrows(NullPointerException.class, () -> {
+            StringInitialAndPartCharPredicateParser.with(null, PART, MIN_LENGTH, MAX_LENGTH);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullInitialPartPredicateFails() {
-        StringInitialAndPartCharPredicateParser.with(INITIAL, null, MIN_LENGTH, MAX_LENGTH);
+        assertThrows(NullPointerException.class, () -> {
+            StringInitialAndPartCharPredicateParser.with(INITIAL, null, MIN_LENGTH, MAX_LENGTH);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidMinLengthFails() {
-        StringInitialAndPartCharPredicateParser.with(INITIAL, PART, 0, MAX_LENGTH);
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringInitialAndPartCharPredicateParser.with(INITIAL, PART, 0, MAX_LENGTH);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidMaxLengthFails() {
-        StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH);
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidMaxLengthFails2() {
-        StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH -1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringInitialAndPartCharPredicateParser.with(INITIAL, PART, MIN_LENGTH, MIN_LENGTH -1);
+        });
     }
 
     @Test

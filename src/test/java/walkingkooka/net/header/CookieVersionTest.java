@@ -18,11 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CookieVersionTest extends ClassTestCase<CookieVersion> {
 
@@ -36,9 +37,11 @@ final public class CookieVersionTest extends ClassTestCase<CookieVersion> {
         assertSame(CookieVersion.VERSION_1, CookieVersion.from(1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFromInvalidFails() {
-        CookieVersion.from(2);
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieVersion.from(2);
+        });
     }
 
     @Override

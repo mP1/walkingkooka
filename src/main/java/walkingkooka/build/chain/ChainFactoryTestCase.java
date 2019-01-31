@@ -17,9 +17,11 @@
 
 package walkingkooka.build.chain;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for any {@link ChainFactory} that includes mostly parameter check tests
@@ -31,10 +33,11 @@ abstract public class ChainFactoryTestCase<F extends ChainFactory<T>, T>
         super();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCreateWithNullFails() {
-        final F factory = this.createFactory();
-        factory.create(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createFactory().create(null);
+        });
     }
 
     abstract protected F createFactory();

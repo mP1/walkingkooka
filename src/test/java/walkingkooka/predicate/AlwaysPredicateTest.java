@@ -17,21 +17,18 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.SerializationTesting;
 
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AlwaysPredicateTest extends PredicateTestCase<AlwaysPredicate<Object>, Object>
         implements SerializationTesting<AlwaysPredicate<Object>> {
-    
-    @Test
-    @Ignore
+
     @Override
     public void testTestNullFails() {
         throw new UnsupportedOperationException();

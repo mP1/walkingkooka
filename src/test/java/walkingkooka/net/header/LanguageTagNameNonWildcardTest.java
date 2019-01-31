@@ -18,31 +18,38 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 import java.util.Optional;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCase<LanguageTagNameNonWildcard> {
 
     private final static String VALUE = "en";
     private final static Optional<Locale> LOCALE = Optional.of(Locale.forLanguageTag("en"));
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        LanguageTagNameNonWildcard.nonWildcard(null);
+        assertThrows(NullPointerException.class, () -> {
+            LanguageTagNameNonWildcard.nonWildcard(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyFails() {
-        LanguageTagNameNonWildcard.nonWildcard("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            LanguageTagNameNonWildcard.nonWildcard("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidLanguageTagNameFails() {
-        LanguageTagNameNonWildcard.nonWildcard("\0xyz");
+        assertThrows(IllegalArgumentException.class, () -> {
+            LanguageTagNameNonWildcard.nonWildcard("\0xyz");
+        });
     }
 
     @Test

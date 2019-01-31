@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.iterator.IteratorTestCase;
 import walkingkooka.net.header.HttpHeaderName;
@@ -27,7 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest extends
         IteratorTestCase<HttpServletRequestHttpRequestHeadersMapEntrySetIterator,
@@ -57,11 +58,13 @@ public final class HttpServletRequestHttpRequestHeadersMapEntrySetIteratorTest e
                 HttpServletRequestHttpRequestHeadersMapEntrySetIteratorEntry.with(HEADER2.value(), request));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRemoveFails() {
         HttpServletRequestHttpRequestHeadersMapEntrySetIterator iterator = this.createIterator();
         iterator.next();
-        iterator.remove();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            iterator.remove();
+        });
     }
 
     @Test

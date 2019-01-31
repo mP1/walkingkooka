@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTestCase;
 import walkingkooka.collect.iterator.Iterators;
 
@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetIteratorTest extends
         IteratorTestCase<HttpServletRequestHttpRequestParametersMapEntrySetIterator,

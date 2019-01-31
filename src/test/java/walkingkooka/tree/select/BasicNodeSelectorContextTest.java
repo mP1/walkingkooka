@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
@@ -33,55 +33,67 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class BasicNodeSelectorContextTest extends NodeSelectorContextTestCase<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
         StringName,
         Object> {
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullPotentialFails() {
-        BasicNodeSelectorContext.with(null,
-                this.selected(),
-                this.functions(),
-                this.converter(),
-                this.decimalNumberContext());
+    @Test
+    public void NullPointerException() {
+        assertThrows(NullPointerException.class, () -> {
+            BasicNodeSelectorContext.with(null,
+                    this.selected(),
+                    this.functions(),
+                    this.converter(),
+                    this.decimalNumberContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSelectedFails() {
-        BasicNodeSelectorContext.with(this.potential(),
-                null,
-                this.functions(),
-                this.converter(),
-                this.decimalNumberContext());
+        assertThrows(NullPointerException.class, () -> {
+            BasicNodeSelectorContext.with(this.potential(),
+                    null,
+                    this.functions(),
+                    this.converter(),
+                    this.decimalNumberContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFunctionsFails() {
-        BasicNodeSelectorContext.with(this.potential(),
-                this.selected(),
-                null,
-                this.converter(),
-                this.decimalNumberContext());
+        assertThrows(NullPointerException.class, () -> {
+            BasicNodeSelectorContext.with(this.potential(),
+                    this.selected(),
+                    null,
+                    this.converter(),
+                    this.decimalNumberContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullConverterFails() {
-        BasicNodeSelectorContext.with(this.potential(),
-                this.selected(),
-                this.functions(),
-                null,
-                this.decimalNumberContext());
+        assertThrows(NullPointerException.class, () -> {
+            BasicNodeSelectorContext.with(this.potential(),
+                    this.selected(),
+                    this.functions(),
+                    null,
+                    this.decimalNumberContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullDecimalNumberContextFails() {
-        BasicNodeSelectorContext.with(this.potential(),
-                this.selected(),
-                this.functions(),
-                this.converter(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            BasicNodeSelectorContext.with(this.potential(),
+                    this.selected(),
+                    this.functions(),
+                    this.converter(),
+                    null);
+        });
     }
 
     @Override

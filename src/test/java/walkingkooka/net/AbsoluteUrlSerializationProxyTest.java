@@ -18,12 +18,12 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.io.serialize.SerializationProxyTestCase;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class AbsoluteUrlSerializationProxyTest extends SerializationProxyTestCase<AbsoluteUrlSerializationProxy> {
 

@@ -18,7 +18,7 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
@@ -29,11 +29,12 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Iterator;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public final class IpPortTest extends ClassTestCase<IpPort> implements ConstantsTesting<IpPort>,
@@ -49,21 +50,25 @@ public final class IpPortTest extends ClassTestCase<IpPort> implements Constants
         assertFalse(IpPort.isPort(65536));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPortAboveRangeFails() {
-        IpPort.with(65536);
+        assertThrows(IllegalArgumentException.class, () -> {
+            IpPort.with(65536);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPortBelowRangeFails() {
-        IpPort.with(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            IpPort.with(-1);
+        });
     }
 
     @Test
     public void testWith() {
         final int port = 65000;
         final IpPort ipPort = IpPort.with(port);
-        assertEquals("value", port, ipPort.value());
+        assertEquals(port, ipPort.value(), "value");
     }
 
     @Test

@@ -18,12 +18,12 @@
 package walkingkooka.util.variable;
 
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LabelledVariableTest extends VariableTestCase<LabelledVariable<Object>, Object> {
 
@@ -32,46 +32,44 @@ final public class LabelledVariableTest extends VariableTestCase<LabelledVariabl
     private final static Variable<String> VARIABLE = Variables.fake();
 
     @Test
-    public void testWrapNullName() {
-        this.wrapFails(null, LabelledVariableTest.VARIABLE);
+    public void testWrapNullNameFails() {
+        assertThrows(NullPointerException.class, () -> {
+            LabelledVariable.wrap(null, VARIABLE);
+        });
     }
 
     @Test
-    public void testWrapEmptyName() {
-        this.wrapFails("", LabelledVariableTest.VARIABLE);
+    public void testWrapEmptyNameFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            LabelledVariable.wrap("", VARIABLE);
+        });
     }
 
     @Test
-    public void testWrapWhitespaceOnlyName() {
-        this.wrapFails("  \t", LabelledVariableTest.VARIABLE);
-    }
-
-    private void wrapFails(final String name, final Variable<String> variable) {
-        try {
-            LabelledVariable.wrap(name, variable);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+    public void testWrapWhitespaceOnlyNameFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            LabelledVariable.wrap(" \t", VARIABLE);
+        });
     }
 
     @Override
     @Test
     public void testWith() {
         final Object value = "value";
-        assertEquals(value, LabelledVariable.wrap(LabelledVariableTest.NAME, Variables.with(value)).get());
+        assertEquals(value, LabelledVariable.wrap(NAME, Variables.with(value)).get());
     }
 
     @Test
     public void testWrapNamed() {
         final LabelledVariable<Object> variable = this.createVariable();
         assertNotSame(variable, LabelledVariable.wrap("different", variable));
-        assertSame(LabelledVariableTest.VALUE, variable.get());
+        assertSame(VALUE, variable.get());
     }
 
     @Test
     public void testGet() {
         final LabelledVariable<Object> variable = this.createVariable();
-        assertSame(LabelledVariableTest.VALUE, variable.get());
+        assertSame(VALUE, variable.get());
     }
 
     @Override
@@ -85,21 +83,21 @@ final public class LabelledVariableTest extends VariableTestCase<LabelledVariabl
 
     @Test
     public void testToString() {
-        assertEquals(LabelledVariableTest.NAME + "=" + LabelledVariableTest.VARIABLE,
-                LabelledVariable.wrap(LabelledVariableTest.NAME, LabelledVariableTest.VARIABLE).toString());
+        assertEquals(NAME + "=" + VARIABLE,
+                LabelledVariable.wrap(NAME, VARIABLE).toString());
     }
 
     @Test
     public void testToStringOriginalNamedVariable() {
-        assertEquals(LabelledVariableTest.NAME + "=" + LabelledVariableTest.VARIABLE,
-                LabelledVariable.wrap(LabelledVariableTest.NAME,
-                        LabelledVariable.wrap("should not be present in wrapped toString", LabelledVariableTest.VARIABLE))
+        assertEquals(NAME + "=" + VARIABLE,
+                LabelledVariable.wrap(NAME,
+                        LabelledVariable.wrap("should not be present in wrapped toString", VARIABLE))
                         .toString());
     }
 
     @Override
     protected LabelledVariable<Object> createVariable() {
-        return LabelledVariable.wrap(LabelledVariableTest.NAME, Variables.with(LabelledVariableTest.VALUE));
+        return LabelledVariable.wrap(NAME, Variables.with(VALUE));
     }
 
     @Override

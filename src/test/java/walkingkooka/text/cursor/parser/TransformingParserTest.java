@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
@@ -25,7 +25,8 @@ import walkingkooka.text.cursor.TextCursors;
 import java.math.BigInteger;
 import java.util.function.BiFunction;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TransformingParserTest extends ParserTestCase2<TransformingParser<StringParserToken, BigIntegerParserToken, ParserContext>, BigIntegerParserToken> {
 
@@ -35,14 +36,18 @@ public class TransformingParserTest extends ParserTestCase2<TransformingParser<S
         return ParserTokens.bigInteger(new BigInteger(t.value(), RADIX), t.text());
     };
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullParserFails() {
-        TransformingParser.with(null, TRANSFORMER);
+        assertThrows(NullPointerException.class, () -> {
+            TransformingParser.with(null, TRANSFORMER);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTransformerFails() {
-        TransformingParser.with(PARSER, null);
+        assertThrows(NullPointerException.class, () -> {
+            TransformingParser.with(PARSER, null);
+        });
     }
 
     @Test

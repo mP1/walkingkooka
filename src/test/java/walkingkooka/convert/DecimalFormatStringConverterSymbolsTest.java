@@ -18,12 +18,12 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class DecimalFormatStringConverterSymbolsTest extends ClassTestCase<DecimalFormatStringConverterSymbols>
         implements HashCodeEqualsDefinedTesting<DecimalFormatStringConverterSymbols> {

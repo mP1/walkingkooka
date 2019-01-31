@@ -17,12 +17,12 @@
 
 package walkingkooka.collect.stack;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Object>, Object> {
 
@@ -34,11 +34,9 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
 
     @Test
     public void testWithNullStackFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             UnreadableStack.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -50,41 +48,33 @@ final public class UnreadableStackTest extends StackTestCase<UnreadableStack<Obj
     @Test
     public void testPeekFails() {
         final UnreadableStack<Object> stack = this.createStack();
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             stack.peek();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
     }
 
     @Test
     public void testPopFails() {
         final UnreadableStack<Object> stack = this.createStack();
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             stack.pop();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
     }
 
     @Test
     public void testIsEmptyFails() {
         final UnreadableStack<Object> stack = this.createStack();
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             stack.isEmpty();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
     }
 
     @Test
     public void testSizeFails() {
         final UnreadableStack<Object> stack = this.createStack();
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             stack.size();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
     }
 
     @Test

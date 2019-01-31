@@ -18,33 +18,42 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ContentDispositionFileNameNotEncodedTest extends ContentDispositionFileNameTestCase<ContentDispositionFileNameNotEncoded> {
 
     private final static String FILENAME = "filename123";
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyFails() {
-        ContentDispositionFileNameNotEncoded.with("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionFileNameNotEncoded.with("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidCharFails() {
-        ContentDispositionFileNameNotEncoded.with("\0");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionFileNameNotEncoded.with("\0");
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testWithForwardSlashFails() {
-        ContentDispositionFileNameNotEncoded.with("/path/to/file");
+        assertThrows(InvalidCharacterException.class, () -> {
+            ContentDispositionFileNameNotEncoded.with("/path/to/file");
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testWithBackSlashFails() {
-        ContentDispositionFileNameNotEncoded.with("\\path\\to\\file");
+        assertThrows(InvalidCharacterException.class, () -> {
+            ContentDispositionFileNameNotEncoded.with("\\path\\to\\file");
+        });
     }
 
     @Test

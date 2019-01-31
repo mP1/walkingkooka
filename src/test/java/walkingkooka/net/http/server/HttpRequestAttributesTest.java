@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.Cookie;
@@ -33,7 +33,7 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpRequestAttributesTest extends ClassTestCase<HttpRequestAttributes> {
 
@@ -77,7 +77,7 @@ public final class HttpRequestAttributesTest extends ClassTestCase<HttpRequestAt
 
     private <T> void parameterValueAndCheck(final HttpRequestAttribute<T> parameter, final T value) {
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.one(parameter, value);
-        assertEquals(parameters.toString(), Optional.of(value), parameter.parameterValue(parameters));
+        assertEquals(Optional.of(value), parameter.parameterValue(parameters), () -> parameters.toString());
     }
 
     @Override

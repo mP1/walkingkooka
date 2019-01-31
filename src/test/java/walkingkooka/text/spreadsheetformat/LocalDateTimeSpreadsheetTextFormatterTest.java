@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatDateTimeParserToken;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContext;
@@ -28,7 +28,7 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class LocalDateTimeSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplate2TestCase<
         LocalDateTimeSpreadsheetTextFormatter,
@@ -122,7 +122,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
                 new FakeSpreadsheetTextFormatContext() {
                     @Override
                     public String monthNameAbbreviation(final int m) {
-                        assertEquals("month", monthNumber, m);
+                        assertEquals(monthNumber, m, "month");
                         return monthName;
                     }
                 },
@@ -145,7 +145,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
                 new FakeSpreadsheetTextFormatContext() {
                     @Override
                     public String monthName(final int m) {
-                        assertEquals("month", monthNumber, m);
+                        assertEquals(monthNumber, m, "month");
                         return monthName;
                     }
                 },
@@ -190,7 +190,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
                 new FakeSpreadsheetTextFormatContext() {
                     @Override
                     public String weekDayNameAbbreviation(final int d) {
-                        assertEquals("day", dayNumber, d);
+                        assertEquals(dayNumber, d, "day");
                         return dayName;
                     }
                 },
@@ -213,7 +213,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
                 new FakeSpreadsheetTextFormatContext() {
                     @Override
                     public String weekDayName(final int d) {
-                        assertEquals("day", dayNumber, d);
+                        assertEquals(dayNumber, d, "day");
                         return dayName;
                     }
                 },
@@ -405,7 +405,7 @@ public final class LocalDateTimeSpreadsheetTextFormatterTest extends Spreadsheet
                 new FakeSpreadsheetTextFormatContext() {
                     @Override
                     public String ampm(final int h) {
-                        assertEquals("hour", hour, h);
+                        assertEquals(hour, h, "hour");
                         return ampm;
                     }
                 },

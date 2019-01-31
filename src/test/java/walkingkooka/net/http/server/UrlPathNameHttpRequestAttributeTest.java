@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPathName;
@@ -28,16 +28,19 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathNameHttpRequestAttributeTest extends ClassTestCase<UrlPathNameHttpRequestAttribute>
         implements HashCodeEqualsDefinedTesting<UrlPathNameHttpRequestAttribute> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidIndexFails() {
-        UrlPathNameHttpRequestAttribute.with(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            UrlPathNameHttpRequestAttribute.with(-1);
+        });
     }
 
     @Test

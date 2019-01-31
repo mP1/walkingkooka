@@ -18,25 +18,32 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberFunctionTest extends ExpressionFunctionTestCase<ExpressionNumberFunction, Number> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testZeroParametersFails() {
-        this.apply2();
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testOnlyThisParameterFails() {
-        this.apply2(this);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTwoParametersFails() {
-        this.apply2(this, "a1", "b2");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this, "a1", "b2");
+        });
     }
 
     @Test
@@ -49,9 +56,11 @@ public final class ExpressionNumberFunctionTest extends ExpressionFunctionTestCa
         this.applyAndCheck2(parameters(this, "123"), 123);
     }
 
-    @Test(expected = NumberFormatException.class)
+    @Test
     public void testStringNonNumericFails() {
-        this.apply2(this, "abc");
+        assertThrows(NumberFormatException.class, () -> {
+            this.apply2(this, "abc");
+        });
     }
 
     @Test

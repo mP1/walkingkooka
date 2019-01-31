@@ -17,13 +17,14 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<RightPaddedCharSequence>
         implements SerializationTesting<RightPaddedCharSequence> {
@@ -38,88 +39,83 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWrapNullCharSequenceFails() {
-        RightPaddedCharSequence.wrap(null, RightPaddedCharSequenceTest.LENGTH, RightPaddedCharSequenceTest.PADDING);
+        assertThrows(NullPointerException.class, () -> {
+            RightPaddedCharSequence.wrap(null, LENGTH, PADDING);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrapInvalidLengthFails() {
-        RightPaddedCharSequence.wrap(RightPaddedCharSequenceTest.SEQUENCE, 4, RightPaddedCharSequenceTest.PADDING);
+        assertThrows(IllegalArgumentException.class, () -> {
+            RightPaddedCharSequence.wrap(SEQUENCE, 4, PADDING);
+        });
     }
 
     @Test
     public void testPaddingNotRequired() {
-        assertSame(RightPaddedCharSequenceTest.SEQUENCE,
-                RightPaddedCharSequence.wrap(RightPaddedCharSequenceTest.SEQUENCE,
+        assertSame(SEQUENCE,
+                RightPaddedCharSequence.wrap(SEQUENCE,
                         5,
-                        RightPaddedCharSequenceTest.PADDING));
+                        PADDING));
     }
 
     @Test
     public void testCharAt() {
-        this.checkCharAt(
-                "abcde" + RightPaddedCharSequenceTest.PADDING + RightPaddedCharSequenceTest.PADDING
-                        + RightPaddedCharSequenceTest.PADDING);
+        this.checkCharAt("abcde" + PADDING + PADDING
+                        + PADDING);
     }
 
     @Test
     public void testLength() {
-        this.checkLength(RightPaddedCharSequence.wrap(RightPaddedCharSequenceTest.SEQUENCE,
-                RightPaddedCharSequenceTest.LENGTH,
-                RightPaddedCharSequenceTest.PADDING), RightPaddedCharSequenceTest.LENGTH);
+        this.checkLength(RightPaddedCharSequence.wrap(SEQUENCE,
+                LENGTH,
+                PADDING), LENGTH);
     }
 
     @Test
     public void testSubSequencePaddingOnly() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(6, 7);
-        assertNotEquals("class", RightPaddedCharSequence.class, sub.getClass());
-        this.checkEquals2(sub, RightPaddedCharSequenceTest.PADDING);
-        assertEquals("sub.toString", ".", sub.toString());
+        assertNotEquals(RightPaddedCharSequence.class, sub.getClass(), "class");
+        this.checkEquals2(sub, PADDING);
     }
 
     @Test
     public void testSubSequencePaddingOnly2() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
         final CharSequence sub = sequence.subSequence(5, 8);
-        assertNotEquals("class", RightPaddedCharSequence.class, sub.getClass());
+        assertNotEquals(RightPaddedCharSequence.class, sub.getClass(), "class");
         this.checkEquals2(sub,
-                RightPaddedCharSequenceTest.PADDING,
-                RightPaddedCharSequenceTest.PADDING,
-                RightPaddedCharSequenceTest.PADDING);
-        assertEquals("sub.toString", "...", sub.toString());
+                PADDING,
+                PADDING,
+                PADDING);
     }
 
     @Test
     public void testSubSequenceExactlyWrapped() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
-        assertSame(RightPaddedCharSequenceTest.SEQUENCE,
-                sequence.subSequence(0, RightPaddedCharSequenceTest.SEQUENCE.length()));
+        assertSame(SEQUENCE,
+                sequence.subSequence(0, SEQUENCE.length()));
     }
 
     @Test
     public void testSubSequenceWithinWrapped() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
-        final CharSequence sub = sequence.subSequence(1, 4);
-        this.checkEquals2(sub, "bcd");
-        assertEquals("sub.toString", "bcd", sub.toString());
+        this.checkEquals2(sequence.subSequence(1, 4), "bcd");
     }
 
     @Test
     public void testSubSequenceWithLessPadding() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
-        final CharSequence sub = sequence.subSequence(0, 7);
-        this.checkEquals2(sub, "abcde..");
-        assertEquals("sub.toString", "abcde..", sub.toString());
+        this.checkEquals2(sequence.subSequence(0, 7), "abcde..");
     }
 
     @Test
     public void testSubSequenceWithLessPadding2() {
         final RightPaddedCharSequence sequence = this.createCharSequence();
-        final CharSequence sub = sequence.subSequence(1, 6);
-        this.checkEquals2(sub, "bcde.");
-        assertEquals("sub.toString", "bcde.", sub.toString());
+        this.checkEquals2(sequence.subSequence(1, 6), "bcde.");
     }
 
     @Test
@@ -129,9 +125,9 @@ final public class RightPaddedCharSequenceTest extends CharSequenceTestCase<Righ
 
     @Override
     protected RightPaddedCharSequence createCharSequence() {
-        return (RightPaddedCharSequence) RightPaddedCharSequence.wrap(RightPaddedCharSequenceTest.SEQUENCE,
-                RightPaddedCharSequenceTest.LENGTH,
-                RightPaddedCharSequenceTest.PADDING);
+        return (RightPaddedCharSequence) RightPaddedCharSequence.wrap(SEQUENCE,
+                LENGTH,
+                PADDING);
     }
 
     @Override

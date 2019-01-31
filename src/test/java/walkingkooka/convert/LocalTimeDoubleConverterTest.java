@@ -18,12 +18,12 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 import java.time.LocalTime;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class LocalTimeDoubleConverterTest extends LocalTimeConverterTestCase<LocalTimeDoubleConverter, Double> {
 

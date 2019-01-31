@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class TokenHeaderValueOneHeaderParserTest extends TokenHeaderValueHeaderParserTestCase<TokenHeaderValueOneHeaderParser,
         TokenHeaderValue> {

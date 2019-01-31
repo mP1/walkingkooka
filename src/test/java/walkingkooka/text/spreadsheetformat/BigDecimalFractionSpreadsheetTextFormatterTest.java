@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.Fraction;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.Parser;
@@ -33,7 +33,8 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.function.Function;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * In expectations all symbols are doubled, as a means to verify the context is supplying the values.
@@ -44,19 +45,25 @@ public final class BigDecimalFractionSpreadsheetTextFormatterTest extends Spread
 
     //creation ..............................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTokenFails() {
-        BigDecimalFractionSpreadsheetTextFormatter.with(null, mathContext(), fractioner());
+        assertThrows(NullPointerException.class, () -> {
+            BigDecimalFractionSpreadsheetTextFormatter.with(null, mathContext(), fractioner());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithMathContextFails() {
-        BigDecimalFractionSpreadsheetTextFormatter.with(this.token(), null, fractioner());
+        assertThrows(NullPointerException.class, () -> {
+            BigDecimalFractionSpreadsheetTextFormatter.with(this.token(), null, fractioner());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFractionerFails() {
-        BigDecimalFractionSpreadsheetTextFormatter.with(this.token(), mathContext(), null);
+        assertThrows(NullPointerException.class, () -> {
+            BigDecimalFractionSpreadsheetTextFormatter.with(this.token(), mathContext(), null);
+        });
     }
 
     private SpreadsheetFormatFractionParserToken token() {

@@ -18,9 +18,10 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BooleanConverterTest extends FixedTypeConverterTestCase<BooleanConverter, String> {
 
@@ -30,29 +31,39 @@ public final class BooleanConverterTest extends FixedTypeConverterTestCase<Boole
     private final static String TRUE_ANSWER = "true!!";
     private final static String FALSE_ANSWER = "false!!";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSourceTypeFails() {
-        BooleanConverter.with(null, FALSE_VALUE,TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+        assertThrows(NullPointerException.class, () -> {
+            BooleanConverter.with(null, FALSE_VALUE,TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFalseValueFails() {
-        BooleanConverter.with(SOURCE_TYPE, null,TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+        assertThrows(NullPointerException.class, () -> {
+            BooleanConverter.with(SOURCE_TYPE, null,TARGET_TYPE, TRUE_ANSWER, FALSE_ANSWER);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTargetTypeFails() {
-        BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE,null, TRUE_ANSWER, FALSE_ANSWER);
+        assertThrows(NullPointerException.class, () -> {
+            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE,null, TRUE_ANSWER, FALSE_ANSWER);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTrueAnswerFails() {
-        BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE,null, FALSE_ANSWER);
+        assertThrows(NullPointerException.class, () -> {
+            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE,null, FALSE_ANSWER);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFalseAnswerFails() {
-        BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, null);
+        assertThrows(NullPointerException.class, () -> {
+            BooleanConverter.with(SOURCE_TYPE, FALSE_VALUE, TARGET_TYPE, TRUE_ANSWER, null);
+        });
     }
 
     @Test

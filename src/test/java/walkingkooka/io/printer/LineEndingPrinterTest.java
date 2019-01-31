@@ -17,11 +17,11 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrinter> {
 
@@ -35,24 +35,22 @@ final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrin
 
     @Test
     public void testNullPrinterFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             LineEndingPrinter.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
     public void testWrap() {
-        final LineEndingPrinter printer = LineEndingPrinter.wrap(LineEndingPrinterTest.PRINTER);
-        assertSame("wrapped printer", LineEndingPrinterTest.PRINTER, printer.printer);
+        final LineEndingPrinter printer = LineEndingPrinter.wrap(PRINTER);
+        assertSame(PRINTER, printer.printer, "wrapped printer");
     }
 
     @Test
     public void testDoesntDoubleWrapLineEndingPrinter() {
-        final LineEndingPrinter printer = LineEndingPrinter.wrap(LineEndingPrinterTest.PRINTER);
+        final LineEndingPrinter printer = LineEndingPrinter.wrap(PRINTER);
         final LineEndingPrinter printer2 = LineEndingPrinter.wrap(printer);
-        assertSame("wrapped printer", LineEndingPrinterTest.PRINTER, printer2.printer);
+        assertSame(PRINTER, printer2.printer, "wrapped printer");
     }
 
     @Test
@@ -78,7 +76,7 @@ final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrin
         printer.print(printer.lineEnding());
         printer.flush();
         checkEquals(
-                LineEndingPrinterTest.LINE_ENDING + LineEndingPrinterTest.LINE_ENDING.toString(),
+                LINE_ENDING + LINE_ENDING.toString(),
                 builder.toString());
     }
 
@@ -90,15 +88,15 @@ final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrin
         printer.print(printer.lineEnding());
         printer.print("3\r4");
         printer.flush();
-        checkEquals("1\r2" + LineEndingPrinterTest.LINE_ENDING + LineEndingPrinterTest.LINE_ENDING
-                        + LineEndingPrinterTest.LINE_ENDING + "3\r4" + LineEndingPrinterTest.LINE_ENDING,
+        checkEquals("1\r2" + LINE_ENDING + LINE_ENDING
+                        + LINE_ENDING + "3\r4" + LINE_ENDING,
                 builder.toString());
     }
 
     @Test
     public void testToString() {
-        checkEquals(LineEndingPrinterTest.PRINTER.toString(),
-                LineEndingPrinter.wrap(LineEndingPrinterTest.PRINTER).toString());
+        checkEquals(PRINTER.toString(),
+                LineEndingPrinter.wrap(PRINTER).toString());
     }
 
     @Override
@@ -109,7 +107,7 @@ final public class LineEndingPrinterTest extends PrinterTestCase2<LineEndingPrin
     @Override
     protected LineEndingPrinter createPrinter(final StringBuilder builder) {
         return LineEndingPrinter.wrap(Printers.stringBuilder(builder,
-                LineEndingPrinterTest.LINE_ENDING));
+                LINE_ENDING));
     }
 
     @Override

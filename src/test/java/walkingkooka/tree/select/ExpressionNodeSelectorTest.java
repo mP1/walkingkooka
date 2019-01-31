@@ -17,22 +17,25 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNode;
 import walkingkooka.tree.expression.ExpressionNodeName;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class ExpressionNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPredicateFails() {
-        ExpressionNodeSelector.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            ExpressionNodeSelector.with(null);
+        });
     }
 
     @Test

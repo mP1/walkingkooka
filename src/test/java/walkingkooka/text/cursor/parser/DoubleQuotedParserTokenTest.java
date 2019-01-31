@@ -16,28 +16,35 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.visit.Visiting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DoubleQuotedParserTokenTest extends ParserTokenTestCase<DoubleQuotedParserToken> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullContentFails() {
-        DoubleQuotedParserToken.with(null, "\"abc\"");
+        assertThrows(NullPointerException.class, () -> {
+            DoubleQuotedParserToken.with(null, "\"abc\"");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingStartQuoteFails() {
-        DoubleQuotedParserToken.with("abc", "abc\"");
+        assertThrows(IllegalArgumentException.class, () -> {
+            DoubleQuotedParserToken.with("abc", "abc\"");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingEndQuoteFails() {
-        DoubleQuotedParserToken.with("abc", "\"abc");
+        assertThrows(IllegalArgumentException.class, () -> {
+            DoubleQuotedParserToken.with("abc", "\"abc");
+        });
     }
 
     @Test

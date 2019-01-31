@@ -17,8 +17,8 @@
 
 package walkingkooka.io.printer.line;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
 import walkingkooka.test.ClassTestCase;
@@ -26,8 +26,11 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for testing a {@link PrintedLineHandler} with mostly parameter checking tests.
@@ -54,30 +57,29 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
         this.checkNaming(PrintedLineHandler.class);
     }
 
-    @Test final public void testNullLineFails() {
-        this.linePrintedFails(null,
-                PrintedLineHandlerTestCase.LINE_ENDING,
-                PrintedLineHandlerTestCase.PRINTER);
+    @Test
+    final public void testNullLineFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createLineHandler().linePrinted(null,
+                    PrintedLineHandlerTestCase.LINE_ENDING,
+                    PrintedLineHandlerTestCase.PRINTER);
+        });
     }
 
-    @Test final public void testNullLineEndingFails() {
-        this.linePrintedFails(PrintedLineHandlerTestCase.LINE, null, PrintedLineHandlerTestCase.PRINTER);
+    @Test
+    final public void testNullLineEndingFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createLineHandler().linePrinted(PrintedLineHandlerTestCase.LINE, null, PrintedLineHandlerTestCase.PRINTER);
+        });
     }
 
-    @Test final public void testNullPrinterFails() {
-        this.linePrintedFails(PrintedLineHandlerTestCase.LINE,
-                PrintedLineHandlerTestCase.LINE_ENDING,
-                null);
-    }
-
-    private void linePrintedFails(final String longLine, final LineEnding ending, final Printer printer) {
-        final H handler = this.createLineHandler();
-
-        try {
-            handler.linePrinted(longLine, ending, printer);
-            Assert.fail();
-        } catch (final RuntimeException ignored) {
-        }
+    @Test
+    final public void testNullPrinterFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createLineHandler().linePrinted(PrintedLineHandlerTestCase.LINE,
+                    PrintedLineHandlerTestCase.LINE_ENDING,
+                    null);
+        });
     }
 
     @Test final public void testCheckToStringOverridden() {
@@ -86,7 +88,8 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
 
     abstract protected H createLineHandler();
 
-    protected void linePrintedAndCheck(final CharSequence line, final LineEnding lineEnding) {
+    protected void linePrintedAndCheck(final CharSequence line,
+                                       final LineEnding lineEnding) {
         this.linePrintedAndCheck(line, lineEnding, line.toString());
     }
 
@@ -95,34 +98,41 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
         this.linePrintedAndCheck(line, lineEnding, expected, null);
     }
 
-    protected void linePrintedAndCheck(final CharSequence line, final LineEnding lineEnding,
-                                       final String expected, final String message) {
+    protected void linePrintedAndCheck(final CharSequence line,
+                                       final LineEnding lineEnding,
+                                       final String expected,
+                                       final String message) {
         this.linePrintedAndCheck(this.createLineHandler(), line, lineEnding, expected, message);
     }
 
-    protected void linePrintedAndCheck(final PrintedLineHandler handler, final CharSequence line,
-                                       final LineEnding lineEnding, final String expected) {
+    protected void linePrintedAndCheck(final PrintedLineHandler handler,
+                                       final CharSequence line,
+                                       final LineEnding lineEnding,
+                                       final String expected) {
         this.linePrintedAndCheck(handler, line, lineEnding, expected, null);
     }
 
-    protected void linePrintedAndCheck(final PrintedLineHandler handler, final CharSequence line,
-                                       final LineEnding lineEnding, final String expected, final String message) {
-        assertNotNull("handler", handler);
-        assertNotNull("line", line);
+    protected void linePrintedAndCheck(final PrintedLineHandler handler,
+                                       final CharSequence line,
+                                       final LineEnding lineEnding,
+                                       final String expected,
+                                       final String message) {
+        Objects.requireNonNull(handler, "handler");
+        Objects.requireNonNull(line, "line");
 
         final String lineString = line.toString();
         if (lineString.contains("\r\n")) {
-            Assert.fail("Line contains CRNL=" + CharSequences.quoteAndEscape(lineString));
+            Assertions.fail("Line contains CRNL=" + CharSequences.quoteAndEscape(lineString));
         }
         if (lineString.contains("\r")) {
-            Assert.fail("Line contains CR=" + CharSequences.quoteAndEscape(lineString));
+            Assertions.fail("Line contains CR=" + CharSequences.quoteAndEscape(lineString));
         }
         if (lineString.contains("\n")) {
-            Assert.fail("Line contains NL=" + CharSequences.quoteAndEscape(lineString));
+            Assertions.fail("Line contains NL=" + CharSequences.quoteAndEscape(lineString));
         }
 
-        assertNotNull("lineEnding", lineEnding);
-        assertNotNull("expected", expected);
+        assertNotNull(lineEnding, "lineEnding");
+        assertNotNull(expected, "expected");
 
         final StringBuilder printedBuffer = new StringBuilder();
         final Printer printer = Printers.stringBuilder(printedBuffer,
@@ -133,9 +143,9 @@ abstract public class PrintedLineHandlerTestCase<H extends PrintedLineHandler>
 
         final String printed = printedBuffer.toString();
         if (false == printed.equals(expected)) {
-            assertEquals(message,
-                    CharSequences.quoteAndEscape(expected),
-                    CharSequences.quoteAndEscape(printed));
+            assertEquals(CharSequences.quoteAndEscape(expected),
+                    CharSequences.quoteAndEscape(printed),
+                    message);
         }
     }
 

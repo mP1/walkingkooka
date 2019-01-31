@@ -16,14 +16,14 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class RepeatedParserTokenTest extends RepeatedOrSequenceParserTokenTestCase<RepeatedParserToken> {
 
@@ -71,8 +71,7 @@ public final class RepeatedParserTokenTest extends RepeatedOrSequenceParserToken
             }
         }.accept(token);
         assertEquals("1315242", b.toString());
-        assertEquals("visited tokens",
-                Lists.<Object>of(token, token, string, string, string, token, token), visited);
+        assertEquals(Lists.<Object>of(token, token, string, string, string, token, token), visited, "visited tokens");
     }
 
     @Test
@@ -114,7 +113,7 @@ public final class RepeatedParserTokenTest extends RepeatedOrSequenceParserToken
             }
         }.accept(token);
         assertEquals("1342", b.toString());
-        assertEquals("visited tokens", Lists.of(token, token, token, token), visited);
+        assertEquals(Lists.of(token, token, token, token), visited, "visited tokens");
     }
     
     @Override

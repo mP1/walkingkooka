@@ -18,25 +18,22 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<SearchContainsQuery> {
 
     private final static CaseSensitivity SENSITIVITY = CaseSensitivity.INSENSITIVE;
     
-    @Test
-    @Ignore
+    @Override
     public void testNot() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testNotTwiceGivesOriginalQuery() {
         throw new UnsupportedOperationException();
     }
@@ -44,28 +41,28 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
     // BigDecimal......................................................................................
 
     @Test
-    public final void testBigDecimal() {
+    public void testBigDecimal() {
         this.querySensitiveSelectAndCheck(this.bigDecimalNode(VALUE));
     }
 
     // BigInteger......................................................................................
 
     @Test
-    public final void testBigInteger() {
+    public void testBigInteger() {
         this.querySensitiveSelectAndCheck(this.bigIntegerNode(VALUE));
     }
 
     // Double......................................................................................
 
     @Test
-    public final void testDouble() {
+    public void testDouble() {
         this.querySensitiveSelectAndCheck(this.doubleNode(VALUE));
     }
 
     // LocalDate......................................................................................
 
     @Test
-    public final void testLocalDate() {
+    public void testLocalDate() {
         this.querySensitiveSelectAndCheck(this.localDateNode(DATE));
     }
 
@@ -287,8 +284,8 @@ public final class SearchContainsQueryTest extends SearchLeafQueryTestCase<Searc
         final String text = node.text();
         final String first = text.substring(0, 1);
         final String remainder = text.substring(1);
-        assertFalse("First letter " + CharSequences.quoteAndEscape(text.charAt(0)) + " must only appear once in text " + CharSequences.quoteAndEscape(text),
-                remainder.contains(first));
+        assertFalse(remainder.contains(first),
+                () -> "First letter " + CharSequences.quoteAndEscape(text.charAt(0)) + " must only appear once in text " + CharSequences.quoteAndEscape(text));
 
         this.querySelectAndCheck3(first,
                 caseSensitivity,

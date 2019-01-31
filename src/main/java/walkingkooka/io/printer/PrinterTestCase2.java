@@ -19,8 +19,9 @@ package walkingkooka.io.printer;
 
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCase<P> {
 
@@ -78,13 +79,15 @@ abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCas
         this.printAndCheck(printer, chars, target, expected, true, message);
     }
 
-    protected void printAndCheck(final Printer printer, final CharSequence[] chars,
-                                 final StringBuilder target, final String expected, final boolean flushAndClose,
+    protected void printAndCheck(final Printer printer,
+                                 final CharSequence[] chars,
+                                 final StringBuilder target,
+                                 final String expected,
+                                 final boolean flushAndClose,
                                  final String message) {
-        assertNotNull("printer", printer);
-        assertNotNull("chars", chars);
-        assertNotNull("target", target);
-        assertNotNull("expected", expected);
+        Objects.requireNonNull(printer, "printer");
+        Objects.requireNonNull(chars, "chars");
+        Objects.requireNonNull(target, "target");
 
         for (final CharSequence c : chars) {
             printer.print(c);
@@ -95,9 +98,9 @@ abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCas
         }
         final String printed = target.toString();
         if (false == printed.equals(expected)) {
-            assertEquals(message,
-                    CharSequences.quoteAndEscape(expected),
-                    CharSequences.quoteAndEscape(printed));
+            assertEquals(CharSequences.quoteAndEscape(expected),
+                    CharSequences.quoteAndEscape(printed),
+                    message);
         }
     }
 
@@ -105,7 +108,7 @@ abstract public class PrinterTestCase2<P extends Printer> extends PrinterTestCas
      * Splits a CharSequence into many CharSequence each holding a single character.
      */
     protected CharSequence[] characterByCharacter(final CharSequence chars) {
-        assertNotNull("chars is null", chars);
+        Objects.requireNonNull(chars, "chars");
 
         final int length = chars.length();
         final CharSequence[] array = new CharSequence[length];

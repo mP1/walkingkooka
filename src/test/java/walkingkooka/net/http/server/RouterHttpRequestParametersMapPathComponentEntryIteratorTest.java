@@ -18,13 +18,13 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTestCase;
 import walkingkooka.net.UrlPathName;
 
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest extends
         IteratorTestCase<RouterHttpRequestParametersMapPathComponentEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
@@ -81,8 +81,8 @@ public final class RouterHttpRequestParametersMapPathComponentEntryIteratorTest 
                            final int position,
                            final UrlPathName name) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
-        assertEquals("key", HttpRequestAttributes.pathComponent(position), entry.getKey());
-        assertEquals("value", name, entry.getValue());
+        assertEquals(HttpRequestAttributes.pathComponent(position), entry.getKey(), "key");
+        assertEquals(name, entry.getValue(), "value");
     }
 
     @Test

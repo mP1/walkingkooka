@@ -18,15 +18,18 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionConcatFunctionTest extends ExpressionFunctionTestCase<ExpressionConcatFunction, String> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testZeroParametersFails() {
-        this.apply2();
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2();
+        });
     }
 
     @Test

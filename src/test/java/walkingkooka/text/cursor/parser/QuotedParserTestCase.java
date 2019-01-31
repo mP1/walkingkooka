@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public abstract class QuotedParserTestCase<P extends QuotedParser<T, ParserContext>, T extends QuotedParserToken> extends ParserTemplateTestCase<P, T> {
 

@@ -18,12 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class ContentDispositionFileNameTestCase<F extends ContentDispositionFileName> extends
         HeaderValueTestCase<F> {
@@ -36,9 +36,9 @@ public abstract class ContentDispositionFileNameTestCase<F extends ContentDispos
                      final String value,
                      final Optional<CharsetName> charsetName,
                      final Optional<LanguageTagName> language) {
-        assertEquals("value", value, filename.value());
-        assertEquals("charsetName", charsetName, filename.charsetName());
-        assertEquals("language", language, filename.language());
+        assertEquals(value, filename.value(),"value");
+        assertEquals(charsetName, filename.charsetName(), "charsetName");
+        assertEquals(language, filename.language(), "language");
     }
 
     @Test

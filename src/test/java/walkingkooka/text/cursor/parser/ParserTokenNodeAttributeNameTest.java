@@ -16,8 +16,8 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
@@ -26,43 +26,31 @@ import walkingkooka.type.MemberVisibility;
 public final class ParserTokenNodeAttributeNameTest extends ClassTestCase<ParserTokenNodeAttributeName>
         implements NameTesting<ParserTokenNodeAttributeName, ParserTokenNodeAttributeName> {
 
-    @Test
-    @Ignore
     @Override
     public void testNullFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testEmptyFails() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testWith() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testCompareDifferentCase() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testCompareLess() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testDifferentText() {
         throw new UnsupportedOperationException();

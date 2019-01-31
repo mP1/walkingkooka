@@ -17,13 +17,13 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.PredicateTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P extends CaseSensitivityCharSequencePredicateTemplate<String>>
         extends PredicateTestCase<P, String>
@@ -38,20 +38,16 @@ abstract public class CaseSensitivityCharSequencePredicateTemplateTestCase<P ext
 
     @Test
     final public void testWithNullCharacterSequenceFails() {
-        this.withFails(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createPredicate(null, SENSITIVITY);
+        });
     }
 
     @Test
     public void testWithEmptyCharacterSequenceFails() {
-        this.withFails("");
-    }
-
-    private void withFails(final String chars) {
-        try {
-            this.createPredicate(chars, SENSITIVITY);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createPredicate("", SENSITIVITY);
+        });
     }
 
     @Test

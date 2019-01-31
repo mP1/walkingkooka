@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
@@ -35,7 +35,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorBuilder<TestNode, StringName, StringName, Object>, NodeSelector<TestNode, StringName, StringName, Object>> {
 
@@ -55,34 +56,44 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
     private static final String GRAND_CHILD3 = "grand-child3";
     private static final String PARENT_SIBLING_AFTER = "parentSiblingAfter";
 
-    @Before
+    @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
     }
 
-    @Test(expected = BuilderException.class)
+    @Test
     public void testBuildNothingFails() {
-        this.relative().build();
+        assertThrows(BuilderException.class, () -> {
+            this.relative().build();
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAbsoluteNullClassFails() {
-        NodeSelectorBuilder.absolute(null, this.separator());
+        assertThrows(NullPointerException.class, () -> {
+            NodeSelectorBuilder.absolute(null, this.separator());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAbsoluteNullSeparatorFails() {
-        NodeSelectorBuilder.absolute(TestNode.class, null);
+        assertThrows(NullPointerException.class, () -> {
+            NodeSelectorBuilder.absolute(TestNode.class, null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRelativeNullClassFails() {
-        NodeSelectorBuilder.relative(null, this.separator());
+        assertThrows(NullPointerException.class, () -> {
+            NodeSelectorBuilder.relative(null, this.separator());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRelativeNullSeparatorFails() {
-        NodeSelectorBuilder.relative(TestNode.class, null);
+        assertThrows(NullPointerException.class, () -> {
+            NodeSelectorBuilder.relative(TestNode.class, null);
+        });
     }
     
     @Test
@@ -418,7 +429,7 @@ public final class NodeSelectorBuilderTest extends BuilderTestCase<NodeSelectorB
         final List<String> selectedNames = selected.stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
-        assertEquals("Selector.accept=" + selector + "\n" + start, Lists.of(nodes), selectedNames);
+        assertEquals(Lists.of(nodes), selectedNames, "Selector.accept=" + selector + "\n" + start);
     }
 
     @Test

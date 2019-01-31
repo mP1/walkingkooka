@@ -19,7 +19,7 @@
 package walkingkooka.color;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
@@ -29,9 +29,10 @@ import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class HsvComponentTestCase<C extends HsvComponent> extends ClassTestCase<C>
         implements HashCodeEqualsDefinedTesting<C>, SerializationTesting<C> {
@@ -46,20 +47,24 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
 
     // tests
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testBelowLowerBoundsFails() {
-        this.createHsvComponent(HueHsvComponent.MIN - 0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createHsvComponent(HueHsvComponent.MIN - 0.1f);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testAboveUpperBoundsFails() {
-        this.createHsvComponent(HueHsvComponent.MAX + 0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createHsvComponent(HueHsvComponent.MAX + 0.1f);
+        });
     }
 
     @Test
     public final void testWith() {
         final C component = this.createHsvComponent(VALUE);
-        assertEquals("value", VALUE, component.value(), 0.1);
+        assertEquals(VALUE, component.value(), 0.1, "value");
     }
 
     // set
@@ -70,14 +75,18 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
         assertSame(component, component.setValue(VALUE));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetBelowLowerBoundsFails() {
-        this.createHsvComponent().setValue(this.min() - 0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createHsvComponent().setValue(this.min() - 0.1f);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetAboveUpperBoundsFails() {
-        this.createHsvComponent().setValue(this.max() + 0.1f);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createHsvComponent().setValue(this.max() + 0.1f);
+        });
     }
 
     @Test
@@ -87,7 +96,7 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
         final C original = this.createHsvComponent(min);
         final HsvComponent component = original.setValue(value);
         assertNotSame(original, component);
-        assertEquals("value", value, component.value(), 0.1f);
+        assertEquals(value, component.value(), 0.1f, "value");
     }
 
     // add
@@ -127,7 +136,7 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
     private void addAndCheck(final float initial, final float delta, final float expected) {
         final C component = this.createHsvComponent(initial);
         final HsvComponent added = component.add(delta);
-        assertEquals("value", expected, added.value(), 0.1f);
+        assertEquals(expected, added.value(), 0.1f, "value");
     }
 
     @Test
@@ -146,9 +155,9 @@ abstract public class HsvComponentTestCase<C extends HsvComponent> extends Class
             if(!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(component));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(component),
+                    method + " returned");
         }
     }
 

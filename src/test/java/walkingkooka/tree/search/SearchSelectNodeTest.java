@@ -18,22 +18,24 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchSelectNode> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        SearchSelectNode.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            SearchSelectNode.with(null);
+        });
     }
 
     @Test
@@ -42,9 +44,11 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
         assertSame(node, SearchSelectNode.with(node));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetChildrenIncorrectCountFails() {
-        this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2")));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createSearchNode().setChildren(Lists.of(this.text("child-1"), this.text("child-2")));
+        });
     }
 
     @Test
@@ -80,30 +84,31 @@ public final class SearchSelectNodeTest extends SearchParentNodeTestCase<SearchS
         assertEquals(this.sequence(this.text("1"), replacing, this.text("3")).selected(), replaced);
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChild() {
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testAppendChild() {
-        this.createSearchNode().appendChild(this.text("append-fails"));
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createSearchNode().appendChild(this.text("append-fails"));
+        });
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testAppendChild2() {
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRemoveChildFirst() {
-        this.createSearchNode().removeChild(0);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createSearchNode().removeChild(0);
+        });
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testRemoveChildLast() {
         throw new UnsupportedOperationException();
     }

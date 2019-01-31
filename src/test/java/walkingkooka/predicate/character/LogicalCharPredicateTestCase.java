@@ -17,12 +17,12 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicate>
         extends CharPredicateTestCase<P>
@@ -32,20 +32,18 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
         super();
     }
 
-    @Test final public void testWrapNullFirstPredicateFails() {
-        this.wrapFails(null, CharPredicates.fake());
+    @Test
+    final public void testWrapNullFirstPredicateFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createCharPredicate(null, CharPredicates.fake());
+        });
     }
 
-    @Test final public void testWrapNullSecondPredicateFails() {
-        this.wrapFails(CharPredicates.fake(), null);
-    }
-
-    private void wrapFails(final CharPredicate first, final CharPredicate second) {
-        try {
-            this.createCharPredicate(first, second);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+    @Test
+    final public void testWrapNullSecondPredicateFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createCharPredicate(CharPredicates.fake(), null);
+        });
     }
 
     @Test
@@ -73,7 +71,7 @@ abstract public class LogicalCharPredicateTestCase<P extends LogicalCharPredicat
 
     @Override
     final protected P createCharPredicate() {
-        return this.createCharPredicate(CharPredicates.fake(), CharPredicates.fake());
+        return this.createCharPredicate(CharPredicates.letter(), CharPredicates.letterOrDigit());
     }
 
     abstract P createCharPredicate(CharPredicate first, CharPredicate second);

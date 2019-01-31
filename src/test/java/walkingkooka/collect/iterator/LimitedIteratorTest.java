@@ -17,8 +17,7 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
@@ -26,10 +25,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<String>, String> {
 
@@ -43,40 +43,36 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
 
     @Test
     public void testWrapNullIteratorFails() {
-        this.wrapFails(null, LimitedIteratorTest.COUNT);
+        assertThrows(NullPointerException.class, () -> {
+            LimitedIterator.wrap((Iterator<String>) null, COUNT);
+        });
     }
 
     @Test
     public void testWrapNegativeCountFails() {
-        this.wrapFails(LimitedIteratorTest.ITERATOR, -1);
-    }
-
-    private void wrapFails(final Iterator<String> iterator, final int count) {
-        try {
-            LimitedIterator.wrap(iterator, count);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            LimitedIterator.wrap(ITERATOR, -1);
+        });
     }
 
     @Test
     public void testWrapAnotherLimitedIteratorWithLessCount() {
         final LimitedIterator<String> limited = this.createIterator();
-        assertSame(limited, LimitedIterator.wrap(limited, LimitedIteratorTest.COUNT));
+        assertSame(limited, LimitedIterator.wrap(limited, COUNT));
     }
 
     @Test
     public void testWrapAnotherLimitedIteratorWithLessCount2() {
         final LimitedIterator<String> limited = this.createIterator();
-        assertSame(limited, LimitedIterator.wrap(limited, LimitedIteratorTest.COUNT + 1));
+        assertSame(limited, LimitedIterator.wrap(limited, COUNT + 1));
     }
 
     @Test
     public void testWrapAnotherLimitedIteratorWithMoreCount2() {
         final LimitedIterator<String> limited = this.createIterator();
         final LimitedIterator<String> limited2 = LimitedIterator.wrap(limited, 1);
-        assertSame("iterator", limited.iterator, limited2.iterator);
-        assertSame("countdown", 1, limited2.countdown);
+        assertSame(limited.iterator, limited2.iterator, "iterator");
+        assertSame(1, limited2.countdown, "countdown");
     }
 
     @Test
@@ -89,16 +85,12 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         assertSame("2", iterator.next());
 
         assertFalse(iterator.hasNext());
-        try {
+        assertThrows(NoSuchElementException.class, () -> {
             iterator.next();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
-        try {
+        });
+        assertThrows(UnsupportedOperationException.class, () -> {
             iterator.remove();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
     }
 
     @Test
@@ -117,7 +109,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         source.add("2");
         source.add("3");
         final LimitedIterator<String> iterator = LimitedIterator.wrap(source.iterator(),
-                LimitedIteratorTest.COUNT);
+                COUNT);
         iterator.next();
         iterator.remove();
         assertEquals(Lists.of("2", "3"), source);
@@ -128,8 +120,8 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
 
     @Test
     public void testToString() {
-        assertEquals("at most 2 " + LimitedIteratorTest.ITERATOR,
-                LimitedIterator.wrap(LimitedIteratorTest.ITERATOR, LimitedIteratorTest.COUNT)
+        assertEquals("at most 2 " + ITERATOR,
+                LimitedIterator.wrap(ITERATOR, COUNT)
                         .toString());
     }
 
@@ -138,7 +130,7 @@ final public class LimitedIteratorTest extends IteratorTestCase<LimitedIterator<
         return LimitedIterator.wrap(Lists.of("1",
                 "2",
                 "should never be returned1",
-                "should never be returned2").iterator(), LimitedIteratorTest.COUNT);
+                "should never be returned2").iterator(), COUNT);
     }
 
     @Override

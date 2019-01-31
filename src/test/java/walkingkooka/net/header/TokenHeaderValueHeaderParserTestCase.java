@@ -18,13 +18,13 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeaderValueHeaderParser, V> extends
         HeaderParserWithParametersTestCase<P, V> {
@@ -343,9 +343,9 @@ public abstract class TokenHeaderValueHeaderParserTestCase<P extends TokenHeader
     abstract void parseAndCheck2(final String headerValue, final TokenHeaderValue token);
 
     final void parseAndCheck3(final String headerValue, final V expected) {
-        assertEquals("Incorrect result parsing " + CharSequences.quote(headerValue),
-                expected,
-                this.parse(headerValue));
+        assertEquals(expected,
+                this.parse(headerValue),
+                "Incorrect result parsing " + CharSequences.quote(headerValue));
     }
 
     final TokenHeaderValue token(final String value) {

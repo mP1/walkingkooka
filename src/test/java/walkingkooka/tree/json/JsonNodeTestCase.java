@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.io.printer.IndentingPrinter;
@@ -34,8 +34,9 @@ import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2<JsonNode, JsonNodeName, Name, Object> {
 
@@ -44,9 +45,11 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
         this.publicStaticFactoryCheck(JsonNode.class, "Json", Node.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetNameNullFails() {
-        this.createJsonNode().setName(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createJsonNode().setName(null);
+        });
     }
 
     @Test
@@ -58,9 +61,11 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     @Test
     public abstract void testSetNameDifferent();
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public final void testSetAttributesFails() {
-        this.createJsonNode().setAttributes(Maps.empty());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createJsonNode().setAttributes(Maps.empty());
+        });
     }
 
     @Test
@@ -75,8 +80,8 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
 
         final N node = this.createJsonNode();
         final String name = node.getClass().getSimpleName();
-        assertEquals(name + " starts with " + prefix, true, name.startsWith(prefix));
-        assertEquals(name + " ends with " + suffix, true, name.endsWith(suffix));
+        assertEquals(true, name.startsWith(prefix),name + " starts with " + prefix);
+        assertEquals(true, name.endsWith(suffix),name + " ends with " + suffix);
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
 
@@ -91,9 +96,9 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
             if(!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(node));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(node),
+                    method + " returned");
         }
     }
 
@@ -103,9 +108,11 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
         assertSame(node, node.toJsonNode());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPrintJsonNullPrinterFails() {
-        this.createJsonNode().printJson(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createJsonNode().printJson(null);
+        });
     }
 
     @Test
@@ -138,6 +145,6 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     }
 
     final void toSearchNodeAndCheck(final N node, final SearchNode searchNode) {
-        assertEquals("toSearchNode failure from " + node, searchNode, node.toSearchNode());
+        assertEquals(searchNode, node.toSearchNode(), () -> "toSearchNode failure from " + node);
     }
 }

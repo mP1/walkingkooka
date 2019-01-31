@@ -18,25 +18,30 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest extends ClassTestCase<EbnfGrammarParserTokenInvalidReferencesException> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullReferencesFails() {
-        new EbnfGrammarParserTokenInvalidReferencesException("message", null);
+        assertThrows(NullPointerException.class, () -> {
+            new EbnfGrammarParserTokenInvalidReferencesException("message", null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithEMptyReferencesFails() {
-        new EbnfGrammarParserTokenInvalidReferencesException("message", Sets.empty());
+    @Test
+    public void testWithEmptyReferencesFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new EbnfGrammarParserTokenInvalidReferencesException("message", Sets.empty());
+        });
     }
 
     @Test
@@ -44,8 +49,8 @@ public final class EbnfGrammarParserTokenInvalidReferencesExceptionTest extends 
         final String message = "abc";
         final Set<EbnfIdentifierName> references = this.references();
         final EbnfGrammarParserTokenInvalidReferencesException exception = new EbnfGrammarParserTokenInvalidReferencesException(message, references);
-        assertEquals("message", message, exception.getMessage());
-        assertEquals("references", references, exception.references());
+        assertEquals(message, exception.getMessage(), "message");
+        assertEquals(references, exception.references(), "references");
     }
 
     @Test

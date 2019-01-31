@@ -18,8 +18,8 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -55,12 +55,12 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSelectorParserTokenVisitorTestCase<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> {
 
-    @Before
+    @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
     }
@@ -1022,7 +1022,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
     // function: name.......................................................................................
 
     @Test
-    public void testName() {
+    public void testCurrentTestName() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
@@ -1193,7 +1193,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
 
             @Override
             public Object function(final ExpressionNodeName name, final List<Object> parameters) {
-                assertNotNull("node missing", this.node);
+                assertNotNull(this.node, "node missing");
 
                 final List<Object> thisAndParameters = Lists.array();
                 thisAndParameters.add(this.node);
@@ -1278,7 +1278,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest extends NodeSe
             private final ConverterContext converterContext = ConverterContexts.basic(DecimalNumberContexts.basic("$", '.', 'E', ',', '-', '%', '+'));
         });
 
-        assertEquals(expression + "\n" + root, expected, names(selected));
+        assertEquals(expected, names(selected), () -> expression + "\n" + root);
     }
 
     private Set<String> names(final Collection<TestNode> nodes) {

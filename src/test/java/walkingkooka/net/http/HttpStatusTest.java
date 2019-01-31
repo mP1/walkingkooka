@@ -18,14 +18,15 @@
 
 package walkingkooka.net.http;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpStatusTest extends ClassTestCase<HttpStatus>
         implements HashCodeEqualsDefinedTesting<HttpStatus> {
@@ -42,9 +43,11 @@ final public class HttpStatusTest extends ClassTestCase<HttpStatus>
 
     // setCode ................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetCodeNullFails() {
-        status().setCode(null);
+        assertThrows(NullPointerException.class, () -> {
+            status().setCode(null);
+        });
     }
 
     @Test
@@ -64,14 +67,18 @@ final public class HttpStatusTest extends ClassTestCase<HttpStatus>
 
     // setMessage ................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetMessageNullFails() {
-        status().setMessage(null);
+        assertThrows(NullPointerException.class, () -> {
+            status().setMessage(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetMessageEmptyFails() {
-        status().setMessage("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            status().setMessage("");
+        });
     }
 
     @Test
@@ -106,8 +113,8 @@ final public class HttpStatusTest extends ClassTestCase<HttpStatus>
     }
 
     private void check(final HttpStatus status, final HttpStatusCode code, final String message) {
-        assertEquals("value", code, status.value());
-        assertEquals("message", message, status.message());
+        assertEquals(code, status.value(), "value");
+        assertEquals(message, status.message(), "message");
     }
 
     @Test

@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
@@ -27,11 +27,12 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 final public class MediaTypeTest extends HeaderValueWithParametersTestCase<MediaType, MediaTypeParameterName<?>> {
 
@@ -44,44 +45,60 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullTypeFails() {
-        MediaType.with(null, SUBTYPE);
+        assertThrows(NullPointerException.class, () -> {
+            MediaType.with(null, SUBTYPE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testEmptyTypeAndSubTypeFails() {
-        MediaType.with("", SUBTYPE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaType.with("", SUBTYPE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTypeContainsSlashFails() {
-        MediaType.with("ty/pe", SUBTYPE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaType.with("ty/pe", SUBTYPE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTypeContainsInvalidCharacterFails() {
-        MediaType.with("ty?pe", SUBTYPE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaType.with("ty?pe", SUBTYPE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullSubTypeFails() {
-        MediaType.with(TYPE, null);
+        assertThrows(NullPointerException.class, () -> {
+            MediaType.with(TYPE, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTypeAndEmptySubTypeFails() {
-        MediaType.with(TYPE, "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaType.with(TYPE, "");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testEmptyIncludesSlashFails() {
-        MediaType.with(TYPE, "s/ub");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaType.with(TYPE, "s/ub");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testEmptyIncludesInvalidCharacterFails() {
-        MediaType.with(TYPE, "s?ub");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaType.with(TYPE, "s?ub");
+        });
     }
 
     @Test
@@ -120,24 +137,32 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     // setType .........................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetTypeNullFails() {
-        this.mediaType().setType(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.mediaType().setType(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTypeEmptyFails() {
-        this.mediaType().setType("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.mediaType().setType("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTypeInvalidCharacterFails() {
-        this.mediaType().setType("type/");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.mediaType().setType("type/");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTypeInvalidCharacterFails2() {
-        this.mediaType().setType("type?");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.mediaType().setType("type?");
+        });
     }
 
     @Test
@@ -163,24 +188,32 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     // setSubType ..........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetSubTypeNullFails() {
-        this.mediaType().setSubType(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.mediaType().setSubType(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetSubTypeEmptyFails() {
-        this.mediaType().setSubType("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.mediaType().setSubType("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetSubTypeInvalidCharacterFails() {
-        this.mediaType().setSubType("type/");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.mediaType().setSubType("type/");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetSubTypeInvalidCharacterFails2() {
-        this.mediaType().setSubType("type?");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.mediaType().setSubType("type?");
+        });
     }
 
     @Test
@@ -206,9 +239,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     // setParameters ..........................................................................................
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetParametersInvalidQWeight() {
-        this.mediaType().setParameters(Maps.one(MediaTypeParameterName.Q_FACTOR, -1.0f));
+        assertThrows(HeaderValueException.class, () -> {
+            this.mediaType().setParameters(Maps.one(MediaTypeParameterName.Q_FACTOR, -1.0f));
+        });
     }
 
     @Test
@@ -244,9 +279,9 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                        final String type,
                        final String subtype,
                        final Map<MediaTypeParameterName<?>, Object> parameters) {
-        assertEquals("type=" + mediaType, type, mediaType.type());
-        assertEquals("subType=" + mediaType, subtype, mediaType.subType());
-        assertEquals("parameters=" + mediaType, parameters, mediaType.parameters());
+        assertEquals(type, mediaType.type(), "type=" + mediaType);
+        assertEquals(subtype, mediaType.subType(), "subType=" + mediaType);
+        assertEquals(parameters, mediaType.parameters(), "parameters=" + mediaType);
     }
 
     @Test
@@ -259,9 +294,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     // setCharset .......................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetCharsetNullFails() {
-        MediaType.TEXT_PLAIN.setCharset(null);
+        assertThrows(NullPointerException.class, () -> {
+            MediaType.TEXT_PLAIN.setCharset(null);
+        });
     }
 
     @Test
@@ -361,9 +398,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
                 0.5f);
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testQParameterPresentInvalidFails() {
-        this.mediaType().setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), "XYZ")).qFactorWeight();
+        assertThrows(HeaderValueException.class, () -> {
+            this.mediaType().setParameters(parameters(MediaTypeParameterName.Q_FACTOR.value(), "XYZ")).qFactorWeight();
+        });
     }
 
     @Test
@@ -376,19 +415,23 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     private void qFactorWeightAndCheck(final MediaType type, final Optional<Float> weight) {
-        assertEquals(type + " q weight", weight, type.qFactorWeight());
+        assertEquals(weight, type.qFactorWeight(), ()-> type + " q weight");
     }
 
     // parse .........................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullFails() {
-        MediaType.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            MediaType.parse(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyFails() {
-        MediaType.parse("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaType.parse("");
+        });
     }
 
     @Test
@@ -426,19 +469,23 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     private void parseAndCheck(final String text, final MediaType mediaType) {
-        assertEquals("Parsing of " + CharSequences.quoteAndEscape(text) + " failed",
-                mediaType,
-                MediaType.parse(text));
+        assertEquals(mediaType,
+                MediaType.parse(text),
+                "Parsing of " + CharSequences.quoteAndEscape(text) + " failed");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseListNullFails() {
-        MediaType.parseList(null);
+        assertThrows(NullPointerException.class, () -> {
+            MediaType.parseList(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseListEmptyFails() {
-        MediaType.parseList("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaType.parseList("");
+        });
     }
 
     @Test
@@ -451,9 +498,11 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
 
     // isCompatible .........................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testIsCompatibleNullFails() {
-        MediaType.ALL.isCompatible(null);
+        assertThrows(NullPointerException.class, () -> {
+            MediaType.ALL.isCompatible(null);
+        });
     }
 
     @Test
@@ -688,7 +737,7 @@ final public class MediaTypeTest extends HeaderValueWithParametersTestCase<Media
     }
 
     private void toStringAndCheck(final MediaType type, final String toString) {
-        assertEquals("toString", toString, type.toString());
+        assertEquals(toString, type.toString(), "toString");
     }
 
     // toHeaderTextList...............................................................................................

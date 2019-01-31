@@ -18,19 +18,22 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class DescendantOrSelfNodeSelectorTest extends
         NonLogicalNodeSelectorTestCase<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPathSeparatorFails() {
-        DescendantOrSelfNodeSelector.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            DescendantOrSelfNodeSelector.with(null);
+        });
     }
 
     @Test

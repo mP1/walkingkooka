@@ -17,16 +17,16 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.pojo.PojoObjectNodeTest.TestImmutableLeaf;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListNode, List<Object>> {
 
@@ -47,7 +47,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
 
         this.childrenAndCheckNames(node2, INDEX0);
         this.childrenValuesCheck(node2, ELEMENT0);
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
 
         this.childrenAndCheckNames(node, INDEX0, INDEX1);
         this.childrenValuesCheck(node, ELEMENT0, ELEMENT1);
@@ -67,7 +67,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
 
         this.childrenAndCheckNames(childNode2, INDEX0, INDEX1, INDEX2);
         this.childrenValuesCheck(childNode2, ELEMENT0, ELEMENT1, ELEMENT2);
-        this.parentAbsentCheck(childNode);
+        this.checkWithoutParent(childNode);
 
         this.childrenAndCheckNames(childNode, INDEX0, INDEX1);
         this.childrenValuesCheck(childNode, ELEMENT0, ELEMENT1);
@@ -96,7 +96,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         final PojoNode parentNode2 = childNode2.parent().get();
         assertNotSame(parentNode, parentNode2);
         this.childrenValuesCheck(parentNode2, Lists.of(children2));
-        assertEquals("parentNode2.value", new TestImmutableParent(children2), parentNode2.value());
+        assertEquals(new TestImmutableParent(children2), parentNode2.value(), "parentNode2.value");
     }
 
     @Test
@@ -122,7 +122,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         final PojoNode parentNode2 = childNode2.parent().get();
         assertSame(parentNode, parentNode2);
         this.childrenValuesCheck(parentNode2, Lists.of(children2));
-        assertEquals("parentNode2.value", new TestMutableParent(children2), parentNode2.value());
+        assertEquals(new TestMutableParent(children2), parentNode2.value(), "parentNode2.value");
     }
 
     // childrenValues ....................................................................................................
@@ -146,7 +146,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         final PojoNode parentNode2 = childNode2.parent().get();
         assertNotSame(parentNode, parentNode2);
         this.childrenValuesCheck(parentNode2, Lists.of(Lists.of(child2)));
-        assertEquals("parentNode2.value", new TestImmutableParent(Lists.of(child2)), parentNode2.value());
+        assertEquals(new TestImmutableParent(Lists.of(child2)), parentNode2.value(), "parentNode2.value");
     }
 
     @Test
@@ -168,7 +168,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
         final PojoNode parentNode2 = childNode2.parent().get();
         assertSame(parentNode, parentNode2);
         this.childrenValuesCheck(parentNode2, Lists.of(Lists.of(child2)));
-        assertEquals("parentNode2.value", new TestMutableParent(Lists.of(child2)), parentNode2.value());
+        assertEquals(new TestMutableParent(Lists.of(child2)), parentNode2.value(), "parentNode2.value");
     }
 
     // setValue........................................................................................................
@@ -185,7 +185,7 @@ public final class PojoListNodeTest extends PojoCollectionNodeTestCase<PojoListN
 
         this.childrenAndCheckNames(childNode2, INDEX0, INDEX1, INDEX2);
         this.childrenValuesCheck(childNode2, ELEMENT0, ELEMENT1, ELEMENT2);
-        this.parentAbsentCheck(childNode);
+        this.checkWithoutParent(childNode);
 
         this.childrenAndCheckNames(childNode, INDEX0, INDEX1);
         this.childrenValuesCheck(childNode, ELEMENT0, ELEMENT1);

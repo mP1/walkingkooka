@@ -18,11 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E> {
 
@@ -32,9 +33,11 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     // setValue ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetValueNullFails() {
-        this.createETag().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createETag().setValue(null);
+        });
     }
 
     @Test
@@ -42,9 +45,11 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
         this.createETag().setValue("");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueInvalidCharactersFails() {
-        this.createETag().setValue(" ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createETag().setValue(" ");
+        });
     }
 
     @Test
@@ -63,9 +68,11 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
 
     // setValidator ...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetValidatorNullFails() {
-        this.createETag().setValidator(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createETag().setValidator(null);
+        });
     }
 
     @Test
@@ -95,9 +102,9 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
     }
 
     final void isMatchAndCheck(final ETag etag, final ETag other, final boolean result) {
-        assertEquals(etag + " is match " + other,
-                result,
-                etag.isMatch(other));
+        assertEquals(result,
+                etag.isMatch(other),
+                etag + " is match " + other);
     }
 
     // helper ...........................................................................................................
@@ -114,8 +121,8 @@ public abstract class ETagTestCase<E extends ETag> extends HeaderValueTestCase<E
     }
 
     final void check(final ETag etag, final String value, final ETagValidator validator) {
-        assertEquals("value", value, etag.value());
-        assertEquals("validator", validator, etag.validator());
+        assertEquals(value, etag.value(), "value");
+        assertEquals(validator, etag.validator(), "validator");
     }
 
     abstract String value();

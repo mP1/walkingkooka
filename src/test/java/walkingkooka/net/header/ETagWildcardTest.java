@@ -18,13 +18,17 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagWildcardTest extends ETagTestCase<ETagWildcard> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValidatorWeakFails() {
-        ETagWildcard.instance().setValidator(ETagValidator.WEAK);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ETagWildcard.instance().setValidator(ETagValidator.WEAK);
+        });
     }
 
     // isMatch ...........................................................................................

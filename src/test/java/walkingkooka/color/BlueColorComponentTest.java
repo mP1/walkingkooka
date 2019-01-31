@@ -18,7 +18,7 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class BlueColorComponentTest extends ColorComponentTestCase<BlueColorComponent> {
 

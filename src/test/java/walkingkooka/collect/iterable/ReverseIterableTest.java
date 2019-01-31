@@ -17,17 +17,17 @@
 
 package walkingkooka.collect.iterable;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<String>, String> {
 
@@ -39,11 +39,9 @@ final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<
 
     @Test
     public void testWrapNullIterableFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ReverseIterable.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -63,7 +61,7 @@ final public class ReverseIterableTest extends IterableTestCase<ReverseIterable<
         assertEquals("3", iterator.next());
         assertEquals("2", iterator.next());
         assertEquals("1", iterator.next());
-        assertFalse("iterator should be empty", iterator.hasNext());
+        assertFalse(iterator.hasNext(), "iterator should be empty");
     }
 
     @Test

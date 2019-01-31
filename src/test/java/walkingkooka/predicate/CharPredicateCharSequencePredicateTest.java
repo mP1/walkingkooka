@@ -17,14 +17,15 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharPredicateCharSequencePredicateTest
         extends PredicateTestCase<CharPredicateCharSequencePredicate, CharSequence>
@@ -36,9 +37,11 @@ final public class CharPredicateCharSequencePredicateTest
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCharPredicateFails() {
-        CharPredicateCharSequencePredicate.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicateCharSequencePredicate.with(null);
+        });
     }
 
     @Test

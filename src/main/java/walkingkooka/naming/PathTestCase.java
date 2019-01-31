@@ -17,7 +17,7 @@
 
 package walkingkooka.naming;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterable.Iterables;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparableTesting;
@@ -31,9 +31,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for testing a {@link Path} with mostly parameter checking tests.
@@ -55,19 +56,25 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
         this.checkFieldIsPublicStaticFinal(this.type(), "SEPARATOR", PathSeparator.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     final public void testParseNullFails() {
-        this.parsePath(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.parsePath(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyFails() {
-        this.parsePath("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.parsePath("");
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     final public void testAppendNullNameFails() {
-        this.createPath().append((N) null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createPath().append((N) null);
+        });
     }
 
     @Test
@@ -141,8 +148,11 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
         }
     }
 
-    @Test(expected = NullPointerException.class) final public void testAppendNullPathFails() {
-        this.createPath().append((P) null);
+    @Test
+    final public void testAppendNullPathFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createPath().append((P) null);
+        });
     }
 
     @Test
@@ -166,7 +176,7 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
             actualNames.add(name);
         }
 
-        assertEquals("names returned by iterator", names, actualNames);
+        assertEquals(names, actualNames, "names returned by iterator");
     }
 
     @Test
@@ -214,13 +224,13 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     }
 
     protected void checkRoot(final Path<?, ?> path) {
-        assertEquals("path must not be root=" + path, Optional.empty(), path.parent());
-        assertEquals("path must not be root=" + path, true, path.isRoot());
+        assertEquals(Optional.empty(), path.parent(), ()-> "path must not be root=" + path);
+        assertEquals(true, path.isRoot(), () -> "path must not be root=" + path);
     }
 
     protected void checkNotRoot(final Path<?, ?> path) {
-        assertNotEquals("path must not be root=" + path, Optional.empty(), path.parent());
-        assertEquals("path must not be root=" + path, false, path.isRoot());
+        assertNotEquals(Optional.empty(), path.parent(), ()-> "path must not be root=" + path);
+        assertEquals(false, path.isRoot(), () -> "path must not be root=" + path);
     }
 
     protected void checkValue(final Path<?, ?> path) {
@@ -246,42 +256,42 @@ abstract public class PathTestCase<P extends Path<P, N> & HashCodeEqualsDefined 
     }
 
     protected void checkValue(final P path, final String value) {
-        assertEquals("path", value, path.value());
+        assertEquals(value, path.value(), "path");
     }
 
     protected void checkName(final P path, final N name) {
-        assertEquals("name", path.name(), name);
+        assertEquals(path.name(), name, "name");
         this.checkName(path, name.value());
     }
 
     protected void checkName(final P path, final String value) {
-        assertEquals("name", path.name().value(), value);
+        assertEquals(path.name().value(), value, "name");
     }
 
     protected P checkParent(final P path) {
         final Optional<P> parent = path.parent();
-        assertNotEquals("parent missing", Optional.empty(), parent);
+        assertNotEquals(Optional.empty(), parent, "parent missing");
         return parent.get();
     }
 
     protected void checkParent(final P path, final P parent) {
-        assertEquals("parent", checkParent(path), parent);
+        assertEquals(checkParent(path), parent, "parent");
     }
 
     protected void checkParent(final P path, final String value) {
-        assertEquals("parent", checkParent(path).value(), value);
+        assertEquals(checkParent(path).value(), value, "parent");
     }
 
     protected void checkSameParent(final P path, final P parent) {
-        assertSame("parent of " + path, checkParent(path), parent);
+        assertSame(checkParent(path), parent, () -> "parent of " + path);
     }
 
     protected void checkWithoutParent(final Path<?, ?> path) {
-        assertEquals("parent", Optional.empty(), path.parent());
+        assertEquals(Optional.empty(), path.parent(), "parent");
     }
 
     protected void checkSameName(final Path<?, ?> path, final Name name) {
-        assertSame("parent", name, path.name());
+        assertSame(name, path.name(), "parent");
     }
 
     @Override

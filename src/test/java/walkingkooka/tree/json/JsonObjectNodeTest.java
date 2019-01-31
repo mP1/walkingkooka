@@ -18,8 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.io.printer.IndentingPrinter;
@@ -38,9 +37,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectNode, JsonObjectNodeList>{
 
@@ -52,22 +52,16 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     private final static String VALUE2 = "value2";
     private final static String VALUE3 = "value3";
 
-    @Test
-    @Ignore
     @Override
     public void testAppendChild2() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testRemoveChildFirst() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testRemoveChildLast() {
         throw new UnsupportedOperationException();
@@ -176,18 +170,22 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
         assertEquals(Optional.empty(), object.get(key2()));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetNullNameFails() {
-        JsonNode.object().set(
-                null,
-                this.value1());
+        assertThrows(NullPointerException.class, () -> {
+            JsonNode.object().set(
+                    null,
+                    this.value1());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetNullValueFails() {
-        JsonNode.object().set(
-                this.key1(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            JsonNode.object().set(
+                    this.key1(),
+                    null);
+        });
     }
 
     @Test
@@ -229,16 +227,18 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     
     private void getAndCheck(final JsonObjectNode object, final JsonNodeName key, final String value) {
         final Optional<JsonNode> got = object.get(key);
-        assertNotEquals("expected value for key " + key, Optional.empty(), got);
+        assertNotEquals(Optional.empty(), got, "expected value for key " + key);
         
-        assertEquals("incorrect string value for key=" + key, value, JsonStringNode.class.cast(got.get()).value());
+        assertEquals(value, JsonStringNode.class.cast(got.get()).value(), "incorrect string value for key=" + key);
     }
 
     // remove
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRemoveNullKeyFails() {
-        this.createJsonNode().remove(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createJsonNode().remove(null);
+        });
     }
 
     @Test
@@ -262,8 +262,6 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 .remove(key1);
         this.childrenCheck(object);
         this.checkChildCount(object, 1);
-
-        System.out.println("Test object: key1==" + object.get(key1) + " key2==" + object.get(key2) + " object: " + object.children);
 
         this.getAndCheck(object, key2, VALUE2);
 
@@ -358,7 +356,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
     }
 
     private void containsAndCheck(final JsonObjectNode object, final JsonNodeName name, final boolean contains) {
-        assertEquals(object + " contains " + name, contains, object.contains(name));
+        assertEquals(contains, object.contains(name), () -> object + " contains " + name);
     }
 
     @Test
@@ -447,12 +445,12 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
             }
         }.accept(object);
         assertEquals("1517217262", b.toString());
-        assertEquals("visited",
-                Lists.of(object, object,
+        assertEquals(Lists.of(object, object,
                         string1, string1, string1,
                         string2, string2, string2,
                         object, object),
-                visited);
+                visited,
+                "visited");
     }
 
     @Test
@@ -478,7 +476,7 @@ public final class JsonObjectNodeTest extends JsonParentNodeTestCase<JsonObjectN
                 selected.add(node);
             }
         });
-        assertEquals("matched nodes", Sets.of(object.get(key2).get()), selected);
+        assertEquals(Sets.of(object.get(key2).get()), selected, "matched nodes");
     }
 
     @Test

@@ -18,8 +18,8 @@
 
 package walkingkooka.convert;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -69,8 +69,7 @@ public final class NumberLocalTimeConverterTest extends NumberConverterTestCase<
         this.convertAndCheck(BigDecimal.valueOf(123.5), LocalTime.ofSecondOfDay(VALUE).plusNanos(Converters.NANOS_PER_SECOND/2));
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testDoubleMaxFails() {
         throw new UnsupportedOperationException();
     }

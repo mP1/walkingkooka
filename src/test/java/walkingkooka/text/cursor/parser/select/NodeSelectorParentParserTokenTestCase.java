@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -25,9 +25,10 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelectorParentParserToken<T>> extends NodeSelectorParserTokenTestCase<T> {
 
@@ -39,9 +40,11 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
 
     final static String WHITESPACE = "   ";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullTokensFails() {
-        this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken(this.text(), Cast.<List<ParserToken>>to(null));
+        });
     }
 
     @Test
@@ -50,8 +53,8 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
         final String text = this.text();
         final T token = this.createToken(text, tokens);
         this.checkText(token, text);
-        assertEquals("tokens", tokens, token.value());
-        assertEquals("tokens not copied", tokens, token.value());
+        assertEquals(tokens, token.value(), "tokens");
+        assertEquals(tokens, token.value(),"tokens not copied");
     }
 
     @Test
@@ -75,10 +78,10 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
         final String differentText = this.createDifferentToken().text();
         final T different = token.setText(differentText).cast();
         final T differentWithout = Cast.<T>to(different.withoutSymbols().get());
-        assertEquals("children without", childrenWithout, differentWithout.value());
+        assertEquals(childrenWithout, differentWithout.value(), "children without");
 
-        assertTrue("without " + token.value().size() + " should have less than or equal tokens than with " + differentWithout.value().size(),
-                token.value().size() >= differentWithout.value().size());
+        assertTrue(token.value().size() >= differentWithout.value().size(),
+                () -> "without " + token.value().size() + " should have less than or equal tokens than with " + differentWithout.value().size());
     }
 
     @Test
@@ -103,6 +106,6 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
     abstract List<ParserToken> tokens();
 
     final void checkValue(final T token, final ParserToken... tokens) {
-        assertEquals("value", Lists.of(tokens), token.value());
+        assertEquals(Lists.of(tokens), token.value(), "value");
     }
 }

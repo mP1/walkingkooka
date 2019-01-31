@@ -18,13 +18,14 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicStaticHelperTestCase;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
 
@@ -60,13 +61,15 @@ final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
         this.decodeAndCheck("before &amp; after", "before & after");
     }
 
-    @Test(expected = XmlException.class)
+    @Test
     public void testDecodeUnknownEntityFails() {
-        Xmls.decode("before &unknown; after");
+        assertThrows(XmlException.class, () -> {
+            Xmls.decode("before &unknown; after");
+        });
     }
 
     private void decodeAndCheck(final String in, final String expected) {
-        assertEquals("Decode " + CharSequences.quote(in), expected, Xmls.decode(in));
+        assertEquals(expected, Xmls.decode(in), "Decode " + CharSequences.quote(in));
     }
 
     // encode
@@ -102,7 +105,7 @@ final public class XmlsTest extends PublicStaticHelperTestCase<Xmls> {
     }
 
     private void encodeAndCheck(final String in, final String expected) {
-        assertEquals("Decode " + CharSequences.quote(in), expected, Xmls.encode(in));
+        assertEquals(expected, Xmls.encode(in), "encode " + CharSequences.quote(in));
     }
     // misc
 

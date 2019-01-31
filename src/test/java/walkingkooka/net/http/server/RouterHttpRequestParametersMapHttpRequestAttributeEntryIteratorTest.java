@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTestCase;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -26,7 +26,7 @@ import walkingkooka.net.http.HttpTransport;
 
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIteratorTest extends
         IteratorTestCase<RouterHttpRequestParametersMapHttpRequestAttributeEntryIterator,
@@ -79,8 +79,8 @@ public final class RouterHttpRequestParametersMapHttpRequestAttributeEntryIterat
                            final HttpRequestAttributes key,
                            final Object value) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
-        assertEquals("key", key, entry.getKey());
-        assertEquals("value", value, entry.getValue());
+        assertEquals(key, entry.getKey(), "key");
+        assertEquals(value, entry.getValue(), "value");
     }
 
     @Test

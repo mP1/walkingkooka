@@ -17,15 +17,16 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Base class for testing any {@link CharSequence} with most tests testing parameter validation.
@@ -40,9 +41,9 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
     @Test
     final public void testLengthAndToStringCompatible() {
         final C sequence = this.createCharSequence();
-        assertEquals(sequence + " length is different from that of toString()",
-                sequence.length(),
-                sequence.toString().length());
+        assertEquals(sequence.length(),
+                sequence.toString().length(),
+                () -> sequence + " length is different from that of toString()");
     }
 
     @Test
@@ -64,8 +65,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
 
     @Test
     final public void testInvalidIndexFails() {
-        final C sequence = this.createCharSequence();
-        this.charAtFails(sequence, Integer.MAX_VALUE);
+        this.charAtFails(Integer.MAX_VALUE);
     }
 
     final protected void charAtFails(final int index) {
@@ -73,11 +73,9 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
     }
 
     final protected void charAtFails(final CharSequence sequence, final int index) {
-        try {
-            sequence.charAt(index);
-            Assert.fail();
-        } catch (final StringIndexOutOfBoundsException ignored) {
-        }
+        assertThrows(Exception.class, () -> {
+            this.createCharSequence().charAt(index);
+        });
     }
 
     @Test final public void testNegativeSubSequenceFromIndexFails() {
@@ -110,7 +108,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
     final protected void subSequenceFails(final C sequence, final int from, final int to) {
         try {
             sequence.subSequence(from, to);
-            Assert.fail();
+            fail("Expected exception to be thrown");
         } catch (final StringIndexOutOfBoundsException ignored) {
         } catch (final IllegalArgumentException ignored) {
         }
@@ -133,8 +131,8 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
         final C sequence = this.createCharSequence();
 
         final int length = sequence.length();
-        assertTrue("sequence length must be greater than equal to 1=" + CharSequences.quote(
-                sequence.toString()), length >= 1);
+        assertTrue(length >= 1,
+                () -> "sequence length must be greater than equal to 1=" + CharSequences.quote(sequence.toString()));
         this.checkEquals2(sequence.subSequence(length - 1, length - 1), "");
     }
 
@@ -158,6 +156,7 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
     protected void checkEquals2(final CharSequence actual, final char... c) {
         this.checkLength(actual, c.length);
         this.checkCharAt(actual, c);
+        assertEquals(new String(c), actual.toString(), "toString");
     }
 
     protected void checkLength(final int length) {
@@ -165,11 +164,11 @@ abstract public class CharSequenceTestCase<C extends CharSequence & HashCodeEqua
     }
 
     protected void checkLength(final CharSequence chars, final int length) {
-        assertEquals("length of " + chars, length, chars.length());
+        assertEquals(length, chars.length(), () -> "length of " + chars);
     }
 
     protected void checkLength(final String message, final CharSequence chars, final int length) {
-        assertEquals(message, length, chars.length());
+        assertEquals(length, chars.length(), message);
     }
 
     protected void checkCharAt(final String c) {

@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.build.tostring.ToStringBuilder;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.text.CharSequences;
@@ -27,33 +27,42 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Arrays;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBoundary>
         implements ComparableTesting<MediaTypeBoundary> {
 
     // with ................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        MediaTypeBoundary.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            MediaTypeBoundary.with(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyFails() {
-        MediaTypeBoundary.with("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaTypeBoundary.with("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidCharacterFails() {
-        MediaTypeBoundary.with("abc\"def");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaTypeBoundary.with("abc\"def");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithTooLongFails() {
         final char[] c = new char[MediaTypeBoundary.MAX_LENGTH];
         Arrays.fill(c, 'a');
-        MediaTypeBoundary.with(new String(c));
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaTypeBoundary.with(new String(c));
+        });
     }
 
     @Test
@@ -86,9 +95,11 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
 
     // parse........................................................................................................
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseEmpty() {
-        MediaTypeBoundary.parse("");
+        assertThrows(HeaderValueException.class, () -> {
+            MediaTypeBoundary.parse("");
+        });
     }
 
     @Test
@@ -109,13 +120,13 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
                                final String value,
                                final String headerText) {
         final MediaTypeBoundary boundary = MediaTypeBoundary.parse(text);
-        assertEquals("value " + CharSequences.quote(text), value, boundary.value());
-        assertEquals("toHeaderText " + CharSequences.quote(text), headerText, boundary.toHeaderText());
+        assertEquals(value, boundary.value(), () -> "value " + CharSequences.quote(text));
+        assertEquals(headerText, boundary.toHeaderText(), () -> "toHeaderText " + CharSequences.quote(text));
     }
 
     private void checkValue(final MediaTypeBoundary boundary, final String value) {
-        assertEquals("value", value, boundary.value());
-        assertEquals("delimiter", "--" + value, boundary.multipartBoundaryDelimiter());
+        assertEquals(value, boundary.value(), "value");
+        assertEquals("--" + value, boundary.multipartBoundaryDelimiter(), "delimiter");
     }
 
     // toHeaderText........................................................................................................
@@ -157,19 +168,23 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
     }
 
     private void multipartBoundaryDelimiterAndCheck(final MediaTypeBoundary boundary, final String delimiter) {
-        assertEquals(boundary.toString(), delimiter, boundary.multipartBoundaryDelimiter());
+        assertEquals(delimiter, boundary.multipartBoundaryDelimiter(), () -> boundary.toString());
     }
 
     // generate ....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGenerateNullBodyFails() {
-        MediaTypeBoundary.generate(null, () -> Byte.MAX_VALUE);
+        assertThrows(NullPointerException.class, () -> {
+            MediaTypeBoundary.generate(null, () -> Byte.MAX_VALUE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGenerateNullBoundaryCharacterFails() {
-        MediaTypeBoundary.generate(new byte[0], null);
+        assertThrows(NullPointerException.class, () -> {
+            MediaTypeBoundary.generate(new byte[0], null);
+        });
     }
 
     @Test
@@ -214,9 +229,9 @@ final public class MediaTypeBoundaryTest extends HeaderValueTestCase<MediaTypeBo
                 boundaryCharcters,
                 boundary.length());
 
-        assertEquals("Incorrect boundary generated for " + ToStringBuilder.empty().value(body).build(),
-                MediaTypeBoundary.with(boundary),
-                mediaTypeBoundary);
+        assertEquals(MediaTypeBoundary.with(boundary),
+                mediaTypeBoundary,
+                "Incorrect boundary generated for " + ToStringBuilder.empty().value(body).build());
     }
 
     // multipartByteRanges........................................................................................................

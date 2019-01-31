@@ -16,51 +16,36 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
 /**
  * The same as {@link ParserTestCase} but with the type related tests disabled.
  */
 public abstract class ParserTestCase3<P extends Parser<T, C>, T extends ParserToken, C extends ParserContext> extends ParserTestCase<P, T, C> {
 
-    @Test
-    @Ignore
     @Override
     public final void testTestNaming() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public final void testAllConstructorsVisibility() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public final void testClassVisibility() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public final void testClassIsFinalIfAllConstructorsArePrivate() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public final void testAllMethodsVisibility() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public final void testAllFieldsVisibility() {
         throw new UnsupportedOperationException();

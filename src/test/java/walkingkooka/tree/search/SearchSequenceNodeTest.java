@@ -18,25 +18,30 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<SearchSequenceNode> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        SearchSequenceNode.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            SearchSequenceNode.with(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyFails() {
-        SearchSequenceNode.with(Lists.empty());
+        assertThrows(IllegalArgumentException.class, () -> {
+            SearchSequenceNode.with(Lists.empty());
+        });
     }
 
     @Test
@@ -178,9 +183,9 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     }
 
     private void extractAndCheck(final SearchSequenceNode sequence, final int beginOffset, final int endOffset, final SearchNode expected) {
-        assertEquals("sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset,
-                expected,
-                sequence.extract(beginOffset, endOffset));
+        assertEquals(expected,
+                sequence.extract(beginOffset, endOffset),
+                "sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset);
     }
 
     private void extractAndCheck2(final int beginOffset, final int endOffset, final SearchNode...expected) {
@@ -191,9 +196,9 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     }
 
     private void extractAndCheck2(final SearchSequenceNode sequence, final int beginOffset, final int endOffset, final SearchNode...expected) {
-        assertEquals("sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset,
-                this.sequence(expected),
-                sequence.extract(beginOffset, endOffset));
+        assertEquals(this.sequence(expected),
+                sequence.extract(beginOffset, endOffset),
+                "sequence " + sequence + " begin: " + beginOffset + " end: " + endOffset);
     }
 
     // replace ..............................................................................................................
@@ -307,9 +312,9 @@ public final class SearchSequenceNodeTest extends SearchParentNodeTestCase<Searc
     private void replaceAndCheck(final SearchSequenceNode search, final int beginOffset, final int endOffset, final SearchNode...children) {
         final SearchNode replace = this.replaceNode();
 
-        assertEquals(search + " replace " + beginOffset + "," + endOffset + " with " + replace + " failed",
-                this.sequence(children),
-                search.replace(beginOffset, endOffset, replace));
+        assertEquals(this.sequence(children),
+                search.replace(beginOffset, endOffset, replace),
+                search + " replace " + beginOffset + "," + endOffset + " with " + replace + " failed");
     }
 
     // replaceSelected..................................................

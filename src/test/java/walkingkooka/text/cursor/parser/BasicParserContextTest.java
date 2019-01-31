@@ -18,10 +18,11 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicParserContextTest extends ParserContextTestCase<BasicParserContext> {
 
@@ -33,9 +34,11 @@ public final class BasicParserContextTest extends ParserContextTestCase<BasicPar
     private final static char PERCENTAGE = 'R';
     private final static char PLUS = 'P';
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullBasicFails() {
-        BasicParserContext.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            BasicParserContext.with(null);
+        });
     }
 
     @Test

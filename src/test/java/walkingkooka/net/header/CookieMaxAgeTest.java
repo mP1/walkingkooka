@@ -19,18 +19,18 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class CookieMaxAgeTest extends CookieDeletionTestCase<CookieMaxAge> {
 
     // constants
 
-    private final int SECONDS = 123;
+    private final static int SECONDS = 123;
 
     // tests
 
@@ -47,19 +47,19 @@ final public class CookieMaxAgeTest extends CookieDeletionTestCase<CookieMaxAge>
     @Test
     public void testWith() {
         final CookieMaxAge age = this.createDeletion();
-        assertEquals("seconds", this.SECONDS, age.seconds());
+        assertEquals(SECONDS, age.seconds(), "seconds");
     }
 
     @Test
     public void testIsExpires() {
         final CookieMaxAge maxAge = this.createDeletion();
-        assertFalse(maxAge.toString(), maxAge.isExpires());
+        assertFalse(maxAge.isExpires(), maxAge.toString());
     }
 
     @Test
     public void testIsMaxAge() {
         final CookieMaxAge maxAge = this.createDeletion();
-        assertTrue(maxAge.toString(), maxAge.isMaxAge());
+        assertTrue(maxAge.isMaxAge(), maxAge.toString());
     }
 
     @Test
@@ -74,7 +74,7 @@ final public class CookieMaxAgeTest extends CookieDeletionTestCase<CookieMaxAge>
 
     @Override
     CookieMaxAge createDeletion() {
-        return CookieMaxAge.with(this.SECONDS);
+        return CookieMaxAge.with(SECONDS);
     }
 
     @Override

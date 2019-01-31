@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
@@ -28,8 +28,8 @@ import walkingkooka.test.Latch;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCase<HeaderScopeHttpResponse> {
 
@@ -48,12 +48,12 @@ public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCa
             @Override
             public void setStatus(final HttpStatus s) {
                 set.set("Status already set to " + status);
-                assertSame("status", status, s);
+                assertSame(status, s, "status");
             }
 
         }).setStatus(status);
 
-        assertEquals("status not set", true, set.value());
+        assertEquals(true, set.value(), "status not set");
     }
 
     @Test
@@ -70,7 +70,7 @@ public final class HeaderScopeHttpResponseTest extends WrapperHttpResponseTestCa
 
         }).addEntity(entity);
 
-        assertEquals("added entities", Lists.of(entity), added);
+        assertEquals(Lists.of(entity), added, "added entities");
     }
 
     @Override

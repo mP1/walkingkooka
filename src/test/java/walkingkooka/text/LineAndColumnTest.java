@@ -17,11 +17,12 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LineAndColumnTest extends ClassTestCase<LineAndColumn> {
 
@@ -29,35 +30,38 @@ public class LineAndColumnTest extends ClassTestCase<LineAndColumn> {
     private final static int COLUMN_NUMBER = 2;
     private final static String LINE = "abcdef";
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateInvalidLineNumberFails()
-    {
-        LineAndColumn.with(0, COLUMN_NUMBER, LINE);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateInvalidColumnNumberFails()
-    {
-        LineAndColumn.with(LINE_NUMBER, 0, LINE);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testCreateNullLineFails()
-    {
-        LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, null);
+    @Test
+    public void testCreateInvalidLineNumberFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            LineAndColumn.with(0, COLUMN_NUMBER, LINE);
+        });
     }
 
     @Test
-    public void testCreate()
-    {
+    public void testCreateInvalidColumnNumberFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            LineAndColumn.with(LINE_NUMBER, 0, LINE);
+
+        });
+    }
+
+    @Test
+    public void testCreateNullLineFails() {
+        assertThrows(NullPointerException.class, () -> {
+            LineAndColumn.with(LINE_NUMBER, COLUMN_NUMBER, null);
+        });
+    }
+
+    @Test
+    public void testCreate() {
         final LineAndColumn a = this.create();
-        assertEquals("lineNumber", LINE_NUMBER, a.lineNumber());
-        assertEquals("columnNumber", COLUMN_NUMBER, a.columnNumber());
-        assertEquals("line", LINE, a.line());
+        assertEquals(LINE_NUMBER, a.lineNumber(), "lineNumber");
+        assertEquals(COLUMN_NUMBER, a.columnNumber(), "columnNumber");
+        assertEquals(LINE, a.line(), "line");
     }
 
     @Test
-    public void testToString(){
+    public void testToString() {
         assertEquals("line: 1, col: 2, \"abcdef\"", this.create().toString());
     }
 
@@ -212,10 +216,12 @@ public class LineAndColumnTest extends ClassTestCase<LineAndColumn> {
         this.determineAndCheck(text, text.length() - 1, "third", 3, 6);
     }
 
-    @Test(expected = StringIndexOutOfBoundsException.class)
+    @Test
     public void testAfterLastCharFails() {
         final String text = "first\nsecond\rthird";
-        this.determineAndCheck(text, text.length() + 1, "", 4, 1);
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            this.determineAndCheck(text, text.length() + 1, "", 4, 1);
+        });
     }
 
     @Test
@@ -244,9 +250,9 @@ public class LineAndColumnTest extends ClassTestCase<LineAndColumn> {
     private void determineAndCheck(final String text, final int pos, final String line, final int lineNumber,
                                    final int column) {
         final LineAndColumn info = LineAndColumn.determine(text, pos);
-        assertEquals("lineNumber", lineNumber, info.lineNumber());
-        assertEquals("column()", column, info.columnNumber());
-        assertEquals("line()", line, info.line());
+        assertEquals(lineNumber, info.lineNumber(), "lineNumber");
+        assertEquals(column, info.columnNumber(), "column()");
+        assertEquals(line, info.line(), "line()");
     }
 
     private LineAndColumn create(){

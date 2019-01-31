@@ -17,12 +17,12 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfoTestCase<CharSequenceTextCursorLineInfo> {
 
@@ -40,10 +40,10 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     @Test
     public void testWith() {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo
-                .with(CharSequenceTextCursorLineInfoTest.TEXT, CharSequenceTextCursorLineInfoTest.POS);
-        assertSame("text", CharSequenceTextCursorLineInfoTest.TEXT, info.text);
-        assertEquals("pos", CharSequenceTextCursorLineInfoTest.POS, info.pos);
-        assertNull("lineAndColumn", info.lineAndColumn);
+                .with(TEXT, POS);
+        assertSame(TEXT, info.text, "text");
+        assertEquals(POS, info.pos, "pos");
+        assertNull(info.lineAndColumn, "lineAndColumn");
     }
 
     @Test
@@ -74,9 +74,9 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     private void lineWithPosition(final String text, final int pos, final String line, final int lineNumber,
                                   final int column) {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo.with(text, pos);
-        assertEquals("lineNumber=" + info, lineNumber, info.lineNumber());
-        assertEquals("column()=" + info, column, info.column());
-        assertEquals("text()=" + info, line, info.text());
+        assertEquals(lineNumber, info.lineNumber(), "lineNumber=" + info);
+        assertEquals(column, info.column(),"column()=" + info);
+        assertEquals(line, info.text(), "text()=" + info);
     }
 
     @Test
@@ -88,14 +88,14 @@ final public class CharSequenceTextCursorLineInfoTest extends TextCursorLineInfo
     @Test
     public void testToString() {
         final CharSequenceTextCursorLineInfo info = CharSequenceTextCursorLineInfo
-                .with(CharSequenceTextCursorLineInfoTest.TEXT, 1);
-        assertEquals("Line: " + CharSequenceTextCursorLineInfoTest.LINE_NUMBER + "="
-                + CharSequences.quoteAndEscape(CharSequenceTextCursorLineInfoTest.TEXT), info.toString());
+                .with(TEXT, 1);
+        assertEquals("Line: " + LINE_NUMBER + "="
+                + CharSequences.quoteAndEscape(TEXT), info.toString());
     }
 
     @Override
     protected CharSequenceTextCursorLineInfo createLineInfo() {
-        return CharSequenceTextCursorLineInfo.with(CharSequenceTextCursorLineInfoTest.TEXT, 1);
+        return CharSequenceTextCursorLineInfo.with(TEXT, 1);
     }
 
     @Override

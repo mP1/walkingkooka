@@ -17,14 +17,14 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class NodeSelectorTestCase2<S extends NodeSelector<TestNode, StringName, StringName, Object>>
 extends NodeSelectorTestCase<S>{
@@ -56,18 +56,18 @@ extends NodeSelectorTestCase<S>{
             @Override
             public void selected(final TestNode node) {
                 if(i == nodes.length) {
-                    Assert.fail("Unexpected matching node: " + node);
+                    Assertions.fail("Unexpected matching node: " + node);
                 }
 
                 if(!nodes[i].equals(node.name().value())){
-                    Assert.fail("Unexpected node " + node + " expected "+ nodes[i]);
+                    Assertions.fail("Unexpected node " + node + " expected "+ nodes[i]);
                 }
                 expected.remove(0);
                 i++;
             }
         });
 
-        assertEquals("Finished processing contains unselected nodes", Lists.empty(), expected);
+        assertEquals(Lists.empty(), expected, "Finished processing contains unselected nodes");
     }
 
     final NodeSelector<TestNode, StringName, StringName, Object> wrapped() {

@@ -25,7 +25,7 @@ import walkingkooka.util.BiFunctionTestCase;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<V>, V> extends BiFunctionTestCase<F, List<Object>, ExpressionFunctionContext, V> {
 
@@ -48,9 +48,9 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<V>
                                                  final List<Object> parameters,
                                                  final ExpressionFunctionContext context,
                                                  final RR result) {
-        assertEquals("Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters),
-                result,
-                function.apply(parameters, context));
+        assertEquals(result,
+                function.apply(parameters, context),
+                () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters));
     }
 
     protected final ExpressionFunctionContext createContext() {

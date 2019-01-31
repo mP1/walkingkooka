@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTestCase;
@@ -27,8 +27,8 @@ import walkingkooka.type.MethodAttributes;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParserToken> extends ParserTokenTestCase<T> {
 
@@ -37,24 +37,32 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
         this.publicStaticFactoryCheck(SpreadsheetParserToken.class, "Spreadsheet", ParserToken.class);
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
     public void testWithEmptyTextFails() {
-        this.createToken("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken("");
+        });
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
     public void testWithWhitespaceTextFails() {
-        this.createToken("   ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken("   ");
+        });
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
     public void testSetTextEmptyFails() {
-        this.createToken().setText("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setText("");
+        });
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test
     public void testSetTextWhitespaceFails() {
-        this.createToken().setText("   ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setText("   ");
+        });
     }
 
     @Test
@@ -64,8 +72,8 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
 
         final T token = this.createToken();
         final String name = token.getClass().getSimpleName();
-        assertEquals(name + " starts with " + prefix, true, name.startsWith(prefix));
-        assertEquals(name + " ends with " + suffix, true, name.endsWith(suffix));
+        assertEquals(true, name.startsWith(prefix), name + " starts with " + prefix);
+        assertEquals(true, name.endsWith(suffix), name + " ends with " + suffix);
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
 
@@ -84,9 +92,9 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
             if(!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(token));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(token),
+                    method + " returned");
         }
     }
 
@@ -104,7 +112,7 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
 
     final void toExpressionNodeAndFail(final T token) {
         final Optional<ExpressionNode> node = token.expressionNode();
-        assertEquals("toExpressionNode", Optional.empty(), node);
+        assertEquals(Optional.empty(), node, "toExpressionNode");
     }
 
     final void toExpressionNodeAndCheck(final ExpressionNode expected) {
@@ -112,10 +120,7 @@ public abstract class SpreadsheetParserTokenTestCase<T extends SpreadsheetParser
     }
 
     final void toExpressionNodeAndCheck(final T token, final ExpressionNode expected) {
-        assertNotNull( "token", token);
-        assertNotNull( "expected", expected);
-
         final Optional<ExpressionNode> node = this.createToken().expressionNode();
-        assertEquals("toExpressionNode", Optional.of(expected), node);
+        assertEquals(Optional.of(expected), node, "toExpressionNode");
     }
 }

@@ -18,28 +18,30 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> extends SearchNodeTestCase<N> {
 
     @Test
     public final void testCreate() {
         final N node = this.createSearchNode();
-        assertEquals("children", Lists.empty(), node.children());
+        assertEquals(Lists.empty(), node.children(), "children");
         this.checkWithoutParent(node);
         this.checkValue(node, this.value());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetValueNullFails() {
-        this.createSearchNode().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSearchNode().setValue(null);
+        });
     }
 
     @Test
@@ -146,14 +148,14 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
     public final void testIgnored() {
         final N node = this.createSearchNode();
         final SearchIgnoredNode ignored = node.ignored();
-        assertEquals("ignored with child", SearchNode.ignored(node), ignored);
+        assertEquals(SearchNode.ignored(node), ignored, "ignored with child");
     }
 
     @Test
     public final void testSelected() {
         final N node = this.createSearchNode();
         final SearchSelectNode selected = node.selected();
-        assertEquals("ignored with child", SearchNode.select(node), selected);
+        assertEquals(SearchNode.select(node), selected, "ignored with child");
     }
 
     @Test
@@ -166,74 +168,47 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
         assertNotEquals(this.createSearchNode(), this.createSearchNode(this.differentText(), this.differentValue()));
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testAppendChild() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testAppendChild2() {
         // Ignored
     }
 
-    @Test
-    @Ignore
-    public void testRemoveChildWithoutParent() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChildDifferentParent() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChild() {
-        // Ignored
-    }
-
-    @Test
-    @Ignore
+    @Override
     public void testRemoveChildFirst() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testRemoveChildLast() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChildWithoutParent() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChildDifferentParent() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testReplaceChild() {
         // Ignored
     }
 
-    @Test
-    @Ignore
-    public void testSameChildren() {
+    @Override
+    public void testSetChildrenSame() {
         // Ignored
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testSetDifferentChildren() {
         // Ignored
     }
@@ -268,6 +243,6 @@ public abstract class SearchLeafNodeTestCase<N extends SearchLeafNode<V>, V> ext
     }
 
     final void checkValue(final N node, final V value) {
-        assertEquals("value", value, node.value());
+        assertEquals(value, node.value(), "value");
     }
 }

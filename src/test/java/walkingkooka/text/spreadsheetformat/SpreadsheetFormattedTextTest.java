@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -27,9 +27,10 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormattedTextTest extends ClassTestCase<SpreadsheetFormattedText>
         implements HashCodeEqualsDefinedTesting<SpreadsheetFormattedText> {
@@ -37,14 +38,18 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
     private final static Optional<Color> COLOR = Optional.of(Color.BLACK);
     private final static String TEXT = "1/1/2000";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullColorFails() {
-        SpreadsheetFormattedText.with(null, TEXT);
+        assertThrows(NullPointerException.class, () -> {
+            SpreadsheetFormattedText.with(null, TEXT);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTextFails() {
-        SpreadsheetFormattedText.with(COLOR, null);
+        assertThrows(NullPointerException.class, () -> {
+            SpreadsheetFormattedText.with(COLOR, null);
+        });
     }
 
     @Test
@@ -70,9 +75,11 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
 
     // setText...........................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetTextNullFails() {
-        this.createFormattedText().setText(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createFormattedText().setText(null);
+        });
     }
 
     @Test
@@ -92,9 +99,11 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
 
     // setColor...........................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetColorNullFails() {
-        this.createFormattedText().setColor(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createFormattedText().setColor(null);
+        });
     }
 
     @Test
@@ -113,8 +122,8 @@ public final class SpreadsheetFormattedTextTest extends ClassTestCase<Spreadshee
     }
 
     private void check(final SpreadsheetFormattedText formatted, final Optional<Color> color, final String text) {
-        assertEquals("color", color, formatted.color());
-        assertEquals("text", text, formatted.text());
+        assertEquals(color, formatted.color(),"color");
+        assertEquals(text, formatted.text(),"text");
     }
 
     // HashCodeEqualsDefined ..................................................................................................

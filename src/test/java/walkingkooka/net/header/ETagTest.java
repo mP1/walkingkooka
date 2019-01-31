@@ -18,12 +18,13 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ETagTest extends HeaderValueTestCase<ETag> {
 
@@ -32,20 +33,25 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
 
     // with .....................................................................................
 
-
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullValueFails() {
-        ETag.with(null, ETagValidator.STRONG);
+        assertThrows(NullPointerException.class, () -> {
+            ETag.with(null, ETagValidator.STRONG);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidValueCharacterFails() {
-        ETag.with("abc def", ETagValidator.STRONG);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ETag.with("abc def", ETagValidator.STRONG);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullWeaknessIndicatorFails() {
-        ETag.with(VALUE, null);
+        assertThrows(NullPointerException.class, () -> {
+            ETag.with(VALUE, null);
+        });
     }
 
     // toHeaderText...................................................................
@@ -121,9 +127,9 @@ public final class ETagTest extends HeaderValueTestCase<ETag> {
     }
 
     private void toHeaderTextListAndCheck(final String toString, final ETag... tags) {
-        assertEquals("ETag.toString(List) failed =" + CharSequences.quote(toString),
-                toString,
-                HeaderValue.toHeaderTextList(Lists.of(tags), HeaderValue.SEPARATOR.string().concat(" ")));
+        assertEquals(toString,
+                HeaderValue.toHeaderTextList(Lists.of(tags), HeaderValue.SEPARATOR.string().concat(" ")),
+                "ETag.toString(List) failed =" + CharSequences.quote(toString));
     }
 
     @Override

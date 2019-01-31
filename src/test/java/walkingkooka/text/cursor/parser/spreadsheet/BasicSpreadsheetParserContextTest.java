@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
 
 public final class BasicSpreadsheetParserContextTest extends SpreadsheetParserContextTestCase<BasicSpreadsheetParserContext> {

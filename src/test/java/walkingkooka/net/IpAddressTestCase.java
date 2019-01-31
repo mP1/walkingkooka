@@ -18,14 +18,15 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> extends ClassTestCase<A>
         implements ComparableTesting<A>,
@@ -35,14 +36,18 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> ext
         super();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullFails() {
-        this.createAddress(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createAddress(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithEmptyComponentsFails() {
-        this.createAddress(new byte[0]);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createAddress(new byte[0]);
+        });
     }
 
     @Test
@@ -50,9 +55,9 @@ abstract public class IpAddressTestCase<A extends IpAddress & Comparable<A>> ext
         final byte[] components = new byte[this.bitCount() / 8];
         final A address = this.createAddress(components);
         final byte[] value = address.value();
-        assertArrayEquals("value", components, value);
-        assertNotSame("value", components, value);
-        assertNotSame("value should not be cached.", components, address.value());
+        assertArrayEquals(components, value, "value");
+        assertNotSame(components, value, "value");
+        assertNotSame(components, address.value(), "value should not be cached.");
     }
 
     final A createAddress() {

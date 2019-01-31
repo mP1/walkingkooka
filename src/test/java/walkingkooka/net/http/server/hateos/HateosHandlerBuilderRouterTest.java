@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -53,8 +53,8 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosHandlerBuilderRouter<JsonNode>,
         HttpRequestAttribute<?>,
@@ -140,7 +140,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get resource successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -153,7 +153,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get resource successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -170,7 +170,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get resource successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -222,10 +222,10 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                     public Optional<JsonNode> get(final BigInteger id,
                                                   final Map<HttpRequestParameterName, List<String>> parameters,
                                                   final HateosHandlerContext<JsonNode> context) {
-                        assertEquals("id", ID, id);
-                        assertEquals("parameters",
-                                Lists.of("value1"),
-                                parameters.get(HttpRequestParameterName.with("param1")));
+                        assertEquals(ID, id, "id");
+                        assertEquals(Lists.of("value1"),
+                                parameters.get(HttpRequestParameterName.with("param1")),
+                                "parameters");
 
                         getted.set("123 getted");
                         return Optional.ofNullable(null != reply ?
@@ -255,7 +255,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -268,7 +268,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -285,7 +285,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     // GET COLLECTION WILDCARD ................................................................................................
@@ -309,7 +309,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -322,7 +322,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -339,7 +339,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     // GET COLLECTION RANGE ................................................................................................
@@ -363,7 +363,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -376,7 +376,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     @Test
@@ -393,7 +393,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Get collection successful",
                 "{}");
 
-        assertEquals("Getted ", true, getted.value());
+        assertEquals(true, getted.value(), "Getted");
     }
 
     // GET HELPERS.....................................................................................................
@@ -410,10 +410,10 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                     public Optional<JsonNode> getCollection(final Range<BigInteger> i,
                                                             final Map<HttpRequestParameterName, List<String>> parameters,
                                                             final HateosHandlerContext<JsonNode> context) {
-                        assertEquals("ids", ids, i);
-                        assertEquals("parameters",
-                                Lists.of("value1"),
-                                parameters.get(HttpRequestParameterName.with("param1")));
+                        assertEquals(ids, i, "ids");
+                        assertEquals(Lists.of("value1"),
+                                parameters.get(HttpRequestParameterName.with("param1")),
+                                "parameters");
 
                         getted.set("123 getted");
                         return Optional.ofNullable(null != reply ?
@@ -456,7 +456,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Post resource successful",
                 "{}");
 
-        assertEquals("Posted ", true, posted.value());
+        assertEquals(true, posted.value(), "Posted");
     }
 
     @Test
@@ -469,7 +469,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Post resource successful",
                 "{}");
 
-        assertEquals("Posted ", true, posted.value());
+        assertEquals(true, posted.value(), "Posted");
     }
 
     @Test
@@ -486,7 +486,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Post resource successful",
                 "{}");
 
-        assertEquals("Posted ", true, posted.value());
+        assertEquals(true, posted.value(), "Posted");
     }
 
     // POST RESOURCE WITHOUT ID................................................................................................
@@ -510,7 +510,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Post resource successful",
                 "{}");
 
-        assertEquals("Posted ", true, posted.value());
+        assertEquals(true, posted.value(), "Posted");
     }
 
     @Test
@@ -523,7 +523,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Post resource successful",
                 "{}");
 
-        assertEquals("Posted ", true, posted.value());
+        assertEquals(true, posted.value(), "Posted");
     }
 
     @Test
@@ -540,7 +540,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Post resource successful",
                 "{}");
 
-        assertEquals("Posted ", true, posted.value());
+        assertEquals(true, posted.value(), "Posted");
     }
 
     // POST RESOURCE WILDCARD................................................................................................
@@ -577,7 +577,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                     public JsonNode post(final Optional<BigInteger> i,
                                          final JsonNode post,
                                          final HateosHandlerContext<JsonNode> context) {
-                        assertEquals("id", Optional.ofNullable(id), i);
+                        assertEquals(Optional.ofNullable(id), i, "id");
 
                         posted.set("123 posted");
                         return null != reply ?
@@ -621,7 +621,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Put resource successful",
                 "{}");
 
-        assertEquals("Putted ", true, putted.value());
+        assertEquals(true, putted.value(), "Putted");
     }
 
     @Test
@@ -634,7 +634,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Put resource successful",
                 "{}");
 
-        assertEquals("Putted ", true, putted.value());
+        assertEquals(true, putted.value(), "Putted");
     }
 
     @Test
@@ -651,7 +651,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 "Put resource successful",
                 "{}");
 
-        assertEquals("Putted ", true, putted.value());
+        assertEquals(true, putted.value(), "Putted");
     }
 
     // PUT RESOURCE WILDCARD................................................................................................
@@ -699,7 +699,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                     public JsonNode put(final BigInteger i,
                                         final JsonNode put,
                                         final HateosHandlerContext<JsonNode> context) {
-                        assertEquals("id", id, i);
+                        assertEquals(id, i, "id");
 
                         putted.set("123 putted");
                         return null != reply ?
@@ -741,7 +741,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete resource successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
 
@@ -754,7 +754,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete resource successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
     @Test
@@ -770,7 +770,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete resource successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
     private void addDeleteHandler(final HateosHandlerBuilder<JsonNode> builder,
@@ -780,7 +780,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 new FakeHateosDeleteHandler<JsonNode>() {
                     @Override
                     public void delete(final BigInteger id, final HateosHandlerContext<JsonNode> context) {
-                        assertEquals("id", ID, id);
+                        assertEquals(ID, id, "id");
                         deleted.set("123 deleted");
                     }
                 });
@@ -816,7 +816,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
 
@@ -829,7 +829,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
     @Test
@@ -845,7 +845,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
     // DeleteCollectionWildcard RESOURCE ................................................................................................
@@ -867,7 +867,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
 
@@ -880,7 +880,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
     @Test
@@ -896,7 +896,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
     // DeleteCollection Range  ................................................................................................
@@ -920,7 +920,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
 
@@ -934,7 +934,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
     @Test
@@ -950,7 +950,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 HttpStatusCode.NO_CONTENT,
                 "Delete collection successful");
 
-        assertEquals("Deleted ", true, deleted.value());
+        assertEquals(true, deleted.value(), "Deleted");
     }
 
     // DELETE HELPERS.....................................................................................................
@@ -963,7 +963,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                 new FakeHateosDeleteHandler<JsonNode>() {
                     @Override
                     public void deleteCollection(final Range<BigInteger> r, final HateosHandlerContext<JsonNode> context) {
-                        assertEquals("range", range, r);
+                        assertEquals(range, r, "range");
                         deleted.set("123-456 deleted");
                     }
                 });
@@ -1032,7 +1032,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                                      final byte[] body,
                                      final HttpStatus status,
                                      final HttpEntity... entities) {
-        assertTrue(url + " must start with /api", url.startsWith("/api"));
+        assertTrue(url.startsWith("/api"), url + " must start with /api");
 
         final HateosHandlerBuilder<JsonNode> builder = this.builder();
         build.accept(builder);
@@ -1046,7 +1046,7 @@ public final class HateosHandlerBuilderRouterTest extends RouterTestCase<HateosH
                                      final byte[] body,
                                      final HttpStatus status,
                                      final HttpEntity... entities) {
-        assertTrue(url + " must start with /api", url.startsWith("/api"));
+        assertTrue(url.startsWith("/api"), url + " must start with /api");
 
         final TestRecordingHttpResponse response = HttpResponses.testRecording();
 

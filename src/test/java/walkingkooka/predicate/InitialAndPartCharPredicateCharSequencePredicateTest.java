@@ -17,14 +17,15 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class InitialAndPartCharPredicateCharSequencePredicateTest
         extends PredicateTestCase<InitialAndPartCharPredicateCharSequencePredicate, CharSequence>
@@ -33,14 +34,18 @@ final public class InitialAndPartCharPredicateCharSequencePredicateTest
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullInitialCharPredicateFails() {
-        InitialAndPartCharPredicateCharSequencePredicate.with(null, CharPredicates.never());
+        assertThrows(NullPointerException.class, () -> {
+            InitialAndPartCharPredicateCharSequencePredicate.with(null, CharPredicates.never());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullRemainingCharPredicateFails() {
-        InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.never(), null);
+        assertThrows(NullPointerException.class, () -> {
+            InitialAndPartCharPredicateCharSequencePredicate.with(CharPredicates.never(), null);
+        });
     }
 
     @Test

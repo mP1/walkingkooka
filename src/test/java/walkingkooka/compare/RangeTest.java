@@ -18,15 +18,16 @@
 
 package walkingkooka.compare;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.PredicateTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
         implements HashCodeEqualsDefinedTesting<Range<Integer>> {
@@ -41,9 +42,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
 
     // parameter checks................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAndNullFails() {
-        this.createPredicate().and(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createPredicate().and(null);
+        });
     }
 
     // all ..............................................................................................
@@ -65,9 +68,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
 
     // singleton ....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSingletonNullValueFails() {
-        Range.singleton(null);
+        assertThrows(NullPointerException.class, () -> {
+            Range.singleton(null);
+        });
     }
 
     @Test
@@ -102,9 +107,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
         this.check(Range.lessThan(value), RangeBound.all(), RangeBound.exclusive(value));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testLessThanNullValueFails() {
-        Range.lessThan(null);
+        assertThrows(NullPointerException.class, () -> {
+            Range.lessThan(null);
+        });
     }
 
     @Test
@@ -139,9 +146,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
         this.check(Range.lessThanEquals(value), RangeBound.all(), RangeBound.inclusive(value));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testLessThanEqualsNullValueFails() {
-        Range.lessThanEquals(null);
+        assertThrows(NullPointerException.class, () -> {
+            Range.lessThanEquals(null);
+        });
     }
 
     @Test
@@ -176,9 +185,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
         this.check(Range.greaterThan(value), RangeBound.exclusive(value), RangeBound.all());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGreaterThanNullValueFails() {
-        Range.greaterThan(null);
+        assertThrows(NullPointerException.class, () -> {
+            Range.greaterThan(null);
+        });
     }
 
     @Test
@@ -213,9 +224,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
         this.check(Range.greaterThanEquals(value), RangeBound.inclusive(value), RangeBound.all());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGreaterThanEqualsNullValueFails() {
-        Range.greaterThanEquals(null);
+        assertThrows(NullPointerException.class, () -> {
+            Range.greaterThanEquals(null);
+        });
     }
 
     @Test
@@ -276,8 +289,8 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
 
     private void andAllAndCheck(final Range<Integer> range) {
         final Range<Integer> all = all();
-        assertSame(range + " and with " + all, range, range.and(all));
-        assertSame(range + " and with " + all, range, all.and(range));
+        assertSame(range, range.and(all), ()-> range + " and with " + all);
+        assertSame(range, all.and(range), () -> range + " and with " + all);
     }
 
     // and with all..........................................................................................
@@ -291,8 +304,8 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
     public void testAndSingletonAndSingleton() {
         final Range<Integer> singleton = singleton();
         final Range<Integer> singleton2 = singleton();
-        assertSame(singleton + " and with " + singleton2, singleton, singleton.and(singleton2));
-        assertSame(singleton2 + " and with " + singleton, singleton2, singleton2.and(singleton));
+        assertSame(singleton, singleton.and(singleton2), ()-> singleton + " and with " + singleton2);
+        assertSame(singleton2, singleton2.and(singleton), () -> singleton2 + " and with " + singleton);
     }
 
     @Test
@@ -317,57 +330,75 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
 
     private void andSingletonAndCheck(final Range<Integer> range) {
         final Range<Integer> singleton = singleton();
-        assertSame(range + " and with " + singleton, singleton, range.and(singleton));
-        assertSame(singleton + " and with " + range, singleton, singleton.and(range));
+        assertSame(singleton, range.and(singleton), ()-> range + " and with " + singleton);
+        assertSame(singleton, singleton.and(range), ()-> singleton + " and with " + range);
     }
 
     // and invalid.......................................................
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndLessThanAndGreaterThanFails() {
-        lessThan().and(greaterThan());
+        assertThrows(IllegalArgumentException.class, () -> {
+            lessThan().and(greaterThan());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndGreaterThanAndLessThanFails() {
-        greaterThan().and(lessThan());
+        assertThrows(IllegalArgumentException.class, () -> {
+            greaterThan().and(lessThan());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndLessThanAndGreaterThanFails2() {
-        Range.lessThan(122).and(Range.greaterThan(123));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Range.lessThan(122).and(Range.greaterThan(123));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndLessThanEqualAndGreaterThanFails2() {
-        Range.lessThanEquals(122).and(Range.greaterThan(123));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Range.lessThanEquals(122).and(Range.greaterThan(123));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndLessThanEqualAndSingletonFails2() {
-        Range.lessThanEquals(122).and(Range.singleton(123));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Range.lessThanEquals(122).and(Range.singleton(123));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndSingletonAndGreaterThanFails2() {
-        Range.singleton(122).and(Range.greaterThan(123));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Range.singleton(122).and(Range.greaterThan(123));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndSingletonAndGreaterThanEqualsFails2() {
-        Range.singleton(122).and(Range.greaterThanEquals(123));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Range.singleton(122).and(Range.greaterThanEquals(123));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndNonOverlappingBoundedRangeBoundedRangeFails() {
-        Range.greaterThan(222).and(Range.lessThan(333))
-                .and(Range.greaterThan(888).and(Range.lessThan(999)));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Range.greaterThan(222).and(Range.lessThan(333))
+                    .and(Range.greaterThan(888).and(Range.lessThan(999)));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAndNonOverlappingBoundedRangeBoundedRangeFails2() {
-        Range.greaterThan(222).and(Range.lessThan(333))
-                .and(Range.greaterThan(333).and(Range.lessThan(999)));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Range.greaterThan(222).and(Range.lessThan(333))
+                    .and(Range.greaterThan(333).and(Range.lessThan(999)));
+        });
     }
 
     // and gt lt ......................................................................
@@ -575,8 +606,8 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
                              final RangeBound<Integer> lower,
                              final RangeBound<Integer> upper) {
         final Range<Integer> intersected = range.and(other);
-        assertEquals(range + " and " + other + " lower", lower, intersected.lower);
-        assertEquals(range + " and " + other + " upper", upper, intersected.upper);
+        assertEquals(lower, intersected.lower, ()-> range + " and " + other + " lower");
+        assertEquals(upper, intersected.upper, ()-> range + " and " + other + " upper");
     }
 
     // more tests ...................................................................................................
@@ -618,9 +649,11 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
 
     // isOverlapping.............................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testIsOverlappingpingNullFails(){
-        Range.all().isOverlapping(null);
+        assertThrows(NullPointerException.class, () -> {
+            Range.all().isOverlapping(null);
+        });
     }
 
     @Test
@@ -757,7 +790,7 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
     }
 
     private void isOverlappingAndCheck0(final Range<Integer> first, final Range<Integer> other, final boolean expected) {
-        assertEquals(first + " " + other, expected, first.isOverlapping(other));
+        assertEquals(expected, first.isOverlapping(other), () -> first + " " + other);
 
         boolean and;
         try {
@@ -766,22 +799,18 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
         } catch (final Exception fail) {
             and = false;
         }
-        assertEquals(first + " and " + other + " doesnt match " + first + " isOverlapping " + other,
-                expected,
-                and);
+        assertEquals(expected,
+                and,
+                ()-> first + " and " + other + " doesnt match " + first + " isOverlapping " + other);
     }
 
     // misc ...................................................................................................
 
-    @Test
-    @Ignore
     @Override
     public void testAllMethodsVisibility() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public void testCheckNaming() {
         throw new UnsupportedOperationException();
@@ -897,8 +926,8 @@ public final class RangeTest extends PredicateTestCase<Range<Integer>, Integer>
     }
 
     private void check(final Range<Integer> range, final RangeBound<Integer> lower, final RangeBound<Integer> upper) {
-        assertEquals("lower " + range, lower, range.lowerBound());
-        assertEquals("upper " + range, upper, range.upperBound());
+        assertEquals(lower, range.lowerBound(), ()-> "lower " + range);
+        assertEquals(upper, range.upperBound(), ()-> "upper " + range);
     }
 
     @Override

@@ -18,32 +18,39 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetUnaryParserTokenTestCase<T extends SpreadsheetUnaryParserToken<T>> extends SpreadsheetParentParserTokenTestCase<T> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingNonNoisyToken() {
-        this.createToken("", this.whitespace());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken("", this.whitespace());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingNonNoisyToken2() {
-        this.createToken("", this.whitespace(), this.whitespace());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken("", this.whitespace(), this.whitespace());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueWrongCountFails2() {
-        this.createToken().setValue(Lists.of(this.number1(), this.number2()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(this.number1(), this.number2()));
+        });
     }
 
     @Test

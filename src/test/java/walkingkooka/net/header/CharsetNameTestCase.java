@@ -18,10 +18,11 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderValueTestCase<N> {
 
@@ -36,9 +37,11 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
 
     // matches.......................................................
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public final void testMatchesWildcardFails() {
-        this.createCharsetName().matches(CharsetName.WILDCARD_CHARSET);
+        assertThrows(HeaderValueException.class, () -> {
+            this.createCharsetName().matches(CharsetName.WILDCARD_CHARSET);
+        });
     }
 
     final void matches(final CharsetName contentType,
@@ -51,9 +54,9 @@ public abstract class CharsetNameTestCase<N extends CharsetName> extends HeaderV
     final void matches(final CharsetName charsetName,
                        final CharsetName contentType,
                        final boolean matches) {
-        assertEquals(charsetName + " matches " + contentType,
-                matches,
-                charsetName.matches(contentType));
+        assertEquals(matches,
+                charsetName.matches(contentType),
+                charsetName + " matches " + contentType);
     }
 
     @Test

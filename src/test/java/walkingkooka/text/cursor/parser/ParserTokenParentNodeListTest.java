@@ -16,13 +16,13 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ListTestCase;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public final class ParserTokenParentNodeListTest extends ListTestCase<ParserTokenParentNodeList, ParserTokenNode> {
 

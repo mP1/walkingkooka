@@ -18,15 +18,16 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements SerializationTesting<AbsoluteUrl> {
 
@@ -39,48 +40,56 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
 
     // tests
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSchemeFails() {
-        AbsoluteUrl.with(null,
-                CREDENTIALS,
-                HOST,
-                PORT,
-                PATH,
-                QUERY,
-                FRAGMENT);
+        assertThrows(NullPointerException.class, () -> {
+            AbsoluteUrl.with(null,
+                    CREDENTIALS,
+                    HOST,
+                    PORT,
+                    PATH,
+                    QUERY,
+                    FRAGMENT);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCredentialsFails() {
-        AbsoluteUrl.with(SCHEME,
-                null,
-                HOST,
-                PORT,
-                PATH,
-                QUERY,
-                FRAGMENT);
+        assertThrows(NullPointerException.class, () -> {
+            AbsoluteUrl.with(SCHEME,
+                    null,
+                    HOST,
+                    PORT,
+                    PATH,
+                    QUERY,
+                    FRAGMENT);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullHostFails() {
-        AbsoluteUrl.with(SCHEME,
-                CREDENTIALS,
-                null,
-                PORT,
-                PATH,
-                QUERY,
-                FRAGMENT);
+        assertThrows(NullPointerException.class, () -> {
+            AbsoluteUrl.with(SCHEME,
+                    CREDENTIALS,
+                    null,
+                    PORT,
+                    PATH,
+                    QUERY,
+                    FRAGMENT);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithoutPortFails() {
-        AbsoluteUrl.with(SCHEME,
-                CREDENTIALS,
-                HOST,
-                null,
-                PATH,
-                QUERY,
-                FRAGMENT);
+        assertThrows(NullPointerException.class, () -> {
+            AbsoluteUrl.with(SCHEME,
+                    CREDENTIALS,
+                    HOST,
+                    null,
+                    PATH,
+                    QUERY,
+                    FRAGMENT);
+        });
     }
 
     @Test
@@ -233,27 +242,33 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
         final AbsoluteUrl url = AbsoluteUrl.with(UrlScheme.HTTPS, CREDENTIALS, HOST, PORT, path, query,
                 fragment);
         final RelativeUrl relative = url.relativeUrl();
-        assertEquals("url", RelativeUrl.with(path, query, fragment).value(), relative.value());
-        assertSame("path", path, relative.path());
-        assertSame("query", query, relative.query());
-        assertSame("fragment", fragment, relative.fragment());
+        assertEquals(RelativeUrl.with(path, query, fragment).value(), relative.value(), "url");
+        assertSame(path, relative.path(), "path");
+        assertSame(query, relative.query(),"query");
+        assertSame(fragment, relative.fragment(),"fragment");
     }
 
     // parseAbsolute..........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullFails() {
-        AbsoluteUrl.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            AbsoluteUrl.parse(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyFails() {
-        AbsoluteUrl.parse("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            AbsoluteUrl.parse("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseMissingSchemeFails() {
-        AbsoluteUrl.parse("example.com");
+        assertThrows(IllegalArgumentException.class, () -> {
+            AbsoluteUrl.parse("example.com");
+        });
     }
 
     @Test
@@ -448,7 +463,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
     }
 
     private void checkScheme(final AbsoluteUrl url, final UrlScheme scheme) {
-        assertEquals("scheme", scheme, url.scheme());
+        assertEquals(scheme, url.scheme(), "scheme");
     }
 
     private void checkCredentials(final AbsoluteUrl url, final UrlCredentials credentials) {
@@ -460,11 +475,11 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
     }
 
     private void checkCredentials(final AbsoluteUrl url, final Optional<UrlCredentials> credentials) {
-        assertEquals("credentials", credentials, url.credentials());
+        assertEquals(credentials, url.credentials(), "credentials");
     }
 
     private void checkHost(final AbsoluteUrl url, final HostAddress host) {
-        assertEquals("host", host, url.host());
+        assertEquals(host, url.host(), "host");
     }
 
     private void checkPort(final AbsoluteUrl url, final IpPort port) {
@@ -476,7 +491,7 @@ public final class AbsoluteUrlTest extends UrlTestCase<AbsoluteUrl> implements S
     }
 
     private void checkPort(final AbsoluteUrl url, final Optional<IpPort> port) {
-        assertEquals("port", port, url.port());
+        assertEquals(port, url.port(), "port");
     }
 
 

@@ -17,10 +17,10 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint, C extends TextCursor>
         extends TextCursorPackageTestCase<S> {
@@ -38,7 +38,7 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
         cursor.next();
         this.atAndCheck(cursor, '2');
 
-        assertNotNull("SavePointTestCase", cursor.save());
+        assertNotNull(cursor.save(), "SavePointTestCase");
     }
 
     @Test
@@ -156,6 +156,6 @@ abstract public class TextCursorSavePointTestCase<S extends TextCursorSavePoint,
 
     protected void checkTextBetween(final TextCursorSavePoint save, final String expected) {
         final String actual = save.textBetween().toString();
-        assertEquals("textBetween=" + save, expected, actual);
+        assertEquals(expected, actual, () -> "textBetween=" + save);
     }
 }

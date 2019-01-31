@@ -18,85 +18,83 @@
 
 package walkingkooka;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicThrowableTestCase;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class InvalidCharacterExceptionTest extends PublicThrowableTestCase<InvalidCharacterException> {
 
     private final static String TEXT = "abc!123";
     private final static int POSITION = 3;
 
-    @Test
-    @Ignore
+    @Override
     public void testAllConstructorsVisibility() throws Throwable {
 
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testCreateOnlyNullMessageFails() throws Throwable {
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testCreateOnlyEmptyMessageFails() throws Throwable {
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testCreateOnlyMessage() throws Throwable {
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testCreateNullMessageAndCauseExceptionFails() throws Throwable {
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testCreateEmptyMessageAndNonNullCauseFails() throws Throwable {
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testMessageAndNullCauseFails() throws Throwable {
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testMessageAndCause() throws Throwable {
 
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testNoArgumentsConstructorItNotPublic() throws Throwable {
     }
 
-
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTextFails() {
-        new InvalidCharacterException(null, 3);
+        assertThrows(NullPointerException.class, () -> {
+            new InvalidCharacterException(null, 3);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyTextFails() {
-        new InvalidCharacterException("", 3);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new InvalidCharacterException("", 3);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPositionFails() {
-        new InvalidCharacterException(TEXT, -1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new InvalidCharacterException(TEXT, -1);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPositionFails2() {
-        new InvalidCharacterException(TEXT, TEXT.length());
+        assertThrows(IllegalArgumentException.class, () -> {
+            new InvalidCharacterException(TEXT, TEXT.length());
+        });
     }
 
     @Test
@@ -105,30 +103,40 @@ public final class InvalidCharacterExceptionTest extends PublicThrowableTestCase
         check(cause, TEXT, POSITION);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetTextAndPositionNullTextFails() {
-        this.create().setTextAndPosition(null, POSITION);
+        assertThrows(NullPointerException.class, () -> {
+            this.create().setTextAndPosition(null, POSITION);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTextAndPositionEmptyTextFails() {
-        this.create().setTextAndPosition("", POSITION);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.create().setTextAndPosition("", POSITION);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTextAndPositionInvalidPositionFails() {
-        this.create().setTextAndPosition(TEXT, -1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.create().setTextAndPosition(TEXT, -1);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTextAndPositionInvalidPositionFails2() {
-        this.create().setTextAndPosition(TEXT, TEXT.length() + 1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.create().setTextAndPosition(TEXT, TEXT.length() + 1);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetTextAndPositionInvalidPositionFails3() {
         final String text = "abc";
-        this.create().setTextAndPosition(text, text.length() + 1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.create().setTextAndPosition(text, text.length() + 1);
+        });
     }
 
     @Test
@@ -197,12 +205,8 @@ public final class InvalidCharacterExceptionTest extends PublicThrowableTestCase
     }
 
     private void check(final InvalidCharacterException exception, final String text, final int position) {
-        assertEquals("text", text, exception.text());
-        assertEquals("position", position, exception.position());
-    }
-
-    private void checkCause(final InvalidCharacterException exception, final InvalidCharacterException cause) {
-        assertEquals("cause", cause, exception.getCause());
+        assertEquals(text, exception.text(), "text");
+        assertEquals(position, exception.position(), "position");
     }
 
     @Override

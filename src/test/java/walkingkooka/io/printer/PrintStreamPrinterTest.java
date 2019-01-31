@@ -17,8 +17,7 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.io.printstream.HasPrintStream;
 import walkingkooka.io.printstream.PrintStreams;
 import walkingkooka.text.LineEnding;
@@ -27,8 +26,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPrinter> {
 
@@ -47,30 +47,25 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
 
     @Test
     public void testWithNullPrintStreamFails() {
-        this.withFails(null, PrintStreamPrinterTest.LINE_ENDING);
+        assertThrows(NullPointerException.class, () -> {
+            PrintStreamPrinter.with(null, LINE_ENDING);
+        });
     }
 
     @Test
     public void testWithNullLineEndingFails() {
-        this.withFails(PrintStreams.fake(), null);
-    }
-
-    private void withFails(final PrintStream printStream, final LineEnding lineEnding) {
-        try {
-            PrintStreamPrinter.with(printStream, lineEnding);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            PrintStreamPrinter.with(PrintStreams.fake(), null);
+        });
     }
 
     @Test
     public void testHasPrintStream() {
         final PrintStream stream = System.out;
         final PrintStreamPrinter printer = PrintStreamPrinter.with(stream,
-                PrintStreamPrinterTest.LINE_ENDING);
-        assertTrue(printer + " does not implement HasPrintStream",
-                printer instanceof HasPrintStream);
-        assertSame("printStream getter", stream, printer.printStream());
+                LINE_ENDING);
+        assertTrue(printer instanceof HasPrintStream, printer + " does not implement HasPrintStream");
+        assertSame(stream, printer.printStream(), "printStream getter");
     }
 
     @Override
@@ -88,7 +83,7 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
     @Test
     public void testPrintStreamWithSysErr() {
         assertSame(PrintStreamPrinter.sysErr(),
-                PrintStreamPrinter.with(System.err, PrintStreamPrinterTest.LINE_ENDING));
+                PrintStreamPrinter.with(System.err, LINE_ENDING));
     }
 
     @Test
@@ -100,14 +95,14 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
     @Test
     public void testPrintStreamWithSysOut() {
         assertSame(PrintStreamPrinter.sysOut(),
-                PrintStreamPrinter.with(System.out, PrintStreamPrinterTest.LINE_ENDING));
+                PrintStreamPrinter.with(System.out, LINE_ENDING));
     }
 
     @Test
     public void testAppend() {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final Printer printer = PrintStreamPrinter.with(new PrintStream(output),
-                PrintStreamPrinterTest.LINE_ENDING);
+                LINE_ENDING);
         printer.print("ascii");
         checkEquals("ascii", new String(output.toByteArray()));
     }
@@ -116,7 +111,7 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
     public void testToString() {
         final PrintStream printStream = new PrintStream(OUTPUTSTREAM);
         checkEquals(printStream.toString(),
-                PrintStreamPrinter.with(printStream, PrintStreamPrinterTest.LINE_ENDING)
+                PrintStreamPrinter.with(printStream, LINE_ENDING)
                         .toString());
     }
 
@@ -176,7 +171,7 @@ final public class PrintStreamPrinterTest extends PrinterTestCase<PrintStreamPri
 
                     private boolean closed;
                 }, //
-                PrintStreamPrinterTest.LINE_ENDING);
+                LINE_ENDING);
     }
 
     @Override

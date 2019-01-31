@@ -18,11 +18,13 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.http.HttpMethod;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpMethodListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<HttpMethodListHeaderValueConverter, List<HttpMethod>> {
@@ -51,14 +53,18 @@ public final class HttpMethodListHeaderValueConverterTest extends
         this.parseAndCheck(headerValue, Lists.of(methods));
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesNullFails() {
-        this.check(Lists.of(this.method(), null));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.method(), null));
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesWrongTypeFails() {
-        this.check(Lists.of(this.method(), "WRONG!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.method(), "WRONG!"));
+        });
     }
 
     private HttpMethod method() {

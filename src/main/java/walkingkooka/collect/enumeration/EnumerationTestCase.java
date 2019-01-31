@@ -17,8 +17,7 @@
 
 package walkingkooka.collect.enumeration;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
@@ -27,9 +26,10 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
         extends ClassTestCase<E> {
@@ -56,9 +56,9 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
 
     protected void checkDoesntHasMoreElements(final String message,
                                               final Enumeration<?> enumeration) {
-        assertNotNull("enumeration", enumeration);
+        Objects.requireNonNull(enumeration, "enumeration");
         if (enumeration.hasMoreElements()) {
-            Assert.fail(message + "=" + enumeration);
+            fail(message + "=" + enumeration);
         }
     }
 
@@ -67,9 +67,9 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
     }
 
     protected void checkHasMoreElements(final String message, final Enumeration<T> enumeration) {
-        assertNotNull("enumeration", enumeration);
+        Objects.requireNonNull(enumeration, "enumeration");
         if (false == enumeration.hasMoreElements()) {
-            Assert.fail(message + "=" + enumeration);
+            fail(message + "=" + enumeration);
         }
     }
 
@@ -81,7 +81,7 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
     protected void checkNextElementFails(final String message, final Enumeration<?> enumeration) {
         try {
             final Object next = enumeration.nextElement();
-            Assert.fail(message + "=" + next);
+            fail(message + "=" + next);
         } catch (final NoSuchElementException ignored) {
         }
     }
@@ -94,13 +94,13 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
     @SafeVarargs
     protected final <U> void enumerateUsingHasMoreElementsAndCheck(final Enumeration<U> enumeration,
                                                                    final U... expected) {
-        assertNotNull("enumeration", enumeration);
+        Objects.requireNonNull(enumeration, "enumeration");
 
         int i = 0;
         final List<U> consumed = Lists.array();
         while (enumeration.hasMoreElements()) {
             final U next = enumeration.nextElement();
-            assertEquals("element " + i, expected[i], next);
+            assertEquals(expected[i], next, "element " + i);
             consumed.add(next);
             i++;
         }
@@ -117,14 +117,14 @@ abstract public class EnumerationTestCase<E extends Enumeration<T>, T>
 
     @SafeVarargs
     protected final <U> void enumerateAndCheck(final Enumeration<U> enumeration, final U... expected) {
-        assertNotNull("enumeration", enumeration);
+        Objects.requireNonNull(enumeration, "enumeration");
 
         int i = 0;
         final List<U> consumed = Lists.array();
         final int expectedCount = expected.length;
         while (i < expectedCount) {
             final U next = enumeration.nextElement();
-            assertEquals("element " + i, expected[i], next);
+            assertEquals(expected[i], next, "element " + i);
             consumed.add(next);
             i++;
         }

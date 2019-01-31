@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 import java.math.BigDecimal;
@@ -28,21 +28,26 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FixedSpreadsheetTextFormatterTest extends SpreadsheetTextFormatterTemplateTestCase<FixedSpreadsheetTextFormatter<Object>, Object> {
 
     private final static Class<Object> TYPE = Object.class;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTypeFails() {
-        FixedSpreadsheetTextFormatter.with(null, this.formattedText());
+        assertThrows(NullPointerException.class, () -> {
+            FixedSpreadsheetTextFormatter.with(null, this.formattedText());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFormattedTextFails() {
-        FixedSpreadsheetTextFormatter.with(TYPE, null);
+        assertThrows(NullPointerException.class, () -> {
+            FixedSpreadsheetTextFormatter.with(TYPE, null);
+        });
     }
 
     @Test

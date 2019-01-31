@@ -17,19 +17,18 @@
 
 package walkingkooka.collect.enumeration;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Enumeration;
-import java.util.NoSuchElementException;
 import java.util.Vector;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class EnumerationChainTest
         extends EnumerationTestCase<EnumerationChain<String>, String> {
@@ -49,27 +48,23 @@ final public class EnumerationChainTest
     }
 
     @Test
-    public void testNullFirstFails() {
-        this.wrapFails(null, EnumerationChainTest.SECOND);
+    public void testWrapNullFirstFails() {
+        assertThrows(NullPointerException.class, () -> {
+            EnumerationChain.wrap(null, SECOND);
+        });
     }
 
     @Test
-    public void testNullSecondFails() {
-        this.wrapFails(EnumerationChainTest.FIRST, null);
-    }
-
-    private void wrapFails(final Enumeration<String> first, final Enumeration<String> second) {
-        try {
-            EnumerationChain.wrap(first, second);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+    public void testWrapNullSecondFails() {
+        assertThrows(NullPointerException.class, () -> {
+            EnumerationChain.wrap(FIRST, null);
+        });
     }
 
     @Test
     public void testDoesntWrapEqualFirstAndSecond() {
-        assertSame(EnumerationChainTest.FIRST,
-                EnumerationChain.wrap(EnumerationChainTest.FIRST, EnumerationChainTest.FIRST));
+        assertSame(FIRST,
+                EnumerationChain.wrap(FIRST, FIRST));
     }
 
     @Test
@@ -83,25 +78,20 @@ final public class EnumerationChainTest
 
         final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
-        assertTrue("hasMoreElements from 1st enumerator", enumerator.hasMoreElements());
-        assertSame("next from 1st enumerator", "1", enumerator.nextElement());
+        assertTrue(enumerator.hasMoreElements(), "hasMoreElements from 1st enumerator");
+        assertSame( "1", enumerator.nextElement(), "next from 1st enumerator");
 
-        assertTrue("hasMoreElements from 1st enumerator", enumerator.hasMoreElements());
-        assertSame("next from 1st enumerator", "2", enumerator.nextElement());
+        assertTrue(enumerator.hasMoreElements(), "hasMoreElements from 1st enumerator");
+        assertSame("2", enumerator.nextElement(), "next from 1st enumerator");
 
-        assertTrue("hasMoreElements from last enumerator", enumerator.hasMoreElements());
-        assertSame("next from last enumerator", "3", enumerator.nextElement());
+        assertTrue(enumerator.hasMoreElements(), "hasMoreElements from last enumerator");
+        assertSame("3", enumerator.nextElement(), "next from last enumerator");
 
-        assertTrue("hasMoreElements from last enumerator", enumerator.hasMoreElements());
-        assertSame("next from last enumerator", "4", enumerator.nextElement());
+        assertTrue(enumerator.hasMoreElements(), "hasMoreElements from last enumerator");
+        assertSame( "4", enumerator.nextElement(), "next from last enumerator");
 
-        assertFalse("hasMoreElements should be false when empty",
-                enumerator.hasMoreElements());
-        try {
-            enumerator.nextElement();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        assertFalse(enumerator.hasMoreElements(), "hasMoreElements should be false when empty");
+        this.checkNextElementFails(enumerator);
     }
 
     @Test
@@ -115,10 +105,10 @@ final public class EnumerationChainTest
 
         final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
-        assertSame("next from 1st enumerator", "1", enumerator.nextElement());
-        assertSame("next from 1st enumerator", "2", enumerator.nextElement());
-        assertSame("next from last enumerator", "3", enumerator.nextElement());
-        assertSame("next from last enumerator", "4", enumerator.nextElement());
+        assertSame("1", enumerator.nextElement(), "next from 1st enumerator");
+        assertSame("2", enumerator.nextElement(), "next from 1st enumerator");
+        assertSame("3", enumerator.nextElement(), "next from last enumerator");
+        assertSame("4", enumerator.nextElement(), "next from last enumerator");
     }
 
     @Test
@@ -147,12 +137,8 @@ final public class EnumerationChainTest
 
         final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
-        assertFalse("hasMoreElements from 1st enumerator", enumerator.hasMoreElements());
-        try {
-            enumerator.nextElement();
-            Assert.fail();
-        } catch (final NoSuchElementException expected) {
-        }
+        assertFalse(enumerator.hasMoreElements(), "hasMoreElements from 1st enumerator");
+        this.checkNextElementFails(enumerator);
     }
 
     @Test
@@ -163,11 +149,10 @@ final public class EnumerationChainTest
 
         final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
-        assertTrue("hasMoreElements from 2nd enumerator", enumerator.hasMoreElements());
-        assertSame("next from 2nd enumerator", "1", enumerator.nextElement());
+        assertTrue(enumerator.hasMoreElements(), "hasMoreElements from 2nd enumerator");
+        assertSame("1", enumerator.nextElement(), "next from 2nd enumerator");
 
-        assertFalse("hasMoreElements from empty 2nd enumerator",
-                enumerator.hasMoreElements());
+        assertFalse(enumerator.hasMoreElements(), "hasMoreElements from empty 2nd enumerator");
         this.checkNextElementFails(enumerator);
     }
 
@@ -179,16 +164,15 @@ final public class EnumerationChainTest
 
         final EnumerationChain<String> enumerator = this.createEnumeration(first.elements(),
                 second.elements());
-        assertSame("next from 2nd enumerator", "1", enumerator.nextElement());
+        assertSame("1", enumerator.nextElement(), "next from 2nd enumerator");
 
-        assertFalse("hasMoreElements from empty 2nd enumerator",
-                enumerator.hasMoreElements());
+        assertFalse(enumerator.hasMoreElements(), "hasMoreElements from empty 2nd enumerator");
         this.checkNextElementFails(enumerator);
     }
 
     @Test
     public void testToString() {
-        assertEquals(EnumerationChainTest.FIRST + "...",
+        assertEquals(FIRST + "...",
                 this.createEnumeration().toString());
     }
 
@@ -225,7 +209,7 @@ final public class EnumerationChainTest
 
     @Override
     protected EnumerationChain<String> createEnumeration() {
-        return this.createEnumeration(EnumerationChainTest.FIRST, EnumerationChainTest.SECOND);
+        return this.createEnumeration(FIRST, SECOND);
     }
 
     private EnumerationChain<String> createEnumeration(final Enumeration<String> first,

@@ -17,9 +17,10 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringBuilderPrinterTest extends PrinterTestCase2<StringBuilderPrinter> {
 
@@ -33,20 +34,16 @@ final public class StringBuilderPrinterTest extends PrinterTestCase2<StringBuild
 
     @Test
     public void testWithNullStringBuilderFails() {
-        this.withFails(null, StringBuilderPrinterTest.LINE_ENDING);
+        assertThrows(NullPointerException.class, () -> {
+            StringBuilderPrinter.with(null, LINE_ENDING);
+        });
     }
 
     @Test
     public void testWithNullLineEndingFails() {
-        this.withFails(StringBuilderPrinterTest.STRING_BUILDER, null);
-    }
-
-    private void withFails(final StringBuilder builder, final LineEnding lineEnding) {
-        try {
-            StringBuilderPrinter.with(builder, lineEnding);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            StringBuilderPrinter.with(STRING_BUILDER, null);
+        });
     }
 
     @Override
@@ -62,7 +59,7 @@ final public class StringBuilderPrinterTest extends PrinterTestCase2<StringBuild
 
     @Override
     protected StringBuilderPrinter createPrinter(final StringBuilder target) {
-        return StringBuilderPrinter.with(target, StringBuilderPrinterTest.LINE_ENDING);
+        return StringBuilderPrinter.with(target, LINE_ENDING);
     }
 
     @Override

@@ -17,9 +17,9 @@
 
 package walkingkooka.util.variable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final public class SimpleVariableTest extends VariableTestCase<SimpleVariable<Object>, Object> {
 

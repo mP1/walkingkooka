@@ -18,40 +18,37 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionParentFixedNodeTestCase<N extends ExpressionParentFixedNode> extends  ExpressionParentNodeTestCase<N> {
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testAppendChild() {
-        super.testAppendChild();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            super.testAppendChild();
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testAppendChild2() {
-        super.testAppendChild2();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            super.testAppendChild2();
+        });
     }
 
     @Test
-    @Ignore
-    public void testRemoveChildWithoutParent() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    @Ignore
-    public void testRemoveChildDifferentParent() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
     public void testRemoveChildFirst() {
-        super.testRemoveChildFirst();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            super.testRemoveChildFirst();
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRemoveChildLast() {
-        super.testRemoveChildLast();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            super.testRemoveChildLast();
+        });
     }
 }

@@ -17,16 +17,15 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ObjectEqualityPredicateTest
         extends PredicateTestCase<ObjectEqualityPredicate<String>, String>
@@ -39,11 +38,9 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testWithNullFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ObjectEqualityPredicate.with(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -53,8 +50,6 @@ final public class ObjectEqualityPredicateTest
     }
 
     @Override
-    @Test
-    @Ignore
     public void testTestNullFails() {
         // nop
     }

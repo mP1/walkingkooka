@@ -18,40 +18,51 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.naming.PropertiesPath;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SpreadsheetLabelNameTest extends SpreadsheetExpressionReferenceTestCase<SpreadsheetLabelName>
         implements NameTesting<SpreadsheetLabelName, SpreadsheetLabelName> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCreateContainsSeparatorFails() {
-        SpreadsheetLabelName.with("xyz" + PropertiesPath.SEPARATOR.string());
+        assertThrows(IllegalArgumentException.class, () -> {
+            SpreadsheetLabelName.with("xyz" + PropertiesPath.SEPARATOR.string());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidInitialFails() {
-        SpreadsheetLabelName.with("1abc");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SpreadsheetLabelName.with("1abc");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPartFails() {
-        SpreadsheetLabelName.with("abc$def");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SpreadsheetLabelName.with("abc$def");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCellReferenceFails() {
-        SpreadsheetLabelName.with("A1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SpreadsheetLabelName.with("A1");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCellReferenceFails2() {
-        SpreadsheetLabelName.with("AB12");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SpreadsheetLabelName.with("AB12");
+        });
     }
 
     @Test//(expected = IllegalArgumentException.class)

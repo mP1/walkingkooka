@@ -18,7 +18,7 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
@@ -31,23 +31,30 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParserConverterTest extends FixedTypeConverterTestCase<ParserConverter<BigDecimal, BigDecimalParserToken, ParserContext>, BigDecimal> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTypeFails() {
-        ParserConverter.with(null, this.bigDecimalParser(), this.parserContextAdapter());
+        assertThrows(NullPointerException.class, () -> {
+            ParserConverter.with(null, this.bigDecimalParser(), this.parserContextAdapter());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullParserFails() {
-        ParserConverter.with(BigDecimal.class, null, this.parserContextAdapter());
+        assertThrows(NullPointerException.class, () -> {
+            ParserConverter.with(BigDecimal.class, null, this.parserContextAdapter());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullParserContextAdapterFails() {
-        ParserConverter.with(BigDecimal.class, this.bigDecimalParser(), null);
+        assertThrows(NullPointerException.class, () -> {
+            ParserConverter.with(BigDecimal.class, this.bigDecimalParser(), null);
+        });
     }
 
     @Test

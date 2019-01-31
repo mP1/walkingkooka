@@ -18,8 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.PredicateTestCase;
 import walkingkooka.predicate.Predicates;
@@ -28,7 +27,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest extends
         PredicateTestCase<HttpRequestAttributeRoutingBuilderParameterValuePredicate, List<String>>
@@ -36,8 +35,7 @@ public final class HttpRequestAttributeRoutingBuilderParameterValuePredicateTest
 
     private final static String VALUE = "value123";
 
-    @Ignore
-    @Test
+    @Override
     public void testTestNullFails() {
         throw new UnsupportedOperationException();
     }

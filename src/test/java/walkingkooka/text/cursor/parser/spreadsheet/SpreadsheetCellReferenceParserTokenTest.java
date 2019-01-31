@@ -18,16 +18,17 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetCellReferenceParserToken> {
 
@@ -41,14 +42,18 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
         this.createToken(" k ");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithoutColumnFails() {
-        this.createToken(ROW_TEXT, this.row());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(ROW_TEXT, this.row());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithoutRowFails() {
-        this.createToken(COLUMN_TEXT, this.column());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(COLUMN_TEXT, this.column());
+        });
     }
 
     @Test
@@ -113,7 +118,7 @@ public final class SpreadsheetCellReferenceParserTokenTest extends SpreadsheetPa
     private void checkCell(final SpreadsheetCellReferenceParserToken cell,
                            final SpreadsheetRowReferenceParserToken row,
                            final SpreadsheetColumnReferenceParserToken column) {
-        assertEquals("cell", SpreadsheetCellReference.with(column.value(), row.value()), cell.cell());
+        assertEquals(SpreadsheetCellReference.with(column.value(), row.value()), cell.cell(), "cell");
     }
 
     @Override

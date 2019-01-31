@@ -16,35 +16,45 @@
  */
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PojoNameTest extends ClassTestCase<PojoName>
         implements NameTesting<PojoName, PojoName> {
 
     private final static String PROPERTY = "abc";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPropertyNullFails() {
-        PojoName.property(null);
+        assertThrows(NullPointerException.class, () -> {
+            PojoName.property(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPropertyEmptyFails() {
-        PojoName.property("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            PojoName.property("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPropertyInvalidInitialFails() {
-        PojoName.property("9abc");
+        assertThrows(IllegalArgumentException.class, () -> {
+            PojoName.property("9abc");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPropertyInvalidOtherFails() {
-        PojoName.property("abc.");
+        assertThrows(IllegalArgumentException.class, () -> {
+            PojoName.property("abc.");
+        });
     }
 
     @Test
@@ -52,9 +62,11 @@ public final class PojoNameTest extends ClassTestCase<PojoName>
         this.createNameAndCheck(PROPERTY);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIndexInvalidFails() {
-        PojoName.index(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            PojoName.index(-1);
+        });
     }
 
     @Test

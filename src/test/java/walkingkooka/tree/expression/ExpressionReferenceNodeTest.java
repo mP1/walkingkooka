@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetCellReference;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetColumnReference;
 import walkingkooka.text.cursor.parser.spreadsheet.SpreadsheetReferenceKind;
@@ -28,8 +28,8 @@ import walkingkooka.tree.visit.Visiting;
 import java.math.MathContext;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCase<ExpressionReferenceNode, ExpressionReference>{
 
@@ -142,7 +142,7 @@ public final class ExpressionReferenceNodeTest extends ExpressionLeafNodeTestCas
 
             @Override
             public Optional<ExpressionNode> reference(final ExpressionReference reference) {
-                assertEquals("reference", value, reference);
+                assertEquals(value, reference, "reference");
                 return Optional.of(ExpressionNode.text(referenceText));
             }
 

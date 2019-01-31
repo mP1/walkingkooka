@@ -17,11 +17,12 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
 
 import java.util.function.IntUnaryOperator;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class TabExpandingPrinterTest extends PrinterTestCase2<TabExpandingPrinter> {
 
@@ -42,20 +43,16 @@ final public class TabExpandingPrinterTest extends PrinterTestCase2<TabExpanding
 
     @Test
     public void testWrapNullPrinterFails() {
-        this.wrapFails(null, TabExpandingPrinterTest.TAB_STOPS);
+        assertThrows(NullPointerException.class, () -> {
+            TabExpandingPrinter.wrap(null, TAB_STOPS);
+        });
     }
 
     @Test
     public void testWrapNullTabStopsFails() {
-        this.wrapFails(TabExpandingPrinterTest.PRINTER, null);
-    }
-
-    private void wrapFails(final Printer printer, final IntUnaryOperator tabStops) {
-        try {
-            TabExpandingPrinter.wrap(printer, tabStops);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            TabExpandingPrinter.wrap(PRINTER, null);
+        });
     }
 
     @Test
@@ -132,20 +129,20 @@ final public class TabExpandingPrinterTest extends PrinterTestCase2<TabExpanding
         printer.print(printer.lineEnding());
         printer.print("ABC\t*");
         printer.flush();
-        checkEquals("01  56" + TabExpandingPrinterTest.LINE_ENDING + "ABC *", printed.toString());
+        checkEquals("01  56" + LINE_ENDING + "ABC *", printed.toString());
     }
 
     @Test
     public void testToString() {
-        checkEquals("tab x " + TabExpandingPrinterTest.PRINTER,
-                TabExpandingPrinter.wrap(TabExpandingPrinterTest.PRINTER,
-                        TabExpandingPrinterTest.TAB_STOPS).toString());
+        checkEquals("tab x " + PRINTER,
+                TabExpandingPrinter.wrap(PRINTER,
+                        TAB_STOPS).toString());
     }
 
     @Override
     protected TabExpandingPrinter createPrinter(final StringBuilder printed) {
         return TabExpandingPrinter.wrap(//
-                Printers.stringBuilder(printed, TabExpandingPrinterTest.LINE_ENDING), //
+                Printers.stringBuilder(printed, LINE_ENDING), //
                 (tabStop -> ((tabStop + 3) / 4 * 4)));
     }
 

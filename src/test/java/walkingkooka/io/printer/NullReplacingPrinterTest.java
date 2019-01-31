@@ -17,10 +17,11 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacingPrinter> {
 
@@ -34,20 +35,16 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
 
     @Test
     public void testWrapNullPrinterFails() {
-        this.wrapFails(null, NullReplacingPrinterTest.REPLACEMENT);
+        assertThrows(NullPointerException.class, () -> {
+            NullReplacingPrinter.wrap(null, REPLACEMENT);
+        });
     }
 
     @Test
     public void testWrapNullReplacementFails() {
-        this.wrapFails(Printers.fake(), null);
-    }
-
-    private void wrapFails(final Printer printer, final String replacement) {
-        try {
-            NullReplacingPrinter.wrap(printer, replacement);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            NullReplacingPrinter.wrap(Printers.fake(), null);
+        });
     }
 
     @Test
@@ -69,7 +66,7 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
         printer.print(null);
         printer.print(" after");
 
-        checkEquals("before " + NullReplacingPrinterTest.REPLACEMENT + " after",
+        checkEquals("before " + REPLACEMENT + " after",
                 printed.toString());
     }
 
@@ -94,10 +91,10 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
         printer.print("before ");
 
         printer.print(null);
-        builder.append(NullReplacingPrinterTest.REPLACEMENT);
+        builder.append(REPLACEMENT);
 
         printer.print(printer.lineEnding());
-        builder.append(NullReplacingPrinterTest.LINE_ENDING);
+        builder.append(LINE_ENDING);
 
         builder.append(" after");
         printer.print(" after");
@@ -109,15 +106,15 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
     public void testToString() {
         final Printer printer = Printers.fake();
         checkEquals(
-                "if null then print " + CharSequences.quote(NullReplacingPrinterTest.REPLACEMENT)
+                "if null then print " + CharSequences.quote(REPLACEMENT)
                         + " " + printer,
-                NullReplacingPrinter.wrap(printer, NullReplacingPrinterTest.REPLACEMENT)
+                NullReplacingPrinter.wrap(printer, REPLACEMENT)
                         .toString());
     }
 
     @Override
     protected NullReplacingPrinter createPrinter() {
-        return this.createPrinter(NullReplacingPrinterTest.REPLACEMENT);
+        return this.createPrinter(REPLACEMENT);
     }
 
     private NullReplacingPrinter createPrinter(final String defaulting) {
@@ -127,11 +124,11 @@ final public class NullReplacingPrinterTest extends PrinterTestCase<NullReplacin
 
     private NullReplacingPrinter createPrinter(final StringBuilder printed) {
         return NullReplacingPrinter.wrap(this.createStringBuilderPrinter(printed),
-                NullReplacingPrinterTest.REPLACEMENT);
+                REPLACEMENT);
     }
 
     private Printer createStringBuilderPrinter(final StringBuilder printed) {
-        return Printers.stringBuilder(printed, NullReplacingPrinterTest.LINE_ENDING);
+        return Printers.stringBuilder(printed, LINE_ENDING);
     }
 
     @Override

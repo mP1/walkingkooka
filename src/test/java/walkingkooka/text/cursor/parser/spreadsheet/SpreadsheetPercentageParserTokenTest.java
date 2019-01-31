@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.ExpressionNode;
@@ -27,8 +27,8 @@ import walkingkooka.tree.visit.Visiting;
 import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnaryParserTokenTestCase<SpreadsheetPercentageParserToken> {
 
@@ -96,12 +96,12 @@ public final class SpreadsheetPercentageParserTokenTest extends SpreadsheetUnary
             }
         }.accept(unary);
         assertEquals("7137152871628428", b.toString());
-        assertEquals("visited",
-                Lists.of(unary, unary, unary,
+        assertEquals(Lists.of(unary, unary, unary,
                         parameter, parameter, parameter, parameter, parameter,
                         symbol, symbol, symbol, symbol, symbol,
                         unary, unary, unary),
-                visited);
+                visited,
+                "visited");
     }
 
     @Test

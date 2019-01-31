@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
@@ -26,28 +26,35 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheControlDirective<Long>> {
 
     // with..........................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNameNullFails() {
-        CacheControlDirective.with(null, Optional.empty());
+        assertThrows(NullPointerException.class, () -> {
+            CacheControlDirective.with(null, Optional.empty());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithParameterNullFails() {
-        CacheControlDirective.with(CacheControlDirectiveName.PUBLIC, null);
+        assertThrows(NullPointerException.class, () -> {
+            CacheControlDirective.with(CacheControlDirectiveName.PUBLIC, null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testWithParameterInvalidFails() {
-        CacheControlDirective.with(CacheControlDirectiveName.MAX_AGE, Optional.empty());
+        assertThrows(HeaderValueException.class, () -> {
+            CacheControlDirective.with(CacheControlDirectiveName.MAX_AGE, Optional.empty());
+        });
     }
 
     @Test
@@ -61,15 +68,19 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
 
     // setParameter..........................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetParameterNullFails() {
-        CacheControlDirective.NO_STORE.setParameter(null);
+        assertThrows(NullPointerException.class, () -> {
+            CacheControlDirective.NO_STORE.setParameter(null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetParameterInvalidFails() {
-        CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))
-                .setParameter(Optional.empty());
+        assertThrows(HeaderValueException.class, () -> {
+            CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))
+                    .setParameter(Optional.empty());
+        });
     }
 
     @Test
@@ -117,13 +128,13 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     private <T> void setParameterAndCheck(final CacheControlDirective<T> directive,
                                           final Optional<T> parameter,
                                           final CacheControlDirectiveName<T> name) {
-        assertNotEquals("new parameter must be different from old",
-                parameter,
-                directive.parameter());
+        assertNotEquals(parameter,
+                directive.parameter(),
+                "new parameter must be different from old");
         final CacheControlDirective<T> different = directive.setParameter(parameter);
-        assertNotSame("directive set parameter" + parameter + " must not return same",
-                directive,
-                different);
+        assertNotSame(directive,
+                different,
+                "directive set parameter" + parameter + " must not return same");
 
         this.check(different, name, parameter);
     }
@@ -131,8 +142,8 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     private <T> void check(final CacheControlDirective<T> directive,
                            final CacheControlDirectiveName<T> name,
                            final Optional<T> parameter) {
-        assertEquals("value", name, directive.value());
-        assertEquals("parameter", parameter, directive.parameter());
+        assertEquals(name, directive.value(), "value");
+        assertEquals(parameter, directive.parameter(), "parameter");
     }
 
     // scope ...............................................................................
@@ -153,15 +164,15 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
     }
 
     private void checkScope(final CacheControlDirective<?> directive) {
-        assertEquals(directive + " isMultipart",
-                false,
-                directive.isMultipart());
-        assertEquals(directive + " isRequest",
-                directive.value().isRequest(),
-                directive.isRequest());
-        assertEquals(directive + " isResponse",
-                directive.value().isResponse(),
-                directive.isResponse());
+        assertEquals(false,
+                directive.isMultipart(),
+                directive + " isMultipart");
+        assertEquals(directive.value().isRequest(),
+                directive.isRequest(),
+                directive + " isRequest");
+        assertEquals(directive.value().isResponse(),
+                directive.isResponse(),
+                directive + " isResponse");
     }
 
     // wildcard...........................................................................
@@ -173,19 +184,21 @@ public final class CacheControlDirectiveTest extends HeaderValueTestCase<CacheCo
 
     // parse..........................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullFails() {
-        CacheControlDirective.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            CacheControlDirective.parse(null);
+        });
     }
 
     @Test
     public void testParse() {
         final String text = "no-cache, no-store, max-age=123";
-        assertEquals("parse " + CharSequences.quote(text) + " failed",
-                CacheControlDirective.parse(text),
+        assertEquals(CacheControlDirective.parse(text),
                 Lists.of(CacheControlDirective.NO_CACHE,
                         CacheControlDirective.NO_STORE,
-                        CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))));
+                        CacheControlDirectiveName.MAX_AGE.setParameter(Optional.of(123L))),
+                "parse " + CharSequences.quote(text) + " failed");
     }
 
     // toHeaderText ...............................................................

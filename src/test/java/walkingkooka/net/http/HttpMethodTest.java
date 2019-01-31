@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.HeaderValueTestCase;
 import walkingkooka.test.ConstantsTesting;
@@ -28,39 +28,49 @@ import walkingkooka.type.MemberVisibility;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implements ConstantsTesting<HttpMethod> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        HttpMethod.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpMethod.with(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyFails() {
-        HttpMethod.with("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpMethod.with("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithWhitespaceFails() {
-        HttpMethod.with("   ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpMethod.with("   ");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNonLetterFails() {
-        HttpMethod.with("METH1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpMethod.with("METH1");
+
+        });
     }
 
     @Test
     public void testWith() {
         final String value = HttpMethod.GET.value();
         final HttpMethod method = HttpMethod.with(value);
-        assertSame("value", value, method.value());
+        assertSame(value, method.value(), "value");
         assertSame(HttpMethod.GET, method);
     }
 
@@ -68,7 +78,7 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implem
     public void testCustom() {
         final String value = "XYZ";
         final HttpMethod method = HttpMethod.with(value);
-        assertSame("value", value, method.value());
+        assertSame(value, method.value(), "value");
         assertNotSame(method, HttpMethod.with(value));
     }
 
@@ -122,10 +132,9 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implem
     }
 
     private void singleton(final HttpMethod method) {
-        assertSame(
-                "Expected singleton rather than new instance when invoking HttpMethod.with(HttpMethod.value())",
-                method,
-                HttpMethod.with(method.value()));
+        assertSame(method,
+                HttpMethod.with(method.value()),
+                "Expected singleton rather than new instance when invoking HttpMethod.with(HttpMethod.value())");
     }
 
     @Test
@@ -135,9 +144,9 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implem
     }
 
     private void isGetOrHeadCheck(final HttpMethod constant) {
-        assertEquals(constant + ".isGetOrHead test",
-                HttpMethod.GET == constant || HttpMethod.HEAD == constant,
-                constant.isGetOrHead());
+        assertEquals(HttpMethod.GET == constant || HttpMethod.HEAD == constant,
+                constant.isGetOrHead(),
+                constant + ".isGetOrHead test");
     }
 
     private Set<HttpMethod> constants() throws Exception {
@@ -146,8 +155,8 @@ final public class HttpMethodTest extends HeaderValueTestCase<HttpMethod> implem
             if (false == constant.getType().equals(HttpMethod.class)) {
                 continue;
             }
-            assertTrue(constant + " is NOT public", MemberVisibility.PUBLIC.is(constant));
-            assertTrue(constant + " is NOT static", FieldAttributes.STATIC.is(constant));
+            assertTrue(MemberVisibility.PUBLIC.is(constant), constant + " is NOT public");
+            assertTrue(FieldAttributes.STATIC.is(constant), constant + " is NOT static");
 
             methods.add((HttpMethod) constant.get(null));
         }

@@ -16,12 +16,13 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.text.CaseSensitivity;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SequenceParserBuilderTest extends BuilderTestCase<SequenceParserBuilder<FakeParserContext>, Parser<SequenceParserToken, FakeParserContext>> {
 
@@ -29,14 +30,18 @@ public final class SequenceParserBuilderTest extends BuilderTestCase<SequencePar
     private final static Parser<ParserToken, FakeParserContext> PARSER2 = parser("2");
     private final static Parser<ParserToken, FakeParserContext> PARSER3 = parser("3");
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testOptionalNullParserFails() {
-        this.createBuilder().optional(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().optional(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRequiredNullParserFails() {
-        this.createBuilder().required(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().required(null);
+        });
     }
 
     @Test

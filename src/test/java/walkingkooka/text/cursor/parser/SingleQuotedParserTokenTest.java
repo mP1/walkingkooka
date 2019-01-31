@@ -16,27 +16,34 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.visit.Visiting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SingleQuotedParserTokenTest extends ParserTokenTestCase<SingleQuotedParserToken> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullContentFails() {
-        SingleQuotedParserToken.with(null, "\"abc\"");
+        assertThrows(NullPointerException.class, () -> {
+            SingleQuotedParserToken.with(null, "\"abc\"");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingStartQuoteFails() {
-        SingleQuotedParserToken.with("abc", "abc'");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SingleQuotedParserToken.with("abc", "abc'");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithMissingEndQuoteFails() {
-        SingleQuotedParserToken.with("abc", "'abc");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SingleQuotedParserToken.with("abc", "'abc");
+        });
     }
 
     @Test

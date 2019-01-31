@@ -18,10 +18,10 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContextTestCase;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public abstract class SpreadsheetTextFormatContextTestCase<C extends SpreadsheetTextFormatContext> extends DecimalNumberContextTestCase<C> {
 

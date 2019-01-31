@@ -18,12 +18,12 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.FakeNode;
 import walkingkooka.tree.select.NodeSelector;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ExpressionNodePositionFunctionTest extends ExpressionFunctionTestCase<ExpressionNodePositionFunction, Number> {
 

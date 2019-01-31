@@ -18,38 +18,46 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ForwardingConverterTest extends FixedTypeConverterTestCase<ForwardingConverter<Number, BigDecimal>, Number> {
 
     private final static Class<Number> SOURCE_TYPE = Number.class;
     private final static Class<BigDecimal> TARGET_TYPE = BigDecimal.class;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullConverterFails() {
-        ForwardingConverter.with(null,
-                SOURCE_TYPE,
-                TARGET_TYPE);
+        assertThrows(NullPointerException.class, () -> {
+            ForwardingConverter.with(null,
+                    SOURCE_TYPE,
+                    TARGET_TYPE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSourceTypeFails() {
-        ForwardingConverter.with(Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
-                null,
-                TARGET_TYPE);
+        assertThrows(NullPointerException.class, () -> {
+            ForwardingConverter.with(Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
+                    null,
+                    TARGET_TYPE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTargetTypeFails() {
-        ForwardingConverter.with(Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
-                SOURCE_TYPE,
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            ForwardingConverter.with(Converters.localDateBigDecimal(Converters.JAVA_EPOCH_OFFSET),
+                    SOURCE_TYPE,
+                    null);
+
+        });
     }
 
     @Test

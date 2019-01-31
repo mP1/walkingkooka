@@ -18,13 +18,12 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNode> extends ExpressionNodeTestCase<N> {
 
@@ -35,19 +34,14 @@ public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNod
     }
 
     @Test
-    @Ignore
-    public void testSameChildren() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
+    @Override
     public final void testSetChildrenSame() {
         final N expression = this.createExpressionNode();
         assertSame(expression, expression.setChildren(expression.children()));
     }
 
     @Test
-    public final void testSetChildrenEqvuivalent() {
+    public final void testSetChildrenEquivalent() {
         final N expression = this.createExpressionNode();
         assertSame(expression, expression.setChildren(this.children()));
     }
@@ -56,6 +50,6 @@ public abstract class ExpressionParentNodeTestCase<N extends ExpressionParentNod
 
     final void checkChildren(final N node, final List<ExpressionNode> children) {
         // horrible if equals is used comparison will fail because children have different parents.
-        assertEquals("children", children.toString(), node.children().toString());
+        assertEquals(children.toString(), node.children().toString(), "children");
     }
 }

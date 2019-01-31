@@ -17,12 +17,12 @@
 
 package walkingkooka.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class WaiterTest extends PublicStaticHelperTestCase<Waiter> {
 
@@ -32,7 +32,7 @@ final public class WaiterTest extends PublicStaticHelperTestCase<Waiter> {
         Waiter.waitAtLeast(0);
         final long after = System.currentTimeMillis();
         final long waited = after - before;
-        assertTrue("Did not wait 1 milliseconds", waited > 1);
+        assertTrue(waited > 1, "Did not wait 1 milliseconds");
     }
 
     @Test
@@ -41,7 +41,7 @@ final public class WaiterTest extends PublicStaticHelperTestCase<Waiter> {
         Waiter.waitAtLeast(100);
         final long after = System.currentTimeMillis();
         final long waited = after - before;
-        assertTrue("Did not wait 100 milliseconds", waited > 100);
+        assertTrue(waited > 100, "Did not wait 100 milliseconds");
     }
 
     @Override

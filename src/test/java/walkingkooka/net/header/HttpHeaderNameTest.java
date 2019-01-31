@@ -19,7 +19,7 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -37,31 +37,40 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<?>, HttpHeaderName<?>>
         implements ConstantsTesting<HttpHeaderName<?>> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testControlCharacterFails() {
-        HttpHeaderName.with("header\u0001;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpHeaderName.with("header\u0001;");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSpaceFails() {
-        HttpHeaderName.with("header ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpHeaderName.with("header ");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTabFails() {
-        HttpHeaderName.with("header\t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpHeaderName.with("header\t");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNonAsciiFails() {
-        HttpHeaderName.with("header\u0100;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            HttpHeaderName.with("header\u0100;");
+
+        });
     }
 
     @Test
@@ -72,7 +81,7 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Test
     public void testCustomHeaderIsContent() {
         final HttpHeaderName<?> header = HttpHeaderName.with("X-custom");
-        assertEquals(header + ".isContent", false, header.isContent());
+        assertEquals(false, header.isContent(), header + ".isContent");
     }
 
     @Test
@@ -103,15 +112,15 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     private void checkScope(final HttpHeaderName<?> header, final HttpHeaderScope... scopes) {
         final Set<HttpHeaderScope> scopesSet = Sets.of(scopes);
 
-        assertEquals(header + " isMultipart",
-                scopesSet.contains(HttpHeaderScope.MULTIPART),
-                header.isMultipart());
-        assertEquals(header + " isRequest",
-                scopesSet.contains(HttpHeaderScope.REQUEST),
-                header.isRequest());
-        assertEquals(header + " isResponse",
-                scopesSet.contains(HttpHeaderScope.RESPONSE),
-                header.isResponse());
+        assertEquals(scopesSet.contains(HttpHeaderScope.MULTIPART),
+                header.isMultipart(),
+                header + " isMultipart");
+        assertEquals(scopesSet.contains(HttpHeaderScope.REQUEST),
+                header.isRequest(),
+                header + " isRequest");
+        assertEquals(scopesSet.contains(HttpHeaderScope.RESPONSE),
+                header.isResponse(),
+                header + " isResponse");
     }
 
     @Test
@@ -131,9 +140,9 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 .filter(h -> h.value().startsWith("content-"))
                 .filter(h -> false == h.isContent())
                 .collect(Collectors.toList());
-        assertEquals("Several HttpHeaderName.isContent() returns false when it should return true",
-                Lists.empty(),
-                headers);
+        assertEquals(Lists.empty(),
+                headers,
+                "Several HttpHeaderName.isContent() returns false when it should return true");
     }
 
     @Test
@@ -183,12 +192,12 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
                 .filter(h -> !CaseSensitivity.INSENSITIVE.startsWith(h.value(), ignorePrefix))
                 .filter(h -> value != test.test(h))
                 .collect(Collectors.toList());
-        assertEquals("Several HttpHeaderName." + method +
+        assertEquals(Lists.empty(),
+                headers,
+                "Several HttpHeaderName." + method +
                         " starting with " + prefix +
                         " returns " + !value +
-                        " when it should return " + value,
-                Lists.empty(),
-                headers);
+                        " when it should return " + value);
     }
 
     // stringValues.........................................................................
@@ -204,16 +213,20 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
         assertSame(custom, custom.stringValues());
     }
 
-    @Test(expected = HttpHeaderNameTypeParameterHeaderException.class)
+    @Test
     public void testStringValuesNonStringHeaderFails() {
-        HttpHeaderName.CONTENT_LENGTH.stringValues();
+        assertThrows(HttpHeaderNameTypeParameterHeaderException.class, () -> {
+            HttpHeaderName.CONTENT_LENGTH.stringValues();
+        });
     }
 
     // headerValue.........................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testHeaderValueNullFails() {
-        HttpHeaderName.ALLOW.headerValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpHeaderName.ALLOW.headerValue(null);
+        });
     }
 
     @Test
@@ -242,21 +255,25 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     private <T> void headerValueAndCheck(final HttpHeaderName<T> headerName,
                                          final T headerValue) {
-        assertEquals(headerName + "=" + headerValue,
-                Optional.ofNullable(headerValue),
-                headerName.headerValue(this.headers(headerName, headerValue)));
+        assertEquals(Optional.ofNullable(headerValue),
+                headerName.headerValue(this.headers(headerName, headerValue)),
+                headerName + "=" + headerValue);
     }
 
     // headerValueOrFail..............................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testHeaderValueOrFailNullFails() {
-        HttpHeaderName.ALLOW.headerValueOrFail(null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpHeaderName.ALLOW.headerValueOrFail(null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testHeaderValueOrFailAbsent() {
-        HttpHeaderName.ALLOW.headerValueOrFail(this.headers(HttpHeaderName.CONTENT_LENGTH, 123L));
+        assertThrows(HeaderValueException.class, () -> {
+            HttpHeaderName.ALLOW.headerValueOrFail(this.headers(HttpHeaderName.CONTENT_LENGTH, 123L));
+        });
     }
 
     @Test
@@ -266,13 +283,12 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     private <T> void headerValueOrFailAndCheck(final HttpHeaderName<T> headerName,
                                                final T headerValue) {
-        assertEquals(headerName + "=" + headerValue,
-                headerValue,
-                headerName.headerValueOrFail(this.headers(headerName, headerValue)));
+        assertEquals(headerValue,
+                headerName.headerValueOrFail(this.headers(headerName, headerValue)),
+                headerName + "=" + headerValue);
     }
 
     private <T> Map<HttpHeaderName<?>, Object> headers(final HttpHeaderName<T> name, final T value) {
-        assertNotNull("header name", name);
         return Maps.one(name, value);
     }
 
@@ -312,9 +328,11 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
 
     // headerText.........................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testHeaderTextNullFails() {
-        HttpHeaderName.CONNECTION.headerText(null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpHeaderName.CONNECTION.headerText(null);
+        });
     }
 
     @Test
@@ -331,9 +349,9 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     private <T> void headerTextAndCheck(final HttpHeaderName<T> header,
                                         final T value,
                                         final String formatted) {
-        assertEquals(header + ".headerText " + CharSequences.quoteIfChars(value),
-                formatted,
-                header.headerText(value));
+        assertEquals(formatted,
+                header.headerText(value),
+                () -> header + ".headerText " + CharSequences.quoteIfChars(value));
     }
 
     // HttpRequestAttribute.................................................................................

@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.predicate.character.CharPredicates;
@@ -26,8 +26,8 @@ import walkingkooka.text.CharSequences;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static walkingkooka.net.header.HeaderParser.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, Void> {
 
@@ -79,19 +79,17 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     }
 
     private void checkPosition(final HeaderParser parser, final int position) {
-        assertEquals("position", position, parser.position);
+        assertEquals(position, parser.position, "position");
     }
 
     private void whitespaceInvalidCharacterFails(final String text,
                                                  final int invalidCharacterPosition) {
-        try {
+        final HeaderValueException expected = assertThrows(HeaderValueException.class, () -> {
             this.whitespace(text);
-            fail("Expected invalid character");
-        } catch (final HeaderValueException expected) {
-            assertEquals("message",
-                    new InvalidCharacterException(text, invalidCharacterPosition).getMessage(),
-                    expected.getMessage());
-        }
+        });
+        assertEquals(new InvalidCharacterException(text, invalidCharacterPosition).getMessage(),
+                expected.getMessage(),
+                "message");
     }
 
     private HeaderParser whitespace(final String text) {
@@ -120,9 +118,9 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
     private void tokenAndCheck(final String text,
                                final String expectedText) {
         final HeaderParser parser = new TestHeaderParser(text);
-        assertEquals("token in " + CharSequences.quoteAndEscape(text),
-                expectedText,
-                parser.token(CharPredicates.digit()));
+        assertEquals(expectedText,
+                parser.token(CharPredicates.digit()),
+                "token in " + CharSequences.quoteAndEscape(text));
     }
 
     // quoted.................................................................................................
@@ -176,41 +174,53 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
                                 final boolean escapingSupported,
                                 final String expectedText) {
         final HeaderParser parser = new TestHeaderParser(text);
-        assertEquals("quoted text in " + CharSequences.quoteAndEscape(text),
-                expectedText,
-                parser.quotedText(CharPredicates.ascii(), escapingSupported));
+        assertEquals(expectedText,
+                parser.quotedText(CharPredicates.ascii(), escapingSupported),
+                "quoted text in " + CharSequences.quoteAndEscape(text));
     }
 
     // encodedText.................................................................................................
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testEncodedTextEmptyFails() {
-        this.encodedText("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.encodedText("");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testEncodedTextCharsetInvalidCharacterFails() {
-        this.encodedText("utf\08");
+        assertThrows(HeaderValueException.class, () -> {
+            this.encodedText("utf\08");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testEncodedTextCharsetEmptyFails() {
-        this.encodedText("'en'abc");
+        assertThrows(HeaderValueException.class, () -> {
+            this.encodedText("'en'abc");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testEncodedTextLanguageInvalidCharacterFails() {
-        this.encodedText("utf-8'a\0c'abc");
+        assertThrows(HeaderValueException.class, () -> {
+            this.encodedText("utf-8'a\0c'abc");
+        });
     }
 
-    @Test(expected = InvalidEncodedTextHeaderException.class)
+    @Test
     public void testEncodedTextLanguageUnclosedFails() {
-        this.encodedText("utf-8'en");
+        assertThrows(InvalidEncodedTextHeaderException.class, () -> {
+            this.encodedText("utf-8'en");
+        });
     }
 
-    @Test(expected = InvalidEncodedTextHeaderException.class)
+    @Test
     public void testEncodedTextStringInvalidCharacterFails() {
-        this.encodedText("utf-8''ab ");
+        assertThrows(InvalidEncodedTextHeaderException.class, () -> {
+            this.encodedText("utf-8''ab ");
+        });
     }
 
     @Test
@@ -269,9 +279,9 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
 
     private void encodedTextAndCheck(final String text,
                                      final EncodedText expectedText) {
-        assertEquals("quoted text in " + CharSequences.quoteAndEscape(text),
-                expectedText,
-                this.encodedText(text));
+        assertEquals(expectedText,
+                this.encodedText(text),
+                "quoted text in " + CharSequences.quoteAndEscape(text));
     }
 
     private EncodedText encodedText(final String text) {
@@ -449,9 +459,9 @@ public final class HeaderParserTest extends HeaderParserTestCase<HeaderParser, V
             }
         }.parse();
 
-        assertEquals("recorded events",
-                events,
-                recorded.toString());
+        assertEquals(events,
+                recorded.toString(),
+                "recorded events");
     }
 
     // helpers.................................................................................................

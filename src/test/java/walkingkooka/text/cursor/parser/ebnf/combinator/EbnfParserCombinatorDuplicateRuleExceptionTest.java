@@ -18,8 +18,8 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
@@ -28,24 +28,28 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class EbnfParserCombinatorDuplicateRuleExceptionTest extends ClassTestCase<EbnfParserCombinatorDuplicateRuleException> {
 
-    @Test
-    @Ignore
+    @Override
     public void testAllConstructorsVisibility() {
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullMessageFails() {
-        new EbnfParserCombinatorDuplicateRuleException(null, this.duplicate());
+        assertThrows(NullPointerException.class, () -> {
+            new EbnfParserCombinatorDuplicateRuleException(null, this.duplicate());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullDuplicateRuleFails() {
-        new EbnfParserCombinatorDuplicateRuleException(this.message(), null);
+        assertThrows(NullPointerException.class, () -> {
+            new EbnfParserCombinatorDuplicateRuleException(this.message(), null);
+        });
     }
 
     @Test
@@ -55,9 +59,9 @@ public final class EbnfParserCombinatorDuplicateRuleExceptionTest extends ClassT
 
         final EbnfParserCombinatorDuplicateRuleException exception = new EbnfParserCombinatorDuplicateRuleException(message, duplicate);
 
-        assertEquals("message", message, exception.getMessage());
-        assertEquals("cause", null, exception.getCause());
-        assertEquals("duplicate", duplicate, exception.duplicate());
+        assertEquals(message, exception.getMessage(), "message");
+        assertEquals(null, exception.getCause(), "cause");
+        assertEquals(duplicate, exception.duplicate(), "duplicate");
     }
 
     private String message() {

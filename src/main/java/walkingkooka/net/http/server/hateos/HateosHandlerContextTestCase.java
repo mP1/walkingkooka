@@ -18,30 +18,38 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTestCase;
 import walkingkooka.tree.Node;
 
 import java.math.BigInteger;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HateosHandlerContextTestCase<C extends HateosHandlerContext<N>,
         N extends Node<N, ?, ?, ?>>
         extends ContextTestCase<C> {
 
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddLinksNullNameFails() {
-        this.addLinksAndCheck(null, this.id(), this.node());
+        assertThrows(NullPointerException.class, () -> {
+            this.addLinksAndCheck(null, this.id(), this.node());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddLinksNullIdFails() {
-        this.addLinksAndCheck(this.name(), null, this.node());
+        assertThrows(NullPointerException.class, () -> {
+            this.addLinksAndCheck(this.name(), null, this.node());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddLinksNullNullFails() {
-        this.addLinksAndCheck(this.name(), this.id(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.addLinksAndCheck(this.name(), this.id(), null);
+        });
     }
 
     protected void addLinksAndCheck(final HateosResourceName name,

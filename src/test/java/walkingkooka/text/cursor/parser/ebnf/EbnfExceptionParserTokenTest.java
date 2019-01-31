@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.search.SearchNode;
@@ -25,15 +25,18 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2<EbnfExceptionParserToken> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testIncorrectTokenCountFails() {
-        this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier2(), this.identifier("identifier-3"));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), this.identifier1(), this.comment2(), this.identifier2(), this.identifier("identifier-3"));
+        });
     }
 
     @Test
@@ -43,11 +46,11 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
         final EbnfParserToken identifier2 = this.identifier2();
 
         final EbnfExceptionParserToken token = this.createToken(this.text(), identifier1, comment2, identifier2);
-        assertEquals("value", Lists.of(identifier1, comment2, identifier2), token.value());
+        assertEquals(Lists.of(identifier1, comment2, identifier2), token.value(), "value");
 
         final EbnfExceptionParserToken without = token.withoutCommentsSymbolsOrWhitespace().get().cast();
         assertNotSame(token, without);
-        assertEquals("value", Lists.of(identifier1, identifier2), without.value());
+        assertEquals(Lists.of(identifier1, identifier2), without.value(), "value");
     }
 
     @Test
@@ -108,12 +111,12 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
             }
         }.accept(exception);
         assertEquals("1351374213742642", b.toString());
-        assertEquals("visited",
-                Lists.of(exception, exception, exception,
+        assertEquals(Lists.of(exception, exception, exception,
                         identifier1, identifier1, identifier1, identifier1, identifier1,
                         identifier2, identifier2, identifier2, identifier2, identifier2,
                         exception, exception, exception),
-                visited);
+                visited,
+                "visited");
     }
 
 
@@ -124,7 +127,7 @@ public class EbnfExceptionParserTokenTest extends EbnfParentParserTokenTestCase2
                 this.text());
         final SearchNode searchNode = token.toSearchNode();
 
-        assertEquals("text", token.text(), searchNode.text());
+        assertEquals(token.text(), searchNode.text(), "text");
     }
     
     @Override

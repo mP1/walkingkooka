@@ -16,35 +16,44 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SurroundStringParserTest extends ParserTemplateTestCase<SurroundStringParser<ParserContext>, StringParserToken> {
 
     private final static String OPEN = "<123";
     private final static String CLOSE = "456";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullOpenFails() {
-        SurroundStringParser.with(null, CLOSE);
+        assertThrows(NullPointerException.class, () -> {
+            SurroundStringParser.with(null, CLOSE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyOpenFails() {
-        SurroundStringParser.with("", CLOSE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            SurroundStringParser.with("", CLOSE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCloseFails() {
-        SurroundStringParser.with(OPEN, null);
+        assertThrows(NullPointerException.class, () -> {
+            SurroundStringParser.with(OPEN, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyCloseFails() {
-        SurroundStringParser.with(OPEN, "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SurroundStringParser.with(OPEN, "");
+        });
     }
 
     @Test

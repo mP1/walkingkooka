@@ -16,11 +16,12 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.TextCursor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ParserTestCase2<P extends Parser<T, ParserContext>, T extends ParserToken> extends ParserTestCase<P, T, ParserContext> {
 
@@ -34,15 +35,17 @@ public abstract class ParserTestCase2<P extends Parser<T, ParserContext>, T exte
         this.parseFailAndCheck("");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testOrNullParserFails() {
-        this.createParser().or(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createParser().or(null);
+        });
     }
 
     @Test
     public final void testRepeating() {
         final Parser<RepeatedParserToken, ParserContext> parser = this.createParser().repeating();
-        assertEquals("" + parser, RepeatedParser.class, parser.getClass());
+        assertEquals(RepeatedParser.class, parser.getClass(), () -> parser.toString());
     }
 
     @Test

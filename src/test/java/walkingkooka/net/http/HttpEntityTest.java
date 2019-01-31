@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.compare.Range;
@@ -34,9 +34,10 @@ import walkingkooka.type.MemberVisibility;
 import java.nio.charset.Charset;
 import java.util.Map;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpEntityTest extends ClassTestCase<HttpEntity>
         implements HashCodeEqualsDefinedTesting<HttpEntity> {
@@ -52,19 +53,25 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     // with ....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullHeadersFails() {
-        HttpEntity.with(null, BODY);
+        assertThrows(NullPointerException.class, () -> {
+            HttpEntity.with(null, BODY);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testWithInvalidHeaderFails() {
-        HttpEntity.with(INVALID_HEADERS, BODY);
+        assertThrows(HeaderValueException.class, () -> {
+            HttpEntity.with(INVALID_HEADERS, BODY);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullBodyFails() {
-        HttpEntity.with(HEADERS, null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpEntity.with(HEADERS, null);
+        });
     }
 
     @Test
@@ -74,14 +81,18 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     // setHeaders ....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetHeadersNullFails() {
-        this.create().setHeaders(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.create().setHeaders(null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetHeaderInvalidFails() {
-        this.create().setHeaders(INVALID_HEADERS);
+        assertThrows(HeaderValueException.class, () -> {
+            this.create().setHeaders(INVALID_HEADERS);
+        });
     }
 
     @Test
@@ -100,19 +111,25 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     // addHeader ....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddHeaderNullNameFails() {
-        this.create().addHeader(null, "*value*");
+        assertThrows(NullPointerException.class, () -> {
+            this.create().addHeader(null, "*value*");
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddHeaderNullValueFails() {
-        this.create().addHeader(HttpHeaderName.SERVER, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.create().addHeader(HttpHeaderName.SERVER, null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testAddHeaderInvalidValueFails() {
-        this.create().addHeader(Cast.to(HttpHeaderName.CONTENT_LENGTH), "*invalid*");
+        assertThrows(HeaderValueException.class, () -> {
+            this.create().addHeader(Cast.to(HttpHeaderName.CONTENT_LENGTH), "*invalid*");
+        });
     }
 
     @Test
@@ -150,9 +167,11 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     // removeHeader ....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRemoveHeaderNullFails() {
-        this.create().removeHeader(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.create().removeHeader(null);
+        });
     }
 
     @Test
@@ -175,9 +194,11 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     // setBody ....................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetBodyNullFails() {
-        this.create().setBody(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.create().setBody(null);
+        });
     }
 
     @Test
@@ -217,28 +238,36 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     // factory text............................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTextContentTypeNullFails() {
-        HttpEntity.text(null,
-                this.text());
+        assertThrows(NullPointerException.class, () -> {
+            HttpEntity.text(null,
+                    this.text());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTextBodyNullFails() {
-        HttpEntity.text(this.contentType(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpEntity.text(this.contentType(),
+                    null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testTextContentTypeMissingCharsetFails() {
-        HttpEntity.text(MediaType.TEXT_PLAIN,
-                this.text());
+        assertThrows(HeaderValueException.class, () -> {
+            HttpEntity.text(MediaType.TEXT_PLAIN,
+                    this.text());
+        });
     }
 
-    @Test(expected = NotAcceptableHeaderException.class)
+    @Test
     public void testTextContentTypeUnsupportedCharsetFails() {
-        HttpEntity.text(this.contentType(CharsetName.with("unsupported")),
-                this.text());
+        assertThrows(NotAcceptableHeaderException.class, () -> {
+            HttpEntity.text(this.contentType(CharsetName.with("unsupported")),
+                    this.text());
+        });
     }
 
     @Test
@@ -270,29 +299,39 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     // extractRange................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testExtractRangeRangeNullFails() {
-        this.create().extractRange(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.create().extractRange(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testExtractRangeRangeNegativeLowerBoundsFails() {
-        this.create().extractRange(Range.greaterThanEquals(-1L));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.create().extractRange(Range.greaterThanEquals(-1L));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testExtractRangeRangeExclusiveLowerBoundsFails() {
-        this.create().extractRange(Range.greaterThan(0L));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.create().extractRange(Range.greaterThan(0L));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testExtractRangeRangeExclusiveUpperBoundsFails() {
-        this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(1L)));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(1L)));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testExtractRangeUpperBoundsFails() {
-        this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(0L + BODY.length)));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.create().extractRange(Range.greaterThan(0L).and(Range.lessThan(0L + BODY.length)));
+        });
     }
 
     @Test
@@ -347,9 +386,9 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
 
     private void extractRangeAndCheck(final Range<Long> range, final byte[] expected) {
         final HttpEntity entity = this.create();
-        assertEquals(entity + " extractRange " + range + " failed",
-                HttpEntity.with(HEADERS, expected),
-                entity.extractRange(range));
+        assertEquals(HttpEntity.with(HEADERS, expected),
+                entity.extractRange(range),
+                ()-> entity + " extractRange " + range + " failed");
     }
 
     @Test
@@ -373,8 +412,8 @@ public final class HttpEntityTest extends ClassTestCase<HttpEntity>
     }
 
     private void check(final HttpEntity entity, final Map<HttpHeaderName<?>, Object> headers, final byte[] body) {
-        assertEquals("headers", headers, entity.headers());
-        assertArrayEquals("body", body, entity.body());
+        assertEquals(headers, entity.headers(), "headers");
+        assertArrayEquals(body, entity.body(), "body");
     }
 
     @Override

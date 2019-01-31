@@ -17,24 +17,22 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ArrayIteratorTest extends IteratorTestCase<ArrayIterator<String>, String> {
 
     @Test
     public void testWithNullArrayFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ArrayIterator.with((Object[]) null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test

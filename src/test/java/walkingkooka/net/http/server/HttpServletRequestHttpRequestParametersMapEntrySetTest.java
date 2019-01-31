@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.SetTestCase;
 import walkingkooka.collect.set.Sets;
 
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpServletRequestHttpRequestParametersMapEntrySetTest extends SetTestCase<HttpServletRequestHttpRequestParametersMapEntrySet,
         Entry<HttpRequestParameterName, List<String>>> {

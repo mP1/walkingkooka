@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.type.MemberVisibility;
 
@@ -26,7 +26,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset, List<CharsetHeaderValue>>{
 
@@ -59,9 +59,9 @@ public final class AcceptCharsetTest extends HeaderValue2TestCase<AcceptCharset,
     }
 
     private void charsetAndCheck(final AcceptCharset acceptCharset, final Optional<Charset> expected) {
-        assertEquals(acceptCharset + " .charset()",
-                expected,
-                acceptCharset.charset());
+        assertEquals(expected,
+                acceptCharset.charset(),
+                acceptCharset + " .charset()");
     }
 
     // helpers.......................................................................................................

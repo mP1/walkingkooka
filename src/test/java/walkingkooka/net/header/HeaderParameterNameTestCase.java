@@ -18,24 +18,29 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
         extends HeaderName2TestCase<N, C> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testParameterValueNullFails() {
-        this.createName().parameterValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createName().parameterValue(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testParameterValueOrFailNullFails() {
-        this.createName().parameterValueOrFail(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createName().parameterValueOrFail(null);
+        });
     }
 
     final <VV> void parameterValueAndCheckAbsent(final HeaderParameterName<VV> name,
@@ -52,9 +57,9 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
     private <VV> void parameterValueAndCheck2(final HeaderParameterName<VV> name,
                                               final HeaderValueWithParameters<? extends HeaderParameterName<?>> hasParameters,
                                               final Optional<VV> value) {
-        assertEquals("wrong parameter value " + name + " in " + hasParameters,
-                value,
-                name.parameterValue(hasParameters));
+        assertEquals(value,
+                name.parameterValue(hasParameters),
+                "wrong parameter value " + name + " in " + hasParameters);
     }
 
     @Override

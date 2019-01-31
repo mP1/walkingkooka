@@ -18,14 +18,15 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SearchParentNodeTestCase<N extends SearchParentNode> extends SearchNodeTestCase<N> {
 
@@ -35,20 +36,17 @@ public abstract class SearchParentNodeTestCase<N extends SearchParentNode> exten
         this.checkChildCount(parent, this.children().size());
     }
 
-    @Test(expected = NullPointerException.class)
-    public final void testSetChildrenNullFails() {
-        this.createSearchNode().setChildren(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public final void testSetChildrenEmptyFails() {
-        this.createSearchNode().setChildren(Lists.empty());
+    @Test
+    public final void testSetChildrenSame() {
+        final N expression = this.createSearchNode();
+        assertSame(expression, expression.setChildren(expression.children()));
     }
 
     @Test
-    public final void testSameChildren() {
-        final N expression = this.createSearchNode();
-        assertSame(expression, expression.setChildren(expression.children()));
+    public final void testSetChildrenEmptyFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createSearchNode().setChildren(Lists.empty());
+        });
     }
 
     @Test
@@ -68,7 +66,7 @@ public abstract class SearchParentNodeTestCase<N extends SearchParentNode> exten
 
     final void checkChildren(final N node, final List<SearchNode> children) {
         // horrible if equals is used comparison will fail because children have different parents.
-        assertEquals("children", children.toString(), node.children().toString());
+        assertEquals(children.toString(), node.children().toString(), "children");
     }
 
     @Override

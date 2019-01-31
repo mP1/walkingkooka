@@ -18,8 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CaseSensitivity;
 
 public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNotQuery>{
@@ -99,8 +98,7 @@ public final class SearchNotQueryTest extends SearchParentQueryTestCase<SearchNo
         this.checkNotEquals(SearchNotQuery.with(this.textQueryValue("different").equalsQuery(CaseSensitivity.SENSITIVE)));
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testNotTwiceGivesOriginalQuery() {
         throw new UnsupportedOperationException();
     }

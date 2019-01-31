@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.NameTesting;
@@ -30,8 +30,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends ClassTestCase<L>
         implements NameTesting<L, LanguageTagName> {
@@ -46,20 +46,25 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
         this.checkNamingStartAndEnd(LanguageTagName.class.getSimpleName(), "");
     }
 
+    @Override
+    public void testPublicClass() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public final void testSetParameters() {
         final LanguageTagName name = this.createName("en");
         final Map<LanguageTagParameterName<?>, Object> parameters = Maps.one(LanguageTagParameterName.Q_FACTOR, 0.5f);
         final LanguageTag tag = name.setParameters(parameters);
-        assertSame("value", name, tag.value());
-        assertEquals("parameters", parameters, tag.parameters());
+        assertSame(name, tag.value(), "value");
+        assertEquals(parameters, tag.parameters(), "parameters");
     }
 
     final void check(final LanguageTagName name,
                      final String value,
                      final Optional<Locale> locale) {
-        assertEquals("value", value, name.value());
-        assertEquals("locale", locale, name.locale());
+        assertEquals(value, name.value(), "value");
+        assertEquals(locale, name.locale(), "locale");
     }
 
     @Override

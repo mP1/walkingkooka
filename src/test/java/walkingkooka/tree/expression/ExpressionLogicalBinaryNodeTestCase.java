@@ -18,17 +18,23 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionLogicalBinaryNodeTestCase<N extends ExpressionLogicalBinaryNode> extends ExpressionBinaryNodeTestCase<N> {
 
-    @Test(expected = ExpressionEvaluationConversionException.class)
+    @Test
     public final void testEvaluateBigDecimalWithFractionFails() {
-        this.createExpressionNode(bigDecimal(1.5), bigDecimal(0)).toText(this.context());
+        assertThrows(ExpressionEvaluationConversionException.class, () -> {
+            this.createExpressionNode(bigDecimal(1.5), bigDecimal(0)).toText(this.context());
+        });
     }
 
-    @Test(expected = ExpressionEvaluationConversionException.class)
+    @Test
     public final void testEvaluateDoubleWithFractionFails() {
-        this.createExpressionNode(doubleValue(1.5), doubleValue(0)).toText(this.context());
+        assertThrows(ExpressionEvaluationConversionException.class, () -> {
+            this.createExpressionNode(doubleValue(1.5), doubleValue(0)).toText(this.context());
+        });
     }
 }

@@ -17,25 +17,28 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSequenceTextCursor> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFromNullFails() {
-        CharSequenceTextCursor.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequenceTextCursor.with(null);
+        });
     }
 
     @Test
     public void testFrom() {
         final String text = "text";
         final CharSequenceTextCursor cursor = CharSequenceTextCursor.with(text);
-        assertEquals("positon", 0, cursor.position);
-        assertEquals("text", text, cursor.text);
+        assertEquals(0, cursor.position, "positon");
+        assertEquals(text, cursor.text, "text");
     }
 
     @Test
@@ -139,7 +142,7 @@ final public class CharSequenceTextCursorTest extends TextCursorTestCase<CharSeq
         for (final String c : contains) {
             final int foundIndex = s.indexOf(c);
             if (-1 == foundIndex) {
-                Assert.fail("Cannot find \"" + c + "\" within \"" + string + "\".");
+                Assertions.fail("Cannot find \"" + c + "\" within \"" + string + "\".");
             }
             s = s.substring(0, foundIndex) + s.substring(foundIndex + c.length());
         }

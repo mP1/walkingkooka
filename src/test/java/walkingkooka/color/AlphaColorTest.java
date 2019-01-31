@@ -18,33 +18,34 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
 
     @Test
     public void testFromArgb() {
         final Color color = Color.fromArgb(0x04010203);
-        assertSame("red", RED, color.red());
-        assertSame("green", GREEN, color.green());
-        assertSame("blue", BLUE, color.blue());
-        assertSame("alpha", ColorComponent.alpha((byte) 0x4), color.alpha());
-        assertEquals("argb", 0x04010203, color.argb());
+        assertSame(RED, color.red(), "red");
+        assertSame(GREEN, color.green(), "green");
+        assertSame(BLUE, color.blue(), "blue");
+        assertSame(ColorComponent.alpha((byte) 0x4), color.alpha(), "alpha");
+        assertEquals(0x04010203, color.argb(), "argb");
     }
 
     @Test
     public void testFromArgbWhenOpaque() {
         final Color color = Color.fromArgb(0xFF010203);
-        assertSame("red", RED, color.red());
-        assertSame("green", GREEN, color.green());
-        assertSame("blue", BLUE, color.blue());
-        assertEquals("color must not be a AlphaColor", OpaqueColor.class, color.getClass());
-        assertEquals("argb", 0xFF010203, color.argb());
+        assertSame(RED, color.red(), "red");
+        assertSame(GREEN, color.green(), "green");
+        assertSame(BLUE, color.blue(), "blue");
+        assertEquals(OpaqueColor.class, color.getClass(), "color must not be a AlphaColor");
+        assertEquals(0xFF010203, color.argb(), "argb");
     }
 
     @Test
@@ -52,16 +53,16 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
         final Color color = Color.with(ColorComponent.red((byte) 0x80),
                 ColorComponent.green((byte) 0x81),
                 ColorComponent.blue((byte) 0x82)).set(ColorComponent.alpha((byte) 0x84));
-        assertEquals("rgb", 0x808182, color.rgb());
-        assertEquals("argb", 0x84808182, color.argb());
-        assertEquals("value", 0x84808182, color.value());
+        assertEquals(0x808182, color.rgb(), "rgb");
+        assertEquals(0x84808182, color.argb(), "argb");
+        assertEquals(0x84808182, color.value(), "value");
     }
 
     @Test
     @Override
     public void testHasAlpha() {
         final AlphaColor color = AlphaColor.with(RED, GREEN, BLUE, ALPHA);
-        assertTrue(color + " has alpha", color.hasAlpha());
+        assertTrue(color.hasAlpha(), color + " has alpha");
     }
 
     @Test
@@ -75,10 +76,10 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
         final AlphaColor color = this.createObject();
         final ColorComponent replacement = AlphaColorComponent.OPAQUE;
         final OpaqueColor opaque = (OpaqueColor) color.set(replacement);
-        assertSame("red", color.red(), opaque.red());
-        assertSame("green", color.green(), opaque.green());
-        assertSame("blue", color.blue(), opaque.blue());
-        assertSame("alpha", replacement, opaque.alpha());
+        assertSame(color.red(), opaque.red(), "red");
+        assertSame(color.green(), opaque.green(), "green");
+        assertSame(color.blue(), opaque.blue(), "blue");
+        assertSame(replacement, opaque.alpha(), "alpha");
     }
 
     @Test
@@ -90,10 +91,10 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
     @Test
     public void testToAwtColor() {
         final java.awt.Color color = this.createObject().toAwtColor();
-        assertEquals("red", 1, color.getRed());
-        assertEquals("green", 2, color.getGreen());
-        assertEquals("blue", 3, color.getBlue());
-        assertEquals("alpha", 4, color.getAlpha());
+        assertEquals(1, color.getRed(), "red");
+        assertEquals(2, color.getGreen(), "green");
+        assertEquals(3, color.getBlue(), "blue");
+        assertEquals(4, color.getAlpha(), "alpha");
     }
 
     @Test
@@ -104,9 +105,11 @@ public final class AlphaColorTest extends ColorTestCase<AlphaColor> {
 
     // HasJsonNode............................................................................................
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testToJsonNode() {
-        Color.fromArgb(0x11223344).toJsonNode();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            Color.fromArgb(0x11223344).toJsonNode();
+        });
     }
 
     // Object............................................................................................

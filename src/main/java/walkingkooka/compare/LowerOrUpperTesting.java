@@ -18,15 +18,18 @@
 
 package walkingkooka.compare;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface LowerOrUpperTesting<C extends LowerOrUpper<C>> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     default void testLowerNullFails() {
-        this.createLowerOrUpper().lower(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createLowerOrUpper().lower(null);
+        });
     }
 
     @Test
@@ -35,9 +38,11 @@ public interface LowerOrUpperTesting<C extends LowerOrUpper<C>> {
         assertSame(object, object.lower(object));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     default void testUpperNullFails() {
-        this.createLowerOrUpper().upper(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createLowerOrUpper().upper(null);
+        });
     }
 
     @Test

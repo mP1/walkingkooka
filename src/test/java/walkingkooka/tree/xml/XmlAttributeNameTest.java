@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
@@ -26,12 +26,16 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class XmlAttributeNameTest extends ClassTestCase<XmlAttributeName> 
         implements NameTesting<XmlAttributeName, XmlAttributeName> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNoPrefixNullFails() {
-        XmlAttributeName.with("a", null);
+        assertThrows(NullPointerException.class, () -> {
+            XmlAttributeName.with("a", null);
+        });
     }
 
     @Test

@@ -17,19 +17,18 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class NotPredicateTest extends PredicateTestCase<NotPredicate<String>, String>
         implements HashCodeEqualsDefinedTesting<NotPredicate<String>> {
@@ -46,11 +45,9 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
 
     @Test
     public void testWrapNullPredicateFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             NotPredicate.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -70,8 +67,6 @@ final public class NotPredicateTest extends PredicateTestCase<NotPredicate<Strin
     }
 
     @Override
-    @Test
-    @Ignore
     public void testTestNullFails() {
         // nop
     }

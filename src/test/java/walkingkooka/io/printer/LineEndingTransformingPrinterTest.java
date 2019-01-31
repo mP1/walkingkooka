@@ -17,12 +17,13 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.NeverError;
 import walkingkooka.text.LineEnding;
 
 import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineEndingTransformingPrinterTest
         extends PrinterTestCase2<LineEndingTransformingPrinter> {
@@ -62,22 +63,17 @@ final public class LineEndingTransformingPrinterTest
     // tests
 
     @Test
-    public void testNullLineEndingTransformerFails() {
-        this.wrapFails(null, LineEndingTransformingPrinterTest.PRINTER);
+    public void testWithNullLineEndingTransformerFails() {
+        assertThrows(NullPointerException.class, () -> {
+            LineEndingTransformingPrinter.wrap(null, PRINTER);
+        });
     }
 
     @Test
-    public void testNullPrinterFails() {
-        this.wrapFails(LineEndingTransformingPrinterTest.TRANFORMER, null);
-    }
-
-    private void wrapFails(final Function<LineEnding, LineEnding> lineEndingTransformer,
-                           final Printer printer) {
-        try {
-            LineEndingTransformingPrinter.wrap(lineEndingTransformer, printer);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+    public void testWithNullPrinterFails() {
+        assertThrows(NullPointerException.class, () -> {
+            LineEndingTransformingPrinter.wrap(TRANFORMER, null);
+        });
     }
 
     @Test
@@ -148,7 +144,7 @@ final public class LineEndingTransformingPrinterTest
     @Test
     public void testWithoutFlushPendingCrIsLost() {
         final LineEndingTransformingPrinter printer = LineEndingTransformingPrinter.wrap(
-                LineEndingTransformingPrinterTest.TRANFORMER,
+                TRANFORMER,
                 Printers.fake());
         printer.print("\r");
     }
@@ -189,7 +185,7 @@ final public class LineEndingTransformingPrinterTest
         this.printAndCheck(//
                 LineEndingTransformingPrinter.wrap((lineEnding -> LineEnding.NONE),
                         Printers.stringBuilder(printed,
-                                LineEndingTransformingPrinterTest.LINE_ENDING)), //
+                                LINE_ENDING)), //
                 "before\nAFTER", //
                 printed, //
                 "beforeAFTER");
@@ -198,8 +194,8 @@ final public class LineEndingTransformingPrinterTest
     @Test
     public void testToString() {
         final Printer printer = Printers.fake();
-        checkEquals(LineEndingTransformingPrinterTest.TRANFORMER + " " + printer,
-                LineEndingTransformingPrinter.wrap(LineEndingTransformingPrinterTest.TRANFORMER,
+        checkEquals(TRANFORMER + " " + printer,
+                LineEndingTransformingPrinter.wrap(TRANFORMER,
                         printer).toString());
     }
 
@@ -210,8 +206,8 @@ final public class LineEndingTransformingPrinterTest
 
     @Override
     protected LineEndingTransformingPrinter createPrinter(final StringBuilder target) {
-        return LineEndingTransformingPrinter.wrap(LineEndingTransformingPrinterTest.TRANFORMER,
-                Printers.stringBuilder(target, LineEndingTransformingPrinterTest.LINE_ENDING));
+        return LineEndingTransformingPrinter.wrap(TRANFORMER,
+                Printers.stringBuilder(target, LINE_ENDING));
     }
 
     @Override

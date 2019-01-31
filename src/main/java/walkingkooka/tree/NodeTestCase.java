@@ -17,7 +17,7 @@
 
 package walkingkooka.tree;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
@@ -37,9 +37,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
@@ -64,9 +65,9 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     public final void testPathSeparatorConstant() throws Exception {
         final Field field = this.type().getField("PATH_SEPARATOR");
 
-        assertEquals("PATH_SEPARATOR constant must be public=" + field, MemberVisibility.PUBLIC, MemberVisibility.get(field));
-        assertEquals("PATH_SEPARATOR constant must be static=" + field, true, FieldAttributes.STATIC.is(field));
-        assertEquals("PATH_SEPARATOR constant type=" + field, PathSeparator.class, field.getType());
+        assertEquals(MemberVisibility.PUBLIC, MemberVisibility.get(field), () -> "PATH_SEPARATOR constant must be public=" + field);
+        assertEquals(true, FieldAttributes.STATIC.is(field), () -> "PATH_SEPARATOR constant must be static=" + field);
+        assertEquals(PathSeparator.class, field.getType(), () -> "PATH_SEPARATOR constant type=" + field);
     }
 
     @Test
@@ -82,13 +83,13 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     private <T> void checkCached(final N node, final String property, final T value, final T value2) {
-        assertSame(node + " did not cache " + property, value, value2);
+        assertSame(value, value2, ()-> node + " did not cache " + property);
     }
 
     @Test
     final public void testRootWithoutParent() {
         final N node = this.createNode();
-        assertEquals("node must have no parent", Optional.empty(), node.parent());
+        assertEquals(Optional.empty(), node.parent(), "node must have no parent");
         assertSame(node, node.root());
     }
 
@@ -103,9 +104,9 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         final List<N> children = node.children();
         final Optional<N> first = node.firstChild();
         if(children.isEmpty()){
-           assertEquals("childless node must not have a first child.", Optional.empty(), first);
+           assertEquals(Optional.empty(), first, "childless node must not have a first child.");
         } else {
-           assertEquals("node with children must have a first child.", Optional.of(children.get(0)), first);
+           assertEquals(Optional.of(children.get(0)), first, "node with children must have a first child.");
         }
     }
 
@@ -115,9 +116,9 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
         final List<N> children = node.children();
         final Optional<N> last = node.lastChild();
         if(children.isEmpty()){
-            assertEquals("childless node must not have a last child.", Optional.empty(), last);
+            assertEquals(Optional.empty(), last, "childless node must not have a last child.");
         } else {
-            assertEquals("node with children must have a last child.", Optional.of(children.get(children.size()-1)), last);
+            assertEquals(Optional.of(children.get(children.size()-1)), last, "node with children must have a last child.");
         }
     }
 
@@ -130,17 +131,19 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
                 this.nodeSelectorContext(
                         (n)->{},
                         (n)-> selected.add(n)));
-        assertEquals("Node's own select should have matched only itself", Sets.of(node), selected);
+        assertEquals(Sets.of(node), selected, "Node's own select should have matched only itself");
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public final void testSelectorPotentialFails() {
         final N node = this.createNode();
         final NodeSelector<N, NAME, ANAME, AVALUE> selector = node.selector();
-        selector.accept(node,
-                this.nodeSelectorContext(
-                        (n) -> { throw new UnsupportedOperationException();},
-                        (n)->{}));
+        assertThrows(UnsupportedOperationException.class, () -> {
+            selector.accept(node,
+                    this.nodeSelectorContext(
+                            (n) -> { throw new UnsupportedOperationException();},
+                            (n)->{}));
+        });
     }
 
     private NodeSelectorContext<N, NAME, ANAME, AVALUE> nodeSelectorContext(final Consumer<N> potential,
@@ -170,8 +173,9 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
 
         int i = 0;
         for(Node<?, ?, ?, ?> child : node.children()){
-            assertEquals("Incorrect index of " + child, i, child.index());
-            assertEquals("Incorrect parent of child " + i + "=" + child, nodeAsParent, child.parent());
+            assertEquals(i, child.index(), () -> "Incorrect index of " + child);
+            final int j = i;
+            assertEquals(nodeAsParent, child.parent(), () -> "Incorrect parent of child " + j + "=" + child);
 
             this.childrenCheck(child);
             i++;
@@ -179,12 +183,12 @@ abstract public class NodeTestCase<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     protected final void checkWithoutParent(final N node) {
-        assertEquals("parent", Optional.empty(), node.parent());
-        assertEquals("root", true, node.isRoot());
+        assertEquals(Optional.empty(), node.parent(), "parent");
+        assertEquals(true, node.isRoot(), "root");
     }
 
     protected final void checkWithParent(final N node) {
-        assertNotEquals("parent", Optional.empty(), node.parent());
-        assertEquals("root", false, node.isRoot());
+        assertNotEquals(Optional.empty(), node.parent(), "parent");
+        assertEquals(false, node.isRoot(), "root");
     }
 }

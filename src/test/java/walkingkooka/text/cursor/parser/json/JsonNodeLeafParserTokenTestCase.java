@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser.json;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public abstract class JsonNodeLeafParserTokenTestCase<T extends JsonNodeLeafParserToken, V> extends JsonNodeParserTokenTestCase<T> {
 

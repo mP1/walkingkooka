@@ -17,24 +17,29 @@
 
 package walkingkooka.naming;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class StringPathTest extends PathTestCase<StringPath, StringName>
         implements SerializationTesting<StringPath> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseMissingRequiredLeadingSlash() {
-        StringPath.parse("without-leading-slash");
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringPath.parse("without-leading-slash");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyComponent() {
-        StringPath.parse("/before//after");
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringPath.parse("/before//after");
+        });
     }
 
     @Test

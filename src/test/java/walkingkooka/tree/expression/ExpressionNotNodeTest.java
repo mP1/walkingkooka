@@ -18,15 +18,16 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<ExpressionNotNode> {
 
@@ -74,11 +75,11 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
             }
         }.accept(not);
         assertEquals("1315242", b.toString());
-        assertEquals("visited",
-                Lists.of(not, not,
+        assertEquals(Lists.of(not, not,
                         child, child, child,
                         not, not),
-                visited);
+                visited,
+                "visited");
     }
 
     // evaluate.....................................................................................
@@ -89,9 +90,11 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
         this.evaluateAndCheckBigInteger(this.createExpressionNode(bigDecimal(value)),BigInteger.valueOf(value).not());
     }
 
-    @Test(expected = ExpressionEvaluationConversionException.class)
+    @Test
     public void testEvaluateToBigDecimalWithDecimalsFails() {
-        this.createExpressionNode(bigDecimal(1.5)).toNumber(this.context());
+        assertThrows(ExpressionEvaluationConversionException.class, () -> {
+            this.createExpressionNode(bigDecimal(1.5)).toNumber(this.context());
+        });
     }
 
     @Test
@@ -106,9 +109,11 @@ public final class ExpressionNotNodeTest extends ExpressionUnaryNodeTestCase<Exp
         this.evaluateAndCheckLong(this.createExpressionNode(ExpressionNode.doubleNode(value)), ~value);
     }
 
-    @Test(expected = ExpressionEvaluationConversionException.class)
+    @Test
     public void testEvaluateToDoubleWithDecimalsFails() {
-        this.createExpressionNode(doubleValue(1.5)).toNumber(this.context());
+        assertThrows(ExpressionEvaluationConversionException.class, () -> {
+            this.createExpressionNode(doubleValue(1.5)).toNumber(this.context());
+        });
     }
 
     @Test

@@ -18,31 +18,38 @@
 
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.naming.PropertiesPath;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EbnfIdentifierNameTest extends ClassTestCase<EbnfIdentifierName>
         implements NameTesting<EbnfIdentifierName, EbnfIdentifierName> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCreateContainsSeparatorFails() {
-        EbnfIdentifierName.with("xyz" + PropertiesPath.SEPARATOR.string());
+        assertThrows(IllegalArgumentException.class, () -> {
+            EbnfIdentifierName.with("xyz" + PropertiesPath.SEPARATOR.string());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidInitialFails() {
-        EbnfIdentifierName.with("1abc");
+        assertThrows(IllegalArgumentException.class, () -> {
+            EbnfIdentifierName.with("1abc");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPartFails() {
-        EbnfIdentifierName.with("abc$def");
+        assertThrows(IllegalArgumentException.class, () -> {
+            EbnfIdentifierName.with("abc$def");
+        });
     }
 
     @Test

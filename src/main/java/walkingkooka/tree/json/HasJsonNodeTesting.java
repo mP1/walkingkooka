@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public interface HasJsonNodeTesting<H extends HasJsonNode> {
 
@@ -27,8 +27,8 @@ public interface HasJsonNodeTesting<H extends HasJsonNode> {
     }
 
     default void toJsonNodeAndCheck(final HasJsonNode has, final JsonNode json) {
-        assertEquals("toJsonNode doesnt match=" + has,
-                json,
-                has.toJsonNode());
+        assertEquals(json,
+                has.toJsonNode(),
+                () -> "toJsonNode doesnt match=" + has);
     }
 }

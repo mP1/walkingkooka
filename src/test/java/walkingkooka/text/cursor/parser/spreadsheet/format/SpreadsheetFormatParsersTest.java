@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<SpreadsheetFormatParserToken, SpreadsheetFormatParserContext>,
         SpreadsheetFormatParserToken,
@@ -3869,7 +3869,7 @@ public final class SpreadsheetFormatParsersTest extends ParserTestCase3<Parser<S
         final List<ParserToken> list = Lists.of(tokens);
         final String text = ParserToken.text(list);
 
-        assertEquals("text should be all upper case", text.toUpperCase(), text);
+        assertEquals(text.toUpperCase(), text,"text should be all upper case");
 
         this.parseAndCheck(parser,
                 text,

@@ -17,12 +17,12 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.LineEnding;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
 
@@ -36,26 +36,22 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
 
     @Test
     public void testWrapNullFirstPrinterFails() {
-        this.wrapFails(null, TeePrinterTest.PRINTER);
+        assertThrows(NullPointerException.class, () -> {
+            TeePrinter.wrap(null, PRINTER);
+        });
     }
 
     @Test
     public void testWrapNullSecondPrinterFails() {
-        this.wrapFails(TeePrinterTest.PRINTER, null);
-    }
-
-    private void wrapFails(final Printer first, final Printer second) {
-        try {
-            TeePrinter.wrap(first, second);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            TeePrinter.wrap(PRINTER, null);
+        });
     }
 
     @Test
     public void testDoesntWrapTwoEqualPrinters() {
-        assertSame(TeePrinterTest.PRINTER,
-                TeePrinter.wrap(TeePrinterTest.PRINTER, TeePrinterTest.PRINTER));
+        assertSame(PRINTER,
+                TeePrinter.wrap(PRINTER, PRINTER));
     }
 
     @Override
@@ -70,8 +66,8 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
         final StringBuilder builder2 = new StringBuilder();
         final StringBuilder builder3 = new StringBuilder();
         final Printer printer = TeePrinter.wrap(Printers.stringBuilder(builder1,
-                TeePrinterTest.LINE_ENDING),
-                Printers.stringBuilder(builder2, TeePrinterTest.LINE_ENDING));
+                LINE_ENDING),
+                Printers.stringBuilder(builder2, LINE_ENDING));
         printer.print("string");
         builder3.append("string");
 
@@ -94,13 +90,13 @@ final public class TeePrinterTest extends PrinterTestCase<TeePrinter> {
         final StringBuilder builder2 = new StringBuilder();
         final StringBuilder builder3 = new StringBuilder();
         final Printer printer = TeePrinter.wrap(Printers.stringBuilder(builder1,
-                TeePrinterTest.LINE_ENDING),
-                Printers.stringBuilder(builder2, TeePrinterTest.LINE_ENDING));
+                LINE_ENDING),
+                Printers.stringBuilder(builder2, LINE_ENDING));
         printer.print("string");
         builder3.append("string");
 
         printer.print(printer.lineEnding());
-        builder3.append(TeePrinterTest.LINE_ENDING);
+        builder3.append(LINE_ENDING);
 
         printer.print("");
 

@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.enumeration.Enumerations;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.MapTestCase;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HttpServletRequestHttpRequestHeadersMapTest extends MapTestCase<HttpServletRequestHttpRequestHeadersMap,
         HttpHeaderName<?>, Object> {
@@ -74,9 +74,9 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends MapTestCa
     @Test
     public void testGetOrDefault() {
         final HttpServletRequestHttpRequestHeadersMap map = this.createMap();
-        assertEquals("getOrDefault returned wrong value " + map,
-                VALUE1,
-                map.getOrDefault(HEADER1, "wrong"));
+        assertEquals(VALUE1,
+                map.getOrDefault(HEADER1, "wrong"),
+                "getOrDefault returned wrong value " + map);
     }
 
     @Test
@@ -84,9 +84,9 @@ public final class HttpServletRequestHttpRequestHeadersMapTest extends MapTestCa
         final HttpServletRequestHttpRequestHeadersMap map = this.createMap();
         final ETag etag = ETagValidator.STRONG.setValue("default-value-etag");
 
-        assertEquals("getOrDefault returned wrong value " + map,
-                etag,
-                map.getOrDefault(HttpHeaderName.E_TAG, etag));
+        assertEquals(etag,
+                map.getOrDefault(HttpHeaderName.E_TAG, etag),
+                "getOrDefault returned wrong value " + map);
     }
 
     @Test

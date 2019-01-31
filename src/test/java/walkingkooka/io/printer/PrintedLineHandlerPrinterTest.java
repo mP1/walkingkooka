@@ -17,11 +17,15 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.io.printer.line.PrintedLineHandler;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
+
+import java.net.NetPermission;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<PrintedLineHandlerPrinter> {
 
@@ -36,7 +40,7 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
                                 final Printer printer) {
             final String lineString = line.toString();
             if ((-1 != lineString.indexOf('\r')) || (-1 != lineString.indexOf('\n'))) {
-                Assert.fail("PrintedLineHandler line should not have a CR or NL="
+                Assertions.fail("PrintedLineHandler line should not have a CR or NL="
                         + CharSequences.escape(line));
             }
             printer.print(line);
@@ -51,50 +55,46 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
 
     @Test
     public void testWrapNullPrinterFails() {
-        this.wrapFails(null, PrintedLineHandlerPrinterTest.HANDLER);
+        assertThrows(NullPointerException.class, () -> {
+            PrintedLineHandlerPrinter.wrap(null, HANDLER);
+        });
     }
 
     @Test
     public void testWrapNullLineHandlerFails() {
-        this.wrapFails(PrintedLineHandlerPrinterTest.PRINTER, null);
-    }
-
-    private void wrapFails(final Printer printer, final PrintedLineHandler handler) {
-        try {
-            PrintedLineHandlerPrinter.wrap(printer, handler);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            PrintedLineHandlerPrinter.wrap(PRINTER, null);
+        });
     }
 
     @Test
     public void testEmptyString() {
-        this.printAndCheck("", PrintedLineHandlerPrinterTest.LINE_ENDING, "", null);
+        this.printAndCheck("", LINE_ENDING, "", null);
     }
 
     @Test
     public void testOneCharacter() {
         final String printed = "1";
-        this.printAndCheck(printed, PrintedLineHandlerPrinterTest.LINE_ENDING, null, printed);
+        this.printAndCheck(printed, LINE_ENDING, null, printed);
     }
 
     @Test
     public void testTwoCharacters() {
         final String printed = "12";
-        this.printAndCheck(printed, PrintedLineHandlerPrinterTest.LINE_ENDING, null, printed);
+        this.printAndCheck(printed, LINE_ENDING, null, printed);
     }
 
     @Test
     public void testStringWithoutLineEnding() {
         final String printed = "123456";
-        this.printAndCheck(printed, PrintedLineHandlerPrinterTest.LINE_ENDING, null, printed);
+        this.printAndCheck(printed, LINE_ENDING, null, printed);
     }
 
     @Test
     public void testStringWithoutLineEndingCharacterByCharacter() {
         final String printed = "123456";
         this.printAndCheck(this.characterByCharacter(printed),
-                PrintedLineHandlerPrinterTest.LINE_ENDING,
+                LINE_ENDING,
                 null,
                 printed);
     }
@@ -282,8 +282,8 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
         printer.print(printer.lineEnding());
         printer.flush();
 
-        checkEquals("123!" + PrintedLineHandlerPrinterTest.LINE_ENDING + "456!"
-                + PrintedLineHandlerPrinterTest.LINE_ENDING, printed.toString());
+        checkEquals("123!" + LINE_ENDING + "456!"
+                + LINE_ENDING, printed.toString());
     }
 
     @Override
@@ -307,9 +307,9 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
     @Test
     public void testToString() {
         checkEquals(
-                PrintedLineHandlerPrinterTest.HANDLER + " " + PrintedLineHandlerPrinterTest.PRINTER,
-                PrintedLineHandlerPrinter.wrap(PrintedLineHandlerPrinterTest.PRINTER,
-                        PrintedLineHandlerPrinterTest.HANDLER).toString());
+                HANDLER + " " + PRINTER,
+                PrintedLineHandlerPrinter.wrap(PRINTER,
+                        HANDLER).toString());
     }
 
     @Override
@@ -320,11 +320,11 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
     @Override
     protected PrintedLineHandlerPrinter createPrinter(final StringBuilder printed) {
         return this.createPrinter(Printers.stringBuilder(printed,
-                PrintedLineHandlerPrinterTest.LINE_ENDING));
+                LINE_ENDING));
     }
 
     protected PrintedLineHandlerPrinter createPrinter(final Printer printer) {
-        return PrintedLineHandlerPrinter.wrap(printer, PrintedLineHandlerPrinterTest.HANDLER);
+        return PrintedLineHandlerPrinter.wrap(printer, HANDLER);
     }
 
     /**
@@ -353,10 +353,10 @@ final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<Printe
         final PrintedLineHandlerPrinter printer = this.createPrinter(
                 (null == expected) || expected.equals("") ?
                         //
-                        PrintedLineHandlerPrinterTest.PRINTER
+                        PRINTER
                         //
                         :
-                        Printers.stringBuilder(target, PrintedLineHandlerPrinterTest.LINE_ENDING));
+                        Printers.stringBuilder(target, LINE_ENDING));
         for (int i = 0; i < printed.length; i++) {
             printed[i] = this.replacePlaceHolder(printed[i], lineEnding);
         }

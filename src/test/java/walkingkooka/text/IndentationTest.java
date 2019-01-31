@@ -17,8 +17,7 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
@@ -26,33 +25,32 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IndentationTest extends ClassTestCase<Indentation>
         implements HashCodeEqualsDefinedTesting<Indentation>, SerializationTesting<Indentation> {
 
     @Test
     public void testCarriageReturnRepeatingCharFails() {
-        this.withRepeatingCharacterFails('\r', 1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            Indentation.with('\r', 1);
+        });
     }
 
     @Test
     public void testNewLineRepeatingCharFails() {
-        this.withRepeatingCharacterFails('\n', 1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            Indentation.with('\n', 1);
+        });
     }
 
     @Test
     public void testInvalidRepeatingCountFails() {
-        this.withRepeatingCharacterFails('.', -1);
-    }
-
-    private void withRepeatingCharacterFails(final char c, final int count) {
-        try {
-            Indentation.with(c, count);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            Indentation.with('.', -1);
+        });
     }
 
     @Test
@@ -67,25 +65,23 @@ final public class IndentationTest extends ClassTestCase<Indentation>
 
     @Test
     public void testNullStringFails() {
-        this.withStringFails(null);
+        assertThrows(NullPointerException.class, () -> {
+            Indentation.with(null);
+        });
     }
 
     @Test
     public void testStringIncludesCarriageReturnFails() {
-        this.withStringFails("with carriage return \n");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Indentation.with("with carriage return \r");
+        });
     }
 
     @Test
     public void testStringIncludesNewLineFails() {
-        this.withStringFails("with new line \n");
-    }
-
-    private void withStringFails(final String indentation) {
-        try {
-            Indentation.with(indentation);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            Indentation.with("with new line \n");
+        });
     }
 
     @Test
@@ -138,11 +134,9 @@ final public class IndentationTest extends ClassTestCase<Indentation>
     @Test
     public void testAppendNullFails() {
         final Indentation indentation = Indentation.with("..");
-        try {
+        assertThrows(NullPointerException.class, () -> {
             indentation.append(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -223,11 +217,11 @@ final public class IndentationTest extends ClassTestCase<Indentation>
     }
 
     private void check(final Indentation indentation, final String value) {
-        assertEquals("value", value, indentation.value());
+        assertEquals(value, indentation.value(), "value");
     }
 
     private void checkConstant(final Indentation indentation, final int spaceCount) {
-        assertSame("constant not returned", Indentation.CONSTANTS[spaceCount], indentation);
+        assertSame(Indentation.CONSTANTS[spaceCount], indentation, "constant not returned");
     }
 
     @Override

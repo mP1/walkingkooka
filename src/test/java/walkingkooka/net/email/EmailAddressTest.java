@@ -18,10 +18,9 @@
 
 package walkingkooka.net.email;
 
-import junit.framework.TestCase;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.net.HostAddressProblem;
 import walkingkooka.test.ClassTestCase;
@@ -33,21 +32,26 @@ import walkingkooka.type.MemberVisibility;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class EmailAddressTest extends ClassTestCase<EmailAddress>
         implements HashCodeEqualsDefinedTesting<EmailAddress>, SerializationTesting<EmailAddress> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        EmailAddress.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            EmailAddress.with(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTryParseNullFails() {
-        EmailAddress.tryParse(null);
+        assertThrows(NullPointerException.class, () -> {
+            EmailAddress.tryParse(null);
+        });
     }
 
     @Test
@@ -106,7 +110,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
 
     private void invalidUserNameCharacter(final String email, final char c) {
         final int at = email.indexOf(c);
-        assertNotEquals("invalid character '" + c + "' does not appear in email=" + email, -1, at);
+        assertNotEquals(-1, at, "invalid character '" + c + "' does not appear in email=" + email);
         this.fails(email, new InvalidCharacterException(email, at).getMessage());
     }
 
@@ -187,20 +191,17 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
 
     private void fails(final String email, final String expectedMessage) {
         withFails(email, expectedMessage);
-        assertEquals(email, Optional.empty(), EmailAddress.tryParse(email));
+        assertEquals(Optional.empty(), EmailAddress.tryParse(email), email);
     }
 
-    private void withFails(final String email, final String expectedMessage) {
-        try {
+    private void withFails(final String email, final String message) {
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
             EmailAddress.with(email);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-            if (null != expectedMessage) {
-                if (false == expectedMessage.equals(expected.getMessage())) {
-                    expected.printStackTrace();
-                    TestCase.failNotEquals("message", expectedMessage, expected.getMessage());
-                }
-            }
+        });
+        expected.printStackTrace();
+
+        if(null!=message) {
+            assertEquals(message, expected.getMessage(), "message");
         }
     }
 
@@ -280,15 +281,15 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
         this.check(user, server, emailAddress);
 
         final Optional<EmailAddress> parsed = EmailAddress.tryParse(address);
-        assertNotEquals("tryParse failed", Optional.empty(), parsed);
+        assertNotEquals(Optional.empty(), parsed, "tryParse failed");
         this.check(user, server, parsed.get());
     }
 
     private void check(final String user, final String server, final EmailAddress emailAddress) {
         final String address = user + '@' + server;
-        assertEquals("address", address, emailAddress.value());
-        assertEquals("user", user, emailAddress.user());
-        assertEquals("host", server, emailAddress.host().value());
+        assertEquals(address, emailAddress.value(),"address");
+        assertEquals(user, emailAddress.user(),"user");
+        assertEquals(server, emailAddress.host().value(),"host");
     }
 
     // --- start of tests generator: DominicsayersComIsemailEmailAddressTestGenerator file: www.dominicsayers.com-isemail-tests.xml ---
@@ -483,7 +484,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test037__first_DOT_last_ATSIGN_12_DOT_34_DOT_56_DOT_78__IPv6_tag_is_missing() {
         this.checkFails("first.last@[::12.34.56.78]", "IPv6 tag is missing");
     }
@@ -697,7 +698,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test079__Doug_Ace_L_DOT__ATSIGN_iana_DOT_org__Doug_Lovell_says_this_should_fail() {
         this.checkFails("\"Doug \"Ace\" L.\"@iana.org", "Doug Lovell says this should fail");
     }
@@ -921,7 +922,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test124__testblah_ATSIGN_iana_DOT_org__Quoted_string_specifically_excludes_carriage_returns() {
         this.checkFails("\"test\rblah\"@iana.org", "Quoted string specifically excludes carriage returns");
     }
@@ -1062,7 +1063,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test152__Test_DOT__Folding_DOT__Whitespace_ATSIGN_iana_DOT_org() {
         this.check("Test.\r\n Folding.\r\n Whitespace@iana.org");
     }
@@ -1099,7 +1100,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test159__test_blah_ATSIGN_iana_DOT_org__Folding_white_space_cant_appear_within_a_quoted_pair() {
         this.checkFails("\"test\\\r\n blah\"@iana.org", "Folding white space can\'t appear within a quoted pair");
     }
@@ -1277,14 +1278,14 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test223__first_DOT_last__ATSIGN_iana_DOT_org__FWS_is_allowed_after_local_part__LEFT_PAREN_this_is_similar_to_152_but_is_the_test_proposed_by_John_Kloor_RIGHT_PAREN_() {
         this.check("first.last @iana.org",
                 "FWS is allowed after local part (this is similar to #152 but is the test proposed by John Kloor)");
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test224__test_DOT____obs_ATSIGN_syntax_DOT_com__obsfws_allows_multiple_lines__LEFT_PAREN_test_2_space_before_break_RIGHT_PAREN_() {
         this.check("test. \r\n \r\n obs@syntax.com", "obs-fws allows multiple lines (test 2: space before break)");
     }
@@ -1300,7 +1301,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test227__Unicode_NULL__ATSIGN_char_DOT_com__Cannot_have_unescaped_Unicode_Character_NULL__LEFT_PAREN_U0000_RIGHT_PAREN_() {
         this.checkFails("\"Unicode NULL \0\"@char.com", "Cannot have unescaped Unicode Character \'NULL\' (U+0000)");
     }
@@ -1561,7 +1562,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test278__test_ATSIGN_example_DOT_com__Address_has_a_newline_at_the_end() {
         this.checkFails("test@example.com", "Address has a newline at the end");
     }
@@ -1572,7 +1573,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test280__test_ATSIGN_BXcher_DOT_ch__Address_is_at_an_Internationalized_Domain_Name__LEFT_PAREN_UTF8_RIGHT_PAREN_() {
         this.check("test@B�cher.ch", "Address is at an Internationalized Domain Name (UTF-8)");
     }
@@ -1601,7 +1602,7 @@ final public class EmailAddressTest extends ClassTestCase<EmailAddress>
     private void checkFails(final String address, final String comment) {
         try {
             EmailAddress.with(address);
-            Assert.fail("Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed="
+            Assertions.fail("Invalid email " + CharSequences.quoteAndEscape(address) + " should have failed="
                     + this.makeEmptyIfNull(comment));
         } catch (final RuntimeException expected) {
         }

@@ -18,15 +18,15 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetRangeParserTokenTest extends SpreadsheetBinaryParserTokenTestCase<SpreadsheetRangeParserToken> {
 
@@ -95,13 +95,13 @@ public final class SpreadsheetRangeParserTokenTest extends SpreadsheetBinaryPars
             }
         }.accept(binary);
         assertEquals("713715287162871528428", b.toString());
-        assertEquals("visited",
-                Lists.of(binary, binary, binary,
+        assertEquals(Lists.of(binary, binary, binary,
                         left, left, left, left, left,
                         symbol, symbol, symbol, symbol, symbol,
                         right, right, right, right, right,
                         binary, binary, binary),
-                visited);
+                visited,
+                "visited");
     }
 
     @Override

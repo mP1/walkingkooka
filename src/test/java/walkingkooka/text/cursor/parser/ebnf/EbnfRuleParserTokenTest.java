@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.search.SearchNode;
@@ -25,26 +25,33 @@ import walkingkooka.tree.visit.Visiting;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfRuleParserToken> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMissingIdentifierFails() {
-        this.createToken(this.text(), assignment(), terminal1(), terminator());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), assignment(), terminal1(), terminator());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMissingIdentifierFails2() {
-        this.createToken(this.text(), terminal1(), assignment(), identifier1(), terminator());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), terminal1(), assignment(), identifier1(), terminator());
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMissingTokenFails() {
-        this.createToken(this.text(), identifier1(), assignment(), terminator());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(this.text(), identifier1(), assignment(), terminator());
+        });
     }
 
     @Test
@@ -53,14 +60,18 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
         assertNotSame(token, token.withoutCommentsSymbolsOrWhitespace().get());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueMissingIdentifierFails() {
-        this.createToken().setValue(Lists.of(assignment(), identifier1(), terminator()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(assignment(), identifier1(), terminator()));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueMissingRhsFails() {
-        this.createToken().setValue(Lists.of(terminal1(), assignment()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(terminal1(), assignment()));
+        });
     }
 
     @Test
@@ -161,14 +172,14 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
             }
         }.accept(rule);
         assertEquals("13613542138421394213842742", b.toString());
-        assertEquals("visited",
-                Lists.<Object>of(rule, rule, rule,
+        assertEquals(Lists.<Object>of(rule, rule, rule,
                         identifier, identifier, identifier, identifier, identifier,
                         assignment, assignment, assignment, assignment, assignment,
                         terminal, terminal, terminal, terminal, terminal,
                         terminator, terminator, terminator, terminator, terminator,
                         rule, rule, rule),
-                visited);
+                visited,
+                "visited");
     }
 
     @Test
@@ -178,7 +189,7 @@ public class EbnfRuleParserTokenTest extends EbnfParentParserTokenTestCase<EbnfR
                 this.identifier1().text() + "=" + this.identifier2() + ";");
         final SearchNode searchNode = token.toSearchNode();
 
-        assertEquals("text", token.text(), searchNode.text());
+        assertEquals(token.text(), searchNode.text(), "text");
     }
 
     @Override

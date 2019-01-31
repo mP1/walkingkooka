@@ -18,11 +18,13 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MediaTypeListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<MediaTypeListHeaderValueConverter, List<MediaType>> {
@@ -40,14 +42,18 @@ public final class MediaTypeListHeaderValueConverterTest extends
                 Lists.of(this.mediaType1(), this.mediaType2()));
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesNullFails() {
-        this.check(Lists.of(this.mediaType1(), null));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.mediaType1(), null));
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesWrongTypeFails() {
-        this.check(Lists.of(this.mediaType1(), "WRONG!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.mediaType1(), "WRONG!"));
+        });
     }
 
     private MediaType mediaType1() {

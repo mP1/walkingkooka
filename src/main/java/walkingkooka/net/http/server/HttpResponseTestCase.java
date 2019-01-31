@@ -18,20 +18,26 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class HttpResponseTestCase<R extends HttpResponse> extends ClassTestCase<R> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetStatusNullFails() {
-        this.createResponse().setStatus(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createResponse().setStatus(null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddEntityNullFails() {
-        this.createResponse().addEntity(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createResponse().addEntity(null);
+        });
     }
 
     protected abstract R createResponse();

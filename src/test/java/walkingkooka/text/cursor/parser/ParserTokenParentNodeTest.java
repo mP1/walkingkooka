@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -32,9 +32,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<ParserTokenParentNode> {
 
@@ -90,7 +90,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
                 STRING4);
         final ParserTokenNode child = root.children().get(1);
         final ParserTokenNode child2 = child.setChildren(children(STRING5, STRING6));
-        assertNotSame("a different node should have been returned after setting new children", child, child2);
+        assertNotSame(child, child2, "a different node should have been returned after setting new children");
 
         final ParserTokenNode parent = child2.parent().get();
         this.childrenCheck2(parent,
@@ -137,7 +137,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
         final ParserTokenNode different = node.setAttributes(attributes);
         assertNotSame(node, different);
 
-        assertEquals("attributes", attributes, different.attributes());
+        assertEquals(attributes, different.attributes(), "attributes");
         assertEquals(node.value().setText(differentText).asNode(), different);
     }
 
@@ -151,12 +151,12 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
         final ParserTokenNode differentChild = child.setAttributes(attributes);
         assertNotSame(child, differentChild);
 
-        assertEquals("attributes", attributes, differentChild.attributes());
+        assertEquals(attributes, differentChild.attributes(), "attributes");
         assertEquals(child.value().setText(differentText).asNode(), differentChild);
 
         final Optional<ParserTokenNode> maybeDifferentParent = differentChild.parent();
         final ParserTokenNode differentParent = maybeDifferentParent.get();
-        assertEquals("different parent", sequence(TEXT, STRING1.setText(differentText), STRING2), differentParent);
+        assertEquals(sequence(TEXT, STRING1.setText(differentText), STRING2), differentParent, "different parent");
     }
 
     @Test
@@ -210,7 +210,7 @@ public final class ParserTokenParentNodeTest extends ParserTokenNodeTestCase<Par
 
         int i = 0;
         for(ParserTokenNode child: node.children()) {
-            assertEquals("token for child: " + i, tokens[i], child.token);
+            assertEquals(tokens[i], child.token, "token for child: " + i);
             i++;
         }
     }

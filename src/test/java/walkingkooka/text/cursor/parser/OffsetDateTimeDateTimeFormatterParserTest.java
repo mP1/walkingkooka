@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 import java.time.OffsetDateTime;

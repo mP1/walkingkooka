@@ -17,8 +17,8 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.type.ClassAttributes;
@@ -38,12 +38,12 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Contains various tests toassert the visibility and final-ness of all methods, fields. Note this
@@ -59,14 +59,14 @@ abstract public class ClassTestCase<T> extends TestCase {
     // tests
 
     @Test
-    // not final if some tests want to @Ignore.
+    // not final if some tests want to @Disabled.
     public void testTestNaming() {
         final String type = this.type().getName();
         final String test = this.getClass().getName();
         if(!test.endsWith("Test")) {
             fail("Test name " + test + " incorrect for " + type);
         }
-        assertEquals("Test name " + test + " incorrect for " + type, test, type + "Test");
+        assertEquals(test, type + "Test", () -> "Test name " + test + " incorrect for " + type);
     }
 
     @Test
@@ -76,9 +76,9 @@ abstract public class ClassTestCase<T> extends TestCase {
                 MemberVisibility.PUBLIC :
                 this.typeVisibility();
 
-        assertEquals(type.getName() + " visibility",
-                visibility,
-                MemberVisibility.get(type));
+        assertEquals(visibility,
+                MemberVisibility.get(type),
+                type.getName() + " visibility");
     }
 
     @Test
@@ -96,7 +96,7 @@ abstract public class ClassTestCase<T> extends TestCase {
 
                 if (mustBeFinal) {
                     if (false == ClassAttributes.FINAL.is(type)) {
-                        Assert.fail("All constructors are private so class should be final="
+                        fail("All constructors are private so class should be final="
                                 + type.getName());
                     }
                 }
@@ -170,10 +170,10 @@ abstract public class ClassTestCase<T> extends TestCase {
         final String publicStaticMethodsToString = publicStaticMethods.stream()
                 .map(m -> m.toGenericString())
                 .collect(Collectors.joining(LineEnding.SYSTEM.toString()));
-        assertEquals("Expected only a single factory method called " + CharSequences.quote(factoryMethodName) +
-                " for " + type + " on " + base.getName() + " but got " + factoryMethods + "\n" + publicStaticMethodsToString,
-                1,
-                factoryMethods.size());
+        assertEquals(1,
+                factoryMethods.size(),
+                () -> "Expected only a single factory method called " + CharSequences.quote(factoryMethodName) +
+                        " for " + type + " on " + base.getName() + " but got " + factoryMethods + "\n" + publicStaticMethodsToString);
     }
 
     private static String factoryMethodNameSpecialFixup(final String name, final String suffix){
@@ -193,10 +193,13 @@ abstract public class ClassTestCase<T> extends TestCase {
         final List<Method> properties = Arrays.stream(object.getClass().getMethods())
                 .filter((m) -> this.propertiesNeverReturnNullCheckFilter(m, object))
                 .collect(Collectors.toList());
-        assertNotEquals("Found zero properties for type=" + object.getClass().getName(), 0, properties.size());
+        assertNotEquals(0,
+                properties.size(),
+                "Found zero properties for type=" + object.getClass().getName());
         for(Method method : properties) {
             method.setAccessible(true);
-            assertNotNull("null should not have been returned by " + method + " for " + object, method.invoke(object));
+            assertNotNull(method.invoke(object),
+                    () -> "null should not have been returned by " + method + " for " + object);
         }
     }
 
@@ -365,13 +368,15 @@ abstract public class ClassTestCase<T> extends TestCase {
         try {
             field = enclosingType.getDeclaredField(name);
         } catch (final Exception cause) {
-            Assert.fail("Cannot find public constant field of type " + enclosingType + " called "
+            Assertions.fail("Cannot find public constant field of type " + enclosingType + " called "
                     + name);
         }
-        assertEquals("The field " + name + " is wrong the type", fieldType, field.getType());
-        assertTrue("The field " + name + " must be static =" + field, FieldAttributes.STATIC.is(field));
-        assertSame("The field " + name + " must be public =" + field, MemberVisibility.PUBLIC, MemberVisibility.get(field));
-        assertTrue("The field " + name + " must be final=" + field, FieldAttributes.FINAL.is(field));
+
+        final Field field2 = field;
+        assertEquals(fieldType, field.getType(), "The field " + name + " is wrong the type");
+        assertTrue(FieldAttributes.STATIC.is(field), () -> "The field " + name + " must be static =" + field2);
+        assertSame(MemberVisibility.PUBLIC, MemberVisibility.get(field), () -> "The field " + name + " must be public =" + field2);
+        assertTrue(FieldAttributes.FINAL.is(field), () -> "The field " + name + " must be final=" + field2);
     }
 
     // helpers
@@ -382,7 +387,7 @@ abstract public class ClassTestCase<T> extends TestCase {
 
     @SafeVarargs
     public final void checkNaming(final Class<?>... superTypes) {
-        assertNotNull("superTypes is null", superTypes);
+        assertNotNull(superTypes, "superTypes is null");
 
         final int count = superTypes.length;
         final String[] names = new String[count];
@@ -393,7 +398,7 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     protected void checkNaming(final String... superTypes) {
-        assertNotNull("superTypes is null", superTypes);
+        assertNotNull(superTypes, "superTypes is null");
 
         final String name = this.type().getName();
 
@@ -422,18 +427,18 @@ abstract public class ClassTestCase<T> extends TestCase {
     }
 
     protected void checkNamingStartAndEnd(final Class<?> type, final String start, final String end) {
-        assertNotNull("type is null", type);
-        assertNotNull("start is null", start);
-        assertNotNull("end is null", end);
+        assertNotNull(type, "type is null");
+        assertNotNull(start, "start is null");
+        assertNotNull(end, "end is null");
 
         // Allow some FakeXXX classes dropping the Fake...this allows the Fakes to be used in some tests.
         final String name = type.getSimpleName();
         if (false == name.startsWith(start) && false == name.startsWith(Fake.class.getSimpleName() + start)) {
-            assertEquals("wrong start", name, start);
+            assertEquals(name, start, "wrong start");
         }
 
         if (false == name.endsWith(end)) {
-            assertEquals("wrong ending", name, end);
+            assertEquals(name, end, "wrong ending");
         }
     }
 }

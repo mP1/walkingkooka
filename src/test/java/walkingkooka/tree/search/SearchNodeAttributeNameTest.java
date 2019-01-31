@@ -18,30 +18,37 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SearchNodeAttributeNameTest extends ClassTestCase<SearchNodeAttributeName>
         implements NameTesting<SearchNodeAttributeName, SearchNodeAttributeName> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidInitialFails() {
-        this.createName("9abc");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createName("9abc");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPartFails() {
-        this.createName("abc123!");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createName("abc123!");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithDotDotFails() {
-        this.createName("abc..def");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createName("abc..def");
+        });
     }
 
     @Test

@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
@@ -26,25 +26,31 @@ import walkingkooka.tree.expression.ExpressionNode;
 
 import java.util.List;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class LogicalNodeSelectorTestCase<S extends LogicalNodeSelector<TestNode, StringName, StringName, Object>>
 extends NodeSelectorTestCase<S>{
 
     private final static NodeSelector<TestNode, StringName, StringName, Object> SELECTOR = new FakeNodeSelector();
+    private final static NodeSelector<TestNode, StringName, StringName, Object> SELECTOR2 = new FakeNodeSelector();
 
     LogicalNodeSelectorTestCase(){
         super();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullFirstFails() {
-        this.createSelector(null, SELECTOR);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSelector(null, SELECTOR);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullSecondFails() {
-        this.createSelector(SELECTOR, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createSelector(SELECTOR, null);
+        });
     }
 
     @Test
@@ -61,7 +67,7 @@ extends NodeSelectorTestCase<S>{
 
     @Override
     final S createSelector() {
-        return this.createSelector(SELECTOR, new FakeNodeSelector());
+        return this.createSelector(SELECTOR, SELECTOR2);
     }
 
     @SafeVarargs

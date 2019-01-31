@@ -18,9 +18,9 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class Ip6AddressTest extends IpAddressTestCase<Ip6Address> {
 

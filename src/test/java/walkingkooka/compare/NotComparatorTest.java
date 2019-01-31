@@ -17,8 +17,7 @@
 
 package walkingkooka.compare;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.Notable;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
@@ -26,8 +25,9 @@ import walkingkooka.test.SerializationTesting;
 
 import java.util.Comparator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Object>, Object>
         implements HashCodeEqualsDefinedTesting<NotComparator<Object>>,
@@ -37,11 +37,9 @@ final public class NotComparatorTest extends ComparatorTestCase<NotComparator<Ob
 
     @Test
     public void testWrapNullFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             NotComparator.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test

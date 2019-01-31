@@ -17,11 +17,11 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.LineEnding;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PlainTextWithoutTagsPrinterTest
         extends PrinterTestCase2<PlainTextWithoutTagsPrinter> {
@@ -36,11 +36,9 @@ final public class PlainTextWithoutTagsPrinterTest
 
     @Test
     public void testWrapNullPrinterFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             PlainTextWithoutTagsPrinter.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -516,7 +514,7 @@ final public class PlainTextWithoutTagsPrinterTest
 
     private void checkMode(final PlainTextWithoutTagsPrinter printer,
                            final PlainTextWithoutTagsPrinterMode mode) {
-        assertSame("mode", mode, printer.mode);
+        assertSame(mode, printer.mode, "mode");
     }
 
     @Test

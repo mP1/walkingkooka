@@ -17,14 +17,15 @@
 
 package walkingkooka.collect.iterable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 import java.util.function.BiPredicate;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class IterablesTest extends PublicStaticHelperTestCase<Iterables> {
 
@@ -33,19 +34,25 @@ final public class IterablesTest extends PublicStaticHelperTestCase<Iterables> {
     private final static String B = "b";
     private final static String C = "c";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsNullIterableFails() {
-        Iterables.equals(null, Iterables.fake(), EQUIVALENCY);
+        assertThrows(NullPointerException.class, () -> {
+            Iterables.equals(null, Iterables.fake(), EQUIVALENCY);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsNullOtherIterableFails() {
-        Iterables.equals(Iterables.fake(), null, EQUIVALENCY);
+        assertThrows(NullPointerException.class, () -> {
+            Iterables.equals(Iterables.fake(), null, EQUIVALENCY);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsNullEquivalenceFunctionFails() {
-        Iterables.equals(Iterables.fake(), Iterables.fake(), null);
+        assertThrows(NullPointerException.class, () -> {
+            Iterables.equals(Iterables.fake(), Iterables.fake(), null);
+        });
     }
 
     @Test
@@ -101,7 +108,7 @@ final public class IterablesTest extends PublicStaticHelperTestCase<Iterables> {
     }
 
     private void equalsAndCheck0(final Iterable<String> iterable, final Iterable<String> other, final boolean equals) {
-        assertEquals(iterable + " AND " + other, equals, Iterables.equals(iterable, other, EQUIVALENCY));
+        assertEquals(equals, Iterables.equals(iterable, other, EQUIVALENCY), iterable + " AND " + other);
     }
 
     @Override

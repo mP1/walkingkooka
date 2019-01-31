@@ -17,10 +17,10 @@
 
 package walkingkooka.collect.iterator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final public class EmptyIteratorTest extends IteratorTestCase<EmptyIterator<Void>, Void> {
 

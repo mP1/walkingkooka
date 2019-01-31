@@ -18,15 +18,12 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Ignore;
-import org.junit.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 public final class FakeExpressionNodeVisitorTest extends ClassTestCase<FakeExpressionNodeVisitor> {
 
-    @Test
-    @Ignore
+    @Override
     public void testAllConstructorsVisibility() throws Exception {
         // nop
     }

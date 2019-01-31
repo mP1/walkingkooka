@@ -18,11 +18,13 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursors;
 
 import java.time.format.DateTimeFormatter;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatterParser<T, FakeParserContext>,
         T extends ParserToken>
@@ -33,19 +35,25 @@ public abstract class DateTimeFormatterParserTestCase<P extends DateTimeFormatte
         this.checkNaming(DateTimeFormatter.class.getSimpleName() + Parser.class.getSimpleName());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFormatterFails() {
-        this.createParser(null, this.pattern());
+        assertThrows(NullPointerException.class, () -> {
+            this.createParser(null, this.pattern());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPatternFails() {
-        this.createParser(this.formatter(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createParser(this.formatter(), null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyPatternFails() {
-        this.createParser(this.formatter(), "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createParser(this.formatter(), "");
+        });
     }
 
     final protected P createParser() {

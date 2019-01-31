@@ -18,15 +18,15 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorParentParserTokenTestCase<NodeSelectorPredicateParserToken> {
 
@@ -36,7 +36,7 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
     public void testWithoutSymbols() {
         final NodeSelectorPredicateParserToken predicate = this.createToken();
         final NodeSelectorPredicateParserToken without = predicate.withoutSymbols().get().cast();
-        assertEquals("value", predicate.value(), without.value());
+        assertEquals(predicate.value(), without.value(), "value");
     }
 
     @Test
@@ -149,8 +149,7 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
             }
         }.accept(predicate);
         assertEquals("13151721821921A21B21C21D26242", b.toString());
-        assertEquals("visited",
-                Lists.<Object>of(predicate, predicate,
+        assertEquals(Lists.<Object>of(predicate, predicate,
                         function, function,
                         functionName, functionName, functionName,
                         parenOpen, parenOpen, parenOpen,
@@ -161,7 +160,8 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
                         parenClose, parenClose, parenClose,
                         function, function,
                         predicate, predicate),
-                visited);
+                visited,
+                "visited");
     }
 
     @Override

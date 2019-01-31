@@ -18,15 +18,15 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorParentParserTokenTestCase<NodeSelectorExpressionParserToken> {
 
@@ -78,18 +78,18 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
             }
         }.accept(expression);
         assertEquals("1315242", b.toString());
-        assertEquals("visited",
-                Lists.of(expression, expression,
-                        wildcard, wildcard, wildcard,
-                        expression, expression),
-                visited);
+        assertEquals(Lists.of(expression, expression,
+                wildcard, wildcard, wildcard,
+                expression, expression),
+                visited,
+                "visited");
     }
 
     @Test
     public void testWithoutSymbolsExpressionWhitespace() {
         final NodeSelectorExpressionParserToken expression = this.createToken();
         final NodeSelectorExpressionParserToken without = expression.withoutSymbols().get().cast();
-        assertEquals("value", Lists.of(wildcard()), without.value());
+        assertEquals(Lists.of(wildcard()), without.value(), "value");
     }
 
     @Override

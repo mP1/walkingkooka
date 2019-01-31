@@ -17,26 +17,24 @@
 
 package walkingkooka.collect.set;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SetsTest extends PublicStaticHelperTestCase<Sets> {
 
     // tests
 
     @Test
-    public void testAsNullFails() {
-        try {
+    public void testOfNullFails() {
+        assertThrows(NullPointerException.class, () -> {
             Sets.of((Object[]) null);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        });
     }
 
     @Test

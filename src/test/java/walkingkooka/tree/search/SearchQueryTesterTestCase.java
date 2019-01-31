@@ -18,8 +18,7 @@
 
 package walkingkooka.tree.search;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.type.MemberVisibility;
@@ -29,12 +28,6 @@ public abstract class SearchQueryTesterTestCase<T extends SearchQueryTester<V>, 
 
     SearchQueryTesterTestCase() {
         super();
-    }
-
-    @Test
-    @Ignore
-    public final void testHashCodeAndEqualsInPairs() {
-        throw new UnsupportedOperationException();
     }
 
     @Test

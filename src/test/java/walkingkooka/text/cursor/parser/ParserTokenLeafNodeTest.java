@@ -16,15 +16,16 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<ParserTokenLeafNode>{
 
@@ -32,22 +33,26 @@ public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<Parse
 
     @Test
     public void testChildren() {
-        assertEquals("no children", Lists.empty(), this.createParserTokenNode().children());
+        assertEquals(Lists.empty(), this.createParserTokenNode().children(), "no children");
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testSetChildrenFails() {
-        this.createParserTokenNode().setChildren(Lists.empty());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createParserTokenNode().setChildren(Lists.empty());
+        });
     }
 
     @Test
     public void testChildrenValues() {
-        assertEquals("no children values", Lists.empty(), this.createParserTokenNode().childrenValues());
+        assertEquals(Lists.empty(), this.createParserTokenNode().childrenValues(), "no children values");
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testSetChildrenValuesFails() {
-        this.createParserTokenNode().setChildrenValues(Lists.empty());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createParserTokenNode().setChildrenValues(Lists.empty());
+        });
     }
 
     @Test
@@ -64,7 +69,7 @@ public final class ParserTokenLeafNodeTest extends ParserTokenNodeTestCase<Parse
         final ParserTokenNode different = node.setAttributes(attributes);
         assertNotSame(node, different);
 
-        assertEquals("attributes", attributes, different.attributes());
+        assertEquals(attributes, different.attributes(), "attributes");
         assertEquals(node.value().setText(differentText).asNode(), different);
     }
 

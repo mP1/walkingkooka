@@ -19,7 +19,7 @@ package walkingkooka.math;
 
 import walkingkooka.ContextTestCase;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class DecimalNumberContextTestCase<C extends DecimalNumberContext> extends ContextTestCase<C> {
 
@@ -29,30 +29,30 @@ public abstract class DecimalNumberContextTestCase<C extends DecimalNumberContex
     }
 
     protected void checkCurrencySymbol(final DecimalNumberContext context, final String currencySymbol) {
-        assertEquals("currencySymbol", currencySymbol, context.currencySymbol());
+        assertEquals(currencySymbol, context.currencySymbol(), "currencySymbol");
     }
 
     protected void checkDecimalPoint(final DecimalNumberContext context, final char decimalPoint) {
-        assertEquals("decimalPoint", decimalPoint, context.decimalPoint());
+        assertEquals(decimalPoint, context.decimalPoint(), "decimalPoint");
     }
 
     protected void checkExponentSymbol(final DecimalNumberContext context, final char exponentSymbol) {
-        assertEquals("exponentSymbol", exponentSymbol, context.exponentSymbol());
+        assertEquals(exponentSymbol, context.exponentSymbol(), "exponentSymbol");
     }
 
     protected void checkGroupingSeparator(final DecimalNumberContext context, final char groupingSeparator) {
-        assertEquals("groupingSeparator", groupingSeparator, context.groupingSeparator());
+        assertEquals(groupingSeparator, context.groupingSeparator(), "groupingSeparator");
     }
 
     protected void checkMinusSign(final DecimalNumberContext context, final char minusSign) {
-        assertEquals("minusSign", minusSign, context.minusSign());
+        assertEquals(minusSign, context.minusSign(), "minusSign");
     }
     
     protected void checkPercentageSymbol(final DecimalNumberContext context, final char percentageSymbol) {
-        assertEquals("percentageSymbol", percentageSymbol, context.percentageSymbol());
+        assertEquals(percentageSymbol, context.percentageSymbol(), "percentageSymbol");
     }
     
     protected void checkPlusSign(final DecimalNumberContext context, final char plusSign) {
-        assertEquals("plusSign", plusSign, context.plusSign());
+        assertEquals(plusSign, context.plusSign(), "plusSign");
     }
 }

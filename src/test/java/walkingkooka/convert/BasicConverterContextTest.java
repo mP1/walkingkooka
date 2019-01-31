@@ -18,10 +18,11 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicConverterContextTest extends ConverterContextTestCase<BasicConverterContext> {
 
@@ -33,9 +34,11 @@ public final class BasicConverterContextTest extends ConverterContextTestCase<Ba
     private final static char PERCENTAGE = 'R';
     private final static char PLUS = 'P';
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullBasicFails() {
-        BasicConverterContext.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            BasicConverterContext.with(null);
+        });
     }
 
     @Test

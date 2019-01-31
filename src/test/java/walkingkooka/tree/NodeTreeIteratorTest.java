@@ -18,19 +18,20 @@
 
 package walkingkooka.tree;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.iterator.IteratorTestCase;
 import walkingkooka.naming.StringName;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterator<TestNode, StringName, StringName, Object>, TestNode> {
 
-    @Before
+    @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
     }
@@ -140,11 +141,13 @@ public final class NodeTreeIteratorTest extends IteratorTestCase<NodeTreeIterato
         this.iterateUsingHasNextAndCheck(child1.treeIterator(), child1, grandChild1);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRemoveFails() {
         final Iterator<TestNode> iterator = this.createIterator();
         iterator.next();
-        iterator.remove();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            iterator.remove();
+        });
     }
 
     @Test

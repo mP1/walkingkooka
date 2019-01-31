@@ -18,8 +18,8 @@
 
 package walkingkooka.net;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
@@ -30,8 +30,7 @@ public final class UrlParameterNameTest extends ClassTestCase<UrlParameterName>
         implements NameTesting<UrlParameterName, UrlParameterName>,
         SerializationTesting<UrlParameterName> {
 
-    @Test
-    @Ignore
+    @Override
     public void testEmptyFails() {
         throw new UnsupportedOperationException();
     }

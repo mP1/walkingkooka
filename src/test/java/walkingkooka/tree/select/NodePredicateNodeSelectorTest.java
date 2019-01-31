@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
@@ -26,7 +26,8 @@ import walkingkooka.tree.TestNode;
 
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class NodePredicateNodeSelectorTest extends
@@ -36,9 +37,11 @@ final public class NodePredicateNodeSelectorTest extends
 
     private final static Predicate<TestNode> PREDICATE = (n)-> n.name().value().equals("self");
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPredicateFails() {
-        NodePredicateNodeSelector.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            NodePredicateNodeSelector.with(null);
+        });
     }
 
     @Test

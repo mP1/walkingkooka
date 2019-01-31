@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting;
 import walkingkooka.compare.LowerOrUpperTesting;
 import walkingkooka.test.ClassTestCase;
@@ -26,9 +26,10 @@ import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends SpreadsheetColumnOrRowReference<V>> extends ClassTestCase<V>
         implements ComparableTesting<V>,
@@ -38,19 +39,25 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     final static int VALUE = 123;
     final static SpreadsheetReferenceKind REFERENCE_KIND = SpreadsheetReferenceKind.ABSOLUTE;
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithNegativeValueFails() {
-        this.createReference(-1, SpreadsheetReferenceKind.RELATIVE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createReference(-1, SpreadsheetReferenceKind.RELATIVE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithInvalidValueFails() {
-        this.createReference(this.maxValue(), SpreadsheetReferenceKind.RELATIVE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createReference(this.maxValue(), SpreadsheetReferenceKind.RELATIVE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullKindFails() {
-        this.createReference(0, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createReference(0, null);
+        });
     }
 
     @Test
@@ -91,9 +98,11 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
         assertNotSame(value,this.createReference(value));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testSetValueInvalidFails() {
-        this.createReference().setValue(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createReference().setValue(-1);
+        });
     }
 
     @Test
@@ -206,15 +215,15 @@ public abstract class SpreadsheetColumnOrRowReferenceTestCase<V extends Spreadsh
     abstract V createReference(final int value, final SpreadsheetReferenceKind kind);
 
     private void checkValue(final SpreadsheetColumnOrRowReference<?> reference, final Integer value) {
-        assertEquals("value", value, reference.value());
+        assertEquals(value, reference.value(), "value");
     }
 
     private void checkKind(final SpreadsheetColumnOrRowReference<?> reference, final SpreadsheetReferenceKind kind) {
-        assertSame("referenceKind", kind, reference.referenceKind());
+        assertSame(kind, reference.referenceKind(), "referenceKind");
     }
 
     private void checkType(final SpreadsheetColumnOrRowReference<?> reference) {
-        assertEquals("same type", this.type(), reference.getClass());
+        assertEquals(this.type(), reference.getClass(), "same type");
     }
 
     final void checkToString(final int value, final SpreadsheetReferenceKind kind, final String toString) {

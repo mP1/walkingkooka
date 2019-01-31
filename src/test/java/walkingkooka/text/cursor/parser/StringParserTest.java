@@ -16,13 +16,14 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringParserTest extends ParserTemplateTestCase<StringParser<ParserContext>, StringParserToken>
         implements HashCodeEqualsDefinedTesting<StringParser<ParserContext>> {
@@ -30,19 +31,25 @@ public class StringParserTest extends ParserTemplateTestCase<StringParser<Parser
     private final static String STRING = "abcd";
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullStringFails() {
-        StringParser.with(null, CASE_SENSITIVITY);
+        assertThrows(NullPointerException.class, () -> {
+            StringParser.with(null, CASE_SENSITIVITY);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyStringFails() {
-        StringParser.with("", CASE_SENSITIVITY);
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringParser.with("", CASE_SENSITIVITY);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCaseSensitivityFails() {
-        StringParser.with(STRING, null);
+        assertThrows(NullPointerException.class, () -> {
+            StringParser.with(STRING, null);
+        });
     }
 
     @Test

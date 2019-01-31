@@ -18,21 +18,26 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class FailConverterTest extends ConverterTestCase<FailConverter<String, Integer>>{
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSourceTypeFails() {
-        FailConverter.with(null, Integer.class);
+        assertThrows(NullPointerException.class, () -> {
+            FailConverter.with(null, Integer.class);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTargetTypeFails() {
-        FailConverter.with(String.class, null);
+        assertThrows(NullPointerException.class, () -> {
+            FailConverter.with(String.class, null);
+        });
     }
 
     @Test

@@ -18,25 +18,30 @@
 
 package walkingkooka.routing;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RouterBuilderTest extends BuilderTestCase<RouterBuilder<StringName, String>, Router<StringName, String>> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddNullRouteFails() {
-        this.createBuilder().add(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().add(null);
+        });
     }
 
-    @Test(expected = BuilderException.class)
+    @Test
     public void testEmptyBuilderFails() {
-        this.createBuilder().build();
+        assertThrows(BuilderException.class, () -> {
+            this.createBuilder().build();
+        });
     }
 
     @Test

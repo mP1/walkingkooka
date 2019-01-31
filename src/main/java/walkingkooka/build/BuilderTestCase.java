@@ -17,17 +17,18 @@
 
 package walkingkooka.build;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Objects;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for any {@link Builder} which includes helpers that assert failure if {@link
@@ -42,7 +43,9 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     @Test
     public final void testBuilderProductTypePublic() {
         final Class<T> type = this.builderProductType();
-        assertEquals("Builder product type " + type.getName() + " is not public", MemberVisibility.PUBLIC, MemberVisibility.get(type));
+        assertEquals(MemberVisibility.PUBLIC,
+                MemberVisibility.get(type),
+                "Builder product type " + type.getName() + " is not public");
     }
 
     @Test
@@ -52,11 +55,11 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     }
 
     protected void buildAndCheck(final Builder<T> builder, final T product) {
-        assertEquals(builder.toString(), product, builder.build());
+        assertEquals(product, builder.build(), builder.toString());
     }
 
     protected void buildAndCheck2(final Builder<?> builder, final String productToString) {
-        assertEquals(builder.toString(), productToString, builder.build().toString());
+        assertEquals(productToString, builder.build().toString(), () -> builder.toString());
     }
 
     protected void buildFails() {
@@ -68,14 +71,13 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
     }
 
     protected void buildFails(final Builder<?> builder, final String message) {
-        assertNotNull("builder is null", builder);
+        Objects.requireNonNull(builder, "builder");
 
-        try {
+        final BuilderException expected = assertThrows(BuilderException.class, () -> {
             builder.build();
-        } catch (final BuilderException expected) {
-            if (null != message) {
-                assertEquals("message", message, expected.getMessage());
-            }
+        });
+        if (null != message) {
+            assertEquals("message", message, expected.getMessage());
         }
     }
 
@@ -84,37 +86,38 @@ abstract public class BuilderTestCase<B extends Builder<T>, T> extends BuilderLi
         this.buildFails(this.createBuilder(), message);
     }
 
-    final protected void buildMissingFails(final String firstRequired, final String... requireds) {
+    final protected void buildMissingFails(final String firstRequired,
+                                           final String... requireds) {
         this.buildMissingFails(this.createBuilder(), firstRequired, requireds);
     }
 
-    final protected void buildMissingFails(final Builder<?> builder, final String firstRequired,
+    final protected void buildMissingFails(final Builder<?> builder,
+                                           final String firstRequired,
                                            final String... requireds) {
-        assertNotNull("builder is null", builder);
-        assertNotNull("required is null", firstRequired);
+        Objects.requireNonNull(builder, "builder");
+        Objects.requireNonNull(firstRequired, "firstRequired");
 
-        try {
+        final BuilderException expected = assertThrows(BuilderException.class, () -> {
             builder.build();
-            Assert.fail();
-        } catch (final BuilderException expected) {
-            final String message = expected.getMessage();
-            final Set<String> wrong = Sets.ordered();
+        });
 
-            if (false == message.contains(firstRequired)) {
-                wrong.add(firstRequired);
-            }
-            for (final String required : requireds) {
-                if (false == message.contains(required)) {
-                    wrong.add(required);
-                }
-            }
+        final String message = expected.getMessage();
+        final Set<String> wrong = Sets.ordered();
 
-            if (false == wrong.isEmpty()) {
-                final Set<String> all = Sets.ordered();
-                all.add(firstRequired);
-                all.addAll(Lists.of(requireds));
-                assertEquals("Builder message missing properties", message, all.toString());
+        if (false == message.contains(firstRequired)) {
+            wrong.add(firstRequired);
+        }
+        for (final String required : requireds) {
+            if (false == message.contains(required)) {
+                wrong.add(required);
             }
+        }
+
+        if (false == wrong.isEmpty()) {
+            final Set<String> all = Sets.ordered();
+            all.add(firstRequired);
+            all.addAll(Lists.of(requireds));
+            assertEquals("Builder message missing properties", message, all.toString());
         }
     }
 

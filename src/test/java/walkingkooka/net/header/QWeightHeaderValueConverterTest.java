@@ -18,7 +18,9 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class QWeightHeaderValueConverterTest extends
         HeaderValueConverterTestCase<QWeightHeaderValueConverter, Float> {
@@ -28,14 +30,18 @@ public final class QWeightHeaderValueConverterTest extends
         return "QWeight";
     }
 
-    @Test(expected = HeaderValueException.class)
-    public void testNegativeFails() {
-        this.parse("-0.1");
+    @Test
+    public void testParseNegativeFails() {
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("-0.1");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testMoreThanOneFails() {
-        this.parse("1.01");
+        assertThrows(HeaderValueException.class, () -> {
+            this.parse("1.01");
+        });
     }
 
     @Test

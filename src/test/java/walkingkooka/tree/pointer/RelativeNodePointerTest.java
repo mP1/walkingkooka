@@ -18,21 +18,24 @@
 
 package walkingkooka.tree.pointer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RelativeNodePointerTest extends ClassTestCase<RelativeNodePointer<?, ?, ?, ?>> {
 
     private final static boolean NO_HASH = false;
     private final static boolean HASH = !NO_HASH;
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithNegativeFails() {
-        RelativeNodePointer.with(-1, NO_HASH);
+        assertThrows(IllegalArgumentException.class, () -> {
+            RelativeNodePointer.with(-1, NO_HASH);
+        });
     }
 
     @Test
@@ -52,7 +55,7 @@ public final class RelativeNodePointerTest extends ClassTestCase<RelativeNodePoi
 
     private void createAndCheck(final int ancestorCount) {
         final RelativeNodePointer<?, ?, ?, ?> pointer = RelativeNodePointer.with(ancestorCount, NO_HASH);
-        assertEquals("ancestorCount", ancestorCount, pointer.ancestorCount);
+        assertEquals(ancestorCount, pointer.ancestorCount, "ancestorCount");
     }
 
     @Test

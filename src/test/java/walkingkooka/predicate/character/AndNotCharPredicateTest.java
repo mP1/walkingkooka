@@ -16,11 +16,11 @@
  */
 package walkingkooka.predicate.character;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AndNotCharPredicateTest extends LogicalCharPredicateTestCase<AndNotCharPredicate> {
 

@@ -18,8 +18,7 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConversionException;
@@ -48,10 +47,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends NodeTestCase2<ExpressionNode, ExpressionNodeName, Name, Object> {
 
@@ -60,8 +59,7 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         this.publicStaticFactoryCheck(ExpressionNode.class, "Expression", Node.class);
     }
 
-    @Test
-    @Ignore
+    @Override
     public final void testSetSameAttributes() {
         // Ignored
     }
@@ -73,8 +71,8 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
 
         final N node = this.createExpressionNode();
         final String name = node.getClass().getSimpleName();
-        assertEquals(name + " starts with " + prefix, true, name.startsWith(prefix));
-        assertEquals(name + " ends with " + suffix, true, name.endsWith(suffix));
+        assertEquals(true, name.startsWith(prefix), name + " starts with " + prefix);
+        assertEquals(true, name.endsWith(suffix), name + " ends with " + suffix);
 
         final String isMethodName = "is" + CharSequences.capitalize(name.substring(prefix.length(), name.length() - suffix.length()));
 
@@ -89,9 +87,9 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
             if(!methodName.startsWith("is")) {
                 continue;
             }
-            assertEquals(method + " returned",
-                    methodName.equals(isMethodName),
-                    method.invoke(node));
+            assertEquals(methodName.equals(isMethodName),
+                    method.invoke(node),
+                    method + " returned");
         }
     }
 
@@ -112,10 +110,10 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
     @Override
     protected ExpressionNode appendChildAndCheck(final ExpressionNode parent, final ExpressionNode child) {
         final N newParent = parent.appendChild(child).cast();
-        assertNotSame("appendChild must not return the same node", newParent, parent);
+        assertNotSame(newParent, parent, "appendChild must not return the same node");
 
         final List<N> children = Cast.to(newParent.children());
-        assertNotEquals("children must have at least 1 child", 0, children.size());
+        assertNotEquals(0, children.size(), "children must have at least 1 child");
         //assertEquals("last child must be the added child", child.name(), children.get(children.size() - 1).name());
 
         this.checkParentOfChildren(newParent);
@@ -341,14 +339,14 @@ public abstract class ExpressionNodeTestCase<N extends ExpressionNode> extends N
         if(expected instanceof Comparable && value instanceof Comparable) {
             this.checkEquals("toValue of " + node + " failed", Cast.to(expected), Cast.to(value));
         } else {
-            assertEquals("toValue of " + node + " failed", expected, value);
+            assertEquals(expected, value, () -> "toValue of " + node + " failed");
         }
     }
 
     private <T extends Comparable<T>> void checkEquals(final String message, final T expected, final T actual) {
         // necessary because BigDecimals of different precisions (extra zeros) will not be equal.
         if(expected.getClass()!=actual.getClass() || 0!=expected.compareTo(actual)){
-            assertEquals(message, expected, actual);
+            assertEquals(expected, actual, message);
         }
     }
 

@@ -16,15 +16,16 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.search.SearchNode;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SequenceParserTokenTest extends RepeatedOrSequenceParserTokenTestCase<SequenceParserToken> {
 
@@ -62,14 +63,18 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     // required...............................................................................................
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testRequiredInvalidIndexFails() {
-        this.createToken().required(999, StringParserToken.class);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            this.createToken().required(999, StringParserToken.class);
+        });
     }
 
-    @Test(expected = ClassCastException.class)
+    @Test
     public void testRequiredInvalidTypeFails() {
-        this.createToken().required(0, BigIntegerParserToken.class);
+        assertThrows(ClassCastException.class, () -> {
+            this.createToken().required(0, BigIntegerParserToken.class);
+        });
     }
 
     @Test
@@ -84,9 +89,9 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
 
     private void requiredAndGet(final int index, final ParserToken result) {
         final SequenceParserToken sequence = this.createToken();
-        assertEquals("failed to get required " + index + " from " + sequence,
-                result,
-                sequence.required(index, StringParserToken.class));
+        assertEquals(result,
+                sequence.required(index, StringParserToken.class),
+                "failed to get required " + index + " from " + sequence);
     }
 
     // removeNoise...........................................................................................................
@@ -102,7 +107,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
         final SequenceParserToken token = createToken(STRING1, STRING2, NOISY3);
         final SequenceParserToken different = token.removeNoise();
 
-        assertEquals("value", Lists.of(STRING1, STRING2), different.value());
+        assertEquals(Lists.of(STRING1, STRING2), different.value(), "value");
         assertSame(different, different.removeNoise());
     }
 
@@ -111,7 +116,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
         final SequenceParserToken token = createToken(STRING1, STRING2, NOISY3, WHITESPACE);
         final SequenceParserToken different = token.removeNoise();
 
-        assertEquals("value", Lists.of(STRING1, STRING2, WHITESPACE), different.value());
+        assertEquals(Lists.of(STRING1, STRING2, WHITESPACE), different.value(), "value");
         assertSame(different, different.removeNoise());
     }
 
@@ -128,7 +133,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
         final SequenceParserToken token = createToken(STRING1, STRING2, WHITESPACE);
         final SequenceParserToken different = token.removeWhitespace();
 
-        assertEquals("value", Lists.of(STRING1, STRING2), different.value());
+        assertEquals(Lists.of(STRING1, STRING2), different.value(), "value");
         assertSame(different, different.removeWhitespace());
     }
 
@@ -137,7 +142,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
         final SequenceParserToken token = createToken(STRING1, STRING2, NOISY3, WHITESPACE);
         final SequenceParserToken different = token.removeWhitespace();
 
-        assertEquals("value", Lists.of(STRING1, STRING2, NOISY3), different.value());
+        assertEquals(Lists.of(STRING1, STRING2, NOISY3), different.value(), "value");
         assertSame(different, different.removeWhitespace());
     }
     
@@ -186,8 +191,9 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
             }
         }.accept(token);
         assertEquals("1316216242", b.toString());
-        assertEquals("visited tokens",
-                Lists.<Object>of(token, token, STRING1, STRING1, STRING1, STRING2, STRING2, STRING2, token, token), visited);
+        assertEquals(Lists.<Object>of(token, token, STRING1, STRING1, STRING1, STRING2, STRING2, STRING2, token, token),
+                visited,
+                "visited tokens");
     }
 
     @Test
@@ -227,7 +233,7 @@ public final class SequenceParserTokenTest extends RepeatedOrSequenceParserToken
             }
         }.accept(token);
         assertEquals("1342", b.toString());
-        assertEquals("visited tokens", Lists.of(token, token, token, token), visited);
+        assertEquals(Lists.of(token, token, token, token), visited, "visited tokens");
     }
 
     @Override

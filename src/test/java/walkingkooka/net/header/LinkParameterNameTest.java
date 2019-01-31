@@ -18,23 +18,26 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LinkParameterNameTest extends HeaderParameterNameTestCase<LinkParameterName<?>,
         LinkParameterName<?>> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithIncludesWhitespaceFails() {
-        LinkParameterName.with("paramet er");
+        assertThrows(IllegalArgumentException.class, () -> {
+            LinkParameterName.with("paramet er");
+        });
     }
 
     @Test

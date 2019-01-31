@@ -19,36 +19,45 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ContentDispositionParameterNameTest extends HeaderParameterNameTestCase<ContentDispositionParameterName<?>,
         ContentDispositionParameterName<?>> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testControlCharacterFails() {
-        ContentDispositionParameterName.with("parameter\u0001;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionParameterName.with("parameter\u0001;");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSpaceFails() {
-        ContentDispositionParameterName.with("parameter ");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionParameterName.with("parameter ");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTabFails() {
-        ContentDispositionParameterName.with("parameter\t");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionParameterName.with("parameter\t");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNonAsciiFails() {
-        ContentDispositionParameterName.with("parameter\u0100;");
+        assertThrows(IllegalArgumentException.class, () -> {
+            ContentDispositionParameterName.with("parameter\u0100;");
+        });
     }
 
     @Test

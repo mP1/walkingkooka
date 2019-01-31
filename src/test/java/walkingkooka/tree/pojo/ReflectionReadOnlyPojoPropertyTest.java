@@ -17,9 +17,10 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ReflectionReadOnlyPojoPropertyTest extends PojoPropertyTestCase<ReflectionReadOnlyPojoProperty> {
 
@@ -41,9 +42,11 @@ public final class ReflectionReadOnlyPojoPropertyTest extends PojoPropertyTestCa
         this.createPojoProperty().set(new TestBean(), STRING);
     }
 
-    @Test(expected = ReflectionPojoException.class)
+    @Test
     public void testSetDifferent() {
-        this.createPojoProperty().set(new TestBean(), "different");
+        assertThrows(ReflectionPojoException.class, () -> {
+            this.createPojoProperty().set(new TestBean(), "different");
+        });
     }
 
     @Test

@@ -17,21 +17,19 @@
 
 package walkingkooka.util.variable;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NonNullVariableTest extends VariableTestCase<NonNullVariable<Object>, Object> {
 
     @Test
     public void testWrapNullFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             NonNullVariable.wrap(null);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        });
     }
 
     @Override
@@ -56,11 +54,9 @@ final public class NonNullVariableTest extends VariableTestCase<NonNullVariable<
     @Test
     public void testReplaceWithNullFails() {
         final NonNullVariable<Object> variable = NonNullVariable.wrap(Variables.fake());
-        try {
+        assertThrows(NullPointerException.class, () -> {
             variable.set(null);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        });
     }
 
     @Test

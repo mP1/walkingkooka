@@ -17,7 +17,7 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.cursor.TextCursor;
@@ -25,7 +25,7 @@ import walkingkooka.text.cursor.TextCursor;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class BigDecimalParserTest extends ParserTemplateTestCase<BigDecimalParser<ParserContext>, BigDecimalParserToken> {
 

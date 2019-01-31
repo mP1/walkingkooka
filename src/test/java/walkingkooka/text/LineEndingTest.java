@@ -17,14 +17,14 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class LineEndingTest extends CharSequenceTestCase<LineEnding>
         implements SerializationTesting<LineEnding> {
@@ -56,20 +56,16 @@ final public class LineEndingTest extends CharSequenceTestCase<LineEnding>
 
     @Test
     public void testFromNullFails() {
-        this.fromFails(null);
+        assertThrows(NullPointerException.class, () -> {
+            LineEnding.from(null);
+        });
     }
 
     @Test
     public void testFromUnknownFails() {
-        this.fromFails("UNKNOWN LINE ENDING");
-    }
-
-    private void fromFails(final String lineEnding) {
-        try {
-            LineEnding.from(lineEnding);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            LineEnding.from("UNKNOWN LINE ENDING");
+        });
     }
 
     @Test

@@ -17,7 +17,7 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.test.ClassTestCase;
@@ -27,18 +27,22 @@ import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.type.MemberVisibility;
 
+import java.util.Objects;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserToken, C extends ParserContext> extends ClassTestCase<P> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testNullCursorFail() {
-        this.createParser().parse(null, this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.createParser().parse(null, this.createContext());
+        });
     }
 
     protected abstract P createParser();
@@ -86,8 +90,8 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
     }
 
     protected final <TT extends ParserToken> TextCursor parseAndCheck(final Parser <TT, C> parser, final C context, final TextCursor cursor, final Optional<TT> token, final String text, final String textAfter) {
-        assertNotNull("token", token);
-        assertNotNull("text", text);
+        Objects.requireNonNull(token, "token");
+        Objects.requireNonNull(text, "text");
 
         final TextCursorSavePoint before = cursor.save();
         final Optional<TT> result = this.parse(parser, cursor, context);
@@ -104,13 +108,14 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
 
         final String textRemaining = after.textBetween().toString();
         if(!token.equals(result)){
-            assertEquals("Incorrect result returned by parser: " + parser + "\ntext:\n" + CharSequences.quoteAndEscape(all) + "\nunconsumed text:\n" + textRemaining,
-                    this.toString(token),
-                    this.toString(result));
+            final CharSequence all2 = all;
+            assertEquals(this.toString(token),
+                    this.toString(result),
+                    () -> "Incorrect result returned by parser: " + parser + "\ntext:\n" + CharSequences.quoteAndEscape(all2) + "\nunconsumed text:\n" + textRemaining);
         }
-        assertEquals("incorrect consumed text", consumed, text);
-        assertEquals("token consume text is incorrect", text, result.isPresent() ? result.get().text() : "");
-        assertEquals("Incorrect text after match", textAfter, textRemaining);
+        assertEquals(consumed, text, "incorrect consumed text");
+        assertEquals(text, result.isPresent() ? result.get().text() : "", "token consume text is incorrect");
+        assertEquals(textAfter, textRemaining, "Incorrect text after match");
 
         after.restore();
         return cursor;
@@ -145,9 +150,9 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
     protected final TextCursor parseFailAndCheck(final Parser <T, C> parser, final C context, final TextCursor cursor) {
         final TextCursorSavePoint before = cursor.save();
         final Optional<T> result = this.parse(parser, cursor, context);
-        assertEquals("Incorrect result returned by " + parser + " from text " + CharSequences.quoteAndEscape(before.textBetween()),
-                Optional.<T>empty(),
-                result);
+        assertEquals(Optional.<T>empty(),
+                result,
+                "Incorrect result returned by " + parser + " from text " + CharSequences.quoteAndEscape(before.textBetween()));
         return cursor;
     }
 
@@ -223,17 +228,17 @@ public abstract class ParserTestCase<P extends Parser<T, C>, T extends ParserTok
                  "\n" + this.toString(result));
         } catch (final ParserException cause){
             final String message = cause.getMessage();
-            assertTrue("Message: " + message + " missing " + messagePart, message.contains(messagePart));
+            assertTrue(message.contains(messagePart), () -> "Message: " + message + " missing " + messagePart);
         }
     }
 
     protected final <TT extends ParserToken> Optional<TT> parse(final Parser <TT, C> parser, final TextCursor cursor, final C context) {
-        assertNotNull("parser", parser);
-        assertNotNull("context", context);
-        assertNotNull("cursor", cursor);
+        Objects.requireNonNull(parser, "parser");
+        Objects.requireNonNull(context, "context");
+        Objects.requireNonNull(cursor, "cursor");
 
         final Optional<TT> result = parser.parse(cursor, context);
-        assertNotNull("parser returned null result", result);
+        assertNotNull(result, () -> "parser " + parser + " returned null result");
         return result;
     }
 

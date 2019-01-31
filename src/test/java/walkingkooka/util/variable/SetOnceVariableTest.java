@@ -18,21 +18,19 @@
 package walkingkooka.util.variable;
 
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SetOnceVariableTest extends VariableTestCase<SetOnceVariable<Object>, Object> {
 
     @Test
     public void testWrapNullVariableFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             SetOnceVariable.wrap(null);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        });
     }
 
     @Override
@@ -65,11 +63,10 @@ final public class SetOnceVariableTest extends VariableTestCase<SetOnceVariable<
         final SetOnceVariable<Object> variable = SetOnceVariable.wrap(wrapped);
         variable.set(value);
 
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             variable.set("**lost**");
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
+
         assertSame(value, wrapped.get());
     }
 
@@ -86,11 +83,9 @@ final public class SetOnceVariableTest extends VariableTestCase<SetOnceVariable<
         final SetOnceVariable<Object> variable = SetOnceVariable.wrap(wrapped);
         variable.set(value);
 
-        try {
-            variable.set(null);
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        assertThrows(UnsupportedOperationException.class, () -> {
+            variable.set("twice");
+        });
         assertSame(value, wrapped.get());
     }
 

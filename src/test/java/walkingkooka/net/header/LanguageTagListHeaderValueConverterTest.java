@@ -18,11 +18,13 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LanguageTagListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<LanguageTagListHeaderValueConverter, List<LanguageTag>> {
@@ -40,14 +42,18 @@ public final class LanguageTagListHeaderValueConverterTest extends
                 Lists.of(this.en_10(), this.en_au_05()));
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesNullFails() {
-        this.check(Lists.of(this.en_10(), null));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.en_10(), null));
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesWrongTypeFails() {
-        this.check(Lists.of(this.en_10(), "WRONG!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.en_10(), "WRONG!"));
+        });
     }
 
     private LanguageTag en_10() {

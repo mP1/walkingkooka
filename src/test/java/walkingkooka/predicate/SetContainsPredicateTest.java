@@ -18,19 +18,22 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SetContainsPredicateTest extends PredicateTestCase<SetContainsPredicate<String>, String> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullSetFails() {
-        SetContainsPredicate.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            SetContainsPredicate.with(null);
+        });
     }
 
     @Test

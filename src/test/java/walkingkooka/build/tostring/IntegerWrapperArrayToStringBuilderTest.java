@@ -17,7 +17,7 @@
 
 package walkingkooka.build.tostring;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 public final class IntegerWrapperArrayToStringBuilderTest extends VectorToStringBuilderTestCase<Integer[]> {

@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.StringName;

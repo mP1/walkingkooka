@@ -19,22 +19,22 @@
 package walkingkooka.net;
 
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
         implements NameTesting<UrlScheme, UrlScheme>, SerializationTesting<UrlScheme> {
 
-    @Test
-    @Ignore
+    @Override
     public void testNaming() {
         throw new UnsupportedOperationException();
     }
@@ -54,14 +54,18 @@ public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
         assertSame(UrlScheme.HTTPS, UrlScheme.with("HTTPS"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidFirstCharFails() {
-        this.createName("1http");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createName("1http");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidCharFails() {
-        this.createName("ab\u100cd");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createName("ab\u100cd");
+        });
     }
 
     @Test
@@ -82,14 +86,16 @@ public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
     private void createNameAndCheckWithSlashes(final String value,
                                                final String nameWithSlashes) {
         final UrlScheme urlScheme = UrlScheme.with(value);
-        assertEquals("nameWithSlashes", nameWithSlashes, urlScheme.nameWithSlashes());
+        assertEquals(nameWithSlashes, urlScheme.nameWithSlashes(), "nameWithSlashes");
     }
 
     // withHost...........................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAndHostNullFails() {
-        UrlScheme.HTTP.andHost(null);
+        assertThrows(NullPointerException.class, () -> {
+            UrlScheme.HTTP.andHost(null);
+        });
     }
 
     @Test
@@ -97,13 +103,13 @@ public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
         final UrlScheme scheme = UrlScheme.HTTPS;
         final HostAddress address = HostAddress.with("example.com");
         final AbsoluteUrl url = scheme.andHost(address);
-        assertSame("scheme", scheme, url.scheme());
-        assertEquals("credentials", UrlCredentials.NO_CREDENTIALS, url.credentials());
-        assertSame("host", address, url.host());
-        assertEquals("port", IpPort.WITHOUT_PORT, url.port());
-        assertEquals("path", UrlPath.EMPTY, url.path());
-        assertEquals("queryString", UrlQueryString.EMPTY, url.query());
-        assertEquals("fragment", UrlFragment.EMPTY, url.fragment());
+        assertSame(scheme, url.scheme(),"scheme");
+        assertEquals(UrlCredentials.NO_CREDENTIALS, url.credentials(),"credentials");
+        assertSame(address, url.host(),"host");
+        assertEquals(IpPort.WITHOUT_PORT, url.port(),"port");
+        assertEquals(UrlPath.EMPTY, url.path(),"path");
+        assertEquals(UrlQueryString.EMPTY, url.query(),"queryString");
+        assertEquals(UrlFragment.EMPTY, url.fragment(),"fragment");
     }
 
     @Override

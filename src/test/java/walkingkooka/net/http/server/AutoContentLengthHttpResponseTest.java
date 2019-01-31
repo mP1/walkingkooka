@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
@@ -28,7 +28,8 @@ import walkingkooka.net.http.HttpEntity;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestHttpResponseTestCase<AutoContentLengthHttpResponse> {
 
@@ -45,10 +46,12 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
                 bytes);
     }
 
-    @Test(expected = NotAcceptableHeaderException.class)
+    @Test
     public void testAddEntityContentLengthIncorrectFail() {
-        this.addEntityAndCheck(999L,
-                new byte[]{1, 2, 3});
+        assertThrows(NotAcceptableHeaderException.class, () -> {
+            this.addEntityAndCheck(999L,
+                    new byte[]{1, 2, 3});
+        });
     }
 
     private void addEntityAndCheck(final Long contentLength,
@@ -69,9 +72,9 @@ public final class AutoContentLengthHttpResponseTest extends WrapperHttpRequestH
             headers.put(HttpHeaderName.CONTENT_LENGTH, contentLength);
         }
         response.addEntity(HttpEntity.with(headers, body));
-        assertEquals("added entity",
-                Lists.of(HttpEntity.with(Maps.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length)), body)),
-               added);
+        assertEquals(Lists.of(HttpEntity.with(Maps.one(HttpHeaderName.CONTENT_LENGTH, Long.valueOf(body.length)), body)),
+               added,
+                "added entity");
     }
 
     @Override

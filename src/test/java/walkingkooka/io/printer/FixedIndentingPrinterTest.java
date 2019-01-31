@@ -17,9 +17,10 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.Indentation;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class FixedIndentingPrinterTest
         extends IndentingPrinterTemplateTestCase<FixedIndentingPrinter> {
@@ -36,20 +37,18 @@ final public class FixedIndentingPrinterTest
 
     @Test
     public void testWrapNullIndentationFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             FixedIndentingPrinter.wrap(Printers.fake(), null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
     public void testPrintWithIndent() {
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line1");
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1", builder.toString());
+        checkEquals(INDENTATION + "line1", builder.toString());
     }
 
     @Test
@@ -57,10 +56,10 @@ final public class FixedIndentingPrinterTest
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
         printer.print("before");
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("after\n");
         printer.print("next");
-        checkEquals("beforeafter\n" + FixedIndentingPrinterTest.INDENTATION + "next",
+        checkEquals("beforeafter\n" + INDENTATION + "next",
                 builder.toString());
     }
 
@@ -68,61 +67,61 @@ final public class FixedIndentingPrinterTest
     public void testAutoIndentWhenCarriageReturnWritten() {
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line1\r");
         printer.print("line2\r");
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\r"
-                + FixedIndentingPrinterTest.INDENTATION + "line2\r", builder.toString());
+        checkEquals(INDENTATION + "line1\r"
+                + INDENTATION + "line2\r", builder.toString());
     }
 
     @Test
     public void testAutoIndentWhenNewLineWritten() {
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line1\n");
         printer.print("line2\n");
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n"
-                + FixedIndentingPrinterTest.INDENTATION + "line2\n", builder.toString());
+        checkEquals(INDENTATION + "line1\n"
+                + INDENTATION + "line2\n", builder.toString());
     }
 
     @Test
     public void testAutoIndentedWhenCarriageReturnNewLineWritten() {
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line1\r\n");
         printer.print("line2\r\n");
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\r\n"
-                + FixedIndentingPrinterTest.INDENTATION + "line2\r\n", builder.toString());
+        checkEquals(INDENTATION + "line1\r\n"
+                + INDENTATION + "line2\r\n", builder.toString());
     }
 
     @Test
     public void testWithManyLines() {
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line1\n");
         printer.print("lin");
         printer.print("e2\n");
         printer.print("\n\n");
 
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
-                FixedIndentingPrinterTest.INDENTATION + "line2\n" + //
-                FixedIndentingPrinterTest.INDENTATION + "\n" + //
-                FixedIndentingPrinterTest.INDENTATION + "\n", builder.toString());
+        checkEquals(INDENTATION + "line1\n" + // )
+                INDENTATION + "line2\n" + //
+                INDENTATION + "\n" + //
+                INDENTATION + "\n", builder.toString());
     }
 
     @Test
     public void testIndentOutdentThenPrint() {
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line1\n");
         printer.outdent();
         printer.print("line2");
 
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
+        checkEquals(INDENTATION + "line1\n" + // )
                 "line2", builder.toString());
     }
 
@@ -130,17 +129,17 @@ final public class FixedIndentingPrinterTest
     public void testIndentOutdentIndentOutdentThenPrint() {
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line1\n");
         printer.outdent();
         printer.print("line2\n");
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line3\n");
         printer.outdent();
         printer.print("line4");
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + // )
+        checkEquals(INDENTATION + "line1\n" + // )
                 "line2\n" + //
-                FixedIndentingPrinterTest.INDENTATION + "line3\n" + //
+                INDENTATION + "line3\n" + //
                 "line4", builder.toString());
     }
 
@@ -148,12 +147,12 @@ final public class FixedIndentingPrinterTest
     public void testOutdentNotImmediate() {
         final StringBuilder builder = new StringBuilder();
         final FixedIndentingPrinter printer = this.createPrinter(builder);
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("before");
         printer.outdent();
         printer.print("after\n");
         printer.print("next");
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "beforeafter\nnext",
+        checkEquals(INDENTATION + "beforeafter\nnext",
                 builder.toString());
     }
 
@@ -163,19 +162,19 @@ final public class FixedIndentingPrinterTest
         final FixedIndentingPrinter printer = this.createPrinter(builder);
         printer.indent(Indentation.with("-"));
         printer.print("line1\n");
-        printer.indent(FixedIndentingPrinterTest.INDENTATION2);
+        printer.indent(INDENTATION2);
         printer.print("line2\n");
         printer.print("line3\r");
         printer.outdent();
         printer.print("line4\n");
         printer.outdent();
         printer.print("line5");
-        checkEquals(FixedIndentingPrinterTest.INDENTATION + "line1\n" + //
-                FixedIndentingPrinterTest.INDENTATION + FixedIndentingPrinterTest.INDENTATION
+        checkEquals(INDENTATION + "line1\n" + //
+                INDENTATION + INDENTATION
                 + "line2\n" + //
-                FixedIndentingPrinterTest.INDENTATION + FixedIndentingPrinterTest.INDENTATION
+                INDENTATION + INDENTATION
                 + "line3\r" + //
-                FixedIndentingPrinterTest.INDENTATION + "line4\n" + //
+                INDENTATION + "line4\n" + //
                 "line5", builder.toString());
     }
 
@@ -188,28 +187,28 @@ final public class FixedIndentingPrinterTest
         printer.lineStart();
         printer.print("line2\n");
 
-        checkEquals("line1\r" + FixedIndentingPrinterTest.INDENTATION + "line2\n",
+        checkEquals("line1\r" + INDENTATION + "line2\n",
                 builder.toString());
     }
 
     @Test
     public void testToString() {
-        checkEquals(FixedIndentingPrinterTest.PRINTER + " indent=\""
-                        + FixedIndentingPrinterTest.INDENTATION + "\"",
-                FixedIndentingPrinter.wrap(FixedIndentingPrinterTest.PRINTER,
-                        FixedIndentingPrinterTest.INDENTATION).toString());
+        checkEquals(PRINTER + " indent=\""
+                        + INDENTATION + "\"",
+                FixedIndentingPrinter.wrap(PRINTER,
+                        INDENTATION).toString());
     }
 
     @Test
     public void testToStringEscaped() {
-        checkEquals(FixedIndentingPrinterTest.PRINTER + " indent=\"\\t..\"",
-                FixedIndentingPrinter.wrap(FixedIndentingPrinterTest.PRINTER,
+        checkEquals(PRINTER + " indent=\"\\t..\"",
+                FixedIndentingPrinter.wrap(PRINTER,
                         Indentation.with("\t..")).toString());
     }
 
     @Override
     FixedIndentingPrinter createPrinter(final Printer printer) {
-        return FixedIndentingPrinter.wrap(printer, FixedIndentingPrinterTest.INDENTATION);
+        return FixedIndentingPrinter.wrap(printer, INDENTATION);
     }
 
     @Override

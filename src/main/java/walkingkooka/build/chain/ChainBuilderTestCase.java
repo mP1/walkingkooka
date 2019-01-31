@@ -17,13 +17,14 @@
 
 package walkingkooka.build.chain;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import walkingkooka.build.BuilderTestCase;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for any {@link ChainBuilder} that includes mostly parameter check tests
@@ -35,9 +36,11 @@ abstract public class ChainBuilderTestCase<B extends ChainBuilder<T>, T>
         super();
     }
 
-    @Test(expected = NullPointerException.class) final public void testAddNullFails() {
-        final B builder = this.createBuilder();
-        builder.add(null);
+    @Test
+    final public void testAddNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().add(null);
+        });
     }
 
     abstract public void testBuildWithoutAdds();
@@ -52,7 +55,7 @@ abstract public class ChainBuilderTestCase<B extends ChainBuilder<T>, T>
 
         final T built = builder.build();
         if ((added1 == built) || (added2 == built)) {
-            Assert.fail("builder should not have returned the 1st/2nd item added=" + built);
+            Assertions.fail("builder should not have returned the 1st/2nd item added=" + built);
         }
     }
 

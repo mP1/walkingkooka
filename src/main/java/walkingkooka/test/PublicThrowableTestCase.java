@@ -17,15 +17,16 @@
 
 package walkingkooka.test;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Base class for testing a {@link Throwable} with mostly parameter checking tests.
@@ -60,14 +61,18 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Class
         this.checkConstructorVisibility(this.constructor(String.class, Throwable.class), MemberVisibility.PUBLIC);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCreateOnlyNullMessageFails() throws Throwable {
-        this.callConstructorString(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.callConstructorString(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCreateOnlyEmptyMessageFails() throws Throwable {
-        this.callConstructorString("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.callConstructorString("");
+        });
     }
 
     @Test
@@ -77,24 +82,32 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Class
                 null);
     }
 
-    @Test(expected = NoSuchMethodException.class)
+    @Test
     public void testShouldntHaveCauseOnlyConstructor() throws Throwable {
-        this.constructor(Throwable.class);
+        assertThrows(NoSuchMethodException.class, () -> {
+            this.constructor(Throwable.class);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCreateNullMessageAndCauseExceptionFails() throws Throwable {
-        callConstructorStringThrowable(null, CAUSE);
+        assertThrows(NullPointerException.class, () -> {
+            this.callConstructorStringThrowable(null, CAUSE);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCreateEmptyMessageAndNonNullCauseFails() throws Throwable {
-        callConstructorStringThrowable("", CAUSE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.callConstructorStringThrowable("", CAUSE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testMessageAndNullCauseFails() throws Throwable {
-        this.callConstructorStringThrowable(MESSAGE, null);
+        assertThrows(NullPointerException.class, () -> {
+            this.callConstructorStringThrowable(MESSAGE, null);
+        });
     }
 
     @Test
@@ -147,11 +160,11 @@ abstract public class PublicThrowableTestCase<T extends Throwable> extends Class
     }
 
     protected void checkMessage(final Throwable throwable, final String message) {
-        assertEquals("message", message, throwable.getMessage());
+        assertEquals(message, throwable.getMessage(), "message");
     }
 
     protected void checkCause(final Throwable throwable, final Throwable cause) {
-        assertEquals("cause of " + throwable, cause, throwable.getCause());
+        assertEquals(cause, throwable.getCause(), () -> "cause of " + throwable);
     }
 
     @Override

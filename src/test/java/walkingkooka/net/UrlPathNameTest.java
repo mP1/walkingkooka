@@ -18,8 +18,8 @@
 
 package walkingkooka.net;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
@@ -29,15 +29,15 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathNameTest extends ClassTestCase<UrlPathName>
         implements NameTesting<UrlPathName, UrlPathName>,
         SerializationTesting<UrlPathName> {
 
-    @Test
-    @Ignore
+    @Override
     public void testEmptyFails() {
         throw new UnsupportedOperationException();
     }
@@ -47,16 +47,21 @@ public final class UrlPathNameTest extends ClassTestCase<UrlPathName>
         assertSame(UrlPathName.ROOT, UrlPathName.with(""));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIncludesSeparatorFails() {
-        UrlPathName.with("abc" + UrlPath.SEPARATOR.character() + "xyz");
+        assertThrows(IllegalArgumentException.class, () -> {
+            UrlPathName.with("abc" + UrlPath.SEPARATOR.character() + "xyz");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTooLongFails() {
         final char[] chars = new char[UrlPathName.MAXIMUM_LENGTH + 1];
         Arrays.fill(chars, 'x');
-        UrlPathName.with(new String(chars));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            UrlPathName.with(new String(chars));
+        });
     }
 
     @Test

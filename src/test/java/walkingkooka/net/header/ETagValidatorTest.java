@@ -18,11 +18,11 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ETagValidatorTest extends ClassTestCase<ETagValidator> {
 
@@ -32,8 +32,8 @@ public final class ETagValidatorTest extends ClassTestCase<ETagValidator> {
         final String value = "1234567890ABCDEF";
 
         final ETag tag = validator.setValue(value);
-        assertEquals("value", value, tag.value());
-        assertEquals("validator", validator, tag.validator());
+        assertEquals(value, tag.value(), "value");
+        assertEquals(validator, tag.validator(), "validator");
     }
 
     @Override

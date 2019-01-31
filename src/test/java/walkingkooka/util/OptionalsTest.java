@@ -18,7 +18,7 @@
 
 package walkingkooka.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
@@ -26,13 +26,16 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class OptionalsTest extends PublicStaticHelperTestCase<Optionals> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testStreamNullFails() {
-        Optionals.stream(null);
+        assertThrows(NullPointerException.class, () -> {
+            Optionals.stream(null);
+        });
     }
 
     @Test

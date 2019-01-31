@@ -17,7 +17,7 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 final public class CaseSensitivityStartsWithCharSequencePredicateTest extends

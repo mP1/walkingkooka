@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.visit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.io.printer.IndentingPrinter;
 import walkingkooka.io.printer.IndentingPrinters;
@@ -31,23 +31,30 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class VisitorPrettyPrinterTest extends ClassTestCase<VisitorPrettyPrinter<Object>> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullPrinterFails() {
-        VisitorPrettyPrinter.with(null, this.indentation(), this.typeName());
+        assertThrows(NullPointerException.class, () -> {
+            VisitorPrettyPrinter.with(null, this.indentation(), this.typeName());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullIdentationFails() {
-        VisitorPrettyPrinter.with(this.printer(), null, this.typeName());
+        assertThrows(NullPointerException.class, () -> {
+            VisitorPrettyPrinter.with(this.printer(), null, this.typeName());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTypeNameFails() {
-        VisitorPrettyPrinter.with(this.printer(), this.indentation(), null);
+        assertThrows(NullPointerException.class, () -> {
+            VisitorPrettyPrinter.with(this.printer(), this.indentation(), null);
+        });
     }
 
     @Test
@@ -70,19 +77,25 @@ public final class VisitorPrettyPrinterTest extends ClassTestCase<VisitorPrettyP
         assertEquals("1\n  2\n    3=3\n  4\n    5=5\n", b.toString());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testComputeFromClassSimpleNameObjectNullFails() {
-        VisitorPrettyPrinter.computeFromClassSimpleName(null, "prefix", "suffix");
+        assertThrows(NullPointerException.class, () -> {
+            VisitorPrettyPrinter.computeFromClassSimpleName(null, "prefix", "suffix");
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testComputeFromClassSimpleNamePrefixNullFails() {
-        VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), null, "suffix");
+        assertThrows(NullPointerException.class, () -> {
+            VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), null, "suffix");
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testComputeFromClassSimpleNameSuffixNullFails() {
-        VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), "prefix", null);
+        assertThrows(NullPointerException.class, () -> {
+            VisitorPrettyPrinter.computeFromClassSimpleName(new Object(), "prefix", null);
+        });
     }
 
     @Test
@@ -137,11 +150,11 @@ public final class VisitorPrettyPrinterTest extends ClassTestCase<VisitorPrettyP
                                                     final String prefix,
                                                     final String suffix,
                                                     final String expected) {
-        assertEquals("object: " + object.getClass().getSimpleName() +
-                " prefix=" + CharSequences.quoteAndEscape(prefix) +
-                " suffix: " + CharSequences.quoteAndEscape(suffix),
-                expected,
-                VisitorPrettyPrinter.computeFromClassSimpleName(object, prefix, suffix));
+        assertEquals(expected,
+                VisitorPrettyPrinter.computeFromClassSimpleName(object, prefix, suffix),
+                () -> "object: " + object.getClass().getSimpleName() +
+                        " prefix=" + CharSequences.quoteAndEscape(prefix) +
+                        " suffix: " + CharSequences.quoteAndEscape(suffix));
     }
 
     @Test

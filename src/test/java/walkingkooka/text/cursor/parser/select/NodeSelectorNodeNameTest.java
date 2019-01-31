@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
@@ -26,27 +26,34 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NodeSelectorNodeNameTest extends ClassTestCase<NodeSelectorNodeName>
         implements NameTesting<NodeSelectorNodeName, NodeSelectorNodeName> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidInitialFails() {
-        NodeSelectorNodeName.with("1abc");
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodeSelectorNodeName.with("1abc");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidPartFails() {
-        NodeSelectorNodeName.with("abc$def");
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodeSelectorNodeName.with("abc$def");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidLengthFails() {
         final char[] c = new char[NodeSelectorNodeName.MAX_LENGTH + 1];
         Arrays.fill(c, 'a');
 
-        NodeSelectorNodeName.with(new String(c));
+        assertThrows(IllegalArgumentException.class, () -> {
+            NodeSelectorNodeName.with(new String(c));
+        });
     }
 
     @Test

@@ -18,14 +18,14 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ExpressionModuloNodeTest extends ExpressionArithmeticBinaryNodeTestCase2<ExpressionModuloNode>{
 
@@ -74,12 +74,12 @@ public final class ExpressionModuloNodeTest extends ExpressionArithmeticBinaryNo
             }
         }.accept(modulo);
         assertEquals("1315215242", b.toString());
-        assertEquals("visited",
-                Lists.of(modulo, modulo,
+        assertEquals(Lists.of(modulo, modulo,
                         text1, text1, text1,
                         text2, text2, text2,
                         modulo, modulo),
-                visited);
+                visited,
+                "visited");
     }
 
     // toBoolean...............................................................................................

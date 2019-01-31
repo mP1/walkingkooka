@@ -18,24 +18,29 @@
 
 package walkingkooka.net;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public final class Ip4AddressTest extends IpAddressTestCase<Ip4Address> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMaskNegativeSignificantBitsFails() {
-        this.createAddress().subnet(-1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createAddress().subnet(-1);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMaskTooManySignificantBitsFails() {
-        this.createAddress().subnet(Ip4Address.BIT_COUNT + 1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createAddress().subnet(Ip4Address.BIT_COUNT + 1);
+        });
     }
 
     @Test

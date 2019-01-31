@@ -18,7 +18,7 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.SerializationTesting;
 
 public final class AlphaColorComponentTest extends ColorComponentTestCase<AlphaColorComponent>

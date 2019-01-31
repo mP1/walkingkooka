@@ -16,13 +16,14 @@
  */
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.cursor.TextCursor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCharPredicateParserTest extends ParserTemplateTestCase<StringCharPredicateParser<ParserContext>, StringParserToken> {
 
@@ -30,24 +31,32 @@ public class StringCharPredicateParserTest extends ParserTemplateTestCase<String
     private final static int MIN_LENGTH = 2;
     private final static int MAX_LENGTH = 4;
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCharPredicateFails() {
-        StringCharPredicateParser.with(null, MIN_LENGTH, MAX_LENGTH);
+        assertThrows(NullPointerException.class, () -> {
+            StringCharPredicateParser.with(null, MIN_LENGTH, MAX_LENGTH);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidMinLengthFails() {
-        StringCharPredicateParser.with(DIGITS, -1, MAX_LENGTH);
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringCharPredicateParser.with(DIGITS, -1, MAX_LENGTH);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidMinLengthFails2() {
-        StringCharPredicateParser.with(DIGITS, 0, MAX_LENGTH);
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringCharPredicateParser.with(DIGITS, 0, MAX_LENGTH);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithInvalidMaxLengthFails2() {
-        StringCharPredicateParser.with(DIGITS, MIN_LENGTH, MIN_LENGTH -1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            StringCharPredicateParser.with(DIGITS, MIN_LENGTH, MIN_LENGTH -1);
+        });
     }
 
     @Test

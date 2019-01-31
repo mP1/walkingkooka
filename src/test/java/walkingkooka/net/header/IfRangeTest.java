@@ -18,25 +18,30 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFails() {
-        IfRange.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            IfRange.with(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithEmptyFails() {
-        IfRange.with("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            IfRange.with("");
+        });
     }
 
     @Test
@@ -44,19 +49,25 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> {
         this.isWildcardAndCheck(false);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullFails() {
-        IfRange.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            IfRange.parse(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyFails() {
-        IfRange.parse("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            IfRange.parse("");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseInvalidFails() {
-        IfRange.parse("\"1234567890abcdef");
+        assertThrows(HeaderValueException.class, () -> {
+            IfRange.parse("\"1234567890abcdef");
+        });
     }
 
     @Test
@@ -74,9 +85,9 @@ public final class IfRangeTest extends HeaderValueTestCase<IfRange<?>> {
     }
 
     private void parseAndCheck(final String text, final IfRange<?> range) {
-        assertEquals("Parsing " + CharSequences.quote(text) + " failed",
-                IfRange.parse(text),
-                range);
+        assertEquals(IfRange.parse(text),
+                range,
+                "Parsing " + CharSequences.quote(text) + " failed");
     }
 
     @Override

@@ -18,13 +18,13 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.email.EmailAddress;
 
 import java.nio.charset.Charset;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class AcceptCharsetHeaderValueConverterTest extends
         HeaderValueConverterTestCase<AcceptCharsetHeaderValueConverter,
@@ -45,9 +45,9 @@ public final class AcceptCharsetHeaderValueConverterTest extends
     public void testUnknownCharset() {
         final String charset = "utf-1";
         final CharsetName charsetName = CharsetName.with(charset);
-        assertEquals("charsetName must have no charset",
-                CharsetName.NO_CHARSET,
-                charsetName.charset());
+        assertEquals(CharsetName.NO_CHARSET,
+                charsetName.charset(),
+                "charsetName must have no charset");
         this.parseAndToTextAndCheck2(charset,
                 CharsetHeaderValue.with(CharsetName.with(charset)));
     }

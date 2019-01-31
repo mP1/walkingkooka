@@ -18,30 +18,37 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MediaTypeParameterNameTest extends HeaderParameterNameTestCase<MediaTypeParameterName<?>,
         MediaTypeParameterName<?>> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithIncludesWhitespaceFails() {
-        MediaTypeParameterName.with("paramet er");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaTypeParameterName.with("paramet er");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithIncludesEqualSignFails() {
-        MediaTypeParameterName.with("parameter=value");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaTypeParameterName.with("parameter=value");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWithIncludesSemiColonFails() {
-        MediaTypeParameterName.with("parameter=value;header2");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MediaTypeParameterName.with("parameter=value;header2");
+        });
     }
 
     @Test

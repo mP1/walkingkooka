@@ -18,11 +18,11 @@
 
 package walkingkooka.type;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ClassAttributesTest extends ClassTestCase<ClassAttributes> {
 

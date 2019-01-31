@@ -16,7 +16,7 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.search.SearchNode;
@@ -24,8 +24,8 @@ import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class EbnfConcatenationParserTokenTest extends EbnfAlternativeConcatenationParentParserTokenTestCase<EbnfConcatenationParserToken> {
 
@@ -87,12 +87,12 @@ public final class EbnfConcatenationParserTokenTest extends EbnfAlternativeConca
             }
         }.accept(concat);
         assertEquals("1351374213742642", b.toString());
-        assertEquals("visited",
-                Lists.<Object>of(concat, concat, concat,
+        assertEquals(Lists.<Object>of(concat, concat, concat,
                         identifier1, identifier1, identifier1, identifier1, identifier1,
                         identifier2, identifier2, identifier2, identifier2, identifier2,
                         concat, concat, concat),
-                visited);
+                visited,
+                "visited");
     }
 
     @Test
@@ -102,7 +102,7 @@ public final class EbnfConcatenationParserTokenTest extends EbnfAlternativeConca
                 this.text());
         final SearchNode searchNode = token.toSearchNode();
 
-        assertEquals("text", token.text(), searchNode.text());
+        assertEquals(token.text(), searchNode.text(), "text");
     }
     
     @Override

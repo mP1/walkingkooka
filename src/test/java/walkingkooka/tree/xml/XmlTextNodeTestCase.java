@@ -18,12 +18,13 @@
 
 package walkingkooka.tree.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import walkingkooka.Cast;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class XmlTextNodeTestCase<N extends XmlTextNode> extends XmlLeafNodeTestCase<N> {
 
@@ -31,9 +32,11 @@ public abstract class XmlTextNodeTestCase<N extends XmlTextNode> extends XmlLeaf
         super();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullTextFails() {
-        this.xmlDocument().createText(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.xmlDocument().createText(null);
+        });
     }
 
     @Test
@@ -41,9 +44,11 @@ public abstract class XmlTextNodeTestCase<N extends XmlTextNode> extends XmlLeaf
         this.createNodeAndCheck(this.text());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetTextNullFails() {
-        this.createNode().setText(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createNode().setText(null);
+        });
     }
 
     @Test

@@ -17,14 +17,14 @@
 
 package walkingkooka.build.tostring;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class MapToStringBuilderTest extends VectorToStringBuilderTestCase<Map<String, Integer>> {
 

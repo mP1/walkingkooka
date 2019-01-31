@@ -18,14 +18,14 @@
 
 package walkingkooka.compare;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends ClassTestCase<B> {
 
@@ -39,9 +39,9 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends 
         final String simpleName = bound.getClass().getSimpleName();
         final String name = simpleName.substring(RangeBound.class.getSimpleName().length(), simpleName.length());
 
-        assertEquals("isAll", "All".equals(name), bound.isAll());
-        assertEquals("isExclusive", "Exclusive".equals(name), bound.isExclusive());
-        assertEquals("isInclusive", "Inclusive".equals(name), bound.isInclusive());
+        assertEquals("All".equals(name), bound.isAll(), "isAll");
+        assertEquals("Exclusive".equals(name), bound.isExclusive(), "isExclusive");
+        assertEquals("Inclusive".equals(name), bound.isInclusive(), "isInclusive");
     }
 
     final void valueAndCheck(final Optional<Integer> value) {
@@ -49,7 +49,7 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends 
     }
 
     final void valueAndCheck(final B bound, final Optional<Integer> value) {
-        assertEquals("value of " + bound, value, bound.value());
+        assertEquals(value, bound.value(), () -> "value of " + bound);
     }
 
     @Test
@@ -70,8 +70,8 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends 
 
     final void minAndCheck(final B bound, final RangeBound<Integer> other, final RangeBound<Integer> expected) {
         this.checkEither(bound, other, expected);
-        assertEquals(bound + " lower " + other, expected, bound.min(other));
-        assertEquals(bound + " lower " + other, expected, other.min(bound));
+        assertEquals(expected, bound.min(other), () -> bound + " lower " + other);
+        assertEquals(expected, other.min(bound), () -> bound + " lower " + other);
     }
 
     final void maxAndCheck(final RangeBound<Integer> other, final RangeBound<Integer> expected) {
@@ -80,8 +80,8 @@ public abstract class RangeBoundTestCase<B extends RangeBound<Integer>> extends 
 
     final void maxAndCheck(final B bound, final RangeBound<Integer> other, final RangeBound<Integer> expected) {
         this.checkEither(bound, other, expected);
-        assertEquals(bound + " upper " + other, expected, bound.max(other));
-        assertEquals(bound + " upper " + other, expected, other.max(bound));
+        assertEquals(expected, bound.max(other), () -> bound + " upper " + other);
+        assertEquals(expected, other.max(bound), () -> bound + " upper " + other);
     }
 
     private void checkEither(final B bound, final RangeBound<Integer> other, final RangeBound<Integer> expected) {

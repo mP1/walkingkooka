@@ -18,7 +18,7 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Range;
 import walkingkooka.text.CharSequences;
@@ -26,8 +26,9 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderValue> {
 
@@ -35,34 +36,46 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     // with.......................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullUnitFails() {
-        RangeHeaderValue.with(null, ranges());
+        assertThrows(NullPointerException.class, () -> {
+            RangeHeaderValue.with(null, ranges());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullRangesFails() {
-        RangeHeaderValue.with(UNIT, null);
+        assertThrows(NullPointerException.class, () -> {
+            RangeHeaderValue.with(UNIT, null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testWithEmptyRangesFails() {
-        RangeHeaderValue.with(UNIT, Lists.empty());
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.with(UNIT, Lists.empty());
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testWithOverlappingRangesFails() {
-        RangeHeaderValue.with(UNIT, this.rangesWithOverlap());
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.with(UNIT, this.rangesWithOverlap());
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testWithOverlappingRangesFails2() {
-        RangeHeaderValue.with(UNIT, this.rangesWithOverlap2());
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.with(UNIT, this.rangesWithOverlap2());
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testWithOverlappingRangesFails3() {
-        RangeHeaderValue.with(UNIT, this.rangesWithOverlap3());
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.with(UNIT, this.rangesWithOverlap3());
+        });
     }
 
     public void testWith() {
@@ -72,14 +85,18 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     // setUnit.......................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetUnitNullFails() {
-        this.range().setUnit(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.range().setUnit(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetUnitNoneFails() {
-        this.range().setUnit(RangeHeaderValueUnit.NONE);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.range().setUnit(RangeHeaderValueUnit.NONE);
+        });
     }
 
     @Test
@@ -90,29 +107,39 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     // setValue.......................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetValueNullFails() {
-        this.range().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.range().setValue(null);
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetValueEmptyFails() {
-        this.range().setValue(Lists.empty());
+        assertThrows(HeaderValueException.class, () -> {
+            this.range().setValue(Lists.empty());
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetValueWithOverlapFails() {
-        this.range().setValue(this.rangesWithOverlap());
+        assertThrows(HeaderValueException.class, () -> {
+            this.range().setValue(this.rangesWithOverlap());
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetValueWithOverlapFails2() {
-        this.range().setValue(this.rangesWithOverlap2());
+        assertThrows(HeaderValueException.class, () -> {
+            this.range().setValue(this.rangesWithOverlap2());
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testSetValueWithOverlapFails3() {
-        this.range().setValue(this.rangesWithOverlap3());
+        assertThrows(HeaderValueException.class, () -> {
+            this.range().setValue(this.rangesWithOverlap3());
+        });
     }
 
     @Test
@@ -132,8 +159,8 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     private void check(final RangeHeaderValue range,
                        final RangeHeaderValueUnit unit,
                        final List<Range<Long>> values) {
-        assertEquals("unit", unit, range.unit());
-        assertEquals("value", values, range.value());
+        assertEquals(unit, range.unit(), "unit");
+        assertEquals(values, range.value(), "value");
     }
 
     // isWildcard ..................................................................................................
@@ -145,39 +172,53 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
 
     // parse ...........................................................
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseWithInvalidUnitFails() {
-        RangeHeaderValue.parse("invalid=0-100");
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.parse("invalid=0-100");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseWithNoneUnitFails() {
-        RangeHeaderValue.parse("none=0-100");
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.parse("none=0-100");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseWithOverlapFails() {
-        RangeHeaderValue.parse("bytes=100-150,200-250,225-300");
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.parse("bytes=100-150,200-250,225-300");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseWithOverlapFails2() {
-        RangeHeaderValue.parse("bytes=100-150,200-250,225-");
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.parse("bytes=100-150,200-250,225-");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseWithOverlapFails3() {
-        RangeHeaderValue.parse("bytes=-150,200-250,125-175");
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.parse("bytes=-150,200-250,125-175");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseRangeMissingStartFails() {
-        RangeHeaderValue.parse("bytes=-99");
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.parse("bytes=-99");
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testParseRangeMissingStartFails2() {
-        RangeHeaderValue.parse("bytes=98-99,-50");
+        assertThrows(HeaderValueException.class, () -> {
+            RangeHeaderValue.parse("bytes=98-99,-50");
+        });
     }
 
     @Test
@@ -230,9 +271,9 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
     private final void parseAndCheck(final String headerValue,
                                      final RangeHeaderValueUnit unit,
                                      final Range<Long>... values) {
-        assertEquals("Incorrect result when  parsing " + CharSequences.quote(headerValue),
-                RangeHeaderValue.with(unit, Lists.of(values)),
-                RangeHeaderValue.parse(headerValue));
+        assertEquals(RangeHeaderValue.with(unit, Lists.of(values)),
+                RangeHeaderValue.parse(headerValue),
+                "Incorrect result when  parsing " + CharSequences.quote(headerValue));
     }
 
     // toHeaderText.......................................................
@@ -318,7 +359,7 @@ public final class RangeHeaderValueTest extends HeaderValueTestCase<RangeHeaderV
                                         final RangeHeaderValueUnit unit,
                                         final Range<Long>... ranges) {
         final RangeHeaderValue range = this.range(unit, ranges);
-        assertEquals("toString", toString, range.toString());
+        assertEquals(toString, range.toString(), "toString");
     }
 
     private RangeHeaderValue range() {

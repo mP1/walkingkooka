@@ -18,70 +18,93 @@
 
 package walkingkooka.color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ColorTest extends ClassTestCase<Color> {
 
     // parse..................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseNullFails() {
-        Color.parse(null);
+        assertThrows(NullPointerException.class, () -> {
+            Color.parse(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEmptyFails() {
-        Color.parse("");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMissingLeadingHashFails() {
-        Color.parse("123");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("123");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseInvalidFails() {
-        Color.parse("xyz");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("xyz");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseInvalidFails2() {
-        Color.parse("#1x3");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("#1x3");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseOneDigitFails() {
-        Color.parse("#1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("#1");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseTwoDigitsFails() {
-        Color.parse("#12");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("#12");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseFourDigitsFails() {
-        Color.parse("#1234");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("#1234");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseFiveDigitsFails() {
-        Color.parse("#12345");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("#12345");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseSevenDigitsFails() {
-        Color.parse("#1234567");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("#1234567");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseEightDigitsFails() {
-        Color.parse("#12345678");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Color.parse("#12345678");
+        });
     }
 
     @Test
@@ -120,9 +143,9 @@ public final class ColorTest extends ClassTestCase<Color> {
     }
 
     private void parseRgbAndCheck(final String text, final int rgb) {
-        assertEquals("parse " + CharSequences.quote(text),
-                Color.fromRgb(rgb),
-                Color.parse(text));
+        assertEquals(Color.fromRgb(rgb),
+                Color.parse(text),
+                "parse " + CharSequences.quote(text));
     }
 
     @Override

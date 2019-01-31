@@ -17,7 +17,7 @@
 
 package walkingkooka.build.tostring;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class ShortWrapperToStringBuilderTest extends WrapperToStringBuilderTestCase<Short> {
 

@@ -18,26 +18,31 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.visit.Visiting;
 
 import java.math.MathContext;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTestCase<ExpressionFunctionNode>{
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullNameFails() {
-        ExpressionFunctionNode.with(null, this.children());
+        assertThrows(NullPointerException.class, () -> {
+            ExpressionFunctionNode.with(null, this.children());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSetNameNullFails() {
-        this.createExpressionNode().setName(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createExpressionNode().setName(null);
+        });
     }
 
     @Test
@@ -51,7 +56,7 @@ public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTest
         final ExpressionFunctionNode node = this.createExpressionNode();
         final ExpressionNodeName differentName = name("different-name");
         final ExpressionFunctionNode different = node.setName(differentName);
-        assertEquals("name", differentName, different.name());
+        assertEquals(differentName, different.name(), "name");
         this.checkChildren(different, node.children());
     }
 
@@ -101,13 +106,13 @@ public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTest
             }
         }.accept(function);
         assertEquals("1315215215242", b.toString());
-        assertEquals("visited",
-                Lists.of(function, function,
+        assertEquals(Lists.of(function, function,
                         text1, text1, text1,
                         text2, text2, text2,
                         text3, text3, text3,
                         function, function),
-                visited);
+                visited,
+                "visited");
     }
 
     // Evaluation ...................................................................................................
@@ -159,8 +164,8 @@ public final class ExpressionFunctionNodeTest extends ExpressionVariableNodeTest
 
             @Override
             public Object function(final ExpressionNodeName name, final List<Object> parameters) {
-                assertEquals("function name", name("fx"), name);
-                assertEquals("parameter values", Lists.of("child-111", "child-222", "child-333"), parameters);
+                assertEquals(name("fx"), name, "function name");
+                assertEquals(Lists.of("child-111", "child-222", "child-333"), parameters, "parameter values");
                 return functionValue;
             }
 

@@ -18,15 +18,16 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends HeaderValueTestCase<R> {
 
@@ -48,9 +49,11 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
 
     // setValue.................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetValueNullFails() {
-        this.createHeaderValue().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createHeaderValue().setValue(null);
+        });
     }
 
     @Test
@@ -82,7 +85,7 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     }
 
     final <VV> void check(final IfRange<VV> range, final VV value) {
-        assertEquals("value", value, range.value());
+        assertEquals(value, range.value(), "value");
     }
 
     @Test
@@ -120,9 +123,9 @@ public abstract class IfRangeTestCase<R extends IfRange<V>, V, W> extends Header
     @Test
     public final void testParse() {
         final String text = this.headerText();
-        assertEquals("Parsing " + CharSequences.quote(text),
-                this.createHeaderValue(),
-                IfRange.parse(text));
+        assertEquals(this.createHeaderValue(),
+                IfRange.parse(text),
+                "Parsing " + CharSequences.quote(text));
     }
 
     @Override

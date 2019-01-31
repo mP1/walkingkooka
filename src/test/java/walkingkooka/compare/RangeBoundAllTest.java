@@ -18,7 +18,7 @@
 
 package walkingkooka.compare;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 
 import java.util.Optional;

@@ -17,9 +17,10 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.Indentation;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class MaximumIndentationIndentingPrinterTest
         extends IndentingPrinterTemplateTestCase<MaximumIndentationIndentingPrinter> {
@@ -34,11 +35,9 @@ final public class MaximumIndentationIndentingPrinterTest
 
     @Test
     public void testWrapInvalidMaximumIndentationFails() {
-        try {
+        assertThrows(IllegalArgumentException.class, () -> {
             MaximumIndentationIndentingPrinter.wrap(Printers.fake(), -1);
-            Assert.fail();
-        } catch (final IllegalArgumentException expected) {
-        }
+        });
     }
 
     @Test

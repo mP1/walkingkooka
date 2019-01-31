@@ -17,11 +17,11 @@
 
 package walkingkooka.build.tostring;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.TestCase;
 import walkingkooka.text.CharSequences;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class ToStringBuilderTestCase<T> extends TestCase {
 

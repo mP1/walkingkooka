@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
@@ -26,7 +26,8 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TestRecordingHttpResponseTest extends HttpResponseTestCase<TestRecordingHttpResponse> {
 
@@ -53,28 +54,34 @@ public final class TestRecordingHttpResponseTest extends HttpResponseTestCase<Te
         response.check(HttpRequests.fake(), status, entity, entity2);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testCheckIncorrectStatusFails() {
         final TestRecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
         final HttpEntity entity = this.entity();
         response.setStatus(status);
         response.addEntity(entity);
-        response.check(HttpRequests.fake(),
-                HttpStatusCode.OK.status(),
-                entity);
+
+        assertThrows(AssertionError.class, () -> {
+            response.check(HttpRequests.fake(),
+                    HttpStatusCode.OK.status(),
+                    entity);
+        });
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testCheckDifferentEntityFails() {
         final TestRecordingHttpResponse response = this.createResponse();
         final HttpStatus status = this.status();
         final HttpEntity entity = HttpEntity.with(Maps.one(HttpHeaderName.SERVER, "Server 123"), new byte[123]);
         response.setStatus(status);
         response.addEntity(entity);
-        response.check(HttpRequests.fake(),
-                status,
-                HttpEntity.with(Maps.one(HttpHeaderName.SERVER, "Server 456"), new byte[456]));
+
+        assertThrows(AssertionError.class, () -> {
+            response.check(HttpRequests.fake(),
+                    status,
+                    HttpEntity.with(Maps.one(HttpHeaderName.SERVER, "Server 456"), new byte[456]));
+        });
     }
 
     @Test

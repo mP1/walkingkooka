@@ -19,7 +19,7 @@
 package walkingkooka.net.http.server;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.test.ClassTestCase;
@@ -29,8 +29,8 @@ import walkingkooka.type.MemberVisibility;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class HttpRequestParameterNameTest extends ClassTestCase<HttpRequestParameterName>
         implements NameTesting<HttpRequestParameterName, HttpRequestParameterName> {

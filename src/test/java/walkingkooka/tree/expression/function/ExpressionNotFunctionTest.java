@@ -18,15 +18,18 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<ExpressionNotFunction, Boolean> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullFunctionFails() {
-        ExpressionNotFunction.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            ExpressionNotFunction.with(null);
+        });
     }
 
     @Test

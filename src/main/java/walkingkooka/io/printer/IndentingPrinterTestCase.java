@@ -17,9 +17,10 @@
 
 package walkingkooka.io.printer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.text.Indentation;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
         extends PrinterTestCase2<P> {
@@ -40,10 +41,11 @@ abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
         this.checkNaming(IndentingPrinter.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testIndentWithNullFails() {
-        final P printer = this.createPrinter();
-        printer.indent(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createPrinter().indent(null);
+        });
     }
 
     @Test
@@ -61,6 +63,12 @@ abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
         this.outdentFails(this.createPrinterIdentAndOutdent(2));
     }
 
+    private void outdentFails(final P printer) {
+        assertThrows(IllegalStateException.class, () -> {
+            printer.outdent();
+        });
+    }
+
     private P createPrinterIdentAndOutdent(final int count) {
         final P printer = this.createPrinter();
         for (int i = 0; i < count; i++) {
@@ -68,13 +76,5 @@ abstract public class IndentingPrinterTestCase<P extends IndentingPrinter>
             printer.outdent();
         }
         return printer;
-    }
-
-    private void outdentFails(final P printer) {
-        try {
-            printer.outdent();
-            Assert.fail();
-        } catch (final IllegalStateException ignored) {
-        }
     }
 }

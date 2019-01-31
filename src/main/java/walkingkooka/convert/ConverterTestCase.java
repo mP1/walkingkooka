@@ -18,16 +18,16 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ConverterTestCase<C extends Converter> extends ClassTestCase<C> {
 
@@ -73,8 +73,8 @@ public abstract class ConverterTestCase<C extends Converter> extends ClassTestCa
                                      final Class<?> target,
                                      final ConverterContext context,
                                      final Object expected) {
-        assertTrue(converter + " can convert(" + value.getClass().getName() + "," + target.getName() + ") returned false for " + value,
-                converter.canConvert(value, target, context));
+        assertTrue(converter.canConvert(value, target, context),
+                converter + " can convert(" + value.getClass().getName() + "," + target.getName() + ") returned false for " + value);
 
         final Object result = converter.convert(value, target, context);
         checkEquals("Failed to convert " + value.getClass().getName() + "=" + value + " to " + target.getName(), expected, result);
@@ -87,13 +87,13 @@ public abstract class ConverterTestCase<C extends Converter> extends ClassTestCa
             final Comparable expectedComparable = Cast.to(expected);
             this.checkEquals0(message, Cast.to(expectedComparable), Cast.to(actual));
         } else {
-            assertEquals(message, expected, actual);
+            assertEquals(expected, actual, message);
         }
     }
 
     private <C extends Comparable<C>> void checkEquals0(final String message, final C expected, final C actual) {
        if(expected.compareTo(actual) != 0) {
-                assertEquals(message, expected, actual);
+                assertEquals(expected, actual, message);
             }
     }
 

@@ -19,13 +19,14 @@
 package walkingkooka.net.header;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpires> {
 
@@ -35,27 +36,29 @@ final public class CookieExpiresTest extends CookieDeletionTestCase<CookieExpire
 
     // tests
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParseFails() {
-        CookieExpires.parseExpires("invalid!");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CookieExpires.parseExpires("invalid!");
+        });
     }
 
     @Test
     public void testWith() {
         final CookieExpires expires = this.createDeletion();
-        assertEquals("dateTime", EXPIRES, expires.dateTime());
+        assertEquals(EXPIRES, expires.dateTime(), "dateTime");
     }
 
     @Test
     public void testIsExpires() {
         final CookieExpires expires = this.createDeletion();
-        assertTrue(expires.toString(), expires.isExpires());
+        assertTrue(expires.isExpires(), expires.toString());
     }
 
     @Test
     public void testIsMaxAge() {
         final CookieExpires expires = this.createDeletion();
-        assertFalse(expires.toString(), expires.isMaxAge());
+        assertFalse(expires.isMaxAge(), expires.toString());
     }
 
     @Test

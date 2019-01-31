@@ -18,11 +18,12 @@
 
 package walkingkooka.predicate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparisonRelation;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ComparableComparisonRelationPredicateTest extends PredicateTestCase<ComparableComparisonRelationPredicate<String>, String> {
 
@@ -30,14 +31,18 @@ public final class ComparableComparisonRelationPredicateTest extends PredicateTe
     private static final String EQUALS = "M";
     private static final String MORE = "A";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullComparisonResultFails() {
-        ComparableComparisonRelationPredicate.with(null, MORE);
+        assertThrows(NullPointerException.class, () -> {
+            ComparableComparisonRelationPredicate.with(null, MORE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullRightComparableFails() {
-        ComparableComparisonRelationPredicate.with(ComparisonRelation.EQ, null);
+        assertThrows(NullPointerException.class, () -> {
+            ComparableComparisonRelationPredicate.with(ComparisonRelation.EQ, null);
+        });
     }
 
     // EQ .................................................................................

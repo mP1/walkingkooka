@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.LinkRelation;

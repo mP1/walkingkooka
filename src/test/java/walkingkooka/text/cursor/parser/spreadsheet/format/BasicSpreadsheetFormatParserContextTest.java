@@ -18,14 +18,18 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet.format;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContexts;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetFormatParserContextTest extends SpreadsheetFormatParserContextTestCase<BasicSpreadsheetFormatParserContext> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullDecimalNumberContextFails() {
-        BasicSpreadsheetFormatParserContext.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            BasicSpreadsheetFormatParserContext.with(null);
+        });
     }
 
     @Override

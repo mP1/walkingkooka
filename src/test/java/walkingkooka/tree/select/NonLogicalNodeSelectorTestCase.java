@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
         extends NodeSelectorTestCase<S>{
@@ -58,7 +58,7 @@ public abstract class NonLogicalNodeSelectorTestCase<S extends NodeSelector<Test
                 .stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
-        assertEquals("names of selected nodes", Lists.of(nodes), selectedNames);
+        assertEquals(Lists.of(nodes), selectedNames, "names of selected nodes");
     }
 
     final NodeSelector<TestNode,

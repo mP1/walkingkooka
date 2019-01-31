@@ -18,16 +18,17 @@
 
 package walkingkooka.text.cursor.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOrSequenceParserToken<T>> extends ParserTokenTestCase<T> {
 
@@ -37,21 +38,27 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
     private final static StringParserToken STRING5 = ParserTokens.string("e5", "e5");
     private final static StringParserToken STRING6 = ParserTokens.string("f6", "f6");
     
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullTokensFails() {
-        this.createToken(null, "tokens");
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken(null, "tokens");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public final void testWithZeroTokensFails() {
-        this.createToken(Lists.empty(), "abc");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken(Lists.empty(), "abc");
+        });
     }
 
     // setValue...........................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testSetValueNullFails(){
-        this.createToken().setValue(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createToken().setValue(null);
+        });
     }
 
     @Test
@@ -66,7 +73,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         final List<ParserToken> differentTokens = this.createDifferentToken().value();
         final T different = token.setValue(differentTokens).cast();
         assertNotSame(token, different);
-        assertEquals("tokens", differentTokens, different.value());
+        assertEquals(differentTokens, different.value(), "tokens");
     }
 
     @Test
@@ -81,7 +88,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         final T parent = this.createToken(STRING1, STRING2, child);
         final T flat = parent.flat().cast();
         assertNotSame(parent, flat);
-        assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5), flat.value());
+        assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5), flat.value(), "values after flattening");
         this.checkText(flat,"a1b2d4e5");
     }
 
@@ -92,7 +99,7 @@ public abstract class RepeatedOrSequenceParserTokenTestCase<T extends RepeatedOr
         final T parent = this.createToken(STRING1, STRING2, child);
         final T flat = parent.flat().cast();
         assertNotSame(parent, flat);
-        assertEquals("values after flattening", Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value());
+        assertEquals(Lists.of(STRING1, STRING2, STRING4, STRING5, STRING6), flat.value(), "values after flattening");
         this.checkText(flat,"a1b2d4e5f6");
     }
 

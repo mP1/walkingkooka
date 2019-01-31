@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.iterator.IteratorTestCase;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.ClientCookie;
@@ -27,7 +27,7 @@ import walkingkooka.net.header.CookieName;
 
 import java.util.Map.Entry;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extends
         IteratorTestCase<RouterHttpRequestParametersMapCookiesEntryIterator, Entry<HttpRequestAttribute<?>, Object>> {
@@ -77,8 +77,8 @@ public final class RouterHttpRequestParametersMapCookiesEntryIteratorTest extend
     private void checkNext(final RouterHttpRequestParametersMapCookiesEntryIterator iterator,
                            final ClientCookie cookie) {
         final Entry<HttpRequestAttribute<?>, Object> entry = iterator.next();
-        assertEquals("key", cookie.name(), entry.getKey());
-        assertEquals("value", cookie, entry.getValue());
+        assertEquals(cookie.name(), entry.getKey(), "key");
+        assertEquals(cookie, entry.getValue(), "value");
     }
 
     @Test

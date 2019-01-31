@@ -18,8 +18,7 @@
 
 package walkingkooka.convert;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -88,8 +87,7 @@ public final class NumberLocalDateTimeConverterTest extends NumberConverterTestC
         this.convertAndCheckExcelOffset(BigDecimal.valueOf(VALUE));
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testDoubleMaxFails() {
         throw new UnsupportedOperationException();
     }

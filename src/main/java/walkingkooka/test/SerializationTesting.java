@@ -18,8 +18,8 @@
 
 package walkingkooka.test;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -31,10 +31,10 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public interface SerializationTesting<S extends Serializable> extends Testing {
 
@@ -49,16 +49,16 @@ public interface SerializationTesting<S extends Serializable> extends Testing {
                 final Field field = t.getDeclaredField("serialVersionUID");
                 final int modifiers = field.getModifiers();
                 if (false == Modifier.isStatic(modifiers)) {
-                    Assert.fail(field + " is not static.");
+                    Assertions.fail(field + " is not static.");
                 }
                 if (false == Modifier.isFinal(modifiers)) {
-                    Assert.fail(field + " is not final.");
+                    Assertions.fail(field + " is not final.");
                 }
                 if (false == Modifier.isPrivate(modifiers)) {
-                    Assert.fail(field + " is not private.");
+                    Assertions.fail(field + " is not private.");
                 }
             } catch (final NoSuchFieldException absent) {
-                Assert.fail(t + " does not include a \"serialVersionUID\" field");
+                Assertions.fail(t + " does not include a \"serialVersionUID\" field");
             }
 
             t = t.getSuperclass();
@@ -73,15 +73,15 @@ public interface SerializationTesting<S extends Serializable> extends Testing {
             deserialized = this.cloneUsingSerialization(object);
         } catch (final Exception exception) {
             exception.printStackTrace();
-            Assert.fail(object + " is not serializable, cause: " + exception.getMessage());
+            Assertions.fail(object + " is not serializable, cause: " + exception.getMessage());
         }
 
         if (this.serializableInstanceIsSingleton()) {
-            assertSame("Singleton should return same instance", object, deserialized);
+            assertSame(object, deserialized, "Singleton should return same instance");
         } else {
-            assertNotSame("Non singletons should deserialize a different but equal instance",
-                    object,
-                    deserialized);
+            assertNotSame(object,
+                    deserialized,
+                    "Non singletons should deserialize a different but equal instance");
             assertEquals(object, deserialized);
         }
     }
@@ -93,7 +93,7 @@ public interface SerializationTesting<S extends Serializable> extends Testing {
     @SuppressWarnings("unchecked")
     default <S extends Serializable> S cloneUsingSerialization(final Serializable object)
             throws IOException, ClassNotFoundException {
-        assertNotNull("object to be cloned is null", object);
+        assertNotNull(object, "object to be cloned is null");
 
         final Thread thread = Thread.currentThread();
         final ClassLoader classLoader = object.getClass().getClassLoader();
@@ -152,22 +152,22 @@ public interface SerializationTesting<S extends Serializable> extends Testing {
             }
             // complain if not final.
             if (false == Modifier.isFinal(modifiers)) {
-                Assert.fail(field.toString() + " is NOT final=" + field);
+                Assertions.fail(field.toString() + " is NOT final=" + field);
             }
             @SuppressWarnings("unchecked") final S constant = (S) field.get(null);
             final S deserialized = this.cloneUsingSerialization(constant);
-            assertSame("Constant is not a singleton=" + field, constant, deserialized);
+            assertSame(constant, deserialized, () -> "Constant is not a singleton=" + field);
             i++;
         }
 
         if (0 == i) {
-            Assert.fail("No public static constants found in " + type.getName());
+            Assertions.fail("No public static constants found in " + type.getName());
         }
     }
 
     default void serializeSingletonAndCheck(final Serializable object) throws IOException, ClassNotFoundException {
         final S serialized = this.cloneUsingSerialization(object);
-        assertSame(object + " is not a singleton", object, serialized);
+        assertSame(object, serialized, () -> object + " is not a singleton");
     }
 
     Class<S> type();

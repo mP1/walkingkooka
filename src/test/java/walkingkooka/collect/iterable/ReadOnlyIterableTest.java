@@ -17,17 +17,17 @@
 
 package walkingkooka.collect.iterable;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterable<String>, String> {
 
@@ -39,11 +39,9 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
 
     @Test
     public void testWrapNullIterableFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ReadOnlyIterable.wrap(null);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        });
     }
 
     @Test
@@ -56,16 +54,16 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
         final ReadOnlyIterable<String> readOnly = ReadOnlyIterable.wrap(iterable);
         final Iterator<String> iterator = readOnly.iterator();
 
-        assertTrue("iterator should not be empty", iterator.hasNext());
+        assertTrue(iterator.hasNext(), "iterator should not be empty");
         assertEquals("1", iterator.next());
 
-        assertTrue("iterator should not be empty", iterator.hasNext());
+        assertTrue(iterator.hasNext(), "iterator should not be empty");
         assertEquals("2", iterator.next());
 
-        assertTrue("iterator should not be empty", iterator.hasNext());
+        assertTrue(iterator.hasNext(), "iterator should not be empty");
         assertEquals("3", iterator.next());
 
-        assertFalse("iterator should be empty", iterator.hasNext());
+        assertFalse(iterator.hasNext(), "iterator should be empty");
     }
 
     @Test
@@ -78,14 +76,12 @@ final public class ReadOnlyIterableTest extends IterableTestCase<ReadOnlyIterabl
         final ReadOnlyIterable<String> readOnly = ReadOnlyIterable.wrap(iterable);
         final Iterator<String> iterator = readOnly.iterator();
 
-        assertTrue("iterator should not be empty", iterator.hasNext());
+        assertTrue(iterator.hasNext(), "iterator should not be empty");
         assertEquals("1", iterator.next());
 
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             iterator.remove();
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
     }
 
     @Test

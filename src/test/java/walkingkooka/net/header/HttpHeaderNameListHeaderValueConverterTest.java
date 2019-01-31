@@ -18,10 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpHeaderNameListHeaderValueConverterTest extends
         HeaderValueConverterTestCase<HttpHeaderNameListHeaderValueConverter, List<HttpHeaderName<?>>> {
@@ -50,14 +52,18 @@ public final class HttpHeaderNameListHeaderValueConverterTest extends
         this.parseAndCheck(value, Lists.of(headers));
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesNullFails() {
-        this.check(Lists.of(this.header(), null));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.header(), null));
+        });
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testCheckIncludesWrongTypeFails() {
-        this.check(Lists.of(this.header(), "WRONG!"));
+        assertThrows(HeaderValueException.class, () -> {
+            this.check(Lists.of(this.header(), "WRONG!"));
+        });
     }
 
     private HttpHeaderName header() {

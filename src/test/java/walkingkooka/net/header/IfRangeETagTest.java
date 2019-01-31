@@ -18,11 +18,12 @@
 
 package walkingkooka.net.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, LocalDateTime> {
 
@@ -32,9 +33,11 @@ public final class IfRangeETagTest extends IfRangeTestCase<IfRangeETag, ETag, Lo
         assertSame(ifRange, ifRange.etag());
     }
 
-    @Test(expected = HeaderValueException.class)
+    @Test
     public void testLastModified() {
-        this.createHeaderValue().lastModified();
+        assertThrows(HeaderValueException.class, () -> {
+            this.createHeaderValue().lastModified();
+        });
     }
 
     @Override

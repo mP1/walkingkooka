@@ -18,10 +18,7 @@
 
 package walkingkooka.predicate.character;
 
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.text.CharSequences;
@@ -39,23 +36,25 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPredicateTestCase<CharPredicate> {
 
-    @Test
-    @Ignore
+    @Override
     public void testTestNaming() {
         throw new UnsupportedOperationException();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFromGrammarNullGrammarFails() {
-        CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(null, Maps.empty());
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(null, Maps.empty());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFromGrammarNullDefaultsFails() {
         final String text = "test='text';";
         final EbnfParserToken rule = EbnfRuleParserToken.rule(Lists.of(
@@ -64,7 +63,9 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
                 text);
         final EbnfGrammarParserToken grammar = EbnfParserToken.grammar(Lists.of(rule), text);
 
-        CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(grammar, null);
+        assertThrows(NullPointerException.class, () -> {
+            CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(grammar, null);
+        });
     }
 
     @Test
@@ -82,19 +83,25 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
         this.readGrammarAndCheck();
     }
 
-    @Test(expected = EbnfGrammarParserTokenInvalidReferencesException.class)
+    @Test
     public void testIdentifierUnknownFail() {
-        this.createCharPredicate0();
+        assertThrows(EbnfGrammarParserTokenInvalidReferencesException.class, () -> {
+            this.createCharPredicate0();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testRangeBeginInvalidTerminalFail() {
-        this.createCharPredicate0();
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createCharPredicate0();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testRangeEndInvalidTerminalFail() {
-        this.createCharPredicate0();
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createCharPredicate0();
+        });
     }
 
     @Test
@@ -121,19 +128,25 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
         this.readGrammarAndCheck();
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testConcatenation() {
-        this.createCharPredicate0();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createCharPredicate0();
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testOptional() {
-        this.createCharPredicate0();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createCharPredicate0();
+        });
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRepeated() {
-        this.createCharPredicate0();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createCharPredicate0();
+        });
     }
 
     @Test
@@ -160,11 +173,8 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
     }
 
     private CharPredicate createCharPredicate0() {
-        return this.createCharPredicate1(this.testName.getMethodName() + ".grammar");
+        return this.createCharPredicate1(this.currentTestName() + ".grammar");
     }
-
-    @Rule
-    public TestName testName = new TestName();
 
     /**
      * Parses the grammar file, uses the transformer to convert each rule into matchers and then returns the parser for the rule called "TEST".
@@ -177,7 +187,7 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
         final Map<EbnfIdentifierName, CharPredicate> all = CharPredicateGrammarEbnfParserTokenVisitor.fromGrammar(grammar, defaults);
 
         final CharPredicate test = all.get(TEST);
-        assertNotNull(TEST + " parser not found in grammar\n" + grammar, test);
+        assertNotNull(test, TEST + " parser not found in grammar\n" + grammar);
         return test;
     }
 
@@ -205,8 +215,6 @@ public final class CharPredicateGrammarEbnfParserTokenVisitorTest extends CharPr
         }
     }
 
-    @Test
-    @Ignore
     @Override
     public void testClassVisibility() {
         throw new UnsupportedOperationException();

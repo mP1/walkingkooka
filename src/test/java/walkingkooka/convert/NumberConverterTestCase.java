@@ -18,7 +18,7 @@
 
 package walkingkooka.convert;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public abstract class NumberConverterTestCase<C extends NumberConverter<T>, T> extends FixedTypeConverterTestCase<C, T> {
 

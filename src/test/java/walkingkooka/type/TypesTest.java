@@ -19,13 +19,13 @@
 
 package walkingkooka.type;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class TypesTest extends PublicStaticHelperTestCase<Types> {
 

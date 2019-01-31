@@ -18,7 +18,7 @@
 
 package walkingkooka.text.cursor.parser.spreadsheet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
@@ -28,9 +28,10 @@ import walkingkooka.tree.expression.ExpressionNodeName;
 import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentParserTokenTestCase<SpreadsheetFunctionParserToken> {
 
@@ -98,9 +99,11 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
         this.checkParameters(token, number);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetValueMissingFunctionNameFails() {
-        this.createToken().setValue(Lists.of(this.number1()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createToken().setValue(Lists.of(this.number1()));
+        });
     }
 
     @Test
@@ -111,11 +114,11 @@ public final class SpreadsheetFunctionParserTokenTest extends SpreadsheetParentP
     }
 
     private void checkFunction(final SpreadsheetFunctionParserToken function, final SpreadsheetFunctionName name) {
-        assertEquals("functionName", name, function.functionName());
+        assertEquals(name, function.functionName(), "functionName");
     }
 
     private void checkParameters(final SpreadsheetFunctionParserToken function, final SpreadsheetParserToken...parameters) {
-        assertEquals("parameters", Lists.of(parameters), function.parameters());
+        assertEquals(Lists.of(parameters), function.parameters(),"parameters");
     }
 
     @Override

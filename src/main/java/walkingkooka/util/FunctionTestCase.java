@@ -23,7 +23,7 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.function.Function;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class FunctionTestCase<F extends Function<T, R>, T, R> extends ClassTestCase<F> {
 
@@ -32,9 +32,9 @@ public abstract class FunctionTestCase<F extends Function<T, R>, T, R> extends C
     }
 
     protected <TT, RR> void applyAndCheck(final Function<TT, RR> function, final TT input, final RR result) {
-        assertEquals("Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(input),
-                result,
-                function.apply(input));
+        assertEquals(result,
+                function.apply(input),
+                () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(input));
     }
 
     protected abstract F createFunction();

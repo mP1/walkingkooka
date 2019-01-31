@@ -18,13 +18,12 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.search.SearchNode;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C extends List<JsonNode>>
         extends JsonNodeTestCase<N> {
@@ -47,22 +46,18 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
 
         final JsonNodeName differentName = JsonNodeName.with("different");
         final N different = node.setName(differentName).cast();
-        assertEquals("name", differentName, different.name());
+        assertEquals(differentName, different.name(), "name");
         this.checkChildren(different, value);
 
-        assertEquals("original name", originalName, node.name());
+        assertEquals(originalName, node.name(), "original name");
         this.checkChildren(node, value);
     }
 
-    @Test
-    @Ignore
     @Override
     public final void testReplaceChildDifferentParent() {
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    @Ignore
     @Override
     public final void testSetSameAttributes() {
         throw new UnsupportedOperationException();
@@ -74,6 +69,6 @@ public abstract class JsonParentNodeTestCase<N extends JsonParentNode<C>, C exte
     }
 
     final void checkChildren(final N node, final List<JsonNode> children) {
-        assertEquals("children", children, node.children());
+        assertEquals(children, node.children(), "children");
     }
 }

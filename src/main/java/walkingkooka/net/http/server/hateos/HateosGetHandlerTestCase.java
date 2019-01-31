@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.compare.Range;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.tree.Node;
@@ -28,27 +28,35 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N extends Node<N, ?, ?, ?>> extends HateosHandlerTestCase<H, N> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetNullIdFails() {
-        this.get(null,
-                this.parameters(),
-                this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.get(null,
+                    this.parameters(),
+                    this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetNullParametersFails() {
-        this.get(this.id(),
-                null,
-                this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.get(this.id(),
+                    null,
+                    this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetNullContextFails() {
-        this.get(this.id(),
-                this.parameters(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            this.get(this.id(),
+                    this.parameters(),
+                    null);
+        });
     }
 
     protected Optional<N> get(final BigInteger id,
@@ -57,25 +65,31 @@ public abstract class HateosGetHandlerTestCase<H extends HateosGetHandler<N>, N 
         return this.createHandler().get(id, parameters, context);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetCollectionNullCollectionFails() {
-        this.getCollection(null,
-                this.parameters(),
-                this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.getCollection(null,
+                    this.parameters(),
+                    this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetCollectionNullParametCollectionersFails() {
-        this.getCollection(this.collection(),
-                null,
-                this.createContext());
+        assertThrows(NullPointerException.class, () -> {
+            this.getCollection(this.collection(),
+                    null,
+                    this.createContext());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetCollectionNullContextFails() {
-        this.getCollection(this.collection(),
-                this.parameters(),
-                null);
+        assertThrows(NullPointerException.class, () -> {
+            this.getCollection(this.collection(),
+                    this.parameters(),
+                    null);
+        });
     }
 
     protected Optional<N> getCollection(final Range<BigInteger> collection,

@@ -17,16 +17,15 @@
 
 package walkingkooka.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class PairTest extends ClassTestCase<Pair<?, ?>>
         implements HashCodeEqualsDefinedTesting<Pair<?, ?>>, SerializationTesting<Pair<?, ?>> {
@@ -39,30 +38,28 @@ final public class PairTest extends ClassTestCase<Pair<?, ?>>
 
     @Test
     public void testNullFirst() {
-        final Pair<A, B> pair = Pair.with(A, B);
-        assertSame("first value", A, pair.first());
-        assertSame("second value", B, pair.second());
+        this.createAndCheck(null, B);
     }
 
     @Test
     public void testNullSecond() {
-        final Pair<A, B> pair = Pair.with(A, null);
-        assertSame("first value", A, pair.first());
-        assertNull("second value", pair.second());
+        this.createAndCheck(A, null);
     }
 
     @Test
     public void testTwoNulls() {
-        final Pair<A, B> pair = Pair.with(null, null);
-        assertNull("first value", pair.first());
-        assertNull("second value", pair.second());
+        this.createAndCheck(null, null);
     }
 
     @Test
     public void testWith() {
-        final Pair<A, B> pair = Pair.with(A, B);
-        assertSame("first value", A, pair.first());
-        assertSame("second value", B, pair.second());
+        this.createAndCheck(A, B);
+    }
+
+    private void createAndCheck(final A left, final B right) {
+        final Pair<A, B> pair = Pair.with(left, right);
+        assertSame(left, pair.first(), "first value");
+        assertSame(right, pair.second(), "second value");
     }
 
     // HashCodeEqualsDefined ..................................................................................................

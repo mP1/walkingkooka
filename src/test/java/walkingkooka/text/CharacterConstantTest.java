@@ -17,12 +17,12 @@
 
 package walkingkooka.text;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final public class CharacterConstantTest extends CharSequenceTestCase<CharacterConstant> {
 
@@ -52,14 +52,14 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
 
     private void checkCached(final char c) {
         final CharacterConstant constant = CharacterConstant.with(c);
-        assertSame("not cached", constant, CharacterConstant.with(c));
+        assertSame(constant, CharacterConstant.with(c), "not cached");
 
         this.check(constant, c);
     }
 
     private void check(final CharacterConstant constant, final char c) {
-        assertEquals("character", c, constant.character());
-        assertEquals("text", String.valueOf(c), constant.string());
+        assertEquals( c, constant.character(), "character");
+        assertEquals(String.valueOf(c), constant.string(), "string");
     }
 
     @Test
@@ -90,7 +90,7 @@ final public class CharacterConstantTest extends CharSequenceTestCase<CharacterC
     }
     @Test
     public void testToString() {
-        assertEquals("toString", "a", CharacterConstant.with('a').toString());
+        assertEquals("a", CharacterConstant.with('a').toString(), "toString");
     }
 
     @Override

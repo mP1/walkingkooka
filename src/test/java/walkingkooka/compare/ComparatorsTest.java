@@ -17,12 +17,12 @@
 
 package walkingkooka.compare;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final public class ComparatorsTest extends PublicStaticHelperTestCase<Comparators> {
 
@@ -42,9 +42,9 @@ final public class ComparatorsTest extends PublicStaticHelperTestCase<Comparator
     }
 
     private void normalizeIntAndCheck(final int value, final int expected) {
-        assertEquals("Normalize (int)" + value,
-                expected,
-                Comparables.normalize(value));
+        assertEquals(expected,
+                Comparables.normalize(value),
+                "Normalize (int)" + value);
     }
 
     @Test
@@ -63,9 +63,9 @@ final public class ComparatorsTest extends PublicStaticHelperTestCase<Comparator
     }
 
     private void normalizeLongAndCheck(final long value, final long expected) {
-        assertEquals("Normalize (long)" + value,
-                expected,
-                Comparables.normalize(value));
+        assertEquals(expected,
+                Comparables.normalize(value),
+                "Normalize (long)" + value);
     }
 
     // helpers

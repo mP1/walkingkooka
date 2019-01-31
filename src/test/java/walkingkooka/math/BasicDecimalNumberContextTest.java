@@ -18,15 +18,18 @@
 
 package walkingkooka.math;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicDecimalNumberContextTest extends DecimalNumberContextTestCase<BasicDecimalNumberContext> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullCurrencySymbol() {
-        BasicDecimalNumberContext.with(null, '.', 'E', ',', '-', '%','+');
+        assertThrows(NullPointerException.class, () -> {
+            BasicDecimalNumberContext.with(null, '.', 'E', ',', '-', '%','+');
+        });
     }
 
     @Test

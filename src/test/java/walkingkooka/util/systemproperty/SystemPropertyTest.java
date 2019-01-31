@@ -17,8 +17,7 @@
 
 package walkingkooka.util.systemproperty;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.ConstantsTesting;
@@ -28,30 +27,27 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
         implements ConstantsTesting<SystemProperty>, HashCodeEqualsDefinedTesting<SystemProperty> {
 
     @Test
     public void testGetNullFails() {
-        this.getFails(null);
+        assertThrows(NullPointerException.class, () -> {
+            SystemProperty.get(null);
+        });
     }
 
     @Test
     public void testGetEmptyFails() {
-        this.getFails("");
-    }
-
-    private void getFails(final String name) {
-        try {
-            SystemProperty.get(name);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> {
+            SystemProperty.get("");
+        });
     }
 
     @Test
@@ -87,7 +83,7 @@ final public class SystemPropertyTest extends ClassTestCase<SystemProperty>
     @Test
     public void testRequiredValue() {
         final SystemProperty property = SystemProperty.FILE_SEPARATOR;
-        assertEquals("value", property.propertyValue(), property.requiredPropertyValue());
+        assertEquals(property.propertyValue(), property.requiredPropertyValue(), "value");
     }
 
     @Test

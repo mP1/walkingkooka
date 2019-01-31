@@ -17,17 +17,17 @@
 
 package walkingkooka.naming;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.type.MemberVisibility;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
         implements HashCodeEqualsDefinedTesting<PathSeparator>, SerializationTesting<PathSeparator> {
@@ -41,34 +41,31 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
 
     @Test
     public void testRequiredControlSeparatorCharacterFails() {
-        this.requiredFails('\n');
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+            PathSeparator.requiredAtStart('\n');
+        });
+        assertEquals(PathSeparator.invalidCharacter('\n'), expected.getMessage());
     }
 
     @Test
     public void testRequiredLetterFails() {
-        this.requiredFails('A');
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+            PathSeparator.requiredAtStart('A');
+        });
+        assertEquals(PathSeparator.invalidCharacter('A'), expected.getMessage());
     }
 
     @Test
     public void testRequiredDigitFails() {
-        this.requiredFails('1');
-    }
-
-    private void requiredFails(final char character) {
-        try {
-            PathSeparator.requiredAtStart(character);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-            assertEquals(PathSeparator.invalidCharacter(character), expected.getMessage());
-        }
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+            PathSeparator.requiredAtStart('1');
+        });
+        assertEquals(PathSeparator.invalidCharacter('1'), expected.getMessage());
     }
 
     @Test
     public void testRequiredAtStart() {
-        final PathSeparator separator = PathSeparator.requiredAtStart(SEPARATOR);
-        assertEquals("character", SEPARATOR, separator.character());
-        assertEquals("string", String.valueOf(SEPARATOR), separator.string());
-        assertEquals("requiredAtStart", REQUIRED, separator.isRequiredAtStart());
+        this.check(PathSeparator.requiredAtStart(SEPARATOR), SEPARATOR, REQUIRED);
     }
 
     @Test
@@ -76,51 +73,48 @@ final public class PathSeparatorTest extends ClassTestCase<PathSeparator>
         final char c = '/';
         final PathSeparator separator = PathSeparator.requiredAtStart(c);
         assertSame(separator, PathSeparator.requiredAtStart(c));
-        assertEquals("character", c, separator.character());
-        assertEquals("string", String.valueOf(c), separator.string());
-        assertEquals("requiredAtStart", REQUIRED, separator.isRequiredAtStart());
+        this.check(separator, c, REQUIRED);
+    }
+
+    private void check(final PathSeparator separator,
+                       final char c,
+                       final boolean required) {
+        assertEquals(c, separator.character(), "character");
+        assertEquals(String.valueOf(c), separator.string(), "string");
+        assertEquals(required, separator.isRequiredAtStart(), "requiredAtStart");
     }
 
     @Test
     public void testNotRequiredControlSeparatorCharacterFails() {
-        this.notRequiredFails('\n');
+        assertThrows(IllegalArgumentException.class, () -> {
+            PathSeparator.notRequiredAtStart('\n');
+        });
     }
 
     @Test
     public void testNotRequiredLetterFails() {
-        this.notRequiredFails('A');
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+            PathSeparator.notRequiredAtStart('A');
+        });
+        assertEquals(PathSeparator.invalidCharacter('A'), expected.getMessage());
     }
 
     @Test
     public void testNotRequiredDigitFails() {
-        this.notRequiredFails('1');
-    }
-
-    private void notRequiredFails(final char character) {
-        try {
-            PathSeparator.notRequiredAtStart(character);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-            assertEquals(PathSeparator.invalidCharacter(character), expected.getMessage());
-        }
+        final IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> {
+            PathSeparator.notRequiredAtStart('1');
+        });
+        assertEquals(PathSeparator.invalidCharacter('1'), expected.getMessage());
     }
 
     @Test
     public void testNotRequiredAtStart() {
-        final PathSeparator separator = PathSeparator.notRequiredAtStart(SEPARATOR);
-        assertEquals("character", SEPARATOR, separator.character());
-        assertEquals("string", String.valueOf(SEPARATOR), separator.string());
-        assertEquals("requiredAtStart", false, separator.isRequiredAtStart());
+        this.check(PathSeparator.notRequiredAtStart(SEPARATOR), SEPARATOR, false);
     }
 
     @Test
     public void testNotRequiredDotSingleton() {
-        final char c = '.';
-        final PathSeparator separator = PathSeparator.notRequiredAtStart(c);
-        assertSame(separator, PathSeparator.notRequiredAtStart(c));
-        assertEquals("character", c, separator.character());
-        assertEquals("string", String.valueOf(c), separator.string());
-        assertEquals("requiredAtStart", false, separator.isRequiredAtStart());
+        this.check(PathSeparator.notRequiredAtStart('.'), '.', false);
     }
 
     @Test

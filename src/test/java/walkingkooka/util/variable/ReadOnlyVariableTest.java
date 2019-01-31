@@ -17,21 +17,19 @@
 
 package walkingkooka.util.variable;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ReadOnlyVariableTest extends VariableTestCase<ReadOnlyVariable<Object>, Object> {
 
     @Test
     public void testWrapNullVariableFails() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             ReadOnlyVariable.wrap(null);
-            Assert.fail();
-        } catch (final RuntimeException expected) {
-        }
+        });
     }
 
     @Override
@@ -56,11 +54,9 @@ final public class ReadOnlyVariableTest extends VariableTestCase<ReadOnlyVariabl
     @Test
     public void testSetFails() {
         final ReadOnlyVariable<Object> variable = ReadOnlyVariable.wrap(Variables.fake());
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             variable.set(new Object());
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
     }
 
     @Override
@@ -72,11 +68,9 @@ final public class ReadOnlyVariableTest extends VariableTestCase<ReadOnlyVariabl
     @Test
     public void testReplaceFails() {
         final ReadOnlyVariable<Object> variable = ReadOnlyVariable.wrap(Variables.fake());
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             variable.set(null);
-            Assert.fail();
-        } catch (final UnsupportedOperationException expected) {
-        }
+        });
     }
 
     @Test

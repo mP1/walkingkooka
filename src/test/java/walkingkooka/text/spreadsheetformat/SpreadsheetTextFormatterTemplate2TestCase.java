@@ -18,7 +18,7 @@
 
 package walkingkooka.text.spreadsheetformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.cursor.TextCursors;
@@ -29,16 +29,19 @@ import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParse
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserContexts;
 import walkingkooka.text.cursor.parser.spreadsheet.format.SpreadsheetFormatParserToken;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetTextFormatterTemplate2TestCase<F extends SpreadsheetTextFormatterTemplate2<V, T>,
         V,
         T extends SpreadsheetFormatParserToken>
         extends SpreadsheetTextFormatterTemplateTestCase<F, V> {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public final void testWithNullParserTokenFails() {
-        this.createFormatter0(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createFormatter0(null);
+        });
     }
 
     @Test

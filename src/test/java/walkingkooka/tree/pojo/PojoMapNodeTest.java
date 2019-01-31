@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -28,9 +28,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNode, Map<Object, Object>> {
 
@@ -62,7 +62,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
 
         this.childrenAndCheckNames(node2, INDEX0);
         this.childrenValuesCheck(node2, ENTRY0);
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
 
         this.childrenAndCheckNames(node, INDEX0, INDEX1);
         this.childrenValuesCheck(node, ENTRY0, ENTRY1);
@@ -80,7 +80,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
 
         this.childrenAndCheckNames(childNode2, INDEX0);
         this.childrenValuesCheck(childNode2, ENTRY0);
-        this.parentAbsentCheck(childNode);
+        this.checkWithoutParent(childNode);
 
         this.childrenAndCheckNames(childNode, INDEX0, INDEX1);
         this.childrenValuesCheck(childNode, ENTRY0, ENTRY1);
@@ -114,7 +114,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         this.childrenValuesCheck(parentNode2, Lists.of(
                 entry(KEY0, new TestImmutableLeaf(STRING2)),
                 ENTRY1));
-        assertEquals("parentNode2.value", map(
+        assertEquals(map(
                 entry(KEY0, new TestImmutableLeaf(STRING2)),
                 ENTRY1),
                 parentNode2.value());
@@ -148,7 +148,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         this.childrenValuesCheck(parentNode2, Lists.of(
                 entry(KEY0, new TestMutableLeaf(STRING2)),
                 ENTRY1));
-        assertEquals("parentNode2.value", map(
+        assertEquals(map(
                 entry(KEY0, new TestMutableLeaf(STRING2)),
                 ENTRY1),
                 parentNode2.value());
@@ -184,7 +184,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         this.childrenValuesCheck(parentNode2, Lists.of(
                 entry(KEY0, new TestImmutableLeaf(STRING2)),
                 ENTRY1));
-        assertEquals("parentNode2.value", map(
+        assertEquals(map(
                 entry(KEY0, new TestImmutableLeaf(STRING2)),
                 ENTRY1),
                 parentNode2.value());
@@ -218,7 +218,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
         this.childrenValuesCheck(parentNode2, Lists.of(
                 entry(KEY0, new TestMutableLeaf(STRING2)),
                 ENTRY1));
-        assertEquals("parentNode2.value", map(
+        assertEquals(map(
                 entry(KEY0, new TestMutableLeaf(STRING2)),
                 ENTRY1),
                 parentNode2.value());
@@ -238,7 +238,7 @@ public final class PojoMapNodeTest extends PojoCollectionNodeTestCase<PojoMapNod
 
         this.childrenAndCheckNames(childNode2, INDEX0);
         this.childrenValuesCheck(childNode2, ENTRY0);
-        this.parentAbsentCheck(childNode);
+        this.checkWithoutParent(childNode);
 
         this.childrenAndCheckNames(childNode, INDEX0, INDEX1);
         this.childrenValuesCheck(childNode, ENTRY0, ENTRY1);

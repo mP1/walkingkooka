@@ -17,12 +17,13 @@
 
 package walkingkooka.tree.pojo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Integer> {
 
@@ -34,7 +35,7 @@ public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Int
 
     @Test
     public void testParent() {
-        this.parentAbsentCheck(this.createNode());
+        this.checkWithoutParent(this.createNode());
     }
 
     @Test
@@ -55,12 +56,14 @@ public final class PojoBasicNodeTest extends PojoNodeTestCase<PojoBasicNode, Int
     private void childrenOf(final Object value){
         final PojoBasicNode node = this.createPojoNode(value);
         this.childrenAndCheckNames(node);
-        this.parentAbsentCheck(node);
+        this.checkWithoutParent(node);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testChildrenSetFails() {
-        this.createNode().setChildren(Lists.array());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            this.createNode().setChildren(Lists.array());
+        });
     }
 
     @Test

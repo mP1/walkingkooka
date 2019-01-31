@@ -17,8 +17,7 @@
 
 package walkingkooka.io.printstream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.io.printer.Printer;
 import walkingkooka.io.printer.Printers;
@@ -29,9 +28,10 @@ import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPrintStream> {
 
@@ -47,26 +47,23 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
 
     @Test
     public void testAdaptNullPrinterFails() {
-        this.adaptFails(null, PrinterPrintStreamTest.LINE_ENDING, PrinterPrintStreamTest.CHARSET);
+        assertThrows(NullPointerException.class, () -> {
+            PrinterPrintStream.adapt(null, LINE_ENDING, CHARSET);
+        });
     }
 
     @Test
     public void testAdaptNullLineEndingFails() {
-        this.adaptFails(PrinterPrintStreamTest.PRINTER, null, PrinterPrintStreamTest.CHARSET);
+        assertThrows(NullPointerException.class, () -> {
+            PrinterPrintStream.adapt(PRINTER, null, CHARSET);
+        });
     }
 
     @Test
     public void testAdaptNullCharsetFails() {
-        this.adaptFails(PrinterPrintStreamTest.PRINTER, PrinterPrintStreamTest.LINE_ENDING, null);
-    }
-
-    private void adaptFails(final Printer printer, final LineEnding lineEnding,
-                            final Charset charset) {
-        try {
-            PrinterPrintStream.adapt(printer, lineEnding, charset);
-            Assert.fail();
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> {
+            PrinterPrintStream.adapt(PRINTER, LINE_ENDING, null);
+        });
     }
 
     @Test
@@ -74,9 +71,9 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
         final PrintStream printStream = System.out;
         assertSame(printStream,
                 PrinterPrintStream.adapt(Printers.printStream(printStream,
-                        PrinterPrintStreamTest.LINE_ENDING),
-                        PrinterPrintStreamTest.LINE_ENDING,
-                        PrinterPrintStreamTest.CHARSET));
+                        LINE_ENDING),
+                        LINE_ENDING,
+                        CHARSET));
     }
 
     @Test
@@ -126,7 +123,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
     public void testWriteByteArrayAndFlush3() {
         final String source = "ABCD\u0100;EFGHIJKLMN";
         final StringBuilder b = new StringBuilder();
-        final byte[] bytes = source.getBytes(PrinterPrintStreamTest.CHARSET);
+        final byte[] bytes = source.getBytes(CHARSET);
         final PrinterPrintStream printStream = this.createPrintStream(b);
         printStream.write(bytes, 0, bytes.length);
         printStream.flush();
@@ -138,7 +135,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
     public void testWriteByteArrayAndFlush4() {
         final String source = "ABCD\u1234;EFGHIJKLMN";
         final StringBuilder b = new StringBuilder();
-        final byte[] bytes = source.getBytes(PrinterPrintStreamTest.CHARSET);
+        final byte[] bytes = source.getBytes(CHARSET);
         final PrinterPrintStream printStream = this.createPrintStream(b);
         printStream.write(bytes, 0, bytes.length);
         printStream.flush();
@@ -248,7 +245,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
         final StringBuilder b = new StringBuilder();
         PrinterPrintStream.adapt(Printers.stringBuilder(b, lineEnding),
                 lineEnding,
-                PrinterPrintStreamTest.CHARSET).println();
+                CHARSET).println();
         assertEquals(lineEnding.toString(), b.toString());
     }
 
@@ -256,49 +253,49 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
     public void testPrintlnBooleanTrue() {
         final StringBuilder b = new StringBuilder();
         this.createPrintStream(b).println(true);
-        assertEquals("true" + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals("true" + LINE_ENDING, b.toString());
     }
 
     @Test
     public void testPrintlnBooleanFalse() {
         final StringBuilder b = new StringBuilder();
         this.createPrintStream(b).println(false);
-        assertEquals("false" + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals("false" + LINE_ENDING, b.toString());
     }
 
     @Test
     public void testPrintlnChar() {
         final StringBuilder b = new StringBuilder();
         this.createPrintStream(b).println('A');
-        assertEquals("A" + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals("A" + LINE_ENDING, b.toString());
     }
 
     @Test
     public void testPrintlnInt() {
         final StringBuilder b = new StringBuilder();
         this.createPrintStream(b).println(123);
-        assertEquals("123" + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals("123" + LINE_ENDING, b.toString());
     }
 
     @Test
     public void testPrintlnLong() {
         final StringBuilder b = new StringBuilder();
         this.createPrintStream(b).println(123L);
-        assertEquals("123" + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals("123" + LINE_ENDING, b.toString());
     }
 
     @Test
     public void testPrintlnFloat() {
         final StringBuilder b = new StringBuilder();
         this.createPrintStream(b).println(123.0f);
-        assertEquals("123.0" + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals("123.0" + LINE_ENDING, b.toString());
     }
 
     @Test
     public void testPrintlnDouble() {
         final StringBuilder b = new StringBuilder();
         this.createPrintStream(b).println(123.5);
-        assertEquals("123.5" + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals("123.5" + LINE_ENDING, b.toString());
     }
 
     @Test
@@ -306,7 +303,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
         final StringBuilder b = new StringBuilder();
         final String printed = "printed";
         this.createPrintStream(b).println(printed.toCharArray());
-        assertEquals(printed + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals(printed + LINE_ENDING, b.toString());
     }
 
     @Test
@@ -314,7 +311,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
         final StringBuilder b = new StringBuilder();
         final String printed = "printed";
         this.createPrintStream(b).println(printed);
-        assertEquals(printed + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals(printed + LINE_ENDING, b.toString());
     }
 
     @Test
@@ -322,7 +319,7 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
         final StringBuilder b = new StringBuilder();
         final Object printed = new Object();
         this.createPrintStream(b).println(printed);
-        assertEquals(printed.toString() + PrinterPrintStreamTest.LINE_ENDING, b.toString());
+        assertEquals(printed.toString() + LINE_ENDING, b.toString());
     }
 
     @Test
@@ -417,8 +414,8 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
     @Test
     public void testClose() {
         PrinterPrintStream.adapt(Printers.sink(),
-                PrinterPrintStreamTest.LINE_ENDING,
-                PrinterPrintStreamTest.CHARSET).close();
+                LINE_ENDING,
+                CHARSET).close();
     }
 
     @Test
@@ -438,22 +435,22 @@ final public class PrinterPrintStreamTest extends PrintStreamTestCase<PrinterPri
 
     @Test
     public void testToString() {
-        assertEquals(PrinterPrintStreamTest.PRINTER + " \"\\r\"",
+        assertEquals(PRINTER + " \"\\r\"",
                 this.createPrintStream().toString());
     }
 
     @Override
     protected PrinterPrintStream createPrintStream() {
-        return Cast.to(PrinterPrintStream.adapt(PrinterPrintStreamTest.PRINTER,
-                PrinterPrintStreamTest.LINE_ENDING,
-                PrinterPrintStreamTest.CHARSET));
+        return Cast.to(PrinterPrintStream.adapt(PRINTER,
+                LINE_ENDING,
+                CHARSET));
     }
 
     private PrinterPrintStream createPrintStream(final StringBuilder b) {
         return Cast.to(PrinterPrintStream.adapt(Printers.stringBuilder(b,
-                PrinterPrintStreamTest.LINE_ENDING),
-                PrinterPrintStreamTest.LINE_ENDING,
-                PrinterPrintStreamTest.CHARSET));
+                LINE_ENDING),
+                LINE_ENDING,
+                CHARSET));
     }
 
     @Override

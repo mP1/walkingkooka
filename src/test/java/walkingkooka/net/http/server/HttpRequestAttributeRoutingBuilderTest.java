@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.build.BuilderException;
 import walkingkooka.build.BuilderTestCase;
@@ -41,24 +41,29 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCase<HttpRequestAttributeRoutingBuilder<String>,
         Routing<HttpRequestAttribute<?>, String>> {
 
     private final static String TARGET = "target123";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testWithNullTargetFails() {
-        HttpRequestAttributeRoutingBuilder.with(null);
+        assertThrows(NullPointerException.class, () -> {
+            HttpRequestAttributeRoutingBuilder.with(null);
+        });
     }
 
     // transport ...............................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTransportNullFails() {
-        this.createBuilder().transport(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().transport(null);
+        });
     }
 
     @Test
@@ -70,18 +75,23 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
                 .transport(transport);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTransportMultipleDifferentFails() {
         final HttpRequestAttributeRoutingBuilder<String> builder = this.createBuilder();
         builder.transport(HttpTransport.UNSECURED);
-        builder.transport(HttpTransport.SECURED);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            builder.transport(HttpTransport.SECURED);
+        });
     }
 
     // method ...............................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testMethodNullFails() {
-        this.createBuilder().method(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().method(null);
+        });
     }
 
     @Test
@@ -93,21 +103,28 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
 
     // path ...............................................................................
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPathNegativePathComponentIndexFails() {
-        this.createBuilder().path(-1, Predicates.fake());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createBuilder().path(-1, Predicates.fake());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPathNullPredicateFails() {
-        this.createBuilder().path(0, (Predicate<UrlPathName>) null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().path(0, (Predicate<UrlPathName>) null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testPathRepeatedPathComponentDifferentNameFails() {
-        this.createBuilder()
-                .path(0, Predicates.fake())
-                .path(0, Predicates.fake());
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createBuilder()
+                    .path(0, Predicates.fake())
+                    .path(0, Predicates.fake());
+
+        });
     }
 
     @Test
@@ -120,9 +137,11 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
 
     // protocol ...............................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testProtocolVersionNullFails() {
-        this.createBuilder().protocolVersion(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().protocolVersion(null);
+        });
     }
 
     @Test
@@ -133,23 +152,29 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
                 .protocolVersion(protocolVersion);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testProtocolVersionMultipleDifferentFails() {
         final HttpRequestAttributeRoutingBuilder<String> builder = this.createBuilder();
         builder.protocolVersion(HttpProtocolVersion.VERSION_1_0);
-        builder.protocolVersion(HttpProtocolVersion.VERSION_1_1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            builder.protocolVersion(HttpProtocolVersion.VERSION_1_1);
+        });
     }
 
     // header .................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testHeaderNullHeaderNameFails() {
-        this.createBuilder().header(null, Predicates.<Object>fake());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().header(null, Predicates.<Object>fake());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testHeaderNullPredicateFails() {
-        this.createBuilder().header(HttpHeaderName.CONNECTION, (Predicate<String>) null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().header(HttpHeaderName.CONNECTION, (Predicate<String>) null);
+        });
     }
 
     @Test
@@ -163,14 +188,18 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
 
     // cookie ...............................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCookieNullCookieNameFails() {
-        this.createBuilder().cookie(null, Predicates.fake());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().cookie(null, Predicates.fake());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCookieNullPredicateFails() {
-        this.createBuilder().cookie(cookieName(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().cookie(cookieName(), null);
+        });
     }
 
     @Test
@@ -184,14 +213,18 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
 
     // parameter .................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParameterNullParameterNameFails() {
-        this.createBuilder().parameter(null, Predicates.fake());
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().parameter(null, Predicates.fake());
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParameterNullPredicateFails() {
-        this.createBuilder().parameter(parameterName(), null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createBuilder().parameter(parameterName(), null);
+        });
     }
 
     @Test
@@ -205,9 +238,11 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
 
     // build ...................................................................................................
 
-    @Test(expected = BuilderException.class)
+    @Test
     public void testBuildEmptyFails() {
-        this.createBuilder().build();
+        assertThrows(BuilderException.class, () -> {
+            this.createBuilder().build();
+        });
     }
 
     @Test
@@ -412,16 +447,18 @@ public final class HttpRequestAttributeRoutingBuilderTest extends BuilderTestCas
                 .build();
     }
 
-    private void routeAndCheck(final Router<HttpRequestAttribute<?>, String> routers, final Map<HttpRequestAttribute<?>, Object> parameters) {
-        assertEquals("Routing of parameters=" + parameters + " failed",
-                Optional.of(TARGET),
-                routers.route(parameters));
+    private void routeAndCheck(final Router<HttpRequestAttribute<?>, String> routers,
+                               final Map<HttpRequestAttribute<?>, Object> parameters) {
+        assertEquals(Optional.of(TARGET),
+                routers.route(parameters),
+                "Routing of parameters=" + parameters + " failed");
     }
 
-    private void routeFails(final Router<HttpRequestAttribute<?>, String> routers, final Map<HttpRequestAttribute<?>, Object> parameters) {
-        assertEquals("Routing of parameters=" + parameters + " should have failed",
-                Optional.empty(),
-                routers.route(parameters));
+    private void routeFails(final Router<HttpRequestAttribute<?>, String> routers,
+                            final Map<HttpRequestAttribute<?>, Object> parameters) {
+        assertEquals(Optional.empty(),
+                routers.route(parameters),
+                "Routing of parameters=" + parameters + " should have failed");
     }
 
     // helpers.................................................................................................

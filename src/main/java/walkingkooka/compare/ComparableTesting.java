@@ -18,12 +18,12 @@
 
 package walkingkooka.compare;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * An interface for testing {@link Comparable comparables}. Many compareTo methods are
@@ -33,7 +33,9 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
 
     @Test
     default void testCompareToNullFails() {
-        this.compareToFails(null, NullPointerException.class);
+        assertThrows(NullPointerException.class, () -> {
+            this.createComparable().compareTo(null);
+        });
     }
 
     @Test
@@ -107,7 +109,7 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
 
     static void compareResultCheck(final String message, final int expected, final int actual) {
         if (Comparables.normalize(expected) != Comparables.normalize(actual)) {
-            assertEquals(message, expected, actual);
+            assertEquals(expected, actual, message);
         }
     }
 
@@ -116,35 +118,5 @@ public interface ComparableTesting<C extends Comparable<C> & HashCodeEqualsDefin
      */
     default boolean compareAndEqualsMatch() {
         return true;
-    }
-
-    // compareFails
-
-    default void compareToFails(final C comparable) {
-        this.compareToFails(this.createComparable(), comparable);
-    }
-
-    default void compareToFails(final C comparable,
-                                final Class<? extends Throwable> expected) {
-        this.compareToFails(this.createComparable(), comparable, expected);
-    }
-
-    default void compareToFails(final C comparable1, final C comparable2) {
-        this.compareToFails(comparable1, comparable2, null);
-    }
-
-    default void compareToFails(final C comparable1, final C comparable2,
-                                final Class<? extends Throwable> expected) {
-        try {
-            comparable1.compareTo(comparable2);
-            Assert.fail();
-        } catch (final Exception cause) {
-            if (null != expected) {
-                if (false == expected.equals(cause.getClass())) {
-                    assertEquals("expected " + comparable1 + " when compared with " + comparable2
-                            + " to fail", expected, cause);
-                }
-            }
-        }
     }
 }

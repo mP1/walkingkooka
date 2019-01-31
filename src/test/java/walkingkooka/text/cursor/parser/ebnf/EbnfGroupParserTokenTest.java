@@ -16,15 +16,15 @@
  */
 package walkingkooka.text.cursor.parser.ebnf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class EbnfGroupParserTokenTest extends EbnfGroupOptionalRepeatParentParserTokenTestCase<EbnfGroupParserToken> {
 
@@ -85,11 +85,11 @@ public class EbnfGroupParserTokenTest extends EbnfGroupOptionalRepeatParentParse
             }
         }.accept(group);
         assertEquals("13513742642", b.toString());
-        assertEquals("visited",
-                Lists.of(group, group, group,
+        assertEquals(Lists.of(group, group, group,
                         identifier1, identifier1, identifier1, identifier1, identifier1,
                         group, group, group),
-                visited);
+                visited,
+                "visited");
     }
     
     @Override

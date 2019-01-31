@@ -18,7 +18,7 @@
 
 package walkingkooka.tree.json;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.color.Color;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
@@ -27,18 +27,23 @@ import walkingkooka.type.MemberVisibility;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeTest extends ClassTestCase<JsonNode> {
 
-    @Test(expected = ParserException.class)
-    public void testParseFails() {
-        JsonNode.parse("");
+    @Test
+    public void testParseEmptyFails() {
+        assertThrows(ParserException.class, () -> {
+            JsonNode.parse("");
+        });
     }
 
-    @Test(expected = ParserException.class)
-    public void testParseFails2() {
-        JsonNode.parse("{\"");
+    @Test
+    public void testParseIncompleteObjectFails() {
+        assertThrows(ParserException.class, () -> {
+            JsonNode.parse("{\"");
+        });
     }
 
     @Test
@@ -96,9 +101,9 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> {
     }
 
     private void parseAndCheck(final String json, final JsonNode node) {
-        assertEquals("Parse result incorrect for " + CharSequences.quoteAndEscape(json),
-                JsonNode.parse(json),
-                node);
+        assertEquals(JsonNode.parse(json),
+                node,
+                "Parse result incorrect for " + CharSequences.quoteAndEscape(json));
     }
 
     // wrap....................................................................................................
@@ -170,9 +175,9 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> {
 
 
     private void wrapAndCheck(final Object value, final Optional<JsonNode> node) {
-        assertEquals("With value " + CharSequences.quoteIfChars(value),
-                node,
-                JsonNode.wrap(value));
+        assertEquals(node,
+                JsonNode.wrap(value),
+                "With value " + CharSequences.quoteIfChars(value));
     }
 
     @Override

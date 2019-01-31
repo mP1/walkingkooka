@@ -18,7 +18,7 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
@@ -29,7 +29,7 @@ import walkingkooka.tree.json.JsonNode;
 import java.math.BigInteger;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class HateosHandlerBuilderRouterHateosHandlerContextTest extends
         HateosHandlerContextTestCase<HateosHandlerBuilderRouterHateosHandlerContext<JsonNode>, JsonNode> {

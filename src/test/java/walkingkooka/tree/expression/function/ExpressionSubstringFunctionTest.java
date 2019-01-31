@@ -18,46 +18,61 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.tree.select.NodeSelector;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionSubstringFunctionTest extends ExpressionFunctionTestCase<ExpressionSubstringFunction, String> {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testZeroParametersFails() {
-        this.apply2(this);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testOneParametersFails() {
-        this.apply2(this, "a1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this, "a1");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTwoParametersFails() {
-        this.apply2(this, "a1", "b2");
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this, "a1", "b2");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFourParametersFails() {
-        this.apply2(this, "a1", 2, 3, 4);
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.apply2(this, "a1", 2, 3, 4);
+        });
     }
 
-    @Test(expected = StringIndexOutOfBoundsException.class)
+    @Test
     public void testSubstringOutOfRange() {
-        this.apply2(this, "abcdef", -2, 2);
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            this.apply2(this, "abcdef", -2, 2);
+        });
     }
 
-    @Test(expected = StringIndexOutOfBoundsException.class)
+    @Test
     public void testSubstringOutOfRange2() {
-        this.apply2(this, "abcdef", 2, -1);
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            this.apply2(this, "abcdef", 2, -1);
+        });
     }
 
-    @Test(expected = StringIndexOutOfBoundsException.class)
+    @Test
     public void testSubstringOutOfRange3() {
-        this.apply2(this, "abcdef", 1, 99);
+        assertThrows(StringIndexOutOfBoundsException.class, () -> {
+            this.apply2(this, "abcdef", 1, 99);
+        });
     }
 
     @Test

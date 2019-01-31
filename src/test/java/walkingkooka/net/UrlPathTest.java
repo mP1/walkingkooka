@@ -18,14 +18,14 @@
 
 package walkingkooka.net;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.PathTestCase;
 import walkingkooka.test.SerializationTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implements SerializationTesting<UrlPath> {
 
@@ -34,10 +34,9 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
         assertSame(UrlPath.EMPTY, UrlPath.parse(""));
     }
 
-    @Test
-    @Ignore
+    @Override
     public void testParseEmptyFails() {
-        // nop
+        // ignored
     }
 
     @Test
@@ -112,9 +111,11 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
 
     // addQueryString..................................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testAddQueryStringNullFails() {
-        this.createPath().addQueryString(null);
+        assertThrows(NullPointerException.class, () -> {
+            this.createPath().addQueryString(null);
+        });
     }
 
     @Test
@@ -122,9 +123,9 @@ public final class UrlPathTest extends PathTestCase<UrlPath, UrlPathName> implem
         final UrlPath path = this.createPath();
         final UrlQueryString queryString = UrlQueryString.with("a=b");
         final RelativeUrl url = path.addQueryString(queryString);
-        assertSame("path", path, url.path());
-        assertSame("queryString", queryString, url.query());
-        assertEquals("fragment", UrlFragment.EMPTY, url.fragment());
+        assertSame(path, url.path(),"path");
+        assertSame(queryString, url.query(),"queryString");
+        assertEquals(UrlFragment.EMPTY, url.fragment(),"fragment");
     }
 
     @Test

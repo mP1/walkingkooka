@@ -17,38 +17,46 @@
 
 package walkingkooka.text;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.test.PublicStaticHelperTestCase;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequences> {
 
     // bigEndianHexDigits....................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testBigEndianHexDigitsNullFails() {
-        CharSequences.bigEndianHexDigits(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.bigEndianHexDigits(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBigEndianHexDigitsOddNumberOfDigitsFails() {
-        CharSequences.bigEndianHexDigits("1");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharSequences.bigEndianHexDigits("1");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBigEndianHexDigitsOddNumberOfDigits2Fails() {
-        CharSequences.bigEndianHexDigits("12345");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharSequences.bigEndianHexDigits("12345");
+        });
     }
 
-    @Test(expected = InvalidCharacterException.class)
+    @Test
     public void testBigEndianHexDigitsIllegalCharacterFails() {
-        CharSequences.bigEndianHexDigits("123X56");
+        assertThrows(InvalidCharacterException.class, () -> {
+            CharSequences.bigEndianHexDigits("123X56");
+        });
     }
 
     @Test
@@ -98,9 +106,11 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
 
     // capitalize....................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCapitalizeNullFails() {
-        CharSequences.capitalize(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.capitalize(null);
+        });
     }
 
     @Test
@@ -124,7 +134,9 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void capitalizeAndCheck(final CharSequence chars, final String expected) {
-        assertEquals("Capitalize " + CharSequences.quote(chars), expected, CharSequences.capitalize(chars).toString());
+        assertEquals(expected,
+                CharSequences.capitalize(chars).toString(),
+                "Capitalize " + CharSequences.quote(chars));
     }
 
     // copyCase .....................................................................................
@@ -132,14 +144,18 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     private final static String CHARS = "abc";
     private final static String CASE_SOURCE = "xyz";
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCopyCaseNullCharsFails() {
-        CharSequences.copyCase(null, CASE_SOURCE);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.copyCase(null, CASE_SOURCE);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testCopyCaseNullCaseSourceFails() {
-        CharSequences.copyCase(CHARS, null);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.copyCase(CHARS, null);
+        });
     }
 
     @Test
@@ -193,9 +209,9 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private static void copyCaseAndCheck(final String chars, final String caseSource, final String expected) {
-        assertEquals("copyCase " + CharSequences.quote(chars) + ", " + CharSequences.quote(caseSource),
-                expected,
-                CharSequences.copyCase(chars, caseSource).toString());
+        assertEquals(expected,
+                CharSequences.copyCase(chars, caseSource).toString(),
+                "copyCase " + CharSequences.quote(chars) + ", " + CharSequences.quote(caseSource));
     }
 
     // ends with .................................................................
@@ -222,9 +238,9 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void endsWithAndCheck(final CharSequence chars, final String endsWith, final boolean result) {
-        assertEquals(CharSequences.quote(chars) + " ends with " + CharSequences.quote(endsWith),
-                result,
-                CharSequences.endsWith(chars, endsWith));
+        assertEquals(result,
+                CharSequences.endsWith(chars, endsWith),
+                CharSequences.quote(chars) + " ends with " + CharSequences.quote(endsWith));
     }
 
     // equals .......................................................................
@@ -251,9 +267,9 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void equalsAndCheck(final CharSequence chars, final String endsWith, final boolean result) {
-        assertEquals(CharSequences.quote(chars) + " equals " + CharSequences.quote(endsWith),
-                result,
-                CharSequences.equals(chars, endsWith));
+        assertEquals(result,
+                CharSequences.equals(chars, endsWith),
+                CharSequences.quote(chars) + " equals " + CharSequences.quote(endsWith));
     }
 
     // escape/unescape .......................................................................
@@ -314,29 +330,35 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void escapeUnescapeAndCheck(final CharSequence chars, final String expected) {
-        assertEquals("escape " + CharSequences.quote(chars),
-                expected,
-                CharSequences.escape(chars).toString());
-        assertEquals("unescape " + CharSequences.quote(chars),
-                chars.toString(),
-                CharSequences.unescape(expected));
+        assertEquals(expected,
+                CharSequences.escape(chars).toString(),
+                ()-> "escape " + CharSequences.quote(chars));
+        assertEquals(chars.toString(),
+                CharSequences.unescape(expected),
+                ()->"unescape " + CharSequences.quote(chars));
     }
 
     // indexOf....................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testIndexOfNullCharsFails() {
-        CharSequences.indexOf(null, "searchFor");
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.indexOf(null, "searchFor");
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testIndexOfNullSearchForFails() {
-        CharSequences.indexOf("chars", null);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.indexOf("chars", null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIndexOfEmptySearchForFails() {
-        CharSequences.indexOf("chars", "");
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharSequences.indexOf("chars", "");
+        });
     }
 
     @Test
@@ -427,7 +449,9 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void indexOfAndCheck(final CharSequence chars, final String of, final int index) {
-        assertEquals(CharSequences.quote(chars) + "index of " + CharSequences.quote(of), index, CharSequences.indexOf(chars, of));
+        assertEquals(index,
+                CharSequences.indexOf(chars, of),
+                () -> CharSequences.quote(chars) + "index of " + CharSequences.quote(of));
     }
 
     // isNullOrEmpty................................................
@@ -448,7 +472,7 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void isNullOrEmptyAndCheck(final CharSequence chars, final boolean result) {
-        assertEquals(chars + " isNullOrEmpty", CharSequences.isNullOrEmpty(chars), result);
+        assertEquals(CharSequences.isNullOrEmpty(chars), result, ()-> chars + " isNullOrEmpty");
     }
 
     // quote and escape ............................................................
@@ -522,7 +546,9 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void quoteAndEscapeAndCheck(final CharSequence chars, final String expected) {
-        assertEquals("Escape " + CharSequences.quote(chars), expected, CharSequences.quoteAndEscape(chars));
+        assertEquals(expected,
+                CharSequences.quoteAndEscape(chars),
+                "Escape " + CharSequences.quote(chars));
     }
 
     // quote if chars ................................................................................
@@ -568,7 +594,9 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void quoteIfCharsAndCheck(final Object chars, final String expected) {
-        assertEquals("Quote if chars " + chars, expected, CharSequences.quoteIfChars(chars));
+        assertEquals(expected,
+                CharSequences.quoteIfChars(chars),
+                "Quote if chars " + chars);
     }
 
     // quote if necessary .................................................................................
@@ -598,21 +626,25 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void quoteIfNecessaryAndCheck(final CharSequence sequence, final String expected) {
-        assertEquals("Quote if necessary \"" + sequence + "\" ",
-                expected,
-                CharSequences.quoteIfNecessary(sequence).toString());
+        assertEquals(expected,
+                CharSequences.quoteIfNecessary(sequence).toString(),
+                "Quote if necessary \"" + sequence + "\" ");
     }
 
     // shrink............................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testShrinkNullCharSequenceFails() {
-        CharSequences.shrink(null, 10);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.shrink(null, 10);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testShrinkInvalidDesiredLengthFails() {
-        CharSequences.shrink("apple", 5);
+        assertThrows(IllegalArgumentException.class, () -> {
+            CharSequences.shrink("apple", 5);
+        });
     }
 
     @Test
@@ -639,9 +671,9 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     private void shrinkAndCheck(final CharSequence sequence, final int desiredLength,
                                 final CharSequence expected) {
         final CharSequence actual = CharSequences.shrink(sequence, desiredLength);
-        assertEquals("Shrinking \"" + sequence + "\" with a desired length=" + desiredLength,
-                expected,
-                actual);
+        assertEquals(expected,
+                actual,
+                "Shrinking \"" + sequence + "\" with a desired length=" + desiredLength);
     }
 
     // startsWith.....................................................................................
@@ -691,16 +723,18 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void startsWithAndCheck(final CharSequence chars, final String startsWith, final boolean result) {
-        assertEquals(CharSequences.quote(chars) + " starts with " + CharSequences.quote(startsWith),
-                result,
-                CharSequences.startsWith(chars, startsWith));
+        assertEquals(result,
+                CharSequences.startsWith(chars, startsWith),
+                CharSequences.quote(chars) + " starts with " + CharSequences.quote(startsWith));
     }
 
     // subSequence............................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSubSequenceNullFails() {
-        CharSequences.subSequence(null, 1, 1);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.subSequence(null, 1, 1);
+        });
     }
 
     @Test
@@ -708,14 +742,13 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
         final int from = 4;
         final int to = -5;
         final String string = "string";
-        try {
+
+        final IndexOutOfBoundsException expected = assertThrows(IndexOutOfBoundsException.class, () -> {
             CharSequences.subSequence(string, from, to);
-            Assert.fail();
-        } catch (final IndexOutOfBoundsException expected) {
-            assertEquals("message",
-                    CharSequences.toIndexBeforeFromIndex(from, to, string.length()),
-                    expected.getMessage());
-        }
+        });
+        assertEquals(CharSequences.toIndexBeforeFromIndex(from, to, string.length()),
+                expected.getMessage(),
+                "message");
     }
 
     @Test
@@ -734,16 +767,18 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void subSequenceAndCheck(final String chars, final int from, final int to, final String expected) {
-        assertEquals("subSequence of " + CharSequences.quote(chars) + " " + from + ".." + to,
-                expected,
-                CharSequences.subSequence(chars, from, to));
+        assertEquals(expected,
+                CharSequences.subSequence(chars, from, to),
+                "subSequence of " + CharSequences.quote(chars) + " " + from + ".." + to);
     }
 
     // trim............................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTrimNullFails() {
-        CharSequences.trim(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.trim(null);
+        });
     }
 
     @Test
@@ -777,19 +812,18 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
     }
 
     private void trimAndCheck(final CharSequence sequence, final CharSequence expected) {
-        final CharSequence actual = CharSequences.trim(sequence);
-        if (false == actual.equals(expected)) {
-            assertEquals("trimming of " + CharSequences.quote(sequence.toString()),
-                    expected,
-                    actual);
-        }
+        assertEquals(expected,
+                CharSequences.trim(sequence),
+                () -> "trimming of " + CharSequences.quote(sequence.toString()));
     }
 
     // trimLeft ............................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTrimLeftNullFails() {
-        CharSequences.trimLeft(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.trimLeft(null);
+        });
     }
 
     @Test
@@ -814,14 +848,16 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
 
     private void trimLeftAndCheck(final CharSequence input, final CharSequence expected) {
         final CharSequence actual = CharSequences.trimLeft(input);
-        assertEquals("trimming of " + CharSequences.quote(input.toString()), expected, actual);
+        assertEquals(expected, actual, ()-> "trimming of " + CharSequences.quote(input.toString()));
     }
 
     // trimRight ............................................................................................
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testTrimRightNullFails() {
-        CharSequences.trimRight(null);
+        assertThrows(NullPointerException.class, () -> {
+            CharSequences.trimRight(null);
+        });
     }
 
     @Test
@@ -846,7 +882,7 @@ final public class CharSequencesTest extends PublicStaticHelperTestCase<CharSequ
 
     private void trimRightAndCheck(final CharSequence input, final CharSequence expected) {
         final CharSequence actual = CharSequences.trimRight(input);
-        assertEquals("trimming of " + CharSequences.quote(input.toString()), expected, actual);
+        assertEquals(expected, actual, ()-> "trimming of " + CharSequences.quote(input.toString()));
     }
 
     @Override
