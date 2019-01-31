@@ -19,6 +19,7 @@
 package walkingkooka.tree.json;
 
 import org.junit.Test;
+import walkingkooka.color.Color;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserException;
@@ -133,8 +134,25 @@ public final class JsonNodeTest extends ClassTestCase<JsonNode> {
     }
 
     @Test
+    public void testWrapOptionalEmpty() {
+        this.wrapAndCheck(Optional.empty());
+    }
+
+    @Test
     public void testWrapOptionalString() {
         this.wrapAndCheck(Optional.of("abc"), JsonNode.string("abc"));
+    }
+
+    @Test
+    public void testWrapJsonNode() {
+        final JsonNode jsonNode = JsonNode.string("abc123");
+        this.wrapAndCheck(jsonNode, jsonNode);
+    }
+
+    @Test
+    public void testWrapHasJsonNode() {
+        final Color color = Color.fromRgb(0x123456);
+        this.wrapAndCheck(color, color.toJsonNode());
     }
 
     @Test
