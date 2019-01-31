@@ -20,14 +20,10 @@ package walkingkooka.text.cursor.parser.spreadsheet;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-
-import java.util.Objects;
-import java.util.function.Predicate;
 
 /**
  * A label or {@link Name} is a name to a cell reference, range and so on.
@@ -48,23 +44,18 @@ final public class SpreadsheetLabelName extends SpreadsheetExpressionReference i
 
     final static CharPredicate PART = INITIAL.or(DIGIT.or(CharPredicates.is('_')));
 
-    final static Predicate<CharSequence> PREDICATE = Predicates.initialAndPart(INITIAL, PART);
-
     final static int MAX_LENGTH = 255;
 
     /**
      * Factory that creates a {@link SpreadsheetLabelName}
      */
     public static SpreadsheetLabelName with(final String name) {
-        Objects.requireNonNull(name, "name");
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "name", INITIAL, PART);
 
         if (!isAcceptableLength(name)) {
             throw new IllegalArgumentException("Label length " + name.length() + " is greater than allowed " + MAX_LENGTH);
         }
 
-        if (!PREDICATE.test(name)) {
-            throw new IllegalArgumentException("Label contains invalid character(s)=" + CharSequences.quote(name));
-        }
         if (isCellReference(name)) {
             throw new IllegalArgumentException("Label is a valid cell reference=" + CharSequences.quote(name));
         }

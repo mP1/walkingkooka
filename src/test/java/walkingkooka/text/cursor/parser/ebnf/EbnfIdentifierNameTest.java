@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser.ebnf;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.naming.PropertiesPath;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class EbnfIdentifierNameTest extends ClassTestCase<EbnfIdentifierName>
-        implements NameTesting<EbnfIdentifierName, EbnfIdentifierName> {
+        implements NameTesting2<EbnfIdentifierName, EbnfIdentifierName> {
 
     @Test
     public void testCreateContainsSeparatorFails() {
@@ -80,6 +80,28 @@ final public class EbnfIdentifierNameTest extends ClassTestCase<EbnfIdentifierNa
     @Override
     public String nameTextLess() {
         return "abc";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS;
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return NameTesting2.subtract(ASCII, ASCII_LETTERS_DIGITS + "_");
     }
 
     @Override

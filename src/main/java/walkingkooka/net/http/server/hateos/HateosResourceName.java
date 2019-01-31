@@ -37,9 +37,9 @@ public final class HateosResourceName implements Name, Comparable<HateosResource
         return new HateosResourceName(name);
     }
 
-    private final static CharPredicate INITIAL = Character::isJavaIdentifierStart;
+    private final static CharPredicate INITIAL = CharPredicates.letter();
 
-    private final static CharPredicate PART = Character::isJavaIdentifierPart;
+    private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
 
     /**
      * Private constructor

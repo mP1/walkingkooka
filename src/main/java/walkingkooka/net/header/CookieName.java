@@ -39,8 +39,8 @@ final public class CookieName extends HeaderNameValue
      * It also must not contain a separator character like the following: ( ) < > @ , ; : \ " /  [ ] ? = { }.
      */
     private final static CharPredicate PREDICATE = CharPredicates.builder()//
-            .or(CharPredicates.ascii())//
-            .andNot(CharPredicates.any("()<>@,;:\\\"/[]?={})"))
+            .or(CharPredicates.asciiPrintable())//
+            .andNot(CharPredicates.rfc2045TokenSpecial())
             .toString("cookie name")//
             .build();
 

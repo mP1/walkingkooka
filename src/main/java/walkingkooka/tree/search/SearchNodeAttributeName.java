@@ -19,15 +19,12 @@
 package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.Whitespace;
-
-import java.util.function.Predicate;
 
 /**
  * The attributeName of an attribute for a node.
@@ -43,14 +40,12 @@ public final class SearchNodeAttributeName implements Name,
 
     final static CharPredicate PART = INITIAL.or(DIGIT.or(CharPredicates.is('-')).or(CharPredicates.is('.')));
 
-    final static Predicate<CharSequence> PREDICATE = Predicates.initialAndPart(INITIAL, PART);
-
     public static SearchNodeAttributeName with(final String name) {
-        Whitespace.failIfNullOrEmptyOrWhitespace(name, "attributeName");
-        Predicates.failIfNullOrFalse(name, PREDICATE, "Name contains an invalid character=%s");
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "name", INITIAL, PART);
 
-        if(-1 != CharSequences.indexOf(name, "..")) {
-            throw new IllegalArgumentException("Name cannot contain \"..\" =" + CharSequences.quoteAndEscape(name));
+        final int index = CharSequences.indexOf(name, "..");
+        if(-1 != index) {
+            throw new InvalidCharacterException(name, index);
         }
 
         return new SearchNodeAttributeName(name);

@@ -19,18 +19,16 @@
 package walkingkooka.text.cursor.parser.select;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NodeSelectorFunctionNameTest extends ClassTestCase<NodeSelectorFunctionName>
-        implements NameTesting<NodeSelectorFunctionName, NodeSelectorFunctionName> {
+        implements NameTesting2<NodeSelectorFunctionName, NodeSelectorFunctionName> {
 
     @Test
     public void testWithInvalidInitialFails() {
@@ -43,16 +41,6 @@ final public class NodeSelectorFunctionNameTest extends ClassTestCase<NodeSelect
     public void testWithInvalidPartFails() {
         assertThrows(IllegalArgumentException.class, () -> {
             NodeSelectorFunctionName.with("abc$def");
-        });
-    }
-
-    @Test
-    public void testWithInvalidLengthFails() {
-        final char[] c = new char[NodeSelectorFunctionName.MAX_LENGTH + 1];
-        Arrays.fill(c, 'a');
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            NodeSelectorFunctionName.with(new String(c));
         });
     }
 
@@ -89,6 +77,28 @@ final public class NodeSelectorFunctionNameTest extends ClassTestCase<NodeSelect
     @Override
     public String nameTextLess() {
         return "function-1";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return NodeSelectorFunctionName.MAX_LENGTH;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS + "_";
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + BYTE_NON_ASCII;
     }
 
     @Override

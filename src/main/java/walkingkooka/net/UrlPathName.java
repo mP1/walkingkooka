@@ -51,12 +51,9 @@ public final class UrlPathName extends NetName implements Comparable<UrlPathName
                 with0(name);
     }
 
+
     private static UrlPathName with0(final String name) {
-        final char separator = UrlPath.SEPARATOR.character();
-        final int index = name.indexOf(separator);
-        if(-1 != index) {
-            throw new IllegalArgumentException("Name contains path separator char \'" + separator + "\'=" + name);
-        }
+        CharSequences.failIfNullOrEmpty(name, "name");
 
         final int length = name.length();
         if(length > MAXIMUM_LENGTH) {

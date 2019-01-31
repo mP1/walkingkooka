@@ -19,6 +19,8 @@
 package walkingkooka.net.header;
 
 import walkingkooka.collect.map.Maps;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
 
 import java.util.Locale;
@@ -54,16 +56,25 @@ final class LanguageTagNameNonWildcard extends LanguageTagName {
         final LanguageTagNameNonWildcard constant = CONSTANTS.get(value);
         return null != constant ?
                 constant :
-                new LanguageTagNameNonWildcard(value, Optional.of(locale(value)));
+                nonWildcard0(value);
     }
 
-    private static Locale locale(final String value) {
+    /**
+     * Only allow printable ascii language tag names.
+     */
+    private static LanguageTagNameNonWildcard nonWildcard0(final String value) {
+        CharPredicates.failIfNullOrEmptyOrFalse(value, "language tag", PREDICATE);
+
         final Locale locale = Locale.forLanguageTag(value);
         if (locale.toString().isEmpty()) {
             throw new IllegalArgumentException("Invalid language tag " + CharSequences.quoteAndEscape(value));
         }
-        return locale;
+        return new LanguageTagNameNonWildcard(value, Optional.of(locale));
     }
+
+    private final static CharPredicate PREDICATE = CharPredicates.range('A', 'Z')
+            .or(CharPredicates.range('a', 'z'))
+            .or(CharPredicates.is('_'));
 
     /**
      * Private ctor use factory

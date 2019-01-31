@@ -64,7 +64,7 @@ public final class XmlProcessingInstructionTest extends XmlLeafNodeTestCase<XmlP
                 SearchNode.sequence(Lists.of(
                         SearchNode.text(TARGET, TARGET),
                         SearchNode.text(PROCESSING_INSTRUCTION, PROCESSING_INSTRUCTION)
-                )).setName(SearchNodeName.with("Processing Instruction")));
+                )).setName(SearchNodeName.with("ProcessingInstruction")));
     }
 
     // toString.....................................................................................................

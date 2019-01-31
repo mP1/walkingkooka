@@ -18,8 +18,9 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 
 import java.util.Locale;
 import java.util.Map;
@@ -44,12 +45,14 @@ public abstract class LanguageTagName extends HeaderNameValue implements Compara
      * Factory that creates a new {@link LanguageTagName}
      */
     public static LanguageTagName with(final String value) {
-        CharSequences.failIfNullOrEmpty(value, "value");
+        CharPredicates.failIfNullOrEmptyOrFalse(value, "value", PREDICATE);
 
         return HeaderValue.WILDCARD.string().equals(value) ?
                 WILDCARD :
                 LanguageTagNameNonWildcard.nonWildcard(value);
     }
+
+    private final static CharPredicate PREDICATE = CharPredicates.asciiPrintable();
 
     /**
      * Package private to limit sub classing.

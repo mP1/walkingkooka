@@ -18,13 +18,13 @@
 
 package walkingkooka.net.http.server.hateos;
 
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
 public final class HateosResourceNameTest extends ClassTestCase<HateosResourceName>
-        implements NameTesting<HateosResourceName, HateosResourceName> {
+        implements NameTesting2<HateosResourceName, HateosResourceName> {
 
     @Override
     public HateosResourceName createName(final String name) {
@@ -49,6 +49,26 @@ public final class HateosResourceNameTest extends ClassTestCase<HateosResourceNa
     @Override
     public String nameTextLess() {
         return "albania";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return ASCII_UPPERCASE + ASCII_LOWERCASE;
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + RFC2045_TSPECIAL;
     }
 
     @Override

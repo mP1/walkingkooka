@@ -48,7 +48,7 @@ public abstract class LanguageTagNameTestCase<L extends LanguageTagName> extends
 
     @Override
     public void testPublicClass() {
-        throw new UnsupportedOperationException();
+        // ignore
     }
 
     @Test

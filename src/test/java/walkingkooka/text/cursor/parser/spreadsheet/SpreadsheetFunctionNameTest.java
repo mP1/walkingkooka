@@ -19,18 +19,19 @@
 package walkingkooka.text.cursor.parser.spreadsheet;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class SpreadsheetFunctionNameTest extends ClassTestCase<SpreadsheetFunctionName>
-        implements NameTesting<SpreadsheetFunctionName, SpreadsheetFunctionName> {
+        implements NameTesting2<SpreadsheetFunctionName, SpreadsheetFunctionName> {
 
     @Test
     public void testWithInvalidInitialFails() {
@@ -54,6 +55,15 @@ final public class SpreadsheetFunctionNameTest extends ClassTestCase<Spreadsheet
         assertThrows(IllegalArgumentException.class, () -> {
             SpreadsheetFunctionName.with(new String(c));
         });
+    }
+
+    @Test
+    public void testX() {
+        for(Method m : this.getClass().getMethods()){
+            if(m.isAnnotationPresent(Test.class)){
+                System.out.println(m.toGenericString());
+            }
+        }
     }
 
     @Test
@@ -89,6 +99,28 @@ final public class SpreadsheetFunctionNameTest extends ClassTestCase<Spreadsheet
     @Override
     public String nameTextLess() {
         return "abs";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS + ".";
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + BYTE_NON_ASCII;
     }
 
     @Override

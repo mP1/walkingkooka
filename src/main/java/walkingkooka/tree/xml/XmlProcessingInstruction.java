@@ -110,7 +110,7 @@ final public class XmlProcessingInstruction extends XmlLeafNode implements Value
         return SEARCH_NODE_NAME;
     }
 
-    private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("Processing Instruction");
+    private final static SearchNodeName SEARCH_NODE_NAME = SearchNodeName.with("ProcessingInstruction");
 
     // Object ...........................................................................................
 

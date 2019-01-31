@@ -20,7 +20,9 @@ package walkingkooka.tree.search;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.text.CharSequences;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicateBuilder;
+import walkingkooka.predicate.character.CharPredicates;
 
 /**
  * The name of a search node.
@@ -29,9 +31,19 @@ public final class SearchNodeName implements Name,
         Comparable<SearchNodeName> {
 
     public static SearchNodeName with(final String name) {
-        CharSequences.failIfNullOrEmpty(name, "attributeName");
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "attributeName", INITIAL, PART);
         return new SearchNodeName(name);
     }
+
+    private final static CharPredicate INITIAL = CharPredicateBuilder.empty()
+            .or(Character::isJavaIdentifierStart)
+            .andNot(CharPredicates.asciiControl()) // necessary because nul is also valid java identifier
+            .build();
+    private final static CharPredicate PART = CharPredicateBuilder.empty()
+            .or(Character::isJavaIdentifierPart)
+            .any("-")
+            .andNot(CharPredicates.asciiControl()) // necessary because nul is also valid java identifier
+            .build();
 
     static SearchNodeName fromClass(final Class<? extends SearchNode> klass) {
         final String name = klass.getSimpleName();

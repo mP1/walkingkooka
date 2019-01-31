@@ -51,9 +51,9 @@ final public class EbnfIdentifierName implements Name,
      * </pre>
      */
     final static CharPredicate PART = CharPredicateBuilder.empty()
+            .or(INITIAL)
             .any("0123456789")
             .any("_")
-            .or(INITIAL)
             .build();
 
     /**

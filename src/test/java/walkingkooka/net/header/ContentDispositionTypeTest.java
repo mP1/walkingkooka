@@ -22,7 +22,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispositionType>
-        implements NameTesting<ContentDispositionType, ContentDispositionType> {
+        implements NameTesting2<ContentDispositionType, ContentDispositionType> {
 
     @Override
     public void testNaming() {
@@ -161,6 +161,26 @@ final public class ContentDispositionTypeTest extends ClassTestCase<ContentDispo
     @Override
     public String nameTextLess() {
         return "attachment";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return RFC2045;
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + RFC2045_TSPECIAL + BYTE_NON_ASCII;
     }
 
     @Override
