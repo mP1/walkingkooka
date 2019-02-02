@@ -29,7 +29,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.NodeTestCase2;
-import walkingkooka.tree.search.SearchNode;
+import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.type.MethodAttributes;
 
 import java.lang.reflect.Method;
@@ -38,7 +38,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2<JsonNode, JsonNodeName, Name, Object> {
+public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2<JsonNode, JsonNodeName, Name, Object>
+    implements HasJsonNodeTesting<N>,
+        HasSearchNodeTesting<N> {
 
     @Test
     public final void testPublicStaticFactoryMethod()  {
@@ -142,9 +144,5 @@ public abstract class JsonNodeTestCase<N extends JsonNode> extends NodeTestCase2
     @Override
     protected final String requiredNamePrefix() {
         return "Json";
-    }
-
-    final void toSearchNodeAndCheck(final N node, final SearchNode searchNode) {
-        assertEquals(searchNode, node.toSearchNode(), () -> "toSearchNode failure from " + node);
     }
 }
