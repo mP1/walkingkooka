@@ -174,29 +174,29 @@ final public class PlainTextWithoutTagsPrinterTest
 
     @Test
     public void testEmptyTagThenText() {
-        this.printAndCheck("<tag />" + PlainTextWithoutTagsPrinterTest.TEXT,
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<tag />" + TEXT,
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTagThenText() {
-        this.printAndCheck("<tag>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<tag>" + TEXT,
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTagWithDoubleQuotesThenText() {
-        this.printAndCheck("<tag \"double\">" + PlainTextWithoutTagsPrinterTest.TEXT,
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<tag \"double\">" + TEXT,
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTagWithSingleQuotesThenText() {
-        this.printAndCheck("<tag 'single'>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<tag 'single'>" + TEXT,
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
@@ -232,8 +232,8 @@ final public class PlainTextWithoutTagsPrinterTest
 
     @Test
     public void testEndTagThenText() {
-        this.printAndCheck("</tag >" + PlainTextWithoutTagsPrinterTest.TEXT,
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("</tag >" + TEXT,
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
@@ -311,29 +311,29 @@ final public class PlainTextWithoutTagsPrinterTest
 
     @Test
     public void testTextAfterBold() {
-        this.printAndCheck("<B>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                "**" + PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<B>" + TEXT,
+                "**" + TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextAfterBElement() {
-        this.printAndCheck("<Bbbb>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<Bbbb>" + TEXT,
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextAfterEndBold() {
-        this.printAndCheck("</B>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                "**" + PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("</B>" + TEXT,
+                "**" + TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextInsideBoldTag() {
-        this.printAndCheck("<B>" + PlainTextWithoutTagsPrinterTest.TEXT + "</b>",
-                "**" + PlainTextWithoutTagsPrinterTest.TEXT + "**",
+        this.printAndCheck("<B>" + TEXT + "</b>",
+                "**" + TEXT + "**",
                 PlainTextWithoutTagsPrinterMode.INSERT_SPACE_BEFORE_TEXT);
     }
 
@@ -359,29 +359,29 @@ final public class PlainTextWithoutTagsPrinterTest
 
     @Test
     public void testTextAfterItalics() {
-        this.printAndCheck("<I>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                "*" + PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<I>" + TEXT,
+                "*" + TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextAfterIIElement() {
-        this.printAndCheck("<II>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<II>" + TEXT,
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextAfterEndItalics() {
-        this.printAndCheck("</I>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                "*" + PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("</I>" + TEXT,
+                "*" + TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextInsideItalicsTag() {
-        this.printAndCheck("<I>" + PlainTextWithoutTagsPrinterTest.TEXT + "</I>",
-                "*" + PlainTextWithoutTagsPrinterTest.TEXT + "*",
+        this.printAndCheck("<I>" + TEXT + "</I>",
+                "*" + TEXT + "*",
                 PlainTextWithoutTagsPrinterMode.INSERT_SPACE_BEFORE_TEXT);
     }
 
@@ -407,36 +407,36 @@ final public class PlainTextWithoutTagsPrinterTest
 
     @Test
     public void testTextAfterUnderline() {
-        this.printAndCheck("<U>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                "_" + PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<U>" + TEXT,
+                "_" + TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextAfterUElementIgnored() {
-        this.printAndCheck("<UU>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<UU>" + TEXT,
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextAfterEndUnderline() {
-        this.printAndCheck("</U>" + PlainTextWithoutTagsPrinterTest.TEXT,
-                "_" + PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("</U>" + TEXT,
+                "_" + TEXT,
                 PlainTextWithoutTagsPrinterMode.TEXT);
     }
 
     @Test
     public void testTextInsideUnderlineTag() {
-        this.printAndCheck("<U>" + PlainTextWithoutTagsPrinterTest.TEXT + "</u>",
-                "_" + PlainTextWithoutTagsPrinterTest.TEXT + "_",
+        this.printAndCheck("<U>" + TEXT + "</u>",
+                "_" + TEXT + "_",
                 PlainTextWithoutTagsPrinterMode.INSERT_SPACE_BEFORE_TEXT);
     }
 
     @Test
     public void testMixture() {
-        this.printAndCheck("<!-- inside -->" + PlainTextWithoutTagsPrinterTest.TEXT + "<tag>",
-                PlainTextWithoutTagsPrinterTest.TEXT,
+        this.printAndCheck("<!-- inside -->" + TEXT + "<tag>",
+                TEXT,
                 PlainTextWithoutTagsPrinterMode.INSERT_SPACE_BEFORE_TEXT);
     }
 
@@ -532,7 +532,7 @@ final public class PlainTextWithoutTagsPrinterTest
     @Override
     protected PlainTextWithoutTagsPrinter createPrinter(final StringBuilder builder) {
         return PlainTextWithoutTagsPrinter.wrap(Printers.stringBuilder(builder,
-                PlainTextWithoutTagsPrinterTest.LINE_ENDING));
+                LINE_ENDING));
     }
 
     @Override

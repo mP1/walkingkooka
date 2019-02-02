@@ -38,7 +38,7 @@ final public class CaseSensitivityCharPredicateTest
 
     @Test
     public void testExactCaseSensitive() {
-        this.testTrueCaseSensitive(CaseSensitivityCharPredicateTest.CHAR);
+        this.testTrueCaseSensitive(CHAR);
     }
 
     @Test
@@ -108,7 +108,7 @@ final public class CaseSensitivityCharPredicateTest
     }
 
     private CaseSensitivityCharPredicate createCharPredicateCaseSensitive() {
-        return this.createCharPredicateCaseSensitive(CaseSensitivityCharPredicateTest.CHAR);
+        return this.createCharPredicateCaseSensitive(CHAR);
     }
 
     private CaseSensitivityCharPredicate createCharPredicateCaseSensitive(final char c) {
@@ -124,7 +124,7 @@ final public class CaseSensitivityCharPredicateTest
     }
 
     private CaseSensitivityCharPredicate createCharPredicateCaseInsensitive() {
-        return this.createCharPredicateCaseInsensitive(CaseSensitivityCharPredicateTest.CHAR);
+        return this.createCharPredicateCaseInsensitive(CHAR);
     }
 
     private CaseSensitivityCharPredicate createCharPredicateCaseInsensitive(final char c) {

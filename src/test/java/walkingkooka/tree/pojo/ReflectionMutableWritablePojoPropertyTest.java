@@ -30,18 +30,18 @@ public final class ReflectionMutableWritablePojoPropertyTest extends PojoPropert
 
     @Test
     public void testGet() {
-        assertEquals(STRING, this.createPojoProperty().get(new ReflectionMutableWritablePojoPropertyTest.TestBean()));
+        assertEquals(STRING, this.createPojoProperty().get(new TestBean()));
     }
 
     @Test
     public void testSetSame() {
-        final ReflectionMutableWritablePojoPropertyTest.TestBean instance = new ReflectionMutableWritablePojoPropertyTest.TestBean();
+        final TestBean instance = new TestBean();
         assertEquals(null, this.createPojoProperty().set(instance, STRING), "setter didnt return null");
     }
 
     @Test
     public void testSetDifferent() {
-        final ReflectionMutableWritablePojoPropertyTest.TestBean instance = new ReflectionMutableWritablePojoPropertyTest.TestBean();
+        final TestBean instance = new TestBean();
         assertEquals(null, this.createPojoProperty().set(instance, STRING2), "setter didnt return null");
         assertEquals(STRING2, instance.x);
     }
@@ -55,8 +55,8 @@ public final class ReflectionMutableWritablePojoPropertyTest extends PojoPropert
     protected ReflectionMutableWritablePojoProperty createPojoProperty() {
         try {
             return new ReflectionMutableWritablePojoProperty(X,
-                    ReflectionMutableWritablePojoPropertyTest.TestBean.class.getMethod("getX"),
-                    ReflectionMutableWritablePojoPropertyTest.TestBean.class.getMethod("setX", String.class));
+                    TestBean.class.getMethod("getX"),
+                    TestBean.class.getMethod("setX", String.class));
         } catch (final Exception rethrow) {
             throw new Error(rethrow);
         }

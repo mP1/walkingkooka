@@ -63,8 +63,7 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
         printer.print(printer.lineEnding());
         printer.print("456");
         printer.print(printer.lineEnding());
-        checkEquals("123" + UnclosablePrinterTest.LINE_ENDING + "456"
-                + UnclosablePrinterTest.LINE_ENDING, printed.toString());
+        checkEquals("123" + LINE_ENDING + "456" + LINE_ENDING, printed.toString());
     }
 
     @Override
@@ -121,7 +120,7 @@ final public class UnclosablePrinterTest extends PrinterTestCase2<UnclosablePrin
     @Override
     protected UnclosablePrinter createPrinter(final StringBuilder target) {
         return UnclosablePrinter.wrap(Printers.stringBuilder(target,
-                UnclosablePrinterTest.LINE_ENDING));
+                LINE_ENDING));
     }
 
     @Override

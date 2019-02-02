@@ -56,12 +56,12 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testMatched() {
-        this.testTrue(ObjectEqualityPredicateTest.MAGIC);
+        this.testTrue(MAGIC);
     }
 
     @Test
     public void testTestButDifferentInstance() {
-        this.testTrue(new String(ObjectEqualityPredicateTest.MAGIC));
+        this.testTrue(new String(MAGIC));
     }
 
     @Test
@@ -81,13 +81,13 @@ final public class ObjectEqualityPredicateTest
 
     @Test
     public void testToStringWithString() {
-        assertEquals(CharSequences.quoteAndEscape(ObjectEqualityPredicateTest.MAGIC)
+        assertEquals(CharSequences.quoteAndEscape(MAGIC)
                 .toString(), this.createPredicate().toString());
     }
 
     @Override
     protected ObjectEqualityPredicate<String> createPredicate() {
-        return Cast.to(ObjectEqualityPredicate.with(ObjectEqualityPredicateTest.MAGIC));
+        return Cast.to(ObjectEqualityPredicate.with(MAGIC));
     }
 
     @Override

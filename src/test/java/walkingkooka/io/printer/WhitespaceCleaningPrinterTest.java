@@ -90,8 +90,7 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
 
     @Test
     public void testSeparatedByWhitespace2() {
-        this.printAndCheck(WhitespaceCleaningPrinterTest.SOURCE,
-                WhitespaceCleaningPrinterTest.EXPECTED);
+        this.printAndCheck(SOURCE, EXPECTED);
     }
 
     @Test
@@ -99,13 +98,13 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
         final StringBuilder builder = new StringBuilder();
         final WhitespaceCleaningPrinter printer
                 = WhitespaceCleaningPrinter.wrap(Printers.stringBuilder(builder,
-                WhitespaceCleaningPrinterTest.LINE_ENDING));
+                LINE_ENDING));
 
-        for (int i = 0; i < WhitespaceCleaningPrinterTest.SOURCE.length(); i++) {
-            printer.print(String.valueOf(WhitespaceCleaningPrinterTest.SOURCE.charAt(i)));
+        for (int i = 0; i < SOURCE.length(); i++) {
+            printer.print(String.valueOf(SOURCE.charAt(i)));
         }
 
-        checkEquals(WhitespaceCleaningPrinterTest.EXPECTED, builder.toString());
+        checkEquals(EXPECTED, builder.toString());
     }
 
     @Test
@@ -177,7 +176,7 @@ final public class WhitespaceCleaningPrinterTest extends PrinterTestCase2<Whites
     }
 
     private Printer createStringBuilder(final StringBuilder target) {
-        return Printers.stringBuilder(target, WhitespaceCleaningPrinterTest.LINE_ENDING);
+        return Printers.stringBuilder(target, LINE_ENDING);
     }
 
     @Override

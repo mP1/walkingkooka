@@ -31,33 +31,33 @@ final public class OrCharPredicateTest extends LogicalCharPredicateTestCase<OrCh
     @Test
     public void testWrapWithLeftAlways() {
         final CharPredicate always = CharPredicates.always();
-        assertSame(always, OrCharPredicate.wrap(always, OrCharPredicateTest.PREDICATE));
+        assertSame(always, OrCharPredicate.wrap(always, PREDICATE));
     }
 
     @Test
     public void testWrapWithRightAlways() {
         final CharPredicate always = CharPredicates.always();
-        assertSame(always, OrCharPredicate.wrap(OrCharPredicateTest.PREDICATE, always));
+        assertSame(always, OrCharPredicate.wrap(PREDICATE, always));
     }
 
     @Test
     public void testWrapWithLeftNever() {
         final CharPredicate never = CharPredicates.never();
-        assertSame(OrCharPredicateTest.PREDICATE,
-                OrCharPredicate.wrap(never, OrCharPredicateTest.PREDICATE));
+        assertSame(PREDICATE,
+                OrCharPredicate.wrap(never, PREDICATE));
     }
 
     @Test
     public void testWrapWithRightNever() {
         final CharPredicate never = CharPredicates.never();
-        assertSame(OrCharPredicateTest.PREDICATE,
-                OrCharPredicate.wrap(OrCharPredicateTest.PREDICATE, never));
+        assertSame(PREDICATE,
+                OrCharPredicate.wrap(PREDICATE, never));
     }
 
     @Test
     public void testWrapWithSame() {
-        assertSame(OrCharPredicateTest.PREDICATE,
-                OrCharPredicate.wrap(OrCharPredicateTest.PREDICATE, OrCharPredicateTest.PREDICATE));
+        assertSame(PREDICATE,
+                OrCharPredicate.wrap(PREDICATE, PREDICATE));
     }
 
     @Test

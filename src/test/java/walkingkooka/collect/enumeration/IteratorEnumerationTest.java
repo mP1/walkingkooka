@@ -54,13 +54,13 @@ final public class IteratorEnumerationTest
     public void testConsume() {
         final IteratorEnumeration<Object> enumeration = this.createEnumeration();
         assertTrue(enumeration.hasMoreElements());
-        assertSame(IteratorEnumerationTest.FIRST, enumeration.nextElement());
+        assertSame(FIRST, enumeration.nextElement());
 
         assertTrue(enumeration.hasMoreElements());
-        assertSame(IteratorEnumerationTest.SECOND, enumeration.nextElement());
+        assertSame(SECOND, enumeration.nextElement());
 
         assertTrue(enumeration.hasMoreElements());
-        assertSame(IteratorEnumerationTest.THIRD, enumeration.nextElement());
+        assertSame(THIRD, enumeration.nextElement());
 
         assertFalse(enumeration.hasMoreElements(), "enumeration(iterator) should be empty");
 
@@ -75,9 +75,9 @@ final public class IteratorEnumerationTest
 
     @Override
     protected IteratorEnumeration<Object> createEnumeration() {
-        return IteratorEnumeration.adapt(Lists.of(IteratorEnumerationTest.FIRST,
-                IteratorEnumerationTest.SECOND,
-                IteratorEnumerationTest.THIRD).iterator());
+        return IteratorEnumeration.adapt(Lists.of(FIRST,
+                SECOND,
+                THIRD).iterator());
     }
 
     @Override

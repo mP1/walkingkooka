@@ -117,7 +117,7 @@ final public class AnyCharPredicateTest extends CharPredicateTestCase<AnyCharPre
 
     @Override
     protected AnyCharPredicate createCharPredicate() {
-        return this.createCharPredicate(AnyCharPredicateTest.CHARS);
+        return this.createCharPredicate(CHARS);
     }
 
     private AnyCharPredicate createCharPredicate(final String chars) {

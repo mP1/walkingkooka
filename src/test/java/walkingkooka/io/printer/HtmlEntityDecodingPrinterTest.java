@@ -172,7 +172,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         printer.print(printer.lineEnding());
         printer.flush();
         checkEquals(
-                "123" + HtmlEntityDecodingPrinterTest.LINE_ENDING + "456" + HtmlEntityDecodingPrinterTest.LINE_ENDING,
+                "123" + LINE_ENDING + "456" + LINE_ENDING,
                 printed.toString());
     }
 
@@ -186,7 +186,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
         printer.print(printer.lineEnding());
         printer.flush();
         checkEquals(
-                "1*3" + HtmlEntityDecodingPrinterTest.LINE_ENDING + "4*6" + HtmlEntityDecodingPrinterTest.LINE_ENDING,
+                "1*3" + LINE_ENDING + "4*6" + LINE_ENDING,
                 printed.toString());
     }
 
@@ -208,7 +208,7 @@ final public class HtmlEntityDecodingPrinterTest extends PrinterTestCase<HtmlEnt
     private HtmlEntityDecodingPrinter createPrinter(final StringBuilder printed) {
         return HtmlEntityDecodingPrinter.wrap( //
                 (entity) -> "&star;".equals(entity) ? "*" : entity, //
-                Printers.stringBuilder(printed, HtmlEntityDecodingPrinterTest.LINE_ENDING));
+                Printers.stringBuilder(printed, LINE_ENDING));
     }
 
     private final StringBuilder builder = new StringBuilder();
