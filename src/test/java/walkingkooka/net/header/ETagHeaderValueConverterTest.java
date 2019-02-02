@@ -20,8 +20,6 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.OffsetDateTime;
-
 public final class ETagHeaderValueConverterTest extends
         HeaderValueConverterTestCase<ETagHeaderValueConverter, ETag> {
 

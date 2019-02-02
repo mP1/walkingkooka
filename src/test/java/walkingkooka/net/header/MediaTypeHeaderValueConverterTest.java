@@ -21,8 +21,6 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 
-import java.time.OffsetDateTime;
-
 public final class MediaTypeHeaderValueConverterTest extends
         HeaderValueConverterTestCase<MediaTypeHeaderValueConverter, MediaType> {
 

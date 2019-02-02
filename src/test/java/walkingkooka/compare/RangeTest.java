@@ -18,7 +18,6 @@
 
 package walkingkooka.compare;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.predicate.PredicateTestCase;
