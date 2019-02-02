@@ -27,6 +27,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.NodeTestCase;
+import walkingkooka.tree.search.HasSearchNodeTesting;
 import walkingkooka.tree.search.SearchNode;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -42,7 +43,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<XmlNode, XmlName, XmlAttributeName, String> {
+public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<XmlNode, XmlName, XmlAttributeName, String>
+        implements HasSearchNodeTesting<N> {
 
     final static Optional<XmlNode> NO_PARENT = XmlNode.NO_PARENT;
 
@@ -340,10 +342,6 @@ public abstract class XmlNodeTestCase<N extends XmlNode> extends NodeTestCase<Xm
 
     final void toSearchNodeAndCheck(final SearchNode searchNode) {
         this.toSearchNodeAndCheck(this.createNode(), searchNode);
-    }
-
-    final void toSearchNodeAndCheck(final N node, final SearchNode searchNode) {
-        assertEquals(searchNode, node.toSearchNode(),"toSearchNode failure from " + node);
     }
 
     @Override
