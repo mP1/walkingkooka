@@ -24,6 +24,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.test.ConstantsTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -42,7 +43,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName<?>, HttpHeaderName<?>>
-        implements ConstantsTesting<HttpHeaderName<?>> {
+        implements ConstantsTesting<HttpHeaderName<?>>,
+        NameTesting2<HttpHeaderName<?>, HttpHeaderName<?>> {
 
     @Test
     public void testControlCharacterFails() {
@@ -407,6 +409,26 @@ final public class HttpHeaderNameTest extends HeaderName2TestCase<HttpHeaderName
     @Override
     public String nameTextLess() {
         return HttpHeaderName.ACCEPT.value();
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return NameTesting2.subtract(ASCII_NON_CONTROL, ":. ");
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + BYTE_NON_ASCII + ":.";
     }
 
     @Override

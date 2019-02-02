@@ -22,6 +22,7 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.naming.NameTesting2;
 
 import java.util.Optional;
 import java.util.Set;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<CacheControlDirectiveName<?>,
-        CacheControlDirectiveName<?>> {
+        CacheControlDirectiveName<?>>
+        implements NameTesting2<CacheControlDirectiveName<?>, CacheControlDirectiveName<?>> {
 
     @Test
     public void testWithControlCharacterFails() {
@@ -240,6 +242,28 @@ final public class CacheControlDirectiveNameTest extends HeaderName2TestCase<Cac
     @Override
     public String nameTextLess() {
         return CacheControlDirectiveName.NO_CACHE.value();
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS_DIGITS :
+                RFC2045;
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + BYTE_NON_ASCII;
     }
 
     @Override

@@ -76,4 +76,24 @@ public abstract class HeaderParameterNameTestCase<N extends HeaderParameterName<
     public final String nameTextLess() {
         return "param-1";
     }
+
+    @Override
+    public final int minLength() {
+        return 1;
+    }
+
+    @Override
+    public final int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public final String possibleValidChars(final int position) {
+        return RFC2045;
+    }
+
+    @Override
+    public final String possibleInvalidChars(final int position) {
+        return CONTROL + BYTE_NON_ASCII + WHITESPACE;
+    }
 }

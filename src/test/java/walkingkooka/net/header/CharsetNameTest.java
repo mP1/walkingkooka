@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.Comparators;
 import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
@@ -36,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class CharsetNameTest extends ClassTestCase<CharsetName>
-        implements NameTesting<CharsetName, CharsetName> {
+        implements NameTesting2<CharsetName, CharsetName> {
 
     @Test
     public void testWithEmptyFails() {
@@ -206,6 +207,28 @@ public final class CharsetNameTest extends ClassTestCase<CharsetName>
     @Override
     public String nameTextLess() {
         return "UTF-16";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS_DIGITS :
+                ASCII_LETTERS_DIGITS +  "-+.:_";
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + BYTE_NON_ASCII;
     }
 
     @Override

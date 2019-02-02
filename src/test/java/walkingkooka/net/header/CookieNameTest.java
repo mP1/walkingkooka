@@ -21,7 +21,7 @@ package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
@@ -34,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
-final public class CookieNameTest extends ClassTestCase<CookieName> implements NameTesting<CookieName, CookieName> {
+final public class CookieNameTest extends ClassTestCase<CookieName>
+        implements NameTesting2<CookieName, CookieName> {
 
     /**
      * A <cookie-name> can be any US-ASCII characters except control characters (CTLs), spaces, or tabs.
@@ -147,20 +148,6 @@ final public class CookieNameTest extends ClassTestCase<CookieName> implements N
     }
 
     @Test
-    public void testBraceOpenFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CookieName.with("cookie{");
-        });
-    }
-
-    @Test
-    public void testBraceCloseFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            CookieName.with("cookie}");
-        });
-    }
-
-    @Test
     public void testIncludesDigits() {
         this.createNameAndCheck("cookie123");
     }
@@ -226,6 +213,26 @@ final public class CookieNameTest extends ClassTestCase<CookieName> implements N
     @Override
     public String nameTextLess() {
         return "abc";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return NameTesting2.subtract(ASCII_NON_CONTROL, RFC2045_TSPECIAL);
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + RFC2045_TSPECIAL;
     }
 
     @Override

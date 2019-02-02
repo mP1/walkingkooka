@@ -47,13 +47,6 @@ public final class UrlPathNameTest extends ClassTestCase<UrlPathName>
     }
 
     @Test
-    public void testIncludesSeparatorFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            UrlPathName.with("abc" + UrlPath.SEPARATOR.character() + "xyz");
-        });
-    }
-
-    @Test
     public void testTooLongFails() {
         final char[] chars = new char[UrlPathName.MAXIMUM_LENGTH + 1];
         Arrays.fill(chars, 'x');

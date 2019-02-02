@@ -19,7 +19,7 @@
 package walkingkooka.text.cursor.parser.select;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NodeSelectorAttributeNameTest extends ClassTestCase<NodeSelectorAttributeName>
-        implements NameTesting<NodeSelectorAttributeName, NodeSelectorAttributeName> {
+        implements NameTesting2<NodeSelectorAttributeName, NodeSelectorAttributeName> {
 
     @Test
     public void testWithInvalidInitialFails() {
@@ -89,6 +89,28 @@ final public class NodeSelectorAttributeNameTest extends ClassTestCase<NodeSelec
     @Override
     public String nameTextLess() {
         return "attribute_1";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return NodeSelectorNodeName.MAX_LENGTH;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS + "_";
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + BYTE_NON_ASCII;
     }
 
     @Override

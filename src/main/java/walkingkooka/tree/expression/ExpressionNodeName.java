@@ -20,7 +20,8 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.text.CharSequences;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicates;
 
 /**
  * The name of an expression node.
@@ -29,9 +30,15 @@ public final class ExpressionNodeName implements Name,
         Comparable<ExpressionNodeName> {
 
     public static ExpressionNodeName with(final String name) {
-        CharSequences.failIfNullOrEmpty(name, "name");
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
+                "name",
+                INITIAL,
+                PART);
         return new ExpressionNodeName(name);
     }
+
+    private final static CharPredicate INITIAL = CharPredicates.letter();
+    private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
 
     static ExpressionNodeName fromClass(final Class<? extends ExpressionNode> klass) {
         final String name = klass.getSimpleName();

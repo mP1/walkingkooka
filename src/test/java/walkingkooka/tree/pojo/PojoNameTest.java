@@ -17,7 +17,7 @@
 package walkingkooka.tree.pojo;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
@@ -25,7 +25,7 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PojoNameTest extends ClassTestCase<PojoName>
-        implements NameTesting<PojoName, PojoName> {
+        implements NameTesting2<PojoName, PojoName> {
 
     private final static String PROPERTY = "abc";
 
@@ -98,6 +98,28 @@ public final class PojoNameTest extends ClassTestCase<PojoName>
     @Override
     public String nameTextLess() {
         return "address";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS;
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + WHITESPACE;
     }
 
     @Override

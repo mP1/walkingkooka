@@ -19,7 +19,7 @@
 package walkingkooka.net.header;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.text.CharSequences;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class HeaderNameTestCase<N extends HeaderName<?>, C extends Comparable<C> & HashCodeEqualsDefined>
         extends ClassTestCase<N>
-        implements NameTesting<N, C> {
+        implements NameTesting2<N, C> {
 
     // parameterValue...........................................................................................
 

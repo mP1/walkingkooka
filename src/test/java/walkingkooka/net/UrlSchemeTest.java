@@ -20,7 +20,7 @@ package walkingkooka.net;
 
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.test.SerializationTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
-        implements NameTesting<UrlScheme, UrlScheme>, SerializationTesting<UrlScheme> {
+        implements NameTesting2<UrlScheme, UrlScheme>, SerializationTesting<UrlScheme> {
 
     @Override
     public void testNaming() {
@@ -51,20 +51,6 @@ public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
     @Test
     public void testHttpsUpperCaseUnimportantConstants() {
         assertSame(UrlScheme.HTTPS, UrlScheme.with("HTTPS"));
-    }
-
-    @Test
-    public void testInvalidFirstCharFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createName("1http");
-        });
-    }
-
-    @Test
-    public void testInvalidCharFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createName("ab\u100cd");
-        });
     }
 
     @Test
@@ -134,6 +120,28 @@ public final class UrlSchemeTest extends ClassTestCase<UrlScheme>
     @Override
     public String nameTextLess() {
         return "http";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS + "+-.";
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + BYTE_NON_ASCII;
     }
 
     @Override

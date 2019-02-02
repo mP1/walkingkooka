@@ -18,10 +18,10 @@ package walkingkooka.tree.pojo;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
-import walkingkooka.predicate.Predicates;
+import walkingkooka.predicate.character.CharPredicate;
+import walkingkooka.predicate.character.CharPredicateBuilder;
+import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CharSequences;
-
-import java.util.function.Predicate;
 
 /**
  * Holds the name of a node within the tree. The name will be either a field/property name or an index.
@@ -49,12 +49,20 @@ public final class PojoName implements Name,
     }
 
     static PojoName property(final String name) {
-        Predicates.failIfNullOrFalse(name, NAME_PREDICATE, "Name is invalid property name %s");
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, "name", INITIAL, PART);
 
         return new PojoName(name, -1);
     }
 
-    private final static Predicate<CharSequence> NAME_PREDICATE = Predicates.javaIdentifier();
+    private final static CharPredicate INITIAL = CharPredicateBuilder.empty()
+            .or(Character::isJavaIdentifierStart)
+            .andNot(CharPredicates.asciiControl()) // necessary because nul is also valid java identifier
+            .build();
+    private final static CharPredicate PART = CharPredicateBuilder.empty()
+            .or(Character::isJavaIdentifierPart)
+            .any("-")
+            .andNot(CharPredicates.asciiControl()) // necessary because nul is also valid java identifier
+            .build();
 
     private PojoName(final int index){
         this(String.valueOf(index), index);

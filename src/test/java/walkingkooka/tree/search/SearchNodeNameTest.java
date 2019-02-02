@@ -19,7 +19,7 @@
 package walkingkooka.tree.search;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.naming.NameTesting;
+import walkingkooka.naming.NameTesting2;
 import walkingkooka.test.ClassTestCase;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.type.MemberVisibility;
@@ -27,7 +27,7 @@ import walkingkooka.type.MemberVisibility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class SearchNodeNameTest extends ClassTestCase<SearchNodeName>
-        implements NameTesting<SearchNodeName, SearchNodeName> {
+        implements NameTesting2<SearchNodeName, SearchNodeName> {
 
     @Test
     public void testToString() {
@@ -57,6 +57,30 @@ public final class SearchNodeNameTest extends ClassTestCase<SearchNodeName>
     @Override
     public String nameTextLess() {
         return "state";
+    }
+
+    @Override
+    public int minLength() {
+        return 1;
+    }
+
+    @Override
+    public int maxLength() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return 0 == position ?
+                ASCII_LETTERS :
+                ASCII_LETTERS_DIGITS + "-.";
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return 0 == position ?
+                CONTROL + ASCII_DIGITS :
+                CONTROL;
     }
 
     @Override

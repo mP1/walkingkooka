@@ -18,6 +18,7 @@
 
 package walkingkooka.net.header;
 
+import walkingkooka.naming.NameTesting2;
 import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
@@ -26,7 +27,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCase<LanguageTagNameNonWildcard> {
+public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCase<LanguageTagNameNonWildcard>
+        implements NameTesting2<LanguageTagNameNonWildcard, LanguageTagName> {
 
     private final static String VALUE = "en";
     private final static Optional<Locale> LOCALE = Optional.of(Locale.forLanguageTag("en"));
@@ -96,6 +98,26 @@ public final class LanguageTagNameNonWildcardTest extends LanguageTagNameTestCas
     @Override
     public String nameTextLess() {
         return "de";
+    }
+
+    @Override
+    public int minLength() {
+        return 2;
+    }
+
+    @Override
+    public int maxLength() {
+        return 7;
+    }
+
+    @Override
+    public String possibleValidChars(final int position) {
+        return ASCII_LETTERS + "_";
+    }
+
+    @Override
+    public String possibleInvalidChars(final int position) {
+        return CONTROL + WHITESPACE;
     }
 
     @Override
