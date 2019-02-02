@@ -18,7 +18,6 @@
 
 package walkingkooka.text.cursor.parser.ebnf.combinator;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.test.ClassTestCase;

@@ -21,8 +21,6 @@ package walkingkooka.net.header;
 import org.junit.jupiter.api.Test;
 import walkingkooka.predicate.character.CharPredicates;
 
-import java.time.OffsetDateTime;
-
 public final class QuotedUnquotedStringHeaderValueConverterTest extends
         HeaderValueConverterTestCase<QuotedUnquotedStringHeaderValueConverter, String> {
 

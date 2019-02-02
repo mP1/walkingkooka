@@ -23,8 +23,6 @@ import walkingkooka.io.printer.line.PrintedLineHandler;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.LineEnding;
 
-import java.net.NetPermission;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class PrintedLineHandlerPrinterTest extends PrinterTestCase2<PrintedLineHandlerPrinter> {
